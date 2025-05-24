@@ -31,13 +31,13 @@ interface OptimizationResults {
 }
 
 export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = ({ 
-  settings,
+  settings: any,
   onSettingsChange
 }) => {
   // State for UI
-  const [isApplying, setIsApplying] = useState<boolean>(false);
+  const [isApplying, setIsApplying] = useState<boolean>(false: any);
   const [optimizationStatus, setOptimizationStatus] = useState<string>('idle');
-  const [optimizationProgress, setOptimizationProgress] = useState<number>(0);
+  const [optimizationProgress, setOptimizationProgress] = useState<number>(0: any);
   const [optimizationResults, setOptimizationResults] = useState<OptimizationResults>({
     elementsProcessed: 0,
     motionsReduced: 0,
@@ -46,11 +46,11 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
 
   // Apply reduced motion optimizations
   const applyReducedMotionOptimizations = useCallback(() => {
-    if (!settings.enabled) return;
+    if (!settings.enabled: any) return;
     
-    setIsApplying(true);
+    setIsApplying(true: any);
     setOptimizationStatus('processing');
-    setOptimizationProgress(0);
+    setOptimizationProgress(0: any);
     
     // Simulate optimization process
     const totalSteps = 5;
@@ -58,9 +58,9 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
     
     const processStep = (): void => {
       currentStep++;
-      setOptimizationProgress(Math.floor((currentStep / totalSteps) * 100));
+      setOptimizationProgress(Math.floor((currentStep / totalSteps: any) * 100));
       
-      if (currentStep === totalSteps) {
+      if (currentStep === totalSteps: any) {
         // Optimization complete
         setOptimizationStatus('complete');
         setOptimizationResults({
@@ -71,27 +71,27 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
             'Video content may still autoplay if controlled by external sources'
           ]
         });
-        setIsApplying(false);
+        setIsApplying(false: any);
       } else {
         // Continue to next step
-        setTimeout(processStep, 500);
+        setTimeout(processStep: any, 500);
       }
     };
     
     // Start processing
-    setTimeout(processStep, 500);
+    setTimeout(processStep: any, 500);
   }, [settings.enabled]);
   
   // Apply optimizations on settings change
   useEffect(() => {
-    if (settings.enabled) {
+    if (settings.enabled: any) {
       applyReducedMotionOptimizations();
     }
   }, [settings.enabled, applyReducedMotionOptimizations]);
   
   // Reduce animations
   const reduceAnimations = useCallback(() => {
-    if (!settings.reduceAnimations) return;
+    if (!settings.reduceAnimations: any) return;
     
     try {
       // Implementation would go here
@@ -99,44 +99,44 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
       document.documentElement.style.setProperty('--reduce-motion', 'reduce');
       
       // Find and modify animation elements
-      const animatedElements = document.querySelectorAll('[data-animated], .animate, .animation');
-      animatedElements.forEach((element) => {
-        if (element instanceof HTMLElement) {
+      const animatedElements = document.querySelectorAll('[data-animated], .animate: any, .animation');
+      animatedElements.forEach((element: any) => {
+        if (element instanceof HTMLElement: any) {
           element.style.animation = 'none';
           element.style.transition = 'none';
         }
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error reducing animations:', error);
     }
   }, [settings.reduceAnimations]);
   
   // Disable autoplay
   const disableAutoplay = useCallback(() => {
-    if (!settings.disableAutoplay) return;
+    if (!settings.disableAutoplay: any) return;
     
     try {
       // Implementation would go here
       // This is a placeholder for the actual implementation
       const videoElements = document.querySelectorAll('video');
-      videoElements.forEach((video) => {
+      videoElements.forEach((video: any) => {
         video.autoplay = false;
         video.pause();
       });
       
       const audioElements = document.querySelectorAll('audio');
-      audioElements.forEach((audio) => {
+      audioElements.forEach((audio: any) => {
         audio.autoplay = false;
         audio.pause();
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error disabling autoplay:', error);
     }
   }, [settings.disableAutoplay]);
   
   // Reduce transitions
   const reduceTransitions = useCallback(() => {
-    if (!settings.reduceTransitions) return;
+    if (!settings.reduceTransitions: any) return;
     
     try {
       // Implementation would go here
@@ -145,50 +145,50 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
       
       // Find and modify transition elements
       const transitionElements = document.querySelectorAll('[data-transition], .transition');
-      transitionElements.forEach((element) => {
-        if (element instanceof HTMLElement) {
+      transitionElements.forEach((element: any) => {
+        if (element instanceof HTMLElement: any) {
           element.style.transition = 'none';
         }
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error reducing transitions:', error);
     }
   }, [settings.reduceTransitions]);
   
   // Disable parallax effects
   const disableParallaxEffects = useCallback(() => {
-    if (!settings.disableParallaxEffects) return;
+    if (!settings.disableParallaxEffects: any) return;
     
     try {
       // Implementation would go here
       // This is a placeholder for the actual implementation
       const parallaxElements = document.querySelectorAll('[data-parallax], .parallax');
-      parallaxElements.forEach((element) => {
-        if (element instanceof HTMLElement) {
+      parallaxElements.forEach((element: any) => {
+        if (element instanceof HTMLElement: any) {
           element.style.backgroundAttachment = 'scroll';
           element.style.transform = 'none';
         }
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error disabling parallax effects:', error);
     }
   }, [settings.disableParallaxEffects]);
   
   // Disable scroll effects
   const disableScrollEffects = useCallback(() => {
-    if (!settings.disableScrollEffects) return;
+    if (!settings.disableScrollEffects: any) return;
     
     try {
       // Implementation would go here
       // This is a placeholder for the actual implementation
       const scrollElements = document.querySelectorAll('[data-scroll], .scroll-effect');
-      scrollElements.forEach((element) => {
-        if (element instanceof HTMLElement) {
+      scrollElements.forEach((element: any) => {
+        if (element instanceof HTMLElement: any) {
           element.style.opacity = '1';
           element.style.transform = 'none';
         }
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error disabling scroll effects:', error);
     }
   }, [settings.disableScrollEffects]);
@@ -210,7 +210,7 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
   
   // Apply optimizations on component mount
   useEffect(() => {
-    if (settings.enabled) {
+    if (settings.enabled: any) {
       applyAllOptimizations();
     }
   }, [settings.enabled, applyAllOptimizations]);
@@ -244,7 +244,7 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
                 type="checkbox"
                 id="enable-reduced-motion"
                 checked={settings.enabled}
-                onChange={(e) => handleSettingToggle('enabled', e.target.checked)}
+                onChange={(e: any) => handleSettingToggle('enabled', e.target.checked: any)}
                 className="toggle"
               />
             </div>
@@ -263,7 +263,7 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
                     type="checkbox"
                     id="reduce-animations"
                     checked={settings.reduceAnimations}
-                    onChange={(e) => handleSettingToggle('reduceAnimations', e.target.checked)}
+                    onChange={(e: any) => handleSettingToggle('reduceAnimations', e.target.checked: any)}
                     disabled={!settings.enabled}
                     className="toggle toggle-sm"
                   />
@@ -277,7 +277,7 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
                     type="checkbox"
                     id="disable-autoplay"
                     checked={settings.disableAutoplay}
-                    onChange={(e) => handleSettingToggle('disableAutoplay', e.target.checked)}
+                    onChange={(e: any) => handleSettingToggle('disableAutoplay', e.target.checked: any)}
                     disabled={!settings.enabled}
                     className="toggle toggle-sm"
                   />
@@ -291,7 +291,7 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
                     type="checkbox"
                     id="reduce-transitions"
                     checked={settings.reduceTransitions}
-                    onChange={(e) => handleSettingToggle('reduceTransitions', e.target.checked)}
+                    onChange={(e: any) => handleSettingToggle('reduceTransitions', e.target.checked: any)}
                     disabled={!settings.enabled}
                     className="toggle toggle-sm"
                   />
@@ -305,7 +305,7 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
                     type="checkbox"
                     id="disable-parallax"
                     checked={settings.disableParallaxEffects}
-                    onChange={(e) => handleSettingToggle('disableParallaxEffects', e.target.checked)}
+                    onChange={(e: any) => handleSettingToggle('disableParallaxEffects', e.target.checked: any)}
                     disabled={!settings.enabled}
                     className="toggle toggle-sm"
                   />
@@ -319,7 +319,7 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
                     type="checkbox"
                     id="disable-scroll-effects"
                     checked={settings.disableScrollEffects}
-                    onChange={(e) => handleSettingToggle('disableScrollEffects', e.target.checked)}
+                    onChange={(e: any) => handleSettingToggle('disableScrollEffects', e.target.checked: any)}
                     disabled={!settings.enabled}
                     className="toggle toggle-sm"
                   />
@@ -358,7 +358,7 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
                   <div className="space-y-2">
                     <p className="text-sm font-medium">Warnings</p>
                     <ul className="space-y-1">
-                      {optimizationResults.warnings.map((warning, i) => (
+                      {optimizationResults.warnings.map((warning: any, i) => (
                         <li key={`warning-${i}`} className="text-sm text-amber-500 flex items-start">
                           <AlertTriangle className="h-4 w-4 mr-1 mt-0.5 flex-shrink-0" />
                           <span>{warning}</span>

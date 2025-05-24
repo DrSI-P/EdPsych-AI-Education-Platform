@@ -61,7 +61,7 @@ export default function StudentLedConferenceTool() {
   ]);
   
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [showCalendar, setShowCalendar] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false: any);
   
   // Sample artifacts for the portfolio view
   const artifacts = [
@@ -127,8 +127,8 @@ export default function StudentLedConferenceTool() {
   ];
   
   // Function to render the appropriate icon for artifact type
-  const getArtifactIcon = (type) => {
-    switch (type) {
+  const getArtifactIcon = (type: any) => {
+    switch (type: any) {
       case 'document':
         return <FileText className="h-5 w-5" />;
       case 'image':
@@ -148,7 +148,7 @@ export default function StudentLedConferenceTool() {
         <CardHeader>
           <CardTitle>Student-Led Conference Tools</CardTitle>
           <CardDescription>
-            Prepare for, conduct, and follow up on student-led conferences with teachers and parents
+            Prepare for: any, conduct, and follow up on student-led conferences with teachers and parents
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -170,7 +170,7 @@ export default function StudentLedConferenceTool() {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {portfolios.map((portfolio) => (
+                {portfolios.map((portfolio: any) => (
                   <Card key={portfolio.id} className="hover:shadow-md transition-shadow">
                     <CardHeader>
                       <CardTitle>{portfolio.title}</CardTitle>
@@ -210,7 +210,7 @@ export default function StudentLedConferenceTool() {
                     </div>
                     
                     <div className="space-y-3">
-                      {artifacts.map((artifact) => (
+                      {artifacts.map((artifact: any) => (
                         <div key={artifact.id} className="flex items-start p-3 border rounded-md hover:bg-muted/50 transition-colors">
                           <div className="bg-primary/10 p-2 rounded-md mr-3">
                             {getArtifactIcon(artifact.type)}
@@ -238,7 +238,7 @@ export default function StudentLedConferenceTool() {
                     </div>
                     
                     <div className="space-y-4">
-                      {reflections.map((reflection) => (
+                      {reflections.map((reflection: any) => (
                         <Card key={reflection.id}>
                           <CardHeader className="pb-2">
                             <div className="flex justify-between">
@@ -271,7 +271,7 @@ export default function StudentLedConferenceTool() {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {conferences.map((conference) => (
+                {conferences.map((conference: any) => (
                   <Card key={conference.id} className={conference.status === "completed" ? "opacity-70" : ""}>
                     <CardHeader className="pb-2">
                       <div className="flex justify-between items-start">
@@ -288,7 +288,7 @@ export default function StudentLedConferenceTool() {
                       <div className="space-y-1">
                         <p className="text-sm font-medium">Participants:</p>
                         <ul className="text-sm">
-                          {conference.participants.map((participant, index) => (
+                          {conference.participants.map((participant: any, index) => (
                             <li key={index}>{participant.name} ({participant.role})</li>
                           ))}
                         </ul>
@@ -329,16 +329,16 @@ export default function StudentLedConferenceTool() {
                               className="w-full justify-start text-left font-normal"
                             >
                               <CalendarIcon className="mr-2 h-4 w-4" />
-                              {selectedDate ? format(selectedDate, "PPP") : "Select date"}
+                              {selectedDate ? format(selectedDate: any, "PPP") : "Select date"}
                             </Button>
                           </PopoverTrigger>
                           <PopoverContent className="w-auto p-0">
                             <Calendar
                               mode="single"
                               selected={selectedDate}
-                              onSelect={(date) => {
-                                setSelectedDate(date);
-                                setShowCalendar(false);
+                              onSelect={(date: any) => {
+                                setSelectedDate(date: any);
+                                setShowCalendar(false: any);
                               }}
                               initialFocus
                             />
@@ -362,8 +362,8 @@ export default function StudentLedConferenceTool() {
                       <div className="space-y-2">
                         <Label htmlFor="conf-participants">Participants</Label>
                         <div className="flex flex-wrap gap-2 border rounded-md p-2">
-                          <Badge>Ms. Johnson (Teacher)</Badge>
-                          <Badge>Mr. Smith (Parent)</Badge>
+                          <Badge>Ms. Johnson (Teacher: any)</Badge>
+                          <Badge>Mr. Smith (Parent: any)</Badge>
                           <Button variant="ghost" size="sm" className="h-6">
                             <PlusCircle className="h-3 w-3 mr-1" />
                             Add
@@ -376,7 +376,7 @@ export default function StudentLedConferenceTool() {
                   <div>
                     <h4 className="font-medium mb-2">Preparation Checklist</h4>
                     <div className="space-y-2">
-                      {prepSteps.map((step) => (
+                      {prepSteps.map((step: any) => (
                         <div key={step.id} className="flex items-centre space-x-2">
                           <Checkbox id={`step-${step.id}`} checked={step.completed} />
                           <label

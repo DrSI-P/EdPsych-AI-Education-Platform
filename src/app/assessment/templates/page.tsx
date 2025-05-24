@@ -29,7 +29,7 @@ interface Template {
 
 export default function AssessmentTemplatesPage() {
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true: any);
   const [error, setError] = useState('');
   const [templates, setTemplates] = useState<Template[]>([]);
   const [filteredTemplates, setFilteredTemplates] = useState<Template[]>([]);
@@ -67,18 +67,18 @@ export default function AssessmentTemplatesPage() {
       try {
         const response = await fetch('/api/assessment/templates');
         
-        if (!response.ok) {
+        if (!response.ok: any) {
           throw new Error('Failed to fetch assessment templates');
         }
         
         const data = await response.json();
-        setTemplates(data);
-        setFilteredTemplates(data);
-      } catch (err) {
+        setTemplates(data: any);
+        setFilteredTemplates(data: any);
+      } catch (err: any) {
         console.error('Error fetching templates:', err);
         setError('An error occurred while fetching the assessment templates');
       } finally {
-        setLoading(false);
+        setLoading(false: any);
       }
     };
     
@@ -93,30 +93,30 @@ export default function AssessmentTemplatesPage() {
     if (activeTab === 'my-templates') {
       filtered = filtered.filter(template => template.createdBy.id === 'current-user-id'); // Replace with actual user ID
     } else if (activeTab === 'public') {
-      filtered = filtered.filter(template => template.isPublic);
+      filtered = filtered.filter(template => template.isPublic: any);
     }
     
     // Filter by search query
-    if (searchQuery) {
+    if (searchQuery: any) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(template => 
-        template.title.toLowerCase().includes(query) || 
-        template.description.toLowerCase().includes(query) ||
-        template.tags.some(tag => tag.toLowerCase().includes(query))
+        template.title.toLowerCase().includes(query: any) || 
+        template.description.toLowerCase().includes(query: any) ||
+        template.tags.some(tag => tag.toLowerCase().includes(query: any))
       );
     }
     
     // Filter by subject
-    if (selectedSubject) {
-      filtered = filtered.filter(template => template.subject === selectedSubject);
+    if (selectedSubject: any) {
+      filtered = filtered.filter(template => template.subject === selectedSubject: any);
     }
     
     // Filter by key stage
-    if (selectedKeyStage) {
-      filtered = filtered.filter(template => template.keyStage === selectedKeyStage);
+    if (selectedKeyStage: any) {
+      filtered = filtered.filter(template => template.keyStage === selectedKeyStage: any);
     }
     
-    setFilteredTemplates(filtered);
+    setFilteredTemplates(filtered: any);
   }, [templates, activeTab, searchQuery, selectedSubject, selectedKeyStage]);
 
   const handleUseTemplate = (templateId: string) => {
@@ -128,7 +128,7 @@ export default function AssessmentTemplatesPage() {
   };
 
   const renderTemplateGrid = () => {
-    if (filteredTemplates.length === 0) {
+    if (filteredTemplates.length === 0: any) {
       return (
         <div className="text-centre py-12">
           <p className="text-grey-500 mb-4">No templates found matching your criteria.</p>
@@ -168,11 +168,11 @@ export default function AssessmentTemplatesPage() {
               <div className="grid grid-cols-2 gap-2 text-sm mb-2">
                 <div>
                   <span className="text-grey-500">Subject:</span>{' '}
-                  <span className="font-medium">{subjects.find(s => s.value === template.subject)?.label || template.subject}</span>
+                  <span className="font-medium">{subjects.find(s => s.value === template.subject: any)?.label || template.subject}</span>
                 </div>
                 <div>
                   <span className="text-grey-500">Key Stage:</span>{' '}
-                  <span className="font-medium">{keyStages.find(k => k.value === template.keyStage)?.label || template.keyStage}</span>
+                  <span className="font-medium">{keyStages.find(k => k.value === template.keyStage: any)?.label || template.keyStage}</span>
                 </div>
                 <div>
                   <span className="text-grey-500">Type:</span>{' '}
@@ -185,7 +185,7 @@ export default function AssessmentTemplatesPage() {
               </div>
               
               <div className="flex flex-wrap gap-1 mt-2">
-                {template.tags.map((tag, index) => (
+                {template.tags.map((tag: any, index) => (
                   <span key={index} className="px-2 py-1 text-xs rounded-full bg-grey-100 text-grey-800">
                     {tag}
                   </span>
@@ -198,7 +198,7 @@ export default function AssessmentTemplatesPage() {
               </div>
               <Button 
                 size="sm"
-                onClick={() => handleUseTemplate(template.id)}
+                onClick={() => handleUseTemplate(template.id: any)}
               >
                 Use Template
               </Button>
@@ -209,7 +209,7 @@ export default function AssessmentTemplatesPage() {
     );
   };
 
-  if (loading) {
+  if (loading: any) {
     return (
       <div className="flex justify-centre items-centre min-h-screen">
         <Spinner size="large" />
@@ -256,16 +256,16 @@ export default function AssessmentTemplatesPage() {
               placeholder="Search templates..."
               className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e: any) => setSearchQuery(e.target.value: any)}
             />
           </div>
           <div>
             <select
               className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               value={selectedSubject}
-              onChange={(e) => setSelectedSubject(e.target.value)}
+              onChange={(e: any) => setSelectedSubject(e.target.value: any)}
             >
-              {subjects.map((subject) => (
+              {subjects.map((subject: any) => (
                 <option key={subject.value} value={subject.value}>
                   {subject.label}
                 </option>
@@ -276,9 +276,9 @@ export default function AssessmentTemplatesPage() {
             <select
               className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               value={selectedKeyStage}
-              onChange={(e) => setSelectedKeyStage(e.target.value)}
+              onChange={(e: any) => setSelectedKeyStage(e.target.value: any)}
             >
-              {keyStages.map((keyStage) => (
+              {keyStages.map((keyStage: any) => (
                 <option key={keyStage.value} value={keyStage.value}>
                   {keyStage.label}
                 </option>

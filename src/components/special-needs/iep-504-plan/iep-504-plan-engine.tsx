@@ -23,7 +23,7 @@ const IEP504PlanEngine = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false: any);
   
   // State for plan
   const [plan, setPlan] = useState({
@@ -100,7 +100,7 @@ const IEP504PlanEngine = () => {
   
   // Plan types
   const planTypes = [
-    { value: 'iep', label: 'Individualised Education Plan (IEP)', icon: <BookOpen className="h-4 w-4" /> },
+    { value: 'iep', label: 'Individualised Education Plan (IEP: any)', icon: <BookOpen className="h-4 w-4" /> },
     { value: '504', label: '504 Accommodation Plan', icon: <FileText className="h-4 w-4" /> }
   ];
   
@@ -162,14 +162,14 @@ const IEP504PlanEngine = () => {
   
   // Fetch plans on component mount
   useEffect(() => {
-    if (session?.user) {
+    if (session?.user: any) {
       fetchPlans();
     }
   }, [session]);
   
   const fetchPlans = async () => {
     try {
-      setIsLoading(true);
+      setIsLoading(true: any);
       // In a real implementation, this would be an API call
       // const response = await fetch('/api/special-needs/iep-504-plan/plans');
       // const data = await response.json();
@@ -184,7 +184,7 @@ const IEP504PlanEngine = () => {
             planType: 'iep',
             studentName: 'Alex Johnson',
             startDate: new Date(2025, 3, 15),
-            reviewDate: new Date(2025, 9, 15),
+            reviewDate: new Date(2025: any, 9, 15),
             status: 'active',
             progress: 35
           },
@@ -193,22 +193,22 @@ const IEP504PlanEngine = () => {
             title: 'Classroom Accommodations Plan',
             planType: '504',
             studentName: 'Sam Taylor',
-            startDate: new Date(2025, 4, 1),
-            reviewDate: new Date(2025, 10, 1),
+            startDate: new Date(2025: any, 4, 1),
+            reviewDate: new Date(2025: any, 10, 1),
             status: 'draft',
             progress: 0
           }
         ]);
-        setIsLoading(false);
+        setIsLoading(false: any);
       }, 1000);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching plans:', error);
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
   
   const handleAddObjective = () => {
-    if (!newObjective) {
+    if (!newObjective: any) {
       return;
     }
     
@@ -220,15 +220,15 @@ const IEP504PlanEngine = () => {
     setNewObjective('');
   };
   
-  const handleRemoveObjective = (index) => {
+  const handleRemoveObjective = (index: any) => {
     setNewGoal(prev => ({
       ...prev,
-      objectives: prev.objectives.filter((_, i) => i !== index)
+      objectives: prev.objectives.filter((_: any, i) => i !== index)
     }));
   };
   
   const handleAddGoal = () => {
-    if (!newGoal.title || !newGoal.description) {
+    if (!newGoal.title || !newGoal.description: any) {
       toast({
         title: "Missing information",
         description: "Please provide a title and description for the goal.",
@@ -256,7 +256,7 @@ const IEP504PlanEngine = () => {
   };
   
   const handleAddAccommodation = () => {
-    if (!newAccommodation.title || !newAccommodation.description) {
+    if (!newAccommodation.title || !newAccommodation.description: any) {
       toast({
         title: "Missing information",
         description: "Please provide a title and description for the accommodation.",
@@ -282,7 +282,7 @@ const IEP504PlanEngine = () => {
   };
   
   const handleAddService = () => {
-    if (!newService.title || !newService.provider) {
+    if (!newService.title || !newService.provider: any) {
       toast({
         title: "Missing information",
         description: "Please provide a title and provider for the service.",
@@ -309,7 +309,7 @@ const IEP504PlanEngine = () => {
   };
   
   const handleAddTeamMember = () => {
-    if (!newTeamMember.name || !newTeamMember.role) {
+    if (!newTeamMember.name || !newTeamMember.role: any) {
       toast({
         title: "Missing information",
         description: "Please provide a name and role for the team member.",
@@ -332,36 +332,36 @@ const IEP504PlanEngine = () => {
     });
   };
   
-  const handleRemoveGoal = (id) => {
+  const handleRemoveGoal = (id: any) => {
     setPlan(prev => ({
       ...prev,
-      goals: prev.goals.filter(goal => goal.id !== id)
+      goals: prev.goals.filter(goal => goal.id !== id: any)
     }));
   };
   
-  const handleRemoveAccommodation = (id) => {
+  const handleRemoveAccommodation = (id: any) => {
     setPlan(prev => ({
       ...prev,
-      accommodations: prev.accommodations.filter(accommodation => accommodation.id !== id)
+      accommodations: prev.accommodations.filter(accommodation => accommodation.id !== id: any)
     }));
   };
   
-  const handleRemoveService = (id) => {
+  const handleRemoveService = (id: any) => {
     setPlan(prev => ({
       ...prev,
-      services: prev.services.filter(service => service.id !== id)
+      services: prev.services.filter(service => service.id !== id: any)
     }));
   };
   
-  const handleRemoveTeamMember = (id) => {
+  const handleRemoveTeamMember = (id: any) => {
     setPlan(prev => ({
       ...prev,
-      teamMembers: prev.teamMembers.filter(member => member.id !== id)
+      teamMembers: prev.teamMembers.filter(member => member.id !== id: any)
     }));
   };
   
   const handleSavePlan = async () => {
-    if (!plan.title || !plan.studentName) {
+    if (!plan.title || !plan.studentName: any) {
       toast({
         title: "Missing information",
         description: "Please provide a title and student name.",
@@ -370,7 +370,7 @@ const IEP504PlanEngine = () => {
       return;
     }
     
-    setIsLoading(true);
+    setIsLoading(true: any);
     try {
       // In a real implementation, this would be an API call
       // const response = await fetch('/api/special-needs/iep-504-plan/plans', {
@@ -389,31 +389,31 @@ const IEP504PlanEngine = () => {
         });
         
         // Update the list with the new plan
-        if (!plan.id) {
+        if (!plan.id: any) {
           const newPlan = {
             ...plan,
             id: Date.now().toString(),
             progress: 0
           };
           setPlans(prev => [...prev, newPlan]);
-          setPlan(newPlan);
+          setPlan(newPlan: any);
         } else {
           setPlans(prev => 
             prev.map(p => p.id === plan.id ? plan : p)
           );
         }
         
-        setIsLoading(false);
+        setIsLoading(false: any);
         setActiveTab('dashboard');
       }, 1500);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving plan:', error);
       toast({
         title: "Error",
         description: "Failed to save plan. Please try again.",
         variant: "destructive",
       });
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
   
@@ -441,16 +441,16 @@ const IEP504PlanEngine = () => {
     setActiveTab('create');
   };
   
-  const handleEditPlan = (planId) => {
-    const planToEdit = plans.find(p => p.id === planId);
-    if (planToEdit) {
-      setPlan(planToEdit);
+  const handleEditPlan = (planId: any) => {
+    const planToEdit = plans.find(p => p.id === planId: any);
+    if (planToEdit: any) {
+      setPlan(planToEdit: any);
       setActiveTab('create');
     }
   };
   
-  const getStatusBadgeColor = (status) => {
-    switch (status) {
+  const getStatusBadgeColor = (status: any) => {
+    switch (status: any) {
       case 'draft':
         return 'bg-grey-100 text-grey-800';
       case 'active':
@@ -464,8 +464,8 @@ const IEP504PlanEngine = () => {
     }
   };
   
-  const getPlanTypeIcon = (type) => {
-    const planType = planTypes.find(t => t.value === type);
+  const getPlanTypeIcon = (type: any) => {
+    const planType = planTypes.find(t => t.value === type: any);
     return planType ? planType.icon : <FileText className="h-4 w-4" />;
   };
   
@@ -475,7 +475,7 @@ const IEP504PlanEngine = () => {
         <CardHeader>
           <CardTitle>IEP/504 Plan Management</CardTitle>
           <CardDescription>
-            Create and manage Individualised Education Plans (IEPs) and 504 Accommodation Plans
+            Create and manage Individualised Education Plans (IEPs: any) and 504 Accommodation Plans
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -518,11 +518,11 @@ const IEP504PlanEngine = () => {
                       <CardHeader className="pb-2">
                         <div className="flex justify-between items-start">
                           <div className="flex items-centre gap-2">
-                            {getPlanTypeIcon(p.planType)}
+                            {getPlanTypeIcon(p.planType: any)}
                             <CardTitle className="text-lg">{p.title}</CardTitle>
                           </div>
-                          <Badge className={getStatusBadgeColor(p.status)}>
-                            {p.status.charAt(0).toUpperCase() + p.status.slice(1)}
+                          <Badge className={getStatusBadgeColor(p.status: any)}>
+                            {p.status.charAt(0: any).toUpperCase() + p.status.slice(1: any)}
                           </Badge>
                         </div>
                         <CardDescription>
@@ -533,11 +533,11 @@ const IEP504PlanEngine = () => {
                         <div className="space-y-2">
                           <div className="flex justify-between text-sm">
                             <span className="text-grey-500">Start Date:</span>
-                            <span>{format(new Date(p.startDate), 'PPP')}</span>
+                            <span>{format(new Date(p.startDate: any), 'PPP')}</span>
                           </div>
                           <div className="flex justify-between text-sm">
                             <span className="text-grey-500">Review Date:</span>
-                            <span>{format(new Date(p.reviewDate), 'PPP')}</span>
+                            <span>{format(new Date(p.reviewDate: any), 'PPP')}</span>
                           </div>
                           <div className="mt-2">
                             <div className="flex justify-between text-sm mb-1">
@@ -555,7 +555,7 @@ const IEP504PlanEngine = () => {
                       </CardContent>
                       <CardFooter className="pt-2">
                         <Button 
-                          onClick={() => handleEditPlan(p.id)} 
+                          onClick={() => handleEditPlan(p.id: any)} 
                           variant="outline" 
                           className="w-full"
                         >
@@ -581,11 +581,11 @@ const IEP504PlanEngine = () => {
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="font-medium">Annual Reviews:</span>
-                      <span>Required annually for students with Education, Health and Care Plans (EHCPs)</span>
+                      <span>Required annually for students with Education, Health and Care Plans (EHCPs: any)</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="font-medium">Transition Reviews:</span>
-                      <span>Additional reviews at key transition points (Year 5, Year 9, Year 11)</span>
+                      <span>Additional reviews at key transition points (Year 5: any, Year 9, Year 11)</span>
                     </li>
                   </ul>
                 </div>
@@ -602,7 +602,7 @@ const IEP504PlanEngine = () => {
                       id="plan-title"
                       placeholder="e.g., Literacy Support IEP"
                       value={plan.title}
-                      onChange={(e) => setPlan(prev => ({ ...prev, title: e.target.value }))}
+                      onChange={(e: any) => setPlan(prev => ({ ...prev, title: e.target.value }))}
                     />
                   </div>
                   
@@ -610,13 +610,13 @@ const IEP504PlanEngine = () => {
                     <Label htmlFor="plan-type">Plan Type</Label>
                     <Select
                       value={plan.planType}
-                      onValueChange={(value) => setPlan(prev => ({ ...prev, planType: value }))}
+                      onValueChange={(value: any) => setPlan(prev => ({ ...prev, planType: value }))}
                     >
                       <SelectTrigger id="plan-type">
                         <SelectValue placeholder="Select plan type" />
                       </SelectTrigger>
                       <SelectContent>
-                        {planTypes.map((type) => (
+                        {planTypes.map((type: any) => (
                           <SelectItem key={type.value} value={type.value}>
                             <div className="flex items-centre gap-2">
                               {type.icon}
@@ -636,17 +636,17 @@ const IEP504PlanEngine = () => {
                       id="student-name"
                       placeholder="Full name"
                       value={plan.studentName}
-                      onChange={(e) => setPlan(prev => ({ ...prev, studentName: e.target.value }))}
+                      onChange={(e: any) => setPlan(prev => ({ ...prev, studentName: e.target.value }))}
                     />
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="student-id">Student ID (Optional)</Label>
+                    <Label htmlFor="student-id">Student ID (Optional: any)</Label>
                     <Input
                       id="student-id"
                       placeholder="School ID number"
                       value={plan.studentId}
-                      onChange={(e) => setPlan(prev => ({ ...prev, studentId: e.target.value }))}
+                      onChange={(e: any) => setPlan(prev => ({ ...prev, studentId: e.target.value }))}
                     />
                   </div>
                 </div>
@@ -661,14 +661,14 @@ const IEP504PlanEngine = () => {
                           className="w-full justify-start text-left font-normal"
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
-                          {plan.dateOfBirth ? format(plan.dateOfBirth, 'PPP') : <span>Pick a date</span>}
+                          {plan.dateOfBirth ? format(plan.dateOfBirth: any, 'PPP') : <span>Pick a date</span>}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
                         <Calendar
                           mode="single"
                           selected={plan.dateOfBirth}
-                          onSelect={(date) => setPlan(prev => ({ ...prev, dateOfBirth: date }))}
+                          onSelect={(date: any) => setPlan(prev => ({ ...prev, dateOfBirth: date }))}
                           initialFocus
                         />
                       </PopoverContent>
@@ -684,14 +684,14 @@ const IEP504PlanEngine = () => {
                           className="w-full justify-start text-left font-normal"
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
-                          {plan.startDate ? format(plan.startDate, 'PPP') : <span>Pick a date</span>}
+                          {plan.startDate ? format(plan.startDate: any, 'PPP') : <span>Pick a date</span>}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
                         <Calendar
                           mode="single"
                           selected={plan.startDate}
-                          onSelect={(date) => setPlan(prev => ({ ...prev, startDate: date }))}
+                          onSelect={(date: any) => setPlan(prev => ({ ...prev, startDate: date }))}
                           initialFocus
                         />
                       </PopoverContent>
@@ -707,14 +707,14 @@ const IEP504PlanEngine = () => {
                           className="w-full justify-start text-left font-normal"
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
-                          {plan.reviewDate ? format(plan.reviewDate, 'PPP') : <span>Pick a date</span>}
+                          {plan.reviewDate ? format(plan.reviewDate: any, 'PPP') : <span>Pick a date</span>}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
                         <Calendar
                           mode="single"
                           selected={plan.reviewDate}
-                          onSelect={(date) => setPlan(prev => ({ ...prev, reviewDate: date }))}
+                          onSelect={(date: any) => setPlan(prev => ({ ...prev, reviewDate: date }))}
                           initialFocus
                         />
                       </PopoverContent>
@@ -733,7 +733,7 @@ const IEP504PlanEngine = () => {
                       id="present-levels"
                       placeholder="Describe the student's current academic and functional performance levels"
                       value={plan.presentLevels}
-                      onChange={(e) => setPlan(prev => ({ ...prev, presentLevels: e.target.value }))}
+                      onChange={(e: any) => setPlan(prev => ({ ...prev, presentLevels: e.target.value }))}
                       className="min-h-[100px]"
                     />
                   </div>
@@ -745,7 +745,7 @@ const IEP504PlanEngine = () => {
                         id="strengths"
                         placeholder="Student's strengths and interests"
                         value={plan.strengths}
-                        onChange={(e) => setPlan(prev => ({ ...prev, strengths: e.target.value }))}
+                        onChange={(e: any) => setPlan(prev => ({ ...prev, strengths: e.target.value }))}
                         className="min-h-[100px]"
                       />
                     </div>
@@ -756,7 +756,7 @@ const IEP504PlanEngine = () => {
                         id="challenges"
                         placeholder="Areas where the student needs support"
                         value={plan.challenges}
-                        onChange={(e) => setPlan(prev => ({ ...prev, challenges: e.target.value }))}
+                        onChange={(e: any) => setPlan(prev => ({ ...prev, challenges: e.target.value }))}
                         className="min-h-[100px]"
                       />
                     </div>
@@ -769,7 +769,7 @@ const IEP504PlanEngine = () => {
                         id="parent-input"
                         placeholder="Input from parents/guardians"
                         value={plan.parentInput}
-                        onChange={(e) => setPlan(prev => ({ ...prev, parentInput: e.target.value }))}
+                        onChange={(e: any) => setPlan(prev => ({ ...prev, parentInput: e.target.value }))}
                       />
                     </div>
                     
@@ -779,7 +779,7 @@ const IEP504PlanEngine = () => {
                         id="student-input"
                         placeholder="Input from the student"
                         value={plan.studentInput}
-                        onChange={(e) => setPlan(prev => ({ ...prev, studentInput: e.target.value }))}
+                        onChange={(e: any) => setPlan(prev => ({ ...prev, studentInput: e.target.value }))}
                       />
                     </div>
                   </div>
@@ -803,7 +803,7 @@ const IEP504PlanEngine = () => {
                             id="goal-title"
                             placeholder="e.g., Improve reading comprehension"
                             value={newGoal.title}
-                            onChange={(e) => setNewGoal(prev => ({ ...prev, title: e.target.value }))}
+                            onChange={(e: any) => setNewGoal(prev => ({ ...prev, title: e.target.value }))}
                           />
                         </div>
                         
@@ -811,13 +811,13 @@ const IEP504PlanEngine = () => {
                           <Label htmlFor="goal-area">Area</Label>
                           <Select
                             value={newGoal.area}
-                            onValueChange={(value) => setNewGoal(prev => ({ ...prev, area: value }))}
+                            onValueChange={(value: any) => setNewGoal(prev => ({ ...prev, area: value }))}
                           >
                             <SelectTrigger id="goal-area">
                               <SelectValue placeholder="Select area" />
                             </SelectTrigger>
                             <SelectContent>
-                              {goalAreas.map((area) => (
+                              {goalAreas.map((area: any) => (
                                 <SelectItem key={area.value} value={area.value}>
                                   {area.label}
                                 </SelectItem>
@@ -833,7 +833,7 @@ const IEP504PlanEngine = () => {
                           id="goal-description"
                           placeholder="Describe the goal in detail"
                           value={newGoal.description}
-                          onChange={(e) => setNewGoal(prev => ({ ...prev, description: e.target.value }))}
+                          onChange={(e: any) => setNewGoal(prev => ({ ...prev, description: e.target.value }))}
                         />
                       </div>
                       
@@ -844,7 +844,7 @@ const IEP504PlanEngine = () => {
                             id="baseline-data"
                             placeholder="Current performance level"
                             value={newGoal.baselineData}
-                            onChange={(e) => setNewGoal(prev => ({ ...prev, baselineData: e.target.value }))}
+                            onChange={(e: any) => setNewGoal(prev => ({ ...prev, baselineData: e.target.value }))}
                           />
                         </div>
                         
@@ -852,13 +852,13 @@ const IEP504PlanEngine = () => {
                           <Label htmlFor="evaluation-method">Evaluation Method</Label>
                           <Select
                             value={newGoal.evaluationMethod}
-                            onValueChange={(value) => setNewGoal(prev => ({ ...prev, evaluationMethod: value }))}
+                            onValueChange={(value: any) => setNewGoal(prev => ({ ...prev, evaluationMethod: value }))}
                           >
                             <SelectTrigger id="evaluation-method">
                               <SelectValue placeholder="Select method" />
                             </SelectTrigger>
                             <SelectContent>
-                              {evaluationMethods.map((method) => (
+                              {evaluationMethods.map((method: any) => (
                                 <SelectItem key={method.value} value={method.value}>
                                   {method.label}
                                 </SelectItem>
@@ -875,7 +875,7 @@ const IEP504PlanEngine = () => {
                             id="mastery"
                             placeholder="e.g., 80% accuracy on 3 consecutive assessments"
                             value={newGoal.mastery}
-                            onChange={(e) => setNewGoal(prev => ({ ...prev, mastery: e.target.value }))}
+                            onChange={(e: any) => setNewGoal(prev => ({ ...prev, mastery: e.target.value }))}
                           />
                         </div>
                         
@@ -885,7 +885,7 @@ const IEP504PlanEngine = () => {
                             id="timeline"
                             placeholder="e.g., 3 months"
                             value={newGoal.timeline}
-                            onChange={(e) => setNewGoal(prev => ({ ...prev, timeline: e.target.value }))}
+                            onChange={(e: any) => setNewGoal(prev => ({ ...prev, timeline: e.target.value }))}
                           />
                         </div>
                       </div>
@@ -898,7 +898,7 @@ const IEP504PlanEngine = () => {
                               id="objectives"
                               placeholder="Add an objective"
                               value={newObjective}
-                              onChange={(e) => setNewObjective(e.target.value)}
+                              onChange={(e: any) => setNewObjective(e.target.value: any)}
                               className="w-64"
                             />
                             <Button 
@@ -914,13 +914,13 @@ const IEP504PlanEngine = () => {
                         
                         {newGoal.objectives.length > 0 ? (
                           <ul className="space-y-2 mt-2">
-                            {newGoal.objectives.map((objective, index) => (
+                            {newGoal.objectives.map((objective: any, index) => (
                               <li key={index} className="flex items-centre justify-between bg-grey-50 p-2 rounded">
                                 <span>{index + 1}. {objective}</span>
                                 <Button 
                                   variant="ghost" 
                                   size="sm" 
-                                  onClick={() => handleRemoveObjective(index)}
+                                  onClick={() => handleRemoveObjective(index: any)}
                                   className="h-8 w-8 p-0"
                                 >
                                   <XCircle className="h-4 w-4" />
@@ -953,7 +953,7 @@ const IEP504PlanEngine = () => {
                             <div className="flex justify-between">
                               <CardTitle className="text-md">{goal.title}</CardTitle>
                               <Badge>
-                                {goalAreas.find(a => a.value === goal.area)?.label || goal.area}
+                                {goalAreas.find(a => a.value === goal.area: any)?.label || goal.area}
                               </Badge>
                             </div>
                           </CardHeader>
@@ -968,7 +968,7 @@ const IEP504PlanEngine = () => {
                               <div>
                                 <p className="font-medium">Evaluation Method:</p>
                                 <p className="text-grey-600">
-                                  {evaluationMethods.find(m => m.value === goal.evaluationMethod)?.label || goal.evaluationMethod}
+                                  {evaluationMethods.find(m => m.value === goal.evaluationMethod: any)?.label || goal.evaluationMethod}
                                 </p>
                               </div>
                               <div>
@@ -1014,7 +1014,7 @@ const IEP504PlanEngine = () => {
                             <Button 
                               variant="outline" 
                               size="sm" 
-                              onClick={() => handleRemoveGoal(goal.id)}
+                              onClick={() => handleRemoveGoal(goal.id: any)}
                               className="text-red-500 hover:text-red-700"
                             >
                               Remove Goal
@@ -1048,7 +1048,7 @@ const IEP504PlanEngine = () => {
                             id="accommodation-title"
                             placeholder="e.g., Extended time for assignments"
                             value={newAccommodation.title}
-                            onChange={(e) => setNewAccommodation(prev => ({ ...prev, title: e.target.value }))}
+                            onChange={(e: any) => setNewAccommodation(prev => ({ ...prev, title: e.target.value }))}
                           />
                         </div>
                         
@@ -1056,13 +1056,13 @@ const IEP504PlanEngine = () => {
                           <Label htmlFor="accommodation-category">Category</Label>
                           <Select
                             value={newAccommodation.category}
-                            onValueChange={(value) => setNewAccommodation(prev => ({ ...prev, category: value }))}
+                            onValueChange={(value: any) => setNewAccommodation(prev => ({ ...prev, category: value }))}
                           >
                             <SelectTrigger id="accommodation-category">
                               <SelectValue placeholder="Select category" />
                             </SelectTrigger>
                             <SelectContent>
-                              {accommodationCategories.map((category) => (
+                              {accommodationCategories.map((category: any) => (
                                 <SelectItem key={category.value} value={category.value}>
                                   {category.label}
                                 </SelectItem>
@@ -1078,7 +1078,7 @@ const IEP504PlanEngine = () => {
                           id="accommodation-description"
                           placeholder="Describe the accommodation in detail"
                           value={newAccommodation.description}
-                          onChange={(e) => setNewAccommodation(prev => ({ ...prev, description: e.target.value }))}
+                          onChange={(e: any) => setNewAccommodation(prev => ({ ...prev, description: e.target.value }))}
                         />
                       </div>
                       
@@ -1089,7 +1089,7 @@ const IEP504PlanEngine = () => {
                             id="accommodation-frequency"
                             placeholder="e.g., Daily, As needed"
                             value={newAccommodation.frequency}
-                            onChange={(e) => setNewAccommodation(prev => ({ ...prev, frequency: e.target.value }))}
+                            onChange={(e: any) => setNewAccommodation(prev => ({ ...prev, frequency: e.target.value }))}
                           />
                         </div>
                         
@@ -1099,7 +1099,7 @@ const IEP504PlanEngine = () => {
                             id="accommodation-location"
                             placeholder="e.g., All classes, Math only"
                             value={newAccommodation.location}
-                            onChange={(e) => setNewAccommodation(prev => ({ ...prev, location: e.target.value }))}
+                            onChange={(e: any) => setNewAccommodation(prev => ({ ...prev, location: e.target.value }))}
                           />
                         </div>
                       </div>
@@ -1111,7 +1111,7 @@ const IEP504PlanEngine = () => {
                             id="accommodation-provider"
                             placeholder="Who will provide this accommodation?"
                             value={newAccommodation.provider}
-                            onChange={(e) => setNewAccommodation(prev => ({ ...prev, provider: e.target.value }))}
+                            onChange={(e: any) => setNewAccommodation(prev => ({ ...prev, provider: e.target.value }))}
                           />
                         </div>
                         
@@ -1121,7 +1121,7 @@ const IEP504PlanEngine = () => {
                             id="accommodation-notes"
                             placeholder="Any additional information"
                             value={newAccommodation.notes}
-                            onChange={(e) => setNewAccommodation(prev => ({ ...prev, notes: e.target.value }))}
+                            onChange={(e: any) => setNewAccommodation(prev => ({ ...prev, notes: e.target.value }))}
                           />
                         </div>
                       </div>
@@ -1145,7 +1145,7 @@ const IEP504PlanEngine = () => {
                             <div className="flex justify-between items-start">
                               <CardTitle className="text-md">{accommodation.title}</CardTitle>
                               <Badge>
-                                {accommodationCategories.find(c => c.value === accommodation.category)?.label || accommodation.category}
+                                {accommodationCategories.find(c => c.value === accommodation.category: any)?.label || accommodation.category}
                               </Badge>
                             </div>
                           </CardHeader>
@@ -1175,7 +1175,7 @@ const IEP504PlanEngine = () => {
                             <Button 
                               variant="outline" 
                               size="sm" 
-                              onClick={() => handleRemoveAccommodation(accommodation.id)}
+                              onClick={() => handleRemoveAccommodation(accommodation.id: any)}
                               className="text-red-500 hover:text-red-700"
                             >
                               Remove
@@ -1209,7 +1209,7 @@ const IEP504PlanEngine = () => {
                             id="service-title"
                             placeholder="e.g., Speech Therapy"
                             value={newService.title}
-                            onChange={(e) => setNewService(prev => ({ ...prev, title: e.target.value }))}
+                            onChange={(e: any) => setNewService(prev => ({ ...prev, title: e.target.value }))}
                           />
                         </div>
                         
@@ -1219,7 +1219,7 @@ const IEP504PlanEngine = () => {
                             id="service-provider"
                             placeholder="Who will provide this service?"
                             value={newService.provider}
-                            onChange={(e) => setNewService(prev => ({ ...prev, provider: e.target.value }))}
+                            onChange={(e: any) => setNewService(prev => ({ ...prev, provider: e.target.value }))}
                           />
                         </div>
                       </div>
@@ -1229,13 +1229,13 @@ const IEP504PlanEngine = () => {
                           <Label htmlFor="service-frequency">Frequency</Label>
                           <Select
                             value={newService.frequency}
-                            onValueChange={(value) => setNewService(prev => ({ ...prev, frequency: value }))}
+                            onValueChange={(value: any) => setNewService(prev => ({ ...prev, frequency: value }))}
                           >
                             <SelectTrigger id="service-frequency">
                               <SelectValue placeholder="Select frequency" />
                             </SelectTrigger>
                             <SelectContent>
-                              {serviceFrequencies.map((frequency) => (
+                              {serviceFrequencies.map((frequency: any) => (
                                 <SelectItem key={frequency.value} value={frequency.value}>
                                   {frequency.label}
                                 </SelectItem>
@@ -1250,7 +1250,7 @@ const IEP504PlanEngine = () => {
                             id="service-duration"
                             placeholder="e.g., 30 minutes"
                             value={newService.duration}
-                            onChange={(e) => setNewService(prev => ({ ...prev, duration: e.target.value }))}
+                            onChange={(e: any) => setNewService(prev => ({ ...prev, duration: e.target.value }))}
                           />
                         </div>
                       </div>
@@ -1261,7 +1261,7 @@ const IEP504PlanEngine = () => {
                           id="service-location"
                           placeholder="Where will the service be provided?"
                           value={newService.location}
-                          onChange={(e) => setNewService(prev => ({ ...prev, location: e.target.value }))}
+                          onChange={(e: any) => setNewService(prev => ({ ...prev, location: e.target.value }))}
                         />
                       </div>
                       
@@ -1275,14 +1275,14 @@ const IEP504PlanEngine = () => {
                                 className="w-full justify-start text-left font-normal"
                               >
                                 <CalendarIcon className="mr-2 h-4 w-4" />
-                                {newService.startDate ? format(newService.startDate, 'PPP') : <span>Pick a date</span>}
+                                {newService.startDate ? format(newService.startDate: any, 'PPP') : <span>Pick a date</span>}
                               </Button>
                             </PopoverTrigger>
                             <PopoverContent className="w-auto p-0">
                               <Calendar
                                 mode="single"
                                 selected={newService.startDate}
-                                onSelect={(date) => setNewService(prev => ({ ...prev, startDate: date }))}
+                                onSelect={(date: any) => setNewService(prev => ({ ...prev, startDate: date }))}
                                 initialFocus
                               />
                             </PopoverContent>
@@ -1298,14 +1298,14 @@ const IEP504PlanEngine = () => {
                                 className="w-full justify-start text-left font-normal"
                               >
                                 <CalendarIcon className="mr-2 h-4 w-4" />
-                                {newService.endDate ? format(newService.endDate, 'PPP') : <span>Pick a date</span>}
+                                {newService.endDate ? format(newService.endDate: any, 'PPP') : <span>Pick a date</span>}
                               </Button>
                             </PopoverTrigger>
                             <PopoverContent className="w-auto p-0">
                               <Calendar
                                 mode="single"
                                 selected={newService.endDate}
-                                onSelect={(date) => setNewService(prev => ({ ...prev, endDate: date }))}
+                                onSelect={(date: any) => setNewService(prev => ({ ...prev, endDate: date }))}
                                 initialFocus
                               />
                             </PopoverContent>
@@ -1319,7 +1319,7 @@ const IEP504PlanEngine = () => {
                           id="service-description"
                           placeholder="Describe the service in detail"
                           value={newService.description}
-                          onChange={(e) => setNewService(prev => ({ ...prev, description: e.target.value }))}
+                          onChange={(e: any) => setNewService(prev => ({ ...prev, description: e.target.value }))}
                         />
                       </div>
                     </CardContent>
@@ -1354,7 +1354,7 @@ const IEP504PlanEngine = () => {
                                 <span className="font-medium">Location:</span> {service.location}
                               </div>
                               <div>
-                                <span className="font-medium">Dates:</span> {format(new Date(service.startDate), 'PP')} - {format(new Date(service.endDate), 'PP')}
+                                <span className="font-medium">Dates:</span> {format(new Date(service.startDate), 'PP')} - {format(new Date(service.endDate: any), 'PP')}
                               </div>
                             </div>
                             
@@ -1368,7 +1368,7 @@ const IEP504PlanEngine = () => {
                             <Button 
                               variant="outline" 
                               size="sm" 
-                              onClick={() => handleRemoveService(service.id)}
+                              onClick={() => handleRemoveService(service.id: any)}
                               className="text-red-500 hover:text-red-700"
                             >
                               Remove
@@ -1402,7 +1402,7 @@ const IEP504PlanEngine = () => {
                             id="member-name"
                             placeholder="Full name"
                             value={newTeamMember.name}
-                            onChange={(e) => setNewTeamMember(prev => ({ ...prev, name: e.target.value }))}
+                            onChange={(e: any) => setNewTeamMember(prev => ({ ...prev, name: e.target.value }))}
                           />
                         </div>
                         
@@ -1410,13 +1410,13 @@ const IEP504PlanEngine = () => {
                           <Label htmlFor="member-role">Role</Label>
                           <Select
                             value={newTeamMember.role}
-                            onValueChange={(value) => setNewTeamMember(prev => ({ ...prev, role: value }))}
+                            onValueChange={(value: any) => setNewTeamMember(prev => ({ ...prev, role: value }))}
                           >
                             <SelectTrigger id="member-role">
                               <SelectValue placeholder="Select role" />
                             </SelectTrigger>
                             <SelectContent>
-                              {teamMemberRoles.map((role) => (
+                              {teamMemberRoles.map((role: any) => (
                                 <SelectItem key={role.value} value={role.value}>
                                   {role.label}
                                 </SelectItem>
@@ -1434,7 +1434,7 @@ const IEP504PlanEngine = () => {
                             placeholder="Email address"
                             type="email"
                             value={newTeamMember.email}
-                            onChange={(e) => setNewTeamMember(prev => ({ ...prev, email: e.target.value }))}
+                            onChange={(e: any) => setNewTeamMember(prev => ({ ...prev, email: e.target.value }))}
                           />
                         </div>
                         
@@ -1444,7 +1444,7 @@ const IEP504PlanEngine = () => {
                             id="member-phone"
                             placeholder="Phone number"
                             value={newTeamMember.phone}
-                            onChange={(e) => setNewTeamMember(prev => ({ ...prev, phone: e.target.value }))}
+                            onChange={(e: any) => setNewTeamMember(prev => ({ ...prev, phone: e.target.value }))}
                           />
                         </div>
                       </div>
@@ -1455,7 +1455,7 @@ const IEP504PlanEngine = () => {
                           id="member-notes"
                           placeholder="Additional information about this team member"
                           value={newTeamMember.notes}
-                          onChange={(e) => setNewTeamMember(prev => ({ ...prev, notes: e.target.value }))}
+                          onChange={(e: any) => setNewTeamMember(prev => ({ ...prev, notes: e.target.value }))}
                         />
                       </div>
                     </CardContent>
@@ -1477,7 +1477,7 @@ const IEP504PlanEngine = () => {
                           <CardHeader className="pb-2">
                             <CardTitle className="text-md">{member.name}</CardTitle>
                             <CardDescription>
-                              {teamMemberRoles.find(r => r.value === member.role)?.label || member.role}
+                              {teamMemberRoles.find(r => r.value === member.role: any)?.label || member.role}
                             </CardDescription>
                           </CardHeader>
                           <CardContent className="pb-2">
@@ -1501,7 +1501,7 @@ const IEP504PlanEngine = () => {
                             <Button 
                               variant="outline" 
                               size="sm" 
-                              onClick={() => handleRemoveTeamMember(member.id)}
+                              onClick={() => handleRemoveTeamMember(member.id: any)}
                               className="text-red-500 hover:text-red-700"
                             >
                               Remove
@@ -1571,7 +1571,7 @@ const IEP504PlanEngine = () => {
                     <CardContent className="space-y-4">
                       <ul className="space-y-2">
                         <li className="text-sm">
-                          <a href="#" className="text-blue-600 hover:underline">NASEN (National Association for Special Educational Needs)</a>
+                          <a href="#" className="text-blue-600 hover:underline">NASEN (National Association for Special Educational Needs: any)</a>
                           <p className="text-grey-500">Resources and guidance for SEND professionals</p>
                         </li>
                         <li className="text-sm">
@@ -1579,7 +1579,7 @@ const IEP504PlanEngine = () => {
                           <p className="text-grey-500">Information and resources for supporting disabled children</p>
                         </li>
                         <li className="text-sm">
-                          <a href="#" className="text-blue-600 hover:underline">IPSEA (Independent Provider of Special Education Advice)</a>
+                          <a href="#" className="text-blue-600 hover:underline">IPSEA (Independent Provider of Special Education Advice: any)</a>
                           <p className="text-grey-500">Legal advice and resources for families</p>
                         </li>
                       </ul>
@@ -1594,11 +1594,11 @@ const IEP504PlanEngine = () => {
                     <CardContent className="space-y-4">
                       <ul className="space-y-2">
                         <li className="text-sm">
-                          <a href="#" className="text-blue-600 hover:underline">IEP Template (Word format)</a>
+                          <a href="#" className="text-blue-600 hover:underline">IEP Template (Word format: any)</a>
                           <p className="text-grey-500">Customisable template for creating IEPs</p>
                         </li>
                         <li className="text-sm">
-                          <a href="#" className="text-blue-600 hover:underline">504 Plan Template (Word format)</a>
+                          <a href="#" className="text-blue-600 hover:underline">504 Plan Template (Word format: any)</a>
                           <p className="text-grey-500">Customisable template for creating 504 plans</p>
                         </li>
                         <li className="text-sm">

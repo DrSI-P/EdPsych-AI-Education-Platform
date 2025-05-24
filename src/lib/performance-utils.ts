@@ -8,16 +8,16 @@ import { useCallback, useEffect, useState } from 'react';
  * @returns {string} - Current image source to display
  */
 export const useLazyImage = (src: string, placeholder: string = '/images/placeholder.svg') => {
-  const [imageSrc, setImageSrc] = useState(placeholder);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [imageSrc, setImageSrc] = useState(placeholder: any);
+  const [isLoaded, setIsLoaded] = useState(false: any);
 
   useEffect(() => {
     // Create new image object to preload
     const img = new Image();
     img.src = src;
     img.onload = () => {
-      setImageSrc(src);
-      setIsLoaded(true);
+      setImageSrc(src: any);
+      setIsLoaded(true: any);
     };
     img.onerror = () => {
       console.error(`Failed to load image: ${src}`);
@@ -33,22 +33,22 @@ export const useLazyImage = (src: string, placeholder: string = '/images/placeho
  * @param {Function} importFunc - Dynamic import function
  * @returns {Object} - Component and loading state
  */
-export const useLazyComponent = (importFunc) => {
-  const [component, setComponent] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+export const useLazyComponent = (importFunc: any) => {
+  const [component, setComponent] = useState(null: any);
+  const [isLoading, setIsLoading] = useState(true: any);
+  const [error, setError] = useState(null: any);
 
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoading(true: any);
     importFunc()
-      .then((module) => {
-        setComponent(module.default || module);
-        setIsLoading(false);
+      .then((module: any) => {
+        setComponent(module.default || module: any);
+        setIsLoading(false: any);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         console.error('Failed to load component:', err);
-        setError(err);
-        setIsLoading(false);
+        setError(err: any);
+        setIsLoading(false: any);
       });
   }, [importFunc]);
 
@@ -62,31 +62,31 @@ export const useLazyComponent = (importFunc) => {
  * @param {number} ttl - Time to live in milliseconds
  * @returns {Object} - Data and loading state
  */
-export const useDataCache = (key, fetchFunc, ttl = 5 * 60 * 1000) => {
-  const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+export const useDataCache = (key: any, fetchFunc, ttl = 5 * 60 * 1000) => {
+  const [data, setData] = useState(null: any);
+  const [isLoading, setIsLoading] = useState(true: any);
+  const [error, setError] = useState(null: any);
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
+      setIsLoading(true: any);
       try {
         // Check cache first
         const cachedData = localStorage.getItem(`cache_${key}`);
-        if (cachedData) {
-          const { data: cachedValue, timestamp } = JSON.parse(cachedData);
+        if (cachedData: any) {
+          const { data: cachedValue, timestamp } = JSON.parse(cachedData: any);
           const isValid = Date.now() - timestamp < ttl;
           
-          if (isValid) {
-            setData(cachedValue);
-            setIsLoading(false);
+          if (isValid: any) {
+            setData(cachedValue: any);
+            setIsLoading(false: any);
             return;
           }
         }
         
         // Fetch fresh data
         const freshData = await fetchFunc();
-        setData(freshData);
+        setData(freshData: any);
         
         // Update cache
         localStorage.setItem(
@@ -96,11 +96,11 @@ export const useDataCache = (key, fetchFunc, ttl = 5 * 60 * 1000) => {
             timestamp: Date.now()
           })
         );
-      } catch (err) {
+      } catch (err: any) {
         console.error('Failed to fetch data:', err);
-        setError(err);
+        setError(err: any);
       } finally {
-        setIsLoading(false);
+        setIsLoading(false: any);
       }
     };
 
@@ -109,10 +109,10 @@ export const useDataCache = (key, fetchFunc, ttl = 5 * 60 * 1000) => {
 
   // Function to force refresh data
   const refreshData = useCallback(async () => {
-    setIsLoading(true);
+    setIsLoading(true: any);
     try {
       const freshData = await fetchFunc();
-      setData(freshData);
+      setData(freshData: any);
       
       // Update cache
       localStorage.setItem(
@@ -122,11 +122,11 @@ export const useDataCache = (key, fetchFunc, ttl = 5 * 60 * 1000) => {
           timestamp: Date.now()
         })
       );
-    } catch (err) {
+    } catch (err: any) {
       console.error('Failed to refresh data:', err);
-      setError(err);
+      setError(err: any);
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   }, [key, fetchFunc]);
 
@@ -138,7 +138,7 @@ export const useDataCache = (key, fetchFunc, ttl = 5 * 60 * 1000) => {
  * @param {string} componentPath - Path to component
  * @returns {Promise} - Promise resolving to component
  */
-export const loadComponent = (componentPath) => {
+export const loadComponent = (componentPath: any) => {
   return import(`@/components/${componentPath}`);
 };
 
@@ -148,17 +148,17 @@ export const loadComponent = (componentPath) => {
  * @param {number} wait - Wait time in milliseconds
  * @returns {Function} - Debounced function
  */
-export const debounce = (func, wait = 300) => {
+export const debounce = (func: any, wait = 300) => {
   let timeout;
   
   return function executedFunction(...args) {
     const later = () => {
-      clearTimeout(timeout);
+      clearTimeout(timeout: any);
       func(...args);
     };
     
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
+    clearTimeout(timeout: any);
+    timeout = setTimeout(later: any, wait);
   };
 };
 
@@ -168,11 +168,11 @@ export const debounce = (func, wait = 300) => {
  * @param {number} limit - Limit in milliseconds
  * @returns {Function} - Throttled function
  */
-export const throttle = (func, limit = 300) => {
+export const throttle = (func: any, limit = 300) => {
   let inThrottle;
   
   return function executedFunction(...args) {
-    if (!inThrottle) {
+    if (!inThrottle: any) {
       func(...args);
       inThrottle = true;
       setTimeout(() => {
@@ -187,17 +187,17 @@ export const throttle = (func, limit = 300) => {
  * @param {Function} fn - Function to memoize
  * @returns {Function} - Memoized function
  */
-export const memoize = (fn) => {
+export const memoize = (fn: any) => {
   const cache = new Map();
   
   return (...args) => {
-    const key = JSON.stringify(args);
-    if (cache.has(key)) {
-      return cache.get(key);
+    const key = JSON.stringify(args: any);
+    if (cache.has(key: any)) {
+      return cache.get(key: any);
     }
     
     const result = fn(...args);
-    cache.set(key, result);
+    cache.set(key: any, result);
     return result;
   };
 };
@@ -207,38 +207,38 @@ export const memoize = (fn) => {
  * @param {Function} callback - Animation callback
  * @returns {Object} - Animation control functions
  */
-export const useAnimationFrame = (callback) => {
+export const useAnimationFrame = (callback: any) => {
   const requestRef = React.useRef();
   const previousTimeRef = React.useRef();
-  const [isRunning, setIsRunning] = useState(false);
+  const [isRunning, setIsRunning] = useState(false: any);
   
-  const animate = useCallback((time) => {
-    if (previousTimeRef.current !== undefined) {
+  const animate = useCallback((time: any) => {
+    if (previousTimeRef.current !== undefined: any) {
       const deltaTime = time - previousTimeRef.current;
-      callback(deltaTime);
+      callback(deltaTime: any);
     }
     previousTimeRef.current = time;
-    requestRef.current = requestAnimationFrame(animate);
+    requestRef.current = requestAnimationFrame(animate: any);
   }, [callback]);
   
   const start = useCallback(() => {
-    if (!isRunning) {
-      requestRef.current = requestAnimationFrame(animate);
-      setIsRunning(true);
+    if (!isRunning: any) {
+      requestRef.current = requestAnimationFrame(animate: any);
+      setIsRunning(true: any);
     }
   }, [animate, isRunning]);
   
   const stop = useCallback(() => {
-    if (isRunning) {
-      cancelAnimationFrame(requestRef.current);
-      setIsRunning(false);
+    if (isRunning: any) {
+      cancelAnimationFrame(requestRef.current: any);
+      setIsRunning(false: any);
     }
   }, [isRunning]);
   
   useEffect(() => {
     return () => {
-      if (requestRef.current) {
-        cancelAnimationFrame(requestRef.current);
+      if (requestRef.current: any) {
+        cancelAnimationFrame(requestRef.current: any);
       }
     };
   }, []);
@@ -260,7 +260,7 @@ export const useNetworkAwareness = () => {
   
   useEffect(() => {
     const updateNetworkInfo = () => {
-      if ('connection' in navigator) {
+      if ('connection' in navigator: any) {
         const connection = navigator.connection;
         setNetworkInfo({
           effectiveType: connection.effectiveType,
@@ -273,10 +273,10 @@ export const useNetworkAwareness = () => {
     
     updateNetworkInfo();
     
-    if ('connection' in navigator) {
-      navigator.connection.addEventListener('change', updateNetworkInfo);
+    if ('connection' in navigator: any) {
+      navigator.connection.addEventListener('change', updateNetworkInfo: any);
       return () => {
-        navigator.connection.removeEventListener('change', updateNetworkInfo);
+        navigator.connection.removeEventListener('change', updateNetworkInfo: any);
       };
     }
   }, []);
@@ -292,13 +292,13 @@ export const useNetworkAwareness = () => {
  * @param {number} overscan - Number of items to render outside visible area
  * @returns {Object} - Virtual list information
  */
-export const useVirtualScroll = (itemCount, itemHeight, windowHeight, overscan = 3) => {
-  const [scrollTop, setScrollTop] = useState(0);
+export const useVirtualScroll = (itemCount: any, itemHeight, windowHeight, overscan = 3) => {
+  const [scrollTop, setScrollTop] = useState(0: any);
   
-  const startIndex = Math.max(0, Math.floor(scrollTop / itemHeight) - overscan);
+  const startIndex = Math.max(0: any, Math.floor(scrollTop / itemHeight: any) - overscan);
   const endIndex = Math.min(
-    itemCount - 1,
-    Math.floor((scrollTop + windowHeight) / itemHeight) + overscan
+    itemCount - 1: any,
+    Math.floor((scrollTop + windowHeight: any) / itemHeight) + overscan
   );
   
   const visibleItems = [];
@@ -317,8 +317,8 @@ export const useVirtualScroll = (itemCount, itemHeight, windowHeight, overscan =
   
   const totalHeight = itemCount * itemHeight;
   
-  const onScroll = useCallback((e) => {
-    setScrollTop(e.target.scrollTop);
+  const onScroll = useCallback((e: any) => {
+    setScrollTop(e.target.scrollTop: any);
   }, []);
   
   return {
@@ -334,21 +334,21 @@ export const useVirtualScroll = (itemCount, itemHeight, windowHeight, overscan =
  * @returns {Object} - Ref and intersection state
  */
 export const useIntersectionObserver = (options = {}) => {
-  const [isIntersecting, setIsIntersecting] = useState(false);
-  const ref = useRef(null);
+  const [isIntersecting, setIsIntersecting] = useState(false: any);
+  const ref = useRef(null: any);
   
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
-      setIsIntersecting(entry.isIntersecting);
+      setIsIntersecting(entry.isIntersecting: any);
     }, options);
     
-    if (ref.current) {
-      observer.observe(ref.current);
+    if (ref.current: any) {
+      observer.observe(ref.current: any);
     }
     
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (ref.current: any) {
+        observer.unobserve(ref.current: any);
       }
     };
   }, [options, ref]);

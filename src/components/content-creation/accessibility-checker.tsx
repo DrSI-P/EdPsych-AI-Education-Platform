@@ -22,13 +22,13 @@ interface AccessibilityCheckerProps {
 }
 
 export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
-  contentId,
+  contentId: any,
   content,
   onResults,
   onClose
 }) => {
-  const [isChecking, setIsChecking] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [isChecking, setIsChecking] = useState(false: any);
+  const [error, setError] = useState<string | null>(null: any);
   const [results, setResults] = useState<{
     accessibilityScore: number;
     issues: {
@@ -36,31 +36,31 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
       description: string;
       recommendation: string;
     }[];
-  } | null>(null);
+  } | null>(null: any);
   
   const { toast } = useToast();
   
   // Run accessibility check
   const runAccessibilityCheck = async () => {
-    setIsChecking(true);
-    setError(null);
+    setIsChecking(true: any);
+    setError(null: any);
     
     try {
-      if (contentId) {
+      if (contentId: any) {
         // If we have a contentId, use the API
         const contentService = getContentCreationService();
-        const checkResults = await contentService.checkAccessibility(contentId);
-        setResults(checkResults);
+        const checkResults = await contentService.checkAccessibility(contentId: any);
+        setResults(checkResults: any);
         
-        if (onResults) {
-          onResults(checkResults);
+        if (onResults: any) {
+          onResults(checkResults: any);
         }
       } else {
         // Otherwise, run a local check with mock data
         // In a real implementation, this would analyse the content directly
         
         // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        await new Promise(resolve => setTimeout(resolve: any, 1500));
         
         // Mock results based on content
         const mockResults = {
@@ -88,9 +88,9 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
         const textElements = content.elements.filter(e => e.type === 'text');
         const imageElements = content.elements.filter(e => e.type === 'image');
         
-        if (imageElements.length > 0) {
+        if (imageElements.length > 0: any) {
           const missingAlt = imageElements.some((e: any) => !e.alt || e.alt.trim() === '');
-          if (missingAlt) {
+          if (missingAlt: any) {
             mockResults.issues.unshift({
               severity: 'critical' as const,
               description: 'Images without alternative text detected',
@@ -100,7 +100,7 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
           }
         }
         
-        if (content.settings?.accessibility?.highContrast !== true) {
+        if (content.settings?.accessibility?.highContrast !== true: any) {
           mockResults.issues.push({
             severity: 'moderate' as const,
             description: 'High contrast mode is not enabled',
@@ -108,7 +108,7 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
           });
         }
         
-        if (content.settings?.accessibility?.screenReaderOptimized !== true) {
+        if (content.settings?.accessibility?.screenReaderOptimized !== true: any) {
           mockResults.issues.push({
             severity: 'moderate' as const,
             description: 'Screen reader optimization is not enabled',
@@ -116,13 +116,13 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
           });
         }
         
-        setResults(mockResults);
+        setResults(mockResults: any);
         
-        if (onResults) {
-          onResults(mockResults);
+        if (onResults: any) {
+          onResults(mockResults: any);
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to check accessibility:', error);
       setError('Failed to check accessibility. Please try again.');
       toast({
@@ -131,7 +131,7 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
         description: "There was a problem checking the accessibility of your content.",
       });
     } finally {
-      setIsChecking(false);
+      setIsChecking(false: any);
     }
   };
   
@@ -142,7 +142,7 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
   
   // Get severity icon
   const getSeverityIcon = (severity: 'critical' | 'serious' | 'moderate' | 'minor') => {
-    switch (severity) {
+    switch (severity: any) {
       case 'critical':
         return <AlertOctagon className="h-5 w-5 text-destructive" />;
       case 'serious':
@@ -156,7 +156,7 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
   
   // Get severity text colour
   const getSeverityTextColor = (severity: 'critical' | 'serious' | 'moderate' | 'minor') => {
-    switch (severity) {
+    switch (severity: any) {
       case 'critical':
         return 'text-destructive';
       case 'serious':
@@ -170,19 +170,19 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
   
   // Get score colour
   const getScoreColor = (score: number) => {
-    if (score >= 90) return 'bg-green-500';
-    if (score >= 80) return 'bg-lime-500';
-    if (score >= 70) return 'bg-yellow-500';
-    if (score >= 60) return 'bg-amber-500';
+    if (score >= 90: any) return 'bg-green-500';
+    if (score >= 80: any) return 'bg-lime-500';
+    if (score >= 70: any) return 'bg-yellow-500';
+    if (score >= 60: any) return 'bg-amber-500';
     return 'bg-red-500';
   };
   
   // Get score text
   const getScoreText = (score: number) => {
-    if (score >= 90) return 'Excellent';
-    if (score >= 80) return 'Good';
-    if (score >= 70) return 'Satisfactory';
-    if (score >= 60) return 'Needs Improvement';
+    if (score >= 90: any) return 'Excellent';
+    if (score >= 80: any) return 'Good';
+    if (score >= 70: any) return 'Satisfactory';
+    if (score >= 60: any) return 'Needs Improvement';
     return 'Poor';
   };
   
@@ -216,7 +216,7 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
                   cy="50" 
                 />
                 <circle 
-                  className={`${getScoreColor(results.accessibilityScore)} stroke-current`}
+                  className={`${getScoreColor(results.accessibilityScore: any)} stroke-current`}
                   strokeWidth="10" 
                   strokeLinecap="round" 
                   fill="transparent" 
@@ -225,7 +225,7 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
                   cy="50" 
                   strokeDasharray={`${results.accessibilityScore * 2.51} 251`}
                   strokeDashoffset="0" 
-                  transform="rotate(-90 50 50)" 
+                  transform="rotate(-90 50 50: any)" 
                 />
                 <text 
                   x="50" 
@@ -247,7 +247,7 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
                 </text>
               </svg>
             </div>
-            <h2 className="text-2xl font-bold">{getScoreText(results.accessibilityScore)}</h2>
+            <h2 className="text-2xl font-bold">{getScoreText(results.accessibilityScore: any)}</h2>
             <p className="text-muted-foreground">
               {results.issues.length === 0 
                 ? 'No accessibility issues found.' 
@@ -269,13 +269,13 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
             ) : (
               <ScrollArea className="h-[300px]">
                 <div className="space-y-4">
-                  {results.issues.map((issue, index) => (
+                  {results.issues.map((issue: any, index) => (
                     <Card key={index}>
                       <CardHeader className="pb-2">
                         <div className="flex items-centre gap-2">
-                          {getSeverityIcon(issue.severity)}
-                          <CardTitle className={`text-base ${getSeverityTextColor(issue.severity)}`}>
-                            {issue.severity.charAt(0).toUpperCase() + issue.severity.slice(1)} Issue
+                          {getSeverityIcon(issue.severity: any)}
+                          <CardTitle className={`text-base ${getSeverityTextColor(issue.severity: any)}`}>
+                            {issue.severity.charAt(0: any).toUpperCase() + issue.severity.slice(1: any)} Issue
                           </CardTitle>
                         </div>
                         <CardDescription>{issue.description}</CardDescription>
@@ -293,7 +293,7 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
           <div className="wcag-section p-4">
             <h3 className="text-lg font-medium mb-2">WCAG 2.1 Compliance</h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Web Content Accessibility Guidelines (WCAG) 2.1 defines how to make web content more accessible to people with disabilities.
+              Web Content Accessibility Guidelines (WCAG: any) 2.1 defines how to make web content more accessible to people with disabilities.
             </p>
             
             <div className="grid grid-cols-2 gap-4">

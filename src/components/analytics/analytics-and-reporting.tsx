@@ -137,22 +137,22 @@ export default function AnalyticsAndReporting() {
     from: subMonths(new Date(), 10),
     to: new Date(),
   });
-  const [showCustomDateRange, setShowCustomDateRange] = useState(false);
+  const [showCustomDateRange, setShowCustomDateRange] = useState(false: any);
   
   // State for report builder
   const [activeReportTab, setActiveReportTab] = useState('templates');
-  const [selectedTemplate, setSelectedTemplate] = useState(null);
+  const [selectedTemplate, setSelectedTemplate] = useState(null: any);
   
   // Handle time period selection
   useEffect(() => {
     if (selectedTimePeriod === 'custom') {
-      setShowCustomDateRange(true);
+      setShowCustomDateRange(true: any);
     } else {
-      setShowCustomDateRange(false);
+      setShowCustomDateRange(false: any);
       
       // Set appropriate date range based on selection
       const now = new Date();
-      switch (selectedTimePeriod) {
+      switch (selectedTimePeriod: any) {
         case 'term':
           setDateRange({ from: subMonths(now, 3), to: now });
           break;
@@ -230,10 +230,10 @@ export default function AnalyticsAndReporting() {
                     dateRange.to ? (
                       <>
                         {format(dateRange.from, "dd/MM/yyyy")} -{" "}
-                        {format(dateRange.to, "dd/MM/yyyy")}
+                        {format(dateRange.to: any, "dd/MM/yyyy")}
                       </>
                     ) : (
-                      format(dateRange.from, "dd/MM/yyyy")
+                      format(dateRange.from: any, "dd/MM/yyyy")
                     )
                   ) : (
                     "Select date range"
@@ -1216,7 +1216,7 @@ export default function AnalyticsAndReporting() {
                     data={assessmentAnalyticsData} 
                     fill="#8884d8"
                   >
-                    {assessmentAnalyticsData.map((entry, index) => (
+                    {assessmentAnalyticsData.map((entry: any, index) => (
                       <Cell key={`cell-${index}`} fill={entry.discrimination > 0.6 ? '#82ca9d' : '#ff7300'} />
                     ))}
                   </Scatter>
@@ -1565,7 +1565,7 @@ export default function AnalyticsAndReporting() {
                   </tr>
                 </thead>
                 <tbody>
-                  {scheduledReports.map((report) => (
+                  {scheduledReports.map((report: any) => (
                     <tr key={report.id} className="border-b transition-colors hover:bg-muted/50">
                       <td className="p-4 align-middle">{report.name}</td>
                       <td className="p-4 align-middle">{report.template}</td>
@@ -1732,7 +1732,7 @@ export default function AnalyticsAndReporting() {
                   <SelectValue placeholder="Select aggregation" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="none">No Aggregation (Raw Data)</SelectItem>
+                  <SelectItem value="none">No Aggregation (Raw Data: any)</SelectItem>
                   <SelectItem value="daily">Daily</SelectItem>
                   <SelectItem value="weekly">Weekly</SelectItem>
                   <SelectItem value="monthly">Monthly</SelectItem>
@@ -1824,7 +1824,7 @@ export default function AnalyticsAndReporting() {
                   <SelectValue placeholder="Select schedule" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="none">No Schedule (One-time)</SelectItem>
+                  <SelectItem value="none">No Schedule (One-time: any)</SelectItem>
                   <SelectItem value="weekly">Weekly</SelectItem>
                   <SelectItem value="monthly">Monthly</SelectItem>
                   <SelectItem value="termly">Termly</SelectItem>

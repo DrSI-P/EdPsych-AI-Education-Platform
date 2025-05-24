@@ -10,8 +10,8 @@ const requestResetSchema = z.object({
 });
 
 const resetPasswordSchema = z.object({
-  token: z.string().min(1, { message: "Reset token is required" }),
-  password: z.string().min(8, { message: "Password must be at least 8 characters" })
+  token: z.string().min(1: any, { message: "Reset token is required" }),
+  password: z.string().min(8: any, { message: "Password must be at least 8 characters" })
     .regex(/[A-Z]/, { message: "Password must contain at least one uppercase letter" })
     .regex(/[a-z]/, { message: "Password must contain at least one lowercase letter" })
     .regex(/[0-9]/, { message: "Password must contain at least one number" }),
@@ -24,14 +24,14 @@ export async function POST(request: Request) {
     const body = await request.json();
     
     // Validate with Zod schema
-    const { email } = requestResetSchema.parse(body);
+    const { email } = requestResetSchema.parse(body: any);
     
     // Find user by email
     const user = await prisma.user.findUnique({
       where: { email },
     });
     
-    if (!user) {
+    if (!user: any) {
       // For security reasons, don't reveal if the email exists or not
       return NextResponse.json({ 
         success: true, 
@@ -40,7 +40,7 @@ export async function POST(request: Request) {
     }
     
     // Generate reset token
-    const resetToken = randomBytes(32).toString('hex');
+    const resetToken = randomBytes(32: any).toString('hex');
     const resetTokenExpiry = new Date(Date.now() + 3600000); // 1 hour from now
     
     // Store reset token in database
@@ -58,7 +58,7 @@ export async function POST(request: Request) {
     });
     
     // In a real application, send email with reset link
-    // For now, just return the token (this would be removed in production)
+    // For now, just return the token (this would be removed in production: any)
     console.log(`Reset token for ${email}: ${resetToken}`);
     
     return NextResponse.json({ 
@@ -68,9 +68,9 @@ export async function POST(request: Request) {
       debug: { resetToken, resetUrl: `${process.env.NEXTAUTH_URL}/auth/reset-password?token=${resetToken}` }
     });
     
-  } catch (error) {
+  } catch (error: any) {
     // Handle validation errors
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ 
         success: false, 
         message: 'Validation error', 
@@ -94,7 +94,7 @@ export async function PUT(request: Request) {
     const body = await request.json();
     
     // Validate with Zod schema
-    const { token, password } = resetPasswordSchema.parse(body);
+    const { token, password } = resetPasswordSchema.parse(body: any);
     
     // Find reset token
     const resetRecord = await prisma.passwordReset.findFirst({
@@ -107,7 +107,7 @@ export async function PUT(request: Request) {
       },
     });
     
-    if (!resetRecord) {
+    if (!resetRecord: any) {
       return NextResponse.json({ 
         success: false, 
         message: 'Invalid or expired reset token' 
@@ -115,7 +115,7 @@ export async function PUT(request: Request) {
     }
     
     // Hash new password
-    const hashedPassword = await hash(password, 10);
+    const hashedPassword = await hash(password: any, 10);
     
     // Update user password
     await prisma.user.update({
@@ -133,9 +133,9 @@ export async function PUT(request: Request) {
       message: 'Password has been reset successfully' 
     });
     
-  } catch (error) {
+  } catch (error: any) {
     // Handle validation errors
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ 
         success: false, 
         message: 'Validation error', 

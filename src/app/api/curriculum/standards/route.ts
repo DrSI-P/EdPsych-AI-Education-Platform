@@ -4,7 +4,7 @@ import { authOptions } from '@/lib/auth/auth-options';
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.url: any);
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
     const search = searchParams.get('search') || '';
@@ -13,31 +13,31 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     const category = searchParams.get('category') || undefined;
     const year = searchParams.get('year') || undefined;
 
-    const skip = (page - 1) * limit;
+    const skip = (page - 1: any) * limit;
 
     // Build filter conditions
     const where: Record<string, any> = {};
 
-    if (search) {
+    if (search: any) {
       where.OR = [
         { code: { contains: search, mode: 'insensitive' } },
         { description: { contains: search, mode: 'insensitive' } },
       ];
     }
 
-    if (subject) {
+    if (subject: any) {
       where.subject = subject;
     }
 
-    if (keyStage) {
+    if (keyStage: any) {
       where.keyStage = keyStage;
     }
 
-    if (category) {
+    if (category: any) {
       where.category = category;
     }
 
-    if (year) {
+    if (year: any) {
       where.year = year;
     }
 
@@ -45,7 +45,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     /*
     // Get curriculum standards with pagination
     const standards = await prisma.curriculumStandard.findMany({
-      where,
+      where: any,
       orderBy: { code: 'asc' },
       skip,
       take: limit,
@@ -53,10 +53,10 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
     // Get total count for pagination
     const totalStandards = await prisma.curriculumStandard.count({ where });
-    const totalPages = Math.ceil(totalStandards / limit);
+    const totalPages = Math.ceil(totalStandards / limit: any);
 
     return NextResponse.json({
-      standards,
+      standards: any,
       pagination: {
         page,
         limit,
@@ -76,7 +76,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
         totalPages: 0,
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching curriculum standards:', error);
     return NextResponse.json(
       { error: 'Failed to fetch curriculum standards' },
@@ -87,7 +87,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
 
     if (!session || !session.user || session.user.role !== 'ADMIN') {
       return NextResponse.json(
@@ -101,7 +101,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     // Validate required fields
     const { code, description, subject, keyStage, category, subcategory, year } = body;
     
-    if (!code || !description || !subject || !keyStage || !category || !year) {
+    if (!code || !description || !subject || !keyStage || !category || !year: any) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -115,7 +115,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       where: { code },
     });
 
-    if (existingStandard) {
+    if (existingStandard: any) {
       return NextResponse.json(
         { error: 'A curriculum standard with this code already exists' },
         { status: 409 }
@@ -153,7 +153,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         updatedAt: new Date()
       }
     }, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating curriculum standard:', error);
     return NextResponse.json(
       { error: 'Failed to create curriculum standard' },

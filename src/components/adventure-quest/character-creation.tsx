@@ -99,19 +99,19 @@ const CharacterCreation: React.FC<CharacterCreationProps> = ({ onCreateCharacter
   );
 };
 
-const QuestDetail: React.FC<QuestDetailProps> = ({ quest, onComplete, onBack }) => {
+const QuestDetail: React.FC<QuestDetailProps> = ({ quest: any, onComplete, onBack }) => {
   return (
     <div>
       <h2>Quest Detail: {quest?.title || 'Unknown Quest'}</h2>
       <button onClick={onBack}>Back</button>
-      <button onClick={() => quest && onComplete(quest, { score: 80, timeSpent: 1200, completedChallenges: 3 })}>
+      <button onClick={() => quest && onComplete(quest: any, { score: 80, timeSpent: 1200, completedChallenges: 3 })}>
         Complete Quest
       </button>
     </div>
   );
 };
 
-const QuestHub: React.FC<QuestHubProps> = ({ quests, character, onSelectQuest, onGenerateQuest }) => {
+const QuestHub: React.FC<QuestHubProps> = ({ quests: any, character, onSelectQuest, onGenerateQuest }) => {
   return (
     <div>
       <h2>Quest Hub</h2>
@@ -120,7 +120,7 @@ const QuestHub: React.FC<QuestHubProps> = ({ quests, character, onSelectQuest, o
         {quests.map(quest => (
           <div key={quest.id}>
             <h3>{quest.title}</h3>
-            <button onClick={() => onSelectQuest(quest)}>Start Quest</button>
+            <button onClick={() => onSelectQuest(quest: any)}>Start Quest</button>
           </div>
         ))}
       </div>
@@ -128,7 +128,7 @@ const QuestHub: React.FC<QuestHubProps> = ({ quests, character, onSelectQuest, o
   );
 };
 
-const CharacterDashboard: React.FC<CharacterDashboardProps> = ({ character, completedQuests, onBack }) => {
+const CharacterDashboard: React.FC<CharacterDashboardProps> = ({ character: any, completedQuests, onBack }) => {
   return (
     <div>
       <h2>Character Dashboard: {character?.name || 'Unknown Character'}</h2>

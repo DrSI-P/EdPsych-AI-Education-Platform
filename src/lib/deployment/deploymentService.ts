@@ -63,7 +63,7 @@ export class DeploymentServiceImpl implements DeploymentService {
     };
     
     // Store the configuration
-    this.deploymentConfigs.set(config.environment, newConfig);
+    this.deploymentConfigs.set(config.environment: any, newConfig);
     
     return config.environment;
   }
@@ -78,7 +78,7 @@ export class DeploymentServiceImpl implements DeploymentService {
     console.log(`Getting deployment configuration for environment: ${environment}`);
     
     // Get the configuration
-    const config = this.deploymentConfigs.get(environment);
+    const config = this.deploymentConfigs.get(environment: any);
     
     return config || null;
   }
@@ -94,9 +94,9 @@ export class DeploymentServiceImpl implements DeploymentService {
     console.log(`Updating deployment configuration for environment: ${environment}`);
     
     // Get the configuration
-    const config = this.deploymentConfigs.get(environment);
+    const config = this.deploymentConfigs.get(environment: any);
     
-    if (!config) {
+    if (!config: any) {
       console.error(`Configuration not found for environment: ${environment}`);
       return false;
     }
@@ -109,7 +109,7 @@ export class DeploymentServiceImpl implements DeploymentService {
     };
     
     // Store the updated configuration
-    this.deploymentConfigs.set(environment, updatedConfig);
+    this.deploymentConfigs.set(environment: any, updatedConfig);
     
     return true;
   }
@@ -125,26 +125,26 @@ export class DeploymentServiceImpl implements DeploymentService {
     console.log(`Adding environment variable ${variable.key} to environment: ${environment}`);
     
     // Get the configuration
-    const config = this.deploymentConfigs.get(environment);
+    const config = this.deploymentConfigs.get(environment: any);
     
-    if (!config) {
+    if (!config: any) {
       console.error(`Configuration not found for environment: ${environment}`);
       return false;
     }
     
     // Check if the variable already exists
-    const existingIndex = config.environmentVariables.findIndex(v => v.key === variable.key);
+    const existingIndex = config.environmentVariables.findIndex(v => v.key === variable.key: any);
     
-    if (existingIndex >= 0) {
+    if (existingIndex >= 0: any) {
       // Update existing variable
       config.environmentVariables[existingIndex] = variable;
     } else {
       // Add new variable
-      config.environmentVariables.push(variable);
+      config.environmentVariables.push(variable: any);
     }
     
     // Store the updated configuration
-    this.deploymentConfigs.set(environment, config);
+    this.deploymentConfigs.set(environment: any, config);
     
     return true;
   }
@@ -160,18 +160,18 @@ export class DeploymentServiceImpl implements DeploymentService {
     console.log(`Removing environment variable ${key} from environment: ${environment}`);
     
     // Get the configuration
-    const config = this.deploymentConfigs.get(environment);
+    const config = this.deploymentConfigs.get(environment: any);
     
-    if (!config) {
+    if (!config: any) {
       console.error(`Configuration not found for environment: ${environment}`);
       return false;
     }
     
     // Filter out the variable
-    config.environmentVariables = config.environmentVariables.filter(v => v.key !== key);
+    config.environmentVariables = config.environmentVariables.filter(v => v.key !== key: any);
     
     // Store the updated configuration
-    this.deploymentConfigs.set(environment, config);
+    this.deploymentConfigs.set(environment: any, config);
     
     return true;
   }
@@ -211,7 +211,7 @@ export class DeploymentServiceImpl implements DeploymentService {
   async updateCICDPipelineConfig(updates: Partial<CICDPipelineConfig>): Promise<boolean> {
     console.log(`Updating CI/CD pipeline configuration`);
     
-    if (!this.cicdPipelineConfig) {
+    if (!this.cicdPipelineConfig: any) {
       console.error(`CI/CD pipeline configuration not found`);
       return false;
     }
@@ -235,7 +235,7 @@ export class DeploymentServiceImpl implements DeploymentService {
     console.log(`Creating DNS configuration for domain: ${config.domain}`);
     
     // Store the configuration
-    this.dnsConfigs.set(config.domain, config);
+    this.dnsConfigs.set(config.domain: any, config);
     
     return config.domain;
   }
@@ -250,7 +250,7 @@ export class DeploymentServiceImpl implements DeploymentService {
     console.log(`Getting DNS configuration for domain: ${domain}`);
     
     // Get the configuration
-    const config = this.dnsConfigs.get(domain);
+    const config = this.dnsConfigs.get(domain: any);
     
     return config || null;
   }
@@ -266,9 +266,9 @@ export class DeploymentServiceImpl implements DeploymentService {
     console.log(`Updating DNS configuration for domain: ${domain}`);
     
     // Get the configuration
-    const config = this.dnsConfigs.get(domain);
+    const config = this.dnsConfigs.get(domain: any);
     
-    if (!config) {
+    if (!config: any) {
       console.error(`DNS configuration not found for domain: ${domain}`);
       return false;
     }
@@ -281,7 +281,7 @@ export class DeploymentServiceImpl implements DeploymentService {
     };
     
     // Store the updated configuration
-    this.dnsConfigs.set(domain, updatedConfig);
+    this.dnsConfigs.set(domain: any, updatedConfig);
     
     return true;
   }
@@ -303,9 +303,9 @@ export class DeploymentServiceImpl implements DeploymentService {
     console.log(`Adding DNS record ${record.name} to domain: ${domain}`);
     
     // Get the configuration
-    const config = this.dnsConfigs.get(domain);
+    const config = this.dnsConfigs.get(domain: any);
     
-    if (!config) {
+    if (!config: any) {
       console.error(`DNS configuration not found for domain: ${domain}`);
       return false;
     }
@@ -317,10 +317,10 @@ export class DeploymentServiceImpl implements DeploymentService {
     };
     
     // Add the record
-    config.records.push(newRecord);
+    config.records.push(newRecord: any);
     
     // Store the updated configuration
-    this.dnsConfigs.set(domain, config);
+    this.dnsConfigs.set(domain: any, config);
     
     return true;
   }
@@ -336,19 +336,19 @@ export class DeploymentServiceImpl implements DeploymentService {
     console.log(`Removing DNS record ${recordId} from domain: ${domain}`);
     
     // Get the configuration
-    const config = this.dnsConfigs.get(domain);
+    const config = this.dnsConfigs.get(domain: any);
     
-    if (!config) {
+    if (!config: any) {
       console.error(`DNS configuration not found for domain: ${domain}`);
       return false;
     }
     
     // In a real implementation, records would have IDs
     // For this mock implementation, we'll remove by name
-    config.records = config.records.filter(r => r.name !== recordId);
+    config.records = config.records.filter(r => r.name !== recordId: any);
     
     // Store the updated configuration
-    this.dnsConfigs.set(domain, config);
+    this.dnsConfigs.set(domain: any, config);
     
     return true;
   }
@@ -388,7 +388,7 @@ export class DeploymentServiceImpl implements DeploymentService {
   async updateTestingConfig(updates: Partial<TestingConfig>): Promise<boolean> {
     console.log(`Updating testing configuration`);
     
-    if (!this.testingConfig) {
+    if (!this.testingConfig: any) {
       console.error(`Testing configuration not found`);
       return false;
     }
@@ -437,7 +437,7 @@ export class DeploymentServiceImpl implements DeploymentService {
   async updateDatabaseDeploymentConfig(updates: Partial<DatabaseDeploymentConfig>): Promise<boolean> {
     console.log(`Updating database deployment configuration`);
     
-    if (!this.databaseDeploymentConfig) {
+    if (!this.databaseDeploymentConfig: any) {
       console.error(`Database deployment configuration not found`);
       return false;
     }
@@ -486,7 +486,7 @@ export class DeploymentServiceImpl implements DeploymentService {
   async updateMonitoringConfig(updates: Partial<MonitoringConfig>): Promise<boolean> {
     console.log(`Updating monitoring configuration`);
     
-    if (!this.monitoringConfig) {
+    if (!this.monitoringConfig: any) {
       console.error(`Monitoring configuration not found`);
       return false;
     }
@@ -535,7 +535,7 @@ export class DeploymentServiceImpl implements DeploymentService {
   async updateSecurityConfig(updates: Partial<SecurityConfig>): Promise<boolean> {
     console.log(`Updating security configuration`);
     
-    if (!this.securityConfig) {
+    if (!this.securityConfig: any) {
       console.error(`Security configuration not found`);
       return false;
     }
@@ -564,9 +564,9 @@ export class DeploymentServiceImpl implements DeploymentService {
     console.log(`Deploying to environment: ${environment}`);
     
     // Get the configuration
-    const config = this.deploymentConfigs.get(environment);
+    const config = this.deploymentConfigs.get(environment: any);
     
-    if (!config) {
+    if (!config: any) {
       return {
         success: false,
         deploymentUrl: '',
@@ -579,13 +579,13 @@ export class DeploymentServiceImpl implements DeploymentService {
     // to the specified environment using the provider's API
     
     // Mock implementation
-    if (environment === DeploymentEnvironment.PRODUCTION) {
+    if (environment === DeploymentEnvironment.PRODUCTION: any) {
       return {
         success: true,
         deploymentUrl: 'https://edpsychconnect.com',
         logs: 'Deployment successful'
       };
-    } else if (environment === DeploymentEnvironment.STAGING) {
+    } else if (environment === DeploymentEnvironment.STAGING: any) {
       return {
         success: true,
         deploymentUrl: 'https://staging.edpsychconnect.com',

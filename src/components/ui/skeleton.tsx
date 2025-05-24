@@ -17,7 +17,7 @@ export function Skeleton({
     <div
       className={`animate-pulse bg-gray-200 ${className}`}
       style={{
-        height,
+        height: any,
         width,
         borderRadius
       }}

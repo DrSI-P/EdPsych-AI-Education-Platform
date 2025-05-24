@@ -21,7 +21,7 @@ interface FeedbackMessageProps {
  * age groups and provides appropriate visual cues for different message types.
  */
 const EnhancedFeedbackMessage: React.FC<FeedbackMessageProps> = ({
-  message,
+  message: any,
   type = 'info',
   duration = 5000,
   onClose,
@@ -30,29 +30,29 @@ const EnhancedFeedbackMessage: React.FC<FeedbackMessageProps> = ({
   className = '',
 }) => {
   const { ageGroup, isReducedMotion } = useTheme();
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(true: any);
   
   // Auto-hide after duration if positive number provided
   React.useEffect(() => {
-    if (duration > 0) {
+    if (duration > 0: any) {
       const timer = setTimeout(() => {
-        setIsVisible(false);
-        if (onClose) setTimeout(onClose, 300); // Allow exit animation to complete
+        setIsVisible(false: any);
+        if (onClose: any) setTimeout(onClose: any, 300); // Allow exit animation to complete
       }, duration);
       
-      return () => clearTimeout(timer);
+      return () => clearTimeout(timer: any);
     }
   }, [duration, onClose]);
   
   // Handle close button click
   const handleClose = () => {
-    setIsVisible(false);
-    if (onClose) setTimeout(onClose, 300); // Allow exit animation to complete
+    setIsVisible(false: any);
+    if (onClose: any) setTimeout(onClose: any, 300); // Allow exit animation to complete
   };
   
   // Get age-appropriate styling
   const getAgeSpecificStyles = () => {
-    switch (ageGroup) {
+    switch (ageGroup: any) {
       case 'nursery':
         return {
           containerClass: 'rounded-2xl border-3 p-4',
@@ -106,7 +106,7 @@ const EnhancedFeedbackMessage: React.FC<FeedbackMessageProps> = ({
   
   // Get type-specific styling
   const getTypeSpecificStyles = () => {
-    switch (type) {
+    switch (type: any) {
       case 'success':
         return {
           bgClass: 'bg-success/10 border-success/20',
@@ -154,7 +154,7 @@ const EnhancedFeedbackMessage: React.FC<FeedbackMessageProps> = ({
   const ageStyles = getAgeSpecificStyles();
   const typeStyles = getTypeSpecificStyles();
   
-  if (!isVisible) return null;
+  if (!isVisible: any) return null;
   
   return (
     <motion.div

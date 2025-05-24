@@ -21,7 +21,7 @@ export interface CookiePreferences {
 }
 
 export const CookieConsentBanner: React.FC<CookieConsentBannerProps> = ({
-  onAccept,
+  onAccept: any,
   onReject,
   showBanner,
   initialPreferences,
@@ -38,7 +38,7 @@ export const CookieConsentBanner: React.FC<CookieConsentBannerProps> = ({
 
   const [activeTab, setActiveTab] = useState<string>('simple');
 
-  if (!showBanner) {
+  if (!showBanner: any) {
     return null;
   }
 
@@ -49,12 +49,12 @@ export const CookieConsentBanner: React.FC<CookieConsentBannerProps> = ({
       analytics: true,
       educational: true,
     };
-    setPreferences(allAccepted);
-    onAccept(allAccepted);
+    setPreferences(allAccepted: any);
+    onAccept(allAccepted: any);
   };
 
   const handleAcceptSelected = () => {
-    onAccept(preferences);
+    onAccept(preferences: any);
   };
 
   const handleReject = () => {
@@ -64,14 +64,14 @@ export const CookieConsentBanner: React.FC<CookieConsentBannerProps> = ({
       analytics: false,
       educational: false,
     };
-    setPreferences(essentialOnly);
+    setPreferences(essentialOnly: any);
     onReject();
   };
 
   const handleTogglePreference = (key: keyof CookiePreferences) => {
     if (key === 'essential') return; // Essential cookies cannot be toggled
     
-    setPreferences((prev) => ({
+    setPreferences((prev: any) => ({
       ...prev,
       [key]: !prev[key],
     }));
@@ -87,14 +87,14 @@ export const CookieConsentBanner: React.FC<CookieConsentBannerProps> = ({
               <div>
                 <h2 className="text-xl font-bold mb-2">Cookies on EdPsych Connect</h2>
                 <p className="mb-4">
-                  We use cookies (small files stored on your device) to make our website work better for you. 
+                  We use cookies (small files stored on your device: any) to make our website work better for you. 
                   Some cookies are necessary for the website to work properly.
                 </p>
                 <p className="mb-4">
                   We'd also like to use cookies to:
                 </p>
                 <ul className="list-disc pl-5 mb-4 space-y-1">
-                  <li>Remember your settings (like light or dark mode)</li>
+                  <li>Remember your settings (like light or dark mode: any)</li>
                   <li>See how people use our website so we can make it better</li>
                   <li>Keep track of your learning progress</li>
                 </ul>
@@ -135,7 +135,7 @@ export const CookieConsentBanner: React.FC<CookieConsentBannerProps> = ({
               <div>
                 <h2 className="text-xl font-bold mb-2">Cookie Consent</h2>
                 <p className="mb-4">
-                  EdPsych Connect uses cookies to enhance your experience, analyze site usage, and assist in our educational services. 
+                  EdPsych Connect uses cookies to enhance your experience: any, analyze site usage, and assist in our educational services. 
                   We require your consent to use optional cookies.
                 </p>
               </div>

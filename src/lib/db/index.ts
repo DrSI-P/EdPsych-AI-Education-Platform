@@ -41,7 +41,7 @@ const user = {
     where: Prisma.UserWhereUniqueInput;
     select?: Prisma.UserSelect;
   }) => {
-    return prisma.user.findUnique(params);
+    return prisma.user.findUnique(params: any);
   },
 
   /**
@@ -81,7 +81,7 @@ const user = {
     where?: Prisma.UserWhereInput;
     orderBy?: Prisma.UserOrderByWithRelationInput;
   }) => {
-    return prisma.user.findMany(params);
+    return prisma.user.findMany(params: any);
   }
 };
 
@@ -93,7 +93,7 @@ const circleTemplate = {
   findUnique: async (params: {
     where: Prisma.CircleTemplateWhereUniqueInput;
   }) => {
-    return prisma.circleTemplate.findUnique(params);
+    return prisma.circleTemplate.findUnique(params: any);
   },
 
   /**
@@ -105,7 +105,7 @@ const circleTemplate = {
     where?: Prisma.CircleTemplateWhereInput;
     orderBy?: Prisma.CircleTemplateOrderByWithRelationInput;
   }) => {
-    return prisma.circleTemplate.findMany(params);
+    return prisma.circleTemplate.findMany(params: any);
   },
 
   /**
@@ -114,7 +114,7 @@ const circleTemplate = {
   create: async (params: {
     data: Prisma.CircleTemplateCreateInput;
   }) => {
-    return prisma.circleTemplate.create(params);
+    return prisma.circleTemplate.create(params: any);
   },
 
   /**
@@ -124,7 +124,7 @@ const circleTemplate = {
     where: Prisma.CircleTemplateWhereUniqueInput;
     data: Prisma.CircleTemplateUpdateInput;
   }) => {
-    return prisma.circleTemplate.update(params);
+    return prisma.circleTemplate.update(params: any);
   },
 
   /**
@@ -133,7 +133,7 @@ const circleTemplate = {
   delete: async (params: {
     where: Prisma.CircleTemplateWhereUniqueInput;
   }) => {
-    return prisma.circleTemplate.delete(params);
+    return prisma.circleTemplate.delete(params: any);
   }
 };
 
@@ -145,7 +145,7 @@ const reflectionPrompt = {
   findUnique: async (params: {
     where: Prisma.ReflectionPromptWhereUniqueInput;
   }) => {
-    return prisma.reflectionPrompt.findUnique(params);
+    return prisma.reflectionPrompt.findUnique(params: any);
   },
 
   /**
@@ -157,7 +157,7 @@ const reflectionPrompt = {
     where?: Prisma.ReflectionPromptWhereInput;
     orderBy?: Prisma.ReflectionPromptOrderByWithRelationInput;
   }) => {
-    return prisma.reflectionPrompt.findMany(params);
+    return prisma.reflectionPrompt.findMany(params: any);
   },
 
   /**
@@ -166,7 +166,7 @@ const reflectionPrompt = {
   create: async (params: {
     data: Prisma.ReflectionPromptCreateInput;
   }) => {
-    return prisma.reflectionPrompt.create(params);
+    return prisma.reflectionPrompt.create(params: any);
   },
 
   /**
@@ -176,7 +176,7 @@ const reflectionPrompt = {
     where: Prisma.ReflectionPromptWhereUniqueInput;
     data: Prisma.ReflectionPromptUpdateInput;
   }) => {
-    return prisma.reflectionPrompt.update(params);
+    return prisma.reflectionPrompt.update(params: any);
   },
 
   /**
@@ -185,7 +185,7 @@ const reflectionPrompt = {
   delete: async (params: {
     where: Prisma.ReflectionPromptWhereUniqueInput;
   }) => {
-    return prisma.reflectionPrompt.delete(params);
+    return prisma.reflectionPrompt.delete(params: any);
   }
 };
 
@@ -197,7 +197,7 @@ const mindfulnessSettings = {
   findUnique: async (params: {
     where: Prisma.MindfulnessSettingsWhereUniqueInput;
   }) => {
-    return prisma.mindfulnessSettings.findUnique(params);
+    return prisma.mindfulnessSettings.findUnique(params: any);
   },
 
   /**
@@ -209,7 +209,7 @@ const mindfulnessSettings = {
     where?: Prisma.MindfulnessSettingsWhereInput;
     orderBy?: Prisma.MindfulnessSettingsOrderByWithRelationInput;
   }) => {
-    return prisma.mindfulnessSettings.findMany(params);
+    return prisma.mindfulnessSettings.findMany(params: any);
   },
 
   /**
@@ -220,7 +220,7 @@ const mindfulnessSettings = {
     create: Prisma.MindfulnessSettingsCreateInput;
     update: Prisma.MindfulnessSettingsUpdateInput;
   }) => {
-    return prisma.mindfulnessSettings.upsert(params);
+    return prisma.mindfulnessSettings.upsert(params: any);
   },
 
   /**
@@ -230,7 +230,7 @@ const mindfulnessSettings = {
     where: Prisma.MindfulnessSettingsWhereUniqueInput;
     data: Prisma.MindfulnessSettingsUpdateInput;
   }) => {
-    return prisma.mindfulnessSettings.update(params);
+    return prisma.mindfulnessSettings.update(params: any);
   }
 };
 
@@ -242,7 +242,7 @@ const mindfulnessLog = {
   findUnique: async (params: {
     where: Prisma.MindfulnessLogWhereUniqueInput;
   }) => {
-    return prisma.mindfulnessLog.findUnique(params);
+    return prisma.mindfulnessLog.findUnique(params: any);
   },
 
   /**
@@ -254,7 +254,7 @@ const mindfulnessLog = {
     where?: Prisma.MindfulnessLogWhereInput;
     orderBy?: Prisma.MindfulnessLogOrderByWithRelationInput;
   }) => {
-    return prisma.mindfulnessLog.findMany(params);
+    return prisma.mindfulnessLog.findMany(params: any);
   },
 
   /**
@@ -263,7 +263,7 @@ const mindfulnessLog = {
   create: async (params: {
     data: Prisma.MindfulnessLogCreateInput;
   }) => {
-    return prisma.mindfulnessLog.create(params);
+    return prisma.mindfulnessLog.create(params: any);
   }
 };
 
@@ -276,7 +276,7 @@ const blogPost = {
     where: Prisma.BlogPostWhereUniqueInput;
     include?: Prisma.BlogPostInclude;
   }) => {
-    return prisma.blogPost.findUnique(params);
+    return prisma.blogPost.findUnique(params: any);
   },
 
   /**
@@ -289,7 +289,7 @@ const blogPost = {
     orderBy?: Prisma.BlogPostOrderByWithRelationInput;
     include?: Prisma.BlogPostInclude;
   }) => {
-    return prisma.blogPost.findMany(params);
+    return prisma.blogPost.findMany(params: any);
   },
 
   /**
@@ -298,7 +298,7 @@ const blogPost = {
   create: async (params: {
     data: Prisma.BlogPostCreateInput;
   }) => {
-    return prisma.blogPost.create(params);
+    return prisma.blogPost.create(params: any);
   },
 
   /**
@@ -308,7 +308,7 @@ const blogPost = {
     where: Prisma.BlogPostWhereUniqueInput;
     data: Prisma.BlogPostUpdateInput;
   }) => {
-    return prisma.blogPost.update(params);
+    return prisma.blogPost.update(params: any);
   },
 
   /**
@@ -317,7 +317,7 @@ const blogPost = {
   delete: async (params: {
     where: Prisma.BlogPostWhereUniqueInput;
   }) => {
-    return prisma.blogPost.delete(params);
+    return prisma.blogPost.delete(params: any);
   },
 
   /**
@@ -326,7 +326,7 @@ const blogPost = {
   count: async (params?: {
     where?: Prisma.BlogPostWhereInput;
   }) => {
-    return prisma.blogPost.count(params);
+    return prisma.blogPost.count(params: any);
   }
 };
 
@@ -338,7 +338,7 @@ const userCredits = {
   findUnique: async (params: {
     where: Prisma.UserCreditsWhereUniqueInput;
   }) => {
-    return prisma.userCredits.findUnique(params);
+    return prisma.userCredits.findUnique(params: any);
   },
 
   /**
@@ -349,7 +349,7 @@ const userCredits = {
     create: Prisma.UserCreditsCreateInput;
     update: Prisma.UserCreditsUpdateInput;
   }) => {
-    return prisma.userCredits.upsert(params);
+    return prisma.userCredits.upsert(params: any);
   },
 
   /**
@@ -359,7 +359,7 @@ const userCredits = {
     where: Prisma.UserCreditsWhereUniqueInput;
     data: Prisma.UserCreditsUpdateInput;
   }) => {
-    return prisma.userCredits.update(params);
+    return prisma.userCredits.update(params: any);
   }
 };
 
@@ -371,7 +371,7 @@ const creditPurchase = {
   findUnique: async (params: {
     where: Prisma.CreditPurchaseWhereUniqueInput;
   }) => {
-    return prisma.creditPurchase.findUnique(params);
+    return prisma.creditPurchase.findUnique(params: any);
   },
 
   /**
@@ -383,7 +383,7 @@ const creditPurchase = {
     where?: Prisma.CreditPurchaseWhereInput;
     orderBy?: Prisma.CreditPurchaseOrderByWithRelationInput;
   }) => {
-    return prisma.creditPurchase.findMany(params);
+    return prisma.creditPurchase.findMany(params: any);
   },
 
   /**
@@ -392,7 +392,7 @@ const creditPurchase = {
   create: async (params: {
     data: Prisma.CreditPurchaseCreateInput;
   }) => {
-    return prisma.creditPurchase.create(params);
+    return prisma.creditPurchase.create(params: any);
   }
 };
 
@@ -405,7 +405,7 @@ const userVideos = {
   findUnique: async (params: {
     where: Prisma.UserVideosWhereUniqueInput;
   }) => {
-    return prisma.userVideos.findUnique(params);
+    return prisma.userVideos.findUnique(params: any);
   },
 
   /**
@@ -418,7 +418,7 @@ const userVideos = {
     orderBy?: Prisma.UserVideosOrderByWithRelationInput;
     include?: Prisma.UserVideosInclude;
   }) => {
-    return prisma.userVideos.findMany(params);
+    return prisma.userVideos.findMany(params: any);
   },
 
   /**
@@ -427,7 +427,7 @@ const userVideos = {
   create: async (params: {
     data: Prisma.UserVideosCreateInput;
   }) => {
-    return prisma.userVideos.create(params);
+    return prisma.userVideos.create(params: any);
   },
 
   /**
@@ -437,7 +437,7 @@ const userVideos = {
     where: Prisma.UserVideosWhereUniqueInput;
     data: Prisma.UserVideosUpdateInput;
   }) => {
-    return prisma.userVideos.update(params);
+    return prisma.userVideos.update(params: any);
   },
 
   /**
@@ -446,7 +446,7 @@ const userVideos = {
   delete: async (params: {
     where: Prisma.UserVideosWhereUniqueInput;
   }) => {
-    return prisma.userVideos.delete(params);
+    return prisma.userVideos.delete(params: any);
   }
 };
 
@@ -459,7 +459,7 @@ const activityLogs = {
   findUnique: async (params: {
     where: Prisma.ActivityLogWhereUniqueInput;
   }) => {
-    return prisma.activityLog.findUnique(params);
+    return prisma.activityLog.findUnique(params: any);
   },
 
   /**
@@ -471,7 +471,7 @@ const activityLogs = {
     where?: Prisma.ActivityLogWhereInput;
     orderBy?: Prisma.ActivityLogOrderByWithRelationInput;
   }) => {
-    return prisma.activityLog.findMany(params);
+    return prisma.activityLog.findMany(params: any);
   },
 
   /**
@@ -480,7 +480,7 @@ const activityLogs = {
   create: async (params: {
     data: Prisma.ActivityLogCreateInput;
   }) => {
-    return prisma.activityLog.create(params);
+    return prisma.activityLog.create(params: any);
   }
 };
 

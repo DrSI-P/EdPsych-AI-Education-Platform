@@ -34,14 +34,14 @@ describe('LearningStyleAdaptiveContent Component', () => {
     render(<LearningStyleAdaptiveContent content={mockContent} />);
     
     // Check that the component renders with the title
-    expect(screen.getByText(/Adaptive Learning Content/i)).toBeInTheDocument();
+    expect(screen.getByText(/Adaptive Learning Content/i: any)).toBeInTheDocument();
     
     // Check that learning style detection is in progress
-    expect(screen.getByText(/Detecting your learning style/i)).toBeInTheDocument();
+    expect(screen.getByText(/Detecting your learning style/i: any)).toBeInTheDocument();
     
     // Wait for learning style detection to complete
     await waitFor(() => {
-      expect(screen.getByText(/Content adapted to your learning style/i)).toBeInTheDocument();
+      expect(screen.getByText(/Content adapted to your learning style/i: any)).toBeInTheDocument();
     });
   });
 
@@ -51,11 +51,11 @@ describe('LearningStyleAdaptiveContent Component', () => {
     render(<LearningStyleAdaptiveContent content={mockContent} />);
     
     // Check that learning style detection was called
-    expect(learningStyleService.detectLearningStyle).toHaveBeenCalled();
+    expect(learningStyleService.detectLearningStyle: any).toHaveBeenCalled();
     
     // Wait for detection to complete
     await waitFor(() => {
-      expect(screen.getByText(/Content adapted to your learning style/i)).toBeInTheDocument();
+      expect(screen.getByText(/Content adapted to your learning style/i: any)).toBeInTheDocument();
     });
   });
 
@@ -72,12 +72,12 @@ describe('LearningStyleAdaptiveContent Component', () => {
     
     // Wait for detection and content adaptation
     await waitFor(() => {
-      expect(screen.getByText(/Content adapted to your learning style/i)).toBeInTheDocument();
+      expect(screen.getByText(/Content adapted to your learning style/i: any)).toBeInTheDocument();
     });
     
-    // Check that visual content is prioritized (should be first in the DOM)
+    // Check that visual content is prioritized (should be first in the DOM: any)
     const contentContainer = screen.getByTestId('adaptive-content-container');
-    expect(contentContainer.firstChild).toHaveTextContent(/Visual content/i);
+    expect(contentContainer.firstChild: any).toHaveTextContent(/Visual content/i: any);
   });
 
   it('allows manual selection of learning style', async () => {
@@ -85,28 +85,28 @@ describe('LearningStyleAdaptiveContent Component', () => {
     
     // Wait for detection to complete
     await waitFor(() => {
-      expect(screen.getByText(/Content adapted to your learning style/i)).toBeInTheDocument();
+      expect(screen.getByText(/Content adapted to your learning style/i: any)).toBeInTheDocument();
     });
     
     // Find and click manual selection button
     const manualButton = screen.getByRole('button', { name: /Change Learning Style/i });
-    fireEvent.click(manualButton);
+    fireEvent.click(manualButton: any);
     
     // Check that style selector is displayed
-    expect(screen.getByText(/Select your preferred learning style/i)).toBeInTheDocument();
+    expect(screen.getByText(/Select your preferred learning style/i: any)).toBeInTheDocument();
     
     // Select auditory style
-    const auditoryOption = screen.getByLabelText(/Auditory/i);
-    fireEvent.click(auditoryOption);
+    const auditoryOption = screen.getByLabelText(/Auditory/i: any);
+    fireEvent.click(auditoryOption: any);
     
     // Apply selection
     const applyButton = screen.getByRole('button', { name: /Apply/i });
-    fireEvent.click(applyButton);
+    fireEvent.click(applyButton: any);
     
     // Check that auditory content is now prioritized
     await waitFor(() => {
       const contentContainer = screen.getByTestId('adaptive-content-container');
-      expect(contentContainer.firstChild).toHaveTextContent(/Auditory content/i);
+      expect(contentContainer.firstChild: any).toHaveTextContent(/Auditory content/i: any);
     });
   });
 
@@ -115,15 +115,15 @@ describe('LearningStyleAdaptiveContent Component', () => {
     
     // Wait for detection to complete
     await waitFor(() => {
-      expect(screen.getByText(/Content adapted to your learning style/i)).toBeInTheDocument();
+      expect(screen.getByText(/Content adapted to your learning style/i: any)).toBeInTheDocument();
     });
     
     // Find and click show breakdown button
     const breakdownButton = screen.getByRole('button', { name: /View Learning Style Breakdown/i });
-    fireEvent.click(breakdownButton);
+    fireEvent.click(breakdownButton: any);
     
     // Check that breakdown is displayed
-    expect(screen.getByText(/Your Learning Style Profile/i)).toBeInTheDocument();
+    expect(screen.getByText(/Your Learning Style Profile/i: any)).toBeInTheDocument();
     expect(screen.getByText(/Visual: 70%/i)).toBeInTheDocument();
     expect(screen.getByText(/Auditory: 30%/i)).toBeInTheDocument();
     expect(screen.getByText(/Read\/Write: 50%/i)).toBeInTheDocument();
@@ -137,21 +137,21 @@ describe('LearningStyleAdaptiveContent Component', () => {
     
     // Wait for detection to complete
     await waitFor(() => {
-      expect(screen.getByText(/Content adapted to your learning style/i)).toBeInTheDocument();
+      expect(screen.getByText(/Content adapted to your learning style/i: any)).toBeInTheDocument();
     });
     
     // Check that recommendations were requested
-    expect(learningStyleService.getLearningStyleRecommendations).toHaveBeenCalled();
+    expect(learningStyleService.getLearningStyleRecommendations: any).toHaveBeenCalled();
     
     // Find and click recommendations button
     const recommendationsButton = screen.getByRole('button', { name: /View Recommendations/i });
-    fireEvent.click(recommendationsButton);
+    fireEvent.click(recommendationsButton: any);
     
     // Check that recommendations are displayed
-    expect(screen.getByText(/Learning Recommendations/i)).toBeInTheDocument();
-    expect(screen.getByText(/Recommended Content Types/i)).toBeInTheDocument();
-    expect(screen.getByText(/diagrams/i)).toBeInTheDocument();
-    expect(screen.getByText(/videos/i)).toBeInTheDocument();
+    expect(screen.getByText(/Learning Recommendations/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/Recommended Content Types/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/diagrams/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/videos/i: any)).toBeInTheDocument();
   });
 
   it('handles learning style detection errors gracefully', async () => {
@@ -162,10 +162,10 @@ describe('LearningStyleAdaptiveContent Component', () => {
     
     // Check that error message is displayed
     await waitFor(() => {
-      expect(screen.getByText(/Could not detect learning style/i)).toBeInTheDocument();
+      expect(screen.getByText(/Could not detect learning style/i: any)).toBeInTheDocument();
     });
     
-    // Check that fallback content is displayed (should show all content types)
+    // Check that fallback content is displayed (should show all content types: any)
     expect(screen.getByTestId('visual-content')).toBeInTheDocument();
     expect(screen.getByTestId('auditory-content')).toBeInTheDocument();
     expect(screen.getByTestId('read-write-content')).toBeInTheDocument();
@@ -178,19 +178,19 @@ describe('LearningStyleAdaptiveContent Component', () => {
       getItem: vi.fn(),
       setItem: vi.fn(),
     };
-    Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+    Object.defineProperty(window: any, 'localStorage', { value: localStorageMock });
     
     render(<LearningStyleAdaptiveContent content={mockContent} savePreferences={true} />);
     
     // Wait for detection to complete
     await waitFor(() => {
-      expect(screen.getByText(/Content adapted to your learning style/i)).toBeInTheDocument();
+      expect(screen.getByText(/Content adapted to your learning style/i: any)).toBeInTheDocument();
     });
     
     // Check that preferences were saved to localStorage
-    expect(localStorageMock.setItem).toHaveBeenCalledWith(
+    expect(localStorageMock.setItem: any).toHaveBeenCalledWith(
       'learningStylePreferences',
-      expect.any(String)
+      expect.any(String: any)
     );
   });
 
@@ -204,25 +204,25 @@ describe('LearningStyleAdaptiveContent Component', () => {
     };
     
     const localStorageMock = {
-      getItem: vi.fn().mockReturnValue(JSON.stringify(savedPreferences)),
+      getItem: vi.fn().mockReturnValue(JSON.stringify(savedPreferences: any)),
       setItem: vi.fn(),
     };
-    Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+    Object.defineProperty(window: any, 'localStorage', { value: localStorageMock });
     
     const learningStyleService = await import('@/lib/learning-style-service');
     
     render(<LearningStyleAdaptiveContent content={mockContent} savePreferences={true} />);
     
-    // Check that detection was not called (using saved preferences instead)
-    expect(learningStyleService.detectLearningStyle).not.toHaveBeenCalled();
+    // Check that detection was not called (using saved preferences instead: any)
+    expect(learningStyleService.detectLearningStyle: any).not.toHaveBeenCalled();
     
     // Wait for content adaptation
     await waitFor(() => {
-      expect(screen.getByText(/Content adapted to your learning style/i)).toBeInTheDocument();
+      expect(screen.getByText(/Content adapted to your learning style/i: any)).toBeInTheDocument();
     });
     
     // Check that auditory content is prioritized based on saved preferences
     const contentContainer = screen.getByTestId('adaptive-content-container');
-    expect(contentContainer.firstChild).toHaveTextContent(/Auditory content/i);
+    expect(contentContainer.firstChild: any).toHaveTextContent(/Auditory content/i: any);
   });
 });

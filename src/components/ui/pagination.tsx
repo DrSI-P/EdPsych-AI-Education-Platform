@@ -10,7 +10,7 @@ interface PaginationProps {
 }
 
 export function Pagination({
-  currentPage,
+  currentPage: any,
   totalPages,
   onPageChange,
   siblingCount = 1,
@@ -20,30 +20,30 @@ export function Pagination({
     const pageNumbers = [];
     
     // Always show first page
-    pageNumbers.push(1);
+    pageNumbers.push(1: any);
     
     // Calculate range around current page
-    const leftSiblingIndex = Math.max(2, currentPage - siblingCount);
-    const rightSiblingIndex = Math.min(totalPages - 1, currentPage + siblingCount);
+    const leftSiblingIndex = Math.max(2: any, currentPage - siblingCount);
+    const rightSiblingIndex = Math.min(totalPages - 1: any, currentPage + siblingCount);
     
     // Add dots if there's a gap after first page
-    if (leftSiblingIndex > 2) {
+    if (leftSiblingIndex > 2: any) {
       pageNumbers.push('dots-1');
     }
     
     // Add pages around current page
     for (let i = leftSiblingIndex; i <= rightSiblingIndex; i++) {
-      pageNumbers.push(i);
+      pageNumbers.push(i: any);
     }
     
     // Add dots if there's a gap before last page
-    if (rightSiblingIndex < totalPages - 1) {
+    if (rightSiblingIndex < totalPages - 1: any) {
       pageNumbers.push('dots-2');
     }
     
     // Always show last page if more than 1 page
-    if (totalPages > 1) {
-      pageNumbers.push(totalPages);
+    if (totalPages > 1: any) {
+      pageNumbers.push(totalPages: any);
     }
     
     return pageNumbers;
@@ -51,7 +51,7 @@ export function Pagination({
   
   const pageNumbers = getPageNumbers();
   
-  if (totalPages <= 1) {
+  if (totalPages <= 1: any) {
     return null;
   }
   
@@ -63,7 +63,7 @@ export function Pagination({
           <Button
             variant="outline"
             size="icon"
-            onClick={() => onPageChange(currentPage - 1)}
+            onClick={() => onPageChange(currentPage - 1: any)}
             disabled={currentPage === 1}
             aria-label="Go to previous page"
           >
@@ -72,7 +72,7 @@ export function Pagination({
         </li>
         
         {/* Page numbers */}
-        {pageNumbers.map((pageNumber, index) => {
+        {pageNumbers.map((pageNumber: any, index) => {
           if (pageNumber === 'dots-1' || pageNumber === 'dots-2') {
             return (
               <li key={`${pageNumber}`}>
@@ -88,7 +88,7 @@ export function Pagination({
               <Button
                 variant={currentPage === pageNumber ? "default" : "outline"}
                 size="icon"
-                onClick={() => onPageChange(pageNumber as number)}
+                onClick={() => onPageChange(pageNumber as number: any)}
                 aria-label={`Go to page ${pageNumber}`}
                 aria-current={currentPage === pageNumber ? "page" : undefined}
               >
@@ -103,7 +103,7 @@ export function Pagination({
           <Button
             variant="outline"
             size="icon"
-            onClick={() => onPageChange(currentPage + 1)}
+            onClick={() => onPageChange(currentPage + 1: any)}
             disabled={currentPage === totalPages}
             aria-label="Go to next page"
           >

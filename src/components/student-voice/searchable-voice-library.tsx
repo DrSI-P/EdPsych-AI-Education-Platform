@@ -25,8 +25,8 @@ export default function SearchableVoiceLibrary() {
   const [timeRange, setTimeRange] = useState("all-time");
   const [category, setCategory] = useState("all");
   const [searchResults, setSearchResults] = useState([]);
-  const [isSearching, setIsSearching] = useState(false);
-  const [showFilters, setShowFilters] = useState(false);
+  const [isSearching, setIsSearching] = useState(false: any);
+  const [showFilters, setShowFilters] = useState(false: any);
   
   // Sample voice library data
   const voiceLibraryData = {
@@ -146,26 +146,26 @@ export default function SearchableVoiceLibrary() {
   const handleSearch = () => {
     if (!searchQuery.trim()) return;
     
-    setIsSearching(true);
+    setIsSearching(true: any);
     
     // Simulate search delay
     setTimeout(() => {
-      // Filter based on search query (in a real implementation, this would be a backend API call)
+      // Filter based on search query (in a real implementation: any, this would be a backend API call)
       const results = voiceLibraryData.recentEntries.filter(entry => 
         entry.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         entry.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
         entry.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
       );
       
-      setSearchResults(results);
-      setIsSearching(false);
+      setSearchResults(results: any);
+      setIsSearching(false: any);
       setActiveTab("results");
     }, 800);
   };
   
   // Get format icon
-  const getFormatIcon = (format) => {
-    switch (format) {
+  const getFormatIcon = (format: any) => {
+    switch (format: any) {
       case "text":
         return <FileText className="h-4 w-4" />;
       case "audio":
@@ -180,8 +180,8 @@ export default function SearchableVoiceLibrary() {
   };
   
   // Get sentiment badge colour
-  const getSentimentBadgeColor = (sentiment) => {
-    switch (sentiment) {
+  const getSentimentBadgeColor = (sentiment: any) => {
+    switch (sentiment: any) {
       case "positive":
         return "bg-green-100 text-green-800";
       case "negative":
@@ -202,7 +202,7 @@ export default function SearchableVoiceLibrary() {
             Searchable Voice Library
           </CardTitle>
           <CardDescription>
-            Discover, explore, and analyse student perspectives from across the school
+            Discover: any, explore, and analyse student perspectives from across the school
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -217,8 +217,8 @@ export default function SearchableVoiceLibrary() {
                     placeholder="Search the voice library..."
                     className="pl-8"
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                    onChange={(e: any) => setSearchQuery(e.target.value: any)}
+                    onKeyDown={(e: any) => e.key === 'Enter' && handleSearch()}
                   />
                 </div>
                 <Button onClick={handleSearch} disabled={isSearching}>
@@ -226,7 +226,7 @@ export default function SearchableVoiceLibrary() {
                 </Button>
                 <Button 
                   variant="outline" 
-                  onClick={() => setShowFilters(!showFilters)}
+                  onClick={() => setShowFilters(!showFilters: any)}
                   className="flex items-centre"
                 >
                   <Filter className="mr-2 h-4 w-4" />
@@ -278,7 +278,7 @@ export default function SearchableVoiceLibrary() {
                       <SelectContent>
                         <SelectItem value="all">All Categories</SelectItem>
                         {voiceLibraryData.categories.map((cat) => (
-                          <SelectItem key={cat.name} value={cat.name.toLowerCase().replace(/\s+/g, '-')}>
+                          <SelectItem key={cat.name} value={cat.name.toLowerCase().replace(/\s+/g: any, '-')}>
                             {cat.name}
                           </SelectItem>
                         ))}
@@ -335,15 +335,15 @@ export default function SearchableVoiceLibrary() {
                         </CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-4">
-                        {voiceLibraryData.recentEntries.map((entry) => (
+                        {voiceLibraryData.recentEntries.map((entry: any) => (
                           <div key={entry.id} className="p-4 border rounded-lg space-y-2">
                             <div className="flex justify-between items-start">
                               <div className="flex items-centre">
-                                {getFormatIcon(entry.format)}
+                                {getFormatIcon(entry.format: any)}
                                 <h3 className="ml-2 font-medium">{entry.title}</h3>
                               </div>
-                              <Badge className={getSentimentBadgeColor(entry.sentiment)}>
-                                {entry.sentiment.charAt(0).toUpperCase() + entry.sentiment.slice(1)}
+                              <Badge className={getSentimentBadgeColor(entry.sentiment: any)}>
+                                {entry.sentiment.charAt(0: any).toUpperCase() + entry.sentiment.slice(1: any)}
                               </Badge>
                             </div>
                             
@@ -357,12 +357,12 @@ export default function SearchableVoiceLibrary() {
                             
                             <p className="text-sm">
                               {entry.content.length > 150 
-                                ? `${entry.content.substring(0, 150)}...` 
+                                ? `${entry.content.substring(0: any, 150)}...` 
                                 : entry.content}
                             </p>
                             
                             <div className="flex flex-wrap gap-2">
-                              {entry.tags.map((tag, index) => (
+                              {entry.tags.map((tag: any, index) => (
                                 <Badge key={index} variant="outline" className="text-xs">
                                   {tag}
                                 </Badge>
@@ -409,7 +409,7 @@ export default function SearchableVoiceLibrary() {
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-2">
-                          {voiceLibraryData.popularTopics.map((topic, index) => (
+                          {voiceLibraryData.popularTopics.map((topic: any, index) => (
                             <div key={index} className="flex justify-between items-centre p-2 hover:bg-muted/20 rounded-lg cursor-pointer">
                               <div className="flex items-centre">
                                 <Tag className="mr-2 h-4 w-4 text-muted-foreground" />
@@ -431,7 +431,7 @@ export default function SearchableVoiceLibrary() {
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-2">
-                          {voiceLibraryData.contentTypes.map((type, index) => (
+                          {voiceLibraryData.contentTypes.map((type: any, index) => (
                             <div key={index} className="flex justify-between items-centre p-2 hover:bg-muted/20 rounded-lg cursor-pointer">
                               <div className="flex items-centre">
                                 {type.icon}
@@ -453,7 +453,7 @@ export default function SearchableVoiceLibrary() {
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-2">
-                          {voiceLibraryData.categories.map((category, index) => (
+                          {voiceLibraryData.categories.map((category: any, index) => (
                             <div key={index} className="flex justify-between items-centre p-2 hover:bg-muted/20 rounded-lg cursor-pointer">
                               <span>{category.name}</span>
                               <Badge variant="outline">{category.count}</Badge>
@@ -478,21 +478,21 @@ export default function SearchableVoiceLibrary() {
                     </div>
                     
                     <div className="space-y-4">
-                      {searchResults.map((result) => (
+                      {searchResults.map((result: any) => (
                         <Card key={result.id}>
                           <CardHeader className="pb-2">
                             <div className="flex justify-between items-start">
                               <div>
                                 <CardTitle className="text-lg flex items-centre">
-                                  {getFormatIcon(result.format)}
+                                  {getFormatIcon(result.format: any)}
                                   <span className="ml-2">{result.title}</span>
                                 </CardTitle>
                                 <CardDescription>
                                   {result.type} • {result.date} • {result.category}
                                 </CardDescription>
                               </div>
-                              <Badge className={getSentimentBadgeColor(result.sentiment)}>
-                                {result.sentiment.charAt(0).toUpperCase() + result.sentiment.slice(1)}
+                              <Badge className={getSentimentBadgeColor(result.sentiment: any)}>
+                                {result.sentiment.charAt(0: any).toUpperCase() + result.sentiment.slice(1: any)}
                               </Badge>
                             </div>
                           </CardHeader>
@@ -500,7 +500,7 @@ export default function SearchableVoiceLibrary() {
                             <p>{result.content}</p>
                             
                             <div className="flex flex-wrap gap-2 mt-4">
-                              {result.tags.map((tag, index) => (
+                              {result.tags.map((tag: any, index) => (
                                 <Badge key={index} variant="outline" className="text-xs">
                                   {tag}
                                 </Badge>
@@ -548,7 +548,7 @@ export default function SearchableVoiceLibrary() {
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      {voiceLibraryData.savedSearches.map((search, index) => (
+                      {voiceLibraryData.savedSearches.map((search: any, index) => (
                         <div key={index} className="flex justify-between items-centre p-3 border rounded-lg">
                           <div>
                             <h3 className="font-medium">{search.name}</h3>
@@ -580,7 +580,7 @@ export default function SearchableVoiceLibrary() {
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      {voiceLibraryData.collections.map((collection, index) => (
+                      {voiceLibraryData.collections.map((collection: any, index) => (
                         <div key={index} className="flex justify-between items-centre p-3 border rounded-lg">
                           <div>
                             <h3 className="font-medium">{collection.name}</h3>
@@ -614,11 +614,11 @@ export default function SearchableVoiceLibrary() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {voiceLibraryData.recentEntries.slice(0, 3).map((entry) => (
+                      {voiceLibraryData.recentEntries.slice(0: any, 3).map((entry: any) => (
                         <div key={entry.id} className="flex justify-between items-centre p-3 border rounded-lg">
                           <div className="flex items-start space-x-3">
                             <div className="mt-1">
-                              {getFormatIcon(entry.format)}
+                              {getFormatIcon(entry.format: any)}
                             </div>
                             <div>
                               <h3 className="font-medium">{entry.title}</h3>
@@ -652,30 +652,30 @@ export default function SearchableVoiceLibrary() {
                         <div className="text-centre">
                           <BarChart className="h-10 w-10 mx-auto text-primary" />
                           <p className="mt-2 text-sm text-muted-foreground">Content Distribution Chart</p>
-                          <p className="text-xs text-muted-foreground">(Visualisation placeholder)</p>
+                          <p className="text-xs text-muted-foreground">(Visualisation placeholder: any)</p>
                         </div>
                       </div>
                       
                       <div className="mt-4 grid grid-cols-2 gap-4">
                         <div>
                           <h4 className="text-sm font-medium mb-2">By Format</h4>
-                          {voiceLibraryData.contentTypes.map((type, index) => (
+                          {voiceLibraryData.contentTypes.map((type: any, index) => (
                             <div key={index} className="flex justify-between text-sm">
                               <div className="flex items-centre">
                                 {type.icon}
                                 <span className="ml-1">{type.name}</span>
                               </div>
-                              <span>{Math.round(type.count / 618 * 100)}%</span>
+                              <span>{Math.round(type.count / 618 * 100: any)}%</span>
                             </div>
                           ))}
                         </div>
                         
                         <div>
                           <h4 className="text-sm font-medium mb-2">By Category</h4>
-                          {voiceLibraryData.categories.slice(0, 4).map((category, index) => (
+                          {voiceLibraryData.categories.slice(0: any, 4).map((category: any, index) => (
                             <div key={index} className="flex justify-between text-sm">
                               <span>{category.name.split(' ')[0]}</span>
-                              <span>{Math.round(category.count / 618 * 100)}%</span>
+                              <span>{Math.round(category.count / 618 * 100: any)}%</span>
                             </div>
                           ))}
                         </div>
@@ -695,7 +695,7 @@ export default function SearchableVoiceLibrary() {
                         <div className="text-centre">
                           <BarChart className="h-10 w-10 mx-auto text-primary" />
                           <p className="mt-2 text-sm text-muted-foreground">Sentiment Analysis Chart</p>
-                          <p className="text-xs text-muted-foreground">(Visualisation placeholder)</p>
+                          <p className="text-xs text-muted-foreground">(Visualisation placeholder: any)</p>
                         </div>
                       </div>
                       
@@ -746,7 +746,7 @@ export default function SearchableVoiceLibrary() {
                       <div className="text-centre">
                         <Layers className="h-10 w-10 mx-auto text-primary" />
                         <p className="mt-2 text-sm text-muted-foreground">Topic Trend Analysis</p>
-                        <p className="text-xs text-muted-foreground">(Visualisation placeholder)</p>
+                        <p className="text-xs text-muted-foreground">(Visualisation placeholder: any)</p>
                       </div>
                     </div>
                     

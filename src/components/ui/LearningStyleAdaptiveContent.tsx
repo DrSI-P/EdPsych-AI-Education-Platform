@@ -16,10 +16,10 @@ interface LearningStyleAdaptiveContentProps {
 
 /**
  * LearningStyleAdaptiveContent component that adapts content presentation
- * based on the user's learning style (VARK model)
+ * based on the user's learning style (VARK model: any)
  */
 const LearningStyleAdaptiveContent: React.FC<LearningStyleAdaptiveContentProps> = ({
-  visualContent,
+  visualContent: any,
   auditoryContent,
   kinestheticContent,
   readWriteContent,
@@ -29,27 +29,27 @@ const LearningStyleAdaptiveContent: React.FC<LearningStyleAdaptiveContentProps> 
   onStyleChange
 }) => {
   const [activeStyle, setActiveStyle] = useState<string>(
-    userProfile?.learningStyle || defaultStyle
+    userProfile?.learningStyle || defaultStyle: any
   );
   
   // Update active style when user profile changes
   useEffect(() => {
-    if (userProfile?.learningStyle) {
-      setActiveStyle(userProfile.learningStyle);
+    if (userProfile?.learningStyle: any) {
+      setActiveStyle(userProfile.learningStyle: any);
     }
   }, [userProfile]);
   
   // Handle style change
   const handleStyleChange = (style: string) => {
-    setActiveStyle(style);
-    if (onStyleChange) {
-      onStyleChange(style);
+    setActiveStyle(style: any);
+    if (onStyleChange: any) {
+      onStyleChange(style: any);
     }
   };
   
   // Render content based on active learning style
   const renderContent = () => {
-    switch (activeStyle) {
+    switch (activeStyle: any) {
       case 'visual':
         return (
           <motion.div

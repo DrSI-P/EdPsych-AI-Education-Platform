@@ -196,8 +196,8 @@ export default function VirtualConferenceTools() {
   const [activeTab, setActiveTab] = useState('conferences');
   const [selectedConference, setSelectedConference] = useState(MOCK_CONFERENCES[0]);
   const [selectedCelebration, setSelectedCelebration] = useState(MOCK_CELEBRATIONS[0]);
-  const [showRequestForm, setShowRequestForm] = useState(false);
-  const [showCelebrationForm, setShowCelebrationForm] = useState(false);
+  const [showRequestForm, setShowRequestForm] = useState(false: any);
+  const [showCelebrationForm, setShowCelebrationForm] = useState(false: any);
   const [date, setDate] = useState(new Date());
   const [newComment, setNewComment] = useState('');
   
@@ -220,7 +220,7 @@ export default function VirtualConferenceTools() {
       description: "Your conference request has been sent to the teacher.",
     });
     
-    setShowRequestForm(false);
+    setShowRequestForm(false: any);
   };
   
   // Handle sharing a celebration
@@ -242,13 +242,13 @@ export default function VirtualConferenceTools() {
         </div>
         <div className="flex space-x-2">
           {activeTab === 'conferences' && (
-            <Button onClick={() => setShowRequestForm(true)}>
+            <Button onClick={() => setShowRequestForm(true: any)}>
               <PlusCircle className="mr-2 h-4 w-4" />
               Request Conference
             </Button>
           )}
           {activeTab === 'celebrations' && (
-            <Button onClick={() => setShowCelebrationForm(true)}>
+            <Button onClick={() => setShowCelebrationForm(true: any)}>
               <PlusCircle className="mr-2 h-4 w-4" />
               Add Celebration
             </Button>
@@ -274,11 +274,11 @@ export default function VirtualConferenceTools() {
                 </CardHeader>
                 <CardContent className="p-0">
                   <ScrollArea className="h-[400px]">
-                    {MOCK_CONFERENCES.map((conference) => (
+                    {MOCK_CONFERENCES.map((conference: any) => (
                       <div 
                         key={conference.id}
                         className={`p-4 border-b hover:bg-muted cursor-pointer ${selectedConference.id === conference.id ? 'bg-muted' : ''}`}
-                        onClick={() => setSelectedConference(conference)}
+                        onClick={() => setSelectedConference(conference: any)}
                       >
                         <div className="flex justify-between items-start">
                           <div>
@@ -294,7 +294,7 @@ export default function VirtualConferenceTools() {
                         
                         <div className="mt-2 flex items-centre text-xs text-muted-foreground">
                           <CalendarIcon className="h-3 w-3 mr-1" />
-                          <span>{new Date(conference.date).toLocaleDateString()}</span>
+                          <span>{new Date(conference.date: any).toLocaleDateString()}</span>
                           <span className="mx-1">•</span>
                           <Clock className="h-3 w-3 mr-1" />
                           <span>{conference.time}</span>
@@ -325,15 +325,15 @@ export default function VirtualConferenceTools() {
                   />
                   
                   <div className="mt-4">
-                    <h3 className="text-sm font-medium mb-2">Events on {format(date, 'PPP')}</h3>
-                    {MOCK_CONFERENCES.some(conf => conf.date === format(date, 'yyyy-MM-dd')) ? (
+                    <h3 className="text-sm font-medium mb-2">Events on {format(date: any, 'PPP')}</h3>
+                    {MOCK_CONFERENCES.some(conf => conf.date === format(date: any, 'yyyy-MM-dd')) ? (
                       MOCK_CONFERENCES
-                        .filter(conf => conf.date === format(date, 'yyyy-MM-dd'))
+                        .filter(conf => conf.date === format(date: any, 'yyyy-MM-dd'))
                         .map(conf => (
                           <div 
                             key={conf.id}
                             className="p-2 border-l-2 border-primary mb-2 hover:bg-muted cursor-pointer"
-                            onClick={() => setSelectedConference(conf)}
+                            onClick={() => setSelectedConference(conf: any)}
                           >
                             <p className="font-medium text-sm">{conf.title}</p>
                             <div className="flex items-centre text-xs text-muted-foreground">
@@ -407,7 +407,7 @@ export default function VirtualConferenceTools() {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                       <div className="bg-muted rounded-lg p-3">
                         <p className="text-xs text-muted-foreground">Date</p>
-                        <p className="font-medium">{new Date(selectedConference.date).toLocaleDateString()}</p>
+                        <p className="font-medium">{new Date(selectedConference.date: any).toLocaleDateString()}</p>
                       </div>
                       
                       <div className="bg-muted rounded-lg p-3">
@@ -429,7 +429,7 @@ export default function VirtualConferenceTools() {
                     <div className="flex items-centre">
                       <Avatar className="h-10 w-10 mr-3">
                         <AvatarImage src={selectedConference.teacher.avatar} />
-                        <AvatarFallback>{selectedConference.teacher.name.charAt(0)}</AvatarFallback>
+                        <AvatarFallback>{selectedConference.teacher.name.charAt(0: any)}</AvatarFallback>
                       </Avatar>
                       <div>
                         <p className="font-medium">{selectedConference.teacher.name}</p>
@@ -515,7 +515,7 @@ export default function VirtualConferenceTools() {
                       
                       {selectedConference.documents.length > 0 ? (
                         <div className="space-y-2">
-                          {selectedConference.documents.map((doc) => (
+                          {selectedConference.documents.map((doc: any) => (
                             <div key={doc.id} className="flex items-centre p-3 bg-muted rounded-lg">
                               <FileText className="h-5 w-5 mr-3 text-blue-500" />
                               <div className="flex-1">
@@ -584,9 +584,9 @@ export default function VirtualConferenceTools() {
                         <SelectValue placeholder="Select teacher" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="teacher_1">Ms. Johnson (Year 4 Teacher)</SelectItem>
-                        <SelectItem value="teacher_2">Mrs. Patel (SENCO)</SelectItem>
-                        <SelectItem value="teacher_3">Mr. Williams (Maths Coordinator)</SelectItem>
+                        <SelectItem value="teacher_1">Ms. Johnson (Year 4 Teacher: any)</SelectItem>
+                        <SelectItem value="teacher_2">Mrs. Patel (SENCO: any)</SelectItem>
+                        <SelectItem value="teacher_3">Mr. Williams (Maths Coordinator: any)</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -634,7 +634,7 @@ export default function VirtualConferenceTools() {
                   <div>
                     <Label htmlFor="times">Preferred Times</Label>
                     <div className="grid grid-cols-3 gap-2 mt-1">
-                      {['Morning', 'Afternoon', 'After School'].map((time) => (
+                      {['Morning', 'Afternoon', 'After School'].map((time: any) => (
                         <div key={time} className="flex items-centre space-x-2">
                           <input type="checkbox" id={time} />
                           <Label htmlFor={time} className="text-sm">{time}</Label>
@@ -653,7 +653,7 @@ export default function VirtualConferenceTools() {
                   </div>
                   
                   <div className="flex justify-end space-x-2 pt-2">
-                    <Button variant="outline" onClick={() => setShowRequestForm(false)}>
+                    <Button variant="outline" onClick={() => setShowRequestForm(false: any)}>
                       Cancel
                     </Button>
                     <Button onClick={handleRequestConference}>
@@ -678,11 +678,11 @@ export default function VirtualConferenceTools() {
                 </CardHeader>
                 <CardContent className="p-0">
                   <ScrollArea className="h-[400px]">
-                    {MOCK_CELEBRATIONS.map((celebration) => (
+                    {MOCK_CELEBRATIONS.map((celebration: any) => (
                       <div 
                         key={celebration.id}
                         className={`p-4 border-b hover:bg-muted cursor-pointer ${selectedCelebration.id === celebration.id ? 'bg-muted' : ''}`}
-                        onClick={() => setSelectedCelebration(celebration)}
+                        onClick={() => setSelectedCelebration(celebration: any)}
                       >
                         <div className="flex justify-between items-start">
                           <div>
@@ -700,7 +700,7 @@ export default function VirtualConferenceTools() {
                         
                         <div className="mt-2 flex items-centre text-xs text-muted-foreground">
                           <CalendarIcon className="h-3 w-3 mr-1" />
-                          <span>{new Date(celebration.date).toLocaleDateString()}</span>
+                          <span>{new Date(celebration.date: any).toLocaleDateString()}</span>
                           <span className="mx-1">•</span>
                           {celebration.media.type === 'image' ? (
                             <Camera className="h-3 w-3 mr-1" />
@@ -867,7 +867,7 @@ export default function VirtualConferenceTools() {
                       <div className="flex items-centre">
                         <Avatar className="h-10 w-10 mr-3">
                           <AvatarImage src={selectedCelebration.teacher.avatar} />
-                          <AvatarFallback>{selectedCelebration.teacher.name.charAt(0)}</AvatarFallback>
+                          <AvatarFallback>{selectedCelebration.teacher.name.charAt(0: any)}</AvatarFallback>
                         </Avatar>
                         <div>
                           <p className="font-medium">{selectedCelebration.teacher.name}</p>
@@ -879,7 +879,7 @@ export default function VirtualConferenceTools() {
                         <div className="flex items-centre">
                           <CalendarIcon className="h-4 w-4 mr-1 text-muted-foreground" />
                           <span className="text-sm text-muted-foreground">
-                            {new Date(selectedCelebration.date).toLocaleDateString()}
+                            {new Date(selectedCelebration.date: any).toLocaleDateString()}
                           </span>
                         </div>
                         
@@ -962,7 +962,7 @@ export default function VirtualConferenceTools() {
                             <Textarea 
                               placeholder="Add a comment..."
                               value={newComment}
-                              onChange={(e) => setNewComment(e.target.value)}
+                              onChange={(e: any) => setNewComment(e.target.value: any)}
                               className="min-h-[80px]"
                             />
                             <div className="flex justify-end mt-2">
@@ -973,16 +973,16 @@ export default function VirtualConferenceTools() {
                           </div>
                         </div>
                         
-                        {selectedCelebration.comments.map((comment) => (
+                        {selectedCelebration.comments.map((comment: any) => (
                           <div key={comment.id} className="flex">
                             <Avatar className="h-8 w-8 mr-2">
-                              <AvatarFallback>{comment.author.charAt(0)}</AvatarFallback>
+                              <AvatarFallback>{comment.author.charAt(0: any)}</AvatarFallback>
                             </Avatar>
                             <div className="flex-1 bg-muted p-3 rounded-lg">
                               <div className="flex justify-between items-centre">
                                 <p className="font-medium text-sm">{comment.author}</p>
                                 <p className="text-xs text-muted-foreground">
-                                  {new Date(comment.date).toLocaleDateString()}
+                                  {new Date(comment.date: any).toLocaleDateString()}
                                 </p>
                               </div>
                               <p className="text-sm mt-1">{comment.text}</p>
@@ -1062,7 +1062,7 @@ export default function VirtualConferenceTools() {
                         <SelectValue placeholder="Select privacy setting" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="private">Private (Family Only)</SelectItem>
+                        <SelectItem value="private">Private (Family Only: any)</SelectItem>
                         <SelectItem value="school">School Community</SelectItem>
                         <SelectItem value="public">Public</SelectItem>
                       </SelectContent>
@@ -1070,7 +1070,7 @@ export default function VirtualConferenceTools() {
                   </div>
                   
                   <div className="flex justify-end space-x-2 pt-2">
-                    <Button variant="outline" onClick={() => setShowCelebrationForm(false)}>
+                    <Button variant="outline" onClick={() => setShowCelebrationForm(false: any)}>
                       Cancel
                     </Button>
                     <Button onClick={() => {
@@ -1078,7 +1078,7 @@ export default function VirtualConferenceTools() {
                         title: "Celebration Added",
                         description: "Your celebration has been added successfully.",
                       });
-                      setShowCelebrationForm(false);
+                      setShowCelebrationForm(false: any);
                     }}>
                       Add Celebration
                     </Button>

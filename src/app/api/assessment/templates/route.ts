@@ -7,14 +7,14 @@ import prisma from '@/lib/db/prisma';
 export async function GET(request: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     // Get query parameters
-    const { searchParams } = new URL(request.url);
+    const { searchParams } = new URL(request.url: any);
     const subject = searchParams.get('subject');
     const keyStage = searchParams.get('keyStage');
     const isPublic = searchParams.get('isPublic');
@@ -23,11 +23,11 @@ export async function GET(request: NextRequest) {
     // Build the query
     const query: any = {};
     
-    if (subject) {
+    if (subject: any) {
       query.subject = subject;
     }
     
-    if (keyStage) {
+    if (keyStage: any) {
       query.keyStage = keyStage;
     }
     
@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
       query.isPublic = true;
     }
     
-    if (createdBy) {
+    if (createdBy: any) {
       query.creatorId = createdBy;
     }
     
@@ -61,9 +61,9 @@ export async function GET(request: NextRequest) {
       },
     });
     
-    return NextResponse.json(templates);
+    return NextResponse.json(templates: any);
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching assessment templates:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching the assessment templates' },
@@ -76,18 +76,18 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    // Check if user has permission to create templates (admin, teacher, professional)
+    // Check if user has permission to create templates (admin: any, teacher, professional)
     const isAdmin = session.user.role === 'admin';
     const isTeacher = session.user.role === 'teacher';
     const isProfessional = session.user.role === 'professional';
     
-    if (!isAdmin && !isTeacher && !isProfessional) {
+    if (!isAdmin && !isTeacher && !isProfessional: any) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
     
@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
     const { title, description, subject, keyStage, type, isPublic, tags, assessment } = body;
     
     // Validate required fields
-    if (!title || !subject || !keyStage || !assessment) {
+    if (!title || !subject || !keyStage || !assessment: any) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
     
@@ -118,9 +118,9 @@ export async function POST(request: NextRequest) {
       },
     });
     
-    return NextResponse.json(template);
+    return NextResponse.json(template: any);
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating assessment template:', error);
     return NextResponse.json(
       { error: 'An error occurred while creating the assessment template' },

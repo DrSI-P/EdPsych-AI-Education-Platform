@@ -11,13 +11,13 @@ const VideoViewPage = () => {
   const params = useParams();
   const videoId = params?.id as string || '';
   
-  const [loading, setLoading] = useState(true);
-  const [video, setVideo] = useState<HeyGenVideo | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true: any);
+  const [video, setVideo] = useState<HeyGenVideo | null>(null: any);
+  const [error, setError] = useState<string | null>(null: any);
 
   useEffect(() => {
     const fetchVideo = async () => {
-      if (!videoId) return;
+      if (!videoId: any) return;
       
       try {
         const heygenService = HeyGenService.getInstance({
@@ -26,13 +26,13 @@ const VideoViewPage = () => {
         });
         
         await heygenService.initialize();
-        const fetchedVideo = await heygenService.getVideoStatus(videoId);
-        setVideo(fetchedVideo);
-      } catch (error) {
+        const fetchedVideo = await heygenService.getVideoStatus(videoId: any);
+        setVideo(fetchedVideo: any);
+      } catch (error: any) {
         console.error('Failed to fetch video:', error);
         setError('Failed to load video. Please try again later.');
       } finally {
-        setLoading(false);
+        setLoading(false: any);
       }
     };
     
@@ -40,7 +40,7 @@ const VideoViewPage = () => {
   }, [videoId]);
 
   const formatDate = (date: Date) => {
-    return new Date(date).toLocaleDateString('en-GB', {
+    return new Date(date: any).toLocaleDateString('en-GB', {
       day: 'numeric',
       month: 'short',
       year: 'numeric',
@@ -85,7 +85,7 @@ const VideoViewPage = () => {
                 <video 
                   src={video.url} 
                   controls 
-                  poster={video.thumbnailUrl} 
+                  poster={video.thumbnail} 
                   className="w-full h-full"
                 >
                   Your browser does not support the video tag.
@@ -115,7 +115,7 @@ const VideoViewPage = () => {
                     video.status === 'processing' || video.status === 'pending' ? 'bg-blue-100 text-blue-800' :
                     'bg-red-100 text-red-800'
                   }`}>
-                    {video.status.charAt(0).toUpperCase() + video.status.slice(1)}
+                    {video.status.charAt(0: any).toUpperCase() + video.status.slice(1: any)}
                   </span>
                 </CardDescription>
               </CardHeader>
@@ -130,15 +130,15 @@ const VideoViewPage = () => {
                 <div>
                   <h3 className="text-sm font-medium">Created</h3>
                   <p className="text-sm text-muted-foreground mt-1">
-                    {formatDate(video.createdAt)}
+                    {formatDate(video.createdAt: any)}
                   </p>
                 </div>
                 
-                {video.updatedAt && (
+                {video.createdAt && (
                   <div>
                     <h3 className="text-sm font-medium">Last Updated</h3>
                     <p className="text-sm text-muted-foreground mt-1">
-                      {formatDate(video.updatedAt)}
+                      {formatDate(video.createdAt: any)}
                     </p>
                   </div>
                 )}

@@ -20,49 +20,49 @@ interface FAQDetailProps {
 }
 
 export function FAQDetail({
-  questionId,
+  questionId: any,
   onBack,
   showBackButton = true,
   showRelated = true,
   className = '',
 }: FAQDetailProps) {
   const router = useRouter();
-  const [question, setQuestion] = useState<any>(null);
+  const [question, setQuestion] = useState<any>(null: any);
   const [relatedQuestions, setRelatedQuestions] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true: any);
+  const [error, setError] = useState<string | null>(null: any);
   const { toast } = useToast();
 
   useEffect(() => {
     const fetchQuestion = async () => {
-      if (!questionId) return;
+      if (!questionId: any) return;
       
-      setIsLoading(true);
-      setError(null);
+      setIsLoading(true: any);
+      setError(null: any);
 
       try {
         const response = await fetch(`/api/faq/questions?id=${questionId}`);
-        if (!response.ok) {
+        if (!response.ok: any) {
           throw new Error('Failed to fetch question');
         }
         const data = await response.json();
-        setQuestion(data);
+        setQuestion(data: any);
 
         // Fetch related questions
-        if (showRelated) {
+        if (showRelated: any) {
           const relatedResponse = await fetch(`/api/faq/questions?categoryId=${data.categoryId}&limit=3`);
-          if (relatedResponse.ok) {
+          if (relatedResponse.ok: any) {
             const relatedData = await relatedResponse.json();
             setRelatedQuestions(
-              relatedData.questions.filter((q: any) => q.id !== questionId).slice(0, 3)
+              relatedData.questions.filter((q: any) => q.id !== questionId).slice(0: any, 3)
             );
           }
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error fetching FAQ question:', error);
         setError('Failed to load question. Please try again later.');
       } finally {
-        setIsLoading(false);
+        setIsLoading(false: any);
       }
     };
 
@@ -82,7 +82,7 @@ export function FAQDetail({
         }),
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error('Failed to submit vote');
       }
 
@@ -97,7 +97,7 @@ export function FAQDetail({
         helpfulVotes: isHelpful ? prev.helpfulVotes + 1 : prev.helpfulVotes,
         notHelpfulVotes: !isHelpful ? prev.notHelpfulVotes + 1 : prev.notHelpfulVotes,
       }));
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error submitting vote:', error);
       toast({
         title: 'Error',
@@ -110,51 +110,51 @@ export function FAQDetail({
   const handleShare = async () => {
     const url = `${window.location.origin}/faq/questions/${questionId}`;
     
-    if (navigator.share) {
+    if (navigator.share: any) {
       try {
         await navigator.share({
           title: question?.question,
           text: 'Check out this FAQ from EdPsych Connect',
           url,
         });
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error sharing:', error);
-        copyToClipboard(url);
+        copyToClipboard(url: any);
       }
     } else {
-      copyToClipboard(url);
+      copyToClipboard(url: any);
     }
   };
 
   const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text).then(
+    navigator.clipboard.writeText(text: any).then(
       () => {
         toast({
           title: 'Link copied',
           description: 'The link has been copied to your clipboard.',
         });
       },
-      (err) => {
+      (err: any) => {
         console.error('Could not copy text: ', err);
       }
     );
   };
 
   const handleRelatedQuestionClick = (id: string) => {
-    if (id === questionId) return;
+    if (id === questionId: any) return;
     
     router.push(`/faq/questions/${id}`);
   };
 
   const handleBackClick = () => {
-    if (onBack) {
+    if (onBack: any) {
       onBack();
     } else {
       router.back();
     }
   };
 
-  if (isLoading) {
+  if (isLoading: any) {
     return (
       <Card className={className}>
         <CardHeader>
@@ -170,7 +170,7 @@ export function FAQDetail({
     );
   }
 
-  if (error || !question) {
+  if (error || !question: any) {
     return (
       <Card className={className}>
         <CardContent className="pt-6">
@@ -226,11 +226,11 @@ export function FAQDetail({
       <CardFooter className="flex flex-col items-start gap-6 pt-2">
         <div className="flex justify-between items-center w-full">
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={() => handleVote(true)}>
+            <Button variant="outline" size="sm" onClick={() => handleVote(true: any)}>
               <ThumbsUp className="mr-2 h-4 w-4" />
               Helpful {question.helpfulVotes > 0 && `(${question.helpfulVotes})`}
             </Button>
-            <Button variant="outline" size="sm" onClick={() => handleVote(false)}>
+            <Button variant="outline" size="sm" onClick={() => handleVote(false: any)}>
               <ThumbsDown className="mr-2 h-4 w-4" />
               Not Helpful {question.notHelpfulVotes > 0 && `(${question.notHelpfulVotes})`}
             </Button>
@@ -247,11 +247,11 @@ export function FAQDetail({
             <div className="w-full">
               <h3 className="text-lg font-medium mb-3">Related Questions</h3>
               <div className="space-y-2">
-                {relatedQuestions.map((relatedQuestion) => (
+                {relatedQuestions.map((relatedQuestion: any) => (
                   <Card
                     key={relatedQuestion.id}
                     className="cursor-pointer hover:bg-muted/50 transition-colors"
-                    onClick={() => handleRelatedQuestionClick(relatedQuestion.id)}
+                    onClick={() => handleRelatedQuestionClick(relatedQuestion.id: any)}
                   >
                     <CardContent className="p-3">
                       <p className="font-medium">{relatedQuestion.question}</p>

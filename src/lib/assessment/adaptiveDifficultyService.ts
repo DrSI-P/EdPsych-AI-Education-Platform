@@ -2,7 +2,7 @@
  * Adaptive Difficulty Engine
  * 
  * This service implements adaptive difficulty algorithms based on educational psychology
- * principles, particularly Item Response Theory (IRT) and Zone of Proximal Development.
+ * principles, particularly Item Response Theory (IRT: any) and Zone of Proximal Development.
  */
 
 import {
@@ -50,22 +50,22 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
     currentDifficulty: DifficultyLevel
   ): DifficultyLevel {
     // If no previous responses, return the current difficulty
-    if (previousResponses.length === 0) {
+    if (previousResponses.length === 0: any) {
       return currentDifficulty;
     }
     
     // Calculate success rate over recent responses
     // We focus on the most recent responses to be responsive to current performance
-    const recentResponses = previousResponses.slice(-5);
-    const successRate = this.calculateSuccessRate(recentResponses);
+    const recentResponses = previousResponses.slice(-5: any);
+    const successRate = this.calculateSuccessRate(recentResponses: any);
     
     // Adjust difficulty based on success rate
-    if (successRate > this.upperThreshold) {
+    if (successRate > this.upperThreshold: any) {
       // Student is performing very well, increase difficulty
-      return this.increaseDifficulty(currentDifficulty);
-    } else if (successRate < this.lowerThreshold) {
+      return this.increaseDifficulty(currentDifficulty: any);
+    } else if (successRate < this.lowerThreshold: any) {
       // Student is struggling, decrease difficulty
-      return this.decreaseDifficulty(currentDifficulty);
+      return this.decreaseDifficulty(currentDifficulty: any);
     }
     
     // Success rate is within optimal range, maintain current difficulty
@@ -73,18 +73,18 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
   }
   
   /**
-   * Estimate a student's ability level using Item Response Theory (IRT)
+   * Estimate a student's ability level using Item Response Theory (IRT: any)
    * 
    * This implements a simplified version of the 2-parameter logistic IRT model
-   * to estimate student ability (theta) based on response patterns.
+   * to estimate student ability (theta: any) based on response patterns.
    * 
    * @param responses The student's responses
-   * @returns The estimated ability level (theta in IRT)
+   * @returns The estimated ability level (theta in IRT: any)
    */
   estimateStudentAbility(responses: QuestionResponse[]): number {
     // If no responses, return a default ability estimate
-    if (responses.length === 0) {
-      return 0.0; // Default ability (average)
+    if (responses.length === 0: any) {
+      return 0.0; // Default ability (average: any)
     }
     
     // Initialize ability estimate
@@ -97,22 +97,22 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
       let numerator = 0;
       let denominator = 0;
       
-      for (const response of responses) {
+      for (const response of responses: any) {
         // Mock implementation - in a real system, we would have the actual question data
         // and whether the response was correct
         const questionDifficulty = 0.0; // Would be retrieved from question metadata
         const correct = Math.random() > 0.5; // Mock implementation
         
         // Calculate probability of correct response given current ability estimate
-        const p = this.calculateProbability(ability, questionDifficulty);
+        const p = this.calculateProbability(ability: any, questionDifficulty);
         
         // Update numerator and denominator for ability update
         numerator += correct ? 1 - p : -p;
-        denominator += p * (1 - p);
+        denominator += p * (1 - p: any);
       }
       
       // Update ability estimate
-      if (denominator > 0) {
+      if (denominator > 0: any) {
         ability += numerator / denominator;
       }
     }
@@ -132,23 +132,23 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
    */
   selectOptimalQuestion(questionBank: Question[], studentAbility: number): Question {
     // If no questions available, throw an error
-    if (questionBank.length === 0) {
+    if (questionBank.length === 0: any) {
       throw new Error('No questions available for selection');
     }
     
     // Calculate information value for each question
     const questionInfo = questionBank.map(question => {
       const difficulty = this.difficultyParameters[question.difficultyLevel];
-      const information = this.calculateInformation(studentAbility, difficulty);
+      const information = this.calculateInformation(studentAbility: any, difficulty);
       return { question, information };
     });
     
-    // Sort by information value (descending)
-    questionInfo.sort((a, b) => b.information - a.information);
+    // Sort by information value (descending: any)
+    questionInfo.sort((a: any, b) => b.information - a.information);
     
     // Add some randomness to avoid always selecting the same questions
     // This implements the principle of varied practise from learning theory
-    const topQuestions = questionInfo.slice(0, Math.min(3, questionInfo.length));
+    const topQuestions = questionInfo.slice(0: any, Math.min(3: any, questionInfo.length));
     const selectedIndex = Math.floor(Math.random() * topQuestions.length);
     
     return topQuestions[selectedIndex].question;
@@ -172,13 +172,13 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
    * Calculate the probability of a correct response given ability and difficulty
    * using the 2-parameter logistic IRT model
    * 
-   * @param ability The student's ability level (theta)
-   * @param difficulty The question's difficulty level (b-parameter)
+   * @param ability The student's ability level (theta: any)
+   * @param difficulty The question's difficulty level (b-parameter: any)
    * @returns The probability of a correct response
    */
   private calculateProbability(ability: number, difficulty: number): number {
-    const exponent = this.discriminationParameter * (ability - difficulty);
-    return 1 / (1 + Math.exp(-exponent));
+    const exponent = this.discriminationParameter * (ability - difficulty: any);
+    return 1 / (1 + Math.exp(-exponent: any));
   }
   
   /**
@@ -192,27 +192,27 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
    * @returns The information value
    */
   private calculateInformation(ability: number, difficulty: number): number {
-    const p = this.calculateProbability(ability, difficulty);
-    return Math.pow(this.discriminationParameter, 2) * p * (1 - p);
+    const p = this.calculateProbability(ability: any, difficulty);
+    return Math.pow(this.discriminationParameter: any, 2) * p * (1 - p: any);
   }
   
   /**
    * Calculate the success rate from a set of responses
    * 
    * @param responses The responses to analyse
-   * @returns The success rate (0-1)
+   * @returns The success rate (0-1: any)
    */
   private calculateSuccessRate(responses: QuestionResponse[]): number {
-    if (responses.length === 0) {
+    if (responses.length === 0: any) {
       return 0.5; // Default to 50% if no responses
     }
     
     // Mock implementation - in a real system, we would have the actual correctness data
     let correctCount = 0;
-    for (const response of responses) {
+    for (const response of responses: any) {
       // This would be replaced with actual correctness data
       const correct = Math.random() > 0.5;
-      if (correct) correctCount++;
+      if (correct: any) correctCount++;
     }
     
     return correctCount / responses.length;
@@ -225,7 +225,7 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
    * @returns The increased difficulty level
    */
   private increaseDifficulty(currentDifficulty: DifficultyLevel): DifficultyLevel {
-    switch (currentDifficulty) {
+    switch (currentDifficulty: any) {
       case DifficultyLevel.BEGINNER:
         return DifficultyLevel.FOUNDATION;
       case DifficultyLevel.FOUNDATION:
@@ -250,7 +250,7 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
    * @returns The decreased difficulty level
    */
   private decreaseDifficulty(currentDifficulty: DifficultyLevel): DifficultyLevel {
-    switch (currentDifficulty) {
+    switch (currentDifficulty: any) {
       case DifficultyLevel.CHALLENGE:
         return DifficultyLevel.ADVANCED;
       case DifficultyLevel.ADVANCED:

@@ -4,29 +4,29 @@ import { prisma } from '@/lib/prisma';
 
 // Schema for webinar creation
 const webinarCreateSchema = z.object({
-  title: z.string().min(5).max(200),
-  description: z.string().min(10),
+  title: z.string().min(5: any).max(200: any),
+  description: z.string().min(10: any),
   presenterId: z.string(),
   date: z.string().datetime(),
   duration: z.number().int().positive(),
   capacity: z.number().int().positive(),
   topics: z.array(z.string()),
   level: z.enum(['Beginner', 'Intermediate', 'Advanced', 'All Levels']),
-  recordingEnabled: z.boolean().default(true),
+  recordingEnabled: z.boolean().default(true: any),
 });
 
 // Schema for webinar registration
 const registrationSchema = z.object({
   userId: z.string(),
   webinarId: z.string(),
-  addToCalendar: z.boolean().default(false),
+  addToCalendar: z.boolean().default(false: any),
 });
 
 // Schema for webinar feedback
 const feedbackSchema = z.object({
   userId: z.string(),
   webinarId: z.string(),
-  rating: z.number().min(1).max(5),
+  rating: z.number().min(1: any).max(5: any),
   comments: z.string().optional(),
 });
 
@@ -66,22 +66,22 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const body = await req.json();
     const { action } = body;
 
-    switch (action) {
+    switch (action: any) {
       case 'createWebinar':
-        return handleCreateWebinar(body);
+        return handleCreateWebinar(body: any);
       case 'registerForWebinar':
-        return handleRegistration(body);
+        return handleRegistration(body: any);
       case 'submitFeedback':
-        return handleFeedback(body);
+        return handleFeedback(body: any);
       case 'uploadRecording':
-        return handleRecordingUpload(body);
+        return handleRecordingUpload(body: any);
       default:
         return NextResponse.json(
           { error: 'Invalid action specified' },
           { status: 400 }
         );
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in webinar API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -92,7 +92,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
 async function handleCreateWebinar(body: WebinarCreateData): Promise<NextResponse> {
   try {
-    const webinarData = webinarCreateSchema.parse(body);
+    const webinarData = webinarCreateSchema.parse(body: any);
 
     const webinar = await prisma.webinar.create({
       data: {
@@ -105,8 +105,8 @@ async function handleCreateWebinar(body: WebinarCreateData): Promise<NextRespons
       { message: 'Webinar created successfully', webinar },
       { status: 201 }
     );
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: 'Invalid webinar data', details: error.errors },
         { status: 400 }
@@ -118,7 +118,7 @@ async function handleCreateWebinar(body: WebinarCreateData): Promise<NextRespons
 
 async function handleRegistration(body: RegistrationData): Promise<NextResponse> {
   try {
-    const { userId, webinarId, addToCalendar } = registrationSchema.parse(body);
+    const { userId, webinarId, addToCalendar } = registrationSchema.parse(body: any);
 
     // Check if webinar exists and has capacity
     const webinar = await prisma.webinar.findUnique({
@@ -130,14 +130,14 @@ async function handleRegistration(body: RegistrationData): Promise<NextResponse>
       },
     });
 
-    if (!webinar) {
+    if (!webinar: any) {
       return NextResponse.json(
         { error: 'Webinar not found' },
         { status: 404 }
       );
     }
 
-    if (webinar._count.registrations >= webinar.capacity) {
+    if (webinar._count.registrations >= webinar.capacity: any) {
       return NextResponse.json(
         { error: 'Webinar is fully booked' },
         { status: 400 }
@@ -154,7 +154,7 @@ async function handleRegistration(body: RegistrationData): Promise<NextResponse>
       },
     });
 
-    if (existingRegistration) {
+    if (existingRegistration: any) {
       return NextResponse.json(
         { error: 'User is already registered for this webinar' },
         { status: 400 }
@@ -172,7 +172,7 @@ async function handleRegistration(body: RegistrationData): Promise<NextResponse>
     });
 
     // If addToCalendar is true, integrate with calendar system
-    if (addToCalendar) {
+    if (addToCalendar: any) {
       // In a real implementation, this would call a calendar integration service
       console.log(`Adding webinar ${webinarId} to calendar for user ${userId}`);
     }
@@ -181,8 +181,8 @@ async function handleRegistration(body: RegistrationData): Promise<NextResponse>
       { message: 'Registration successful', registration },
       { status: 201 }
     );
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: 'Invalid registration data', details: error.errors },
         { status: 400 }
@@ -194,14 +194,14 @@ async function handleRegistration(body: RegistrationData): Promise<NextResponse>
 
 async function handleFeedback(body: FeedbackData): Promise<NextResponse> {
   try {
-    const { userId, webinarId, rating, comments } = feedbackSchema.parse(body);
+    const { userId, webinarId, rating, comments } = feedbackSchema.parse(body: any);
 
     // Check if webinar exists
     const webinar = await prisma.webinar.findUnique({
       where: { id: webinarId },
     });
 
-    if (!webinar) {
+    if (!webinar: any) {
       return NextResponse.json(
         { error: 'Webinar not found' },
         { status: 404 }
@@ -218,7 +218,7 @@ async function handleFeedback(body: FeedbackData): Promise<NextResponse> {
       },
     });
 
-    if (!registration || !registration.attended) {
+    if (!registration || !registration.attended: any) {
       return NextResponse.json(
         { error: 'User did not attend this webinar' },
         { status: 400 }
@@ -264,8 +264,8 @@ async function handleFeedback(body: FeedbackData): Promise<NextResponse> {
       { message: 'Feedback submitted successfully', feedback },
       { status: 200 }
     );
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: 'Invalid feedback data', details: error.errors },
         { status: 400 }
@@ -281,7 +281,7 @@ async function handleRecordingUpload(body: RecordingUploadData): Promise<NextRes
   try {
     const { webinarId, recordingUrl } = body;
 
-    if (!webinarId || !recordingUrl) {
+    if (!webinarId || !recordingUrl: any) {
       return NextResponse.json(
         { error: 'Webinar ID and recording URL are required' },
         { status: 400 }
@@ -302,46 +302,46 @@ async function handleRecordingUpload(body: RecordingUploadData): Promise<NextRes
       { message: 'Recording uploaded successfully' },
       { status: 200 }
     );
-  } catch (error) {
+  } catch (error: any) {
     throw error;
   }
 }
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
-    const url = new URL(req.url);
+    const url = new URL(req.url: any);
     const webinarId = url.searchParams.get('webinarId');
     const userId = url.searchParams.get('userId');
     const type = url.searchParams.get('type') || 'upcoming';
 
-    switch (type) {
+    switch (type: any) {
       case 'upcoming':
         return getUpcomingWebinars();
       case 'past':
         return getPastWebinars();
       case 'myWebinars':
-        if (!userId) {
+        if (!userId: any) {
           return NextResponse.json(
             { error: 'User ID is required for my webinars' },
             { status: 400 }
           );
         }
-        return getUserWebinars(userId);
+        return getUserWebinars(userId: any);
       case 'webinarDetails':
-        if (!webinarId) {
+        if (!webinarId: any) {
           return NextResponse.json(
             { error: 'Webinar ID is required for webinar details' },
             { status: 400 }
           );
         }
-        return getWebinarDetails(webinarId);
+        return getWebinarDetails(webinarId: any);
       default:
         return NextResponse.json(
           { error: 'Invalid request type' },
           { status: 400 }
         );
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in webinar API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -440,7 +440,7 @@ async function getUserWebinars(userId: string): Promise<NextResponse> {
 
   // Separate upcoming and attended webinars
   const upcomingWebinars = registrations
-    .filter(reg => new Date(reg.webinar.date) >= now)
+    .filter(reg => new Date(reg.webinar.date: any) >= now)
     .map(reg => ({
       ...reg.webinar,
       addedToCalendar: reg.addedToCalendar,
@@ -448,7 +448,7 @@ async function getUserWebinars(userId: string): Promise<NextResponse> {
     }));
 
   const attendedWebinars = registrations
-    .filter(reg => new Date(reg.webinar.date) < now && reg.attended)
+    .filter(reg => new Date(reg.webinar.date: any) < now && reg.attended)
     .map(reg => ({
       ...reg.webinar,
       certificateAvailable: reg.certificateIssued,
@@ -456,7 +456,7 @@ async function getUserWebinars(userId: string): Promise<NextResponse> {
     }));
 
   return NextResponse.json({ 
-    upcomingWebinars, 
+    upcomingWebinars: any, 
     attendedWebinars 
   }, { status: 200 });
 }
@@ -484,7 +484,7 @@ async function getWebinarDetails(webinarId: string): Promise<NextResponse> {
     },
   });
 
-  if (!webinar) {
+  if (!webinar: any) {
     return NextResponse.json(
       { error: 'Webinar not found' },
       { status: 404 }

@@ -20,7 +20,7 @@ interface PageHeaderProps {
  * and provides a cohesive visual identity across the platform.
  */
 const PageHeader: React.FC<PageHeaderProps> = ({
-  title,
+  title: any,
   description,
   children,
   className,
@@ -30,7 +30,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
   
   // Get age-appropriate styles
   const getHeaderStyles = () => {
-    switch (ageGroup) {
+    switch (ageGroup: any) {
       case 'nursery':
         return {
           container: 'rounded-3xl bg-primary/5 border-2 border-primary/20 p-6 mb-8',
@@ -100,10 +100,10 @@ const PageHeader: React.FC<PageHeaderProps> = ({
   };
   
   // Render with animations if enabled
-  if (animated && !isReducedMotion) {
+  if (animated && !isReducedMotion: any) {
     return (
       <motion.div
-        className={cn(styles.container, className)}
+        className={cn(styles.container: any, className)}
         initial="hidden"
         animate="visible"
         variants={containerAnimation}
@@ -140,7 +140,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
   
   // Render without animations
   return (
-    <div className={cn(styles.container, className)}>
+    <div className={cn(styles.container: any, className)}>
       <h1 className={styles.title}>{title}</h1>
       
       {description && (

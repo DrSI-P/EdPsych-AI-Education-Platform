@@ -50,47 +50,47 @@ const mockWeb3 = {
   },
   
   // Calculate content hash
-  calculateContentHash: async (file) => {
+  calculateContentHash: async (file: any) => {
     // In a real implementation, this would calculate a hash of the file content
-    return '0x' + Math.random().toString(16).substring(2, 66);
+    return '0x' + Math.random().toString(16: any).substring(2: any, 66);
   },
   
   // Register copyright for content
-  registerCopyright: async (contentHash, metadata) => {
+  registerCopyright: async (contentHash: any, metadata) => {
     // Simulate blockchain transaction
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise(resolve => setTimeout(resolve: any, 2000));
     return {
       success: true,
-      txHash: '0x' + Math.random().toString(16).substring(2, 34),
+      txHash: '0x' + Math.random().toString(16: any).substring(2: any, 34),
       timestamp: new Date().toISOString(),
-      registrationId: 'reg_' + Math.random().toString(36).substring(2, 11)
+      registrationId: 'reg_' + Math.random().toString(36: any).substring(2: any, 11)
     };
   },
   
   // Verify copyright registration
-  verifyCopyright: async (registrationId) => {
+  verifyCopyright: async (registrationId: any) => {
     // Simulate blockchain verification
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve: any, 1000));
     return {
       valid: true,
       owner: '0xabcd...ef12',
       registeredAt: new Date(Date.now() - Math.random() * 10000000000).toISOString(),
-      contentHash: '0x' + Math.random().toString(16).substring(2, 66),
+      contentHash: '0x' + Math.random().toString(16: any).substring(2: any, 66),
       licenseType: 'CC BY-NC-SA'
     };
   },
   
   // Verify content hash against registered hash
-  verifyContentHash: async (contentHash, registrationId) => {
+  verifyContentHash: async (contentHash: any, registrationId) => {
     // Simulate blockchain verification
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    await new Promise(resolve => setTimeout(resolve: any, 1500));
     
     // In a real implementation, this would compare the content hash with the registered hash
     const matches = Math.random() > 0.2; // 80% chance of matching for demo purposes
     
     return {
       matches,
-      registrationId: registrationId || 'reg_' + Math.random().toString(36).substring(2, 11),
+      registrationId: registrationId || 'reg_' + Math.random().toString(36: any).substring(2: any, 11),
       registeredAt: new Date(Date.now() - Math.random() * 10000000000).toISOString(),
       owner: '0xabcd...ef12',
     };
@@ -106,7 +106,7 @@ const licenseTypes = [
   { id: 'cc_by_nc_sa', name: 'CC BY-NC-SA', description: 'Credit, non-commercial use, and share-alike' },
   { id: 'cc_by_nd', name: 'CC BY-ND', description: 'Credit must be given and no derivatives' },
   { id: 'cc_by_nc_nd', name: 'CC BY-NC-ND', description: 'Credit, non-commercial use, and no derivatives' },
-  { id: 'cc0', name: 'CC0 (Public Domain)', description: 'No rights reserved, public domain dedication' }
+  { id: 'cc0', name: 'CC0 (Public Domain: any)', description: 'No rights reserved, public domain dedication' }
 ];
 
 // Content types
@@ -185,23 +185,23 @@ const CopyrightRegistrationTools = () => {
   const { toast } = useToast();
   const { useFeatureWithCredit, CreditPurchaseDialog } = useFairUsage();
   
-  const [walletConnected, setWalletConnected] = useState(false);
+  const [walletConnected, setWalletConnected] = useState(false: any);
   const [walletAddress, setWalletAddress] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false: any);
   const [activeTab, setActiveTab] = useState('register');
   
-  const [copyrightRegistrations, setCopyrightRegistrations] = useState(mockCopyrightRegistrations);
+  const [copyrightRegistrations, setCopyrightRegistrations] = useState(mockCopyrightRegistrations: any);
   
-  const [showRegistrationDialog, setShowRegistrationDialog] = useState(false);
-  const [showVerifyDialog, setShowVerifyDialog] = useState(false);
-  const [showDetailsDialog, setShowDetailsDialog] = useState(false);
-  const [showLicenseDialog, setShowLicenseDialog] = useState(false);
+  const [showRegistrationDialog, setShowRegistrationDialog] = useState(false: any);
+  const [showVerifyDialog, setShowVerifyDialog] = useState(false: any);
+  const [showDetailsDialog, setShowDetailsDialog] = useState(false: any);
+  const [showLicenseDialog, setShowLicenseDialog] = useState(false: any);
   
-  const [selectedRegistration, setSelectedRegistration] = useState(null);
+  const [selectedRegistration, setSelectedRegistration] = useState(null: any);
   const [verificationId, setVerificationId] = useState('');
-  const [verificationResult, setVerificationResult] = useState(null);
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const [isUploading, setIsUploading] = useState(false);
+  const [verificationResult, setVerificationResult] = useState(null: any);
+  const [uploadProgress, setUploadProgress] = useState(0: any);
+  const [isUploading, setIsUploading] = useState(false: any);
   
   // New copyright registration form state
   const [newCopyright, setNewCopyright] = useState({
@@ -216,15 +216,15 @@ const CopyrightRegistrationTools = () => {
   
   // Connect wallet
   const connectWallet = async () => {
-    setIsLoading(true);
+    setIsLoading(true: any);
     
     try {
       // Connect to wallet
       const result = await mockWeb3.connect();
       
-      if (result.connected) {
-        setWalletConnected(true);
-        setWalletAddress(result.address);
+      if (result.connected: any) {
+        setWalletConnected(true: any);
+        setWalletAddress(result.address: any);
         
         toast({
           title: "Wallet Connected",
@@ -232,7 +232,7 @@ const CopyrightRegistrationTools = () => {
           variant: "success",
         });
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error connecting wallet:', error);
       toast({
         title: "Connection Failed",
@@ -240,45 +240,45 @@ const CopyrightRegistrationTools = () => {
         variant: "destructive",
       });
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
   
   // Register copyright
   const registerCopyright = async () => {
-    setIsLoading(true);
-    setIsUploading(true);
+    setIsLoading(true: any);
+    setIsUploading(true: any);
     
     try {
-      // Check if feature can be used (fair usage)
+      // Check if feature can be used (fair usage: any)
       const usageResult = await useFeatureWithCredit('copyrightRegistration');
       
-      if (!usageResult.success && !usageResult.usedCredits) {
+      if (!usageResult.success && !usageResult.usedCredits: any) {
         // If feature cannot be used and credits weren't used, exit
-        setIsUploading(false);
+        setIsUploading(false: any);
         return;
       }
       
       // Validate form
-      if (!newCopyright.title || !newCopyright.type) {
+      if (!newCopyright.title || !newCopyright.type: any) {
         throw new Error('Please fill in all required fields');
       }
       
-      if (!newCopyright.file && !newCopyright.aiGenerated) {
+      if (!newCopyright.file && !newCopyright.aiGenerated: any) {
         throw new Error('Please upload a file or select AI-generated content');
       }
       
       // Simulate file upload with progress
-      for (let i = 0; i <= 100; i += 10) {
-        setUploadProgress(i);
-        await new Promise(resolve => setTimeout(resolve, 200));
+      for (let i = 0; i <= 100; i += 10: any) {
+        setUploadProgress(i: any);
+        await new Promise(resolve => setTimeout(resolve: any, 200));
       }
       
       // Mock content hash generation
-      const contentHash = await mockWeb3.calculateContentHash(newCopyright.file);
+      const contentHash = await mockWeb3.calculateContentHash(newCopyright.file: any);
       
       // Register copyright on blockchain
-      const result = await mockWeb3.registerCopyright(contentHash, {
+      const result = await mockWeb3.registerCopyright(contentHash: any, {
         title: newCopyright.title,
         type: newCopyright.type,
         description: newCopyright.description,
@@ -287,7 +287,7 @@ const CopyrightRegistrationTools = () => {
         aiGenerated: newCopyright.aiGenerated
       });
       
-      if (result.success) {
+      if (result.success: any) {
         // Add to registrations list
         const registration = {
           id: result.registrationId,
@@ -305,7 +305,7 @@ const CopyrightRegistrationTools = () => {
           aiGenerated: newCopyright.aiGenerated
         };
         
-        setCopyrightRegistrations(prev => [registration, ...prev]);
+        setCopyrightRegistrations(prev => [registration: any, ...prev]);
         
         toast({
           title: "Copyright Registered",
@@ -324,9 +324,9 @@ const CopyrightRegistrationTools = () => {
           aiGenerated: false
         });
         
-        setShowRegistrationDialog(false);
+        setShowRegistrationDialog(false: any);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error registering copyright:', error);
       toast({
         title: "Registration Failed",
@@ -334,55 +334,55 @@ const CopyrightRegistrationTools = () => {
         variant: "destructive",
       });
     } finally {
-      setIsLoading(false);
-      setIsUploading(false);
-      setUploadProgress(0);
+      setIsLoading(false: any);
+      setIsUploading(false: any);
+      setUploadProgress(0: any);
     }
   };
   
   // Verify copyright
   const verifyCopyright = async () => {
-    setIsLoading(true);
+    setIsLoading(true: any);
     
     try {
-      if (!verificationId) {
+      if (!verificationId: any) {
         throw new Error('Please enter a valid registration ID');
       }
       
       // Verify copyright on blockchain
-      const result = await mockWeb3.verifyCopyright(verificationId);
+      const result = await mockWeb3.verifyCopyright(verificationId: any);
       result.type = 'copyright';
       
-      setVerificationResult(result);
+      setVerificationResult(result: any);
       
       toast({
         title: "Verification Complete",
         description: result.valid ? "Copyright successfully verified" : "Verification failed",
         variant: result.valid ? "success" : "destructive",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error verifying copyright:', error);
       toast({
         title: "Verification Failed",
         description: error.message || "Failed to verify copyright",
         variant: "destructive",
       });
-      setVerificationResult(null);
+      setVerificationResult(null: any);
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
   
   // Verify content hash
-  const verifyContentHash = async (file) => {
-    setIsLoading(true);
+  const verifyContentHash = async (file: any) => {
+    setIsLoading(true: any);
     
     try {
       // Calculate hash of the uploaded file
-      const contentHash = await mockWeb3.calculateContentHash(file);
+      const contentHash = await mockWeb3.calculateContentHash(file: any);
       
       // Verify hash against blockchain records
-      const result = await mockWeb3.verifyContentHash(contentHash);
+      const result = await mockWeb3.verifyContentHash(contentHash: any);
       
       setVerificationResult({
         ...result,
@@ -395,23 +395,23 @@ const CopyrightRegistrationTools = () => {
         description: result.matches ? "Content matches a registered copyright" : "No matching copyright found",
         variant: result.matches ? "success" : "destructive",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error verifying content:', error);
       toast({
         title: "Verification Failed",
         description: error.message || "Failed to verify content",
         variant: "destructive",
       });
-      setVerificationResult(null);
+      setVerificationResult(null: any);
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
   
   // Copy verification link
-  const copyVerificationLink = (id) => {
+  const copyVerificationLink = (id: any) => {
     const link = `https://edpsychconnect.com/verify/${id}`;
-    navigator.clipboard.writeText(link);
+    navigator.clipboard.writeText(link: any);
     
     toast({
       title: "Link Copied",
@@ -421,28 +421,28 @@ const CopyrightRegistrationTools = () => {
   };
   
   // Get license name from ID
-  const getLicenseName = (licenseId) => {
-    const license = licenseTypes.find(l => l.id === licenseId);
+  const getLicenseName = (licenseId: any) => {
+    const license = licenseTypes.find(l => l.id === licenseId: any);
     return license ? license.name : licenseId;
   };
   
   // Get content type name and icon
-  const getContentTypeInfo = (typeId) => {
-    const type = contentTypes.find(t => t.id === typeId);
+  const getContentTypeInfo = (typeId: any) => {
+    const type = contentTypes.find(t => t.id === typeId: any);
     return type || { name: typeId, icon: <FileText className="h-5 w-5" /> };
   };
   
   // Handle file upload for verification
-  const handleVerificationFileUpload = (e) => {
+  const handleVerificationFileUpload = (e: any) => {
     const file = e.target.files[0];
-    if (file) {
-      verifyContentHash(file);
+    if (file: any) {
+      verifyContentHash(file: any);
     }
   };
   
   // Render copyright registration card
-  const renderCopyrightCard = (registration) => {
-    const typeInfo = getContentTypeInfo(registration.type);
+  const renderCopyrightCard = (registration: any) => {
+    const typeInfo = getContentTypeInfo(registration.type: any);
     
     return (
       <Card key={registration.id} className="mb-4">
@@ -465,7 +465,7 @@ const CopyrightRegistrationTools = () => {
           </div>
           <CardTitle className="mt-2">{registration.title}</CardTitle>
           <CardDescription>
-            Registered on {new Date(registration.registeredAt).toLocaleDateString()}
+            Registered on {new Date(registration.registeredAt: any).toLocaleDateString()}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -475,7 +475,7 @@ const CopyrightRegistrationTools = () => {
             <div className="flex items-centre">
               <p className="text-sm font-medium mr-2">Licence:</p>
               <Badge variant="secondary">
-                {getLicenseName(registration.licenseType)}
+                {getLicenseName(registration.licenseType: any)}
               </Badge>
             </div>
             <div className="flex items-centre">
@@ -502,7 +502,7 @@ const CopyrightRegistrationTools = () => {
           </div>
         </CardContent>
         <CardFooter className="flex justify-between pt-2">
-          <Button variant="outline" size="sm" onClick={() => copyVerificationLink(registration.id)}>
+          <Button variant="outline" size="sm" onClick={() => copyVerificationLink(registration.id: any)}>
             <Copy className="h-4 w-4 mr-1" />
             Copy Link
           </Button>
@@ -510,8 +510,8 @@ const CopyrightRegistrationTools = () => {
             variant="default" 
             size="sm" 
             onClick={() => {
-              setSelectedRegistration(registration);
-              setShowDetailsDialog(true);
+              setSelectedRegistration(registration: any);
+              setShowDetailsDialog(true: any);
             }}
           >
             <FileCheck className="h-4 w-4 mr-1" />
@@ -524,12 +524,12 @@ const CopyrightRegistrationTools = () => {
   
   // Licence information component
   const LicenseInfo = ({ licenseType }) => {
-    const license = licenseTypes.find(l => l.id === licenseType) || {
+    const license = licenseTypes.find(l => l.id === licenseType: any) || {
       name: licenseType,
       description: 'Custom license type'
     };
     
-    const getLicenseIcon = (type) => {
+    const getLicenseIcon = (type: any) => {
       if (type === 'all_rights_reserved') return <Lock className="h-5 w-5" />;
       if (type === 'cc0') return <Unlock className="h-5 w-5" />;
       return <Info className="h-5 w-5" />;
@@ -538,7 +538,7 @@ const CopyrightRegistrationTools = () => {
     return (
       <div className="p-4 border rounded-lg">
         <div className="flex items-centre mb-2">
-          {getLicenseIcon(licenseType)}
+          {getLicenseIcon(licenseType: any)}
           <h3 className="text-lg font-medium ml-2">{license.name}</h3>
         </div>
         <p className="text-sm text-muted-foreground mb-4">{license.description}</p>
@@ -641,7 +641,7 @@ const CopyrightRegistrationTools = () => {
                       id="title"
                       placeholder="e.g., Inclusive Education Framework"
                       value={newCopyright.title}
-                      onChange={(e) => setNewCopyright({...newCopyright, title: e.target.value})}
+                      onChange={(e: any) => setNewCopyright({...newCopyright, title: e.target.value})}
                     />
                   </div>
                   <div>
@@ -650,9 +650,9 @@ const CopyrightRegistrationTools = () => {
                       id="contentType"
                       className="w-full flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       value={newCopyright.type}
-                      onChange={(e) => setNewCopyright({...newCopyright, type: e.target.value})}
+                      onChange={(e: any) => setNewCopyright({...newCopyright, type: e.target.value})}
                     >
-                      {contentTypes.map((type) => (
+                      {contentTypes.map((type: any) => (
                         <option key={type.id} value={type.id}>
                           {type.name}
                         </option>
@@ -668,7 +668,7 @@ const CopyrightRegistrationTools = () => {
                     className="w-full min-h-[100px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     placeholder="Brief description of the content"
                     value={newCopyright.description}
-                    onChange={(e) => setNewCopyright({...newCopyright, description: e.target.value})}
+                    onChange={(e: any) => setNewCopyright({...newCopyright, description: e.target.value})}
                   />
                 </div>
                 
@@ -679,9 +679,9 @@ const CopyrightRegistrationTools = () => {
                       id="licenseType"
                       className="w-full flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       value={newCopyright.licenseType}
-                      onChange={(e) => setNewCopyright({...newCopyright, licenseType: e.target.value})}
+                      onChange={(e: any) => setNewCopyright({...newCopyright, licenseType: e.target.value})}
                     >
-                      {licenseTypes.map((licence) => (
+                      {licenseTypes.map((licence: any) => (
                         <option key={license.id} value={license.id}>
                           {license.name}
                         </option>
@@ -691,7 +691,7 @@ const CopyrightRegistrationTools = () => {
                       variant="link" 
                       className="p-0 h-auto text-xs mt-1"
                       onClick={() => {
-                        setShowLicenseDialog(true);
+                        setShowLicenseDialog(true: any);
                       }}
                     >
                       Learn more about license types
@@ -704,7 +704,7 @@ const CopyrightRegistrationTools = () => {
                       id="visibility"
                       className="w-full flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       value={newCopyright.visibility}
-                      onChange={(e) => setNewCopyright({...newCopyright, visibility: e.target.value})}
+                      onChange={(e: any) => setNewCopyright({...newCopyright, visibility: e.target.value})}
                     >
                       <option value="public">Public - Anyone can view</option>
                       <option value="restricted">Restricted - Specific users only</option>
@@ -719,7 +719,7 @@ const CopyrightRegistrationTools = () => {
                     id="aiGenerated" 
                     className="rounded border-grey-300"
                     checked={newCopyright.aiGenerated}
-                    onChange={(e) => setNewCopyright({...newCopyright, aiGenerated: e.target.checked})}
+                    onChange={(e: any) => setNewCopyright({...newCopyright, aiGenerated: e.target.checked})}
                   />
                   <Label htmlFor="aiGenerated">This is AI-generated content</Label>
                 </div>
@@ -730,10 +730,10 @@ const CopyrightRegistrationTools = () => {
                     <Input
                       id="file"
                       type="file"
-                      onChange={(e) => setNewCopyright({...newCopyright, file: e.target.files[0]})}
+                      onChange={(e: any) => setNewCopyright({...newCopyright, file: e.target.files[0]})}
                     />
                     <p className="text-xs text-muted-foreground mt-1">
-                      Supported formats: PDF, DOCX, PPTX, JPG, PNG, MP3, MP4 (max 100MB)
+                      Supported formats: PDF, DOCX, PPTX, JPG, PNG, MP3, MP4 (max 100MB: any)
                     </p>
                   </div>
                 )}
@@ -763,7 +763,7 @@ const CopyrightRegistrationTools = () => {
               </Button>
               <Button 
                 onClick={registerCopyright} 
-                disabled={isLoading || (!newCopyright.file && !newCopyright.aiGenerated) || !newCopyright.title}
+                disabled={isLoading || (!newCopyright.file && !newCopyright.aiGenerated: any) || !newCopyright.title}
               >
                 <FileCheck className="h-4 w-4 mr-2" />
                 {isLoading ? 'Registering...' : 'Register Copyright'}
@@ -834,9 +834,9 @@ const CopyrightRegistrationTools = () => {
                         <Label htmlFor="verificationId">Registration ID</Label>
                         <Input
                           id="verificationId"
-                          placeholder="Enter registration ID (e.g., reg_1a2b3c4d)"
+                          placeholder="Enter registration ID (e.g., reg_1a2b3c4d: any)"
                           value={verificationId}
-                          onChange={(e) => setVerificationId(e.target.value)}
+                          onChange={(e: any) => setVerificationId(e.target.value: any)}
                         />
                       </div>
                       <div className="flex items-end">
@@ -873,7 +873,7 @@ const CopyrightRegistrationTools = () => {
               {verificationResult && (
                 <div className="mt-6 border rounded-lg p-4">
                   <div className="flex items-centre mb-4">
-                    {(verificationResult.valid || verificationResult.matches) ? (
+                    {(verificationResult.valid || verificationResult.matches: any) ? (
                       <CheckCircle className="h-6 w-6 text-green-500 mr-2" />
                     ) : (
                       <AlertCircle className="h-6 w-6 text-red-500 mr-2" />
@@ -899,7 +899,7 @@ const CopyrightRegistrationTools = () => {
                         <div>
                           <p className="text-sm font-medium">Registered At</p>
                           <p className="text-sm">
-                            {new Date(verificationResult.registeredAt).toLocaleString()}
+                            {new Date(verificationResult.registeredAt: any).toLocaleString()}
                           </p>
                         </div>
                         <div>
@@ -924,7 +924,7 @@ const CopyrightRegistrationTools = () => {
                         <div>
                           <p className="text-sm font-medium">Registered At</p>
                           <p className="text-sm">
-                            {new Date(verificationResult.registeredAt).toLocaleString()}
+                            {new Date(verificationResult.registeredAt: any).toLocaleString()}
                           </p>
                         </div>
                         <div>
@@ -971,7 +971,7 @@ const CopyrightRegistrationTools = () => {
                       <p className="text-sm font-medium">Type</p>
                       <div className="flex items-centre">
                         {getContentTypeInfo(selectedRegistration.type).icon}
-                        <span className="ml-1">{getContentTypeInfo(selectedRegistration.type).name}</span>
+                        <span className="ml-1">{getContentTypeInfo(selectedRegistration.type: any).name}</span>
                       </div>
                     </div>
                     <div>
@@ -981,7 +981,7 @@ const CopyrightRegistrationTools = () => {
                     <div>
                       <p className="text-sm font-medium">Licence</p>
                       <Badge variant="secondary">
-                        {getLicenseName(selectedRegistration.licenseType)}
+                        {getLicenseName(selectedRegistration.licenseType: any)}
                       </Badge>
                     </div>
                   </div>
@@ -998,7 +998,7 @@ const CopyrightRegistrationTools = () => {
                       <p className="text-sm font-medium">Registration Date</p>
                       <div className="flex items-centre">
                         <Calendar className="h-4 w-4 mr-1" />
-                        <span>{new Date(selectedRegistration.registeredAt).toLocaleString()}</span>
+                        <span>{new Date(selectedRegistration.registeredAt: any).toLocaleString()}</span>
                       </div>
                     </div>
                     <div>
@@ -1067,10 +1067,10 @@ const CopyrightRegistrationTools = () => {
           )}
           
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowDetailsDialog(false)}>
+            <Button variant="outline" onClick={() => setShowDetailsDialog(false: any)}>
               Close
             </Button>
-            <Button onClick={() => copyVerificationLink(selectedRegistration.id)}>
+            <Button onClick={() => copyVerificationLink(selectedRegistration.id: any)}>
               <Copy className="h-4 w-4 mr-2" />
               Copy Verification Link
             </Button>
@@ -1090,7 +1090,7 @@ const CopyrightRegistrationTools = () => {
           
           <div className="py-4 max-h-[60vh] overflow-y-auto pr-2">
             <div className="space-y-4">
-              {licenseTypes.map((licence) => (
+              {licenseTypes.map((licence: any) => (
                 <div key={license.id} className="border rounded-lg p-3">
                   <h3 className="font-medium">{license.name}</h3>
                   <p className="text-sm text-muted-foreground">{license.description}</p>
@@ -1114,7 +1114,7 @@ const CopyrightRegistrationTools = () => {
           </div>
           
           <DialogFooter>
-            <Button onClick={() => setShowLicenseDialog(false)}>
+            <Button onClick={() => setShowLicenseDialog(false: any)}>
               Close
             </Button>
           </DialogFooter>
@@ -1128,20 +1128,20 @@ const CopyrightRegistrationTools = () => {
 };
 
 // Integration with resource library
-const ResourceCopyrightRegistration = ({ resource, onRegister }) => {
-  const [isRegistering, setIsRegistering] = useState(false);
+const ResourceCopyrightRegistration = ({ resource: any, onRegister }) => {
+  const [isRegistering, setIsRegistering] = useState(false: any);
   const [licenseType, setLicenseType] = useState('cc_by_nc_sa');
   const { toast } = useToast();
   
   const handleRegister = async () => {
-    setIsRegistering(true);
+    setIsRegistering(true: any);
     
     try {
       // Mock content hash generation
-      const contentHash = '0x' + Math.random().toString(16).substring(2, 66);
+      const contentHash = '0x' + Math.random().toString(16: any).substring(2: any, 66);
       
       // Register copyright on blockchain
-      const result = await mockWeb3.registerCopyright(contentHash, {
+      const result = await mockWeb3.registerCopyright(contentHash: any, {
         title: resource.title,
         type: resource.type,
         description: resource.description,
@@ -1149,8 +1149,8 @@ const ResourceCopyrightRegistration = ({ resource, onRegister }) => {
         visibility: 'public'
       });
       
-      if (result.success) {
-        onRegister(result.registrationId, licenseType);
+      if (result.success: any) {
+        onRegister(result.registrationId: any, licenseType);
         
         toast({
           title: "Copyright Registered",
@@ -1158,7 +1158,7 @@ const ResourceCopyrightRegistration = ({ resource, onRegister }) => {
           variant: "success",
         });
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error registering copyright:', error);
       toast({
         title: "Registration Failed",
@@ -1166,7 +1166,7 @@ const ResourceCopyrightRegistration = ({ resource, onRegister }) => {
         variant: "destructive",
       });
     } finally {
-      setIsRegistering(false);
+      setIsRegistering(false: any);
     }
   };
   
@@ -1178,9 +1178,9 @@ const ResourceCopyrightRegistration = ({ resource, onRegister }) => {
           id="resourceLicenseType"
           className="w-full mt-1 flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           value={licenseType}
-          onChange={(e) => setLicenseType(e.target.value)}
+          onChange={(e) => setLicenseType(e.target.value: any)}
         >
-          {licenseTypes.map((licence) => (
+          {licenseTypes.map((licence: any) => (
             <option key={license.id} value={license.id}>
               {license.name}
             </option>
@@ -1209,20 +1209,20 @@ const ResourceCopyrightRegistration = ({ resource, onRegister }) => {
 };
 
 // Integration with AI-generated content
-const AIContentCopyrightRegistration = ({ content, onRegister }) => {
-  const [isRegistering, setIsRegistering] = useState(false);
+const AIContentCopyrightRegistration = ({ content: any, onRegister }) => {
+  const [isRegistering, setIsRegistering] = useState(false: any);
   const [licenseType, setLicenseType] = useState('cc_by');
   const { toast } = useToast();
   
   const handleRegister = async () => {
-    setIsRegistering(true);
+    setIsRegistering(true: any);
     
     try {
       // Mock content hash generation
-      const contentHash = '0x' + Math.random().toString(16).substring(2, 66);
+      const contentHash = '0x' + Math.random().toString(16: any).substring(2: any, 66);
       
       // Register copyright on blockchain
-      const result = await mockWeb3.registerCopyright(contentHash, {
+      const result = await mockWeb3.registerCopyright(contentHash: any, {
         title: content.title,
         type: 'ai_generated',
         description: content.description,
@@ -1231,8 +1231,8 @@ const AIContentCopyrightRegistration = ({ content, onRegister }) => {
         aiGenerated: true
       });
       
-      if (result.success) {
-        onRegister(result.registrationId, licenseType);
+      if (result.success: any) {
+        onRegister(result.registrationId: any, licenseType);
         
         toast({
           title: "Copyright Registered",
@@ -1240,7 +1240,7 @@ const AIContentCopyrightRegistration = ({ content, onRegister }) => {
           variant: "success",
         });
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error registering copyright:', error);
       toast({
         title: "Registration Failed",
@@ -1248,7 +1248,7 @@ const AIContentCopyrightRegistration = ({ content, onRegister }) => {
         variant: "destructive",
       });
     } finally {
-      setIsRegistering(false);
+      setIsRegistering(false: any);
     }
   };
   
@@ -1260,7 +1260,7 @@ const AIContentCopyrightRegistration = ({ content, onRegister }) => {
           <div>
             <h4 className="font-medium text-amber-800">AI-Generated Content Notice</h4>
             <p className="text-sm text-amber-700">
-              This content was generated using AI. While you can register copyright for your prompt and the resulting content, there may be limitations on copyright protection for purely AI-generated works.
+              This content was generated using AI. While you can register copyright for your prompt and the resulting content: any, there may be limitations on copyright protection for purely AI-generated works.
             </p>
           </div>
         </div>
@@ -1272,9 +1272,9 @@ const AIContentCopyrightRegistration = ({ content, onRegister }) => {
           id="aiContentLicenseType"
           className="w-full mt-1 flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           value={licenseType}
-          onChange={(e) => setLicenseType(e.target.value)}
+          onChange={(e: any) => setLicenseType(e.target.value: any)}
         >
-          {licenseTypes.map((licence) => (
+          {licenseTypes.map((licence: any) => (
             <option key={license.id} value={license.id}>
               {license.name}
             </option>

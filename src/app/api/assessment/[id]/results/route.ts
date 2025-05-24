@@ -17,9 +17,9 @@ export async function GET(
 ) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -54,7 +54,7 @@ export async function GET(
       },
     });
     
-    if (!assessment) {
+    if (!assessment: any) {
       return NextResponse.json({ error: 'Assessment not found' }, { status: 404 });
     }
     
@@ -65,13 +65,13 @@ export async function GET(
     const isProfessional = session.user.role === 'professional';
     
     // Only allow access if user is creator, admin, teacher, or professional
-    if (!isCreator && !isAdmin && !isTeacher && !isProfessional) {
+    if (!isCreator && !isAdmin && !isTeacher && !isProfessional: any) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
     
-    return NextResponse.json(assessment);
+    return NextResponse.json(assessment: any);
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching assessment results:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching the assessment results' },

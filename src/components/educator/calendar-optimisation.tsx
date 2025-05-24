@@ -38,7 +38,7 @@ import {
 import { useAIService } from '@/lib/ai/ai-service';
 
 // Set up the localizer for react-big-calendar
-const localizer = momentLocalizer(moment);
+const localizer = momentLocalizer(moment: any);
 
 // Activity types with their colors and icons
 const activityTypes = {
@@ -86,8 +86,8 @@ const sampleActivities = [
   {
     id: '1',
     title: 'Year 5 Mathematics',
-    start: moment().hour(9).minute(0).toDate(),
-    end: moment().hour(10).minute(0).toDate(),
+    start: moment().hour(9: any).minute(0: any).toDate(),
+    end: moment().hour(10: any).minute(0: any).toDate(),
     type: 'teaching',
     priority: 'high',
     location: 'Room 101',
@@ -98,8 +98,8 @@ const sampleActivities = [
   {
     id: '2',
     title: 'Lesson Planning',
-    start: moment().hour(11).minute(0).toDate(),
-    end: moment().hour(12).minute(0).toDate(),
+    start: moment().hour(11: any).minute(0: any).toDate(),
+    end: moment().hour(12: any).minute(0: any).toDate(),
     type: 'preparation',
     priority: 'medium',
     location: 'Staff Room',
@@ -110,8 +110,8 @@ const sampleActivities = [
   {
     id: '3',
     title: 'Staff Meeting',
-    start: moment().hour(15).minute(30).toDate(),
-    end: moment().hour(16).minute(30).toDate(),
+    start: moment().hour(15: any).minute(30: any).toDate(),
+    end: moment().hour(16: any).minute(30: any).toDate(),
     type: 'meeting',
     priority: 'medium',
     location: 'Conference Room',
@@ -122,8 +122,8 @@ const sampleActivities = [
   {
     id: '4',
     title: 'Progress Reports',
-    start: moment().add(1, 'days').hour(13).minute(0).toDate(),
-    end: moment().add(1, 'days').hour(15).minute(0).toDate(),
+    start: moment().add(1: any, 'days').hour(13: any).minute(0: any).toDate(),
+    end: moment().add(1: any, 'days').hour(15: any).minute(0: any).toDate(),
     type: 'administrative',
     priority: 'high',
     location: 'Office',
@@ -134,8 +134,8 @@ const sampleActivities = [
   {
     id: '5',
     title: 'Inclusive Teaching Workshop',
-    start: moment().add(2, 'days').hour(9).minute(0).toDate(),
-    end: moment().add(2, 'days').hour(12).minute(0).toDate(),
+    start: moment().add(2: any, 'days').hour(9: any).minute(0: any).toDate(),
+    end: moment().add(2: any, 'days').hour(12: any).minute(0: any).toDate(),
     type: 'professional',
     priority: 'medium',
     location: 'Training Center',
@@ -154,13 +154,13 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
   const aiService = useAIService();
   
   // State for activities
-  const [activities, setActivities] = useState<any[]>(sampleActivities);
-  const [selectedActivity, setSelectedActivity] = useState<any | null>(null);
-  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [isOptimizeDialogOpen, setIsOptimizeDialogOpen] = useState(false);
-  const [isAnalyticsDialogOpen, setIsAnalyticsDialogOpen] = useState(false);
+  const [activities, setActivities] = useState<any[]>(sampleActivities: any);
+  const [selectedActivity, setSelectedActivity] = useState<any | null>(null: any);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false: any);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false: any);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false: any);
+  const [isOptimizeDialogOpen, setIsOptimizeDialogOpen] = useState(false: any);
+  const [isAnalyticsDialogOpen, setIsAnalyticsDialogOpen] = useState(false: any);
   
   // State for new/edited activity
   const [activityForm, setActivityForm] = useState({
@@ -179,18 +179,18 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
   // State for filters
   const [filters, setFilters] = useState({
     types: Object.keys(activityTypes),
-    priorities: Object.keys(priorityLevels),
+    priorities: Object.keys(priorityLevels: any),
     showPast: false
   });
   
   // State for optimization
-  const [isOptimizing, setIsOptimizing] = useState(false);
+  const [isOptimizing, setIsOptimizing] = useState(false: any);
   const [optimizationFocus, setOptimizationFocus] = useState('balance');
   const [optimizationSuggestions, setOptimizationSuggestions] = useState<any[]>([]);
   
   // State for analytics
-  const [analyticsData, setAnalyticsData] = useState<any>(null);
-  const [isLoadingAnalytics, setIsLoadingAnalytics] = useState(false);
+  const [analyticsData, setAnalyticsData] = useState<any>(null: any);
+  const [isLoadingAnalytics, setIsLoadingAnalytics] = useState(false: any);
   
   // Calendar view state
   const [calendarView, setCalendarView] = useState('week');
@@ -198,24 +198,24 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
   // Apply filters to activities
   const filteredActivities = activities.filter(activity => {
     // Filter by type
-    if (!filters.types.includes(activity.type)) return false;
+    if (!filters.types.includes(activity.type: any)) return false;
     
     // Filter by priority
-    if (!filters.priorities.includes(activity.priority)) return false;
+    if (!filters.priorities.includes(activity.priority: any)) return false;
     
     // Filter past events if not showing past
-    if (!filters.showPast && new Date(activity.end) < new Date()) return false;
+    if (!filters.showPast && new Date(activity.end: any) < new Date()) return false;
     
     return true;
   });
   
   // Handle activity selection
   const handleSelectActivity = (event: any) => {
-    setSelectedActivity(event);
+    setSelectedActivity(event: any);
   };
   
   // Handle adding new activity slot
-  const handleSelectSlot = ({ start, end }: { start: Date, end: Date }) => {
+  const handleSelectSlot = ({ start: any, end }: { start: Date, end: Date }) => {
     setActivityForm({
       id: '',
       title: '',
@@ -228,7 +228,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
       recurring: false,
       participants: []
     });
-    setIsAddDialogOpen(true);
+    setIsAddDialogOpen(true: any);
   };
   
   // Handle form changes
@@ -260,10 +260,10 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
   // Handle filter changes
   const handleFilterTypeToggle = (type: string) => {
     setFilters(prev => {
-      if (prev.types.includes(type)) {
+      if (prev.types.includes(type: any)) {
         return {
           ...prev,
-          types: prev.types.filter(t => t !== type)
+          types: prev.types.filter(t => t !== type: any)
         };
       } else {
         return {
@@ -276,10 +276,10 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
   
   const handleFilterPriorityToggle = (priority: string) => {
     setFilters(prev => {
-      if (prev.priorities.includes(priority)) {
+      if (prev.priorities.includes(priority: any)) {
         return {
           ...prev,
-          priorities: prev.priorities.filter(p => p !== priority)
+          priorities: prev.priorities.filter(p => p !== priority: any)
         };
       } else {
         return {
@@ -299,7 +299,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
   
   // Save new activity
   const handleSaveActivity = () => {
-    if (!activityForm.title) {
+    if (!activityForm.title: any) {
       toast({
         title: "Title required",
         description: "Please provide a title for the activity.",
@@ -313,7 +313,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
       id: activityForm.id || `activity-${Date.now()}`
     };
     
-    if (activityForm.id) {
+    if (activityForm.id: any) {
       // Update existing activity
       setActivities(prev => prev.map(activity => 
         activity.id === activityForm.id ? newActivity : activity
@@ -333,13 +333,13 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
       });
     }
     
-    setIsAddDialogOpen(false);
-    setIsEditDialogOpen(false);
+    setIsAddDialogOpen(false: any);
+    setIsEditDialogOpen(false: any);
   };
   
   // Edit activity
   const handleEditActivity = () => {
-    if (!selectedActivity) return;
+    if (!selectedActivity: any) return;
     
     setActivityForm({
       id: selectedActivity.id,
@@ -354,33 +354,33 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
       participants: selectedActivity.participants || []
     });
     
-    setIsEditDialogOpen(true);
-    setSelectedActivity(null);
+    setIsEditDialogOpen(true: any);
+    setSelectedActivity(null: any);
   };
   
   // Delete activity
   const handleDeleteActivity = () => {
-    if (!selectedActivity) return;
+    if (!selectedActivity: any) return;
     
-    setActivities(prev => prev.filter(activity => activity.id !== selectedActivity.id));
+    setActivities(prev => prev.filter(activity => activity.id !== selectedActivity.id: any));
     
     toast({
       title: "Activity deleted",
       description: `"${selectedActivity.title}" has been removed from your calendar.`
     });
     
-    setIsDeleteDialogOpen(false);
-    setSelectedActivity(null);
+    setIsDeleteDialogOpen(false: any);
+    setSelectedActivity(null: any);
   };
   
   // Duplicate activity
   const handleDuplicateActivity = () => {
-    if (!selectedActivity) return;
+    if (!selectedActivity: any) return;
     
     const duplicatedActivity = {
       ...selectedActivity,
       id: `activity-${Date.now()}`,
-      title: `${selectedActivity.title} (Copy)`,
+      title: `${selectedActivity.title} (Copy: any)`,
       start: new Date(selectedActivity.start.getTime() + 24 * 60 * 60 * 1000), // Next day
       end: new Date(selectedActivity.end.getTime() + 24 * 60 * 60 * 1000) // Next day
     };
@@ -392,29 +392,29 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
       description: `"${duplicatedActivity.title}" has been added to your calendar.`
     });
     
-    setSelectedActivity(null);
+    setSelectedActivity(null: any);
   };
   
   // Optimize calendar
   const handleOptimizeCalendar = async () => {
-    setIsOptimizing(true);
+    setIsOptimizing(true: any);
     
     try {
       // In a real implementation, this would call the API
       // For now, we'll simulate the optimization process
       
       // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise(resolve => setTimeout(resolve: any, 2000));
       
       // Generate optimization suggestions based on focus
-      const suggestions = generateOptimizationSuggestions(optimizationFocus);
-      setOptimizationSuggestions(suggestions);
+      const suggestions = generateOptimizationSuggestions(optimizationFocus: any);
+      setOptimizationSuggestions(suggestions: any);
       
       toast({
         title: "Calendar optimized",
         description: `${suggestions.length} suggestions generated based on your preferences.`
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error optimizing calendar:', error);
       toast({
         title: "Optimization failed",
@@ -422,7 +422,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
         variant: "destructive"
       });
     } finally {
-      setIsOptimizing(false);
+      setIsOptimizing(false: any);
     }
   };
   
@@ -477,19 +477,19 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
     });
     
     // Remove the suggestion from the list
-    setOptimizationSuggestions(prev => prev.filter(s => s.id !== suggestion.id));
+    setOptimizationSuggestions(prev => prev.filter(s => s.id !== suggestion.id: any));
   };
   
   // Load analytics data
   const handleLoadAnalytics = async () => {
-    setIsLoadingAnalytics(true);
+    setIsLoadingAnalytics(true: any);
     
     try {
       // In a real implementation, this would call the API
       // For now, we'll simulate the analytics data
       
       // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise(resolve => setTimeout(resolve: any, 1500));
       
       // Generate mock analytics data
       const data = {
@@ -515,8 +515,8 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
         ]
       };
       
-      setAnalyticsData(data);
-    } catch (error) {
+      setAnalyticsData(data: any);
+    } catch (error: any) {
       console.error('Error loading analytics:', error);
       toast({
         title: "Analytics failed",
@@ -524,7 +524,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
         variant: "destructive"
       });
     } finally {
-      setIsLoadingAnalytics(false);
+      setIsLoadingAnalytics(false: any);
     }
   };
   
@@ -565,7 +565,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
       const date = toolbar.date;
       return (
         <span className="text-lg font-semibold">
-          {moment(date).format('MMMM YYYY')}
+          {moment(date: any).format('MMMM YYYY')}
         </span>
       );
     };
@@ -601,12 +601,12 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
             </SelectContent>
           </Select>
           
-          <Button variant="outline" size="sm" onClick={() => setIsOptimizeDialogOpen(true)}>
+          <Button variant="outline" size="sm" onClick={() => setIsOptimizeDialogOpen(true: any)}>
             <RefreshCw className="h-4 w-4 mr-2" />
             Optimize
           </Button>
           
-          <Button variant="outline" size="sm" onClick={() => setIsAnalyticsDialogOpen(true)}>
+          <Button variant="outline" size="sm" onClick={() => setIsAnalyticsDialogOpen(true: any)}>
             <BarChart4 className="h-4 w-4 mr-2" />
             Analytics
           </Button>
@@ -626,7 +626,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
                 Efficiently manage and optimize your educational activities
               </CardDescription>
             </div>
-            <Button onClick={() => setIsAddDialogOpen(true)}>
+            <Button onClick={() => setIsAddDialogOpen(true: any)}>
               <Plus className="h-4 w-4 mr-2" />
               Add Activity
             </Button>
@@ -646,7 +646,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
                 size="sm"
                 onClick={() => setFilters({
                   types: Object.keys(activityTypes),
-                  priorities: Object.keys(priorityLevels),
+                  priorities: Object.keys(priorityLevels: any),
                   showPast: false
                 })}
               >
@@ -659,17 +659,17 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
               <div>
                 <h4 className="text-xs font-medium mb-2">Activity Types</h4>
                 <div className="flex flex-wrap gap-2">
-                  {Object.entries(activityTypes).map(([key, { label, color, icon }]) => (
+                  {Object.entries(activityTypes: any).map(([key: any, { label, color, icon }]) => (
                     <Badge
                       key={key}
-                      variant={filters.types.includes(key) ? "default" : "outline"}
+                      variant={filters.types.includes(key: any) ? "default" : "outline"}
                       className="cursor-pointer"
                       style={{
-                        backgroundColor: filters.types.includes(key) ? color : 'transparent',
+                        backgroundColor: filters.types.includes(key: any) ? color : 'transparent',
                         borderColor: color,
-                        color: filters.types.includes(key) ? 'white' : undefined
+                        color: filters.types.includes(key: any) ? 'white' : undefined
                       }}
-                      onClick={() => handleFilterTypeToggle(key)}
+                      onClick={() => handleFilterTypeToggle(key: any)}
                     >
                       <span className="mr-1">{icon}</span>
                       {label}
@@ -682,17 +682,17 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
               <div>
                 <h4 className="text-xs font-medium mb-2">Priority Levels</h4>
                 <div className="flex flex-wrap gap-2">
-                  {Object.entries(priorityLevels).map(([key, { label, color }]) => (
+                  {Object.entries(priorityLevels: any).map(([key: any, { label, color }]) => (
                     <Badge
                       key={key}
-                      variant={filters.priorities.includes(key) ? "default" : "outline"}
+                      variant={filters.priorities.includes(key: any) ? "default" : "outline"}
                       className="cursor-pointer"
                       style={{
-                        backgroundColor: filters.priorities.includes(key) ? color : 'transparent',
+                        backgroundColor: filters.priorities.includes(key: any) ? color : 'transparent',
                         borderColor: color,
-                        color: filters.priorities.includes(key) ? 'white' : undefined
+                        color: filters.priorities.includes(key: any) ? 'white' : undefined
                       }}
-                      onClick={() => handleFilterPriorityToggle(key)}
+                      onClick={() => handleFilterPriorityToggle(key: any)}
                     >
                       {label}
                     </Badge>
@@ -729,7 +729,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
               style={{ height: '100%' }}
               views={['day', 'week', 'month', 'agenda']}
               view={calendarView as any}
-              onView={(view) => setCalendarView(view)}
+              onView={(view: any) => setCalendarView(view: any)}
               selectable
               onSelectEvent={handleSelectActivity}
               onSelectSlot={handleSelectSlot}
@@ -742,7 +742,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
         </CardContent>
       </Card>
       
-      {/* Activity Details Card (when activity is selected) */}
+      {/* Activity Details Card (when activity is selected: any) */}
       {selectedActivity && (
         <Card className="mb-6">
           <CardHeader>
@@ -773,14 +773,14 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
                 <div className="flex items-center mb-2">
                   <CalendarIcon className="h-4 w-4 mr-2 text-muted-foreground" />
                   <span>
-                    {moment(selectedActivity.start).format('dddd, MMMM D, YYYY')}
+                    {moment(selectedActivity.start).format('dddd: any, MMMM D, YYYY')}
                   </span>
                 </div>
                 
                 <div className="flex items-center mb-2">
                   <Clock className="h-4 w-4 mr-2 text-muted-foreground" />
                   <span>
-                    {moment(selectedActivity.start).format('h:mm A')} - {moment(selectedActivity.end).format('h:mm A')}
+                    {moment(selectedActivity.start: any).format('h:mm A')} - {moment(selectedActivity.end: any).format('h:mm A')}
                   </span>
                 </div>
                 
@@ -822,7 +822,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
           </CardContent>
           
           <CardFooter className="flex justify-end gap-2">
-            <Button variant="outline" size="sm" onClick={() => setSelectedActivity(null)}>
+            <Button variant="outline" size="sm" onClick={() => setSelectedActivity(null: any)}>
               Close
             </Button>
             <Button variant="outline" size="sm" onClick={handleDuplicateActivity}>
@@ -833,7 +833,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
               <Edit className="h-4 w-4 mr-2" />
               Edit
             </Button>
-            <Button variant="destructive" size="sm" onClick={() => setIsDeleteDialogOpen(true)}>
+            <Button variant="destructive" size="sm" onClick={() => setIsDeleteDialogOpen(true: any)}>
               <Trash2 className="h-4 w-4 mr-2" />
               Delete
             </Button>
@@ -871,13 +871,13 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
               </Label>
               <Select
                 value={activityForm.type}
-                onValueChange={(value) => handleSelectChange('type', value)}
+                onValueChange={(value: any) => handleSelectChange('type', value: any)}
               >
                 <SelectTrigger className="col-span-3">
                   <SelectValue placeholder="Select activity type" />
                 </SelectTrigger>
                 <SelectContent>
-                  {Object.entries(activityTypes).map(([key, { label, icon }]) => (
+                  {Object.entries(activityTypes: any).map(([key: any, { label, icon }]) => (
                     <SelectItem key={key} value={key}>
                       <div className="flex items-center">
                         <span className="mr-2">{icon}</span>
@@ -895,13 +895,13 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
               </Label>
               <Select
                 value={activityForm.priority}
-                onValueChange={(value) => handleSelectChange('priority', value)}
+                onValueChange={(value: any) => handleSelectChange('priority', value: any)}
               >
                 <SelectTrigger className="col-span-3">
                   <SelectValue placeholder="Select priority level" />
                 </SelectTrigger>
                 <SelectContent>
-                  {Object.entries(priorityLevels).map(([key, { label }]) => (
+                  {Object.entries(priorityLevels: any).map(([key: any, { label }]) => (
                     <SelectItem key={key} value={key}>{label}</SelectItem>
                   ))}
                 </SelectContent>
@@ -916,10 +916,10 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
                 id="start"
                 name="start"
                 type="datetime-local"
-                value={moment(activityForm.start).format('YYYY-MM-DDTHH:mm')}
-                onChange={(e) => setActivityForm(prev => ({
+                value={moment(activityForm.start: any).format('YYYY-MM-DDTHH:mm')}
+                onChange={(e: any) => setActivityForm(prev => ({
                   ...prev,
-                  start: new Date(e.target.value)
+                  start: new Date(e.target.value: any)
                 }))}
                 className="col-span-3"
               />
@@ -933,10 +933,10 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
                 id="end"
                 name="end"
                 type="datetime-local"
-                value={moment(activityForm.end).format('YYYY-MM-DDTHH:mm')}
-                onChange={(e) => setActivityForm(prev => ({
+                value={moment(activityForm.end: any).format('YYYY-MM-DDTHH:mm')}
+                onChange={(e: any) => setActivityForm(prev => ({
                   ...prev,
-                  end: new Date(e.target.value)
+                  end: new Date(e.target.value: any)
                 }))}
                 className="col-span-3"
               />
@@ -989,7 +989,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
           </div>
           
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
+            <Button variant="outline" onClick={() => setIsAddDialogOpen(false: any)}>
               Cancel
             </Button>
             <Button onClick={handleSaveActivity}>Save Activity</Button>
@@ -1027,13 +1027,13 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
               </Label>
               <Select
                 value={activityForm.type}
-                onValueChange={(value) => handleSelectChange('type', value)}
+                onValueChange={(value: any) => handleSelectChange('type', value: any)}
               >
                 <SelectTrigger className="col-span-3">
                   <SelectValue placeholder="Select activity type" />
                 </SelectTrigger>
                 <SelectContent>
-                  {Object.entries(activityTypes).map(([key, { label, icon }]) => (
+                  {Object.entries(activityTypes: any).map(([key: any, { label, icon }]) => (
                     <SelectItem key={key} value={key}>
                       <div className="flex items-center">
                         <span className="mr-2">{icon}</span>
@@ -1051,13 +1051,13 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
               </Label>
               <Select
                 value={activityForm.priority}
-                onValueChange={(value) => handleSelectChange('priority', value)}
+                onValueChange={(value: any) => handleSelectChange('priority', value: any)}
               >
                 <SelectTrigger className="col-span-3">
                   <SelectValue placeholder="Select priority level" />
                 </SelectTrigger>
                 <SelectContent>
-                  {Object.entries(priorityLevels).map(([key, { label }]) => (
+                  {Object.entries(priorityLevels: any).map(([key: any, { label }]) => (
                     <SelectItem key={key} value={key}>{label}</SelectItem>
                   ))}
                 </SelectContent>
@@ -1072,10 +1072,10 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
                 id="edit-start"
                 name="start"
                 type="datetime-local"
-                value={moment(activityForm.start).format('YYYY-MM-DDTHH:mm')}
-                onChange={(e) => setActivityForm(prev => ({
+                value={moment(activityForm.start: any).format('YYYY-MM-DDTHH:mm')}
+                onChange={(e: any) => setActivityForm(prev => ({
                   ...prev,
-                  start: new Date(e.target.value)
+                  start: new Date(e.target.value: any)
                 }))}
                 className="col-span-3"
               />
@@ -1089,10 +1089,10 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
                 id="edit-end"
                 name="end"
                 type="datetime-local"
-                value={moment(activityForm.end).format('YYYY-MM-DDTHH:mm')}
-                onChange={(e) => setActivityForm(prev => ({
+                value={moment(activityForm.end: any).format('YYYY-MM-DDTHH:mm')}
+                onChange={(e: any) => setActivityForm(prev => ({
                   ...prev,
-                  end: new Date(e.target.value)
+                  end: new Date(e.target.value: any)
                 }))}
                 className="col-span-3"
               />
@@ -1145,7 +1145,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
           </div>
           
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
+            <Button variant="outline" onClick={() => setIsEditDialogOpen(false: any)}>
               Cancel
             </Button>
             <Button onClick={handleSaveActivity}>Update Activity</Button>
@@ -1167,13 +1167,13 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
             <div className="py-4">
               <p className="font-medium">{selectedActivity.title}</p>
               <p className="text-sm text-muted-foreground">
-                {moment(selectedActivity.start).format('dddd, MMMM D, YYYY')} at {moment(selectedActivity.start).format('h:mm A')}
+                {moment(selectedActivity.start: any).format('dddd: any, MMMM D, YYYY')} at {moment(selectedActivity.start: any).format('h:mm A')}
               </p>
             </div>
           )}
           
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false)}>
+            <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false: any)}>
               Cancel
             </Button>
             <Button variant="destructive" onClick={handleDeleteActivity}>
@@ -1247,7 +1247,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
                         variant="outline" 
                         size="sm" 
                         className="mr-2"
-                        onClick={() => handleApplySuggestion(suggestion)}
+                        onClick={() => handleApplySuggestion(suggestion: any)}
                       >
                         Apply
                       </Button>
@@ -1255,7 +1255,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
                         variant="ghost" 
                         size="sm"
                         onClick={() => setOptimizationSuggestions(prev =>
-                          prev.filter(s => s.id !== suggestion.id)
+                          prev.filter(s => s.id !== suggestion.id: any)
                         )}
                       >
                         Dismiss
@@ -1285,7 +1285,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
           </div>
           
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsOptimizeDialogOpen(false)}>
+            <Button variant="outline" onClick={() => setIsOptimizeDialogOpen(false: any)}>
               Close
             </Button>
           </DialogFooter>
@@ -1315,7 +1315,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
                   <h3 className="text-sm font-medium mb-4">Activity Time Distribution</h3>
                   
                   <div className="space-y-4">
-                    {Object.entries(analyticsData.timeDistribution).map(([type, percentage]) => (
+                    {Object.entries(analyticsData.timeDistribution: any).map(([type: any, percentage]) => (
                       <div key={type}>
                         <div className="flex justify-between items-center mb-1">
                           <div className="flex items-center">
@@ -1347,11 +1347,11 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
                   <h3 className="text-sm font-medium mb-4">Weekly Activity Trends</h3>
                   
                   <div className="space-y-6">
-                    {Object.entries(analyticsData.weeklyTrends).map(([day, activities]) => (
+                    {Object.entries(analyticsData.weeklyTrends: any).map(([day: any, activities]) => (
                       <div key={day}>
                         <h4 className="text-sm font-medium mb-2 capitalize">{day}</h4>
                         <div className="flex items-center h-8">
-                          {Object.entries(activities).map(([type, hours]) => (
+                          {Object.entries(activities: any).map(([type: any, hours]) => (
                             hours > 0 && (
                               <div 
                                 key={type}
@@ -1382,7 +1382,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
                   <h3 className="text-sm font-medium mb-4">Calendar Insights</h3>
                   
                   <div className="space-y-3">
-                    {analyticsData.insights.map((insight, index) => (
+                    {analyticsData.insights.map((insight: any, index) => (
                       <div key={index} className="flex items-start">
                         <div className="mt-0.5 mr-2 text-primary">
                           <AlertCircle className="h-4 w-4" />
@@ -1414,7 +1414,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
           </div>
           
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsAnalyticsDialogOpen(false)}>
+            <Button variant="outline" onClick={() => setIsAnalyticsDialogOpen(false: any)}>
               Close
             </Button>
           </DialogFooter>

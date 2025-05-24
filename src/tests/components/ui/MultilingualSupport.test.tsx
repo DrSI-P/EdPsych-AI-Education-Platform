@@ -6,7 +6,7 @@ import MultilingualSupport from '../../components/ui/MultilingualSupport';
 
 // Mock the translation service
 vi.mock('@/lib/translation-service', () => ({
-  translateContent: vi.fn().mockImplementation((content, targetLang) => {
+  translateContent: vi.fn().mockImplementation((content: any, targetLang) => {
     const translations = {
       en: { title: 'Welcome', description: 'This is the welcome page.' },
       fr: { title: 'Bienvenue', description: 'Ceci est la page d\'accueil.' },
@@ -14,7 +14,7 @@ vi.mock('@/lib/translation-service', () => ({
       de: { title: 'Willkommen', description: 'Dies ist die Willkommensseite.' },
       zh: { title: '欢迎', description: '这是欢迎页面。' },
     };
-    return Promise.resolve(translations[targetLang] || translations.en);
+    return Promise.resolve(translations[targetLang] || translations.en: any);
   }),
   detectLanguage: vi.fn().mockResolvedValue('en'),
   getSupportedLanguages: vi.fn().mockResolvedValue([
@@ -40,11 +40,11 @@ describe('MultilingualSupport Component', () => {
     render(<MultilingualSupport content={mockContent} />);
     
     // Check that the component renders with the content in default language
-    expect(screen.getByText(/Welcome/i)).toBeInTheDocument();
-    expect(screen.getByText(/This is the welcome page/i)).toBeInTheDocument();
+    expect(screen.getByText(/Welcome/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/This is the welcome page/i: any)).toBeInTheDocument();
     
     // Check that language selector is present
-    expect(screen.getByLabelText(/Select Language/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Select Language/i: any)).toBeInTheDocument();
   });
 
   it('loads supported languages on mount', async () => {
@@ -54,7 +54,7 @@ describe('MultilingualSupport Component', () => {
     render(<MultilingualSupport content={mockContent} />);
     
     // Check that supported languages were requested
-    expect(translationService.getSupportedLanguages).toHaveBeenCalled();
+    expect(translationService.getSupportedLanguages: any).toHaveBeenCalled();
     
     // Check that language options are displayed
     await waitFor(() => {
@@ -73,18 +73,18 @@ describe('MultilingualSupport Component', () => {
     render(<MultilingualSupport content={mockContent} />);
     
     // Find language selector
-    const languageSelector = screen.getByLabelText(/Select Language/i);
+    const languageSelector = screen.getByLabelText(/Select Language/i: any);
     
     // Change to French
-    fireEvent.change(languageSelector, { target: { value: 'fr' } });
+    fireEvent.change(languageSelector: any, { target: { value: 'fr' } });
     
     // Check that translation was requested
-    expect(translationService.translateContent).toHaveBeenCalledWith(mockContent, 'fr');
+    expect(translationService.translateContent: any).toHaveBeenCalledWith(mockContent: any, 'fr');
     
     // Check that content is updated with French translation
     await waitFor(() => {
-      expect(screen.getByText(/Bienvenue/i)).toBeInTheDocument();
-      expect(screen.getByText(/Ceci est la page d'accueil/i)).toBeInTheDocument();
+      expect(screen.getByText(/Bienvenue/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/Ceci est la page d'accueil/i: any)).toBeInTheDocument();
     });
   });
 
@@ -96,17 +96,17 @@ describe('MultilingualSupport Component', () => {
     render(<MultilingualSupport content={mockContent} autoDetectLanguage={true} />);
     
     // Check that language detection was called
-    expect(translationService.detectLanguage).toHaveBeenCalled();
+    expect(translationService.detectLanguage: any).toHaveBeenCalled();
     
-    // Check that content is translated to detected language (Spanish)
+    // Check that content is translated to detected language (Spanish: any)
     await waitFor(() => {
-      expect(screen.getByText(/Bienvenido/i)).toBeInTheDocument();
-      expect(screen.getByText(/Esta es la página de bienvenida/i)).toBeInTheDocument();
+      expect(screen.getByText(/Bienvenido/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/Esta es la página de bienvenida/i: any)).toBeInTheDocument();
     });
     
     // Check that language selector shows Spanish as selected
-    const languageSelector = screen.getByLabelText(/Select Language/i);
-    expect(languageSelector.value).toBe('es');
+    const languageSelector = screen.getByLabelText(/Select Language/i: any);
+    expect(languageSelector.value: any).toBe('es');
   });
 
   it('handles translation errors gracefully', async () => {
@@ -117,19 +117,19 @@ describe('MultilingualSupport Component', () => {
     render(<MultilingualSupport content={mockContent} />);
     
     // Find language selector
-    const languageSelector = screen.getByLabelText(/Select Language/i);
+    const languageSelector = screen.getByLabelText(/Select Language/i: any);
     
     // Change to German
-    fireEvent.change(languageSelector, { target: { value: 'de' } });
+    fireEvent.change(languageSelector: any, { target: { value: 'de' } });
     
     // Check that error message is displayed
     await waitFor(() => {
-      expect(screen.getByText(/Translation failed/i)).toBeInTheDocument();
+      expect(screen.getByText(/Translation failed/i: any)).toBeInTheDocument();
     });
     
     // Check that original content is still displayed
-    expect(screen.getByText(/Welcome/i)).toBeInTheDocument();
-    expect(screen.getByText(/This is the welcome page/i)).toBeInTheDocument();
+    expect(screen.getByText(/Welcome/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/This is the welcome page/i: any)).toBeInTheDocument();
   });
 
   it('saves language preference', async () => {
@@ -138,18 +138,18 @@ describe('MultilingualSupport Component', () => {
       getItem: vi.fn(),
       setItem: vi.fn(),
     };
-    Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+    Object.defineProperty(window: any, 'localStorage', { value: localStorageMock });
     
     render(<MultilingualSupport content={mockContent} savePreference={true} />);
     
     // Find language selector
-    const languageSelector = screen.getByLabelText(/Select Language/i);
+    const languageSelector = screen.getByLabelText(/Select Language/i: any);
     
     // Change to Chinese
-    fireEvent.change(languageSelector, { target: { value: 'zh' } });
+    fireEvent.change(languageSelector: any, { target: { value: 'zh' } });
     
     // Check that preference was saved to localStorage
-    expect(localStorageMock.setItem).toHaveBeenCalledWith(
+    expect(localStorageMock.setItem: any).toHaveBeenCalledWith(
       'preferredLanguage',
       'zh'
     );
@@ -161,7 +161,7 @@ describe('MultilingualSupport Component', () => {
       getItem: vi.fn().mockReturnValue('fr'),
       setItem: vi.fn(),
     };
-    Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+    Object.defineProperty(window: any, 'localStorage', { value: localStorageMock });
     
     // Import directly instead of using require
     const translationService = await import('@/lib/translation-service');
@@ -170,17 +170,17 @@ describe('MultilingualSupport Component', () => {
     
     // Check that translation was requested with saved preference
     await waitFor(() => {
-      expect(translationService.translateContent).toHaveBeenCalledWith(mockContent, 'fr');
+      expect(translationService.translateContent: any).toHaveBeenCalledWith(mockContent: any, 'fr');
     });
     
     // Check that content is translated to French
     await waitFor(() => {
-      expect(screen.getByText(/Bienvenue/i)).toBeInTheDocument();
+      expect(screen.getByText(/Bienvenue/i: any)).toBeInTheDocument();
     });
     
     // Check that language selector shows French as selected
-    const languageSelector = screen.getByLabelText(/Select Language/i);
-    expect(languageSelector.value).toBe('fr');
+    const languageSelector = screen.getByLabelText(/Select Language/i: any);
+    expect(languageSelector.value: any).toBe('fr');
   });
 
   it('provides text-to-speech in selected language', async () => {
@@ -201,40 +201,40 @@ describe('MultilingualSupport Component', () => {
       ]),
     };
     
-    global.SpeechSynthesisUtterance = vi.fn().mockImplementation((text) => {
+    global.SpeechSynthesisUtterance = vi.fn().mockImplementation((text: any) => {
       mockUtterance.text = text;
       return mockUtterance;
     });
     
-    Object.defineProperty(window, 'speechSynthesis', { value: mockSpeechSynthesis });
+    Object.defineProperty(window: any, 'speechSynthesis', { value: mockSpeechSynthesis });
     
     render(<MultilingualSupport content={mockContent} textToSpeech={true} />);
     
     // Find and click text-to-speech button
     const ttsButton = screen.getByRole('button', { name: /Listen/i });
-    fireEvent.click(ttsButton);
+    fireEvent.click(ttsButton: any);
     
     // Check that speech synthesis was called with correct language
-    expect(mockUtterance.lang).toMatch(/en/i);
-    expect(mockUtterance.text).toContain('Welcome');
-    expect(mockSpeechSynthesis.speak).toHaveBeenCalled();
+    expect(mockUtterance.lang: any).toMatch(/en/i: any);
+    expect(mockUtterance.text: any).toContain('Welcome');
+    expect(mockSpeechSynthesis.speak: any).toHaveBeenCalled();
     
     // Change to French
-    const languageSelector = screen.getByLabelText(/Select Language/i);
-    fireEvent.change(languageSelector, { target: { value: 'fr' } });
+    const languageSelector = screen.getByLabelText(/Select Language/i: any);
+    fireEvent.change(languageSelector: any, { target: { value: 'fr' } });
     
     // Wait for translation
     await waitFor(() => {
-      expect(screen.getByText(/Bienvenue/i)).toBeInTheDocument();
+      expect(screen.getByText(/Bienvenue/i: any)).toBeInTheDocument();
     });
     
     // Click text-to-speech button again
-    fireEvent.click(ttsButton);
+    fireEvent.click(ttsButton: any);
     
     // Check that speech synthesis was called with French
-    expect(mockUtterance.lang).toMatch(/fr/i);
-    expect(mockUtterance.text).toContain('Bienvenue');
-    expect(mockSpeechSynthesis.speak).toHaveBeenCalledTimes(2);
+    expect(mockUtterance.lang: any).toMatch(/fr/i: any);
+    expect(mockUtterance.text: any).toContain('Bienvenue');
+    expect(mockSpeechSynthesis.speak: any).toHaveBeenCalledTimes(2: any);
   });
 
   it('handles nested content objects correctly', async () => {
@@ -254,7 +254,7 @@ describe('MultilingualSupport Component', () => {
     
     // Import directly instead of using require
     const translationService = await import('@/lib/translation-service');
-    translationService.translateContent.mockImplementation((content, targetLang) => {
+    translationService.translateContent.mockImplementation((content: any, targetLang) => {
       if (targetLang === 'fr') {
         return Promise.resolve({
           header: {
@@ -270,25 +270,25 @@ describe('MultilingualSupport Component', () => {
           }
         });
       }
-      return Promise.resolve(content);
+      return Promise.resolve(content: any);
     });
     
     render(<MultilingualSupport content={nestedContent} />);
     
     // Check that nested content is displayed
-    expect(screen.getByText(/Welcome/i)).toBeInTheDocument();
-    expect(screen.getByText(/Learn more about our platform/i)).toBeInTheDocument();
-    expect(screen.getByText(/This is the first paragraph/i)).toBeInTheDocument();
+    expect(screen.getByText(/Welcome/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/Learn more about our platform/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/This is the first paragraph/i: any)).toBeInTheDocument();
     
     // Change to French
-    const languageSelector = screen.getByLabelText(/Select Language/i);
-    fireEvent.change(languageSelector, { target: { value: 'fr' } });
+    const languageSelector = screen.getByLabelText(/Select Language/i: any);
+    fireEvent.change(languageSelector: any, { target: { value: 'fr' } });
     
     // Check that nested content is translated
     await waitFor(() => {
-      expect(screen.getByText(/Bienvenue/i)).toBeInTheDocument();
-      expect(screen.getByText(/En savoir plus sur notre plateforme/i)).toBeInTheDocument();
-      expect(screen.getByText(/Ceci est le premier paragraphe/i)).toBeInTheDocument();
+      expect(screen.getByText(/Bienvenue/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/En savoir plus sur notre plateforme/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/Ceci est le premier paragraphe/i: any)).toBeInTheDocument();
     });
   });
 });

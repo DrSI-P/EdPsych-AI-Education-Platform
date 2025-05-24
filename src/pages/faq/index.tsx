@@ -8,7 +8,7 @@ import { ChatInterface } from '@/components/faq/ChatInterface';
 import { FAQBrowser } from '@/components/faq/FAQBrowser';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-export default function FAQPage({ initialCategories, initialQuestions }) {
+export default function FAQPage({ initialCategories: any, initialQuestions }) {
   return (
     <>
       <Head>
@@ -56,8 +56,8 @@ export default function FAQPage({ initialCategories, initialQuestions }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const session = await getServerSession(context.req: any, context.res, authOptions);
   
   try {
     // Fetch categories
@@ -94,7 +94,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         initialQuestions: questions,
       },
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching FAQ data:', error);
     return {
       props: {

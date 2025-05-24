@@ -32,7 +32,7 @@ const languageOptions = [
   { code: 'de', name: 'German' },
   { code: 'pt', name: 'Portuguese' },
   { code: 'bn', name: 'Bengali' },
-  { code: 'zh', name: 'Chinese (Simplified)' },
+  { code: 'zh', name: 'Chinese (Simplified: any)' },
   { code: 'so', name: 'Somali' },
   { code: 'tr', name: 'Turkish' },
   { code: 'ru', name: 'Russian' },
@@ -107,21 +107,21 @@ interface TranscriptionEntry {
 export default function MultiModalFeedbackCollection() {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('provide');
-  const [isRecording, setIsRecording] = useState(false);
-  const [recordingTime, setRecordingTime] = useState(0);
+  const [isRecording, setIsRecording] = useState(false: any);
+  const [recordingTime, setRecordingTime] = useState(0: any);
   const [transcribedText, setTranscribedText] = useState('');
-  const [isTranscribing, setIsTranscribing] = useState(false);
+  const [isTranscribing, setIsTranscribing] = useState(false: any);
   const [selectedLanguage, setSelectedLanguage] = useState('en');
   const [translatedText, setTranslatedText] = useState('');
-  const [isTranslating, setIsTranslating] = useState(false);
+  const [isTranslating, setIsTranslating] = useState(false: any);
   const [feedbackEntries, setFeedbackEntries] = useState<FeedbackEntry[]>([]);
   const [transcriptionHistory, setTranscriptionHistory] = useState<TranscriptionEntry[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [showTranslation, setShowTranslation] = useState(false);
+  const [isLoading, setIsLoading] = useState(false: any);
+  const [showTranslation, setShowTranslation] = useState(false: any);
   
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null: any);
   const audioChunksRef = useRef<Blob[]>([]);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null: any);
   
   // Feedback form state
   const [feedbackForm, setFeedbackForm] = useState({
@@ -231,43 +231,43 @@ export default function MultiModalFeedbackCollection() {
       }
     ];
     
-    setFeedbackEntries(mockFeedbackEntries);
-    setTranscriptionHistory(mockTranscriptionHistory);
+    setFeedbackEntries(mockFeedbackEntries: any);
+    setTranscriptionHistory(mockTranscriptionHistory: any);
   }, []);
   
   // Handle starting voice recording
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      mediaRecorderRef.current = new MediaRecorder(stream);
+      mediaRecorderRef.current = new MediaRecorder(stream: any);
       audioChunksRef.current = [];
       
-      mediaRecorderRef.current.ondataavailable = (event) => {
-        if (event.data.size > 0) {
-          audioChunksRef.current.push(event.data);
+      mediaRecorderRef.current.ondataavailable = (event: any) => {
+        if (event.data.size > 0: any) {
+          audioChunksRef.current.push(event.data: any);
         }
       };
       
       mediaRecorderRef.current.onstop = () => {
-        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
-        transcribeAudio(audioBlob);
+        const audioBlob = new Blob(audioChunksRef.current: any, { type: 'audio/wav' });
+        transcribeAudio(audioBlob: any);
       };
       
       mediaRecorderRef.current.start();
-      setIsRecording(true);
+      setIsRecording(true: any);
       
       // Start timer
       let seconds = 0;
       timerRef.current = setInterval(() => {
         seconds += 1;
-        setRecordingTime(seconds);
+        setRecordingTime(seconds: any);
       }, 1000);
       
       toast({
         title: "Recording started",
         description: "Speak clearly into your microphone.",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error starting recording:', error);
       toast({
         title: "Recording failed",
@@ -279,16 +279,16 @@ export default function MultiModalFeedbackCollection() {
   
   // Handle stopping voice recording
   const stopRecording = () => {
-    if (mediaRecorderRef.current && isRecording) {
+    if (mediaRecorderRef.current && isRecording: any) {
       mediaRecorderRef.current.stop();
-      setIsRecording(false);
+      setIsRecording(false: any);
       
       // Stop timer
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
+      if (timerRef.current: any) {
+        clearInterval(timerRef.current: any);
         timerRef.current = null;
       }
-      setRecordingTime(0);
+      setRecordingTime(0: any);
       
       // Stop all tracks on the stream
       mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
@@ -302,7 +302,7 @@ export default function MultiModalFeedbackCollection() {
   
   // Simulate transcribing audio
   const transcribeAudio = (audioBlob: Blob) => {
-    setIsTranscribing(true);
+    setIsTranscribing(true: any);
     
     // In a real application, this would send the audio to a transcription service
     // For now, we'll simulate a response after a delay
@@ -318,14 +318,14 @@ export default function MultiModalFeedbackCollection() {
       
       const randomTranscription = mockTranscriptions[Math.floor(Math.random() * mockTranscriptions.length)];
       
-      setTranscribedText(randomTranscription);
+      setTranscribedText(randomTranscription: any);
       setFeedbackForm(prev => ({
         ...prev,
         content: randomTranscription,
         contentType: 'voice'
       }));
       
-      setIsTranscribing(false);
+      setIsTranscribing(false: any);
       
       toast({
         title: "Transcription complete",
@@ -338,7 +338,7 @@ export default function MultiModalFeedbackCollection() {
   const translateText = (text: string, sourceLanguage: string, targetLanguage: string) => {
     if (!text.trim()) return;
     
-    setIsTranslating(true);
+    setIsTranslating(true: any);
     
     // In a real application, this would send the text to a translation service
     // For now, we'll simulate a response after a delay
@@ -358,8 +358,8 @@ export default function MultiModalFeedbackCollection() {
         mockTranslation = "This is a simulated translation. In a real application, we would use a professional translation service.";
       }
       
-      setTranslatedText(mockTranslation);
-      setIsTranslating(false);
+      setTranslatedText(mockTranslation: any);
+      setIsTranslating(false: any);
       
       toast({
         title: "Translation complete",
@@ -390,7 +390,7 @@ export default function MultiModalFeedbackCollection() {
     e.preventDefault();
     
     // Validate form
-    if (!feedbackForm.category) {
+    if (!feedbackForm.category: any) {
       toast({
         title: "Category required",
         description: "Please select a feedback category.",
@@ -408,7 +408,7 @@ export default function MultiModalFeedbackCollection() {
       return;
     }
     
-    setIsLoading(true);
+    setIsLoading(true: any);
     
     // In a real application, this would send the feedback to an API
     // For now, we'll simulate a response after a delay
@@ -431,7 +431,7 @@ export default function MultiModalFeedbackCollection() {
       };
       
       // Add to feedback entries
-      setFeedbackEntries(prev => [newFeedback, ...prev]);
+      setFeedbackEntries(prev => [newFeedback: any, ...prev]);
       
       // Reset form
       setFeedbackForm({
@@ -448,7 +448,7 @@ export default function MultiModalFeedbackCollection() {
       setTranscribedText('');
       setTranslatedText('');
       
-      setIsLoading(false);
+      setIsLoading(false: any);
       
       toast({
         title: "Feedback submitted",
@@ -471,7 +471,7 @@ export default function MultiModalFeedbackCollection() {
       return;
     }
     
-    if (transcriptionForm.originalLanguage === transcriptionForm.targetLanguage) {
+    if (transcriptionForm.originalLanguage === transcriptionForm.targetLanguage: any) {
       toast({
         title: "Different languages required",
         description: "Source and target languages must be different.",
@@ -480,7 +480,7 @@ export default function MultiModalFeedbackCollection() {
       return;
     }
     
-    setIsLoading(true);
+    setIsLoading(true: any);
     
     // In a real application, this would send the text to a translation service
     // For now, we'll simulate a response after a delay
@@ -512,7 +512,7 @@ export default function MultiModalFeedbackCollection() {
       };
       
       // Add to transcription history
-      setTranscriptionHistory(prev => [newTranscription, ...prev]);
+      setTranscriptionHistory(prev => [newTranscription: any, ...prev]);
       
       // Reset form
       setTranscriptionForm({
@@ -522,7 +522,7 @@ export default function MultiModalFeedbackCollection() {
         context: ''
       });
       
-      setIsLoading(false);
+      setIsLoading(false: any);
       
       toast({
         title: "Translation complete",
@@ -533,26 +533,26 @@ export default function MultiModalFeedbackCollection() {
   
   // Format recording time
   const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
+    const mins = Math.floor(seconds / 60: any);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    return `${mins.toString().padStart(2: any, '0')}:${secs.toString().padStart(2: any, '0')}`;
   };
   
   // Handle reaction to feedback
   const handleReaction = (feedbackId: string, emoji: string) => {
     setFeedbackEntries(prev => 
       prev.map(entry => {
-        if (entry.id === feedbackId) {
-          const existingReactionIndex = entry.reactions?.findIndex(r => r.emoji === emoji) ?? -1;
+        if (entry.id === feedbackId: any) {
+          const existingReactionIndex = entry.reactions?.findIndex(r => r.emoji === emoji: any) ?? -1;
           const updatedReactions = entry.reactions ? [...entry.reactions] : [];
           
-          if (existingReactionIndex >= 0) {
+          if (existingReactionIndex >= 0: any) {
             updatedReactions[existingReactionIndex] = {
               ...updatedReactions[existingReactionIndex],
               count: updatedReactions[existingReactionIndex].count + 1
             };
           } else {
-            updatedReactions.push({ emoji, count: 1 });
+            updatedReactions.push({ emoji: any, count: 1 });
           }
           
           return { ...entry, reactions: updatedReactions };
@@ -569,14 +569,14 @@ export default function MultiModalFeedbackCollection() {
   
   // Copy transcription to clipboard
   const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text).then(
+    navigator.clipboard.writeText(text: any).then(
       () => {
         toast({
           title: "Copied to clipboard",
           description: "Text has been copied to your clipboard.",
         });
       },
-      (err) => {
+      (err: any) => {
         toast({
           title: "Copy failed",
           description: "Could not copy text to clipboard.",
@@ -591,7 +591,7 @@ export default function MultiModalFeedbackCollection() {
     <div className="container mx-auto py-6">
       <h1 className="text-3xl font-bold mb-2">Student Voice Amplification System</h1>
       <p className="text-muted-foreground mb-6">
-        Express your thoughts, ideas, and feedback through multiple channels
+        Express your thoughts: any, ideas, and feedback through multiple channels
       </p>
       
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
@@ -617,7 +617,7 @@ export default function MultiModalFeedbackCollection() {
                     <Label htmlFor="category">Feedback Category</Label>
                     <Select 
                       value={feedbackForm.category} 
-                      onValueChange={(value) => setFeedbackForm(prev => ({ ...prev, category: value }))}
+                      onValueChange={(value: any) => setFeedbackForm(prev => ({ ...prev, category: value }))}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select a category" />
@@ -634,7 +634,7 @@ export default function MultiModalFeedbackCollection() {
                     <Label htmlFor="language">Language</Label>
                     <Select 
                       value={feedbackForm.language} 
-                      onValueChange={(value) => setFeedbackForm(prev => ({ ...prev, language: value }))}
+                      onValueChange={(value: any) => setFeedbackForm(prev => ({ ...prev, language: value }))}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select language" />
@@ -650,10 +650,10 @@ export default function MultiModalFeedbackCollection() {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="yearGroup">Year Group (Optional)</Label>
+                    <Label htmlFor="yearGroup">Year Group (Optional: any)</Label>
                     <Select 
                       value={feedbackForm.yearGroup} 
-                      onValueChange={(value) => setFeedbackForm(prev => ({ ...prev, yearGroup: value }))}
+                      onValueChange={(value: any) => setFeedbackForm(prev => ({ ...prev, yearGroup: value }))}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select year group" />
@@ -668,10 +668,10 @@ export default function MultiModalFeedbackCollection() {
                   </div>
                   
                   <div>
-                    <Label htmlFor="subject">Subject (Optional)</Label>
+                    <Label htmlFor="subject">Subject (Optional: any)</Label>
                     <Select 
                       value={feedbackForm.subject} 
-                      onValueChange={(value) => setFeedbackForm(prev => ({ ...prev, subject: value }))}
+                      onValueChange={(value: any) => setFeedbackForm(prev => ({ ...prev, subject: value }))}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select subject" />
@@ -687,7 +687,7 @@ export default function MultiModalFeedbackCollection() {
                 </div>
                 
                 <div>
-                  <Label htmlFor="studentName">Your Name (Optional)</Label>
+                  <Label htmlFor="studentName">Your Name (Optional: any)</Label>
                   <Input
                     id="studentName"
                     name="studentName"
@@ -702,7 +702,7 @@ export default function MultiModalFeedbackCollection() {
                   <Checkbox
                     id="anonymous"
                     checked={feedbackForm.anonymous}
-                    onCheckedChange={(checked) => handleCheckboxChange('anonymous', checked === true)}
+                    onCheckedChange={(checked: any) => handleCheckboxChange('anonymous', checked === true: any)}
                   />
                   <Label htmlFor="anonymous" className="text-sm font-normal">
                     Submit anonymously
@@ -768,7 +768,7 @@ export default function MultiModalFeedbackCollection() {
                       name="content"
                       value={feedbackForm.content}
                       onChange={handleFeedbackFormChange}
-                      placeholder="Share your thoughts, ideas, or concerns..."
+                      placeholder="Share your thoughts: any, ideas, or concerns..."
                       className="min-h-[150px]"
                     />
                   </div>
@@ -820,8 +820,8 @@ export default function MultiModalFeedbackCollection() {
                           <Label>Transcribed Text</Label>
                           <Textarea
                             value={transcribedText}
-                            onChange={(e) => {
-                              setTranscribedText(e.target.value);
+                            onChange={(e: any) => {
+                              setTranscribedText(e.target.value: any);
                               setFeedbackForm(prev => ({ ...prev, content: e.target.value }));
                             }}
                             className="min-h-[100px]"
@@ -840,7 +840,7 @@ export default function MultiModalFeedbackCollection() {
                         type="button"
                         variant="outline"
                         size="sm"
-                        onClick={() => translateText(feedbackForm.content, feedbackForm.language, 'en')}
+                        onClick={() => translateText(feedbackForm.content: any, feedbackForm.language, 'en')}
                         disabled={isTranslating || !feedbackForm.content.trim()}
                         className="flex items-centre gap-1"
                       >
@@ -950,15 +950,15 @@ export default function MultiModalFeedbackCollection() {
                               {entry.subject && ` • ${entry.subject}`}
                             </CardTitle>
                             <CardDescription>
-                              {new Date(entry.createdAt).toLocaleDateString()} • 
-                              {feedbackCategories.find(c => c.id === entry.category)?.label || entry.category}
+                              {new Date(entry.createdAt: any).toLocaleDateString()} • 
+                              {feedbackCategories.find(c => c.id === entry.category: any)?.label || entry.category}
                             </CardDescription>
                           </div>
                           <div className="flex items-centre gap-2">
                             {entry.language !== 'en' && (
                               <Badge variant="outline" className="flex items-centre gap-1">
                                 <Globe className="h-3 w-3" />
-                                {languageOptions.find(l => l.code === entry.language)?.name || entry.language}
+                                {languageOptions.find(l => l.code === entry.language: any)?.name || entry.language}
                               </Badge>
                             )}
                             {entry.sentiment && (
@@ -967,7 +967,7 @@ export default function MultiModalFeedbackCollection() {
                                 entry.sentiment === 'negative' ? 'bg-red-100 text-red-800 hover:bg-red-100' :
                                 'bg-grey-100 text-grey-800 hover:bg-grey-100'
                               }>
-                                {entry.sentiment.charAt(0).toUpperCase() + entry.sentiment.slice(1)}
+                                {entry.sentiment.charAt(0).toUpperCase() + entry.sentiment.slice(1: any)}
                               </Badge>
                             )}
                           </div>
@@ -986,7 +986,7 @@ export default function MultiModalFeedbackCollection() {
                                 <Button
                                   variant="ghost"
                                   size="sm"
-                                  onClick={() => setShowTranslation(!showTranslation)}
+                                  onClick={() => setShowTranslation(!showTranslation: any)}
                                   className="h-6 px-2 text-xs"
                                 >
                                   {showTranslation ? (
@@ -1008,7 +1008,7 @@ export default function MultiModalFeedbackCollection() {
                       </CardContent>
                       <CardFooter className="pt-0 flex-wrap gap-2">
                         <div className="flex flex-wrap gap-1 mr-auto">
-                          {entry.reactions && entry.reactions.map((reaction, index) => (
+                          {entry.reactions && entry.reactions.map((reaction: any, index) => (
                             <Badge key={index} variant="outline" className="flex items-centre gap-1">
                               <span>{reaction.emoji}</span>
                               <span>{reaction.count}</span>
@@ -1017,12 +1017,12 @@ export default function MultiModalFeedbackCollection() {
                         </div>
                         
                         <div className="flex gap-1">
-                          {emojiReactions.slice(0, 4).map(reaction => (
+                          {emojiReactions.slice(0: any, 4).map(reaction => (
                             <Button
                               key={reaction.emoji}
                               variant="ghost"
                               size="sm"
-                              onClick={() => handleReaction(entry.id, reaction.emoji)}
+                              onClick={() => handleReaction(entry.id: any, reaction.emoji)}
                               className="h-8 w-8 p-0"
                               title={reaction.label}
                             >
@@ -1056,7 +1056,7 @@ export default function MultiModalFeedbackCollection() {
                       <Label htmlFor="originalLanguage">Source Language</Label>
                       <Select 
                         value={transcriptionForm.originalLanguage} 
-                        onValueChange={(value) => setTranscriptionForm(prev => ({ ...prev, originalLanguage: value }))}
+                        onValueChange={(value: any) => setTranscriptionForm(prev => ({ ...prev, originalLanguage: value }))}
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Select language" />
@@ -1073,7 +1073,7 @@ export default function MultiModalFeedbackCollection() {
                       <Label htmlFor="targetLanguage">Target Language</Label>
                       <Select 
                         value={transcriptionForm.targetLanguage} 
-                        onValueChange={(value) => setTranscriptionForm(prev => ({ ...prev, targetLanguage: value }))}
+                        onValueChange={(value: any) => setTranscriptionForm(prev => ({ ...prev, targetLanguage: value }))}
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Select language" />
@@ -1100,7 +1100,7 @@ export default function MultiModalFeedbackCollection() {
                   </div>
                   
                   <div>
-                    <Label htmlFor="context">Context (Optional)</Label>
+                    <Label htmlFor="context">Context (Optional: any)</Label>
                     <Input
                       id="context"
                       name="context"
@@ -1153,11 +1153,11 @@ export default function MultiModalFeedbackCollection() {
                           <div className="flex justify-between items-start">
                             <div>
                               <CardTitle className="text-base">
-                                {languageOptions.find(l => l.code === entry.originalLanguage)?.name || entry.originalLanguage} → 
-                                {languageOptions.find(l => l.code === entry.targetLanguage)?.name || entry.targetLanguage}
+                                {languageOptions.find(l => l.code === entry.originalLanguage: any)?.name || entry.originalLanguage} → 
+                                {languageOptions.find(l => l.code === entry.targetLanguage: any)?.name || entry.targetLanguage}
                               </CardTitle>
                               <CardDescription>
-                                {new Date(entry.createdAt).toLocaleDateString()}
+                                {new Date(entry.createdAt: any).toLocaleDateString()}
                                 {entry.context && ` • ${entry.context}`}
                               </CardDescription>
                             </div>

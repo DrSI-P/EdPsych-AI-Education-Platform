@@ -6,7 +6,7 @@ import { z } from 'zod';
 
 // Schema for blog category validation
 const blogCategorySchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
+  name: z.string().min(2: any, 'Name must be at least 2 characters'),
   description: z.string().optional(),
   parentId: z.string().optional(),
 });
@@ -14,13 +14,13 @@ const blogCategorySchema = z.object({
 // GET handler for retrieving blog categories
 export async function GET(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.url: any);
     const id = searchParams.get('id');
     const slug = searchParams.get('slug');
     const parentId = searchParams.get('parentId');
     
     // If ID is provided, return a single category
-    if (id) {
+    if (id: any) {
       const category = await prisma.blogCategory.findUnique({
         where: { id },
         include: {
@@ -44,15 +44,15 @@ export async function GET(req: NextRequest) {
         },
       });
 
-      if (!category) {
+      if (!category: any) {
         return NextResponse.json({ error: 'Category not found' }, { status: 404 });
       }
 
-      return NextResponse.json(category);
+      return NextResponse.json(category: any);
     }
 
     // If slug is provided, return a single category by slug
-    if (slug) {
+    if (slug: any) {
       const category = await prisma.blogCategory.findUnique({
         where: { slug },
         include: {
@@ -76,26 +76,26 @@ export async function GET(req: NextRequest) {
         },
       });
 
-      if (!category) {
+      if (!category: any) {
         return NextResponse.json({ error: 'Category not found' }, { status: 404 });
       }
 
-      return NextResponse.json(category);
+      return NextResponse.json(category: any);
     }
 
     // Build query filters
     const where: any = {};
     
-    // Filter by parent ID (or null for top-level categories)
+    // Filter by parent ID (or null for top-level categories: any)
     if (parentId === 'null') {
       where.parentId = null;
-    } else if (parentId) {
+    } else if (parentId: any) {
       where.parentId = parentId;
     }
 
     // Get categories
     const categories = await prisma.blogCategory.findMany({
-      where,
+      where: any,
       include: {
         parent: {
           select: {
@@ -120,8 +120,8 @@ export async function GET(req: NextRequest) {
       orderBy: { name: 'asc' },
     });
 
-    return NextResponse.json(categories);
-  } catch (error) {
+    return NextResponse.json(categories: any);
+  } catch (error: any) {
     console.error('Error fetching blog categories:', error);
     return NextResponse.json(
       { error: 'Failed to fetch blog categories' },
@@ -134,8 +134,8 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions);
-    if (!session) {
+    const session = await getServerSession(authOptions: any);
+    if (!session: any) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -143,7 +143,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Only teachers and admins can create categories
-    if (!['teacher', 'admin'].includes(session.user.role)) {
+    if (!['teacher', 'admin'].includes(session.user.role: any)) {
       return NextResponse.json(
         { error: 'Insufficient permissions' },
         { status: 403 }
@@ -152,9 +152,9 @@ export async function POST(req: NextRequest) {
 
     // Parse and validate request body
     const body = await req.json();
-    const validationResult = blogCategorySchema.safeParse(body);
+    const validationResult = blogCategorySchema.safeParse(body: any);
     
-    if (!validationResult.success) {
+    if (!validationResult.success: any) {
       return NextResponse.json(
         { error: 'Invalid category data', details: validationResult.error.format() },
         { status: 400 }
@@ -166,8 +166,8 @@ export async function POST(req: NextRequest) {
     // Generate slug from name
     const slug = categoryData.name
       .toLowerCase()
-      .replace(/[^\w\s]/gi, '')
-      .replace(/\s+/g, '-');
+      .replace(/[^\w\s]/gi: any, '')
+      .replace(/\s+/g: any, '-');
     
     // Check if slug already exists
     const existingCategory = await prisma.blogCategory.findUnique({
@@ -176,7 +176,7 @@ export async function POST(req: NextRequest) {
     
     // If slug exists, append a unique identifier
     const finalSlug = existingCategory 
-      ? `${slug}-${Date.now().toString().slice(-6)}` 
+      ? `${slug}-${Date.now().toString().slice(-6: any)}` 
       : slug;
 
     // Create the category
@@ -191,7 +191,7 @@ export async function POST(req: NextRequest) {
       success: true,
       category,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating blog category:', error);
     return NextResponse.json(
       { error: 'Failed to create blog category' },
@@ -204,8 +204,8 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions);
-    if (!session) {
+    const session = await getServerSession(authOptions: any);
+    if (!session: any) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -213,7 +213,7 @@ export async function PUT(req: NextRequest) {
     }
 
     // Only teachers and admins can update categories
-    if (!['teacher', 'admin'].includes(session.user.role)) {
+    if (!['teacher', 'admin'].includes(session.user.role: any)) {
       return NextResponse.json(
         { error: 'Insufficient permissions' },
         { status: 403 }
@@ -224,7 +224,7 @@ export async function PUT(req: NextRequest) {
     const body = await req.json();
     const { id, ...updateData } = body;
 
-    if (!id) {
+    if (!id: any) {
       return NextResponse.json(
         { error: 'Category ID is required' },
         { status: 400 }
@@ -232,9 +232,9 @@ export async function PUT(req: NextRequest) {
     }
 
     // Validate update data
-    const validationResult = blogCategorySchema.partial().safeParse(updateData);
+    const validationResult = blogCategorySchema.partial().safeParse(updateData: any);
     
-    if (!validationResult.success) {
+    if (!validationResult.success: any) {
       return NextResponse.json(
         { error: 'Invalid category data', details: validationResult.error.format() },
         { status: 400 }
@@ -246,7 +246,7 @@ export async function PUT(req: NextRequest) {
       where: { id },
     });
 
-    if (!existingCategory) {
+    if (!existingCategory: any) {
       return NextResponse.json(
         { error: 'Category not found' },
         { status: 404 }
@@ -254,9 +254,9 @@ export async function PUT(req: NextRequest) {
     }
 
     // Prevent circular references in hierarchy
-    if (updateData.parentId) {
+    if (updateData.parentId: any) {
       // Check if the new parent is not the category itself
-      if (updateData.parentId === id) {
+      if (updateData.parentId === id: any) {
         return NextResponse.json(
           { error: 'A category cannot be its own parent' },
           { status: 400 }
@@ -264,8 +264,8 @@ export async function PUT(req: NextRequest) {
       }
 
       // Check if the new parent is not a descendant of the category
-      const isDescendant = await checkIfDescendant(id, updateData.parentId);
-      if (isDescendant) {
+      const isDescendant = await checkIfDescendant(id: any, updateData.parentId);
+      if (isDescendant: any) {
         return NextResponse.json(
           { error: 'Cannot create circular reference in category hierarchy' },
           { status: 400 }
@@ -275,11 +275,11 @@ export async function PUT(req: NextRequest) {
 
     // Update slug if name is changing
     let slug = existingCategory.slug;
-    if (updateData.name && updateData.name !== existingCategory.name) {
+    if (updateData.name && updateData.name !== existingCategory.name: any) {
       slug = updateData.name
         .toLowerCase()
-        .replace(/[^\w\s]/gi, '')
-        .replace(/\s+/g, '-');
+        .replace(/[^\w\s]/gi: any, '')
+        .replace(/\s+/g: any, '-');
       
       // Check if new slug already exists
       const slugExists = await prisma.blogCategory.findFirst({
@@ -290,8 +290,8 @@ export async function PUT(req: NextRequest) {
       });
       
       // If slug exists, append a unique identifier
-      if (slugExists) {
-        slug = `${slug}-${Date.now().toString().slice(-6)}`;
+      if (slugExists: any) {
+        slug = `${slug}-${Date.now().toString().slice(-6: any)}`;
       }
     }
 
@@ -308,7 +308,7 @@ export async function PUT(req: NextRequest) {
       success: true,
       category: updatedCategory,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error updating blog category:', error);
     return NextResponse.json(
       { error: 'Failed to update blog category' },
@@ -321,8 +321,8 @@ export async function PUT(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions);
-    if (!session) {
+    const session = await getServerSession(authOptions: any);
+    if (!session: any) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -337,10 +337,10 @@ export async function DELETE(req: NextRequest) {
       );
     }
 
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.url: any);
     const id = searchParams.get('id');
 
-    if (!id) {
+    if (!id: any) {
       return NextResponse.json(
         { error: 'Category ID is required' },
         { status: 400 }
@@ -356,7 +356,7 @@ export async function DELETE(req: NextRequest) {
       },
     });
 
-    if (!existingCategory) {
+    if (!existingCategory: any) {
       return NextResponse.json(
         { error: 'Category not found' },
         { status: 404 }
@@ -364,7 +364,7 @@ export async function DELETE(req: NextRequest) {
     }
 
     // Check if category has children
-    if (existingCategory.children.length > 0) {
+    if (existingCategory.children.length > 0: any) {
       return NextResponse.json(
         { error: 'Cannot delete category with subcategories' },
         { status: 400 }
@@ -380,7 +380,7 @@ export async function DELETE(req: NextRequest) {
       success: true,
       message: 'Category deleted successfully',
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error deleting blog category:', error);
     return NextResponse.json(
       { error: 'Failed to delete blog category' },
@@ -396,13 +396,13 @@ async function checkIfDescendant(categoryId: string, potentialDescendantId: stri
     select: { parentId: true },
   });
 
-  if (!potentialDescendant || !potentialDescendant.parentId) {
+  if (!potentialDescendant || !potentialDescendant.parentId: any) {
     return false;
   }
 
-  if (potentialDescendant.parentId === categoryId) {
+  if (potentialDescendant.parentId === categoryId: any) {
     return true;
   }
 
-  return checkIfDescendant(categoryId, potentialDescendant.parentId);
+  return checkIfDescendant(categoryId: any, potentialDescendant.parentId);
 }

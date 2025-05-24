@@ -5,9 +5,9 @@ import { prisma } from '@/lib/db';
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     const speechCalibration = await prisma.speechCalibration.create({
       data: {
         userId,
-        calibrationData: JSON.stringify(calibrationData),
+        calibrationData: JSON.stringify(calibrationData: any),
         createdAt: new Date()
       }
     });
@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
       calibrationId: speechCalibration.id
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error saving speech calibration data:', error);
     return NextResponse.json({ error: 'Failed to save calibration data' }, { status: 500 });
   }
@@ -41,13 +41,13 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const url = new URL(req.url);
+    const url = new URL(req.url: any);
     const userId = url.searchParams.get('userId') || session.user.id;
     
     // Verify the user has permission to access this data
@@ -65,7 +65,7 @@ export async function GET(req: NextRequest) {
       }
     });
     
-    if (!latestCalibration) {
+    if (!latestCalibration: any) {
       return NextResponse.json({
         success: true,
         hasCalibration: false,
@@ -76,12 +76,12 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({
       success: true,
       hasCalibration: true,
-      calibrationData: JSON.parse(latestCalibration.calibrationData),
+      calibrationData: JSON.parse(latestCalibration.calibrationData: any),
       calibrationId: latestCalibration.id,
       createdAt: latestCalibration.createdAt
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error retrieving speech calibration data:', error);
     return NextResponse.json({ error: 'Failed to retrieve calibration data' }, { status: 500 });
   }

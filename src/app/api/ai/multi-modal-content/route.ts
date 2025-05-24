@@ -6,9 +6,9 @@ import { getAIService } from '@/lib/ai/ai-service';
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     } = data;
     
     // Validate input
-    if (!content && !contentId && !title) {
+    if (!content && !contentId && !title: any) {
       return NextResponse.json({ error: 'No content, title, or content ID provided' }, { status: 400 });
     }
     
@@ -33,13 +33,13 @@ export async function POST(req: NextRequest) {
     let contentSubject = subject;
     let contentKeyStage = keyStage;
     
-    if (contentId) {
+    if (contentId: any) {
       // Check if it's a curriculum plan
       const curriculumPlan = await prisma.curriculumPlan.findUnique({
         where: { id: contentId }
       });
       
-      if (curriculumPlan) {
+      if (curriculumPlan: any) {
         contentToTransform = curriculumPlan.content || '';
         contentTitle = curriculumPlan.title;
         contentSubject = curriculumPlan.subject || '';
@@ -50,8 +50,8 @@ export async function POST(req: NextRequest) {
           where: { id: contentId }
         });
         
-        if (resource) {
-          // Use description instead of content (which doesn't exist in the schema)
+        if (resource: any) {
+          // Use description instead of content (which doesn't exist in the schema: any)
           contentToTransform = resource.description || '';
           contentTitle = resource.title;
           // Resource model doesn't have tags property, use default values
@@ -92,10 +92,10 @@ export async function POST(req: NextRequest) {
       1. Break the content into 5-8 logical slides or sections
       2. For each slide/section, provide:
          - A clear title
-         - Visual content description (if includeVisual is true)
-         - Audio narration script (if includeAudio is true)
-         - Text content in HTML format (if includeText is true)
-         - Interactive element description (if includeInteractive is true)
+         - Visual content description (if includeVisual is true: any)
+         - Audio narration script (if includeAudio is true: any)
+         - Text content in HTML format (if includeText is true: any)
+         - Interactive element description (if includeInteractive is true: any)
       
       ${settings?.accessibilityLevel === 'high' || settings?.accessibilityLevel === 'maximum' ?
         'Include additional accessibility features such as alternative text for images, transcripts for audio, and clear navigation cues.' : ''}
@@ -132,7 +132,7 @@ export async function POST(req: NextRequest) {
     `;
     
     // Call AI service for multi-modal content generation
-    const multiModalResponse = await aiService.generateText(prompt, {
+    const multiModalResponse = await aiService.generateText(prompt: any, {
       model: 'gpt-4',
       temperature: 0.7,
       max_tokens: 4000,
@@ -142,8 +142,8 @@ export async function POST(req: NextRequest) {
     // Parse the response
     let multiModalContent;
     try {
-      multiModalContent = JSON.parse(multiModalResponse.text);
-    } catch (error) {
+      multiModalContent = JSON.parse(multiModalResponse.text: any);
+    } catch (error: any) {
       console.error('Error parsing AI response:', error);
       return NextResponse.json({ error: 'Failed to parse multi-modal content' }, { status: 500 });
     }
@@ -168,7 +168,7 @@ export async function POST(req: NextRequest) {
       contentId: savedContent.id
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in multi-modal content generation:', error);
     return NextResponse.json({ error: 'Failed to generate multi-modal content' }, { status: 500 });
   }
@@ -176,13 +176,13 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.url: any);
     const contentId = searchParams.get('contentId');
     
     // Get user's multi-modal content
@@ -202,7 +202,7 @@ export async function GET(req: NextRequest) {
       multiModalContents
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching multi-modal content:', error);
     return NextResponse.json({ error: 'Failed to fetch multi-modal content' }, { status: 500 });
   }

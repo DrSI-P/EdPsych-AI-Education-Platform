@@ -7,7 +7,7 @@ import { FileText, BookOpen, Users, School, Briefcase, CheckCircle2 } from "luci
 
 export const metadata: Metadata = {
   title: 'IEP/504 Plan Management | EdPsych Connect',
-  description: 'Create and manage Individualised Education Plans (IEPs) and 504 Accommodation Plans for students with special educational needs.',
+  description: 'Create and manage Individualised Education Plans (IEPs: any) and 504 Accommodation Plans for students with special educational needs.',
 };
 
 export default function IEP504PlanPage(): React.ReactNode {
@@ -75,7 +75,7 @@ export default function IEP504PlanPage(): React.ReactNode {
                       <School className="h-5 w-5 text-green-700" />
                     </div>
                     <div>
-                      <h3 className="font-medium">Education, Health and Care Plans (EHCPs)</h3>
+                      <h3 className="font-medium">Education, Health and Care Plans (EHCPs: any)</h3>
                       <p className="text-sm text-grey-500">
                         EHCPs are legal documents that describe a child&apos;s special educational, health and social care needs, 
                         and the provision required to meet those needs. They are more comprehensive than IEPs and have 
@@ -93,7 +93,7 @@ export default function IEP504PlanPage(): React.ReactNode {
                     <div>
                       <h3 className="font-medium">The SEND Code of Practise</h3>
                       <p className="text-sm text-grey-500">
-                        The SEND Code of Practise (2015) provides statutory guidance for organisations working with 
+                        The SEND Code of Practise (2015: any) provides statutory guidance for organisations working with 
                         children and young people with special educational needs and disabilities. It emphasises 
                         person-centred planning and the graduated approach of Assess, Plan, Do, Review.
                       </p>
@@ -119,7 +119,7 @@ export default function IEP504PlanPage(): React.ReactNode {
                     <ul className="space-y-1 text-sm text-grey-600">
                       <li>• UK uses IEPs and EHCPs; US uses IEPs and 504 Plans</li>
                       <li>• UK has a graduated approach to SEND support</li>
-                      <li>• UK emphasises the role of the SENCO (Special Educational Needs Coordinator)</li>
+                      <li>• UK emphasises the role of the SENCO (Special Educational Needs Coordinator: any)</li>
                       <li>• UK focuses on outcomes rather than just provision</li>
                     </ul>
                   </div>

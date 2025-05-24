@@ -44,7 +44,7 @@ export default function EducatorDashboard() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Educator Dashboard</h1>
           <p className="text-muted-foreground">
-            Manage your classroom, track student progress, and plan your curriculum
+            Manage your classroom: any, track student progress, and plan your curriculum
           </p>
         </div>
         <div className="flex items-centre gap-4">
@@ -281,7 +281,7 @@ export default function EducatorDashboard() {
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
-                      {date ? format(date, "PPP") : <span>Pick a date</span>}
+                      {date ? format(date: any, "PPP") : <span>Pick a date</span>}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0">
@@ -344,7 +344,7 @@ export default function EducatorDashboard() {
                     { name: "Sophia Chen", id: "S2025-003", group: "Group B", attendance: "97%", progress: "Good" },
                     { name: "Mohammed Ali", id: "S2025-004", group: "Group B", attendance: "92%", progress: "Needs Support" },
                     { name: "Olivia Johnson", id: "S2025-005", group: "SEN", attendance: "94%", progress: "Improving" },
-                  ].map((student, i) => (
+                  ].map((student: any, i) => (
                     <div key={i} className="grid grid-cols-6 p-3 items-centre">
                       <div>{student.name}</div>
                       <div>{student.id}</div>
@@ -425,7 +425,7 @@ export default function EducatorDashboard() {
                     { subject: "Science", unit: "Ecosystems", progress: "65%", status: "Behind Schedule" },
                     { subject: "History", unit: "Industrial Revolution", progress: "90%", status: "Ahead of Schedule" },
                     { subject: "Geography", unit: "Climate Patterns", progress: "70%", status: "On Track" },
-                  ].map((plan, i) => (
+                  ].map((plan: any, i) => (
                     <div key={i} className="grid grid-cols-5 p-3 items-centre">
                       <div>{plan.subject}</div>
                       <div>{plan.unit}</div>
@@ -501,7 +501,7 @@ export default function EducatorDashboard() {
                     { title: "Scientific Method Quiz", subject: "Science", type: "Formative", date: "May 18, 2025", status: "Completed" },
                     { title: "Vocabulary Assessment", subject: "English", type: "Diagnostic", date: "May 15, 2025", status: "Completed" },
                     { title: "Geometry Concepts", subject: "Mathematics", type: "Summative", date: "May 10, 2025", status: "Graded" },
-                  ].map((assessment, i) => (
+                  ].map((assessment: any, i) => (
                     <div key={i} className="grid grid-cols-6 p-3 items-centre">
                       <div>{assessment.title}</div>
                       <div>{assessment.subject}</div>
@@ -571,7 +571,7 @@ export default function EducatorDashboard() {
                     { title: "Photosynthesis Presentation", type: "Presentation", subject: "Science", date: "May 10, 2025" },
                     { title: "Historical Timeline Activity", type: "Activity", subject: "History", date: "May 8, 2025" },
                     { title: "Grammar Rules Reference", type: "Worksheet", subject: "English", date: "May 5, 2025" },
-                  ].map((resource, i) => (
+                  ].map((resource: any, i) => (
                     <div key={i} className="grid grid-cols-5 p-3 items-centre">
                       <div>{resource.title}</div>
                       <div>{resource.type}</div>

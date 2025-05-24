@@ -26,9 +26,9 @@ export default function CurriculumCollaboration() {
   const planId = searchParams.get('planId');
   
   const [activeTab, setActiveTab] = useState('overview');
-  const [collaborationData, setCollaborationData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [collaborationData, setCollaborationData] = useState(null: any);
+  const [loading, setLoading] = useState(true: any);
+  const [error, setError] = useState(null: any);
   
   // Form states
   const [newCollaboratorEmail, setNewCollaboratorEmail] = useState('');
@@ -37,9 +37,9 @@ export default function CurriculumCollaboration() {
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [newTaskDescription, setNewTaskDescription] = useState('');
   const [newTaskAssignee, setNewTaskAssignee] = useState('');
-  const [newTaskDueDate, setNewTaskDueDate] = useState(null);
-  const [isAddingCollaborator, setIsAddingCollaborator] = useState(false);
-  const [isAddingTask, setIsAddingTask] = useState(false);
+  const [newTaskDueDate, setNewTaskDueDate] = useState(null: any);
+  const [isAddingCollaborator, setIsAddingCollaborator] = useState(false: any);
+  const [isAddingTask, setIsAddingTask] = useState(false: any);
 
   // Load collaboration data
   useEffect(() => {
@@ -52,25 +52,25 @@ export default function CurriculumCollaboration() {
     
     const fetchCollaborationData = async () => {
       try {
-        setLoading(true);
+        setLoading(true: any);
         const response = await fetch(`/api/curriculum/collaboration?planId=${planId}`);
         
-        if (!response.ok) {
+        if (!response.ok: any) {
           const errorData = await response.json();
           throw new Error(errorData.error || 'Failed to fetch collaboration data');
         }
         
         const data = await response.json();
-        setCollaborationData(data);
-      } catch (err) {
-        setError(err.message);
+        setCollaborationData(data: any);
+      } catch (err: any) {
+        setError(err.message: any);
         toast({
           title: 'Error',
           description: err.message,
           variant: 'destructive',
         });
       } finally {
-        setLoading(false);
+        setLoading(false: any);
       }
     };
     
@@ -78,10 +78,10 @@ export default function CurriculumCollaboration() {
   }, [planId, status, router]);
 
   // Handle adding a collaborator
-  const handleAddCollaborator = async (e) => {
+  const handleAddCollaborator = async (e: any) => {
     e.preventDefault();
     
-    if (!newCollaboratorEmail) {
+    if (!newCollaboratorEmail: any) {
       toast({
         title: 'Error',
         description: 'Email is required',
@@ -104,7 +104,7 @@ export default function CurriculumCollaboration() {
         }),
       });
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Failed to add collaborator');
       }
@@ -119,13 +119,13 @@ export default function CurriculumCollaboration() {
       
       setNewCollaboratorEmail('');
       setNewCollaboratorRole('viewer');
-      setIsAddingCollaborator(false);
+      setIsAddingCollaborator(false: any);
       
       toast({
         title: 'Success',
         description: `${data.collaborator.user.name || data.collaborator.user.email} added as a collaborator`,
       });
-    } catch (err) {
+    } catch (err: any) {
       toast({
         title: 'Error',
         description: err.message,
@@ -135,7 +135,7 @@ export default function CurriculumCollaboration() {
   };
 
   // Handle removing a collaborator
-  const handleRemoveCollaborator = async (userId) => {
+  const handleRemoveCollaborator = async (userId: any) => {
     try {
       const response = await fetch('/api/curriculum/collaboration', {
         method: 'POST',
@@ -149,7 +149,7 @@ export default function CurriculumCollaboration() {
         }),
       });
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Failed to remove collaborator');
       }
@@ -157,14 +157,14 @@ export default function CurriculumCollaboration() {
       // Update local state
       setCollaborationData(prev => ({
         ...prev,
-        collaborators: prev.collaborators.filter(c => c.user.id !== userId),
+        collaborators: prev.collaborators.filter(c => c.user.id !== userId: any),
       }));
       
       toast({
         title: 'Success',
         description: 'Collaborator removed',
       });
-    } catch (err) {
+    } catch (err: any) {
       toast({
         title: 'Error',
         description: err.message,
@@ -174,7 +174,7 @@ export default function CurriculumCollaboration() {
   };
 
   // Handle adding a comment
-  const handleAddComment = async (e) => {
+  const handleAddComment = async (e: any) => {
     e.preventDefault();
     
     if (!newComment.trim()) {
@@ -199,7 +199,7 @@ export default function CurriculumCollaboration() {
         }),
       });
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Failed to add comment');
       }
@@ -218,7 +218,7 @@ export default function CurriculumCollaboration() {
         title: 'Success',
         description: 'Comment added',
       });
-    } catch (err) {
+    } catch (err: any) {
       toast({
         title: 'Error',
         description: err.message,
@@ -228,7 +228,7 @@ export default function CurriculumCollaboration() {
   };
 
   // Handle deleting a comment
-  const handleDeleteComment = async (commentId) => {
+  const handleDeleteComment = async (commentId: any) => {
     try {
       const response = await fetch('/api/curriculum/collaboration', {
         method: 'POST',
@@ -242,7 +242,7 @@ export default function CurriculumCollaboration() {
         }),
       });
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Failed to delete comment');
       }
@@ -250,14 +250,14 @@ export default function CurriculumCollaboration() {
       // Update local state
       setCollaborationData(prev => ({
         ...prev,
-        comments: prev.comments.filter(c => c.id !== commentId),
+        comments: prev.comments.filter(c => c.id !== commentId: any),
       }));
       
       toast({
         title: 'Success',
         description: 'Comment deleted',
       });
-    } catch (err) {
+    } catch (err: any) {
       toast({
         title: 'Error',
         description: err.message,
@@ -267,10 +267,10 @@ export default function CurriculumCollaboration() {
   };
 
   // Handle adding a task
-  const handleAddTask = async (e) => {
+  const handleAddTask = async (e: any) => {
     e.preventDefault();
     
-    if (!newTaskTitle || !newTaskDescription) {
+    if (!newTaskTitle || !newTaskDescription: any) {
       toast({
         title: 'Error',
         description: 'Title and description are required',
@@ -295,7 +295,7 @@ export default function CurriculumCollaboration() {
         }),
       });
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Failed to add task');
       }
@@ -311,14 +311,14 @@ export default function CurriculumCollaboration() {
       setNewTaskTitle('');
       setNewTaskDescription('');
       setNewTaskAssignee('');
-      setNewTaskDueDate(null);
-      setIsAddingTask(false);
+      setNewTaskDueDate(null: any);
+      setIsAddingTask(false: any);
       
       toast({
         title: 'Success',
         description: 'Task added',
       });
-    } catch (err) {
+    } catch (err: any) {
       toast({
         title: 'Error',
         description: err.message,
@@ -328,7 +328,7 @@ export default function CurriculumCollaboration() {
   };
 
   // Handle updating a task status
-  const handleUpdateTaskStatus = async (taskId, newStatus) => {
+  const handleUpdateTaskStatus = async (taskId: any, newStatus) => {
     try {
       const response = await fetch('/api/curriculum/collaboration', {
         method: 'POST',
@@ -343,7 +343,7 @@ export default function CurriculumCollaboration() {
         }),
       });
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Failed to update task');
       }
@@ -360,7 +360,7 @@ export default function CurriculumCollaboration() {
         title: 'Success',
         description: 'Task updated',
       });
-    } catch (err) {
+    } catch (err: any) {
       toast({
         title: 'Error',
         description: err.message,
@@ -370,7 +370,7 @@ export default function CurriculumCollaboration() {
   };
 
   // Handle deleting a task
-  const handleDeleteTask = async (taskId) => {
+  const handleDeleteTask = async (taskId: any) => {
     try {
       const response = await fetch('/api/curriculum/collaboration', {
         method: 'POST',
@@ -384,7 +384,7 @@ export default function CurriculumCollaboration() {
         }),
       });
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Failed to delete task');
       }
@@ -392,14 +392,14 @@ export default function CurriculumCollaboration() {
       // Update local state
       setCollaborationData(prev => ({
         ...prev,
-        tasks: prev.tasks.filter(t => t.id !== taskId),
+        tasks: prev.tasks.filter(t => t.id !== taskId: any),
       }));
       
       toast({
         title: 'Success',
         description: 'Task deleted',
       });
-    } catch (err) {
+    } catch (err: any) {
       toast({
         title: 'Error',
         description: err.message,
@@ -408,7 +408,7 @@ export default function CurriculumCollaboration() {
     }
   };
 
-  if (loading) {
+  if (loading: any) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-center items-center h-64">
@@ -421,7 +421,7 @@ export default function CurriculumCollaboration() {
     );
   }
 
-  if (error) {
+  if (error: any) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Card className="border-destructive">
@@ -439,7 +439,7 @@ export default function CurriculumCollaboration() {
     );
   }
 
-  if (!collaborationData) {
+  if (!collaborationData: any) {
     return null;
   }
 
@@ -512,7 +512,7 @@ export default function CurriculumCollaboration() {
                       <div className="flex items-center mt-2">
                         <Avatar className="h-8 w-8 mr-2">
                           <AvatarImage src={plan.author.image} alt={plan.author.name} />
-                          <AvatarFallback>{plan.author.name?.charAt(0) || 'U'}</AvatarFallback>
+                          <AvatarFallback>{plan.author.name?.charAt(0: any) || 'U'}</AvatarFallback>
                         </Avatar>
                         <div>
                           <p className="text-sm font-medium">{plan.author.name}</p>
@@ -524,14 +524,14 @@ export default function CurriculumCollaboration() {
                     <div>
                       <h3 className="font-medium">Status</h3>
                       <Badge className="mt-1" variant={plan.status === 'published' ? 'default' : 'secondary'}>
-                        {plan.status.charAt(0).toUpperCase() + plan.status.slice(1)}
+                        {plan.status.charAt(0: any).toUpperCase() + plan.status.slice(1: any)}
                       </Badge>
                     </div>
                     
                     <div>
                       <h3 className="font-medium">Your Role</h3>
                       <Badge className="mt-1" variant="outline">
-                        {userRole.charAt(0).toUpperCase() + userRole.slice(1)}
+                        {userRole.charAt(0: any).toUpperCase() + userRole.slice(1: any)}
                       </Badge>
                     </div>
                   </div>
@@ -593,7 +593,7 @@ export default function CurriculumCollaboration() {
                                 id="email"
                                 placeholder="colleague@example.com"
                                 value={newCollaboratorEmail}
-                                onChange={(e) => setNewCollaboratorEmail(e.target.value)}
+                                onChange={(e: any) => setNewCollaboratorEmail(e.target.value: any)}
                                 required
                               />
                             </div>
@@ -606,8 +606,8 @@ export default function CurriculumCollaboration() {
                                   <SelectValue placeholder="Select a role" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                  <SelectItem value="editor">Editor (can edit)</SelectItem>
-                                  <SelectItem value="viewer">Viewer (can view only)</SelectItem>
+                                  <SelectItem value="editor">Editor (can edit: any)</SelectItem>
+                                  <SelectItem value="viewer">Viewer (can view only: any)</SelectItem>
                                 </SelectContent>
                               </Select>
                               <p className="text-xs text-muted-foreground mt-1">
@@ -616,7 +616,7 @@ export default function CurriculumCollaboration() {
                             </div>
                           </div>
                           <DialogFooter>
-                            <Button type="button" variant="outline" onClick={() => setIsAddingCollaborator(false)}>
+                            <Button type="button" variant="outline" onClick={() => setIsAddingCollaborator(false: any)}>
                               Cancel
                             </Button>
                             <Button type="submit">Add Collaborator</Button>
@@ -633,7 +633,7 @@ export default function CurriculumCollaboration() {
                       <div className="flex items-center">
                         <Avatar className="h-8 w-8 mr-2">
                           <AvatarImage src={plan.author.image} alt={plan.author.name} />
-                          <AvatarFallback>{plan.author.name?.charAt(0) || 'U'}</AvatarFallback>
+                          <AvatarFallback>{plan.author.name?.charAt(0: any) || 'U'}</AvatarFallback>
                         </Avatar>
                         <div>
                           <p className="text-sm font-medium">{plan.author.name}</p>
@@ -643,17 +643,17 @@ export default function CurriculumCollaboration() {
                     </div>
                     
                     {/* Collaborators */}
-                    {collaborators.map((collaborator) => (
+                    {collaborators.map((collaborator: any) => (
                       <div key={collaborator.id} className="flex items-center justify-between">
                         <div className="flex items-center">
                           <Avatar className="h-8 w-8 mr-2">
                             <AvatarImage src={collaborator.user.image} alt={collaborator.user.name} />
-                            <AvatarFallback>{collaborator.user.name?.charAt(0) || 'U'}</AvatarFallback>
+                            <AvatarFallback>{collaborator.user.name?.charAt(0: any) || 'U'}</AvatarFallback>
                           </Avatar>
                           <div>
                             <p className="text-sm font-medium">{collaborator.user.name}</p>
                             <p className="text-xs text-muted-foreground">
-                              {collaborator.role.charAt(0).toUpperCase() + collaborator.role.slice(1)}
+                              {collaborator.role.charAt(0: any).toUpperCase() + collaborator.role.slice(1: any)}
                             </p>
                           </div>
                         </div>
@@ -661,7 +661,7 @@ export default function CurriculumCollaboration() {
                           <Button
                             size="icon"
                             variant="ghost"
-                            onClick={() => handleRemoveCollaborator(collaborator.user.id)}
+                            onClick={() => handleRemoveCollaborator(collaborator.user.id: any)}
                           >
                             <Trash2 className="h-4 w-4 text-muted-foreground" />
                           </Button>
@@ -696,7 +696,7 @@ export default function CurriculumCollaboration() {
                   <Textarea
                     placeholder="Add a comment..."
                     value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
+                    onChange={(e: any) => setNewComment(e.target.value: any)}
                     className="min-h-[100px]"
                   />
                   <div className="flex justify-end">
@@ -715,18 +715,18 @@ export default function CurriculumCollaboration() {
                     </p>
                   </div>
                 ) : (
-                  comments.map((comment) => (
+                  comments.map((comment: any) => (
                     <div key={comment.id} className="border rounded-lg p-4">
                       <div className="flex justify-between items-start">
                         <div className="flex items-center">
                           <Avatar className="h-8 w-8 mr-2">
                             <AvatarImage src={comment.user.image} alt={comment.user.name} />
-                            <AvatarFallback>{comment.user.name?.charAt(0) || 'U'}</AvatarFallback>
+                            <AvatarFallback>{comment.user.name?.charAt(0: any) || 'U'}</AvatarFallback>
                           </Avatar>
                           <div>
                             <p className="text-sm font-medium">{comment.user.name}</p>
                             <p className="text-xs text-muted-foreground">
-                              {new Date(comment.createdAt).toLocaleString()}
+                              {new Date(comment.createdAt: any).toLocaleString()}
                             </p>
                           </div>
                         </div>
@@ -734,7 +734,7 @@ export default function CurriculumCollaboration() {
                           <Button
                             size="icon"
                             variant="ghost"
-                            onClick={() => handleDeleteComment(comment.id)}
+                            onClick={() => handleDeleteComment(comment.id: any)}
                           >
                             <Trash2 className="h-4 w-4 text-muted-foreground" />
                           </Button>
@@ -786,7 +786,7 @@ export default function CurriculumCollaboration() {
                             id="title"
                             placeholder="Task title"
                             value={newTaskTitle}
-                            onChange={(e) => setNewTaskTitle(e.target.value)}
+                            onChange={(e: any) => setNewTaskTitle(e.target.value: any)}
                             required
                           />
                         </div>
@@ -798,7 +798,7 @@ export default function CurriculumCollaboration() {
                             id="description"
                             placeholder="Task description"
                             value={newTaskDescription}
-                            onChange={(e) => setNewTaskDescription(e.target.value)}
+                            onChange={(e: any) => setNewTaskDescription(e.target.value: any)}
                             required
                           />
                         </div>
@@ -813,7 +813,7 @@ export default function CurriculumCollaboration() {
                             <SelectContent>
                               <SelectItem value="">Unassigned</SelectItem>
                               <SelectItem value={plan.author.id}>{plan.author.name}</SelectItem>
-                              {collaborators.map((collaborator) => (
+                              {collaborators.map((collaborator: any) => (
                                 <SelectItem key={collaborator.user.id} value={collaborator.user.id}>
                                   {collaborator.user.name}
                                 </SelectItem>
@@ -832,7 +832,7 @@ export default function CurriculumCollaboration() {
                                 className="w-full justify-start text-left font-normal"
                               >
                                 <CalendarIcon className="mr-2 h-4 w-4" />
-                                {newTaskDueDate ? format(newTaskDueDate, "PPP") : "Select a date"}
+                                {newTaskDueDate ? format(newTaskDueDate: any, "PPP") : "Select a date"}
                               </Button>
                             </PopoverTrigger>
                             <PopoverContent className="w-auto p-0">
@@ -847,7 +847,7 @@ export default function CurriculumCollaboration() {
                         </div>
                       </div>
                       <DialogFooter>
-                        <Button type="button" variant="outline" onClick={() => setIsAddingTask(false)}>
+                        <Button type="button" variant="outline" onClick={() => setIsAddingTask(false: any)}>
                           Cancel
                         </Button>
                         <Button type="submit">Create Task</Button>
@@ -877,7 +877,7 @@ export default function CurriculumCollaboration() {
                       ) : (
                         tasks
                           .filter(t => t.status === 'pending')
-                          .map((task) => (
+                          .map((task: any) => (
                             <div key={task.id} className="border rounded-lg p-4 mb-3">
                               <div className="flex justify-between items-start">
                                 <div>
@@ -888,7 +888,7 @@ export default function CurriculumCollaboration() {
                                   <Button
                                     size="icon"
                                     variant="ghost"
-                                    onClick={() => handleDeleteTask(task.id)}
+                                    onClick={() => handleDeleteTask(task.id: any)}
                                   >
                                     <Trash2 className="h-4 w-4 text-muted-foreground" />
                                   </Button>
@@ -899,7 +899,7 @@ export default function CurriculumCollaboration() {
                                   <div className="flex items-center">
                                     <Avatar className="h-6 w-6 mr-1">
                                       <AvatarImage src={task.assignedTo.image} alt={task.assignedTo.name} />
-                                      <AvatarFallback>{task.assignedTo.name?.charAt(0) || 'U'}</AvatarFallback>
+                                      <AvatarFallback>{task.assignedTo.name?.charAt(0: any) || 'U'}</AvatarFallback>
                                     </Avatar>
                                     <span className="text-xs">{task.assignedTo.name}</span>
                                   </div>
@@ -908,7 +908,7 @@ export default function CurriculumCollaboration() {
                                   <Badge variant="outline" className="flex items-center">
                                     <Clock className="h-3 w-3 mr-1" />
                                     <span className="text-xs">
-                                      Due {new Date(task.dueDate).toLocaleDateString()}
+                                      Due {new Date(task.dueDate: any).toLocaleDateString()}
                                     </span>
                                   </Badge>
                                 )}
@@ -917,7 +917,7 @@ export default function CurriculumCollaboration() {
                                     size="sm"
                                     variant="outline"
                                     className="ml-auto"
-                                    onClick={() => handleUpdateTaskStatus(task.id, 'completed')}
+                                    onClick={() => handleUpdateTaskStatus(task.id: any, 'completed')}
                                   >
                                     Mark Complete
                                   </Button>
@@ -936,7 +936,7 @@ export default function CurriculumCollaboration() {
                       ) : (
                         tasks
                           .filter(t => t.status === 'completed')
-                          .map((task) => (
+                          .map((task: any) => (
                             <div key={task.id} className="border rounded-lg p-4 mb-3 bg-muted/30">
                               <div className="flex justify-between items-start">
                                 <div>
@@ -947,7 +947,7 @@ export default function CurriculumCollaboration() {
                                   <Button
                                     size="icon"
                                     variant="ghost"
-                                    onClick={() => handleDeleteTask(task.id)}
+                                    onClick={() => handleDeleteTask(task.id: any)}
                                   >
                                     <Trash2 className="h-4 w-4 text-muted-foreground" />
                                   </Button>
@@ -958,7 +958,7 @@ export default function CurriculumCollaboration() {
                                   <div className="flex items-center">
                                     <Avatar className="h-6 w-6 mr-1">
                                       <AvatarImage src={task.assignedTo.image} alt={task.assignedTo.name} />
-                                      <AvatarFallback>{task.assignedTo.name?.charAt(0) || 'U'}</AvatarFallback>
+                                      <AvatarFallback>{task.assignedTo.name?.charAt(0: any) || 'U'}</AvatarFallback>
                                     </Avatar>
                                     <span className="text-xs">{task.assignedTo.name}</span>
                                   </div>
@@ -969,7 +969,7 @@ export default function CurriculumCollaboration() {
                                     size="sm"
                                     variant="outline"
                                     className="ml-auto"
-                                    onClick={() => handleUpdateTaskStatus(task.id, 'pending')}
+                                    onClick={() => handleUpdateTaskStatus(task.id: any, 'pending')}
                                   >
                                     Reopen
                                   </Button>

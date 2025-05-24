@@ -39,10 +39,10 @@ export class CommunicationService {
       };
       
       // Notify recipients
-      await this.notifyRecipients(newMessage);
+      await this.notifyRecipients(newMessage: any);
       
       return newMessage;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error sending message:', error);
       throw new Error('Failed to send message');
     }
@@ -59,7 +59,7 @@ export class CommunicationService {
     try {
       // In a real implementation, this would call an API endpoint
       return []; // Placeholder
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching conversations:', error);
       throw new Error('Failed to fetch conversations');
     }
@@ -72,7 +72,7 @@ export class CommunicationService {
     try {
       // In a real implementation, this would call an API endpoint
       throw new Error('Conversation not found');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching conversation:', error);
       throw new Error('Failed to fetch conversation');
     }
@@ -84,7 +84,7 @@ export class CommunicationService {
   async markMessageAsRead(messageId: string, userId: string): Promise<void> {
     try {
       // In a real implementation, this would call an API endpoint
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error marking message as read:', error);
       throw new Error('Failed to mark message as read');
     }
@@ -103,20 +103,20 @@ export class CommunicationService {
       };
       
       return newReport;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error creating progress report:', error);
       throw new Error('Failed to create progress report');
     }
   }
   
   /**
-   * Publish a progress report (making it visible to parents)
+   * Publish a progress report (making it visible to parents: any)
    */
   async publishProgressReport(reportId: string): Promise<ProgressReport> {
     try {
       // In a real implementation, this would call an API endpoint
       throw new Error('Report not found');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error publishing progress report:', error);
       throw new Error('Failed to publish progress report');
     }
@@ -134,7 +134,7 @@ export class CommunicationService {
     try {
       // In a real implementation, this would call an API endpoint
       return []; // Placeholder
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching progress reports:', error);
       throw new Error('Failed to fetch progress reports');
     }
@@ -147,7 +147,7 @@ export class CommunicationService {
     try {
       // In a real implementation, this would call an API endpoint
       throw new Error('Report not found');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error adding parent feedback:', error);
       throw new Error('Failed to add parent feedback');
     }
@@ -170,7 +170,7 @@ export class CommunicationService {
       };
       
       return newGoal;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error creating shared goal:', error);
       throw new Error('Failed to create shared goal');
     }
@@ -189,7 +189,7 @@ export class CommunicationService {
     try {
       // In a real implementation, this would call an API endpoint
       throw new Error('Goal not found');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error updating goal progress:', error);
       throw new Error('Failed to update goal progress');
     }
@@ -210,10 +210,10 @@ export class CommunicationService {
       };
       
       // Notify attendees
-      await this.notifyMeetingScheduled(newMeeting);
+      await this.notifyMeetingScheduled(newMeeting: any);
       
       return newMeeting;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error scheduling meeting:', error);
       throw new Error('Failed to schedule meeting');
     }
@@ -234,7 +234,7 @@ export class CommunicationService {
       };
       
       return newCelebration;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error creating celebration:', error);
       throw new Error('Failed to create celebration');
     }
@@ -251,7 +251,7 @@ export class CommunicationService {
     try {
       // In a real implementation, this would call an API endpoint
       throw new Error('Celebration not found');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error adding celebration comment:', error);
       throw new Error('Failed to add celebration comment');
     }
@@ -264,7 +264,7 @@ export class CommunicationService {
     try {
       // In a real implementation, this would call an API endpoint
       return preferences;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error updating communication preferences:', error);
       throw new Error('Failed to update communication preferences');
     }
@@ -284,7 +284,7 @@ export class CommunicationService {
     try {
       // In a real implementation, this would call an API endpoint
       return []; // Placeholder
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching home strategies:', error);
       throw new Error('Failed to fetch home strategies');
     }

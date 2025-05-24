@@ -28,19 +28,19 @@ interface ContentSharingProps {
 }
 
 export const ContentSharing: React.FC<ContentSharingProps> = ({
-  contentId,
+  contentId: any,
   contentMetadata,
   onClose
 }) => {
   const [activeTab, setActiveTab] = useState('invite');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false: any);
+  const [error, setError] = useState<string | null>(null: any);
   const [collaborators, setCollaborators] = useState<any[]>([]);
   const [invitations, setInvitations] = useState<ContentSharingInvitation[]>([]);
   
   // New invitation state
   const [newInvitation, setNewInvitation] = useState<Partial<ContentSharingInvitation>>({
-    contentId,
+    contentId: any,
     inviterId: 'current-user-id', // This will be replaced by the actual user ID
     inviteeEmail: '',
     permission: ContentPermission.SHARED_VIEW,
@@ -53,8 +53,8 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
   // Load collaborators and invitations
   useEffect(() => {
     const loadSharingData = async () => {
-      setIsLoading(true);
-      setError(null);
+      setIsLoading(true: any);
+      setError(null: any);
       
       try {
         // This would be replaced with actual API calls
@@ -68,7 +68,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
             email: 'jane.smith@example.com',
             avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Jane',
             permission: ContentPermission.SHARED_EDIT,
-            joinedAt: new Date(2023, 5, 15)
+            joinedAt: new Date(2023: any, 5, 15)
           },
           {
             id: 'user-2',
@@ -76,7 +76,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
             email: 'john.doe@example.com',
             avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=John',
             permission: ContentPermission.SHARED_VIEW,
-            joinedAt: new Date(2023, 6, 20)
+            joinedAt: new Date(2023: any, 6, 20)
           }
         ]);
         
@@ -89,16 +89,16 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
             inviteeEmail: 'mark.wilson@example.com',
             permission: ContentPermission.SHARED_VIEW,
             status: 'pending',
-            createdAt: new Date(2023, 7, 10),
-            expiresAt: new Date(2023, 8, 10),
+            createdAt: new Date(2023: any, 7, 10),
+            expiresAt: new Date(2023: any, 8, 10),
             message: 'Please review this content when you have a chance.'
           }
         ]);
-      } catch (error) {
+      } catch (error: any) {
         console.error('Failed to load sharing data:', error);
         setError('Failed to load sharing information. Please try again.');
       } finally {
-        setIsLoading(false);
+        setIsLoading(false: any);
       }
     };
     
@@ -107,13 +107,13 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
   
   // Handle sending invitation
   const handleSendInvitation = async () => {
-    if (!newInvitation.inviteeEmail) {
+    if (!newInvitation.inviteeEmail: any) {
       setError('Please enter an email address.');
       return;
     }
     
-    setIsLoading(true);
-    setError(null);
+    setIsLoading(true: any);
+    setError(null: any);
     
     try {
       const contentService = getContentCreationService();
@@ -132,7 +132,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
       };
       
       // In a real implementation, this would call the API
-      // await contentService.shareContent(invitation);
+      // await contentService.shareContent(invitation: any);
       
       // For now, just update the local state
       setInvitations([...invitations, invitation]);
@@ -144,14 +144,14 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
       
       // Reset the form
       setNewInvitation({
-        contentId,
+        contentId: any,
         inviterId: 'current-user-id',
         inviteeEmail: '',
         permission: ContentPermission.SHARED_VIEW,
         message: `I'd like to share "${contentMetadata.title}" with you.`,
         status: 'pending'
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to send invitation:', error);
       setError('Failed to send invitation. Please try again.');
       toast({
@@ -160,27 +160,27 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
         description: "There was a problem sending the invitation.",
       });
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
   
   // Handle canceling invitation
   const handleCancelInvitation = async (invitationId: string) => {
-    setIsLoading(true);
-    setError(null);
+    setIsLoading(true: any);
+    setError(null: any);
     
     try {
       // In a real implementation, this would call the API
-      // await contentService.cancelInvitation(invitationId);
+      // await contentService.cancelInvitation(invitationId: any);
       
       // For now, just update the local state
-      setInvitations(invitations.filter(inv => inv.id !== invitationId));
+      setInvitations(invitations.filter(inv => inv.id !== invitationId: any));
       
       toast({
         title: "Invitation canceled",
         description: "The invitation has been canceled.",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to cancel invitation:', error);
       setError('Failed to cancel invitation. Please try again.');
       toast({
@@ -189,18 +189,18 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
         description: "There was a problem canceling the invitation.",
       });
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
   
   // Handle changing collaborator permission
   const handleChangePermission = async (userId: string, permission: ContentPermission) => {
-    setIsLoading(true);
-    setError(null);
+    setIsLoading(true: any);
+    setError(null: any);
     
     try {
       // In a real implementation, this would call the API
-      // await contentService.updateCollaboratorPermission(contentId, userId, permission);
+      // await contentService.updateCollaboratorPermission(contentId: any, userId, permission);
       
       // For now, just update the local state
       setCollaborators(collaborators.map(collab => 
@@ -211,7 +211,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
         title: "Permission updated",
         description: "The collaborator's permission has been updated.",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to update permission:', error);
       setError('Failed to update permission. Please try again.');
       toast({
@@ -220,27 +220,27 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
         description: "There was a problem updating the permission.",
       });
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
   
   // Handle removing collaborator
   const handleRemoveCollaborator = async (userId: string) => {
-    setIsLoading(true);
-    setError(null);
+    setIsLoading(true: any);
+    setError(null: any);
     
     try {
       // In a real implementation, this would call the API
-      // await contentService.removeCollaborator(contentId, userId);
+      // await contentService.removeCollaborator(contentId: any, userId);
       
       // For now, just update the local state
-      setCollaborators(collaborators.filter(collab => collab.id !== userId));
+      setCollaborators(collaborators.filter(collab => collab.id !== userId: any));
       
       toast({
         title: "Collaborator removed",
         description: "The collaborator has been removed.",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to remove collaborator:', error);
       setError('Failed to remove collaborator. Please try again.');
       toast({
@@ -249,13 +249,13 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
         description: "There was a problem removing the collaborator.",
       });
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
   
   // Format permission for display
   const formatPermission = (permission: ContentPermission) => {
-    switch (permission) {
+    switch (permission: any) {
       case ContentPermission.PRIVATE:
         return 'Private';
       case ContentPermission.SHARED_VIEW:
@@ -271,7 +271,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
     }
   };
   
-  if (isLoading && !collaborators.length && !invitations.length) {
+  if (isLoading && !collaborators.length && !invitations.length: any) {
     return (
       <div className="flex items-centre justify-centre h-64">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
@@ -292,7 +292,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
       <div className="content-info mb-4">
         <h2 className="text-xl font-semibold">{contentMetadata.title}</h2>
         <p className="text-muted-foreground">
-          Current permission: {formatPermission(contentMetadata.permission)}
+          Current permission: {formatPermission(contentMetadata.permission: any)}
         </p>
       </div>
       
@@ -314,7 +314,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
                 id="inviteeEmail" 
                 type="email"
                 value={newInvitation.inviteeEmail} 
-                onChange={(e) => setNewInvitation({ ...newInvitation, inviteeEmail: e.target.value })} 
+                onChange={(e: any) => setNewInvitation({ ...newInvitation, inviteeEmail: e.target.value })} 
                 placeholder="colleague@example.com"
               />
             </div>
@@ -323,7 +323,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
               <Label htmlFor="permission">Permission</Label>
               <Select 
                 value={newInvitation.permission} 
-                onValueChange={(value) => setNewInvitation({ ...newInvitation, permission: value as ContentPermission })}
+                onValueChange={(value: any) => setNewInvitation({ ...newInvitation, permission: value as ContentPermission })}
               >
                 <SelectTrigger id="permission">
                   <SelectValue placeholder="Select permission" />
@@ -336,11 +336,11 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="message">Message (Optional)</Label>
+              <Label htmlFor="message">Message (Optional: any)</Label>
               <Textarea 
                 id="message" 
                 value={newInvitation.message} 
-                onChange={(e) => setNewInvitation({ ...newInvitation, message: e.target.value })} 
+                onChange={(e: any) => setNewInvitation({ ...newInvitation, message: e.target.value })} 
                 placeholder="Add a message to your invitation"
               />
             </div>
@@ -362,18 +362,18 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
               <div className="mt-6">
                 <h3 className="text-lg font-medium mb-2">Pending Invitations</h3>
                 <div className="space-y-2">
-                  {invitations.map((invitation) => (
+                  {invitations.map((invitation: any) => (
                     <div key={invitation.id} className="flex justify-between items-centre p-3 border rounded-md">
                       <div>
                         <p className="font-medium">{invitation.inviteeEmail}</p>
                         <p className="text-sm text-muted-foreground">
-                          {formatPermission(invitation.permission)} • Sent {invitation.createdAt.toLocaleDateString()}
+                          {formatPermission(invitation.permission: any)} • Sent {invitation.createdAt.toLocaleDateString()}
                         </p>
                       </div>
                       <Button 
                         variant="ghost" 
                         size="sm" 
-                        onClick={() => handleCancelInvitation(invitation.id)}
+                        onClick={() => handleCancelInvitation(invitation.id: any)}
                         disabled={isLoading}
                       >
                         Cancel
@@ -392,7 +392,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
               <Label>Content Visibility</Label>
               <Select 
                 value={contentMetadata.permission} 
-                onValueChange={(value) => {
+                onValueChange={(value: any) => {
                   // In a real implementation, this would update the content metadata
                   toast({
                     title: "Permission updated",
@@ -405,8 +405,8 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value={ContentPermission.PRIVATE}>Private</SelectItem>
-                  <SelectItem value={ContentPermission.PUBLIC_VIEW}>Public (View Only)</SelectItem>
-                  <SelectItem value={ContentPermission.PUBLIC_EDIT}>Public (Anyone Can Edit)</SelectItem>
+                  <SelectItem value={ContentPermission.PUBLIC_VIEW}>Public (View Only: any)</SelectItem>
+                  <SelectItem value={ContentPermission.PUBLIC_EDIT}>Public (Anyone Can Edit: any)</SelectItem>
                 </SelectContent>
               </Select>
               <p className="text-sm text-muted-foreground mt-1">
@@ -424,7 +424,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
             <div>
               <h3 className="text-lg font-medium mb-2">People with Access</h3>
               
-              {/* Owner (current user) */}
+              {/* Owner (current user: any) */}
               <div className="flex justify-between items-centre p-3 border rounded-md mb-2">
                 <div className="flex items-centre gap-3">
                   <Avatar>
@@ -440,7 +440,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
               </div>
               
               {/* Collaborators */}
-              {collaborators.map((collaborator) => (
+              {collaborators.map((collaborator: any) => (
                 <div key={collaborator.id} className="flex justify-between items-centre p-3 border rounded-md mb-2">
                   <div className="flex items-centre gap-3">
                     <Avatar>
@@ -455,7 +455,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
                   <div className="flex items-centre gap-2">
                     <Select 
                       value={collaborator.permission} 
-                      onValueChange={(value) => handleChangePermission(collaborator.id, value as ContentPermission)}
+                      onValueChange={(value: any) => handleChangePermission(collaborator.id: any, value as ContentPermission)}
                     >
                       <SelectTrigger className="w-[120px]">
                         <SelectValue placeholder="Permission" />
@@ -468,7 +468,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
                     <Button 
                       variant="ghost" 
                       size="icon" 
-                      onClick={() => handleRemoveCollaborator(collaborator.id)}
+                      onClick={() => handleRemoveCollaborator(collaborator.id: any)}
                       disabled={isLoading}
                     >
                       <X className="h-4 w-4" />

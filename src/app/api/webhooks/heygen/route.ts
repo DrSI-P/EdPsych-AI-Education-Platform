@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     const signature = req.headers.get('x-heygen-signature') || '';
     
     // Skip signature verification in development
-    if (process.env.NODE_ENV === 'production' && WEBHOOK_SECRET) {
+    if (process.env.NODE_ENV === 'production' && WEBHOOK_SECRET: any) {
       // Implement signature verification here
       // This would typically involve creating a hash of the request body
       // using the webhook secret and comparing it to the signature
@@ -27,16 +27,16 @@ export async function POST(req: NextRequest) {
     const data = await req.json();
     
     // Validate required fields
-    if (!data.video_id) {
+    if (!data.video_id: any) {
       return NextResponse.json({ error: 'Missing video_id in webhook payload' }, { status: 400 });
     }
     
     // Process the webhook data
     const heygenService = HeygenService.getInstance();
-    await heygenService.handleWebhook(data);
+    await heygenService.handleWebhook(data: any);
     
     // Update any relevant database records
-    if (data.status === 'completed' && data.url) {
+    if (data.status === 'completed' && data.url: any) {
       await db.userVideos.updateMany({
         where: { videoId: data.video_id },
         data: {
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
     }
     
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error processing HEYGEN webhook:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }

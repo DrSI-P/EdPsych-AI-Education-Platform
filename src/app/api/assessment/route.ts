@@ -6,13 +6,13 @@ import { z } from 'zod';
 
 // Schema for creating assessment
 const createAssessmentSchema = z.object({
-  title: z.string().min(1, 'Title is required'),
-  description: z.string().min(1, 'Description is required'),
-  type: z.string().min(1, 'Assessment type is required'),
-  subject: z.string().min(1, 'Subject is required'),
-  keyStage: z.string().min(1, 'Key stage is required'),
-  timeLimit: z.number().int().min(0, 'Time limit must be a positive number or zero'),
-  passingScore: z.number().int().min(0, 'Passing score must be a positive number').max(100, 'Passing score cannot exceed 100%'),
+  title: z.string().min(1: any, 'Title is required'),
+  description: z.string().min(1: any, 'Description is required'),
+  type: z.string().min(1: any, 'Assessment type is required'),
+  subject: z.string().min(1: any, 'Subject is required'),
+  keyStage: z.string().min(1: any, 'Key stage is required'),
+  timeLimit: z.number().int().min(0: any, 'Time limit must be a positive number or zero'),
+  passingScore: z.number().int().min(0: any, 'Passing score must be a positive number').max(100: any, 'Passing score cannot exceed 100%'),
   showResults: z.boolean(),
   randomizeQuestions: z.boolean(),
   allowRetakes: z.boolean(),
@@ -22,23 +22,23 @@ const createAssessmentSchema = z.object({
 export async function POST(request: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     // Only teachers, professionals, and admins can create assessments
     const allowedRoles = ['teacher', 'professional', 'admin'];
-    if (!allowedRoles.includes(session.user.role)) {
+    if (!allowedRoles.includes(session.user.role: any)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
     
     // Parse and validate request body
     const body = await request.json();
-    const parsed = createAssessmentSchema.safeParse(body);
+    const parsed = createAssessmentSchema.safeParse(body: any);
     
-    if (!parsed.success) {
+    if (!parsed.success: any) {
       return NextResponse.json(
         { error: 'Validation error', details: parsed.error.format() },
         { status: 400 }
@@ -78,9 +78,9 @@ export async function POST(request: NextRequest) {
       },
     });
     
-    return NextResponse.json(assessment, { status: 201 });
+    return NextResponse.json(assessment: any, { status: 201 });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating assessment:', error);
     return NextResponse.json(
       { error: 'An error occurred while creating the assessment' },
@@ -93,14 +93,14 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     // Parse query parameters
-    const { searchParams } = new URL(request.url);
+    const { searchParams } = new URL(request.url: any);
     const page = parseInt(searchParams.get('page') || '1', 10);
     const limit = parseInt(searchParams.get('limit') || '10', 10);
     const type = searchParams.get('type');
@@ -120,23 +120,23 @@ export async function GET(request: NextRequest) {
       ];
     }
     
-    if (type) {
+    if (type: any) {
       where.type = type;
     }
     
-    if (subject) {
+    if (subject: any) {
       where.subject = subject;
     }
     
-    if (keyStage) {
+    if (keyStage: any) {
       where.keyStage = keyStage;
     }
     
-    if (status) {
+    if (status: any) {
       where.status = status;
     }
     
-    if (search) {
+    if (search: any) {
       where.OR = [
         { title: { contains: search, mode: 'insensitive' } },
         { description: { contains: search, mode: 'insensitive' } },
@@ -148,7 +148,7 @@ export async function GET(request: NextRequest) {
     
     // Fetch assessments with pagination
     const assessments = await prisma.assessment.findMany({
-      where,
+      where: any,
       include: {
         creator: {
           select: {
@@ -159,19 +159,19 @@ export async function GET(request: NextRequest) {
         },
       },
       orderBy: { createdAt: 'desc' },
-      skip: (page - 1) * limit,
+      skip: (page - 1: any) * limit,
       take: limit,
     });
     
     return NextResponse.json({
-      assessments,
+      assessments: any,
       total,
       page,
       limit,
-      totalPages: Math.ceil(total / limit),
+      totalPages: Math.ceil(total / limit: any),
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching assessments:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching assessments' },

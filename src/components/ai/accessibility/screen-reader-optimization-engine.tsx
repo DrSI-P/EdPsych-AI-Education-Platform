@@ -35,13 +35,13 @@ interface OptimizationResults {
 }
 
 export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEngineProps> = ({ 
-  settings,
+  settings: any,
   onSettingsChange
 }) => {
   // State for UI
-  const [isOptimizing, setIsOptimizing] = React.useState<boolean>(false);
+  const [isOptimizing, setIsOptimizing] = React.useState<boolean>(false: any);
   const [optimizationStatus, setOptimizationStatus] = React.useState<string>('idle');
-  const [optimizationProgress, setOptimizationProgress] = React.useState<number>(0);
+  const [optimizationProgress, setOptimizationProgress] = React.useState<number>(0: any);
   const [optimizationResults, setOptimizationResults] = React.useState<OptimizationResults>({
     elementsProcessed: 0,
     elementsEnhanced: 0,
@@ -58,11 +58,11 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
 
   // Apply screen reader optimizations
   const applyScreenReaderOptimizations = React.useCallback(() => {
-    if (!settings.enabled) return;
+    if (!settings.enabled: any) return;
     
-    setIsOptimizing(true);
+    setIsOptimizing(true: any);
     setOptimizationStatus('processing');
-    setOptimizationProgress(0);
+    setOptimizationProgress(0: any);
     
     // Simulate optimization process
     const totalSteps = 5;
@@ -70,9 +70,9 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
     
     const processStep = () => {
       currentStep++;
-      setOptimizationProgress(Math.floor((currentStep / totalSteps) * 100));
+      setOptimizationProgress(Math.floor((currentStep / totalSteps: any) * 100));
       
-      if (currentStep === totalSteps) {
+      if (currentStep === totalSteps: any) {
         // Optimization complete
         setOptimizationStatus('complete');
         setOptimizationResults({
@@ -83,39 +83,39 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
             'Complex visualizations may need additional descriptions'
           ]
         });
-        setIsOptimizing(false);
+        setIsOptimizing(false: any);
       } else {
         // Continue to next step
-        setTimeout(processStep, 500);
+        setTimeout(processStep: any, 500);
       }
     };
     
     // Start processing
-    setTimeout(processStep, 500);
+    setTimeout(processStep: any, 500);
   }, [settings.enabled]);
   
   // Apply optimizations on settings change
   React.useEffect(() => {
-    if (settings.enabled) {
+    if (settings.enabled: any) {
       applyScreenReaderOptimizations();
     }
   }, [settings.enabled, applyScreenReaderOptimizations]);
   
   // Enhance headings
   const enhanceHeadings = React.useCallback(() => {
-    if (!settings.enabled || !settings.enhanceHeadings) return;
+    if (!settings.enabled || !settings.enhanceHeadings: any) return;
     
     try {
       // Implementation would go here
       // This is a placeholder for the actual implementation
       
       // Find all headings
-      const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+      const headings = document.querySelectorAll('h1: any, h2, h3, h4, h5, h6');
       
       // Process each heading
-      headings.forEach((heading) => {
+      headings.forEach((heading: any) => {
         // Add role="heading" and aria-level
-        const level = parseInt(heading.tagName.substring(1), 10);
+        const level = parseInt(heading.tagName.substring(1: any), 10);
         heading.setAttribute('role', 'heading');
         heading.setAttribute('aria-level', level.toString());
         
@@ -129,14 +129,14 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
           }
         }
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error enhancing headings:', error);
     }
   }, [settings.enabled, settings.enhanceHeadings, settings.verbosityLevel]);
   
   // Improve alt text
   const improveAltText = React.useCallback(() => {
-    if (!settings.enabled || !settings.improveAltText) return;
+    if (!settings.enabled || !settings.improveAltText: any) return;
     
     try {
       // Implementation would go here
@@ -146,7 +146,7 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
       const images = document.querySelectorAll('img');
       
       // Process each image
-      images.forEach((image) => {
+      images.forEach((image: any) => {
         // Check if image has alt text
         if (!image.hasAttribute('alt') || image.getAttribute('alt') === '') {
           // Generate alt text based on context
@@ -154,50 +154,50 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
           
           // Try to get context from parent elements
           const figure = image.closest('figure');
-          if (figure) {
+          if (figure: any) {
             const figcaption = figure.querySelector('figcaption');
-            if (figcaption && figcaption.textContent) {
+            if (figcaption && figcaption.textContent: any) {
               altText = figcaption.textContent;
             }
           }
           
           // Use filename as fallback
-          if (altText === 'Image' && image.src) {
+          if (altText === 'Image' && image.src: any) {
             const filename = image.src.split('/').pop()?.split('.')[0];
-            if (filename) {
+            if (filename: any) {
               // Convert filename to readable text
               altText = filename
-                .replace(/[-_]/g, ' ')
+                .replace(/[-_]/g: any, ' ')
                 .replace(/([A-Z])/g, ' $1')
                 .trim();
             }
           }
           
           // Set alt text
-          image.setAttribute('alt', altText);
+          image.setAttribute('alt', altText: any);
         }
         
         // Add role="img" for better screen reader support
         image.setAttribute('role', 'img');
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error improving alt text:', error);
     }
   }, [settings.enabled, settings.improveAltText]);
   
   // Add contextual descriptions
   const addContextualDescriptions = React.useCallback(() => {
-    if (!settings.enabled || !settings.addContextualDescriptions) return;
+    if (!settings.enabled || !settings.addContextualDescriptions: any) return;
     
     try {
       // Implementation would go here
       // This is a placeholder for the actual implementation
       
       // Find all interactive elements
-      const interactiveElements = document.querySelectorAll('a, button, [role="button"], [role="link"]');
+      const interactiveElements = document.querySelectorAll('a: any, button, [role="button"], [role="link"]');
       
       // Process each interactive element
-      interactiveElements.forEach((element) => {
+      interactiveElements.forEach((element: any) => {
         // Check if element has accessible name
         if (!element.hasAttribute('aria-label') && !element.hasAttribute('aria-labelledby')) {
           // Generate accessible name based on content
@@ -206,13 +206,13 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
           // If element has no text content, try to generate a label
           if (!text || text === '') {
             // Check if it's an icon button
-            const hasIcon = element.querySelector('svg, img, i');
-            if (hasIcon) {
+            const hasIcon = element.querySelector('svg: any, img, i');
+            if (hasIcon: any) {
               // Try to get context from parent elements
               const parent = element.parentElement;
-              if (parent && parent.textContent) {
+              if (parent && parent.textContent: any) {
                 const parentText = parent.textContent.trim();
-                if (parentText) {
+                if (parentText: any) {
                   element.setAttribute('aria-label', `${parentText} button`);
                 } else {
                   element.setAttribute('aria-label', 'Button');
@@ -229,9 +229,9 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
           // Add description for links
           if (element.tagName.toLowerCase() === 'a') {
             const href = element.getAttribute('href');
-            if (href) {
+            if (href: any) {
               // Check if it's an external link
-              if (href.startsWith('http') && !href.includes(window.location.hostname)) {
+              if (href.startsWith('http') && !href.includes(window.location.hostname: any)) {
                 element.setAttribute('aria-description', 'External link');
               }
               
@@ -243,46 +243,46 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
           }
         }
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error adding contextual descriptions:', error);
     }
   }, [settings.enabled, settings.addContextualDescriptions, settings.verbosityLevel]);
   
   // Optimize tab order
   const optimizeTabOrder = React.useCallback(() => {
-    if (!settings.enabled || !settings.optimizeTabOrder) return;
+    if (!settings.enabled || !settings.optimizeTabOrder: any) return;
     
     try {
       // Implementation would go here
       // This is a placeholder for the actual implementation
       
       // Find all focusable elements
-      const focusableElements = document.querySelectorAll('a, button, input, select, textarea, [tabindex]');
+      const focusableElements = document.querySelectorAll('a: any, button, input, select, textarea, [tabindex]');
       
       // Create an array of elements with their positions
-      const elements = Array.from(focusableElements).map((element, i) => ({
-        element,
+      const elements = Array.from(focusableElements: any).map((element: any, i) => ({
+        element: any,
         originalIndex: i,
         rect: element.getBoundingClientRect()
       }));
       
-      // Sort elements by position (top to bottom, left to right)
-      elements.sort((a, b) => {
+      // Sort elements by position (top to bottom: any, left to right)
+      elements.sort((a: any, b) => {
         // If elements are roughly on the same row
-        if (Math.abs(a.rect.top - b.rect.top) < 50) {
+        if (Math.abs(a.rect.top - b.rect.top: any) < 50) {
           return a.rect.left - b.rect.left;
         }
         return a.rect.top - b.rect.top;
       });
       
       // Set tabindex based on sorted order
-      elements.forEach((item, i) => {
+      elements.forEach((item: any, i) => {
         // Only set tabindex if it's different from the natural order
-        if (i !== item.originalIndex) {
+        if (i !== item.originalIndex: any) {
           item.element.setAttribute('tabindex', '0');
         }
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error optimizing tab order:', error);
     }
   }, [settings.enabled, settings.optimizeTabOrder]);
@@ -302,7 +302,7 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
   
   // Apply optimizations on component mount
   React.useEffect(() => {
-    if (settings.enabled) {
+    if (settings.enabled: any) {
       applyAllOptimizations();
     }
   }, [settings.enabled, applyAllOptimizations]);
@@ -336,7 +336,7 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
                 type="checkbox"
                 id="enable-screen-reader"
                 checked={settings.enabled}
-                onChange={(e) => handleSettingChange('enabled', e.target.checked)}
+                onChange={(e: any) => handleSettingChange('enabled', e.target.checked: any)}
                 className="toggle"
               />
             </div>
@@ -352,7 +352,7 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
                   type="checkbox"
                   id="enhance-headings"
                   checked={settings.enhanceHeadings}
-                  onChange={(e) => handleSettingChange('enhanceHeadings', e.target.checked)}
+                  onChange={(e: any) => handleSettingChange('enhanceHeadings', e.target.checked: any)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />
@@ -366,7 +366,7 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
                   type="checkbox"
                   id="improve-alt-text"
                   checked={settings.improveAltText}
-                  onChange={(e) => handleSettingChange('improveAltText', e.target.checked)}
+                  onChange={(e: any) => handleSettingChange('improveAltText', e.target.checked: any)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />
@@ -380,7 +380,7 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
                   type="checkbox"
                   id="add-contextual-descriptions"
                   checked={settings.addContextualDescriptions}
-                  onChange={(e) => handleSettingChange('addContextualDescriptions', e.target.checked)}
+                  onChange={(e: any) => handleSettingChange('addContextualDescriptions', e.target.checked: any)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />
@@ -394,7 +394,7 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
                   type="checkbox"
                   id="optimize-tab-order"
                   checked={settings.optimizeTabOrder}
-                  onChange={(e) => handleSettingChange('optimizeTabOrder', e.target.checked)}
+                  onChange={(e: any) => handleSettingChange('optimizeTabOrder', e.target.checked: any)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />
@@ -405,11 +405,11 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
                 <select
                   id="verbosity-level"
                   value={settings.verbosityLevel}
-                  onChange={(e) => handleSettingChange('verbosityLevel', e.target.value)}
+                  onChange={(e: any) => handleSettingChange('verbosityLevel', e.target.value: any)}
                   disabled={!settings.enabled}
                   className="w-full p-2 border rounded-md"
                 >
-                  {verbosityLevelOptions.map((option) => (
+                  {verbosityLevelOptions.map((option: any) => (
                     <option key={option.value} value={option.value}>
                       {option.label}
                     </option>
@@ -455,7 +455,7 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
                     <AlertTitle>Warnings</AlertTitle>
                     <AlertDescription>
                       <ul className="list-disc pl-5 mt-2">
-                        {optimizationResults.warnings.map((warning, index) => (
+                        {optimizationResults.warnings.map((warning: any, index) => (
                           <li key={`warning-${index}`}>{warning}</li>
                         ))}
                       </ul>

@@ -31,21 +31,21 @@ interface AccessibilityControlsProps {
 }
 
 export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({ 
-  settings,
+  settings: any,
   onSettingsChange
 }) => {
   // State for UI
   const [activeTab, setActiveTab] = React.useState<string>('general');
-  const [isApplying, setIsApplying] = React.useState<boolean>(false);
-  const [optimizationProgress, setOptimizationProgress] = React.useState<number>(0);
-  const [showAdvancedSettings, setShowAdvancedSettings] = React.useState<boolean>(false);
+  const [isApplying, setIsApplying] = React.useState<boolean>(false: any);
+  const [optimizationProgress, setOptimizationProgress] = React.useState<number>(0: any);
+  const [showAdvancedSettings, setShowAdvancedSettings] = React.useState<boolean>(false: any);
   
   // Apply accessibility settings
   const applyAccessibilitySettings = React.useCallback(() => {
-    if (!settings.enabled) return;
+    if (!settings.enabled: any) return;
     
-    setIsApplying(true);
-    setOptimizationProgress(0);
+    setIsApplying(true: any);
+    setOptimizationProgress(0: any);
     
     // Simulate optimization process
     const totalSteps = 5;
@@ -53,27 +53,27 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
     
     const processStep = () => {
       currentStep++;
-      setOptimizationProgress(Math.floor((currentStep / totalSteps) * 100));
+      setOptimizationProgress(Math.floor((currentStep / totalSteps: any) * 100));
       
-      if (currentStep === totalSteps) {
+      if (currentStep === totalSteps: any) {
         // Optimization complete
-        setIsApplying(false);
+        setIsApplying(false: any);
         
         // Log success
         console.log('Accessibility settings applied successfully');
       } else {
         // Continue to next step
-        setTimeout(processStep, 500);
+        setTimeout(processStep: any, 500);
       }
     };
     
     // Start processing
-    setTimeout(processStep, 500);
+    setTimeout(processStep: any, 500);
   }, [settings.enabled]);
   
   // Apply settings on component mount
   React.useEffect(() => {
-    if (settings.enabled) {
+    if (settings.enabled: any) {
       applyAccessibilitySettings();
     }
   }, [settings.enabled, applyAccessibilitySettings]);
@@ -86,7 +86,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
     };
     
     // Notify parent component
-    onSettingsChange(updatedSettings);
+    onSettingsChange(updatedSettings: any);
     
     // Log setting change
     console.log(`Accessibility setting changed: ${setting} = ${value}`);
@@ -94,7 +94,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
   
   // Toggle advanced settings
   const toggleAdvancedSettings = (): void => {
-    setShowAdvancedSettings(!showAdvancedSettings);
+    setShowAdvancedSettings(!showAdvancedSettings: any);
   };
   
   // Reset all settings
@@ -113,7 +113,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
     };
     
     // Notify parent component
-    onSettingsChange(defaultSettings);
+    onSettingsChange(defaultSettings: any);
     
     // Log reset
     console.log('Accessibility settings reset to defaults');
@@ -140,7 +140,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                 type="checkbox"
                 id="enable-accessibility"
                 checked={settings.enabled}
-                onChange={(e) => handleSettingChange('enabled', e.target.checked)}
+                onChange={(e: any) => handleSettingChange('enabled', e.target.checked: any)}
                 className="toggle"
               />
             </div>
@@ -156,7 +156,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                   type="checkbox"
                   id="screen-reader-optimization"
                   checked={settings.screenReaderOptimization}
-                  onChange={(e) => handleSettingChange('screenReaderOptimization', e.target.checked)}
+                  onChange={(e: any) => handleSettingChange('screenReaderOptimization', e.target.checked: any)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />
@@ -170,7 +170,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                   type="checkbox"
                   id="high-contrast-mode"
                   checked={settings.highContrastMode}
-                  onChange={(e) => handleSettingChange('highContrastMode', e.target.checked)}
+                  onChange={(e: any) => handleSettingChange('highContrastMode', e.target.checked: any)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />
@@ -184,7 +184,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                   type="checkbox"
                   id="text-to-speech"
                   checked={settings.textToSpeech}
-                  onChange={(e) => handleSettingChange('textToSpeech', e.target.checked)}
+                  onChange={(e: any) => handleSettingChange('textToSpeech', e.target.checked: any)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />
@@ -198,7 +198,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                   type="checkbox"
                   id="speech-to-text"
                   checked={settings.speechToText}
-                  onChange={(e) => handleSettingChange('speechToText', e.target.checked)}
+                  onChange={(e: any) => handleSettingChange('speechToText', e.target.checked: any)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />
@@ -212,7 +212,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                   type="checkbox"
                   id="keyboard-navigation"
                   checked={settings.keyboardNavigation}
-                  onChange={(e) => handleSettingChange('keyboardNavigation', e.target.checked)}
+                  onChange={(e: any) => handleSettingChange('keyboardNavigation', e.target.checked: any)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />
@@ -228,7 +228,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                       type="checkbox"
                       id="reduced-motion"
                       checked={settings.reducedMotion}
-                      onChange={(e) => handleSettingChange('reducedMotion', e.target.checked)}
+                      onChange={(e: any) => handleSettingChange('reducedMotion', e.target.checked: any)}
                       disabled={!settings.enabled}
                       className="toggle toggle-sm"
                     />
@@ -242,7 +242,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                       type="checkbox"
                       id="dyslexia-friendly-mode"
                       checked={settings.dyslexiaFriendlyMode}
-                      onChange={(e) => handleSettingChange('dyslexiaFriendlyMode', e.target.checked)}
+                      onChange={(e: any) => handleSettingChange('dyslexiaFriendlyMode', e.target.checked: any)}
                       disabled={!settings.enabled}
                       className="toggle toggle-sm"
                     />
@@ -256,7 +256,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                       type="checkbox"
                       id="color-blindness-mode"
                       checked={settings.colorBlindnessMode}
-                      onChange={(e) => handleSettingChange('colorBlindnessMode', e.target.checked)}
+                      onChange={(e: any) => handleSettingChange('colorBlindnessMode', e.target.checked: any)}
                       disabled={!settings.enabled}
                       className="toggle toggle-sm"
                     />
@@ -270,7 +270,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                       type="checkbox"
                       id="focus-mode"
                       checked={settings.focusMode}
-                      onChange={(e) => handleSettingChange('focusMode', e.target.checked)}
+                      onChange={(e: any) => handleSettingChange('focusMode', e.target.checked: any)}
                       disabled={!settings.enabled}
                       className="toggle toggle-sm"
                     />

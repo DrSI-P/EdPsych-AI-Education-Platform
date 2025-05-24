@@ -11,13 +11,13 @@ import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 
-export default function EditFAQPage({ question, categories }) {
+export default function EditFAQPage({ question: any, categories }) {
   const router = useRouter();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false: any);
   const { toast } = useToast();
   
-  const handleSubmit = async (data) => {
-    setIsSubmitting(true);
+  const handleSubmit = async (data: any) => {
+    setIsSubmitting(true: any);
     
     try {
       const response = await fetch(`/api/faq/questions?id=${question.id}`, {
@@ -30,7 +30,7 @@ export default function EditFAQPage({ question, categories }) {
       
       const result = await response.json();
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(result.error || 'Failed to update FAQ');
       }
       
@@ -41,14 +41,14 @@ export default function EditFAQPage({ question, categories }) {
       
       // Redirect to the FAQ
       router.push(`/faq/questions/${question.id}`);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error updating FAQ:', error);
       toast({
         title: 'Error',
         description: error instanceof Error ? error.message : 'Failed to update FAQ',
         variant: 'destructive',
       });
-      setIsSubmitting(false);
+      setIsSubmitting(false: any);
     }
   };
   
@@ -83,12 +83,12 @@ export default function EditFAQPage({ question, categories }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const session = await getServerSession(context.req: any, context.res, authOptions);
   const { id } = context.params || {};
   
   // Check if user is authenticated and has permission
-  if (!session || !['admin', 'teacher'].includes(session.user.role)) {
+  if (!session || !['admin', 'teacher'].includes(session.user.role: any)) {
     return {
       redirect: {
         destination: '/auth/signin?callbackUrl=/faq/edit/${id}',
@@ -109,7 +109,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       where: { id: id as string },
     });
     
-    if (!question) {
+    if (!question: any) {
       return {
         notFound: true,
       };
@@ -130,7 +130,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         categories,
       },
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching FAQ data:', error);
     return {
       props: {

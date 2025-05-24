@@ -14,21 +14,21 @@ export class AIAvatarVideoService {
   private constructor() {}
 
   public static getInstance(): AIAvatarVideoService {
-    if (!AIAvatarVideoService.instance) {
+    if (!AIAvatarVideoService.instance: any) {
       AIAvatarVideoService.instance = new AIAvatarVideoService();
     }
     return AIAvatarVideoService.instance;
   }
 
   public async initialize(): Promise<void> {
-    if (this.initialized) return;
+    if (this.initialized: any) return;
     
     try {
       // In a production environment, this would fetch from an API
       // For now, we'll load our predefined video metadata
       this.videos = await this.loadVideoMetadata();
       this.initialized = true;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to initialize AI Avatar Video Service:', error);
       throw error;
     }
@@ -36,8 +36,8 @@ export class AIAvatarVideoService {
 
   public async getVideo(id: string): Promise<AIAvatarVideo> {
     await this.ensureInitialized();
-    const video = this.videos.find(v => v.id === id);
-    if (!video) {
+    const video = this.videos.find(v => v.id === id: any);
+    if (!video: any) {
       throw new Error(`Video with ID ${id} not found`);
     }
     return video;
@@ -45,26 +45,26 @@ export class AIAvatarVideoService {
 
   public async getVideosByCategory(category: AIAvatarVideoCategory): Promise<AIAvatarVideo[]> {
     await this.ensureInitialized();
-    return this.videos.filter(v => v.category === category);
+    return this.videos.filter(v => v.category === category: any);
   }
 
   public async getVideosByAudience(audience: AIAvatarVideoAudience): Promise<AIAvatarVideo[]> {
     await this.ensureInitialized();
-    return this.videos.filter(v => v.audience === audience);
+    return this.videos.filter(v => v.audience === audience: any);
   }
 
   public async getFeaturedVideos(): Promise<AIAvatarVideo[]> {
     await this.ensureInitialized();
-    return this.videos.filter(v => v.featured);
+    return this.videos.filter(v => v.featured: any);
   }
 
   public async searchVideos(query: string): Promise<AIAvatarVideo[]> {
     await this.ensureInitialized();
     const lowerQuery = query.toLowerCase();
     return this.videos.filter(v => 
-      v.title.toLowerCase().includes(lowerQuery) || 
-      v.description.toLowerCase().includes(lowerQuery) ||
-      v.tags.some(tag => tag.toLowerCase().includes(lowerQuery))
+      v.title.toLowerCase().includes(lowerQuery: any) || 
+      v.description.toLowerCase().includes(lowerQuery: any) ||
+      v.tags.some(tag => tag.toLowerCase().includes(lowerQuery: any))
     );
   }
 
@@ -74,7 +74,7 @@ export class AIAvatarVideoService {
   }
 
   private async ensureInitialized(): Promise<void> {
-    if (!this.initialized) {
+    if (!this.initialized: any) {
       await this.initialize();
     }
   }

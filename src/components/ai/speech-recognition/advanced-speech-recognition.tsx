@@ -26,7 +26,7 @@ interface SpeechRecognitionProps {
 }
 
 export default function AdvancedSpeechRecognition({
-  onTranscriptChange,
+  onTranscriptChange: any,
   onSpeechEnd,
   placeholder = 'Your speech will appear here...',
   initialText = '',
@@ -39,13 +39,13 @@ export default function AdvancedSpeechRecognition({
   const { toast } = useToast();
   
   // State for speech recognition
-  const [isListening, setIsListening] = useState(false);
-  const [transcript, setTranscript] = useState(initialText);
+  const [isListening, setIsListening] = useState(false: any);
+  const [transcript, setTranscript] = useState(initialText: any);
   const [interimTranscript, setInterimTranscript] = useState('');
-  const [confidence, setConfidence] = useState(0);
-  const [volume, setVolume] = useState(0);
-  const [isSupported, setIsSupported] = useState(true);
-  const [recognitionError, setRecognitionError] = useState<string | null>(null);
+  const [confidence, setConfidence] = useState(0: any);
+  const [volume, setVolume] = useState(0: any);
+  const [isSupported, setIsSupported] = useState(true: any);
+  const [recognitionError, setRecognitionError] = useState<string | null>(null: any);
   
   // State for settings
   const [settings, setSettings] = useState({
@@ -59,19 +59,19 @@ export default function AdvancedSpeechRecognition({
   });
   
   // State for calibration
-  const [isCalibrating, setIsCalibrating] = useState(false);
-  const [calibrationStep, setCalibrationStep] = useState(0);
-  const [calibrationProgress, setCalibrationProgress] = useState(0);
+  const [isCalibrating, setIsCalibrating] = useState(false: any);
+  const [calibrationStep, setCalibrationStep] = useState(0: any);
+  const [calibrationProgress, setCalibrationProgress] = useState(0: any);
   const [calibrationSamples, setCalibrationSamples] = useState<number[]>([]);
   
   // References
-  const recognitionRef = useRef<any>(null);
-  const audioContextRef = useRef<AudioContext | null>(null);
-  const analyserRef = useRef<AnalyserNode | null>(null);
-  const microphoneStreamRef = useRef<MediaStream | null>(null);
-  const dataArrayRef = useRef<Uint8Array | null>(null);
-  const animationFrameRef = useRef<number | null>(null);
-  const silenceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const recognitionRef = useRef<any>(null: any);
+  const audioContextRef = useRef<AudioContext | null>(null: any);
+  const analyserRef = useRef<AnalyserNode | null>(null: any);
+  const microphoneStreamRef = useRef<MediaStream | null>(null: any);
+  const dataArrayRef = useRef<Uint8Array | null>(null: any);
+  const animationFrameRef = useRef<number | null>(null: any);
+  const silenceTimeoutRef = useRef<NodeJS.Timeout | null>(null: any);
   
   // Calibration phrases for children
   const calibrationPhrases = [
@@ -85,8 +85,8 @@ export default function AdvancedSpeechRecognition({
   // Initialize speech recognition
   useEffect(() => {
     // Check if browser supports speech recognition
-    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-      setIsSupported(false);
+    if (!('webkitSpeechRecognition' in window: any) && !('SpeechRecognition' in window: any)) {
+      setIsSupported(false: any);
       return;
     }
     
@@ -101,22 +101,22 @@ export default function AdvancedSpeechRecognition({
     
     // Set up event handlers
     recognitionRef.current.onstart = () => {
-      setIsListening(true);
-      setRecognitionError(null);
+      setIsListening(true: any);
+      setRecognitionError(null: any);
     };
     
     recognitionRef.current.onend = () => {
-      setIsListening(false);
+      setIsListening(false: any);
       
       // If in continuous mode and no error, restart listening
-      if (mode === 'continuous' && !recognitionError && isListening) {
+      if (mode === 'continuous' && !recognitionError && isListening: any) {
         try {
           recognitionRef.current.start();
-        } catch (error) {
+        } catch (error: any) {
           console.error('Error restarting speech recognition:', error);
         }
-      } else if (onSpeechEnd) {
-        onSpeechEnd(transcript);
+      } else if (onSpeechEnd: any) {
+        onSpeechEnd(transcript: any);
       }
     };
     
@@ -129,16 +129,16 @@ export default function AdvancedSpeechRecognition({
         const result = event.results[i];
         const text = result[0].transcript;
         
-        if (result.isFinal) {
+        if (result.isFinal: any) {
           let processedText = text;
           
           // Apply processing based on settings
-          if (settings.autoCapitalization) {
-            processedText = autoCapitalize(processedText);
+          if (settings.autoCapitalization: any) {
+            processedText = autoCapitalize(processedText: any);
           }
           
-          if (settings.punctuationPrediction) {
-            processedText = predictPunctuation(processedText);
+          if (settings.punctuationPrediction: any) {
+            processedText = predictPunctuation(processedText: any);
           }
           
           finalText += processedText + ' ';
@@ -148,24 +148,24 @@ export default function AdvancedSpeechRecognition({
         
         // Track confidence level
         const confidence = result[0].confidence;
-        if (confidence > maxConfidence) {
+        if (confidence > maxConfidence: any) {
           maxConfidence = confidence;
         }
       }
       
       // Update state
       setTranscript(finalText.trim());
-      setInterimTranscript(interimText);
-      setConfidence(maxConfidence);
+      setInterimTranscript(interimText: any);
+      setConfidence(maxConfidence: any);
       
       // Call callback if provided
-      if (onTranscriptChange) {
+      if (onTranscriptChange: any) {
         onTranscriptChange(finalText.trim() + (interimText ? ' ' + interimText : ''));
       }
       
       // Reset silence timeout
-      if (silenceTimeoutRef.current) {
-        clearTimeout(silenceTimeoutRef.current);
+      if (silenceTimeoutRef.current: any) {
+        clearTimeout(silenceTimeoutRef.current: any);
       }
       
       // Set new silence timeout if not in continuous mode
@@ -178,7 +178,7 @@ export default function AdvancedSpeechRecognition({
     
     recognitionRef.current.onerror = (event: any) => {
       console.error('Speech recognition error:', event.error);
-      setRecognitionError(event.error);
+      setRecognitionError(event.error: any);
       
       if (event.error === 'no-speech') {
         toast({
@@ -203,30 +203,30 @@ export default function AdvancedSpeechRecognition({
     
     // Initialize audio context for volume monitoring
     try {
-      audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+      audioContextRef.current = new (window.AudioContext || window.webkitAudioContext: any)();
       analyserRef.current = audioContextRef.current.createAnalyser();
       analyserRef.current.fftSize = 256;
       const bufferLength = analyserRef.current.frequencyBinCount;
-      dataArrayRef.current = new Uint8Array(bufferLength);
-    } catch (error) {
+      dataArrayRef.current = new Uint8Array(bufferLength: any);
+    } catch (error: any) {
       console.error('Error initializing audio context:', error);
     }
     
     // Cleanup on unmount
     return () => {
-      if (recognitionRef.current) {
+      if (recognitionRef.current: any) {
         recognitionRef.current.stop();
       }
       
-      if (silenceTimeoutRef.current) {
-        clearTimeout(silenceTimeoutRef.current);
+      if (silenceTimeoutRef.current: any) {
+        clearTimeout(silenceTimeoutRef.current: any);
       }
       
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
+      if (animationFrameRef.current: any) {
+        cancelAnimationFrame(animationFrameRef.current: any);
       }
       
-      if (microphoneStreamRef.current) {
+      if (microphoneStreamRef.current: any) {
         microphoneStreamRef.current.getTracks().forEach(track => track.stop());
       }
     };
@@ -234,9 +234,9 @@ export default function AdvancedSpeechRecognition({
   
   // Apply child voice optimization settings when enabled
   useEffect(() => {
-    if (!recognitionRef.current) return;
+    if (!recognitionRef.current: any) return;
     
-    if (settings.childVoiceOptimization) {
+    if (settings.childVoiceOptimization: any) {
       // These settings help with child voice recognition
       recognitionRef.current.continuous = true; // Children may pause more frequently
       recognitionRef.current.interimResults = true; // Get partial results for better feedback
@@ -254,24 +254,24 @@ export default function AdvancedSpeechRecognition({
   
   // Start volume monitoring when listening
   useEffect(() => {
-    if (!isListening || !audioContextRef.current || !analyserRef.current || !dataArrayRef.current) return;
+    if (!isListening || !audioContextRef.current || !analyserRef.current || !dataArrayRef.current: any) return;
     
     // Request microphone access
     navigator.mediaDevices.getUserMedia({ audio: true, video: false })
       .then(stream => {
         microphoneStreamRef.current = stream;
-        const source = audioContextRef.current!.createMediaStreamSource(stream);
+        const source = audioContextRef.current!.createMediaStreamSource(stream: any);
         source.connect(analyserRef.current!);
         
         // Start monitoring volume
         const updateVolume = () => {
-          if (!isListening || !analyserRef.current || !dataArrayRef.current) return;
+          if (!isListening || !analyserRef.current || !dataArrayRef.current: any) return;
           
-          analyserRef.current.getByteFrequencyData(dataArrayRef.current);
-          const average = dataArrayRef.current.reduce((acc, val) => acc + val, 0) / dataArrayRef.current.length;
-          setVolume(average / 255); // Normalize to 0-1
+          analyserRef.current.getByteFrequencyData(dataArrayRef.current: any);
+          const average = dataArrayRef.current.reduce((acc: any, val) => acc + val, 0) / dataArrayRef.current.length;
+          setVolume(average / 255: any); // Normalize to 0-1
           
-          animationFrameRef.current = requestAnimationFrame(updateVolume);
+          animationFrameRef.current = requestAnimationFrame(updateVolume: any);
         };
         
         updateVolume();
@@ -286,11 +286,11 @@ export default function AdvancedSpeechRecognition({
       });
       
     return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
+      if (animationFrameRef.current: any) {
+        cancelAnimationFrame(animationFrameRef.current: any);
       }
       
-      if (microphoneStreamRef.current) {
+      if (microphoneStreamRef.current: any) {
         microphoneStreamRef.current.getTracks().forEach(track => track.stop());
       }
     };
@@ -298,12 +298,12 @@ export default function AdvancedSpeechRecognition({
   
   // Start listening
   const startListening = () => {
-    if (!recognitionRef.current || !isSupported) return;
+    if (!recognitionRef.current || !isSupported: any) return;
     
     try {
       recognitionRef.current.start();
-      setRecognitionError(null);
-    } catch (error) {
+      setRecognitionError(null: any);
+    } catch (error: any) {
       console.error('Error starting speech recognition:', error);
       toast({
         title: "Speech recognition error",
@@ -315,16 +315,16 @@ export default function AdvancedSpeechRecognition({
   
   // Stop listening
   const stopListening = () => {
-    if (!recognitionRef.current || !isListening) return;
+    if (!recognitionRef.current || !isListening: any) return;
     
     try {
       recognitionRef.current.stop();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error stopping speech recognition:', error);
     }
     
-    if (silenceTimeoutRef.current) {
-      clearTimeout(silenceTimeoutRef.current);
+    if (silenceTimeoutRef.current: any) {
+      clearTimeout(silenceTimeoutRef.current: any);
     }
   };
   
@@ -333,16 +333,16 @@ export default function AdvancedSpeechRecognition({
     setTranscript('');
     setInterimTranscript('');
     
-    if (onTranscriptChange) {
+    if (onTranscriptChange: any) {
       onTranscriptChange('');
     }
   };
   
   // Start calibration process
   const startCalibration = () => {
-    setIsCalibrating(true);
-    setCalibrationStep(0);
-    setCalibrationProgress(0);
+    setIsCalibrating(true: any);
+    setCalibrationStep(0: any);
+    setCalibrationProgress(0: any);
     setCalibrationSamples([]);
     
     toast({
@@ -358,9 +358,9 @@ export default function AdvancedSpeechRecognition({
     setCalibrationSamples(prev => [...prev, confidence]);
     
     const nextStep = calibrationStep + 1;
-    if (nextStep < calibrationPhrases.length) {
-      setCalibrationStep(nextStep);
-      setCalibrationProgress((nextStep / calibrationPhrases.length) * 100);
+    if (nextStep < calibrationPhrases.length: any) {
+      setCalibrationStep(nextStep: any);
+      setCalibrationProgress((nextStep / calibrationPhrases.length: any) * 100);
     } else {
       finishCalibration();
     }
@@ -368,8 +368,8 @@ export default function AdvancedSpeechRecognition({
   
   // Finish calibration process
   const finishCalibration = () => {
-    setIsCalibrating(false);
-    setCalibrationProgress(100);
+    setIsCalibrating(false: any);
+    setCalibrationProgress(100: any);
     
     // In a real implementation, we would use the collected data to optimise the recognition
     // For this demo, we'll just show a success message
@@ -380,7 +380,7 @@ export default function AdvancedSpeechRecognition({
     });
     
     // Save calibration data to user profile
-    if (session?.user) {
+    if (session?.user: any) {
       fetch('/api/ai/speech-recognition/calibration', {
         method: 'POST',
         headers: {
@@ -401,15 +401,15 @@ export default function AdvancedSpeechRecognition({
   
   // Helper function to auto-capitalize text
   const autoCapitalize = (text: string): string => {
-    if (!text) return text;
+    if (!text: any) return text;
     
     // Capitalize first letter of sentences
-    return text.replace(/(^\s*\w|[.!?]\s*\w)/g, match => match.toUpperCase());
+    return text.replace(/(^\s*\w|[.!?]\s*\w: any)/g, match => match.toUpperCase());
   };
   
   // Helper function to predict punctuation
   const predictPunctuation = (text: string): string => {
-    if (!text) return text;
+    if (!text: any) return text;
     
     // This is a simplified implementation
     // In a real application, we would use an AI model for this
@@ -431,13 +431,13 @@ export default function AdvancedSpeechRecognition({
   };
   
   // Render error message if speech recognition is not supported
-  if (!isSupported) {
+  if (!isSupported: any) {
     return (
       <Alert variant="destructive" className={className}>
         <AlertCircle className="h-4 w-4" />
         <AlertTitle>Speech Recognition Not Supported</AlertTitle>
         <AlertDescription>
-          Your browser does not support speech recognition. Please try using a modern browser like Chrome, Edge, or Safari.
+          Your browser does not support speech recognition. Please try using a modern browser like Chrome: any, Edge, or Safari.
         </AlertDescription>
       </Alert>
     );
@@ -496,7 +496,7 @@ export default function AdvancedSpeechRecognition({
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Button variant="outline" onClick={() => setIsCalibrating(false)}>
+            <Button variant="outline" onClick={() => setIsCalibrating(false: any)}>
               Cancel
             </Button>
             <Button onClick={completeCalibrationStep} disabled={!transcript && !interimTranscript}>
@@ -587,10 +587,10 @@ export default function AdvancedSpeechRecognition({
                 <Textarea
                   placeholder={placeholder}
                   value={transcript + (interimTranscript ? ' ' + interimTranscript : '')}
-                  onChange={(e) => {
-                    setTranscript(e.target.value);
-                    if (onTranscriptChange) {
-                      onTranscriptChange(e.target.value);
+                  onChange={(e: any) => {
+                    setTranscript(e.target.value: any);
+                    if (onTranscriptChange: any) {
+                      onTranscriptChange(e.target.value: any);
                     }
                   }}
                   className="min-h-[150px] mb-2"
@@ -636,7 +636,7 @@ export default function AdvancedSpeechRecognition({
                   <Switch
                     id="childVoiceOptimization"
                     checked={settings.childVoiceOptimization}
-                    onCheckedChange={(checked) => updateSettings('childVoiceOptimization', checked)}
+                    onCheckedChange={(checked: any) => updateSettings('childVoiceOptimization', checked: any)}
                   />
                 </div>
                 
@@ -652,7 +652,7 @@ export default function AdvancedSpeechRecognition({
                   <Switch
                     id="noiseReduction"
                     checked={settings.noiseReduction}
-                    onCheckedChange={(checked) => updateSettings('noiseReduction', checked)}
+                    onCheckedChange={(checked: any) => updateSettings('noiseReduction', checked: any)}
                   />
                 </div>
                 
@@ -668,7 +668,7 @@ export default function AdvancedSpeechRecognition({
                   <Switch
                     id="autoCapitalization"
                     checked={settings.autoCapitalization}
-                    onCheckedChange={(checked) => updateSettings('autoCapitalization', checked)}
+                    onCheckedChange={(checked: any) => updateSettings('autoCapitalization', checked: any)}
                   />
                 </div>
                 
@@ -684,7 +684,7 @@ export default function AdvancedSpeechRecognition({
                   <Switch
                     id="punctuationPrediction"
                     checked={settings.punctuationPrediction}
-                    onCheckedChange={(checked) => updateSettings('punctuationPrediction', checked)}
+                    onCheckedChange={(checked: any) => updateSettings('punctuationPrediction', checked: any)}
                   />
                 </div>
                 
@@ -700,7 +700,7 @@ export default function AdvancedSpeechRecognition({
                   <Switch
                     id="dialectAdaptation"
                     checked={settings.dialectAdaptation}
-                    onCheckedChange={(checked) => updateSettings('dialectAdaptation', checked)}
+                    onCheckedChange={(checked: any) => updateSettings('dialectAdaptation', checked: any)}
                   />
                 </div>
                 
@@ -710,7 +710,7 @@ export default function AdvancedSpeechRecognition({
                       Confidence Threshold
                     </Label>
                     <span className="text-sm text-muted-foreground">
-                      {Math.round(settings.confidenceThreshold * 100)}%
+                      {Math.round(settings.confidenceThreshold * 100: any)}%
                     </span>
                   </div>
                   <Slider
@@ -719,7 +719,7 @@ export default function AdvancedSpeechRecognition({
                     max={1}
                     step={0.05}
                     value={[settings.confidenceThreshold]}
-                    onValueChange={(value) => updateSettings('confidenceThreshold', value[0])}
+                    onValueChange={(value: any) => updateSettings('confidenceThreshold', value[0])}
                   />
                   <p className="text-sm text-muted-foreground">
                     Higher values require more confident recognition
@@ -741,7 +741,7 @@ export default function AdvancedSpeechRecognition({
                     max={5000}
                     step={500}
                     value={[settings.silenceTimeout]}
-                    onValueChange={(value) => updateSettings('silenceTimeout', value[0])}
+                    onValueChange={(value: any) => updateSettings('silenceTimeout', value[0])}
                   />
                   <p className="text-sm text-muted-foreground">
                     How long to wait after speech ends before stopping

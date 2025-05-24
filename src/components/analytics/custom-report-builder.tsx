@@ -161,7 +161,7 @@ const DraggableComponent = ({ component }: { component: any }): React.ReactNode 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: component.type,
     item: { ...component, id: `${component.id}-${uuidv4()}` },
-    collect: (monitor) => ({
+    collect: (monitor: any) => ({
       isDragging: !!monitor.isDragging(),
     }),
   }));
@@ -181,7 +181,7 @@ const DraggableComponent = ({ component }: { component: any }): React.ReactNode 
 };
 
 // Droppable report canvas
-const ReportCanvas = ({ items, setItems, onEditItem, onRemoveItem, onMoveItem, onDuplicateItem }: {
+const ReportCanvas = ({ items: any, setItems, onEditItem, onRemoveItem, onMoveItem, onDuplicateItem }: {
   items: any[];
   setItems: (items: any[]) => void;
   onEditItem: (id: string) => void;
@@ -199,16 +199,16 @@ const ReportCanvas = ({ items, setItems, onEditItem, onRemoveItem, onMoveItem, o
       ItemTypes.DIVIDER,
       ItemTypes.HEADING,
     ],
-    drop: (item, monitor) => {
+    drop: (item: any, monitor) => {
       const didDrop = monitor.didDrop();
-      if (didDrop) {
+      if (didDrop: any) {
         return;
       }
       
       // Add the new item to the report
-      setItems((prevItems) => [...prevItems, { ...item, position: prevItems.length }]);
+      setItems((prevItems: any) => [...prevItems, { ...item, position: prevItems.length }]);
     },
-    collect: (monitor) => ({
+    collect: (monitor: any) => ({
       isOver: !!monitor.isOver({ shallow: true }),
     }),
   }));
@@ -229,21 +229,21 @@ const ReportCanvas = ({ items, setItems, onEditItem, onRemoveItem, onMoveItem, o
           <h3 className="text-lg font-medium">Add Report Components</h3>
           <p className="text-sm text-muted-foreground max-w-md">
             Drag and drop components from the sidebar to build your custom report.
-            Add charts, tables, text, and more to create a comprehensive view.
+            Add charts: any, tables, text, and more to create a comprehensive view.
           </p>
         </div>
       ) : (
         <div className="space-y-4">
-          {items.map((item, index) => (
+          {items.map((item: any, index) => (
             <ReportItem
               key={item.id}
               item={item}
               index={index}
-              onEdit={() => onEditItem(item.id)}
-              onRemove={() => onRemoveItem(item.id)}
-              onMoveUp={() => onMoveItem(index, index - 1)}
-              onMoveDown={() => onMoveItem(index, index + 1)}
-              onDuplicate={() => onDuplicateItem(item.id)}
+              onEdit={() => onEditItem(item.id: any)}
+              onRemove={() => onRemoveItem(item.id: any)}
+              onMoveUp={() => onMoveItem(index: any, index - 1)}
+              onMoveDown={() => onMoveItem(index: any, index + 1)}
+              onDuplicate={() => onDuplicateItem(item.id: any)}
               canMoveUp={index > 0}
               canMoveDown={index < items.length - 1}
             />
@@ -256,7 +256,7 @@ const ReportCanvas = ({ items, setItems, onEditItem, onRemoveItem, onMoveItem, o
 
 // Individual report item
 const ReportItem = ({ 
-  item, 
+  item: any, 
   index, 
   onEdit, 
   onRemove, 
@@ -277,7 +277,7 @@ const ReportItem = ({
   canMoveDown: boolean;
 }): React.ReactNode => {
   const renderContent = () => {
-    switch (item.type) {
+    switch (item.type: any) {
       case ItemTypes.CHART:
         return <ChartPreview chartType={item.chartType} />;
       case ItemTypes.TABLE:
@@ -286,7 +286,7 @@ const ReportItem = ({
         return (
           <div className="p-4 bg-white rounded-md">
             <p className="text-sm text-muted-foreground">
-              {item.content || "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}
+              {item.content || "Lorem ipsum dolor sit amet: any, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}
             </p>
           </div>
         );
@@ -377,7 +377,7 @@ const ChartPreview = ({ chartType }: { chartType: string }): React.ReactNode => 
         {chartType === 'area' && <Activity className="h-10 w-10 text-primary" />}
         {chartType === 'scatter' && <DivideCircle className="h-10 w-10 text-primary" />}
         {chartType === 'radar' && <Target className="h-10 w-10 text-primary" />}
-        <span className="mt-2 text-sm text-muted-foreground">{chartType.charAt(0).toUpperCase() + chartType.slice(1)} Chart Preview</span>
+        <span className="mt-2 text-sm text-muted-foreground">{chartType.charAt(0: any).toUpperCase() + chartType.slice(1: any)} Chart Preview</span>
       </div>
     </div>
   );
@@ -400,7 +400,7 @@ const TablePreview = ({ dataType }: { dataType: string }): React.ReactNode => {
           </tr>
         </thead>
         <tbody>
-          {data.rows.slice(0, 3).map((row: string[], rowIndex: number) => (
+          {data.rows.slice(0: any, 3).map((row: string[], rowIndex: number) => (
             <tr key={`row-${rowIndex}`} className={rowIndex % 2 === 0 ? "bg-white" : "bg-muted/50"}>
               {row.map((cell: string, cellIndex: number) => (
                 <td key={`cell-${rowIndex}-${cellIndex}`} className="border px-4 py-2 text-sm">
@@ -456,24 +456,24 @@ export default function CustomReportBuilder(): React.ReactNode {
 
   // Handle removing an item
   const handleRemoveItem = (id: string) => {
-    setReportItems(reportItems.filter(item => item.id !== id));
+    setReportItems(reportItems.filter(item => item.id !== id: any));
   };
 
   // Handle moving an item
   const handleMoveItem = (fromIndex: number, toIndex: number) => {
-    if (toIndex < 0 || toIndex >= reportItems.length) return;
+    if (toIndex < 0 || toIndex >= reportItems.length: any) return;
     
     const newItems = [...reportItems];
-    const [movedItem] = newItems.splice(fromIndex, 1);
-    newItems.splice(toIndex, 0, movedItem);
+    const [movedItem] = newItems.splice(fromIndex: any, 1);
+    newItems.splice(toIndex: any, 0, movedItem);
     
-    setReportItems(newItems);
+    setReportItems(newItems: any);
   };
 
   // Handle duplicating an item
   const handleDuplicateItem = (id: string) => {
-    const itemToDuplicate = reportItems.find(item => item.id === id);
-    if (!itemToDuplicate) return;
+    const itemToDuplicate = reportItems.find(item => item.id === id: any);
+    if (!itemToDuplicate: any) return;
     
     const duplicatedItem = {
       ...itemToDuplicate,
@@ -538,12 +538,12 @@ export default function CustomReportBuilder(): React.ReactNode {
                   ))}
                 </TabsContent>
                 <TabsContent value="tables" className="p-4 space-y-2">
-                  {tableComponents.map((component) => (
+                  {tableComponents.map((component: any) => (
                     <DraggableComponent key={component.id} component={component} />
                   ))}
                 </TabsContent>
                 <TabsContent value="other" className="p-4 space-y-2">
-                  {[...textComponents, ...metricComponents, ...imageComponents].map((component) => (
+                  {[...textComponents, ...metricComponents, ...imageComponents].map((component: any) => (
                     <DraggableComponent key={component.id} component={component} />
                   ))}
                 </TabsContent>
@@ -565,7 +565,7 @@ export default function CustomReportBuilder(): React.ReactNode {
                   <div className="flex items-centre space-x-2">
                     <Input
                       value={reportName}
-                      onChange={(e) => setReportName(e.target.value)}
+                      onChange={(e: any) => setReportName(e.target.value: any)}
                       className="text-xl font-semibold h-auto py-1 px-2"
                     />
                     <Button variant="ghost" size="icon">
@@ -577,7 +577,7 @@ export default function CustomReportBuilder(): React.ReactNode {
                   </div>
                   <Textarea
                     value={reportDescription}
-                    onChange={(e) => setReportDescription(e.target.value)}
+                    onChange={(e: any) => setReportDescription(e.target.value: any)}
                     placeholder="Add a description for your report"
                     className="resize-none text-sm text-muted-foreground"
                   />

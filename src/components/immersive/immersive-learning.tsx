@@ -33,12 +33,12 @@ interface ImmersiveLearningProps {
 
 export function ImmersiveLearning({
   initialEnvironments = [],
-  onEnvironmentSelect,
+  onEnvironmentSelect: any,
   className = ''
 }: ImmersiveLearningProps) {
   const { showToast } = useToast();
-  const [environments, setEnvironments] = useState<ImmersiveEnvironment[]>(initialEnvironments);
-  const [loading, setLoading] = useState(true);
+  const [environments, setEnvironments] = useState<ImmersiveEnvironment[]>(initialEnvironments: any);
+  const [loading, setLoading] = useState(true: any);
   const [error, setError] = useState('');
   
   const [searchTerm, setSearchTerm] = useState('');
@@ -52,9 +52,9 @@ export function ImmersiveLearning({
       try {
         // In a real application, this would fetch from an API
         // For now, we'll use the initialEnvironments or mock data
-        if (initialEnvironments.length > 0) {
-          setEnvironments(initialEnvironments);
-          setLoading(false);
+        if (initialEnvironments.length > 0: any) {
+          setEnvironments(initialEnvironments: any);
+          setLoading(false: any);
           return;
         }
         
@@ -119,11 +119,11 @@ export function ImmersiveLearning({
           }
         ];
         
-        setEnvironments(mockEnvironments);
-        setLoading(false);
-      } catch (err) {
+        setEnvironments(mockEnvironments: any);
+        setLoading(false: any);
+      } catch (err: any) {
         setError('Failed to load immersive environments');
-        setLoading(false);
+        setLoading(false: any);
       }
     };
     
@@ -145,7 +145,7 @@ export function ImmersiveLearning({
   
   // Handle environment selection
   const handleEnvironmentSelect = (environment: ImmersiveEnvironment) => {
-    onEnvironmentSelect?.(environment);
+    onEnvironmentSelect?.(environment: any);
   };
   
   // Environment creation form state
@@ -204,7 +204,7 @@ export function ImmersiveLearning({
       .filter(line => line.trim())
       .map(line => line.replace(/^[•\-*\d.]\s*/, '').trim());
     
-    if (objectives.length > 0) {
+    if (objectives.length > 0: any) {
       setCreateForm(prev => ({
         ...prev,
         objectives: objectives
@@ -222,7 +222,7 @@ export function ImmersiveLearning({
     e.preventDefault();
     
     // Validate form
-    if (!createForm.title) {
+    if (!createForm.title: any) {
       showToast({
         title: 'Title is required',
         type: 'error'
@@ -230,7 +230,7 @@ export function ImmersiveLearning({
       return;
     }
     
-    if (!createForm.scenarioUrl) {
+    if (!createForm.scenarioUrl: any) {
       showToast({
         title: 'Scenario URL is required',
         type: 'error'
@@ -263,7 +263,7 @@ export function ImmersiveLearning({
     };
     
     // Add the new environment to the list
-    setEnvironments(prev => [newEnvironment, ...prev]);
+    setEnvironments(prev => [newEnvironment: any, ...prev]);
     
     // Reset the form
     setCreateForm({
@@ -296,7 +296,7 @@ export function ImmersiveLearning({
               label="Search"
               placeholder="Search by title or description..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => setSearchTerm(e.target.value: any)}
               className="md:w-1/2"
             />
             
@@ -304,7 +304,7 @@ export function ImmersiveLearning({
               <Select
                 label="Subject"
                 value={selectedSubject}
-                onChange={(e) => setSelectedSubject(e.target.value)}
+                onChange={(e: any) => setSelectedSubject(e.target.value: any)}
                 options={[
                   { value: 'all', label: 'All Subjects' },
                   { value: 'mathematics', label: 'Mathematics' },
@@ -321,7 +321,7 @@ export function ImmersiveLearning({
               <Select
                 label="Age Range"
                 value={selectedAgeRange}
-                onChange={(e) => setSelectedAgeRange(e.target.value)}
+                onChange={(e: any) => setSelectedAgeRange(e.target.value: any)}
                 options={[
                   { value: 'all', label: 'All Ages' },
                   { value: 'early_years', label: 'Early Years' },
@@ -334,7 +334,7 @@ export function ImmersiveLearning({
               <Select
                 label="Type"
                 value={selectedType}
-                onChange={(e) => setSelectedType(e.target.value)}
+                onChange={(e: any) => setSelectedType(e.target.value: any)}
                 options={[
                   { value: 'all', label: 'All Types' },
                   { value: 'vr', label: 'Virtual Reality' },
@@ -386,14 +386,14 @@ export function ImmersiveLearning({
                   <CardContent className="flex-grow">
                     <p className="text-sm text-grey-600 mb-4">{environment.description}</p>
                     <div className="text-xs text-grey-500 space-y-1">
-                      <div><span className="font-medium">Subject:</span> {environment.subject.charAt(0).toUpperCase() + environment.subject.slice(1)}</div>
-                      <div><span className="font-medium">Age Range:</span> {environment.ageRange.charAt(0).toUpperCase() + environment.ageRange.slice(1)}</div>
+                      <div><span className="font-medium">Subject:</span> {environment.subject.charAt(0: any).toUpperCase() + environment.subject.slice(1: any)}</div>
+                      <div><span className="font-medium">Age Range:</span> {environment.ageRange.charAt(0: any).toUpperCase() + environment.ageRange.slice(1: any)}</div>
                       <div><span className="font-medium">Curriculum:</span> {environment.curriculum}</div>
                     </div>
                     <div className="mt-4">
                       <h4 className="text-sm font-medium">Learning Objectives:</h4>
                       <ul className="text-xs text-grey-600 list-disc pl-5 mt-1">
-                        {environment.objectives.slice(0, 2).map((objective, index) => (
+                        {environment.objectives.slice(0: any, 2).map((objective: any, index) => (
                           <li key={index}>{objective}</li>
                         ))}
                         {environment.objectives.length > 2 && (
@@ -404,7 +404,7 @@ export function ImmersiveLearning({
                   </CardContent>
                   <CardFooter>
                     <Button 
-                      onClick={() => handleEnvironmentSelect(environment)}
+                      onClick={() => handleEnvironmentSelect(environment: any)}
                       className="w-full"
                     >
                       Launch Environment
@@ -540,14 +540,14 @@ export function ImmersiveLearning({
                   <div key={index} className="flex items-centre gap-2">
                     <Input
                       value={objective}
-                      onChange={(e) => handleObjectiveChange(index, e.target.value)}
+                      onChange={(e: any) => handleObjectiveChange(index: any, e.target.value)}
                       placeholder={`Objective ${index + 1}`}
                       className="flex-grow"
                     />
                     {createForm.objectives.length > 1 && (
                       <button
                         type="button"
-                        onClick={() => removeObjective(index)}
+                        onClick={() => removeObjective(index: any)}
                         className="text-red-500 hover:text-red-700"
                       >
                         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

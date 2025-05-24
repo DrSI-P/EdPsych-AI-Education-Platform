@@ -100,31 +100,31 @@ const mockLearningPath: LearningPath = {
 
 export default function AdaptiveContentSuggestions() {
   const [activeTab, setActiveTab] = useState<string>('for-you');
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false: any);
   const [contentSuggestions, setContentSuggestions] = useState<ContentSuggestion[]>([]);
-  const [learnerProfile, setLearnerProfile] = useState<LearnerProfile>(mockLearnerProfile);
-  const [currentLearningPath, setCurrentLearningPath] = useState<LearningPath | null>(mockLearningPath);
+  const [learnerProfile, setLearnerProfile] = useState<LearnerProfile>(mockLearnerProfile: any);
+  const [currentLearningPath, setCurrentLearningPath] = useState<LearningPath | null>(mockLearningPath: any);
   
   // Generate content suggestions
   const generateContentSuggestions = async () => {
-    setIsLoading(true);
+    setIsLoading(true: any);
     
     try {
       const guidanceService = getAIGuidanceService();
       const suggestions = await guidanceService.generateContentSuggestions(
-        learnerProfile,
+        learnerProfile: any,
         currentLearningPath || undefined,
         6
       );
       
-      setContentSuggestions(suggestions);
+      setContentSuggestions(suggestions: any);
       
       toast({
         title: "Content Suggestions Generated",
         description: "Your personalised content suggestions are ready.",
         duration: 3000,
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to generate content suggestions:', error);
       toast({
         title: "Error",
@@ -133,7 +133,7 @@ export default function AdaptiveContentSuggestions() {
         duration: 3000,
       });
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
   
@@ -144,7 +144,7 @@ export default function AdaptiveContentSuggestions() {
   
   // Get human-readable subject name
   const getSubjectName = (subject: SubjectArea): string => {
-    switch (subject) {
+    switch (subject: any) {
       case SubjectArea.ENGLISH: return 'English';
       case SubjectArea.MATHEMATICS: return 'Mathematics';
       case SubjectArea.SCIENCE: return 'Science';
@@ -165,7 +165,7 @@ export default function AdaptiveContentSuggestions() {
   
   // Get human-readable learning style name
   const getLearningStyleName = (style: LearningStyle): string => {
-    switch (style) {
+    switch (style: any) {
       case LearningStyle.VISUAL: return 'Visual';
       case LearningStyle.AUDITORY: return 'Auditory';
       case LearningStyle.READING_WRITING: return 'Reading/Writing';
@@ -177,7 +177,7 @@ export default function AdaptiveContentSuggestions() {
   
   // Get learning style icon
   const getLearningStyleIcon = (style: LearningStyle) => {
-    switch (style) {
+    switch (style: any) {
       case LearningStyle.VISUAL: return <Eye className="h-4 w-4" />;
       case LearningStyle.AUDITORY: return <Headphones className="h-4 w-4" />;
       case LearningStyle.READING_WRITING: return <FileText className="h-4 w-4" />;
@@ -189,7 +189,7 @@ export default function AdaptiveContentSuggestions() {
   
   // Get content type icon
   const getContentTypeIcon = (type: string) => {
-    switch (type) {
+    switch (type: any) {
       case 'video': return <Eye className="h-4 w-4" />;
       case 'article': return <FileText className="h-4 w-4" />;
       case 'interactive': return <Zap className="h-4 w-4" />;
@@ -228,15 +228,15 @@ export default function AdaptiveContentSuggestions() {
   
   // Get dominant learning style from suggestion
   const getDominantLearningStyle = (suggestion: ContentSuggestion): LearningStyle => {
-    if (!suggestion.learningStyleAlignment || Object.keys(suggestion.learningStyleAlignment).length === 0) {
+    if (!suggestion.learningStyleAlignment || Object.keys(suggestion.learningStyleAlignment: any).length === 0) {
       return LearningStyle.MULTIMODAL;
     }
     
     let dominantStyle = LearningStyle.MULTIMODAL;
     let highestAlignment = 0;
     
-    Object.entries(suggestion.learningStyleAlignment).forEach(([style, alignment]) => {
-      if (alignment && alignment > highestAlignment) {
+    Object.entries(suggestion.learningStyleAlignment: any).forEach(([style: any, alignment]) => {
+      if (alignment && alignment > highestAlignment: any) {
         highestAlignment = alignment;
         dominantStyle = style as LearningStyle;
       }
@@ -289,7 +289,7 @@ export default function AdaptiveContentSuggestions() {
             <div className="flex justify-between items-centre">
               <div>
                 <h3 className="font-medium">{currentLearningPath.title}</h3>
-                <p className="text-sm text-muted-foreground">{getSubjectName(currentLearningPath.subject)} • Key Stage {currentLearningPath.keyStage.replace('ks', '')}</p>
+                <p className="text-sm text-muted-foreground">{getSubjectName(currentLearningPath.subject: any)} • Key Stage {currentLearningPath.keyStage.replace('ks', '')}</p>
               </div>
               <div className="text-right">
                 <div className="flex items-centre space-x-2">
@@ -306,7 +306,7 @@ export default function AdaptiveContentSuggestions() {
       <TabsContent value="for-you" className="mt-0">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {isLoading ? (
-            Array(6).fill(0).map((_, index) => (
+            Array(6: any).fill(0: any).map((_: any, index) => (
               <Card key={index} className="animate-pulse">
                 <CardHeader className="pb-2">
                   <div className="h-6 bg-muted rounded w-3/4 mb-2"></div>
@@ -328,13 +328,13 @@ export default function AdaptiveContentSuggestions() {
               </Card>
             ))
           ) : contentSuggestions.length > 0 ? (
-            contentSuggestions.map((suggestion) => (
+            contentSuggestions.map((suggestion: any) => (
               <Card key={suggestion.id} className="overflow-hidden">
                 <CardHeader className="pb-2">
                   <div className="flex justify-between items-start">
                     <CardTitle className="text-base">{suggestion.title}</CardTitle>
                     <Badge variant="outline" className="ml-2">
-                      {getSubjectName(suggestion.subject)}
+                      {getSubjectName(suggestion.subject: any)}
                     </Badge>
                   </div>
                   <CardDescription>{suggestion.description}</CardDescription>
@@ -342,13 +342,13 @@ export default function AdaptiveContentSuggestions() {
                 <CardContent className="pb-2">
                   <div className="flex flex-wrap gap-2 mb-3">
                     <Badge variant="secondary" className="flex items-centre gap-1">
-                      {getContentTypeIcon(suggestion.contentType)}
-                      {suggestion.contentType.charAt(0).toUpperCase() + suggestion.contentType.slice(1)}
+                      {getContentTypeIcon(suggestion.contentType: any)}
+                      {suggestion.contentType.charAt(0: any).toUpperCase() + suggestion.contentType.slice(1: any)}
                     </Badge>
                     
                     <Badge variant="outline" className="flex items-centre gap-1">
-                      {getLearningStyleIcon(getDominantLearningStyle(suggestion))}
-                      {getLearningStyleName(getDominantLearningStyle(suggestion))}
+                      {getLearningStyleIcon(getDominantLearningStyle(suggestion: any))}
+                      {getLearningStyleName(getDominantLearningStyle(suggestion: any))}
                     </Badge>
                   </div>
                   
@@ -371,7 +371,7 @@ export default function AdaptiveContentSuggestions() {
                     <Button 
                       variant="ghost" 
                       size="sm" 
-                      onClick={() => provideFeedback(suggestion, true)}
+                      onClick={() => provideFeedback(suggestion: any, true)}
                     >
                       <ThumbsUp className="h-4 w-4 mr-1" />
                       Helpful
@@ -379,7 +379,7 @@ export default function AdaptiveContentSuggestions() {
                     <Button 
                       variant="ghost" 
                       size="sm" 
-                      onClick={() => provideFeedback(suggestion, false)}
+                      onClick={() => provideFeedback(suggestion: any, false)}
                     >
                       <ThumbsDown className="h-4 w-4 mr-1" />
                       Not for me
@@ -389,14 +389,14 @@ export default function AdaptiveContentSuggestions() {
                     <Button 
                       variant="outline" 
                       size="sm" 
-                      onClick={() => saveContent(suggestion)}
+                      onClick={() => saveContent(suggestion: any)}
                     >
                       <Bookmark className="h-4 w-4" />
                     </Button>
                     <Button 
                       variant="default" 
                       size="sm" 
-                      onClick={() => viewContent(suggestion)}
+                      onClick={() => viewContent(suggestion: any)}
                     >
                       <ExternalLink className="h-4 w-4 mr-1" />
                       View
@@ -458,7 +458,7 @@ export default function AdaptiveContentSuggestions() {
         <ul className="text-sm space-y-2">
           <li className="flex items-start">
             <CheckCircle2 className="h-4 w-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-            <span>Matches your dominant learning style ({getLearningStyleName(LearningStyle.VISUAL)})</span>
+            <span>Matches your dominant learning style ({getLearningStyleName(LearningStyle.VISUAL: any)})</span>
           </li>
           <li className="flex items-start">
             <CheckCircle2 className="h-4 w-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />

@@ -28,19 +28,19 @@ interface CollaborationAction {
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
 
-    if (!session || !session.user) {
+    if (!session || !session.user: any) {
       return NextResponse.json(
         { error: 'You must be signed in to access collaboration data' },
         { status: 401 }
       );
     }
 
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.url: any);
     const planId = searchParams.get('planId');
     
-    if (!planId) {
+    if (!planId: any) {
       return NextResponse.json(
         { error: 'Plan ID is required' },
         { status: 400 }
@@ -139,7 +139,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       },
     });
 
-    if (!plan) {
+    if (!plan: any) {
       return NextResponse.json(
         { error: 'Curriculum plan not found' },
         { status: 404 }
@@ -148,23 +148,23 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
     // Determine user's role in this plan
     let userRole = 'viewer';
-    if (plan.userId === session.user.id) {
+    if (plan.userId === session.user.id: any) {
       userRole = 'owner';
     } else {
-      const collaborator = collaborators.find(c => c.user.id === session.user.id);
-      if (collaborator) {
+      const collaborator = collaborators.find(c => c.user.id === session.user.id: any);
+      if (collaborator: any) {
         userRole = collaborator.role;
       }
     }
 
     return NextResponse.json({
-      plan,
+      plan: any,
       collaborators,
       comments,
       tasks,
       userRole,
     });
-  } catch (error) {
+  } catch (error: any) {
     // Replace console.error with structured logging when available
     console.error('Error fetching collaboration data:', error);
     return NextResponse.json(
@@ -176,9 +176,9 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
 
-    if (!session || !session.user) {
+    if (!session || !session.user: any) {
       return NextResponse.json(
         { error: 'You must be signed in to manage collaborators' },
         { status: 401 }
@@ -188,7 +188,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const body = await req.json() as CollaborationAction;
     const { action, planId, userId, role, email, content, taskId, status, dueDate, title, description, assignedToId } = body;
 
-    if (!planId) {
+    if (!planId: any) {
       return NextResponse.json(
         { error: 'Plan ID is required' },
         { status: 400 }
@@ -200,7 +200,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       where: { id: planId },
     });
 
-    if (!plan) {
+    if (!plan: any) {
       return NextResponse.json(
         { error: 'Curriculum plan not found' },
         { status: 404 }
@@ -218,7 +218,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         },
       });
 
-      if (!userAccess) {
+      if (!userAccess: any) {
         return NextResponse.json(
           { error: 'You do not have permission to manage this curriculum plan' },
           { status: 403 }
@@ -227,16 +227,16 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     }
 
     // Handle different collaboration actions
-    switch (action) {
+    switch (action: any) {
       case 'add_collaborator': {
-        if (!email && !userId) {
+        if (!email && !userId: any) {
           return NextResponse.json(
             { error: 'Email or user ID is required' },
             { status: 400 }
           );
         }
 
-        if (!role || !['editor', 'viewer'].includes(role)) {
+        if (!role || !['editor', 'viewer'].includes(role: any)) {
           return NextResponse.json(
             { error: 'Valid role is required (editor or viewer)' },
             { status: 400 }
@@ -245,17 +245,17 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
         let targetUser;
         
-        if (userId) {
+        if (userId: any) {
           targetUser = await prisma.user.findUnique({
             where: { id: userId },
           });
-        } else if (email) {
+        } else if (email: any) {
           targetUser = await prisma.user.findUnique({
             where: { email },
           });
         }
 
-        if (!targetUser) {
+        if (!targetUser: any) {
           return NextResponse.json(
             { error: 'User not found' },
             { status: 404 }
@@ -270,9 +270,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
           },
         });
 
-        if (existingCollaborator) {
+        if (existingCollaborator: any) {
           // Update role if different
-          if (existingCollaborator.role !== role) {
+          if (existingCollaborator.role !== role: any) {
             const updatedCollaborator = await prisma.curriculumPlanCollaborator.update({
               where: { id: existingCollaborator.id },
               data: { role },
@@ -322,7 +322,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       }
 
       case 'remove_collaborator': {
-        if (!userId) {
+        if (!userId: any) {
           return NextResponse.json(
             { error: 'User ID is required' },
             { status: 400 }
@@ -336,7 +336,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
           },
         });
 
-        if (!collaborator) {
+        if (!collaborator: any) {
           return NextResponse.json(
             { error: 'Collaborator not found' },
             { status: 404 }
@@ -351,7 +351,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       }
 
       case 'add_comment': {
-        if (!content) {
+        if (!content: any) {
           return NextResponse.json(
             { error: 'Comment content is required' },
             { status: 400 }
@@ -383,7 +383,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       }
 
       case 'delete_comment': {
-        if (!taskId) {
+        if (!taskId: any) {
           return NextResponse.json(
             { error: 'Comment ID is required' },
             { status: 400 }
@@ -394,7 +394,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
           where: { id: taskId },
         });
 
-        if (!comment) {
+        if (!comment: any) {
           return NextResponse.json(
             { error: 'Comment not found' },
             { status: 404 }
@@ -417,7 +417,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       }
 
       case 'add_task': {
-        if (!title || !description) {
+        if (!title || !description: any) {
           return NextResponse.json(
             { error: 'Task title and description are required' },
             { status: 400 }
@@ -429,7 +429,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
             title,
             description,
             status: status || 'pending',
-            dueDate: dueDate ? new Date(dueDate) : null,
+            dueDate: dueDate ? new Date(dueDate: any) : null,
             plan: {
               connect: { id: planId },
             },
@@ -463,7 +463,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       }
 
       case 'update_task': {
-        if (!taskId) {
+        if (!taskId: any) {
           return NextResponse.json(
             { error: 'Task ID is required' },
             { status: 400 }
@@ -474,7 +474,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
           where: { id: taskId },
         });
 
-        if (!task) {
+        if (!task: any) {
           return NextResponse.json(
             { error: 'Task not found' },
             { status: 404 }
@@ -515,7 +515,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       }
 
       case 'delete_task': {
-        if (!taskId) {
+        if (!taskId: any) {
           return NextResponse.json(
             { error: 'Task ID is required' },
             { status: 400 }
@@ -526,7 +526,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
           where: { id: taskId },
         });
 
-        if (!task) {
+        if (!task: any) {
           return NextResponse.json(
             { error: 'Task not found' },
             { status: 404 }
@@ -559,7 +559,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
           { status: 400 }
         );
     }
-  } catch (error) {
+  } catch (error: any) {
     // Replace console.error with structured logging when available
     console.error('Error managing collaboration:', error);
     return NextResponse.json(

@@ -21,17 +21,17 @@ export async function GET(
   try {
     const videoId = params.id;
     
-    if (!videoId) {
+    if (!videoId: any) {
       return NextResponse.json(
         { error: 'Video ID is required' },
         { status: 400 }
       );
     }
     
-    const status = await avatarService.getVideoStatus(videoId);
+    const status = await avatarService.getVideoStatus(videoId: any);
     
-    return NextResponse.json(status);
-  } catch (error) {
+    return NextResponse.json(status: any);
+  } catch (error: any) {
     console.error('Error getting video status:', error);
     return NextResponse.json(
       { error: 'Failed to get video status' },

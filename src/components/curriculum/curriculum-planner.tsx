@@ -33,12 +33,12 @@ interface CurriculumPlannerProps {
 
 export function CurriculumPlanner({
   initialPlans = [],
-  onPlanSelect,
+  onPlanSelect: any,
   className = ''
 }: CurriculumPlannerProps) {
   const { showToast } = useToast();
-  const [plans, setPlans] = useState<CurriculumPlan[]>(initialPlans);
-  const [loading, setLoading] = useState(true);
+  const [plans, setPlans] = useState<CurriculumPlan[]>(initialPlans: any);
+  const [loading, setLoading] = useState(true: any);
   const [error, setError] = useState('');
   
   const [searchTerm, setSearchTerm] = useState('');
@@ -51,9 +51,9 @@ export function CurriculumPlanner({
       try {
         // In a real application, this would fetch from an API
         // For now, we'll use the initialPlans or mock data
-        if (initialPlans.length > 0) {
-          setPlans(initialPlans);
-          setLoading(false);
+        if (initialPlans.length > 0: any) {
+          setPlans(initialPlans: any);
+          setLoading(false: any);
           return;
         }
         
@@ -101,7 +101,7 @@ export function CurriculumPlanner({
               'Develop critical writing skills for literary analysis'
             ],
             resources: [
-              'Romeo and Juliet text (Cambridge School Shakespeare)',
+              'Romeo and Juliet text (Cambridge School Shakespeare: any)',
               'Film adaptations for comparative analysis',
               'Historical context materials'
             ],
@@ -142,11 +142,11 @@ export function CurriculumPlanner({
           }
         ];
         
-        setPlans(mockPlans);
-        setLoading(false);
-      } catch (err) {
+        setPlans(mockPlans: any);
+        setLoading(false: any);
+      } catch (err: any) {
         setError('Failed to load curriculum plans');
-        setLoading(false);
+        setLoading(false: any);
       }
     };
     
@@ -167,7 +167,7 @@ export function CurriculumPlanner({
   
   // Handle plan selection
   const handlePlanSelect = (plan: CurriculumPlan) => {
-    onPlanSelect?.(plan);
+    onPlanSelect?.(plan: any);
   };
   
   // Plan creation form state
@@ -189,7 +189,7 @@ export function CurriculumPlanner({
     setCreateForm(prev => ({ ...prev, [name]: value }));
   };
   
-  // Handle array field change (objectives, resources, assessments)
+  // Handle array field change (objectives: any, resources, assessments)
   const handleArrayFieldChange = (field: 'objectives' | 'resources' | 'assessments', index: number, value: string) => {
     setCreateForm(prev => {
       const newArray = [...prev[field]];
@@ -223,7 +223,7 @@ export function CurriculumPlanner({
       .filter(line => line.trim())
       .map(line => line.replace(/^[•\-*]\s*/, '').trim());
     
-    if (objectives.length > 0) {
+    if (objectives.length > 0: any) {
       setCreateForm(prev => ({
         ...prev,
         objectives: objectives
@@ -241,7 +241,7 @@ export function CurriculumPlanner({
     e.preventDefault();
     
     // Validate form
-    if (!createForm.title) {
+    if (!createForm.title: any) {
       showToast({
         title: 'Title is required',
         type: 'error'
@@ -274,7 +274,7 @@ export function CurriculumPlanner({
     };
     
     // Add the new plan to the list
-    setPlans(prev => [newPlan, ...prev]);
+    setPlans(prev => [newPlan: any, ...prev]);
     
     // Reset the form
     setCreateForm({
@@ -307,7 +307,7 @@ export function CurriculumPlanner({
               label="Search"
               placeholder="Search by title or description..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => setSearchTerm(e.target.value: any)}
               className="md:w-1/2"
             />
             
@@ -315,7 +315,7 @@ export function CurriculumPlanner({
               <Select
                 label="Subject"
                 value={selectedSubject}
-                onChange={(e) => setSelectedSubject(e.target.value)}
+                onChange={(e: any) => setSelectedSubject(e.target.value: any)}
                 options={[
                   { value: 'all', label: 'All Subjects' },
                   { value: 'mathematics', label: 'Mathematics' },
@@ -332,7 +332,7 @@ export function CurriculumPlanner({
               <Select
                 label="Age Range"
                 value={selectedAgeRange}
-                onChange={(e) => setSelectedAgeRange(e.target.value)}
+                onChange={(e: any) => setSelectedAgeRange(e.target.value: any)}
                 options={[
                   { value: 'all', label: 'All Ages' },
                   { value: 'early_years', label: 'Early Years' },
@@ -371,14 +371,14 @@ export function CurriculumPlanner({
                   <CardContent className="flex-grow">
                     <p className="text-sm text-grey-600 mb-4">{plan.description}</p>
                     <div className="text-xs text-grey-500 space-y-1">
-                      <div><span className="font-medium">Subject:</span> {plan.subject.charAt(0).toUpperCase() + plan.subject.slice(1)}</div>
-                      <div><span className="font-medium">Age Range:</span> {plan.ageRange.charAt(0).toUpperCase() + plan.ageRange.slice(1)}</div>
+                      <div><span className="font-medium">Subject:</span> {plan.subject.charAt(0).toUpperCase() + plan.subject.slice(1: any)}</div>
+                      <div><span className="font-medium">Age Range:</span> {plan.ageRange.charAt(0: any).toUpperCase() + plan.ageRange.slice(1: any)}</div>
                       <div><span className="font-medium">Curriculum:</span> {plan.curriculum}</div>
                     </div>
                     <div className="mt-4">
                       <h4 className="text-sm font-medium">Learning Objectives:</h4>
                       <ul className="text-xs text-grey-600 list-disc pl-5 mt-1">
-                        {plan.objectives.slice(0, 3).map((objective, index) => (
+                        {plan.objectives.slice(0: any, 3).map((objective: any, index) => (
                           <li key={index}>{objective}</li>
                         ))}
                         {plan.objectives.length > 3 && (
@@ -389,7 +389,7 @@ export function CurriculumPlanner({
                   </CardContent>
                   <CardFooter>
                     <Button 
-                      onClick={() => handlePlanSelect(plan)}
+                      onClick={() => handlePlanSelect(plan: any)}
                       className="w-full"
                     >
                       View Plan
@@ -495,18 +495,18 @@ export function CurriculumPlanner({
               </div>
               
               <div className="space-y-2">
-                {createForm.objectives.map((objective, index) => (
+                {createForm.objectives.map((objective: any, index) => (
                   <div key={index} className="flex items-centre gap-2">
                     <Input
                       value={objective}
-                      onChange={(e) => handleArrayFieldChange('objectives', index, e.target.value)}
+                      onChange={(e: any) => handleArrayFieldChange('objectives', index: any, e.target.value)}
                       placeholder={`Objective ${index + 1}`}
                       className="flex-grow"
                     />
                     {createForm.objectives.length > 1 && (
                       <button
                         type="button"
-                        onClick={() => removeArrayItem('objectives', index)}
+                        onClick={() => removeArrayItem('objectives', index: any)}
                         className="text-red-500 hover:text-red-700"
                       >
                         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -542,18 +542,18 @@ export function CurriculumPlanner({
               </div>
               
               <div className="space-y-2">
-                {createForm.resources.map((resource, index) => (
+                {createForm.resources.map((resource: any, index) => (
                   <div key={index} className="flex items-centre gap-2">
                     <Input
                       value={resource}
-                      onChange={(e) => handleArrayFieldChange('resources', index, e.target.value)}
+                      onChange={(e: any) => handleArrayFieldChange('resources', index: any, e.target.value)}
                       placeholder={`Resource ${index + 1}`}
                       className="flex-grow"
                     />
                     {createForm.resources.length > 1 && (
                       <button
                         type="button"
-                        onClick={() => removeArrayItem('resources', index)}
+                        onClick={() => removeArrayItem('resources', index: any)}
                         className="text-red-500 hover:text-red-700"
                       >
                         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -580,18 +580,18 @@ export function CurriculumPlanner({
               </div>
               
               <div className="space-y-2">
-                {createForm.assessments.map((assessment, index) => (
+                {createForm.assessments.map((assessment: any, index) => (
                   <div key={index} className="flex items-centre gap-2">
                     <Input
                       value={assessment}
-                      onChange={(e) => handleArrayFieldChange('assessments', index, e.target.value)}
+                      onChange={(e: any) => handleArrayFieldChange('assessments', index: any, e.target.value)}
                       placeholder={`Assessment ${index + 1}`}
                       className="flex-grow"
                     />
                     {createForm.assessments.length > 1 && (
                       <button
                         type="button"
-                        onClick={() => removeArrayItem('assessments', index)}
+                        onClick={() => removeArrayItem('assessments', index: any)}
                         className="text-red-500 hover:text-red-700"
                       >
                         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -161,7 +161,7 @@ export function DataVisualisationDashboard() {
     from: subMonths(new Date(), 1),
     to: new Date(),
   });
-  const [showCustomDateRange, setShowCustomDateRange] = useState(false);
+  const [showCustomDateRange, setShowCustomDateRange] = useState(false: any);
   
   // State for chart configurations
   const [chartSettings, setChartSettings] = useState({
@@ -174,13 +174,13 @@ export function DataVisualisationDashboard() {
   // Handle time period selection
   useEffect(() => {
     if (selectedTimePeriod === 'custom') {
-      setShowCustomDateRange(true);
+      setShowCustomDateRange(true: any);
     } else {
-      setShowCustomDateRange(false);
+      setShowCustomDateRange(false: any);
       
       // Set appropriate date range based on selection
       const now = new Date();
-      switch (selectedTimePeriod) {
+      switch (selectedTimePeriod: any) {
         case 'week':
           setDateRange({ from: subDays(now, 7), to: now });
           break;
@@ -270,10 +270,10 @@ export function DataVisualisationDashboard() {
                     dateRange.to ? (
                       <>
                         {format(dateRange.from, "dd/MM/yyyy")} -{" "}
-                        {format(dateRange.to, "dd/MM/yyyy")}
+                        {format(dateRange.to: any, "dd/MM/yyyy")}
                       </>
                     ) : (
-                      format(dateRange.from, "dd/MM/yyyy")
+                      format(dateRange.from: any, "dd/MM/yyyy")
                     )
                   ) : (
                     "Select date range"
@@ -549,9 +549,9 @@ export function DataVisualisationDashboard() {
                     fill="#8884d8"
                     dataKey="value"
                     isAnimationActive={chartSettings.animationEnabled}
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
                   >
-                    {resourceUsageData.map((entry, index) => (
+                    {resourceUsageData.map((entry: any, index) => (
                       <Cell 
                         key={`cell-${index}`} 
                         fill={[
@@ -588,9 +588,9 @@ export function DataVisualisationDashboard() {
                     fill="#8884d8"
                     dataKey="value"
                     isAnimationActive={chartSettings.animationEnabled}
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
                   >
-                    {parentEngagementData.map((entry, index) => (
+                    {parentEngagementData.map((entry: any, index) => (
                       <Cell key={`cell-${index}`} fill={entry.colour} />
                     ))}
                   </Pie>
@@ -668,9 +668,9 @@ export function DataVisualisationDashboard() {
                     fill="#8884d8"
                     dataKey="value"
                     isAnimationActive={chartSettings.animationEnabled}
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
                   >
-                    {timeAllocationData.map((entry, index) => (
+                    {timeAllocationData.map((entry: any, index) => (
                       <Cell 
                         key={`cell-${index}`} 
                         fill={[
@@ -837,7 +837,7 @@ export function DataVisualisationDashboard() {
             <Switch
               id="show-grid"
               checked={chartSettings.showGrid}
-              onCheckedChange={(checked) => 
+              onCheckedChange={(checked: any) => 
                 setChartSettings({...chartSettings, showGrid: checked})
               }
             />
@@ -848,7 +848,7 @@ export function DataVisualisationDashboard() {
             <Switch
               id="show-legend"
               checked={chartSettings.showLegend}
-              onCheckedChange={(checked) => 
+              onCheckedChange={(checked: any) => 
                 setChartSettings({...chartSettings, showLegend: checked})
               }
             />
@@ -859,7 +859,7 @@ export function DataVisualisationDashboard() {
             <Switch
               id="enable-animation"
               checked={chartSettings.animationEnabled}
-              onCheckedChange={(checked) => 
+              onCheckedChange={(checked: any) => 
                 setChartSettings({...chartSettings, animationEnabled: checked})
               }
             />
@@ -870,7 +870,7 @@ export function DataVisualisationDashboard() {
             <Switch
               id="dark-mode"
               checked={chartSettings.darkMode}
-              onCheckedChange={(checked) => 
+              onCheckedChange={(checked: any) => 
                 setChartSettings({...chartSettings, darkMode: checked})
               }
             />

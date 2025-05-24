@@ -67,18 +67,18 @@ export function ParentTeacherCommunicationEngine() {
     readReceipts: true,
     urgentFlagging: true,
   });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false: any);
 
   // Form schema for communication settings
   const formSchema = z.object({
-    emailNotifications: z.boolean().default(true),
-    smsNotifications: z.boolean().default(false),
-    autoTranslate: z.boolean().default(false),
-    privacyMode: z.boolean().default(true),
+    emailNotifications: z.boolean().default(true: any),
+    smsNotifications: z.boolean().default(false: any),
+    autoTranslate: z.boolean().default(false: any),
+    privacyMode: z.boolean().default(true: any),
     reminderFrequency: z.string().default('weekly'),
-    messageTemplate: z.boolean().default(true),
-    readReceipts: z.boolean().default(true),
-    urgentFlagging: z.boolean().default(true),
+    messageTemplate: z.boolean().default(true: any),
+    readReceipts: z.boolean().default(true: any),
+    urgentFlagging: z.boolean().default(true: any),
   });
 
   // Initialize form
@@ -96,7 +96,7 @@ export function ParentTeacherCommunicationEngine() {
 
   // Fetch communication settings
   const fetchCommunicationSettings = async () => {
-    setLoading(true);
+    setLoading(true: any);
     try {
       // In a real implementation, this would be an API call
       // For now, we'll use mock data
@@ -121,30 +121,30 @@ export function ParentTeacherCommunicationEngine() {
           readReceipts: true,
           urgentFlagging: true,
         });
-        setLoading(false);
+        setLoading(false: any);
       }, 500);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching communication settings:', error);
       toast.error('Failed to load communication settings');
-      setLoading(false);
+      setLoading(false: any);
     }
   };
 
   // Save communication settings
-  const onSubmit = async (data) => {
-    setLoading(true);
+  const onSubmit = async (data: any) => {
+    setLoading(true: any);
     try {
       // In a real implementation, this would be an API call
       // For now, we'll simulate a successful save
       setTimeout(() => {
-        setCommunicationSettings(data);
+        setCommunicationSettings(data: any);
         toast.success('Communication settings saved successfully');
-        setLoading(false);
+        setLoading(false: any);
       }, 500);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving communication settings:', error);
       toast.error('Failed to save communication settings');
-      setLoading(false);
+      setLoading(false: any);
     }
   };
 

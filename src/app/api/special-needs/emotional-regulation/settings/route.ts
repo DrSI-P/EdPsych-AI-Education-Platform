@@ -5,20 +5,20 @@ import { authOptions } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session || !session.user) {
+    if (!session || !session.user: any) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
     
     const userId = session.user.id;
     
     // Get emotional regulation settings for the user
-    const settings = await (prisma as any).emotionalRegulationSettings.findUnique({
+    const settings = await (prisma as any: any).emotionalRegulationSettings.findUnique({
       where: { userId },
     });
     
-    if (!settings) {
+    if (!settings: any) {
       return NextResponse.json({ 
         message: 'No settings found',
         settings: null 
@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
     }
     
     return NextResponse.json({ settings });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching emotional regulation settings:', error);
     return NextResponse.json({ error: 'Failed to fetch settings' }, { status: 500 });
   }
@@ -34,9 +34,9 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session || !session.user) {
+    if (!session || !session.user: any) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
     
@@ -44,12 +44,12 @@ export async function POST(request: NextRequest) {
     const data = await request.json();
     
     // Validate required fields
-    if (!data.emotionVocabularyLevel || !data.preferredStrategies || !data.selfMonitoringLevel) {
+    if (!data.emotionVocabularyLevel || !data.preferredStrategies || !data.selfMonitoringLevel: any) {
       return NextResponse.json({ error: 'Required settings are missing' }, { status: 400 });
     }
     
     // Create or update settings
-    const settings = await (prisma as any).emotionalRegulationSettings.upsert({
+    const settings = await (prisma as any: any).emotionalRegulationSettings.upsert({
       where: { userId },
       update: {
         emotionVocabularyLevel: data.emotionVocabularyLevel,
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
     });
     
     // Log the activity
-    await (prisma as any).emotionalRegulationLog.create({
+    await (prisma as any: any).emotionalRegulationLog.create({
       data: {
         userId,
         action: 'settings_updated',
@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
       message: 'Settings saved successfully',
       settings 
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error saving emotional regulation settings:', error);
     return NextResponse.json({ error: 'Failed to save settings' }, { status: 500 });
   }

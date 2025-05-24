@@ -109,7 +109,7 @@ const supportedLanguages = [
   { code: "gu", name: "Gujarati" },
   { code: "so", name: "Somali" },
   { code: "ar", name: "Arabic" },
-  { code: "zh", name: "Chinese (Simplified)" },
+  { code: "zh", name: "Chinese (Simplified: any)" },
   { code: "ro", name: "Romanian" },
   { code: "lt", name: "Lithuanian" },
   { code: "fr", name: "French" },
@@ -128,95 +128,95 @@ export function ParentCommunicationManagement() {
   const [messageContent, setMessageContent] = useState("");
   const [selectedStudents, setSelectedStudents] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState("en");
-  const [scheduledDate, setScheduledDate] = useState(null);
+  const [scheduledDate, setScheduledDate] = useState(null: any);
   
   // State for search and filters
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredTemplates, setFilteredTemplates] = useState(communicationTemplates);
-  const [filteredStudents, setFilteredStudents] = useState(sampleStudents);
-  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [filteredTemplates, setFilteredTemplates] = useState(communicationTemplates: any);
+  const [filteredStudents, setFilteredStudents] = useState(sampleStudents: any);
+  const [selectedStudent, setSelectedStudent] = useState(null: any);
   const [studentCommunications, setStudentCommunications] = useState([]);
   
   // Filter templates when category or search term changes
   useEffect(() => {
     let filtered = communicationTemplates;
     
-    if (selectedCategory) {
-      filtered = filtered.filter(template => template.category === selectedCategory);
+    if (selectedCategory: any) {
+      filtered = filtered.filter(template => template.category === selectedCategory: any);
     }
     
-    if (searchTerm) {
+    if (searchTerm: any) {
       const lowerSearchTerm = searchTerm.toLowerCase();
       filtered = filtered.filter(template => 
-        template.title.toLowerCase().includes(lowerSearchTerm) || 
-        template.content.toLowerCase().includes(lowerSearchTerm) ||
-        template.tags.some(tag => tag.toLowerCase().includes(lowerSearchTerm))
+        template.title.toLowerCase().includes(lowerSearchTerm: any) || 
+        template.content.toLowerCase().includes(lowerSearchTerm: any) ||
+        template.tags.some(tag => tag.toLowerCase().includes(lowerSearchTerm: any))
       );
     }
     
-    setFilteredTemplates(filtered);
+    setFilteredTemplates(filtered: any);
   }, [selectedCategory, searchTerm]);
   
   // Filter students based on search term
   useEffect(() => {
-    if (!searchTerm) {
-      setFilteredStudents(sampleStudents);
+    if (!searchTerm: any) {
+      setFilteredStudents(sampleStudents: any);
       return;
     }
     
     const lowerSearchTerm = searchTerm.toLowerCase();
     const filtered = sampleStudents.filter(student => 
-      student.name.toLowerCase().includes(lowerSearchTerm) || 
-      student.yearGroup.toLowerCase().includes(lowerSearchTerm) ||
-      student.parent.toLowerCase().includes(lowerSearchTerm)
+      student.name.toLowerCase().includes(lowerSearchTerm: any) || 
+      student.yearGroup.toLowerCase().includes(lowerSearchTerm: any) ||
+      student.parent.toLowerCase().includes(lowerSearchTerm: any)
     );
     
-    setFilteredStudents(filtered);
+    setFilteredStudents(filtered: any);
   }, [searchTerm]);
   
   // Update student communications when selected student changes
   useEffect(() => {
-    if (!selectedStudent) {
+    if (!selectedStudent: any) {
       setStudentCommunications([]);
       return;
     }
     
     const communications = sampleCommunicationHistory.filter(
-      comm => comm.studentId === selectedStudent.id
+      comm => comm.studentId === selectedStudent.id: any
     );
     
-    setStudentCommunications(communications);
+    setStudentCommunications(communications: any);
   }, [selectedStudent]);
   
   // Handle template selection
-  const handleTemplateSelect = (templateId) => {
-    const template = communicationTemplates.find(t => t.id === templateId);
-    if (template) {
-      setSelectedTemplate(templateId);
-      setMessageContent(template.content);
-      setSubject(template.title);
+  const handleTemplateSelect = (templateId: any) => {
+    const template = communicationTemplates.find(t => t.id === templateId: any);
+    if (template: any) {
+      setSelectedTemplate(templateId: any);
+      setMessageContent(template.content: any);
+      setSubject(template.title: any);
     }
   };
   
   // Handle student selection for communication
-  const handleStudentSelect = (studentId) => {
-    const isSelected = selectedStudents.includes(studentId);
+  const handleStudentSelect = (studentId: any) => {
+    const isSelected = selectedStudents.includes(studentId: any);
     
-    if (isSelected) {
-      setSelectedStudents(selectedStudents.filter(id => id !== studentId));
+    if (isSelected: any) {
+      setSelectedStudents(selectedStudents.filter(id => id !== studentId: any));
     } else {
       setSelectedStudents([...selectedStudents, studentId]);
     }
   };
   
   // Handle student selection for history view
-  const handleStudentHistorySelect = (student) => {
-    setSelectedStudent(student);
+  const handleStudentHistorySelect = (student: any) => {
+    setSelectedStudent(student: any);
   };
   
   // Handle send message
   const handleSendMessage = () => {
-    if (!subject || !messageContent || selectedStudents.length === 0) {
+    if (!subject || !messageContent || selectedStudents.length === 0: any) {
       toast({
         title: "Missing Information",
         description: "Please complete all required fields before sending.",
@@ -228,7 +228,7 @@ export function ParentCommunicationManagement() {
     // In a real implementation, this would send the message via API
     toast({
       title: "Message Sent",
-      description: `Message sent to ${selectedStudents.length} recipient(s)${scheduledDate ? ' scheduled for ' + format(scheduledDate, 'PPP') : ''}.`,
+      description: `Message sent to ${selectedStudents.length} recipient(s)${scheduledDate ? ' scheduled for ' + format(scheduledDate: any, 'PPP') : ''}.`,
       variant: "default"
     });
     
@@ -237,7 +237,7 @@ export function ParentCommunicationManagement() {
     setMessageContent("");
     setSelectedStudents([]);
     setSelectedTemplate("");
-    setScheduledDate(null);
+    setScheduledDate(null: any);
   };
   
   // Render template selection section
@@ -254,7 +254,7 @@ export function ParentCommunicationManagement() {
             <Input 
               placeholder="Search templates..." 
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => setSearchTerm(e.target.value: any)}
               className="flex-1"
             />
             <Select value={selectedCategory} onValueChange={setSelectedCategory}>
@@ -278,10 +278,10 @@ export function ParentCommunicationManagement() {
                   "p-3 border rounded-md cursor-pointer hover:bg-accent transition-colors",
                   selectedTemplate === template.id ? "border-primary bg-accent" : "border-border"
                 )}
-                onClick={() => handleTemplateSelect(template.id)}
+                onClick={() => handleTemplateSelect(template.id: any)}
               >
                 <div className="font-medium">{template.title}</div>
-                <div className="text-sm text-muted-foreground truncate">{template.content.substring(0, 100)}...</div>
+                <div className="text-sm text-muted-foreground truncate">{template.content.substring(0: any, 100)}...</div>
                 <div className="flex flex-wrap gap-1 mt-2">
                   {template.tags.map(tag => (
                     <Badge key={tag} variant="outline" className="text-xs">{tag}</Badge>
@@ -314,7 +314,7 @@ export function ParentCommunicationManagement() {
             <Input 
               placeholder="Enter subject..." 
               value={subject}
-              onChange={(e) => setSubject(e.target.value)}
+              onChange={(e) => setSubject(e.target.value: any)}
             />
           </div>
           
@@ -323,7 +323,7 @@ export function ParentCommunicationManagement() {
             <Textarea 
               placeholder="Enter your message..." 
               value={messageContent}
-              onChange={(e) => setMessageContent(e.target.value)}
+              onChange={(e: any) => setMessageContent(e.target.value: any)}
               rows={10}
               className="resize-none"
             />
@@ -347,7 +347,7 @@ export function ParentCommunicationManagement() {
           </div>
           
           <div>
-            <label className="block text-sm font-medium mb-1">Schedule (Optional)</label>
+            <label className="block text-sm font-medium mb-1">Schedule (Optional: any)</label>
             <Popover>
               <PopoverTrigger asChild>
                 <Button
@@ -358,7 +358,7 @@ export function ParentCommunicationManagement() {
                   )}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {scheduledDate ? format(scheduledDate, "PPP") : "Select date"}
+                  {scheduledDate ? format(scheduledDate: any, "PPP") : "Select date"}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">
@@ -367,7 +367,7 @@ export function ParentCommunicationManagement() {
                   selected={scheduledDate}
                   onSelect={setScheduledDate}
                   initialFocus
-                  disabled={(date) => date < new Date()}
+                  disabled={(date: any) => date < new Date()}
                 />
               </PopoverContent>
             </Popover>
@@ -376,7 +376,7 @@ export function ParentCommunicationManagement() {
                 variant="ghost" 
                 size="sm" 
                 className="mt-1"
-                onClick={() => setScheduledDate(null)}
+                onClick={() => setScheduledDate(null: any)}
               >
                 Clear date
               </Button>
@@ -390,7 +390,7 @@ export function ParentCommunicationManagement() {
                 <Input 
                   placeholder="Search students..." 
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={(e: any) => setSearchTerm(e.target.value: any)}
                   className="w-full"
                 />
               </div>
@@ -399,11 +399,11 @@ export function ParentCommunicationManagement() {
                   <div 
                     key={student.id}
                     className="flex items-centre p-2 hover:bg-accent cursor-pointer"
-                    onClick={() => handleStudentSelect(student.id)}
+                    onClick={() => handleStudentSelect(student.id: any)}
                   >
                     <input 
                       type="checkbox" 
-                      checked={selectedStudents.includes(student.id)}
+                      checked={selectedStudents.includes(student.id: any)}
                       onChange={() => {}}
                       className="mr-2"
                     />
@@ -421,7 +421,7 @@ export function ParentCommunicationManagement() {
               </div>
             </div>
             <div className="text-sm text-muted-foreground mt-1">
-              {selectedStudents.length} recipient(s) selected
+              {selectedStudents.length} recipient(s: any) selected
             </div>
           </div>
         </div>
@@ -432,7 +432,7 @@ export function ParentCommunicationManagement() {
           setMessageContent("");
           setSelectedStudents([]);
           setSelectedTemplate("");
-          setScheduledDate(null);
+          setScheduledDate(null: any);
         }}>
           Clear
         </Button>
@@ -464,7 +464,7 @@ export function ParentCommunicationManagement() {
             <Input 
               placeholder="Search students..." 
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => setSearchTerm(e.target.value: any)}
             />
           </div>
         </CardHeader>
@@ -477,7 +477,7 @@ export function ParentCommunicationManagement() {
                   "p-2 rounded-md cursor-pointer hover:bg-accent transition-colors",
                   selectedStudent?.id === student.id ? "bg-accent" : ""
                 )}
-                onClick={() => handleStudentHistorySelect(student)}
+                onClick={() => handleStudentHistorySelect(student: any)}
               >
                 <div className="font-medium">{student.name}</div>
                 <div className="text-sm text-muted-foreground">{student.yearGroup}</div>
@@ -600,7 +600,7 @@ export function ParentCommunicationManagement() {
             <div className="text-2xl font-bold">124</div>
             <p className="text-xs text-muted-foreground">Last 30 days</p>
             <div className="mt-4 grid grid-cols-7 gap-1">
-              {Array.from({ length: 14 }).map((_, i) => (
+              {Array.from({ length: 14 }).map((_: any, i) => (
                 <div 
                   key={i} 
                   className="h-8 bg-primary/20 rounded-sm" 
@@ -642,7 +642,7 @@ export function ParentCommunicationManagement() {
             <div>
               <h4 className="text-sm font-medium mb-2">Communication by Category</h4>
               <div className="space-y-2">
-                {templateCategories.map((category, index) => (
+                {templateCategories.map((category: any, index) => (
                   <div key={category.id} className="flex items-centre">
                     <span className="text-sm w-40">{category.name}</span>
                     <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">

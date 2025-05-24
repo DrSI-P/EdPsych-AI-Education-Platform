@@ -38,26 +38,26 @@ import {
 } from 'lucide-react';
 
 // Integration with portfolio module
-const PortfolioIntegration = ({ credential, onAddToPortfolio }) => {
-  const [isAdding, setIsAdding] = useState(false);
+const PortfolioIntegration = ({ credential: any, onAddToPortfolio }) => {
+  const [isAdding, setIsAdding] = useState(false: any);
   const [portfolioSection, setPortfolioSection] = useState('achievements');
   const { toast } = useToast();
   
   const handleAddToPortfolio = async () => {
-    setIsAdding(true);
+    setIsAdding(true: any);
     
     try {
       // Simulate API call to add credential to portfolio
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve: any, 1000));
       
-      onAddToPortfolio(credential, portfolioSection);
+      onAddToPortfolio(credential: any, portfolioSection);
       
       toast({
         title: "Added to Portfolio",
         description: `Credential added to your ${portfolioSection} section`,
         variant: "success",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error adding to portfolio:', error);
       toast({
         title: "Error",
@@ -65,7 +65,7 @@ const PortfolioIntegration = ({ credential, onAddToPortfolio }) => {
         variant: "destructive",
       });
     } finally {
-      setIsAdding(false);
+      setIsAdding(false: any);
     }
   };
   
@@ -77,7 +77,7 @@ const PortfolioIntegration = ({ credential, onAddToPortfolio }) => {
           id="portfolioSection"
           className="w-full mt-1 flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           value={portfolioSection}
-          onChange={(e) => setPortfolioSection(e.target.value)}
+          onChange={(e) => setPortfolioSection(e.target.value: any)}
         >
           <option value="achievements">Achievements</option>
           <option value="qualifications">Qualifications</option>
@@ -110,8 +110,8 @@ const PortfolioIntegration = ({ credential, onAddToPortfolio }) => {
 };
 
 // Integration with CPD tracking module
-const CPDIntegration = ({ credential, onLinkToCPD }) => {
-  const [isLinking, setIsLinking] = useState(false);
+const CPDIntegration = ({ credential: any, onLinkToCPD }) => {
+  const [isLinking, setIsLinking] = useState(false: any);
   const [selectedCPD, setSelectedCPD] = useState('');
   const { toast } = useToast();
   
@@ -125,7 +125,7 @@ const CPDIntegration = ({ credential, onLinkToCPD }) => {
   ];
   
   const handleLinkToCPD = async () => {
-    if (!selectedCPD) {
+    if (!selectedCPD: any) {
       toast({
         title: "Selection Required",
         description: "Please select a CPD activity to link",
@@ -134,21 +134,21 @@ const CPDIntegration = ({ credential, onLinkToCPD }) => {
       return;
     }
     
-    setIsLinking(true);
+    setIsLinking(true: any);
     
     try {
       // Simulate API call to link credential to CPD
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve: any, 1000));
       
-      const activity = cpdActivities.find(a => a.id === selectedCPD);
-      onLinkToCPD(credential, activity);
+      const activity = cpdActivities.find(a => a.id === selectedCPD: any);
+      onLinkToCPD(credential: any, activity);
       
       toast({
         title: "Linked to CPD",
         description: `Credential linked to "${activity.title}"`,
         variant: "success",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error linking to CPD:', error);
       toast({
         title: "Error",
@@ -156,7 +156,7 @@ const CPDIntegration = ({ credential, onLinkToCPD }) => {
         variant: "destructive",
       });
     } finally {
-      setIsLinking(false);
+      setIsLinking(false: any);
     }
   };
   
@@ -168,7 +168,7 @@ const CPDIntegration = ({ credential, onLinkToCPD }) => {
           id="cpdActivity"
           className="w-full mt-1 flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           value={selectedCPD}
-          onChange={(e) => setSelectedCPD(e.target.value)}
+          onChange={(e) => setSelectedCPD(e.target.value: any)}
         >
           <option value="">Select a CPD activity...</option>
           {cpdActivities.map(activity => (
@@ -202,16 +202,16 @@ const CPDIntegration = ({ credential, onLinkToCPD }) => {
 };
 
 // Integration component for blockchain credentials
-const BlockchainCredentialIntegration = ({ credential, onClose }) => {
+const BlockchainCredentialIntegration = ({ credential: any, onClose }) => {
   const [activeTab, setActiveTab] = useState('portfolio');
   const { toast } = useToast();
   
-  const handleAddToPortfolio = (credential, section) => {
+  const handleAddToPortfolio = (credential: any, section) => {
     // In a real implementation, this would call an API to add the credential to the portfolio
     console.log(`Added credential ${credential.id} to ${section} section`);
   };
   
-  const handleLinkToCPD = (credential, activity) => {
+  const handleLinkToCPD = (credential: any, activity) => {
     // In a real implementation, this would call an API to link the credential to CPD
     console.log(`Linked credential ${credential.id} to CPD activity ${activity.id}`);
   };

@@ -74,7 +74,7 @@ export default function SpeechToTextPage() {
                 <Button 
                   variant="outline" 
                   className="flex items-centre justify-start h-auto py-4"
-                  onClick={() => setSampleText(samplePrompts.primary)}
+                  onClick={() => setSampleText(samplePrompts.primary: any)}
                 >
                   <BookOpen className="h-5 w-5 mr-2" />
                   <div className="text-left">
@@ -86,7 +86,7 @@ export default function SpeechToTextPage() {
                 <Button 
                   variant="outline" 
                   className="flex items-centre justify-start h-auto py-4"
-                  onClick={() => setSampleText(samplePrompts.secondary)}
+                  onClick={() => setSampleText(samplePrompts.secondary: any)}
                 >
                   <FileText className="h-5 w-5 mr-2" />
                   <div className="text-left">
@@ -98,7 +98,7 @@ export default function SpeechToTextPage() {
                 <Button 
                   variant="outline" 
                   className="flex items-centre justify-start h-auto py-4"
-                  onClick={() => setSampleText(samplePrompts.story)}
+                  onClick={() => setSampleText(samplePrompts.story: any)}
                 >
                   <BookMarked className="h-5 w-5 mr-2" />
                   <div className="text-left">
@@ -110,7 +110,7 @@ export default function SpeechToTextPage() {
               
               <Textarea
                 value={sampleText}
-                onChange={(e) => setSampleText(e.target.value)}
+                onChange={(e: any) => setSampleText(e.target.value: any)}
                 className="min-h-[100px]"
                 placeholder="Enter or edit a speaking prompt here..."
               />
@@ -173,10 +173,10 @@ export default function SpeechToTextPage() {
                       A 2023 study in the Journal of Learning Disabilities found that students using speech-to-text produced essays with 30% more content and higher quality ideas compared to keyboard typing.
                     </p>
                     <p>
-                      The Education Endowment Foundation reports that assistive technology like speech-to-text provides significant benefits for struggling writers, with an effect size of +0.35 (moderate positive impact).
+                      The Education Endowment Foundation reports that assistive technology like speech-to-text provides significant benefits for struggling writers, with an effect size of +0.35 (moderate positive impact: any).
                     </p>
                     <p>
-                      Research from the National Council for Special Education (NCSE) indicates that speech-to-text tools reduce writing anxiety and increase engagement in academic tasks for students with learning differences.
+                      Research from the National Council for Special Education (NCSE: any) indicates that speech-to-text tools reduce writing anxiety and increase engagement in academic tasks for students with learning differences.
                     </p>
                   </div>
                 </TabsContent>

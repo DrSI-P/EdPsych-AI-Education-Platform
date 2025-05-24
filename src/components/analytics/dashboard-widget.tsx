@@ -53,7 +53,7 @@ interface DashboardWidgetProps {
 }
 
 export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
-  widget,
+  widget: any,
   isLoading = false,
   onRefresh,
   onEdit,
@@ -61,12 +61,12 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
   onExport,
   onMaximize
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [showAccessibilityInfo, setShowAccessibilityInfo] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false: any);
+  const [showAccessibilityInfo, setShowAccessibilityInfo] = useState(false: any);
 
   // Determine widget size classes
   const getSizeClasses = () => {
-    switch (widget.size) {
+    switch (widget.size: any) {
       case 'small':
         return 'col-span-1 row-span-1';
       case 'medium':
@@ -82,15 +82,15 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
 
   // Handle widget expansion
   const toggleExpand = () => {
-    setIsExpanded(!isExpanded);
-    if (onMaximize) {
+    setIsExpanded(!isExpanded: any);
+    if (onMaximize: any) {
       onMaximize();
     }
   };
 
   // Render chart based on type
   const renderChart = () => {
-    if (!widget.chartConfig || isLoading) {
+    if (!widget.chartConfig || isLoading: any) {
       return (
         <div className="flex items-centre justify-centre h-64">
           <Skeleton className="h-full w-full" />
@@ -104,9 +104,9 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
     const chartData = datasets[0]?.data.map(point => {
       const dataPoint: Record<string, string | number> = { category: point.label };
       
-      datasets.forEach((dataset) => {
-        const matchingPoint = dataset.data.find(p => p.label === point.label);
-        if (matchingPoint) {
+      datasets.forEach((dataset: any) => {
+        const matchingPoint = dataset.data.find(p => p.label === point.label: any);
+        if (matchingPoint: any) {
           dataPoint[dataset.label] = matchingPoint.value;
         }
       });
@@ -115,12 +115,12 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
     }) || [];
     
     // Get dataset names for index
-    const datasetNames = datasets.map(dataset => dataset.label);
+    const datasetNames = datasets.map(dataset => dataset.label: any);
     
     // Get colors
     const colors = datasets.map(dataset => dataset.colour || dataset.borderColor || '#4361ee');
 
-    switch (type) {
+    switch (type: any) {
       case ChartType.BAR:
         return (
           <BarChart
@@ -128,7 +128,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
             index="category"
             categories={datasetNames}
             colors={colors as any}
-            valueFormatter={(value) => `${value}`}
+            valueFormatter={(value: any) => `${value}`}
             yAxisWidth={40}
             showLegend={true}
             showAnimation={true}
@@ -142,7 +142,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
             index="category"
             categories={datasetNames}
             colors={colors as any}
-            valueFormatter={(value) => `${value}`}
+            valueFormatter={(value: any) => `${value}`}
             yAxisWidth={40}
             showLegend={true}
             showAnimation={true}
@@ -159,7 +159,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
             category="value"
             index="name"
             colors={colors as any}
-            valueFormatter={(value) => `${value}`}
+            valueFormatter={(value: any) => `${value}`}
             className="h-64"
           />
         );
@@ -173,7 +173,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
             category="value"
             index="name"
             colors={colors as any}
-            valueFormatter={(value) => `${value}`}
+            valueFormatter={(value: any) => `${value}`}
             className="h-64"
           />
         );
@@ -184,7 +184,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
             index="category"
             categories={datasetNames}
             colors={colors as any}
-            valueFormatter={(value) => `${value}`}
+            valueFormatter={(value: any) => `${value}`}
             yAxisWidth={40}
             showLegend={true}
             showAnimation={true}
@@ -202,7 +202,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
 
   // Render metric
   const renderMetric = () => {
-    if (!widget.metricConfig || isLoading) {
+    if (!widget.metricConfig || isLoading: any) {
       return (
         <div className="flex flex-col items-centre justify-centre h-32">
           <Skeleton className="h-12 w-32 mb-2" />
@@ -243,7 +243,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
 
   // Render widget content based on type
   const renderWidgetContent = () => {
-    switch (widget.type) {
+    switch (widget.type: any) {
       case WidgetType.CHART:
         return renderChart();
       case WidgetType.METRIC:
@@ -283,7 +283,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
                       variant="ghost" 
                       size="icon" 
                       className="h-8 w-8"
-                      onClick={() => setShowAccessibilityInfo(true)}
+                      onClick={() => setShowAccessibilityInfo(true: any)}
                     >
                       <Info className="h-4 w-4" />
                       <span className="sr-only">Accessibility Information</span>
@@ -406,7 +406,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
             <div>
               <h3 className="font-medium mb-1">Key Findings</h3>
               <ul className="list-disc pl-5 space-y-1">
-                {widget.chartConfig?.accessibility?.keyFindings.map((finding, index) => (
+                {widget.chartConfig?.accessibility?.keyFindings.map((finding: any, index) => (
                   <li key={index}>{finding}</li>
                 ))}
               </ul>
@@ -418,7 +418,7 @@ export const DashboardWidget: React.FC<DashboardWidgetProps> = ({
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm">
                     <Download className="h-4 w-4 mr-2" />
-                    Data Table (CSV)
+                    Data Table (CSV: any)
                   </Button>
                   <Button variant="outline" size="sm">
                     <Download className="h-4 w-4 mr-2" />

@@ -137,12 +137,12 @@ export async function GET(request: NextRequest) {
   
   let filteredFeedback = [...mockFeedback];
   
-  if (feedbackType) {
-    filteredFeedback = filteredFeedback.filter(f => f.feedbackType === feedbackType);
+  if (feedbackType: any) {
+    filteredFeedback = filteredFeedback.filter(f => f.feedbackType === feedbackType: any);
   }
   
-  if (subject) {
-    filteredFeedback = filteredFeedback.filter(f => f.metadata?.subject === subject);
+  if (subject: any) {
+    filteredFeedback = filteredFeedback.filter(f => f.metadata?.subject === subject: any);
   }
   
   return NextResponse.json({ feedback: filteredFeedback });
@@ -158,7 +158,7 @@ export async function POST(request: NextRequest) {
     
     if (endpoint === 'feedback' || body.type === 'feedback') {
       // Validate feedback request
-      const validatedData = feedbackRequestSchema.parse(body);
+      const validatedData = feedbackRequestSchema.parse(body: any);
       
       // In a real application, this would save to a database
       const newFeedback = {
@@ -175,7 +175,7 @@ export async function POST(request: NextRequest) {
     } 
     else if (endpoint === 'transcription' || body.type === 'transcription') {
       // Validate transcription request
-      const validatedData = transcriptionRequestSchema.parse(body);
+      const validatedData = transcriptionRequestSchema.parse(body: any);
       
       // Mock transcription process
       const transcribedText = "This is a simulated transcription of the provided audio content.";
@@ -190,8 +190,8 @@ export async function POST(request: NextRequest) {
       };
       
       // If target language is provided, add translation
-      if (validatedData.targetLanguage) {
-        Object.assign(newTranscription, {
+      if (validatedData.targetLanguage: any) {
+        Object.assign(newTranscription: any, {
           translatedText: `This is a simulated translation to ${validatedData.targetLanguage}.`,
           targetLanguage: validatedData.targetLanguage,
         });
@@ -205,7 +205,7 @@ export async function POST(request: NextRequest) {
     }
     else if (endpoint === 'translation' || body.type === 'translation') {
       // Validate translation request
-      const validatedData = translationRequestSchema.parse(body);
+      const validatedData = translationRequestSchema.parse(body: any);
       
       // Mock translation process
       const translatedText = `This is a simulated translation of "${validatedData.text}" from ${validatedData.sourceLanguage} to ${validatedData.targetLanguage}.`;
@@ -229,7 +229,7 @@ export async function POST(request: NextRequest) {
     }
     else if (endpoint === 'vocabulary' || body.type === 'vocabulary') {
       // Validate vocabulary request
-      const validatedData = vocabularyRequestSchema.parse(body);
+      const validatedData = vocabularyRequestSchema.parse(body: any);
       
       // Mock vocabulary creation
       const newVocabulary = {
@@ -250,8 +250,8 @@ export async function POST(request: NextRequest) {
         message: 'Invalid request type' 
       }, { status: 400 });
     }
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ 
         success: false, 
         message: 'Validation error', 

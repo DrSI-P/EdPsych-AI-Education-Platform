@@ -5,9 +5,9 @@ import prisma from '@/lib/prisma';
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json(
         { success: false, error: 'Authentication required' },
         { status: 401 }
@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
       },
     });
     
-    if (!settings) {
+    if (!settings: any) {
       // Return default settings if none exist
       return NextResponse.json({
         success: true,
@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
         urgentFlagging: settings.urgentFlagging
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching communication settings:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to fetch communication settings' },
@@ -66,9 +66,9 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json(
         { success: false, error: 'Authentication required' },
         { status: 401 }
@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
     // Get settings from request body
     const { settings } = await req.json();
     
-    if (!settings) {
+    if (!settings: any) {
       return NextResponse.json(
         { success: false, error: 'Settings data is required' },
         { status: 400 }
@@ -122,7 +122,7 @@ export async function POST(req: NextRequest) {
       data: {
         userId: userId,
         action: 'settings_update',
-        details: JSON.stringify(settings),
+        details: JSON.stringify(settings: any),
       },
     });
     
@@ -130,7 +130,7 @@ export async function POST(req: NextRequest) {
       success: true,
       settings: communicationSettings,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error saving communication settings:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to save communication settings' },

@@ -88,13 +88,13 @@ export async function createCustomer(
 ): Promise<string> {
   try {
     const customer = await stripe.customers.create({
-      email,
+      email: any,
       name,
       metadata,
     });
     
     return customer.id;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating Stripe customer:', error);
     throw new Error('Failed to create customer account. Please try again later.');
   }
@@ -104,7 +104,7 @@ export async function createCustomer(
  * Create a checkout session for subscription
  */
 export async function createSubscriptionCheckout({
-  customerId,
+  customerId: any,
   planId,
   successUrl,
   cancelUrl,
@@ -131,7 +131,7 @@ export async function createSubscriptionCheckout({
     });
     
     return session.url || '';
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating subscription checkout:', error);
     throw new Error('Failed to create subscription checkout. Please try again later.');
   }
@@ -141,7 +141,7 @@ export async function createSubscriptionCheckout({
  * Create a checkout session for credit purchase
  */
 export async function createCreditPurchaseCheckout({
-  customerId,
+  customerId: any,
   priceId,
   quantity = 1,
   successUrl,
@@ -165,7 +165,7 @@ export async function createCreditPurchaseCheckout({
     });
     
     return session.url || '';
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating credit purchase checkout:', error);
     throw new Error('Failed to create credit purchase checkout. Please try again later.');
   }
@@ -183,7 +183,7 @@ export async function getActiveSubscriptions(customerId: string): Promise<Stripe
     });
     
     return subscriptions.data;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching active subscriptions:', error);
     throw new Error('Failed to fetch subscription information. Please try again later.');
   }
@@ -197,14 +197,14 @@ export async function cancelSubscription(
   cancelAtPeriodEnd: boolean = true
 ): Promise<void> {
   try {
-    if (cancelAtPeriodEnd) {
-      await stripe.subscriptions.update(subscriptionId, {
+    if (cancelAtPeriodEnd: any) {
+      await stripe.subscriptions.update(subscriptionId: any, {
         cancel_at_period_end: true,
       });
     } else {
-      await stripe.subscriptions.cancel(subscriptionId);
+      await stripe.subscriptions.cancel(subscriptionId: any);
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error cancelling subscription:', error);
     throw new Error('Failed to cancel subscription. Please try again later.');
   }
@@ -219,10 +219,10 @@ export async function updateSubscription(
 ): Promise<void> {
   try {
     // Get the subscription to find the current items
-    const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+    const subscription = await stripe.subscriptions.retrieve(subscriptionId: any);
     
     // Update the subscription with the new price
-    await stripe.subscriptions.update(subscriptionId, {
+    await stripe.subscriptions.update(subscriptionId: any, {
       items: [
         {
           id: subscription.items.data[0].id,
@@ -230,7 +230,7 @@ export async function updateSubscription(
         },
       ],
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error updating subscription:', error);
     throw new Error('Failed to update subscription. Please try again later.');
   }
@@ -247,7 +247,7 @@ export async function getCustomerPaymentMethods(customerId: string): Promise<Str
     });
     
     return paymentMethods.data;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching payment methods:', error);
     throw new Error('Failed to fetch payment methods. Please try again later.');
   }
@@ -267,7 +267,7 @@ export async function createPortalSession(
     });
     
     return session.url;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating portal session:', error);
     throw new Error('Failed to create customer portal session. Please try again later.');
   }
@@ -283,24 +283,24 @@ export async function handleWebhookEvent(
   try {
     // Verify the webhook signature
     const event = stripe.webhooks.constructEvent(
-      payload,
+      payload: any,
       signature,
       env.stripe.webhookSecret
     );
     
     // Process the event based on its type
-    switch (event.type) {
+    switch (event.type: any) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session;
         
         // Handle subscription checkout completion
         if (session.mode === 'subscription') {
-          await handleSubscriptionCreated(session);
+          await handleSubscriptionCreated(session: any);
         }
         
-        // Handle one-time payment (credit purchase) completion
+        // Handle one-time payment (credit purchase: any) completion
         if (session.mode === 'payment') {
-          await handleCreditPurchase(session);
+          await handleCreditPurchase(session: any);
         }
         
         break;
@@ -308,31 +308,31 @@ export async function handleWebhookEvent(
       
       case 'customer.subscription.updated': {
         const subscription = event.data.object as Stripe.Subscription;
-        await handleSubscriptionUpdated(subscription);
+        await handleSubscriptionUpdated(subscription: any);
         break;
       }
       
       case 'customer.subscription.deleted': {
         const subscription = event.data.object as Stripe.Subscription;
-        await handleSubscriptionCancelled(subscription);
+        await handleSubscriptionCancelled(subscription: any);
         break;
       }
       
       case 'invoice.payment_succeeded': {
         const invoice = event.data.object as Stripe.Invoice;
-        await handleInvoicePaid(invoice);
+        await handleInvoicePaid(invoice: any);
         break;
       }
       
       case 'invoice.payment_failed': {
         const invoice = event.data.object as Stripe.Invoice;
-        await handleInvoicePaymentFailed(invoice);
+        await handleInvoicePaymentFailed(invoice: any);
         break;
       }
     }
     
     return { received: true, event };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error handling webhook event:', error);
     throw new Error('Failed to process webhook event.');
   }
@@ -342,7 +342,7 @@ export async function handleWebhookEvent(
  * Handle subscription creation from checkout session
  */
 async function handleSubscriptionCreated(session: Stripe.Checkout.Session): Promise<void> {
-  if (!session.customer || !session.subscription) {
+  if (!session.customer || !session.subscription: any) {
     console.error('Missing customer or subscription ID in session:', session.id);
     return;
   }
@@ -357,15 +357,15 @@ async function handleSubscriptionCreated(session: Stripe.Checkout.Session): Prom
   
   try {
     // Get the subscription details
-    const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+    const subscription = await stripe.subscriptions.retrieve(subscriptionId: any);
     
     // Determine the subscription tier from the price ID
     const priceId = subscription.items.data[0].price.id;
     let tier = 'standard'; // Default tier
     
-    if (priceId === SUBSCRIPTION_PLANS.PREMIUM.MONTHLY || priceId === SUBSCRIPTION_PLANS.PREMIUM.YEARLY) {
+    if (priceId === SUBSCRIPTION_PLANS.PREMIUM.MONTHLY || priceId === SUBSCRIPTION_PLANS.PREMIUM.YEARLY: any) {
       tier = 'premium';
-    } else if (priceId === SUBSCRIPTION_PLANS.FAMILY.MONTHLY || priceId === SUBSCRIPTION_PLANS.FAMILY.YEARLY) {
+    } else if (priceId === SUBSCRIPTION_PLANS.FAMILY.MONTHLY || priceId === SUBSCRIPTION_PLANS.FAMILY.YEARLY: any) {
       tier = 'family';
     }
     
@@ -374,7 +374,7 @@ async function handleSubscriptionCreated(session: Stripe.Checkout.Session): Prom
       where: { stripeCustomerId: customerId },
     });
     
-    if (!user) {
+    if (!user: any) {
       console.error('User not found for Stripe customer ID:', customerId);
       return;
     }
@@ -386,7 +386,7 @@ async function handleSubscriptionCreated(session: Stripe.Checkout.Session): Prom
         subscriptionTier: tier,
         subscriptionStatus: 'active',
         subscriptionId: subscriptionId,
-        subscriptionPeriodEnd: new Date(subscription.current_period_end * 1000),
+        subscriptionPeriodEnd: new Date(subscription.current_period_end * 1000: any),
       },
     });
     
@@ -398,7 +398,7 @@ async function handleSubscriptionCreated(session: Stripe.Checkout.Session): Prom
       where: { userId: user.id },
     });
     
-    if (existingCredits) {
+    if (existingCredits: any) {
       // Update existing credits
       await db.userCredits.update({
         where: { userId: user.id },
@@ -434,7 +434,7 @@ async function handleSubscriptionCreated(session: Stripe.Checkout.Session): Prom
         },
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error processing subscription creation:', error);
   }
 }
@@ -452,7 +452,7 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription): Pro
       where: { stripeCustomerId: customerId },
     });
     
-    if (!user) {
+    if (!user: any) {
       console.error('User not found for Stripe customer ID:', customerId);
       return;
     }
@@ -461,9 +461,9 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription): Pro
     const priceId = subscription.items.data[0].price.id;
     let tier = 'standard'; // Default tier
     
-    if (priceId === SUBSCRIPTION_PLANS.PREMIUM.MONTHLY || priceId === SUBSCRIPTION_PLANS.PREMIUM.YEARLY) {
+    if (priceId === SUBSCRIPTION_PLANS.PREMIUM.MONTHLY || priceId === SUBSCRIPTION_PLANS.PREMIUM.YEARLY: any) {
       tier = 'premium';
-    } else if (priceId === SUBSCRIPTION_PLANS.FAMILY.MONTHLY || priceId === SUBSCRIPTION_PLANS.FAMILY.YEARLY) {
+    } else if (priceId === SUBSCRIPTION_PLANS.FAMILY.MONTHLY || priceId === SUBSCRIPTION_PLANS.FAMILY.YEARLY: any) {
       tier = 'family';
     }
     
@@ -473,7 +473,7 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription): Pro
       data: {
         subscriptionTier: tier,
         subscriptionStatus: subscription.status,
-        subscriptionPeriodEnd: new Date(subscription.current_period_end * 1000),
+        subscriptionPeriodEnd: new Date(subscription.current_period_end * 1000: any),
         cancelAtPeriodEnd: subscription.cancel_at_period_end,
       },
     });
@@ -492,7 +492,7 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription): Pro
         },
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error processing subscription update:', error);
   }
 }
@@ -510,7 +510,7 @@ async function handleSubscriptionCancelled(subscription: Stripe.Subscription): P
       where: { stripeCustomerId: customerId },
     });
     
-    if (!user) {
+    if (!user: any) {
       console.error('User not found for Stripe customer ID:', customerId);
       return;
     }
@@ -533,16 +533,16 @@ async function handleSubscriptionCancelled(subscription: Stripe.Subscription): P
         stripeSubscriptionId: subscriptionId,
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error processing subscription cancellation:', error);
   }
 }
 
 /**
- * Handle successful invoice payment (for subscription renewals)
+ * Handle successful invoice payment (for subscription renewals: any)
  */
 async function handleInvoicePaid(invoice: Stripe.Invoice): Promise<void> {
-  if (!invoice.customer || !invoice.subscription) {
+  if (!invoice.customer || !invoice.subscription: any) {
     return;
   }
   
@@ -560,13 +560,13 @@ async function handleInvoicePaid(invoice: Stripe.Invoice): Promise<void> {
       where: { stripeCustomerId: customerId },
     });
     
-    if (!user) {
+    if (!user: any) {
       console.error('User not found for Stripe customer ID:', customerId);
       return;
     }
     
     // Get the subscription to update the period end
-    const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+    const subscription = await stripe.subscriptions.retrieve(subscriptionId: any);
     
     // Update the user's subscription information
     await db.user.update({
@@ -605,7 +605,7 @@ async function handleInvoicePaid(invoice: Stripe.Invoice): Promise<void> {
         },
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error processing invoice payment:', error);
   }
 }
@@ -614,7 +614,7 @@ async function handleInvoicePaid(invoice: Stripe.Invoice): Promise<void> {
  * Handle failed invoice payment
  */
 async function handleInvoicePaymentFailed(invoice: Stripe.Invoice): Promise<void> {
-  if (!invoice.customer || !invoice.subscription) {
+  if (!invoice.customer || !invoice.subscription: any) {
     return;
   }
   
@@ -632,7 +632,7 @@ async function handleInvoicePaymentFailed(invoice: Stripe.Invoice): Promise<void
       where: { stripeCustomerId: customerId },
     });
     
-    if (!user) {
+    if (!user: any) {
       console.error('User not found for Stripe customer ID:', customerId);
       return;
     }
@@ -658,7 +658,7 @@ async function handleInvoicePaymentFailed(invoice: Stripe.Invoice): Promise<void
         },
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error processing invoice payment failure:', error);
   }
 }
@@ -667,7 +667,7 @@ async function handleInvoicePaymentFailed(invoice: Stripe.Invoice): Promise<void
  * Handle credit purchase
  */
 async function handleCreditPurchase(session: Stripe.Checkout.Session): Promise<void> {
-  if (!session.customer || !session.payment_intent) {
+  if (!session.customer || !session.payment_intent: any) {
     console.error('Missing customer or payment intent in session:', session.id);
     return;
   }
@@ -682,7 +682,7 @@ async function handleCreditPurchase(session: Stripe.Checkout.Session): Promise<v
       where: { stripeCustomerId: customerId },
     });
     
-    if (!user) {
+    if (!user: any) {
       console.error('User not found for Stripe customer ID:', customerId);
       return;
     }
@@ -691,10 +691,10 @@ async function handleCreditPurchase(session: Stripe.Checkout.Session): Promise<v
     // In a real implementation, you'd retrieve the session with line items expanded
     // For simplicity, we'll use the metadata
     const creditAmount = session.metadata?.creditAmount 
-      ? parseInt(session.metadata.creditAmount, 10)
+      ? parseInt(session.metadata.creditAmount: any, 10)
       : 0;
     
-    if (creditAmount <= 0) {
+    if (creditAmount <= 0: any) {
       console.error('Invalid credit amount in session:', session.id);
       return;
     }
@@ -704,7 +704,7 @@ async function handleCreditPurchase(session: Stripe.Checkout.Session): Promise<v
       where: { userId: user.id },
     });
     
-    if (existingCredits) {
+    if (existingCredits: any) {
       // Update existing credits
       await db.userCredits.update({
         where: { userId: user.id },
@@ -741,7 +741,7 @@ async function handleCreditPurchase(session: Stripe.Checkout.Session): Promise<v
           : session.payment_intent.id,
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error processing credit purchase:', error);
   }
 }
@@ -767,7 +767,7 @@ export async function getUserSubscription(userId: string): Promise<{
       where: { id: userId },
     });
     
-    if (!user) {
+    if (!user: any) {
       throw new Error('User not found');
     }
     
@@ -788,7 +788,7 @@ export async function getUserSubscription(userId: string): Promise<{
         lastRefresh: credits?.lastCreditRefresh || null,
       },
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching user subscription:', error);
     throw new Error('Failed to fetch subscription details. Please try again later.');
   }
@@ -804,12 +804,12 @@ export async function getSubscriptionPricing(): Promise<{
 }> {
   try {
     // Fetch the prices from Stripe
-    const standardMonthly = await stripe.prices.retrieve(SUBSCRIPTION_PLANS.STANDARD.MONTHLY);
-    const standardYearly = await stripe.prices.retrieve(SUBSCRIPTION_PLANS.STANDARD.YEARLY);
-    const premiumMonthly = await stripe.prices.retrieve(SUBSCRIPTION_PLANS.PREMIUM.MONTHLY);
-    const premiumYearly = await stripe.prices.retrieve(SUBSCRIPTION_PLANS.PREMIUM.YEARLY);
-    const familyMonthly = await stripe.prices.retrieve(SUBSCRIPTION_PLANS.FAMILY.MONTHLY);
-    const familyYearly = await stripe.prices.retrieve(SUBSCRIPTION_PLANS.FAMILY.YEARLY);
+    const standardMonthly = await stripe.prices.retrieve(SUBSCRIPTION_PLANS.STANDARD.MONTHLY: any);
+    const standardYearly = await stripe.prices.retrieve(SUBSCRIPTION_PLANS.STANDARD.YEARLY: any);
+    const premiumMonthly = await stripe.prices.retrieve(SUBSCRIPTION_PLANS.PREMIUM.MONTHLY: any);
+    const premiumYearly = await stripe.prices.retrieve(SUBSCRIPTION_PLANS.PREMIUM.YEARLY: any);
+    const familyMonthly = await stripe.prices.retrieve(SUBSCRIPTION_PLANS.FAMILY.MONTHLY: any);
+    const familyYearly = await stripe.prices.retrieve(SUBSCRIPTION_PLANS.FAMILY.YEARLY: any);
     
     return {
       standard: {
@@ -825,7 +825,7 @@ export async function getSubscriptionPricing(): Promise<{
         yearly: familyYearly.unit_amount ? familyYearly.unit_amount / 100 : 0,
       },
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching subscription pricing:', error);
     // Return fallback pricing
     return {
@@ -846,25 +846,25 @@ export async function getCreditPackagePricing(): Promise<{
 }> {
   try {
     // Fetch the prices from Stripe
-    const smallPackage = await stripe.prices.retrieve(CREDIT_PACKAGES.SMALL);
-    const mediumPackage = await stripe.prices.retrieve(CREDIT_PACKAGES.MEDIUM);
-    const largePackage = await stripe.prices.retrieve(CREDIT_PACKAGES.LARGE);
+    const smallPackage = await stripe.prices.retrieve(CREDIT_PACKAGES.SMALL: any);
+    const mediumPackage = await stripe.prices.retrieve(CREDIT_PACKAGES.MEDIUM: any);
+    const largePackage = await stripe.prices.retrieve(CREDIT_PACKAGES.LARGE: any);
     
     return {
       small: {
-        amount: smallPackage.metadata?.credits ? parseInt(smallPackage.metadata.credits, 10) : 50,
+        amount: smallPackage.metadata?.credits ? parseInt(smallPackage.metadata.credits: any, 10) : 50,
         price: smallPackage.unit_amount ? smallPackage.unit_amount / 100 : 4.99,
       },
       medium: {
-        amount: mediumPackage.metadata?.credits ? parseInt(mediumPackage.metadata.credits, 10) : 150,
+        amount: mediumPackage.metadata?.credits ? parseInt(mediumPackage.metadata.credits: any, 10) : 150,
         price: mediumPackage.unit_amount ? mediumPackage.unit_amount / 100 : 12.99,
       },
       large: {
-        amount: largePackage.metadata?.credits ? parseInt(largePackage.metadata.credits, 10) : 500,
+        amount: largePackage.metadata?.credits ? parseInt(largePackage.metadata.credits: any, 10) : 500,
         price: largePackage.unit_amount ? largePackage.unit_amount / 100 : 39.99,
       },
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching credit package pricing:', error);
     // Return fallback pricing
     return {

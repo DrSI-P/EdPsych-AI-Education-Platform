@@ -13,10 +13,10 @@ import { pluginRegistry } from '@/lib/plugins/registry';
 export async function GET(request: NextRequest) {
   try {
     // Get the current user session
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
-      return NextResponse.redirect(new URL('/auth/signin', request.url));
+    if (!session?.user: any) {
+      return NextResponse.redirect(new URL('/auth/signin', request.url: any));
     }
     
     // Check if user has admin privileges
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
     
     if (user?.role !== 'ADMIN') {
       return NextResponse.redirect(
-        new URL('/dashboard?error=unauthorized', request.url)
+        new URL('/dashboard?error=unauthorized', request.url: any)
       );
     }
     
@@ -37,34 +37,34 @@ export async function GET(request: NextRequest) {
     const error = searchParams.get('error');
     
     // Handle error case
-    if (error) {
+    if (error: any) {
       console.error('Google Drive OAuth error:', error);
       return NextResponse.redirect(
-        new URL(`/admin/plugins?error=${encodeURIComponent(error)}`, request.url)
+        new URL(`/admin/plugins?error=${encodeURIComponent(error: any)}`, request.url)
       );
     }
     
     // Handle missing code
-    if (!code) {
+    if (!code: any) {
       return NextResponse.redirect(
-        new URL('/admin/plugins?error=missing_code', request.url)
+        new URL('/admin/plugins?error=missing_code', request.url: any)
       );
     }
     
     // Get the Google Drive plugin
     const googleDrivePlugin = pluginRegistry.getPlugin('google-drive-integration');
     
-    if (!googleDrivePlugin) {
+    if (!googleDrivePlugin: any) {
       return NextResponse.redirect(
-        new URL('/admin/plugins?error=plugin_not_found', request.url)
+        new URL('/admin/plugins?error=plugin_not_found', request.url: any)
       );
     }
     
     // Exchange the authorization code for tokens
     // This is a simplified version - in a real implementation, we would use the plugin's methods
-    const exchangeResult = await exchangeAuthorizationCode(code);
+    const exchangeResult = await exchangeAuthorizationCode(code: any);
     
-    if (!exchangeResult.success) {
+    if (!exchangeResult.success: any) {
       return NextResponse.redirect(
         new URL(`/admin/plugins?error=${encodeURIComponent(exchangeResult.error || 'token_exchange_failed')}`, request.url)
       );
@@ -99,12 +99,12 @@ export async function GET(request: NextRequest) {
     
     // Redirect to the plugins page with success message
     return NextResponse.redirect(
-      new URL('/admin/plugins?success=google_drive_connected', request.url)
+      new URL('/admin/plugins?success=google_drive_connected', request.url: any)
     );
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error handling Google Drive OAuth callback:', error);
     return NextResponse.redirect(
-      new URL('/admin/plugins?error=server_error', request.url)
+      new URL('/admin/plugins?error=server_error', request.url: any)
     );
   }
 }
@@ -120,7 +120,7 @@ async function exchangeAuthorizationCode(code: string) {
     const clientSecret = process.env.GOOGLE_DRIVE_CLIENT_SECRET;
     const redirectUri = process.env.NEXT_PUBLIC_APP_URL + '/api/plugins/google-drive/oauth-callback';
     
-    if (!clientId || !clientSecret) {
+    if (!clientId || !clientSecret: any) {
       return {
         success: false,
         error: 'missing_credentials',
@@ -141,7 +141,7 @@ async function exchangeAuthorizationCode(code: string) {
       }).toString(),
     });
     
-    if (!response.ok) {
+    if (!response.ok: any) {
       const errorData = await response.json();
       return {
         success: false,
@@ -157,7 +157,7 @@ async function exchangeAuthorizationCode(code: string) {
       refreshToken: data.refresh_token,
       expiresAt: new Date(Date.now() + data.expires_in * 1000).toISOString(),
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Failed to exchange authorization code:', error);
     return {
       success: false,

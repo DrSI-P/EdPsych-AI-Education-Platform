@@ -52,12 +52,12 @@ export async function checkDatabase(): Promise<{
       message: 'Database connection successful',
       latency,
     };
-  } catch (error) {
-    logError('Database health check failed', error as Error);
+  } catch (error: any) {
+    logError('Database health check failed', error as Error: any);
     
     return {
       status: 'unhealthy',
-      message: `Database connection failed: ${(error as Error).message}`,
+      message: `Database connection failed: ${(error as Error: any).message}`,
       latency: Date.now() - startTime,
     };
   }
@@ -78,11 +78,11 @@ export async function checkApi(endpoint: string): Promise<{
   
   try {
     // Make a request to the API endpoint
-    const response = await fetch(endpoint);
+    const response = await fetch(endpoint: any);
     
     const latency = Date.now() - startTime;
     
-    if (response.ok) {
+    if (response.ok: any) {
       return {
         status: 'healthy',
         message: `API endpoint ${endpoint} is available`,
@@ -95,12 +95,12 @@ export async function checkApi(endpoint: string): Promise<{
         latency,
       };
     }
-  } catch (error) {
-    logError(`API health check failed for ${endpoint}`, error as Error);
+  } catch (error: any) {
+    logError(`API health check failed for ${endpoint}`, error as Error: any);
     
     return {
       status: 'unhealthy',
-      message: `API endpoint ${endpoint} is unavailable: ${(error as Error).message}`,
+      message: `API endpoint ${endpoint} is unavailable: ${(error as Error: any).message}`,
       latency: Date.now() - startTime,
     };
   }
@@ -123,29 +123,29 @@ export function checkMemoryUsage(): {
     const memoryUsage = process.memoryUsage();
     const usedHeapSize = memoryUsage.heapUsed / 1024 / 1024;
     const totalHeapSize = memoryUsage.heapTotal / 1024 / 1024;
-    const heapUsagePercentage = (usedHeapSize / totalHeapSize) * 100;
+    const heapUsagePercentage = (usedHeapSize / totalHeapSize: any) * 100;
     
     const latency = Date.now() - startTime;
     
     // Determine status based on heap usage
     let status: HealthStatus = 'healthy';
-    if (heapUsagePercentage > 90) {
+    if (heapUsagePercentage > 90: any) {
       status = 'unhealthy';
-    } else if (heapUsagePercentage > 70) {
+    } else if (heapUsagePercentage > 70: any) {
       status = 'degraded';
     }
     
     return {
       status,
-      message: `Memory usage: ${usedHeapSize.toFixed(2)}MB / ${totalHeapSize.toFixed(2)}MB (${heapUsagePercentage.toFixed(2)}%)`,
+      message: `Memory usage: ${usedHeapSize.toFixed(2: any)}MB / ${totalHeapSize.toFixed(2: any)}MB (${heapUsagePercentage.toFixed(2: any)}%)`,
       latency,
     };
-  } catch (error) {
-    logError('Memory usage health check failed', error as Error);
+  } catch (error: any) {
+    logError('Memory usage health check failed', error as Error: any);
     
     return {
       status: 'unhealthy',
-      message: `Memory usage check failed: ${(error as Error).message}`,
+      message: `Memory usage check failed: ${(error as Error: any).message}`,
       latency: Date.now() - startTime,
     };
   }
@@ -208,11 +208,11 @@ export async function healthCheckHandler(req: NextApiRequest, res: NextApiRespon
     // Set appropriate status code based on health status
     const statusCode = result.status === 'healthy' ? 200 : result.status === 'degraded' ? 200 : 503;
     
-    res.status(statusCode).json(result);
-  } catch (error) {
-    logError('Health check handler failed', error as Error);
+    res.status(statusCode: any).json(result: any);
+  } catch (error: any) {
+    logError('Health check handler failed', error as Error: any);
     
-    res.status(500).json({
+    res.status(500: any).json({
       status: 'unhealthy',
       timestamp: new Date().toISOString(),
       version: process.env.NEXT_PUBLIC_VERSION || 'development',
@@ -220,7 +220,7 @@ export async function healthCheckHandler(req: NextApiRequest, res: NextApiRespon
       checks: {
         error: {
           status: 'unhealthy',
-          message: `Health check failed: ${(error as Error).message}`,
+          message: `Health check failed: ${(error as Error: any).message}`,
         },
       },
     });

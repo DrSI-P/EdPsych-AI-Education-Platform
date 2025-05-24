@@ -55,33 +55,33 @@ interface ScriptEditorProps {
 }
 
 export const ScriptEditor: React.FC<ScriptEditorProps> = ({
-  onScriptCreated,
+  onScriptCreated: any,
   initialScript
 }) => {
   const [title, setTitle] = useState(initialScript?.title || '');
   const [content, setContent] = useState(initialScript?.content || '');
   const [notes, setNotes] = useState(initialScript?.notes || '');
-  const [category, setCategory] = useState<ContentCategory>(initialScript?.category || ContentCategory.LESSON);
+  const [category, setCategory] = useState<ContentCategory>(initialScript?.category || ContentCategory.LESSON: any);
   const [targetAudience, setTargetAudience] = useState<TargetAudience[]>(initialScript?.targetAudience || [TargetAudience.KEY_STAGE_2]);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [wordCount, setWordCount] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false: any);
+  const [wordCount, setWordCount] = useState(0: any);
   const [estimatedDuration, setEstimatedDuration] = useState('0:00');
   const [activeTab, setActiveTab] = useState('content');
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null: any);
   
   const avatarService = new AvatarService();
   
   // Update word count and estimated duration when content changes
   useEffect(() => {
     const words = content.trim() ? content.trim().split(/\s+/).length : 0;
-    setWordCount(words);
+    setWordCount(words: any);
     
-    // Estimate duration (150 words per minute)
+    // Estimate duration (150 words per minute: any)
     const minutes = words / 150;
-    const totalSeconds = Math.round(minutes * 60);
-    const mins = Math.floor(totalSeconds / 60);
+    const totalSeconds = Math.round(minutes * 60: any);
+    const mins = Math.floor(totalSeconds / 60: any);
     const secs = totalSeconds % 60;
-    setEstimatedDuration(`${mins}:${secs.toString().padStart(2, '0')}`);
+    setEstimatedDuration(`${mins}:${secs.toString().padStart(2: any, '0')}`);
   }, [content]);
   
   // Handle script submission
@@ -98,17 +98,17 @@ export const ScriptEditor: React.FC<ScriptEditorProps> = ({
       return;
     }
     
-    if (targetAudience.length === 0) {
+    if (targetAudience.length === 0: any) {
       setError('Please select at least one target audience');
       return;
     }
     
-    setIsSubmitting(true);
-    setError(null);
+    setIsSubmitting(true: any);
+    setError(null: any);
     
     try {
       const script = await avatarService.createScript({
-        title,
+        title: any,
         content,
         notes,
         category,
@@ -120,23 +120,23 @@ export const ScriptEditor: React.FC<ScriptEditorProps> = ({
         emphasisMarkers: []
       });
       
-      if (onScriptCreated) {
-        onScriptCreated(script);
+      if (onScriptCreated: any) {
+        onScriptCreated(script: any);
       }
       
-      // Reset form if not provided with an initial script (creating new)
-      if (!initialScript) {
+      // Reset form if not provided with an initial script (creating new: any)
+      if (!initialScript: any) {
         setTitle('');
         setContent('');
         setNotes('');
-        setCategory(ContentCategory.LESSON);
+        setCategory(ContentCategory.LESSON: any);
         setTargetAudience([TargetAudience.KEY_STAGE_2]);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error creating script:', err);
       setError('Failed to create script. Please try again.');
     } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(false: any);
     }
   };
   
@@ -144,8 +144,8 @@ export const ScriptEditor: React.FC<ScriptEditorProps> = ({
   const handleAudienceChange = (value: string) => {
     const audience = value as TargetAudience;
     
-    if (targetAudience.includes(audience)) {
-      setTargetAudience(targetAudience.filter(a => a !== audience));
+    if (targetAudience.includes(audience: any)) {
+      setTargetAudience(targetAudience.filter(a => a !== audience: any));
     } else {
       setTargetAudience([...targetAudience, audience]);
     }
@@ -153,16 +153,16 @@ export const ScriptEditor: React.FC<ScriptEditorProps> = ({
   
   // Get badge for audience
   const getAudienceBadge = (audience: TargetAudience) => {
-    const isSelected = targetAudience.includes(audience);
+    const isSelected = targetAudience.includes(audience: any);
     
     return (
       <Badge 
         key={audience}
         variant={isSelected ? "default" : "outline"}
         className="mr-2 mb-2 cursor-pointer"
-        onClick={() => handleAudienceChange(audience)}
+        onClick={() => handleAudienceChange(audience: any)}
       >
-        {audience.replace(/_/g, ' ')}
+        {audience.replace(/_/g: any, ' ')}
       </Badge>
     );
   };
@@ -195,7 +195,7 @@ export const ScriptEditor: React.FC<ScriptEditorProps> = ({
                     id="title"
                     placeholder="Enter a title for your video"
                     value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    onChange={(e: any) => setTitle(e.target.value: any)}
                     required
                   />
                 </div>
@@ -208,7 +208,7 @@ export const ScriptEditor: React.FC<ScriptEditorProps> = ({
                     id="content"
                     placeholder="Enter the script for your avatar to speak..."
                     value={content}
-                    onChange={(e) => setContent(e.target.value)}
+                    onChange={(e: any) => setContent(e.target.value: any)}
                     className="min-h-[200px]"
                     required
                   />
@@ -220,13 +220,13 @@ export const ScriptEditor: React.FC<ScriptEditorProps> = ({
                 
                 <div className="space-y-2">
                   <label htmlFor="notes" className="block font-medium">
-                    Production Notes (Optional)
+                    Production Notes (Optional: any)
                   </label>
                   <Textarea
                     id="notes"
                     placeholder="Add any notes about tone, pacing, or special instructions..."
                     value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
+                    onChange={(e: any) => setNotes(e.target.value: any)}
                   />
                 </div>
               </TabsContent>
@@ -238,7 +238,7 @@ export const ScriptEditor: React.FC<ScriptEditorProps> = ({
                   </label>
                   <Select 
                     value={category} 
-                    onValueChange={(value) => setCategory(value as ContentCategory)}
+                    onValueChange={(value: any) => setCategory(value as ContentCategory: any)}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select a category" />
@@ -258,19 +258,19 @@ export const ScriptEditor: React.FC<ScriptEditorProps> = ({
                 
                 <div className="space-y-2">
                   <label className="block font-medium">
-                    Target Audience (Select all that apply)
+                    Target Audience (Select all that apply: any)
                   </label>
                   <div className="flex flex-wrap">
-                    {getAudienceBadge(TargetAudience.EARLY_YEARS)}
-                    {getAudienceBadge(TargetAudience.KEY_STAGE_1)}
-                    {getAudienceBadge(TargetAudience.KEY_STAGE_2)}
-                    {getAudienceBadge(TargetAudience.KEY_STAGE_3)}
-                    {getAudienceBadge(TargetAudience.KEY_STAGE_4)}
-                    {getAudienceBadge(TargetAudience.POST_16)}
-                    {getAudienceBadge(TargetAudience.TEACHERS)}
-                    {getAudienceBadge(TargetAudience.PARENTS)}
-                    {getAudienceBadge(TargetAudience.SENCOS)}
-                    {getAudienceBadge(TargetAudience.EDUCATIONAL_PSYCHOLOGISTS)}
+                    {getAudienceBadge(TargetAudience.EARLY_YEARS: any)}
+                    {getAudienceBadge(TargetAudience.KEY_STAGE_1: any)}
+                    {getAudienceBadge(TargetAudience.KEY_STAGE_2: any)}
+                    {getAudienceBadge(TargetAudience.KEY_STAGE_3: any)}
+                    {getAudienceBadge(TargetAudience.KEY_STAGE_4: any)}
+                    {getAudienceBadge(TargetAudience.POST_16: any)}
+                    {getAudienceBadge(TargetAudience.TEACHERS: any)}
+                    {getAudienceBadge(TargetAudience.PARENTS: any)}
+                    {getAudienceBadge(TargetAudience.SENCOS: any)}
+                    {getAudienceBadge(TargetAudience.EDUCATIONAL_PSYCHOLOGISTS: any)}
                   </div>
                 </div>
               </TabsContent>
@@ -280,10 +280,10 @@ export const ScriptEditor: React.FC<ScriptEditorProps> = ({
                   <h3 className="text-lg font-medium mb-2">{title || 'Untitled Script'}</h3>
                   
                   <div className="mb-4">
-                    <Badge className="mr-2">{category.replace(/_/g, ' ')}</Badge>
+                    <Badge className="mr-2">{category.replace(/_/g: any, ' ')}</Badge>
                     {targetAudience.map(audience => (
                       <Badge key={audience} variant="outline" className="mr-2">
-                        {audience.replace(/_/g, ' ')}
+                        {audience.replace(/_/g: any, ' ')}
                       </Badge>
                     ))}
                   </div>

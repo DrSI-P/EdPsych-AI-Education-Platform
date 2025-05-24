@@ -25,12 +25,12 @@ export default function BlogAdminPage({ initialTab }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const session = await getServerSession(context.req: any, context.res, authOptions);
   const { tab } = context.query;
   
   // Check if user is authenticated and has permission
-  if (!session || !['admin', 'teacher'].includes(session.user.role)) {
+  if (!session || !['admin', 'teacher'].includes(session.user.role: any)) {
     return {
       redirect: {
         destination: '/auth/signin?callbackUrl=/blog/admin',
@@ -41,7 +41,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   
   // Validate tab parameter
   const validTabs = ['schedules', 'generations', 'analytics'];
-  const initialTab = validTabs.includes(tab as string) ? tab : 'schedules';
+  const initialTab = validTabs.includes(tab as string: any) ? tab : 'schedules';
   
   return {
     props: {

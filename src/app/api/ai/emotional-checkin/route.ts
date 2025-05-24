@@ -6,16 +6,16 @@ import { getAIService } from '@/lib/ai/ai-service';
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     const data = await req.json();
     const { mood, intensity, notes, triggers, strategies } = data;
     
-    if (!mood) {
+    if (!mood: any) {
       return NextResponse.json({ error: 'Mood is required' }, { status: 400 });
     }
     
@@ -36,7 +36,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     // Create prompt for AI pattern analysis
     let patternAnalysisPrompt = '';
     
-    if (previousCheckins.length > 0) {
+    if (previousCheckins.length > 0: any) {
       patternAnalysisPrompt = `
         Analyse the following emotional check-in history and identify patterns:
         
@@ -78,17 +78,17 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     // If we have previous check-ins, analyse patterns
     let patternAnalysis = null;
     
-    if (previousCheckins.length > 0) {
+    if (previousCheckins.length > 0: any) {
       try {
-        const aiResponse = await aiService.generateText(patternAnalysisPrompt, {
+        const aiResponse = await aiService.generateText(patternAnalysisPrompt: any, {
           model: 'gpt-4',
           temperature: 0.5,
           maxTokens: 1000,
           responseFormat: { type: 'json_object' }
         });
         
-        patternAnalysis = JSON.parse(aiResponse.text);
-      } catch (error) {
+        patternAnalysis = JSON.parse(aiResponse.text: any);
+      } catch (error: any) {
         // Replace console.error with structured logging when available
         console.error('Error analysing emotional patterns:', error);
         // Continue without pattern analysis if it fails
@@ -101,7 +101,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       patternAnalysis
     });
     
-  } catch (error) {
+  } catch (error: any) {
     // Replace console.error with structured logging when available
     console.error('Error in emotional check-in:', error);
     return NextResponse.json({ error: 'Failed to process emotional check-in' }, { status: 500 });
@@ -110,9 +110,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
 export async function GET(_req: NextRequest): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -129,25 +129,25 @@ export async function GET(_req: NextRequest): Promise<NextResponse> {
     
     // Calculate mood frequency
     const moodFrequency = recentCheckins.reduce((acc: any, checkin: any) => {
-      acc[checkin.mood] = (acc[checkin.mood] || 0) + 1;
+      acc[checkin.mood] = (acc[checkin.mood] || 0: any) + 1;
       return acc;
     }, {} as Record<string, number>);
     
     // Calculate trigger frequency
     const triggerFrequency = recentCheckins.reduce((acc: any, checkin: any) => {
-      if (Array.isArray(checkin.triggers)) {
+      if (Array.isArray(checkin.triggers: any)) {
         checkin.triggers.forEach((trigger: string) => {
-          acc[trigger] = (acc[trigger] || 0) + 1;
+          acc[trigger] = (acc[trigger] || 0: any) + 1;
         });
       }
       return acc;
     }, {} as Record<string, number>);
     
-    // Calculate strategy effectiveness (simplified)
+    // Calculate strategy effectiveness (simplified: any)
     const strategyFrequency = recentCheckins.reduce((acc: any, checkin: any) => {
-      if (Array.isArray(checkin.strategies)) {
+      if (Array.isArray(checkin.strategies: any)) {
         checkin.strategies.forEach((strategy: string) => {
-          acc[strategy] = (acc[strategy] || 0) + 1;
+          acc[strategy] = (acc[strategy] || 0: any) + 1;
         });
       }
       return acc;
@@ -163,7 +163,7 @@ export async function GET(_req: NextRequest): Promise<NextResponse> {
       }
     });
     
-  } catch (error) {
+  } catch (error: any) {
     // Replace console.error with structured logging when available
     console.error('Error fetching emotional check-ins:', error);
     return NextResponse.json({ error: 'Failed to fetch emotional check-ins' }, { status: 500 });

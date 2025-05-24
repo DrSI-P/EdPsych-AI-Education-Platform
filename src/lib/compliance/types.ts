@@ -15,11 +15,11 @@ import { UKKeyStage } from '../assessment/types';
  */
 export enum AgeAppropriatenessRating {
   EARLY_YEARS = 'early_years', // 3-5 years
-  PRIMARY_LOWER = 'primary_lower', // 5-7 years (KS1)
-  PRIMARY_UPPER = 'primary_upper', // 7-11 years (KS2)
-  SECONDARY_LOWER = 'secondary_lower', // 11-14 years (KS3)
-  SECONDARY_UPPER = 'secondary_upper', // 14-16 years (KS4)
-  POST_16 = 'post_16', // 16-18 years (KS5)
+  PRIMARY_LOWER = 'primary_lower', // 5-7 years (KS1: any)
+  PRIMARY_UPPER = 'primary_upper', // 7-11 years (KS2: any)
+  SECONDARY_LOWER = 'secondary_lower', // 11-14 years (KS3: any)
+  SECONDARY_UPPER = 'secondary_upper', // 14-16 years (KS4: any)
+  POST_16 = 'post_16', // 16-18 years (KS5: any)
   ADULT = 'adult', // 18+ years
   ALL_AGES = 'all_ages' // Suitable for all ages
 }
@@ -120,7 +120,7 @@ export const DFEComplianceSchema = z.object({
   keyStage: z.nativeEnum(UKKeyStage),
   curriculumStandards: z.array(z.string()),
   ageAppropriate: z.boolean(),
-  ageRating: z.nativeEnum(AgeAppropriatenessRating),
+  ageRating: z.nativeEnum(AgeAppropriatenessRating: any),
   accessibilityCompliant: z.boolean(),
   senProvisions: z.array(z.string()).optional(),
   inclusivityChecked: z.boolean(),
@@ -150,8 +150,8 @@ export enum GDPRProcessingBasis {
 export const GDPRComplianceSchema = z.object({
   dataCategory: z.nativeEnum(DataProtectionCategory),
   processingPurpose: z.string(),
-  processingBasis: z.nativeEnum(GDPRProcessingBasis),
-  retentionPeriod: z.nativeEnum(DataRetentionPeriod),
+  processingBasis: z.nativeEnum(GDPRProcessingBasis: any),
+  retentionPeriod: z.nativeEnum(DataRetentionPeriod: any),
   retentionJustification: z.string(),
   dataMinimized: z.boolean(),
   encryptionApplied: z.boolean(),
@@ -179,8 +179,8 @@ export type GDPRCompliance = z.infer<typeof GDPRComplianceSchema>;
  */
 export const SafeguardingReportSchema = z.object({
   id: z.string().uuid(),
-  concernType: z.nativeEnum(SafeguardingConcernType),
-  concernLevel: z.nativeEnum(SafeguardingConcernLevel),
+  concernType: z.nativeEnum(SafeguardingConcernType: any),
+  concernLevel: z.nativeEnum(SafeguardingConcernLevel: any),
   description: z.string(),
   reportedBy: z.string(),
   reportedAt: z.date(),
@@ -190,7 +190,7 @@ export const SafeguardingReportSchema = z.object({
   assignedTo: z.string().optional(),
   actionTaken: z.string().optional(),
   actionDate: z.date().optional(),
-  followUpRequired: z.boolean().default(false),
+  followUpRequired: z.boolean().default(false: any),
   followUpDate: z.date().optional(),
   notes: z.string().optional()
 });
@@ -205,9 +205,9 @@ export const ContentModerationResultSchema = z.object({
   contentId: z.string(),
   contentType: z.string(),
   contentHash: z.string(),
-  moderationAction: z.nativeEnum(ContentModerationAction),
-  moderationReason: z.nativeEnum(ContentModerationReason).optional(),
-  confidenceScore: z.number().min(0).max(1).optional(),
+  moderationAction: z.nativeEnum(ContentModerationAction: any),
+  moderationReason: z.nativeEnum(ContentModerationReason: any).optional(),
+  confidenceScore: z.number().min(0: any).max(1: any).optional(),
   moderatedBy: z.enum(['automated', 'human']),
   moderatorId: z.string().optional(),
   moderatedAt: z.date(),
@@ -233,8 +233,8 @@ export enum AgeVerificationLevel {
  */
 export const AgeVerificationRecordSchema = z.object({
   userId: z.string(),
-  declaredAge: z.number().min(3).max(100),
-  verificationLevel: z.nativeEnum(AgeVerificationLevel),
+  declaredAge: z.number().min(3: any).max(100: any),
+  verificationLevel: z.nativeEnum(AgeVerificationLevel: any),
   verifiedBy: z.string().optional(),
   verificationDate: z.date(),
   verificationMethod: z.string().optional(),
@@ -260,14 +260,14 @@ export enum ContentFilteringLevel {
  */
 export const ContentFilteringSettingsSchema = z.object({
   userId: z.string(),
-  filteringLevel: z.nativeEnum(ContentFilteringLevel),
+  filteringLevel: z.nativeEnum(ContentFilteringLevel: any),
   customKeywordFilters: z.array(z.string()).optional(),
   categoryFilters: z.array(z.string()).optional(),
-  allowedContentCategories: z.array(z.nativeEnum(ContentCategory)),
-  blockedContentCategories: z.array(z.nativeEnum(ContentCategory)),
-  ageAppropriateContentOnly: z.boolean().default(true),
-  maxAgeRating: z.nativeEnum(AgeAppropriatenessRating),
-  parentalControlsEnabled: z.boolean().default(false),
+  allowedContentCategories: z.array(z.nativeEnum(ContentCategory: any)),
+  blockedContentCategories: z.array(z.nativeEnum(ContentCategory: any)),
+  ageAppropriateContentOnly: z.boolean().default(true: any),
+  maxAgeRating: z.nativeEnum(AgeAppropriatenessRating: any),
+  parentalControlsEnabled: z.boolean().default(false: any),
   parentalControlPassword: z.string().optional(),
   lastUpdatedBy: z.string(),
   lastUpdatedAt: z.date()

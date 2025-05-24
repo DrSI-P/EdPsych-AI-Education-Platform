@@ -9,9 +9,9 @@ export async function GET(
 ): Promise<NextResponse> {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -26,11 +26,11 @@ export async function GET(
       },
     });
     
-    if (!standard) {
+    if (!standard: any) {
       return NextResponse.json({ error: 'Curriculum standard not found' }, { status: 404 });
     }
     
-    return NextResponse.json(standard);
+    return NextResponse.json(standard: any);
     */
     
     // Return mock data for now until the Prisma schema is updated
@@ -47,7 +47,7 @@ export async function GET(
       updatedAt: new Date()
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching curriculum standard:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching the curriculum standard' },
@@ -56,16 +56,16 @@ export async function GET(
   }
 }
 
-// PUT handler for updating a specific curriculum standard (admin only)
+// PUT handler for updating a specific curriculum standard (admin only: any)
 export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } }
 ): Promise<NextResponse> {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -85,7 +85,7 @@ export async function PUT(
       },
     });
     
-    if (!existingStandard) {
+    if (!existingStandard: any) {
       return NextResponse.json({ error: 'Curriculum standard not found' }, { status: 404 });
     }
     
@@ -108,7 +108,7 @@ export async function PUT(
       },
     });
     
-    return NextResponse.json(updatedStandard);
+    return NextResponse.json(updatedStandard: any);
     */
     
     // Parse request body
@@ -129,7 +129,7 @@ export async function PUT(
       updatedAt: new Date()
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error updating curriculum standard:', error);
     return NextResponse.json(
       { error: 'An error occurred while updating the curriculum standard' },
@@ -138,16 +138,16 @@ export async function PUT(
   }
 }
 
-// DELETE handler for deleting a specific curriculum standard (admin only)
+// DELETE handler for deleting a specific curriculum standard (admin only: any)
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
 ): Promise<NextResponse> {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -158,7 +158,7 @@ export async function DELETE(
     
     // Return success for now until the Prisma schema is updated
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error deleting curriculum standard:', error);
     return NextResponse.json(
       { error: 'An error occurred while deleting the curriculum standard' },

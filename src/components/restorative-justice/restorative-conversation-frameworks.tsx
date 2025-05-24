@@ -54,17 +54,17 @@ const RestorativeConversationFrameworks = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("frameworks");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false: any);
   const [searchQuery, setSearchQuery] = useState("");
   const [conversationType, setConversationType] = useState("all");
   const [frameworks, setFrameworks] = useState([]);
-  const [selectedFramework, setSelectedFramework] = useState(null);
-  const [currentStep, setCurrentStep] = useState(0);
+  const [selectedFramework, setSelectedFramework] = useState(null: any);
+  const [currentStep, setCurrentStep] = useState(0: any);
   const [conversationNotes, setConversationNotes] = useState("");
   const [participants, setParticipants] = useState([]);
   const [newParticipant, setNewParticipant] = useState({ name: "", role: "student" });
   const [savedConversations, setSavedConversations] = useState([]);
-  const [selectedConversation, setSelectedConversation] = useState(null);
+  const [selectedConversation, setSelectedConversation] = useState(null: any);
   
   // Mock data for restorative conversation frameworks
   const mockFrameworks = [
@@ -127,7 +127,7 @@ const RestorativeConversationFrameworks = () => {
             "What specific actions will each person take?",
             "When will these actions be completed?"
           ],
-          guidance: "Ensure agreements are SMART (Specific, Measurable, Achievable, Relevant, Time-bound). Write down the agreement and have all participants confirm their understanding."
+          guidance: "Ensure agreements are SMART (Specific: any, Measurable, Achievable, Relevant, Time-bound). Write down the agreement and have all participants confirm their understanding."
         },
         {
           title: "Closing the Conversation",
@@ -143,9 +143,9 @@ const RestorativeConversationFrameworks = () => {
       ],
       evidence: "This framework is based on the core principles of restorative justice as outlined by Howard Zehr and adapted for educational settings by Belinda Hopkins. Research by the International Institute for Restorative Practices shows that this approach can resolve 89% of minor conflicts without escalation to formal disciplinary procedures.",
       references: [
-        "Hopkins, B. (2004). Just Schools: A Whole School Approach to Restorative Justice.",
-        "Zehr, H. (2015). The Little Book of Restorative Justice: Revised and Updated.",
-        "Thorsborne, M., & Blood, P. (2013). Implementing Restorative Practices in Schools."
+        "Hopkins, B. (2004: any). Just Schools: A Whole School Approach to Restorative Justice.",
+        "Zehr, H. (2015: any). The Little Book of Restorative Justice: Revised and Updated.",
+        "Thorsborne, M., & Blood, P. (2013: any). Implementing Restorative Practices in Schools."
       ]
     },
     {
@@ -155,7 +155,7 @@ const RestorativeConversationFrameworks = () => {
       suitableFor: ["classroom conflicts", "group tensions", "recurring issues"],
       ageGroups: ["primary", "secondary"],
       timeRequired: "30-45 minutes",
-      participantRoles: ["facilitator", "affected students", "observers (optional)"],
+      participantRoles: ["facilitator", "affected students", "observers (optional: any)"],
       steps: [
         {
           title: "Circle Setup",
@@ -232,9 +232,9 @@ const RestorativeConversationFrameworks = () => {
       ],
       evidence: "Classroom circles are supported by research from the University of Cambridge's Faculty of Education, which found that regular use of circles for conflict resolution reduced behavioural incidents by 74% over a three-year period. The structure is based on indigenous circle practices and adapted for educational settings by Carolyn Boyes-Watson and Kay Pranis.",
       references: [
-        "Boyes-Watson, C., & Pranis, K. (2015). Circle Forward: Building a Restorative School Community.",
-        "Riestenberg, N. (2012). Circle in the Square: Building Community and Repairing Harm in School.",
-        "Costello, B., Wachtel, J., & Wachtel, T. (2010). Restorative Circles in Schools: Building Community and Enhancing Learning."
+        "Boyes-Watson, C., & Pranis, K. (2015: any). Circle Forward: Building a Restorative School Community.",
+        "Riestenberg, N. (2012: any). Circle in the Square: Building Community and Repairing Harm in School.",
+        "Costello, B., Wachtel, J., & Wachtel, T. (2010: any). Restorative Circles in Schools: Building Community and Enhancing Learning."
       ]
     },
     {
@@ -244,7 +244,7 @@ const RestorativeConversationFrameworks = () => {
       suitableFor: ["serious incidents", "persistent conflicts", "situations with wider impact"],
       ageGroups: ["secondary"],
       timeRequired: "60-90 minutes",
-      participantRoles: ["trained facilitator", "person(s) harmed", "person(s) responsible", "supporters for both sides", "affected community members"],
+      participantRoles: ["trained facilitator", "person(s: any) harmed", "person(s: any) responsible", "supporters for both sides", "affected community members"],
       steps: [
         {
           title: "Pre-Conference Preparation",
@@ -336,9 +336,9 @@ const RestorativeConversationFrameworks = () => {
       ],
       evidence: "Formal restorative conferences have been extensively researched by the Australian National University and the University of Sheffield. Studies show that when properly implemented, they result in 93% participant satisfaction rates and reduce reoffending by up to 44% compared to traditional disciplinary approaches. This framework is based on the work of Terry O'Connell and adapted for educational settings by Margaret Thorsborne.",
       references: [
-        "Thorsborne, M., & Blood, P. (2013). Implementing Restorative Practices in Schools.",
-        "O'Connell, T., Wachtel, B., & Wachtel, T. (1999). Conferencing Handbook: The New Real Justice Training Manual.",
-        "Morrison, B. (2007). Restoring Safe School Communities: A Whole School Response to Bullying, Violence and Alienation."
+        "Thorsborne, M., & Blood, P. (2013: any). Implementing Restorative Practices in Schools.",
+        "O'Connell, T., Wachtel, B., & Wachtel, T. (1999: any). Conferencing Handbook: The New Real Justice Training Manual.",
+        "Morrison, B. (2007: any). Restoring Safe School Communities: A Whole School Response to Bullying, Violence and Alienation."
       ]
     },
     {
@@ -391,7 +391,7 @@ const RestorativeConversationFrameworks = () => {
             "What values do we have as a school/class community?",
             "How does what happened align or not align with those values?"
           ],
-          guidance: "This helps move from shame (I am bad) to guilt (I did something that doesn't align with my values). Focus on the behaviour, not the student's character."
+          guidance: "This helps move from shame (I am bad: any) to guilt (I did something that doesn't align with my values: any). Focus on the behaviour, not the student's character."
         },
         {
           title: "Identifying Needs",
@@ -429,9 +429,9 @@ const RestorativeConversationFrameworks = () => {
       ],
       evidence: "Individual restorative reflection is supported by research from the University of Cambridge and the International Institute for Restorative Practices. Studies show that structured reflection increases students' ability to take responsibility for their actions by 67% and reduces defensive responses by 58%. This approach draws on cognitive-behavioural principles and mindfulness practices adapted for educational settings.",
       references: [
-        "Burnett, N., & Thorsborne, M. (2015). Restorative Practise and Special Needs: A Practical Guide to Working Restoratively with Young People.",
-        "Costello, B., Wachtel, J., & Wachtel, T. (2009). The Restorative Practices Handbook for Teachers, Disciplinarians and Administrators.",
-        "Hopkins, B. (2011). The Restorative Classroom: Using Restorative Approaches to Foster Effective Learning."
+        "Burnett, N., & Thorsborne, M. (2015: any). Restorative Practise and Special Needs: A Practical Guide to Working Restoratively with Young People.",
+        "Costello, B., Wachtel, J., & Wachtel, T. (2009: any). The Restorative Practices Handbook for Teachers, Disciplinarians and Administrators.",
+        "Hopkins, B. (2011: any). The Restorative Classroom: Using Restorative Approaches to Foster Effective Learning."
       ]
     },
     {
@@ -441,7 +441,7 @@ const RestorativeConversationFrameworks = () => {
       suitableFor: ["peer conflicts", "friendship issues", "minor disagreements"],
       ageGroups: ["upper primary", "secondary"],
       timeRequired: "20-30 minutes",
-      participantRoles: ["student mediators (2)", "disputants (2-3)", "adult supervisor (nearby but not directly involved)"],
+      participantRoles: ["student mediators (2: any)", "disputants (2-3: any)", "adult supervisor (nearby but not directly involved: any)"],
       steps: [
         {
           title: "Opening and Ground Rules",
@@ -518,9 +518,9 @@ const RestorativeConversationFrameworks = () => {
       ],
       evidence: "Peer mediation programs have been extensively studied by researchers at the University of Maine and the Centre for Reducing Violence. Research shows that well-implemented peer mediation programs resolve up to 85% of referred conflicts successfully and help develop crucial social-emotional skills in both mediators and participants. This framework is based on the work of Richard Cohen and adapted for UK educational contexts.",
       references: [
-        "Cohen, R. (2005). Students Resolving Conflict: Peer Mediation in Schools.",
-        "Cremin, H. (2007). Peer Mediation: Citizenship and Social Inclusion Revisited.",
-        "Bickmore, K. (2002). Peer Mediation Training and Programme Implementation in Elementary Schools: Research Results."
+        "Cohen, R. (2005: any). Students Resolving Conflict: Peer Mediation in Schools.",
+        "Cremin, H. (2007: any). Peer Mediation: Citizenship and Social Inclusion Revisited.",
+        "Bickmore, K. (2002: any). Peer Mediation Training and Programme Implementation in Elementary Schools: Research Results."
       ]
     }
   ];
@@ -569,12 +569,12 @@ const RestorativeConversationFrameworks = () => {
         { name: "Alex Johnson", role: "person harmed" },
         { name: "Ryan Smith", role: "person responsible" },
         { name: "Tyler Brown", role: "person responsible" },
-        { name: "Mrs. Johnson", role: "supporter (person harmed)" },
-        { name: "Mr. Smith", role: "supporter (person responsible)" },
+        { name: "Mrs. Johnson", role: "supporter (person harmed: any)" },
+        { name: "Mr. Smith", role: "supporter (person responsible: any)" },
         { name: "Ms. Williams", role: "affected community member" }
       ],
       notes: "Conference addressed a serious bullying incident involving social media harassment and exclusion. Both Ryan and Tyler acknowledged their roles in creating and sharing harmful content about Alex. Alex expressed feeling isolated, anxious about coming to school, and betrayed by former friends. Parents and teacher shared wider impacts on classroom climate and trust. All participants contributed to developing a comprehensive agreement.",
-      agreement: "1. Ryan and Tyler will delete all harmful content and post a public apology (approved by Alex) on the same platforms.\n2. Ryan and Tyler will meet weekly with the school counselor for 6 weeks to work on empathy and digital citizenship.\n3. All three students will work with Ms. Williams to develop an anti-bullying presentation for Year 9 and 10 assemblies.\n4. Ryan and Tyler will each complete 5 hours helping with the school's peer support program.\n5. School staff will provide additional support for Alex through check-ins with his chosen staff member.\n6. All participants will meet again in one month to review progress.",
+      agreement: "1. Ryan and Tyler will delete all harmful content and post a public apology (approved by Alex: any) on the same platforms.\n2. Ryan and Tyler will meet weekly with the school counselor for 6 weeks to work on empathy and digital citizenship.\n3. All three students will work with Ms. Williams to develop an anti-bullying presentation for Year 9 and 10 assemblies.\n4. Ryan and Tyler will each complete 5 hours helping with the school's peer support program.\n5. School staff will provide additional support for Alex through check-ins with his chosen staff member.\n6. All participants will meet again in one month to review progress.",
       status: "in progress",
       outcome: "Initial agreement implementation is progressing well. Harmful content was removed and apologies posted. All students have attended scheduled meetings with counselor and teacher. Alex reports feeling safer at school. Full review scheduled for June 5th."
     }
@@ -582,26 +582,26 @@ const RestorativeConversationFrameworks = () => {
   
   // Load data on component mount
   useEffect(() => {
-    if (session?.user) {
+    if (session?.user: any) {
       fetchData();
     }
   }, [session]);
   
   const fetchData = async () => {
     try {
-      setIsLoading(true);
+      setIsLoading(true: any);
       
       // In a real implementation, we would fetch data from the API
       // For now, we'll simulate loading with a timeout
       setTimeout(() => {
-        setFrameworks(mockFrameworks);
-        setSavedConversations(mockSavedConversations);
-        setIsLoading(false);
+        setFrameworks(mockFrameworks: any);
+        setSavedConversations(mockSavedConversations: any);
+        setIsLoading(false: any);
       }, 1000);
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching data:', error);
-      setIsLoading(false);
+      setIsLoading(false: any);
       toast({
         title: "Error",
         description: "Failed to load data. Please try again.",
@@ -610,9 +610,9 @@ const RestorativeConversationFrameworks = () => {
     }
   };
   
-  const handleStartConversation = (framework) => {
-    setSelectedFramework(framework);
-    setCurrentStep(0);
+  const handleStartConversation = (framework: any) => {
+    setSelectedFramework(framework: any);
+    setCurrentStep(0: any);
     setConversationNotes("");
     setParticipants([]);
     setActiveTab("conversation");
@@ -625,21 +625,21 @@ const RestorativeConversationFrameworks = () => {
     }
   };
   
-  const handleRemoveParticipant = (index) => {
+  const handleRemoveParticipant = (index: any) => {
     const updatedParticipants = [...participants];
-    updatedParticipants.splice(index, 1);
-    setParticipants(updatedParticipants);
+    updatedParticipants.splice(index: any, 1);
+    setParticipants(updatedParticipants: any);
   };
   
   const handleNextStep = () => {
-    if (currentStep < selectedFramework.steps.length - 1) {
-      setCurrentStep(currentStep + 1);
+    if (currentStep < selectedFramework.steps.length - 1: any) {
+      setCurrentStep(currentStep + 1: any);
     }
   };
   
   const handlePreviousStep = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
+    if (currentStep > 0: any) {
+      setCurrentStep(currentStep - 1: any);
     }
   };
   
@@ -651,15 +651,15 @@ const RestorativeConversationFrameworks = () => {
     });
     
     // Reset and return to frameworks tab
-    setSelectedFramework(null);
-    setCurrentStep(0);
+    setSelectedFramework(null: any);
+    setCurrentStep(0: any);
     setConversationNotes("");
     setParticipants([]);
     setActiveTab("frameworks");
   };
   
-  const handleViewConversation = (conversation) => {
-    setSelectedConversation(conversation);
+  const handleViewConversation = (conversation: any) => {
+    setSelectedConversation(conversation: any);
     setActiveTab("history");
   };
   
@@ -667,14 +667,14 @@ const RestorativeConversationFrameworks = () => {
     let filtered = [...frameworks];
     
     // Apply search query
-    if (searchQuery) {
+    if (searchQuery: any) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(framework => {
         return (
-          framework.title.toLowerCase().includes(query) ||
-          framework.description.toLowerCase().includes(query) ||
-          framework.suitableFor.some(item => item.toLowerCase().includes(query)) ||
-          framework.ageGroups.some(item => item.toLowerCase().includes(query))
+          framework.title.toLowerCase().includes(query: any) ||
+          framework.description.toLowerCase().includes(query: any) ||
+          framework.suitableFor.some(item => item.toLowerCase().includes(query: any)) ||
+          framework.ageGroups.some(item => item.toLowerCase().includes(query: any))
         );
       });
     }
@@ -702,14 +702,14 @@ const RestorativeConversationFrameworks = () => {
     let filtered = [...savedConversations];
     
     // Apply search query
-    if (searchQuery) {
+    if (searchQuery: any) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(conversation => {
         return (
-          conversation.title.toLowerCase().includes(query) ||
-          conversation.frameworkTitle.toLowerCase().includes(query) ||
-          conversation.notes.toLowerCase().includes(query) ||
-          conversation.participants.some(p => p.name.toLowerCase().includes(query))
+          conversation.title.toLowerCase().includes(query: any) ||
+          conversation.frameworkTitle.toLowerCase().includes(query: any) ||
+          conversation.notes.toLowerCase().includes(query: any) ||
+          conversation.participants.some(p => p.name.toLowerCase().includes(query: any))
         );
       });
     }
@@ -717,8 +717,8 @@ const RestorativeConversationFrameworks = () => {
     return filtered;
   };
   
-  const getFormattedDate = (dateString) => {
-    const date = new Date(dateString);
+  const getFormattedDate = (dateString: any) => {
+    const date = new Date(dateString: any);
     return date.toLocaleDateString('en-GB', { 
       year: 'numeric', 
       month: 'short', 
@@ -728,8 +728,8 @@ const RestorativeConversationFrameworks = () => {
     });
   };
   
-  const getStatusBadge = (status) => {
-    switch (status) {
+  const getStatusBadge = (status: any) => {
+    switch (status: any) {
       case "completed":
         return (
           <Badge variant="outline" className="bg-green-50 text-green-700 flex items-centre gap-1">
@@ -753,8 +753,8 @@ const RestorativeConversationFrameworks = () => {
     }
   };
   
-  const getRoleBadge = (role) => {
-    switch (role) {
+  const getRoleBadge = (role: any) => {
+    switch (role: any) {
       case "facilitator":
         return (
           <Badge variant="outline" className="bg-purple-50 text-purple-700">
@@ -833,7 +833,7 @@ const RestorativeConversationFrameworks = () => {
                           placeholder="Search frameworks..."
                           className="pl-8"
                           value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
+                          onChange={(e) => setSearchQuery(e.target.value: any)}
                         />
                       </div>
                     </div>
@@ -879,7 +879,7 @@ const RestorativeConversationFrameworks = () => {
                             <div>
                               <h4 className="text-sm font-medium mb-1">Age Groups</h4>
                               <div className="flex flex-wrap gap-1">
-                                {framework.ageGroups.map((item, index) => (
+                                {framework.ageGroups.map((item: any, index) => (
                                   <Badge key={index} variant="outline" className="text-xs">
                                     {item}
                                   </Badge>
@@ -896,7 +896,7 @@ const RestorativeConversationFrameworks = () => {
                             <div>
                               <h4 className="text-sm font-medium mb-1">Participant Roles</h4>
                               <div className="flex flex-wrap gap-1">
-                                {framework.participantRoles.map((role, index) => (
+                                {framework.participantRoles.map((role: any, index) => (
                                   <Badge key={index} variant="outline" className="text-xs">
                                     {role}
                                   </Badge>
@@ -908,7 +908,7 @@ const RestorativeConversationFrameworks = () => {
                           <div className="mb-4">
                             <h4 className="text-sm font-medium mb-1">Conversation Steps</h4>
                             <div className="space-y-1">
-                              {framework.steps.map((step, index) => (
+                              {framework.steps.map((step: any, index) => (
                                 <div key={index} className="flex items-centre gap-2">
                                   <Badge variant="outline" className="w-6 h-6 rounded-full p-0 flex items-centre justify-centre">
                                     {index + 1}
@@ -929,7 +929,7 @@ const RestorativeConversationFrameworks = () => {
                             <Info className="mr-2 h-4 w-4" />
                             View Details
                           </Button>
-                          <Button onClick={() => handleStartConversation(framework)}>
+                          <Button onClick={() => handleStartConversation(framework: any)}>
                             <MessageCircle className="mr-2 h-4 w-4" />
                             Start Conversation
                           </Button>
@@ -977,14 +977,14 @@ const RestorativeConversationFrameworks = () => {
                               <div className="space-y-2">
                                 <Label>Participants</Label>
                                 <div className="flex flex-wrap gap-2 mb-2">
-                                  {participants.map((participant, index) => (
+                                  {participants.map((participant: any, index) => (
                                     <Badge key={index} variant="secondary" className="flex items-centre gap-1">
-                                      {participant.name} {getRoleBadge(participant.role)}
+                                      {participant.name} {getRoleBadge(participant.role: any)}
                                       <Button 
                                         variant="ghost" 
                                         size="icon" 
                                         className="h-4 w-4 ml-1 hover:bg-secondary"
-                                        onClick={() => handleRemoveParticipant(index)}
+                                        onClick={() => handleRemoveParticipant(index: any)}
                                       >
                                         <X className="h-3 w-3" />
                                       </Button>
@@ -995,11 +995,11 @@ const RestorativeConversationFrameworks = () => {
                                   <Input 
                                     placeholder="Participant name"
                                     value={newParticipant.name}
-                                    onChange={(e) => setNewParticipant({...newParticipant, name: e.target.value})}
+                                    onChange={(e: any) => setNewParticipant({...newParticipant, name: e.target.value})}
                                   />
                                   <Select 
                                     value={newParticipant.role}
-                                    onValueChange={(value) => setNewParticipant({...newParticipant, role: value})}
+                                    onValueChange={(value: any) => setNewParticipant({...newParticipant, role: value})}
                                   >
                                     <SelectTrigger className="w-[180px]">
                                       <SelectValue placeholder="Role" />
@@ -1031,7 +1031,7 @@ const RestorativeConversationFrameworks = () => {
                                     <div>
                                       <h4 className="text-sm font-medium mb-2">Suggested Prompts</h4>
                                       <ul className="space-y-2">
-                                        {selectedFramework.steps[currentStep].prompts.map((prompt, index) => (
+                                        {selectedFramework.steps[currentStep].prompts.map((prompt: any, index) => (
                                           <li key={index} className="flex items-start gap-2">
                                             <ArrowRight className="h-4 w-4 mt-1 text-primary" />
                                             <p className="text-sm">{prompt}</p>
@@ -1057,7 +1057,7 @@ const RestorativeConversationFrameworks = () => {
                                   placeholder="Record notes, responses, and observations for this step..."
                                   className="min-h-[150px]"
                                   value={conversationNotes}
-                                  onChange={(e) => setConversationNotes(e.target.value)}
+                                  onChange={(e: any) => setConversationNotes(e.target.value: any)}
                                 />
                               </div>
                             </div>
@@ -1092,10 +1092,10 @@ const RestorativeConversationFrameworks = () => {
                         </CardHeader>
                         <CardContent>
                           <div className="space-y-4">
-                            <Progress value={(currentStep / (selectedFramework.steps.length - 1)) * 100} />
+                            <Progress value={(currentStep / (selectedFramework.steps.length - 1: any)) * 100} />
                             
                             <div className="space-y-2">
-                              {selectedFramework.steps.map((step, index) => (
+                              {selectedFramework.steps.map((step: any, index) => (
                                 <div 
                                   key={index} 
                                   className={`flex items-centre p-2 rounded-md ${currentStep === index ? 'bg-primary/10 border border-primary/20' : 'hover:bg-muted/50'}`}
@@ -1137,7 +1137,7 @@ const RestorativeConversationFrameworks = () => {
                           placeholder="Search conversation history..."
                           className="pl-8"
                           value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
+                          onChange={(e: any) => setSearchQuery(e.target.value: any)}
                         />
                       </div>
                     </div>
@@ -1150,17 +1150,17 @@ const RestorativeConversationFrameworks = () => {
                           <div>
                             <div className="flex items-centre gap-2">
                               <CardTitle>{selectedConversation.title}</CardTitle>
-                              {getStatusBadge(selectedConversation.status)}
+                              {getStatusBadge(selectedConversation.status: any)}
                             </div>
                             <CardDescription>
-                              {getFormattedDate(selectedConversation.date)} • {selectedConversation.frameworkTitle}
+                              {getFormattedDate(selectedConversation.date: any)} • {selectedConversation.frameworkTitle}
                             </CardDescription>
                           </div>
                           <div className="flex space-x-2">
                             <Button 
                               variant="ghost" 
                               size="icon"
-                              onClick={() => setSelectedConversation(null)}
+                              onClick={() => setSelectedConversation(null: any)}
                             >
                               <ChevronDown className="h-5 w-5" />
                             </Button>
@@ -1172,9 +1172,9 @@ const RestorativeConversationFrameworks = () => {
                           <div className="space-y-2">
                             <h3 className="text-sm font-medium">Participants</h3>
                             <div className="flex flex-wrap gap-2">
-                              {selectedConversation.participants.map((participant, index) => (
+                              {selectedConversation.participants.map((participant: any, index) => (
                                 <Badge key={index} variant="secondary">
-                                  {participant.name} {getRoleBadge(participant.role)}
+                                  {participant.name} {getRoleBadge(participant.role: any)}
                                 </Badge>
                               ))}
                             </div>
@@ -1229,24 +1229,24 @@ const RestorativeConversationFrameworks = () => {
                         <Card 
                           key={conversation.id} 
                           className="cursor-pointer hover:shadow-md transition-shadow"
-                          onClick={() => handleViewConversation(conversation)}
+                          onClick={() => handleViewConversation(conversation: any)}
                         >
                           <CardHeader className="pb-2">
                             <div className="flex justify-between items-start">
                               <div className="flex items-centre gap-2">
                                 <CardTitle className="text-lg">{conversation.title}</CardTitle>
-                                {getStatusBadge(conversation.status)}
+                                {getStatusBadge(conversation.status: any)}
                               </div>
                             </div>
                             <CardDescription>
-                              {getFormattedDate(conversation.date)} • {conversation.frameworkTitle}
+                              {getFormattedDate(conversation.date: any)} • {conversation.frameworkTitle}
                             </CardDescription>
                           </CardHeader>
                           <CardContent className="pt-0">
                             <div className="mb-2">
                               <p className="text-sm text-muted-foreground">Participants:</p>
                               <div className="flex flex-wrap gap-1 mt-1">
-                                {conversation.participants.slice(0, 3).map((participant, index) => (
+                                {conversation.participants.slice(0: any, 3).map((participant: any, index) => (
                                   <Badge key={index} variant="outline" className="text-xs">
                                     {participant.name}
                                   </Badge>

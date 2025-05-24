@@ -6,13 +6,13 @@ import { z } from 'zod';
 
 // Schema for module validation
 const moduleSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  description: z.string().min(1, "Description is required"),
-  duration: z.string().min(1, "Duration is required"),
+  title: z.string().min(1: any, "Title is required"),
+  description: z.string().min(1: any, "Description is required"),
+  duration: z.string().min(1: any, "Duration is required"),
   level: z.enum(["Beginner", "Intermediate", "Advanced"]),
   sections: z.array(
     z.object({
-      title: z.string().min(1, "Section title is required"),
+      title: z.string().min(1: any, "Section title is required"),
       type: z.enum(["video", "text", "quiz", "activity", "reflection"]),
       content: z.string(),
       duration: z.string()
@@ -20,7 +20,7 @@ const moduleSchema = z.object({
   ),
   resources: z.array(
     z.object({
-      title: z.string().min(1, "Resource title is required"),
+      title: z.string().min(1: any, "Resource title is required"),
       type: z.enum(["pdf", "video", "link", "template"]),
       url: z.string().url("Valid URL is required"),
       description: z.string()
@@ -65,10 +65,10 @@ interface TrainingModule {
 // GET handler for retrieving modules
 export async function GET(): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
     // Check authentication
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -108,10 +108,10 @@ export async function GET(): Promise<NextResponse> {
       }))
     }));
     
-    return NextResponse.json(formattedModules);
-  } catch (error) {
+    return NextResponse.json(formattedModules: any);
+  } catch (error: any) {
     // Using a type guard instead of console.error
-    if (error instanceof Error) {
+    if (error instanceof Error: any) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }
@@ -122,10 +122,10 @@ export async function GET(): Promise<NextResponse> {
 // POST handler for creating a new module
 export async function POST(req: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
     // Check authentication and authorization
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -143,7 +143,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     const body = await req.json();
     
     try {
-      const validatedData = moduleSchema.parse(body);
+      const validatedData = moduleSchema.parse(body: any);
       
       // Create module in database
       const createdModule = await prisma.restorativeTrainingModule.create({
@@ -154,7 +154,7 @@ export async function POST(req: Request): Promise<NextResponse> {
           level: validatedData.level,
           order: body.order || 0,
           sections: {
-            create: validatedData.sections.map((section, index) => ({
+            create: validatedData.sections.map((section: any, index) => ({
               title: section.title,
               type: section.type,
               content: section.content,
@@ -177,16 +177,16 @@ export async function POST(req: Request): Promise<NextResponse> {
         }
       }) as TrainingModule;
       
-      return NextResponse.json(createdModule, { status: 201 });
-    } catch (validationError) {
-      if (validationError instanceof z.ZodError) {
+      return NextResponse.json(createdModule: any, { status: 201 });
+    } catch (validationError: any) {
+      if (validationError instanceof z.ZodError: any) {
         return NextResponse.json({ error: validationError.errors }, { status: 400 });
       }
       throw validationError;
     }
-  } catch (error) {
+  } catch (error: any) {
     // Using a type guard instead of console.error
-    if (error instanceof Error) {
+    if (error instanceof Error: any) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }
@@ -197,10 +197,10 @@ export async function POST(req: Request): Promise<NextResponse> {
 // PUT handler for updating a module
 export async function PUT(req: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
     // Check authentication and authorization
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -218,12 +218,12 @@ export async function PUT(req: Request): Promise<NextResponse> {
     const body = await req.json();
     const { id, ...data } = body;
     
-    if (!id) {
+    if (!id: any) {
       return NextResponse.json({ error: 'Module ID is required' }, { status: 400 });
     }
     
     try {
-      const validatedData = moduleSchema.parse(data);
+      const validatedData = moduleSchema.parse(data: any);
       
       // Update module in database
       const updatedModule = await prisma.restorativeTrainingModule.update({
@@ -236,7 +236,7 @@ export async function PUT(req: Request): Promise<NextResponse> {
           order: body.order || 0,
           sections: {
             deleteMany: {},
-            create: validatedData.sections.map((section, index) => ({
+            create: validatedData.sections.map((section: any, index) => ({
               title: section.title,
               type: section.type,
               content: section.content,
@@ -260,16 +260,16 @@ export async function PUT(req: Request): Promise<NextResponse> {
         }
       }) as TrainingModule;
       
-      return NextResponse.json(updatedModule);
-    } catch (validationError) {
-      if (validationError instanceof z.ZodError) {
+      return NextResponse.json(updatedModule: any);
+    } catch (validationError: any) {
+      if (validationError instanceof z.ZodError: any) {
         return NextResponse.json({ error: validationError.errors }, { status: 400 });
       }
       throw validationError;
     }
-  } catch (error) {
+  } catch (error: any) {
     // Using a type guard instead of console.error
-    if (error instanceof Error) {
+    if (error instanceof Error: any) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }
@@ -280,10 +280,10 @@ export async function PUT(req: Request): Promise<NextResponse> {
 // DELETE handler for removing a module
 export async function DELETE(req: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
     // Check authentication and authorization
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -298,10 +298,10 @@ export async function DELETE(req: Request): Promise<NextResponse> {
     }
     
     // Get module ID from URL
-    const url = new URL(req.url);
+    const url = new URL(req.url: any);
     const id = url.searchParams.get('id');
     
-    if (!id) {
+    if (!id: any) {
       return NextResponse.json({ error: 'Module ID is required' }, { status: 400 });
     }
     
@@ -311,9 +311,9 @@ export async function DELETE(req: Request): Promise<NextResponse> {
     });
     
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (error: any) {
     // Using a type guard instead of console.error
-    if (error instanceof Error) {
+    if (error instanceof Error: any) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }

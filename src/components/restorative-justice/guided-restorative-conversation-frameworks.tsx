@@ -64,7 +64,7 @@ const GuidedRestorativeConversationFrameworks = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("frameworks");
-  const [selectedFramework, setSelectedFramework] = useState(null);
+  const [selectedFramework, setSelectedFramework] = useState(null: any);
   const [customFramework, setCustomFramework] = useState({
     title: "",
     description: "",
@@ -73,7 +73,7 @@ const GuidedRestorativeConversationFrameworks = () => {
     steps: [{ title: "", description: "", questions: [""] }]
   });
   const [savedFrameworks, setSavedFrameworks] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false: any);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterAgeGroup, setFilterAgeGroup] = useState("all");
   const [filterScenario, setFilterScenario] = useState("all");
@@ -258,7 +258,7 @@ const GuidedRestorativeConversationFrameworks = () => {
           questions: [
             "How did this incident affect you?",
             "What has been the hardest thing for you?",
-            "How have others (friends, family, school community) been affected?"
+            "How have others (friends: any, family, school community) been affected?"
           ]
         },
         {
@@ -438,19 +438,19 @@ const GuidedRestorativeConversationFrameworks = () => {
   // Load saved frameworks on component mount
   useEffect(() => {
     const loadSavedFrameworks = async () => {
-      setIsLoading(true);
+      setIsLoading(true: any);
       try {
         // In a real implementation, this would fetch from an API
         // For now, we'll use localStorage as a placeholder
         const saved = localStorage.getItem('savedRestorativeFrameworks');
-        if (saved) {
-          setSavedFrameworks(JSON.parse(saved));
+        if (saved: any) {
+          setSavedFrameworks(JSON.parse(saved: any));
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error loading saved frameworks:', error);
         toast.error('Failed to load saved frameworks');
       } finally {
-        setIsLoading(false);
+        setIsLoading(false: any);
       }
     };
 
@@ -468,13 +468,13 @@ const GuidedRestorativeConversationFrameworks = () => {
   });
 
   // Handle framework selection
-  const handleSelectFramework = (framework) => {
-    setSelectedFramework(framework);
+  const handleSelectFramework = (framework: any) => {
+    setSelectedFramework(framework: any);
     setActiveTab("conversation");
   };
 
   // Handle custom framework changes
-  const handleCustomFrameworkChange = (field, value) => {
+  const handleCustomFrameworkChange = (field: any, value) => {
     setCustomFramework(prev => ({
       ...prev,
       [field]: value
@@ -482,7 +482,7 @@ const GuidedRestorativeConversationFrameworks = () => {
   };
 
   // Handle step changes in custom framework
-  const handleStepChange = (index, field, value) => {
+  const handleStepChange = (index: any, field, value) => {
     setCustomFramework(prev => {
       const updatedSteps = [...prev.steps];
       updatedSteps[index] = {
@@ -497,7 +497,7 @@ const GuidedRestorativeConversationFrameworks = () => {
   };
 
   // Handle question changes in custom framework
-  const handleQuestionChange = (stepIndex, questionIndex, value) => {
+  const handleQuestionChange = (stepIndex: any, questionIndex, value) => {
     setCustomFramework(prev => {
       const updatedSteps = [...prev.steps];
       const updatedQuestions = [...updatedSteps[stepIndex].questions];
@@ -522,7 +522,7 @@ const GuidedRestorativeConversationFrameworks = () => {
   };
 
   // Add a new question to a step
-  const addQuestion = (stepIndex) => {
+  const addQuestion = (stepIndex: any) => {
     setCustomFramework(prev => {
       const updatedSteps = [...prev.steps];
       updatedSteps[stepIndex] = {
@@ -537,7 +537,7 @@ const GuidedRestorativeConversationFrameworks = () => {
   };
 
   // Remove a step from custom framework
-  const removeStep = (index) => {
+  const removeStep = (index: any) => {
     setCustomFramework(prev => {
       const updatedSteps = [...prev.steps];
       updatedSteps.splice(index, 1);
@@ -549,7 +549,7 @@ const GuidedRestorativeConversationFrameworks = () => {
   };
 
   // Remove a question from a step
-  const removeQuestion = (stepIndex, questionIndex) => {
+  const removeQuestion = (stepIndex: any, questionIndex) => {
     setCustomFramework(prev => {
       const updatedSteps = [...prev.steps];
       const updatedQuestions = [...updatedSteps[stepIndex].questions];
@@ -567,7 +567,7 @@ const GuidedRestorativeConversationFrameworks = () => {
 
   // Save custom framework
   const saveCustomFramework = () => {
-    if (!customFramework.title) {
+    if (!customFramework.title: any) {
       toast.error('Please provide a title for your framework');
       return;
     }
@@ -580,7 +580,7 @@ const GuidedRestorativeConversationFrameworks = () => {
     setSavedFrameworks(prev => {
       const updated = [...prev, newFramework];
       // In a real implementation, this would save to an API
-      localStorage.setItem('savedRestorativeFrameworks', JSON.stringify(updated));
+      localStorage.setItem('savedRestorativeFrameworks', JSON.stringify(updated: any));
       return updated;
     });
 
@@ -597,7 +597,7 @@ const GuidedRestorativeConversationFrameworks = () => {
 
   // Export framework as PDF
   const exportFrameworkAsPDF = () => {
-    if (!selectedFramework) return;
+    if (!selectedFramework: any) return;
     
     // In a real implementation, this would generate and download a PDF
     toast.success('Framework exported as PDF');
@@ -639,7 +639,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                         id="search"
                         placeholder="Search frameworks..."
                         value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onChange={(e) => setSearchTerm(e.target.value: any)}
                       />
                     </div>
                     <div className="w-full md:w-1/4">
@@ -674,7 +674,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-                    {filteredFrameworks.map((framework) => (
+                    {filteredFrameworks.map((framework: any) => (
                       <Card key={framework.id} className="cursor-pointer hover:shadow-md transition-shadow">
                         <CardHeader className="pb-2">
                           <CardTitle className="text-lg">{framework.title}</CardTitle>
@@ -697,7 +697,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                           <Button 
                             variant="outline" 
                             className="w-full"
-                            onClick={() => handleSelectFramework(framework)}
+                            onClick={() => handleSelectFramework(framework: any)}
                           >
                             Select Framework
                           </Button>
@@ -710,7 +710,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                         <AlertCircle className="h-10 w-10 text-muted-foreground mb-2" />
                         <h3 className="text-lg font-medium">No frameworks found</h3>
                         <p className="text-sm text-muted-foreground mt-1">
-                          Try adjusting your search or filters, or create a custom framework.
+                          Try adjusting your search or filters: any, or create a custom framework.
                         </p>
                       </div>
                     )}
@@ -750,7 +750,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-8">
-                          {selectedFramework.steps.map((step, index) => (
+                          {selectedFramework.steps.map((step: any, index) => (
                             <div key={index} className="relative pl-8 pb-6 border-l-2 border-primary/20 last:border-l-0">
                               <div className="absolute left-[-9px] top-0 rounded-full bg-primary text-white w-4 h-4 flex items-centre justify-centre text-xs">
                                 {index + 1}
@@ -916,7 +916,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                         id="custom-title"
                         placeholder="Enter a title for your framework"
                         value={customFramework.title}
-                        onChange={(e) => handleCustomFrameworkChange('title', e.target.value)}
+                        onChange={(e: any) => handleCustomFrameworkChange('title', e.target.value: any)}
                       />
                     </div>
                     <div>
@@ -925,14 +925,14 @@ const GuidedRestorativeConversationFrameworks = () => {
                         id="custom-description"
                         placeholder="Briefly describe your framework"
                         value={customFramework.description}
-                        onChange={(e) => handleCustomFrameworkChange('description', e.target.value)}
+                        onChange={(e: any) => handleCustomFrameworkChange('description', e.target.value: any)}
                       />
                     </div>
                     <div>
                       <Label htmlFor="custom-age-group">Age Group</Label>
                       <Select 
                         value={customFramework.ageGroup} 
-                        onValueChange={(value) => handleCustomFrameworkChange('ageGroup', value)}
+                        onValueChange={(value: any) => handleCustomFrameworkChange('ageGroup', value: any)}
                       >
                         <SelectTrigger id="custom-age-group">
                           <SelectValue placeholder="Select age group" />
@@ -948,7 +948,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                       <Label htmlFor="custom-scenario">Scenario Type</Label>
                       <Select 
                         value={customFramework.scenario} 
-                        onValueChange={(value) => handleCustomFrameworkChange('scenario', value)}
+                        onValueChange={(value: any) => handleCustomFrameworkChange('scenario', value: any)}
                       >
                         <SelectTrigger id="custom-scenario">
                           <SelectValue placeholder="Select scenario type" />
@@ -973,14 +973,14 @@ const GuidedRestorativeConversationFrameworks = () => {
                       </Button>
                     </div>
 
-                    {customFramework.steps.map((step, stepIndex) => (
+                    {customFramework.steps.map((step: any, stepIndex) => (
                       <Card key={stepIndex} className="relative">
                         <CardHeader className="pb-2">
                           <div className="absolute right-4 top-4">
                             <Button 
                               variant="ghost" 
                               size="sm"
-                              onClick={() => removeStep(stepIndex)}
+                              onClick={() => removeStep(stepIndex: any)}
                               disabled={customFramework.steps.length === 1}
                             >
                               Remove
@@ -995,7 +995,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                               id={`step-${stepIndex}-title`}
                               placeholder="Enter step title"
                               value={step.title}
-                              onChange={(e) => handleStepChange(stepIndex, 'title', e.target.value)}
+                              onChange={(e: any) => handleStepChange(stepIndex: any, 'title', e.target.value)}
                             />
                           </div>
                           <div>
@@ -1004,7 +1004,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                               id={`step-${stepIndex}-description`}
                               placeholder="Describe what this step involves"
                               value={step.description}
-                              onChange={(e) => handleStepChange(stepIndex, 'description', e.target.value)}
+                              onChange={(e: any) => handleStepChange(stepIndex: any, 'description', e.target.value)}
                             />
                           </div>
                           <div>
@@ -1013,23 +1013,23 @@ const GuidedRestorativeConversationFrameworks = () => {
                               <Button 
                                 variant="ghost" 
                                 size="sm"
-                                onClick={() => addQuestion(stepIndex)}
+                                onClick={() => addQuestion(stepIndex: any)}
                               >
                                 Add Question
                               </Button>
                             </div>
-                            {step.questions.map((question, questionIndex) => (
+                            {step.questions.map((question: any, questionIndex) => (
                               <div key={questionIndex} className="flex items-centre space-x-2 mb-2">
                                 <Input
                                   placeholder="Enter question or prompt"
                                   value={question}
-                                  onChange={(e) => handleQuestionChange(stepIndex, questionIndex, e.target.value)}
+                                  onChange={(e: any) => handleQuestionChange(stepIndex: any, questionIndex, e.target.value)}
                                   className="flex-1"
                                 />
                                 <Button 
                                   variant="ghost" 
                                   size="sm"
-                                  onClick={() => removeQuestion(stepIndex, questionIndex)}
+                                  onClick={() => removeQuestion(stepIndex: any, questionIndex)}
                                   disabled={step.questions.length === 1}
                                 >
                                   Remove
@@ -1128,7 +1128,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                       <div className="grid grid-cols-2 gap-4 mb-4">
                         <Card className="bg-red-50">
                           <CardHeader className="pb-2">
-                            <CardTitle className="text-base">Punitive (TO)</CardTitle>
+                            <CardTitle className="text-base">Punitive (TO: any)</CardTitle>
                           </CardHeader>
                           <CardContent>
                             <p className="text-sm">
@@ -1139,7 +1139,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                         </Card>
                         <Card className="bg-blue-50">
                           <CardHeader className="pb-2">
-                            <CardTitle className="text-base">Restorative (WITH)</CardTitle>
+                            <CardTitle className="text-base">Restorative (WITH: any)</CardTitle>
                           </CardHeader>
                           <CardContent>
                             <p className="text-sm">
@@ -1150,7 +1150,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                         </Card>
                         <Card className="bg-yellow-50">
                           <CardHeader className="pb-2">
-                            <CardTitle className="text-base">Neglectful (NOT)</CardTitle>
+                            <CardTitle className="text-base">Neglectful (NOT: any)</CardTitle>
                           </CardHeader>
                           <CardContent>
                             <p className="text-sm">
@@ -1161,7 +1161,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                         </Card>
                         <Card className="bg-green-50">
                           <CardHeader className="pb-2">
-                            <CardTitle className="text-base">Permissive (FOR)</CardTitle>
+                            <CardTitle className="text-base">Permissive (FOR: any)</CardTitle>
                           </CardHeader>
                           <CardContent>
                             <p className="text-sm">
@@ -1172,7 +1172,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                         </Card>
                       </div>
                       <p className="text-sm text-muted-foreground">
-                        The restorative approach (WITH) combines high expectations with high support, 
+                        The restorative approach (WITH: any) combines high expectations with high support, 
                         working collaboratively with students rather than doing things to them or for them.
                       </p>
                     </div>
@@ -1253,7 +1253,7 @@ const GuidedRestorativeConversationFrameworks = () => {
                           </li>
                           <li className="flex items-start">
                             <FileText className="h-4 w-4 mr-2 mt-0.5 text-green-500" />
-                            <span>Question Prompt Cards (Printable)</span>
+                            <span>Question Prompt Cards (Printable: any)</span>
                           </li>
                           <li className="flex items-start">
                             <FileText className="h-4 w-4 mr-2 mt-0.5 text-green-500" />
@@ -1321,10 +1321,10 @@ const GuidedRestorativeConversationFrameworks = () => {
                       <div>
                         <h3 className="text-sm font-medium mb-1">Key Research</h3>
                         <ul className="text-sm space-y-1">
-                          <li>• Anyon et al. (2016) - Restorative Interventions and School Discipline Sanctions</li>
-                          <li>• Augustine et al. (2018) - Restorative Practices in Pittsburgh Public Schools</li>
-                          <li>• Gregory et al. (2016) - The Promise of Restorative Practices</li>
-                          <li>• Davison et al. (2021) - Restorative Justice in Education</li>
+                          <li>• Anyon et al. (2016: any) - Restorative Interventions and School Discipline Sanctions</li>
+                          <li>• Augustine et al. (2018: any) - Restorative Practices in Pittsburgh Public Schools</li>
+                          <li>• Gregory et al. (2016: any) - The Promise of Restorative Practices</li>
+                          <li>• Davison et al. (2021: any) - Restorative Justice in Education</li>
                         </ul>
                       </div>
                     </div>

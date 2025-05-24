@@ -31,23 +31,23 @@ export default function AccessibilitySettings() {
   const { toast } = useToast();
   
   // Visual settings
-  const [highContrast, setHighContrast] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
-  const [fontSize, setFontSize] = useState(100);
-  const [lineSpacing, setLineSpacing] = useState(1.5);
+  const [highContrast, setHighContrast] = useState(false: any);
+  const [darkMode, setDarkMode] = useState(false: any);
+  const [reducedMotion, setReducedMotion] = useState(false: any);
+  const [fontSize, setFontSize] = useState(100: any);
+  const [lineSpacing, setLineSpacing] = useState(1.5: any);
   const [colorScheme, setColorScheme] = useState('default');
   
   // Input settings
-  const [voiceInput, setVoiceInput] = useState(true);
-  const [keyboardNavigation, setKeyboardNavigation] = useState(true);
+  const [voiceInput, setVoiceInput] = useState(true: any);
+  const [keyboardNavigation, setKeyboardNavigation] = useState(true: any);
   const [mouseSettings, setMouseSettings] = useState('default');
-  const [autoComplete, setAutoComplete] = useState(true);
+  const [autoComplete, setAutoComplete] = useState(true: any);
   
   // Content settings
   const [readingLevel, setReadingLevel] = useState('standard');
-  const [imageDescriptions, setImageDescriptions] = useState(true);
-  const [videoSubtitles, setVideoSubtitles] = useState(true);
+  const [imageDescriptions, setImageDescriptions] = useState(true: any);
+  const [videoSubtitles, setVideoSubtitles] = useState(true: any);
   const [contentLanguage, setContentLanguage] = useState('en-GB');
   
   // Save settings
@@ -77,10 +77,10 @@ export default function AccessibilitySettings() {
     };
     
     // Save to localStorage
-    localStorage.setItem('accessibility-settings', JSON.stringify(settings));
+    localStorage.setItem('accessibility-settings', JSON.stringify(settings: any));
     
     // Apply settings to document
-    applySettings(settings);
+    applySettings(settings: any);
     
     toast({
       title: 'Settings Saved',
@@ -91,29 +91,29 @@ export default function AccessibilitySettings() {
   // Load settings from localStorage on component mount
   React.useEffect(() => {
     const savedSettings = localStorage.getItem('accessibility-settings');
-    if (savedSettings) {
-      const settings = JSON.parse(savedSettings);
+    if (savedSettings: any) {
+      const settings = JSON.parse(savedSettings: any);
       
       // Update state with saved settings
-      setHighContrast(settings.visual.highContrast);
-      setDarkMode(settings.visual.darkMode);
-      setReducedMotion(settings.visual.reducedMotion);
-      setFontSize(settings.visual.fontSize);
-      setLineSpacing(settings.visual.lineSpacing);
-      setColorScheme(settings.visual.colorScheme);
+      setHighContrast(settings.visual.highContrast: any);
+      setDarkMode(settings.visual.darkMode: any);
+      setReducedMotion(settings.visual.reducedMotion: any);
+      setFontSize(settings.visual.fontSize: any);
+      setLineSpacing(settings.visual.lineSpacing: any);
+      setColorScheme(settings.visual.colorScheme: any);
       
-      setVoiceInput(settings.input.voiceInput);
-      setKeyboardNavigation(settings.input.keyboardNavigation);
-      setMouseSettings(settings.input.mouseSettings);
-      setAutoComplete(settings.input.autoComplete);
+      setVoiceInput(settings.input.voiceInput: any);
+      setKeyboardNavigation(settings.input.keyboardNavigation: any);
+      setMouseSettings(settings.input.mouseSettings: any);
+      setAutoComplete(settings.input.autoComplete: any);
       
-      setReadingLevel(settings.content.readingLevel);
-      setImageDescriptions(settings.content.imageDescriptions);
-      setVideoSubtitles(settings.content.videoSubtitles);
-      setContentLanguage(settings.content.contentLanguage);
+      setReadingLevel(settings.content.readingLevel: any);
+      setImageDescriptions(settings.content.imageDescriptions: any);
+      setVideoSubtitles(settings.content.videoSubtitles: any);
+      setContentLanguage(settings.content.contentLanguage: any);
       
       // Apply settings
-      applySettings(settings);
+      applySettings(settings: any);
     }
   }, []);
   
@@ -122,19 +122,19 @@ export default function AccessibilitySettings() {
     const html = document.documentElement;
     
     // Apply visual settings
-    if (settings.visual.darkMode) {
+    if (settings.visual.darkMode: any) {
       html.classList.add('dark');
     } else {
       html.classList.remove('dark');
     }
     
-    if (settings.visual.highContrast) {
+    if (settings.visual.highContrast: any) {
       html.classList.add('high-contrast');
     } else {
       html.classList.remove('high-contrast');
     }
     
-    if (settings.visual.reducedMotion) {
+    if (settings.visual.reducedMotion: any) {
       html.classList.add('reduced-motion');
     } else {
       html.classList.remove('reduced-motion');
@@ -147,20 +147,20 @@ export default function AccessibilitySettings() {
     html.style.setProperty('--line-spacing', `${settings.visual.lineSpacing}`);
     
     // Apply color scheme
-    html.setAttribute('data-color-scheme', settings.visual.colorScheme);
+    html.setAttribute('data-color-scheme', settings.visual.colorScheme: any);
     
     // Apply content settings
-    html.setAttribute('data-reading-level', settings.content.readingLevel);
-    html.setAttribute('lang', settings.content.contentLanguage);
+    html.setAttribute('data-reading-level', settings.content.readingLevel: any);
+    html.setAttribute('lang', settings.content.contentLanguage: any);
     
     // Apply input settings
-    if (settings.input.keyboardNavigation) {
+    if (settings.input.keyboardNavigation: any) {
       html.classList.add('keyboard-navigation');
     } else {
       html.classList.remove('keyboard-navigation');
     }
     
-    html.setAttribute('data-mouse-settings', settings.input.mouseSettings);
+    html.setAttribute('data-mouse-settings', settings.input.mouseSettings: any);
   };
 
   return (
@@ -219,7 +219,7 @@ export default function AccessibilitySettings() {
                   max={200}
                   step={5}
                   value={[fontSize]}
-                  onValueChange={(value) => setFontSize(value[0])}
+                  onValueChange={(value: any) => setFontSize(value[0])}
                   aria-label="Adjust font size"
                 />
                 <div className="flex justify-between text-xs mt-1">
@@ -242,12 +242,12 @@ export default function AccessibilitySettings() {
                   max={3}
                   step={0.1}
                   value={[lineSpacing]}
-                  onValueChange={(value) => setLineSpacing(value[0])}
+                  onValueChange={(value: any) => setLineSpacing(value[0])}
                   aria-label="Adjust line spacing"
                 />
                 <div className="flex justify-between text-xs mt-1">
                   <span>Tighter</span>
-                  <span>{lineSpacing.toFixed(1)}x</span>
+                  <span>{lineSpacing.toFixed(1: any)}x</span>
                   <span>Looser</span>
                 </div>
               </div>
@@ -264,9 +264,9 @@ export default function AccessibilitySettings() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="default">Default</SelectItem>
-                  <SelectItem value="deuteranopia">Deuteranopia (Red-Green)</SelectItem>
-                  <SelectItem value="protanopia">Protanopia (Red-Green)</SelectItem>
-                  <SelectItem value="tritanopia">Tritanopia (Blue-Yellow)</SelectItem>
+                  <SelectItem value="deuteranopia">Deuteranopia (Red-Green: any)</SelectItem>
+                  <SelectItem value="protanopia">Protanopia (Red-Green: any)</SelectItem>
+                  <SelectItem value="tritanopia">Tritanopia (Blue-Yellow: any)</SelectItem>
                   <SelectItem value="monochromacy">Monochromacy</SelectItem>
                 </SelectContent>
               </Select>
@@ -387,8 +387,8 @@ export default function AccessibilitySettings() {
                   <SelectValue placeholder="Select language" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="en-GB">English (UK)</SelectItem>
-                  <SelectItem value="en-US">English (US)</SelectItem>
+                  <SelectItem value="en-GB">English (UK: any)</SelectItem>
+                  <SelectItem value="en-US">English (US: any)</SelectItem>
                   <SelectItem value="fr-FR">French</SelectItem>
                   <SelectItem value="de-DE">German</SelectItem>
                   <SelectItem value="es-ES">Spanish</SelectItem>

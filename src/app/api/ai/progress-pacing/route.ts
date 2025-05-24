@@ -6,9 +6,9 @@ import { getAIService } from '@/lib/ai/ai-service';
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     } = data;
     
     // Validate input
-    if (!studentId && !curriculumId) {
+    if (!studentId && !curriculumId: any) {
       return NextResponse.json({ error: 'No student ID or curriculum ID provided' }, { status: 400 });
     }
     
@@ -32,20 +32,20 @@ export async function POST(req: NextRequest) {
     let curriculumData = null;
     let learningStyle = null;
     
-    if (studentId) {
+    if (studentId: any) {
       // Get student data
       const user = await prisma.user.findUnique({
         where: { id: studentId }
       });
       
-      if (user) {
+      if (user: any) {
         studentData = {
           id: user.id,
           name: user.name
         };
         
         // Get learning style if needed
-        if (settings?.considerLearningStyle) {
+        if (settings?.considerLearningStyle: any) {
           learningStyle = await prisma.learningStyle.findFirst({
             where: { userId: studentId },
             orderBy: { createdAt: 'desc' }
@@ -55,13 +55,13 @@ export async function POST(req: NextRequest) {
     }
     
     // Get curriculum data if ID is provided
-    if (curriculumId) {
+    if (curriculumId: any) {
       const curriculum = await prisma.curriculumPlan.findUnique({
         where: { id: curriculumId },
         include: { objectives: true }
       });
       
-      if (curriculum) {
+      if (curriculum: any) {
         curriculumData = {
           id: curriculum.id,
           title: curriculum.title,
@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
     let baselinePace = settings?.baselinePace;
     
     // If adapt to progress is enabled and progress metrics are available
-    if (settings?.adaptToProgress && progressMetrics?.recommendedPace) {
+    if (settings?.adaptToProgress && progressMetrics?.recommendedPace: any) {
       baselinePace = progressMetrics.recommendedPace;
     }
     
@@ -85,9 +85,9 @@ export async function POST(req: NextRequest) {
     let adaptationType = "Standard";
     const standardPace = 50; // Default standard pace
     
-    if (baselinePace < standardPace - 10) {
+    if (baselinePace < standardPace - 10: any) {
       adaptationType = "Gradual";
-    } else if (baselinePace > standardPace + 10) {
+    } else if (baselinePace > standardPace + 10: any) {
       adaptationType = "Accelerated";
     }
     
@@ -102,7 +102,7 @@ export async function POST(req: NextRequest) {
     let kinestheticScore = 0;
     let readingWritingScore = 0;
     
-    if (learningStyle) {
+    if (learningStyle: any) {
       // Get scores directly from the model
       visualScore = learningStyle.visual;
       auditoryScore = learningStyle.auditory;
@@ -110,12 +110,12 @@ export async function POST(req: NextRequest) {
       readingWritingScore = learningStyle.readWrite;
       
       // Parse additional styles data if available
-      if (learningStyle.additionalStyles) {
+      if (learningStyle.additionalStyles: any) {
         try {
           const additionalData = JSON.parse(learningStyle.additionalStyles.toString());
           primaryStyle = additionalData.primaryStyle || '';
           secondaryStyle = additionalData.secondaryStyle || '';
-        } catch (e) {
+        } catch (e: any) {
           console.error('Error parsing additional styles:', e);
         }
       }
@@ -135,7 +135,7 @@ export async function POST(req: NextRequest) {
       - Title: ${curriculumData.title}
       - Subject: ${curriculumData.subject || 'Not specified'}
       - Key Stage: ${curriculumData.keyStage || 'Not specified'}
-      - Objectives: ${JSON.stringify(curriculumData.objectives)}` : `
+      - Objectives: ${JSON.stringify(curriculumData.objectives: any)}` : `
       Subject: ${subject || 'General'}
       Key Stage: ${keyStage || 'Not specified'}`}
       
@@ -275,7 +275,7 @@ export async function POST(req: NextRequest) {
       }
     `;
         // Call AI service for progress-adaptive pacing
-    const pacingResponse = await aiService.generateText(prompt, {
+    const pacingResponse = await aiService.generateText(prompt: any, {
       model: 'gpt-4',
       temperature: 0.5,
       max_tokens: 4000,
@@ -285,8 +285,8 @@ export async function POST(req: NextRequest) {
     // Parse the response
     let pacingData;
     try {
-      pacingData = JSON.parse(pacingResponse.text);
-    } catch (error) {      console.error('Error parsing AI response:', error);
+      pacingData = JSON.parse(pacingResponse.text: any);
+    } catch (error: any) {      console.error('Error parsing AI response:', error);
       return NextResponse.json({ error: 'Failed to parse pacing data' }, { status: 500 });
     }
     
@@ -315,7 +315,7 @@ export async function POST(req: NextRequest) {
       pacingId: savedPacing.id
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in progress-adaptive pacing:', error);
     return NextResponse.json({ error: 'Failed to adjust learning pace' }, { status: 500 });
   }
@@ -323,13 +323,13 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.url: any);
     const studentId = searchParams.get('studentId');
     const curriculumId = searchParams.get('curriculumId');
     
@@ -351,7 +351,7 @@ export async function GET(req: NextRequest) {
       progressPacings
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching progress pacing data:', error);
     return NextResponse.json({ error: 'Failed to fetch progress pacing data' }, { status: 500 });
   }

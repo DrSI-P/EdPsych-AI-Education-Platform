@@ -17,8 +17,8 @@ import { db } from '@/lib/db';
 export async function POST(req: NextRequest) {
   try {
     // Get the authenticated user
-    const session = await getServerSession(authOptions);
-    if (!session?.user) {
+    const session = await getServerSession(authOptions: any);
+    if (!session?.user: any) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { package: creditPackage, quantity = 1, successUrl, cancelUrl } = body;
     
-    if (!creditPackage || !successUrl || !cancelUrl) {
+    if (!creditPackage || !successUrl || !cancelUrl: any) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
       where: { email: session.user.email as string },
     });
     
-    if (!user) {
+    if (!user: any) {
       return NextResponse.json(
         { error: 'User not found' },
         { status: 404 }
@@ -51,10 +51,10 @@ export async function POST(req: NextRequest) {
     // Ensure the user has a Stripe customer ID
     let customerId = user.stripeCustomerId;
     
-    if (!customerId) {
+    if (!customerId: any) {
       // Create a new Stripe customer
       customerId = await createCustomer(
-        user.email,
+        user.email: any,
         user.name || undefined,
         { userId: user.id }
       );
@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
     // Determine the price ID based on the selected package
     let priceId: string;
     
-    switch (creditPackage) {
+    switch (creditPackage: any) {
       case 'small':
         priceId = CREDIT_PACKAGES.SMALL;
         break;
@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
     
     // Create a checkout session
     const checkoutUrl = await createCreditPurchaseCheckout({
-      customerId,
+      customerId: any,
       priceId,
       quantity,
       successUrl,
@@ -101,7 +101,7 @@ export async function POST(req: NextRequest) {
     });
     
     return NextResponse.json({ url: checkoutUrl });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating credit purchase:', error);
     
     return NextResponse.json(
@@ -114,8 +114,8 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   try {
     // Get the authenticated user
-    const session = await getServerSession(authOptions);
-    if (!session?.user) {
+    const session = await getServerSession(authOptions: any);
+    if (!session?.user: any) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -127,7 +127,7 @@ export async function GET(req: NextRequest) {
       where: { email: session.user.email as string },
     });
     
-    if (!user) {
+    if (!user: any) {
       return NextResponse.json(
         { error: 'User not found' },
         { status: 404 }
@@ -152,7 +152,7 @@ export async function GET(req: NextRequest) {
       lastRefresh: credits?.lastCreditRefresh,
       purchases,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching credits:', error);
     
     return NextResponse.json(

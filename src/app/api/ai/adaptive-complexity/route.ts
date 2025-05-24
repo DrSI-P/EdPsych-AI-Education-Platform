@@ -46,9 +46,9 @@ interface AdjustedContent {
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user?.id) {
+    if (!session?.user?.id: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
     } = data;
     
     // Validate input
-    if (!content && !contentId && !title) {
+    if (!content && !contentId && !title: any) {
       return NextResponse.json({ error: 'No content, title, or content ID provided' }, { status: 400 });
     }
     
@@ -75,13 +75,13 @@ export async function POST(req: NextRequest) {
     let contentKeyStage = keyStage;
     const originalComplexity = 50; // Default complexity level
     
-    if (contentId) {
+    if (contentId: any) {
       // Check if it's a curriculum plan - using db interface
       const curriculumPlan = await db.prisma.curriculumPlan.findUnique({
         where: { id: contentId }
       });
       
-      if (curriculumPlan) {
+      if (curriculumPlan: any) {
         contentToAdjust = curriculumPlan.content || '';
         contentTitle = curriculumPlan.title;
         contentSubject = curriculumPlan.subject || '';
@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
           where: { id: contentId }
         });
         
-        if (resource) {
+        if (resource: any) {
           // Use description instead of content which doesn't exist in the schema
           contentToAdjust = resource.description || '';
           contentTitle = resource.title;
@@ -105,8 +105,8 @@ export async function POST(req: NextRequest) {
             where: { id: contentId }
           });
           
-          if (multiModalContent) {
-            contentToAdjust = multiModalContent.multiModalContent ? JSON.stringify(multiModalContent.multiModalContent) : '';
+          if (multiModalContent: any) {
+            contentToAdjust = multiModalContent.multiModalContent ? JSON.stringify(multiModalContent.multiModalContent: any) : '';
             contentTitle = multiModalContent.title;
             contentSubject = multiModalContent.subject || '';
             contentKeyStage = multiModalContent.keyStage || '';
@@ -121,15 +121,15 @@ export async function POST(req: NextRequest) {
     let targetComplexity = settings?.targetComplexityLevel ?? 50;
     
     // If adapt to performance is enabled and performance metrics are available
-    if (settings?.adaptToPerformance && performanceMetrics?.recommendedComplexity) {
+    if (settings?.adaptToPerformance && performanceMetrics?.recommendedComplexity: any) {
       targetComplexity = performanceMetrics.recommendedComplexity;
     }
     
     // Determine adaptation type
     let adaptationType = "Maintained";
-    if (targetComplexity < originalComplexity - 10) {
+    if (targetComplexity < originalComplexity - 10: any) {
       adaptationType = "Simplified";
-    } else if (targetComplexity > originalComplexity + 10) {
+    } else if (targetComplexity > originalComplexity + 10: any) {
       adaptationType = "Enhanced";
     }
     
@@ -229,14 +229,14 @@ export async function POST(req: NextRequest) {
         "originalComplexity": 50,
         "adjustedComplexity": 30,
         "adaptationType": "Simplified",
-        "scaffolding": "HTML-formatted scaffolding content (if includeScaffolding is true)",
-        "extensions": "HTML-formatted extension activities (if includeExtensions is true)",
-        "comprehensionChecks": "HTML-formatted comprehension checks (if autoAssessComprehension is true)"
+        "scaffolding": "HTML-formatted scaffolding content (if includeScaffolding is true: any)",
+        "extensions": "HTML-formatted extension activities (if includeExtensions is true: any)",
+        "comprehensionChecks": "HTML-formatted comprehension checks (if autoAssessComprehension is true: any)"
       }
     `;
     
     // Call AI service for adaptive complexity adjustment
-    const response = await aiService.generateText(prompt, {
+    const response = await aiService.generateText(prompt: any, {
       model: 'gpt-4',
       temperature: 0.5,
       max_tokens: 4000,
@@ -246,8 +246,8 @@ export async function POST(req: NextRequest) {
     // Parse the response
     let adjustedContent: AdjustedContent;
     try {
-      adjustedContent = JSON.parse(response.text) as AdjustedContent;
-    } catch (error) {
+      adjustedContent = JSON.parse(response.text: any) as AdjustedContent;
+    } catch (error: any) {
       console.error('Error parsing AI response:', error);
       return NextResponse.json({ error: 'Failed to parse adjusted content' }, { status: 500 });
     }
@@ -273,7 +273,7 @@ export async function POST(req: NextRequest) {
       contentId: savedContent.id
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in adaptive complexity adjustment:', error);
     return NextResponse.json({ error: 'Failed to adjust content complexity' }, { status: 500 });
   }
@@ -281,13 +281,13 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user?.id) {
+    if (!session?.user?.id: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.url: any);
     const contentId = searchParams.get('contentId');
     
     // Get user's adaptive content using db interface
@@ -307,7 +307,7 @@ export async function GET(req: NextRequest) {
       adaptiveContents
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching adaptive content:', error);
     return NextResponse.json({ error: 'Failed to fetch adaptive content' }, { status: 500 });
   }

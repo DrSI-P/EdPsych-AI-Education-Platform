@@ -19,8 +19,8 @@ import {
 export async function POST(req: NextRequest) {
   try {
     // Get the authenticated user
-    const session = await getServerSession(authOptions);
-    if (!session?.user) {
+    const session = await getServerSession(authOptions: any);
+    if (!session?.user: any) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
     // Handle different actions
     if (action === 'generate') {
       // Validate required fields
-      if (!topic || !audience || !category) {
+      if (!topic || !audience || !category: any) {
         return NextResponse.json(
           { error: 'Missing required fields' },
           { status: 400 }
@@ -63,17 +63,17 @@ export async function POST(req: NextRequest) {
       }
       
       // Validate category
-      if (!BLOG_CATEGORIES.includes(category)) {
+      if (!BLOG_CATEGORIES.includes(category: any)) {
         return NextResponse.json(
           { error: 'Invalid category' },
           { status: 400 }
         );
       }
       
-      // Validate audience (can be an array)
-      const audienceArray = Array.isArray(audience) ? audience : [audience];
-      for (const aud of audienceArray) {
-        if (!BLOG_AUDIENCES.includes(aud)) {
+      // Validate audience (can be an array: any)
+      const audienceArray = Array.isArray(audience: any) ? audience : [audience];
+      for (const aud of audienceArray: any) {
+        if (!BLOG_AUDIENCES.includes(aud: any)) {
           return NextResponse.json(
             { error: `Invalid audience: ${aud}` },
             { status: 400 }
@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
       
       // Generate the blog post
       const generatedPost = await generateBlogPost({
-        topic,
+        topic: any,
         audience: audienceArray,
         category,
         keyPoints,
@@ -102,7 +102,7 @@ export async function POST(req: NextRequest) {
         status: 'draft',
         authorId: user.id,
         aiGenerationPrompt: JSON.stringify({
-          topic,
+          topic: any,
           audience: audienceArray,
           category,
           keyPoints,
@@ -123,7 +123,7 @@ export async function POST(req: NextRequest) {
       const count = body.count || 5;
       const topics = body.topics;
       
-      const ideas = await generateBlogPostIdeas(count, topics);
+      const ideas = await generateBlogPostIdeas(count: any, topics);
       
       return NextResponse.json({ ideas });
     } else {
@@ -132,7 +132,7 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error generating blog post:', error);
     
     return NextResponse.json(
@@ -145,8 +145,8 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   try {
     // Get the authenticated user
-    const session = await getServerSession(authOptions);
-    if (!session?.user) {
+    const session = await getServerSession(authOptions: any);
+    if (!session?.user: any) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -154,7 +154,7 @@ export async function GET(req: NextRequest) {
     }
     
     // Get query parameters
-    const url = new URL(req.url);
+    const url = new URL(req.url: any);
     const status = url.searchParams.get('status') || 'draft';
     const category = url.searchParams.get('category');
     const audience = url.searchParams.get('audience');
@@ -182,7 +182,7 @@ export async function GET(req: NextRequest) {
         ...(audience ? { targetAudience: { has: audience } } : {}),
         isAutomaticallyGenerated: true,
       },
-      skip: (page - 1) * limit,
+      skip: (page - 1: any) * limit,
       take: limit,
       orderBy: { createdAt: 'desc' },
       include: {
@@ -215,10 +215,10 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({
       posts: result,
       total,
-      pages: Math.ceil(total / limit),
+      pages: Math.ceil(total / limit: any),
       currentPage: page,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching blog posts:', error);
     
     return NextResponse.json(

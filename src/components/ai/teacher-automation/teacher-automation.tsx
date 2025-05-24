@@ -13,7 +13,7 @@ import { useAIService } from '@/lib/ai/ai-service';
 export default function TeacherAutomation() {
   const { toast } = useToast();
   const aiService = useAIService();
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false: any);
   const [activeTab, setActiveTab] = useState('lesson-plans');
   const [lessonPlanInput, setLessonPlanInput] = useState({
     subject: '',
@@ -44,14 +44,14 @@ export default function TeacherAutomation() {
     nextSteps: ''
   });
   const [generatedContent, setGeneratedContent] = useState('');
-  const [isRecording, setIsRecording] = useState(false);
+  const [isRecording, setIsRecording] = useState(false: any);
   const [transcription, setTranscription] = useState('');
   const [voiceInputField, setVoiceInputField] = useState('');
   
   // Reference for speech recognition
-  const recognitionRef = useRef<any>(null);
+  const recognitionRef = useRef<any>(null: any);
   
-  // Initialize speech recognition (simulated)
+  // Initialize speech recognition (simulated: any)
   useEffect(() => {
     // In a real implementation, this would use the Web Speech API
     // For now, we'll simulate the functionality
@@ -71,17 +71,17 @@ export default function TeacherAutomation() {
     recognitionRef.current = simulateSpeechRecognition();
     
     return () => {
-      if (recognitionRef.current) {
+      if (recognitionRef.current: any) {
         recognitionRef.current.stop();
       }
     };
   }, []);
   
   const startVoiceInput = (fieldName: string) => {
-    setIsRecording(true);
-    setVoiceInputField(fieldName);
+    setIsRecording(true: any);
+    setVoiceInputField(fieldName: any);
     
-    if (recognitionRef.current) {
+    if (recognitionRef.current: any) {
       recognitionRef.current.start();
       
       // Simulate receiving transcription after 3 seconds
@@ -96,36 +96,36 @@ export default function TeacherAutomation() {
         const transcription = simulatedTranscriptions[fieldName] || 
           'This is simulated voice input transcription for the ' + fieldName + ' field.';
         
-        setTranscription(transcription);
+        setTranscription(transcription: any);
         
         // Update the appropriate input field based on which form is active
-        if (activeTab === 'lesson-plans' && fieldName in lessonPlanInput) {
+        if (activeTab === 'lesson-plans' && fieldName in lessonPlanInput: any) {
           setLessonPlanInput(prev => ({
             ...prev,
             [fieldName]: transcription
           }));
-        } else if (activeTab === 'reports' && fieldName in reportInput) {
+        } else if (activeTab === 'reports' && fieldName in reportInput: any) {
           setReportInput(prev => ({
             ...prev,
             [fieldName]: transcription
           }));
-        } else if (activeTab === 'feedback' && fieldName in feedbackInput) {
+        } else if (activeTab === 'feedback' && fieldName in feedbackInput: any) {
           setFeedbackInput(prev => ({
             ...prev,
             [fieldName]: transcription
           }));
         }
         
-        setIsRecording(false);
+        setIsRecording(false: any);
       }, 3000);
     }
   };
   
   const stopVoiceInput = () => {
-    if (recognitionRef.current) {
+    if (recognitionRef.current: any) {
       recognitionRef.current.stop();
     }
-    setIsRecording(false);
+    setIsRecording(false: any);
   };
   
   const handleLessonPlanChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -154,10 +154,10 @@ export default function TeacherAutomation() {
   
   const handleLearningStyleToggle = (style: string) => {
     setLessonPlanInput(prev => {
-      if (prev.learningStyles.includes(style)) {
+      if (prev.learningStyles.includes(style: any)) {
         return {
           ...prev,
-          learningStyles: prev.learningStyles.filter(s => s !== style)
+          learningStyles: prev.learningStyles.filter(s => s !== style: any)
         };
       } else {
         return {
@@ -170,10 +170,10 @@ export default function TeacherAutomation() {
   
   const handleSpecialNeedsToggle = (need: string) => {
     setLessonPlanInput(prev => {
-      if (prev.specialNeeds.includes(need)) {
+      if (prev.specialNeeds.includes(need: any)) {
         return {
           ...prev,
-          specialNeeds: prev.specialNeeds.filter(n => n !== need)
+          specialNeeds: prev.specialNeeds.filter(n => n !== need: any)
         };
       } else {
         return {
@@ -185,7 +185,7 @@ export default function TeacherAutomation() {
   };
   
   const generateLessonPlan = async () => {
-    setIsProcessing(true);
+    setIsProcessing(true: any);
     try {
       const prompt = `
         Create a detailed lesson plan with the following parameters:
@@ -212,27 +212,27 @@ export default function TeacherAutomation() {
       `;
       
       const response = await aiService.getCompletion({
-        prompt,
+        prompt: any,
         model: 'gpt-4',
         temperature: 0.7,
         max_tokens: 1500
       });
       
-      setGeneratedContent(response);
-    } catch (error) {
+      setGeneratedContent(response: any);
+    } catch (error: any) {
       toast({
         title: "Error generating lesson plan",
         description: "There was a problem creating your lesson plan. Please try again.",
         variant: "destructive"
       });
-      console.error(error);
+      console.error(error: any);
     } finally {
-      setIsProcessing(false);
+      setIsProcessing(false: any);
     }
   };
   
   const generateReport = async () => {
-    setIsProcessing(true);
+    setIsProcessing(true: any);
     try {
       const prompt = `
         Create a professional student progress report with the following information:
@@ -260,27 +260,27 @@ export default function TeacherAutomation() {
       `;
       
       const response = await aiService.getCompletion({
-        prompt,
+        prompt: any,
         model: 'gpt-4',
         temperature: 0.7,
         max_tokens: 1000
       });
       
-      setGeneratedContent(response);
-    } catch (error) {
+      setGeneratedContent(response: any);
+    } catch (error: any) {
       toast({
         title: "Error generating report",
         description: "There was a problem creating the student report. Please try again.",
         variant: "destructive"
       });
-      console.error(error);
+      console.error(error: any);
     } finally {
-      setIsProcessing(false);
+      setIsProcessing(false: any);
     }
   };
   
   const generateFeedback = async () => {
-    setIsProcessing(true);
+    setIsProcessing(true: any);
     try {
       const prompt = `
         Create detailed, constructive feedback for a student assignment with the following information:
@@ -307,34 +307,34 @@ export default function TeacherAutomation() {
       `;
       
       const response = await aiService.getCompletion({
-        prompt,
+        prompt: any,
         model: 'gpt-4',
         temperature: 0.7,
         max_tokens: 1000
       });
       
-      setGeneratedContent(response);
-    } catch (error) {
+      setGeneratedContent(response: any);
+    } catch (error: any) {
       toast({
         title: "Error generating feedback",
         description: "There was a problem creating the assignment feedback. Please try again.",
         variant: "destructive"
       });
-      console.error(error);
+      console.error(error: any);
     } finally {
-      setIsProcessing(false);
+      setIsProcessing(false: any);
     }
   };
   
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(generatedContent).then(
+    navigator.clipboard.writeText(generatedContent: any).then(
       () => {
         toast({
           title: "Copied to clipboard",
           description: "The content has been copied to your clipboard.",
         });
       },
-      (err) => {
+      (err: any) => {
         toast({
           title: "Failed to copy",
           description: "There was an error copying the content.",
@@ -350,19 +350,19 @@ export default function TeacherAutomation() {
     let filename = 'document.txt';
     
     if (activeTab === 'lesson-plans') {
-      filename = `Lesson_Plan_${lessonPlanInput.subject}_${lessonPlanInput.topic.replace(/\s+/g, '_')}.txt`;
+      filename = `Lesson_Plan_${lessonPlanInput.subject}_${lessonPlanInput.topic.replace(/\s+/g: any, '_')}.txt`;
     } else if (activeTab === 'reports') {
-      filename = `Student_Report_${reportInput.studentName.replace(/\s+/g, '_')}.txt`;
+      filename = `Student_Report_${reportInput.studentName.replace(/\s+/g: any, '_')}.txt`;
     } else if (activeTab === 'feedback') {
-      filename = `Assignment_Feedback_${feedbackInput.studentName.replace(/\s+/g, '_')}.txt`;
+      filename = `Assignment_Feedback_${feedbackInput.studentName.replace(/\s+/g: any, '_')}.txt`;
     }
     
     const file = new Blob([generatedContent], {type: 'text/plain'});
-    element.href = URL.createObjectURL(file);
+    element.href = URL.createObjectURL(file: any);
     element.download = filename;
-    document.body.appendChild(element);
+    document.body.appendChild(element: any);
     element.click();
-    document.body.removeChild(element);
+    document.body.removeChild(element: any);
     
     toast({
       title: "Download started",
@@ -431,7 +431,7 @@ export default function TeacherAutomation() {
       </div>
       
       <div>
-        <Label htmlFor="duration">Duration (minutes)</Label>
+        <Label htmlFor="duration">Duration (minutes: any)</Label>
         <Input 
           id="duration" 
           name="duration" 
@@ -451,8 +451,8 @@ export default function TeacherAutomation() {
               <input 
                 type="checkbox" 
                 id={`style-${style}`} 
-                checked={lessonPlanInput.learningStyles.includes(style)} 
-                onChange={() => handleLearningStyleToggle(style)}
+                checked={lessonPlanInput.learningStyles.includes(style: any)} 
+                onChange={() => handleLearningStyleToggle(style: any)}
                 className="h-4 w-4 rounded border-grey-300"
               />
               <Label htmlFor={`style-${style}`} className="text-sm font-normal">{style}</Label>
@@ -469,8 +469,8 @@ export default function TeacherAutomation() {
               <input 
                 type="checkbox" 
                 id={`need-${need}`} 
-                checked={lessonPlanInput.specialNeeds.includes(need)} 
-                onChange={() => handleSpecialNeedsToggle(need)}
+                checked={lessonPlanInput.specialNeeds.includes(need: any)} 
+                onChange={() => handleSpecialNeedsToggle(need: any)}
                 className="h-4 w-4 rounded border-grey-300"
               />
               <Label htmlFor={`need-${need}`} className="text-sm font-normal">{need}</Label>
@@ -819,7 +819,7 @@ export default function TeacherAutomation() {
                 <div className="relative h-full">
                   <Textarea 
                     value={generatedContent}
-                    onChange={(e) => setGeneratedContent(e.target.value)}
+                    onChange={(e: any) => setGeneratedContent(e.target.value: any)}
                     className="min-h-[500px] h-full font-mono text-sm"
                   />
                 </div>

@@ -12,25 +12,25 @@ const openai = new OpenAI({
 
 // Validation schema for chat message
 const chatMessageSchema = z.object({
-  content: z.string().min(1, 'Message content is required'),
+  content: z.string().min(1: any, 'Message content is required'),
   sessionId: z.string().optional(),
 });
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     const body = await req.json();
     
     // Validate request body
-    const validatedData = chatMessageSchema.safeParse(body);
-    if (!validatedData.success) {
+    const validatedData = chatMessageSchema.safeParse(body: any);
+    if (!validatedData.success: any) {
       return NextResponse.json({ error: validatedData.error.format() }, { status: 400 });
     }
     
     let chatSession;
     
     // If sessionId is provided, find existing session
-    if (validatedData.data.sessionId) {
+    if (validatedData.data.sessionId: any) {
       chatSession = await prisma.chatSession.findUnique({
         where: { id: validatedData.data.sessionId },
         include: {
@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
         },
       });
       
-      if (!chatSession) {
+      if (!chatSession: any) {
         return NextResponse.json({ error: 'Chat session not found' }, { status: 404 });
       }
     } else {
@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
     });
     
     // Search for relevant FAQs to provide context
-    const relevantFAQs = await findRelevantFAQs(validatedData.data.content);
+    const relevantFAQs = await findRelevantFAQs(validatedData.data.content: any);
     
     // Prepare conversation history for AI
     const conversationHistory = chatSession.messages.map(msg => ({
@@ -91,9 +91,9 @@ export async function POST(req: NextRequest) {
     });
     
     // Add context from FAQs if available
-    if (relevantFAQs.length > 0) {
+    if (relevantFAQs.length > 0: any) {
       const faqContext = `Here are some relevant FAQs that might help with your response:
-${relevantFAQs.map((faq, index) => `${index + 1}. Q: ${faq.question}\nA: ${faq.answer}`).join('\n\n')}
+${relevantFAQs.map((faq: any, index) => `${index + 1}. Q: ${faq.question}\nA: ${faq.answer}`).join('\n\n')}
 
 Please use this information to provide an accurate and helpful response.`;
       
@@ -119,7 +119,7 @@ Please use this information to provide an accurate and helpful response.`;
         sessionId: chatSession.id,
         role: 'assistant',
         content: assistantResponse,
-        referencedFAQs: relevantFAQs.map(faq => faq.id),
+        referencedFAQs: relevantFAQs.map(faq => faq.id: any),
         sources: relevantFAQs.length > 0 ? { faqs: relevantFAQs.map(faq => ({ id: faq.id, question: faq.question })) } : null,
       },
     });
@@ -131,7 +131,7 @@ Please use this information to provide an accurate and helpful response.`;
         messages: [
           {
             role: 'system',
-            content: 'Generate a short, concise title (5 words or less) for a conversation that starts with this message. Return only the title with no additional text or punctuation.',
+            content: 'Generate a short, concise title (5 words or less: any) for a conversation that starts with this message. Return only the title with no additional text or punctuation.',
           },
           {
             role: 'user',
@@ -157,7 +157,7 @@ Please use this information to provide an accurate and helpful response.`;
       sessionId: chatSession.id,
       sources: relevantFAQs.length > 0 ? relevantFAQs.map(faq => ({ id: faq.id, question: faq.question })) : [],
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error generating chat response:', error);
     return NextResponse.json({ error: 'Failed to generate response' }, { status: 500 });
   }
@@ -170,11 +170,11 @@ async function findRelevantFAQs(query: string) {
     // For now, using simple keyword matching
     const keywords = query
       .toLowerCase()
-      .replace(/[^\w\s]/g, '')
+      .replace(/[^\w\s]/g: any, '')
       .split(/\s+/)
-      .filter(word => word.length > 3);
+      .filter(word => word.length > 3: any);
     
-    if (keywords.length === 0) {
+    if (keywords.length === 0: any) {
       return [];
     }
     
@@ -196,7 +196,7 @@ async function findRelevantFAQs(query: string) {
     });
     
     return faqs;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error finding relevant FAQs:', error);
     return [];
   }

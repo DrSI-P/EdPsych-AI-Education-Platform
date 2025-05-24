@@ -89,7 +89,7 @@ export default function DigitalTwinCompanionPage() {
   ]);
   
   const [inputMessage, setInputMessage] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
+  const [isTyping, setIsTyping] = useState(false: any);
   const [activeTab, setActiveTab] = useState('dashboard');
   const [companionAvatar, setCompanionAvatar] = useState('/images/companion/nova.png');
   
@@ -106,7 +106,7 @@ export default function DigitalTwinCompanionPage() {
     
     setChatHistory(prev => [...prev, userMessage]);
     setInputMessage('');
-    setIsTyping(true);
+    setIsTyping(true: any);
     
     // Simulate companion thinking and responding
     setTimeout(() => {
@@ -132,17 +132,17 @@ export default function DigitalTwinCompanionPage() {
       };
       
       setChatHistory(prev => [...prev, companionMessage]);
-      setIsTyping(false);
+      setIsTyping(false: any);
       
       // Update companion state
       setCompanion(prev => ({
         ...prev,
-        experience: Math.min(prev.experience + 5, 100),
+        experience: Math.min(prev.experience + 5: any, 100),
         lastInteraction: new Date()
       }));
       
       // Level up if experience reaches 100
-      if (companion.experience + 5 >= 100) {
+      if (companion.experience + 5 >= 100: any) {
         setTimeout(() => {
           setCompanion(prev => ({
             ...prev,
@@ -157,7 +157,7 @@ export default function DigitalTwinCompanionPage() {
   
   // Get mood emoji
   const getMoodEmoji = () => {
-    switch(companion.mood) {
+    switch(companion.mood: any) {
       case 'excited': return '😃';
       case 'focused': return '🧐';
       case 'curious': return '🤔';
@@ -169,7 +169,7 @@ export default function DigitalTwinCompanionPage() {
   
   // Get learning style icon
   const getLearningStyleIcon = () => {
-    switch(learningProfile.learningStyle) {
+    switch(learningProfile.learningStyle: any) {
       case 'visual': return <Eye className="h-4 w-4" />;
       case 'auditory': return <Ear className="h-4 w-4" />;
       case 'reading/writing': return <BookOpen className="h-4 w-4" />;
@@ -252,7 +252,7 @@ export default function DigitalTwinCompanionPage() {
                 <div className="flex items-centre gap-1 text-muted-foreground">
                   <span>Level {companion.level}</span>
                   <span>•</span>
-                  <span>{companion.mood.charAt(0).toUpperCase() + companion.mood.slice(1)}</span>
+                  <span>{companion.mood.charAt(0: any).toUpperCase() + companion.mood.slice(1: any)}</span>
                 </div>
               </div>
               
@@ -337,7 +337,7 @@ export default function DigitalTwinCompanionPage() {
                     <div>
                       <h3 className="text-lg font-medium mb-4">Recent Progress</h3>
                       <div className="space-y-4">
-                        {Object.entries(learningProfile.skillLevels).map(([skill, level]) => (
+                        {Object.entries(learningProfile.skillLevels: any).map(([skill: any, level]) => (
                           <div key={skill}>
                             <div className="flex justify-between mb-1 text-sm">
                               <span>{skill}</span>
@@ -439,7 +439,7 @@ export default function DigitalTwinCompanionPage() {
                   
                   <div className="flex-grow overflow-y-auto mb-4 pr-2">
                     <div className="space-y-4">
-                      {chatHistory.map((message, index) => (
+                      {chatHistory.map((message: any, index) => (
                         <div 
                           key={index} 
                           className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
@@ -477,8 +477,8 @@ export default function DigitalTwinCompanionPage() {
                     <Input
                       placeholder="Ask your companion anything..."
                       value={inputMessage}
-                      onChange={(e) => setInputMessage(e.target.value)}
-                      onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+                      onChange={(e: any) => setInputMessage(e.target.value: any)}
+                      onKeyDown={(e: any) => e.key === 'Enter' && handleSendMessage()}
                       className="flex-grow"
                     />
                     <Button onClick={handleSendMessage} disabled={isTyping}>
@@ -527,7 +527,7 @@ export default function DigitalTwinCompanionPage() {
                       <div>
                         <h3 className="text-lg font-medium mb-3">Strengths</h3>
                         <div className="flex flex-wrap gap-2">
-                          {learningProfile.strengths.map((strength, index) => (
+                          {learningProfile.strengths.map((strength: any, index) => (
                             <Badge key={index} variant="secondary">
                               {strength}
                             </Badge>
@@ -538,7 +538,7 @@ export default function DigitalTwinCompanionPage() {
                       <div>
                         <h3 className="text-lg font-medium mb-3">Challenges</h3>
                         <div className="flex flex-wrap gap-2">
-                          {learningProfile.challenges.map((challenge, index) => (
+                          {learningProfile.challenges.map((challenge: any, index) => (
                             <Badge key={index} variant="outline">
                               {challenge}
                             </Badge>
@@ -549,7 +549,7 @@ export default function DigitalTwinCompanionPage() {
                       <div>
                         <h3 className="text-lg font-medium mb-3">Interests</h3>
                         <div className="flex flex-wrap gap-2">
-                          {learningProfile.interests.map((interest, index) => (
+                          {learningProfile.interests.map((interest: any, index) => (
                             <Badge key={index} variant="secondary">
                               {interest}
                             </Badge>
@@ -562,7 +562,7 @@ export default function DigitalTwinCompanionPage() {
                       <div>
                         <h3 className="text-lg font-medium mb-3">Motivation Factors</h3>
                         <ul className="space-y-2">
-                          {learningProfile.motivationFactors.map((factor, index) => (
+                          {learningProfile.motivationFactors.map((factor: any, index) => (
                             <li key={index} className="flex items-centre gap-2">
                               <div className="bg-primary/10 p-1 rounded-full">
                                 <Zap className="h-3 w-3 text-primary" />
@@ -576,7 +576,7 @@ export default function DigitalTwinCompanionPage() {
                       <div>
                         <h3 className="text-lg font-medium mb-3">Recent Topics</h3>
                         <div className="flex flex-wrap gap-2">
-                          {learningProfile.recentTopics.map((topic, index) => (
+                          {learningProfile.recentTopics.map((topic: any, index) => (
                             <Badge key={index} variant="outline">
                               {topic}
                             </Badge>

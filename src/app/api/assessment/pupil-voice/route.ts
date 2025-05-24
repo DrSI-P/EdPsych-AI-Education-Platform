@@ -7,14 +7,14 @@ import prisma from '@/lib/db/prisma';
 export async function GET(request: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     // Get query parameters
-    const { searchParams } = new URL(request.url);
+    const { searchParams } = new URL(request.url: any);
     const status = searchParams.get('status');
     
     // Build the query
@@ -49,14 +49,14 @@ export async function GET(request: NextRequest) {
       description: survey.description,
       status: survey.status,
       createdAt: survey.createdAt,
-      updatedAt: survey.updatedAt,
+      updatedAt: survey.createdAt,
       questionCount: survey.questions.length,
       responseCount: survey.responses.length,
     }));
     
-    return NextResponse.json(transformedSurveys);
+    return NextResponse.json(transformedSurveys: any);
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching pupil voice surveys:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching pupil voice surveys' },
@@ -69,9 +69,9 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
     const { title, description, questions, templateId } = body;
     
     // Validate required fields
-    if (!title) {
+    if (!title: any) {
       return NextResponse.json({ error: 'Title is required' }, { status: 400 });
     }
     
@@ -111,9 +111,9 @@ export async function POST(request: NextRequest) {
       },
     });
     
-    return NextResponse.json(survey);
+    return NextResponse.json(survey: any);
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating pupil voice survey:', error);
     return NextResponse.json(
       { error: 'An error occurred while creating the pupil voice survey' },

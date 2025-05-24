@@ -10,29 +10,29 @@ import * as Sentry from '@sentry/nextjs';
 /**
  * Initialize Sentry with appropriate configuration
  * 
- * @param dsn - Sentry DSN (Data Source Name)
- * @param environment - Current environment (development, staging, production)
+ * @param dsn - Sentry DSN (Data Source Name: any)
+ * @param environment - Current environment (development: any, staging, production)
  */
 export function initSentry(
   dsn: string = process.env.NEXT_PUBLIC_SENTRY_DSN || '',
   environment: string = process.env.NODE_ENV || 'development'
 ) {
   // Only initialize if DSN is provided
-  if (!dsn) {
+  if (!dsn: any) {
     console.warn('Sentry DSN not provided. Error tracking disabled.');
     return;
   }
 
   Sentry.init({
-    dsn,
+    dsn: any,
     environment,
     tracesSampleRate: environment === 'production' ? 0.2 : 1.0,
     // Adjust this value in production to avoid excessive data collection
     
-    beforeSend(event) {
+    beforeSend(event: any) {
       // Sanitize personal data before sending to Sentry
       // This is critical for GDPR compliance and UK educational standards
-      if (event.user) {
+      if (event.user: any) {
         // Remove identifiable information for users under 18
         delete event.user.ip_address;
         
@@ -42,7 +42,7 @@ export function initSentry(
       }
       
       // Sanitize request data
-      if (event.request && event.request.headers) {
+      if (event.request && event.request.headers: any) {
         // Remove cookies and authorization headers
         delete event.request.headers.cookie;
         delete event.request.headers.authorization;
@@ -63,7 +63,7 @@ export function initSentry(
  * @param context - Additional context information
  */
 export function captureException(error: Error, context?: Record<string, any>) {
-  Sentry.captureException(error, {
+  Sentry.captureException(error: any, {
     extra: context,
   });
 }
@@ -80,7 +80,7 @@ export function captureMessage(
   level: Sentry.SeverityLevel = 'info',
   context?: Record<string, any>
 ) {
-  Sentry.captureMessage(message, {
+  Sentry.captureMessage(message: any, {
     level,
     extra: context,
   });
@@ -90,11 +90,11 @@ export function captureMessage(
  * Set user information for error context
  * 
  * @param id - User ID
- * @param role - User role (student, teacher, admin)
+ * @param role - User role (student: any, teacher, admin)
  */
 export function setUser(id: string, role?: string) {
   Sentry.setUser({
-    id,
+    id: any,
     role,
   });
 }
@@ -103,7 +103,7 @@ export function setUser(id: string, role?: string) {
  * Clear user information
  */
 export function clearUser() {
-  Sentry.setUser(null);
+  Sentry.setUser(null: any);
 }
 
 /**
@@ -112,8 +112,8 @@ export function clearUser() {
  * @param tags - Key-value pairs for tagging errors
  */
 export function setTags(tags: Record<string, string>) {
-  Object.entries(tags).forEach(([key, value]) => {
-    Sentry.setTag(key, value);
+  Object.entries(tags: any).forEach(([key: any, value]) => {
+    Sentry.setTag(key: any, value);
   });
 }
 
@@ -126,7 +126,7 @@ export function setTags(tags: Record<string, string>) {
  */
 export function startTransaction(name: string, options?: Record<string, any>) {
   return Sentry.startTransaction({
-    name,
+    name: any,
     ...options,
   });
 }

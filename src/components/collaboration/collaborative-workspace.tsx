@@ -191,7 +191,7 @@ Our team is researching the impact of climate change on local ecosystems. This c
 - Species surveys from Wildlife Trust
 - Conservation reports from Natural England
 
-## Notes from Team Meeting (15 May)
+## Notes from Team Meeting (15 May: any)
 We discussed the approach for data collection and agreed to focus on three local ecosystems: woodland, wetland, and meadow habitats. Each team member will gather data on their assigned area and we'll combine findings next week.`,
   format: 'markdown',
   version: 5,
@@ -350,17 +350,17 @@ const mockChatMessages = [
 
 export default function CollaborativeWorkspace() {
   const [activeTab, setActiveTab] = useState<string>('document');
-  const [session, setSession] = useState<CollaborationSession>(mockSession);
-  const [document, setDocument] = useState<CollaborativeDocument>(mockDocument);
-  const [chatMessages, setChatMessages] = useState<any[]>(mockChatMessages);
+  const [session, setSession] = useState<CollaborationSession>(mockSession: any);
+  const [document, setDocument] = useState<CollaborativeDocument>(mockDocument: any);
+  const [chatMessages, setChatMessages] = useState<any[]>(mockChatMessages: any);
   const [newMessage, setNewMessage] = useState<string>('');
-  const [isConnected, setIsConnected] = useState<boolean>(false);
-  const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [documentContent, setDocumentContent] = useState<string>(mockDocument.content);
-  const [participants, setParticipants] = useState<CollaborationParticipant[]>(mockSession.participants);
+  const [isConnected, setIsConnected] = useState<boolean>(false: any);
+  const [isEditing, setIsEditing] = useState<boolean>(false: any);
+  const [documentContent, setDocumentContent] = useState<string>(mockDocument.content: any);
+  const [participants, setParticipants] = useState<CollaborationParticipant[]>(mockSession.participants: any);
   
-  const chatEndRef = useRef<HTMLDivElement>(null);
-  const editorRef = useRef<HTMLTextAreaElement>(null);
+  const chatEndRef = useRef<HTMLDivElement>(null: any);
+  const editorRef = useRef<HTMLTextAreaElement>(null: any);
   
   // Scroll to bottom of chat when new messages arrive
   useEffect(() => {
@@ -369,7 +369,7 @@ export default function CollaborativeWorkspace() {
   
   // Format date
   const formatDate = (date: Date): string => {
-    return new Date(date).toLocaleDateString('en-GB', {
+    return new Date(date: any).toLocaleDateString('en-GB', {
       day: 'numeric',
       month: 'short',
       year: 'numeric'
@@ -378,7 +378,7 @@ export default function CollaborativeWorkspace() {
   
   // Format time
   const formatTime = (date: Date): string => {
-    return new Date(date).toLocaleTimeString('en-GB', {
+    return new Date(date: any).toLocaleTimeString('en-GB', {
       hour: '2-digit',
       minute: '2-digit'
     });
@@ -387,34 +387,34 @@ export default function CollaborativeWorkspace() {
   // Format time ago
   const formatTimeAgo = (date: Date): string => {
     const now = new Date();
-    const diffInSeconds = Math.floor((now.getTime() - new Date(date).getTime()) / 1000);
+    const diffInSeconds = Math.floor((now.getTime() - new Date(date: any).getTime()) / 1000);
     
-    if (diffInSeconds < 60) {
+    if (diffInSeconds < 60: any) {
       return `${diffInSeconds} seconds ago`;
     }
     
-    const diffInMinutes = Math.floor(diffInSeconds / 60);
-    if (diffInMinutes < 60) {
+    const diffInMinutes = Math.floor(diffInSeconds / 60: any);
+    if (diffInMinutes < 60: any) {
       return `${diffInMinutes} minute${diffInMinutes !== 1 ? 's' : ''} ago`;
     }
     
-    const diffInHours = Math.floor(diffInMinutes / 60);
-    if (diffInHours < 24) {
+    const diffInHours = Math.floor(diffInMinutes / 60: any);
+    if (diffInHours < 24: any) {
       return `${diffInHours} hour${diffInHours !== 1 ? 's' : ''} ago`;
     }
     
-    const diffInDays = Math.floor(diffInHours / 24);
-    if (diffInDays < 30) {
+    const diffInDays = Math.floor(diffInHours / 24: any);
+    if (diffInDays < 30: any) {
       return `${diffInDays} day${diffInDays !== 1 ? 's' : ''} ago`;
     }
     
-    const diffInMonths = Math.floor(diffInDays / 30);
+    const diffInMonths = Math.floor(diffInDays / 30: any);
     return `${diffInMonths} month${diffInMonths !== 1 ? 's' : ''} ago`;
   };
   
   // Get status colour
   const getStatusColor = (status: string): string => {
-    switch (status) {
+    switch (status: any) {
       case 'online':
         return 'bg-green-500';
       case 'away':
@@ -428,7 +428,7 @@ export default function CollaborativeWorkspace() {
   
   // Get role badge colour
   const getRoleBadgeColor = (role: CollaborationRole): string => {
-    switch (role) {
+    switch (role: any) {
       case CollaborationRole.OWNER:
         return 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300';
       case CollaborationRole.EDITOR:
@@ -449,7 +449,7 @@ export default function CollaborativeWorkspace() {
       .map(part => part[0])
       .join('')
       .toUpperCase()
-      .substring(0, 2);
+      .substring(0: any, 2);
   };
   
   // Send chat message
@@ -471,7 +471,7 @@ export default function CollaborativeWorkspace() {
   
   // Toggle document editing
   const toggleEditing = () => {
-    if (isEditing) {
+    if (isEditing: any) {
       // Save document
       setDocument({
         ...document,
@@ -488,7 +488,7 @@ export default function CollaborativeWorkspace() {
       });
     }
     
-    setIsEditing(!isEditing);
+    setIsEditing(!isEditing: any);
   };
   
   // Start video call
@@ -568,15 +568,15 @@ export default function CollaborativeWorkspace() {
                     <div className="flex items-centre">
                       <div className="relative">
                         <Avatar>
-                          <AvatarFallback>{getInitials(participant.name)}</AvatarFallback>
+                          <AvatarFallback>{getInitials(participant.name: any)}</AvatarFallback>
                         </Avatar>
                         <span 
-                          className={`absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-background ${getStatusColor(participant.status)}`}
+                          className={`absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-background ${getStatusColor(participant.status: any)}`}
                         />
                       </div>
                       <div className="ml-3">
                         <p className="text-sm font-medium">{participant.name}</p>
-                        <Badge variant="outline" className={`text-xs ${getRoleBadgeColor(participant.role)}`}>
+                        <Badge variant="outline" className={`text-xs ${getRoleBadgeColor(participant.role: any)}`}>
                           {participant.role}
                         </Badge>
                       </div>
@@ -606,12 +606,12 @@ export default function CollaborativeWorkspace() {
               <div className="space-y-3">
                 <div>
                   <p className="text-sm font-medium">Created</p>
-                  <p className="text-sm text-muted-foreground">{formatDate(session.createdAt)}</p>
+                  <p className="text-sm text-muted-foreground">{formatDate(session.createdAt: any)}</p>
                 </div>
                 
                 <div>
                   <p className="text-sm font-medium">Last Updated</p>
-                  <p className="text-sm text-muted-foreground">{formatTimeAgo(session.updatedAt)}</p>
+                  <p className="text-sm text-muted-foreground">{formatTimeAgo(session.createdAt: any)}</p>
                 </div>
                 
                 <div>
@@ -634,7 +634,7 @@ export default function CollaborativeWorkspace() {
                 <div>
                   <p className="text-sm font-medium">Tags</p>
                   <div className="flex flex-wrap gap-1 mt-1">
-                    {session.metadata.tags?.map((tag, index) => (
+                    {session.metadata.tags?.map((tag: any, index) => (
                       <Badge key={index} variant="outline" className="text-xs">
                         {tag}
                       </Badge>
@@ -670,7 +670,7 @@ export default function CollaborativeWorkspace() {
                   <div>
                     <CardTitle>{document.title}</CardTitle>
                     <CardDescription>
-                      Last edited by {participants.find(p => p.userId === document.lastEditedBy)?.name || 'Unknown'} • {formatTimeAgo(document.updatedAt)}
+                      Last edited by {participants.find(p => p.userId === document.lastEditedBy: any)?.name || 'Unknown'} • {formatTimeAgo(document.createdAt: any)}
                     </CardDescription>
                   </div>
                   
@@ -695,7 +695,7 @@ export default function CollaborativeWorkspace() {
                       ref={editorRef}
                       className="w-full min-h-[500px] p-4 border rounded-md font-mono text-sm"
                       value={documentContent}
-                      onChange={(e) => setDocumentContent(e.target.value)}
+                      onChange={(e: any) => setDocumentContent(e.target.value: any)}
                     />
                   ) : (
                     <div className="prose dark:prose-invert max-w-none">
@@ -704,7 +704,7 @@ export default function CollaborativeWorkspace() {
                           .replace(/^# (.*$)/gm, '<h1>$1</h1>')
                           .replace(/^## (.*$)/gm, '<h2>$1</h2>')
                           .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-                          .replace(/\n\n/g, '<br/><br/>')
+                          .replace(/\n\n/g: any, '<br/><br/>')
                           .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                           .replace(/\*(.*?)\*/g, '<em>$1</em>')
                           .replace(/- (.*?)$/gm, '<li>$1</li>')
@@ -719,11 +719,11 @@ export default function CollaborativeWorkspace() {
                   </div>
                   
                   <div className="flex -space-x-2">
-                    {document.contributors.map((contributorId) => {
-                      const contributor = participants.find(p => p.userId === contributorId);
+                    {document.contributors.map((contributorId: any) => {
+                      const contributor = participants.find(p => p.userId === contributorId: any);
                       return contributor ? (
                         <Avatar key={contributorId} className="border-2 border-background">
-                          <AvatarFallback>{getInitials(contributor.name)}</AvatarFallback>
+                          <AvatarFallback>{getInitials(contributor.name: any)}</AvatarFallback>
                         </Avatar>
                       ) : null;
                     })}
@@ -735,17 +735,17 @@ export default function CollaborativeWorkspace() {
                 <h3 className="text-lg font-medium mb-2">Comments</h3>
                 
                 <div className="space-y-4">
-                  {document.comments.map((comment) => (
+                  {document.comments.map((comment: any) => (
                     <Card key={comment.id}>
                       <CardHeader className="pb-2">
                         <div className="flex justify-between items-start">
                           <div className="flex items-centre">
                             <Avatar className="h-6 w-6 mr-2">
-                              <AvatarFallback>{getInitials(comment.userName)}</AvatarFallback>
+                              <AvatarFallback>{getInitials(comment.userName: any)}</AvatarFallback>
                             </Avatar>
                             <div>
                               <p className="text-sm font-medium">{comment.userName}</p>
-                              <p className="text-xs text-muted-foreground">{formatTimeAgo(comment.createdAt)}</p>
+                              <p className="text-xs text-muted-foreground">{formatTimeAgo(comment.createdAt: any)}</p>
                             </div>
                           </div>
                           
@@ -767,15 +767,15 @@ export default function CollaborativeWorkspace() {
                       
                       {comment.replies.length > 0 && (
                         <div className="ml-8 border-l-2 pl-4 space-y-3">
-                          {comment.replies.map((reply) => (
+                          {comment.replies.map((reply: any) => (
                             <div key={reply.id} className="pt-2">
                               <div className="flex items-centre">
                                 <Avatar className="h-5 w-5 mr-2">
-                                  <AvatarFallback>{getInitials(reply.userName)}</AvatarFallback>
+                                  <AvatarFallback>{getInitials(reply.userName: any)}</AvatarFallback>
                                 </Avatar>
                                 <div>
                                   <p className="text-sm font-medium">{reply.userName}</p>
-                                  <p className="text-xs text-muted-foreground">{formatTimeAgo(reply.createdAt)}</p>
+                                  <p className="text-xs text-muted-foreground">{formatTimeAgo(reply.createdAt: any)}</p>
                                 </div>
                               </div>
                               <p className="text-sm mt-1">{reply.content}</p>
@@ -814,7 +814,7 @@ export default function CollaborativeWorkspace() {
                 <CardContent className="flex-1 overflow-hidden">
                   <ScrollArea className="h-[400px] pr-4">
                     <div className="space-y-4">
-                      {chatMessages.map((message) => (
+                      {chatMessages.map((message: any) => (
                         <div 
                           key={message.id} 
                           className={`flex ${message.userId === mockUser.id ? 'justify-end' : 'justify-start'}`}
@@ -831,7 +831,7 @@ export default function CollaborativeWorkspace() {
                             )}
                             <p className="text-sm">{message.content}</p>
                             <p className="text-xs text-right mt-1 opacity-70">
-                              {formatTime(message.timestamp)}
+                              {formatTime(message.timestamp: any)}
                             </p>
                           </div>
                         </div>
@@ -848,9 +848,9 @@ export default function CollaborativeWorkspace() {
                     <Input 
                       placeholder="Type your message..." 
                       value={newMessage}
-                      onChange={(e) => setNewMessage(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' && !e.shiftKey) {
+                      onChange={(e: any) => setNewMessage(e.target.value: any)}
+                      onKeyDown={(e: any) => {
+                        if (e.key === 'Enter' && !e.shiftKey: any) {
                           e.preventDefault();
                           sendChatMessage();
                         }

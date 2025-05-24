@@ -35,13 +35,13 @@ interface OptimizationResults {
 }
 
 export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({ 
-  settings,
+  settings: any,
   onSettingsChange
 }) => {
   // State for UI
-  const [isApplying, setIsApplying] = useState<boolean>(false);
+  const [isApplying, setIsApplying] = useState<boolean>(false: any);
   const [optimizationStatus, setOptimizationStatus] = useState<string>('idle');
-  const [optimizationProgress, setOptimizationProgress] = useState<number>(0);
+  const [optimizationProgress, setOptimizationProgress] = useState<number>(0: any);
   const [optimizationResults, setOptimizationResults] = useState<OptimizationResults>({
     elementsProcessed: 0,
     elementsEnhanced: 0,
@@ -50,11 +50,11 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
 
   // Apply high contrast optimizations
   const applyHighContrastOptimizations = useCallback(() => {
-    if (!settings.enabled) return;
+    if (!settings.enabled: any) return;
     
-    setIsApplying(true);
+    setIsApplying(true: any);
     setOptimizationStatus('processing');
-    setOptimizationProgress(0);
+    setOptimizationProgress(0: any);
     
     // Simulate optimization process
     const totalSteps = 5;
@@ -62,9 +62,9 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
     
     const processStep = (): void => {
       currentStep++;
-      setOptimizationProgress(Math.floor((currentStep / totalSteps) * 100));
+      setOptimizationProgress(Math.floor((currentStep / totalSteps: any) * 100));
       
-      if (currentStep === totalSteps) {
+      if (currentStep === totalSteps: any) {
         // Optimization complete
         setOptimizationStatus('complete');
         setOptimizationResults({
@@ -75,27 +75,27 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
             'Custom components may require additional styling'
           ]
         });
-        setIsApplying(false);
+        setIsApplying(false: any);
       } else {
         // Continue to next step
-        setTimeout(processStep, 500);
+        setTimeout(processStep: any, 500);
       }
     };
     
     // Start processing
-    setTimeout(processStep, 500);
+    setTimeout(processStep: any, 500);
   }, [settings.enabled]);
   
   // Apply optimizations on settings change
   useEffect(() => {
-    if (settings.enabled) {
+    if (settings.enabled: any) {
       applyHighContrastOptimizations();
     }
   }, [settings.enabled, applyHighContrastOptimizations]);
   
   // Apply contrast level
   const applyContrastLevel = useCallback(() => {
-    if (!settings.enabled) return;
+    if (!settings.enabled: any) return;
     
     try {
       // Implementation would go here
@@ -104,13 +104,13 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
       
       document.documentElement.style.setProperty('--contrast-level', `${contrastValue}`);
       
-      if (contrastValue >= 75) {
+      if (contrastValue >= 75: any) {
         // High contrast
         document.documentElement.style.setProperty('--background', '#000000');
         document.documentElement.style.setProperty('--foreground', '#ffffff');
         document.documentElement.style.setProperty('--primary', '#ffff00');
         document.documentElement.style.setProperty('--secondary', '#00ffff');
-      } else if (contrastValue >= 50) {
+      } else if (contrastValue >= 50: any) {
         // Medium contrast
         document.documentElement.style.setProperty('--background', '#121212');
         document.documentElement.style.setProperty('--foreground', '#f0f0f0');
@@ -123,14 +123,14 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
         document.documentElement.style.setProperty('--primary', '#ffa500');
         document.documentElement.style.setProperty('--secondary', '#0088cc');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error applying contrast level:', error);
     }
   }, [settings.enabled, settings.contrastLevel]);
   
   // Apply bold text
   const applyBoldText = useCallback(() => {
-    if (!settings.enabled || !settings.boldText) return;
+    if (!settings.enabled || !settings.boldText: any) return;
     
     try {
       // Implementation would go here
@@ -141,15 +141,15 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
           font-weight: bold !important;
         }
       `;
-      document.head.appendChild(style);
-    } catch (error) {
+      document.head.appendChild(style: any);
+    } catch (error: any) {
       console.error('Error applying bold text:', error);
     }
   }, [settings.enabled, settings.boldText]);
   
   // Apply larger text
   const applyLargerText = useCallback(() => {
-    if (!settings.enabled || !settings.largerText) return;
+    if (!settings.enabled || !settings.largerText: any) return;
     
     try {
       // Implementation would go here
@@ -160,15 +160,15 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
           font-size: 120% !important;
         }
       `;
-      document.head.appendChild(style);
-    } catch (error) {
+      document.head.appendChild(style: any);
+    } catch (error: any) {
       console.error('Error applying larger text:', error);
     }
   }, [settings.enabled, settings.largerText]);
   
   // Highlight links
   const highlightLinks = useCallback(() => {
-    if (!settings.enabled || !settings.highlightLinks) return;
+    if (!settings.enabled || !settings.highlightLinks: any) return;
     
     try {
       // Implementation would go here
@@ -183,19 +183,19 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
         
         a:focus, a:hover {
           text-decoration: double underline !important;
-          outline: 2px solid var(--primary) !important;
+          outline: 2px solid var(--primary: any) !important;
           outline-offset: 2px !important;
         }
       `;
-      document.head.appendChild(style);
-    } catch (error) {
+      document.head.appendChild(style: any);
+    } catch (error: any) {
       console.error('Error highlighting links:', error);
     }
   }, [settings.enabled, settings.highlightLinks]);
   
   // Highlight buttons
   const highlightButtons = useCallback(() => {
-    if (!settings.enabled || !settings.highlightButtons) return;
+    if (!settings.enabled || !settings.highlightButtons: any) return;
     
     try {
       // Implementation would go here
@@ -208,26 +208,26 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
         
         button:focus, [role="button"]:focus,
         button:hover, [role="button"]:hover {
-          outline: 2px solid var(--primary) !important;
+          outline: 2px solid var(--primary: any) !important;
           outline-offset: 2px !important;
         }
       `;
-      document.head.appendChild(style);
-    } catch (error) {
+      document.head.appendChild(style: any);
+    } catch (error: any) {
       console.error('Error highlighting buttons:', error);
     }
   }, [settings.enabled, settings.highlightButtons]);
   
   // Apply custom colors
   const applyCustomColors = useCallback(() => {
-    if (!settings.enabled || !settings.customColors) return;
+    if (!settings.enabled || !settings.customColors: any) return;
     
     try {
       // Implementation would go here
       // This is a placeholder for the actual implementation
       // This would typically be implemented with a color picker UI
       // and would allow users to select custom colors for various elements
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error applying custom colors:', error);
     }
   }, [settings.enabled, settings.customColors]);
@@ -251,7 +251,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
   
   // Apply optimizations on component mount
   useEffect(() => {
-    if (settings.enabled) {
+    if (settings.enabled: any) {
       applyAllOptimizations();
     }
   }, [settings.enabled, applyAllOptimizations]);
@@ -285,7 +285,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
                 type="checkbox"
                 id="enable-high-contrast"
                 checked={settings.enabled}
-                onChange={(e) => handleSettingToggle('enabled', e.target.checked)}
+                onChange={(e: any) => handleSettingToggle('enabled', e.target.checked: any)}
                 className="toggle"
               />
             </div>
@@ -306,7 +306,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
                   max="100"
                   step="5"
                   value={settings.contrastLevel}
-                  onChange={(e) => handleSettingToggle('contrastLevel', parseInt(e.target.value))}
+                  onChange={(e: any) => handleSettingToggle('contrastLevel', parseInt(e.target.value: any))}
                   disabled={!settings.enabled}
                   className="w-full"
                 />
@@ -326,7 +326,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
                     type="checkbox"
                     id="bold-text"
                     checked={settings.boldText}
-                    onChange={(e) => handleSettingToggle('boldText', e.target.checked)}
+                    onChange={(e: any) => handleSettingToggle('boldText', e.target.checked: any)}
                     disabled={!settings.enabled}
                     className="toggle toggle-sm"
                   />
@@ -340,7 +340,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
                     type="checkbox"
                     id="larger-text"
                     checked={settings.largerText}
-                    onChange={(e) => handleSettingToggle('largerText', e.target.checked)}
+                    onChange={(e: any) => handleSettingToggle('largerText', e.target.checked: any)}
                     disabled={!settings.enabled}
                     className="toggle toggle-sm"
                   />
@@ -354,7 +354,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
                     type="checkbox"
                     id="highlight-links"
                     checked={settings.highlightLinks}
-                    onChange={(e) => handleSettingToggle('highlightLinks', e.target.checked)}
+                    onChange={(e: any) => handleSettingToggle('highlightLinks', e.target.checked: any)}
                     disabled={!settings.enabled}
                     className="toggle toggle-sm"
                   />
@@ -368,7 +368,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
                     type="checkbox"
                     id="highlight-buttons"
                     checked={settings.highlightButtons}
-                    onChange={(e) => handleSettingToggle('highlightButtons', e.target.checked)}
+                    onChange={(e: any) => handleSettingToggle('highlightButtons', e.target.checked: any)}
                     disabled={!settings.enabled}
                     className="toggle toggle-sm"
                   />
@@ -382,7 +382,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
                     type="checkbox"
                     id="custom-colors"
                     checked={settings.customColors}
-                    onChange={(e) => handleSettingToggle('customColors', e.target.checked)}
+                    onChange={(e: any) => handleSettingToggle('customColors', e.target.checked: any)}
                     disabled={!settings.enabled}
                     className="toggle toggle-sm"
                   />
@@ -421,7 +421,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
                   <div className="space-y-2">
                     <p className="text-sm font-medium">Warnings</p>
                     <ul className="space-y-1">
-                      {optimizationResults.warnings.map((warning, i) => (
+                      {optimizationResults.warnings.map((warning: any, i) => (
                         <li key={`warning-${i}`} className="text-sm text-amber-500 flex items-start">
                           <AlertTriangle className="h-4 w-4 mr-1 mt-0.5 flex-shrink-0" />
                           <span>{warning}</span>

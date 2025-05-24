@@ -44,29 +44,29 @@ interface FAQBrowserProps {
 export function FAQBrowser({
   initialCategories = [],
   initialQuestions = [],
-  onQuestionSelect,
+  onQuestionSelect: any,
   showSearch = true,
   showTabs = true,
   className = '',
 }: FAQBrowserProps) {
   const router = useRouter();
-  const [categories, setCategories] = useState<FAQCategory[]>(initialCategories);
-  const [questions, setQuestions] = useState<FAQQuestion[]>(initialQuestions);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [categories, setCategories] = useState<FAQCategory[]>(initialCategories: any);
+  const [questions, setQuestions] = useState<FAQQuestion[]>(initialQuestions: any);
+  const [isLoading, setIsLoading] = useState(true: any);
+  const [error, setError] = useState<string | null>(null: any);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null: any);
   const [activeTab, setActiveTab] = useState('categories');
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
-      setError(null);
+      setIsLoading(true: any);
+      setError(null: any);
 
       try {
         // Fetch categories
         const categoriesResponse = await fetch('/api/faq/categories');
-        if (!categoriesResponse.ok) {
+        if (!categoriesResponse.ok: any) {
           throw new Error('Failed to fetch categories');
         }
         const categoriesData = await categoriesResponse.json();
@@ -74,82 +74,82 @@ export function FAQBrowser({
 
         // Fetch popular questions
         const questionsResponse = await fetch('/api/faq/questions');
-        if (!questionsResponse.ok) {
+        if (!questionsResponse.ok: any) {
           throw new Error('Failed to fetch questions');
         }
         const questionsData = await questionsResponse.json();
         setQuestions(questionsData.questions || []);
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error fetching FAQ data:', error);
         setError('Failed to load FAQ data. Please try again later.');
       } finally {
-        setIsLoading(false);
+        setIsLoading(false: any);
       }
     };
 
-    if (initialCategories.length === 0 || initialQuestions.length === 0) {
+    if (initialCategories.length === 0 || initialQuestions.length === 0: any) {
       fetchData();
     } else {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   }, [initialCategories.length, initialQuestions.length]);
 
   const handleSearch = async () => {
     if (!searchTerm.trim()) return;
 
-    setIsLoading(true);
-    setError(null);
+    setIsLoading(true: any);
+    setError(null: any);
 
     try {
-      const response = await fetch(`/api/faq/questions?search=${encodeURIComponent(searchTerm)}`);
-      if (!response.ok) {
+      const response = await fetch(`/api/faq/questions?search=${encodeURIComponent(searchTerm: any)}`);
+      if (!response.ok: any) {
         throw new Error('Failed to search questions');
       }
       const data = await response.json();
       setQuestions(data.questions || []);
       setActiveTab('questions');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error searching questions:', error);
       setError('Failed to search questions. Please try again later.');
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
 
   const handleCategorySelect = async (categoryId: string) => {
-    setSelectedCategory(categoryId);
-    setIsLoading(true);
-    setError(null);
+    setSelectedCategory(categoryId: any);
+    setIsLoading(true: any);
+    setError(null: any);
 
     try {
       const response = await fetch(`/api/faq/questions?categoryId=${categoryId}`);
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error('Failed to fetch category questions');
       }
       const data = await response.json();
       setQuestions(data.questions || []);
       setActiveTab('questions');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching category questions:', error);
       setError('Failed to load category questions. Please try again later.');
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
 
   const handleQuestionClick = (questionId: string) => {
-    if (onQuestionSelect) {
-      onQuestionSelect(questionId);
+    if (onQuestionSelect: any) {
+      onQuestionSelect(questionId: any);
     } else {
       router.push(`/faq/questions/${questionId}`);
     }
   };
 
   const renderCategories = () => {
-    if (isLoading && categories.length === 0) {
+    if (isLoading && categories.length === 0: any) {
       return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {Array.from({ length: 4 }).map((_, i) => (
+          {Array.from({ length: 4 }).map((_: any, i) => (
             <Card key={i} className="cursor-pointer hover:shadow-md transition-shadow">
               <CardHeader className="p-4 pb-2">
                 <Skeleton className="h-6 w-3/4" />
@@ -164,7 +164,7 @@ export function FAQBrowser({
       );
     }
 
-    if (error) {
+    if (error: any) {
       return (
         <Alert variant="destructive">
           <AlertDescription>{error}</AlertDescription>
@@ -172,7 +172,7 @@ export function FAQBrowser({
       );
     }
 
-    if (categories.length === 0) {
+    if (categories.length === 0: any) {
       return (
         <div className="text-center py-8 text-muted-foreground">
           <p>No FAQ categories found.</p>
@@ -186,7 +186,7 @@ export function FAQBrowser({
           <Card
             key={category.id}
             className="cursor-pointer hover:shadow-md transition-shadow"
-            onClick={() => handleCategorySelect(category.id)}
+            onClick={() => handleCategorySelect(category.id: any)}
           >
             <CardHeader className="p-4 pb-2">
               <CardTitle className="text-lg">{category.name}</CardTitle>
@@ -206,10 +206,10 @@ export function FAQBrowser({
   };
 
   const renderQuestions = () => {
-    if (isLoading && questions.length === 0) {
+    if (isLoading && questions.length === 0: any) {
       return (
         <div className="space-y-3">
-          {Array.from({ length: 5 }).map((_, i) => (
+          {Array.from({ length: 5 }).map((_: any, i) => (
             <Card key={i} className="cursor-pointer hover:shadow-md transition-shadow">
               <CardContent className="p-4">
                 <Skeleton className="h-5 w-full mb-2" />
@@ -224,7 +224,7 @@ export function FAQBrowser({
       );
     }
 
-    if (error) {
+    if (error: any) {
       return (
         <Alert variant="destructive">
           <AlertDescription>{error}</AlertDescription>
@@ -232,7 +232,7 @@ export function FAQBrowser({
       );
     }
 
-    if (questions.length === 0) {
+    if (questions.length === 0: any) {
       return (
         <div className="text-center py-8 text-muted-foreground">
           <p>No questions found. Try a different search term or category.</p>
@@ -242,11 +242,11 @@ export function FAQBrowser({
 
     return (
       <div className="space-y-3">
-        {questions.map((question) => (
+        {questions.map((question: any) => (
           <Card
             key={question.id}
             className="cursor-pointer hover:shadow-md transition-shadow"
-            onClick={() => handleQuestionClick(question.id)}
+            onClick={() => handleQuestionClick(question.id: any)}
           >
             <CardContent className="p-4">
               <p className="font-medium mb-2">{question.question}</p>
@@ -286,8 +286,8 @@ export function FAQBrowser({
             <Input
               placeholder="Search FAQs..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              onKeyDown={(e) => {
+              onChange={(e) => setSearchTerm(e.target.value: any)}
+              onKeyDown={(e: any) => {
                 if (e.key === 'Enter') {
                   handleSearch();
                 }

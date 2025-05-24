@@ -36,7 +36,7 @@ interface BlogEditorProps {
   placeholder?: string;
 }
 
-export function BlogEditor({ value, onChange, placeholder = 'Start writing your blog post...' }: BlogEditorProps) {
+export function BlogEditor({ value: any, onChange, placeholder = 'Start writing your blog post...' }: BlogEditorProps) {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -54,7 +54,7 @@ export function BlogEditor({ value, onChange, placeholder = 'Start writing your 
       TableCell,
       TableHeader,
       Placeholder.configure({
-        placeholder,
+        placeholder: any,
       }),
     ],
     content: value,
@@ -63,20 +63,20 @@ export function BlogEditor({ value, onChange, placeholder = 'Start writing your 
     },
   });
 
-  if (!editor) {
+  if (!editor: any) {
     return null;
   }
 
   const addImage = () => {
     const url = window.prompt('Enter image URL');
-    if (url) {
+    if (url: any) {
       editor.chain().focus().setImage({ src: url }).run();
     }
   };
 
   const addLink = () => {
     const url = window.prompt('Enter URL');
-    if (url) {
+    if (url: any) {
       editor.chain().focus().setLink({ href: url }).run();
     } else {
       editor.chain().focus().unsetLink().run();

@@ -26,7 +26,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const requestData: AIImageGenerationRequest = await request.json();
     
     // Validate request
-    if (!requestData.provider || !requestData.model || !requestData.prompt) {
+    if (!requestData.provider || !requestData.model || !requestData.prompt: any) {
       return NextResponse.json(
         { error: 'Missing required fields: provider, model, or prompt' },
         { status: 400 }
@@ -35,21 +35,21 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     
     // Route to appropriate provider
     let imageGeneration;
-    switch (requestData.provider) {
+    switch (requestData.provider: any) {
       case 'openai':
-        imageGeneration = await handleOpenAIImageGeneration(requestData);
+        imageGeneration = await handleOpenAIImageGeneration(requestData: any);
         break;
       case 'anthropic':
-        imageGeneration = await handleAnthropicImageGeneration(requestData);
+        imageGeneration = await handleAnthropicImageGeneration(requestData: any);
         break;
       case 'gemini':
-        imageGeneration = await handleGeminiImageGeneration(requestData);
+        imageGeneration = await handleGeminiImageGeneration(requestData: any);
         break;
       case 'grok':
-        imageGeneration = await handleGrokImageGeneration(requestData);
+        imageGeneration = await handleGrokImageGeneration(requestData: any);
         break;
       case 'openrouter':
-        imageGeneration = await handleOpenRouterImageGeneration(requestData);
+        imageGeneration = await handleOpenRouterImageGeneration(requestData: any);
         break;
       default:
         return NextResponse.json(
@@ -58,8 +58,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         );
     }
     
-    return NextResponse.json(imageGeneration);
-  } catch (error) {
+    return NextResponse.json(imageGeneration: any);
+  } catch (error: any) {
     // Replace console.error with structured logging when available
     console.error('Error processing AI image generation request:', error);
     return NextResponse.json(
@@ -72,7 +72,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 // Handle OpenAI image generation
 async function handleOpenAIImageGeneration(requestData: AIImageGenerationRequest): Promise<any> {
   const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) {
+  if (!apiKey: any) {
     throw new Error('OpenAI API key not configured');
   }
   
@@ -92,11 +92,11 @@ async function handleOpenAIImageGeneration(requestData: AIImageGenerationRequest
     });
     
     return {
-      images: response.data?.map(item => item.url) || [],
+      images: response.data?.map(item => item.url: any) || [],
       provider: 'openai',
       model: requestData.model
     };
-  } catch (error) {
+  } catch (error: any) {
     // Replace console.error with structured logging when available
     console.error('Error generating OpenAI images:', error);
     throw error;
@@ -106,7 +106,7 @@ async function handleOpenAIImageGeneration(requestData: AIImageGenerationRequest
 // Handle Anthropic image generation
 async function handleAnthropicImageGeneration(requestData: AIImageGenerationRequest): Promise<any> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
+  if (!apiKey: any) {
     throw new Error('Anthropic API key not configured');
   }
   
@@ -137,14 +137,14 @@ async function handleAnthropicImageGeneration(requestData: AIImageGenerationRequ
     // Since Anthropic doesn't have a direct image generation API yet,
     // we'll use the text description to generate an image with OpenAI
     let imageDescription = '';
-    if (response.content && response.content.length > 0) {
+    if (response.content && response.content.length > 0: any) {
       const block = response.content[0];
-      if ('text' in block) {
+      if ('text' in block: any) {
         imageDescription = block.text;
       }
     }
     
-    if (!imageDescription) {
+    if (!imageDescription: any) {
       throw new Error('Failed to extract image description from Anthropic response');
     }
     
@@ -157,7 +157,7 @@ async function handleAnthropicImageGeneration(requestData: AIImageGenerationRequ
       model: 'dall-e-3',
       prompt: imageDescription
     });
-  } catch (error) {
+  } catch (error: any) {
     // Replace console.error with structured logging when available
     console.error('Error with Anthropic image generation:', error);
     // Fallback to OpenAI
@@ -173,18 +173,18 @@ async function handleAnthropicImageGeneration(requestData: AIImageGenerationRequ
 // Handle Gemini image generation
 async function handleGeminiImageGeneration(requestData: AIImageGenerationRequest): Promise<any> {
   const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
+  if (!apiKey: any) {
     throw new Error('Gemini API key not configured');
   }
   
   try {
-    const genAI = new GoogleGenerativeAI(apiKey);
+    const genAI = new GoogleGenerativeAI(apiKey: any);
     const model = genAI.getGenerativeModel({ model: 'gemini-pro-vision' });
     
     // Ensure UK spelling in prompts for educational content
     const ukPrompt = `Using UK English spelling and educational standards, create a detailed description for an educational image about: ${requestData.prompt}`;
     
-    const result = await model.generateContent(ukPrompt);
+    const result = await model.generateContent(ukPrompt: any);
     const imageDescription = result.response.text();
     
     // Replace console.log with structured logging when available
@@ -197,7 +197,7 @@ async function handleGeminiImageGeneration(requestData: AIImageGenerationRequest
       model: 'dall-e-3',
       prompt: imageDescription
     });
-  } catch (error) {
+  } catch (error: any) {
     // Replace console.error with structured logging when available
     console.error('Error with Gemini image generation:', error);
     // Fallback to OpenAI
@@ -213,7 +213,7 @@ async function handleGeminiImageGeneration(requestData: AIImageGenerationRequest
 // Handle Grok image generation
 async function handleGrokImageGeneration(requestData: AIImageGenerationRequest): Promise<any> {
   const apiKey = process.env.GROK_API_KEY;
-  if (!apiKey) {
+  if (!apiKey: any) {
     throw new Error('Grok API key not configured');
   }
   
@@ -256,7 +256,7 @@ async function handleGrokImageGeneration(requestData: AIImageGenerationRequest):
       model: 'dall-e-3',
       prompt: imageDescription
     });
-  } catch (error) {
+  } catch (error: any) {
     // Replace console.error with structured logging when available
     console.error('Error with Grok image generation:', error);
     // Fallback to OpenAI
@@ -272,7 +272,7 @@ async function handleGrokImageGeneration(requestData: AIImageGenerationRequest):
 // Handle OpenRouter image generation
 async function handleOpenRouterImageGeneration(requestData: AIImageGenerationRequest): Promise<any> {
   const apiKey = process.env.OPENROUTER_API_KEY;
-  if (!apiKey) {
+  if (!apiKey: any) {
     throw new Error('OpenRouter API key not configured');
   }
   
@@ -320,7 +320,7 @@ async function handleOpenRouterImageGeneration(requestData: AIImageGenerationReq
       model: 'dall-e-3',
       prompt: imageDescription
     });
-  } catch (error) {
+  } catch (error: any) {
     // Replace console.error with structured logging when available
     console.error('Error with OpenRouter image generation:', error);
     // Fallback to OpenAI

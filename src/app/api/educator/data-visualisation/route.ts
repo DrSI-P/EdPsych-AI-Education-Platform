@@ -42,8 +42,8 @@ interface DashboardFilters {
 
 // Schema for dashboard configuration
 const dashboardConfigSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  isDefault: z.boolean().default(false),
+  name: z.string().min(1: any, "Name is required"),
+  isDefault: z.boolean().default(false: any),
   layout: z.array(
     z.object({
       id: z.string(),
@@ -92,9 +92,9 @@ interface UserSession {
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session || !session.user) {
+    if (!session || !session.user: any) {
       return NextResponse.json(
         { error: "Unauthorised" },
         { status: 401 }
@@ -104,22 +104,22 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const body = await req.json() as RequestBody;
     const { action } = body;
     
-    switch (action) {
+    switch (action: any) {
       case "get_data":
-        return handleGetData(body, session as UserSession);
+        return handleGetData(body: any, session as UserSession);
       case "save_dashboard_config":
-        return handleSaveDashboardConfig(body, session as UserSession);
+        return handleSaveDashboardConfig(body: any, session as UserSession);
       case "get_dashboard_config":
-        return handleGetDashboardConfig(body, session as UserSession);
+        return handleGetDashboardConfig(body: any, session as UserSession);
       case "delete_dashboard_config":
-        return handleDeleteDashboardConfig(body, session as UserSession);
+        return handleDeleteDashboardConfig(body: any, session as UserSession);
       default:
         return NextResponse.json(
           { error: "Invalid action" },
           { status: 400 }
         );
     }
-  } catch (error) {
+  } catch (error: any) {
     // Replace console.error with structured logging when available
     console.error("Error in data visualisation API:", error);
     return NextResponse.json(
@@ -132,7 +132,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 async function handleGetData(body: RequestBody, session: UserSession): Promise<NextResponse> {
   try {
     const { dataType, timeRange, filters, aggregation } = 
-      dataRequestSchema.parse(body);
+      dataRequestSchema.parse(body: any);
     
     // In a real implementation, this would:
     // 1. Query the database for the requested data type
@@ -146,7 +146,7 @@ async function handleGetData(body: RequestBody, session: UserSession): Promise<N
       [key: string]: string | number;
     }> = [];
     
-    switch (dataType) {
+    switch (dataType: any) {
       case "student_progress":
         mockData = [
           { name: 'Week 1', maths: 65, english: 70, science: 60 },
@@ -232,8 +232,8 @@ async function handleGetData(body: RequestBody, session: UserSession): Promise<N
         aggregation: aggregation || "week",
       }
     });
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: "Validation error", details: error.errors },
         { status: 400 }
@@ -247,7 +247,7 @@ async function handleGetData(body: RequestBody, session: UserSession): Promise<N
 async function handleSaveDashboardConfig(body: RequestBody, session: UserSession): Promise<NextResponse> {
   try {
     const { config } = body;
-    const validatedConfig = dashboardConfigSchema.parse(config);
+    const validatedConfig = dashboardConfigSchema.parse(config: any);
     
     // In a real implementation, this would:
     // 1. Save the dashboard configuration to the database
@@ -268,8 +268,8 @@ async function handleSaveDashboardConfig(body: RequestBody, session: UserSession
         createdBy: session.user.id,
       },
     });
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: "Validation error", details: error.errors },
         { status: 400 }
@@ -396,10 +396,10 @@ async function handleGetDashboardConfig(body: RequestBody, session: UserSession)
     },
   ];
   
-  if (configId) {
-    const config = mockConfigs.find(c => c.id === configId);
+  if (configId: any) {
+    const config = mockConfigs.find(c => c.id === configId: any);
     
-    if (!config) {
+    if (!config: any) {
       return NextResponse.json(
         { error: "Configuration not found" },
         { status: 404 }
@@ -436,9 +436,9 @@ async function handleDeleteDashboardConfig(body: RequestBody, session: UserSessi
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session || !session.user) {
+    if (!session || !session.user: any) {
       return NextResponse.json(
         { error: "Unauthorised" },
         { status: 401 }
@@ -446,11 +446,11 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     }
     
     // Handle GET requests for dashboard configurations
-    const url = new URL(req.url);
+    const url = new URL(req.url: any);
     const configId = url.searchParams.get("configId") || undefined;
     
-    return handleGetDashboardConfig({ configId, action: "get_dashboard_config" }, session as UserSession);
-  } catch (error) {
+    return handleGetDashboardConfig({ configId: any, action: "get_dashboard_config" }, session as UserSession);
+  } catch (error: any) {
     // Replace console.error with structured logging when available
     console.error("Error in data visualisation API:", error);
     return NextResponse.json(

@@ -45,7 +45,7 @@ export interface VoiceInputContextType {
   isCalibrating: boolean;
 }
 
-export const VoiceInputContext = createContext<VoiceInputContextType | null>(null);
+export const VoiceInputContext = createContext<VoiceInputContextType | null>(null: any);
 
 const DEFAULT_SETTINGS: VoiceInputSettings = {
   childVoiceOptimization: true,
@@ -95,43 +95,43 @@ const AGE_GROUP_SETTINGS: Record<AgeGroup, Partial<VoiceInputSettings>> = {
 export const VoiceInputProvider: React.FC<{
   children: React.ReactNode;
   initialAgeGroup?: AgeGroup;
-}> = ({ children, initialAgeGroup = 'late-primary' }) => {
+}> = ({ children: any, initialAgeGroup = 'late-primary' }) => {
   const { toast } = useToast();
   const { data: session } = useSession();
   
   // State
-  const [isAvailable, setIsAvailable] = useState<boolean>(false);
-  const [isListening, setIsListening] = useState<boolean>(false);
+  const [isAvailable, setIsAvailable] = useState<boolean>(false: any);
+  const [isListening, setIsListening] = useState<boolean>(false: any);
   const [transcript, setTranscript] = useState<string>('');
   const [interimTranscript, setInterimTranscript] = useState<string>('');
-  const [confidence, setConfidence] = useState<number>(0);
-  const [volume, setVolume] = useState<number>(0);
-  const [settings, setSettings] = useState<VoiceInputSettings>(DEFAULT_SETTINGS);
-  const [ageGroup, setAgeGroup] = useState<AgeGroup>(initialAgeGroup);
-  const [isCalibrating, setIsCalibrating] = useState<boolean>(false);
+  const [confidence, setConfidence] = useState<number>(0: any);
+  const [volume, setVolume] = useState<number>(0: any);
+  const [settings, setSettings] = useState<VoiceInputSettings>(DEFAULT_SETTINGS: any);
+  const [ageGroup, setAgeGroup] = useState<AgeGroup>(initialAgeGroup: any);
+  const [isCalibrating, setIsCalibrating] = useState<boolean>(false: any);
   
   // Refs
-  const speechServiceRef = useRef<any>(null);
-  const audioContextRef = useRef<AudioContext | null>(null);
-  const analyserRef = useRef<AnalyserNode | null>(null);
-  const microphoneStreamRef = useRef<MediaStream | null>(null);
-  const dataArrayRef = useRef<Uint8Array | null>(null);
-  const animationFrameRef = useRef<number | null>(null);
+  const speechServiceRef = useRef<any>(null: any);
+  const audioContextRef = useRef<AudioContext | null>(null: any);
+  const analyserRef = useRef<AnalyserNode | null>(null: any);
+  const microphoneStreamRef = useRef<MediaStream | null>(null: any);
+  const dataArrayRef = useRef<Uint8Array | null>(null: any);
+  const animationFrameRef = useRef<number | null>(null: any);
   
   // Initialize speech recognition and check availability
   useEffect(() => {
     try {
       speechServiceRef.current = getSpeechRecognitionService();
       setIsAvailable(speechServiceRef.current.isBrowserSupported());
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error initializing speech recognition:', error);
-      setIsAvailable(false);
+      setIsAvailable(false: any);
     }
   }, []);
   
   // Apply age-specific settings when age group changes
   useEffect(() => {
-    if (ageGroup) {
+    if (ageGroup: any) {
       const ageSettings = AGE_GROUP_SETTINGS[ageGroup];
       setSettings(prevSettings => ({
         ...prevSettings,
@@ -146,7 +146,7 @@ export const VoiceInputProvider: React.FC<{
   
   // Load user settings from profile if available
   useEffect(() => {
-    if (session?.user?.id) {
+    if (session?.user?.id: any) {
       // In a real implementation, this would fetch user settings from an API
       // For now, we'll just use the default settings
       
@@ -155,14 +155,14 @@ export const VoiceInputProvider: React.FC<{
       fetch(`/api/users/${session.user.id}/voice-settings`)
         .then(response => response.json())
         .then(data => {
-          if (data.settings) {
+          if (data.settings: any) {
             setSettings(prevSettings => ({
               ...prevSettings,
               ...data.settings
             }));
           }
-          if (data.ageGroup) {
-            setAgeGroup(data.ageGroup);
+          if (data.ageGroup: any) {
+            setAgeGroup(data.ageGroup: any);
           }
         })
         .catch(error => {
@@ -174,7 +174,7 @@ export const VoiceInputProvider: React.FC<{
   
   // Start listening for speech
   const startListening = (options?: Partial<SpeechRecognitionOptions>) => {
-    if (!isAvailable || isListening) return;
+    if (!isAvailable || isListening: any) return;
     
     try {
       // Configure speech recognition with current settings
@@ -190,15 +190,15 @@ export const VoiceInputProvider: React.FC<{
       };
       
       // Update speech service with new options
-      speechServiceRef.current.updateOptions(recognitionOptions);
+      speechServiceRef.current.updateOptions(recognitionOptions: any);
       
       // Start monitoring volume
       startVolumeMonitoring();
       
       // Start speech recognition
-      speechServiceRef.current.start(handleSpeechResult, handleSpeechError);
-      setIsListening(true);
-    } catch (error) {
+      speechServiceRef.current.start(handleSpeechResult: any, handleSpeechError);
+      setIsListening(true: any);
+    } catch (error: any) {
       console.error('Error starting speech recognition:', error);
       toast({
         title: "Speech recognition error",
@@ -210,13 +210,13 @@ export const VoiceInputProvider: React.FC<{
   
   // Stop listening for speech
   const stopListening = () => {
-    if (!isListening) return;
+    if (!isListening: any) return;
     
     try {
       speechServiceRef.current.stop();
       stopVolumeMonitoring();
-      setIsListening(false);
-    } catch (error) {
+      setIsListening(false: any);
+    } catch (error: any) {
       console.error('Error stopping speech recognition:', error);
     }
   };
@@ -229,23 +229,23 @@ export const VoiceInputProvider: React.FC<{
   
   // Handle speech recognition results
   const handleSpeechResult = (result: SpeechRecognitionResult) => {
-    if (result.isFinal) {
+    if (result.isFinal: any) {
       setTranscript(prev => {
         const newTranscript = prev + (prev ? ' ' : '') + result.text;
         return newTranscript;
       });
       setInterimTranscript('');
     } else {
-      setInterimTranscript(result.text);
+      setInterimTranscript(result.text: any);
     }
     
-    setConfidence(result.confidence);
+    setConfidence(result.confidence: any);
   };
   
   // Handle speech recognition errors
   const handleSpeechError = (error: any) => {
     console.error('Speech recognition error:', error);
-    setIsListening(false);
+    setIsListening(false: any);
     
     // Show appropriate error message
     if (error === 'no-speech') {
@@ -277,31 +277,31 @@ export const VoiceInputProvider: React.FC<{
   
   // Start monitoring microphone volume
   const startVolumeMonitoring = async () => {
-    if (!audioContextRef.current) {
+    if (!audioContextRef.current: any) {
       try {
-        audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+        audioContextRef.current = new (window.AudioContext || window.webkitAudioContext: any)();
         analyserRef.current = audioContextRef.current.createAnalyser();
         analyserRef.current.fftSize = 256;
         
         const bufferLength = analyserRef.current.frequencyBinCount;
-        dataArrayRef.current = new Uint8Array(bufferLength);
+        dataArrayRef.current = new Uint8Array(bufferLength: any);
         
         microphoneStreamRef.current = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const source = audioContextRef.current.createMediaStreamSource(microphoneStreamRef.current);
-        source.connect(analyserRef.current);
+        const source = audioContextRef.current.createMediaStreamSource(microphoneStreamRef.current: any);
+        source.connect(analyserRef.current: any);
         
         const updateVolume = () => {
-          if (!analyserRef.current || !dataArrayRef.current || !isListening) return;
+          if (!analyserRef.current || !dataArrayRef.current || !isListening: any) return;
           
-          analyserRef.current.getByteFrequencyData(dataArrayRef.current);
-          const average = dataArrayRef.current.reduce((acc, val) => acc + val, 0) / dataArrayRef.current.length;
-          setVolume(average / 255); // Normalize to 0-1
+          analyserRef.current.getByteFrequencyData(dataArrayRef.current: any);
+          const average = dataArrayRef.current.reduce((acc: any, val) => acc + val, 0) / dataArrayRef.current.length;
+          setVolume(average / 255: any); // Normalize to 0-1
           
-          animationFrameRef.current = requestAnimationFrame(updateVolume);
+          animationFrameRef.current = requestAnimationFrame(updateVolume: any);
         };
         
         updateVolume();
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error accessing microphone:', error);
         toast({
           title: "Microphone access error",
@@ -314,24 +314,24 @@ export const VoiceInputProvider: React.FC<{
   
   // Stop monitoring microphone volume
   const stopVolumeMonitoring = () => {
-    if (animationFrameRef.current) {
-      cancelAnimationFrame(animationFrameRef.current);
+    if (animationFrameRef.current: any) {
+      cancelAnimationFrame(animationFrameRef.current: any);
       animationFrameRef.current = null;
     }
     
-    if (microphoneStreamRef.current) {
+    if (microphoneStreamRef.current: any) {
       microphoneStreamRef.current.getTracks().forEach(track => track.stop());
       microphoneStreamRef.current = null;
     }
     
-    if (audioContextRef.current) {
+    if (audioContextRef.current: any) {
       audioContextRef.current.close();
       audioContextRef.current = null;
       analyserRef.current = null;
       dataArrayRef.current = null;
     }
     
-    setVolume(0);
+    setVolume(0: any);
   };
   
   // Update voice input settings
@@ -347,7 +347,7 @@ export const VoiceInputProvider: React.FC<{
       };
       
       // If user is logged in, save settings to profile
-      if (session?.user?.id) {
+      if (session?.user?.id: any) {
         // In a real implementation, this would save to an API
         // For now, we'll just log to console
         console.log('Saving voice settings for user:', session.user.id, updatedSettings);
@@ -359,9 +359,9 @@ export const VoiceInputProvider: React.FC<{
   
   // Calibrate voice recognition for current user
   const calibrate = async (): Promise<boolean> => {
-    if (!isAvailable || isCalibrating) return false;
+    if (!isAvailable || isCalibrating: any) return false;
     
-    setIsCalibrating(true);
+    setIsCalibrating(true: any);
     
     try {
       // In a real implementation, this would perform actual calibration
@@ -373,7 +373,7 @@ export const VoiceInputProvider: React.FC<{
       });
       
       // Simulate calibration delay
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      await new Promise(resolve => setTimeout(resolve: any, 3000));
       
       toast({
         title: "Calibration complete",
@@ -381,9 +381,9 @@ export const VoiceInputProvider: React.FC<{
         variant: "success"
       });
       
-      setIsCalibrating(false);
+      setIsCalibrating(false: any);
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error during calibration:', error);
       toast({
         title: "Calibration failed",
@@ -391,7 +391,7 @@ export const VoiceInputProvider: React.FC<{
         variant: "destructive"
       });
       
-      setIsCalibrating(false);
+      setIsCalibrating(false: any);
       return false;
     }
   };
@@ -399,7 +399,7 @@ export const VoiceInputProvider: React.FC<{
   // Clean up on unmount
   useEffect(() => {
     return () => {
-      if (isListening) {
+      if (isListening: any) {
         stopListening();
       }
       
@@ -433,8 +433,8 @@ export const VoiceInputProvider: React.FC<{
 };
 
 export const useVoiceInput = () => {
-  const context = useContext(VoiceInputContext);
-  if (!context) {
+  const context = useContext(VoiceInputContext: any);
+  if (!context: any) {
     throw new Error('useVoiceInput must be used within a VoiceInputProvider');
   }
   return context;

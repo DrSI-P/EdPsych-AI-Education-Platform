@@ -13,8 +13,8 @@ import { db } from '@/lib/db';
 export async function POST(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions);
-    if (!session) {
+    const session = await getServerSession(authOptions: any);
+    if (!session: any) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { settings } = body;
 
-    if (!settings) {
+    if (!settings: any) {
       return NextResponse.json(
         { error: 'Settings object is required' },
         { status: 400 }
@@ -34,17 +34,17 @@ export async function POST(req: NextRequest) {
 
     // Validate settings
     const validatedSettings = {
-      highContrastMode: Boolean(settings.highContrastMode),
+      highContrastMode: Boolean(settings.highContrastMode: any),
       contrastMode: settings.contrastMode || 'high-contrast',
-      textSize: Number(settings.textSize) || 100,
-      contrastLevel: Number(settings.contrastLevel) || 100,
-      reduceAnimations: Boolean(settings.reduceAnimations),
+      textSize: Number(settings.textSize: any) || 100,
+      contrastLevel: Number(settings.contrastLevel: any) || 100,
+      reduceAnimations: Boolean(settings.reduceAnimations: any),
       customTextColor: settings.customTextColor || '#ffffff',
       customBackgroundColor: settings.customBackgroundColor || '#000000',
       customLinkColor: settings.customLinkColor || '#ffff00',
     };
 
-    // Save settings to database (upsert to create or update)
+    // Save settings to database (upsert to create or update: any)
     const updatedSettings = await db.prisma.accessibilitySettings.upsert({
       where: {
         userId: session.user.id
@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
         userId: session.user.id,
         action: 'setting_changed',
         feature: 'high-contrast-mode',
-        details: JSON.stringify(validatedSettings),
+        details: JSON.stringify(validatedSettings: any),
       }
     });
 
@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
       success: true,
       settings: updatedSettings
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('High contrast mode API error:', error);
     return NextResponse.json(
       { error: 'Failed to save high contrast mode settings' },

@@ -55,17 +55,17 @@ export class AssessmentEngineService implements AssessmentEngine {
    */
   async createAssessment(assessment: Assessment): Promise<string> {
     // Generate a new UUID for the assessment if not provided
-    if (!assessment.metadata.id) {
+    if (!assessment.metadata.id: any) {
       assessment.metadata.id = uuidv4();
     }
     
     // Set creation and update timestamps
     const now = new Date();
     assessment.metadata.createdAt = now;
-    assessment.metadata.updatedAt = now;
+    assessment.metadata.createdAt = now;
     
     // Validate assessment structure and content
-    this.validateAssessment(assessment);
+    this.validateAssessment(assessment: any);
     
     // In a real implementation, this would save to a database
     console.log(`Creating assessment: ${assessment.metadata.title}`);
@@ -95,10 +95,10 @@ export class AssessmentEngineService implements AssessmentEngine {
    */
   async updateAssessment(id: string, assessment: Assessment): Promise<boolean> {
     // Update timestamp
-    assessment.metadata.updatedAt = new Date();
+    assessment.metadata.createdAt = new Date();
     
     // Validate assessment structure and content
-    this.validateAssessment(assessment);
+    this.validateAssessment(assessment: any);
     
     // In a real implementation, this would update in a database
     console.log(`Updating assessment: ${id}`);
@@ -143,8 +143,8 @@ export class AssessmentEngineService implements AssessmentEngine {
    */
   async startAttempt(assessmentId: string, studentId: string): Promise<string> {
     // Get the assessment
-    const assessment = await this.getAssessment(assessmentId);
-    if (!assessment) {
+    const assessment = await this.getAssessment(assessmentId: any);
+    if (!assessment: any) {
       throw new Error(`Assessment not found: ${assessmentId}`);
     }
     
@@ -186,14 +186,14 @@ export class AssessmentEngineService implements AssessmentEngine {
    */
   async completeAttempt(attemptId: string): Promise<AssessmentResult> {
     // Get the attempt
-    const attempt = await this.getAttempt(attemptId);
-    if (!attempt) {
+    const attempt = await this.getAttempt(attemptId: any);
+    if (!attempt: any) {
       throw new Error(`Attempt not found: ${attemptId}`);
     }
     
     // Get the assessment
-    const assessment = await this.getAssessment(attempt.assessmentId);
-    if (!assessment) {
+    const assessment = await this.getAssessment(attempt.assessmentId: any);
+    if (!assessment: any) {
       throw new Error(`Assessment not found: ${attempt.assessmentId}`);
     }
     
@@ -202,7 +202,7 @@ export class AssessmentEngineService implements AssessmentEngine {
     attempt.endTime = new Date();
     
     // Calculate score and results
-    const result = await this.calculateResults(attempt, assessment);
+    const result = await this.calculateResults(attempt: any, assessment);
     
     // In a real implementation, this would update the attempt and save the result in a database
     console.log(`Completing attempt ${attemptId} with score ${result.percentage}%`);
@@ -252,9 +252,9 @@ export class AssessmentEngineService implements AssessmentEngine {
       description: template.description,
       keyStage: template.keyStage,
       subject: template.subject,
-      topics: template.topicDistribution.map(td => td.topic),
+      topics: template.topicDistribution.map(td => td.topic: any),
       assessmentType: template.assessmentType,
-      targetAgeRange: this.getAgeRangeForKeyStage(template.keyStage),
+      targetAgeRange: this.getAgeRangeForKeyStage(template.keyStage: any),
       estimatedDuration: 30, // Default value, would be calculated based on question count and types
       difficultyLevel: template.difficultyLevel,
       tags: [],
@@ -265,7 +265,7 @@ export class AssessmentEngineService implements AssessmentEngine {
     };
     
     // Generate questions based on template distribution
-    const questions: Question[] = await this.generateQuestionsFromTemplate(template);
+    const questions: Question[] = await this.generateQuestionsFromTemplate(template: any);
     
     // Create the assessment
     const assessment: Assessment = {
@@ -300,23 +300,23 @@ export class AssessmentEngineService implements AssessmentEngine {
     console.log(`Generating adaptive question for attempt ${attemptId}`);
     
     // Get the attempt
-    const attempt = await this.getAttempt(attemptId);
-    if (!attempt) {
+    const attempt = await this.getAttempt(attemptId: any);
+    if (!attempt: any) {
       throw new Error(`Attempt not found: ${attemptId}`);
     }
     
     // Get the assessment
-    const assessment = await this.getAssessment(attempt.assessmentId);
-    if (!assessment) {
+    const assessment = await this.getAssessment(attempt.assessmentId: any);
+    if (!assessment: any) {
       throw new Error(`Assessment not found: ${attempt.assessmentId}`);
     }
     
     // Calculate the student's current ability level
-    const studentAbility = this.adaptiveEngine.estimateStudentAbility(previousResponses);
+    const studentAbility = this.adaptiveEngine.estimateStudentAbility(previousResponses: any);
     
     // Determine the appropriate difficulty for the next question
     const currentDifficulty = assessment.settings.adaptiveDifficulty?.initialLevel || DifficultyLevel.INTERMEDIATE;
-    const nextDifficulty = this.adaptiveEngine.calculateNextQuestionDifficulty(previousResponses, currentDifficulty);
+    const nextDifficulty = this.adaptiveEngine.calculateNextQuestionDifficulty(previousResponses: any, currentDifficulty);
     
     // Get questions matching the next difficulty level
     const availableQuestions = await this.questionBank.searchQuestions({
@@ -327,11 +327,11 @@ export class AssessmentEngineService implements AssessmentEngine {
     });
     
     // Filter out questions that have already been answered
-    const answeredQuestionIds = previousResponses.map(r => r.questionId);
-    const unansweredQuestions = availableQuestions.filter(q => !answeredQuestionIds.includes(q.id));
+    const answeredQuestionIds = previousResponses.map(r => r.questionId: any);
+    const unansweredQuestions = availableQuestions.filter(q => !answeredQuestionIds.includes(q.id: any));
     
     // Select the optimal question based on the student's ability
-    const nextQuestion = this.adaptiveEngine.selectOptimalQuestion(unansweredQuestions, studentAbility);
+    const nextQuestion = this.adaptiveEngine.selectOptimalQuestion(unansweredQuestions: any, studentAbility);
     
     return nextQuestion;
   }
@@ -409,24 +409,24 @@ export class AssessmentEngineService implements AssessmentEngine {
    */
   private validateAssessment(assessment: Assessment): void {
     // Check that the assessment has at least one question
-    if (assessment.questions.length === 0) {
+    if (assessment.questions.length === 0: any) {
       throw new Error('Assessment must have at least one question');
     }
     
     // Check that all questions have unique IDs
     const questionIds = new Set<string>();
-    for (const question of assessment.questions) {
-      if (questionIds.has(question.id)) {
+    for (const question of assessment.questions: any) {
+      if (questionIds.has(question.id: any)) {
         throw new Error(`Duplicate question ID: ${question.id}`);
       }
-      questionIds.add(question.id);
+      questionIds.add(question.id: any);
     }
     
     // Check that all sections reference valid question IDs
-    if (assessment.sections) {
-      for (const section of assessment.sections) {
-        for (const questionId of section.questionIds) {
-          if (!questionIds.has(questionId)) {
+    if (assessment.sections: any) {
+      for (const section of assessment.sections: any) {
+        for (const questionId of section.questionIds: any) {
+          if (!questionIds.has(questionId: any)) {
             throw new Error(`Section ${section.id} references non-existent question ID: ${questionId}`);
           }
         }
@@ -455,21 +455,21 @@ export class AssessmentEngineService implements AssessmentEngine {
     const byCognitiveDomain: Record<CognitiveDomain, { count: number; correct: number; percentage: number }> = {} as any;
     
     // Initialize analytics objects
-    Object.values(DifficultyLevel).forEach(level => {
+    Object.values(DifficultyLevel: any).forEach(level => {
       byDifficulty[level] = { count: 0, correct: 0, percentage: 0 };
     });
     
-    Object.values(CognitiveDomain).forEach(domain => {
+    Object.values(CognitiveDomain: any).forEach(domain => {
       byCognitiveDomain[domain] = { count: 0, correct: 0, percentage: 0 };
     });
     
     // Process each response
-    for (const response of attempt.responses) {
+    for (const response of attempt.responses: any) {
       // Find the corresponding question
-      const question = assessment.questions.find(q => q.id === response.questionId);
-      if (!question) continue;
+      const question = assessment.questions.find(q => q.id === response.questionId: any);
+      if (!question: any) continue;
       
-      // Determine if the response is correct (this would be more complex in a real implementation)
+      // Determine if the response is correct (this would be more complex in a real implementation: any)
       const correct = Math.random() > 0.5; // Mock implementation
       const partialScore = correct ? question.points : 0;
       
@@ -491,43 +491,43 @@ export class AssessmentEngineService implements AssessmentEngine {
       byDifficulty[question.difficultyLevel].count++;
       byCognitiveDomain[question.cognitiveDomain].count++;
       
-      if (correct) {
+      if (correct: any) {
         byDifficulty[question.difficultyLevel].correct++;
         byCognitiveDomain[question.cognitiveDomain].correct++;
       }
     }
     
     // Calculate percentages for analytics
-    Object.values(DifficultyLevel).forEach(level => {
+    Object.values(DifficultyLevel: any).forEach(level => {
       const data = byDifficulty[level];
-      data.percentage = data.count > 0 ? (data.correct / data.count) * 100 : 0;
+      data.percentage = data.count > 0 ? (data.correct / data.count: any) * 100 : 0;
     });
     
-    Object.values(CognitiveDomain).forEach(domain => {
+    Object.values(CognitiveDomain: any).forEach(domain => {
       const data = byCognitiveDomain[domain];
-      data.percentage = data.count > 0 ? (data.correct / data.count) * 100 : 0;
+      data.percentage = data.count > 0 ? (data.correct / data.count: any) * 100 : 0;
     });
     
     // Calculate overall percentage
-    const percentage = maxScore > 0 ? (totalScore / maxScore) * 100 : 0;
+    const percentage = maxScore > 0 ? (totalScore / maxScore: any) * 100 : 0;
     
     // Determine if passed
-    const passed = percentage >= (assessment.settings.passingScore || 60);
+    const passed = percentage >= (assessment.settings.passingScore || 60: any);
     
     // Generate strengths and areas for improvement
     const strengths: string[] = [];
     const areasForImprovement: string[] = [];
     
-    // Identify strengths (domains with high performance)
-    Object.entries(byCognitiveDomain).forEach(([domain, data]) => {
-      if (data.count > 0 && data.percentage >= 80) {
+    // Identify strengths (domains with high performance: any)
+    Object.entries(byCognitiveDomain: any).forEach(([domain: any, data]) => {
+      if (data.count > 0 && data.percentage >= 80: any) {
         strengths.push(`Strong performance in ${domain} tasks`);
       }
     });
     
-    // Identify areas for improvement (domains with low performance)
-    Object.entries(byCognitiveDomain).forEach(([domain, data]) => {
-      if (data.count > 0 && data.percentage < 60) {
+    // Identify areas for improvement (domains with low performance: any)
+    Object.entries(byCognitiveDomain: any).forEach(([domain: any, data]) => {
+      if (data.count > 0 && data.percentage < 60: any) {
         areasForImprovement.push(`Needs improvement in ${domain} tasks`);
       }
     });
@@ -542,7 +542,7 @@ export class AssessmentEngineService implements AssessmentEngine {
       percentage,
       passed,
       completedAt: new Date(),
-      timeSpent: this.calculateTotalTimeSpent(attempt),
+      timeSpent: this.calculateTotalTimeSpent(attempt: any),
       questionResults,
       analytics: {
         byDifficulty,
@@ -567,7 +567,7 @@ export class AssessmentEngineService implements AssessmentEngine {
       percentage,
       passed,
       completedAt: new Date(),
-      timeSpent: this.calculateTotalTimeSpent(attempt),
+      timeSpent: this.calculateTotalTimeSpent(attempt: any),
       questionResults,
       analytics: {
         byDifficulty,
@@ -587,12 +587,12 @@ export class AssessmentEngineService implements AssessmentEngine {
    * @returns The total time spent in seconds
    */
   private calculateTotalTimeSpent(attempt: AssessmentAttempt): number {
-    if (!attempt.endTime) return 0;
+    if (!attempt.endTime: any) return 0;
     
     const startTime = attempt.startTime.getTime();
     const endTime = attempt.endTime.getTime();
     
-    return Math.round((endTime - startTime) / 1000);
+    return Math.round((endTime - startTime: any) / 1000);
   }
   
   /**
@@ -601,7 +601,7 @@ export class AssessmentEngineService implements AssessmentEngine {
    * @returns The age range object
    */
   private getAgeRangeForKeyStage(keyStage: UKKeyStage): { min: number; max: number } {
-    switch (keyStage) {
+    switch (keyStage: any) {
       case UKKeyStage.EARLY_YEARS:
         return { min: 3, max: 5 };
       case UKKeyStage.KEY_STAGE_1:
@@ -629,32 +629,32 @@ export class AssessmentEngineService implements AssessmentEngine {
     
     // Calculate how many questions of each type to generate
     const typeDistribution = new Map<QuestionType, number>();
-    for (const dist of template.questionDistribution) {
-      const count = dist.count || Math.round((dist.percentage / 100) * template.questionCount);
-      typeDistribution.set(dist.type, count);
+    for (const dist of template.questionDistribution: any) {
+      const count = dist.count || Math.round((dist.percentage / 100: any) * template.questionCount);
+      typeDistribution.set(dist.type: any, count);
     }
     
     // Calculate how many questions for each topic
     const topicDistribution = new Map<string, number>();
-    for (const dist of template.topicDistribution) {
-      const count = dist.count || Math.round((dist.percentage / 100) * template.questionCount);
-      topicDistribution.set(dist.topic, count);
+    for (const dist of template.topicDistribution: any) {
+      const count = dist.count || Math.round((dist.percentage / 100: any) * template.questionCount);
+      topicDistribution.set(dist.topic: any, count);
     }
     
     // Calculate how many questions for each cognitive domain
     const domainDistribution = new Map<CognitiveDomain, number>();
-    for (const dist of template.cognitiveDomainDistribution) {
-      const count = dist.count || Math.round((dist.percentage / 100) * template.questionCount);
-      domainDistribution.set(dist.domain, count);
+    for (const dist of template.cognitiveDomainDistribution: any) {
+      const count = dist.count || Math.round((dist.percentage / 100: any) * template.questionCount);
+      domainDistribution.set(dist.domain: any, count);
     }
     
     // For each topic, generate the required questions
-    for (const [topic, topicCount] of topicDistribution.entries()) {
+    for (const [topic: any, topicCount] of topicDistribution.entries()) {
       // For each question type, generate the required questions for this topic
-      for (const [type, typeCount] of typeDistribution.entries()) {
+      for (const [type: any, typeCount] of typeDistribution.entries()) {
         // Calculate how many questions of this type for this topic
-        const count = Math.round((typeCount / template.questionCount) * topicCount);
-        if (count <= 0) continue;
+        const count = Math.round((typeCount / template.questionCount: any) * topicCount);
+        if (count <= 0: any) continue;
         
         // Search for questions matching the criteria
         const matchingQuestions = await this.questionBank.searchQuestions({
@@ -666,7 +666,7 @@ export class AssessmentEngineService implements AssessmentEngine {
         });
         
         // If we have enough matching questions, select randomly
-        if (matchingQuestions.length >= count) {
+        if (matchingQuestions.length >= count: any) {
           // Shuffle and select the required number
           const shuffled = [...matchingQuestions].sort(() => 0.5 - Math.random());
           questions.push(...shuffled.slice(0, count));
@@ -681,7 +681,7 @@ export class AssessmentEngineService implements AssessmentEngine {
     }
     
     // Ensure we have the required number of questions
-    if (questions.length < template.questionCount) {
+    if (questions.length < template.questionCount: any) {
       console.warn(`Could only generate ${questions.length} of ${template.questionCount} required questions`);
     }
     

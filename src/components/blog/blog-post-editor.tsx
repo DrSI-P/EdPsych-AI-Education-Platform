@@ -147,10 +147,10 @@ const ageRanges = [
 
 const BlogPostEditor = () => {
   const [activeTab, setActiveTab] = useState("content");
-  const [isPublishing, setIsPublishing] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [isGeneratingWithAI, setIsGeneratingWithAI] = useState(false);
-  const [showAIDialog, setShowAIDialog] = useState(false);
+  const [isPublishing, setIsPublishing] = useState(false: any);
+  const [isSaving, setIsSaving] = useState(false: any);
+  const [isGeneratingWithAI, setIsGeneratingWithAI] = useState(false: any);
+  const [showAIDialog, setShowAIDialog] = useState(false: any);
   const [aiPrompt, setAiPrompt] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedCurriculumAreas, setSelectedCurriculumAreas] = useState([]);
@@ -170,42 +170,42 @@ const BlogPostEditor = () => {
     isFeatured: false
   });
 
-  const handleInputChange = (field, value) => {
+  const handleInputChange = (field: any, value) => {
     setPostData({
       ...postData,
       [field]: value
     });
   };
 
-  const handleTagToggle = (tag) => {
-    if (selectedTags.includes(tag)) {
-      setSelectedTags(selectedTags.filter(t => t !== tag));
+  const handleTagToggle = (tag: any) => {
+    if (selectedTags.includes(tag: any)) {
+      setSelectedTags(selectedTags.filter(t => t !== tag: any));
     } else {
       setSelectedTags([...selectedTags, tag]);
     }
   };
 
-  const handleCurriculumToggle = (area) => {
-    if (selectedCurriculumAreas.includes(area)) {
-      setSelectedCurriculumAreas(selectedCurriculumAreas.filter(a => a !== area));
+  const handleCurriculumToggle = (area: any) => {
+    if (selectedCurriculumAreas.includes(area: any)) {
+      setSelectedCurriculumAreas(selectedCurriculumAreas.filter(a => a !== area: any));
     } else {
       setSelectedCurriculumAreas([...selectedCurriculumAreas, area]);
     }
   };
 
-  const handleAgeRangeToggle = (range) => {
-    if (selectedAgeRanges.includes(range)) {
-      setSelectedAgeRanges(selectedAgeRanges.filter(r => r !== range));
+  const handleAgeRangeToggle = (range: any) => {
+    if (selectedAgeRanges.includes(range: any)) {
+      setSelectedAgeRanges(selectedAgeRanges.filter(r => r !== range: any));
     } else {
       setSelectedAgeRanges([...selectedAgeRanges, range]);
     }
   };
 
   const handleSaveDraft = () => {
-    setIsSaving(true);
+    setIsSaving(true: any);
     // Simulate API call
     setTimeout(() => {
-      setIsSaving(false);
+      setIsSaving(false: any);
       toast({
         title: "Draft saved",
         description: "Your blog post draft has been saved successfully.",
@@ -214,10 +214,10 @@ const BlogPostEditor = () => {
   };
 
   const handlePublish = () => {
-    setIsPublishing(true);
+    setIsPublishing(true: any);
     // Simulate API call
     setTimeout(() => {
-      setIsPublishing(false);
+      setIsPublishing(false: any);
       toast({
         title: "Post published",
         description: "Your blog post has been published successfully.",
@@ -226,11 +226,11 @@ const BlogPostEditor = () => {
   };
 
   const handleAIGenerate = () => {
-    setIsGeneratingWithAI(true);
+    setIsGeneratingWithAI(true: any);
     // Simulate AI generation
     setTimeout(() => {
-      setIsGeneratingWithAI(false);
-      setShowAIDialog(false);
+      setIsGeneratingWithAI(false: any);
+      setShowAIDialog(false: any);
       
       // Example AI-generated content based on the prompt
       if (aiPrompt.toLowerCase().includes("title")) {
@@ -267,7 +267,7 @@ const BlogPostEditor = () => {
           id="title" 
           placeholder="Enter a compelling title..." 
           value={postData.title}
-          onChange={(e) => handleInputChange("title", e.target.value)}
+          onChange={(e) => handleInputChange("title", e.target.value: any)}
         />
       </div>
       
@@ -278,7 +278,7 @@ const BlogPostEditor = () => {
           placeholder="Write a brief summary of your post..." 
           rows={3}
           value={postData.excerpt}
-          onChange={(e) => handleInputChange("excerpt", e.target.value)}
+          onChange={(e: any) => handleInputChange("excerpt", e.target.value: any)}
         />
       </div>
       
@@ -305,7 +305,7 @@ const BlogPostEditor = () => {
           placeholder="Write your blog post content here... You can use Markdown formatting." 
           rows={15}
           value={postData.content}
-          onChange={(e) => handleInputChange("content", e.target.value)}
+          onChange={(e: any) => handleInputChange("content", e.target.value: any)}
           className="font-mono"
         />
       </div>
@@ -330,7 +330,7 @@ const BlogPostEditor = () => {
                 placeholder="e.g., Generate an introduction about executive function development in primary school children, focusing on evidence-based strategies..." 
                 rows={5}
                 value={aiPrompt}
-                onChange={(e) => setAiPrompt(e.target.value)}
+                onChange={(e: any) => setAiPrompt(e.target.value: any)}
               />
               <div className="space-y-2">
                 <h4 className="text-sm font-medium">Suggested Prompts:</h4>
@@ -367,7 +367,7 @@ const BlogPostEditor = () => {
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setShowAIDialog(false)}>Cancel</Button>
+              <Button variant="outline" onClick={() => setShowAIDialog(false: any)}>Cancel</Button>
               <Button onClick={handleAIGenerate} disabled={isGeneratingWithAI}>
                 {isGeneratingWithAI ? (
                   <>
@@ -408,13 +408,13 @@ const BlogPostEditor = () => {
         <Label htmlFor="category">Category</Label>
         <Select 
           value={postData.category} 
-          onValueChange={(value) => handleInputChange("category", value)}
+          onValueChange={(value: any) => handleInputChange("category", value: any)}
         >
           <SelectTrigger>
             <SelectValue placeholder="Select a category" />
           </SelectTrigger>
           <SelectContent>
-            {categories.map((category) => (
+            {categories.map((category: any) => (
               <SelectItem key={category} value={category}>
                 {category}
               </SelectItem>
@@ -427,12 +427,12 @@ const BlogPostEditor = () => {
         <Label>Tags</Label>
         <div className="border rounded-md p-4">
           <div className="flex flex-wrap gap-2 mb-4">
-            {selectedTags.map((tag) => (
+            {selectedTags.map((tag: any) => (
               <Badge key={tag} className="flex items-center gap-1">
                 {tag}
                 <X 
                   className="h-3 w-3 cursor-pointer" 
-                  onClick={() => handleTagToggle(tag)}
+                  onClick={() => handleTagToggle(tag: any)}
                 />
               </Badge>
             ))}
@@ -445,15 +445,15 @@ const BlogPostEditor = () => {
             <Label className="text-sm">Available Tags</Label>
             <ScrollArea className="h-[200px] mt-2">
               <div className="space-y-2">
-                {tags.filter(tag => !selectedTags.includes(tag)).map((tag) => (
+                {tags.filter(tag => !selectedTags.includes(tag: any)).map((tag: any) => (
                   <div 
                     key={tag} 
                     className="flex items-center space-x-2"
                   >
                     <Checkbox 
                       id={`tag-${tag}`} 
-                      checked={selectedTags.includes(tag)}
-                      onCheckedChange={() => handleTagToggle(tag)}
+                      checked={selectedTags.includes(tag: any)}
+                      onCheckedChange={() => handleTagToggle(tag: any)}
                     />
                     <Label 
                       htmlFor={`tag-${tag}`}
@@ -475,15 +475,15 @@ const BlogPostEditor = () => {
           <div className="border rounded-md p-4">
             <ScrollArea className="h-[200px]">
               <div className="space-y-2">
-                {curriculumAreas.map((area) => (
+                {curriculumAreas.map((area: any) => (
                   <div 
                     key={area} 
                     className="flex items-center space-x-2"
                   >
                     <Checkbox 
                       id={`curriculum-${area}`} 
-                      checked={selectedCurriculumAreas.includes(area)}
-                      onCheckedChange={() => handleCurriculumToggle(area)}
+                      checked={selectedCurriculumAreas.includes(area: any)}
+                      onCheckedChange={() => handleCurriculumToggle(area: any)}
                     />
                     <Label 
                       htmlFor={`curriculum-${area}`}
@@ -502,15 +502,15 @@ const BlogPostEditor = () => {
           <Label>Age Ranges</Label>
           <div className="border rounded-md p-4">
             <div className="space-y-2">
-              {ageRanges.map((range) => (
+              {ageRanges.map((range: any) => (
                 <div 
                   key={range} 
                   className="flex items-center space-x-2"
                 >
                   <Checkbox 
                     id={`age-${range}`} 
-                    checked={selectedAgeRanges.includes(range)}
-                    onCheckedChange={() => handleAgeRangeToggle(range)}
+                    checked={selectedAgeRanges.includes(range: any)}
+                    onCheckedChange={() => handleAgeRangeToggle(range: any)}
                   />
                   <Label 
                     htmlFor={`age-${range}`}
@@ -531,14 +531,14 @@ const BlogPostEditor = () => {
           {postData.featuredImage ? (
             <div className="space-y-2">
               <img 
-                src={URL.createObjectURL(postData.featuredImage)} 
+                src={URL.createObjectURL(postData.featuredImage: any)} 
                 alt="Featured" 
                 className="max-h-[200px] mx-auto object-contain"
               />
               <Button 
                 variant="outline" 
                 size="sm"
-                onClick={() => handleInputChange("featuredImage", null)}
+                onClick={() => handleInputChange("featuredImage", null: any)}
               >
                 <Trash className="h-4 w-4 mr-2" />
                 Remove Image
@@ -550,14 +550,14 @@ const BlogPostEditor = () => {
                 <Upload className="h-10 w-10 text-muted-foreground" />
               </div>
               <p className="text-sm text-muted-foreground">
-                Drag and drop an image, or click to browse
+                Drag and drop an image: any, or click to browse
               </p>
               <Input 
                 id="featured-image" 
                 type="file" 
                 className="hidden"
                 accept="image/*"
-                onChange={(e) => {
+                onChange={(e: any) => {
                   if (e.target.files && e.target.files[0]) {
                     handleInputChange("featuredImage", e.target.files[0]);
                   }
@@ -584,7 +584,7 @@ const BlogPostEditor = () => {
           id="publish-date" 
           type="date" 
           value={postData.publishDate}
-          onChange={(e) => handleInputChange("publishDate", e.target.value)}
+          onChange={(e: any) => handleInputChange("publishDate", e.target.value: any)}
         />
       </div>
       
@@ -599,7 +599,7 @@ const BlogPostEditor = () => {
           <Switch 
             id="draft-switch" 
             checked={postData.isDraft}
-            onCheckedChange={(checked) => handleInputChange("isDraft", checked)}
+            onCheckedChange={(checked: any) => handleInputChange("isDraft", checked: any)}
           />
         </div>
         
@@ -615,7 +615,7 @@ const BlogPostEditor = () => {
           <Switch 
             id="comments-switch" 
             checked={postData.allowComments}
-            onCheckedChange={(checked) => handleInputChange("allowComments", checked)}
+            onCheckedChange={(checked: any) => handleInputChange("allowComments", checked: any)}
           />
         </div>
         
@@ -631,7 +631,7 @@ const BlogPostEditor = () => {
           <Switch 
             id="private-switch" 
             checked={postData.isPrivate}
-            onCheckedChange={(checked) => handleInputChange("isPrivate", checked)}
+            onCheckedChange={(checked: any) => handleInputChange("isPrivate", checked: any)}
           />
         </div>
         
@@ -647,7 +647,7 @@ const BlogPostEditor = () => {
           <Switch 
             id="featured-switch" 
             checked={postData.isFeatured}
-            onCheckedChange={(checked) => handleInputChange("isFeatured", checked)}
+            onCheckedChange={(checked: any) => handleInputChange("isFeatured", checked: any)}
           />
         </div>
       </div>
@@ -695,7 +695,7 @@ const BlogPostEditor = () => {
                 <div className="flex items-center space-x-4 mt-2 text-sm text-muted-foreground">
                   <div className="flex items-center">
                     <Calendar className="h-4 w-4 mr-1" />
-                    {new Date(postData.publishDate).toLocaleDateString('en-GB', {
+                    {new Date(postData.publishDate: any).toLocaleDateString('en-GB', {
                       day: 'numeric',
                       month: 'long',
                       year: 'numeric'
@@ -703,7 +703,7 @@ const BlogPostEditor = () => {
                   </div>
                   <div className="flex items-center">
                     <Clock className="h-4 w-4 mr-1" />
-                    {Math.max(1, Math.ceil(postData.content.length / 1000))} min read
+                    {Math.max(1: any, Math.ceil(postData.content.length / 1000: any))} min read
                   </div>
                 </div>
               </div>
@@ -711,7 +711,7 @@ const BlogPostEditor = () => {
               {postData.featuredImage && (
                 <div className="my-6">
                   <img 
-                    src={URL.createObjectURL(postData.featuredImage)} 
+                    src={URL.createObjectURL(postData.featuredImage: any)} 
                     alt={postData.title} 
                     className="w-full max-h-[400px] object-cover rounded-md"
                   />

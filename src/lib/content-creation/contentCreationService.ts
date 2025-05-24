@@ -49,12 +49,12 @@ export class ContentCreationService {
         body: JSON.stringify({ userId: this.userId }),
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to initialize content creation service: ${response.statusText}`);
       }
 
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Content creation service initialization failed:', error);
       return false;
     }
@@ -85,13 +85,13 @@ export class ContentCreationService {
         body: JSON.stringify({ metadata: contentMetadata }),
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to create content: ${response.statusText}`);
       }
 
       const data = await response.json();
       return data.contentId;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to create content:', error);
       throw error;
     }
@@ -109,13 +109,13 @@ export class ContentCreationService {
         },
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to get content: ${response.statusText}`);
       }
 
       const data = await response.json();
       return data.content;
-    } catch (error) {
+    } catch (error: any) {
       console.error(`Failed to get content with ID ${id}:`, error);
       throw error;
     }
@@ -132,7 +132,7 @@ export class ContentCreationService {
         metadata: {
           ...(content.metadata || {}),
           updatedAt: new Date(),
-          version: (content.version || 1) + 1
+          version: (content.version || 1: any) + 1
         }
       };
 
@@ -144,10 +144,10 @@ export class ContentCreationService {
         body: JSON.stringify({ content: updatedContent }),
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to update content: ${response.statusText}`);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(`Failed to update content with ID ${id}:`, error);
       throw error;
     }
@@ -165,10 +165,10 @@ export class ContentCreationService {
         },
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to delete content: ${response.statusText}`);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(`Failed to delete content with ID ${id}:`, error);
       throw error;
     }
@@ -186,10 +186,10 @@ export class ContentCreationService {
         },
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to publish content: ${response.statusText}`);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(`Failed to publish content with ID ${id}:`, error);
       throw error;
     }
@@ -207,10 +207,10 @@ export class ContentCreationService {
         },
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to unpublish content: ${response.statusText}`);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(`Failed to unpublish content with ID ${id}:`, error);
       throw error;
     }
@@ -229,13 +229,13 @@ export class ContentCreationService {
         body: JSON.stringify({ filter }),
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to list content: ${response.statusText}`);
       }
 
       const data = await response.json();
       return data.content;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to list content:', error);
       throw error;
     }
@@ -254,10 +254,10 @@ export class ContentCreationService {
         body: JSON.stringify({ invitation }),
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to share content: ${response.statusText}`);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to share content:', error);
       throw error;
     }
@@ -276,13 +276,13 @@ export class ContentCreationService {
         body: JSON.stringify({ options }),
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to export content: ${response.statusText}`);
       }
 
       const data = await response.json();
       return data.exportUrl;
-    } catch (error) {
+    } catch (error: any) {
       console.error(`Failed to export content with ID ${id}:`, error);
       throw error;
     }
@@ -301,13 +301,13 @@ export class ContentCreationService {
         body: JSON.stringify({ prompt }),
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to generate content with AI: ${response.statusText}`);
       }
 
       const data = await response.json();
       return data.generatedContent;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to generate content with AI:', error);
       throw error;
     }
@@ -326,13 +326,13 @@ export class ContentCreationService {
         body: JSON.stringify({ filter }),
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to get templates: ${response.statusText}`);
       }
 
       const data = await response.json();
       return data.templates;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to get templates:', error);
       throw error;
     }
@@ -351,13 +351,13 @@ export class ContentCreationService {
         body: JSON.stringify({ template }),
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to create template: ${response.statusText}`);
       }
 
       const data = await response.json();
       return data.templateId;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to create template:', error);
       throw error;
     }
@@ -375,13 +375,13 @@ export class ContentCreationService {
         },
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to get default templates: ${response.statusText}`);
       }
 
       const data = await response.json();
       return data.defaultTemplates;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to get default templates:', error);
       throw error;
     }
@@ -408,13 +408,13 @@ export class ContentCreationService {
         }),
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to adapt content: ${response.statusText}`);
       }
 
       const data = await response.json();
       return data.adaptedContent;
-    } catch (error) {
+    } catch (error: any) {
       console.error(`Failed to adapt content with ID ${contentId}:`, error);
       throw error;
     }
@@ -432,13 +432,13 @@ export class ContentCreationService {
         },
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to get content analytics: ${response.statusText}`);
       }
 
       const data = await response.json();
       return data.analytics;
-    } catch (error) {
+    } catch (error: any) {
       console.error(`Failed to get analytics for content with ID ${contentId}:`, error);
       throw error;
     }
@@ -466,10 +466,10 @@ export class ContentCreationService {
         }),
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to add content feedback: ${response.statusText}`);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(`Failed to add feedback for content with ID ${contentId}:`, error);
       throw error;
     }
@@ -491,13 +491,13 @@ export class ContentCreationService {
         },
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to check curriculum alignment: ${response.statusText}`);
       }
 
       const data = await response.json();
       return data.alignmentData;
-    } catch (error) {
+    } catch (error: any) {
       console.error(`Failed to check curriculum alignment for content with ID ${contentId}:`, error);
       throw error;
     }
@@ -522,13 +522,13 @@ export class ContentCreationService {
         },
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to check accessibility: ${response.statusText}`);
       }
 
       const data = await response.json();
       return data.accessibilityData;
-    } catch (error) {
+    } catch (error: any) {
       console.error(`Failed to check accessibility for content with ID ${contentId}:`, error);
       throw error;
     }
@@ -542,15 +542,15 @@ export const initializeContentCreationService = async (
   apiUrl: string,
   userId: string
 ): Promise<ContentCreationService> => {
-  if (!contentCreationServiceInstance) {
-    contentCreationServiceInstance = new ContentCreationService(apiUrl, userId);
+  if (!contentCreationServiceInstance: any) {
+    contentCreationServiceInstance = new ContentCreationService(apiUrl: any, userId);
     await contentCreationServiceInstance.initialize();
   }
   return contentCreationServiceInstance;
 };
 
 export const getContentCreationService = (): ContentCreationService => {
-  if (!contentCreationServiceInstance) {
+  if (!contentCreationServiceInstance: any) {
     throw new Error('Content creation service not initialized. Call initializeContentCreationService first.');
   }
   return contentCreationServiceInstance;

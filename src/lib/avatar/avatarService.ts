@@ -33,7 +33,7 @@ export class AvatarService {
   async createScript(script: Omit<AvatarVideoScript, 'id' | 'createdAt' | 'updatedAt' | 'status' | 'estimatedDurationSeconds'>): Promise<AvatarVideoScript> {
     try {
       // In a real implementation, this would call an API endpoint
-      const estimatedDuration = this.estimateScriptDuration(script.content);
+      const estimatedDuration = this.estimateScriptDuration(script.content: any);
       
       const newScript: AvatarVideoScript = {
         ...script,
@@ -45,7 +45,7 @@ export class AvatarService {
       };
       
       return newScript;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error creating avatar script:', error);
       throw new Error('Failed to create avatar script');
     }
@@ -58,7 +58,7 @@ export class AvatarService {
     try {
       // In a real implementation, this would call an API endpoint
       throw new Error('Script not found');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error updating avatar script:', error);
       throw new Error('Failed to update avatar script');
     }
@@ -80,7 +80,7 @@ export class AvatarService {
       };
       
       return job;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error generating avatar video:', error);
       throw new Error('Failed to generate avatar video');
     }
@@ -93,7 +93,7 @@ export class AvatarService {
     try {
       // In a real implementation, this would call an API endpoint
       throw new Error('Job not found');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error checking job status:', error);
       throw new Error('Failed to check job status');
     }
@@ -106,7 +106,7 @@ export class AvatarService {
     try {
       // In a real implementation, this would call an API endpoint
       throw new Error('Video not found');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching video metadata:', error);
       throw new Error('Failed to fetch video metadata');
     }
@@ -126,7 +126,7 @@ export class AvatarService {
     try {
       // In a real implementation, this would call an API endpoint
       return []; // Placeholder
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error searching videos:', error);
       throw new Error('Failed to search videos');
     }
@@ -139,7 +139,7 @@ export class AvatarService {
     try {
       // In a real implementation, this would call an API endpoint
       throw new Error('Video not found');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching video analytics:', error);
       throw new Error('Failed to fetch video analytics');
     }
@@ -157,7 +157,7 @@ export class AvatarService {
       };
       
       return newIntegrationPoint;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error creating integration point:', error);
       throw new Error('Failed to create integration point');
     }
@@ -271,7 +271,7 @@ export class AvatarService {
           tags: ['professional', 'senco', 'specialist', 'educational psychology']
         }
       ];
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching avatar models:', error);
       throw new Error('Failed to fetch avatar models');
     }
@@ -284,7 +284,7 @@ export class AvatarService {
     try {
       // In a real implementation, this would call an API endpoint
       return preferences;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error updating user preferences:', error);
       throw new Error('Failed to update user preferences');
     }
@@ -310,7 +310,7 @@ export class AvatarService {
           signLanguage: false
         }
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching user preferences:', error);
       throw new Error('Failed to fetch user preferences');
     }
@@ -322,7 +322,7 @@ export class AvatarService {
   async recordVideoView(videoId: string, userId: string, viewDurationSeconds: number, completed: boolean): Promise<void> {
     try {
       // In a real implementation, this would call an API endpoint
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error recording video view:', error);
       throw new Error('Failed to record video view');
     }
@@ -334,7 +334,7 @@ export class AvatarService {
   async submitVideoFeedback(videoId: string, userId: string, rating: 'helpful' | 'neutral' | 'unhelpful', comment?: string): Promise<void> {
     try {
       // In a real implementation, this would call an API endpoint
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error submitting video feedback:', error);
       throw new Error('Failed to submit video feedback');
     }
@@ -348,6 +348,6 @@ export class AvatarService {
     // This is a very simple estimation that should be replaced with a more accurate algorithm
     const words = content.split(/\s+/).length;
     const minutes = words / 150;
-    return Math.round(minutes * 60); // Convert to seconds
+    return Math.round(minutes * 60: any); // Convert to seconds
   }
 }

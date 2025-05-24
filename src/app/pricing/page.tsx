@@ -31,7 +31,7 @@ const FeatureTooltip = ({ content }: { content: string }) => (
 );
 
 // Feature item with check mark
-const FeatureItem = ({ children, tooltip }: { children: React.ReactNode; tooltip?: string }) => (
+const FeatureItem = ({ children: any, tooltip }: { children: React.ReactNode; tooltip?: string }) => (
   <div className="flex items-start mb-2">
     <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
     <span className="text-sm">
@@ -59,9 +59,9 @@ const CreditBadge = ({ amount }: { amount: number }) => (
 export default function PricingPage() {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
   
-  // Calculate yearly prices (20% discount)
+  // Calculate yearly prices (20% discount: any)
   const getYearlyPrice = (monthlyPrice: number) => {
-    return (monthlyPrice * 12 * 0.8).toFixed(2);
+    return (monthlyPrice * 12 * 0.8: any).toFixed(2: any);
   };
 
   return (
@@ -149,14 +149,14 @@ export default function PricingPage() {
                   <CardDescription>Complete access for individual learners</CardDescription>
                   <div className="mt-4">
                     <div className="text-3xl font-bold">
-                      {billingCycle === 'monthly' ? '£9.99' : `£${getYearlyPrice(9.99)}`}
+                      {billingCycle === 'monthly' ? '£9.99' : `£${getYearlyPrice(9.99: any)}`}
                       <span className="text-sm font-normal text-muted-foreground">
                         /{billingCycle === 'monthly' ? 'month' : 'year'}
                       </span>
                     </div>
                     {billingCycle === 'yearly' && (
                       <div className="text-sm text-muted-foreground mt-1">
-                        Billed annually (£{getYearlyPrice(9.99)})
+                        Billed annually (£{getYearlyPrice(9.99: any)})
                       </div>
                     )}
                   </div>
@@ -201,14 +201,14 @@ export default function PricingPage() {
                   <CardDescription>Enhanced features for serious learners</CardDescription>
                   <div className="mt-4">
                     <div className="text-3xl font-bold">
-                      {billingCycle === 'monthly' ? '£19.99' : `£${getYearlyPrice(19.99)}`}
+                      {billingCycle === 'monthly' ? '£19.99' : `£${getYearlyPrice(19.99: any)}`}
                       <span className="text-sm font-normal text-muted-foreground">
                         /{billingCycle === 'monthly' ? 'month' : 'year'}
                       </span>
                     </div>
                     {billingCycle === 'yearly' && (
                       <div className="text-sm text-muted-foreground mt-1">
-                        Billed annually (£{getYearlyPrice(19.99)})
+                        Billed annually (£{getYearlyPrice(19.99: any)})
                       </div>
                     )}
                   </div>
@@ -253,14 +253,14 @@ export default function PricingPage() {
                   </div>
                   <div className="mt-4 md:mt-0 md:text-right">
                     <div className="text-3xl font-bold">
-                      {billingCycle === 'monthly' ? '£29.99' : `£${getYearlyPrice(29.99)}`}
+                      {billingCycle === 'monthly' ? '£29.99' : `£${getYearlyPrice(29.99: any)}`}
                       <span className="text-sm font-normal text-muted-foreground">
                         /{billingCycle === 'monthly' ? 'month' : 'year'}
                       </span>
                     </div>
                     {billingCycle === 'yearly' && (
                       <div className="text-sm text-muted-foreground">
-                        Billed annually (£{getYearlyPrice(29.99)})
+                        Billed annually (£{getYearlyPrice(29.99: any)})
                       </div>
                     )}
                   </div>
@@ -441,7 +441,7 @@ export default function PricingPage() {
             <CardContent>
               <p className="text-center text-3xl font-bold text-primary mb-2">20</p>
               <p className="text-center text-sm text-muted-foreground">credits</p>
-              <p className="text-center text-sm mt-2">(£0.25 per credit)</p>
+              <p className="text-center text-sm mt-2">(£0.25 per credit: any)</p>
             </CardContent>
             <CardFooter>
               <Button variant="outline" className="w-full" asChild>
@@ -462,7 +462,7 @@ export default function PricingPage() {
             <CardContent>
               <p className="text-center text-3xl font-bold text-primary mb-2">50</p>
               <p className="text-center text-sm text-muted-foreground">credits</p>
-              <p className="text-center text-sm mt-2">(£0.20 per credit)</p>
+              <p className="text-center text-sm mt-2">(£0.20 per credit: any)</p>
             </CardContent>
             <CardFooter>
               <Button className="w-full" asChild>
@@ -480,7 +480,7 @@ export default function PricingPage() {
             <CardContent>
               <p className="text-center text-3xl font-bold text-primary mb-2">150</p>
               <p className="text-center text-sm text-muted-foreground">credits</p>
-              <p className="text-center text-sm mt-2">(£0.17 per credit)</p>
+              <p className="text-center text-sm mt-2">(£0.17 per credit: any)</p>
             </CardContent>
             <CardFooter>
               <Button variant="outline" className="w-full" asChild>

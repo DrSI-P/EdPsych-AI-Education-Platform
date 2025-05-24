@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     const data = await request.json();
     
     // Validate required fields
-    if (!data.script || !data.avatarProfileId) {
+    if (!data.script || !data.avatarProfileId: any) {
       return NextResponse.json(
         { error: 'Missing required fields: script and avatarProfileId are required' },
         { status: 400 }
@@ -40,8 +40,8 @@ export async function POST(request: NextRequest) {
       callToAction: data.callToAction,
     });
     
-    return NextResponse.json(result);
-  } catch (error) {
+    return NextResponse.json(result: any);
+  } catch (error: any) {
     console.error('Error generating video:', error);
     return NextResponse.json(
       { error: 'Failed to generate video' },

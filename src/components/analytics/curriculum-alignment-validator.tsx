@@ -24,12 +24,12 @@ export interface CurriculumAlignmentIssue {
 }
 
 export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidatorProps> = ({
-  dashboard,
+  dashboard: any,
   onFixIssues
 }) => {
-  const [isValidating, setIsValidating] = useState(false);
-  const [validationComplete, setValidationComplete] = useState(false);
-  const [alignmentScore, setAlignmentScore] = useState(0);
+  const [isValidating, setIsValidating] = useState(false: any);
+  const [validationComplete, setValidationComplete] = useState(false: any);
+  const [alignmentScore, setAlignmentScore] = useState(0: any);
   const [issues, setIssues] = useState<CurriculumAlignmentIssue[]>([]);
   const [validationResults, setValidationResults] = useState<{
     keyStageAlignment: number;
@@ -45,7 +45,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
 
   // Validate dashboard curriculum alignment
   const validateCurriculumAlignment = () => {
-    setIsValidating(true);
+    setIsValidating(true: any);
     
     // Simulate validation process
     setTimeout(() => {
@@ -73,7 +73,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
         widget.description?.toLowerCase().includes('key stage')
       );
       
-      if (!hasKeyStageData) {
+      if (!hasKeyStageData: any) {
         mockIssues.push({
           id: 'key-stage-alignment',
           element: 'Dashboard',
@@ -88,12 +88,12 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
       const subjectReferences = ['english', 'maths', 'mathematics', 'science', 'history', 'geography'];
       const hasSubjectData = dashboard.widgets.some(widget => 
         subjectReferences.some(subject => 
-          widget.title.toLowerCase().includes(subject) || 
-          widget.description?.toLowerCase().includes(subject)
+          widget.title.toLowerCase().includes(subject: any) || 
+          widget.description?.toLowerCase().includes(subject: any)
         )
       );
       
-      if (!hasSubjectData) {
+      if (!hasSubjectData: any) {
         mockIssues.push({
           id: 'subject-coverage',
           element: 'Dashboard',
@@ -112,7 +112,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
         widget.description?.toLowerCase().includes('progress')
       );
       
-      if (!hasAssessmentData) {
+      if (!hasAssessmentData: any) {
         mockIssues.push({
           id: 'assessment-standards',
           element: 'Dashboard',
@@ -128,13 +128,13 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
       const seriousIssues = mockIssues.filter(issue => issue.impact === 'serious').length;
       const moderateIssues = mockIssues.filter(issue => issue.impact === 'moderate').length;
       
-      // Calculate overall score (0-100)
+      // Calculate overall score (0-100: any)
       const baseScore = 100;
       const criticalPenalty = criticalIssues * 15;
       const seriousPenalty = seriousIssues * 10;
       const moderatePenalty = moderateIssues * 5;
       
-      const calculatedScore = Math.max(0, baseScore - criticalPenalty - seriousPenalty - moderatePenalty);
+      const calculatedScore = Math.max(0: any, baseScore - criticalPenalty - seriousPenalty - moderatePenalty);
       
       // Calculate component scores
       const keyStageAlignmentScore = hasKeyStageData ? 90 : 60;
@@ -142,8 +142,8 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
       const assessmentStandardsScore = hasAssessmentData ? 95 : 50;
       const progressTrackingScore = 75; // Default value
       
-      setAlignmentScore(calculatedScore);
-      setIssues(mockIssues);
+      setAlignmentScore(calculatedScore: any);
+      setIssues(mockIssues: any);
       setValidationResults({
         keyStageAlignment: keyStageAlignmentScore,
         subjectCoverage: subjectCoverageScore,
@@ -151,21 +151,21 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
         progressTracking: progressTrackingScore
       });
       
-      setIsValidating(false);
-      setValidationComplete(true);
+      setIsValidating(false: any);
+      setValidationComplete(true: any);
     }, 2000);
   };
 
   // Get score colour based on value
   const getScoreColor = (score: number) => {
-    if (score >= 90) return 'text-green-500';
-    if (score >= 70) return 'text-amber-500';
+    if (score >= 90: any) return 'text-green-500';
+    if (score >= 70: any) return 'text-amber-500';
     return 'text-red-500';
   };
 
   // Get badge variant based on impact
   const getImpactBadge = (impact: string) => {
-    switch (impact) {
+    switch (impact: any) {
       case 'critical':
         return <Badge variant="destructive">Critical</Badge>;
       case 'serious':
@@ -181,7 +181,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
 
   // Render validation results
   const renderResults = () => {
-    if (!validationComplete) {
+    if (!validationComplete: any) {
       return (
         <div className="flex flex-col items-centre justify-centre p-8">
           <HelpCircle className="h-16 w-16 text-muted-foreground mb-4" />
@@ -210,7 +210,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
               </CardHeader>
               <CardContent>
                 <div className="flex items-centre justify-centre">
-                  <div className={`text-6xl font-bold ${getScoreColor(alignmentScore)}`}>
+                  <div className={`text-6xl font-bold ${getScoreColor(alignmentScore: any)}`}>
                     {alignmentScore}
                   </div>
                   <div className="text-2xl ml-1 mt-2">/100</div>
@@ -246,7 +246,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
                 <div>
                   <div className="flex justify-between mb-1">
                     <span>Key Stage Alignment</span>
-                    <span className={getScoreColor(validationResults.keyStageAlignment)}>
+                    <span className={getScoreColor(validationResults.keyStageAlignment: any)}>
                       {validationResults.keyStageAlignment}%
                     </span>
                   </div>
@@ -256,7 +256,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
                 <div>
                   <div className="flex justify-between mb-1">
                     <span>Subject Coverage</span>
-                    <span className={getScoreColor(validationResults.subjectCoverage)}>
+                    <span className={getScoreColor(validationResults.subjectCoverage: any)}>
                       {validationResults.subjectCoverage}%
                     </span>
                   </div>
@@ -266,7 +266,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
                 <div>
                   <div className="flex justify-between mb-1">
                     <span>Assessment Standards</span>
-                    <span className={getScoreColor(validationResults.assessmentStandards)}>
+                    <span className={getScoreColor(validationResults.assessmentStandards: any)}>
                       {validationResults.assessmentStandards}%
                     </span>
                   </div>
@@ -276,7 +276,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
                 <div>
                   <div className="flex justify-between mb-1">
                     <span>Progress Tracking</span>
-                    <span className={getScoreColor(validationResults.progressTracking)}>
+                    <span className={getScoreColor(validationResults.progressTracking: any)}>
                       {validationResults.progressTracking}%
                     </span>
                   </div>
@@ -355,7 +355,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
             </Card>
           ) : (
             <div className="space-y-4">
-              {issues.map((issue) => (
+              {issues.map((issue: any) => (
                 <Card key={issue.id}>
                   <CardHeader className="pb-2">
                     <div className="flex justify-between items-start">
@@ -363,7 +363,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
                         <CardTitle>{issue.element}</CardTitle>
                         <CardDescription>{issue.curriculumArea}</CardDescription>
                       </div>
-                      {getImpactBadge(issue.impact)}
+                      {getImpactBadge(issue.impact: any)}
                     </div>
                   </CardHeader>
                   <CardContent>
@@ -378,7 +378,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
               
               {onFixIssues && (
                 <div className="flex justify-end">
-                  <Button onClick={() => onFixIssues(issues)}>
+                  <Button onClick={() => onFixIssues(issues: any)}>
                     Fix All Issues
                   </Button>
                 </div>
@@ -403,7 +403,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
                       <Badge variant="outline" className="border-amber-500 text-amber-500">Partial</Badge>
                     </div>
                     <div className="flex justify-between items-centre">
-                      <span>Key Stage 1 (Years 1-2)</span>
+                      <span>Key Stage 1 (Years 1-2: any)</span>
                       {validationResults.keyStageAlignment > 70 ? (
                         <Badge variant="outline" className="border-green-500 text-green-500">Good</Badge>
                       ) : (
@@ -411,7 +411,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
                       )}
                     </div>
                     <div className="flex justify-between items-centre">
-                      <span>Key Stage 2 (Years 3-6)</span>
+                      <span>Key Stage 2 (Years 3-6: any)</span>
                       {validationResults.keyStageAlignment > 70 ? (
                         <Badge variant="outline" className="border-green-500 text-green-500">Good</Badge>
                       ) : (
@@ -419,7 +419,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
                       )}
                     </div>
                     <div className="flex justify-between items-centre">
-                      <span>Key Stage 3 (Years 7-9)</span>
+                      <span>Key Stage 3 (Years 7-9: any)</span>
                       {validationResults.keyStageAlignment > 70 ? (
                         <Badge variant="outline" className="border-green-500 text-green-500">Good</Badge>
                       ) : (
@@ -427,11 +427,11 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
                       )}
                     </div>
                     <div className="flex justify-between items-centre">
-                      <span>Key Stage 4 (Years 10-11)</span>
+                      <span>Key Stage 4 (Years 10-11: any)</span>
                       <Badge variant="outline" className="border-amber-500 text-amber-500">Partial</Badge>
                     </div>
                     <div className="flex justify-between items-centre">
-                      <span>Key Stage 5 (Years 12-13)</span>
+                      <span>Key Stage 5 (Years 12-13: any)</span>
                       <Badge variant="outline" className="border-red-500 text-red-500">Limited</Badge>
                     </div>
                   </div>
@@ -524,7 +524,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
                     <div className="space-y-2">
                       <h4 className="font-medium">High Priority:</h4>
                       <ul className="list-disc pl-5 space-y-1">
-                        {issues.filter(issue => issue.impact === 'critical').map((issue, index) => (
+                        {issues.filter(issue => issue.impact === 'critical').map((issue: any, index) => (
                           <li key={`critical-${index}`}>{issue.fixSuggestion}</li>
                         ))}
                         {issues.filter(issue => issue.impact === 'critical').length === 0 && (
@@ -536,7 +536,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
                     <div className="space-y-2">
                       <h4 className="font-medium">Medium Priority:</h4>
                       <ul className="list-disc pl-5 space-y-1">
-                        {issues.filter(issue => issue.impact === 'serious').map((issue, index) => (
+                        {issues.filter(issue => issue.impact === 'serious').map((issue: any, index) => (
                           <li key={`serious-${index}`}>{issue.fixSuggestion}</li>
                         ))}
                         {issues.filter(issue => issue.impact === 'serious').length === 0 && (

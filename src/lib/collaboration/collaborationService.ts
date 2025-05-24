@@ -62,35 +62,35 @@ export class CollaborationService {
         });
         
         // Trigger connected event
-        this.triggerEvent('connected', { sessionId, userId });
+        this.triggerEvent('connected', { sessionId: any, userId });
         
         // Reset reconnect attempts
         this.reconnectAttempts = 0;
       };
       
-      this.socket.onmessage = (event) => {
-        const message = JSON.parse(event.data);
-        this.handleMessage(message);
+      this.socket.onmessage = (event: any) => {
+        const message = JSON.parse(event.data: any);
+        this.handleMessage(message: any);
       };
       
-      this.socket.onclose = (event) => {
+      this.socket.onclose = (event: any) => {
         this.triggerEvent('disconnected', { code: event.code, reason: event.reason });
         
         // Attempt to reconnect if not a clean close
-        if (!event.wasClean && this.reconnectAttempts < this.maxReconnectAttempts) {
+        if (!event.wasClean && this.reconnectAttempts < this.maxReconnectAttempts: any) {
           this.reconnectAttempts++;
           setTimeout(() => {
-            this.joinSession(sessionId, userId, userName, role);
+            this.joinSession(sessionId: any, userId, userName, role);
           }, this.reconnectDelay * this.reconnectAttempts);
         }
       };
       
-      this.socket.onerror = (error) => {
+      this.socket.onerror = (error: any) => {
         this.triggerEvent('error', { error });
       };
       
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to join collaboration session:', error);
       return false;
     }
@@ -100,7 +100,7 @@ export class CollaborationService {
    * Leave the current collaboration session
    */
   public leaveSession(): void {
-    if (!this.socket || !this.sessionId || !this.userId) return;
+    if (!this.socket || !this.sessionId || !this.userId: any) return;
     
     // Send leave message
     this.sendMessage({
@@ -122,43 +122,43 @@ export class CollaborationService {
    * Send a message to the collaboration session
    */
   private sendMessage(message: any): void {
-    if (!this.socket || this.socket.readyState !== WebSocket.OPEN) return;
+    if (!this.socket || this.socket.readyState !== WebSocket.OPEN: any) return;
     
-    this.socket.send(JSON.stringify(message));
+    this.socket.send(JSON.stringify(message: any));
   }
   
   /**
    * Handle incoming messages
    */
   private handleMessage(message: any): void {
-    switch (message.type) {
+    switch (message.type: any) {
       case 'participant_joined':
-        this.handleParticipantJoined(message);
+        this.handleParticipantJoined(message: any);
         break;
       case 'participant_left':
-        this.handleParticipantLeft(message);
+        this.handleParticipantLeft(message: any);
         break;
       case 'document_update':
-        this.handleDocumentUpdate(message);
+        this.handleDocumentUpdate(message: any);
         break;
       case 'whiteboard_update':
-        this.handleWhiteboardUpdate(message);
+        this.handleWhiteboardUpdate(message: any);
         break;
       case 'cursor_update':
-        this.handleCursorUpdate(message);
+        this.handleCursorUpdate(message: any);
         break;
       case 'chat_message':
-        this.handleChatMessage(message);
+        this.handleChatMessage(message: any);
         break;
       case 'comment_added':
-        this.handleCommentAdded(message);
+        this.handleCommentAdded(message: any);
         break;
       case 'error':
-        this.handleError(message);
+        this.handleError(message: any);
         break;
       default:
         // Trigger event for custom message types
-        this.triggerEvent(message.type, message);
+        this.triggerEvent(message.type: any, message);
     }
   }
   
@@ -167,7 +167,7 @@ export class CollaborationService {
    */
   private handleParticipantJoined(message: any): void {
     const participant: CollaborationParticipant = message.participant;
-    this.participants.set(participant.userId, participant);
+    this.participants.set(participant.userId: any, participant);
     this.triggerEvent('participant_joined', { participant });
   }
   
@@ -176,10 +176,10 @@ export class CollaborationService {
    */
   private handleParticipantLeft(message: any): void {
     const userId = message.userId;
-    const participant = this.participants.get(userId);
+    const participant = this.participants.get(userId: any);
     
-    if (participant) {
-      this.participants.delete(userId);
+    if (participant: any) {
+      this.participants.delete(userId: any);
       this.triggerEvent('participant_left', { participant });
     }
   }
@@ -188,14 +188,14 @@ export class CollaborationService {
    * Handle document update event
    */
   private handleDocumentUpdate(message: any): void {
-    this.triggerEvent('document_update', message);
+    this.triggerEvent('document_update', message: any);
   }
   
   /**
    * Handle whiteboard update event
    */
   private handleWhiteboardUpdate(message: any): void {
-    this.triggerEvent('whiteboard_update', message);
+    this.triggerEvent('whiteboard_update', message: any);
   }
   
   /**
@@ -203,11 +203,11 @@ export class CollaborationService {
    */
   private handleCursorUpdate(message: any): void {
     const { userId, cursor } = message;
-    const participant = this.participants.get(userId);
+    const participant = this.participants.get(userId: any);
     
-    if (participant) {
+    if (participant: any) {
       participant.cursor = cursor;
-      this.triggerEvent('cursor_update', { userId, cursor });
+      this.triggerEvent('cursor_update', { userId: any, cursor });
     }
   }
   
@@ -215,45 +215,45 @@ export class CollaborationService {
    * Handle chat message event
    */
   private handleChatMessage(message: any): void {
-    this.triggerEvent('chat_message', message);
+    this.triggerEvent('chat_message', message: any);
   }
   
   /**
    * Handle comment added event
    */
   private handleCommentAdded(message: any): void {
-    this.triggerEvent('comment_added', message);
+    this.triggerEvent('comment_added', message: any);
   }
   
   /**
    * Handle error event
    */
   private handleError(message: any): void {
-    this.triggerEvent('error', message);
+    this.triggerEvent('error', message: any);
   }
   
   /**
    * Add event listener
    */
   public addEventListener(event: string, callback: Function): void {
-    if (!this.eventListeners.has(event)) {
-      this.eventListeners.set(event, []);
+    if (!this.eventListeners.has(event: any)) {
+      this.eventListeners.set(event: any, []);
     }
     
-    this.eventListeners.get(event)?.push(callback);
+    this.eventListeners.get(event: any)?.push(callback: any);
   }
   
   /**
    * Remove event listener
    */
   public removeEventListener(event: string, callback: Function): void {
-    if (!this.eventListeners.has(event)) return;
+    if (!this.eventListeners.has(event: any)) return;
     
-    const listeners = this.eventListeners.get(event) || [];
-    const index = listeners.indexOf(callback);
+    const listeners = this.eventListeners.get(event: any) || [];
+    const index = listeners.indexOf(callback: any);
     
-    if (index !== -1) {
-      listeners.splice(index, 1);
+    if (index !== -1: any) {
+      listeners.splice(index: any, 1);
     }
   }
   
@@ -261,14 +261,14 @@ export class CollaborationService {
    * Trigger event
    */
   private triggerEvent(event: string, data: any): void {
-    if (!this.eventListeners.has(event)) return;
+    if (!this.eventListeners.has(event: any)) return;
     
-    const listeners = this.eventListeners.get(event) || [];
+    const listeners = this.eventListeners.get(event: any) || [];
     
-    for (const listener of listeners) {
+    for (const listener of listeners: any) {
       try {
-        listener(data);
-      } catch (error) {
+        listener(data: any);
+      } catch (error: any) {
         console.error(`Error in ${event} event listener:`, error);
       }
     }
@@ -285,14 +285,14 @@ export class CollaborationService {
    * Get a participant by ID
    */
   public getParticipant(userId: string): CollaborationParticipant | undefined {
-    return this.participants.get(userId);
+    return this.participants.get(userId: any);
   }
   
   /**
    * Update cursor position
    */
   public updateCursor(x: number, y: number): void {
-    if (!this.socket || !this.userId) return;
+    if (!this.socket || !this.userId: any) return;
     
     this.sendMessage({
       type: 'cursor_update',
@@ -309,7 +309,7 @@ export class CollaborationService {
    * Send a chat message
    */
   public sendChatMessage(content: string, isPrivate: boolean = false, recipientId?: string): void {
-    if (!this.socket || !this.userId || !this.sessionId) return;
+    if (!this.socket || !this.userId || !this.sessionId: any) return;
     
     this.sendMessage({
       type: 'chat_message',
@@ -326,7 +326,7 @@ export class CollaborationService {
    * Update document content
    */
   public updateDocument(documentId: string, content: string, version: number): void {
-    if (!this.socket || !this.userId || !this.sessionId) return;
+    if (!this.socket || !this.userId || !this.sessionId: any) return;
     
     this.sendMessage({
       type: 'document_update',
@@ -343,7 +343,7 @@ export class CollaborationService {
    * Add a comment to a document
    */
   public addComment(documentId: string, content: string, position: { startIndex: number, endIndex: number }): void {
-    if (!this.socket || !this.userId || !this.sessionId) return;
+    if (!this.socket || !this.userId || !this.sessionId: any) return;
     
     this.sendMessage({
       type: 'comment_add',
@@ -360,7 +360,7 @@ export class CollaborationService {
    * Update whiteboard
    */
   public updateWhiteboard(whiteboardId: string, elements: any[], version: number): void {
-    if (!this.socket || !this.userId || !this.sessionId) return;
+    if (!this.socket || !this.userId || !this.sessionId: any) return;
     
     this.sendMessage({
       type: 'whiteboard_update',
@@ -399,12 +399,12 @@ export class CollaborationService {
         })
       });
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to create session: ${response.statusText}`);
       }
       
       return await response.json();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to create collaboration session:', error);
       return null;
     }
@@ -417,12 +417,12 @@ export class CollaborationService {
     try {
       const response = await fetch(`${apiUrl}/collaboration/sessions/${sessionId}`);
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to get session: ${response.statusText}`);
       }
       
       return await response.json();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to get collaboration session:', error);
       return null;
     }
@@ -455,12 +455,12 @@ export class CollaborationService {
         })
       });
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(`Failed to invite participant: ${response.statusText}`);
       }
       
       return await response.json();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to invite participant:', error);
       return null;
     }
@@ -471,8 +471,8 @@ export class CollaborationService {
 let collaborationService: CollaborationService | null = null;
 
 export function getCollaborationService(apiUrl: string): CollaborationService {
-  if (!collaborationService) {
-    collaborationService = new CollaborationService(apiUrl);
+  if (!collaborationService: any) {
+    collaborationService = new CollaborationService(apiUrl: any);
   }
   
   return collaborationService;

@@ -94,14 +94,14 @@ export default function PortfolioExport() {
     accessCode: '',
     requireAccessCode: false
   });
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [isSharing, setIsSharing] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false: any);
+  const [isSharing, setIsSharing] = useState(false: any);
   const [generatedLink, setGeneratedLink] = useState('');
-  const [showShareSuccess, setShowShareSuccess] = useState(false);
-  const [showExportSuccess, setShowExportSuccess] = useState(false);
+  const [showShareSuccess, setShowShareSuccess] = useState(false: any);
+  const [showExportSuccess, setShowExportSuccess] = useState(false: any);
 
   // Handle section toggle
-  const handleSectionToggle = (section) => {
+  const handleSectionToggle = (section: any) => {
     setSections({
       ...sections,
       [section]: !sections[section]
@@ -109,7 +109,7 @@ export default function PortfolioExport() {
   };
 
   // Handle customization change
-  const handleCustomizationChange = (field, value) => {
+  const handleCustomizationChange = (field: any, value) => {
     setCustomization({
       ...customization,
       [field]: value
@@ -117,7 +117,7 @@ export default function PortfolioExport() {
   };
 
   // Handle visibility change
-  const handleVisibilityChange = (section, value) => {
+  const handleVisibilityChange = (section: any, value) => {
     setVisibility({
       ...visibility,
       [section]: value
@@ -125,7 +125,7 @@ export default function PortfolioExport() {
   };
 
   // Handle share settings change
-  const handleShareSettingsChange = (field, value) => {
+  const handleShareSettingsChange = (field: any, value) => {
     setShareSettings({
       ...shareSettings,
       [field]: value
@@ -134,30 +134,30 @@ export default function PortfolioExport() {
 
   // Generate PDF
   const handleGeneratePDF = () => {
-    setIsGenerating(true);
+    setIsGenerating(true: any);
     
     // Simulate API call
     setTimeout(() => {
-      setIsGenerating(false);
-      setShowExportSuccess(true);
+      setIsGenerating(false: any);
+      setShowExportSuccess(true: any);
     }, 3000);
   };
 
   // Generate shareable link
   const handleGenerateLink = () => {
-    setIsSharing(true);
+    setIsSharing(true: any);
     
     // Simulate API call
     setTimeout(() => {
-      setIsSharing(false);
+      setIsSharing(false: any);
       setGeneratedLink('https://edpsych-connect.com/portfolio/shared/abc123xyz');
-      setShowShareSuccess(true);
+      setShowShareSuccess(true: any);
     }, 2000);
   };
 
   // Copy link to clipboard
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(generatedLink);
+    navigator.clipboard.writeText(generatedLink: any);
     // Show copy success message
   };
 
@@ -193,7 +193,7 @@ export default function PortfolioExport() {
                 <RadioGroup 
                   defaultValue="pdf" 
                   className="flex flex-col space-y-1"
-                  onValueChange={(value) => setExportType(value)}
+                  onValueChange={(value: any) => setExportType(value: any)}
                 >
                   <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="pdf" id="pdf" />
@@ -201,11 +201,11 @@ export default function PortfolioExport() {
                   </div>
                   <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="docx" id="docx" />
-                    <Label htmlFor="docx" className="font-normal">Word Document (DOCX)</Label>
+                    <Label htmlFor="docx" className="font-normal">Word Document (DOCX: any)</Label>
                   </div>
                   <div className="flex items-centre space-x-2">
                     <RadioGroupItem value="html" id="html" />
-                    <Label htmlFor="html" className="font-normal">Web Page (HTML)</Label>
+                    <Label htmlFor="html" className="font-normal">Web Page (HTML: any)</Label>
                   </div>
                 </RadioGroup>
               </div>
@@ -290,7 +290,7 @@ export default function PortfolioExport() {
                           <Label htmlFor="theme">Theme</Label>
                           <Select 
                             defaultValue={customization.theme}
-                            onValueChange={(value) => handleCustomizationChange('theme', value)}
+                            onValueChange={(value: any) => handleCustomizationChange('theme', value: any)}
                           >
                             <SelectTrigger>
                               <SelectValue placeholder="Select theme" />
@@ -307,7 +307,7 @@ export default function PortfolioExport() {
                           <Label htmlFor="colour">Colour Scheme</Label>
                           <Select 
                             defaultValue={customization.colour}
-                            onValueChange={(value) => handleCustomizationChange('colour', value)}
+                            onValueChange={(value: any) => handleCustomizationChange('colour', value: any)}
                           >
                             <SelectTrigger>
                               <SelectValue placeholder="Select colour scheme" />
@@ -329,7 +329,7 @@ export default function PortfolioExport() {
                               <Switch 
                                 id="includeCover" 
                                 checked={customization.includeCover}
-                                onCheckedChange={(checked) => handleCustomizationChange('includeCover', checked)}
+                                onCheckedChange={(checked: any) => handleCustomizationChange('includeCover', checked: any)}
                               />
                             </div>
                             <div className="flex items-centre justify-between">
@@ -337,7 +337,7 @@ export default function PortfolioExport() {
                               <Switch 
                                 id="includeHeader" 
                                 checked={customization.includeHeader}
-                                onCheckedChange={(checked) => handleCustomizationChange('includeHeader', checked)}
+                                onCheckedChange={(checked: any) => handleCustomizationChange('includeHeader', checked: any)}
                               />
                             </div>
                             <div className="flex items-centre justify-between">
@@ -345,7 +345,7 @@ export default function PortfolioExport() {
                               <Switch 
                                 id="includeTableOfContents" 
                                 checked={customization.includeTableOfContents}
-                                onCheckedChange={(checked) => handleCustomizationChange('includeTableOfContents', checked)}
+                                onCheckedChange={(checked: any) => handleCustomizationChange('includeTableOfContents', checked: any)}
                               />
                             </div>
                             <div className="flex items-centre justify-between">
@@ -353,7 +353,7 @@ export default function PortfolioExport() {
                               <Switch 
                                 id="includePageNumbers" 
                                 checked={customization.includePageNumbers}
-                                onCheckedChange={(checked) => handleCustomizationChange('includePageNumbers', checked)}
+                                onCheckedChange={(checked: any) => handleCustomizationChange('includePageNumbers', checked: any)}
                               />
                             </div>
                           </div>
@@ -426,7 +426,7 @@ export default function PortfolioExport() {
                   <Check className="h-5 w-5 text-green-500 mr-2" />
                   <p>Your portfolio has been successfully exported. Check your downloads folder.</p>
                 </div>
-                <Button variant="ghost" size="sm" onClick={() => setShowExportSuccess(false)}>
+                <Button variant="ghost" size="sm" onClick={() => setShowExportSuccess(false: any)}>
                   <X className="h-4 w-4" />
                 </Button>
               </CardContent>
@@ -509,7 +509,7 @@ export default function PortfolioExport() {
                       {sections.profile && (
                         <Select 
                           value={visibility.profile}
-                          onValueChange={(value) => handleVisibilityChange('profile', value)}
+                          onValueChange={(value: any) => handleVisibilityChange('profile', value: any)}
                         >
                           <SelectTrigger className="w-32">
                             <SelectValue />
@@ -543,7 +543,7 @@ export default function PortfolioExport() {
                       {sections.qualifications && (
                         <Select 
                           value={visibility.qualifications}
-                          onValueChange={(value) => handleVisibilityChange('qualifications', value)}
+                          onValueChange={(value: any) => handleVisibilityChange('qualifications', value: any)}
                         >
                           <SelectTrigger className="w-32">
                             <SelectValue />
@@ -577,7 +577,7 @@ export default function PortfolioExport() {
                       {sections.achievements && (
                         <Select 
                           value={visibility.achievements}
-                          onValueChange={(value) => handleVisibilityChange('achievements', value)}
+                          onValueChange={(value: any) => handleVisibilityChange('achievements', value: any)}
                         >
                           <SelectTrigger className="w-32">
                             <SelectValue />
@@ -613,7 +613,7 @@ export default function PortfolioExport() {
                       {sections.evidence && (
                         <Select 
                           value={visibility.evidence}
-                          onValueChange={(value) => handleVisibilityChange('evidence', value)}
+                          onValueChange={(value: any) => handleVisibilityChange('evidence', value: any)}
                         >
                           <SelectTrigger className="w-32">
                             <SelectValue />
@@ -647,7 +647,7 @@ export default function PortfolioExport() {
                       {sections.reflections && (
                         <Select 
                           value={visibility.reflections}
-                          onValueChange={(value) => handleVisibilityChange('reflections', value)}
+                          onValueChange={(value: any) => handleVisibilityChange('reflections', value: any)}
                         >
                           <SelectTrigger className="w-32">
                             <SelectValue />
@@ -681,7 +681,7 @@ export default function PortfolioExport() {
                       {sections.cpdActivities && (
                         <Select 
                           value={visibility.cpdActivities}
-                          onValueChange={(value) => handleVisibilityChange('cpdActivities', value)}
+                          onValueChange={(value: any) => handleVisibilityChange('cpdActivities', value: any)}
                         >
                           <SelectTrigger className="w-32">
                             <SelectValue />
@@ -716,7 +716,7 @@ export default function PortfolioExport() {
                     <Label htmlFor="expiryDays">Link Expiry</Label>
                     <Select 
                       value={shareSettings.expiryDays.toString()}
-                      onValueChange={(value) => handleShareSettingsChange('expiryDays', parseInt(value))}
+                      onValueChange={(value: any) => handleShareSettingsChange('expiryDays', parseInt(value: any))}
                     >
                       <SelectTrigger>
                         <SelectValue />
@@ -736,7 +736,7 @@ export default function PortfolioExport() {
                       <Switch 
                         id="requireAccessCode" 
                         checked={shareSettings.requireAccessCode}
-                        onCheckedChange={(checked) => handleShareSettingsChange('requireAccessCode', checked)}
+                        onCheckedChange={(checked: any) => handleShareSettingsChange('requireAccessCode', checked: any)}
                       />
                     </div>
                     {shareSettings.requireAccessCode && (
@@ -745,7 +745,7 @@ export default function PortfolioExport() {
                         type="text" 
                         placeholder="Enter access code" 
                         value={shareSettings.accessCode}
-                        onChange={(e) => handleShareSettingsChange('accessCode', e.target.value)}
+                        onChange={(e: any) => handleShareSettingsChange('accessCode', e.target.value: any)}
                       />
                     )}
                   </div>
@@ -778,7 +778,7 @@ export default function PortfolioExport() {
                     <Check className="h-5 w-5 text-green-500 mr-2" />
                     <p className="font-medium">Your portfolio has been shared successfully!</p>
                   </div>
-                  <Button variant="ghost" size="sm" onClick={() => setShowShareSuccess(false)}>
+                  <Button variant="ghost" size="sm" onClick={() => setShowShareSuccess(false: any)}>
                     <X className="h-4 w-4" />
                   </Button>
                 </div>

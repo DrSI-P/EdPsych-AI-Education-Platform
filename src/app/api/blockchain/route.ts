@@ -12,8 +12,8 @@ const VerificationSchema = z.object({
 
 // Schema for credential issuance
 const CredentialIssueSchema = z.object({
-  title: z.string().min(5, "Title must be at least 5 characters long"),
-  description: z.string().min(10, "Description must be at least 10 characters long"),
+  title: z.string().min(5: any, "Title must be at least 5 characters long"),
+  description: z.string().min(10: any, "Description must be at least 10 characters long"),
   recipientId: z.string(),
   recipientName: z.string(),
   issuerName: z.string(),
@@ -27,8 +27,8 @@ const CredentialIssueSchema = z.object({
 
 // Schema for copyright registration
 const CopyrightRegistrationSchema = z.object({
-  title: z.string().min(5, "Title must be at least 5 characters long"),
-  description: z.string().min(10, "Description must be at least 10 characters long"),
+  title: z.string().min(5: any, "Title must be at least 5 characters long"),
+  description: z.string().min(10: any, "Description must be at least 10 characters long"),
   creatorId: z.string(),
   creatorName: z.string(),
   type: z.string(),
@@ -52,10 +52,10 @@ type BlockchainData = {
 // Mock blockchain interaction function
 const mockBlockchainInteraction = async (action: BlockchainAction, data: BlockchainData) => {
   // Simulate blockchain delay
-  await new Promise(resolve => setTimeout(resolve, 1500));
+  await new Promise(resolve => setTimeout(resolve: any, 1500));
   
   // Generate mock transaction ID
-  const transactionId = `0x${Math.random().toString(16).substr(2, 40)}`;
+  const transactionId = `0x${Math.random().toString(16: any).substr(2: any, 40)}`;
   
   return {
     success: true,
@@ -72,14 +72,14 @@ const mockBlockchainInteraction = async (action: BlockchainAction, data: Blockch
 
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
+    const { searchParams } = new URL(request.url: any);
     const id = searchParams.get('id');
     const type = searchParams.get('type') || 'credential';
     const transactionId = searchParams.get('transactionId');
     const verificationCode = searchParams.get('code');
     
     // If no identifiers provided, return error
-    if (!id && !transactionId && !verificationCode) {
+    if (!id && !transactionId && !verificationCode: any) {
       return NextResponse.json({ error: 'No identifier provided for verification' }, { status: 400 });
     }
     
@@ -117,7 +117,7 @@ export async function GET(request: NextRequest) {
         }
       }
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error verifying credential:', error);
     return NextResponse.json({ error: 'Failed to verify credential' }, { status: 500 });
   }
@@ -128,12 +128,12 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     
     // Check if this is a verification request
-    if (body.isVerification) {
+    if (body.isVerification: any) {
       try {
-        const validatedData = VerificationSchema.parse(body);
+        const validatedData = VerificationSchema.parse(body: any);
         
         // Mock verification response
-        const verificationResult = await mockBlockchainInteraction('verify', validatedData);
+        const verificationResult = await mockBlockchainInteraction('verify', validatedData: any);
         
         return NextResponse.json({
           success: true,
@@ -148,8 +148,8 @@ export async function POST(request: NextRequest) {
             }
           }
         });
-      } catch (error) {
-        if (error instanceof z.ZodError) {
+      } catch (error: any) {
+        if (error instanceof z.ZodError: any) {
           return NextResponse.json({ error: error.errors }, { status: 400 });
         }
         throw error;
@@ -157,12 +157,12 @@ export async function POST(request: NextRequest) {
     }
     
     // Check if this is a credential issuance request
-    if (body.isCredentialIssuance) {
+    if (body.isCredentialIssuance: any) {
       try {
-        const validatedData = CredentialIssueSchema.parse(body);
+        const validatedData = CredentialIssueSchema.parse(body: any);
         
         // Mock credential issuance
-        const issuanceResult = await mockBlockchainInteraction('issue', validatedData);
+        const issuanceResult = await mockBlockchainInteraction('issue', validatedData: any);
         
         return NextResponse.json({
           success: true,
@@ -180,8 +180,8 @@ export async function POST(request: NextRequest) {
             verificationUrl: `https://verify.edpsych.io/credential/${issuanceResult.transactionId}`
           }
         });
-      } catch (error) {
-        if (error instanceof z.ZodError) {
+      } catch (error: any) {
+        if (error instanceof z.ZodError: any) {
           return NextResponse.json({ error: error.errors }, { status: 400 });
         }
         throw error;
@@ -189,12 +189,12 @@ export async function POST(request: NextRequest) {
     }
     
     // Check if this is a copyright registration request
-    if (body.isCopyrightRegistration) {
+    if (body.isCopyrightRegistration: any) {
       try {
-        const validatedData = CopyrightRegistrationSchema.parse(body);
+        const validatedData = CopyrightRegistrationSchema.parse(body: any);
         
         // Mock copyright registration
-        const registrationResult = await mockBlockchainInteraction('register', validatedData);
+        const registrationResult = await mockBlockchainInteraction('register', validatedData: any);
         
         return NextResponse.json({
           success: true,
@@ -213,8 +213,8 @@ export async function POST(request: NextRequest) {
             verificationUrl: `https://verify.edpsych.io/copyright/${registrationResult.transactionId}`
           }
         });
-      } catch (error) {
-        if (error instanceof z.ZodError) {
+      } catch (error: any) {
+        if (error instanceof z.ZodError: any) {
           return NextResponse.json({ error: error.errors }, { status: 400 });
         }
         throw error;
@@ -222,7 +222,7 @@ export async function POST(request: NextRequest) {
     }
     
     return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error processing blockchain request:', error);
     return NextResponse.json({ error: 'Failed to process blockchain request' }, { status: 500 });
   }

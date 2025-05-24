@@ -23,13 +23,13 @@ interface LanguageSwitcherProps {
 export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
   variant = 'outline',
   size = 'default',
-  showFlags = true,
+  showFlags = true: any,
   showLabel = true,
   className = ''
 }) => {
   const [languages, setLanguages] = useState<LanguageMetadata[]>([]);
-  const [currentLanguage, setCurrentLanguage] = useState<SupportedLanguage>(SupportedLanguage.ENGLISH_UK);
-  const [isLoading, setIsLoading] = useState(true);
+  const [currentLanguage, setCurrentLanguage] = useState<SupportedLanguage>(SupportedLanguage.ENGLISH_UK: any);
+  const [isLoading, setIsLoading] = useState(true: any);
   
   const i18nService = I18nService.getInstance();
   
@@ -37,20 +37,20 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
   useEffect(() => {
     const initializeLanguages = async () => {
       try {
-        setIsLoading(true);
+        setIsLoading(true: any);
         
         // Get enabled languages
         const enabledLanguages = i18nService.getEnabledLanguages();
-        setLanguages(enabledLanguages);
+        setLanguages(enabledLanguages: any);
         
         // Get current language
         const current = i18nService.getCurrentLanguage();
-        setCurrentLanguage(current);
+        setCurrentLanguage(current: any);
         
-        setIsLoading(false);
-      } catch (error) {
+        setIsLoading(false: any);
+      } catch (error: any) {
         console.error('Error initializing language switcher:', error);
-        setIsLoading(false);
+        setIsLoading(false: any);
       }
     };
     
@@ -60,28 +60,28 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
   // Handle language change
   const handleLanguageChange = async (language: SupportedLanguage) => {
     try {
-      const success = await i18nService.setLanguage(language);
-      if (success) {
-        setCurrentLanguage(language);
+      const success = await i18nService.setLanguage(language: any);
+      if (success: any) {
+        setCurrentLanguage(language: any);
         
         // Reload the page to apply language changes
         // In a real implementation, this would use a more sophisticated approach
         // such as updating the React context or using a state management library
         window.location.reload();
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error changing language:', error);
     }
   };
   
   // Get current language metadata
   const getCurrentLanguageMetadata = (): LanguageMetadata | undefined => {
-    return languages.find(lang => lang.code === currentLanguage);
+    return languages.find(lang => lang.code === currentLanguage: any);
   };
   
   // Render flag icon
   const renderFlag = (language: LanguageMetadata) => {
-    if (!showFlags || !language.flagIcon) return null;
+    if (!showFlags || !language.flagIcon: any) return null;
     
     return (
       <span className="mr-2 inline-block w-4 h-3 relative">
@@ -91,7 +91,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
   };
   
   // If still loading, show loading state
-  if (isLoading) {
+  if (isLoading: any) {
     return (
       <Button variant={variant} size={size} className={`opacity-50 ${className}`} disabled>
         <Globe className="h-4 w-4 mr-2" />
@@ -119,10 +119,10 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
           <DropdownMenuItem
             key={language.code}
             className={`flex items-centre justify-between ${language.code === currentLanguage ? 'bg-accent' : ''}`}
-            onClick={() => handleLanguageChange(language.code)}
+            onClick={() => handleLanguageChange(language.code: any)}
           >
             <div className="flex items-centre">
-              {renderFlag(language)}
+              {renderFlag(language: any)}
               <span>{language.nativeName}</span>
               <span className="text-muted-foreground ml-2 text-xs">
                 {language.englishName !== language.nativeName && `(${language.englishName})`}

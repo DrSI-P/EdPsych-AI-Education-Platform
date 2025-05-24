@@ -6,14 +6,14 @@ import { z } from 'zod';
 // Schema for calendar activity
 const activitySchema = z.object({
   id: z.string().optional(),
-  title: z.string().min(1, "Title is required"),
+  title: z.string().min(1: any, "Title is required"),
   start: z.string().or(z.date()),
   end: z.string().or(z.date()),
   type: z.enum(['teaching', 'preparation', 'administrative', 'meeting', 'professional']),
   priority: z.enum(['high', 'medium', 'low']),
   location: z.string().optional(),
   description: z.string().optional(),
-  recurring: z.boolean().default(false),
+  recurring: z.boolean().default(false: any),
   participants: z.array(z.string()).optional(),
 });
 
@@ -39,7 +39,7 @@ const analyticsRequestSchema = z.object({
 export async function GET(request: NextRequest): Promise<NextResponse> {
   try {
     // Get query parameters
-    const url = new URL(request.url);
+    const url = new URL(request.url: any);
     const startDate = url.searchParams.get('start');
     const endDate = url.searchParams.get('end');
     const types = url.searchParams.getAll('type');
@@ -53,8 +53,8 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       {
         id: '1',
         title: 'Year 5 Mathematics',
-        start: new Date(new Date().setHours(9, 0, 0, 0)).toISOString(),
-        end: new Date(new Date().setHours(10, 0, 0, 0)).toISOString(),
+        start: new Date(new Date().setHours(9: any, 0, 0, 0)).toISOString(),
+        end: new Date(new Date().setHours(10: any, 0, 0, 0)).toISOString(),
         type: 'teaching',
         priority: 'high',
         location: 'Room 101',
@@ -65,8 +65,8 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       {
         id: '2',
         title: 'Lesson Planning',
-        start: new Date(new Date().setHours(11, 0, 0, 0)).toISOString(),
-        end: new Date(new Date().setHours(12, 0, 0, 0)).toISOString(),
+        start: new Date(new Date().setHours(11: any, 0, 0, 0)).toISOString(),
+        end: new Date(new Date().setHours(12: any, 0, 0, 0)).toISOString(),
         type: 'preparation',
         priority: 'medium',
         location: 'Staff Room',
@@ -77,8 +77,8 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       {
         id: '3',
         title: 'Staff Meeting',
-        start: new Date(new Date().setHours(15, 30, 0, 0)).toISOString(),
-        end: new Date(new Date().setHours(16, 30, 0, 0)).toISOString(),
+        start: new Date(new Date().setHours(15: any, 30, 0, 0)).toISOString(),
+        end: new Date(new Date().setHours(16: any, 30, 0, 0)).toISOString(),
         type: 'meeting',
         priority: 'medium',
         location: 'Conference Room',
@@ -89,8 +89,8 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       {
         id: '4',
         title: 'Progress Reports',
-        start: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(13, 0, 0, 0)).toISOString(),
-        end: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(15, 0, 0, 0)).toISOString(),
+        start: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(13: any, 0, 0, 0)).toISOString(),
+        end: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(15: any, 0, 0, 0)).toISOString(),
         type: 'administrative',
         priority: 'high',
         location: 'Office',
@@ -101,8 +101,8 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       {
         id: '5',
         title: 'Inclusive Teaching Workshop',
-        start: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(9, 0, 0, 0)).toISOString(),
-        end: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(12, 0, 0, 0)).toISOString(),
+        start: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(9: any, 0, 0, 0)).toISOString(),
+        end: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(12: any, 0, 0, 0)).toISOString(),
         type: 'professional',
         priority: 'medium',
         location: 'Training Centre',
@@ -115,30 +115,30 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     // Apply filters if provided
     let filteredActivities = [...sampleActivities];
     
-    if (types.length > 0) {
+    if (types.length > 0: any) {
       filteredActivities = filteredActivities.filter(activity => 
-        types.includes(activity.type)
+        types.includes(activity.type: any)
       );
     }
     
-    if (priorities.length > 0) {
+    if (priorities.length > 0: any) {
       filteredActivities = filteredActivities.filter(activity => 
-        priorities.includes(activity.priority)
+        priorities.includes(activity.priority: any)
       );
     }
     
-    if (startDate && endDate) {
-      const start = new Date(startDate);
-      const end = new Date(endDate);
+    if (startDate && endDate: any) {
+      const start = new Date(startDate: any);
+      const end = new Date(endDate: any);
       
       filteredActivities = filteredActivities.filter(activity => {
-        const activityStart = new Date(activity.start);
+        const activityStart = new Date(activity.start: any);
         return activityStart >= start && activityStart <= end;
       });
     }
     
-    return NextResponse.json(filteredActivities);
-  } catch (error) {
+    return NextResponse.json(filteredActivities: any);
+  } catch (error: any) {
     // Replace console.error with structured logging when available
     console.error('Error fetching calendar activities:', error);
     return NextResponse.json({ error: 'Failed to fetch calendar activities' }, { status: 500 });
@@ -150,7 +150,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     // Parse and validate the request body
     const body = await request.json();
-    const validatedData = activitySchema.parse(body);
+    const validatedData = activitySchema.parse(body: any);
     
     // In a real implementation, this would create or update in the database
     // For now, we'll just return the validated data with a mock ID
@@ -160,9 +160,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       id: validatedData.id || `activity-${Date.now()}`
     };
     
-    return NextResponse.json(result);
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+    return NextResponse.json(result: any);
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
@@ -176,10 +176,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 export async function DELETE(request: NextRequest): Promise<NextResponse> {
   try {
     // Get activity ID from query parameters
-    const url = new URL(request.url);
+    const url = new URL(request.url: any);
     const id = url.searchParams.get('id');
     
-    if (!id) {
+    if (!id: any) {
       return NextResponse.json({ error: 'Activity ID is required' }, { status: 400 });
     }
     
@@ -187,7 +187,7 @@ export async function DELETE(request: NextRequest): Promise<NextResponse> {
     // For now, we'll just return success
     
     return NextResponse.json({ success: true, message: `Activity ${id} deleted successfully` });
-  } catch (error) {
+  } catch (error: any) {
     // Replace console.error with structured logging when available
     console.error('Error deleting calendar activity:', error);
     return NextResponse.json({ error: 'Failed to delete calendar activity' }, { status: 500 });
@@ -200,7 +200,7 @@ export async function PUT(request: NextRequest): Promise<NextResponse> {
     // Parse and validate the request body
     const body = await request.json();
     // Use the validated data in the function
-    const optimisationData = optimisationRequestSchema.parse(body);
+    const optimisationData = optimisationRequestSchema.parse(body: any);
     
     // In a real implementation, this would run optimisation algorithms
     // For now, we'll return mock optimisation suggestions
@@ -251,9 +251,9 @@ export async function PUT(request: NextRequest): Promise<NextResponse> {
       );
     }
     
-    return NextResponse.json(filteredSuggestions);
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+    return NextResponse.json(filteredSuggestions: any);
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
@@ -269,7 +269,7 @@ export async function PATCH(request: NextRequest): Promise<NextResponse> {
     // Parse and validate the request body
     const body = await request.json();
     // Use the validated data in the function
-    const analyticsData = analyticsRequestSchema.parse(body);
+    const analyticsData = analyticsRequestSchema.parse(body: any);
     
     // In a real implementation, this would analyse calendar data
     // For now, we'll return mock analytics data
@@ -298,9 +298,9 @@ export async function PATCH(request: NextRequest): Promise<NextResponse> {
       dateRange: analyticsData.dateRange
     };
     
-    return NextResponse.json(analyticsResponse);
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+    return NextResponse.json(analyticsResponse: any);
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     

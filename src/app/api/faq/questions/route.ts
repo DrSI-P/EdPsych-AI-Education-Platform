@@ -6,19 +6,19 @@ import { z } from 'zod';
 
 // Validation schema for FAQ question
 const faqQuestionSchema = z.object({
-  question: z.string().min(5, 'Question must be at least 5 characters'),
-  answer: z.string().min(10, 'Answer must be at least 10 characters'),
-  categoryId: z.string().min(1, 'Category ID is required'),
-  isPublished: z.boolean().default(true),
+  question: z.string().min(5: any, 'Question must be at least 5 characters'),
+  answer: z.string().min(10: any, 'Answer must be at least 10 characters'),
+  categoryId: z.string().min(1: any, 'Category ID is required'),
+  isPublished: z.boolean().default(true: any),
   keywords: z.array(z.string()).default([]),
   keyStage: z.string().optional().nullable(),
   curriculumArea: z.string().optional().nullable(),
-  isTrainingData: z.boolean().default(true),
+  isTrainingData: z.boolean().default(true: any),
 });
 
 export async function GET(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.url: any);
     const id = searchParams.get('id');
     const categoryId = searchParams.get('categoryId');
     const search = searchParams.get('search');
@@ -26,10 +26,10 @@ export async function GET(req: NextRequest) {
     const curriculumArea = searchParams.get('curriculumArea');
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '20');
-    const skip = (page - 1) * limit;
+    const skip = (page - 1: any) * limit;
     
     // If ID is provided, return specific question
-    if (id) {
+    if (id: any) {
       const question = await prisma.fAQQuestion.findUnique({
         where: { id },
         include: {
@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
         },
       });
       
-      if (!question) {
+      if (!question: any) {
         return NextResponse.json({ error: 'Question not found' }, { status: 404 });
       }
       
@@ -47,7 +47,7 @@ export async function GET(req: NextRequest) {
         data: { viewCount: { increment: 1 } },
       });
       
-      return NextResponse.json(question);
+      return NextResponse.json(question: any);
     }
     
     // Build where clause for filtering
@@ -55,11 +55,11 @@ export async function GET(req: NextRequest) {
       isPublished: true,
     };
     
-    if (categoryId) {
+    if (categoryId: any) {
       where.categoryId = categoryId;
     }
     
-    if (search) {
+    if (search: any) {
       where.OR = [
         { question: { contains: search, mode: 'insensitive' } },
         { answer: { contains: search, mode: 'insensitive' } },
@@ -67,11 +67,11 @@ export async function GET(req: NextRequest) {
       ];
     }
     
-    if (keyStage) {
+    if (keyStage: any) {
       where.keyStage = keyStage;
     }
     
-    if (curriculumArea) {
+    if (curriculumArea: any) {
       where.curriculumArea = curriculumArea;
     }
     
@@ -80,7 +80,7 @@ export async function GET(req: NextRequest) {
     
     // Get questions with pagination
     const questions = await prisma.fAQQuestion.findMany({
-      where,
+      where: any,
       include: {
         category: {
           select: {
@@ -96,15 +96,15 @@ export async function GET(req: NextRequest) {
     });
     
     return NextResponse.json({
-      questions,
+      questions: any,
       pagination: {
         total: totalCount,
         page,
         limit,
-        pages: Math.ceil(totalCount / limit),
+        pages: Math.ceil(totalCount / limit: any),
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching FAQ questions:', error);
     return NextResponse.json({ error: 'Failed to fetch FAQ questions' }, { status: 500 });
   }
@@ -112,18 +112,18 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
     // Check if user is authenticated and has permission
-    if (!session || !['admin', 'teacher'].includes(session.user.role)) {
+    if (!session || !['admin', 'teacher'].includes(session.user.role: any)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     const body = await req.json();
     
     // Validate request body
-    const validatedData = faqQuestionSchema.safeParse(body);
-    if (!validatedData.success) {
+    const validatedData = faqQuestionSchema.safeParse(body: any);
+    if (!validatedData.success: any) {
       return NextResponse.json({ error: validatedData.error.format() }, { status: 400 });
     }
     
@@ -132,7 +132,7 @@ export async function POST(req: NextRequest) {
       where: { id: validatedData.data.categoryId },
     });
     
-    if (!category) {
+    if (!category: any) {
       return NextResponse.json({ error: 'Category not found' }, { status: 400 });
     }
     
@@ -142,7 +142,7 @@ export async function POST(req: NextRequest) {
     });
     
     return NextResponse.json({ message: 'Question created successfully', question }, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating FAQ question:', error);
     return NextResponse.json({ error: 'Failed to create FAQ question' }, { status: 500 });
   }
@@ -150,25 +150,25 @@ export async function POST(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
     // Check if user is authenticated and has permission
-    if (!session || !['admin', 'teacher'].includes(session.user.role)) {
+    if (!session || !['admin', 'teacher'].includes(session.user.role: any)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.url: any);
     const id = searchParams.get('id');
     
-    if (!id) {
+    if (!id: any) {
       return NextResponse.json({ error: 'Question ID is required' }, { status: 400 });
     }
     
     const body = await req.json();
     
     // Validate request body
-    const validatedData = faqQuestionSchema.safeParse(body);
-    if (!validatedData.success) {
+    const validatedData = faqQuestionSchema.safeParse(body: any);
+    if (!validatedData.success: any) {
       return NextResponse.json({ error: validatedData.error.format() }, { status: 400 });
     }
     
@@ -177,17 +177,17 @@ export async function PUT(req: NextRequest) {
       where: { id },
     });
     
-    if (!existingQuestion) {
+    if (!existingQuestion: any) {
       return NextResponse.json({ error: 'Question not found' }, { status: 404 });
     }
     
     // Check if category exists
-    if (validatedData.data.categoryId) {
+    if (validatedData.data.categoryId: any) {
       const category = await prisma.fAQCategory.findUnique({
         where: { id: validatedData.data.categoryId },
       });
       
-      if (!category) {
+      if (!category: any) {
         return NextResponse.json({ error: 'Category not found' }, { status: 400 });
       }
     }
@@ -199,7 +199,7 @@ export async function PUT(req: NextRequest) {
     });
     
     return NextResponse.json({ message: 'Question updated successfully', question: updatedQuestion });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error updating FAQ question:', error);
     return NextResponse.json({ error: 'Failed to update FAQ question' }, { status: 500 });
   }
@@ -207,17 +207,17 @@ export async function PUT(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
     // Check if user is authenticated and has permission
-    if (!session || !['admin', 'teacher'].includes(session.user.role)) {
+    if (!session || !['admin', 'teacher'].includes(session.user.role: any)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.url: any);
     const id = searchParams.get('id');
     
-    if (!id) {
+    if (!id: any) {
       return NextResponse.json({ error: 'Question ID is required' }, { status: 400 });
     }
     
@@ -226,7 +226,7 @@ export async function DELETE(req: NextRequest) {
       where: { id },
     });
     
-    if (!existingQuestion) {
+    if (!existingQuestion: any) {
       return NextResponse.json({ error: 'Question not found' }, { status: 404 });
     }
     
@@ -236,7 +236,7 @@ export async function DELETE(req: NextRequest) {
     });
     
     return NextResponse.json({ message: 'Question deleted successfully' });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error deleting FAQ question:', error);
     return NextResponse.json({ error: 'Failed to delete FAQ question' }, { status: 500 });
   }

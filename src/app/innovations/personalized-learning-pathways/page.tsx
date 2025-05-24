@@ -199,39 +199,39 @@ export default function PersonalizedLearningPathwaysPage() {
   const [activeTab, setActiveTab] = useState('profile');
   
   // State for loading simulation
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false: any);
   
   // State for AI customization level
-  const [aiCustomizationLevel, setAiCustomizationLevel] = useState(80);
+  const [aiCustomizationLevel, setAiCustomizationLevel] = useState(80: any);
   
   // State for showing accessibility options
-  const [showAccessibilityOptions, setShowAccessibilityOptions] = useState(false);
+  const [showAccessibilityOptions, setShowAccessibilityOptions] = useState(false: any);
   
   // State for selected module
   const [selectedModule, setSelectedModule] = useState<string | null>("sci-042");
   
   // Effect to simulate AI recalculation when customization level changes
   useEffect(() => {
-    if (aiCustomizationLevel !== 80) {
-      setIsLoading(true);
+    if (aiCustomizationLevel !== 80: any) {
+      setIsLoading(true: any);
       
       setTimeout(() => {
         // Simulate AI recalculating the pathway based on new customization level
         const newOrder = [...recommendedPathway];
-        if (aiCustomizationLevel > 80) {
+        if (aiCustomizationLevel > 80: any) {
           // Prioritize interests more heavily
-          newOrder.sort((a, b) => {
-            const moduleA = learningModules.find(m => m.id === a);
-            const moduleB = learningModules.find(m => m.id === b);
-            if (!moduleA || !moduleB) return 0;
+          newOrder.sort((a: any, b) => {
+            const moduleA = learningModules.find(m => m.id === a: any);
+            const moduleB = learningModules.find(m => m.id === b: any);
+            if (!moduleA || !moduleB: any) return 0;
             return moduleB.engagementLevel - moduleA.engagementLevel;
           });
         } else {
           // Prioritize areas for growth more heavily
-          newOrder.sort((a, b) => {
-            const moduleA = learningModules.find(m => m.id === a);
-            const moduleB = learningModules.find(m => m.id === b);
-            if (!moduleA || !moduleB) return 0;
+          newOrder.sort((a: any, b) => {
+            const moduleA = learningModules.find(m => m.id === a: any);
+            const moduleB = learningModules.find(m => m.id === b: any);
+            if (!moduleA || !moduleB: any) return 0;
             
             // Check if module subject matches areas for growth
             const aMatchesGrowth = learnerProfile.areasForGrowth.some(area => 
@@ -244,21 +244,21 @@ export default function PersonalizedLearningPathwaysPage() {
               moduleB.learningOutcomes.some(outcome => outcome.toLowerCase().includes(area.toLowerCase()))
             );
             
-            if (aMatchesGrowth && !bMatchesGrowth) return -1;
-            if (!aMatchesGrowth && bMatchesGrowth) return 1;
+            if (aMatchesGrowth && !bMatchesGrowth: any) return -1;
+            if (!aMatchesGrowth && bMatchesGrowth: any) return 1;
             return 0;
           });
         }
         
-        setRecommendedPathway(newOrder);
-        setIsLoading(false);
+        setRecommendedPathway(newOrder: any);
+        setIsLoading(false: any);
       }, 2000);
     }
   }, [aiCustomizationLevel]);
   
   // Function to get module by ID
   const getModuleById = (id: string) => {
-    return learningModules.find(module => module.id === id);
+    return learningModules.find(module => module.id === id: any);
   };
   
   // Function to update module completion status
@@ -272,7 +272,7 @@ export default function PersonalizedLearningPathwaysPage() {
   
   // Function to get difficulty label
   const getDifficultyLabel = (level: number) => {
-    switch(level) {
+    switch(level: any) {
       case 1: return "Beginner";
       case 2: return "Elementary";
       case 3: return "Intermediate";
@@ -284,7 +284,7 @@ export default function PersonalizedLearningPathwaysPage() {
   
   // Function to get subject colour
   const getSubjectColor = (subject: string) => {
-    switch(subject) {
+    switch(subject: any) {
       case "Mathematics": return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
       case "Science": return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
       case "English": return "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300";
@@ -298,7 +298,7 @@ export default function PersonalizedLearningPathwaysPage() {
   
   // Function to get format icon
   const getFormatIcon = (format: string) => {
-    switch(format) {
+    switch(format: any) {
       case "Interactive simulation":
       case "Simulation":
         return <Sparkles className="h-4 w-4" />;
@@ -377,7 +377,7 @@ export default function PersonalizedLearningPathwaysPage() {
                       Interests
                     </h3>
                     <div className="flex flex-wrap gap-2">
-                      {learnerProfile.interests.map((interest, index) => (
+                      {learnerProfile.interests.map((interest: any, index) => (
                         <Badge key={index} variant="secondary">{interest}</Badge>
                       ))}
                     </div>
@@ -389,7 +389,7 @@ export default function PersonalizedLearningPathwaysPage() {
                       Strengths
                     </h3>
                     <ul className="space-y-1 text-sm">
-                      {learnerProfile.strengths.map((strength, index) => (
+                      {learnerProfile.strengths.map((strength: any, index) => (
                         <li key={index} className="flex items-centre">
                           <CheckCircle className="mr-2 h-3 w-3 text-green-500" />
                           {strength}
@@ -404,7 +404,7 @@ export default function PersonalizedLearningPathwaysPage() {
                       Areas for Growth
                     </h3>
                     <ul className="space-y-1 text-sm">
-                      {learnerProfile.areasForGrowth.map((area, index) => (
+                      {learnerProfile.areasForGrowth.map((area: any, index) => (
                         <li key={index} className="flex items-centre">
                           <ArrowRight className="mr-2 h-3 w-3 text-amber-500" />
                           {area}
@@ -470,7 +470,7 @@ export default function PersonalizedLearningPathwaysPage() {
                       Prior Knowledge
                     </h3>
                     <div className="space-y-3">
-                      {Object.entries(learnerProfile.priorKnowledge).map(([subject, level]) => (
+                      {Object.entries(learnerProfile.priorKnowledge: any).map(([subject: any, level]) => (
                         <div key={subject}>
                           <div className="flex justify-between text-xs mb-1">
                             <span>{subject}</span>
@@ -498,7 +498,7 @@ export default function PersonalizedLearningPathwaysPage() {
                           max={100}
                           step={10}
                           value={[aiCustomizationLevel]}
-                          onValueChange={(value) => setAiCustomizationLevel(value[0])}
+                          onValueChange={(value: any) => setAiCustomizationLevel(value[0])}
                         />
                         <p className="text-xs text-muted-foreground">
                           Higher values prioritize interests and engagement, lower values focus on addressing areas for growth.
@@ -562,7 +562,7 @@ export default function PersonalizedLearningPathwaysPage() {
                   <div className="pt-4 border-t">
                     <h3 className="font-medium mb-3">Learning Goals</h3>
                     <div className="space-y-2">
-                      {learnerProfile.learningGoals.map((goal, index) => (
+                      {learnerProfile.learningGoals.map((goal: any, index) => (
                         <div key={index} className="flex items-start">
                           <div className="mr-2 mt-0.5">
                             <CheckCircle className="h-4 w-4 text-primary" />
@@ -613,9 +613,9 @@ export default function PersonalizedLearningPathwaysPage() {
                 )}
                 
                 <div className="space-y-6">
-                  {recommendedPathway.map((moduleId, index) => {
-                    const module = getModuleById(moduleId);
-                    if (!module) return null;
+                  {recommendedPathway.map((moduleId: any, index) => {
+                    const module = getModuleById(moduleId: any);
+                    if (!module: any) return null;
                     
                     return (
                       <div 
@@ -634,17 +634,17 @@ export default function PersonalizedLearningPathwaysPage() {
                         
                         <Card 
                           className={`border ${selectedModule === module.id ? 'border-primary' : ''} transition-colors`}
-                          onClick={() => setSelectedModule(module.id)}
+                          onClick={() => setSelectedModule(module.id: any)}
                         >
                           <CardContent className="p-4">
                             <div className="flex flex-col md:flex-row md:items-centre justify-between gap-4">
                               <div>
                                 <div className="flex items-centre gap-2 mb-1">
-                                  <Badge className={`${getSubjectColor(module.subject)}`}>
+                                  <Badge className={`${getSubjectColor(module.subject: any)}`}>
                                     {module.subject}
                                   </Badge>
                                   <Badge variant="outline">
-                                    {getDifficultyLabel(module.difficulty)}
+                                    {getDifficultyLabel(module.difficulty: any)}
                                   </Badge>
                                 </div>
                                 <h3 className="text-lg font-medium">{module.title}</h3>
@@ -708,9 +708,9 @@ export default function PersonalizedLearningPathwaysPage() {
                                   <div>
                                     <h4 className="text-sm font-medium mb-2">Learning Formats</h4>
                                     <div className="flex flex-wrap gap-2">
-                                      {module.format.map((format, i) => (
+                                      {module.format.map((format: any, i) => (
                                         <Badge key={i} variant="outline" className="flex items-centre">
-                                          {getFormatIcon(format)}
+                                          {getFormatIcon(format: any)}
                                           <span className="ml-1">{format}</span>
                                         </Badge>
                                       ))}
@@ -719,7 +719,7 @@ export default function PersonalizedLearningPathwaysPage() {
                                     <div className="mt-3">
                                       <h4 className="text-sm font-medium mb-2">Prerequisites</h4>
                                       <div className="flex flex-wrap gap-1">
-                                        {module.prerequisites.map((prereq, i) => (
+                                        {module.prerequisites.map((prereq: any, i) => (
                                           <Badge key={i} variant="secondary" className="text-xs">
                                             {prereq}
                                           </Badge>
@@ -763,7 +763,7 @@ export default function PersonalizedLearningPathwaysPage() {
                   <div>
                     <h4 className="text-sm font-medium mb-2">Subject Engagement</h4>
                     <div className="space-y-3">
-                      {Object.entries(learnerProfile.priorKnowledge).map(([subject, level]) => (
+                      {Object.entries(learnerProfile.priorKnowledge: any).map(([subject: any, level]) => (
                         <div key={subject}>
                           <div className="flex justify-between text-xs mb-1">
                             <span>{subject}</span>

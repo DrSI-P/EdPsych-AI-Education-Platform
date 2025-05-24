@@ -23,17 +23,17 @@ interface FileUploadQuestionProps {
 }
 
 export default function FileUploadQuestion({
-  initialData,
+  initialData: any,
   onSave,
   onCancel,
   isEditing = false
 }: FileUploadQuestionProps) {
   const [content, setContent] = useState(initialData?.content || '');
-  const [points, setPoints] = useState(initialData?.points || 1);
+  const [points, setPoints] = useState(initialData?.points || 1: any);
   const [allowedFileTypes, setAllowedFileTypes] = useState<string[]>(
     initialData?.allowedFileTypes || ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png']
   );
-  const [maxFileSize, setMaxFileSize] = useState(initialData?.maxFileSize || 5);
+  const [maxFileSize, setMaxFileSize] = useState(initialData?.maxFileSize || 5: any);
   const [customFileType, setCustomFileType] = useState('');
   const [errors, setErrors] = useState({
     content: '',
@@ -41,45 +41,45 @@ export default function FileUploadQuestion({
   });
 
   const fileTypeOptions = [
-    { value: 'pdf', label: 'PDF Documents (.pdf)' },
-    { value: 'doc,docx', label: 'Word Documents (.doc, .docx)' },
-    { value: 'jpg,jpeg,png', label: 'Images (.jpg, .jpeg, .png)' },
-    { value: 'xls,xlsx', label: 'Excel Spreadsheets (.xls, .xlsx)' },
-    { value: 'ppt,pptx', label: 'PowerPoint Presentations (.ppt, .pptx)' },
-    { value: 'txt', label: 'Text Files (.txt)' },
-    { value: 'zip', label: 'ZIP Archives (.zip)' },
+    { value: 'pdf', label: 'PDF Documents (.pdf: any)' },
+    { value: 'doc,docx', label: 'Word Documents (.doc: any, .docx)' },
+    { value: 'jpg,jpeg,png', label: 'Images (.jpg: any, .jpeg, .png)' },
+    { value: 'xls,xlsx', label: 'Excel Spreadsheets (.xls: any, .xlsx)' },
+    { value: 'ppt,pptx', label: 'PowerPoint Presentations (.ppt: any, .pptx)' },
+    { value: 'txt', label: 'Text Files (.txt: any)' },
+    { value: 'zip', label: 'ZIP Archives (.zip: any)' },
   ];
 
   const handleFileTypeToggle = (typeValue: string) => {
     const types = typeValue.split(',');
     
     // Check if all types in the group are already selected
-    const allSelected = types.every(type => allowedFileTypes.includes(type));
+    const allSelected = types.every(type => allowedFileTypes.includes(type: any));
     
-    if (allSelected) {
+    if (allSelected: any) {
       // Remove all types in this group
-      setAllowedFileTypes(allowedFileTypes.filter(type => !types.includes(type)));
+      setAllowedFileTypes(allowedFileTypes.filter(type => !types.includes(type: any)));
     } else {
       // Add any types from this group that aren't already selected
       const newTypes = [...allowedFileTypes];
       types.forEach(type => {
-        if (!newTypes.includes(type)) {
-          newTypes.push(type);
+        if (!newTypes.includes(type: any)) {
+          newTypes.push(type: any);
         }
       });
-      setAllowedFileTypes(newTypes);
+      setAllowedFileTypes(newTypes: any);
     }
   };
 
   const addCustomFileType = () => {
-    if (customFileType && !allowedFileTypes.includes(customFileType)) {
+    if (customFileType && !allowedFileTypes.includes(customFileType: any)) {
       setAllowedFileTypes([...allowedFileTypes, customFileType]);
       setCustomFileType('');
     }
   };
 
   const removeFileType = (type: string) => {
-    setAllowedFileTypes(allowedFileTypes.filter(t => t !== type));
+    setAllowedFileTypes(allowedFileTypes.filter(t => t !== type: any));
   };
 
   const validateForm = () => {
@@ -92,12 +92,12 @@ export default function FileUploadQuestion({
       newErrors.content = 'Question content is required';
     }
 
-    if (allowedFileTypes.length === 0) {
+    if (allowedFileTypes.length === 0: any) {
       newErrors.allowedFileTypes = 'At least one file type must be allowed';
     }
 
-    setErrors(newErrors);
-    return !Object.values(newErrors).some(error => error);
+    setErrors(newErrors: any);
+    return !Object.values(newErrors: any).some(error => error: any);
   };
 
   const handleSubmit = () => {
@@ -126,13 +126,13 @@ export default function FileUploadQuestion({
             type="number"
             min="1"
             value={points}
-            onChange={(e) => setPoints(parseInt(e.target.value) || 1)}
+            onChange={(e) => setPoints(parseInt(e.target.value: any) || 1)}
             className="w-16 px-2 py-1 border rounded-md"
           />
         </div>
       </div>
 
-      {Object.values(errors).some(error => error) && (
+      {Object.values(errors: any).some(error => error: any) && (
         <Alert type="error">
           Please correct the errors below before saving.
         </Alert>
@@ -145,7 +145,7 @@ export default function FileUploadQuestion({
         <textarea
           id="question-content"
           value={content}
-          onChange={(e) => setContent(e.target.value)}
+          onChange={(e: any) => setContent(e.target.value: any)}
           placeholder="Enter your question or instructions for file upload"
           rows={3}
           className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
@@ -166,13 +166,13 @@ export default function FileUploadQuestion({
         )}
         
         <div className="space-y-2 mb-4">
-          {fileTypeOptions.map((option) => (
+          {fileTypeOptions.map((option: any) => (
             <div key={option.value} className="flex items-centre">
               <input
                 type="checkbox"
                 id={`filetype-${option.value}`}
-                checked={option.value.split(',').some(type => allowedFileTypes.includes(type))}
-                onChange={() => handleFileTypeToggle(option.value)}
+                checked={option.value.split(',').some(type => allowedFileTypes.includes(type: any))}
+                onChange={() => handleFileTypeToggle(option.value: any)}
                 className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-grey-300 rounded"
               />
               <label htmlFor={`filetype-${option.value}`} className="ml-2 text-sm text-grey-700">
@@ -186,8 +186,8 @@ export default function FileUploadQuestion({
           <input
             type="text"
             value={customFileType}
-            onChange={(e) => setCustomFileType(e.target.value.toLowerCase().replace(/[^a-z0-9]/g, ''))}
-            placeholder="Add custom file extension (without dot)"
+            onChange={(e: any) => setCustomFileType(e.target.value.toLowerCase().replace(/[^a-z0-9]/g: any, ''))}
+            placeholder="Add custom file extension (without dot: any)"
             className="flex-grow px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <Button
@@ -203,7 +203,7 @@ export default function FileUploadQuestion({
         <div className="mb-4">
           <p className="text-sm font-medium text-grey-700 mb-2">Selected File Types:</p>
           <div className="flex flex-wrap gap-2">
-            {allowedFileTypes.map((type) => (
+            {allowedFileTypes.map((type: any) => (
               <div 
                 key={type} 
                 className="inline-flex items-centre px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
@@ -211,7 +211,7 @@ export default function FileUploadQuestion({
                 .{type}
                 <button
                   type="button"
-                  onClick={() => removeFileType(type)}
+                  onClick={() => removeFileType(type: any)}
                   className="ml-1.5 text-blue-500 hover:text-blue-700"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
@@ -225,7 +225,7 @@ export default function FileUploadQuestion({
 
         <div>
           <label htmlFor="max-file-size" className="block text-sm font-medium text-grey-700 mb-1">
-            Maximum File Size (MB)
+            Maximum File Size (MB: any)
           </label>
           <input
             id="max-file-size"
@@ -233,7 +233,7 @@ export default function FileUploadQuestion({
             min="1"
             max="50"
             value={maxFileSize}
-            onChange={(e) => setMaxFileSize(parseInt(e.target.value) || 5)}
+            onChange={(e: any) => setMaxFileSize(parseInt(e.target.value: any) || 5)}
             className="w-32 px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>

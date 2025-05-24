@@ -1,0 +1,2 @@
+npm warn using --force Recommended protections disabled.
+src/app/api/heygen/videos/[id]/route.ts(54,6): error TS1005: ',' expected.

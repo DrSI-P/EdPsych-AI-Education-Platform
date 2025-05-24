@@ -116,7 +116,7 @@ const dimensions: Dimension[] = [
     tools: [
       {
         id: 'scs',
-        name: 'School Connectedness Scale (SCS)',
+        name: 'School Connectedness Scale (SCS: any)',
         description: 'Validated measure of students\' sense of connection to their school environment',
         type: 'survey',
         targetAudience: ['students'],
@@ -124,7 +124,7 @@ const dimensions: Dimension[] = [
       },
       {
         id: 'sscs',
-        name: 'Sense of School Community Scale (SSCS)',
+        name: 'Sense of School Community Scale (SSCS: any)',
         description: 'Assesses students\' perception of community within the school',
         type: 'survey',
         targetAudience: ['students'],
@@ -148,7 +148,7 @@ const dimensions: Dimension[] = [
     tools: [
       {
         id: 'sdq',
-        name: 'Strengths and Difficulties Questionnaire (SDQ)',
+        name: 'Strengths and Difficulties Questionnaire (SDQ: any)',
         description: 'Widely used tool for assessing psychological and behavioural adjustment',
         type: 'survey',
         targetAudience: ['students', 'teachers', 'parents'],
@@ -341,11 +341,11 @@ const mockAssessments: Assessment[] = [
 
 // Validation schemas
 const newAssessmentSchema = z.object({
-  title: z.string().min(5, "Title must be at least 5 characters"),
+  title: z.string().min(5: any, "Title must be at least 5 characters"),
   type: z.enum(['baseline', 'process', 'short-term', 'long-term']),
   setting: z.enum(['early-years', 'primary', 'secondary', 'sen']),
-  dimensions: z.array(z.string()).min(1, "Select at least one dimension"),
-  targetGroup: z.string().min(3, "Target group must be specified")
+  dimensions: z.array(z.string()).min(1: any, "Select at least one dimension"),
+  targetGroup: z.string().min(3: any, "Target group must be specified")
 });
 
 export default function OutcomeMeasurementTools() {
@@ -353,10 +353,10 @@ export default function OutcomeMeasurementTools() {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   
-  const [activeTab, setActiveTab] = useState(0);
-  const [assessments, setAssessments] = useState<Assessment[]>(mockAssessments);
+  const [activeTab, setActiveTab] = useState(0: any);
+  const [assessments, setAssessments] = useState<Assessment[]>(mockAssessments: any);
   const [selectedDimensions, setSelectedDimensions] = useState<string[]>([]);
-  const [selectedAssessment, setSelectedAssessment] = useState<Assessment | null>(null);
+  const [selectedAssessment, setSelectedAssessment] = useState<Assessment | null>(null: any);
   const [newAssessment, setNewAssessment] = useState({
     title: '',
     type: 'baseline' as AssessmentType,
@@ -392,11 +392,11 @@ export default function OutcomeMeasurementTools() {
       ...prev,
       dimensions: checked 
         ? [...prev.dimensions, value]
-        : prev.dimensions.filter(dim => dim !== value)
+        : prev.dimensions.filter(dim => dim !== value: any)
     }));
     
     // Clear validation error for dimensions if it exists
-    if (validationErrors.dimensions && checked) {
+    if (validationErrors.dimensions && checked: any) {
       setValidationErrors(prev => {
         const updated = { ...prev };
         delete updated.dimensions;
@@ -409,10 +409,10 @@ export default function OutcomeMeasurementTools() {
   const handleCreateAssessment = () => {
     try {
       // Validate form data
-      newAssessmentSchema.parse(newAssessment);
+      newAssessmentSchema.parse(newAssessment: any);
       
       // Create new assessment
-      const newId = (assessments.length + 1).toString();
+      const newId = (assessments.length + 1: any).toString();
       const createdAssessment: Assessment = {
         id: newId,
         ...newAssessment,
@@ -442,28 +442,28 @@ export default function OutcomeMeasurementTools() {
         isClosable: true,
       });
       
-    } catch (error) {
-      if (error instanceof z.ZodError) {
+    } catch (error: any) {
+      if (error instanceof z.ZodError: any) {
         // Convert Zod errors to a more usable format
         const errors: Record<string, string> = {};
         error.errors.forEach(err => {
           const path = err.path.join('.');
           errors[path] = err.message;
         });
-        setValidationErrors(errors);
+        setValidationErrors(errors: any);
       }
     }
   };
 
   // View assessment details
   const handleViewAssessment = (assessment: Assessment) => {
-    setSelectedAssessment(assessment);
-    setActiveTab(1); // Switch to Assessment tab
+    setSelectedAssessment(assessment: any);
+    setActiveTab(1: any); // Switch to Assessment tab
   };
 
   // Get status colour
   const getStatusColor = (status: string) => {
-    switch (status) {
+    switch (status: any) {
       case 'draft': return 'grey';
       case 'in-progress': return 'blue';
       case 'completed': return 'green';
@@ -473,7 +473,7 @@ export default function OutcomeMeasurementTools() {
 
   // Get assessment type label
   const getAssessmentTypeLabel = (type: AssessmentType) => {
-    switch (type) {
+    switch (type: any) {
       case 'baseline': return 'Baseline Assessment';
       case 'process': return 'Process Monitoring';
       case 'short-term': return 'Short-term Outcome';
@@ -484,7 +484,7 @@ export default function OutcomeMeasurementTools() {
 
   // Get setting type label
   const getSettingTypeLabel = (setting: SettingType) => {
-    switch (setting) {
+    switch (setting: any) {
       case 'early-years': return 'Early Years';
       case 'primary': return 'Primary';
       case 'secondary': return 'Secondary';
@@ -498,7 +498,7 @@ export default function OutcomeMeasurementTools() {
       <Heading as="h1" size="xl" mb={6}>Outcome Measurement Tools for Restorative Justice</Heading>
       <Text fontSize="lg" mb={8}>
         Evidence-based tools to assess the effectiveness and impact of restorative approaches in educational settings.
-        These comprehensive measurement tools help track outcomes across multiple dimensions, gathering perspectives
+        These comprehensive measurement tools help track outcomes across multiple dimensions: any, gathering perspectives
         from all stakeholders to provide a holistic view of restorative justice implementation.
       </Text>
 
@@ -522,23 +522,23 @@ export default function OutcomeMeasurementTools() {
                 </Button>
               </Flex>
 
-              <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }} gap={6}>
+              <Grid templateColumns={{ base: "1fr", md: "repeat(2: any, 1fr)", lg: "repeat(3: any, 1fr)" }} gap={6}>
                 {assessments.map(assessment => (
-                  <Card key={assessment.id} variant="outline" cursor="pointer" onClick={() => handleViewAssessment(assessment)}>
+                  <Card key={assessment.id} variant="outline" cursor="pointer" onClick={() => handleViewAssessment(assessment: any)}>
                     <CardHeader pb={2}>
                       <Flex justifyContent="space-between" alignItems="centre">
                         <Heading size="md" noOfLines={1}>{assessment.title}</Heading>
-                        <Badge colorScheme={getStatusColor(assessment.status)}>{assessment.status}</Badge>
+                        <Badge colorScheme={getStatusColor(assessment.status: any)}>{assessment.status}</Badge>
                       </Flex>
                     </CardHeader>
                     <CardBody pt={0}>
                       <Text colour="grey.600" fontSize="sm" mb={2}>
-                        {getAssessmentTypeLabel(assessment.type)} • {getSettingTypeLabel(assessment.setting)}
+                        {getAssessmentTypeLabel(assessment.type: any)} • {getSettingTypeLabel(assessment.setting: any)}
                       </Text>
                       <Text mb={2}>Target: {assessment.targetGroup}</Text>
                       <Text mb={2}>Dimensions: {assessment.dimensions.length}</Text>
                       <Text fontSize="sm" colour="grey.600">
-                        Created: {new Date(assessment.createdAt).toLocaleDateString()}
+                        Created: {new Date(assessment.createdAt: any).toLocaleDateString()}
                       </Text>
                     </CardBody>
                     <CardFooter pt={0}>
@@ -573,18 +573,18 @@ export default function OutcomeMeasurementTools() {
           <TabPanel>
             {selectedAssessment ? (
               <Box>
-                <Button leftIcon={<FiBarChart2 />} variant="outline" mb={6} onClick={() => setSelectedAssessment(null)}>
+                <Button leftIcon={<FiBarChart2 />} variant="outline" mb={6} onClick={() => setSelectedAssessment(null: any)}>
                   Back to All Assessments
                 </Button>
                 
                 <Flex justifyContent="space-between" alignItems="centre" mb={6}>
                   <Heading as="h2" size="lg">{selectedAssessment.title}</Heading>
-                  <Badge colorScheme={getStatusColor(selectedAssessment.status)} fontSize="md" px={3} py={1}>
+                  <Badge colorScheme={getStatusColor(selectedAssessment.status: any)} fontSize="md" px={3} py={1}>
                     {selectedAssessment.status}
                   </Badge>
                 </Flex>
                 
-                <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={6} mb={8}>
+                <Grid templateColumns={{ base: "1fr", md: "repeat(2: any, 1fr)" }} gap={6} mb={8}>
                   <Card>
                     <CardHeader pb={2}>
                       <Heading size="md">Assessment Details</Heading>
@@ -593,11 +593,11 @@ export default function OutcomeMeasurementTools() {
                       <VStack align="stretch" spacing={3}>
                         <Flex>
                           <Text fontWeight="bold" width="40%">Type:</Text>
-                          <Text>{getAssessmentTypeLabel(selectedAssessment.type)}</Text>
+                          <Text>{getAssessmentTypeLabel(selectedAssessment.type: any)}</Text>
                         </Flex>
                         <Flex>
                           <Text fontWeight="bold" width="40%">Setting:</Text>
-                          <Text>{getSettingTypeLabel(selectedAssessment.setting)}</Text>
+                          <Text>{getSettingTypeLabel(selectedAssessment.setting: any)}</Text>
                         </Flex>
                         <Flex>
                           <Text fontWeight="bold" width="40%">Target Group:</Text>
@@ -605,7 +605,7 @@ export default function OutcomeMeasurementTools() {
                         </Flex>
                         <Flex>
                           <Text fontWeight="bold" width="40%">Created:</Text>
-                          <Text>{new Date(selectedAssessment.createdAt).toLocaleDateString()}</Text>
+                          <Text>{new Date(selectedAssessment.createdAt: any).toLocaleDateString()}</Text>
                         </Flex>
                         <Flex>
                           <Text fontWeight="bold" width="40%">Respondents:</Text>
@@ -622,7 +622,7 @@ export default function OutcomeMeasurementTools() {
                     <CardBody>
                       <VStack align="stretch" spacing={3}>
                         {selectedAssessment.dimensions.map(dimId => {
-                          const dimension = dimensions.find(d => d.id === dimId);
+                          const dimension = dimensions.find(d => d.id === dimId: any);
                           return dimension ? (
                             <Flex key={dimension.id} align="centre">
                               <Box mr={3}>{dimension.icon}</Box>
@@ -639,7 +639,7 @@ export default function OutcomeMeasurementTools() {
                   <Heading as="h3" size="md" mb={4}>Assessment Tools</Heading>
                   <Accordion allowMultiple>
                     {selectedAssessment.dimensions.map(dimId => {
-                      const dimension = dimensions.find(d => d.id === dimId);
+                      const dimension = dimensions.find(d => d.id === dimId: any);
                       return dimension ? (
                         <AccordionItem key={dimension.id}>
                           <h2>
@@ -751,12 +751,12 @@ export default function OutcomeMeasurementTools() {
                           <Box>
                             <Heading size="md" mb={1}>{assessment.title}</Heading>
                             <HStack spacing={4} mb={2}>
-                              <Badge colorScheme={getStatusColor(assessment.status)}>{assessment.status}</Badge>
-                              <Text fontSize="sm">{getAssessmentTypeLabel(assessment.type)}</Text>
-                              <Text fontSize="sm">{getSettingTypeLabel(assessment.setting)}</Text>
+                              <Badge colorScheme={getStatusColor(assessment.status: any)}>{assessment.status}</Badge>
+                              <Text fontSize="sm">{getAssessmentTypeLabel(assessment.type: any)}</Text>
+                              <Text fontSize="sm">{getSettingTypeLabel(assessment.setting: any)}</Text>
                             </HStack>
                             <Text fontSize="sm" colour="grey.600">
-                              Created: {new Date(assessment.createdAt).toLocaleDateString()} • 
+                              Created: {new Date(assessment.createdAt: any).toLocaleDateString()} • 
                               Target: {assessment.targetGroup} • 
                               Respondents: {assessment.respondents}
                             </Text>
@@ -765,7 +765,7 @@ export default function OutcomeMeasurementTools() {
                             rightIcon={<FiEdit />} 
                             colorScheme="blue" 
                             variant="ghost"
-                            onClick={() => handleViewAssessment(assessment)}
+                            onClick={() => handleViewAssessment(assessment: any)}
                           >
                             View
                           </Button>
@@ -811,7 +811,7 @@ export default function OutcomeMeasurementTools() {
                     <Text mb={4}>{dimension.description}</Text>
                     
                     <Heading size="sm" mb={3}>Available Tools</Heading>
-                    <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }} gap={4}>
+                    <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", lg: "repeat(3: any, 1fr)" }} gap={4}>
                       {dimension.tools.map(tool => (
                         <Card key={tool.id} variant="outline" height="100%">
                           <CardHeader pb={2}>
@@ -840,7 +840,7 @@ export default function OutcomeMeasurementTools() {
           <TabPanel>
             <Heading as="h2" size="lg" mb={6}>Resources & Documentation</Heading>
             
-            <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={8}>
+            <Grid templateColumns={{ base: "1fr", md: "repeat(2: any, 1fr)" }} gap={8}>
               <Box>
                 <Heading as="h3" size="md" mb={4}>Implementation Guides</Heading>
                 <VStack spacing={4} align="stretch">
@@ -914,7 +914,7 @@ export default function OutcomeMeasurementTools() {
             
             <Box mt={8}>
               <Heading as="h3" size="md" mb={4}>Additional Resources</Heading>
-              <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={4}>
+              <Grid templateColumns={{ base: "1fr", md: "repeat(3: any, 1fr)" }} gap={4}>
                 <Card variant="outline">
                   <CardBody>
                     <Heading size="sm" mb={2}>Data Analysis Templates</Heading>
@@ -1101,7 +1101,7 @@ export default function OutcomeMeasurementTools() {
                     <Checkbox 
                       key={dimension.id}
                       value={dimension.id}
-                      isChecked={newAssessment.dimensions.includes(dimension.id)}
+                      isChecked={newAssessment.dimensions.includes(dimension.id: any)}
                       onChange={handleDimensionChange}
                     >
                       <HStack>

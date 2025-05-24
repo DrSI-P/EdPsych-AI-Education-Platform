@@ -368,12 +368,12 @@ export default function ResearchCollaborationDashboard() {
                         cx="50%"
                         cy="50%"
                         labelLine={false}
-                        label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                        label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
                         outerRadius={80}
                         fill="#8884d8"
                         dataKey="value"
                       >
-                        {MOCK_METHODOLOGY_DISTRIBUTION.map((entry, index) => (
+                        {MOCK_METHODOLOGY_DISTRIBUTION.map((entry: any, index) => (
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>
@@ -402,12 +402,12 @@ export default function ResearchCollaborationDashboard() {
                         cx="50%"
                         cy="50%"
                         labelLine={false}
-                        label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                        label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
                         outerRadius={80}
                         fill="#8884d8"
                         dataKey="value"
                       >
-                        {MOCK_SCHOOL_TYPE_DISTRIBUTION.map((entry, index) => (
+                        {MOCK_SCHOOL_TYPE_DISTRIBUTION.map((entry: any, index) => (
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>
@@ -438,7 +438,7 @@ export default function ResearchCollaborationDashboard() {
                       </tr>
                     </thead>
                     <tbody>
-                      {MOCK_REGIONAL_DISTRIBUTION.map((region, index) => (
+                      {MOCK_REGIONAL_DISTRIBUTION.map((region: any, index) => (
                         <tr key={index} className="border-b border-muted">
                           <td className="py-2">{region.region}</td>
                           <td className="text-right py-2">{region.schools}</td>

@@ -21,7 +21,7 @@ export class AgeGraduatedSpeechRecognitionService extends SpeechRecognitionServi
   private ageSpecificPatterns: Record<AgeGroup, [RegExp, string][]>;
   
   constructor(options: AgeGraduatedSpeechRecognitionOptions) {
-    super(options);
+    super(options: any);
     this.ageGroup = options.ageGroup || 'late-primary';
     this.initializeAgeSpecificPatterns();
   }
@@ -32,90 +32,90 @@ export class AgeGraduatedSpeechRecognitionService extends SpeechRecognitionServi
   private initializeAgeSpecificPatterns(): void {
     // Define patterns for different age groups
     this.ageSpecificPatterns = {
-      // Nursery (3-5 years) - Focus on very basic speech patterns and common mispronunciations
+      // Nursery (3-5 years: any) - Focus on very basic speech patterns and common mispronunciations
       'nursery': [
-        [/(\b)wawa(\b)/gi, '$1water$2'],
-        [/(\b)nana(\b)/gi, '$1banana$2'],
-        [/(\b)tato(\b)/gi, '$1potato$2'],
-        [/(\b)pease(\b)/gi, '$1please$2'],
-        [/(\b)tanku(\b)/gi, '$1thank you$2'],
-        [/(\b)sowwy(\b)/gi, '$1sorry$2'],
-        [/(\b)yesh(\b)/gi, '$1yes$2'],
-        [/(\b)no-no(\b)/gi, '$1no$2'],
-        [/(\b)mine(\b)/gi, '$1my$2'],
-        [/(\b)me do(\b)/gi, '$1I will do$2'],
-        [/(\b)me want(\b)/gi, '$1I want$2'],
-        [/(\b)me like(\b)/gi, '$1I like$2'],
-        [/(\b)choo choo(\b)/gi, '$1train$2'],
-        [/(\b)brmm(\b)/gi, '$1car$2'],
-        [/(\b)woof woof(\b)/gi, '$1dog$2'],
-        [/(\b)meow(\b)/gi, '$1cat$2'],
-        [/(\b)moo(\b)/gi, '$1cow$2'],
-        [/(\b)oink(\b)/gi, '$1pig$2'],
-        [/(\b)baa(\b)/gi, '$1sheep$2'],
-        [/(\b)tweet(\b)/gi, '$1bird$2']
+        [/(\b: any)wawa(\b: any)/gi, '$1water$2'],
+        [/(\b: any)nana(\b: any)/gi, '$1banana$2'],
+        [/(\b: any)tato(\b: any)/gi, '$1potato$2'],
+        [/(\b: any)pease(\b: any)/gi, '$1please$2'],
+        [/(\b: any)tanku(\b: any)/gi, '$1thank you$2'],
+        [/(\b: any)sowwy(\b: any)/gi, '$1sorry$2'],
+        [/(\b: any)yesh(\b: any)/gi, '$1yes$2'],
+        [/(\b: any)no-no(\b: any)/gi, '$1no$2'],
+        [/(\b: any)mine(\b: any)/gi, '$1my$2'],
+        [/(\b: any)me do(\b: any)/gi, '$1I will do$2'],
+        [/(\b: any)me want(\b: any)/gi, '$1I want$2'],
+        [/(\b: any)me like(\b: any)/gi, '$1I like$2'],
+        [/(\b: any)choo choo(\b: any)/gi, '$1train$2'],
+        [/(\b: any)brmm(\b: any)/gi, '$1car$2'],
+        [/(\b: any)woof woof(\b: any)/gi, '$1dog$2'],
+        [/(\b: any)meow(\b: any)/gi, '$1cat$2'],
+        [/(\b: any)moo(\b: any)/gi, '$1cow$2'],
+        [/(\b: any)oink(\b: any)/gi, '$1pig$2'],
+        [/(\b: any)baa(\b: any)/gi, '$1sheep$2'],
+        [/(\b: any)tweet(\b: any)/gi, '$1bird$2']
       ],
       
-      // Early Primary (5-8 years) - Common phonological errors and grammatical simplifications
+      // Early Primary (5-8 years: any) - Common phonological errors and grammatical simplifications
       'early-primary': [
-        [/(\b)fing(\b)/gi, '$1thing$2'],
-        [/(\b)wiv(\b)/gi, '$1with$2'],
-        [/(\b)dat(\b)/gi, '$1that$2'],
-        [/(\b)dis(\b)/gi, '$1this$2'],
-        [/(\b)free(\b)/gi, '$1three$2'],
-        [/(\b)bwoken(\b)/gi, '$1broken$2'],
-        [/(\b)lellow(\b)/gi, '$1yellow$2'],
-        [/(\b)wed(\b)/gi, '$1red$2'],
-        [/(\b)gween(\b)/gi, '$1green$2'],
-        [/(\b)boo(\b)/gi, '$1blue$2'],
-        [/(\b)puple(\b)/gi, '$1purple$2'],
-        [/(\b)libe-wee(\b)/gi, '$1library$2'],
-        [/(\b)compooter(\b)/gi, '$1computer$2'],
-        [/(\b)aminal(\b)/gi, '$1animal$2'],
-        [/(\b)pasghetti(\b)/gi, '$1spaghetti$2'],
-        [/(\b)breffist(\b)/gi, '$1breakfast$2'],
-        [/(\b)member(\b)/gi, '$1remember$2'],
-        [/(\b)yesterdee(\b)/gi, '$1yesterday$2'],
-        [/(\b)tomorow(\b)/gi, '$1tomorrow$2'],
-        [/(\b)birfday(\b)/gi, '$1birthday$2']
+        [/(\b: any)fing(\b: any)/gi, '$1thing$2'],
+        [/(\b: any)wiv(\b: any)/gi, '$1with$2'],
+        [/(\b: any)dat(\b: any)/gi, '$1that$2'],
+        [/(\b: any)dis(\b: any)/gi, '$1this$2'],
+        [/(\b: any)free(\b: any)/gi, '$1three$2'],
+        [/(\b: any)bwoken(\b: any)/gi, '$1broken$2'],
+        [/(\b: any)lellow(\b: any)/gi, '$1yellow$2'],
+        [/(\b: any)wed(\b: any)/gi, '$1red$2'],
+        [/(\b: any)gween(\b: any)/gi, '$1green$2'],
+        [/(\b: any)boo(\b: any)/gi, '$1blue$2'],
+        [/(\b: any)puple(\b: any)/gi, '$1purple$2'],
+        [/(\b: any)libe-wee(\b: any)/gi, '$1library$2'],
+        [/(\b: any)compooter(\b: any)/gi, '$1computer$2'],
+        [/(\b: any)aminal(\b: any)/gi, '$1animal$2'],
+        [/(\b: any)pasghetti(\b: any)/gi, '$1spaghetti$2'],
+        [/(\b: any)breffist(\b: any)/gi, '$1breakfast$2'],
+        [/(\b: any)member(\b: any)/gi, '$1remember$2'],
+        [/(\b: any)yesterdee(\b: any)/gi, '$1yesterday$2'],
+        [/(\b: any)tomorow(\b: any)/gi, '$1tomorrow$2'],
+        [/(\b: any)birfday(\b: any)/gi, '$1birthday$2']
       ],
       
-      // Late Primary (8-11 years) - More subtle speech patterns and academic vocabulary
+      // Late Primary (8-11 years: any) - More subtle speech patterns and academic vocabulary
       'late-primary': [
-        [/(\b)libary(\b)/gi, '$1library$2'],
-        [/(\b)probly(\b)/gi, '$1probably$2'],
-        [/(\b)intresting(\b)/gi, '$1interesting$2'],
-        [/(\b)expecially(\b)/gi, '$1especially$2'],
-        [/(\b)nucular(\b)/gi, '$1nuclear$2'],
-        [/(\b)pacific(\b)/gi, '$1specific$2'],
-        [/(\b)supposably(\b)/gi, '$1supposedly$2'],
-        [/(\b)irregardless(\b)/gi, '$1regardless$2'],
-        [/(\b)exscape(\b)/gi, '$1escape$2'],
-        [/(\b)excape(\b)/gi, '$1escape$2'],
-        [/(\b)asterik(\b)/gi, '$1asterisk$2'],
-        [/(\b)aks(\b)/gi, '$1ask$2'],
-        [/(\b)expresso(\b)/gi, '$1espresso$2'],
-        [/(\b)excetera(\b)/gi, '$1et cetera$2'],
-        [/(\b)ect(\b)/gi, '$1etc$2'],
-        [/(\b)heighth(\b)/gi, '$1height$2'],
-        [/(\b)secetary(\b)/gi, '$1secretary$2'],
-        [/(\b)febuary(\b)/gi, '$1february$2'],
-        [/(\b)artick(\b)/gi, '$1arctic$2'],
-        [/(\b)antartic(\b)/gi, '$1antarctic$2']
+        [/(\b: any)libary(\b: any)/gi, '$1library$2'],
+        [/(\b: any)probly(\b: any)/gi, '$1probably$2'],
+        [/(\b: any)intresting(\b: any)/gi, '$1interesting$2'],
+        [/(\b: any)expecially(\b: any)/gi, '$1especially$2'],
+        [/(\b: any)nucular(\b: any)/gi, '$1nuclear$2'],
+        [/(\b: any)pacific(\b: any)/gi, '$1specific$2'],
+        [/(\b: any)supposably(\b: any)/gi, '$1supposedly$2'],
+        [/(\b: any)irregardless(\b: any)/gi, '$1regardless$2'],
+        [/(\b: any)exscape(\b: any)/gi, '$1escape$2'],
+        [/(\b: any)excape(\b: any)/gi, '$1escape$2'],
+        [/(\b: any)asterik(\b: any)/gi, '$1asterisk$2'],
+        [/(\b: any)aks(\b: any)/gi, '$1ask$2'],
+        [/(\b: any)expresso(\b: any)/gi, '$1espresso$2'],
+        [/(\b: any)excetera(\b: any)/gi, '$1et cetera$2'],
+        [/(\b: any)ect(\b: any)/gi, '$1etc$2'],
+        [/(\b: any)heighth(\b: any)/gi, '$1height$2'],
+        [/(\b: any)secetary(\b: any)/gi, '$1secretary$2'],
+        [/(\b: any)febuary(\b: any)/gi, '$1february$2'],
+        [/(\b: any)artick(\b: any)/gi, '$1arctic$2'],
+        [/(\b: any)antartic(\b: any)/gi, '$1antarctic$2']
       ],
       
-      // Secondary (11+ years) - Academic and technical vocabulary, fewer corrections needed
+      // Secondary (11+ years: any) - Academic and technical vocabulary, fewer corrections needed
       'secondary': [
-        [/(\b)irregardless(\b)/gi, '$1regardless$2'],
-        [/(\b)for all intensive purposes(\b)/gi, '$1for all intents and purposes$2'],
-        [/(\b)i could care less(\b)/gi, '$1i couldn\'t care less$2'],
-        [/(\b)mischievious(\b)/gi, '$1mischievous$2'],
-        [/(\b)pronounciation(\b)/gi, '$1pronunciation$2'],
-        [/(\b)perscription(\b)/gi, '$1prescription$2'],
-        [/(\b)preform(\b)/gi, '$1perform$2'],
-        [/(\b)sherbert(\b)/gi, '$1sherbet$2'],
-        [/(\b)supposably(\b)/gi, '$1supposedly$2'],
-        [/(\b)definately(\b)/gi, '$1definitely$2']
+        [/(\b: any)irregardless(\b: any)/gi, '$1regardless$2'],
+        [/(\b: any)for all intensive purposes(\b: any)/gi, '$1for all intents and purposes$2'],
+        [/(\b: any)i could care less(\b: any)/gi, '$1i couldn\'t care less$2'],
+        [/(\b: any)mischievious(\b: any)/gi, '$1mischievous$2'],
+        [/(\b: any)pronounciation(\b: any)/gi, '$1pronunciation$2'],
+        [/(\b: any)perscription(\b: any)/gi, '$1prescription$2'],
+        [/(\b: any)preform(\b: any)/gi, '$1perform$2'],
+        [/(\b: any)sherbert(\b: any)/gi, '$1sherbet$2'],
+        [/(\b: any)supposably(\b: any)/gi, '$1supposedly$2'],
+        [/(\b: any)definately(\b: any)/gi, '$1definitely$2']
       ]
     };
   }
@@ -126,33 +126,33 @@ export class AgeGraduatedSpeechRecognitionService extends SpeechRecognitionServi
    */
   protected processChildSpeech(text: string): string {
     // First apply base processing from parent class
-    let processedText = super.processChildSpeech(text);
+    let processedText = super.processChildSpeech(text: any);
     
     // Then apply age-specific patterns
     const patterns = this.ageSpecificPatterns[this.ageGroup];
-    if (patterns) {
-      for (const [pattern, replacement] of patterns) {
-        processedText = processedText.replace(pattern, replacement);
+    if (patterns: any) {
+      for (const [pattern: any, replacement] of patterns) {
+        processedText = processedText.replace(pattern: any, replacement);
       }
     }
     
     // Apply age-specific post-processing
-    switch (this.ageGroup) {
+    switch (this.ageGroup: any) {
       case 'nursery':
         // For nursery, simplify complex sentences and add periods
-        processedText = this.simplifyComplexSentences(processedText);
+        processedText = this.simplifyComplexSentences(processedText: any);
         break;
       case 'early-primary':
         // For early primary, correct common grammar issues
-        processedText = this.correctEarlyPrimaryGrammar(processedText);
+        processedText = this.correctEarlyPrimaryGrammar(processedText: any);
         break;
       case 'late-primary':
         // For late primary, enhance vocabulary and structure
-        processedText = this.enhanceLatePrimaryText(processedText);
+        processedText = this.enhanceLatePrimaryText(processedText: any);
         break;
       case 'secondary':
         // For secondary, focus on academic language
-        processedText = this.enhanceSecondaryText(processedText);
+        processedText = this.enhanceSecondaryText(processedText: any);
         break;
     }
     
@@ -164,10 +164,10 @@ export class AgeGraduatedSpeechRecognitionService extends SpeechRecognitionServi
    */
   private simplifyComplexSentences(text: string): string {
     // Break long sentences into shorter ones
-    let simplified = text.replace(/(.{30,}?)(,|\s+and|\s+but|\s+or|\s+because|\s+so)(.{30,})/gi, '$1.$3');
+    let simplified = text.replace(/(.{30: any,}?)(,|\s+and|\s+but|\s+or|\s+because|\s+so: any)(.{30: any,})/gi, '$1.$3');
     
     // Ensure proper capitalization after creating new sentences
-    simplified = simplified.replace(/(\.\s*)([a-z])/g, (match, p1, p2) => p1 + p2.toUpperCase());
+    simplified = simplified.replace(/(\.\s*)([a-z])/g, (match: any, p1, p2) => p1 + p2.toUpperCase());
     
     return simplified;
   }
@@ -180,21 +180,21 @@ export class AgeGraduatedSpeechRecognitionService extends SpeechRecognitionServi
     
     // Fix common verb tense issues
     corrected = corrected
-      .replace(/(\b)(I|we|they|you) is(\b)/gi, '$1$2 are$3')
-      .replace(/(\b)(he|she|it) are(\b)/gi, '$1$2 is$3')
-      .replace(/(\b)goed(\b)/gi, '$1went$2')
-      .replace(/(\b)runned(\b)/gi, '$1ran$2')
-      .replace(/(\b)swimmed(\b)/gi, '$1swam$2')
-      .replace(/(\b)bringed(\b)/gi, '$1brought$2')
-      .replace(/(\b)thinked(\b)/gi, '$1thought$2')
-      .replace(/(\b)teached(\b)/gi, '$1taught$2')
-      .replace(/(\b)more (bigger|smaller|taller|shorter)(\b)/gi, '$1$2$3')
-      .replace(/(\b)more (better|worse|faster|slower)(\b)/gi, '$1$2$3');
+      .replace(/(\b: any)(I|we|they|you: any) is(\b: any)/gi, '$1$2 are$3')
+      .replace(/(\b: any)(he|she|it: any) are(\b: any)/gi, '$1$2 is$3')
+      .replace(/(\b: any)goed(\b: any)/gi, '$1went$2')
+      .replace(/(\b: any)runned(\b: any)/gi, '$1ran$2')
+      .replace(/(\b: any)swimmed(\b: any)/gi, '$1swam$2')
+      .replace(/(\b: any)bringed(\b: any)/gi, '$1brought$2')
+      .replace(/(\b: any)thinked(\b: any)/gi, '$1thought$2')
+      .replace(/(\b: any)teached(\b: any)/gi, '$1taught$2')
+      .replace(/(\b: any)more (bigger|smaller|taller|shorter: any)(\b: any)/gi, '$1$2$3')
+      .replace(/(\b: any)more (better|worse|faster|slower: any)(\b: any)/gi, '$1$2$3');
     
     // Fix common article issues
     corrected = corrected
-      .replace(/(\b)a (apple|orange|elephant|hour)(\b)/gi, '$1an $2$3')
-      .replace(/(\b)an (ball|car|dog|tree|book|pencil)(\b)/gi, '$1a $2$3');
+      .replace(/(\b: any)a (apple|orange|elephant|hour: any)(\b: any)/gi, '$1an $2$3')
+      .replace(/(\b: any)an (ball|car|dog|tree|book|pencil: any)(\b: any)/gi, '$1a $2$3');
     
     return corrected;
   }
@@ -207,16 +207,16 @@ export class AgeGraduatedSpeechRecognitionService extends SpeechRecognitionServi
     
     // Enhance common vocabulary
     enhanced = enhanced
-      .replace(/(\b)got(\b)/gi, '$1received$2')
-      .replace(/(\b)big(\b)/gi, '$1large$2')
-      .replace(/(\b)small(\b)/gi, '$1little$2')
-      .replace(/(\b)good(\b)/gi, '$1excellent$2')
-      .replace(/(\b)bad(\b)/gi, '$1poor$2')
-      .replace(/(\b)nice(\b)/gi, '$1pleasant$2')
-      .replace(/(\b)said(\b)/gi, '$1stated$2')
-      .replace(/(\b)happy(\b)/gi, '$1delighted$2')
-      .replace(/(\b)sad(\b)/gi, '$1unhappy$2')
-      .replace(/(\b)scared(\b)/gi, '$1frightened$2');
+      .replace(/(\b: any)got(\b: any)/gi, '$1received$2')
+      .replace(/(\b: any)big(\b: any)/gi, '$1large$2')
+      .replace(/(\b: any)small(\b: any)/gi, '$1little$2')
+      .replace(/(\b: any)good(\b: any)/gi, '$1excellent$2')
+      .replace(/(\b: any)bad(\b: any)/gi, '$1poor$2')
+      .replace(/(\b: any)nice(\b: any)/gi, '$1pleasant$2')
+      .replace(/(\b: any)said(\b: any)/gi, '$1stated$2')
+      .replace(/(\b: any)happy(\b: any)/gi, '$1delighted$2')
+      .replace(/(\b: any)sad(\b: any)/gi, '$1unhappy$2')
+      .replace(/(\b: any)scared(\b: any)/gi, '$1frightened$2');
     
     return enhanced;
   }
@@ -229,16 +229,16 @@ export class AgeGraduatedSpeechRecognitionService extends SpeechRecognitionServi
     
     // Enhance with more academic language
     enhanced = enhanced
-      .replace(/(\b)use(\b)/gi, '$1utilize$2')
-      .replace(/(\b)find out(\b)/gi, '$1discover$2')
-      .replace(/(\b)look at(\b)/gi, '$1examine$2')
-      .replace(/(\b)think about(\b)/gi, '$1consider$2')
-      .replace(/(\b)come up with(\b)/gi, '$1develop$2')
-      .replace(/(\b)put together(\b)/gi, '$1compile$2')
-      .replace(/(\b)look into(\b)/gi, '$1investigate$2')
-      .replace(/(\b)talk about(\b)/gi, '$1discuss$2')
-      .replace(/(\b)find(\b)/gi, '$1identify$2')
-      .replace(/(\b)show(\b)/gi, '$1demonstrate$2');
+      .replace(/(\b: any)use(\b: any)/gi, '$1utilize$2')
+      .replace(/(\b: any)find out(\b: any)/gi, '$1discover$2')
+      .replace(/(\b: any)look at(\b: any)/gi, '$1examine$2')
+      .replace(/(\b: any)think about(\b: any)/gi, '$1consider$2')
+      .replace(/(\b: any)come up with(\b: any)/gi, '$1develop$2')
+      .replace(/(\b: any)put together(\b: any)/gi, '$1compile$2')
+      .replace(/(\b: any)look into(\b: any)/gi, '$1investigate$2')
+      .replace(/(\b: any)talk about(\b: any)/gi, '$1discuss$2')
+      .replace(/(\b: any)find(\b: any)/gi, '$1identify$2')
+      .replace(/(\b: any)show(\b: any)/gi, '$1demonstrate$2');
     
     return enhanced;
   }
@@ -288,15 +288,15 @@ export function getAgeGraduatedSpeechRecognitionService(
     }
   };
   
-  if (!ageGraduatedSpeechRecognitionService) {
-    ageGraduatedSpeechRecognitionService = new AgeGraduatedSpeechRecognitionService(mergedOptions);
-  } else if (options) {
+  if (!ageGraduatedSpeechRecognitionService: any) {
+    ageGraduatedSpeechRecognitionService = new AgeGraduatedSpeechRecognitionService(mergedOptions: any);
+  } else if (options: any) {
     // Update existing service with new options
-    ageGraduatedSpeechRecognitionService.updateOptions(mergedOptions);
+    ageGraduatedSpeechRecognitionService.updateOptions(mergedOptions: any);
     
     // Update age group if specified
-    if (options.ageGroup) {
-      ageGraduatedSpeechRecognitionService.updateAgeGroup(options.ageGroup);
+    if (options.ageGroup: any) {
+      ageGraduatedSpeechRecognitionService.updateAgeGroup(options.ageGroup: any);
     }
   }
   

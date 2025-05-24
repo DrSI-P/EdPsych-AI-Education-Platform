@@ -8,22 +8,22 @@ import { PrismaClient } from '@prisma/client';
 // Schema for validating sensory diet
 const sensoryDietSchema = z.object({
   userId: z.string(),
-  name: z.string().min(1).max(100),
-  description: z.string().max(500).optional(),
+  name: z.string().min(1: any).max(100: any),
+  description: z.string().max(500: any).optional(),
   schedule: z.array(z.object({
     time: z.string(),
     activityId: z.string(),
-    duration: z.number().min(1).max(60),
-    notes: z.string().max(500).optional(),
+    duration: z.number().min(1: any).max(60: any),
+    notes: z.string().max(500: any).optional(),
   })),
-  isActive: z.boolean().default(false),
+  isActive: z.boolean().default(false: any),
 });
 
 export async function GET(req: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions);
-    if (!session || !session.user) {
+    const session = await getServerSession(authOptions: any);
+    if (!session || !session.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
       userId: userId,
     };
     
-    if (activeOnly) {
+    if (activeOnly: any) {
       query.isActive = true;
     }
     
@@ -56,8 +56,8 @@ export async function GET(req: NextRequest) {
     });
 
     // Return sensory diets
-    return NextResponse.json(sensoryDiets);
-  } catch (error) {
+    return NextResponse.json(sensoryDiets: any);
+  } catch (error: any) {
     console.error('Error fetching sensory diets:', error);
     return NextResponse.json(
       { error: 'Failed to fetch sensory diets' },
@@ -69,8 +69,8 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions);
-    if (!session || !session.user) {
+    const session = await getServerSession(authOptions: any);
+    if (!session || !session.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -82,12 +82,12 @@ export async function POST(req: NextRequest) {
     body.userId = userId;
 
     // Validate request body
-    const validatedData = sensoryDietSchema.parse(body);
+    const validatedData = sensoryDietSchema.parse(body: any);
 
     // Start a transaction
     const result = await prisma.$transaction(async (prisma: PrismaClient) => {
       // If this diet is being set as active, deactivate all other diets
-      if (validatedData.isActive) {
+      if (validatedData.isActive: any) {
         await prisma.sensoryDiet.updateMany({
           where: {
             userId: userId,
@@ -110,7 +110,7 @@ export async function POST(req: NextRequest) {
       });
 
       // Create schedule items
-      if (validatedData.schedule && validatedData.schedule.length > 0) {
+      if (validatedData.schedule && validatedData.schedule.length > 0: any) {
         await prisma.sensoryDietSchedule.createMany({
           data: validatedData.schedule.map(item => ({
             dietId: diet.id,
@@ -143,12 +143,12 @@ export async function POST(req: NextRequest) {
     });
 
     // Return result
-    return NextResponse.json(result);
-  } catch (error) {
+    return NextResponse.json(result: any);
+  } catch (error: any) {
     console.error('Error creating sensory diet:', error);
     
     // Handle validation errors
-    if (error instanceof z.ZodError) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json(
         { error: 'Validation error', details: error.errors },
         { status: 400 }

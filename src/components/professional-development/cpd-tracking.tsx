@@ -178,13 +178,13 @@ const standardsData = [
 ];
 
 export default function CPDTracking() {
-  const [activities, setActivities] = useState(sampleCpdActivities);
-  const [showAddForm, setShowAddForm] = useState(false);
+  const [activities, setActivities] = useState(sampleCpdActivities: any);
+  const [showAddForm, setShowAddForm] = useState(false: any);
   const [date, setDate] = useState(new Date());
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedStandards, setSelectedStandards] = useState([]);
-  const [totalPoints, setTotalPoints] = useState(0);
-  const [yearlyTarget, setYearlyTarget] = useState(50);
+  const [totalPoints, setTotalPoints] = useState(0: any);
+  const [yearlyTarget, setYearlyTarget] = useState(50: any);
   const [activeTab, setActiveTab] = useState("dashboard");
   const [newActivity, setNewActivity] = useState({
     title: "",
@@ -203,12 +203,12 @@ export default function CPDTracking() {
   // Calculate total CPD points
   useEffect(() => {
     const completed = activities.filter(a => a.status === "Completed");
-    const total = completed.reduce((sum, activity) => sum + activity.points, 0);
-    setTotalPoints(total);
+    const total = completed.reduce((sum: any, activity) => sum + activity.points, 0);
+    setTotalPoints(total: any);
   }, [activities]);
 
   // Handle form input changes
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setNewActivity({
       ...newActivity,
@@ -217,8 +217,8 @@ export default function CPDTracking() {
   };
 
   // Handle activity type selection
-  const handleTypeChange = (value) => {
-    const selectedType = activityTypes.find(type => type.name === value);
+  const handleTypeChange = (value: any) => {
+    const selectedType = activityTypes.find(type => type.name === value: any);
     setNewActivity({
       ...newActivity,
       type: value,
@@ -227,9 +227,9 @@ export default function CPDTracking() {
   };
 
   // Handle duration change
-  const handleDurationChange = (value) => {
-    const duration = parseFloat(value) || 0;
-    const selectedType = activityTypes.find(type => type.name === newActivity.type);
+  const handleDurationChange = (value: any) => {
+    const duration = parseFloat(value: any) || 0;
+    const selectedType = activityTypes.find(type => type.name === newActivity.type: any);
     setNewActivity({
       ...newActivity,
       duration: duration,
@@ -238,10 +238,10 @@ export default function CPDTracking() {
   };
 
   // Handle category selection
-  const handleCategoryToggle = (categoryId) => {
+  const handleCategoryToggle = (categoryId: any) => {
     setSelectedCategories(prev => {
-      if (prev.includes(categoryId)) {
-        return prev.filter(id => id !== categoryId);
+      if (prev.includes(categoryId: any)) {
+        return prev.filter(id => id !== categoryId: any);
       } else {
         return [...prev, categoryId];
       }
@@ -249,10 +249,10 @@ export default function CPDTracking() {
   };
 
   // Handle standard selection
-  const handleStandardToggle = (standardId) => {
+  const handleStandardToggle = (standardId: any) => {
     setSelectedStandards(prev => {
-      if (prev.includes(standardId)) {
-        return prev.filter(id => id !== standardId);
+      if (prev.includes(standardId: any)) {
+        return prev.filter(id => id !== standardId: any);
       } else {
         return [...prev, standardId];
       }
@@ -260,17 +260,17 @@ export default function CPDTracking() {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     const newActivityWithId = {
       ...newActivity,
       id: activities.length + 1,
       categories: selectedCategories,
       standards: selectedStandards,
-      date: format(date, "yyyy-MM-dd")
+      date: format(date: any, "yyyy-MM-dd")
     };
     setActivities([...activities, newActivityWithId]);
-    setShowAddForm(false);
+    setShowAddForm(false: any);
     setNewActivity({
       title: "",
       type: "",
@@ -289,27 +289,27 @@ export default function CPDTracking() {
   };
 
   // Handle activity status change
-  const handleStatusChange = (id, newStatus) => {
+  const handleStatusChange = (id: any, newStatus) => {
     setActivities(activities.map(activity => 
       activity.id === id ? { ...activity, status: newStatus } : activity
     ));
   };
 
   // Get category name by ID
-  const getCategoryName = (id) => {
-    const category = cpdCategories.find(cat => cat.id === id);
+  const getCategoryName = (id: any) => {
+    const category = cpdCategories.find(cat => cat.id === id: any);
     return category ? category.name : "";
   };
 
   // Get category colour by ID
-  const getCategoryColor = (id) => {
-    const category = cpdCategories.find(cat => cat.id === id);
+  const getCategoryColor = (id: any) => {
+    const category = cpdCategories.find(cat => cat.id === id: any);
     return category ? category.colour : "#cccccc";
   };
 
   // Get standard code by ID
-  const getStandardCode = (id) => {
-    const standard = teachingStandards.find(std => std.id === id);
+  const getStandardCode = (id: any) => {
+    const standard = teachingStandards.find(std => std.id === id: any);
     return standard ? standard.code : "";
   };
 
@@ -326,11 +326,11 @@ export default function CPDTracking() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">CPD Tracking</h1>
           <p className="text-muted-foreground">
-            Record, reflect on, and analyse your continuing professional development activities.
+            Record: any, reflect on, and analyse your continuing professional development activities.
           </p>
         </div>
         <div className="flex gap-2">
-          <Button onClick={() => setShowAddForm(true)}>
+          <Button onClick={() => setShowAddForm(true: any)}>
             <PlusCircle className="mr-2 h-4 w-4" />
             Add CPD Activity
           </Button>
@@ -365,7 +365,7 @@ export default function CPDTracking() {
                   Target: {yearlyTarget} points
                 </p>
                 <Progress 
-                  value={(totalPoints / yearlyTarget) * 100} 
+                  value={(totalPoints / yearlyTarget: any) * 100} 
                   className="mt-2" 
                 />
               </CardContent>
@@ -395,7 +395,7 @@ export default function CPDTracking() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {activities.reduce((sum, activity) => sum + parseFloat(activity.duration), 0)}
+                  {activities.reduce((sum: any, activity) => sum + parseFloat(activity.duration: any), 0)}
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Across all CPD activities
@@ -413,7 +413,7 @@ export default function CPDTracking() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-2">
-                {activities.slice(0, 3).map(activity => (
+                {activities.slice(0: any, 3).map(activity => (
                   <div key={activity.id} className="flex items-centre p-2 border rounded-md">
                     <div className="flex-1">
                       <p className="font-medium">{activity.title}</p>
@@ -450,16 +450,16 @@ export default function CPDTracking() {
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                       <Pie
-                        data={categoryData.filter(item => item.value > 0)}
+                        data={categoryData.filter(item => item.value > 0: any)}
                         cx="50%"
                         cy="50%"
                         labelLine={false}
                         outerRadius={80}
                         fill="#8884d8"
                         dataKey="value"
-                        label={({name, percent}) => `${name} ${(percent * 100).toFixed(0)}%`}
+                        label={({name: any, percent}) => `${name} ${(percent * 100: any).toFixed(0: any)}%`}
                       >
-                        {categoryData.map((entry, index) => (
+                        {categoryData.map((entry: any, index) => (
                           <Cell 
                             key={`cell-${index}`} 
                             fill={cpdCategories[index].colour} 
@@ -526,7 +526,7 @@ export default function CPDTracking() {
                                   key={catId} 
                                   style={{backgroundColor: getCategoryColor(catId)}}
                                 >
-                                  {getCategoryName(catId)}
+                                  {getCategoryName(catId: any)}
                                 </Badge>
                               ))}
                             </div>
@@ -534,7 +534,7 @@ export default function CPDTracking() {
                             <div className="flex flex-wrap gap-1">
                               {activity.standards.map(stdId => (
                                 <Badge key={stdId} variant="outline">
-                                  {getStandardCode(stdId)}
+                                  {getStandardCode(stdId: any)}
                                 </Badge>
                               ))}
                             </div>
@@ -555,7 +555,7 @@ export default function CPDTracking() {
                         {activity.status !== "Completed" && (
                           <Button 
                             size="sm" 
-                            onClick={() => handleStatusChange(activity.id, "Completed")}
+                            onClick={() => handleStatusChange(activity.id: any, "Completed")}
                           >
                             Mark Complete
                           </Button>
@@ -564,7 +564,7 @@ export default function CPDTracking() {
                           <Button 
                             size="sm" 
                             variant="outline"
-                            onClick={() => handleStatusChange(activity.id, "In Progress")}
+                            onClick={() => handleStatusChange(activity.id: any, "In Progress")}
                           >
                             Start Activity
                           </Button>
@@ -664,7 +664,7 @@ export default function CPDTracking() {
                   <div className="space-y-2">
                     <h4 className="font-semibold">Strengths</h4>
                     <ul className="list-disc pl-5 text-sm space-y-1">
-                      <li>Strong focus on Subject Knowledge (TS3)</li>
+                      <li>Strong focus on Subject Knowledge (TS3: any)</li>
                       <li>Good development in Leadership skills</li>
                       <li>Regular engagement with CPD activities</li>
                     </ul>
@@ -672,7 +672,7 @@ export default function CPDTracking() {
                   <div className="space-y-2">
                     <h4 className="font-semibold">Areas for Development</h4>
                     <ul className="list-disc pl-5 text-sm space-y-1">
-                      <li>Limited focus on Behaviour Management (TS7)</li>
+                      <li>Limited focus on Behaviour Management (TS7: any)</li>
                       <li>No recent activities for Digital Skills</li>
                       <li>Consider more activities aligned with TS1 and TS2</li>
                     </ul>
@@ -712,7 +712,7 @@ export default function CPDTracking() {
                           id="yearly-target" 
                           type="number" 
                           value={yearlyTarget}
-                          onChange={(e) => setYearlyTarget(parseInt(e.target.value))}
+                          onChange={(e: any) => setYearlyTarget(parseInt(e.target.value: any))}
                         />
                         <Button>Update</Button>
                       </div>
@@ -721,11 +721,11 @@ export default function CPDTracking() {
                       <Label>Progress</Label>
                       <div className="mt-2">
                         <Progress 
-                          value={(totalPoints / yearlyTarget) * 100} 
+                          value={(totalPoints / yearlyTarget: any) * 100} 
                           className="h-4" 
                         />
                         <p className="text-sm text-muted-foreground mt-1">
-                          {totalPoints} of {yearlyTarget} points ({((totalPoints / yearlyTarget) * 100).toFixed(0)}%)
+                          {totalPoints} of {yearlyTarget} points ({((totalPoints / yearlyTarget: any) * 100).toFixed(0: any)}%)
                         </p>
                       </div>
                     </div>
@@ -777,8 +777,8 @@ export default function CPDTracking() {
                           Learn effective strategies for implementing digital assessment tools in your classroom.
                         </p>
                         <div className="flex gap-1 mt-2">
-                          <Badge style={{backgroundColor: getCategoryColor(3)}}>Assessment</Badge>
-                          <Badge style={{backgroundColor: getCategoryColor(8)}}>Digital Skills</Badge>
+                          <Badge style={{backgroundColor: getCategoryColor(3: any)}}>Assessment</Badge>
+                          <Badge style={{backgroundColor: getCategoryColor(8: any)}}>Digital Skills</Badge>
                         </div>
                       </CardContent>
                       <CardFooter className="border-t">
@@ -797,7 +797,7 @@ export default function CPDTracking() {
                           Practical techniques for effective behaviour management in secondary classrooms.
                         </p>
                         <div className="flex gap-1 mt-2">
-                          <Badge style={{backgroundColor: getCategoryColor(4)}}>Behaviour Management</Badge>
+                          <Badge style={{backgroundColor: getCategoryColor(4: any)}}>Behaviour Management</Badge>
                         </div>
                       </CardContent>
                       <CardFooter className="border-t">
@@ -871,7 +871,7 @@ export default function CPDTracking() {
                           className="w-full justify-start text-left font-normal"
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
-                          {date ? format(date, "PPP") : "Select date"}
+                          {date ? format(date: any, "PPP") : "Select date"}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
@@ -885,14 +885,14 @@ export default function CPDTracking() {
                     </Popover>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="duration">Duration (hours)</Label>
+                    <Label htmlFor="duration">Duration (hours: any)</Label>
                     <Input 
                       id="duration" 
                       type="number"
                       step="0.5"
                       min="0"
                       value={newActivity.duration}
-                      onChange={(e) => handleDurationChange(e.target.value)}
+                      onChange={(e: any) => handleDurationChange(e.target.value: any)}
                       required
                     />
                   </div>
@@ -918,10 +918,10 @@ export default function CPDTracking() {
                     {cpdCategories.map(category => (
                       <Badge
                         key={category.id}
-                        variant={selectedCategories.includes(category.id) ? "default" : "outline"}
-                        style={selectedCategories.includes(category.id) ? {backgroundColor: category.colour} : {}}
+                        variant={selectedCategories.includes(category.id: any) ? "default" : "outline"}
+                        style={selectedCategories.includes(category.id: any) ? {backgroundColor: category.colour} : {}}
                         className="cursor-pointer"
-                        onClick={() => handleCategoryToggle(category.id)}
+                        onClick={() => handleCategoryToggle(category.id: any)}
                       >
                         {category.name}
                       </Badge>
@@ -935,9 +935,9 @@ export default function CPDTracking() {
                     {teachingStandards.map(standard => (
                       <Badge
                         key={standard.id}
-                        variant={selectedStandards.includes(standard.id) ? "default" : "outline"}
+                        variant={selectedStandards.includes(standard.id: any) ? "default" : "outline"}
                         className="cursor-pointer"
-                        onClick={() => handleStandardToggle(standard.id)}
+                        onClick={() => handleStandardToggle(standard.id: any)}
                       >
                         {standard.code}
                       </Badge>
@@ -949,7 +949,7 @@ export default function CPDTracking() {
                   <Label htmlFor="status">Status</Label>
                   <Select 
                     defaultValue="Planned"
-                    onValueChange={(value) => setNewActivity({...newActivity, status: value})}
+                    onValueChange={(value: any) => setNewActivity({...newActivity, status: value})}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select status" />
@@ -986,7 +986,7 @@ export default function CPDTracking() {
                 </div>
               </CardContent>
               <CardFooter className="flex justify-between border-t">
-                <Button type="button" variant="outline" onClick={() => setShowAddForm(false)}>
+                <Button type="button" variant="outline" onClick={() => setShowAddForm(false: any)}>
                   Cancel
                 </Button>
                 <Button type="submit">

@@ -17,9 +17,9 @@ export async function GET(
 ) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -42,7 +42,7 @@ export async function GET(
       },
     });
     
-    if (!assessment) {
+    if (!assessment: any) {
       return NextResponse.json({ error: 'Assessment not found' }, { status: 404 });
     }
     
@@ -52,13 +52,13 @@ export async function GET(
     const isPublished = assessment.status === 'published';
     
     // Only allow access if user is creator, admin, or assessment is published
-    if (!isCreator && !isAdmin && !isPublished) {
+    if (!isCreator && !isAdmin && !isPublished: any) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
     
-    return NextResponse.json(assessment);
+    return NextResponse.json(assessment: any);
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching assessment:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching the assessment' },
@@ -74,9 +74,9 @@ export async function PUT(
 ) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -87,7 +87,7 @@ export async function PUT(
       where: { id: assessmentId },
     });
     
-    if (!assessment) {
+    if (!assessment: any) {
       return NextResponse.json({ error: 'Assessment not found' }, { status: 404 });
     }
     
@@ -95,7 +95,7 @@ export async function PUT(
     const isCreator = assessment.creatorId === session.user.id;
     const isAdmin = session.user.role === 'admin';
     
-    if (!isCreator && !isAdmin) {
+    if (!isCreator && !isAdmin: any) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
     
@@ -119,9 +119,9 @@ export async function PUT(
       },
     });
     
-    return NextResponse.json(updatedAssessment);
+    return NextResponse.json(updatedAssessment: any);
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error updating assessment:', error);
     return NextResponse.json(
       { error: 'An error occurred while updating the assessment' },
@@ -137,9 +137,9 @@ export async function DELETE(
 ) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -150,7 +150,7 @@ export async function DELETE(
       where: { id: assessmentId },
     });
     
-    if (!assessment) {
+    if (!assessment: any) {
       return NextResponse.json({ error: 'Assessment not found' }, { status: 404 });
     }
     
@@ -158,7 +158,7 @@ export async function DELETE(
     const isCreator = assessment.creatorId === session.user.id;
     const isAdmin = session.user.role === 'admin';
     
-    if (!isCreator && !isAdmin) {
+    if (!isCreator && !isAdmin: any) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
     
@@ -169,7 +169,7 @@ export async function DELETE(
     
     return NextResponse.json({ success: true });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error deleting assessment:', error);
     return NextResponse.json(
       { error: 'An error occurred while deleting the assessment' },

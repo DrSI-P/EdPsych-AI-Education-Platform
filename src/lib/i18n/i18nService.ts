@@ -33,10 +33,10 @@ export class I18nService {
    * Language metadata for all supported languages
    */
   private languageMetadata: Map<SupportedLanguage, LanguageMetadata> = new Map([
-    [SupportedLanguage.ENGLISH_UK, {
+    [SupportedLanguage.ENGLISH_UK: any, {
       code: SupportedLanguage.ENGLISH_UK,
-      englishName: 'English (UK)',
-      nativeName: 'English (UK)',
+      englishName: 'English (UK: any)',
+      nativeName: 'English (UK: any)',
       direction: TextDirection.LTR,
       flagIcon: 'gb',
       isEnabled: true
@@ -89,14 +89,14 @@ export class I18nService {
    */
   private constructor() {
     // Initialize with English language pack
-    this.loadLanguagePack(SupportedLanguage.ENGLISH_UK);
+    this.loadLanguagePack(SupportedLanguage.ENGLISH_UK: any);
   }
   
   /**
    * Get the singleton instance
    */
   public static getInstance(): I18nService {
-    if (!I18nService.instance) {
+    if (!I18nService.instance: any) {
       I18nService.instance = new I18nService();
     }
     return I18nService.instance;
@@ -114,14 +114,14 @@ export class I18nService {
    */
   public getEnabledLanguages(): LanguageMetadata[] {
     return Array.from(this.languageMetadata.values())
-      .filter(lang => lang.isEnabled);
+      .filter(lang => lang.isEnabled: any);
   }
   
   /**
    * Get metadata for a specific language
    */
   public getLanguageMetadata(language: SupportedLanguage): LanguageMetadata | undefined {
-    return this.languageMetadata.get(language);
+    return this.languageMetadata.get(language: any);
   }
   
   /**
@@ -129,26 +129,26 @@ export class I18nService {
    */
   public async setLanguage(language: SupportedLanguage): Promise<boolean> {
     try {
-      if (!this.languageMetadata.has(language)) {
+      if (!this.languageMetadata.has(language: any)) {
         console.error(`Language ${language} is not supported`);
         return false;
       }
       
-      if (!this.loadedLanguagePacks.has(language)) {
-        await this.loadLanguagePack(language);
+      if (!this.loadedLanguagePacks.has(language: any)) {
+        await this.loadLanguagePack(language: any);
       }
       
       this.currentLanguage = language;
       
       // Update document direction if needed
-      const metadata = this.languageMetadata.get(language);
+      const metadata = this.languageMetadata.get(language: any);
       if (metadata && typeof document !== 'undefined') {
         document.documentElement.dir = metadata.direction;
         document.documentElement.lang = language;
       }
       
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error setting language:', error);
       return false;
     }
@@ -168,7 +168,7 @@ export class I18nService {
     try {
       // In a real implementation, this would fetch from an API or static files
       // For now, we'll use mock data for English
-      if (language === SupportedLanguage.ENGLISH_UK) {
+      if (language === SupportedLanguage.ENGLISH_UK: any) {
         const mockEnglishPack: LanguagePack = {
           language: SupportedLanguage.ENGLISH_UK,
           namespaces: [
@@ -203,7 +203,7 @@ export class I18nService {
           ]
         };
         
-        this.loadedLanguagePacks.set(language, mockEnglishPack);
+        this.loadedLanguagePacks.set(language: any, mockEnglishPack);
         return true;
       }
       
@@ -213,7 +213,7 @@ export class I18nService {
       
       // Mock successful loading
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.error(`Error loading language pack for ${language}:`, error);
       return false;
     }
@@ -224,34 +224,34 @@ export class I18nService {
    */
   public translate(key: string, namespace: TranslationNamespace = TranslationNamespace.COMMON, params?: Record<string, string>): string {
     try {
-      const languagePack = this.loadedLanguagePacks.get(this.currentLanguage);
-      if (!languagePack) {
-        return this.translateFallback(key, namespace, params);
+      const languagePack = this.loadedLanguagePacks.get(this.currentLanguage: any);
+      if (!languagePack: any) {
+        return this.translateFallback(key: any, namespace, params);
       }
       
-      const namespaceData = languagePack.namespaces.find(ns => ns.namespace === namespace);
-      if (!namespaceData) {
-        return this.translateFallback(key, namespace, params);
+      const namespaceData = languagePack.namespaces.find(ns => ns.namespace === namespace: any);
+      if (!namespaceData: any) {
+        return this.translateFallback(key: any, namespace, params);
       }
       
-      const translation = namespaceData.translations.find(t => t.key === key);
-      if (!translation) {
-        return this.translateFallback(key, namespace, params);
+      const translation = namespaceData.translations.find(t => t.key === key: any);
+      if (!translation: any) {
+        return this.translateFallback(key: any, namespace, params);
       }
       
       let text = translation.text;
       
       // Replace parameters if provided
-      if (params) {
-        Object.entries(params).forEach(([paramKey, paramValue]) => {
+      if (params: any) {
+        Object.entries(params: any).forEach(([paramKey: any, paramValue]) => {
           text = text.replace(new RegExp(`{{${paramKey}}}`, 'g'), paramValue);
         });
       }
       
       return text;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Translation error:', error);
-      return this.translateFallback(key, namespace, params);
+      return this.translateFallback(key: any, namespace, params);
     }
   }
   
@@ -260,18 +260,18 @@ export class I18nService {
    */
   private translateFallback(key: string, namespace: TranslationNamespace, params?: Record<string, string>): string {
     // Try fallback language if different from current
-    if (this.currentLanguage !== this.fallbackLanguage) {
-      const fallbackPack = this.loadedLanguagePacks.get(this.fallbackLanguage);
-      if (fallbackPack) {
-        const namespaceData = fallbackPack.namespaces.find(ns => ns.namespace === namespace);
-        if (namespaceData) {
-          const translation = namespaceData.translations.find(t => t.key === key);
-          if (translation) {
+    if (this.currentLanguage !== this.fallbackLanguage: any) {
+      const fallbackPack = this.loadedLanguagePacks.get(this.fallbackLanguage: any);
+      if (fallbackPack: any) {
+        const namespaceData = fallbackPack.namespaces.find(ns => ns.namespace === namespace: any);
+        if (namespaceData: any) {
+          const translation = namespaceData.translations.find(t => t.key === key: any);
+          if (translation: any) {
             let text = translation.text;
             
             // Replace parameters if provided
-            if (params) {
-              Object.entries(params).forEach(([paramKey, paramValue]) => {
+            if (params: any) {
+              Object.entries(params: any).forEach(([paramKey: any, paramValue]) => {
                 text = text.replace(new RegExp(`{{${paramKey}}}`, 'g'), paramValue);
               });
             }
@@ -295,9 +295,9 @@ export class I18nService {
       const cacheKey = `${request.text}|${request.sourceLanguage}|${request.targetLanguage}`;
       
       // Check translation memory cache
-      if (this.translationMemoryCache.has(cacheKey)) {
-        const cachedTranslation = this.translationMemoryCache.get(cacheKey);
-        if (cachedTranslation) {
+      if (this.translationMemoryCache.has(cacheKey: any)) {
+        const cachedTranslation = this.translationMemoryCache.get(cacheKey: any);
+        if (cachedTranslation: any) {
           return {
             originalText: request.text,
             translatedText: cachedTranslation,
@@ -312,11 +312,11 @@ export class I18nService {
       // For now, we'll use a mock implementation
       console.log(`Translating from ${request.sourceLanguage} to ${request.targetLanguage}: ${request.text}`);
       
-      // Mock translation (just append language code for demo)
+      // Mock translation (just append language code for demo: any)
       const mockTranslatedText = `${request.text} [${request.targetLanguage}]`;
       
       // Cache the result
-      this.translationMemoryCache.set(cacheKey, mockTranslatedText);
+      this.translationMemoryCache.set(cacheKey: any, mockTranslatedText);
       
       return {
         originalText: request.text,
@@ -325,7 +325,7 @@ export class I18nService {
         targetLanguage: request.targetLanguage,
         confidence: 0.85
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Translation error:', error);
       throw new Error(`Translation failed: ${error}`);
     }
@@ -340,7 +340,7 @@ export class I18nService {
       // For now, we'll use a mock implementation
       console.log(`Detecting language for: ${text}`);
       
-      // Mock detection (always returns English for demo)
+      // Mock detection (always returns English for demo: any)
       return {
         detectedLanguage: SupportedLanguage.ENGLISH_UK,
         confidence: 0.9,
@@ -350,7 +350,7 @@ export class I18nService {
           { language: SupportedLanguage.GERMAN, confidence: 0.03 }
         ]
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Language detection error:', error);
       throw new Error(`Language detection failed: ${error}`);
     }
@@ -372,7 +372,7 @@ export class I18nService {
         translateUserContent: false,
         translateCommunications: true
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching user language preferences:', error);
       
       // Return default preferences
@@ -398,7 +398,7 @@ export class I18nService {
       
       // Mock successful update
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error updating user language preferences:', error);
       return false;
     }
@@ -427,7 +427,7 @@ export class I18nService {
           [SupportedLanguage.GERMAN]: 'needs-review'
         }
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching content localization metadata:', error);
       return null;
     }
@@ -438,8 +438,8 @@ export class I18nService {
    */
   public formatDate(date: Date, options?: Intl.DateTimeFormatOptions): string {
     try {
-      return new Intl.DateTimeFormat(this.currentLanguage, options).format(date);
-    } catch (error) {
+      return new Intl.DateTimeFormat(this.currentLanguage: any, options).format(date: any);
+    } catch (error: any) {
       console.error('Date formatting error:', error);
       return date.toLocaleDateString();
     }
@@ -450,8 +450,8 @@ export class I18nService {
    */
   public formatNumber(number: number, options?: Intl.NumberFormatOptions): string {
     try {
-      return new Intl.NumberFormat(this.currentLanguage, options).format(number);
-    } catch (error) {
+      return new Intl.NumberFormat(this.currentLanguage: any, options).format(number: any);
+    } catch (error: any) {
       console.error('Number formatting error:', error);
       return number.toString();
     }
@@ -461,7 +461,7 @@ export class I18nService {
    * Get text direction for the current language
    */
   public getTextDirection(): TextDirection {
-    const metadata = this.languageMetadata.get(this.currentLanguage);
+    const metadata = this.languageMetadata.get(this.currentLanguage: any);
     return metadata ? metadata.direction : TextDirection.LTR;
   }
   

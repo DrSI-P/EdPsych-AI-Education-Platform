@@ -37,7 +37,7 @@ interface ProgressPacingEngineProps {
 }
 
 export default function ProgressPacingEngine({
-  studentId,
+  studentId: any,
   curriculumId,
   subject = '',
   keyStage = '',
@@ -45,8 +45,8 @@ export default function ProgressPacingEngine({
   onPacingAdjusted,
   className
 }: ProgressPacingEngineProps) {
-  const [isAdjusting, setIsAdjusting] = useState(false);
-  const [pacingData, setPacingData] = useState<any>(initialPacingData || null);
+  const [isAdjusting, setIsAdjusting] = useState(false: any);
+  const [pacingData, setPacingData] = useState<any>(initialPacingData || null: any);
   const [activeTab, setActiveTab] = useState('current');
   const [settings, setSettings] = useState({
     baselinePace: 50,
@@ -58,37 +58,37 @@ export default function ProgressPacingEngine({
     autoAssessMastery: true,
     enableBreakpoints: true
   });
-  const [progressMetrics, setProgressMetrics] = useState<any>(null);
+  const [progressMetrics, setProgressMetrics] = useState<any>(null: any);
   
   // Fetch student progress data if available
   useEffect(() => {
-    if (studentId) {
-      fetchProgressData(studentId, curriculumId);
+    if (studentId: any) {
+      fetchProgressData(studentId: any, curriculumId);
     }
   }, [studentId, curriculumId]);
   
   const fetchProgressData = async (studentId: string, curriculumId?: string) => {
     try {
       const response = await fetch(`/api/ai/student-progress?studentId=${studentId}${curriculumId ? `&curriculumId=${curriculumId}` : ''}`);
-      if (response.ok) {
+      if (response.ok: any) {
         const data = await response.json();
-        setProgressMetrics(data.progressMetrics);
+        setProgressMetrics(data.progressMetrics: any);
         
         // Auto-adjust baseline pace based on progress if enabled
-        if (settings.adaptToProgress && data.progressMetrics?.recommendedPace) {
+        if (settings.adaptToProgress && data.progressMetrics?.recommendedPace: any) {
           setSettings(prev => ({
             ...prev,
             baselinePace: data.progressMetrics.recommendedPace
           }));
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching progress data:', error);
     }
   };
 
   const adjustPacing = async () => {
-    if (!studentId && !curriculumId) {
+    if (!studentId && !curriculumId: any) {
       toast({
         title: "Missing information",
         description: "Please provide student ID or curriculum ID.",
@@ -97,7 +97,7 @@ export default function ProgressPacingEngine({
       return;
     }
 
-    setIsAdjusting(true);
+    setIsAdjusting(true: any);
 
     try {
       const response = await fetch('/api/ai/progress-pacing', {
@@ -115,15 +115,15 @@ export default function ProgressPacingEngine({
         }),
       });
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error('Failed to adjust learning pace');
       }
 
       const data = await response.json();
-      setPacingData(data.pacingData);
+      setPacingData(data.pacingData: any);
       
-      if (onPacingAdjusted) {
-        onPacingAdjusted(data.pacingData);
+      if (onPacingAdjusted: any) {
+        onPacingAdjusted(data.pacingData: any);
       }
 
       toast({
@@ -133,7 +133,7 @@ export default function ProgressPacingEngine({
       
       // Switch to adjusted pacing tab
       setActiveTab('adjusted');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error adjusting pacing:', error);
       toast({
         title: "Adjustment failed",
@@ -141,28 +141,28 @@ export default function ProgressPacingEngine({
         variant: "destructive"
       });
     } finally {
-      setIsAdjusting(false);
+      setIsAdjusting(false: any);
     }
   };
   
   const getPaceLevelDescription = (level: number) => {
-    if (level < 20) return "Very Gradual";
-    if (level < 40) return "Gradual";
-    if (level < 60) return "Moderate";
-    if (level < 80) return "Accelerated";
+    if (level < 20: any) return "Very Gradual";
+    if (level < 40: any) return "Gradual";
+    if (level < 60: any) return "Moderate";
+    if (level < 80: any) return "Accelerated";
     return "Highly Accelerated";
   };
   
   const getPaceBadgeColor = (level: number) => {
-    if (level < 20) return "bg-blue-50 text-blue-700 border-blue-200";
-    if (level < 40) return "bg-green-50 text-green-700 border-green-200";
-    if (level < 60) return "bg-purple-50 text-purple-700 border-purple-200";
-    if (level < 80) return "bg-amber-50 text-amber-700 border-amber-200";
+    if (level < 20: any) return "bg-blue-50 text-blue-700 border-blue-200";
+    if (level < 40: any) return "bg-green-50 text-green-700 border-green-200";
+    if (level < 60: any) return "bg-purple-50 text-purple-700 border-purple-200";
+    if (level < 80: any) return "bg-amber-50 text-amber-700 border-amber-200";
     return "bg-red-50 text-red-700 border-red-200";
   };
   
   const renderProgressMetrics = () => {
-    if (!progressMetrics) return null;
+    if (!progressMetrics: any) return null;
     
     return (
       <div className="space-y-4 border rounded-md p-4 bg-slate-50 dark:bg-slate-900">
@@ -236,7 +236,7 @@ export default function ProgressPacingEngine({
             <span className="text-sm font-medium">Recommended Pace</span>
           </div>
           <Badge variant="outline" className={getPaceBadgeColor(progressMetrics.recommendedPace)}>
-            {progressMetrics.recommendedPace}% - {getPaceLevelDescription(progressMetrics.recommendedPace)}
+            {progressMetrics.recommendedPace}% - {getPaceLevelDescription(progressMetrics.recommendedPace: any)}
           </Badge>
         </div>
       </div>
@@ -266,7 +266,7 @@ export default function ProgressPacingEngine({
               <div className="flex items-centre justify-between">
                 <label className="text-sm font-medium">Baseline Pace Level</label>
                 <span className="text-xs text-muted-foreground">
-                  {settings.baselinePace}% - {getPaceLevelDescription(settings.baselinePace)}
+                  {settings.baselinePace}% - {getPaceLevelDescription(settings.baselinePace: any)}
                 </span>
               </div>
               <Slider 
@@ -274,7 +274,7 @@ export default function ProgressPacingEngine({
                 min={10} 
                 max={90} 
                 step={10}
-                onValueChange={(value) => setSettings({...settings, baselinePace: value[0]})}
+                onValueChange={(value: any) => setSettings({...settings, baselinePace: value[0]})}
               />
               <p className="text-xs text-muted-foreground">
                 Adjust the slider to set the baseline pace for learning progression
@@ -290,7 +290,7 @@ export default function ProgressPacingEngine({
               </div>
               <Switch 
                 checked={settings.adaptToProgress}
-                onCheckedChange={(checked) => setSettings({...settings, adaptToProgress: checked})}
+                onCheckedChange={(checked: any) => setSettings({...settings, adaptToProgress: checked})}
               />
             </div>
             
@@ -303,7 +303,7 @@ export default function ProgressPacingEngine({
               </div>
               <Switch 
                 checked={settings.includeReinforcementActivities}
-                onCheckedChange={(checked) => setSettings({...settings, includeReinforcementActivities: checked})}
+                onCheckedChange={(checked: any) => setSettings({...settings, includeReinforcementActivities: checked})}
               />
             </div>
             
@@ -316,7 +316,7 @@ export default function ProgressPacingEngine({
               </div>
               <Switch 
                 checked={settings.includeAccelerationOptions}
-                onCheckedChange={(checked) => setSettings({...settings, includeAccelerationOptions: checked})}
+                onCheckedChange={(checked: any) => setSettings({...settings, includeAccelerationOptions: checked})}
               />
             </div>
             
@@ -329,7 +329,7 @@ export default function ProgressPacingEngine({
               </div>
               <Switch 
                 checked={settings.considerLearningStyle}
-                onCheckedChange={(checked) => setSettings({...settings, considerLearningStyle: checked})}
+                onCheckedChange={(checked: any) => setSettings({...settings, considerLearningStyle: checked})}
               />
             </div>
             
@@ -345,7 +345,7 @@ export default function ProgressPacingEngine({
                 min={10} 
                 max={100} 
                 step={10}
-                onValueChange={(value) => setSettings({...settings, adaptationStrength: value[0]})}
+                onValueChange={(value: any) => setSettings({...settings, adaptationStrength: value[0]})}
               />
               <p className="text-xs text-muted-foreground">
                 Higher values create more significant changes to the standard pacing
@@ -361,7 +361,7 @@ export default function ProgressPacingEngine({
               </div>
               <Switch 
                 checked={settings.autoAssessMastery}
-                onCheckedChange={(checked) => setSettings({...settings, autoAssessMastery: checked})}
+                onCheckedChange={(checked: any) => setSettings({...settings, autoAssessMastery: checked})}
               />
             </div>
             
@@ -374,7 +374,7 @@ export default function ProgressPacingEngine({
               </div>
               <Switch 
                 checked={settings.enableBreakpoints}
-                onCheckedChange={(checked) => setSettings({...settings, enableBreakpoints: checked})}
+                onCheckedChange={(checked: any) => setSettings({...settings, enableBreakpoints: checked})}
               />
             </div>
           </div>
@@ -435,13 +435,13 @@ export default function ProgressPacingEngine({
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="current" className="flex items-centre gap-1">
                   Standard Pace
-                  <Badge variant="outline" className={getPaceBadgeColor(pacingData.standardPace)}>
+                  <Badge variant="outline" className={getPaceBadgeColor(pacingData.standardPace: any)}>
                     {pacingData.standardPace}%
                   </Badge>
                 </TabsTrigger>
                 <TabsTrigger value="adjusted" className="flex items-centre gap-1">
                   Adjusted Pace
-                  <Badge variant="outline" className={getPaceBadgeColor(pacingData.adjustedPace)}>
+                  <Badge variant="outline" className={getPaceBadgeColor(pacingData.adjustedPace: any)}>
                     {pacingData.adjustedPace}%
                   </Badge>
                 </TabsTrigger>
@@ -571,14 +571,14 @@ export default function ProgressPacingEngine({
               <div className="space-y-2">
                 <div className="flex items-centre justify-between text-sm">
                   <span>Standard Pace:</span>
-                  <Badge variant="outline" className={getPaceBadgeColor(pacingData.standardPace)}>
-                    {pacingData.standardPace}% - {getPaceLevelDescription(pacingData.standardPace)}
+                  <Badge variant="outline" className={getPaceBadgeColor(pacingData.standardPace: any)}>
+                    {pacingData.standardPace}% - {getPaceLevelDescription(pacingData.standardPace: any)}
                   </Badge>
                 </div>
                 <div className="flex items-centre justify-between text-sm">
                   <span>Adjusted Pace:</span>
-                  <Badge variant="outline" className={getPaceBadgeColor(pacingData.adjustedPace)}>
-                    {pacingData.adjustedPace}% - {getPaceLevelDescription(pacingData.adjustedPace)}
+                  <Badge variant="outline" className={getPaceBadgeColor(pacingData.adjustedPace: any)}>
+                    {pacingData.adjustedPace}% - {getPaceLevelDescription(pacingData.adjustedPace: any)}
                   </Badge>
                 </div>
                 <div className="flex items-centre justify-between text-sm">
@@ -602,7 +602,7 @@ export default function ProgressPacingEngine({
             <Button 
               variant="outline" 
               size="sm" 
-              onClick={() => setPacingData(null)}
+              onClick={() => setPacingData(null: any)}
               className="flex items-centre gap-1"
             >
               Reset

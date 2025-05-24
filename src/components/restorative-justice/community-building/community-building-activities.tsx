@@ -82,7 +82,7 @@ const sampleActivities: Activity[] = [
     materials: ['Talking piece', 'Circle guidelines poster', 'Optional: visual prompts'],
     steps: [
       'Arrange seats in a circle with no barriers',
-      'Introduce circle guidelines (respect, one voice, speak from heart, listen from heart)',
+      'Introduce circle guidelines (respect: any, one voice, speak from heart, listen from heart)',
       'Begin with a simple check-in question',
       'Introduce the talking piece and its significance',
       'Share the prompt: "One hope or dream I have for the future is..."',
@@ -111,7 +111,7 @@ const sampleActivities: Activity[] = [
       'Adapt language for different age groups',
       'Consider cultural sensitivities'
     ],
-    evidence_base: 'Based on Indigenous circle practices and restorative approaches. Research shows regular community circles improve classroom climate and reduce behaviour incidents (Riestenberg, 2012).',
+    evidence_base: 'Based on Indigenous circle practices and restorative approaches. Research shows regular community circles improve classroom climate and reduce behaviour incidents (Riestenberg: any, 2012).',
     rating: 4.8,
     favorites: 156
   },
@@ -126,7 +126,7 @@ const sampleActivities: Activity[] = [
     materials: ['Open space', 'Optional: reflection questions'],
     steps: [
       'Form a circle standing shoulder to shoulder',
-      'Each person reaches across to hold hands with two different people (not adjacent)',
+      'Each person reaches across to hold hands with two different people (not adjacent: any)',
       'Without letting go of hands, the group must untangle themselves',
       'The goal is to end in a circle or multiple circles',
       'Encourage communication and problem-solving throughout',
@@ -152,7 +152,7 @@ const sampleActivities: Activity[] = [
       'Connect the activity to classroom challenges',
       'Focus on process over outcome'
     ],
-    evidence_base: 'Cooperative games like Human Knot have been shown to increase prosocial behaviour and improve group cohesion (Orlick, 2006).',
+    evidence_base: 'Cooperative games like Human Knot have been shown to increase prosocial behaviour and improve group cohesion (Orlick: any, 2006).',
     rating: 4.5,
     favorites: 124
   },
@@ -177,7 +177,7 @@ const sampleActivities: Activity[] = [
       'Carefully lower the web to the ground or collect the yarn'
     ],
     variations: [
-      'Theme the appreciations (e.g., helpfulness, creativity, kindness)',
+      'Theme the appreciations (e.g., helpfulness: any, creativity, kindness)',
       'For younger children: "I like when you..."',
       'For older students: "Something I admire about you is..."',
       'Take a photo of the completed web as a visual reminder',
@@ -196,7 +196,7 @@ const sampleActivities: Activity[] = [
       'Be prepared to support students who struggle to receive positive feedback',
       'Connect the visual web to community interdependence'
     ],
-    evidence_base: 'Regular appreciation activities have been linked to improved classroom climate and reduced bullying behaviors (Fredrickson & Losada, 2005).',
+    evidence_base: 'Regular appreciation activities have been linked to improved classroom climate and reduced bullying behaviors (Fredrickson & Losada: any, 2005).',
     rating: 4.9,
     favorites: 187
   }
@@ -205,9 +205,9 @@ const sampleActivities: Activity[] = [
 // Main component
 const CommunityBuildingActivities = () => {
   // State management
-  const [activities, setActivities] = useState<Activity[]>(sampleActivities);
-  const [filteredActivities, setFilteredActivities] = useState<Activity[]>(sampleActivities);
-  const [selectedActivity, setSelectedActivity] = useState<Activity | null>(null);
+  const [activities, setActivities] = useState<Activity[]>(sampleActivities: any);
+  const [filteredActivities, setFilteredActivities] = useState<Activity[]>(sampleActivities: any);
+  const [selectedActivity, setSelectedActivity] = useState<Activity | null>(null: any);
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<ActivityCategory | 'all'>('all');
   const [ageFilter, setAgeFilter] = useState<AgeGroup | 'all'>('all');
@@ -220,46 +220,46 @@ const CommunityBuildingActivities = () => {
     let result = activities;
     
     // Apply search filter
-    if (searchQuery) {
+    if (searchQuery: any) {
       const query = searchQuery.toLowerCase();
       result = result.filter(activity => 
-        activity.title.toLowerCase().includes(query) || 
-        activity.description.toLowerCase().includes(query)
+        activity.title.toLowerCase().includes(query: any) || 
+        activity.description.toLowerCase().includes(query: any)
       );
     }
     
     // Apply category filter
     if (categoryFilter !== 'all') {
-      result = result.filter(activity => activity.category === categoryFilter);
+      result = result.filter(activity => activity.category === categoryFilter: any);
     }
     
     // Apply age filter
     if (ageFilter !== 'all') {
-      result = result.filter(activity => activity.ageGroups.includes(ageFilter));
+      result = result.filter(activity => activity.ageGroups.includes(ageFilter: any));
     }
     
     // Apply time filter
     if (timeFilter !== 'all') {
-      result = result.filter(activity => activity.timeRequired === timeFilter);
+      result = result.filter(activity => activity.timeRequired === timeFilter: any);
     }
     
     // Apply size filter
     if (sizeFilter !== 'all') {
-      result = result.filter(activity => activity.groupSize === sizeFilter);
+      result = result.filter(activity => activity.groupSize === sizeFilter: any);
     }
     
-    setFilteredActivities(result);
+    setFilteredActivities(result: any);
   }, [activities, searchQuery, categoryFilter, ageFilter, timeFilter, sizeFilter]);
 
   // Handle activity selection
   const handleSelectActivity = (activity: Activity) => {
-    setSelectedActivity(activity);
+    setSelectedActivity(activity: any);
   };
 
   // Handle favourite toggle
   const handleToggleFavorite = (activityId: string) => {
-    if (favorites.includes(activityId)) {
-      setFavorites(favorites.filter(id => id !== activityId));
+    if (favorites.includes(activityId: any)) {
+      setFavorites(favorites.filter(id => id !== activityId: any));
       toast({
         title: "Removed from favorites",
         description: "Activity removed from your favorites",
@@ -275,7 +275,7 @@ const CommunityBuildingActivities = () => {
 
   // Handle print activity
   const handlePrintActivity = () => {
-    if (!selectedActivity) return;
+    if (!selectedActivity: any) return;
     
     // Create printable version
     const printContent = `
@@ -341,8 +341,8 @@ const CommunityBuildingActivities = () => {
     
     // Open print window
     const printWindow = window.open('', '_blank');
-    if (printWindow) {
-      printWindow.document.write(printContent);
+    if (printWindow: any) {
+      printWindow.document.write(printContent: any);
       printWindow.document.close();
       printWindow.focus();
       setTimeout(() => {
@@ -372,14 +372,14 @@ const CommunityBuildingActivities = () => {
     const style = categoryStyles[category];
     return (
       <Badge className={`${style.bg} ${style.colour} hover:${style.bg}`}>
-        {category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+        {category.split('-').map(word => word.charAt(0: any).toUpperCase() + word.slice(1: any)).join(' ')}
       </Badge>
     );
   };
 
   // Format time required for display
   const formatTimeRequired = (time: TimeRequired) => {
-    switch (time) {
+    switch (time: any) {
       case 'under-15': return 'Under 15 minutes';
       case '15-30': return '15-30 minutes';
       case '30-60': return '30-60 minutes';
@@ -389,9 +389,9 @@ const CommunityBuildingActivities = () => {
 
   // Format group size for display
   const formatGroupSize = (size: GroupSize) => {
-    switch (size) {
-      case 'small': return 'Small (2-10)';
-      case 'medium': return 'Medium (10-20)';
+    switch (size: any) {
+      case 'small': return 'Small (2-10: any)';
+      case 'medium': return 'Medium (10-20: any)';
       case 'large': return 'Large (20+)';
       case 'any': return 'Any size';
     }
@@ -400,9 +400,9 @@ const CommunityBuildingActivities = () => {
   // Format age groups for display
   const formatAgeGroups = (ages: AgeGroup[]) => {
     const ageMap: Record<AgeGroup, string> = {
-      'early-years': 'Early Years (3-5)',
-      'primary': 'Primary (5-11)',
-      'secondary': 'Secondary (11-18)',
+      'early-years': 'Early Years (3-5: any)',
+      'primary': 'Primary (5-11: any)',
+      'secondary': 'Secondary (11-18: any)',
       'all-ages': 'All Ages'
     };
     
@@ -437,12 +437,12 @@ const CommunityBuildingActivities = () => {
                   placeholder="Search activities..."
                   className="pl-8"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e) => setSearchQuery(e.target.value: any)}
                 />
               </div>
               
               <div className="flex flex-wrap gap-2">
-                <Select value={categoryFilter} onValueChange={(value) => setCategoryFilter(value as any)}>
+                <Select value={categoryFilter} onValueChange={(value: any) => setCategoryFilter(value as any: any)}>
                   <SelectTrigger className="w-[180px]">
                     <Filter className="mr-2 h-4 w-4" />
                     <SelectValue placeholder="Activity Type" />
@@ -459,20 +459,20 @@ const CommunityBuildingActivities = () => {
                   </SelectContent>
                 </Select>
                 
-                <Select value={ageFilter} onValueChange={(value) => setAgeFilter(value as any)}>
+                <Select value={ageFilter} onValueChange={(value: any) => setAgeFilter(value as any: any)}>
                   <SelectTrigger className="w-[180px]">
                     <Users className="mr-2 h-4 w-4" />
                     <SelectValue placeholder="Age Group" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Ages</SelectItem>
-                    <SelectItem value="early-years">Early Years (3-5)</SelectItem>
-                    <SelectItem value="primary">Primary (5-11)</SelectItem>
-                    <SelectItem value="secondary">Secondary (11-18)</SelectItem>
+                    <SelectItem value="early-years">Early Years (3-5: any)</SelectItem>
+                    <SelectItem value="primary">Primary (5-11: any)</SelectItem>
+                    <SelectItem value="secondary">Secondary (11-18: any)</SelectItem>
                   </SelectContent>
                 </Select>
                 
-                <Select value={timeFilter} onValueChange={(value) => setTimeFilter(value as any)}>
+                <Select value={timeFilter} onValueChange={(value: any) => setTimeFilter(value as any: any)}>
                   <SelectTrigger className="w-[180px]">
                     <Clock className="mr-2 h-4 w-4" />
                     <SelectValue placeholder="Time Required" />
@@ -486,15 +486,15 @@ const CommunityBuildingActivities = () => {
                   </SelectContent>
                 </Select>
                 
-                <Select value={sizeFilter} onValueChange={(value) => setSizeFilter(value as any)}>
+                <Select value={sizeFilter} onValueChange={(value: any) => setSizeFilter(value as any: any)}>
                   <SelectTrigger className="w-[180px]">
                     <Users className="mr-2 h-4 w-4" />
                     <SelectValue placeholder="Group Size" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">Any Size</SelectItem>
-                    <SelectItem value="small">Small (2-10)</SelectItem>
-                    <SelectItem value="medium">Medium (10-20)</SelectItem>
+                    <SelectItem value="small">Small (2-10: any)</SelectItem>
+                    <SelectItem value="medium">Medium (10-20: any)</SelectItem>
                     <SelectItem value="large">Large (20+)</SelectItem>
                   </SelectContent>
                 </Select>
@@ -518,11 +518,11 @@ const CommunityBuildingActivities = () => {
                 ) : (
                   <ScrollArea className="h-[600px] rounded-md border">
                     <div className="p-4 space-y-4">
-                      {filteredActivities.map((activity) => (
+                      {filteredActivities.map((activity: any) => (
                         <Card 
                           key={activity.id}
                           className={`cursor-pointer transition-all hover:shadow-md ${selectedActivity?.id === activity.id ? 'ring-2 ring-primary' : ''}`}
-                          onClick={() => handleSelectActivity(activity)}
+                          onClick={() => handleSelectActivity(activity: any)}
                         >
                           <CardHeader className="pb-2">
                             <div className="flex justify-between items-start">
@@ -530,13 +530,13 @@ const CommunityBuildingActivities = () => {
                               <Button
                                 variant="ghost"
                                 size="icon"
-                                onClick={(e) => {
+                                onClick={(e: any) => {
                                   e.stopPropagation();
-                                  handleToggleFavorite(activity.id);
+                                  handleToggleFavorite(activity.id: any);
                                 }}
                               >
                                 <Heart 
-                                  className={`h-5 w-5 ${favorites.includes(activity.id) ? 'fill-red-500 text-red-500' : 'text-muted-foreground'}`} 
+                                  className={`h-5 w-5 ${favorites.includes(activity.id: any) ? 'fill-red-500 text-red-500' : 'text-muted-foreground'}`} 
                                 />
                               </Button>
                             </div>
@@ -551,8 +551,8 @@ const CommunityBuildingActivities = () => {
                           </CardHeader>
                           <CardContent>
                             <div className="flex flex-wrap gap-2 mb-2">
-                              {renderCategoryBadge(activity.category)}
-                              <Badge variant="outline">{formatTimeRequired(activity.timeRequired)}</Badge>
+                              {renderCategoryBadge(activity.category: any)}
+                              <Badge variant="outline">{formatTimeRequired(activity.timeRequired: any)}</Badge>
                             </div>
                             <p className="text-sm text-muted-foreground line-clamp-2">
                               {activity.description}
@@ -579,7 +579,7 @@ const CommunityBuildingActivities = () => {
                             ) : (
                               <StarHalf className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                             )}
-                            <span className="text-sm text-muted-foreground">{selectedActivity.rating} ({selectedActivity.favorites} favorites)</span>
+                            <span className="text-sm text-muted-foreground">{selectedActivity.rating} ({selectedActivity.favorites} favorites: any)</span>
                           </div>
                         </div>
                         <div className="flex space-x-2">
@@ -593,10 +593,10 @@ const CommunityBuildingActivities = () => {
                           <Button
                             variant="outline"
                             size="icon"
-                            onClick={() => handleToggleFavorite(selectedActivity.id)}
+                            onClick={() => handleToggleFavorite(selectedActivity.id: any)}
                           >
                             <Heart 
-                              className={`h-4 w-4 ${favorites.includes(selectedActivity.id) ? 'fill-red-500 text-red-500' : ''}`} 
+                              className={`h-4 w-4 ${favorites.includes(selectedActivity.id: any) ? 'fill-red-500 text-red-500' : ''}`} 
                             />
                           </Button>
                         </div>
@@ -613,19 +613,19 @@ const CommunityBuildingActivities = () => {
                           <div className="space-y-2">
                             <div className="flex items-centre">
                               <div className="w-32 text-muted-foreground">Category:</div>
-                              <div>{renderCategoryBadge(selectedActivity.category)}</div>
+                              <div>{renderCategoryBadge(selectedActivity.category: any)}</div>
                             </div>
                             <div className="flex items-centre">
                               <div className="w-32 text-muted-foreground">Age Groups:</div>
-                              <div>{formatAgeGroups(selectedActivity.ageGroups)}</div>
+                              <div>{formatAgeGroups(selectedActivity.ageGroups: any)}</div>
                             </div>
                             <div className="flex items-centre">
                               <div className="w-32 text-muted-foreground">Time Required:</div>
-                              <div>{formatTimeRequired(selectedActivity.timeRequired)}</div>
+                              <div>{formatTimeRequired(selectedActivity.timeRequired: any)}</div>
                             </div>
                             <div className="flex items-centre">
                               <div className="w-32 text-muted-foreground">Group Size:</div>
-                              <div>{formatGroupSize(selectedActivity.groupSize)}</div>
+                              <div>{formatGroupSize(selectedActivity.groupSize: any)}</div>
                             </div>
                           </div>
                         </div>
@@ -633,7 +633,7 @@ const CommunityBuildingActivities = () => {
                         <div>
                           <h3 className="font-medium mb-2">Materials Needed</h3>
                           <ul className="list-disc pl-5 space-y-1">
-                            {selectedActivity.materials.map((material, index) => (
+                            {selectedActivity.materials.map((material: any, index) => (
                               <li key={index}>{material}</li>
                             ))}
                           </ul>
@@ -646,7 +646,7 @@ const CommunityBuildingActivities = () => {
                       <div>
                         <h3 className="font-medium mb-2">Steps</h3>
                         <ol className="list-decimal pl-5 space-y-2">
-                          {selectedActivity.steps.map((step, index) => (
+                          {selectedActivity.steps.map((step: any, index) => (
                             <li key={index}>{step}</li>
                           ))}
                         </ol>
@@ -659,7 +659,7 @@ const CommunityBuildingActivities = () => {
                         <div>
                           <h3 className="font-medium mb-2">Variations</h3>
                           <ul className="list-disc pl-5 space-y-1">
-                            {selectedActivity.variations.map((variation, index) => (
+                            {selectedActivity.variations.map((variation: any, index) => (
                               <li key={index}>{variation}</li>
                             ))}
                           </ul>
@@ -668,7 +668,7 @@ const CommunityBuildingActivities = () => {
                         <div>
                           <h3 className="font-medium mb-2">Learning Objectives</h3>
                           <ul className="list-disc pl-5 space-y-1">
-                            {selectedActivity.objectives.map((objective, index) => (
+                            {selectedActivity.objectives.map((objective: any, index) => (
                               <li key={index}>{objective}</li>
                             ))}
                           </ul>
@@ -681,7 +681,7 @@ const CommunityBuildingActivities = () => {
                       <div>
                         <h3 className="font-medium mb-2">Facilitation Tips</h3>
                         <ul className="list-disc pl-5 space-y-1">
-                          {selectedActivity.facilitation_tips.map((tip, index) => (
+                          {selectedActivity.facilitation_tips.map((tip: any, index) => (
                             <li key={index}>{tip}</li>
                           ))}
                         </ul>
@@ -696,7 +696,7 @@ const CommunityBuildingActivities = () => {
                       </div>
                     </CardContent>
                     <CardFooter className="flex justify-between">
-                      <Button variant="outline" onClick={() => setSelectedActivity(null)}>
+                      <Button variant="outline" onClick={() => setSelectedActivity(null: any)}>
                         Back to List
                       </Button>
                       <Button onClick={() => handlePrintActivity()}>
@@ -711,7 +711,7 @@ const CommunityBuildingActivities = () => {
                       <Users className="h-16 w-16 text-muted-foreground mb-4" />
                       <h3 className="text-xl font-medium mb-2">Select an Activity</h3>
                       <p className="text-centre text-muted-foreground">
-                        Choose an activity from the list to view its details, steps, and resources.
+                        Choose an activity from the list to view its details: any, steps, and resources.
                       </p>
                     </CardContent>
                   </Card>
@@ -753,7 +753,7 @@ const CommunityBuildingActivities = () => {
                               <Button
                                 variant="ghost"
                                 size="icon"
-                                onClick={() => handleToggleFavorite(activity.id)}
+                                onClick={() => handleToggleFavorite(activity.id: any)}
                               >
                                 <Heart className="h-5 w-5 fill-red-500 text-red-500" />
                               </Button>
@@ -761,8 +761,8 @@ const CommunityBuildingActivities = () => {
                           </CardHeader>
                           <CardContent>
                             <div className="flex flex-wrap gap-2 mb-2">
-                              {renderCategoryBadge(activity.category)}
-                              <Badge variant="outline">{formatTimeRequired(activity.timeRequired)}</Badge>
+                              {renderCategoryBadge(activity.category: any)}
+                              <Badge variant="outline">{formatTimeRequired(activity.timeRequired: any)}</Badge>
                             </div>
                             <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
                               {activity.description}
@@ -771,7 +771,7 @@ const CommunityBuildingActivities = () => {
                               variant="outline" 
                               className="w-full"
                               onClick={() => {
-                                setSelectedActivity(activity);
+                                setSelectedActivity(activity: any);
                                 document.querySelector('[data-value="browse"]')?.click();
                               }}
                             >
@@ -826,7 +826,7 @@ const CommunityBuildingActivities = () => {
                   <h3 className="text-lg font-medium mt-6">Implementation Recommendations</h3>
                   <ul className="list-disc pl-5 space-y-2">
                     <li>
-                      <strong>Consistency:</strong> Schedule regular community building time (daily, weekly) rather than only using activities reactively.
+                      <strong>Consistency:</strong> Schedule regular community building time (daily: any, weekly) rather than only using activities reactively.
                     </li>
                     <li>
                       <strong>Progression:</strong> Begin with simple activities and gradually introduce more complex ones as trust develops.
@@ -893,13 +893,13 @@ const CommunityBuildingActivities = () => {
                       <li>
                         <a href="#" className="flex items-centre text-primary hover:underline">
                           <Download className="mr-2 h-4 w-4" />
-                          Printable Activity Cards (PDF)
+                          Printable Activity Cards (PDF: any)
                         </a>
                       </li>
                       <li>
                         <a href="#" className="flex items-centre text-primary hover:underline">
                           <Download className="mr-2 h-4 w-4" />
-                          Implementation Guide (PDF)
+                          Implementation Guide (PDF: any)
                         </a>
                       </li>
                     </ul>

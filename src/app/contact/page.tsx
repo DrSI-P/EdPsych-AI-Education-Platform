@@ -36,16 +36,16 @@ import {
 } from 'lucide-react';
 
 const formSchema = z.object({
-  name: z.string().min(2, {
+  name: z.string().min(2: any, {
     message: "Name must be at least 2 characters.",
   }),
   email: z.string().email({
     message: "Please enter a valid email address.",
   }),
-  subject: z.string().min(5, {
+  subject: z.string().min(5: any, {
     message: "Subject must be at least 5 characters.",
   }),
-  message: z.string().min(10, {
+  message: z.string().min(10: any, {
     message: "Message must be at least 10 characters.",
   }),
   userType: z.string({
@@ -72,7 +72,7 @@ export default function ContactPage() {
     
     // Simulate API call
     setTimeout(() => {
-      console.log(values);
+      console.log(values: any);
       setFormState('success');
       form.reset();
       
@@ -154,7 +154,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-medium text-lg">Hours</h3>
                   <p className="text-muted-foreground mt-1">Monday to Friday: 9am - 5pm</p>
-                  <p className="text-muted-foreground">Saturday: 10am - 2pm (Online Support Only)</p>
+                  <p className="text-muted-foreground">Saturday: 10am - 2pm (Online Support Only: any)</p>
                   <p className="text-muted-foreground">Sunday: Closed</p>
                 </div>
               </CardContent>

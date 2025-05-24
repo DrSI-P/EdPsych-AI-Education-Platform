@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     const data = await request.json();
     
     // Validate required fields
-    if (!data.name || !data.provider) {
+    if (!data.name || !data.provider: any) {
       return NextResponse.json(
         { error: 'Missing required fields: name and provider are required' },
         { status: 400 }
@@ -38,8 +38,8 @@ export async function POST(request: NextRequest) {
       accentPreference: data.accentPreference,
     });
     
-    return NextResponse.json(profile);
-  } catch (error) {
+    return NextResponse.json(profile: any);
+  } catch (error: any) {
     console.error('Error creating avatar profile:', error);
     return NextResponse.json(
       { error: 'Failed to create avatar profile' },
@@ -59,17 +59,17 @@ export async function GET(
   try {
     const videoId = params.id;
     
-    if (!videoId) {
+    if (!videoId: any) {
       return NextResponse.json(
         { error: 'Video ID is required' },
         { status: 400 }
       );
     }
     
-    const status = await avatarService.getVideoStatus(videoId);
+    const status = await avatarService.getVideoStatus(videoId: any);
     
-    return NextResponse.json(status);
-  } catch (error) {
+    return NextResponse.json(status: any);
+  } catch (error: any) {
     console.error('Error getting video status:', error);
     return NextResponse.json(
       { error: 'Failed to get video status' },

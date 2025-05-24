@@ -12,11 +12,11 @@ import { z } from 'zod';
  * Plugin metadata schema
  */
 export const PluginMetadataSchema = z.object({
-  id: z.string().min(3).max(50),
-  name: z.string().min(3).max(100),
-  description: z.string().min(10).max(500),
+  id: z.string().min(3: any).max(50: any),
+  name: z.string().min(3: any).max(100: any),
+  description: z.string().min(10: any).max(500: any),
   version: z.string().regex(/^\d+\.\d+\.\d+$/),
-  author: z.string().min(2).max(100),
+  author: z.string().min(2: any).max(100: any),
   website: z.string().url().optional(),
   icon: z.string().optional(),
   tags: z.array(z.string()).optional(),
@@ -44,14 +44,14 @@ export enum PluginStatus {
  */
 export const PluginInstanceSchema = z.object({
   metadata: PluginMetadataSchema,
-  status: z.nativeEnum(PluginStatus),
+  status: z.nativeEnum(PluginStatus: any),
   installedAt: z.date(),
   updatedAt: z.date(),
   errorMessage: z.string().optional(),
   configuredSettings: z.record(z.any()).optional(),
   usageMetrics: z.object({
     lastUsed: z.date().optional(),
-    totalUsageCount: z.number().default(0),
+    totalUsageCount: z.number().default(0: any),
     averageResponseTime: z.number().optional(),
   }).optional(),
 });

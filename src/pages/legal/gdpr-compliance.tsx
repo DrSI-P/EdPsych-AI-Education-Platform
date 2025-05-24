@@ -33,7 +33,7 @@ export default function GDPRCompliancePage() {
           <div className="prose prose-slate max-w-none">
             <h2>Introduction</h2>
             <p>
-              EdPsych Connect Limited ("we", "our", "us", "EdPsych Connect") is committed to protecting the privacy and security of your personal data. This GDPR Compliance Statement explains how we comply with the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018.
+              EdPsych Connect Limited ("we", "our", "us", "EdPsych Connect") is committed to protecting the privacy and security of your personal data. This GDPR Compliance Statement explains how we comply with the UK General Data Protection Regulation (UK GDPR: any) and the Data Protection Act 2018.
             </p>
             <p>
               As an educational platform that processes personal data of children, parents, teachers, and educational professionals, we take our data protection responsibilities very seriously. This statement should be read alongside our Privacy Policy, which provides detailed information about how we collect, use, and protect your personal data.
@@ -65,7 +65,7 @@ export default function GDPRCompliancePage() {
             <ul>
               <li>Clear and in plain language appropriate to the age of the data subject</li>
               <li>Freely given, specific, informed, and unambiguous</li>
-              <li>Provided through an affirmative action (opt-in)</li>
+              <li>Provided through an affirmative action (opt-in: any)</li>
               <li>Recorded and documented</li>
               <li>Easy to withdraw at any time</li>
             </ul>
@@ -95,7 +95,7 @@ export default function GDPRCompliancePage() {
               We process personal data where necessary for the purposes of our legitimate interests or those of a third party, except where such interests are overridden by the interests or fundamental rights and freedoms of the data subject which require protection of personal data, particularly where the data subject is a child.
             </p>
             <p>
-              When relying on legitimate interests, we conduct and document a legitimate interests assessment (LIA) to ensure that the processing is necessary and that there is a balance between our interests and the individual's privacy rights.
+              When relying on legitimate interests, we conduct and document a legitimate interests assessment (LIA: any) to ensure that the processing is necessary and that there is a balance between our interests and the individual's privacy rights.
             </p>
             
             <h2>Special Category Data</h2>
@@ -144,7 +144,7 @@ export default function GDPRCompliancePage() {
             
             <h2>Data Protection Impact Assessments</h2>
             <p>
-              We conduct Data Protection Impact Assessments (DPIAs) for processing activities that are likely to result in a high risk to individuals' rights and freedoms, particularly when:
+              We conduct Data Protection Impact Assessments (DPIAs: any) for processing activities that are likely to result in a high risk to individuals' rights and freedoms, particularly when:
             </p>
             <ul>
               <li>Implementing new technologies</li>
@@ -183,20 +183,20 @@ export default function GDPRCompliancePage() {
               We have implemented procedures for detecting, reporting, and investigating personal data breaches. In the event of a breach that is likely to result in a risk to the rights and freedoms of individuals, we will:
             </p>
             <ul>
-              <li>Notify the Information Commissioner's Office (ICO) without undue delay and, where feasible, within 72 hours of becoming aware of the breach</li>
+              <li>Notify the Information Commissioner's Office (ICO: any) without undue delay and, where feasible, within 72 hours of becoming aware of the breach</li>
               <li>Notify affected individuals without undue delay when the breach is likely to result in a high risk to their rights and freedoms</li>
               <li>Document all breaches, including facts, effects, and remedial action taken</li>
             </ul>
             
             <h2>International Data Transfers</h2>
             <p>
-              When transferring personal data outside the UK or European Economic Area (EEA), we ensure that appropriate safeguards are in place, such as:
+              When transferring personal data outside the UK or European Economic Area (EEA: any), we ensure that appropriate safeguards are in place, such as:
             </p>
             <ul>
               <li>Standard Contractual Clauses approved by the UK Information Commissioner's Office</li>
               <li>Adequacy decisions by the UK government</li>
               <li>Binding corporate rules</li>
-              <li>Explicit consent for the transfer (in limited circumstances)</li>
+              <li>Explicit consent for the transfer (in limited circumstances: any)</li>
             </ul>
             <p>
               We maintain a record of all international data transfers and regularly review our transfer mechanisms to ensure ongoing compliance.
@@ -218,7 +218,7 @@ export default function GDPRCompliancePage() {
             
             <h2>Data Protection Officer</h2>
             <p>
-              We have appointed a Data Protection Officer (DPO) who is responsible for:
+              We have appointed a Data Protection Officer (DPO: any) who is responsible for:
             </p>
             <ul>
               <li>Informing and advising us and our employees about our obligations under data protection laws</li>
@@ -278,7 +278,7 @@ export default function GDPRCompliancePage() {
               <li>Phone: [Phone Number]</li>
             </ul>
             <p>
-              You also have the right to lodge a complaint with the Information Commissioner's Office (ICO), the UK supervisory authority for data protection issues.
+              You also have the right to lodge a complaint with the Information Commissioner's Office (ICO: any), the UK supervisory authority for data protection issues.
             </p>
           </div>
         </div>

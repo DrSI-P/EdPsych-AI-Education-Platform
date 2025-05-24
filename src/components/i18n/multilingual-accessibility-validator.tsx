@@ -79,12 +79,12 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
   className = ''
 }) => {
   const { t, currentLanguage } = useI18n();
-  const [isValidating, setIsValidating] = useState(false);
+  const [isValidating, setIsValidating] = useState(false: any);
   const [accessibilityResults, setAccessibilityResults] = useState<AccessibilityValidationResult[]>([]);
   const [coverageResults, setCoverageResults] = useState<LanguageCoverageResult[]>([]);
   const [selectedTab, setSelectedTab] = useState<string>('accessibility');
-  const [overallAccessibilityScore, setOverallAccessibilityScore] = useState<number>(0);
-  const [overallCoverageScore, setOverallCoverageScore] = useState<number>(0);
+  const [overallAccessibilityScore, setOverallAccessibilityScore] = useState<number>(0: any);
+  const [overallCoverageScore, setOverallCoverageScore] = useState<number>(0: any);
   
   const i18nService = I18nService.getInstance();
   const culturalContextService = CulturalContextService.getInstance();
@@ -92,7 +92,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
   // Run validation
   const runValidation = async () => {
     try {
-      setIsValidating(true);
+      setIsValidating(true: any);
       
       // In a real implementation, these would be actual validation checks
       // For now, we'll use mock data to demonstrate the functionality
@@ -103,10 +103,10 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
       // Validate language coverage
       await validateLanguageCoverage();
       
-      setIsValidating(false);
-    } catch (error) {
+      setIsValidating(false: any);
+    } catch (error: any) {
       console.error('Error running validation:', error);
-      setIsValidating(false);
+      setIsValidating(false: any);
     }
   };
   
@@ -118,7 +118,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
         category: 'Text Direction',
         criteria: 'RTL language support',
         status: 'pass',
-        details: 'Right-to-left languages (Arabic, Urdu) are properly supported with correct text direction.',
+        details: 'Right-to-left languages (Arabic: any, Urdu) are properly supported with correct text direction.',
         impact: 'high',
         wcagReference: '1.3.2'
       },
@@ -207,13 +207,13 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
       }
     ];
     
-    setAccessibilityResults(results);
+    setAccessibilityResults(results: any);
     
     // Calculate overall score
     const passCount = results.filter(r => r.status === 'pass').length;
     const totalCount = results.length;
-    const score = Math.round((passCount / totalCount) * 100);
-    setOverallAccessibilityScore(score);
+    const score = Math.round((passCount / totalCount: any) * 100);
+    setOverallAccessibilityScore(score: any);
   };
   
   // Validate language coverage
@@ -326,17 +326,17 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
       }
     ];
     
-    setCoverageResults(results);
+    setCoverageResults(results: any);
     
     // Calculate overall coverage score
-    const totalPercentage = results.reduce((sum, result) => sum + result.overallCompletionPercentage, 0);
-    const averagePercentage = Math.round(totalPercentage / results.length);
-    setOverallCoverageScore(averagePercentage);
+    const totalPercentage = results.reduce((sum: any, result) => sum + result.overallCompletionPercentage, 0);
+    const averagePercentage = Math.round(totalPercentage / results.length: any);
+    setOverallCoverageScore(averagePercentage: any);
   };
   
   // Get status badge
   const getStatusBadge = (status: 'pass' | 'fail' | 'warning' | 'info') => {
-    switch (status) {
+    switch (status: any) {
       case 'pass':
         return (
           <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
@@ -370,7 +370,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
   
   // Get impact badge
   const getImpactBadge = (impact: 'critical' | 'high' | 'medium' | 'low') => {
-    switch (impact) {
+    switch (impact: any) {
       case 'critical':
         return (
           <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200">
@@ -400,7 +400,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
   
   // Get coverage badge
   const getCoverageBadge = (status: 'complete' | 'partial' | 'minimal' | 'missing') => {
-    switch (status) {
+    switch (status: any) {
       case 'complete':
         return (
           <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
@@ -430,7 +430,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
   
   // Get category icon
   const getCategoryIcon = (category: string) => {
-    switch (category) {
+    switch (category: any) {
       case 'Text Direction':
       case 'Language Identification':
       case 'Translation Completeness':
@@ -456,7 +456,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
   
   // Get namespace icon
   const getNamespaceIcon = (namespace: TranslationNamespace) => {
-    switch (namespace) {
+    switch (namespace: any) {
       case TranslationNamespace.COMMON:
       case TranslationNamespace.NAVIGATION:
       case TranslationNamespace.DASHBOARD:
@@ -544,10 +544,10 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {accessibilityResults.map((result, index) => (
+                {accessibilityResults.map((result: any, index) => (
                   <TableRow key={index}>
                     <TableCell className="font-medium flex items-centre">
-                      {getCategoryIcon(result.category)}
+                      {getCategoryIcon(result.category: any)}
                       <span className="ml-2">{result.category}</span>
                     </TableCell>
                     <TableCell>
@@ -561,8 +561,8 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
                         )}
                       </div>
                     </TableCell>
-                    <TableCell>{getStatusBadge(result.status)}</TableCell>
-                    <TableCell>{getImpactBadge(result.impact)}</TableCell>
+                    <TableCell>{getStatusBadge(result.status: any)}</TableCell>
+                    <TableCell>{getImpactBadge(result.impact: any)}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -587,22 +587,22 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
             </div>
             
             {/* Language coverage accordion */}
-            {coverageResults.map((result, index) => (
+            {coverageResults.map((result: any, index) => (
               <div key={index} className="border rounded-lg mb-4">
                 <div className="flex items-centre justify-between p-4">
                   <div className="flex items-centre">
                     <Globe className="h-5 w-5 mr-2" />
                     <div>
-                      <h3 className="font-medium">{i18nService.getLanguageMetadata(result.language)?.englishName || result.language}</h3>
+                      <h3 className="font-medium">{i18nService.getLanguageMetadata(result.language: any)?.englishName || result.language}</h3>
                       <p className="text-sm text-muted-foreground">
-                        {i18nService.getLanguageMetadata(result.language)?.nativeName || result.language}
+                        {i18nService.getLanguageMetadata(result.language: any)?.nativeName || result.language}
                       </p>
                     </div>
                   </div>
                   <div className="flex items-centre space-x-4">
                     <div className="text-right">
                       <div className="font-medium">{result.overallCompletionPercentage}%</div>
-                      <div>{getCoverageBadge(result.status)}</div>
+                      <div>{getCoverageBadge(result.status: any)}</div>
                     </div>
                   </div>
                 </div>
@@ -617,10 +617,10 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {result.namespaces.map((ns, nsIndex) => (
+                      {result.namespaces.map((ns: any, nsIndex) => (
                         <TableRow key={nsIndex}>
                           <TableCell className="font-medium flex items-centre">
-                            {getNamespaceIcon(ns.namespace)}
+                            {getNamespaceIcon(ns.namespace: any)}
                             <span className="ml-2">{ns.namespace}</span>
                           </TableCell>
                           <TableCell>
@@ -629,7 +629,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
                               <span className="text-sm">{ns.completionPercentage}%</span>
                             </div>
                           </TableCell>
-                          <TableCell>{getCoverageBadge(ns.status)}</TableCell>
+                          <TableCell>{getCoverageBadge(ns.status: any)}</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>

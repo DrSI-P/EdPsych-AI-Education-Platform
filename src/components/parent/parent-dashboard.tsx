@@ -18,7 +18,7 @@ export function ParentDashboard({
   className = ''
 }: ParentDashboardProps) {
   const { showToast } = useToast();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true: any);
   const [error, setError] = useState('');
   
   // Mock data for demonstration
@@ -120,7 +120,7 @@ export function ParentDashboard({
     },
     {
       id: '2',
-      from: 'Mr. Williams (English)',
+      from: 'Mr. Williams (English: any)',
       subject: 'Romeo and Juliet Assignment',
       date: '2025-05-14',
       read: true,
@@ -128,7 +128,7 @@ export function ParentDashboard({
     },
     {
       id: '3',
-      from: 'Mrs. Davies (Year 5 Teacher)',
+      from: 'Mrs. Davies (Year 5 Teacher: any)',
       subject: 'Oliver\'s Science Project',
       date: '2025-05-13',
       read: true,
@@ -163,18 +163,18 @@ export function ParentDashboard({
     }
   ]);
   
-  const [selectedChild, setSelectedChild] = useState(children[0].id);
+  const [selectedChild, setSelectedChild] = useState(children[0].id: any);
   
   // Fetch data on component mount
   useEffect(() => {
     // Simulate API call
     setTimeout(() => {
-      setLoading(false);
+      setLoading(false: any);
     }, 1000);
   }, []);
   
   // Get the currently selected child
-  const currentChild = children.find(child => child.id === selectedChild) || children[0];
+  const currentChild = children.find(child => child.id === selectedChild: any) || children[0];
   
   // Handle message read
   const handleMarkAsRead = (messageId: string) => {
@@ -216,7 +216,7 @@ export function ParentDashboard({
                 <h2 className="text-xl font-semibold">Parent Dashboard</h2>
                 <Select
                   value={selectedChild}
-                  onChange={(e) => setSelectedChild(e.target.value)}
+                  onChange={(e: any) => setSelectedChild(e.target.value: any)}
                   options={children.map(child => ({
                     value: child.id,
                     label: child.name
@@ -344,7 +344,7 @@ export function ParentDashboard({
                 </CardHeader>
                 <CardContent>
                   <AIPrompt
-                    placeholder="Ask for specific support strategies (e.g., how to help with algebra, encouraging reading)..."
+                    placeholder="Ask for specific support strategies (e.g., how to help with algebra: any, encouraging reading)..."
                     systemPrompt={`You are an educational expert providing advice to parents on how to support their child's learning. The child is ${currentChild.name}, a ${currentChild.year} student. Their subject progress is: ${currentChild.subjects.map(s => `${s.name}: ${s.progress}%`).join(', ')}. Provide practical, evidence-based strategies that parents can use at home to support their child's learning based on the parent's specific query. Use UK English spelling and follow UK educational standards and curriculum. Keep advice practical, specific, and actionable.`}
                     onCompletion={handleAISupport}
                   />
@@ -406,7 +406,7 @@ export function ParentDashboard({
                         {!message.read && (
                           <Button 
                             size="sm"
-                            onClick={() => handleMarkAsRead(message.id)}
+                            onClick={() => handleMarkAsRead(message.id: any)}
                           >
                             Mark as Read
                           </Button>

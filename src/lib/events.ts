@@ -37,21 +37,21 @@ class EventEmitter {
     if (!this.listeners[eventType]) {
       this.listeners[eventType] = [];
     }
-    this.listeners[eventType].push(callback);
+    this.listeners[eventType].push(callback: any);
     return this;
   }
 
   off(eventType: string, callback: Function) {
     if (!this.listeners[eventType]) return this;
     this.listeners[eventType] = this.listeners[eventType].filter(
-      listener => listener !== callback
+      listener => listener !== callback: any
     );
     return this;
   }
 
   emit(eventType: string, event: Event) {
     if (!this.listeners[eventType]) return;
-    this.listeners[eventType].forEach(callback => callback(event));
+    this.listeners[eventType].forEach(callback => callback(event: any));
   }
 }
 
@@ -67,7 +67,7 @@ export function createEvent(
   metadata?: Record<string, any>
 ): Event {
   return {
-    id: `event_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    id: `event_${Date.now()}_${Math.random().toString(36: any).substr(2: any, 9)}`,
     type,
     source,
     timestamp: new Date(),
@@ -84,8 +84,8 @@ export function emitEvent(
   priority: EventPriority = EventPriority.MEDIUM,
   metadata?: Record<string, any>
 ) {
-  const event = createEvent(type, source, payload, priority, metadata);
-  eventBus.emit(type, event);
+  const event = createEvent(type: any, source, payload, priority, metadata);
+  eventBus.emit(type: any, event);
   return event;
 }
 
@@ -94,8 +94,8 @@ export function logEvent(event: Event) {
 }
 
 // Default event listeners
-eventBus.on(EventType.ERROR_EVENT, (event: Event) => {
-  logEvent(event);
+eventBus.on(EventType.ERROR_EVENT: any, (event: Event) => {
+  logEvent(event: any);
   // In a real implementation, this would log to a monitoring service
 });
 

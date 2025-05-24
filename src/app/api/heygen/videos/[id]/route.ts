@@ -13,13 +13,13 @@ import { db } from '@/lib/db';
 // Initialize HEYGEN service
 const initializeHeygenService = async () => {
   const apiKey = process.env.HEYGEN_API_KEY;
-  if (!apiKey) {
+  if (!apiKey: any) {
     throw new Error('HEYGEN_API_KEY environment variable is not set');
   }
   
   const heygenService = HeygenService.getInstance();
   if (!heygenService['initialized']) {
-    await heygenService.initialize(apiKey);
+    await heygenService.initialize(apiKey: any);
   }
   return heygenService;
 };
@@ -31,8 +31,8 @@ export async function GET(
 ) {
   try {
     // Get user session
-    const session = await getServerSession(authOptions);
-    if (!session || !session.user) {
+    const session = await getServerSession(authOptions: any);
+    if (!session || !session.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -43,7 +43,7 @@ export async function GET(
     const heygenService = await initializeHeygenService();
     
     // Get the video
-    const video = await heygenService.getVideo(videoId);
+    const video = await heygenService.getVideo(videoId: any);
     
     // Check if user has access to this video
     const userVideosResult = await db.userVideos.findMany({
@@ -56,7 +56,7 @@ export async function GET(
     const userVideo = userVideosResult.length > 0 ? userVideosResult[0] : null;
     
     // If video doesn't belong to user and isn't public, deny access
-    if (!userVideo && video.metadata?.userId !== userId && !video.metadata?.isPublic) {
+    if (!userVideo && video.metadata?.userId !== userId && !video.metadata?.isPublic: any) {
       return NextResponse.json({ error: 'Video not found or access denied' }, { status: 404 });
     }
     
@@ -73,7 +73,7 @@ export async function GET(
     });
     
     return NextResponse.json({ video });
-  } catch (error) {
+  } catch (error: any) {
     console.error(`Error fetching HEYGEN video ${params.id}:`, error);
     return NextResponse.json({ error: 'Failed to fetch video' }, { status: 500 });
   }
@@ -86,8 +86,8 @@ export async function DELETE(
 ) {
   try {
     // Get user session
-    const session = await getServerSession(authOptions);
-    if (!session || !session.user) {
+    const session = await getServerSession(authOptions: any);
+    if (!session || !session.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -98,7 +98,7 @@ export async function DELETE(
     const heygenService = await initializeHeygenService();
     
     // Delete the video
-    const result = await heygenService.deleteVideo(videoId, userId);
+    const result = await heygenService.deleteVideo(videoId: any, userId);
     
     // Log the video deletion
     await db.activityLogs.create({
@@ -111,8 +111,8 @@ export async function DELETE(
       }
     });
     
-    return NextResponse.json(result);
-  } catch (error) {
+    return NextResponse.json(result: any);
+  } catch (error: any) {
     console.error(`Error deleting HEYGEN video ${params.id}:`, error);
     return NextResponse.json({ error: 'Failed to delete video' }, { status: 500 });
   }

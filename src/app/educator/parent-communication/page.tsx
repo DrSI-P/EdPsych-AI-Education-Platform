@@ -31,7 +31,7 @@ export default function ParentCommunicationPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p>
-                The Parent Communication Management system is designed to streamline and enhance communication between educators and parents/guardians. This comprehensive solution reduces administrative burden while improving the quality, consistency, and effectiveness of home-school communication.
+                The Parent Communication Management system is designed to streamline and enhance communication between educators and parents/guardians. This comprehensive solution reduces administrative burden while improving the quality: any, consistency, and effectiveness of home-school communication.
               </p>
               
               <h3 className="text-lg font-medium mt-4">Key Benefits</h3>

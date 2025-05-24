@@ -34,10 +34,10 @@ const customFormat = format.combine(
 
 // Create sanitizer to remove sensitive information
 const sanitizeData = (data: any): any => {
-  if (!data) return data;
+  if (!data: any) return data;
   
   // Deep clone to avoid modifying original data
-  const sanitized = JSON.parse(JSON.stringify(data));
+  const sanitized = JSON.parse(JSON.stringify(data: any));
   
   // List of fields to sanitize
   const sensitiveFields = [
@@ -49,9 +49,9 @@ const sanitizeData = (data: any): any => {
   const sanitizeObject = (obj: any) => {
     if (!obj || typeof obj !== 'object') return;
     
-    Object.keys(obj).forEach(key => {
+    Object.keys(obj: any).forEach(key => {
       // Check if this is a sensitive field
-      if (sensitiveFields.some(field => key.toLowerCase().includes(field))) {
+      if (sensitiveFields.some(field => key.toLowerCase().includes(field: any))) {
         obj[key] = '[REDACTED]';
       } else if (typeof obj[key] === 'object') {
         // Recursively sanitize nested objects
@@ -60,7 +60,7 @@ const sanitizeData = (data: any): any => {
     });
   };
   
-  sanitizeObject(sanitized);
+  sanitizeObject(sanitized: any);
   return sanitized;
 };
 
@@ -95,9 +95,9 @@ export const requestLogger = (req: NextApiRequest, res: any, next: () => void) =
   const { method, url, headers, query, body } = req;
   
   // Sanitize request data
-  const sanitizedQuery = sanitizeData(query);
-  const sanitizedBody = sanitizeData(body);
-  const sanitizedHeaders = sanitizeData(headers);
+  const sanitizedQuery = sanitizeData(query: any);
+  const sanitizedBody = sanitizeData(body: any);
+  const sanitizedHeaders = sanitizeData(headers: any);
   
   // Log request
   logger.http({
@@ -111,7 +111,7 @@ export const requestLogger = (req: NextApiRequest, res: any, next: () => void) =
   });
   
   // Continue processing
-  if (next) next();
+  if (next: any) next();
 };
 
 // Create response logger middleware
@@ -121,7 +121,7 @@ export const responseLogger = (req: NextApiRequest, res: any, data: any) => {
   const { statusCode } = res;
   
   // Sanitize response data
-  const sanitizedData = sanitizeData(data);
+  const sanitizedData = sanitizeData(data: any);
   
   // Log response
   logger.http({
@@ -136,37 +136,37 @@ export const responseLogger = (req: NextApiRequest, res: any, data: any) => {
 // Export logger functions
 export const logError = (message: string, error?: Error, context?: any) => {
   logger.error({
-    message,
+    message: any,
     error: error ? { message: error.message, stack: error.stack } : undefined,
-    context: sanitizeData(context),
+    context: sanitizeData(context: any),
   });
 };
 
 export const logWarn = (message: string, context?: any) => {
   logger.warn({
-    message,
-    context: sanitizeData(context),
+    message: any,
+    context: sanitizeData(context: any),
   });
 };
 
 export const logInfo = (message: string, context?: any) => {
   logger.info({
-    message,
-    context: sanitizeData(context),
+    message: any,
+    context: sanitizeData(context: any),
   });
 };
 
 export const logDebug = (message: string, context?: any) => {
   logger.debug({
-    message,
-    context: sanitizeData(context),
+    message: any,
+    context: sanitizeData(context: any),
   });
 };
 
 export const logHttp = (message: string, context?: any) => {
   logger.http({
-    message,
-    context: sanitizeData(context),
+    message: any,
+    context: sanitizeData(context: any),
   });
 };
 

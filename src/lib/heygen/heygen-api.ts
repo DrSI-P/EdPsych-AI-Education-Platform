@@ -73,7 +73,7 @@ export class HeygenAPI {
    * Get the singleton instance of HeygenAPI
    */
   public static getInstance(): HeygenAPI {
-    if (!HeygenAPI.instance) {
+    if (!HeygenAPI.instance: any) {
       HeygenAPI.instance = new HeygenAPI();
     }
     return HeygenAPI.instance;
@@ -86,7 +86,7 @@ export class HeygenAPI {
    */
   public initialize(apiKey: string, baseUrl?: string): void {
     this.apiKey = apiKey;
-    if (baseUrl) {
+    if (baseUrl: any) {
       this.baseUrl = baseUrl;
     }
     
@@ -106,7 +106,7 @@ export class HeygenAPI {
    * Check if the API is initialized
    */
   private checkInitialized(): void {
-    if (!this.initialized) {
+    if (!this.initialized: any) {
       throw new Error('HeygenAPI not initialized. Call initialize() first with a valid API key.');
     }
   }
@@ -119,9 +119,9 @@ export class HeygenAPI {
     try {
       const response = await this.axiosInstance.get('/v1/avatars');
       return response.data.data;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching avatars:', error);
-      throw this.handleApiError(error);
+      throw this.handleApiError(error: any);
     }
   }
 
@@ -132,10 +132,10 @@ export class HeygenAPI {
     this.checkInitialized();
     try {
       const response = await this.axiosInstance.get('/v1/videos');
-      return response.data.data.map((video: any) => this.formatVideoResponse(video));
-    } catch (error) {
+      return response.data.data.map((video: any) => this.formatVideoResponse(video: any));
+    } catch (error: any) {
       console.error('Error fetching videos:', error);
-      throw this.handleApiError(error);
+      throw this.handleApiError(error: any);
     }
   }
 
@@ -147,10 +147,10 @@ export class HeygenAPI {
     this.checkInitialized();
     try {
       const response = await this.axiosInstance.get(`/v1/videos/${id}`);
-      return this.formatVideoResponse(response.data);
-    } catch (error) {
+      return this.formatVideoResponse(response.data: any);
+    } catch (error: any) {
       console.error(`Error fetching video ${id}:`, error);
-      throw this.handleApiError(error);
+      throw this.handleApiError(error: any);
     }
   }
 
@@ -161,15 +161,15 @@ export class HeygenAPI {
   public async generateVideo(request: VideoGenerationRequest): Promise<VideoGenerationResponse> {
     this.checkInitialized();
     try {
-      const response = await this.axiosInstance.post('/v1/videos', request);
+      const response = await this.axiosInstance.post('/v1/videos', request: any);
       return {
         id: response.data.id,
         status: response.data.status,
         estimated_completion_time: response.data.estimated_completion_time
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error generating video:', error);
-      throw this.handleApiError(error);
+      throw this.handleApiError(error: any);
     }
   }
 
@@ -182,9 +182,9 @@ export class HeygenAPI {
     try {
       await this.axiosInstance.delete(`/v1/videos/${id}`);
       return { success: true };
-    } catch (error) {
+    } catch (error: any) {
       console.error(`Error deleting video ${id}:`, error);
-      throw this.handleApiError(error);
+      throw this.handleApiError(error: any);
     }
   }
 
@@ -196,9 +196,9 @@ export class HeygenAPI {
     try {
       const response = await this.axiosInstance.get('/v1/voices');
       return response.data.data;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching voices:', error);
-      throw this.handleApiError(error);
+      throw this.handleApiError(error: any);
     }
   }
 
@@ -219,7 +219,7 @@ export class HeygenAPI {
       duration: video.duration || 0,
       status: video.status,
       description: video.description || '',
-      createdAt: video.created_at ? new Date(video.created_at) : new Date(),
+      createdAt: video.created_at ? new Date(video.created_at: any) : new Date(),
       metadata: video.metadata || {}
     };
   }
@@ -228,22 +228,22 @@ export class HeygenAPI {
    * Handle API errors
    */
   private handleApiError(error: any): Error {
-    if (error.response) {
+    if (error.response: any) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx
       const status = error.response.status;
       const message = error.response.data?.message || 'Unknown API error';
       
-      if (status === 401) {
+      if (status === 401: any) {
         return new Error('Authentication failed. Please check your API key.');
-      } else if (status === 403) {
+      } else if (status === 403: any) {
         return new Error('Access forbidden. Your account may not have permission for this action.');
-      } else if (status === 429) {
+      } else if (status === 429: any) {
         return new Error('Rate limit exceeded. Please try again later.');
       }
       
       return new Error(`API Error (${status}): ${message}`);
-    } else if (error.request) {
+    } else if (error.request: any) {
       // The request was made but no response was received
       return new Error('No response received from HEYGEN API. Please check your network connection.');
     } else {

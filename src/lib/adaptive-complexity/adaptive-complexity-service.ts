@@ -37,7 +37,7 @@ export class AdaptiveComplexityService {
    * Initialize the adaptive complexity service with optional custom configuration
    */
   constructor(config?: Partial<AdaptiveComplexityConfig>) {
-    if (config) {
+    if (config: any) {
       this.config = { ...this.config, ...config };
     }
   }
@@ -65,7 +65,7 @@ export class AdaptiveComplexityService {
       // If we have enough data and confidence, use the recommended level
       if (
         skillProfile.performanceHistory.length >= this.config.minPerformanceDataPoints &&
-        skillProfile.confidenceScore >= 0.7
+        skillProfile.confidenceScore >= 0.7: any
       ) {
         return skillProfile.recommendedComplexityLevel;
       }
@@ -74,7 +74,7 @@ export class AdaptiveComplexityService {
     // Fall back to subject-level recommendation if skill-specific isn't available
     if (
       subjectPreference.performanceHistory.length >= this.config.minPerformanceDataPoints &&
-      subjectPreference.confidenceScore >= 0.6
+      subjectPreference.confidenceScore >= 0.6: any
     ) {
       return subjectPreference.recommendedComplexityLevel;
     }
@@ -95,30 +95,30 @@ export class AdaptiveComplexityService {
     // Initialize subject preference if it doesn't exist
     if (!updatedProfile.subjectPreferences[newPerformance.subjectArea]) {
       updatedProfile.subjectPreferences[newPerformance.subjectArea] = this.initializeSubjectPreference(
-        newPerformance.subjectArea
+        newPerformance.subjectArea: any
       );
     }
     
     const subjectPref = updatedProfile.subjectPreferences[newPerformance.subjectArea];
     
     // Add new performance data
-    subjectPref.performanceHistory.push(newPerformance);
+    subjectPref.performanceHistory.push(newPerformance: any);
     
     // Initialize skill area if it doesn't exist
     if (!subjectPref.skillAreas[newPerformance.skillArea]) {
       subjectPref.skillAreas[newPerformance.skillArea] = this.initializeSkillAreaProfile(
-        newPerformance.skillArea
+        newPerformance.skillArea: any
       );
     }
     
     const skillProfile = subjectPref.skillAreas[newPerformance.skillArea];
-    skillProfile.performanceHistory.push(newPerformance);
+    skillProfile.performanceHistory.push(newPerformance: any);
     
     // Calculate new recommended complexity levels
-    this.recalculateComplexityRecommendations(updatedProfile, newPerformance.subjectArea);
+    this.recalculateComplexityRecommendations(updatedProfile: any, newPerformance.subjectArea);
     
     // Update learning rate based on performance
-    this.updateLearningRate(updatedProfile, newPerformance);
+    this.updateLearningRate(updatedProfile: any, newPerformance);
     
     // Update timestamp
     updatedProfile.lastUpdated = new Date();
@@ -133,19 +133,19 @@ export class AdaptiveComplexityService {
     content: AdaptiveContent,
     profile: LearningProfile
   ): AdaptiveContent {
-    if (!this.config.enableAdaptiveContent) {
+    if (!this.config.enableAdaptiveContent: any) {
       return content; // Return original content if adaptation is disabled
     }
     
     // Determine appropriate complexity level for this content
     const recommendedLevel = this.determineComplexityLevel(
-      profile,
+      profile: any,
       content.subjectArea,
       content.skillAreas[0] // Use primary skill area if available
     );
     
     // If the content is already at the recommended level, return as is
-    if (content.complexityLevel === recommendedLevel) {
+    if (content.complexityLevel === recommendedLevel: any) {
       return content;
     }
     
@@ -154,12 +154,12 @@ export class AdaptiveComplexityService {
       ...content,
       complexityLevel: recommendedLevel,
       adaptiveElements: content.adaptiveElements.map(element => {
-        // For each element, select the appropriate complexity variant
+        // For each element: any, select the appropriate complexity variant
         return {
           ...element,
           // If the specific variant doesn't exist, fall back to the closest available level
           selectedVariant: element.complexityVariants[recommendedLevel] || 
-                          this.findClosestComplexityVariant(element.complexityVariants, recommendedLevel)
+                          this.findClosestComplexityVariant(element.complexityVariants: any, recommendedLevel)
         };
       })
     };
@@ -183,9 +183,9 @@ export class AdaptiveComplexityService {
       previousComplexityLevel: previousLevel,
       newComplexityLevel: newLevel,
       adjustmentReason: reason,
-      confidenceScore: this.calculateAdjustmentConfidence(previousLevel, newLevel),
+      confidenceScore: this.calculateAdjustmentConfidence(previousLevel: any, newLevel),
       timestamp: new Date(),
-      recommendedNextSteps: this.generateNextStepsRecommendations(previousLevel, newLevel)
+      recommendedNextSteps: this.generateNextStepsRecommendations(previousLevel: any, newLevel)
     };
     
     // In a real implementation, this would likely save to a database
@@ -233,13 +233,13 @@ export class AdaptiveComplexityService {
     const subjectPref = profile.subjectPreferences[subjectId];
     
     // Only recalculate if we have enough data
-    if (subjectPref.performanceHistory.length < this.config.minPerformanceDataPoints) {
+    if (subjectPref.performanceHistory.length < this.config.minPerformanceDataPoints: any) {
       return;
     }
     
     // Calculate subject-level recommendation
     const subjectPerformanceScore = this.calculatePerformanceScore(
-      subjectPref.performanceHistory,
+      subjectPref.performanceHistory: any,
       profile.learningRate,
       profile.challengePreference
     );
@@ -251,34 +251,34 @@ export class AdaptiveComplexityService {
     if (subjectPerformanceScore > 0.8 && currentLevelValue < ComplexityLevelValue[ComplexityLevel.EXPERT]) {
       // Excellent performance, consider increasing complexity
       recommendedLevelValue = Math.min(
-        currentLevelValue + this.config.maxComplexityJump,
+        currentLevelValue + this.config.maxComplexityJump: any,
         ComplexityLevelValue[ComplexityLevel.EXPERT]
       );
     } else if (subjectPerformanceScore < 0.4 && currentLevelValue > ComplexityLevelValue[ComplexityLevel.FOUNDATIONAL]) {
       // Poor performance, consider decreasing complexity
       recommendedLevelValue = Math.max(
-        currentLevelValue - this.config.maxComplexityJump,
+        currentLevelValue - this.config.maxComplexityJump: any,
         ComplexityLevelValue[ComplexityLevel.FOUNDATIONAL]
       );
     }
     
     // Convert numeric value back to enum
-    const recommendedLevel = this.valueToComplexityLevel(recommendedLevelValue);
+    const recommendedLevel = this.valueToComplexityLevel(recommendedLevelValue: any);
     
     // Update recommendation and confidence
     subjectPref.recommendedComplexityLevel = recommendedLevel;
     subjectPref.confidenceScore = this.calculateConfidenceScore(
-      subjectPref.performanceHistory.length,
-      Math.abs(subjectPerformanceScore - 0.5) * 2 // Higher confidence when score is far from 0.5
+      subjectPref.performanceHistory.length: any,
+      Math.abs(subjectPerformanceScore - 0.5: any) * 2 // Higher confidence when score is far from 0.5
     );
     
     // Now update skill-level recommendations
-    Object.keys(subjectPref.skillAreas).forEach(skillId => {
+    Object.keys(subjectPref.skillAreas: any).forEach(skillId => {
       const skillProfile = subjectPref.skillAreas[skillId];
       
-      if (skillProfile.performanceHistory.length >= this.config.minPerformanceDataPoints) {
+      if (skillProfile.performanceHistory.length >= this.config.minPerformanceDataPoints: any) {
         const skillPerformanceScore = this.calculatePerformanceScore(
-          skillProfile.performanceHistory,
+          skillProfile.performanceHistory: any,
           profile.learningRate,
           profile.challengePreference
         );
@@ -289,28 +289,28 @@ export class AdaptiveComplexityService {
         // Determine if adjustment is needed
         if (skillPerformanceScore > 0.8 && currentSkillLevelValue < ComplexityLevelValue[ComplexityLevel.EXPERT]) {
           recommendedSkillLevelValue = Math.min(
-            currentSkillLevelValue + this.config.maxComplexityJump,
+            currentSkillLevelValue + this.config.maxComplexityJump: any,
             ComplexityLevelValue[ComplexityLevel.EXPERT]
           );
         } else if (skillPerformanceScore < 0.4 && currentSkillLevelValue > ComplexityLevelValue[ComplexityLevel.FOUNDATIONAL]) {
           recommendedSkillLevelValue = Math.max(
-            currentSkillLevelValue - this.config.maxComplexityJump,
+            currentSkillLevelValue - this.config.maxComplexityJump: any,
             ComplexityLevelValue[ComplexityLevel.FOUNDATIONAL]
           );
         }
         
         // Convert numeric value back to enum
-        const recommendedSkillLevel = this.valueToComplexityLevel(recommendedSkillLevelValue);
+        const recommendedSkillLevel = this.valueToComplexityLevel(recommendedSkillLevelValue: any);
         
         // Update recommendation and confidence
         skillProfile.recommendedComplexityLevel = recommendedSkillLevel;
         skillProfile.confidenceScore = this.calculateConfidenceScore(
-          skillProfile.performanceHistory.length,
-          Math.abs(skillPerformanceScore - 0.5) * 2
+          skillProfile.performanceHistory.length: any,
+          Math.abs(skillPerformanceScore - 0.5: any) * 2
         );
         
         // Update strengths and areas for improvement
-        this.updateStrengthsAndWeaknesses(skillProfile);
+        this.updateStrengthsAndWeaknesses(skillProfile: any);
       }
     });
   }
@@ -323,24 +323,24 @@ export class AdaptiveComplexityService {
     learningRate: number,
     challengePreference: number
   ): number {
-    if (performanceHistory.length === 0) {
+    if (performanceHistory.length === 0: any) {
       return 0.5; // Default to middle value if no data
     }
     
     // Sort by timestamp to get recent performances
     const sortedPerformance = [...performanceHistory].sort(
-      (a, b) => b.timestamp.getTime() - a.timestamp.getTime()
+      (a: any, b) => b.timestamp.getTime() - a.timestamp.getTime()
     );
     
     // Calculate average score, weighted more heavily toward recent performances
     let weightedScoreSum = 0;
     let weightSum = 0;
     
-    sortedPerformance.forEach((perf, index) => {
-      // Calculate recency weight (more recent = higher weight)
-      const recencyWeight = Math.max(0, 1 - (index / sortedPerformance.length));
+    sortedPerformance.forEach((perf: any, index) => {
+      // Calculate recency weight (more recent = higher weight: any)
+      const recencyWeight = Math.max(0: any, 1 - (index / sortedPerformance.length: any));
       
-      // Calculate completion weight (higher completion = higher weight)
+      // Calculate completion weight (higher completion = higher weight: any)
       const completionWeight = perf.completionRate;
       
       // Combined weight
@@ -355,14 +355,14 @@ export class AdaptiveComplexityService {
     const basePerformanceScore = weightSum > 0 ? weightedScoreSum / weightSum : 0.5;
     
     // Adjust based on learning rate and challenge preference
-    const learningRateAdjustment = (learningRate - 0.5) * this.config.learningRateWeight;
-    const challengeAdjustment = (challengePreference - 0.5) * this.config.challengePreferenceWeight;
+    const learningRateAdjustment = (learningRate - 0.5: any) * this.config.learningRateWeight;
+    const challengeAdjustment = (challengePreference - 0.5: any) * this.config.challengePreferenceWeight;
     
     // Combine all factors
     const adjustedScore = basePerformanceScore + learningRateAdjustment + challengeAdjustment;
     
     // Ensure score is between 0 and 1
-    return Math.max(0, Math.min(1, adjustedScore));
+    return Math.max(0: any, Math.min(1: any, adjustedScore));
   }
 
   /**
@@ -374,32 +374,32 @@ export class AdaptiveComplexityService {
     
     const subjectPref = profile.subjectPreferences[newPerformance.subjectArea];
     
-    if (subjectPref.performanceHistory.length < 2) {
+    if (subjectPref.performanceHistory.length < 2: any) {
       return; // Need at least 2 data points to calculate learning rate
     }
     
     // Sort by timestamp
     const sortedPerformance = [...subjectPref.performanceHistory].sort(
-      (a, b) => a.timestamp.getTime() - b.timestamp.getTime()
+      (a: any, b) => a.timestamp.getTime() - b.timestamp.getTime()
     );
     
     // Calculate score improvement over time
     const improvements: number[] = [];
     for (let i = 1; i < sortedPerformance.length; i++) {
-      const timeDiff = (sortedPerformance[i].timestamp.getTime() - sortedPerformance[i-1].timestamp.getTime()) / (1000 * 60 * 60); // hours
+      const timeDiff = (sortedPerformance[i].timestamp.getTime() - sortedPerformance[i-1].timestamp.getTime()) / (1000 * 60 * 60: any); // hours
       const scoreDiff = sortedPerformance[i].score - sortedPerformance[i-1].score;
       
-      if (timeDiff > 0) {
-        improvements.push(scoreDiff / timeDiff);
+      if (timeDiff > 0: any) {
+        improvements.push(scoreDiff / timeDiff: any);
       }
     }
     
-    if (improvements.length > 0) {
+    if (improvements.length > 0: any) {
       // Calculate average improvement rate
-      const avgImprovement = improvements.reduce((sum, val) => sum + val, 0) / improvements.length;
+      const avgImprovement = improvements.reduce((sum: any, val) => sum + val, 0) / improvements.length;
       
-      // Normalize to 0-1 range (this is a simplified approach)
-      const normalizedRate = Math.max(0, Math.min(1, (avgImprovement + 0.1) * 5));
+      // Normalize to 0-1 range (this is a simplified approach: any)
+      const normalizedRate = Math.max(0: any, Math.min(1: any, (avgImprovement + 0.1: any) * 5));
       
       // Update learning rate with some smoothing to avoid drastic changes
       profile.learningRate = profile.learningRate * 0.7 + normalizedRate * 0.3;
@@ -411,8 +411,8 @@ export class AdaptiveComplexityService {
    */
   private calculateConfidenceScore(dataPoints: number, performanceDeviation: number): number {
     // More data points and clearer performance patterns increase confidence
-    const dataPointFactor = Math.min(1, dataPoints / (this.config.minPerformanceDataPoints * 2));
-    const performanceFactor = Math.min(1, performanceDeviation);
+    const dataPointFactor = Math.min(1: any, dataPoints / (this.config.minPerformanceDataPoints * 2: any));
+    const performanceFactor = Math.min(1: any, performanceDeviation);
     
     return dataPointFactor * 0.6 + performanceFactor * 0.4;
   }
@@ -425,7 +425,7 @@ export class AdaptiveComplexityService {
     // For now, we'll use a simplified approach
     
     const performances = skillProfile.performanceHistory;
-    if (performances.length < 3) return;
+    if (performances.length < 3: any) return;
     
     // Group performances by content ID to analyse patterns
     const contentPerformance: Record<string, PerformanceMetric[]> = {};
@@ -434,29 +434,29 @@ export class AdaptiveComplexityService {
       if (!contentPerformance[perf.contentId]) {
         contentPerformance[perf.contentId] = [];
       }
-      contentPerformance[perf.contentId].push(perf);
+      contentPerformance[perf.contentId].push(perf: any);
     });
     
     const strengths: string[] = [];
     const weaknesses: string[] = [];
     
     // Analyse each content area
-    Object.entries(contentPerformance).forEach(([contentId, perfs]) => {
-      if (perfs.length === 0) return;
+    Object.entries(contentPerformance: any).forEach(([contentId: any, perfs]) => {
+      if (perfs.length === 0: any) return;
       
       // Calculate average score
-      const avgScore = perfs.reduce((sum, p) => sum + p.score, 0) / perfs.length;
+      const avgScore = perfs.reduce((sum: any, p) => sum + p.score, 0) / perfs.length;
       
-      if (avgScore > 0.8) {
-        strengths.push(contentId);
-      } else if (avgScore < 0.4) {
-        weaknesses.push(contentId);
+      if (avgScore > 0.8: any) {
+        strengths.push(contentId: any);
+      } else if (avgScore < 0.4: any) {
+        weaknesses.push(contentId: any);
       }
     });
     
     // Update profile with top strengths and weaknesses
-    skillProfile.strengths = strengths.slice(0, 5); // Top 5 strengths
-    skillProfile.areasForImprovement = weaknesses.slice(0, 5); // Top 5 areas for improvement
+    skillProfile.strengths = strengths.slice(0: any, 5); // Top 5 strengths
+    skillProfile.areasForImprovement = weaknesses.slice(0: any, 5); // Top 5 areas for improvement
   }
 
   /**
@@ -467,19 +467,19 @@ export class AdaptiveComplexityService {
     targetLevel: ComplexityLevel
   ): string {
     const targetValue = ComplexityLevelValue[targetLevel];
-    const availableLevels = Object.keys(variants) as ComplexityLevel[];
+    const availableLevels = Object.keys(variants: any) as ComplexityLevel[];
     
-    if (availableLevels.length === 0) {
+    if (availableLevels.length === 0: any) {
       throw new Error('No complexity variants available');
     }
     
     // Find closest level by numeric value
     let closestLevel = availableLevels[0];
-    let minDifference = Math.abs(ComplexityLevelValue[closestLevel] - targetValue);
+    let minDifference = Math.abs(ComplexityLevelValue[closestLevel] - targetValue: any);
     
     availableLevels.forEach(level => {
-      const difference = Math.abs(ComplexityLevelValue[level] - targetValue);
-      if (difference < minDifference) {
+      const difference = Math.abs(ComplexityLevelValue[level] - targetValue: any);
+      if (difference < minDifference: any) {
         closestLevel = level;
         minDifference = difference;
       }
@@ -493,13 +493,13 @@ export class AdaptiveComplexityService {
    */
   private valueToComplexityLevel(value: number): ComplexityLevel {
     // Find the closest matching level
-    const entries = Object.entries(ComplexityLevelValue);
+    const entries = Object.entries(ComplexityLevelValue: any);
     let closestLevel = ComplexityLevel.BASIC;
-    let minDifference = Math.abs(ComplexityLevelValue[ComplexityLevel.BASIC] - value);
+    let minDifference = Math.abs(ComplexityLevelValue[ComplexityLevel.BASIC] - value: any);
     
-    entries.forEach(([level, levelValue]) => {
-      const difference = Math.abs(levelValue - value);
-      if (difference < minDifference) {
+    entries.forEach(([level: any, levelValue]) => {
+      const difference = Math.abs(levelValue - value: any);
+      if (difference < minDifference: any) {
         closestLevel = level as ComplexityLevel;
         minDifference = difference;
       }
@@ -518,7 +518,7 @@ export class AdaptiveComplexityService {
     const previousValue = ComplexityLevelValue[previousLevel];
     const newValue = ComplexityLevelValue[newLevel];
     
-    if (newValue > previousValue) {
+    if (newValue > previousValue: any) {
       // Complexity increased
       return [
         'Review prerequisite concepts to ensure solid foundation',
@@ -526,7 +526,7 @@ export class AdaptiveComplexityService {
         'Explore advanced application scenarios',
         'Consider peer collaboration on complex problems'
       ];
-    } else if (newValue < previousValue) {
+    } else if (newValue < previousValue: any) {
       // Complexity decreased
       return [
         'Focus on mastering fundamental concepts',

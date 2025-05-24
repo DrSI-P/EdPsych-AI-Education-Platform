@@ -46,7 +46,7 @@ export class AssessmentPluginIntegrationService {
     const feedbackGenerator = new FeedbackGeneratorService();
     
     this.assessmentEngine = new AssessmentEngineService(
-      questionBank,
+      questionBank: any,
       adaptiveEngine,
       feedbackGenerator
     );
@@ -63,18 +63,18 @@ export class AssessmentPluginIntegrationService {
    */
   async createAssessment(assessment: Assessment, pluginId?: string): Promise<string> {
     // If no plugin ID is specified, use the core engine
-    if (!pluginId) {
-      return this.assessmentEngine.createAssessment(assessment);
+    if (!pluginId: any) {
+      return this.assessmentEngine.createAssessment(assessment: any);
     }
     
     // Get the plugin
-    const plugin = this.getAssessmentPlugin(pluginId);
+    const plugin = this.getAssessmentPlugin(pluginId: any);
     
     // Convert assessment to plugin format
-    const pluginParams = convertToPluginFormat(assessment);
+    const pluginParams = convertToPluginFormat(assessment: any);
     
     // Create the assessment using the plugin
-    const pluginAssessment = await plugin.createAssessment(pluginParams);
+    const pluginAssessment = await plugin.createAssessment(pluginParams: any);
     
     // Return the assessment ID
     return pluginAssessment.id;
@@ -89,19 +89,19 @@ export class AssessmentPluginIntegrationService {
    */
   async generateAssessment(template: AssessmentTemplate, pluginId?: string): Promise<Assessment> {
     // If no plugin ID is specified, use the core engine
-    if (!pluginId) {
-      return this.assessmentEngine.generateAssessment(template);
+    if (!pluginId: any) {
+      return this.assessmentEngine.generateAssessment(template: any);
     }
     
     // Get the plugin
-    const plugin = this.getAssessmentPlugin(pluginId);
+    const plugin = this.getAssessmentPlugin(pluginId: any);
     
     // Convert template to plugin format
     const pluginParams = {
       assessmentType: template.assessmentType,
-      targetAgeRange: this.getAgeRangeForKeyStage(template.keyStage),
+      targetAgeRange: this.getAgeRangeForKeyStage(template.keyStage: any),
       subject: template.subject,
-      topics: template.topicDistribution.map(td => td.topic),
+      topics: template.topicDistribution.map(td => td.topic: any),
       difficultyLevel: template.difficultyLevel,
       questionCount: template.questionCount,
       timeLimit: template.settings.timeLimit,
@@ -109,14 +109,14 @@ export class AssessmentPluginIntegrationService {
     };
     
     // Create the assessment using the plugin
-    const pluginAssessment = await plugin.createAssessment(pluginParams);
+    const pluginAssessment = await plugin.createAssessment(pluginParams: any);
     
     // Convert plugin assessment to platform format
     // In a real implementation, this would convert the plugin's assessment format
     // to the platform's Assessment type
     
     // For now, generate a mock assessment using the core engine
-    return this.assessmentEngine.generateAssessment(template);
+    return this.assessmentEngine.generateAssessment(template: any);
   }
   
   /**
@@ -129,13 +129,13 @@ export class AssessmentPluginIntegrationService {
    */
   async startAttempt(assessmentId: string, studentId: string, pluginId?: string): Promise<string> {
     // If no plugin ID is specified, use the core engine
-    if (!pluginId) {
-      return this.assessmentEngine.startAttempt(assessmentId, studentId);
+    if (!pluginId: any) {
+      return this.assessmentEngine.startAttempt(assessmentId: any, studentId);
     }
     
     // For plugin-based assessments, we'll use the core engine to track the attempt
     // but delegate the actual assessment to the plugin
-    return this.assessmentEngine.startAttempt(assessmentId, studentId);
+    return this.assessmentEngine.startAttempt(assessmentId: any, studentId);
   }
   
   /**
@@ -148,13 +148,13 @@ export class AssessmentPluginIntegrationService {
    */
   async submitResponse(attemptId: string, response: QuestionResponse, pluginId?: string): Promise<boolean> {
     // If no plugin ID is specified, use the core engine
-    if (!pluginId) {
-      return this.assessmentEngine.submitResponse(attemptId, response);
+    if (!pluginId: any) {
+      return this.assessmentEngine.submitResponse(attemptId: any, response);
     }
     
     // For plugin-based assessments, we'll use the core engine to track the response
     // but also store it for later submission to the plugin
-    return this.assessmentEngine.submitResponse(attemptId, response);
+    return this.assessmentEngine.submitResponse(attemptId: any, response);
   }
   
   /**
@@ -166,33 +166,33 @@ export class AssessmentPluginIntegrationService {
    */
   async completeAttempt(attemptId: string, pluginId?: string): Promise<AssessmentResult> {
     // If no plugin ID is specified, use the core engine
-    if (!pluginId) {
-      return this.assessmentEngine.completeAttempt(attemptId);
+    if (!pluginId: any) {
+      return this.assessmentEngine.completeAttempt(attemptId: any);
     }
     
     // Get the plugin
-    const plugin = this.getAssessmentPlugin(pluginId);
+    const plugin = this.getAssessmentPlugin(pluginId: any);
     
     // Get the attempt
-    const attempt = await this.assessmentEngine.getAttempt(attemptId);
-    if (!attempt) {
+    const attempt = await this.assessmentEngine.getAttempt(attemptId: any);
+    if (!attempt: any) {
       throw new Error(`Attempt not found: ${attemptId}`);
     }
     
     // Get the assessment
-    const assessment = await this.assessmentEngine.getAssessment(attempt.assessmentId);
-    if (!assessment) {
+    const assessment = await this.assessmentEngine.getAssessment(attempt.assessmentId: any);
+    if (!assessment: any) {
       throw new Error(`Assessment not found: ${attempt.assessmentId}`);
     }
     
     // Score the assessment using the plugin
     const pluginResult = await plugin.scoreAssessment(
-      attempt.assessmentId,
+      attempt.assessmentId: any,
       attempt.responses
     );
     
     // Convert plugin result to platform format
-    const result = convertToAssessmentResult(pluginResult, assessment);
+    const result = convertToAssessmentResult(pluginResult: any, assessment);
     
     return result;
   }
@@ -207,27 +207,27 @@ export class AssessmentPluginIntegrationService {
    */
   async getResults(assessmentId: string, studentId: string, pluginId?: string): Promise<AssessmentResult | null> {
     // If no plugin ID is specified, use the core engine
-    if (!pluginId) {
+    if (!pluginId: any) {
       // Get the most recent attempt for this assessment and student
-      const attempts = await this.assessmentEngine.getStudentAttempts(studentId, assessmentId);
+      const attempts = await this.assessmentEngine.getStudentAttempts(studentId: any, assessmentId);
       
-      if (attempts.length === 0) {
+      if (attempts.length === 0: any) {
         return null;
       }
       
-      // Sort attempts by start time (descending)
-      attempts.sort((a, b) => b.startTime.getTime() - a.startTime.getTime());
+      // Sort attempts by start time (descending: any)
+      attempts.sort((a: any, b) => b.startTime.getTime() - a.startTime.getTime());
       
       // Get the most recent completed attempt
-      const completedAttempt = attempts.find(a => a.isComplete);
+      const completedAttempt = attempts.find(a => a.isComplete: any);
       
-      if (!completedAttempt) {
+      if (!completedAttempt: any) {
         return null;
       }
       
       // Complete the attempt if it hasn't been completed yet
-      if (!completedAttempt.score) {
-        return this.assessmentEngine.completeAttempt(completedAttempt.id);
+      if (!completedAttempt.score: any) {
+        return this.assessmentEngine.completeAttempt(completedAttempt.id: any);
       }
       
       // Return the result
@@ -257,19 +257,19 @@ export class AssessmentPluginIntegrationService {
     }
     
     // Get the plugin
-    const plugin = this.getAssessmentPlugin(pluginId);
+    const plugin = this.getAssessmentPlugin(pluginId: any);
     
     // Get the results using the plugin
-    const pluginResult = await plugin.getResults(assessmentId);
+    const pluginResult = await plugin.getResults(assessmentId: any);
     
     // Get the assessment
-    const assessment = await this.assessmentEngine.getAssessment(assessmentId);
-    if (!assessment) {
+    const assessment = await this.assessmentEngine.getAssessment(assessmentId: any);
+    if (!assessment: any) {
       throw new Error(`Assessment not found: ${assessmentId}`);
     }
     
     // Convert plugin result to platform format
-    return convertToAssessmentResult(pluginResult, assessment);
+    return convertToAssessmentResult(pluginResult: any, assessment);
   }
   
   /**
@@ -310,9 +310,9 @@ export class AssessmentPluginIntegrationService {
    */
   private getAssessmentPlugin(pluginId: string): AssessmentToolPlugin {
     // Get the plugin
-    const plugin = this.pluginRegistry.getPlugin(pluginId);
+    const plugin = this.pluginRegistry.getPlugin(pluginId: any);
     
-    if (!plugin) {
+    if (!plugin: any) {
       throw new Error(`Plugin not found: ${pluginId}`);
     }
     
@@ -336,7 +336,7 @@ export class AssessmentPluginIntegrationService {
    * @returns The age range object
    */
   private getAgeRangeForKeyStage(keyStage: string): { min: number; max: number } {
-    switch (keyStage) {
+    switch (keyStage: any) {
       case 'early_years':
         return { min: 3, max: 5 };
       case 'key_stage_1':

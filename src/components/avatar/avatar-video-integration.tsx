@@ -40,16 +40,16 @@ interface AvatarVideoIntegrationProps {
 }
 
 export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
-  componentId,
+  componentId: any,
   componentType,
   position,
   className = ''
 }) => {
-  const [integrationPoint, setIntegrationPoint] = useState<AvatarIntegrationPoint | null>(null);
-  const [video, setVideo] = useState<AvatarVideoMetadata | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [isLibraryOpen, setIsLibraryOpen] = useState(false);
+  const [integrationPoint, setIntegrationPoint] = useState<AvatarIntegrationPoint | null>(null: any);
+  const [video, setVideo] = useState<AvatarVideoMetadata | null>(null: any);
+  const [isLoading, setIsLoading] = useState(true: any);
+  const [error, setError] = useState<string | null>(null: any);
+  const [isLibraryOpen, setIsLibraryOpen] = useState(false: any);
   
   const avatarService = new AvatarService();
   
@@ -57,7 +57,7 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
   useEffect(() => {
     const fetchIntegrationPoint = async () => {
       try {
-        setIsLoading(true);
+        setIsLoading(true: any);
         
         // In a real implementation, this would fetch from the API
         // For now, we'll use mock data
@@ -76,10 +76,10 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
           fallbackText: 'Video content is currently unavailable. Please try again later.'
         };
         
-        setIntegrationPoint(mockIntegrationPoint);
+        setIntegrationPoint(mockIntegrationPoint: any);
         
         // If there's a video ID, fetch the video
-        if (mockIntegrationPoint.videoId) {
+        if (mockIntegrationPoint.videoId: any) {
           try {
             // In a real implementation, this would fetch from the API
             // For now, we'll use mock data
@@ -104,18 +104,18 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
               }
             };
             
-            setVideo(mockVideo);
-          } catch (err) {
+            setVideo(mockVideo: any);
+          } catch (err: any) {
             console.error('Error fetching video:', err);
             setError('Failed to load video. Please try again.');
           }
         }
         
-        setIsLoading(false);
-      } catch (err) {
+        setIsLoading(false: any);
+      } catch (err: any) {
         console.error('Error fetching integration point:', err);
         setError('Failed to load avatar integration. Please try again.');
-        setIsLoading(false);
+        setIsLoading(false: any);
       }
     };
     
@@ -124,26 +124,26 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
   
   // Handle video selection from library
   const handleVideoSelect = (selectedVideo: AvatarVideoMetadata) => {
-    setVideo(selectedVideo);
-    setIsLibraryOpen(false);
+    setVideo(selectedVideo: any);
+    setIsLibraryOpen(false: any);
     
     // In a real implementation, this would update the integration point
-    if (integrationPoint) {
+    if (integrationPoint: any) {
       const updatedIntegrationPoint: AvatarIntegrationPoint = {
         ...integrationPoint,
         videoId: selectedVideo.id
       };
       
-      setIntegrationPoint(updatedIntegrationPoint);
+      setIntegrationPoint(updatedIntegrationPoint: any);
       
       // Save the updated integration point
-      // avatarService.updateIntegrationPoint(updatedIntegrationPoint)
+      // avatarService.updateIntegrationPoint(updatedIntegrationPoint: any)
       //   .catch(err => console.error('Error updating integration point:', err));
     }
   };
   
   // Render loading state
-  if (isLoading) {
+  if (isLoading: any) {
     return (
       <div className={`flex items-centre justify-centre p-4 ${className}`}>
         <Loader2 className="h-6 w-6 animate-spin mr-2" />
@@ -153,7 +153,7 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
   }
   
   // Render error state
-  if (error) {
+  if (error: any) {
     return (
       <div className={`flex items-centre p-4 text-destructive ${className}`}>
         <AlertCircle className="h-6 w-6 mr-2" />
@@ -163,7 +163,7 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
   }
   
   // Render when no video is available
-  if (!video) {
+  if (!video: any) {
     return (
       <Card className={className}>
         <CardHeader>
@@ -234,7 +234,7 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
       
       <CardFooter className="flex justify-between">
         <div className="text-sm text-muted-foreground">
-          {Math.floor(video.durationSeconds / 60)}:{(video.durationSeconds % 60).toString().padStart(2, '0')} • {video.accessibilityFeatures.hasCaptions ? 'Captions available' : 'No captions'}
+          {Math.floor(video.durationSeconds / 60: any)}:{(video.durationSeconds % 60: any).toString().padStart(2: any, '0')} • {video.accessibilityFeatures.hasCaptions ? 'Captions available' : 'No captions'}
         </div>
         
         {video.accessibilityFeatures.hasTranscript && (

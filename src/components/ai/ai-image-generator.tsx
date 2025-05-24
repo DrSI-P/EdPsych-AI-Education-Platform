@@ -20,16 +20,16 @@ interface SelectProps {
 }
 
 // Custom Select component that matches the expected interface
-const Select = ({ label, value, onChange, options, className = '' }: SelectProps) => {
+const Select = ({ label: any, value, onChange, options, className = '' }: SelectProps) => {
   return (
     <div className={className}>
       <label className="block text-sm font-medium mb-1">{label}</label>
       <select 
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e: any) => onChange(e.target.value: any)}
         className="w-full rounded-md border border-input bg-background px-3 py-2"
       >
-        {options.map((option) => (
+        {options.map((option: any) => (
           <option key={option.value} value={option.value}>
             {option.label}
           </option>
@@ -47,7 +47,7 @@ interface AIImageGeneratorProps {
 }
 
 export function AIImageGenerator({
-  onGeneration,
+  onGeneration: any,
   initialPrompt = '',
   placeholder = 'Describe the image you want to generate...',
   className = ''
@@ -57,17 +57,17 @@ export function AIImageGenerator({
   
   const [provider, setProvider] = useState<AIProvider>('openai');
   const [model, setModel] = useState<string>('dall-e-3');
-  const [prompt, setPrompt] = useState(initialPrompt);
+  const [prompt, setPrompt] = useState(initialPrompt: any);
   const [size, setSize] = useState('1024x1024');
   const [quality, setQuality] = useState('standard');
   const [style, setStyle] = useState('natural');
   const [imageUrl, setImageUrl] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false: any);
   const [error, setError] = useState('');
   
   // Handle provider change
   const handleProviderChange = (newProvider: string) => {
-    setProvider(newProvider as AIProvider);
+    setProvider(newProvider as AIProvider: any);
     
     // For now, only OpenAI is fully supported for image generation
     if (newProvider === 'openai') {
@@ -77,7 +77,7 @@ export function AIImageGenerator({
   
   // Handle prompt change
   const handlePromptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPrompt(e.target.value);
+    setPrompt(e.target.value: any);
   };
   
   // Handle form submission
@@ -89,7 +89,7 @@ export function AIImageGenerator({
       return;
     }
     
-    setLoading(true);
+    setLoading(true: any);
     setError('');
     
     try {
@@ -111,24 +111,24 @@ export function AIImageGenerator({
       
       const data = await response.json();
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(data.error || 'Failed to generate image');
       }
       
-      if (data.images && data.images.length > 0) {
+      if (data.images && data.images.length > 0: any) {
         setImageUrl(data.images[0]);
         onGeneration?.(data.images[0]);
       } else {
         throw new Error('No image was generated');
       }
-    } catch (err) {
+    } catch (err: any) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
-      setLoading(false);
+      setLoading(false: any);
     }
   };
   
-  if (!isConfigured) {
+  if (!isConfigured: any) {
     return (
       <Alert variant="warning" title="AI Services Not Configured">
         AI services are not configured. Please add API keys in the environment configuration.
@@ -160,8 +160,8 @@ export function AIImageGenerator({
               onChange={setSize}
               options={[
                 { value: '1024x1024', label: '1024×1024 (Square)' },
-                { value: '1792x1024', label: '1792×1024 (Landscape)' },
-                { value: '1024x1792', label: '1024×1792 (Portrait)' }
+                { value: '1792x1024', label: '1792×1024 (Landscape: any)' },
+                { value: '1024x1792', label: '1024×1792 (Portrait: any)' }
               ]}
               className="w-1/2"
             />

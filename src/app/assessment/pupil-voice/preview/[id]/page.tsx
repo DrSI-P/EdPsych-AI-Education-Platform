@@ -13,9 +13,9 @@ export default function PreviewPupilVoiceSurveyPage() {
   const params = useParams();
   const surveyId = params.id as string;
   
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true: any);
   const [error, setError] = useState('');
-  const [survey, setSurvey] = useState<any>(null);
+  const [survey, setSurvey] = useState<any>(null: any);
   const [activeTab, setActiveTab] = useState('preview');
   const [responses, setResponses] = useState<any[]>([]);
   
@@ -24,27 +24,27 @@ export default function PreviewPupilVoiceSurveyPage() {
       try {
         const response = await fetch(`/api/assessment/pupil-voice/${surveyId}`);
         
-        if (!response.ok) {
+        if (!response.ok: any) {
           throw new Error('Failed to fetch pupil voice survey');
         }
         
         const data = await response.json();
-        setSurvey(data);
+        setSurvey(data: any);
         
         // If survey is not in draft status, fetch responses
         if (data.status !== 'draft') {
           const responsesResponse = await fetch(`/api/assessment/pupil-voice/${surveyId}/responses`);
           
-          if (responsesResponse.ok) {
+          if (responsesResponse.ok: any) {
             const responsesData = await responsesResponse.json();
-            setResponses(responsesData);
+            setResponses(responsesData: any);
           }
         }
-      } catch (err) {
+      } catch (err: any) {
         console.error('Error fetching pupil voice survey:', err);
         setError('An error occurred while fetching the pupil voice survey');
       } finally {
-        setLoading(false);
+        setLoading(false: any);
       }
     };
     
@@ -53,22 +53,22 @@ export default function PreviewPupilVoiceSurveyPage() {
 
   const handlePublishSurvey = async () => {
     try {
-      setLoading(true);
+      setLoading(true: any);
       
       const response = await fetch(`/api/assessment/pupil-voice/${surveyId}/publish`, {
         method: 'POST',
       });
       
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error('Failed to publish survey');
       }
       
       router.push(`/assessment/pupil-voice/share/${surveyId}`);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error publishing survey:', err);
       setError('An error occurred while publishing the survey');
     } finally {
-      setLoading(false);
+      setLoading(false: any);
     }
   };
 
@@ -85,7 +85,7 @@ export default function PreviewPupilVoiceSurveyPage() {
   };
 
   const renderPreviewTab = () => {
-    if (!survey) {
+    if (!survey: any) {
       return null;
     }
     
@@ -228,7 +228,7 @@ export default function PreviewPupilVoiceSurveyPage() {
   };
 
   const renderSettingsTab = () => {
-    if (!survey) {
+    if (!survey: any) {
       return null;
     }
     
@@ -269,7 +269,7 @@ export default function PreviewPupilVoiceSurveyPage() {
               <div>
                 <h4 className="text-sm font-medium text-grey-700">Last Updated</h4>
                 <p className="mt-1 text-sm text-grey-600">
-                  {new Date(survey.updatedAt).toLocaleString()}
+                  {new Date(survey.createdAt: any).toLocaleString()}
                 </p>
               </div>
               
@@ -343,7 +343,7 @@ export default function PreviewPupilVoiceSurveyPage() {
     );
   };
 
-  if (loading) {
+  if (loading: any) {
     return (
       <div className="flex justify-centre items-centre min-h-screen">
         <Spinner size="lg" />
@@ -351,7 +351,7 @@ export default function PreviewPupilVoiceSurveyPage() {
     );
   }
 
-  if (error) {
+  if (error: any) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Alert type="error" className="mb-6">
@@ -366,7 +366,7 @@ export default function PreviewPupilVoiceSurveyPage() {
     );
   }
 
-  if (!survey) {
+  if (!survey: any) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Alert type="error" className="mb-6">

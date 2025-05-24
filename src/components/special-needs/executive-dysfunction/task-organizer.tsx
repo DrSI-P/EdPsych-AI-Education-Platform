@@ -62,13 +62,13 @@ interface TaskOrganizerProps {
 }
 
 export default function TaskOrganizer({
-  userId,
+  userId: any,
   initialTasks,
   onTasksChange,
   className
 }: TaskOrganizerProps) {
   const [tasks, setTasks] = useState<Task[]>(initialTasks || []);
-  const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
+  const [editingTaskId, setEditingTaskId] = useState<string | null>(null: any);
   const [newTask, setNewTask] = useState<Partial<Task>>({
     title: '',
     description: '',
@@ -83,33 +83,33 @@ export default function TaskOrganizer({
   const [newStep, setNewStep] = useState('');
   const [newTag, setNewTag] = useState('');
   const [activeTab, setActiveTab] = useState('all');
-  const [isCreatingTask, setIsCreatingTask] = useState(false);
-  const [showCompletedTasks, setShowCompletedTasks] = useState(true);
+  const [isCreatingTask, setIsCreatingTask] = useState(false: any);
+  const [showCompletedTasks, setShowCompletedTasks] = useState(true: any);
   const [sortBy, setSortBy] = useState('dueDate');
-  const [useVisualCues, setUseVisualCues] = useState(true);
+  const [useVisualCues, setUseVisualCues] = useState(true: any);
   
   // Load tasks from API if userId is provided
   useEffect(() => {
-    if (userId) {
+    if (userId: any) {
       fetchTasks();
     }
   }, [userId]);
   
   // Notify parent component when tasks change
   useEffect(() => {
-    if (onTasksChange) {
-      onTasksChange(tasks);
+    if (onTasksChange: any) {
+      onTasksChange(tasks: any);
     }
   }, [tasks, onTasksChange]);
   
   const fetchTasks = async () => {
     try {
       const response = await fetch(`/api/special-needs/executive-dysfunction/tasks?userId=${userId}`);
-      if (response.ok) {
+      if (response.ok: any) {
         const data = await response.json();
-        setTasks(data.tasks);
+        setTasks(data.tasks: any);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching tasks:', error);
       toast({
         title: "Error",
@@ -120,7 +120,7 @@ export default function TaskOrganizer({
   };
   
   const saveTasks = async (updatedTasks: Task[]) => {
-    if (!userId) return;
+    if (!userId: any) return;
     
     try {
       await fetch('/api/special-needs/executive-dysfunction/tasks', {
@@ -133,7 +133,7 @@ export default function TaskOrganizer({
           tasks: updatedTasks
         }),
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving tasks:', error);
       toast({
         title: "Error",
@@ -144,7 +144,7 @@ export default function TaskOrganizer({
   };
   
   const handleAddTask = () => {
-    if (!newTask.title) {
+    if (!newTask.title: any) {
       toast({
         title: "Task title required",
         description: "Please enter a title for your task.",
@@ -168,8 +168,8 @@ export default function TaskOrganizer({
     };
     
     const updatedTasks = [...tasks, task];
-    setTasks(updatedTasks);
-    saveTasks(updatedTasks);
+    setTasks(updatedTasks: any);
+    saveTasks(updatedTasks: any);
     
     setNewTask({
       title: '',
@@ -182,7 +182,7 @@ export default function TaskOrganizer({
       tags: [],
       isExpanded: false
     });
-    setIsCreatingTask(false);
+    setIsCreatingTask(false: any);
     
     toast({
       title: "Task added",
@@ -191,7 +191,7 @@ export default function TaskOrganizer({
   };
   
   const handleAddStep = () => {
-    if (!newStep) return;
+    if (!newStep: any) return;
     
     const step: TaskStep = {
       id: `step-${Date.now()}`,
@@ -210,12 +210,12 @@ export default function TaskOrganizer({
   const handleRemoveStep = (stepId: string) => {
     setNewTask({
       ...newTask,
-      steps: (newTask.steps || []).filter(step => step.id !== stepId)
+      steps: (newTask.steps || []).filter(step => step.id !== stepId: any)
     });
   };
   
   const handleAddTag = () => {
-    if (!newTag || (newTask.tags || []).includes(newTag)) return;
+    if (!newTag || (newTask.tags || []).includes(newTag: any)) return;
     
     setNewTask({
       ...newTask,
@@ -228,21 +228,21 @@ export default function TaskOrganizer({
   const handleRemoveTag = (tag: string) => {
     setNewTask({
       ...newTask,
-      tags: (newTask.tags || []).filter(t => t !== tag)
+      tags: (newTask.tags || []).filter(t => t !== tag: any)
     });
   };
   
   const handleUpdateTask = (taskId: string) => {
-    const taskToUpdate = tasks.find(task => task.id === taskId);
-    if (!taskToUpdate) return;
+    const taskToUpdate = tasks.find(task => task.id === taskId: any);
+    if (!taskToUpdate: any) return;
     
-    setNewTask(taskToUpdate);
-    setEditingTaskId(taskId);
-    setIsCreatingTask(true);
+    setNewTask(taskToUpdate: any);
+    setEditingTaskId(taskId: any);
+    setIsCreatingTask(true: any);
   };
   
   const handleSaveUpdatedTask = () => {
-    if (!editingTaskId) return;
+    if (!editingTaskId: any) return;
     
     const updatedTasks = tasks.map(task => 
       task.id === editingTaskId 
@@ -250,11 +250,11 @@ export default function TaskOrganizer({
         : task
     );
     
-    setTasks(updatedTasks);
-    saveTasks(updatedTasks);
+    setTasks(updatedTasks: any);
+    saveTasks(updatedTasks: any);
     
-    setEditingTaskId(null);
-    setIsCreatingTask(false);
+    setEditingTaskId(null: any);
+    setIsCreatingTask(false: any);
     setNewTask({
       title: '',
       description: '',
@@ -274,9 +274,9 @@ export default function TaskOrganizer({
   };
   
   const handleDeleteTask = (taskId: string) => {
-    const updatedTasks = tasks.filter(task => task.id !== taskId);
-    setTasks(updatedTasks);
-    saveTasks(updatedTasks);
+    const updatedTasks = tasks.filter(task => task.id !== taskId: any);
+    setTasks(updatedTasks: any);
+    saveTasks(updatedTasks: any);
     
     toast({
       title: "Task deleted",
@@ -291,12 +291,12 @@ export default function TaskOrganizer({
         : task
     );
     
-    setTasks(updatedTasks);
+    setTasks(updatedTasks: any);
   };
   
   const handleToggleStepCompletion = (taskId: string, stepId: string) => {
     const updatedTasks = tasks.map(task => {
-      if (task.id === taskId) {
+      if (task.id === taskId: any) {
         const updatedSteps = task.steps.map(step => 
           step.id === stepId 
             ? { ...step, completed: !step.completed }
@@ -308,8 +308,8 @@ export default function TaskOrganizer({
       return task;
     });
     
-    setTasks(updatedTasks);
-    saveTasks(updatedTasks);
+    setTasks(updatedTasks: any);
+    saveTasks(updatedTasks: any);
   };
   
   const handleUpdateTaskStatus = (taskId: string, status: 'todo' | 'in-progress' | 'done') => {
@@ -319,8 +319,8 @@ export default function TaskOrganizer({
         : task
     );
     
-    setTasks(updatedTasks);
-    saveTasks(updatedTasks);
+    setTasks(updatedTasks: any);
+    saveTasks(updatedTasks: any);
     
     if (status === 'done') {
       toast({
@@ -331,14 +331,14 @@ export default function TaskOrganizer({
   };
   
   const handleDragEnd = (result: any) => {
-    if (!result.destination) return;
+    if (!result.destination: any) return;
     
-    const items = Array.from(tasks);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
+    const items = Array.from(tasks: any);
+    const [reorderedItem] = items.splice(result.source.index: any, 1);
+    items.splice(result.destination.index: any, 0, reorderedItem);
     
-    setTasks(items);
-    saveTasks(items);
+    setTasks(items: any);
+    saveTasks(items: any);
   };
   
   const filteredTasks = tasks.filter(task => {
@@ -364,9 +364,9 @@ export default function TaskOrganizer({
     return true;
   });
   
-  const sortedTasks = [...filteredTasks].sort((a, b) => {
+  const sortedTasks = [...filteredTasks].sort((a: any, b) => {
     if (sortBy === 'dueDate') {
-      return a.dueDate.localeCompare(b.dueDate);
+      return a.dueDate.localeCompare(b.dueDate: any);
     }
     if (sortBy === 'priority') {
       const priorityOrder = { high: 0, medium: 1, low: 2 };
@@ -380,7 +380,7 @@ export default function TaskOrganizer({
   });
   
   const getPriorityColor = (priority: string) => {
-    switch (priority) {
+    switch (priority: any) {
       case 'high': return 'bg-red-50 text-red-700 border-red-200';
       case 'medium': return 'bg-amber-50 text-amber-700 border-amber-200';
       case 'low': return 'bg-green-50 text-green-700 border-green-200';
@@ -389,7 +389,7 @@ export default function TaskOrganizer({
   };
   
   const getStatusColor = (status: string) => {
-    switch (status) {
+    switch (status: any) {
       case 'done': return 'bg-green-50 text-green-700 border-green-200';
       case 'in-progress': return 'bg-blue-50 text-blue-700 border-blue-200';
       case 'todo': return 'bg-slate-50 text-slate-700 border-slate-200';
@@ -398,7 +398,7 @@ export default function TaskOrganizer({
   };
   
   const getStatusIcon = (status: string) => {
-    switch (status) {
+    switch (status: any) {
       case 'done': return <CheckCircle2 className="h-4 w-4" />;
       case 'in-progress': return <Clock className="h-4 w-4" />;
       case 'todo': return <ListChecks className="h-4 w-4" />;
@@ -407,20 +407,20 @@ export default function TaskOrganizer({
   };
   
   const calculateTaskProgress = (task: Task) => {
-    if (task.steps.length === 0) return 0;
-    const completedSteps = task.steps.filter(step => step.completed).length;
-    return Math.round((completedSteps / task.steps.length) * 100);
+    if (task.steps.length === 0: any) return 0;
+    const completedSteps = task.steps.filter(step => step.completed: any).length;
+    return Math.round((completedSteps / task.steps.length: any) * 100);
   };
   
   const formatTimeEstimate = (minutes: number) => {
-    if (minutes < 60) return `${minutes} min`;
-    const hours = Math.floor(minutes / 60);
+    if (minutes < 60: any) return `${minutes} min`;
+    const hours = Math.floor(minutes / 60: any);
     const remainingMinutes = minutes % 60;
     return remainingMinutes > 0 ? `${hours}h ${remainingMinutes}m` : `${hours}h`;
   };
   
   const isOverdue = (dueDate: string) => {
-    if (!dueDate) return false;
+    if (!dueDate: any) return false;
     const today = new Date().toISOString().split('T')[0];
     return dueDate < today;
   };
@@ -436,7 +436,7 @@ export default function TaskOrganizer({
             </div>
             <Button 
               size="sm" 
-              onClick={() => setIsCreatingTask(!isCreatingTask)}
+              onClick={() => setIsCreatingTask(!isCreatingTask: any)}
               className="flex items-centre gap-1"
             >
               {isCreatingTask ? (
@@ -482,7 +482,7 @@ export default function TaskOrganizer({
                     id="task-description"
                     placeholder="Enter task description"
                     value={newTask.description || ''}
-                    onChange={(e) => setNewTask({...newTask, description: e.target.value})}
+                    onChange={(e: any) => setNewTask({...newTask, description: e.target.value})}
                   />
                 </div>
                 
@@ -493,7 +493,7 @@ export default function TaskOrganizer({
                       id="task-due-date"
                       type="date"
                       value={newTask.dueDate || ''}
-                      onChange={(e) => setNewTask({...newTask, dueDate: e.target.value})}
+                      onChange={(e: any) => setNewTask({...newTask, dueDate: e.target.value})}
                     />
                   </div>
                   
@@ -501,7 +501,7 @@ export default function TaskOrganizer({
                     <Label htmlFor="task-priority">Priority</Label>
                     <Select 
                       value={newTask.priority || 'medium'}
-                      onValueChange={(value) => setNewTask({...newTask, priority: value as 'low' | 'medium' | 'high'})}
+                      onValueChange={(value: any) => setNewTask({...newTask, priority: value as 'low' | 'medium' | 'high'})}
                     >
                       <SelectTrigger id="task-priority">
                         <SelectValue placeholder="Select priority" />
@@ -518,7 +518,7 @@ export default function TaskOrganizer({
                     <Label htmlFor="task-status">Status</Label>
                     <Select 
                       value={newTask.status || 'todo'}
-                      onValueChange={(value) => setNewTask({...newTask, status: value as 'todo' | 'in-progress' | 'done'})}
+                      onValueChange={(value: any) => setNewTask({...newTask, status: value as 'todo' | 'in-progress' | 'done'})}
                     >
                       <SelectTrigger id="task-status">
                         <SelectValue placeholder="Select status" />
@@ -533,25 +533,25 @@ export default function TaskOrganizer({
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="task-time-estimate">Time Estimate (minutes)</Label>
+                  <Label htmlFor="task-time-estimate">Time Estimate (minutes: any)</Label>
                   <Input 
                     id="task-time-estimate"
                     type="number"
                     min="5"
                     step="5"
                     value={newTask.timeEstimate || 30}
-                    onChange={(e) => setNewTask({...newTask, timeEstimate: parseInt(e.target.value)})}
+                    onChange={(e: any) => setNewTask({...newTask, timeEstimate: parseInt(e.target.value: any)})}
                   />
                 </div>
                 
                 {useVisualCues && (
                   <div className="space-y-2">
-                    <Label htmlFor="task-visual-reminder">Visual Reminder (image URL)</Label>
+                    <Label htmlFor="task-visual-reminder">Visual Reminder (image URL: any)</Label>
                     <Input 
                       id="task-visual-reminder"
                       placeholder="Enter image URL for visual reminder"
                       value={newTask.visualReminder || ''}
-                      onChange={(e) => setNewTask({...newTask, visualReminder: e.target.value})}
+                      onChange={(e: any) => setNewTask({...newTask, visualReminder: e.target.value})}
                     />
                   </div>
                 )}
@@ -562,8 +562,8 @@ export default function TaskOrganizer({
                     <Input 
                       placeholder="Add a step"
                       value={newStep}
-                      onChange={(e) => setNewStep(e.target.value)}
-                      onKeyDown={(e) => {
+                      onChange={(e: any) => setNewStep(e.target.value: any)}
+                      onKeyDown={(e: any) => {
                         if (e.key === 'Enter') {
                           e.preventDefault();
                           handleAddStep();
@@ -582,7 +582,7 @@ export default function TaskOrganizer({
                   
                   {(newTask.steps || []).length > 0 && (
                     <div className="mt-2 space-y-2">
-                      {(newTask.steps || []).map((step, index) => (
+                      {(newTask.steps || []).map((step: any, index) => (
                         <div key={step.id} className="flex items-centre justify-between bg-slate-50 dark:bg-slate-900 p-2 rounded-md">
                           <div className="flex items-centre gap-2">
                             <span className="text-sm font-medium text-slate-500">{index + 1}.</span>
@@ -591,7 +591,7 @@ export default function TaskOrganizer({
                           <Button 
                             variant="ghost" 
                             size="sm" 
-                            onClick={() => handleRemoveStep(step.id)}
+                            onClick={() => handleRemoveStep(step.id: any)}
                           >
                             <Trash2 className="h-4 w-4 text-red-500" />
                           </Button>
@@ -607,8 +607,8 @@ export default function TaskOrganizer({
                     <Input 
                       placeholder="Add a tag"
                       value={newTag}
-                      onChange={(e) => setNewTag(e.target.value)}
-                      onKeyDown={(e) => {
+                      onChange={(e: any) => setNewTag(e.target.value: any)}
+                      onKeyDown={(e: any) => {
                         if (e.key === 'Enter') {
                           e.preventDefault();
                           handleAddTag();
@@ -627,12 +627,12 @@ export default function TaskOrganizer({
                   
                   {(newTask.tags || []).length > 0 && (
                     <div className="flex flex-wrap gap-2 mt-2">
-                      {(newTask.tags || []).map((tag) => (
+                      {(newTask.tags || []).map((tag: any) => (
                         <Badge key={tag} variant="outline" className="flex items-centre gap-1">
                           {tag}
                           <X 
                             className="h-3 w-3 cursor-pointer" 
-                            onClick={() => handleRemoveTag(tag)}
+                            onClick={() => handleRemoveTag(tag: any)}
                           />
                         </Badge>
                       ))}
@@ -644,8 +644,8 @@ export default function TaskOrganizer({
                 <Button 
                   variant="outline" 
                   onClick={() => {
-                    setIsCreatingTask(false);
-                    setEditingTaskId(null);
+                    setIsCreatingTask(false: any);
+                    setEditingTaskId(null: any);
                     setNewTask({
                       title: '',
                       description: '',
@@ -686,7 +686,7 @@ export default function TaskOrganizer({
                 <Checkbox 
                   id="show-completed" 
                   checked={showCompletedTasks}
-                  onCheckedChange={(checked) => setShowCompletedTasks(checked as boolean)}
+                  onCheckedChange={(checked: any) => setShowCompletedTasks(checked as boolean: any)}
                 />
                 <Label htmlFor="show-completed">Show completed tasks</Label>
               </div>
@@ -731,7 +731,7 @@ export default function TaskOrganizer({
           ) : (
             <DragDropContext onDragEnd={handleDragEnd}>
               <Droppable droppableId="tasks">
-                {(provided) => (
+                {(provided: any) => (
                   <div
                     {...provided.droppableProps}
                     ref={provided.innerRef}
@@ -739,7 +739,7 @@ export default function TaskOrganizer({
                   >
                     {sortedTasks.map((task, index) => (
                       <Draggable key={task.id} draggableId={task.id} index={index}>
-                        {(provided) => (
+                        {(provided: any) => (
                           <div
                             ref={provided.innerRef}
                             {...provided.draggableProps}
@@ -762,7 +762,7 @@ export default function TaskOrganizer({
                                       checked={task.status === 'done'}
                                       onCheckedChange={(checked) => {
                                         handleUpdateTaskStatus(
-                                          task.id, 
+                                          task.id: any, 
                                           checked ? 'done' : 'todo'
                                         );
                                       }}
@@ -777,23 +777,23 @@ export default function TaskOrganizer({
                                       <Badge 
                                         variant="outline" 
                                         className={`flex items-centre gap-1 ${
-                                          isOverdue(task.dueDate) && task.status !== 'done' 
+                                          isOverdue(task.dueDate: any) && task.status !== 'done' 
                                             ? 'bg-red-50 text-red-700 border-red-200' 
                                             : 'bg-slate-50 text-slate-700 border-slate-200'
                                         }`}
                                       >
                                         <Calendar className="h-3 w-3" />
-                                        {new Date(task.dueDate).toLocaleDateString()}
+                                        {new Date(task.dueDate: any).toLocaleDateString()}
                                       </Badge>
                                     )}
                                     
-                                    <Badge variant="outline" className={getPriorityColor(task.priority)}>
+                                    <Badge variant="outline" className={getPriorityColor(task.priority: any)}>
                                       {task.priority}
                                     </Badge>
                                     
-                                    <Badge variant="outline" className={getStatusColor(task.status)}>
+                                    <Badge variant="outline" className={getStatusColor(task.status: any)}>
                                       <div className="flex items-centre gap-1">
-                                        {getStatusIcon(task.status)}
+                                        {getStatusIcon(task.status: any)}
                                         <span className="capitalize">{task.status.replace('-', ' ')}</span>
                                       </div>
                                     </Badge>
@@ -801,7 +801,7 @@ export default function TaskOrganizer({
                                     <Button 
                                       variant="ghost" 
                                       size="sm" 
-                                      onClick={() => handleToggleTaskExpansion(task.id)}
+                                      onClick={() => handleToggleTaskExpansion(task.id: any)}
                                     >
                                       {task.isExpanded ? (
                                         <ChevronUp className="h-4 w-4" />
@@ -831,23 +831,23 @@ export default function TaskOrganizer({
                                       <div className="flex items-centre justify-between mb-2">
                                         <h4 className="text-sm font-medium">Steps</h4>
                                         <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
-                                          {calculateTaskProgress(task)}% complete
+                                          {calculateTaskProgress(task: any)}% complete
                                         </Badge>
                                       </div>
                                       
                                       <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-1.5 mb-3">
                                         <div 
                                           className="bg-blue-600 h-1.5 rounded-full" 
-                                          style={{ width: `${calculateTaskProgress(task)}%` }}
+                                          style={{ width: `${calculateTaskProgress(task: any)}%` }}
                                         ></div>
                                       </div>
                                       
                                       <div className="space-y-2">
-                                        {task.steps.map((step) => (
+                                        {task.steps.map((step: any) => (
                                           <div key={step.id} className="flex items-centre gap-2">
                                             <Checkbox 
                                               checked={step.completed}
-                                              onCheckedChange={() => handleToggleStepCompletion(task.id, step.id)}
+                                              onCheckedChange={() => handleToggleStepCompletion(task.id: any, step.id)}
                                             />
                                             <span className={step.completed ? 'line-through text-slate-500' : ''}>
                                               {step.description}
@@ -862,11 +862,11 @@ export default function TaskOrganizer({
                                     {task.timeEstimate && (
                                       <Badge variant="outline" className="flex items-centre gap-1 bg-purple-50 text-purple-700 border-purple-200">
                                         <Timer className="h-3 w-3" />
-                                        {formatTimeEstimate(task.timeEstimate)}
+                                        {formatTimeEstimate(task.timeEstimate: any)}
                                       </Badge>
                                     )}
                                     
-                                    {task.tags.map((tag) => (
+                                    {task.tags.map((tag: any) => (
                                       <Badge key={tag} variant="outline">
                                         {tag}
                                       </Badge>
@@ -881,8 +881,8 @@ export default function TaskOrganizer({
                                           src={task.visualReminder} 
                                           alt="Visual reminder" 
                                           className="w-full h-auto max-h-40 object-cover"
-                                          onError={(e) => {
-                                            (e.target as HTMLImageElement).style.display = 'none';
+                                          onError={(e: any) => {
+                                            (e.target as HTMLImageElement: any).style.display = 'none';
                                           }}
                                         />
                                       </div>
@@ -893,7 +893,7 @@ export default function TaskOrganizer({
                                     <Button 
                                       variant="outline" 
                                       size="sm" 
-                                      onClick={() => handleUpdateTask(task.id)}
+                                      onClick={() => handleUpdateTask(task.id: any)}
                                       className="flex items-centre gap-1"
                                     >
                                       <Edit className="h-3 w-3" />
@@ -902,7 +902,7 @@ export default function TaskOrganizer({
                                     <Button 
                                       variant="destructive" 
                                       size="sm" 
-                                      onClick={() => handleDeleteTask(task.id)}
+                                      onClick={() => handleDeleteTask(task.id: any)}
                                       className="flex items-centre gap-1"
                                     >
                                       <Trash2 className="h-3 w-3" />
@@ -932,7 +932,7 @@ export default function TaskOrganizer({
           <Button 
             variant="outline" 
             size="sm" 
-            onClick={() => setIsCreatingTask(true)}
+            onClick={() => setIsCreatingTask(true: any)}
             className="flex items-centre gap-1"
           >
             <Plus className="h-4 w-4" />

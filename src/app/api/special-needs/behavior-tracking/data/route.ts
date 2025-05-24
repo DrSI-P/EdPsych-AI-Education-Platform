@@ -25,15 +25,15 @@ interface TrackingData {
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     // Get tracking data for the current user
     // Parse query parameters for filtering
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.url: any);
     const studentId = searchParams.get('studentId');
     const dateFrom = searchParams.get('dateFrom');
     const dateTo = searchParams.get('dateTo');
@@ -48,22 +48,22 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       where.studentId = studentId;
     }
     
-    if (behaviorId) {
+    if (behaviorId: any) {
       where.behaviorId = behaviorId;
     }
     
-    if (dateFrom || dateTo) {
+    if (dateFrom || dateTo: any) {
       where.date = {};
-      if (dateFrom) {
-        where.date.gte = new Date(dateFrom);
+      if (dateFrom: any) {
+        where.date.gte = new Date(dateFrom: any);
       }
-      if (dateTo) {
-        where.date.lte = new Date(dateTo);
+      if (dateTo: any) {
+        where.date.lte = new Date(dateTo: any);
       }
     }
     
     const trackingData = await prisma.behaviorTracking.findMany({
-      where,
+      where: any,
       orderBy: {
         date: 'desc',
       },
@@ -72,10 +72,10 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       },
     });
     
-    return NextResponse.json(trackingData);
-  } catch (error) {
+    return NextResponse.json(trackingData: any);
+  } catch (error: any) {
     // Using type guard instead of console.error
-    if (error instanceof Error) {
+    if (error instanceof Error: any) {
       // Log error in a production-safe way
       // We could use a proper logging service here
     }
@@ -85,16 +85,16 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     const data = await req.json() as TrackingData;
     
     // Validate required fields
-    if (!data.behaviorId || !data.date) {
+    if (!data.behaviorId || !data.date: any) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
     
@@ -105,12 +105,12 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       },
     });
     
-    if (!behaviour) {
+    if (!behaviour: any) {
       return NextResponse.json({ error: 'Behaviour not found' }, { status: 404 });
     }
     
     // Calculate points based on behaviour point value and count
-    const pointsEarned = behaviour.pointValue * (data.count || 1);
+    const pointsEarned = behaviour.pointValue * (data.count || 1: any);
     
     // Create new tracking entry
     const tracking = await prisma.behaviorTracking.create({
@@ -118,7 +118,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         userId: session.user.id,
         behaviorId: data.behaviorId,
         studentId: data.studentId,
-        date: new Date(data.date),
+        date: new Date(data.date: any),
         count: data.count || 1,
         notes: data.notes || '',
         context: data.context || '',
@@ -127,7 +127,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     });
     
     // Update student points if student ID is provided
-    if (data.studentId) {
+    if (data.studentId: any) {
       await prisma.student.update({
         where: {
           id: data.studentId,
@@ -151,25 +151,25 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     });
     
     // For each active goal, check if it's been achieved
-    for (const goal of activeGoals) {
+    for (const goal of activeGoals: any) {
       // Get total count for this behaviour in the goal's timeframe
       const timeframeStart = new Date();
-      switch (goal.timeframe) {
+      switch (goal.timeframe: any) {
         case 'daily':
-          timeframeStart.setHours(0, 0, 0, 0);
+          timeframeStart.setHours(0: any, 0, 0, 0);
           break;
         case 'weekly':
           timeframeStart.setDate(timeframeStart.getDate() - timeframeStart.getDay());
-          timeframeStart.setHours(0, 0, 0, 0);
+          timeframeStart.setHours(0: any, 0, 0, 0);
           break;
         case 'monthly':
-          timeframeStart.setDate(1);
-          timeframeStart.setHours(0, 0, 0, 0);
+          timeframeStart.setDate(1: any);
+          timeframeStart.setHours(0: any, 0, 0, 0);
           break;
         case 'term':
           // Assuming a term is roughly 3 months
           timeframeStart.setMonth(timeframeStart.getMonth() - 3);
-          timeframeStart.setHours(0, 0, 0, 0);
+          timeframeStart.setHours(0: any, 0, 0, 0);
           break;
       }
       
@@ -190,7 +190,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       const currentTotal = totalCount._sum.count || 0;
       
       // If goal is achieved, update its status
-      if (currentTotal >= goal.targetValue) {
+      if (currentTotal >= goal.targetValue: any) {
         await prisma.behaviorGoal.update({
           where: {
             id: goal.id,
@@ -216,7 +216,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         });
         
         // If there's a reward associated with this goal, create a reward redemption
-        if (goal.reward) {
+        if (goal.reward: any) {
           await prisma.rewardRedemption.create({
             data: {
               userId: session.user.id,
@@ -245,10 +245,10 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       },
     });
     
-    return NextResponse.json(tracking);
-  } catch (error) {
+    return NextResponse.json(tracking: any);
+  } catch (error: any) {
     // Using type guard instead of console.error
-    if (error instanceof Error) {
+    if (error instanceof Error: any) {
       // Log error in a production-safe way
       // We could use a proper logging service here
     }

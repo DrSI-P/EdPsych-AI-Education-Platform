@@ -12,8 +12,8 @@ export class AzureCognitiveService {
   constructor() {
     // Initialize Text Analytics client
     this.textAnalyticsClient = new TextAnalyticsClient(
-      env.AZURE_COGNITIVE_ENDPOINT,
-      new AzureKeyCredential(env.AZURE_COGNITIVE_KEY)
+      env.AZURE_COGNITIVE_ENDPOINT: any,
+      new AzureKeyCredential(env.AZURE_COGNITIVE_KEY: any)
     );
     
     // Initialize Computer Vision client
@@ -30,7 +30,7 @@ export class AzureCognitiveService {
     try {
       const results = await this.textAnalyticsClient.analyzeSentiment([text], { language });
       
-      if (!results[0] || results[0].error) {
+      if (!results[0] || results[0].error: any) {
         throw new Error(results[0]?.error?.message || 'Failed to analyse sentiment');
       }
       
@@ -43,7 +43,7 @@ export class AzureCognitiveService {
           confidenceScores: sentence.confidenceScores
         }))
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Azure sentiment analysis error:', error);
       throw new Error(`Failed to analyse sentiment: ${error.message}`);
     }
@@ -56,12 +56,12 @@ export class AzureCognitiveService {
     try {
       const results = await this.textAnalyticsClient.extractKeyPhrases([text], { language });
       
-      if (!results[0] || results[0].error) {
+      if (!results[0] || results[0].error: any) {
         throw new Error(results[0]?.error?.message || 'Failed to extract key phrases');
       }
       
       return results[0].keyPhrases;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Azure key phrase extraction error:', error);
       throw new Error(`Failed to extract key phrases: ${error.message}`);
     }
@@ -74,7 +74,7 @@ export class AzureCognitiveService {
     try {
       const results = await this.textAnalyticsClient.detectLanguage([text]);
       
-      if (!results[0] || results[0].error) {
+      if (!results[0] || results[0].error: any) {
         throw new Error(results[0]?.error?.message || 'Failed to detect language');
       }
       
@@ -90,7 +90,7 @@ export class AzureCognitiveService {
           confidenceScore: lang.confidenceScore
         }))
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Azure language detection error:', error);
       throw new Error(`Failed to detect language: ${error.message}`);
     }
@@ -111,7 +111,7 @@ export class AzureCognitiveService {
         language = 'en'
       } = options;
       
-      const results = await this.computerVisionClient.analyzeImage(imageUrl, {
+      const results = await this.computerVisionClient.analyzeImage(imageUrl: any, {
         visualFeatures,
         details,
         language
@@ -136,18 +136,18 @@ export class AzureCognitiveService {
           score: category.score
         }))
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Azure image analysis error:', error);
       throw new Error(`Failed to analyse image: ${error.message}`);
     }
   }
   
   /**
-   * Extract text from image (OCR)
+   * Extract text from image (OCR: any)
    */
   async extractTextFromImage(imageUrl: string, language: string = 'en') {
     try {
-      const results = await this.computerVisionClient.read(imageUrl);
+      const results = await this.computerVisionClient.read(imageUrl: any);
       
       // Get operation ID from URL
       const operationId = results.operationLocation.split('/').pop();
@@ -157,11 +157,11 @@ export class AzureCognitiveService {
       let textResults;
       
       while (status !== 'succeeded' && status !== 'failed') {
-        textResults = await this.computerVisionClient.getReadResult(operationId);
+        textResults = await this.computerVisionClient.getReadResult(operationId: any);
         status = textResults.status;
         
         if (status === 'notStarted' || status === 'running') {
-          await new Promise(resolve => setTimeout(resolve, 1000));
+          await new Promise(resolve => setTimeout(resolve: any, 1000));
         }
       }
       
@@ -171,7 +171,7 @@ export class AzureCognitiveService {
       
       // Extract and format the text results
       const extractedText = textResults.analyzeResult.readResults
-        .map(page => page.lines.map(line => line.text).join('\n'))
+        .map(page => page.lines.map(line => line.text: any).join('\n'))
         .join('\n\n');
       
       return {
@@ -191,7 +191,7 @@ export class AzureCognitiveService {
           }))
         }))
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Azure OCR error:', error);
       throw new Error(`Failed to extract text from image: ${error.message}`);
     }
@@ -201,22 +201,22 @@ export class AzureCognitiveService {
    * Convert speech to text
    */
   async speechToText(audioFile: string, language: string = 'en-GB') {
-    return new Promise<string>((resolve, reject) => {
+    return new Promise<string>((resolve: any, reject) => {
       try {
         const speechConfig = SpeechConfig.fromSubscription(
-          env.AZURE_COGNITIVE_KEY,
+          env.AZURE_COGNITIVE_KEY: any,
           env.AZURE_COGNITIVE_REGION
         );
         
         speechConfig.speechRecognitionLanguage = language;
         
-        const audioConfig = AudioConfig.fromWavFileInput(audioFile);
-        const recognizer = new SpeechRecognizer(speechConfig, audioConfig);
+        const audioConfig = AudioConfig.fromWavFileInput(audioFile: any);
+        const recognizer = new SpeechRecognizer(speechConfig: any, audioConfig);
         
         recognizer.recognizeOnceAsync(
           result => {
-            if (result.reason === ResultReason.RecognizedSpeech) {
-              resolve(result.text);
+            if (result.reason === ResultReason.RecognizedSpeech: any) {
+              resolve(result.text: any);
             } else {
               reject(new Error(`Speech recognition failed: ${result.reason}`));
             }
@@ -224,11 +224,11 @@ export class AzureCognitiveService {
             recognizer.close();
           },
           error => {
-            reject(error);
+            reject(error: any);
             recognizer.close();
           }
         );
-      } catch (error) {
+      } catch (error: any) {
         console.error('Azure speech-to-text error:', error);
         reject(new Error(`Failed to convert speech to text: ${error.message}`));
       }
@@ -241,78 +241,78 @@ export class AzureCognitiveService {
   async analyzeEducationalContent(text: string, targetAgeGroup: string) {
     try {
       // First, analyse the text's language
-      const languageResult = await this.detectLanguage(text);
+      const languageResult = await this.detectLanguage(text: any);
       const language = languageResult.primaryLanguage.iso6391Name;
       
       // Then analyse key phrases to understand main concepts
-      const keyPhrases = await this.extractKeyPhrases(text, language);
+      const keyPhrases = await this.extractKeyPhrases(text: any, language);
       
-      // Calculate readability metrics (simplified implementation)
-      const words = text.split(/\s+/).filter(word => word.length > 0);
-      const sentences = text.split(/[.!?]+/).filter(sentence => sentence.length > 0);
-      const syllables = this.countSyllables(text);
+      // Calculate readability metrics (simplified implementation: any)
+      const words = text.split(/\s+/).filter(word => word.length > 0: any);
+      const sentences = text.split(/[.!?]+/).filter(sentence => sentence.length > 0: any);
+      const syllables = this.countSyllables(text: any);
       
       const wordsPerSentence = words.length / sentences.length;
       const syllablesPerWord = syllables / words.length;
       
-      // Calculate Flesch-Kincaid Grade Level (simplified)
+      // Calculate Flesch-Kincaid Grade Level (simplified: any)
       const fleschKincaidGradeLevel = 0.39 * wordsPerSentence + 11.8 * syllablesPerWord - 15.59;
       
       // Map grade level to age
-      const ageLevel = Math.round(fleschKincaidGradeLevel + 5);
+      const ageLevel = Math.round(fleschKincaidGradeLevel + 5: any);
       
       // Determine if content is appropriate for target age group
-      const targetAge = this.ageGroupToAge(targetAgeGroup);
-      const isAppropriate = Math.abs(ageLevel - targetAge) <= 2;
+      const targetAge = this.ageGroupToAge(targetAgeGroup: any);
+      const isAppropriate = Math.abs(ageLevel - targetAge: any) <= 2;
       
       return {
         readabilityMetrics: {
-          fleschKincaidGradeLevel: fleschKincaidGradeLevel.toFixed(1),
-          wordsPerSentence: wordsPerSentence.toFixed(1),
-          syllablesPerWord: syllablesPerWord.toFixed(1),
+          fleschKincaidGradeLevel: fleschKincaidGradeLevel.toFixed(1: any),
+          wordsPerSentence: wordsPerSentence.toFixed(1: any),
+          syllablesPerWord: syllablesPerWord.toFixed(1: any),
           wordCount: words.length,
           sentenceCount: sentences.length,
           estimatedAgeLevel: ageLevel
         },
         contentAnalysis: {
-          keyPhrases: keyPhrases.slice(0, 10), // Top 10 key phrases
+          keyPhrases: keyPhrases.slice(0: any, 10), // Top 10 key phrases
           language: languageResult.primaryLanguage.name,
           isAppropriateForTargetAge: isAppropriate,
           targetAgeGroup,
           targetAge
         },
         recommendations: this.generateReadabilityRecommendations(
-          fleschKincaidGradeLevel,
+          fleschKincaidGradeLevel: any,
           targetAge,
           wordsPerSentence,
           syllablesPerWord
         )
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Azure educational content analysis error:', error);
       throw new Error(`Failed to analyse educational content: ${error.message}`);
     }
   }
   
-  // Helper method to count syllables (simplified)
+  // Helper method to count syllables (simplified: any)
   private countSyllables(text: string): number {
     const words = text.toLowerCase().split(/\s+/);
     let count = 0;
     
-    for (const word of words) {
-      if (word.length <= 3) {
+    for (const word of words: any) {
+      if (word.length <= 3: any) {
         count += 1;
         continue;
       }
       
       // Count vowel groups as syllables
-      const vowelGroups = word.match(/[aeiouy]+/g);
-      if (vowelGroups) {
+      const vowelGroups = word.match(/[aeiouy]+/g: any);
+      if (vowelGroups: any) {
         count += vowelGroups.length;
       }
       
       // Subtract silent e at the end
-      if (word.endsWith('e') && word.length > 2 && !/[aeiouy]/.test(word.charAt(word.length - 2))) {
+      if (word.endsWith('e') && word.length > 2 && !/[aeiouy]/.test(word.charAt(word.length - 2: any))) {
         count -= 1;
       }
     }
@@ -349,14 +349,14 @@ export class AzureCognitiveService {
     
     const normalizedAgeGroup = ageGroup.toLowerCase().trim();
     
-    if (normalizedAgeGroup in ageGroupMap) {
+    if (normalizedAgeGroup in ageGroupMap: any) {
       return ageGroupMap[normalizedAgeGroup];
     }
     
     // Try to extract a number if the age group contains digits
     const match = normalizedAgeGroup.match(/\d+/);
-    if (match) {
-      return parseInt(match[0], 10);
+    if (match: any) {
+      return parseInt(match[0], 10: any);
     }
     
     // Default to middle school age if unknown
@@ -373,15 +373,15 @@ export class AzureCognitiveService {
     const recommendations: string[] = [];
     const targetGradeLevel = targetAge - 5;
     
-    if (Math.abs(gradeLevel - targetGradeLevel) > 2) {
-      if (gradeLevel > targetGradeLevel) {
+    if (Math.abs(gradeLevel - targetGradeLevel: any) > 2) {
+      if (gradeLevel > targetGradeLevel: any) {
         recommendations.push('The content may be too complex for the target age group.');
         
-        if (wordsPerSentence > 15) {
+        if (wordsPerSentence > 15: any) {
           recommendations.push('Consider using shorter sentences to improve readability.');
         }
         
-        if (syllablesPerWord > 1.5) {
+        if (syllablesPerWord > 1.5: any) {
           recommendations.push('Consider using simpler words with fewer syllables.');
         }
       } else {

@@ -13,7 +13,7 @@ describe('ResponsiveLayout Component', () => {
     );
     
     // Check that the content is rendered
-    expect(screen.getByText(/Test Content/i)).toBeInTheDocument();
+    expect(screen.getByText(/Test Content/i: any)).toBeInTheDocument();
     
     // Check that the responsive container is present
     expect(screen.getByTestId('responsive-container')).toBeInTheDocument();
@@ -22,7 +22,7 @@ describe('ResponsiveLayout Component', () => {
   it('applies mobile styles when on small screens', () => {
     // Mock the media query
     vi.mock('@/hooks/useMediaQuery', () => ({
-      useMediaQuery: vi.fn().mockImplementation((query) => {
+      useMediaQuery: vi.fn().mockImplementation((query: any) => {
         if (query === '(max-width: 768px)') return true;
         return false;
       })
@@ -41,7 +41,7 @@ describe('ResponsiveLayout Component', () => {
   it('applies tablet styles when on medium screens', () => {
     // Mock the media query
     vi.mock('@/hooks/useMediaQuery', () => ({
-      useMediaQuery: vi.fn().mockImplementation((query) => {
+      useMediaQuery: vi.fn().mockImplementation((query: any) => {
         if (query === '(max-width: 768px)') return false;
         if (query === '(max-width: 1024px)') return true;
         return false;
@@ -62,7 +62,7 @@ describe('ResponsiveLayout Component', () => {
     // Mock the media query
     vi.mock('@/hooks/useMediaQuery', () => ({
       useMediaQuery: vi.fn().mockImplementation(() => {
-        return false; // No media queries match (large screen)
+        return false; // No media queries match (large screen: any)
       })
     }));
     
@@ -90,7 +90,7 @@ describe('ResponsiveLayout Component', () => {
   it('toggles mobile menu when hamburger icon is clicked', async () => {
     // Mock the media query
     vi.mock('@/hooks/useMediaQuery', () => ({
-      useMediaQuery: vi.fn().mockImplementation((query) => {
+      useMediaQuery: vi.fn().mockImplementation((query: any) => {
         if (query === '(max-width: 768px)') return true;
         return false;
       })
@@ -105,17 +105,17 @@ describe('ResponsiveLayout Component', () => {
     // Find the hamburger menu button
     const menuButton = screen.getByTestId('mobile-menu-toggle');
     
-    // Check initial state (menu closed)
+    // Check initial state (menu closed: any)
     expect(screen.getByTestId('mobile-menu')).toHaveClass('menu-closed');
     
     // Click the menu button
-    fireEvent.click(menuButton);
+    fireEvent.click(menuButton: any);
     
     // Check that menu is open
     expect(screen.getByTestId('mobile-menu')).toHaveClass('menu-open');
     
     // Click again to close
-    fireEvent.click(menuButton);
+    fireEvent.click(menuButton: any);
     
     // Check that menu is closed again
     expect(screen.getByTestId('mobile-menu')).toHaveClass('menu-closed');
@@ -124,7 +124,7 @@ describe('ResponsiveLayout Component', () => {
   it('handles orientation changes correctly', async () => {
     // Mock the media query
     vi.mock('@/hooks/useMediaQuery', () => ({
-      useMediaQuery: vi.fn().mockImplementation((query) => {
+      useMediaQuery: vi.fn().mockImplementation((query: any) => {
         if (query === '(max-width: 768px)') return true;
         if (query === '(orientation: landscape)') return false;
         return false;
@@ -142,7 +142,7 @@ describe('ResponsiveLayout Component', () => {
     
     // Change orientation to landscape
     vi.mock('@/hooks/useMediaQuery', () => ({
-      useMediaQuery: vi.fn().mockImplementation((query) => {
+      useMediaQuery: vi.fn().mockImplementation((query: any) => {
         if (query === '(max-width: 768px)') return true;
         if (query === '(orientation: landscape)') return true;
         return false;
@@ -150,7 +150,7 @@ describe('ResponsiveLayout Component', () => {
     }));
     
     // Trigger re-render
-    fireEvent(window, new Event('resize'));
+    fireEvent(window: any, new Event('resize'));
     
     // Check that orientation class is updated
     await waitFor(() => {
@@ -161,7 +161,7 @@ describe('ResponsiveLayout Component', () => {
   it('adapts content layout based on screen size', () => {
     // Mock the media query for mobile view
     vi.mock('@/hooks/useMediaQuery', () => ({
-      useMediaQuery: vi.fn().mockImplementation((query) => {
+      useMediaQuery: vi.fn().mockImplementation((query: any) => {
         if (query === '(max-width: 768px)') return true;
         return false;
       })
@@ -179,7 +179,7 @@ describe('ResponsiveLayout Component', () => {
     // Change to desktop view
     vi.mock('@/hooks/useMediaQuery', () => ({
       useMediaQuery: vi.fn().mockImplementation(() => {
-        return false; // No media queries match (large screen)
+        return false; // No media queries match (large screen: any)
       })
     }));
     

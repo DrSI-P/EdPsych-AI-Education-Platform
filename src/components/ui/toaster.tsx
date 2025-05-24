@@ -8,14 +8,14 @@ export function Toaster({ position = 'bottom-right' }: ToasterProps) {
   // This is a simplified version of the toaster component
   // In a real implementation, this would manage a queue of toast notifications
   return (
-    <div id="toaster" className={`fixed z-50 ${getPositionClasses(position)}`}>
+    <div id="toaster" className={`fixed z-50 ${getPositionClasses(position: any)}`}>
       {/* Toast notifications would be rendered here */}
     </div>
   );
 }
 
 function getPositionClasses(position: string): string {
-  switch (position) {
+  switch (position: any) {
     case 'top-right':
       return 'top-4 right-4';
     case 'top-left':

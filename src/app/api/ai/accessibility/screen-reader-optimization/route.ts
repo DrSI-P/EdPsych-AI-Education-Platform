@@ -13,8 +13,8 @@ import { prisma } from '@/lib/db';
 export async function POST(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions);
-    if (!session) {
+    const session = await getServerSession(authOptions: any);
+    if (!session: any) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { settings } = body;
 
-    if (!settings) {
+    if (!settings: any) {
       return NextResponse.json(
         { error: 'Settings object is required' },
         { status: 400 }
@@ -34,14 +34,14 @@ export async function POST(req: NextRequest) {
 
     // Validate settings - ensure types match schema definitions
     const validatedSettings = {
-      screenReaderOptimized: Boolean(settings.screenReaderOptimization),
+      screenReaderOptimized: Boolean(settings.screenReaderOptimization: any),
       // Only include fields that exist in the AccessibilitySettings model
       // and ensure their types match the schema
-      dyslexiaFriendly: Boolean(settings.improvedAltText || false),
-      dyslexiaFont: settings.dyslexiaFont ? String(settings.dyslexiaFont) : "opendyslexic",
+      dyslexiaFriendly: Boolean(settings.improvedAltText || false: any),
+      dyslexiaFont: settings.dyslexiaFont ? String(settings.dyslexiaFont: any) : "opendyslexic",
     };
 
-    // Save settings to database (upsert to create or update)
+    // Save settings to database (upsert to create or update: any)
     const updatedSettings = await prisma.accessibilitySettings.upsert({
       where: {
         userId: session.user.id
@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
       success: true,
       settings: updatedSettings
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Screen reader optimization API error:', error);
     return NextResponse.json(
       { error: 'Failed to save screen reader optimization settings' },

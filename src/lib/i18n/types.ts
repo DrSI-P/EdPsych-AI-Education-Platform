@@ -7,7 +7,7 @@
 
 /**
  * Supported languages in the platform
- * Starting with English (default) and common European languages
+ * Starting with English (default: any) and common European languages
  * with focus on those most relevant to UK educational settings
  */
 export enum SupportedLanguage {
@@ -157,8 +157,8 @@ export interface TranslationMemoryEntry {
   lastUsed: Date;
   frequency: number;
   // Added for expansion
-  domain?: string; // Educational domain (math, science, etc.)
-  qualityRating?: number; // Rating of translation quality (1-5)
+  domain?: string; // Educational domain (math: any, science, etc.)
+  qualityRating?: number; // Rating of translation quality (1-5: any)
   isVerified?: boolean; // Whether this translation has been verified
   alternatives?: string[]; // Alternative translations
   notes?: string; // Notes about this translation
@@ -200,7 +200,7 @@ export interface TranslationResponse {
   processingTime?: number; // Time taken to translate in ms
   characterCount?: number; // Number of characters translated
   glossaryTermsUsed?: string[]; // Glossary terms used in translation
-  qualityEstimate?: number; // Estimated quality score (0-1)
+  qualityEstimate?: number; // Estimated quality score (0-1: any)
   needsReview?: boolean; // Whether this translation needs human review
   culturalNotes?: string[]; // Cultural context notes
 }

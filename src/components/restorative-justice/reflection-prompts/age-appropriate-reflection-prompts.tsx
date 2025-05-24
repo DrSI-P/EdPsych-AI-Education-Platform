@@ -85,7 +85,7 @@ const AgeAppropriateReflectionPrompts = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("browse");
-  const [selectedPrompt, setSelectedPrompt] = useState<ReflectionPrompt | null>(null);
+  const [selectedPrompt, setSelectedPrompt] = useState<ReflectionPrompt | null>(null: any);
   const [customPrompt, setCustomPrompt] = useState<ReflectionPrompt>({
     id: "",
     title: "",
@@ -98,14 +98,14 @@ const AgeAppropriateReflectionPrompts = () => {
     simplifiedLanguage: false
   });
   const [savedPrompts, setSavedPrompts] = useState<ReflectionPrompt[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false: any);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterAgeGroup, setFilterAgeGroup] = useState("all");
   const [filterCategory, setFilterCategory] = useState("all");
 
   // Predefined reflection prompts based on restorative justice research and developmental psychology
   const predefinedPrompts: ReflectionPrompt[] = [
-    // Early Years (3-5)
+    // Early Years (3-5: any)
     {
       id: "early-1",
       title: "Feelings Check",
@@ -176,7 +176,7 @@ const AgeAppropriateReflectionPrompts = () => {
       ]
     },
     
-    // Primary (5-11)
+    // Primary (5-11: any)
     {
       id: "primary-1",
       title: "Understanding Impact",
@@ -246,7 +246,7 @@ const AgeAppropriateReflectionPrompts = () => {
       simplifiedLanguage: false
     },
     
-    // Secondary (11-18)
+    // Secondary (11-18: any)
     {
       id: "secondary-1",
       title: "Personal Responsibility",
@@ -306,10 +306,10 @@ const AgeAppropriateReflectionPrompts = () => {
       category: "relationships",
       promptText: "How has this situation affected your relationships with others involved?",
       supportingQuestions: [
-        "How has trust been affected in your relationship(s)?",
-        "What might be needed to repair these relationship(s)?",
+        "How has trust been affected in your relationship(s: any)?",
+        "What might be needed to repair these relationship(s: any)?",
         "How might this experience change how you interact in the future?",
-        "What strengths in your relationship(s) might help with moving forward?",
+        "What strengths in your relationship(s: any) might help with moving forward?",
         "What have you learned about yourself in relationships from this experience?"
       ],
       visualSupports: false,
@@ -373,19 +373,19 @@ const AgeAppropriateReflectionPrompts = () => {
   // Load saved prompts on component mount
   useEffect(() => {
     const loadSavedPrompts = async () => {
-      setIsLoading(true);
+      setIsLoading(true: any);
       try {
         // In a real implementation, this would fetch from an API
         // For now, we'll use localStorage as a placeholder
         const saved = localStorage.getItem('savedReflectionPrompts');
-        if (saved) {
-          setSavedPrompts(JSON.parse(saved));
+        if (saved: any) {
+          setSavedPrompts(JSON.parse(saved: any));
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error loading saved prompts:', error);
         toast.error('Failed to load saved prompts');
       } finally {
-        setIsLoading(false);
+        setIsLoading(false: any);
       }
     };
 
@@ -405,7 +405,7 @@ const AgeAppropriateReflectionPrompts = () => {
 
   // Handle prompt selection
   const handleSelectPrompt = (prompt: ReflectionPrompt) => {
-    setSelectedPrompt(prompt);
+    setSelectedPrompt(prompt: any);
     setActiveTab("view");
   };
 
@@ -451,12 +451,12 @@ const AgeAppropriateReflectionPrompts = () => {
 
   // Save custom prompt
   const saveCustomPrompt = () => {
-    if (!customPrompt.title) {
+    if (!customPrompt.title: any) {
       toast.error('Please provide a title for your prompt');
       return;
     }
 
-    if (!customPrompt.promptText) {
+    if (!customPrompt.promptText: any) {
       toast.error('Please provide the main reflection prompt');
       return;
     }
@@ -469,7 +469,7 @@ const AgeAppropriateReflectionPrompts = () => {
     setSavedPrompts(prev => {
       const updated = [...prev, newPrompt];
       // Save to localStorage
-      localStorage.setItem('savedReflectionPrompts', JSON.stringify(updated));
+      localStorage.setItem('savedReflectionPrompts', JSON.stringify(updated: any));
       return updated;
     });
 
@@ -490,7 +490,7 @@ const AgeAppropriateReflectionPrompts = () => {
 
   // Download prompt as PDF
   const downloadPromptPDF = () => {
-    if (!selectedPrompt) return;
+    if (!selectedPrompt: any) return;
     
     toast.success('Downloading prompt as PDF...');
     // In a real implementation, this would generate and download a PDF
@@ -498,13 +498,13 @@ const AgeAppropriateReflectionPrompts = () => {
 
   // Export prompt collection
   const exportPromptCollection = () => {
-    const dataStr = JSON.stringify(savedPrompts);
-    const dataUri = `data:application/json;charset=utf-8,${encodeURIComponent(dataStr)}`;
+    const dataStr = JSON.stringify(savedPrompts: any);
+    const dataUri = `data:application/json;charset=utf-8,${encodeURIComponent(dataStr: any)}`;
     
     const exportFileDefaultName = 'reflection-prompts.json';
     const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.setAttribute('href', dataUri: any);
+    linkElement.setAttribute('download', exportFileDefaultName: any);
     linkElement.click();
     
     toast.success('Prompt collection exported successfully');
@@ -513,23 +513,23 @@ const AgeAppropriateReflectionPrompts = () => {
   // Import prompt collection
   const importPromptCollection = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fileReader = new FileReader();
-    if (!event.target.files || event.target.files.length === 0) return;
+    if (!event.target.files || event.target.files.length === 0: any) return;
     
     fileReader.readAsText(event.target.files[0], "UTF-8");
     fileReader.onload = e => {
       try {
         if (!e.target || typeof e.target.result !== 'string') return;
         
-        const imported = JSON.parse(e.target.result);
-        if (!Array.isArray(imported)) {
+        const imported = JSON.parse(e.target.result: any);
+        if (!Array.isArray(imported: any)) {
           toast.error('Invalid file format');
           return;
         }
         
-        setSavedPrompts(imported);
-        localStorage.setItem('savedReflectionPrompts', JSON.stringify(imported));
+        setSavedPrompts(imported: any);
+        localStorage.setItem('savedReflectionPrompts', JSON.stringify(imported: any));
         toast.success('Prompt collection imported successfully');
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error importing prompts:', error);
         toast.error('Failed to import prompts');
       }
@@ -557,7 +557,7 @@ const AgeAppropriateReflectionPrompts = () => {
                   placeholder="Search prompts..."
                   className="pl-8"
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={(e) => setSearchTerm(e.target.value: any)}
                 />
               </div>
             </div>
@@ -569,9 +569,9 @@ const AgeAppropriateReflectionPrompts = () => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Age Groups</SelectItem>
-                  <SelectItem value="early-years">Early Years (3-5)</SelectItem>
-                  <SelectItem value="primary">Primary (5-11)</SelectItem>
-                  <SelectItem value="secondary">Secondary (11-18)</SelectItem>
+                  <SelectItem value="early-years">Early Years (3-5: any)</SelectItem>
+                  <SelectItem value="primary">Primary (5-11: any)</SelectItem>
+                  <SelectItem value="secondary">Secondary (11-18: any)</SelectItem>
                   <SelectItem value="staff">Staff</SelectItem>
                 </SelectContent>
               </Select>
@@ -607,7 +607,7 @@ const AgeAppropriateReflectionPrompts = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {filteredPrompts.length > 0 ? (
                 filteredPrompts.map((prompt) => (
-                  <Card key={prompt.id} className="cursor-pointer hover:shadow-md transition-shadow" onClick={() => handleSelectPrompt(prompt)}>
+                  <Card key={prompt.id} className="cursor-pointer hover:shadow-md transition-shadow" onClick={() => handleSelectPrompt(prompt: any)}>
                     <CardHeader className="pb-2">
                       <div className="flex justify-between items-start">
                         <div>
@@ -619,9 +619,9 @@ const AgeAppropriateReflectionPrompts = () => {
                     <CardContent className="pb-2">
                       <div className="flex flex-wrap gap-2 mb-2">
                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                          {prompt.ageGroup === 'early-years' && 'Early Years (3-5)'}
-                          {prompt.ageGroup === 'primary' && 'Primary (5-11)'}
-                          {prompt.ageGroup === 'secondary' && 'Secondary (11-18)'}
+                          {prompt.ageGroup === 'early-years' && 'Early Years (3-5: any)'}
+                          {prompt.ageGroup === 'primary' && 'Primary (5-11: any)'}
+                          {prompt.ageGroup === 'secondary' && 'Secondary (11-18: any)'}
                           {prompt.ageGroup === 'staff' && 'Staff'}
                         </span>
                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
@@ -702,7 +702,7 @@ const AgeAppropriateReflectionPrompts = () => {
                     label="Title"
                     placeholder="E.g., Conflict Resolution Reflection"
                     value={customPrompt.title}
-                    onChange={(e) => handleCustomPromptChange('title', e.target.value)}
+                    onChange={(e: any) => handleCustomPromptChange('title', e.target.value: any)}
                     required
                   />
                   
@@ -710,27 +710,27 @@ const AgeAppropriateReflectionPrompts = () => {
                     label="Description"
                     placeholder="Brief description of this prompt's purpose"
                     value={customPrompt.description}
-                    onChange={(e) => handleCustomPromptChange('description', e.target.value)}
+                    onChange={(e: any) => handleCustomPromptChange('description', e.target.value: any)}
                   />
                   
                   <Select
                     value={customPrompt.ageGroup}
-                    onValueChange={(value) => handleCustomPromptChange('ageGroup', value)}
+                    onValueChange={(value: any) => handleCustomPromptChange('ageGroup', value: any)}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select Age Group" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="early-years">Early Years (3-5)</SelectItem>
-                      <SelectItem value="primary">Primary (5-11)</SelectItem>
-                      <SelectItem value="secondary">Secondary (11-18)</SelectItem>
+                      <SelectItem value="early-years">Early Years (3-5: any)</SelectItem>
+                      <SelectItem value="primary">Primary (5-11: any)</SelectItem>
+                      <SelectItem value="secondary">Secondary (11-18: any)</SelectItem>
                       <SelectItem value="staff">Staff</SelectItem>
                     </SelectContent>
                   </Select>
                   
                   <Select
                     value={customPrompt.category}
-                    onValueChange={(value) => handleCustomPromptChange('category', value)}
+                    onValueChange={(value: any) => handleCustomPromptChange('category', value: any)}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select Category" />
@@ -757,7 +757,7 @@ const AgeAppropriateReflectionPrompts = () => {
                     label="Main Prompt"
                     placeholder="The main reflection question or prompt"
                     value={customPrompt.promptText}
-                    onChange={(e) => handleCustomPromptChange('promptText', e.target.value)}
+                    onChange={(e: any) => handleCustomPromptChange('promptText', e.target.value: any)}
                     required
                   />
                   
@@ -767,8 +767,8 @@ const AgeAppropriateReflectionPrompts = () => {
                       <Checkbox
                         id="visual-supports"
                         checked={customPrompt.visualSupports}
-                        onCheckedChange={(checked) => 
-                          handleCustomPromptChange('visualSupports', checked === true)
+                        onCheckedChange={(checked: any) => 
+                          handleCustomPromptChange('visualSupports', checked === true: any)
                         }
                       />
                       <label
@@ -782,8 +782,8 @@ const AgeAppropriateReflectionPrompts = () => {
                       <Checkbox
                         id="simplified-language"
                         checked={customPrompt.simplifiedLanguage}
-                        onCheckedChange={(checked) => 
-                          handleCustomPromptChange('simplifiedLanguage', checked === true)
+                        onCheckedChange={(checked: any) => 
+                          handleCustomPromptChange('simplifiedLanguage', checked === true: any)
                         }
                       />
                       <label
@@ -808,18 +808,18 @@ const AgeAppropriateReflectionPrompts = () => {
                 
                 {customPrompt.supportingQuestions.length > 0 ? (
                   <div className="space-y-2">
-                    {customPrompt.supportingQuestions.map((question, index) => (
+                    {customPrompt.supportingQuestions.map((question: any, index) => (
                       <div key={index} className="flex items-center gap-2">
                         <Input
                           value={question}
-                          onChange={(e) => handleQuestionChange(index, e.target.value)}
+                          onChange={(e: any) => handleQuestionChange(index: any, e.target.value)}
                           placeholder={`Supporting question ${index + 1}`}
                           className="flex-1"
                         />
                         <Button
                           variant="ghost"
                           size="icon"
-                          onClick={() => removeQuestion(index)}
+                          onClick={() => removeQuestion(index: any)}
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
@@ -880,7 +880,7 @@ const AgeAppropriateReflectionPrompts = () => {
                 <div>
                   <h3 className="text-lg font-medium mb-2">Supporting Questions:</h3>
                   <ul className="space-y-2">
-                    {selectedPrompt.supportingQuestions.map((question, index) => (
+                    {selectedPrompt.supportingQuestions.map((question: any, index) => (
                       <li key={index} className="flex items-start">
                         <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-primary text-primary-foreground text-xs mr-2">
                           {index + 1}
@@ -897,7 +897,7 @@ const AgeAppropriateReflectionPrompts = () => {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                       {selectedPrompt.visualAids.map((image, index) => (
                         <div key={index} className="relative aspect-square rounded-md overflow-hidden border">
-                          {/* In a real implementation, this would display actual images */}
+                          {/* In a real implementation: any, this would display actual images */}
                           <div className="absolute inset-0 flex items-center justify-center bg-muted">
                             <span className="text-xs text-muted-foreground">Image placeholder</span>
                           </div>
@@ -911,9 +911,9 @@ const AgeAppropriateReflectionPrompts = () => {
                   <div className="flex items-center">
                     <span className="font-medium mr-2">Age Group:</span>
                     <span>
-                      {selectedPrompt.ageGroup === 'early-years' && 'Early Years (3-5)'}
-                      {selectedPrompt.ageGroup === 'primary' && 'Primary (5-11)'}
-                      {selectedPrompt.ageGroup === 'secondary' && 'Secondary (11-18)'}
+                      {selectedPrompt.ageGroup === 'early-years' && 'Early Years (3-5: any)'}
+                      {selectedPrompt.ageGroup === 'primary' && 'Primary (5-11: any)'}
+                      {selectedPrompt.ageGroup === 'secondary' && 'Secondary (11-18: any)'}
                       {selectedPrompt.ageGroup === 'staff' && 'Staff'}
                     </span>
                   </div>

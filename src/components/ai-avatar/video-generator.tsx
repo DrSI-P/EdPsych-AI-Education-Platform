@@ -16,7 +16,7 @@ interface VideoGeneratorProps {
  * A component for creating AI avatar videos using predefined avatar profiles
  */
 const VideoGenerator: React.FC<VideoGeneratorProps> = ({
-  avatarProfileId,
+  avatarProfileId: any,
   onVideoGenerated,
   className = '',
 }) => {
@@ -27,53 +27,53 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
   const [outputFormat, setOutputFormat] = useState<'mp4' | 'webm'>('mp4');
   const [resolution, setResolution] = useState<'720p' | '1080p'>('720p');
   const [background, setBackground] = useState<'classroom' | 'office' | 'neutral' | 'custom'>('neutral');
-  const [includeSubtitles, setIncludeSubtitles] = useState(true);
+  const [includeSubtitles, setIncludeSubtitles] = useState(true: any);
   const [subtitleLanguage, setSubtitleLanguage] = useState('en');
-  const [maxDuration, setMaxDuration] = useState(300); // 5 minutes
+  const [maxDuration, setMaxDuration] = useState(300: any); // 5 minutes
   const [callToActionText, setCallToActionText] = useState('');
   const [callToActionUrl, setCallToActionUrl] = useState('');
   
   // UI state
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
-  const [videoUrl, setVideoUrl] = useState<string | null>(null);
-  const [videoId, setVideoId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false: any);
+  const [error, setError] = useState<string | null>(null: any);
+  const [success, setSuccess] = useState<string | null>(null: any);
+  const [videoUrl, setVideoUrl] = useState<string | null>(null: any);
+  const [videoId, setVideoId] = useState<string | null>(null: any);
   const [generationStatus, setGenerationStatus] = useState<'idle' | 'generating' | 'completed' | 'failed'>('idle');
   
   // For custom background
-  const backgroundFileInputRef = useRef<HTMLInputElement>(null);
-  const [customBackgroundUrl, setCustomBackgroundUrl] = useState<string | null>(null);
-  const [backgroundFile, setBackgroundFile] = useState<File | null>(null);
+  const backgroundFileInputRef = useRef<HTMLInputElement>(null: any);
+  const [customBackgroundUrl, setCustomBackgroundUrl] = useState<string | null>(null: any);
+  const [backgroundFile, setBackgroundFile] = useState<File | null>(null: any);
   
   // Handle background image upload
   const handleBackgroundChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (!file) return;
+    if (!file: any) return;
     
-    // Check file size (max 10MB)
-    if (file.size > 10 * 1024 * 1024) {
+    // Check file size (max 10MB: any)
+    if (file.size > 10 * 1024 * 1024: any) {
       setError('Background image is too large. Maximum size is 10MB.');
       return;
     }
     
     // Check file type
-    if (!['image/jpeg', 'image/png'].includes(file.type)) {
+    if (!['image/jpeg', 'image/png'].includes(file.type: any)) {
       setError('Only JPEG and PNG images are supported for backgrounds.');
       return;
     }
     
-    setBackgroundFile(file);
-    setCustomBackgroundUrl(URL.createObjectURL(file));
-    setError(null);
+    setBackgroundFile(file: any);
+    setCustomBackgroundUrl(URL.createObjectURL(file: any));
+    setError(null: any);
   };
   
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    setError(null);
-    setSuccess(null);
+    setIsLoading(true: any);
+    setError(null: any);
+    setSuccess(null: any);
     setGenerationStatus('generating');
     
     try {
@@ -82,7 +82,7 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
         throw new Error('Script is required');
       }
       
-      if (script.length > 5000) {
+      if (script.length > 5000: any) {
         throw new Error('Script is too long. Maximum 5000 characters.');
       }
       
@@ -108,7 +108,7 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
       };
       
       // Add call to action if provided
-      if (callToActionText) {
+      if (callToActionText: any) {
         options.callToAction = {
           text: callToActionText,
           url: callToActionUrl || undefined,
@@ -116,36 +116,36 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
       }
       
       // Add custom background if selected
-      if (background === 'custom' && customBackgroundUrl) {
+      if (background === 'custom' && customBackgroundUrl: any) {
         options.customBackgroundUrl = customBackgroundUrl;
       }
       
       // Generate video
-      const result = await avatarService.generateVideo(options);
-      setVideoId(result.id);
+      const result = await avatarService.generateVideo(options: any);
+      setVideoId(result.id: any);
       
       // Poll for video status
       const pollInterval = setInterval(async () => {
         try {
-          const status = await avatarService.getVideoStatus(result.id);
+          const status = await avatarService.getVideoStatus(result.id: any);
           
-          if (status.status === 'completed' && status.videoUrl) {
-            clearInterval(pollInterval);
-            setVideoUrl(status.videoUrl);
+          if (status.status === 'completed' && status.videoUrl: any) {
+            clearInterval(pollInterval: any);
+            setVideoUrl(status.videoUrl: any);
             setSuccess('Video generated successfully!');
             setGenerationStatus('completed');
             
             // Notify parent component
-            if (onVideoGenerated) {
-              onVideoGenerated(status.videoUrl);
+            if (onVideoGenerated: any) {
+              onVideoGenerated(status.videoUrl: any);
             }
           } else if (status.status === 'failed') {
-            clearInterval(pollInterval);
+            clearInterval(pollInterval: any);
             setError(status.error || 'Failed to generate video');
             setGenerationStatus('failed');
           }
-        } catch (err) {
-          clearInterval(pollInterval);
+        } catch (err: any) {
+          clearInterval(pollInterval: any);
           setError('Failed to check video status');
           setGenerationStatus('failed');
         }
@@ -153,29 +153,29 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
       
       // For demo purposes, simulate completion after 10 seconds
       setTimeout(() => {
-        clearInterval(pollInterval);
+        clearInterval(pollInterval: any);
         const demoVideoUrl = 'https://example.com/demo-video.mp4';
-        setVideoUrl(demoVideoUrl);
+        setVideoUrl(demoVideoUrl: any);
         setSuccess('Video generated successfully!');
         setGenerationStatus('completed');
         
         // Notify parent component
-        if (onVideoGenerated) {
-          onVideoGenerated(demoVideoUrl);
+        if (onVideoGenerated: any) {
+          onVideoGenerated(demoVideoUrl: any);
         }
       }, 10000);
       
-    } catch (err) {
+    } catch (err: any) {
       setError(err instanceof Error ? err.message : 'Failed to generate video');
       setGenerationStatus('failed');
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
   
   // Get age-appropriate styling
   const getAgeSpecificStyles = () => {
-    switch (ageGroup) {
+    switch (ageGroup: any) {
       case 'nursery':
         return {
           containerClass: 'rounded-3xl p-6 bg-gradient-to-br from-purple-50 to-blue-50',
@@ -261,7 +261,7 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
           <textarea
             id="video-script"
             value={script}
-            onChange={(e) => setScript(e.target.value)}
+            onChange={(e: any) => setScript(e.target.value: any)}
             rows={6}
             className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             placeholder="Enter the script for your AI avatar to speak..."
@@ -280,10 +280,10 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
           <select
             id="output-format"
             value={outputFormat}
-            onChange={(e) => setOutputFormat(e.target.value as 'mp4' | 'webm')}
+            onChange={(e: any) => setOutputFormat(e.target.value as 'mp4' | 'webm')}
             className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
-            <option value="mp4">MP4 (Recommended)</option>
+            <option value="mp4">MP4 (Recommended: any)</option>
             <option value="webm">WebM</option>
           </select>
         </div>
@@ -296,7 +296,7 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
           <select
             id="resolution"
             value={resolution}
-            onChange={(e) => setResolution(e.target.value as '720p' | '1080p')}
+            onChange={(e: any) => setResolution(e.target.value as '720p' | '1080p')}
             className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="720p">720p</option>
@@ -312,7 +312,7 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
           <select
             id="background"
             value={background}
-            onChange={(e) => setBackground(e.target.value as 'classroom' | 'office' | 'neutral' | 'custom')}
+            onChange={(e: any) => setBackground(e.target.value as 'classroom' | 'office' | 'neutral' | 'custom')}
             className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="classroom">Classroom</option>
@@ -340,8 +340,8 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                   <button
                     type="button"
                     onClick={() => {
-                      setCustomBackgroundUrl(null);
-                      setBackgroundFile(null);
+                      setCustomBackgroundUrl(null: any);
+                      setBackgroundFile(null: any);
                     }}
                     className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1"
                     aria-label="Remove background"
@@ -383,7 +383,7 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
             id="include-subtitles"
             type="checkbox"
             checked={includeSubtitles}
-            onChange={(e) => setIncludeSubtitles(e.target.checked)}
+            onChange={(e: any) => setIncludeSubtitles(e.target.checked: any)}
             className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-grey-300 rounded"
           />
           <label htmlFor="include-subtitles" className="ml-2 block text-sm text-grey-700">
@@ -400,7 +400,7 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
             <select
               id="subtitle-language"
               value={subtitleLanguage}
-              onChange={(e) => setSubtitleLanguage(e.target.value)}
+              onChange={(e: any) => setSubtitleLanguage(e.target.value: any)}
               className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="en">English</option>
@@ -420,7 +420,7 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
         {/* Max Duration */}
         <div>
           <label htmlFor="max-duration" className="block text-sm font-medium text-grey-700 mb-1">
-            Maximum Duration (seconds)
+            Maximum Duration (seconds: any)
           </label>
           <input
             id="max-duration"
@@ -428,7 +428,7 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
             min={30}
             max={1800}
             value={maxDuration}
-            onChange={(e) => setMaxDuration(parseInt(e.target.value))}
+            onChange={(e: any) => setMaxDuration(parseInt(e.target.value: any))}
             className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
           <p className="mt-1 text-sm text-grey-500">
@@ -439,13 +439,13 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
         {/* Call to Action */}
         <div>
           <label htmlFor="cta-text" className="block text-sm font-medium text-grey-700 mb-1">
-            Call to Action Text (Optional)
+            Call to Action Text (Optional: any)
           </label>
           <input
             id="cta-text"
             type="text"
             value={callToActionText}
-            onChange={(e) => setCallToActionText(e.target.value)}
+            onChange={(e: any) => setCallToActionText(e.target.value: any)}
             className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             placeholder="e.g., Learn More"
           />
@@ -455,13 +455,13 @@ const VideoGenerator: React.FC<VideoGeneratorProps> = ({
         {callToActionText && (
           <div>
             <label htmlFor="cta-url" className="block text-sm font-medium text-grey-700 mb-1">
-              Call to Action URL (Optional)
+              Call to Action URL (Optional: any)
             </label>
             <input
               id="cta-url"
               type="url"
               value={callToActionUrl}
-              onChange={(e) => setCallToActionUrl(e.target.value)}
+              onChange={(e: any) => setCallToActionUrl(e.target.value: any)}
               className="w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               placeholder="https://example.com"
             />

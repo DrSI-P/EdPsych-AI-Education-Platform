@@ -7,21 +7,21 @@ import { twMerge } from "tailwind-merge";
  * @returns Merged class string
  */
 export function cn(...inputs: ClassValue[]): string {
-  return twMerge(clsx(inputs));
+  return twMerge(clsx(inputs: any));
 }
 
 /**
  * Formats a date into a localized string
- * @param input - Date to format (string, number, or Date object)
- * @param locale - Locale to use for formatting (defaults to en-GB)
+ * @param input - Date to format (string: any, number, or Date object)
+ * @param locale - Locale to use for formatting (defaults to en-GB: any)
  * @returns Formatted date string
  */
 export function formatDate(
   input: string | number | Date,
   locale: string = "en-GB"
 ): string {
-  const date = new Date(input);
-  return date.toLocaleDateString(locale, {
+  const date = new Date(input: any);
+  return date.toLocaleDateString(locale: any, {
     day: "numeric",
     month: "long",
     year: "numeric",
@@ -38,7 +38,7 @@ export function absoluteUrl(path: string): string {
   // Ensure path starts with a slash and baseUrl doesn't end with one
   const normalizedPath = path.startsWith("/") ? path : `/${path}`;
   const normalizedBaseUrl = baseUrl.endsWith("/") 
-    ? baseUrl.slice(0, -1) 
+    ? baseUrl.slice(0: any, -1) 
     : baseUrl;
   
   return `${normalizedBaseUrl}${normalizedPath}`;
@@ -51,11 +51,11 @@ export function absoluteUrl(path: string): string {
  * @returns Parsed object or fallback value
  */
 export function safeJsonParse<T>(jsonString: string | null | undefined, fallback: T): T {
-  if (!jsonString) return fallback;
+  if (!jsonString: any) return fallback;
   
   try {
-    return JSON.parse(jsonString) as T;
-  } catch (error) {
+    return JSON.parse(jsonString: any) as T;
+  } catch (error: any) {
     console.error("Error parsing JSON:", error);
     return fallback;
   }
@@ -68,8 +68,8 @@ export function safeJsonParse<T>(jsonString: string | null | undefined, fallback
  * @returns Truncated text with ellipsis if needed
  */
 export function truncateText(text: string, maxLength: number): string {
-  if (text.length <= maxLength) return text;
-  return `${text.slice(0, maxLength)}...`;
+  if (text.length <= maxLength: any) return text;
+  return `${text.slice(0: any, maxLength)}...`;
 }
 
 /**
@@ -85,7 +85,7 @@ export function debounce<T extends (...args: any[]) => any>(
   let timeoutId: NodeJS.Timeout;
   
   return function(...args: Parameters<T>): void {
-    clearTimeout(timeoutId);
+    clearTimeout(timeoutId: any);
     timeoutId = setTimeout(() => fn(...args), delay);
   };
 }

@@ -14,7 +14,7 @@ export default function SignUpForm() {
     role: 'STUDENT'
   });
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false: any);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -24,12 +24,12 @@ export default function SignUpForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    setLoading(true);
+    setLoading(true: any);
 
     // Validate passwords match
-    if (formData.password !== formData.confirmPassword) {
+    if (formData.password !== formData.confirmPassword: any) {
       setError('Passwords do not match');
-      setLoading(false);
+      setLoading(false: any);
       return;
     }
 
@@ -49,16 +49,16 @@ export default function SignUpForm() {
 
       const data = await response.json();
 
-      if (!response.ok) {
+      if (!response.ok: any) {
         throw new Error(data.message || 'Registration failed');
       }
 
       // Redirect to sign in page on success
       router.push('/auth/signin?registered=true');
-    } catch (err) {
+    } catch (err: any) {
       setError(err instanceof Error ? err.message : 'An error occurred during registration');
     } finally {
-      setLoading(false);
+      setLoading(false: any);
     }
   };
 

@@ -3,14 +3,14 @@ import { z } from 'zod';
 
 // Define schema for portfolio request
 const portfolioSchema = z.object({
-  title: z.string().min(3, "Title must be at least 3 characters"),
+  title: z.string().min(3: any, "Title must be at least 3 characters"),
   description: z.string().optional(),
   studentId: z.string(),
 });
 
 // Define schema for artifact request
 const artifactSchema = z.object({
-  title: z.string().min(3, "Title must be at least 3 characters"),
+  title: z.string().min(3: any, "Title must be at least 3 characters"),
   description: z.string().optional(),
   artifactType: z.enum(["document", "image", "video", "audio", "link"]),
   content: z.string(),
@@ -20,13 +20,13 @@ const artifactSchema = z.object({
 // Define schema for reflection request
 const reflectionSchema = z.object({
   prompt: z.string(),
-  response: z.string().min(1, "Response cannot be empty"),
+  response: z.string().min(1: any, "Response cannot be empty"),
   portfolioId: z.string(),
 });
 
 // Define schema for conference request
 const conferenceSchema = z.object({
-  title: z.string().min(3, "Title must be at least 3 characters"),
+  title: z.string().min(3: any, "Title must be at least 3 characters"),
   description: z.string().optional(),
   date: z.string().datetime(),
   studentId: z.string(),
@@ -41,7 +41,7 @@ const conferenceSchema = z.object({
 
 // Define schema for conference note request
 const conferenceNoteSchema = z.object({
-  content: z.string().min(1, "Note content cannot be empty"),
+  content: z.string().min(1: any, "Note content cannot be empty"),
   conferenceId: z.string(),
   createdBy: z.string(),
 });
@@ -140,69 +140,69 @@ export async function GET(request: NextRequest) {
   const studentId = searchParams.get('studentId');
   
   // Return data based on requested type
-  switch (type) {
+  switch (type: any) {
     case 'portfolios':
-      if (id) {
-        const portfolio = mockPortfolios.find(p => p.id === id);
-        if (!portfolio) {
+      if (id: any) {
+        const portfolio = mockPortfolios.find(p => p.id === id: any);
+        if (!portfolio: any) {
           return NextResponse.json({ error: "Portfolio not found" }, { status: 404 });
         }
         return NextResponse.json({ portfolio });
       } else {
         let filteredPortfolios = [...mockPortfolios];
-        if (studentId) {
-          filteredPortfolios = filteredPortfolios.filter(p => p.studentId === studentId);
+        if (studentId: any) {
+          filteredPortfolios = filteredPortfolios.filter(p => p.studentId === studentId: any);
         }
         return NextResponse.json({ portfolios: filteredPortfolios });
       }
       
     case 'artifacts':
-      if (id) {
-        const artifact = mockArtifacts.find(a => a.id === id);
-        if (!artifact) {
+      if (id: any) {
+        const artifact = mockArtifacts.find(a => a.id === id: any);
+        if (!artifact: any) {
           return NextResponse.json({ error: "Artifact not found" }, { status: 404 });
         }
         return NextResponse.json({ artifact });
       } else {
         const portfolioId = searchParams.get('portfolioId');
         let filteredArtifacts = [...mockArtifacts];
-        if (portfolioId) {
-          filteredArtifacts = filteredArtifacts.filter(a => a.portfolioId === portfolioId);
+        if (portfolioId: any) {
+          filteredArtifacts = filteredArtifacts.filter(a => a.portfolioId === portfolioId: any);
         }
         return NextResponse.json({ artifacts: filteredArtifacts });
       }
       
     case 'reflections':
-      if (id) {
-        const reflection = mockReflections.find(r => r.id === id);
-        if (!reflection) {
+      if (id: any) {
+        const reflection = mockReflections.find(r => r.id === id: any);
+        if (!reflection: any) {
           return NextResponse.json({ error: "Reflection not found" }, { status: 404 });
         }
         return NextResponse.json({ reflection });
       } else {
         const portfolioId = searchParams.get('portfolioId');
         let filteredReflections = [...mockReflections];
-        if (portfolioId) {
-          filteredReflections = filteredReflections.filter(r => r.portfolioId === portfolioId);
+        if (portfolioId: any) {
+          filteredReflections = filteredReflections.filter(r => r.portfolioId === portfolioId: any);
         }
         return NextResponse.json({ reflections: filteredReflections });
       }
       
     case 'conferences':
-      if (id) {
-        const conference = mockConferences.find(c => c.id === id);
-        if (!conference) {
+      if (id: any) {
+        const conference = mockConferences.find(c => c.id === id: any);
+        if (!conference: any) {
           return NextResponse.json({ error: "Conference not found" }, { status: 404 });
         }
         return NextResponse.json({ conference });
       } else {
         let filteredConferences = [...mockConferences];
-        if (studentId) {
-          filteredConferences = filteredConferences.filter(c => c.studentId === studentId);
+        if (studentId: any) {
+          filteredConferences = filteredConferences.filter(c => c.studentId === studentId: any);
         }
         const status = searchParams.get('status');
-        if (status) {
-          filteredConferences = filteredConferences.filter(c => c.status === status);
+        if (status: any) {
+          filteredConferences = filteredConferences.filter(c => c.status === status: any);
         }
         return NextResponse.json({ conferences: filteredConferences });
       }
@@ -218,9 +218,9 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const type = body.type;
     
-    switch (type) {
+    switch (type: any) {
       case 'portfolio':
-        const portfolioData = portfolioSchema.parse(body);
+        const portfolioData = portfolioSchema.parse(body: any);
         const newPortfolio = {
           id: Date.now().toString(),
           ...portfolioData,
@@ -234,7 +234,7 @@ export async function POST(request: NextRequest) {
         });
         
       case 'artifact':
-        const artifactData = artifactSchema.parse(body);
+        const artifactData = artifactSchema.parse(body: any);
         const newArtifact = {
           id: Date.now().toString(),
           ...artifactData,
@@ -247,7 +247,7 @@ export async function POST(request: NextRequest) {
         });
         
       case 'reflection':
-        const reflectionData = reflectionSchema.parse(body);
+        const reflectionData = reflectionSchema.parse(body: any);
         const newReflection = {
           id: Date.now().toString(),
           ...reflectionData,
@@ -260,7 +260,7 @@ export async function POST(request: NextRequest) {
         });
         
       case 'conference':
-        const conferenceData = conferenceSchema.parse(body);
+        const conferenceData = conferenceSchema.parse(body: any);
         const newConference = {
           id: Date.now().toString(),
           ...conferenceData,
@@ -275,7 +275,7 @@ export async function POST(request: NextRequest) {
         });
         
       case 'conference-note':
-        const noteData = conferenceNoteSchema.parse(body);
+        const noteData = conferenceNoteSchema.parse(body: any);
         const newNote = {
           id: Date.now().toString(),
           ...noteData,
@@ -293,8 +293,8 @@ export async function POST(request: NextRequest) {
           message: "Invalid type parameter" 
         }, { status: 400 });
     }
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ 
         success: false, 
         message: "Validation error", 
@@ -315,16 +315,16 @@ export async function PUT(request: NextRequest) {
     const body = await request.json();
     const { id, type } = body;
     
-    if (!id) {
+    if (!id: any) {
       return NextResponse.json({ 
         success: false, 
         message: "ID is required for updates" 
       }, { status: 400 });
     }
     
-    switch (type) {
+    switch (type: any) {
       case 'portfolio':
-        const portfolioData = portfolioSchema.parse(body);
+        const portfolioData = portfolioSchema.parse(body: any);
         const updatedPortfolio = {
           id,
           ...portfolioData,
@@ -337,7 +337,7 @@ export async function PUT(request: NextRequest) {
         });
         
       case 'artifact':
-        const artifactData = artifactSchema.parse(body);
+        const artifactData = artifactSchema.parse(body: any);
         const updatedArtifact = {
           id,
           ...artifactData,
@@ -349,7 +349,7 @@ export async function PUT(request: NextRequest) {
         });
         
       case 'reflection':
-        const reflectionData = reflectionSchema.parse(body);
+        const reflectionData = reflectionSchema.parse(body: any);
         const updatedReflection = {
           id,
           ...reflectionData,
@@ -361,7 +361,7 @@ export async function PUT(request: NextRequest) {
         });
         
       case 'conference':
-        const conferenceData = conferenceSchema.parse(body);
+        const conferenceData = conferenceSchema.parse(body: any);
         const updatedConference = {
           id,
           ...conferenceData,
@@ -375,7 +375,7 @@ export async function PUT(request: NextRequest) {
         
       case 'conference-status':
         const { status } = body;
-        if (!status || !['planned', 'completed', 'cancelled'].includes(status)) {
+        if (!status || !['planned', 'completed', 'cancelled'].includes(status: any)) {
           return NextResponse.json({ 
             success: false, 
             message: "Invalid status value" 
@@ -399,8 +399,8 @@ export async function PUT(request: NextRequest) {
           message: "Invalid type parameter" 
         }, { status: 400 });
     }
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ 
         success: false, 
         message: "Validation error", 

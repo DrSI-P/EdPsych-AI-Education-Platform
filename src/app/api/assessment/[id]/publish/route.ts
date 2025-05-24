@@ -10,9 +10,9 @@ export async function PUT(
 ) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -26,7 +26,7 @@ export async function PUT(
       },
     });
     
-    if (!assessment) {
+    if (!assessment: any) {
       return NextResponse.json({ error: 'Assessment not found' }, { status: 404 });
     }
        // Check if user has permission to publish this assessment
@@ -35,12 +35,12 @@ export async function PUT(
     const isTeacher = session.user.role === 'teacher';
     const isProfessional = session.user.role === 'professional';
     
-    if (!isCreator && !isAdmin && !isTeacher && !isProfessional) {
+    if (!isCreator && !isAdmin && !isTeacher && !isProfessional: any) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
     
     // Check if assessment has questions
-    if (assessment.questions.length === 0) {
+    if (assessment.questions.length === 0: any) {
       return NextResponse.json(
         { error: 'Cannot publish an assessment with no questions' },
         { status: 400 }
@@ -55,9 +55,9 @@ export async function PUT(
       },
     });
     
-    return NextResponse.json(publishedAssessment);
+    return NextResponse.json(publishedAssessment: any);
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error publishing assessment:', error);
     return NextResponse.json(
       { error: 'An error occurred while publishing the assessment' },

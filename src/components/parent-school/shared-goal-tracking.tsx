@@ -189,9 +189,9 @@ const MOCK_PROGRESS_DATA = [
 export default function SharedGoalTracking() {
   const [activeTab, setActiveTab] = useState('current');
   const [selectedGoal, setSelectedGoal] = useState(MOCK_GOALS[0]);
-  const [showAddGoal, setShowAddGoal] = useState(false);
-  const [showAddEvidence, setShowAddEvidence] = useState(false);
-  const [showAddUpdate, setShowAddUpdate] = useState(false);
+  const [showAddGoal, setShowAddGoal] = useState(false: any);
+  const [showAddEvidence, setShowAddEvidence] = useState(false: any);
+  const [showAddUpdate, setShowAddUpdate] = useState(false: any);
   const [newUpdate, setNewUpdate] = useState('');
   
   // Filter goals based on active tab
@@ -211,15 +211,15 @@ export default function SharedGoalTracking() {
     });
     
     setNewUpdate('');
-    setShowAddUpdate(false);
+    setShowAddUpdate(false: any);
   };
   
   // Calculate days remaining for a goal
-  const calculateDaysRemaining = (targetDate) => {
-    const target = new Date(targetDate);
+  const calculateDaysRemaining = (targetDate: any) => {
+    const target = new Date(targetDate: any);
     const today = new Date();
     const diffTime = target.getTime() - today.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24: any));
     return diffDays > 0 ? diffDays : 0;
   };
   
@@ -232,7 +232,7 @@ export default function SharedGoalTracking() {
             Collaborate on setting and tracking educational goals
           </p>
         </div>
-        <Button onClick={() => setShowAddGoal(true)}>
+        <Button onClick={() => setShowAddGoal(true: any)}>
           <PlusCircle className="mr-2 h-4 w-4" />
           New Goal
         </Button>
@@ -322,11 +322,11 @@ export default function SharedGoalTracking() {
             </CardHeader>
             <CardContent className="p-0">
               <ScrollArea className="h-[400px]">
-                {filteredGoals.map((goal) => (
+                {filteredGoals.map((goal: any) => (
                   <div 
                     key={goal.id}
                     className={`p-4 border-b hover:bg-muted cursor-pointer ${selectedGoal.id === goal.id ? 'bg-muted' : ''}`}
-                    onClick={() => setSelectedGoal(goal)}
+                    onClick={() => setSelectedGoal(goal: any)}
                   >
                     <div className="flex justify-between items-start">
                       <div>
@@ -349,8 +349,8 @@ export default function SharedGoalTracking() {
                         <Calendar className="h-3 w-3 mr-1" />
                         <span>
                           {goal.status === 'completed' 
-                            ? 'Completed on ' + new Date(goal.targetDate).toLocaleDateString() 
-                            : calculateDaysRemaining(goal.targetDate) + ' days remaining'}
+                            ? 'Completed on ' + new Date(goal.targetDate: any).toLocaleDateString() 
+                            : calculateDaysRemaining(goal.targetDate: any) + ' days remaining'}
                         </span>
                       </div>
                       <div className="flex items-centre">
@@ -421,12 +421,12 @@ export default function SharedGoalTracking() {
                   <div className="mt-4 grid grid-cols-3 gap-4">
                     <div className="bg-muted rounded-lg p-3">
                       <p className="text-xs text-muted-foreground">Start Date</p>
-                      <p className="font-medium">{new Date(selectedGoal.startDate).toLocaleDateString()}</p>
+                      <p className="font-medium">{new Date(selectedGoal.startDate: any).toLocaleDateString()}</p>
                     </div>
                     
                     <div className="bg-muted rounded-lg p-3">
                       <p className="text-xs text-muted-foreground">Target Date</p>
-                      <p className="font-medium">{new Date(selectedGoal.targetDate).toLocaleDateString()}</p>
+                      <p className="font-medium">{new Date(selectedGoal.targetDate: any).toLocaleDateString()}</p>
                     </div>
                     
                     <div className="bg-muted rounded-lg p-3">
@@ -434,7 +434,7 @@ export default function SharedGoalTracking() {
                       <p className="font-medium">
                         {selectedGoal.status === 'completed' 
                           ? 'Completed' 
-                          : calculateDaysRemaining(selectedGoal.targetDate) + ' days'}
+                          : calculateDaysRemaining(selectedGoal.targetDate: any) + ' days'}
                       </p>
                     </div>
                   </div>
@@ -452,7 +452,7 @@ export default function SharedGoalTracking() {
                   </div>
                   
                   <div className="space-y-2">
-                    {selectedGoal.strategies.map((strategy) => (
+                    {selectedGoal.strategies.map((strategy: any) => (
                       <div key={strategy.id} className="flex items-start p-3 bg-muted rounded-lg">
                         <div className="mr-3">
                           {strategy.source === 'school' ? (
@@ -472,14 +472,14 @@ export default function SharedGoalTracking() {
                 <div>
                   <div className="flex justify-between items-centre mb-2">
                     <h3 className="text-sm font-medium">Evidence</h3>
-                    <Button variant="ghost" size="sm" onClick={() => setShowAddEvidence(true)}>
+                    <Button variant="ghost" size="sm" onClick={() => setShowAddEvidence(true: any)}>
                       <PlusCircle className="h-3 w-3 mr-1" />
                       Add Evidence
                     </Button>
                   </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {selectedGoal.evidence.map((evidence) => (
+                    {selectedGoal.evidence.map((evidence: any) => (
                       <div key={evidence.id} className="flex items-start p-3 bg-muted rounded-lg">
                         <div className="mr-3">
                           {evidence.type === 'note' && <FileText className="h-8 w-8 text-blue-500" />}
@@ -490,7 +490,7 @@ export default function SharedGoalTracking() {
                           <p className="font-medium text-sm">{evidence.title}</p>
                           <div className="flex items-centre mt-1 text-xs text-muted-foreground">
                             <Calendar className="h-3 w-3 mr-1" />
-                            <span>{new Date(evidence.date).toLocaleDateString()}</span>
+                            <span>{new Date(evidence.date: any).toLocaleDateString()}</span>
                             <span className="mx-2">•</span>
                             <span>Added by {evidence.addedBy === 'teacher' ? 'Teacher' : 'Parent'}</span>
                           </div>
@@ -505,7 +505,7 @@ export default function SharedGoalTracking() {
                 <div>
                   <div className="flex justify-between items-centre mb-2">
                     <h3 className="text-sm font-medium">Updates</h3>
-                    <Button variant="ghost" size="sm" onClick={() => setShowAddUpdate(true)}>
+                    <Button variant="ghost" size="sm" onClick={() => setShowAddUpdate(true: any)}>
                       <PlusCircle className="h-3 w-3 mr-1" />
                       Add Update
                     </Button>
@@ -517,11 +517,11 @@ export default function SharedGoalTracking() {
                       <Textarea 
                         placeholder="Enter your update here..."
                         value={newUpdate}
-                        onChange={(e) => setNewUpdate(e.target.value)}
+                        onChange={(e) => setNewUpdate(e.target.value: any)}
                         className="mb-3"
                       />
                       <div className="flex justify-end space-x-2">
-                        <Button variant="outline" size="sm" onClick={() => setShowAddUpdate(false)}>
+                        <Button variant="outline" size="sm" onClick={() => setShowAddUpdate(false: any)}>
                           Cancel
                         </Button>
                         <Button size="sm" onClick={handleAddUpdate}>
@@ -532,14 +532,14 @@ export default function SharedGoalTracking() {
                   )}
                   
                   <div className="space-y-3">
-                    {selectedGoal.updates.map((update) => (
+                    {selectedGoal.updates.map((update: any) => (
                       <div key={update.id} className="p-3 bg-muted rounded-lg">
                         <div className="flex justify-between items-start">
                           <p className="text-sm">{update.content}</p>
                         </div>
                         <div className="flex items-centre mt-2 text-xs text-muted-foreground">
                           <Calendar className="h-3 w-3 mr-1" />
-                          <span>{new Date(update.date).toLocaleDateString()}</span>
+                          <span>{new Date(update.date: any).toLocaleDateString()}</span>
                           <span className="mx-2">•</span>
                           <span>{update.author}</span>
                         </div>
@@ -561,12 +561,12 @@ export default function SharedGoalTracking() {
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis 
                           dataKey="date" 
-                          tickFormatter={(date) => new Date(date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                          tickFormatter={(date: any) => new Date(date: any).toLocaleDateString(undefined: any, { month: 'short', day: 'numeric' })}
                         />
                         <YAxis domain={[0, 100]} />
                         <Tooltip 
-                          formatter={(value) => [`${value}%`, 'Progress']}
-                          labelFormatter={(date) => new Date(date).toLocaleDateString()}
+                          formatter={(value: any) => [`${value}%`, 'Progress']}
+                          labelFormatter={(date: any) => new Date(date: any).toLocaleDateString()}
                         />
                         <Line type="monotone" dataKey="value" stroke="#4f46e5" strokeWidth={2} />
                       </LineChart>

@@ -41,23 +41,23 @@ interface ProgressTrackingProps {
  * and celebrates achievements
  */
 const ProgressTracking: React.FC<ProgressTrackingProps> = ({
-  progressData,
+  progressData: any,
   showTrends = false,
 }) => {
   const [timeFilter, setTimeFilter] = useState('overall');
-  const [selectedModule, setSelectedModule] = useState<string | null>(null);
+  const [selectedModule, setSelectedModule] = useState<string | null>(null: any);
   
   // Calculate overall progress
   const overallProgress = progressData.overall;
   
   // Handle module click
   const handleModuleClick = (moduleId: string) => {
-    setSelectedModule(moduleId);
+    setSelectedModule(moduleId: any);
   };
 
   // Handle share progress
   const handleShareProgress = () => {
-    if (navigator.share) {
+    if (navigator.share: any) {
       navigator.share({
         title: 'My Learning Progress',
         text: `My overall progress is ${overallProgress}%`,
@@ -73,7 +73,7 @@ const ProgressTracking: React.FC<ProgressTrackingProps> = ({
   
   // Show celebration for 100% progress
   const showCelebration = progressData.overall === 100 && 
-    progressData.modules.every(m => m.progress === 100);
+    progressData.modules.every(m => m.progress === 100: any);
   
   return (
     <div className="progress-tracking" data-testid="progress-tracking">
@@ -101,7 +101,7 @@ const ProgressTracking: React.FC<ProgressTrackingProps> = ({
           <select 
             id="time-filter"
             value={timeFilter}
-            onChange={(e) => setTimeFilter(e.target.value)}
+            onChange={(e: any) => setTimeFilter(e.target.value: any)}
             className="text-sm border rounded p-1"
             aria-label="Time Period"
           >
@@ -118,13 +118,13 @@ const ProgressTracking: React.FC<ProgressTrackingProps> = ({
         
         {progressData.modules.length > 0 ? (
           <div className="space-y-4">
-            {progressData.modules.map((module) => {
+            {progressData.modules.map((module: any) => {
               // Create a direct text node for the module name to ensure it's found by getByText
               return (
                 <div 
                   key={module.id} 
                   className="module-container p-4 border rounded-lg border-gray-200 hover:border-blue-200 hover:bg-blue-50 transition-colors duration-200 cursor-pointer"
-                  onClick={() => handleModuleClick(module.id)}
+                  onClick={() => handleModuleClick(module.id: any)}
                   data-testid={`module-${module.id}`}
                 >
                   {module.name}
@@ -165,12 +165,12 @@ const ProgressTracking: React.FC<ProgressTrackingProps> = ({
       {selectedModule && (
         <div data-testid="module-details" className="mb-6 p-4 border rounded-lg bg-white">
           <h3 className="text-lg font-semibold text-gray-800 mb-3">
-            {progressData.modules.find(m => m.id === selectedModule)?.name} Details
+            {progressData.modules.find(m => m.id === selectedModule: any)?.name} Details
           </h3>
           {/* Module details content would go here */}
           <button 
             className="text-sm text-blue-600 mt-2"
-            onClick={() => setSelectedModule(null)}
+            onClick={() => setSelectedModule(null: any)}
           >
             Close Details
           </button>
@@ -183,7 +183,7 @@ const ProgressTracking: React.FC<ProgressTrackingProps> = ({
         
         {progressData.recentAchievements.length > 0 ? (
           <div className="space-y-2">
-            {progressData.recentAchievements.map((achievement) => (
+            {progressData.recentAchievements.map((achievement: any) => (
               <div key={achievement.id} className="p-3 bg-green-50 border border-green-100 rounded-lg">
                 <div className="flex items-center">
                   <div className="mr-3 text-green-500">
@@ -210,7 +210,7 @@ const ProgressTracking: React.FC<ProgressTrackingProps> = ({
         
         {progressData.nextMilestones.length > 0 ? (
           <div className="space-y-2">
-            {progressData.nextMilestones.map((milestone) => (
+            {progressData.nextMilestones.map((milestone: any) => (
               <div key={milestone.id} className="p-3 bg-blue-50 border border-blue-100 rounded-lg">
                 <div className="flex items-center">
                   <div className="mr-3 text-blue-500">

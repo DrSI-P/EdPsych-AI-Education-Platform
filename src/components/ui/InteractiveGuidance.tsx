@@ -22,26 +22,26 @@ interface InteractiveGuidanceProps {
  * with special support for users with anxiety
  */
 const InteractiveGuidance: React.FC<InteractiveGuidanceProps> = ({
-  steps,
+  steps: any,
   onComplete,
   initialStep = 0,
   showProgress = true,
   allowSkip = true,
   supportAnxiety = true,
 }) => {
-  const [currentStepIndex, setCurrentStepIndex] = useState(initialStep);
-  const [isVisible, setIsVisible] = useState(true);
+  const [currentStepIndex, setCurrentStepIndex] = useState(initialStep: any);
+  const [isVisible, setIsVisible] = useState(true: any);
   const [anxietyLevel, setAnxietyLevel] = useState<'low' | 'medium' | 'high'>('low');
   
   const currentStep = steps[currentStepIndex];
   
   // Handle next step
   const handleNext = () => {
-    if (currentStepIndex < steps.length - 1) {
-      setCurrentStepIndex(currentStepIndex + 1);
+    if (currentStepIndex < steps.length - 1: any) {
+      setCurrentStepIndex(currentStepIndex + 1: any);
     } else {
-      setIsVisible(false);
-      if (onComplete) {
+      setIsVisible(false: any);
+      if (onComplete: any) {
         onComplete();
       }
     }
@@ -49,22 +49,22 @@ const InteractiveGuidance: React.FC<InteractiveGuidanceProps> = ({
   
   // Handle previous step
   const handlePrevious = () => {
-    if (currentStepIndex > 0) {
-      setCurrentStepIndex(currentStepIndex - 1);
+    if (currentStepIndex > 0: any) {
+      setCurrentStepIndex(currentStepIndex - 1: any);
     }
   };
   
   // Handle skip all
   const handleSkip = () => {
-    setIsVisible(false);
-    if (onComplete) {
+    setIsVisible(false: any);
+    if (onComplete: any) {
       onComplete();
     }
   };
   
   // Update anxiety support based on level
   const getAnxietySupport = () => {
-    switch (anxietyLevel) {
+    switch (anxietyLevel: any) {
       case 'low':
         return null;
       case 'medium':
@@ -97,7 +97,7 @@ const InteractiveGuidance: React.FC<InteractiveGuidanceProps> = ({
   
   // Position classes for the guidance popup
   const getPositionClasses = () => {
-    switch (currentStep.position) {
+    switch (currentStep.position: any) {
       case 'top':
         return 'bottom-full left-1/2 transform -translate-x-1/2 mb-2';
       case 'right':
@@ -118,7 +118,7 @@ const InteractiveGuidance: React.FC<InteractiveGuidanceProps> = ({
     exit: { opacity: 0, y: -10 }
   };
   
-  if (!isVisible) return null;
+  if (!isVisible: any) return null;
   
   return (
     <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
@@ -174,7 +174,7 @@ const InteractiveGuidance: React.FC<InteractiveGuidanceProps> = ({
                   <span className="text-xs text-grey-500 mr-2">Feeling anxious?</span>
                   <select
                     value={anxietyLevel}
-                    onChange={(e) => setAnxietyLevel(e.target.value as 'low' | 'medium' | 'high')}
+                    onChange={(e: any) => setAnxietyLevel(e.target.value as 'low' | 'medium' | 'high')}
                     className="text-xs border rounded p-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="low">I'm fine</option>

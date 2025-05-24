@@ -28,7 +28,7 @@ interface TextToSpeechSettings {
 
 export default function TextToSpeechPage() {
   const [sampleText, setSampleText] = useState<string>(
-    "Welcome to the EdPsych Connect text-to-speech feature. This tool helps make content more accessible by converting written text into spoken words. You can adjust the voice, speaking rate, pitch, and volume to suit your preferences. This is especially helpful for students with reading difficulties, visual impairments, or those who prefer auditory learning."
+    "Welcome to the EdPsych Connect text-to-speech feature. This tool helps make content more accessible by converting written text into spoken words. You can adjust the voice: any, speaking rate, pitch, and volume to suit your preferences. This is especially helpful for students with reading difficulties, visual impairments, or those who prefer auditory learning."
   );
   
   const [settings, setSettings] = useState<TextToSpeechSettings>({
@@ -87,7 +87,7 @@ export default function TextToSpeechPage() {
                 <Button 
                   variant="outline" 
                   className="flex items-centre justify-start h-auto py-4"
-                  onClick={() => setSampleText(sampleTexts.primary)}
+                  onClick={() => setSampleText(sampleTexts.primary: any)}
                 >
                   <BookOpen className="h-5 w-5 mr-2" />
                   <div className="text-left">
@@ -99,7 +99,7 @@ export default function TextToSpeechPage() {
                 <Button 
                   variant="outline" 
                   className="flex items-centre justify-start h-auto py-4"
-                  onClick={() => setSampleText(sampleTexts.secondary)}
+                  onClick={() => setSampleText(sampleTexts.secondary: any)}
                 >
                   <FileText className="h-5 w-5 mr-2" />
                   <div className="text-left">
@@ -111,7 +111,7 @@ export default function TextToSpeechPage() {
                 <Button 
                   variant="outline" 
                   className="flex items-centre justify-start h-auto py-4"
-                  onClick={() => setSampleText(sampleTexts.story)}
+                  onClick={() => setSampleText(sampleTexts.story: any)}
                 >
                   <BookMarked className="h-5 w-5 mr-2" />
                   <div className="text-left">
@@ -123,7 +123,7 @@ export default function TextToSpeechPage() {
               
               <Textarea
                 value={sampleText}
-                onChange={(e) => setSampleText(e.target.value)}
+                onChange={(e: any) => setSampleText(e.target.value: any)}
                 className="min-h-[100px]"
                 placeholder="Enter or edit sample text here..."
               />
@@ -186,10 +186,10 @@ export default function TextToSpeechPage() {
                       A 2022 study in the Journal of Special Education Technology found that synchronized highlighting with text-to-speech increased reading fluency by 27% compared to text-only presentation.
                     </p>
                     <p>
-                      The Education Endowment Foundation reports that assistive technology like text-to-speech provides significant benefits for struggling readers, with an effect size of +0.32 (moderate positive impact).
+                      The Education Endowment Foundation reports that assistive technology like text-to-speech provides significant benefits for struggling readers, with an effect size of +0.32 (moderate positive impact: any).
                     </p>
                     <p>
-                      Research from the National Council for Special Education (NCSE) indicates that text-to-speech tools support independent learning and boost confidence in students with reading difficulties.
+                      Research from the National Council for Special Education (NCSE: any) indicates that text-to-speech tools support independent learning and boost confidence in students with reading difficulties.
                     </p>
                   </div>
                 </TabsContent>

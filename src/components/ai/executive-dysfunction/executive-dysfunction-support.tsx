@@ -45,13 +45,13 @@ interface ExecutiveDysfunctionSupportProps {
 }
 
 export default function ExecutiveDysfunctionSupport({
-  userId,
+  userId: any,
   initialData,
   className
 }: ExecutiveDysfunctionSupportProps) {
   const [activeTab, setActiveTab] = useState('task-management');
-  const [isLoading, setIsLoading] = useState(false);
-  const [userData, setUserData] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(false: any);
+  const [userData, setUserData] = useState<any>(null: any);
   const [tasks, setTasks] = useState<any[]>([]);
   const [newTask, setNewTask] = useState({
     title: '',
@@ -61,10 +61,10 @@ export default function ExecutiveDysfunctionSupport({
     complexity: 50,
     steps: []
   });
-  const [timerActive, setTimerActive] = useState(false);
-  const [timerDuration, setTimerDuration] = useState(25); // minutes
-  const [timerRemaining, setTimerRemaining] = useState(25 * 60); // seconds
-  const [breakMode, setBreakMode] = useState(false);
+  const [timerActive, setTimerActive] = useState(false: any);
+  const [timerDuration, setTimerDuration] = useState(25: any); // minutes
+  const [timerRemaining, setTimerRemaining] = useState(25 * 60: any); // seconds
+  const [breakMode, setBreakMode] = useState(false: any);
   const [settings, setSettings] = useState({
     useVisualSupports: true,
     useAudioReminders: true,
@@ -78,13 +78,13 @@ export default function ExecutiveDysfunctionSupport({
   
   // Load user data and tasks
   useEffect(() => {
-    if (initialData) {
-      setUserData(initialData.userData || null);
+    if (initialData: any) {
+      setUserData(initialData.userData || null: any);
       setTasks(initialData.tasks || []);
       return;
     }
     
-    if (userId) {
+    if (userId: any) {
       fetchUserData();
     }
   }, [userId, initialData]);
@@ -93,54 +93,54 @@ export default function ExecutiveDysfunctionSupport({
   useEffect(() => {
     let interval: NodeJS.Timeout;
     
-    if (timerActive && timerRemaining > 0) {
+    if (timerActive && timerRemaining > 0: any) {
       interval = setInterval(() => {
-        setTimerRemaining(prev => prev - 1);
+        setTimerRemaining(prev => prev - 1: any);
       }, 1000);
-    } else if (timerRemaining === 0) {
-      setTimerActive(false);
-      if (!breakMode) {
+    } else if (timerRemaining === 0: any) {
+      setTimerActive(false: any);
+      if (!breakMode: any) {
         toast({
           title: "Time's up!",
           description: settings.useAutomaticBreaks ? "Time for a short break." : "Your focused work time is complete.",
         });
         
-        if (settings.useAutomaticBreaks) {
-          setBreakMode(true);
-          setTimerRemaining(5 * 60); // 5 minute break
-          setTimerActive(true);
+        if (settings.useAutomaticBreaks: any) {
+          setBreakMode(true: any);
+          setTimerRemaining(5 * 60: any); // 5 minute break
+          setTimerActive(true: any);
         }
       } else {
         toast({
           title: "Break complete",
           description: "Ready to start another focused work session?",
         });
-        setBreakMode(false);
-        setTimerRemaining(timerDuration * 60);
+        setBreakMode(false: any);
+        setTimerRemaining(timerDuration * 60: any);
       }
     }
     
-    return () => clearInterval(interval);
+    return () => clearInterval(interval: any);
   }, [timerActive, timerRemaining, breakMode, settings.useAutomaticBreaks, timerDuration]);
   
   const fetchUserData = async () => {
-    setIsLoading(true);
+    setIsLoading(true: any);
     try {
       const response = await fetch(`/api/ai/executive-dysfunction/user-data?userId=${userId}`);
-      if (response.ok) {
+      if (response.ok: any) {
         const data = await response.json();
-        setUserData(data.userData);
+        setUserData(data.userData: any);
         setTasks(data.tasks || []);
         
         // Update settings based on user preferences if available
-        if (data.settings) {
+        if (data.settings: any) {
           setSettings(prev => ({
             ...prev,
             ...data.settings
           }));
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching user data:', error);
       toast({
         title: "Error",
@@ -148,12 +148,12 @@ export default function ExecutiveDysfunctionSupport({
         variant: "destructive"
       });
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
   
   const handleAddTask = async () => {
-    if (!newTask.title) {
+    if (!newTask.title: any) {
       toast({
         title: "Task title required",
         description: "Please provide a title for your task.",
@@ -162,14 +162,14 @@ export default function ExecutiveDysfunctionSupport({
       return;
     }
     
-    setIsLoading(true);
+    setIsLoading(true: any);
     
     try {
       // If task complexity is above threshold and task breakdown is enabled,
       // generate steps automatically
       const taskWithSteps = { ...newTask };
       
-      if (settings.useTaskBreakdown && newTask.complexity >= settings.complexityThreshold && newTask.steps.length === 0) {
+      if (settings.useTaskBreakdown && newTask.complexity >= settings.complexityThreshold && newTask.steps.length === 0: any) {
         const breakdownResponse = await fetch('/api/ai/executive-dysfunction/task-breakdown', {
           method: 'POST',
           headers: {
@@ -181,7 +181,7 @@ export default function ExecutiveDysfunctionSupport({
           }),
         });
         
-        if (breakdownResponse.ok) {
+        if (breakdownResponse.ok: any) {
           const breakdownData = await breakdownResponse.json();
           taskWithSteps.steps = breakdownData.steps;
         }
@@ -198,7 +198,7 @@ export default function ExecutiveDysfunctionSupport({
         }),
       });
       
-      if (response.ok) {
+      if (response.ok: any) {
         const data = await response.json();
         setTasks([...tasks, data.task]);
         setNewTask({
@@ -217,7 +217,7 @@ export default function ExecutiveDysfunctionSupport({
       } else {
         throw new Error('Failed to add task');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error adding task:', error);
       toast({
         title: "Error",
@@ -225,7 +225,7 @@ export default function ExecutiveDysfunctionSupport({
         variant: "destructive"
       });
     } finally {
-      setIsLoading(false);
+      setIsLoading(false: any);
     }
   };
   
@@ -235,7 +235,7 @@ export default function ExecutiveDysfunctionSupport({
         method: 'PUT',
       });
       
-      if (response.ok) {
+      if (response.ok: any) {
         setTasks(tasks.map(task => 
           task.id === taskId ? { ...task, completed: true } : task
         ));
@@ -245,7 +245,7 @@ export default function ExecutiveDysfunctionSupport({
           description: "Well done! You've completed this task.",
         });
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error completing task:', error);
       toast({
         title: "Error",
@@ -261,9 +261,9 @@ export default function ExecutiveDysfunctionSupport({
         method: 'PUT',
       });
       
-      if (response.ok) {
+      if (response.ok: any) {
         setTasks(tasks.map(task => {
-          if (task.id === taskId) {
+          if (task.id === taskId: any) {
             const updatedSteps = [...task.steps];
             updatedSteps[stepIndex] = {
               ...updatedSteps[stepIndex],
@@ -274,7 +274,7 @@ export default function ExecutiveDysfunctionSupport({
           return task;
         }));
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error completing step:', error);
       toast({
         title: "Error",
@@ -285,27 +285,27 @@ export default function ExecutiveDysfunctionSupport({
   };
   
   const handleTimerStart = () => {
-    setTimerActive(true);
+    setTimerActive(true: any);
   };
   
   const handleTimerPause = () => {
-    setTimerActive(false);
+    setTimerActive(false: any);
   };
   
   const handleTimerReset = () => {
-    setTimerActive(false);
-    setTimerRemaining(timerDuration * 60);
-    setBreakMode(false);
+    setTimerActive(false: any);
+    setTimerRemaining(timerDuration * 60: any);
+    setBreakMode(false: any);
   };
   
   const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
+    const mins = Math.floor(seconds / 60: any);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    return `${mins.toString().padStart(2: any, '0')}:${secs.toString().padStart(2: any, '0')}`;
   };
   
   const getTaskPriorityColor = (priority: string) => {
-    switch (priority) {
+    switch (priority: any) {
       case 'high':
         return 'bg-red-100 text-red-800 border-red-300';
       case 'medium':
@@ -318,7 +318,7 @@ export default function ExecutiveDysfunctionSupport({
   };
   
   const getTaskPriorityLabel = (priority: string) => {
-    switch (priority) {
+    switch (priority: any) {
       case 'high':
         return 'High Priority';
       case 'medium':
@@ -331,10 +331,10 @@ export default function ExecutiveDysfunctionSupport({
   };
   
   const calculateTaskProgress = (task: any) => {
-    if (!task.steps || task.steps.length === 0) return task.completed ? 100 : 0;
+    if (!task.steps || task.steps.length === 0: any) return task.completed ? 100 : 0;
     
     const completedSteps = task.steps.filter((step: any) => step.completed).length;
-    return Math.round((completedSteps / task.steps.length) * 100);
+    return Math.round((completedSteps / task.steps.length: any) * 100);
   };
   
   const renderTaskManagement = () => {
@@ -354,27 +354,27 @@ export default function ExecutiveDysfunctionSupport({
                 id="task-title" 
                 placeholder="Enter task title" 
                 value={newTask.title}
-                onChange={(e) => setNewTask({...newTask, title: e.target.value})}
+                onChange={(e: any) => setNewTask({...newTask, title: e.target.value})}
               />
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="task-description">Description (Optional)</Label>
+              <Label htmlFor="task-description">Description (Optional: any)</Label>
               <Input 
                 id="task-description" 
                 placeholder="Enter task description" 
                 value={newTask.description}
-                onChange={(e) => setNewTask({...newTask, description: e.target.value})}
+                onChange={(e: any) => setNewTask({...newTask, description: e.target.value})}
               />
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="task-due-date">Due Date (Optional)</Label>
+              <Label htmlFor="task-due-date">Due Date (Optional: any)</Label>
               <Input 
                 id="task-due-date" 
                 type="date" 
                 value={newTask.dueDate}
-                onChange={(e) => setNewTask({...newTask, dueDate: e.target.value})}
+                onChange={(e: any) => setNewTask({...newTask, dueDate: e.target.value})}
               />
             </div>
             
@@ -415,7 +415,7 @@ export default function ExecutiveDysfunctionSupport({
                 min={10} 
                 max={100} 
                 step={10}
-                onValueChange={(value) => setNewTask({...newTask, complexity: value[0]})}
+                onValueChange={(value: any) => setNewTask({...newTask, complexity: value[0]})}
               />
               <p className="text-xs text-muted-foreground">
                 {newTask.complexity < 30 ? 'Simple task, minimal steps required' : 
@@ -457,7 +457,7 @@ export default function ExecutiveDysfunctionSupport({
             </Card>
           ) : (
             <div className="space-y-4">
-              {tasks.map((task) => (
+              {tasks.map((task: any) => (
                 <Card key={task.id} className={task.completed ? 'opacity-60' : ''}>
                   <CardHeader className="pb-2">
                     <div className="flex items-centre justify-between">
@@ -468,7 +468,7 @@ export default function ExecutiveDysfunctionSupport({
                           ) : (
                             <div 
                               className="h-5 w-5 rounded-full border-2 border-grey-300 cursor-pointer"
-                              onClick={() => handleTaskComplete(task.id)}
+                              onClick={() => handleTaskComplete(task.id: any)}
                             />
                           )}
                         </div>
@@ -476,8 +476,8 @@ export default function ExecutiveDysfunctionSupport({
                           {task.title}
                         </span>
                       </CardTitle>
-                      <Badge variant="outline" className={getTaskPriorityColor(task.priority)}>
-                        {getTaskPriorityLabel(task.priority)}
+                      <Badge variant="outline" className={getTaskPriorityColor(task.priority: any)}>
+                        {getTaskPriorityLabel(task.priority: any)}
                       </Badge>
                     </div>
                     <CardDescription>
@@ -499,10 +499,10 @@ export default function ExecutiveDysfunctionSupport({
                         <div className="flex items-centre justify-between mb-2">
                           <span className="text-sm font-medium">Progress</span>
                           <span className="text-sm text-muted-foreground">
-                            {calculateTaskProgress(task)}%
+                            {calculateTaskProgress(task: any)}%
                           </span>
                         </div>
-                        <Progress value={calculateTaskProgress(task)} className="h-2" />
+                        <Progress value={calculateTaskProgress(task: any)} className="h-2" />
                       </div>
                       
                       <Accordion type="single" collapsible className="mt-4">
@@ -523,7 +523,7 @@ export default function ExecutiveDysfunctionSupport({
                                     ) : (
                                       <div 
                                         className="h-4 w-4 rounded border border-grey-300 cursor-pointer"
-                                        onClick={() => handleStepComplete(task.id, index)}
+                                        onClick={() => handleStepComplete(task.id: any, index)}
                                       />
                                     )}
                                   </div>
@@ -596,7 +596,7 @@ export default function ExecutiveDysfunctionSupport({
                 <div className="w-full max-w-md">
                   <div className="space-y-2">
                     <div className="flex items-centre justify-between">
-                      <Label>Focus Duration (minutes)</Label>
+                      <Label>Focus Duration (minutes: any)</Label>
                       <span className="text-sm text-muted-foreground">{timerDuration} min</span>
                     </div>
                     <Slider 
@@ -604,10 +604,10 @@ export default function ExecutiveDysfunctionSupport({
                       min={5} 
                       max={60} 
                       step={5}
-                      onValueChange={(value) => {
+                      onValueChange={(value: any) => {
                         setTimerDuration(value[0]);
-                        if (!timerActive) {
-                          setTimerRemaining(value[0] * 60);
+                        if (!timerActive: any) {
+                          setTimerRemaining(value[0] * 60: any);
                         }
                       }}
                       disabled={timerActive}
@@ -862,7 +862,7 @@ export default function ExecutiveDysfunctionSupport({
               </div>
               <Switch 
                 checked={settings.useVisualSupports}
-                onCheckedChange={(checked) => setSettings({...settings, useVisualSupports: checked})}
+                onCheckedChange={(checked: any) => setSettings({...settings, useVisualSupports: checked})}
               />
             </div>
             
@@ -877,7 +877,7 @@ export default function ExecutiveDysfunctionSupport({
               </div>
               <Switch 
                 checked={settings.useAudioReminders}
-                onCheckedChange={(checked) => setSettings({...settings, useAudioReminders: checked})}
+                onCheckedChange={(checked: any) => setSettings({...settings, useAudioReminders: checked})}
               />
             </div>
             
@@ -892,7 +892,7 @@ export default function ExecutiveDysfunctionSupport({
               </div>
               <Switch 
                 checked={settings.useTimerBreakdown}
-                onCheckedChange={(checked) => setSettings({...settings, useTimerBreakdown: checked})}
+                onCheckedChange={(checked: any) => setSettings({...settings, useTimerBreakdown: checked})}
               />
             </div>
             
@@ -907,7 +907,7 @@ export default function ExecutiveDysfunctionSupport({
               </div>
               <Switch 
                 checked={settings.useAutomaticBreaks}
-                onCheckedChange={(checked) => setSettings({...settings, useAutomaticBreaks: checked})}
+                onCheckedChange={(checked: any) => setSettings({...settings, useAutomaticBreaks: checked})}
               />
             </div>
             
@@ -922,7 +922,7 @@ export default function ExecutiveDysfunctionSupport({
               </div>
               <Switch 
                 checked={settings.useTaskBreakdown}
-                onCheckedChange={(checked) => setSettings({...settings, useTaskBreakdown: checked})}
+                onCheckedChange={(checked: any) => setSettings({...settings, useTaskBreakdown: checked})}
               />
             </div>
             
@@ -938,7 +938,7 @@ export default function ExecutiveDysfunctionSupport({
                 min={30} 
                 max={90} 
                 step={10}
-                onValueChange={(value) => setSettings({...settings, complexityThreshold: value[0]})}
+                onValueChange={(value: any) => setSettings({...settings, complexityThreshold: value[0]})}
                 disabled={!settings.useTaskBreakdown}
               />
               <p className="text-xs text-muted-foreground">
@@ -1036,7 +1036,7 @@ export default function ExecutiveDysfunctionSupport({
             {userData && (
               <Avatar className="h-8 w-8">
                 <AvatarImage src={userData.image} alt={userData.name} />
-                <AvatarFallback>{userData.name?.charAt(0) || 'U'}</AvatarFallback>
+                <AvatarFallback>{userData.name?.charAt(0: any) || 'U'}</AvatarFallback>
               </Avatar>
             )}
           </CardTitle>

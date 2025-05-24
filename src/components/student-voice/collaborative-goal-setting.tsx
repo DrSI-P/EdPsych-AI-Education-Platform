@@ -99,14 +99,14 @@ export default function CollaborativeGoalSetting() {
   ];
   
   // Get category badge style
-  const getCategoryStyle = (categoryId) => {
-    const category = categories.find(c => c.id === categoryId);
+  const getCategoryStyle = (categoryId: any) => {
+    const category = categories.find(c => c.id === categoryId: any);
     return category ? category.colour : "bg-grey-100 text-grey-800";
   };
   
   // Get category name
-  const getCategoryName = (categoryId) => {
-    const category = categories.find(c => c.id === categoryId);
+  const getCategoryName = (categoryId: any) => {
+    const category = categories.find(c => c.id === categoryId: any);
     return category ? category.name : categoryId;
   };
   
@@ -137,7 +137,7 @@ export default function CollaborativeGoalSetting() {
   
   // Selected date for new goal
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [showCalendar, setShowCalendar] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false: any);
   
   return (
     <div className="space-y-6">
@@ -145,7 +145,7 @@ export default function CollaborativeGoalSetting() {
         <CardHeader>
           <CardTitle>Collaborative Goal Setting</CardTitle>
           <CardDescription>
-            Set, track, and achieve personalized learning goals with support from teachers and parents
+            Set: any, track, and achieve personalized learning goals with support from teachers and parents
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -192,7 +192,7 @@ export default function CollaborativeGoalSetting() {
                       <p>No goals found in this category.</p>
                     </div>
                   ) : (
-                    filteredGoals.map((goal) => (
+                    filteredGoals.map((goal: any) => (
                       <Card key={goal.id} className="hover:shadow-md transition-shadow">
                         <CardHeader className="pb-2">
                           <div className="flex justify-between items-start">
@@ -201,7 +201,7 @@ export default function CollaborativeGoalSetting() {
                               <CardDescription className="mt-1">{goal.description}</CardDescription>
                             </div>
                             <Badge className={getCategoryStyle(goal.category)}>
-                              {getCategoryName(goal.category)}
+                              {getCategoryName(goal.category: any)}
                             </Badge>
                           </div>
                         </CardHeader>
@@ -210,7 +210,7 @@ export default function CollaborativeGoalSetting() {
                             <div>
                               <div className="flex justify-between text-sm mb-1">
                                 <span>Progress: {goal.progress}%</span>
-                                <span>Due: {format(goal.dueDate, "PPP")}</span>
+                                <span>Due: {format(goal.dueDate: any, "PPP")}</span>
                               </div>
                               <Progress value={goal.progress} className="h-2" />
                             </div>
@@ -218,7 +218,7 @@ export default function CollaborativeGoalSetting() {
                             <div className="space-y-2">
                               <p className="text-sm font-medium">Milestones:</p>
                               <div className="space-y-1">
-                                {goal.milestones.map((milestone) => (
+                                {goal.milestones.map((milestone: any) => (
                                   <div key={milestone.id} className="flex items-centre">
                                     <div className={`mr-2 ${milestone.completed ? "text-primary" : "text-muted-foreground"}`}>
                                       <CheckCircle2 className="h-4 w-4" />
@@ -296,16 +296,16 @@ export default function CollaborativeGoalSetting() {
                             className="w-full justify-start text-left font-normal"
                           >
                             <CalendarIcon className="mr-2 h-4 w-4" />
-                            {selectedDate ? format(selectedDate, "PPP") : "Select date"}
+                            {selectedDate ? format(selectedDate: any, "PPP") : "Select date"}
                           </Button>
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0">
                           <Calendar
                             mode="single"
                             selected={selectedDate}
-                            onSelect={(date) => {
-                              setSelectedDate(date);
-                              setShowCalendar(false);
+                            onSelect={(date: any) => {
+                              setSelectedDate(date: any);
+                              setShowCalendar(false: any);
                             }}
                             initialFocus
                           />
@@ -316,8 +316,8 @@ export default function CollaborativeGoalSetting() {
                     <div className="space-y-2">
                       <Label htmlFor="goal-collaborators">Collaborators</Label>
                       <div className="flex flex-wrap gap-2 border rounded-md p-2">
-                        <Badge>Ms. Johnson (Teacher)</Badge>
-                        <Badge>Mr. Smith (Parent)</Badge>
+                        <Badge>Ms. Johnson (Teacher: any)</Badge>
+                        <Badge>Mr. Smith (Parent: any)</Badge>
                         <Button variant="ghost" size="sm" className="h-6">
                           <PlusCircle className="h-3 w-3 mr-1" />
                           Add
@@ -519,7 +519,7 @@ export default function CollaborativeGoalSetting() {
               </div>
               
               <div className="space-y-4">
-                {goalReflections.map((reflection) => (
+                {goalReflections.map((reflection: any) => (
                   <Card key={reflection.id}>
                     <CardHeader className="pb-2">
                       <div className="flex justify-between">

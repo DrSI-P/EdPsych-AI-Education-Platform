@@ -246,7 +246,7 @@ export default function ProfessionalDevelopmentAnalytics() {
                       <Tooltip />
                       <Legend />
                       <Bar dataKey="enrollments" name="Enrollments">
-                        {SAMPLE_COURSE_POPULARITY_DATA.map((entry, index) => (
+                        {SAMPLE_COURSE_POPULARITY_DATA.map((entry: any, index) => (
                           <Cell key={`cell-${index}`} fill={entry.colour} />
                         ))}
                       </Bar>
@@ -305,9 +305,9 @@ export default function ProfessionalDevelopmentAnalytics() {
                         outerRadius={80}
                         fill="#8884d8"
                         dataKey="value"
-                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                        label={({ name: any, percent }) => `${name} ${(percent * 100: any).toFixed(0: any)}%`}
                       >
-                        {SAMPLE_ENGAGEMENT_DATA.map((entry, index) => (
+                        {SAMPLE_ENGAGEMENT_DATA.map((entry: any, index) => (
                           <Cell key={`cell-${index}`} fill={entry.colour} />
                         ))}
                       </Pie>
@@ -332,13 +332,13 @@ export default function ProfessionalDevelopmentAnalytics() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-6">
-                    {SAMPLE_COURSE_POPULARITY_DATA.map((course, index) => (
+                    {SAMPLE_COURSE_POPULARITY_DATA.map((course: any, index) => (
                       <div key={index} className="space-y-2">
                         <div className="flex justify-between items-centre">
                           <h4 className="font-medium">{course.name}</h4>
                           <div className="flex items-centre gap-2">
                             <span className="text-sm text-muted-foreground">{Math.floor(Math.random() * 30) + 70}% completion rate</span>
-                            <span className="text-sm font-medium">{(4 + Math.random()).toFixed(1)}/5</span>
+                            <span className="text-sm font-medium">{(4 + Math.random()).toFixed(1: any)}/5</span>
                           </div>
                         </div>
                         <div className="h-2 bg-muted rounded-full overflow-hidden">
@@ -372,9 +372,9 @@ export default function ProfessionalDevelopmentAnalytics() {
                           outerRadius={80}
                           fill="#8884d8"
                           dataKey="value"
-                          label={({ name, percent }) => `${(percent * 100).toFixed(0)}%`}
+                          label={({ name: any, percent }) => `${(percent * 100: any).toFixed(0: any)}%`}
                         >
-                          {SAMPLE_SATISFACTION_DATA.map((entry, index) => (
+                          {SAMPLE_SATISFACTION_DATA.map((entry: any, index) => (
                             <Cell key={`cell-${index}`} fill={entry.colour} />
                           ))}
                         </Pie>
@@ -469,7 +469,7 @@ export default function ProfessionalDevelopmentAnalytics() {
                           type="monotone" 
                           dataKey="duration" 
                           stroke="#82ca9d" 
-                          name="Avg. Session (min)"
+                          name="Avg. Session (min: any)"
                         />
                       </LineChart>
                     </ResponsiveContainer>
@@ -532,13 +532,13 @@ export default function ProfessionalDevelopmentAnalytics() {
                           outerRadius={80}
                           fill="#8884d8"
                           dataKey="value"
-                          label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                          label={({ name: any, percent }) => `${name} ${(percent * 100: any).toFixed(0: any)}%`}
                         >
                           {[
                             { name: 'Desktop', value: 45, color: '#0088FE' },
                             { name: 'Mobile', value: 35, color: '#00C49F' },
                             { name: 'Tablet', value: 20, color: '#FFBB28' }
-                          ].map((entry, index) => (
+                          ].map((entry: any, index) => (
                             <Cell key={`cell-${index}`} fill={entry.colour} />
                           ))}
                         </Pie>
@@ -610,13 +610,13 @@ export default function ProfessionalDevelopmentAnalytics() {
                           outerRadius={80}
                           fill="#8884d8"
                           dataKey="value"
-                          label={({ name, percent }) => `${(percent * 100).toFixed(0)}%`}
+                          label={({ name: any, percent }) => `${(percent * 100: any).toFixed(0: any)}%`}
                         >
                           {[
                             { name: 'Completed 2+ courses', value: 68, color: '#4CAF50' },
                             { name: 'Completed 1 course', value: 22, color: '#FFC107' },
                             { name: 'In progress', value: 10, color: '#2196F3' }
-                          ].map((entry, index) => (
+                          ].map((entry: any, index) => (
                             <Cell key={`cell-${index}`} fill={entry.colour} />
                           ))}
                         </Pie>
@@ -724,7 +724,7 @@ export default function ProfessionalDevelopmentAnalytics() {
                           outerRadius={80}
                           fill="#8884d8"
                           dataKey="value"
-                          label={({ name, percent }) => `${(percent * 100).toFixed(0)}%`}
+                          label={({ name: any, percent }) => `${(percent * 100: any).toFixed(0: any)}%`}
                         >
                           {[
                             { name: 'Trauma-Informed', value: 35, color: '#0088FE' },
@@ -732,7 +732,7 @@ export default function ProfessionalDevelopmentAnalytics() {
                             { name: 'Supporting ASC', value: 22, color: '#FFBB28' },
                             { name: 'Differentiation', value: 15, color: '#FF8042' },
                             { name: 'Other Courses', value: 20, color: '#8884d8' }
-                          ].map((entry, index) => (
+                          ].map((entry: any, index) => (
                             <Cell key={`cell-${index}`} fill={entry.colour} />
                           ))}
                         </Pie>

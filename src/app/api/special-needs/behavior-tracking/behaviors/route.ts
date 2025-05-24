@@ -16,9 +16,9 @@ interface BehaviorData {
 
 export async function GET(): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -32,10 +32,10 @@ export async function GET(): Promise<NextResponse> {
       },
     });
     
-    return NextResponse.json(behaviors);
-  } catch (error) {
+    return NextResponse.json(behaviors: any);
+  } catch (error: any) {
     // Using type guard instead of console.error
-    if (error instanceof Error) {
+    if (error instanceof Error: any) {
       // Log error in a production-safe way
       // We could use a proper logging service here
     }
@@ -45,16 +45,16 @@ export async function GET(): Promise<NextResponse> {
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session) {
+    if (!session: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     const data = await req.json() as BehaviorData;
     
     // Validate required fields
-    if (!data.name || !data.description || !data.category || !data.trackingMethod) {
+    if (!data.name || !data.description || !data.category || !data.trackingMethod: any) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
     
@@ -77,14 +77,14 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       data: {
         userId: session.user.id,
         action: 'BEHAVIOR_CREATED',
-        details: JSON.stringify(behaviour),
+        details: JSON.stringify(behaviour: any),
       },
     });
     
-    return NextResponse.json(behaviour);
-  } catch (error) {
+    return NextResponse.json(behaviour: any);
+  } catch (error: any) {
     // Using type guard instead of console.error
-    if (error instanceof Error) {
+    if (error instanceof Error: any) {
       // Log error in a production-safe way
       // We could use a proper logging service here
     }

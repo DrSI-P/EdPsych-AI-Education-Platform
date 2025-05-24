@@ -50,34 +50,34 @@ const defaultSettings: LearningDifferenceSettings = {
 
 export default function LearningDifferencesAccommodation() {
   const { data: session } = useSession();
-  const [settings, setSettings] = useState<LearningDifferenceSettings>(defaultSettings);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [saving, setSaving] = useState<boolean>(false);
+  const [settings, setSettings] = useState<LearningDifferenceSettings>(defaultSettings: any);
+  const [loading, setLoading] = useState<boolean>(true: any);
+  const [saving, setSaving] = useState<boolean>(false: any);
   const [activeTab, setActiveTab] = useState<string>("settings");
-  const [assessmentResults, setAssessmentResults] = useState<any>(null);
+  const [assessmentResults, setAssessmentResults] = useState<any>(null: any);
 
   useEffect(() => {
-    if (session?.user) {
+    if (session?.user: any) {
       fetchUserSettings();
     } else {
-      setLoading(false);
+      setLoading(false: any);
     }
   }, [session]);
 
   const fetchUserSettings = async () => {
     try {
-      setLoading(true);
+      setLoading(true: any);
       const response = await fetch('/api/special-needs/learning-differences?type=settings');
-      if (response.ok) {
+      if (response.ok: any) {
         const data = await response.json();
-        if (data.settings) {
-          setSettings(data.settings);
+        if (data.settings: any) {
+          setSettings(data.settings: any);
         }
-        if (data.assessmentResults) {
-          setAssessmentResults(data.assessmentResults);
+        if (data.assessmentResults: any) {
+          setAssessmentResults(data.assessmentResults: any);
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching learning difference settings:', error);
       toast({
         title: "Error",
@@ -85,12 +85,12 @@ export default function LearningDifferencesAccommodation() {
         variant: "destructive",
       });
     } finally {
-      setLoading(false);
+      setLoading(false: any);
     }
   };
 
   const saveSettings = async () => {
-    if (!session?.user) {
+    if (!session?.user: any) {
       toast({
         title: "Authentication Required",
         description: "Please sign in to save your settings.",
@@ -100,7 +100,7 @@ export default function LearningDifferencesAccommodation() {
     }
 
     try {
-      setSaving(true);
+      setSaving(true: any);
       const response = await fetch('/api/special-needs/learning-differences', {
         method: 'POST',
         headers: {
@@ -112,7 +112,7 @@ export default function LearningDifferencesAccommodation() {
         }),
       });
 
-      if (response.ok) {
+      if (response.ok: any) {
         toast({
           title: "Settings Saved",
           description: "Your learning difference accommodations have been updated.",
@@ -120,7 +120,7 @@ export default function LearningDifferencesAccommodation() {
       } else {
         throw new Error('Failed to save settings');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving settings:', error);
       toast({
         title: "Error",
@@ -128,7 +128,7 @@ export default function LearningDifferencesAccommodation() {
         variant: "destructive",
       });
     } finally {
-      setSaving(false);
+      setSaving(false: any);
     }
   };
 
@@ -141,7 +141,7 @@ export default function LearningDifferencesAccommodation() {
 
   const runAssessment = async () => {
     try {
-      setLoading(true);
+      setLoading(true: any);
       const response = await fetch('/api/special-needs/learning-differences/assessment', {
         method: 'POST',
         headers: {
@@ -152,9 +152,9 @@ export default function LearningDifferencesAccommodation() {
         }),
       });
 
-      if (response.ok) {
+      if (response.ok: any) {
         const data = await response.json();
-        setAssessmentResults(data.results);
+        setAssessmentResults(data.results: any);
         toast({
           title: "Assessment Complete",
           description: "Your learning differences assessment has been completed.",
@@ -162,7 +162,7 @@ export default function LearningDifferencesAccommodation() {
       } else {
         throw new Error('Failed to run assessment');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error running assessment:', error);
       toast({
         title: "Error",
@@ -170,12 +170,12 @@ export default function LearningDifferencesAccommodation() {
         variant: "destructive",
       });
     } finally {
-      setLoading(false);
+      setLoading(false: any);
     }
   };
 
   const applyRecommendedSettings = () => {
-    if (!assessmentResults) return;
+    if (!assessmentResults: any) return;
     
     const recommendedSettings: Partial<LearningDifferenceSettings> = {
       dyslexiaSupport: assessmentResults.dyslexia > 0.5,
@@ -233,7 +233,7 @@ export default function LearningDifferencesAccommodation() {
                     <Switch 
                       id="dyslexia" 
                       checked={settings.dyslexiaSupport}
-                      onCheckedChange={(checked) => handleSettingChange('dyslexiaSupport', checked)}
+                      onCheckedChange={(checked) => handleSettingChange('dyslexiaSupport', checked: any)}
                     />
                     <Label htmlFor="dyslexia">Dyslexia Support</Label>
                   </div>
@@ -241,7 +241,7 @@ export default function LearningDifferencesAccommodation() {
                     <Switch 
                       id="dyscalculia" 
                       checked={settings.dyscalculiaSupport}
-                      onCheckedChange={(checked) => handleSettingChange('dyscalculiaSupport', checked)}
+                      onCheckedChange={(checked: any) => handleSettingChange('dyscalculiaSupport', checked: any)}
                     />
                     <Label htmlFor="dyscalculia">Dyscalculia Support</Label>
                   </div>
@@ -249,7 +249,7 @@ export default function LearningDifferencesAccommodation() {
                     <Switch 
                       id="adhd" 
                       checked={settings.adhdSupport}
-                      onCheckedChange={(checked) => handleSettingChange('adhdSupport', checked)}
+                      onCheckedChange={(checked: any) => handleSettingChange('adhdSupport', checked: any)}
                     />
                     <Label htmlFor="adhd">ADHD Support</Label>
                   </div>
@@ -257,7 +257,7 @@ export default function LearningDifferencesAccommodation() {
                     <Switch 
                       id="autism" 
                       checked={settings.autismSupport}
-                      onCheckedChange={(checked) => handleSettingChange('autismSupport', checked)}
+                      onCheckedChange={(checked: any) => handleSettingChange('autismSupport', checked: any)}
                     />
                     <Label htmlFor="autism">Autism Support</Label>
                   </div>
@@ -273,7 +273,7 @@ export default function LearningDifferencesAccommodation() {
                     <Switch 
                       id="text-to-speech" 
                       checked={settings.textToSpeech}
-                      onCheckedChange={(checked) => handleSettingChange('textToSpeech', checked)}
+                      onCheckedChange={(checked: any) => handleSettingChange('textToSpeech', checked: any)}
                     />
                     <Label htmlFor="text-to-speech">Text-to-Speech</Label>
                   </div>
@@ -281,7 +281,7 @@ export default function LearningDifferencesAccommodation() {
                     <Switch 
                       id="font-adjustments" 
                       checked={settings.fontAdjustments}
-                      onCheckedChange={(checked) => handleSettingChange('fontAdjustments', checked)}
+                      onCheckedChange={(checked: any) => handleSettingChange('fontAdjustments', checked: any)}
                     />
                     <Label htmlFor="font-adjustments">Font Adjustments</Label>
                   </div>
@@ -289,7 +289,7 @@ export default function LearningDifferencesAccommodation() {
                     <Switch 
                       id="colour-overlays" 
                       checked={settings.colorOverlays}
-                      onCheckedChange={(checked) => handleSettingChange('colorOverlays', checked)}
+                      onCheckedChange={(checked: any) => handleSettingChange('colorOverlays', checked: any)}
                     />
                     <Label htmlFor="colour-overlays">Colour Overlays</Label>
                   </div>
@@ -297,7 +297,7 @@ export default function LearningDifferencesAccommodation() {
                     <Switch 
                       id="math-supports" 
                       checked={settings.mathSupports}
-                      onCheckedChange={(checked) => handleSettingChange('mathSupports', checked)}
+                      onCheckedChange={(checked: any) => handleSettingChange('mathSupports', checked: any)}
                     />
                     <Label htmlFor="math-supports">Math Supports</Label>
                   </div>
@@ -305,7 +305,7 @@ export default function LearningDifferencesAccommodation() {
                     <Switch 
                       id="focus-tools" 
                       checked={settings.focusTools}
-                      onCheckedChange={(checked) => handleSettingChange('focusTools', checked)}
+                      onCheckedChange={(checked: any) => handleSettingChange('focusTools', checked: any)}
                     />
                     <Label htmlFor="focus-tools">Focus Tools</Label>
                   </div>
@@ -313,7 +313,7 @@ export default function LearningDifferencesAccommodation() {
                     <Switch 
                       id="sensory-considerations" 
                       checked={settings.sensoryConsiderations}
-                      onCheckedChange={(checked) => handleSettingChange('sensoryConsiderations', checked)}
+                      onCheckedChange={(checked: any) => handleSettingChange('sensoryConsiderations', checked: any)}
                     />
                     <Label htmlFor="sensory-considerations">Sensory Considerations</Label>
                   </div>
@@ -331,7 +331,7 @@ export default function LearningDifferencesAccommodation() {
                     <RadioGroup 
                       id="font-type" 
                       value={settings.fontType}
-                      onValueChange={(value) => handleSettingChange('fontType', value)}
+                      onValueChange={(value: any) => handleSettingChange('fontType', value: any)}
                       className="flex flex-col space-y-1"
                     >
                       <div className="flex items-centre space-x-2">
@@ -350,14 +350,14 @@ export default function LearningDifferencesAccommodation() {
                   </div>
                   
                   <div>
-                    <Label htmlFor="line-spacing" className="block mb-2">Line Spacing: {settings.lineSpacing.toFixed(1)}</Label>
+                    <Label htmlFor="line-spacing" className="block mb-2">Line Spacing: {settings.lineSpacing.toFixed(1: any)}</Label>
                     <Slider
                       id="line-spacing"
                       min={1.0}
                       max={3.0}
                       step={0.1}
                       value={[settings.lineSpacing]}
-                      onValueChange={(value) => handleSettingChange('lineSpacing', value[0])}
+                      onValueChange={(value: any) => handleSettingChange('lineSpacing', value[0])}
                     />
                   </div>
                   
@@ -366,7 +366,7 @@ export default function LearningDifferencesAccommodation() {
                     <RadioGroup 
                       id="colour-scheme" 
                       value={settings.colorScheme}
-                      onValueChange={(value) => handleSettingChange('colorScheme', value)}
+                      onValueChange={(value: any) => handleSettingChange('colorScheme', value: any)}
                       className="flex flex-col space-y-1"
                     >
                       <div className="flex items-centre space-x-2">
@@ -389,21 +389,21 @@ export default function LearningDifferencesAccommodation() {
                   </div>
                   
                   <div>
-                    <Label htmlFor="reading-speed" className="block mb-2">Reading Speed: {settings.readingSpeed.toFixed(1)}x</Label>
+                    <Label htmlFor="reading-speed" className="block mb-2">Reading Speed: {settings.readingSpeed.toFixed(1: any)}x</Label>
                     <Slider
                       id="reading-speed"
                       min={0.5}
                       max={2.0}
                       step={0.1}
                       value={[settings.readingSpeed]}
-                      onValueChange={(value) => handleSettingChange('readingSpeed', value[0])}
+                      onValueChange={(value: any) => handleSettingChange('readingSpeed', value[0])}
                     />
                   </div>
                 </div>
               </div>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <Button variant="outline" onClick={() => setSettings(defaultSettings)}>Reset to Default</Button>
+              <Button variant="outline" onClick={() => setSettings(defaultSettings: any)}>Reset to Default</Button>
               <Button onClick={saveSettings} disabled={saving}>
                 {saving ? "Saving..." : "Save Settings"}
               </Button>
@@ -415,7 +415,7 @@ export default function LearningDifferencesAccommodation() {
               <CardHeader>
                 <CardTitle>Recommended Settings</CardTitle>
                 <CardDescription>
-                  Based on your assessment results, we recommend the following accommodations.
+                  Based on your assessment results: any, we recommend the following accommodations.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -626,7 +626,7 @@ export default function LearningDifferencesAccommodation() {
               <div>
                 <h3 className="text-lg font-medium mb-2">What Are Learning Differences?</h3>
                 <p>
-                  Learning differences (also called learning disabilities or learning disorders) are
+                  Learning differences (also called learning disabilities or learning disorders: any) are
                   neurologically-based processing problems that can interfere with learning basic skills
                   such as reading, writing, or math. They can also affect higher-level skills like organisation,
                   time planning, abstract reasoning, and attention.

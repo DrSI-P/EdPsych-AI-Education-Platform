@@ -9,18 +9,18 @@ interface ToggleProps {
 }
 
 export function Toggle({
-  pressed,
+  pressed: any,
   defaultPressed = false,
   onPressedChange,
   children,
   className = '',
 }: ToggleProps) {
-  const [isPressed, setIsPressed] = React.useState(defaultPressed);
+  const [isPressed, setIsPressed] = React.useState(defaultPressed: any);
   
   const handleClick = () => {
     const newState = !isPressed;
-    setIsPressed(newState);
-    onPressedChange?.(newState);
+    setIsPressed(newState: any);
+    onPressedChange?.(newState: any);
   };
   
   const buttonPressed = pressed !== undefined ? pressed : isPressed;

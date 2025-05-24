@@ -46,7 +46,7 @@ const EmotionalRegulationEngine = () => {
   const [strategies, setStrategies] = useState([]);
   const [emotionHistory, setEmotionHistory] = useState([]);
   const [emotionJournal, setEmotionJournal] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false: any);
   
   // Basic emotions with UK spelling
   const basicEmotions = [
@@ -156,7 +156,7 @@ const EmotionalRegulationEngine = () => {
   
   // Load user settings and data on component mount
   useEffect(() => {
-    if (session?.user) {
+    if (session?.user: any) {
       fetchUserSettings();
       fetchEmotionHistory();
       fetchEmotionJournal();
@@ -165,31 +165,31 @@ const EmotionalRegulationEngine = () => {
   
   // Filter strategies based on current emotion
   useEffect(() => {
-    if (currentEmotion.name) {
+    if (currentEmotion.name: any) {
       const filteredStrategies = regulationStrategies.filter(
-        strategy => strategy.suitableFor.includes(currentEmotion.name)
+        strategy => strategy.suitableFor.includes(currentEmotion.name: any)
       );
       setStrategies(filteredStrategies.length > 0 ? filteredStrategies : regulationStrategies);
     } else {
-      setStrategies(regulationStrategies);
+      setStrategies(regulationStrategies: any);
     }
   }, [currentEmotion.name]);
   
   const fetchUserSettings = async () => {
     try {
-      setIsLoading(true);
+      setIsLoading(true: any);
       // This would be replaced with an actual API call
       // const response = await fetch('/api/special-needs/emotional-regulation/settings');
       // const data = await response.json();
-      // setSettings(data.settings);
+      // setSettings(data.settings: any);
       
       // Simulating API response for now
       setTimeout(() => {
-        setIsLoading(false);
+        setIsLoading(false: any);
       }, 500);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching settings:', error);
-      setIsLoading(false);
+      setIsLoading(false: any);
       toast({
         title: "Error",
         description: "Failed to load your settings. Please try again.",
@@ -203,7 +203,7 @@ const EmotionalRegulationEngine = () => {
       // This would be replaced with an actual API call
       // const response = await fetch('/api/special-needs/emotional-regulation/history');
       // const data = await response.json();
-      // setEmotionHistory(data.history);
+      // setEmotionHistory(data.history: any);
       
       // Simulating API response for now
       const mockHistory = [
@@ -229,8 +229,8 @@ const EmotionalRegulationEngine = () => {
           strategiesUsed: ["visualisation", "deep-breathing"]
         }
       ];
-      setEmotionHistory(mockHistory);
-    } catch (error) {
+      setEmotionHistory(mockHistory: any);
+    } catch (error: any) {
       console.error('Error fetching emotion history:', error);
       toast({
         title: "Error",
@@ -245,7 +245,7 @@ const EmotionalRegulationEngine = () => {
       // This would be replaced with an actual API call
       // const response = await fetch('/api/special-needs/emotional-regulation/journal');
       // const data = await response.json();
-      // setEmotionJournal(data.journal);
+      // setEmotionJournal(data.journal: any);
       
       // Simulating API response for now
       const mockJournal = [
@@ -266,8 +266,8 @@ const EmotionalRegulationEngine = () => {
           strategies: ["visualisation"]
         }
       ];
-      setEmotionJournal(mockJournal);
-    } catch (error) {
+      setEmotionJournal(mockJournal: any);
+    } catch (error: any) {
       console.error('Error fetching emotion journal:', error);
       toast({
         title: "Error",
@@ -277,7 +277,7 @@ const EmotionalRegulationEngine = () => {
     }
   };
   
-  const handleEmotionSelect = (emotion) => {
+  const handleEmotionSelect = (emotion: any) => {
     setCurrentEmotion({
       ...currentEmotion,
       name: emotion.name
@@ -287,16 +287,16 @@ const EmotionalRegulationEngine = () => {
     setActiveTab("intensity");
   };
   
-  const handleIntensityChange = (value) => {
+  const handleIntensityChange = (value: any) => {
     setCurrentEmotion({
       ...currentEmotion,
       intensity: value[0]
     });
   };
   
-  const handleBodyFeelingToggle = (location) => {
-    const updatedBodyFeelings = currentEmotion.bodyFeelings.includes(location)
-      ? currentEmotion.bodyFeelings.filter(item => item !== location)
+  const handleBodyFeelingToggle = (location: any) => {
+    const updatedBodyFeelings = currentEmotion.bodyFeelings.includes(location: any)
+      ? currentEmotion.bodyFeelings.filter(item => item !== location: any)
       : [...currentEmotion.bodyFeelings, location];
     
     setCurrentEmotion({
@@ -307,7 +307,7 @@ const EmotionalRegulationEngine = () => {
   
   const handleSaveEmotion = async () => {
     try {
-      setIsLoading(true);
+      setIsLoading(true: any);
       
       // This would be replaced with an actual API call
       // const response = await fetch('/api/special-needs/emotional-regulation/emotions', {
@@ -327,7 +327,7 @@ const EmotionalRegulationEngine = () => {
           timestamp: new Date().toISOString(),
           strategiesUsed: []
         };
-        setEmotionHistory([newHistoryItem, ...emotionHistory]);
+        setEmotionHistory([newHistoryItem: any, ...emotionHistory]);
         
         // Reset current emotion
         setCurrentEmotion({
@@ -338,7 +338,7 @@ const EmotionalRegulationEngine = () => {
           thoughts: ""
         });
         
-        setIsLoading(false);
+        setIsLoading(false: any);
         setActiveTab("strategies");
         
         toast({
@@ -346,9 +346,9 @@ const EmotionalRegulationEngine = () => {
           description: "Your emotion has been recorded. Let's find some helpful strategies.",
         });
       }, 1000);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving emotion:', error);
-      setIsLoading(false);
+      setIsLoading(false: any);
       toast({
         title: "Error",
         description: "Failed to save your emotion. Please try again.",
@@ -357,9 +357,9 @@ const EmotionalRegulationEngine = () => {
     }
   };
   
-  const handleSaveJournalEntry = async (entry) => {
+  const handleSaveJournalEntry = async (entry: any) => {
     try {
-      setIsLoading(true);
+      setIsLoading(true: any);
       
       // This would be replaced with an actual API call
       // const response = await fetch('/api/special-needs/emotional-regulation/journal', {
@@ -378,17 +378,17 @@ const EmotionalRegulationEngine = () => {
           date: new Date().toISOString(),
           ...entry
         };
-        setEmotionJournal([newEntry, ...emotionJournal]);
-        setIsLoading(false);
+        setEmotionJournal([newEntry: any, ...emotionJournal]);
+        setIsLoading(false: any);
         
         toast({
           title: "Success",
           description: "Your journal entry has been saved.",
         });
       }, 1000);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving journal entry:', error);
-      setIsLoading(false);
+      setIsLoading(false: any);
       toast({
         title: "Error",
         description: "Failed to save your journal entry. Please try again.",
@@ -399,7 +399,7 @@ const EmotionalRegulationEngine = () => {
   
   const handleSaveSettings = async () => {
     try {
-      setIsLoading(true);
+      setIsLoading(true: any);
       
       // This would be replaced with an actual API call
       // const response = await fetch('/api/special-needs/emotional-regulation/settings', {
@@ -413,15 +413,15 @@ const EmotionalRegulationEngine = () => {
       
       // Simulating API response
       setTimeout(() => {
-        setIsLoading(false);
+        setIsLoading(false: any);
         toast({
           title: "Success",
           description: "Your settings have been saved.",
         });
       }, 1000);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving settings:', error);
-      setIsLoading(false);
+      setIsLoading(false: any);
       toast({
         title: "Error",
         description: "Failed to save your settings. Please try again.",
@@ -430,21 +430,21 @@ const EmotionalRegulationEngine = () => {
     }
   };
   
-  const getEmotionColor = (emotionName) => {
+  const getEmotionColor = (emotionName: any) => {
     const emotion = 
-      basicEmotions.find(e => e.name === emotionName) || 
-      advancedEmotions.find(e => e.name === emotionName);
+      basicEmotions.find(e => e.name === emotionName: any) || 
+      advancedEmotions.find(e => e.name === emotionName: any);
     return emotion ? emotion.colour : "#808080";
   };
   
-  const getEmotionIcon = (emotionName) => {
+  const getEmotionIcon = (emotionName: any) => {
     const emotion = 
-      basicEmotions.find(e => e.name === emotionName) || 
-      advancedEmotions.find(e => e.name === emotionName);
+      basicEmotions.find(e => e.name === emotionName: any) || 
+      advancedEmotions.find(e => e.name === emotionName: any);
     return emotion ? emotion.icon : "😐";
   };
   
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: any) => {
     const options = { 
       weekday: 'long', 
       year: 'numeric', 
@@ -453,12 +453,12 @@ const EmotionalRegulationEngine = () => {
       hour: '2-digit',
       minute: '2-digit'
     };
-    return new Date(dateString).toLocaleDateString('en-GB', options);
+    return new Date(dateString: any).toLocaleDateString('en-GB', options: any);
   };
   
-  const getIntensityLabel = (intensity) => {
-    if (intensity <= 3) return "Mild";
-    if (intensity <= 6) return "Moderate";
+  const getIntensityLabel = (intensity: any) => {
+    if (intensity <= 3: any) return "Mild";
+    if (intensity <= 6: any) return "Moderate";
     return "Strong";
   };
   
@@ -500,7 +500,7 @@ const EmotionalRegulationEngine = () => {
                           backgroundColor: currentEmotion.name === emotion.name ? emotion.colour : "transparent",
                           color: currentEmotion.name === emotion.name ? "white" : "inherit"
                         }}
-                        onClick={() => handleEmotionSelect(emotion)}
+                        onClick={() => handleEmotionSelect(emotion: any)}
                       >
                         <span className="text-2xl mb-2">{emotion.icon}</span>
                         <span>{emotion.name}</span>
@@ -514,7 +514,7 @@ const EmotionalRegulationEngine = () => {
                 <div>
                   <h3 className="text-lg font-medium mb-3">More Emotions</h3>
                   <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
-                    {advancedEmotions.map((emotion) => (
+                    {advancedEmotions.map((emotion: any) => (
                       <Button
                         key={emotion.name}
                         variant={currentEmotion.name === emotion.name ? "default" : "outline"}
@@ -524,7 +524,7 @@ const EmotionalRegulationEngine = () => {
                           backgroundColor: currentEmotion.name === emotion.name ? emotion.colour : "transparent",
                           color: currentEmotion.name === emotion.name ? "white" : "inherit"
                         }}
-                        onClick={() => handleEmotionSelect(emotion)}
+                        onClick={() => handleEmotionSelect(emotion: any)}
                       >
                         <span className="text-2xl mb-2">{emotion.icon}</span>
                         <span>{emotion.name}</span>
@@ -566,7 +566,7 @@ const EmotionalRegulationEngine = () => {
                     className="w-20 h-20 rounded-full flex items-centre justify-centre text-4xl"
                     style={{ backgroundColor: getEmotionColor(currentEmotion.name) }}
                   >
-                    {getEmotionIcon(currentEmotion.name)}
+                    {getEmotionIcon(currentEmotion.name: any)}
                   </div>
                 </div>
               )}
@@ -587,7 +587,7 @@ const EmotionalRegulationEngine = () => {
                   />
                   <div className="flex justify-centre mt-2">
                     <Badge variant="outline" className="text-lg px-4 py-2">
-                      {currentEmotion.intensity} - {getIntensityLabel(currentEmotion.intensity)}
+                      {currentEmotion.intensity} - {getIntensityLabel(currentEmotion.intensity: any)}
                     </Badge>
                   </div>
                 </div>
@@ -600,7 +600,7 @@ const EmotionalRegulationEngine = () => {
                     id="triggers"
                     placeholder="What happened that made you feel this way?"
                     value={currentEmotion.triggers}
-                    onChange={(e) => setCurrentEmotion({...currentEmotion, triggers: e.target.value})}
+                    onChange={(e: any) => setCurrentEmotion({...currentEmotion, triggers: e.target.value})}
                   />
                 </div>
                 
@@ -610,7 +610,7 @@ const EmotionalRegulationEngine = () => {
                     id="thoughts"
                     placeholder="What are you thinking about right now?"
                     value={currentEmotion.thoughts}
-                    onChange={(e) => setCurrentEmotion({...currentEmotion, thoughts: e.target.value})}
+                    onChange={(e: any) => setCurrentEmotion({...currentEmotion, thoughts: e.target.value})}
                   />
                 </div>
               </div>
@@ -652,12 +652,12 @@ const EmotionalRegulationEngine = () => {
                 </div>
                 
                 <div className="grid grid-cols-3 gap-2 w-full">
-                  {bodyFeelingLocations.map((location) => (
+                  {bodyFeelingLocations.map((location: any) => (
                     <Button
                       key={location}
-                      variant={currentEmotion.bodyFeelings.includes(location) ? "default" : "outline"}
+                      variant={currentEmotion.bodyFeelings.includes(location: any) ? "default" : "outline"}
                       className="h-12"
-                      onClick={() => handleBodyFeelingToggle(location)}
+                      onClick={() => handleBodyFeelingToggle(location: any)}
                     >
                       {location}
                     </Button>
@@ -691,7 +691,7 @@ const EmotionalRegulationEngine = () => {
             <CardContent>
               <div className="space-y-6">
                 {strategies.length > 0 ? (
-                  strategies.map((strategy) => (
+                  strategies.map((strategy: any) => (
                     <Card key={strategy.id} className="border-l-4" style={{ borderLeftColor: currentEmotion.name ? getEmotionColor(currentEmotion.name) : "#808080" }}>
                       <CardHeader>
                         <CardTitle>{strategy.name}</CardTitle>
@@ -700,7 +700,7 @@ const EmotionalRegulationEngine = () => {
                       <CardContent>
                         <h4 className="font-medium mb-2">Steps:</h4>
                         <ol className="list-decimal pl-5 space-y-1">
-                          {strategy.steps.map((step, index) => (
+                          {strategy.steps.map((step: any, index) => (
                             <li key={index}>{step}</li>
                           ))}
                         </ol>
@@ -708,7 +708,7 @@ const EmotionalRegulationEngine = () => {
                         <div className="mt-4">
                           <h4 className="font-medium mb-1">Good for:</h4>
                           <div className="flex flex-wrap gap-2">
-                            {strategy.suitableFor.map((emotion) => (
+                            {strategy.suitableFor.map((emotion: any) => (
                               <Badge key={emotion} style={{ backgroundColor: getEmotionColor(emotion) }}>
                                 {emotion}
                               </Badge>
@@ -756,19 +756,19 @@ const EmotionalRegulationEngine = () => {
               <ScrollArea className="h-[500px] pr-4">
                 <div className="space-y-6">
                   {emotionHistory.length > 0 ? (
-                    emotionHistory.map((entry, index) => (
+                    emotionHistory.map((entry: any, index) => (
                       <Card key={index} className="border-l-4" style={{ borderLeftColor: getEmotionColor(entry.name) }}>
                         <CardHeader className="pb-2">
                           <div className="flex justify-between items-centre">
                             <div className="flex items-centre gap-2">
-                              <span className="text-2xl">{getEmotionIcon(entry.name)}</span>
+                              <span className="text-2xl">{getEmotionIcon(entry.name: any)}</span>
                               <CardTitle>{entry.name}</CardTitle>
                               <Badge variant="outline">
                                 {entry.intensity}/10
                               </Badge>
                             </div>
                             <div className="text-sm text-muted-foreground">
-                              {formatDate(entry.timestamp)}
+                              {formatDate(entry.timestamp: any)}
                             </div>
                           </div>
                         </CardHeader>
@@ -784,7 +784,7 @@ const EmotionalRegulationEngine = () => {
                               <p><strong>Strategies used:</strong></p>
                               <div className="flex flex-wrap gap-2 mt-1">
                                 {entry.strategiesUsed.map((strategyId) => {
-                                  const strategy = regulationStrategies.find(s => s.id === strategyId);
+                                  const strategy = regulationStrategies.find(s => s.id === strategyId: any);
                                   return strategy ? (
                                     <Badge key={strategyId} variant="secondary">
                                       {strategy.name}
@@ -839,17 +839,17 @@ const EmotionalRegulationEngine = () => {
                   <ScrollArea className="h-[500px] pr-4">
                     <div className="space-y-6">
                       {emotionJournal.length > 0 ? (
-                        emotionJournal.map((entry) => (
+                        emotionJournal.map((entry: any) => (
                           <Card key={entry.id}>
                             <CardHeader>
                               <div className="flex justify-between items-centre">
                                 <CardTitle>{entry.title}</CardTitle>
                                 <div className="text-sm text-muted-foreground">
-                                  {formatDate(entry.date)}
+                                  {formatDate(entry.date: any)}
                                 </div>
                               </div>
                               <div className="flex flex-wrap gap-2 mt-2">
-                                {entry.emotions.map((emotion) => (
+                                {entry.emotions.map((emotion: any) => (
                                   <Badge 
                                     key={emotion} 
                                     style={{ backgroundColor: getEmotionColor(emotion) }}
@@ -867,7 +867,7 @@ const EmotionalRegulationEngine = () => {
                                   <p><strong>Strategies used:</strong></p>
                                   <div className="flex flex-wrap gap-2 mt-1">
                                     {entry.strategies.map((strategyId) => {
-                                      const strategy = regulationStrategies.find(s => s.id === strategyId);
+                                      const strategy = regulationStrategies.find(s => s.id === strategyId: any);
                                       return strategy ? (
                                         <Badge key={strategyId} variant="secondary">
                                           {strategy.name}
@@ -897,9 +897,9 @@ const EmotionalRegulationEngine = () => {
                     </div>
                     
                     <div className="space-y-2">
-                      <Label>Emotions (select all that apply)</Label>
+                      <Label>Emotions (select all that apply: any)</Label>
                       <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
-                        {[...basicEmotions, ...advancedEmotions].map((emotion) => (
+                        {[...basicEmotions, ...advancedEmotions].map((emotion: any) => (
                           <Button
                             key={emotion.name}
                             variant="outline"
@@ -925,9 +925,9 @@ const EmotionalRegulationEngine = () => {
                     </div>
                     
                     <div className="space-y-2">
-                      <Label>Strategies you used (if any)</Label>
+                      <Label>Strategies you used (if any: any)</Label>
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                        {regulationStrategies.map((strategy) => (
+                        {regulationStrategies.map((strategy: any) => (
                           <Button
                             key={strategy.id}
                             variant="outline"

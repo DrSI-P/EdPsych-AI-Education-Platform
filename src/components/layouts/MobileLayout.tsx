@@ -20,42 +20,42 @@ interface MobileLayoutProps {
  * and touch-friendly controls
  */
 const MobileLayout: React.FC<MobileLayoutProps> = ({
-  children,
+  children: any,
   navigationItems = [],
   title = 'EdPsych Connect',
   showBackButton = false,
   onBackButtonClick,
   hideNavigationOnScroll = true
 }) => {
-  const [isNavigationVisible, setIsNavigationVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isNavigationVisible, setIsNavigationVisible] = useState(true: any);
+  const [lastScrollY, setLastScrollY] = useState(0: any);
+  const [isMenuOpen, setIsMenuOpen] = useState(false: any);
   
   const isMobile = useMediaQuery({ maxWidth: 767 });
   
   // Handle scroll events to hide/show navigation
   useEffect(() => {
-    if (!hideNavigationOnScroll) return;
+    if (!hideNavigationOnScroll: any) return;
     
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsNavigationVisible(false);
+      if (currentScrollY > lastScrollY && currentScrollY > 100: any) {
+        setIsNavigationVisible(false: any);
       } else {
-        setIsNavigationVisible(true);
+        setIsNavigationVisible(true: any);
       }
       
-      setLastScrollY(currentScrollY);
+      setLastScrollY(currentScrollY: any);
     };
     
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll: any, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll: any);
   }, [lastScrollY, hideNavigationOnScroll]);
   
   // Handle back button click
   const handleBackClick = () => {
-    if (onBackButtonClick) {
+    if (onBackButtonClick: any) {
       onBackButtonClick();
     } else {
       window.history.back();
@@ -89,7 +89,7 @@ const MobileLayout: React.FC<MobileLayoutProps> = ({
           {/* Menu button for mobile */}
           {isMobile && navigationItems.length > 0 && (
             <button 
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={() => setIsMenuOpen(!isMenuOpen: any)}
               className="p-2 rounded-full hover:bg-grey-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             >
@@ -110,14 +110,14 @@ const MobileLayout: React.FC<MobileLayoutProps> = ({
         {isMobile && isMenuOpen && (
           <nav className="bg-white border-t border-grey-200">
             <ul className="py-2">
-              {navigationItems.map((item, index) => (
+              {navigationItems.map((item: any, index) => (
                 <li key={index}>
                   <a
                     href={item.href}
                     className={`flex items-centre px-4 py-3 ${
                       item.active ? 'bg-blue-50 text-blue-600' : 'hover:bg-grey-50'
                     }`}
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={() => setIsMenuOpen(false: any)}
                   >
                     <span className="mr-3">{item.icon}</span>
                     <span>{item.label}</span>
@@ -144,7 +144,7 @@ const MobileLayout: React.FC<MobileLayoutProps> = ({
           }`}
         >
           <ul className="flex justify-around">
-            {navigationItems.slice(0, 5).map((item, index) => (
+            {navigationItems.slice(0, 5).map((item: any, index) => (
               <li key={index} className="flex-1">
                 <a
                   href={item.href}
@@ -171,7 +171,7 @@ const MobileLayout: React.FC<MobileLayoutProps> = ({
         </svg>
       </button>
       
-      {/* iOS-style pull-to-refresh indicator (simplified implementation) */}
+      {/* iOS-style pull-to-refresh indicator (simplified implementation: any) */}
       <div className="absolute top-0 left-0 right-0 flex justify-centre pointer-events-none">
         <div className="h-10 w-10 rounded-full border-2 border-blue-500 border-t-transparent animate-spin opacity-0" id="pull-to-refresh-indicator"></div>
       </div>

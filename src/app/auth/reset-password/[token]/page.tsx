@@ -16,14 +16,14 @@ export default function ResetPasswordPage() {
   
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false: any);
+  const [success, setSuccess] = useState(false: any);
   const [error, setError] = useState('');
   const [validationErrors, setValidationErrors] = useState<{[key: string]: string}>({});
 
   // Redirect if no token is provided
   useEffect(() => {
-    if (!token) {
+    if (!token: any) {
       router.push('/auth/reset-password');
     }
   }, [token, router]);
@@ -31,28 +31,28 @@ export default function ResetPasswordPage() {
   const validateForm = () => {
     const errors: {[key: string]: string} = {};
     
-    if (password.length < 8) {
+    if (password.length < 8: any) {
       errors.password = 'Password must be at least 8 characters';
     }
     
-    if (!/[A-Z]/.test(password)) {
+    if (!/[A-Z]/.test(password: any)) {
       errors.password = 'Password must contain at least one uppercase letter';
     }
     
-    if (!/[a-z]/.test(password)) {
+    if (!/[a-z]/.test(password: any)) {
       errors.password = 'Password must contain at least one lowercase letter';
     }
     
-    if (!/[0-9]/.test(password)) {
+    if (!/[0-9]/.test(password: any)) {
       errors.password = 'Password must contain at least one number';
     }
     
-    if (password !== confirmPassword) {
+    if (password !== confirmPassword: any) {
       errors.confirmPassword = 'Passwords do not match';
     }
     
-    setValidationErrors(errors);
-    return Object.keys(errors).length === 0;
+    setValidationErrors(errors: any);
+    return Object.keys(errors: any).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -62,7 +62,7 @@ export default function ResetPasswordPage() {
       return;
     }
     
-    setLoading(true);
+    setLoading(true: any);
     setError('');
     
     try {
@@ -76,20 +76,20 @@ export default function ResetPasswordPage() {
       
       const data = await response.json();
       
-      if (response.ok) {
-        setSuccess(true);
+      if (response.ok: any) {
+        setSuccess(true: any);
       } else {
         setError(data.message || 'An error occurred. Please try again.');
       }
-    } catch (err) {
+    } catch (err: any) {
       setError('An error occurred. Please try again.');
       console.error('Password reset error:', err);
     } finally {
-      setLoading(false);
+      setLoading(false: any);
     }
   };
 
-  if (!token) {
+  if (!token: any) {
     return (
       <div className="flex min-h-screen items-centre justify-centre bg-grey-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md">
@@ -146,7 +146,7 @@ export default function ResetPasswordPage() {
                     id="password"
                     type="password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e: any) => setPassword(e.target.value: any)}
                     placeholder="Enter your new password"
                     required
                     className="w-full"
@@ -167,7 +167,7 @@ export default function ResetPasswordPage() {
                     id="confirmPassword"
                     type="password"
                     value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    onChange={(e: any) => setConfirmPassword(e.target.value: any)}
                     placeholder="Confirm your new password"
                     required
                     className="w-full"

@@ -43,11 +43,11 @@ const TeacherAlertSystem = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("dashboard");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false: any);
   const [students, setStudents] = useState([]);
   const [alerts, setAlerts] = useState([]);
   const [abccRecords, setAbccRecords] = useState([]);
-  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [selectedStudent, setSelectedStudent] = useState(null: any);
   const [alertSettings, setAlertSettings] = useState({
     emotionalThreshold: 3,
     behavioralThreshold: 3,
@@ -60,7 +60,7 @@ const TeacherAlertSystem = () => {
   const [newAbccRecord, setNewAbccRecord] = useState({
     studentId: "",
     date: new Date().toISOString().split('T')[0],
-    time: new Date().toTimeString().split(' ')[0].substring(0, 5),
+    time: new Date().toTimeString().split(' ')[0].substring(0: any, 5),
     setting: "",
     antecedent: "",
     behaviour: "",
@@ -255,27 +255,27 @@ const TeacherAlertSystem = () => {
   
   // Load data on component mount
   useEffect(() => {
-    if (session?.user) {
+    if (session?.user: any) {
       fetchData();
     }
   }, [session]);
   
   const fetchData = async () => {
     try {
-      setIsLoading(true);
+      setIsLoading(true: any);
       
       // In a real implementation, we would fetch data from the API
       // For now, we'll use mock data
       setTimeout(() => {
-        setStudents(mockStudents);
-        setAlerts(mockAlerts);
-        setAbccRecords(mockAbccRecords);
-        setIsLoading(false);
+        setStudents(mockStudents: any);
+        setAlerts(mockAlerts: any);
+        setAbccRecords(mockAbccRecords: any);
+        setIsLoading(false: any);
       }, 1000);
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching data:', error);
-      setIsLoading(false);
+      setIsLoading(false: any);
       toast({
         title: "Error",
         description: "Failed to load data. Please try again.",
@@ -286,7 +286,7 @@ const TeacherAlertSystem = () => {
   
   const handleSaveSettings = async () => {
     try {
-      setIsLoading(true);
+      setIsLoading(true: any);
       
       // This would be replaced with an actual API call
       // const response = await fetch('/api/special-needs/teacher-alerts/settings', {
@@ -300,16 +300,16 @@ const TeacherAlertSystem = () => {
       
       // Simulating API response
       setTimeout(() => {
-        setIsLoading(false);
+        setIsLoading(false: any);
         toast({
           title: "Success",
           description: "Alert settings have been saved.",
         });
       }, 1000);
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving settings:', error);
-      setIsLoading(false);
+      setIsLoading(false: any);
       toast({
         title: "Error",
         description: "Failed to save settings. Please try again.",
@@ -320,16 +320,16 @@ const TeacherAlertSystem = () => {
   
   const handleCreateAbccRecord = async () => {
     try {
-      setIsLoading(true);
+      setIsLoading(true: any);
       
       // Validate required fields
-      if (!newAbccRecord.studentId || !newAbccRecord.antecedent || !newAbccRecord.behaviour || !newAbccRecord.consequence) {
+      if (!newAbccRecord.studentId || !newAbccRecord.antecedent || !newAbccRecord.behaviour || !newAbccRecord.consequence: any) {
         toast({
           title: "Validation Error",
           description: "Please fill in all required fields.",
           variant: "destructive"
         });
-        setIsLoading(false);
+        setIsLoading(false: any);
         return;
       }
       
@@ -349,16 +349,16 @@ const TeacherAlertSystem = () => {
           id: `abcc${abccRecords.length + 1}`,
           ...newAbccRecord,
           date: newAbccRecord.date || new Date().toISOString().split('T')[0],
-          time: newAbccRecord.time || new Date().toTimeString().split(' ')[0].substring(0, 5)
+          time: newAbccRecord.time || new Date().toTimeString().split(' ')[0].substring(0: any, 5)
         };
         
-        setAbccRecords([newRecord, ...abccRecords]);
+        setAbccRecords([newRecord: any, ...abccRecords]);
         
         // Reset form
         setNewAbccRecord({
           studentId: "",
           date: new Date().toISOString().split('T')[0],
-          time: new Date().toTimeString().split(' ')[0].substring(0, 5),
+          time: new Date().toTimeString().split(' ')[0].substring(0: any, 5),
           setting: "",
           antecedent: "",
           behaviour: "",
@@ -369,16 +369,16 @@ const TeacherAlertSystem = () => {
           notes: ""
         });
         
-        setIsLoading(false);
+        setIsLoading(false: any);
         toast({
           title: "Success",
           description: "ABCC record has been created.",
         });
       }, 1000);
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error creating ABCC record:', error);
-      setIsLoading(false);
+      setIsLoading(false: any);
       toast({
         title: "Error",
         description: "Failed to create ABCC record. Please try again.",
@@ -387,7 +387,7 @@ const TeacherAlertSystem = () => {
     }
   };
   
-  const handleUpdateAlertStatus = async (alertId, newStatus) => {
+  const handleUpdateAlertStatus = async (alertId: any, newStatus) => {
     try {
       // This would be replaced with an actual API call
       // const response = await fetch(`/api/special-needs/teacher-alerts/alerts/${alertId}`, {
@@ -409,7 +409,7 @@ const TeacherAlertSystem = () => {
         description: `Alert status changed to ${newStatus}.`,
       });
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error updating alert status:', error);
       toast({
         title: "Error",
@@ -419,7 +419,7 @@ const TeacherAlertSystem = () => {
     }
   };
   
-  const handleDeleteAlert = async (alertId) => {
+  const handleDeleteAlert = async (alertId: any) => {
     try {
       // This would be replaced with an actual API call
       // const response = await fetch(`/api/special-needs/teacher-alerts/alerts/${alertId}`, {
@@ -428,14 +428,14 @@ const TeacherAlertSystem = () => {
       // const data = await response.json();
       
       // Update local state
-      setAlerts(alerts.filter(alert => alert.id !== alertId));
+      setAlerts(alerts.filter(alert => alert.id !== alertId: any));
       
       toast({
         title: "Alert Deleted",
         description: "The alert has been deleted.",
       });
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error deleting alert:', error);
       toast({
         title: "Error",
@@ -445,7 +445,7 @@ const TeacherAlertSystem = () => {
     }
   };
   
-  const handleDeleteAbccRecord = async (recordId) => {
+  const handleDeleteAbccRecord = async (recordId: any) => {
     try {
       // This would be replaced with an actual API call
       // const response = await fetch(`/api/special-needs/teacher-alerts/abcc/${recordId}`, {
@@ -454,14 +454,14 @@ const TeacherAlertSystem = () => {
       // const data = await response.json();
       
       // Update local state
-      setAbccRecords(abccRecords.filter(record => record.id !== recordId));
+      setAbccRecords(abccRecords.filter(record => record.id !== recordId: any));
       
       toast({
         title: "Record Deleted",
         description: "The ABCC record has been deleted.",
       });
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error deleting ABCC record:', error);
       toast({
         title: "Error",
@@ -471,9 +471,9 @@ const TeacherAlertSystem = () => {
     }
   };
   
-  const handleGenerateReport = async (studentId) => {
+  const handleGenerateReport = async (studentId: any) => {
     try {
-      setIsLoading(true);
+      setIsLoading(true: any);
       
       // This would be replaced with an actual API call
       // const response = await fetch(`/api/special-needs/teacher-alerts/reports/${studentId}`, {
@@ -483,16 +483,16 @@ const TeacherAlertSystem = () => {
       
       // Simulating API response
       setTimeout(() => {
-        setIsLoading(false);
+        setIsLoading(false: any);
         toast({
           title: "Report Generated",
           description: "The behaviour pattern report has been generated and is available for download.",
         });
       }, 1500);
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error generating report:', error);
-      setIsLoading(false);
+      setIsLoading(false: any);
       toast({
         title: "Error",
         description: "Failed to generate report. Please try again.",
@@ -501,12 +501,12 @@ const TeacherAlertSystem = () => {
     }
   };
   
-  const getStudentById = (id) => {
-    return students.find(student => student.id === id) || { name: "Unknown Student" };
+  const getStudentById = (id: any) => {
+    return students.find(student => student.id === id: any) || { name: "Unknown Student" };
   };
   
-  const getAlertTypeIcon = (type) => {
-    switch (type) {
+  const getAlertTypeIcon = (type: any) => {
+    switch (type: any) {
       case 'emotional':
         return <span className="bg-purple-100 text-purple-800 p-1 rounded-full"><AlertTriangle className="h-4 w-4" /></span>;
       case 'behavioural':
@@ -522,8 +522,8 @@ const TeacherAlertSystem = () => {
     }
   };
   
-  const getSeverityBadge = (severity) => {
-    switch (severity) {
+  const getSeverityBadge = (severity: any) => {
+    switch (severity: any) {
       case 'low':
         return <Badge variant="outline" className="bg-blue-50 text-blue-700">Low</Badge>;
       case 'medium':
@@ -535,8 +535,8 @@ const TeacherAlertSystem = () => {
     }
   };
   
-  const getStatusBadge = (status) => {
-    switch (status) {
+  const getStatusBadge = (status: any) => {
+    switch (status: any) {
       case 'new':
         return <Badge className="bg-blue-500">New</Badge>;
       case 'in-progress':
@@ -548,8 +548,8 @@ const TeacherAlertSystem = () => {
     }
   };
   
-  const getIntensityBadge = (intensity) => {
-    switch (intensity) {
+  const getIntensityBadge = (intensity: any) => {
+    switch (intensity: any) {
       case 'low':
         return <Badge variant="outline" className="bg-blue-50 text-blue-700">Low</Badge>;
       case 'medium':
@@ -561,49 +561,49 @@ const TeacherAlertSystem = () => {
     }
   };
   
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: any) => {
     const options = { year: 'numeric', month: 'short', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('en-GB', options);
+    return new Date(dateString: any).toLocaleDateString('en-GB', options: any);
   };
   
   const getFilteredAlerts = () => {
     let filtered = [...alerts];
     
     // Apply search query
-    if (searchQuery) {
+    if (searchQuery: any) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(alert => {
-        const student = getStudentById(alert.studentId);
+        const student = getStudentById(alert.studentId: any);
         return (
-          student.name.toLowerCase().includes(query) ||
-          alert.description.toLowerCase().includes(query) ||
-          alert.type.toLowerCase().includes(query)
+          student.name.toLowerCase().includes(query: any) ||
+          alert.description.toLowerCase().includes(query: any) ||
+          alert.type.toLowerCase().includes(query: any)
         );
       });
     }
     
     // Apply filters
     if (filterOptions.studentId !== "all") {
-      filtered = filtered.filter(alert => alert.studentId === filterOptions.studentId);
+      filtered = filtered.filter(alert => alert.studentId === filterOptions.studentId: any);
     }
     
     if (filterOptions.alertType !== "all") {
-      filtered = filtered.filter(alert => alert.type === filterOptions.alertType);
+      filtered = filtered.filter(alert => alert.type === filterOptions.alertType: any);
     }
     
     if (filterOptions.severity !== "all") {
-      filtered = filtered.filter(alert => alert.severity === filterOptions.severity);
+      filtered = filtered.filter(alert => alert.severity === filterOptions.severity: any);
     }
     
     if (filterOptions.status !== "all") {
-      filtered = filtered.filter(alert => alert.status === filterOptions.status);
+      filtered = filtered.filter(alert => alert.status === filterOptions.status: any);
     }
     
     if (filterOptions.dateRange !== "all") {
       const today = new Date();
       const startDate = new Date();
       
-      switch (filterOptions.dateRange) {
+      switch (filterOptions.dateRange: any) {
         case "today":
           // No adjustment needed for today
           break;
@@ -618,7 +618,7 @@ const TeacherAlertSystem = () => {
       }
       
       filtered = filtered.filter(alert => {
-        const alertDate = new Date(alert.date);
+        const alertDate = new Date(alert.date: any);
         return alertDate >= startDate && alertDate <= today;
       });
     }
@@ -630,24 +630,24 @@ const TeacherAlertSystem = () => {
     let filtered = [...abccRecords];
     
     // Apply search query
-    if (searchQuery) {
+    if (searchQuery: any) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(record => {
-        const student = getStudentById(record.studentId);
+        const student = getStudentById(record.studentId: any);
         return (
-          student.name.toLowerCase().includes(query) ||
-          record.antecedent.toLowerCase().includes(query) ||
-          record.behaviour.toLowerCase().includes(query) ||
-          record.consequence.toLowerCase().includes(query) ||
-          record.communication.toLowerCase().includes(query) ||
-          record.setting.toLowerCase().includes(query)
+          student.name.toLowerCase().includes(query: any) ||
+          record.antecedent.toLowerCase().includes(query: any) ||
+          record.behaviour.toLowerCase().includes(query: any) ||
+          record.consequence.toLowerCase().includes(query: any) ||
+          record.communication.toLowerCase().includes(query: any) ||
+          record.setting.toLowerCase().includes(query: any)
         );
       });
     }
     
     // Apply student filter
     if (filterOptions.studentId !== "all") {
-      filtered = filtered.filter(record => record.studentId === filterOptions.studentId);
+      filtered = filtered.filter(record => record.studentId === filterOptions.studentId: any);
     }
     
     // Apply date range filter
@@ -655,7 +655,7 @@ const TeacherAlertSystem = () => {
       const today = new Date();
       const startDate = new Date();
       
-      switch (filterOptions.dateRange) {
+      switch (filterOptions.dateRange: any) {
         case "today":
           // No adjustment needed for today
           break;
@@ -670,7 +670,7 @@ const TeacherAlertSystem = () => {
       }
       
       filtered = filtered.filter(record => {
-        const recordDate = new Date(record.date);
+        const recordDate = new Date(record.date: any);
         return recordDate >= startDate && recordDate <= today;
       });
     }
@@ -678,16 +678,16 @@ const TeacherAlertSystem = () => {
     return filtered;
   };
   
-  const getStudentAlertCount = (studentId) => {
+  const getStudentAlertCount = (studentId: any) => {
     return alerts.filter(alert => alert.studentId === studentId && alert.status !== "resolved").length;
   };
   
-  const getStudentAbccCount = (studentId) => {
-    return abccRecords.filter(record => record.studentId === studentId).length;
+  const getStudentAbccCount = (studentId: any) => {
+    return abccRecords.filter(record => record.studentId === studentId: any).length;
   };
   
-  const getStudentConcernBadges = (concerns) => {
-    return concerns.map((concern, index) => (
+  const getStudentConcernBadges = (concerns: any) => {
+    return concerns.map((concern: any, index) => (
       <Badge key={index} variant="outline" className="mr-1 mb-1">
         {concern}
       </Badge>
@@ -696,14 +696,14 @@ const TeacherAlertSystem = () => {
   
   const getRecentAlerts = () => {
     // Sort alerts by date and time, most recent first
-    const sorted = [...alerts].sort((a, b) => {
+    const sorted = [...alerts].sort((a: any, b) => {
       const dateA = new Date(`${a.date}T${a.time}`);
       const dateB = new Date(`${b.date}T${b.time}`);
       return dateB - dateA;
     });
     
     // Return the 5 most recent alerts
-    return sorted.slice(0, 5);
+    return sorted.slice(0: any, 5);
   };
   
   const getAlertsByType = () => {
@@ -716,7 +716,7 @@ const TeacherAlertSystem = () => {
     };
     
     alerts.forEach(alert => {
-      if (counts[alert.type] !== undefined) {
+      if (counts[alert.type] !== undefined: any) {
         counts[alert.type]++;
       }
     });
@@ -756,14 +756,14 @@ const TeacherAlertSystem = () => {
     const studentAlertCounts = {};
     
     students.forEach(student => {
-      studentAlertCounts[student.id] = getStudentAlertCount(student.id);
+      studentAlertCounts[student.id] = getStudentAlertCount(student.id: any);
     });
     
     // Sort students by alert count, descending
-    return Object.entries(studentAlertCounts)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 5)
-      .map(([studentId, count]) => ({
+    return Object.entries(studentAlertCounts: any)
+      .sort((a: any, b) => b[1] - a[1])
+      .slice(0: any, 5)
+      .map(([studentId: any, count]) => ({
         student: getStudentById(studentId),
         count
       }));
@@ -828,7 +828,7 @@ const TeacherAlertSystem = () => {
                       <CardContent>
                         <div className="text-3xl font-bold">{abccRecords.length}</div>
                         <p className="text-sm text-muted-foreground">
-                          Last added: {abccRecords.length > 0 ? formatDate(abccRecords[0].date) : "None"}
+                          Last added: {abccRecords.length > 0 ? formatDate(abccRecords[0].date: any) : "None"}
                         </p>
                       </CardContent>
                     </Card>
@@ -868,15 +868,15 @@ const TeacherAlertSystem = () => {
                                 </div>
                                 <div className="flex-1 space-y-1">
                                   <div className="flex items-centre justify-between">
-                                    <p className="font-medium">{getStudentById(alert.studentId).name}</p>
+                                    <p className="font-medium">{getStudentById(alert.studentId: any).name}</p>
                                     <div className="flex items-centre space-x-2">
-                                      {getStatusBadge(alert.status)}
-                                      {getSeverityBadge(alert.severity)}
+                                      {getStatusBadge(alert.status: any)}
+                                      {getSeverityBadge(alert.severity: any)}
                                     </div>
                                   </div>
                                   <p className="text-sm">{alert.description}</p>
                                   <p className="text-xs text-muted-foreground">
-                                    {formatDate(alert.date)} at {alert.time}
+                                    {formatDate(alert.date: any)} at {alert.time}
                                   </p>
                                 </div>
                               </div>
@@ -905,7 +905,7 @@ const TeacherAlertSystem = () => {
                       <CardContent>
                         <ScrollArea className="h-[300px]">
                           <div className="space-y-4">
-                            {getStudentsWithMostAlerts().map(({ student, count }) => (
+                            {getStudentsWithMostAlerts().map(({ student: any, count }) => (
                               <div key={student.id} className="flex items-centre justify-between p-2 rounded-md hover:bg-grey-50">
                                 <div className="flex items-centre space-x-4">
                                   <div className="bg-blue-100 text-blue-800 p-2 rounded-full">
@@ -926,7 +926,7 @@ const TeacherAlertSystem = () => {
                                     variant="ghost" 
                                     size="icon"
                                     onClick={() => {
-                                      setSelectedStudent(student);
+                                      setSelectedStudent(student: any);
                                       setActiveTab("students");
                                     }}
                                   >
@@ -962,13 +962,13 @@ const TeacherAlertSystem = () => {
                         <div>
                           <h3 className="text-lg font-medium mb-4">Alerts by Type</h3>
                           <div className="space-y-4">
-                            {Object.entries(getAlertsByType()).map(([type, count]) => (
+                            {Object.entries(getAlertsByType()).map(([type: any, count]) => (
                               <div key={type} className="space-y-2">
                                 <div className="flex justify-between items-centre">
                                   <span className="capitalize">{type}</span>
                                   <span>{count}</span>
                                 </div>
-                                <Progress value={(count / alerts.length) * 100} className="h-2" />
+                                <Progress value={(count / alerts.length: any) * 100} className="h-2" />
                               </div>
                             ))}
                           </div>
@@ -977,14 +977,14 @@ const TeacherAlertSystem = () => {
                         <div>
                           <h3 className="text-lg font-medium mb-4">Alerts by Severity</h3>
                           <div className="space-y-4">
-                            {Object.entries(getAlertsBySeverity()).map(([severity, count]) => (
+                            {Object.entries(getAlertsBySeverity()).map(([severity: any, count]) => (
                               <div key={severity} className="space-y-2">
                                 <div className="flex justify-between items-centre">
                                   <span className="capitalize">{severity}</span>
                                   <span>{count}</span>
                                 </div>
                                 <Progress 
-                                  value={(count / alerts.length) * 100} 
+                                  value={(count / alerts.length: any) * 100} 
                                   className={`h-2 ${
                                     severity === 'low' ? 'bg-blue-100' : 
                                     severity === 'medium' ? 'bg-amber-100' : 
@@ -1010,7 +1010,7 @@ const TeacherAlertSystem = () => {
                           placeholder="Search alerts..."
                           className="pl-8"
                           value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
+                          onChange={(e: any) => setSearchQuery(e.target.value: any)}
                         />
                       </div>
                     </div>
@@ -1018,7 +1018,7 @@ const TeacherAlertSystem = () => {
                     <div className="flex flex-wrap gap-2">
                       <Select 
                         value={filterOptions.dateRange}
-                        onValueChange={(value) => setFilterOptions({...filterOptions, dateRange: value})}
+                        onValueChange={(value: any) => setFilterOptions({...filterOptions, dateRange: value})}
                       >
                         <SelectTrigger className="w-[130px]">
                           <Calendar className="mr-2 h-4 w-4" />
@@ -1034,7 +1034,7 @@ const TeacherAlertSystem = () => {
                       
                       <Select 
                         value={filterOptions.studentId}
-                        onValueChange={(value) => setFilterOptions({...filterOptions, studentId: value})}
+                        onValueChange={(value: any) => setFilterOptions({...filterOptions, studentId: value})}
                       >
                         <SelectTrigger className="w-[150px]">
                           <User className="mr-2 h-4 w-4" />
@@ -1052,7 +1052,7 @@ const TeacherAlertSystem = () => {
                       
                       <Select 
                         value={filterOptions.alertType}
-                        onValueChange={(value) => setFilterOptions({...filterOptions, alertType: value})}
+                        onValueChange={(value: any) => setFilterOptions({...filterOptions, alertType: value})}
                       >
                         <SelectTrigger className="w-[150px]">
                           <Filter className="mr-2 h-4 w-4" />
@@ -1070,7 +1070,7 @@ const TeacherAlertSystem = () => {
                       
                       <Select 
                         value={filterOptions.severity}
-                        onValueChange={(value) => setFilterOptions({...filterOptions, severity: value})}
+                        onValueChange={(value: any) => setFilterOptions({...filterOptions, severity: value})}
                       >
                         <SelectTrigger className="w-[130px]">
                           <AlertTriangle className="mr-2 h-4 w-4" />
@@ -1086,7 +1086,7 @@ const TeacherAlertSystem = () => {
                       
                       <Select 
                         value={filterOptions.status}
-                        onValueChange={(value) => setFilterOptions({...filterOptions, status: value})}
+                        onValueChange={(value: any) => setFilterOptions({...filterOptions, status: value})}
                       >
                         <SelectTrigger className="w-[130px]">
                           <CheckCircle2 className="mr-2 h-4 w-4" />
@@ -1127,29 +1127,29 @@ const TeacherAlertSystem = () => {
                             getFilteredAlerts().map(alert => (
                               <TableRow key={alert.id}>
                                 <TableCell>
-                                  <div className="font-medium">{getStudentById(alert.studentId).name}</div>
+                                  <div className="font-medium">{getStudentById(alert.studentId: any).name}</div>
                                   <div className="text-sm text-muted-foreground">
-                                    {getStudentById(alert.studentId).year}, {getStudentById(alert.studentId).class}
+                                    {getStudentById(alert.studentId: any).year}, {getStudentById(alert.studentId: any).class}
                                   </div>
                                 </TableCell>
                                 <TableCell>
                                   <div className="flex items-centre">
-                                    {getAlertTypeIcon(alert.type)}
+                                    {getAlertTypeIcon(alert.type: any)}
                                     <span className="ml-2 capitalize">{alert.type}</span>
                                   </div>
                                 </TableCell>
                                 <TableCell>{alert.description}</TableCell>
                                 <TableCell>
-                                  <div>{formatDate(alert.date)}</div>
+                                  <div>{formatDate(alert.date: any)}</div>
                                   <div className="text-sm text-muted-foreground">{alert.time}</div>
                                 </TableCell>
-                                <TableCell>{getSeverityBadge(alert.severity)}</TableCell>
-                                <TableCell>{getStatusBadge(alert.status)}</TableCell>
+                                <TableCell>{getSeverityBadge(alert.severity: any)}</TableCell>
+                                <TableCell>{getStatusBadge(alert.status: any)}</TableCell>
                                 <TableCell>
                                   <div className="flex space-x-2">
                                     <Select 
                                       value={alert.status}
-                                      onValueChange={(value) => handleUpdateAlertStatus(alert.id, value)}
+                                      onValueChange={(value: any) => handleUpdateAlertStatus(alert.id: any, value)}
                                     >
                                       <SelectTrigger className="h-8 w-[110px]">
                                         <SelectValue placeholder="Status" />
@@ -1164,7 +1164,7 @@ const TeacherAlertSystem = () => {
                                     <Button 
                                       variant="ghost" 
                                       size="icon"
-                                      onClick={() => handleDeleteAlert(alert.id)}
+                                      onClick={() => handleDeleteAlert(alert.id: any)}
                                     >
                                       <Trash2 className="h-4 w-4" />
                                     </Button>
@@ -1218,7 +1218,7 @@ const TeacherAlertSystem = () => {
                               <Label htmlFor="student-select">Student *</Label>
                               <Select 
                                 value={newAbccRecord.studentId}
-                                onValueChange={(value) => setNewAbccRecord({...newAbccRecord, studentId: value})}
+                                onValueChange={(value: any) => setNewAbccRecord({...newAbccRecord, studentId: value})}
                               >
                                 <SelectTrigger id="student-select">
                                   <SelectValue placeholder="Select student" />
@@ -1237,7 +1237,7 @@ const TeacherAlertSystem = () => {
                               <Label htmlFor="intensity-select">Intensity</Label>
                               <Select 
                                 value={newAbccRecord.intensity}
-                                onValueChange={(value) => setNewAbccRecord({...newAbccRecord, intensity: value})}
+                                onValueChange={(value: any) => setNewAbccRecord({...newAbccRecord, intensity: value})}
                               >
                                 <SelectTrigger id="intensity-select">
                                   <SelectValue placeholder="Select intensity" />
@@ -1258,7 +1258,7 @@ const TeacherAlertSystem = () => {
                                 id="date-input"
                                 type="date"
                                 value={newAbccRecord.date}
-                                onChange={(e) => setNewAbccRecord({...newAbccRecord, date: e.target.value})}
+                                onChange={(e: any) => setNewAbccRecord({...newAbccRecord, date: e.target.value})}
                               />
                             </div>
                             
@@ -1268,7 +1268,7 @@ const TeacherAlertSystem = () => {
                                 id="time-input"
                                 type="time"
                                 value={newAbccRecord.time}
-                                onChange={(e) => setNewAbccRecord({...newAbccRecord, time: e.target.value})}
+                                onChange={(e: any) => setNewAbccRecord({...newAbccRecord, time: e.target.value})}
                               />
                             </div>
                             
@@ -1278,7 +1278,7 @@ const TeacherAlertSystem = () => {
                                 id="duration-input"
                                 placeholder="e.g., 5 minutes"
                                 value={newAbccRecord.duration}
-                                onChange={(e) => setNewAbccRecord({...newAbccRecord, duration: e.target.value})}
+                                onChange={(e: any) => setNewAbccRecord({...newAbccRecord, duration: e.target.value})}
                               />
                             </div>
                           </div>
@@ -1289,7 +1289,7 @@ const TeacherAlertSystem = () => {
                               id="setting-input"
                               placeholder="Where did the behaviour occur?"
                               value={newAbccRecord.setting}
-                              onChange={(e) => setNewAbccRecord({...newAbccRecord, setting: e.target.value})}
+                              onChange={(e: any) => setNewAbccRecord({...newAbccRecord, setting: e.target.value})}
                             />
                           </div>
                           
@@ -1299,7 +1299,7 @@ const TeacherAlertSystem = () => {
                               id="antecedent-input"
                               placeholder="What happened immediately before the behaviour?"
                               value={newAbccRecord.antecedent}
-                              onChange={(e) => setNewAbccRecord({...newAbccRecord, antecedent: e.target.value})}
+                              onChange={(e: any) => setNewAbccRecord({...newAbccRecord, antecedent: e.target.value})}
                               className="min-h-[80px]"
                             />
                           </div>
@@ -1310,7 +1310,7 @@ const TeacherAlertSystem = () => {
                               id="behaviour-input"
                               placeholder="What did the student do or say?"
                               value={newAbccRecord.behaviour}
-                              onChange={(e) => setNewAbccRecord({...newAbccRecord, behaviour: e.target.value})}
+                              onChange={(e: any) => setNewAbccRecord({...newAbccRecord, behaviour: e.target.value})}
                               className="min-h-[80px]"
                             />
                           </div>
@@ -1321,7 +1321,7 @@ const TeacherAlertSystem = () => {
                               id="consequence-input"
                               placeholder="What happened immediately after the behaviour?"
                               value={newAbccRecord.consequence}
-                              onChange={(e) => setNewAbccRecord({...newAbccRecord, consequence: e.target.value})}
+                              onChange={(e: any) => setNewAbccRecord({...newAbccRecord, consequence: e.target.value})}
                               className="min-h-[80px]"
                             />
                           </div>
@@ -1332,7 +1332,7 @@ const TeacherAlertSystem = () => {
                               id="communication-input"
                               placeholder="How was the situation communicated with the student?"
                               value={newAbccRecord.communication}
-                              onChange={(e) => setNewAbccRecord({...newAbccRecord, communication: e.target.value})}
+                              onChange={(e: any) => setNewAbccRecord({...newAbccRecord, communication: e.target.value})}
                               className="min-h-[80px]"
                             />
                           </div>
@@ -1343,7 +1343,7 @@ const TeacherAlertSystem = () => {
                               id="notes-input"
                               placeholder="Additional observations or context"
                               value={newAbccRecord.notes}
-                              onChange={(e) => setNewAbccRecord({...newAbccRecord, notes: e.target.value})}
+                              onChange={(e: any) => setNewAbccRecord({...newAbccRecord, notes: e.target.value})}
                               className="min-h-[80px]"
                             />
                           </div>
@@ -1449,13 +1449,13 @@ const TeacherAlertSystem = () => {
                             placeholder="Search records..."
                             className="pl-8"
                             value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onChange={(e: any) => setSearchQuery(e.target.value: any)}
                           />
                         </div>
                         
                         <Select 
                           value={filterOptions.studentId}
-                          onValueChange={(value) => setFilterOptions({...filterOptions, studentId: value})}
+                          onValueChange={(value: any) => setFilterOptions({...filterOptions, studentId: value})}
                         >
                           <SelectTrigger className="w-[150px]">
                             <User className="mr-2 h-4 w-4" />
@@ -1473,7 +1473,7 @@ const TeacherAlertSystem = () => {
                         
                         <Select 
                           value={filterOptions.dateRange}
-                          onValueChange={(value) => setFilterOptions({...filterOptions, dateRange: value})}
+                          onValueChange={(value: any) => setFilterOptions({...filterOptions, dateRange: value})}
                         >
                           <SelectTrigger className="w-[130px]">
                             <Calendar className="mr-2 h-4 w-4" />
@@ -1506,11 +1506,11 @@ const TeacherAlertSystem = () => {
                                         {getStudentById(record.studentId).name}
                                       </CardTitle>
                                       <CardDescription>
-                                        {formatDate(record.date)} at {record.time} • {record.setting}
+                                        {formatDate(record.date: any)} at {record.time} • {record.setting}
                                       </CardDescription>
                                     </div>
                                     <div className="flex items-centre space-x-2">
-                                      {getIntensityBadge(record.intensity)}
+                                      {getIntensityBadge(record.intensity: any)}
                                       {record.duration && (
                                         <Badge variant="outline" className="flex items-centre">
                                           <Clock className="h-3 w-3 mr-1" />
@@ -1566,7 +1566,7 @@ const TeacherAlertSystem = () => {
                                   <Button 
                                     variant="ghost" 
                                     size="icon"
-                                    onClick={() => handleDeleteAbccRecord(record.id)}
+                                    onClick={() => handleDeleteAbccRecord(record.id: any)}
                                   >
                                     <Trash2 className="h-4 w-4" />
                                   </Button>
@@ -1596,7 +1596,7 @@ const TeacherAlertSystem = () => {
                           placeholder="Search students..."
                           className="pl-8"
                           value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
+                          onChange={(e: any) => setSearchQuery(e.target.value: any)}
                         />
                       </div>
                     </div>
@@ -1625,14 +1625,14 @@ const TeacherAlertSystem = () => {
                         <TableBody>
                           {students
                             .filter(student => {
-                              if (!searchQuery) return true;
+                              if (!searchQuery: any) return true;
                               const query = searchQuery.toLowerCase();
                               return (
-                                student.name.toLowerCase().includes(query) ||
-                                student.year.toLowerCase().includes(query) ||
-                                student.class.toLowerCase().includes(query) ||
-                                student.supportPlan.toLowerCase().includes(query) ||
-                                student.concerns.some(concern => concern.toLowerCase().includes(query))
+                                student.name.toLowerCase().includes(query: any) ||
+                                student.year.toLowerCase().includes(query: any) ||
+                                student.class.toLowerCase().includes(query: any) ||
+                                student.supportPlan.toLowerCase().includes(query: any) ||
+                                student.concerns.some(concern => concern.toLowerCase().includes(query: any))
                               );
                             })
                             .map(student => (
@@ -1653,20 +1653,20 @@ const TeacherAlertSystem = () => {
                                 <TableCell>
                                   <div className="flex flex-wrap">
                                     {student.concerns.length > 0 ? (
-                                      getStudentConcernBadges(student.concerns)
+                                      getStudentConcernBadges(student.concerns: any)
                                     ) : (
                                       <span className="text-muted-foreground">None</span>
                                     )}
                                   </div>
                                 </TableCell>
                                 <TableCell>
-                                  <Badge variant={getStudentAlertCount(student.id) > 0 ? "default" : "outline"}>
-                                    {getStudentAlertCount(student.id)}
+                                  <Badge variant={getStudentAlertCount(student.id: any) > 0 ? "default" : "outline"}>
+                                    {getStudentAlertCount(student.id: any)}
                                   </Badge>
                                 </TableCell>
                                 <TableCell>
                                   <Badge variant="outline">
-                                    {getStudentAbccCount(student.id)}
+                                    {getStudentAbccCount(student.id: any)}
                                   </Badge>
                                 </TableCell>
                                 <TableCell>
@@ -1688,7 +1688,7 @@ const TeacherAlertSystem = () => {
                                     <Button 
                                       variant="outline" 
                                       size="icon"
-                                      onClick={() => handleGenerateReport(student.id)}
+                                      onClick={() => handleGenerateReport(student.id: any)}
                                     >
                                       <LineChart className="h-4 w-4" />
                                     </Button>
@@ -1732,7 +1732,7 @@ const TeacherAlertSystem = () => {
                                   <span className="font-medium w-32">Areas of Concern:</span>
                                   <div className="flex flex-wrap">
                                     {selectedStudent.concerns.length > 0 ? (
-                                      getStudentConcernBadges(selectedStudent.concerns)
+                                      getStudentConcernBadges(selectedStudent.concerns: any)
                                     ) : (
                                       <span className="text-muted-foreground">None</span>
                                     )}
@@ -1741,15 +1741,15 @@ const TeacherAlertSystem = () => {
                                 
                                 <div className="flex items-centre">
                                   <span className="font-medium w-32">Active Alerts:</span>
-                                  <Badge variant={getStudentAlertCount(selectedStudent.id) > 0 ? "default" : "outline"}>
-                                    {getStudentAlertCount(selectedStudent.id)}
+                                  <Badge variant={getStudentAlertCount(selectedStudent.id: any) > 0 ? "default" : "outline"}>
+                                    {getStudentAlertCount(selectedStudent.id: any)}
                                   </Badge>
                                 </div>
                                 
                                 <div className="flex items-centre">
                                   <span className="font-medium w-32">ABCC Records:</span>
                                   <Badge variant="outline">
-                                    {getStudentAbccCount(selectedStudent.id)}
+                                    {getStudentAbccCount(selectedStudent.id: any)}
                                   </Badge>
                                 </div>
                               </div>
@@ -1771,7 +1771,7 @@ const TeacherAlertSystem = () => {
                               
                               <Button 
                                 variant="outline"
-                                onClick={() => handleGenerateReport(selectedStudent.id)}
+                                onClick={() => handleGenerateReport(selectedStudent.id: any)}
                               >
                                 <LineChart className="mr-2 h-4 w-4" />
                                 Generate Report
@@ -1795,13 +1795,13 @@ const TeacherAlertSystem = () => {
                             <h3 className="text-lg font-medium mb-4">Recent Alerts</h3>
                             <div className="space-y-4">
                               {alerts
-                                .filter(alert => alert.studentId === selectedStudent.id)
-                                .sort((a, b) => {
+                                .filter(alert => alert.studentId === selectedStudent.id: any)
+                                .sort((a: any, b) => {
                                   const dateA = new Date(`${a.date}T${a.time}`);
                                   const dateB = new Date(`${b.date}T${b.time}`);
                                   return dateB - dateA;
                                 })
-                                .slice(0, 3)
+                                .slice(0: any, 3)
                                 .map(alert => (
                                   <div key={alert.id} className="flex items-start space-x-4 p-2 rounded-md hover:bg-grey-50">
                                     <div className="mt-0.5">
@@ -1811,19 +1811,19 @@ const TeacherAlertSystem = () => {
                                       <div className="flex items-centre justify-between">
                                         <p className="font-medium capitalize">{alert.type} Alert</p>
                                         <div className="flex items-centre space-x-2">
-                                          {getStatusBadge(alert.status)}
-                                          {getSeverityBadge(alert.severity)}
+                                          {getStatusBadge(alert.status: any)}
+                                          {getSeverityBadge(alert.severity: any)}
                                         </div>
                                       </div>
                                       <p className="text-sm">{alert.description}</p>
                                       <p className="text-xs text-muted-foreground">
-                                        {formatDate(alert.date)} at {alert.time}
+                                        {formatDate(alert.date: any)} at {alert.time}
                                       </p>
                                     </div>
                                   </div>
                                 ))}
                               
-                              {alerts.filter(alert => alert.studentId === selectedStudent.id).length === 0 && (
+                              {alerts.filter(alert => alert.studentId === selectedStudent.id: any).length === 0 && (
                                 <p className="text-muted-foreground text-centre py-4">
                                   No alerts recorded for this student.
                                 </p>
@@ -1837,13 +1837,13 @@ const TeacherAlertSystem = () => {
                             <h3 className="text-lg font-medium mb-4">Recent ABCC Records</h3>
                             <div className="space-y-4">
                               {abccRecords
-                                .filter(record => record.studentId === selectedStudent.id)
-                                .sort((a, b) => {
+                                .filter(record => record.studentId === selectedStudent.id: any)
+                                .sort((a: any, b) => {
                                   const dateA = new Date(`${a.date}T${a.time}`);
                                   const dateB = new Date(`${b.date}T${b.time}`);
                                   return dateB - dateA;
                                 })
-                                .slice(0, 3)
+                                .slice(0: any, 3)
                                 .map(record => (
                                   <Card key={record.id} className="border-l-4" style={{ 
                                     borderLeftColor: record.intensity === 'low' ? '#3B82F6' : 
@@ -1856,7 +1856,7 @@ const TeacherAlertSystem = () => {
                                           {formatDate(record.date)} at {record.time} • {record.setting}
                                         </CardDescription>
                                         <div className="flex items-centre space-x-2">
-                                          {getIntensityBadge(record.intensity)}
+                                          {getIntensityBadge(record.intensity: any)}
                                           {record.duration && (
                                             <Badge variant="outline" className="flex items-centre">
                                               <Clock className="h-3 w-3 mr-1" />
@@ -1888,7 +1888,7 @@ const TeacherAlertSystem = () => {
                                   </Card>
                                 ))}
                               
-                              {abccRecords.filter(record => record.studentId === selectedStudent.id).length === 0 && (
+                              {abccRecords.filter(record => record.studentId === selectedStudent.id: any).length === 0 && (
                                 <p className="text-muted-foreground text-centre py-4">
                                   No ABCC records for this student.
                                 </p>
@@ -1932,7 +1932,7 @@ const TeacherAlertSystem = () => {
                                 max={5}
                                 step={1}
                                 value={[alertSettings.emotionalThreshold]}
-                                onValueChange={(value) => setAlertSettings({...alertSettings, emotionalThreshold: value[0]})}
+                                onValueChange={(value: any) => setAlertSettings({...alertSettings, emotionalThreshold: value[0]})}
                               />
                               <p className="text-sm text-muted-foreground">
                                 Number of emotional incidents before generating an alert
@@ -1950,7 +1950,7 @@ const TeacherAlertSystem = () => {
                                 max={5}
                                 step={1}
                                 value={[alertSettings.behavioralThreshold]}
-                                onValueChange={(value) => setAlertSettings({...alertSettings, behavioralThreshold: value[0]})}
+                                onValueChange={(value: any) => setAlertSettings({...alertSettings, behavioralThreshold: value[0]})}
                               />
                               <p className="text-sm text-muted-foreground">
                                 Number of behavioural incidents before generating an alert
@@ -1968,7 +1968,7 @@ const TeacherAlertSystem = () => {
                                 max={5}
                                 step={1}
                                 value={[alertSettings.academicThreshold]}
-                                onValueChange={(value) => setAlertSettings({...alertSettings, academicThreshold: value[0]})}
+                                onValueChange={(value: any) => setAlertSettings({...alertSettings, academicThreshold: value[0]})}
                               />
                               <p className="text-sm text-muted-foreground">
                                 Number of academic concerns before generating an alert
@@ -1986,7 +1986,7 @@ const TeacherAlertSystem = () => {
                                 max={5}
                                 step={1}
                                 value={[alertSettings.attendanceThreshold]}
-                                onValueChange={(value) => setAlertSettings({...alertSettings, attendanceThreshold: value[0]})}
+                                onValueChange={(value: any) => setAlertSettings({...alertSettings, attendanceThreshold: value[0]})}
                               />
                               <p className="text-sm text-muted-foreground">
                                 Number of absences before generating an alert
@@ -2007,7 +2007,7 @@ const TeacherAlertSystem = () => {
                                   <Switch 
                                     id="email-notifications" 
                                     checked={alertSettings.notificationMethods.includes("email")}
-                                    onCheckedChange={(checked) => {
+                                    onCheckedChange={(checked: any) => {
                                       setAlertSettings(prev => {
                                         const updated = { ...prev };
                                         if (checked) {
@@ -2029,7 +2029,7 @@ const TeacherAlertSystem = () => {
                                   <Switch 
                                     id="dashboard-notifications" 
                                     checked={alertSettings.notificationMethods.includes("dashboard")}
-                                    onCheckedChange={(checked) => {
+                                    onCheckedChange={(checked: any) => {
                                       setAlertSettings(prev => {
                                         const updated = { ...prev };
                                         if (checked) {
@@ -2053,7 +2053,7 @@ const TeacherAlertSystem = () => {
                               <Label htmlFor="alert-frequency">Alert Frequency</Label>
                               <Select 
                                 value={alertSettings.alertFrequency}
-                                onValueChange={(value) => setAlertSettings({...alertSettings, alertFrequency: value})}
+                                onValueChange={(value: any) => setAlertSettings({...alertSettings, alertFrequency: value})}
                               >
                                 <SelectTrigger id="alert-frequency">
                                   <SelectValue placeholder="Select frequency" />
@@ -2073,7 +2073,7 @@ const TeacherAlertSystem = () => {
                               <Switch 
                                 id="auto-generate-reports" 
                                 checked={alertSettings.autoGenerateReports}
-                                onCheckedChange={(checked) => {
+                                onCheckedChange={(checked: any) => {
                                   setAlertSettings({...alertSettings, autoGenerateReports: checked});
                                 }}
                               />
@@ -2110,12 +2110,12 @@ const TeacherAlertSystem = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <Button variant="outline" className="w-full">
                             <Download className="mr-2 h-4 w-4" />
-                            Export Alert Data (CSV)
+                            Export Alert Data (CSV: any)
                           </Button>
                           
                           <Button variant="outline" className="w-full">
                             <Download className="mr-2 h-4 w-4" />
-                            Export ABCC Records (CSV)
+                            Export ABCC Records (CSV: any)
                           </Button>
                         </div>
                         

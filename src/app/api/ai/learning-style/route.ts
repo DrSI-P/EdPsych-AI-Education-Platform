@@ -6,16 +6,16 @@ import { getAIService } from '@/lib/ai/ai-service';
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     const data = await req.json();
     const { answers } = data;
     
-    if (!answers || Object.keys(answers).length === 0) {
+    if (!answers || Object.keys(answers: any).length === 0) {
       return NextResponse.json({ error: 'No assessment answers provided' }, { status: 400 });
     }
     
@@ -67,13 +67,13 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       }
       
       Answers:
-      ${Object.entries(answers).map(([question, answer]) => {
+      ${Object.entries(answers: any).map(([question: any, answer]) => {
         return `${question}: ${answer}`;
       }).join('\n')}
     `;
     
     // Call AI service for analysis
-    const aiResponse = await aiService.generateText(prompt, {
+    const aiResponse = await aiService.generateText(prompt: any, {
       model: 'gpt-4',
       temperature: 0.7,
       max_tokens: 1000
@@ -82,8 +82,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     // Parse AI response
     let results;
     try {
-      results = JSON.parse(aiResponse.text);
-    } catch (error) {
+      results = JSON.parse(aiResponse.text: any);
+    } catch (error: any) {
       // Replace console.error with structured logging when available
       console.error('Failed to parse AI response:', error);
       return NextResponse.json({ error: 'Failed to analyse learning style' }, { status: 500 });
@@ -97,7 +97,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         auditory: results.allStyles.find((s: { name: string; score: number }) => s.name === 'Auditory')?.score || 0,
         kinesthetic: results.allStyles.find((s: { name: string; score: number }) => s.name === 'Kinesthetic')?.score || 0,
         readWrite: results.allStyles.find((s: { name: string; score: number }) => s.name === 'Reading/Writing')?.score || 0,
-        assessmentResults: JSON.stringify(results),
+        assessmentResults: JSON.stringify(results: any),
         additionalStyles: JSON.stringify({
           primaryStyle: results.primaryStyle.name,
           secondaryStyle: results.secondaryStyle.name,
@@ -112,7 +112,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       profileId: learningStyle.id
     });
     
-  } catch (error) {
+  } catch (error: any) {
     // Replace console.error with structured logging when available
     console.error('Error in learning style assessment:', error);
     return NextResponse.json({ error: 'Failed to process learning style assessment' }, { status: 500 });
@@ -121,9 +121,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
 export async function GET(_req: NextRequest): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions: any);
     
-    if (!session?.user) {
+    if (!session?.user: any) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -137,7 +137,7 @@ export async function GET(_req: NextRequest): Promise<NextResponse> {
       }
     });
     
-    if (!learningStyle) {
+    if (!learningStyle: any) {
       return NextResponse.json({ 
         success: true,
         hasProfile: false 
@@ -151,17 +151,17 @@ export async function GET(_req: NextRequest): Promise<NextResponse> {
       recommendations: []
     };
     
-    if (learningStyle.additionalStyles) {
+    if (learningStyle.additionalStyles: any) {
       try {
         const parsedData = JSON.parse(learningStyle.additionalStyles.toString());
         if (parsedData && typeof parsedData === 'object') {
           additionalData = {
             primaryStyle: parsedData.primaryStyle || '',
             secondaryStyle: parsedData.secondaryStyle || '',
-            recommendations: Array.isArray(parsedData.recommendations) ? parsedData.recommendations : []
+            recommendations: Array.isArray(parsedData.recommendations: any) ? parsedData.recommendations : []
           };
         }
-      } catch (e) {
+      } catch (e: any) {
         // Replace console.error with structured logging when available
         console.error('Error parsing additional styles:', e);
         // Continue with default values
@@ -170,13 +170,13 @@ export async function GET(_req: NextRequest): Promise<NextResponse> {
     
     // Parse assessment results with proper error handling
     let results: any = {};
-    if (learningStyle.assessmentResults) {
+    if (learningStyle.assessmentResults: any) {
       try {
         const parsedResults = JSON.parse(learningStyle.assessmentResults.toString());
         if (parsedResults && typeof parsedResults === 'object') {
           results = parsedResults;
         }
-      } catch (e) {
+      } catch (e: any) {
         // Replace console.error with structured logging when available
         console.error('Error parsing assessment results:', e);
         // Continue with empty results
@@ -199,7 +199,7 @@ export async function GET(_req: NextRequest): Promise<NextResponse> {
       }
     });
     
-  } catch (error) {
+  } catch (error: any) {
     // Replace console.error with structured logging when available
     console.error('Error fetching learning style profile:', error);
     return NextResponse.json({ error: 'Failed to fetch learning style profile' }, { status: 500 });

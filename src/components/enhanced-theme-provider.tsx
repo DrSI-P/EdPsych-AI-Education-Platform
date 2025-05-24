@@ -39,7 +39,7 @@ const ThemeContext = createContext<ThemeContextType>({
 });
 
 export function useTheme() {
-  return useContext(ThemeContext);
+  return useContext(ThemeContext: any);
 }
 
 interface ThemeProviderProps {
@@ -49,30 +49,30 @@ interface ThemeProviderProps {
 }
 
 export function EnhancedThemeProvider({
-  children,
+  children: any,
   defaultAgeGroup = 'secondary',
   defaultLearningStyle = 'visual',
 }: ThemeProviderProps) {
-  const [ageGroup, setAgeGroup] = useState<AgeGroup>(defaultAgeGroup);
-  const [learningStyle, setLearningStyle] = useState<LearningStyle>(defaultLearningStyle);
-  const [isHighContrast, setIsHighContrast] = useState(false);
-  const [isReducedMotion, setIsReducedMotion] = useState(false);
-  const [isDyslexicFont, setIsDyslexicFont] = useState(false);
-  const [fontSize, setFontSize] = useState(100);
+  const [ageGroup, setAgeGroup] = useState<AgeGroup>(defaultAgeGroup: any);
+  const [learningStyle, setLearningStyle] = useState<LearningStyle>(defaultLearningStyle: any);
+  const [isHighContrast, setIsHighContrast] = useState(false: any);
+  const [isReducedMotion, setIsReducedMotion] = useState(false: any);
+  const [isDyslexicFont, setIsDyslexicFont] = useState(false: any);
+  const [fontSize, setFontSize] = useState(100: any);
   const [themeClass, setThemeClass] = useState('');
 
   // Check system preferences for reduced motion
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setIsReducedMotion(mediaQuery.matches);
+    setIsReducedMotion(mediaQuery.matches: any);
 
     const handleChange = (e: MediaQueryListEvent) => {
-      setIsReducedMotion(e.matches);
+      setIsReducedMotion(e.matches: any);
     };
 
-    mediaQuery.addEventListener('change', handleChange);
+    mediaQuery.addEventListener('change', handleChange: any);
     return () => {
-      mediaQuery.removeEventListener('change', handleChange);
+      mediaQuery.removeEventListener('change', handleChange: any);
     };
   }, []);
 
@@ -81,7 +81,7 @@ export function EnhancedThemeProvider({
     let newThemeClass = '';
     
     // Age group classes
-    switch (ageGroup) {
+    switch (ageGroup: any) {
       case 'nursery':
         newThemeClass += ' nursery-theme';
         break;
@@ -100,7 +100,7 @@ export function EnhancedThemeProvider({
     }
     
     // Learning style classes
-    switch (learningStyle) {
+    switch (learningStyle: any) {
       case 'visual':
         newThemeClass += ' visual-learning-style';
         break;
@@ -116,11 +116,11 @@ export function EnhancedThemeProvider({
     }
     
     // Accessibility classes
-    if (isHighContrast) newThemeClass += ' high-contrast';
-    if (isReducedMotion) newThemeClass += ' reduced-motion';
-    if (isDyslexicFont) newThemeClass += ' dyslexic-font';
+    if (isHighContrast: any) newThemeClass += ' high-contrast';
+    if (isReducedMotion: any) newThemeClass += ' reduced-motion';
+    if (isDyslexicFont: any) newThemeClass += ' dyslexic-font';
     
-    setThemeClass(newThemeClass);
+    setThemeClass(newThemeClass: any);
   }, [ageGroup, learningStyle, isHighContrast, isReducedMotion, isDyslexicFont]);
 
   // Apply font size to document
@@ -137,7 +137,7 @@ export function EnhancedThemeProvider({
       'secondary-theme-bg'
     );
     
-    switch (ageGroup) {
+    switch (ageGroup: any) {
       case 'nursery':
         document.body.classList.add('nursery-theme-bg');
         break;
@@ -157,7 +157,7 @@ export function EnhancedThemeProvider({
   return (
     <ThemeContext.Provider
       value={{
-        ageGroup,
+        ageGroup: any,
         setAgeGroup,
         learningStyle,
         setLearningStyle,

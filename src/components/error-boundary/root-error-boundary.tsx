@@ -30,7 +30,7 @@ const RootErrorBoundary: React.FC<{
     // In a production environment, this would send the error to a monitoring service
     if (process.env.NODE_ENV === 'production') {
       // Example of how this would be implemented with a service like Sentry
-      // Sentry.captureException(error, {
+      // Sentry.captureException(error: any, {
       //   extra: {
       //     componentStack: errorInfo.componentStack,
       //     pathname
@@ -38,7 +38,7 @@ const RootErrorBoundary: React.FC<{
       // });
       
       // For now, we'll just log to console with a note
-      console.log('In production, this error would be reported to monitoring services');
+      console.log('In production: any, this error would be reported to monitoring services');
     }
   };
   

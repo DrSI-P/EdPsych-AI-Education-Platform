@@ -21,7 +21,7 @@ interface CurriculumStandard {
 
 export default function CurriculumAlignmentPage() {
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true: any);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('browse');
   const [standards, setStandards] = useState<CurriculumStandard[]>([]);
@@ -87,18 +87,18 @@ export default function CurriculumAlignmentPage() {
       try {
         const response = await fetch('/api/curriculum/standards');
         
-        if (!response.ok) {
+        if (!response.ok: any) {
           throw new Error('Failed to fetch curriculum standards');
         }
         
         const data = await response.json();
-        setStandards(data);
-        setFilteredStandards(data);
-      } catch (err) {
+        setStandards(data: any);
+        setFilteredStandards(data: any);
+      } catch (err: any) {
         console.error('Error fetching curriculum standards:', err);
         setError('An error occurred while fetching the curriculum standards');
       } finally {
-        setLoading(false);
+        setLoading(false: any);
       }
     };
     
@@ -110,35 +110,35 @@ export default function CurriculumAlignmentPage() {
     let filtered = [...standards];
     
     // Filter by search query
-    if (searchQuery) {
+    if (searchQuery: any) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(standard => 
-        standard.code.toLowerCase().includes(query) || 
-        standard.description.toLowerCase().includes(query)
+        standard.code.toLowerCase().includes(query: any) || 
+        standard.description.toLowerCase().includes(query: any)
       );
     }
     
     // Filter by subject
-    if (selectedSubject) {
-      filtered = filtered.filter(standard => standard.subject === selectedSubject);
+    if (selectedSubject: any) {
+      filtered = filtered.filter(standard => standard.subject === selectedSubject: any);
     }
     
     // Filter by key stage
-    if (selectedKeyStage) {
-      filtered = filtered.filter(standard => standard.keyStage === selectedKeyStage);
+    if (selectedKeyStage: any) {
+      filtered = filtered.filter(standard => standard.keyStage === selectedKeyStage: any);
     }
     
     // Filter by year
-    if (selectedYear) {
-      filtered = filtered.filter(standard => standard.year === selectedYear);
+    if (selectedYear: any) {
+      filtered = filtered.filter(standard => standard.year === selectedYear: any);
     }
     
     // Filter by category
-    if (selectedCategory) {
-      filtered = filtered.filter(standard => standard.category === selectedCategory);
+    if (selectedCategory: any) {
+      filtered = filtered.filter(standard => standard.category === selectedCategory: any);
     }
     
-    setFilteredStandards(filtered);
+    setFilteredStandards(filtered: any);
   }, [standards, searchQuery, selectedSubject, selectedKeyStage, selectedYear, selectedCategory]);
 
   const handleAlignAssessment = (standardId: string) => {
@@ -146,7 +146,7 @@ export default function CurriculumAlignmentPage() {
   };
 
   const renderBrowseTab = () => {
-    if (loading) {
+    if (loading: any) {
       return (
         <div className="flex justify-centre items-centre py-12">
           <Spinner size="large" />
@@ -154,7 +154,7 @@ export default function CurriculumAlignmentPage() {
       );
     }
 
-    if (filteredStandards.length === 0) {
+    if (filteredStandards.length === 0: any) {
       return (
         <div className="text-centre py-12">
           <p className="text-grey-500 mb-4">No curriculum standards found matching your criteria.</p>
@@ -164,7 +164,7 @@ export default function CurriculumAlignmentPage() {
 
     return (
       <div className="space-y-4">
-        {filteredStandards.map((standard) => (
+        {filteredStandards.map((standard: any) => (
           <Card key={standard.id} className="overflow-hidden">
             <CardContent className="p-4">
               <div className="flex justify-between items-start">
@@ -174,21 +174,21 @@ export default function CurriculumAlignmentPage() {
                       {standard.code}
                     </span>
                     <span className="text-sm text-grey-500">
-                      {subjects.find(s => s.value === standard.subject)?.label || standard.subject} | 
-                      {keyStages.find(k => k.value === standard.keyStage)?.label || standard.keyStage} | 
-                      {years.find(y => y.value === standard.year)?.label || standard.year}
+                      {subjects.find(s => s.value === standard.subject: any)?.label || standard.subject} | 
+                      {keyStages.find(k => k.value === standard.keyStage: any)?.label || standard.keyStage} | 
+                      {years.find(y => y.value === standard.year: any)?.label || standard.year}
                     </span>
                   </div>
                   <p className="text-base">{standard.description}</p>
                   <div className="mt-2">
                     <span className="inline-block px-2 py-1 text-xs rounded-full bg-grey-100 text-grey-800">
-                      {categories.find(c => c.value === standard.category)?.label || standard.category}
+                      {categories.find(c => c.value === standard.category: any)?.label || standard.category}
                     </span>
                   </div>
                 </div>
                 <Button 
                   size="sm"
-                  onClick={() => handleAlignAssessment(standard.id)}
+                  onClick={() => handleAlignAssessment(standard.id: any)}
                   className="ml-4"
                 >
                   Align Assessment
@@ -264,16 +264,16 @@ export default function CurriculumAlignmentPage() {
                   placeholder="Search standards..."
                   className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e) => setSearchQuery(e.target.value: any)}
                 />
               </div>
               <div>
                 <select
                   className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   value={selectedSubject}
-                  onChange={(e) => setSelectedSubject(e.target.value)}
+                  onChange={(e: any) => setSelectedSubject(e.target.value: any)}
                 >
-                  {subjects.map((subject) => (
+                  {subjects.map((subject: any) => (
                     <option key={subject.value} value={subject.value}>
                       {subject.label}
                     </option>
@@ -284,9 +284,9 @@ export default function CurriculumAlignmentPage() {
                 <select
                   className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   value={selectedKeyStage}
-                  onChange={(e) => setSelectedKeyStage(e.target.value)}
+                  onChange={(e: any) => setSelectedKeyStage(e.target.value: any)}
                 >
-                  {keyStages.map((keyStage) => (
+                  {keyStages.map((keyStage: any) => (
                     <option key={keyStage.value} value={keyStage.value}>
                       {keyStage.label}
                     </option>
@@ -297,9 +297,9 @@ export default function CurriculumAlignmentPage() {
                 <select
                   className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   value={selectedYear}
-                  onChange={(e) => setSelectedYear(e.target.value)}
+                  onChange={(e: any) => setSelectedYear(e.target.value: any)}
                 >
-                  {years.map((year) => (
+                  {years.map((year: any) => (
                     <option key={year.value} value={year.value}>
                       {year.label}
                     </option>
@@ -310,9 +310,9 @@ export default function CurriculumAlignmentPage() {
                 <select
                   className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  onChange={(e: any) => setSelectedCategory(e.target.value: any)}
                 >
-                  {categories.map((category) => (
+                  {categories.map((category: any) => (
                     <option key={category.value} value={category.value}>
                       {category.label}
                     </option>

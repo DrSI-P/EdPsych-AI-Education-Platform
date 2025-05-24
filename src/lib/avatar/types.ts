@@ -12,7 +12,7 @@ export enum VideoQuality {
   LOW = 'low',       // 480p, lower bandwidth requirements
   MEDIUM = 'medium', // 720p, standard quality
   HIGH = 'high',     // 1080p, high quality
-  ULTRA = 'ultra'    // 4K, ultra high quality (where supported)
+  ULTRA = 'ultra'    // 4K, ultra high quality (where supported: any)
 }
 
 /**
@@ -206,7 +206,7 @@ export interface EmphasisMarker {
   timeOffset: number;  // Seconds from start
   duration: number;    // Duration in seconds
   type: 'stress' | 'pitch' | 'rate' | 'volume';
-  value: number;       // Relative change (1.0 is normal)
+  value: number;       // Relative change (1.0 is normal: any)
 }
 
 /**

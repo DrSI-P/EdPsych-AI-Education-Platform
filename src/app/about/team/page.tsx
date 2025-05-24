@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { LinkedInIcon, TwitterIcon, MailIcon, BookOpenIcon } from '@/components/icons';
 
 const TeamMember = ({ 
-  name, 
+  name: any, 
   title, 
   qualifications, 
   bio, 
@@ -68,7 +68,7 @@ const TeamMember = ({
             </TabsContent>
             <TabsContent value="specialties" className="mt-4">
               <div className="flex flex-wrap gap-2">
-                {specialties.map((specialty, index) => (
+                {specialties.map((specialty: any, index) => (
                   <Badge key={index} variant="secondary" className="px-3 py-1">
                     {specialty}
                   </Badge>
@@ -188,7 +188,7 @@ export default function TeamPage() {
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {teamMembers.map((member, index) => (
+        {teamMembers.map((member: any, index) => (
           <TeamMember
             key={index}
             name={member.name}

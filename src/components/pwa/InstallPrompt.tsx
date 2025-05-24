@@ -5,42 +5,42 @@ interface InstallPromptProps {
 }
 
 export function InstallPrompt({ className = '' }: InstallPromptProps) {
-  const [showPrompt, setShowPrompt] = useState(false);
-  const [installPromptEvent, setInstallPromptEvent] = useState<any>(null);
+  const [showPrompt, setShowPrompt] = useState(false: any);
+  const [installPromptEvent, setInstallPromptEvent] = useState<any>(null: any);
 
   useEffect(() => {
     // Check if the app is already installed
     const isAppInstalled = window.matchMedia('(display-mode: standalone)').matches;
     
-    if (isAppInstalled) {
+    if (isAppInstalled: any) {
       return; // Don't show install prompt if already installed
     }
 
     // Store the install prompt event for later use
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
-      setInstallPromptEvent(e);
-      setShowPrompt(true);
+      setInstallPromptEvent(e: any);
+      setShowPrompt(true: any);
     };
 
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt: any);
 
-    // Check if we should show the prompt (not shown in last 7 days)
+    // Check if we should show the prompt (not shown in last 7 days: any)
     const lastPromptTime = localStorage.getItem('installPromptLastShown');
-    if (lastPromptTime) {
-      const daysSinceLastPrompt = (Date.now() - parseInt(lastPromptTime)) / (1000 * 60 * 60 * 24);
-      if (daysSinceLastPrompt < 7) {
-        setShowPrompt(false);
+    if (lastPromptTime: any) {
+      const daysSinceLastPrompt = (Date.now() - parseInt(lastPromptTime: any)) / (1000 * 60 * 60 * 24: any);
+      if (daysSinceLastPrompt < 7: any) {
+        setShowPrompt(false: any);
       }
     }
 
     return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt: any);
     };
   }, []);
 
   const handleInstallClick = async () => {
-    if (!installPromptEvent) return;
+    if (!installPromptEvent: any) return;
     
     // Show the install prompt
     installPromptEvent.prompt();
@@ -49,8 +49,8 @@ export function InstallPrompt({ className = '' }: InstallPromptProps) {
     const choiceResult = await installPromptEvent.userChoice;
     
     // Reset the install prompt variable
-    setInstallPromptEvent(null);
-    setShowPrompt(false);
+    setInstallPromptEvent(null: any);
+    setShowPrompt(false: any);
     
     // Record when we showed the prompt
     localStorage.setItem('installPromptLastShown', Date.now().toString());
@@ -64,12 +64,12 @@ export function InstallPrompt({ className = '' }: InstallPromptProps) {
   };
 
   const handleDismiss = () => {
-    setShowPrompt(false);
+    setShowPrompt(false: any);
     // Record when we showed the prompt
     localStorage.setItem('installPromptLastShown', Date.now().toString());
   };
 
-  if (!showPrompt) return null;
+  if (!showPrompt: any) return null;
 
   return (
     <div className={`fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 z-50 border border-gray-200 dark:border-gray-700 ${className}`}>

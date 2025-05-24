@@ -55,7 +55,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     // Parse and validate the request body
     const body = await request.json();
-    const validatedData = resourceRecommendationRequestSchema.parse(body);
+    const validatedData = resourceRecommendationRequestSchema.parse(body: any);
     
     // In a real implementation, this would:
     // 1. Extract key topics and concepts from the context
@@ -64,11 +64,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     // 4. Return the top recommendations
     
     // For now, we'll return mock recommendations
-    const mockRecommendations = generateMockRecommendations(validatedData);
+    const mockRecommendations = generateMockRecommendations(validatedData: any);
     
-    return NextResponse.json(mockRecommendations);
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+    return NextResponse.json(mockRecommendations: any);
+  } catch (error: any) {
+    if (error instanceof z.ZodError: any) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
@@ -183,12 +183,12 @@ function generateMockRecommendations(data: RecommendationRequestData): ResourceR
     if (content.includes('math') || content.includes('fraction')) {
       filteredResources = resources.filter(r => 
         r.subject === 'mathematics' || 
-        r.tags.some(tag => ['mathematics', 'fractions'].includes(tag))
+        r.tags.some(tag => ['mathematics', 'fractions'].includes(tag: any))
       );
     } else if (content.includes('literacy') || content.includes('reading')) {
       filteredResources = resources.filter(r => 
         r.subject === 'english' || 
-        r.tags.some(tag => ['literacy', 'reading', 'writing'].includes(tag))
+        r.tags.some(tag => ['literacy', 'reading', 'writing'].includes(tag: any))
       );
     }
   } else if (contextSource === 'meeting-notes') {
@@ -197,7 +197,7 @@ function generateMockRecommendations(data: RecommendationRequestData): ResourceR
     if (content.includes('ehcna') || content.includes('send') || content.includes('communication')) {
       filteredResources = resources.filter(r => 
         r.subject === 'special educational needs' || 
-        r.tags.some(tag => ['SEND', 'communication', 'inclusion'].includes(tag))
+        r.tags.some(tag => ['SEND', 'communication', 'inclusion'].includes(tag: any))
       );
     }
   } else if (contextSource === 'student-profile') {
@@ -216,39 +216,39 @@ function generateMockRecommendations(data: RecommendationRequestData): ResourceR
   } else if (contextSource === 'manual') {
     // Filter for manual query
     const query = manualQuery?.toLowerCase() || '';
-    if (query) {
+    if (query: any) {
       filteredResources = resources.filter(r => 
-        r.title.toLowerCase().includes(query) ||
-        r.description.toLowerCase().includes(query) ||
-        r.subject.toLowerCase().includes(query) ||
-        r.tags.some(tag => tag.toLowerCase().includes(query))
+        r.title.toLowerCase().includes(query: any) ||
+        r.description.toLowerCase().includes(query: any) ||
+        r.subject.toLowerCase().includes(query: any) ||
+        r.tags.some(tag => tag.toLowerCase().includes(query: any))
       );
     }
   }
   
   // Apply any additional filters
-  if (data.filters) {
-    if (data.filters.resourceTypes && data.filters.resourceTypes.length > 0) {
+  if (data.filters: any) {
+    if (data.filters.resourceTypes && data.filters.resourceTypes.length > 0: any) {
       filteredResources = filteredResources.filter(r => 
-        data.filters?.resourceTypes?.includes(r.type)
+        data.filters?.resourceTypes?.includes(r.type: any)
       );
     }
     
-    if (data.filters.ageRange) {
+    if (data.filters.ageRange: any) {
       filteredResources = filteredResources.filter(r => 
         r.ageRange === data.filters?.ageRange || r.ageRange === 'all'
       );
     }
     
-    if (data.filters.subject) {
+    if (data.filters.subject: any) {
       filteredResources = filteredResources.filter(r => 
-        r.subject === data.filters?.subject
+        r.subject === data.filters?.subject: any
       );
     }
     
-    if (data.filters.curriculum) {
+    if (data.filters.curriculum: any) {
       filteredResources = filteredResources.filter(r => 
-        r.curriculum === data.filters?.curriculum
+        r.curriculum === data.filters?.curriculum: any
       );
     }
   }
@@ -257,8 +257,8 @@ function generateMockRecommendations(data: RecommendationRequestData): ResourceR
   filteredResources.sort((a: any, b: any) => b.relevanceScore - a.relevanceScore);
   
   // Limit results if specified
-  if (data.limit && data.limit > 0) {
-    filteredResources = filteredResources.slice(0, data.limit);
+  if (data.limit && data.limit > 0: any) {
+    filteredResources = filteredResources.slice(0: any, data.limit);
   }
   
   return filteredResources;
@@ -267,7 +267,7 @@ function generateMockRecommendations(data: RecommendationRequestData): ResourceR
 export async function GET(request: NextRequest): Promise<NextResponse> {
   try {
     // Get query parameters
-    const url = new URL(request.url);
+    const url = new URL(request.url: any);
     const contextSource = url.searchParams.get('contextSource') || 'manual';
     const contextId = url.searchParams.get('contextId');
     const contextContent = url.searchParams.get('contextContent');
@@ -277,7 +277,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     const subject = url.searchParams.get('subject');
     
     // Validate parameters
-    if (!['lesson-plan', 'meeting-notes', 'student-profile', 'manual'].includes(contextSource)) {
+    if (!['lesson-plan', 'meeting-notes', 'student-profile', 'manual'].includes(contextSource: any)) {
       return NextResponse.json({ error: 'Invalid context source' }, { status: 400 });
     }
     
@@ -295,10 +295,10 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     };
     
     // Generate recommendations
-    const recommendations = generateMockRecommendations(requestData);
+    const recommendations = generateMockRecommendations(requestData: any);
     
-    return NextResponse.json(recommendations);
-  } catch (error) {
+    return NextResponse.json(recommendations: any);
+  } catch (error: any) {
     console.error('Error fetching resource recommendations:', error);
     return NextResponse.json({ error: 'Failed to fetch resource recommendations' }, { status: 500 });
   }
