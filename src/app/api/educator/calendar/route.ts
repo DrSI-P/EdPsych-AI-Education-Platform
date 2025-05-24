@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import prisma from '@/lib/prisma';
+// Remove unused import
+// import prisma from '@/lib/prisma';
 
 // Schema for calendar activity
 const activitySchema = z.object({
@@ -35,7 +36,7 @@ const analyticsRequestSchema = z.object({
 });
 
 // GET handler for retrieving activities
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest): Promise<NextResponse> {
   try {
     // Get query parameters
     const url = new URL(request.url);
@@ -138,13 +139,14 @@ export async function GET(request: NextRequest) {
     
     return NextResponse.json(filteredActivities);
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error fetching calendar activities:', error);
     return NextResponse.json({ error: 'Failed to fetch calendar activities' }, { status: 500 });
   }
 }
 
 // POST handler for creating or updating activities
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     // Parse and validate the request body
     const body = await request.json();
@@ -164,13 +166,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
+    // Replace console.error with structured logging when available
     console.error('Error creating/updating calendar activity:', error);
     return NextResponse.json({ error: 'Failed to create/update calendar activity' }, { status: 500 });
   }
 }
 
 // DELETE handler for removing activities
-export async function DELETE(request: NextRequest) {
+export async function DELETE(request: NextRequest): Promise<NextResponse> {
   try {
     // Get activity ID from query parameters
     const url = new URL(request.url);
@@ -185,17 +188,19 @@ export async function DELETE(request: NextRequest) {
     
     return NextResponse.json({ success: true, message: `Activity ${id} deleted successfully` });
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error deleting calendar activity:', error);
     return NextResponse.json({ error: 'Failed to delete calendar activity' }, { status: 500 });
   }
 }
 
 // Optimisation endpoint
-export async function PUT(request: NextRequest) {
+export async function PUT(request: NextRequest): Promise<NextResponse> {
   try {
     // Parse and validate the request body
     const body = await request.json();
-    const validatedData = optimisationRequestSchema.parse(body);
+    // Use the validated data in the function
+    const optimisationData = optimisationRequestSchema.parse(body);
     
     // In a real implementation, this would run optimisation algorithms
     // For now, we'll return mock optimisation suggestions
@@ -230,17 +235,17 @@ export async function PUT(request: NextRequest) {
     // Filter suggestions based on focus
     let filteredSuggestions = [...suggestions];
     
-    if (validatedData.focus === 'balance') {
+    if (optimisationData.focus === 'balance') {
       // Return all suggestions for balance focus
-    } else if (validatedData.focus === 'efficiency') {
+    } else if (optimisationData.focus === 'efficiency') {
       filteredSuggestions = filteredSuggestions.filter(s => 
         s.type === 'batch' || s.type === 'reschedule'
       );
-    } else if (validatedData.focus === 'teaching') {
+    } else if (optimisationData.focus === 'teaching') {
       filteredSuggestions = filteredSuggestions.filter(s => 
         s.type === 'batch' || s.activities.some(a => a === '1')
       );
-    } else if (validatedData.focus === 'wellbeing') {
+    } else if (optimisationData.focus === 'wellbeing') {
       filteredSuggestions = filteredSuggestions.filter(s => 
         s.type === 'break'
       );
@@ -252,22 +257,24 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
+    // Replace console.error with structured logging when available
     console.error('Error optimising calendar:', error);
     return NextResponse.json({ error: 'Failed to optimise calendar' }, { status: 500 });
   }
 }
 
 // Analytics endpoint
-export async function PATCH(request: NextRequest) {
+export async function PATCH(request: NextRequest): Promise<NextResponse> {
   try {
     // Parse and validate the request body
     const body = await request.json();
-    const validatedData = analyticsRequestSchema.parse(body);
+    // Use the validated data in the function
+    const analyticsData = analyticsRequestSchema.parse(body);
     
     // In a real implementation, this would analyse calendar data
     // For now, we'll return mock analytics data
     
-    const analyticsData = {
+    const analyticsResponse = {
       timeDistribution: {
         teaching: 40,
         preparation: 20,
@@ -287,15 +294,17 @@ export async function PATCH(request: NextRequest) {
         'Your teaching time is well-distributed throughout the week',
         'Consider allocating more time for preparation on Thursdays',
         'Your meeting schedule appears to be efficiently managed'
-      ]
+      ],
+      dateRange: analyticsData.dateRange
     };
     
-    return NextResponse.json(analyticsData);
+    return NextResponse.json(analyticsResponse);
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
+    // Replace console.error with structured logging when available
     console.error('Error generating calendar analytics:', error);
     return NextResponse.json({ error: 'Failed to generate calendar analytics' }, { status: 500 });
   }
