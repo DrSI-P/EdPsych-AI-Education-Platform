@@ -9,12 +9,19 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { BookOpen, FileText, Headphones, BookMarked } from "lucide-react";
 
+// Define the type for sample texts
+interface SampleTexts {
+  primary: string;
+  secondary: string;
+  story: string;
+}
+
 export default function TextToSpeechPage() {
-  const [sampleText, setSampleText] = useState(
+  const [sampleText, setSampleText] = useState<string>(
     "Welcome to the EdPsych Connect text-to-speech feature. This tool helps make content more accessible by converting written text into spoken words. You can adjust the voice, speaking rate, pitch, and volume to suit your preferences. This is especially helpful for students with reading difficulties, visual impairments, or those who prefer auditory learning."
   );
   
-  const sampleTexts = {
+  const sampleTexts: SampleTexts = {
     primary: "The cat sat on the mat. It was a sunny day. The birds were singing in the trees. I like to play in the park with my friends. We can run, jump, and climb on the playground. My favourite game is hide and seek.",
     secondary: "The water cycle is the continuous movement of water within the Earth and atmosphere. It is a complex system that includes many different processes. Liquid water evaporates into water vapor, condenses to form clouds, and precipitates back to earth in the form of rain and snow.",
     story: "Once upon a time, there was a clever fox who lived in a dense forest. Every day, the fox would watch the birds flying high above the trees. 'How wonderful it must be to soar through the sky,' thought the fox. One day, the fox had an idea. 'Perhaps I can learn to climb to the highest branches, and from there, I might learn to fly!'"
