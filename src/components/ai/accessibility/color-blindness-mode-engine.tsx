@@ -7,9 +7,9 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import { 
-  AlertTriangle,
-  Palette,
-  Check
+  Eye,
+  EyeOff,
+  Palette
 } from 'lucide-react';
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
@@ -17,12 +17,15 @@ import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 interface ColorBlindnessModeEngineProps {
   settings: {
     enabled: boolean;
-    colorBlindnessType: 'protanopia' | 'deuteranopia' | 'tritanopia' | 'achromatopsia' | 'custom';
-    contrastEnhancement: number;
-    colorShiftIntensity: number;
-    usePatterns: boolean;
+    type: 'protanopia' | 'deuteranopia' | 'tritanopia' | 'achromatopsia' | 'custom';
+    intensity: number;
+    customFilter: string;
+    applyToImages: boolean;
+    applyToVideos: boolean;
     highlightLinks: boolean;
-    customColorMapping: Record<string, string>;
+    highlightButtons: boolean;
+    enhanceContrast: boolean;
+    contrastLevel: number;
   };
   onSettingsChange: (settings: Record<string, unknown>) => void;
 }
@@ -36,15 +39,6 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
   const [applyProgress, setApplyProgress] = React.useState<number>(0);
   const [showAdvancedSettings, setShowAdvancedSettings] = React.useState<boolean>(false);
   const [previewMode, setPreviewMode] = React.useState<boolean>(false);
-  
-  // Color blindness type options
-  const colorBlindnessTypes = [
-    { value: 'protanopia', label: 'Protanopia (Red-Blind)' },
-    { value: 'deuteranopia', label: 'Deuteranopia (Green-Blind)' },
-    { value: 'tritanopia', label: 'Tritanopia (Blue-Blind)' },
-    { value: 'achromatopsia', label: 'Achromatopsia (Monochromacy)' },
-    { value: 'custom', label: 'Custom' }
-  ];
   
   // Apply color blindness mode
   const applyColorBlindnessMode = React.useCallback(() => {
@@ -65,58 +59,82 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
         // Application complete
         setIsApplying(false);
         
-        // Apply CSS filters based on color blindness type
+        // Apply CSS styles based on settings
         const root = document.documentElement;
         
-        // Remove any existing filters
-        root.style.filter = '';
+        // Reset existing styles
+        root.style.removeProperty('--color-filter');
+        root.style.removeProperty('--filter-intensity');
+        root.style.removeProperty('--contrast-enhancement');
         
-        if (settings.colorBlindnessType === 'protanopia') {
-          // Red-blind
-          root.style.filter = `
-            contrast(${100 + settings.contrastEnhancement}%) 
-            saturate(${settings.colorShiftIntensity}%)
-            hue-rotate(${settings.colorShiftIntensity / 10}deg)
-          `;
-        } else if (settings.colorBlindnessType === 'deuteranopia') {
-          // Green-blind
-          root.style.filter = `
-            contrast(${100 + settings.contrastEnhancement}%) 
-            saturate(${settings.colorShiftIntensity}%)
-            hue-rotate(-${settings.colorShiftIntensity / 10}deg)
-          `;
-        } else if (settings.colorBlindnessType === 'tritanopia') {
-          // Blue-blind
-          root.style.filter = `
-            contrast(${100 + settings.contrastEnhancement}%) 
-            saturate(${settings.colorShiftIntensity}%)
-            hue-rotate(${settings.colorShiftIntensity / 5}deg)
-          `;
-        } else if (settings.colorBlindnessType === 'achromatopsia') {
-          // Monochromacy (grayscale)
-          root.style.filter = `
-            grayscale(100%)
-            contrast(${100 + settings.contrastEnhancement}%)
-          `;
-        } else if (settings.colorBlindnessType === 'custom') {
-          // Custom - no filter, use custom color mapping via CSS variables
-          // This would be implemented with CSS variables in a real application
-        }
-        
-        // Apply patterns if enabled
-        if (settings.usePatterns) {
-          // Add pattern styles to elements
-          // This would be implemented with CSS in a real application
-        }
-        
-        // Highlight links if enabled
-        if (settings.highlightLinks) {
-          // Add link highlighting styles
-          // This would be implemented with CSS in a real application
+        // Apply new styles
+        if (settings.enabled) {
+          let filterValue = '';
+          
+          switch (settings.type) {
+            case 'protanopia':
+              filterValue = 'url(#protanopia-filter)';
+              break;
+            case 'deuteranopia':
+              filterValue = 'url(#deuteranopia-filter)';
+              break;
+            case 'tritanopia':
+              filterValue = 'url(#tritanopia-filter)';
+              break;
+            case 'achromatopsia':
+              filterValue = 'url(#achromatopsia-filter)';
+              break;
+            case 'custom':
+              filterValue = settings.customFilter;
+              break;
+            default:
+              filterValue = 'none';
+          }
+          
+          root.style.setProperty('--color-filter', filterValue);
+          root.style.setProperty('--filter-intensity', `${settings.intensity}%`);
+          
+          if (settings.enhanceContrast) {
+            root.style.setProperty('--contrast-enhancement', `${settings.contrastLevel}%`);
+          }
+          
+          // Apply class to body for global styles
+          document.body.classList.add('color-blindness-mode-active');
+          
+          if (settings.applyToImages) {
+            document.body.classList.add('apply-filter-to-images');
+          } else {
+            document.body.classList.remove('apply-filter-to-images');
+          }
+          
+          if (settings.applyToVideos) {
+            document.body.classList.add('apply-filter-to-videos');
+          } else {
+            document.body.classList.remove('apply-filter-to-videos');
+          }
+          
+          if (settings.highlightLinks) {
+            document.body.classList.add('highlight-links');
+          } else {
+            document.body.classList.remove('highlight-links');
+          }
+          
+          if (settings.highlightButtons) {
+            document.body.classList.add('highlight-buttons');
+          } else {
+            document.body.classList.remove('highlight-buttons');
+          }
+        } else {
+          // Remove all classes if disabled
+          document.body.classList.remove('color-blindness-mode-active');
+          document.body.classList.remove('apply-filter-to-images');
+          document.body.classList.remove('apply-filter-to-videos');
+          document.body.classList.remove('highlight-links');
+          document.body.classList.remove('highlight-buttons');
         }
         
         // Log success
-        console.log('Color blindness mode applied:', settings.colorBlindnessType);
+        console.log('Color blindness mode applied');
       } else {
         // Continue to next step
         setTimeout(processStep, 500);
@@ -132,15 +150,23 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
     if (settings.enabled) {
       applyColorBlindnessMode();
     } else {
-      // Remove any filters if disabled
-      document.documentElement.style.filter = '';
+      // Remove styles if disabled
+      document.body.classList.remove('color-blindness-mode-active');
+      document.body.classList.remove('apply-filter-to-images');
+      document.body.classList.remove('apply-filter-to-videos');
+      document.body.classList.remove('highlight-links');
+      document.body.classList.remove('highlight-buttons');
     }
     
     // Clean up on unmount
     return () => {
-      document.documentElement.style.filter = '';
+      document.body.classList.remove('color-blindness-mode-active');
+      document.body.classList.remove('apply-filter-to-images');
+      document.body.classList.remove('apply-filter-to-videos');
+      document.body.classList.remove('highlight-links');
+      document.body.classList.remove('highlight-buttons');
     };
-  }, [settings.enabled, settings.colorBlindnessType, applyColorBlindnessMode]);
+  }, [settings.enabled, applyColorBlindnessMode]);
   
   // Handle settings change
   const handleSettingChange = (setting: string, value: unknown): void => {
@@ -153,7 +179,7 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
     onSettingsChange(updatedSettings);
     
     // Log setting change
-    console.log(`Color blindness setting changed: ${setting} = ${value}`);
+    console.log(`Color blindness mode setting changed: ${setting} = ${value}`);
   };
   
   // Toggle advanced settings
@@ -170,19 +196,40 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
   const resetSettings = (): void => {
     const defaultSettings = {
       enabled: true,
-      colorBlindnessType: 'deuteranopia' as const,
-      contrastEnhancement: 10,
-      colorShiftIntensity: 80,
-      usePatterns: false,
+      type: 'deuteranopia' as const,
+      intensity: 80,
+      customFilter: 'contrast(1.1) saturate(1.5)',
+      applyToImages: true,
+      applyToVideos: true,
       highlightLinks: true,
-      customColorMapping: {}
+      highlightButtons: true,
+      enhanceContrast: true,
+      contrastLevel: 110
     };
     
     // Notify parent component
     onSettingsChange(defaultSettings);
     
     // Log reset
-    console.log('Color blindness settings reset to defaults');
+    console.log('Color blindness mode settings reset to defaults');
+  };
+  
+  // Get color blindness type label
+  const getTypeLabel = (type: string): string => {
+    switch (type) {
+      case 'protanopia':
+        return 'Red-Blind (Protanopia)';
+      case 'deuteranopia':
+        return 'Green-Blind (Deuteranopia)';
+      case 'tritanopia':
+        return 'Blue-Blind (Tritanopia)';
+      case 'achromatopsia':
+        return 'Total Color Blindness (Achromatopsia)';
+      case 'custom':
+        return 'Custom Filter';
+      default:
+        return 'Unknown';
+    }
   };
   
   return (
@@ -218,78 +265,90 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
                 <Label htmlFor="color-blindness-type" className="text-sm">Color Blindness Type</Label>
                 <select
                   id="color-blindness-type"
-                  value={settings.colorBlindnessType}
-                  onChange={(e) => handleSettingChange('colorBlindnessType', e.target.value)}
+                  value={settings.type}
+                  onChange={(e) => handleSettingChange('type', e.target.value)}
                   disabled={!settings.enabled}
                   className="w-full p-2 border rounded-md"
                 >
-                  {colorBlindnessTypes.map(type => (
-                    <option key={type.value} value={type.value}>
-                      {type.label}
-                    </option>
-                  ))}
+                  <option value="protanopia">Red-Blind (Protanopia)</option>
+                  <option value="deuteranopia">Green-Blind (Deuteranopia)</option>
+                  <option value="tritanopia">Blue-Blind (Tritanopia)</option>
+                  <option value="achromatopsia">Total Color Blindness (Achromatopsia)</option>
+                  <option value="custom">Custom Filter</option>
                 </select>
               </div>
               
+              {settings.type === 'custom' && (
+                <div className="space-y-2">
+                  <Label htmlFor="custom-filter" className="text-sm">Custom CSS Filter</Label>
+                  <input
+                    type="text"
+                    id="custom-filter"
+                    value={settings.customFilter}
+                    onChange={(e) => handleSettingChange('customFilter', e.target.value)}
+                    disabled={!settings.enabled || settings.type !== 'custom'}
+                    placeholder="e.g., contrast(1.1) saturate(1.5)"
+                    className="w-full p-2 border rounded-md"
+                  />
+                  <div className="text-xs text-gray-500">
+                    Use CSS filter functions like contrast(), saturate(), hue-rotate(), etc.
+                  </div>
+                </div>
+              )}
+              
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <Label htmlFor="contrast-enhancement" className="text-sm">
-                    Contrast Enhancement: {settings.contrastEnhancement}%
+                  <Label htmlFor="filter-intensity" className="text-sm">
+                    Filter Intensity: {settings.intensity}%
                   </Label>
-                  <span className="text-xs text-gray-500">0 - 50%</span>
+                  <span className="text-xs text-gray-500">0 - 100%</span>
                 </div>
                 <input
                   type="range"
-                  id="contrast-enhancement"
+                  id="filter-intensity"
                   min="0"
-                  max="50"
+                  max="100"
                   step="5"
-                  value={settings.contrastEnhancement}
-                  onChange={(e) => handleSettingChange('contrastEnhancement', parseInt(e.target.value, 10))}
+                  value={settings.intensity}
+                  onChange={(e) => handleSettingChange('intensity', parseInt(e.target.value, 10))}
                   disabled={!settings.enabled}
                   className="w-full"
                 />
               </div>
               
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <Label htmlFor="color-shift-intensity" className="text-sm">
-                    Color Shift Intensity: {settings.colorShiftIntensity}%
-                  </Label>
-                  <span className="text-xs text-gray-500">50 - 150%</span>
-                </div>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="apply-to-images" className="flex items-center text-sm">
+                  Apply to Images
+                </Label>
                 <input
-                  type="range"
-                  id="color-shift-intensity"
-                  min="50"
-                  max="150"
-                  step="5"
-                  value={settings.colorShiftIntensity}
-                  onChange={(e) => handleSettingChange('colorShiftIntensity', parseInt(e.target.value, 10))}
-                  disabled={!settings.enabled || settings.colorBlindnessType === 'achromatopsia'}
-                  className="w-full"
+                  type="checkbox"
+                  id="apply-to-images"
+                  checked={settings.applyToImages}
+                  onChange={(e) => handleSettingChange('applyToImages', e.target.checked)}
+                  disabled={!settings.enabled}
+                  className="toggle toggle-sm"
+                />
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <Label htmlFor="apply-to-videos" className="flex items-center text-sm">
+                  Apply to Videos
+                </Label>
+                <input
+                  type="checkbox"
+                  id="apply-to-videos"
+                  checked={settings.applyToVideos}
+                  onChange={(e) => handleSettingChange('applyToVideos', e.target.checked)}
+                  disabled={!settings.enabled}
+                  className="toggle toggle-sm"
                 />
               </div>
               
               {showAdvancedSettings && (
                 <>
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="use-patterns" className="flex items-center text-sm">
-                      Use Patterns for Color Differentiation
-                    </Label>
-                    <input
-                      type="checkbox"
-                      id="use-patterns"
-                      checked={settings.usePatterns}
-                      onChange={(e) => handleSettingChange('usePatterns', e.target.checked)}
-                      disabled={!settings.enabled}
-                      className="toggle toggle-sm"
-                    />
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
                     <Label htmlFor="highlight-links" className="flex items-center text-sm">
-                      Highlight Links and Interactive Elements
+                      Highlight Links
                     </Label>
                     <input
                       type="checkbox"
@@ -301,16 +360,53 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
                     />
                   </div>
                   
-                  {settings.colorBlindnessType === 'custom' && (
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="highlight-buttons" className="flex items-center text-sm">
+                      Highlight Buttons
+                    </Label>
+                    <input
+                      type="checkbox"
+                      id="highlight-buttons"
+                      checked={settings.highlightButtons}
+                      onChange={(e) => handleSettingChange('highlightButtons', e.target.checked)}
+                      disabled={!settings.enabled}
+                      className="toggle toggle-sm"
+                    />
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="enhance-contrast" className="flex items-center text-sm">
+                      Enhance Contrast
+                    </Label>
+                    <input
+                      type="checkbox"
+                      id="enhance-contrast"
+                      checked={settings.enhanceContrast}
+                      onChange={(e) => handleSettingChange('enhanceContrast', e.target.checked)}
+                      disabled={!settings.enabled}
+                      className="toggle toggle-sm"
+                    />
+                  </div>
+                  
+                  {settings.enhanceContrast && (
                     <div className="space-y-2">
-                      <Label className="text-sm">Custom Color Mapping</Label>
-                      <Alert>
-                        <AlertTriangle className="h-4 w-4" />
-                        <AlertTitle>Custom Color Mapping</AlertTitle>
-                        <AlertDescription>
-                          Custom color mapping allows you to define specific color replacements. This feature requires additional configuration.
-                        </AlertDescription>
-                      </Alert>
+                      <div className="flex justify-between">
+                        <Label htmlFor="contrast-level" className="text-sm">
+                          Contrast Level: {settings.contrastLevel}%
+                        </Label>
+                        <span className="text-xs text-gray-500">100 - 150%</span>
+                      </div>
+                      <input
+                        type="range"
+                        id="contrast-level"
+                        min="100"
+                        max="150"
+                        step="5"
+                        value={settings.contrastLevel}
+                        onChange={(e) => handleSettingChange('contrastLevel', parseInt(e.target.value, 10))}
+                        disabled={!settings.enabled || !settings.enhanceContrast}
+                        className="w-full"
+                      />
                     </div>
                   )}
                 </>
@@ -336,29 +432,60 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
               </div>
             )}
             
-            {previewMode && (
-              <div className="space-y-2">
-                <Label className="text-sm">Color Preview</Label>
-                <div className="grid grid-cols-3 gap-2">
-                  <div className="h-10 bg-red-500 rounded-md flex items-center justify-center text-white text-xs">
-                    Red
+            {settings.enabled && (
+              <div className="p-4 border rounded-md bg-blue-50">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center">
+                    <Palette className="h-5 w-5 mr-2 text-blue-600" />
+                    <span className="font-medium">Active Mode:</span>
                   </div>
-                  <div className="h-10 bg-green-500 rounded-md flex items-center justify-center text-white text-xs">
-                    Green
-                  </div>
-                  <div className="h-10 bg-blue-500 rounded-md flex items-center justify-center text-white text-xs">
-                    Blue
-                  </div>
-                  <div className="h-10 bg-yellow-500 rounded-md flex items-center justify-center text-white text-xs">
-                    Yellow
-                  </div>
-                  <div className="h-10 bg-purple-500 rounded-md flex items-center justify-center text-white text-xs">
-                    Purple
-                  </div>
-                  <div className="h-10 bg-orange-500 rounded-md flex items-center justify-center text-white text-xs">
-                    Orange
-                  </div>
+                  <span className="font-bold">{getTypeLabel(settings.type)}</span>
                 </div>
+                
+                <div className="flex space-x-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={togglePreviewMode}
+                    className="flex-1 flex items-center justify-center"
+                  >
+                    {previewMode ? (
+                      <>
+                        <EyeOff className="h-4 w-4 mr-2" />
+                        Hide Preview
+                      </>
+                    ) : (
+                      <>
+                        <Eye className="h-4 w-4 mr-2" />
+                        Show Preview
+                      </>
+                    )}
+                  </Button>
+                </div>
+                
+                {previewMode && (
+                  <div className="mt-4 space-y-4">
+                    <div className="grid grid-cols-3 gap-2">
+                      <div className="h-8 bg-red-500 rounded-md"></div>
+                      <div className="h-8 bg-green-500 rounded-md"></div>
+                      <div className="h-8 bg-blue-500 rounded-md"></div>
+                      <div className="h-8 bg-yellow-500 rounded-md"></div>
+                      <div className="h-8 bg-purple-500 rounded-md"></div>
+                      <div className="h-8 bg-orange-500 rounded-md"></div>
+                    </div>
+                    
+                    <div className="flex space-x-2">
+                      <Button size="sm" className="flex-1">Primary Button</Button>
+                      <Button variant="outline" size="sm" className="flex-1">Secondary Button</Button>
+                    </div>
+                    
+                    <div className="text-sm">
+                      <p>
+                        This is normal text with a <a href="#" className="text-blue-600 underline">link</a> to show how links appear.
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -372,30 +499,71 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
             {isApplying ? 'Applying...' : 'Apply Settings'}
           </Button>
           
-          <div className="flex space-x-2 w-full">
-            <Button 
-              variant="outline" 
-              onClick={togglePreviewMode}
-              className="flex-1"
-            >
-              {previewMode ? 'Hide Preview' : 'Show Preview'}
-            </Button>
-            
-            <Button 
-              variant="outline" 
-              onClick={resetSettings}
-              className="flex-1"
-            >
-              Reset to Defaults
-            </Button>
-          </div>
+          <Button 
+            variant="outline" 
+            onClick={resetSettings}
+            className="w-full"
+          >
+            Reset to Defaults
+          </Button>
         </CardFooter>
       </Card>
       
       <div className="mt-4 p-4 border border-blue-200 rounded-md bg-blue-50">
         <p className="text-sm text-blue-800">
-          <strong>Color Blindness Tip:</strong> Different types of color blindness affect color perception in different ways. Protanopia affects red perception, deuteranopia affects green perception, and tritanopia affects blue perception. Achromatopsia is complete color blindness (monochromacy).
+          <strong>Color Blindness Info:</strong> Approximately 8% of men and 0.5% of women experience some form of color vision deficiency. The most common type is deuteranopia (green-blindness), followed by protanopia (red-blindness).
         </p>
+      </div>
+      
+      {/* SVG Filters for Color Blindness Simulation */}
+      <div className="hidden">
+        <svg>
+          <defs>
+            {/* Protanopia Filter (Red-Blind) */}
+            <filter id="protanopia-filter">
+              <feColorMatrix
+                type="matrix"
+                values="0.567, 0.433, 0,     0, 0
+                        0.558, 0.442, 0,     0, 0
+                        0,     0.242, 0.758, 0, 0
+                        0,     0,     0,     1, 0"
+              />
+            </filter>
+            
+            {/* Deuteranopia Filter (Green-Blind) */}
+            <filter id="deuteranopia-filter">
+              <feColorMatrix
+                type="matrix"
+                values="0.625, 0.375, 0,   0, 0
+                        0.7,   0.3,   0,   0, 0
+                        0,     0.3,   0.7, 0, 0
+                        0,     0,     0,   1, 0"
+              />
+            </filter>
+            
+            {/* Tritanopia Filter (Blue-Blind) */}
+            <filter id="tritanopia-filter">
+              <feColorMatrix
+                type="matrix"
+                values="0.95, 0.05,  0,     0, 0
+                        0,    0.433, 0.567, 0, 0
+                        0,    0.475, 0.525, 0, 0
+                        0,    0,     0,     1, 0"
+              />
+            </filter>
+            
+            {/* Achromatopsia Filter (Total Color Blindness) */}
+            <filter id="achromatopsia-filter">
+              <feColorMatrix
+                type="matrix"
+                values="0.299, 0.587, 0.114, 0, 0
+                        0.299, 0.587, 0.114, 0, 0
+                        0.299, 0.587, 0.114, 0, 0
+                        0,     0,     0,     1, 0"
+              />
+            </filter>
+          </defs>
+        </svg>
       </div>
     </div>
   );
