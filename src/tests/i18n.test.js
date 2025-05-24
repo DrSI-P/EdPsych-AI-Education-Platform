@@ -49,6 +49,7 @@ describe('i18n Translation Tests', () => {
           translations[locale][namespace] = JSON.parse(content);
         } else {
           // Using console.warn for test debugging is acceptable
+          // eslint-disable-next-line no-console
           console.warn(`Translation file not found: ${filePath}`);
         }
       }
@@ -72,6 +73,7 @@ describe('i18n Translation Tests', () => {
       
       for (const locale of SUPPORTED_LOCALES.filter(l => l !== baseLocale)) {
         // This variable is used for debugging purposes if needed
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const localeKeys = getAllKeys(translations[locale][namespace]);
         
         for (const key of baseKeys) {
