@@ -28,6 +28,9 @@
 - [x] Replace any types in src/app/api/restorative-justice/community-building/route.ts (2025-05-24)
 - [x] Replace any types in src/app/api/restorative-justice/parent-education/route.ts (2025-05-24)
 - [x] Replace any types in src/app/api/restorative-justice/agreement-tracking/route.ts (2025-05-24)
+- [x] Replace any types in src/app/api/restorative-justice/staff-training/progress/route.ts (2025-05-24)
+- [ ] Replace any types in src/app/api/restorative-justice/staff-training/certificate/route.ts
+- [ ] Replace any types in src/app/api/restorative-justice/staff-training/modules/route.ts
 - [ ] Replace any types in remaining components/
 - [ ] Replace any types in lib/
 - [x] Add null checks to API routes (2025-05-24)
