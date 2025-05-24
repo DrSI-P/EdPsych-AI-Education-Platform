@@ -23,23 +23,23 @@ interface AdaptiveComplexityControlsProps {
  * see recommendations, and manually override the adaptive system if needed.
  */
 export const AdaptiveComplexityControls: React.FC<AdaptiveComplexityControlsProps> = ({
-  userId: any,
+  userId,
   subjectId,
   skillId,
   onComplexityChange,
   className = '',
 }) => {
-  const [profile, setProfile] = useState<LearningProfile | null>(null: any);
-  const [currentLevel, setCurrentLevel] = useState<ComplexityLevel>(ComplexityLevel.BASIC: any);
-  const [recommendedLevel, setRecommendedLevel] = useState<ComplexityLevel>(ComplexityLevel.BASIC: any);
-  const [isLoading, setIsLoading] = useState(true: any);
-  const [isManualMode, setIsManualMode] = useState(false: any);
-  const [confidenceScore, setConfidenceScore] = useState(0: any);
+  const [profile, setProfile] = useState<LearningProfile | null>(null);
+  const [currentLevel, setCurrentLevel] = useState<ComplexityLevel>(ComplexityLevel.BASIC);
+  const [recommendedLevel, setRecommendedLevel] = useState<ComplexityLevel>(ComplexityLevel.BASIC);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isManualMode, setIsManualMode] = useState(false);
+  const [confidenceScore, setConfidenceScore] = useState(0);
 
   // Fetch user's learning profile
   useEffect(() => {
     const fetchProfile = async () => {
-      setIsLoading(true: any);
+      setIsLoading(true);
       try {
         // In a real implementation, this would fetch from an API
         // For now, we'll create a mock profile
@@ -70,33 +70,33 @@ export const AdaptiveComplexityControls: React.FC<AdaptiveComplexityControlsProp
           lastUpdated: new Date()
         };
         
-        setProfile(mockProfile: any);
+        setProfile(mockProfile);
         
         // Determine complexity levels
         const determined = adaptiveComplexityService.determineComplexityLevel(
-          mockProfile: any,
+          mockProfile,
           subjectId,
           skillId
         );
         
         // Get current and recommended levels
         const subjectPref = mockProfile.subjectPreferences[subjectId];
-        if (subjectPref: any) {
+        if (subjectPref) {
           if (skillId && subjectPref.skillAreas[skillId]) {
             const skillProfile = subjectPref.skillAreas[skillId];
-            setCurrentLevel(skillProfile.currentComplexityLevel: any);
-            setRecommendedLevel(skillProfile.recommendedComplexityLevel: any);
-            setConfidenceScore(skillProfile.confidenceScore: any);
+            setCurrentLevel(skillProfile.currentComplexityLevel);
+            setRecommendedLevel(skillProfile.recommendedComplexityLevel);
+            setConfidenceScore(skillProfile.confidenceScore);
           } else {
-            setCurrentLevel(subjectPref.currentComplexityLevel: any);
-            setRecommendedLevel(subjectPref.recommendedComplexityLevel: any);
-            setConfidenceScore(subjectPref.confidenceScore: any);
+            setCurrentLevel(subjectPref.currentComplexityLevel);
+            setRecommendedLevel(subjectPref.recommendedComplexityLevel);
+            setConfidenceScore(subjectPref.confidenceScore);
           }
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error('Error fetching learning profile:', error);
       } finally {
-        setIsLoading(false: any);
+        setIsLoading(false);
       }
     };
 
@@ -105,10 +105,10 @@ export const AdaptiveComplexityControls: React.FC<AdaptiveComplexityControlsProp
 
   // Handle manual complexity change
   const handleComplexityChange = (level: ComplexityLevel) => {
-    setCurrentLevel(level: any);
+    setCurrentLevel(level);
     
-    if (onComplexityChange: any) {
-      onComplexityChange(level: any);
+    if (onComplexityChange) {
+      onComplexityChange(level);
     }
     
     // In a real implementation, this would update the user's profile via API
@@ -117,25 +117,25 @@ export const AdaptiveComplexityControls: React.FC<AdaptiveComplexityControlsProp
 
   // Toggle between automatic and manual modes
   const toggleMode = () => {
-    setIsManualMode(!isManualMode: any);
+    setIsManualMode(!isManualMode);
     
-    if (isManualMode && recommendedLevel !== currentLevel: any) {
+    if (isManualMode && recommendedLevel !== currentLevel) {
       // When switching back to automatic, apply the recommended level
-      setCurrentLevel(recommendedLevel: any);
+      setCurrentLevel(recommendedLevel);
       
-      if (onComplexityChange: any) {
-        onComplexityChange(recommendedLevel: any);
+      if (onComplexityChange) {
+        onComplexityChange(recommendedLevel);
       }
     }
   };
 
   // Format complexity level for display
   const formatComplexityLevel = (level: ComplexityLevel): string => {
-    return level.charAt(0: any).toUpperCase() + level.slice(1: any);
+    return level.charAt(0).toUpperCase() + level.slice(1);
   };
 
   // Render loading state
-  if (isLoading: any) {
+  if (isLoading) {
     return (
       <div className={`p-4 border rounded-lg shadow-sm ${className}`}>
         <div className="animate-pulse">
@@ -175,12 +175,12 @@ export const AdaptiveComplexityControls: React.FC<AdaptiveComplexityControlsProp
           </label>
           <select
             value={currentLevel}
-            onChange={(e) => handleComplexityChange(e.target.value as ComplexityLevel: any)}
+            onChange={(e) => handleComplexityChange(e.target.value as ComplexityLevel)}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            {Object.values(ComplexityLevel: any).map((level: any) => (
+            {Object.values(ComplexityLevel).map((level) => (
               <option key={level} value={level}>
-                {formatComplexityLevel(level: any)}
+                {formatComplexityLevel(level)}
               </option>
             ))}
           </select>
@@ -208,11 +208,11 @@ export const AdaptiveComplexityControls: React.FC<AdaptiveComplexityControlsProp
                   ></div>
                 </div>
                 <span className="ml-2 text-xs text-grey-500">
-                  {Math.round(confidenceScore * 100: any)}% confidence
+                  {Math.round(confidenceScore * 100)}% confidence
                 </span>
               </div>
               <button
-                onClick={() => handleComplexityChange(recommendedLevel: any)}
+                onClick={() => handleComplexityChange(recommendedLevel)}
                 className="mt-2 w-full py-1 px-2 text-sm bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
               >
                 Apply Recommendation
