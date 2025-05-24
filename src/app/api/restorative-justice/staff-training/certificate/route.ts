@@ -4,7 +4,31 @@ import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 
-export async function POST(req: NextRequest) {
+// Define interfaces for request data
+interface User {
+  id: string;
+  name?: string;
+  email?: string;
+  role?: string;
+}
+
+interface TrainingProgress {
+  id: string;
+  userId: string;
+  moduleId: string;
+  completedSections: string[];
+  certificateIssued?: boolean;
+}
+
+interface TrainingModule {
+  id: string;
+  title: string;
+  sections: Array<{
+    id: string;
+  }>;
+}
+
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -19,10 +43,10 @@ export async function POST(req: NextRequest) {
     
     // Check if user is requesting their own certificate or has admin role
     if (userId !== session.user.id) {
-      const user = await (prisma as any).user.findUnique({
+      const user = await prisma.user.findUnique({
         where: { id: session.user.id },
         select: { role: true }
-      });
+      }) as User | null;
       
       if (user?.role !== 'ADMIN') {
         return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -30,21 +54,21 @@ export async function POST(req: NextRequest) {
     }
     
     // Verify module completion
-    const progress = await (prisma as any).restorativeTrainingProgress.findFirst({
+    const progress = await prisma.restorativeTrainingProgress.findFirst({
       where: {
         userId,
         moduleId
       }
-    });
+    }) as TrainingProgress | null;
     
     if (!progress) {
       return NextResponse.json({ error: 'No progress found for this module' }, { status: 404 });
     }
     
-    const module = await (prisma as any).restorativeTrainingModule.findUnique({
+    const module = await prisma.restorativeTrainingModule.findUnique({
       where: { id: moduleId },
       include: { sections: true }
-    });
+    }) as TrainingModule | null;
     
     if (!module) {
       return NextResponse.json({ error: 'Module not found' }, { status: 404 });
@@ -56,10 +80,10 @@ export async function POST(req: NextRequest) {
     }
     
     // Get user details
-    const user = await (prisma as any).user.findUnique({
+    const user = await prisma.user.findUnique({
       where: { id: userId },
       select: { name: true, email: true }
-    });
+    }) as User | null;
     
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
@@ -187,7 +211,7 @@ export async function POST(req: NextRequest) {
     const pdfBytes = await pdfDoc.save();
     
     // Update progress to mark certificate as issued
-    await (prisma as any).restorativeTrainingProgress.update({
+    await prisma.restorativeTrainingProgress.update({
       where: { id: progress.id },
       data: { certificateIssued: true }
     });
