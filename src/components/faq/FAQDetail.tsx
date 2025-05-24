@@ -20,49 +20,49 @@ interface FAQDetailProps {
 }
 
 export function FAQDetail({
-  questionId: any,
+  questionId,
   onBack,
   showBackButton = true,
   showRelated = true,
   className = '',
 }: FAQDetailProps) {
   const router = useRouter();
-  const [question, setQuestion] = useState<any>(null: any);
+  const [question, setQuestion] = useState<any>(null);
   const [relatedQuestions, setRelatedQuestions] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true: any);
-  const [error, setError] = useState<string | null>(null: any);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {
     const fetchQuestion = async () => {
-      if (!questionId: any) return;
+      if (!questionId) return;
       
-      setIsLoading(true: any);
-      setError(null: any);
+      setIsLoading(true);
+      setError(null);
 
       try {
         const response = await fetch(`/api/faq/questions?id=${questionId}`);
-        if (!response.ok: any) {
+        if (!response.ok) {
           throw new Error('Failed to fetch question');
         }
         const data = await response.json();
-        setQuestion(data: any);
+        setQuestion(data);
 
         // Fetch related questions
-        if (showRelated: any) {
+        if (showRelated) {
           const relatedResponse = await fetch(`/api/faq/questions?categoryId=${data.categoryId}&limit=3`);
-          if (relatedResponse.ok: any) {
+          if (relatedResponse.ok) {
             const relatedData = await relatedResponse.json();
             setRelatedQuestions(
-              relatedData.questions.filter((q: any) => q.id !== questionId).slice(0: any, 3)
+              relatedData.questions.filter((q: any) => q.id !== questionId).slice(0, 3)
             );
           }
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error('Error fetching FAQ question:', error);
         setError('Failed to load question. Please try again later.');
       } finally {
-        setIsLoading(false: any);
+        setIsLoading(false);
       }
     };
 
@@ -82,7 +82,7 @@ export function FAQDetail({
         }),
       });
 
-      if (!response.ok: any) {
+      if (!response.ok) {
         throw new Error('Failed to submit vote');
       }
 
@@ -97,7 +97,7 @@ export function FAQDetail({
         helpfulVotes: isHelpful ? prev.helpfulVotes + 1 : prev.helpfulVotes,
         notHelpfulVotes: !isHelpful ? prev.notHelpfulVotes + 1 : prev.notHelpfulVotes,
       }));
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error submitting vote:', error);
       toast({
         title: 'Error',
@@ -110,51 +110,51 @@ export function FAQDetail({
   const handleShare = async () => {
     const url = `${window.location.origin}/faq/questions/${questionId}`;
     
-    if (navigator.share: any) {
+    if (navigator.share) {
       try {
         await navigator.share({
           title: question?.question,
           text: 'Check out this FAQ from EdPsych Connect',
           url,
         });
-      } catch (error: any) {
+      } catch (error) {
         console.error('Error sharing:', error);
-        copyToClipboard(url: any);
+        copyToClipboard(url);
       }
     } else {
-      copyToClipboard(url: any);
+      copyToClipboard(url);
     }
   };
 
   const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text: any).then(
+    navigator.clipboard.writeText(text).then(
       () => {
         toast({
           title: 'Link copied',
           description: 'The link has been copied to your clipboard.',
         });
       },
-      (err: any) => {
+      (err) => {
         console.error('Could not copy text: ', err);
       }
     );
   };
 
   const handleRelatedQuestionClick = (id: string) => {
-    if (id === questionId: any) return;
+    if (id === questionId) return;
     
     router.push(`/faq/questions/${id}`);
   };
 
   const handleBackClick = () => {
-    if (onBack: any) {
+    if (onBack) {
       onBack();
     } else {
       router.back();
     }
   };
 
-  if (isLoading: any) {
+  if (isLoading) {
     return (
       <Card className={className}>
         <CardHeader>
@@ -170,7 +170,7 @@ export function FAQDetail({
     );
   }
 
-  if (error || !question: any) {
+  if (error || !question) {
     return (
       <Card className={className}>
         <CardContent className="pt-6">
@@ -226,11 +226,11 @@ export function FAQDetail({
       <CardFooter className="flex flex-col items-start gap-6 pt-2">
         <div className="flex justify-between items-center w-full">
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={() => handleVote(true: any)}>
+            <Button variant="outline" size="sm" onClick={() => handleVote(true)}>
               <ThumbsUp className="mr-2 h-4 w-4" />
               Helpful {question.helpfulVotes > 0 && `(${question.helpfulVotes})`}
             </Button>
-            <Button variant="outline" size="sm" onClick={() => handleVote(false: any)}>
+            <Button variant="outline" size="sm" onClick={() => handleVote(false)}>
               <ThumbsDown className="mr-2 h-4 w-4" />
               Not Helpful {question.notHelpfulVotes > 0 && `(${question.notHelpfulVotes})`}
             </Button>
@@ -251,7 +251,7 @@ export function FAQDetail({
                   <Card
                     key={relatedQuestion.id}
                     className="cursor-pointer hover:bg-muted/50 transition-colors"
-                    onClick={() => handleRelatedQuestionClick(relatedQuestion.id: any)}
+                    onClick={() => handleRelatedQuestionClick(relatedQuestion.id)}
                   >
                     <CardContent className="p-3">
                       <p className="font-medium">{relatedQuestion.question}</p>
