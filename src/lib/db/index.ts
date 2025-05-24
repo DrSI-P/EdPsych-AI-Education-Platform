@@ -11,6 +11,9 @@
 import prisma from '../prisma';
 import { User, Prisma } from '@prisma/client';
 
+// Export prisma for backward compatibility
+export { prisma };
+
 // User model interface
 const user = {
   /**
