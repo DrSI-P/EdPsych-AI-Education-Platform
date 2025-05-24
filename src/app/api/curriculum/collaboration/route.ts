@@ -3,10 +3,30 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth/auth-options';
 import prisma from '@/lib/prisma';
 
+// Define interfaces for type safety
+interface CollaboratorRole {
+  role: 'editor' | 'viewer';
+}
+
+interface CollaborationAction {
+  action: 'add_collaborator' | 'remove_collaborator' | 'add_comment' | 'delete_comment' | 'add_task' | 'update_task' | 'delete_task';
+  planId: string;
+  userId?: string;
+  role?: 'editor' | 'viewer';
+  email?: string;
+  content?: string;
+  taskId?: string;
+  status?: string;
+  dueDate?: string;
+  title?: string;
+  description?: string;
+  assignedToId?: string;
+}
+
 // This API route handles collaboration features for curriculum planning
 // It enables teacher-TA collaboration with role-based permissions
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
 
@@ -131,7 +151,7 @@ export async function GET(req: NextRequest) {
     if (plan.userId === session.user.id) {
       userRole = 'owner';
     } else {
-      const collaborator = collaborators.find((c: any) => c.user.id === session.user.id);
+      const collaborator = collaborators.find(c => c.user.id === session.user.id);
       if (collaborator) {
         userRole = collaborator.role;
       }
@@ -145,6 +165,7 @@ export async function GET(req: NextRequest) {
       userRole,
     });
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error fetching collaboration data:', error);
     return NextResponse.json(
       { error: 'Failed to fetch collaboration data' },
@@ -153,7 +174,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
 
@@ -164,7 +185,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const body = await req.json();
+    const body = await req.json() as CollaborationAction;
     const { action, planId, userId, role, email, content, taskId, status, dueDate, title, description, assignedToId } = body;
 
     if (!planId) {
@@ -539,6 +560,7 @@ export async function POST(req: NextRequest) {
         );
     }
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error managing collaboration:', error);
     return NextResponse.json(
       { error: 'Failed to manage collaboration' },
