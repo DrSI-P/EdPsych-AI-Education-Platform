@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
@@ -63,7 +63,7 @@ interface TrainingModule {
 }
 
 // GET handler for retrieving modules
-export async function GET(_req: NextRequest): Promise<NextResponse> {
+export async function GET(_req: Request): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -120,7 +120,7 @@ export async function GET(_req: NextRequest): Promise<NextResponse> {
 }
 
 // POST handler for creating a new module
-export async function POST(req: NextRequest): Promise<NextResponse> {
+export async function POST(req: Request): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -195,7 +195,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 }
 
 // PUT handler for updating a module
-export async function PUT(req: NextRequest): Promise<NextResponse> {
+export async function PUT(req: Request): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -278,7 +278,7 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
 }
 
 // DELETE handler for removing a module
-export async function DELETE(req: NextRequest): Promise<NextResponse> {
+export async function DELETE(req: Request): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
