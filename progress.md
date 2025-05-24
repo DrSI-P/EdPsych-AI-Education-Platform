@@ -27,6 +27,7 @@
 - [x] Fix type errors in utility functions (2025-05-24)
 
 ### Unused Code Elimination
+- [x] Fix ESLint errors in test files (2025-05-24)
 - [ ] Remove unused variables in components/
 - [ ] Remove unused imports in pages/
 - [ ] Delete commented-out code blocks
