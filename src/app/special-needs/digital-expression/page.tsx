@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Express yourself, reflect, and connect in a secure digital environment designed for emotional wellbeing and personal growth.',
 };
 
-export default function DigitalExpressionPage() {
+export default function DigitalExpressionPage(): React.ReactNode {
   return (
     <div className="container mx-auto py-6">
       <SafeDigitalExpressionSpaces />
