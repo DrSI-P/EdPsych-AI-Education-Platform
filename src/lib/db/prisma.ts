@@ -1,31 +1,8 @@
-// Database utilities for the EdPsych AI Education Platform
-// This file provides a centralized interface for database operations through Prisma
+// This file is deprecated and should not be used.
+// Import Prisma client from '../prisma.ts' instead.
 
-import prismaInstance from '../prisma';
+import prismaClient, { prisma } from '../prisma';
 
-// Re-export the prisma instance as a named export for consistency
-export const prisma = prismaInstance;
-
-// Helper functions for database operations
-export async function findUserById(id: string) {
-  // Placeholder implementation
-  return null;
-}
-
-export async function findUserByEmail(email: string) {
-  // Placeholder implementation
-  return null;
-}
-
-export async function createUser(userData: any) {
-  // Placeholder implementation
-  return null;
-}
-
-export async function updateUser(id: string, userData: any) {
-  // Placeholder implementation
-  return null;
-}
-
-// Default export for backward compatibility
+// Re-export for backward compatibility
+export { prisma };
 export default prisma;
