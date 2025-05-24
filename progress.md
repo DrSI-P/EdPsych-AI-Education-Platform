@@ -22,6 +22,7 @@
 - [x] Replace any types in src/app/api/resource/recommendations/route.ts (2025-05-24)
 - [x] Replace any types in src/app/api/professional-development/webinar/route.ts (2025-05-24)
 - [x] Replace any types in src/app/api/professional-development/community/route.ts (2025-05-24)
+- [x] Replace any types in src/app/api/professional-development/cpd-tracking/route.ts (2025-05-24)
 - [ ] Replace any types in remaining components/
 - [ ] Replace any types in lib/
 - [x] Add null checks to API routes (2025-05-24)
