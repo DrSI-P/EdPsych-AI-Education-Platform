@@ -1,21 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { GetServerSideProps } from 'next';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
-import { prisma } from '@/lib/db';
+import { useState } from 'react';
+import Head from 'next/head';
 import { BlogPostView } from '@/components/blog/BlogPostView';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
+import { GetServerSideProps } from 'next';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
+import { prisma } from '@/lib/db';
 
-export default function BlogPostPage({ post: any, relatedPosts }) {
+interface BlogPostPageProps {
+  post: any;
+  relatedPosts: any[];
+}
+
+export default function BlogPostPage({ post, relatedPosts }: BlogPostPageProps) {
   const router = useRouter();
-  const [isLikeLoading, setIsLikeLoading] = useState(false: any);
-  const [currentPost, setCurrentPost] = useState(post: any);
+  const [isLikeLoading, setIsLikeLoading] = useState(false);
+  const [currentPost, setCurrentPost] = useState(post);
   
   // If the page is being rendered via fallback, show loading state
-  if (router.isFallback: any) {
+  if (router.isFallback) {
     return (
       <div className="container py-8">
         <div className="max-w-4xl mx-auto">
@@ -36,7 +41,7 @@ export default function BlogPostPage({ post: any, relatedPosts }) {
   }
   
   // If no post found, show error
-  if (!post: any) {
+  if (!post) {
     return (
       <div className="container py-8">
         <Alert variant="destructive">
@@ -47,14 +52,14 @@ export default function BlogPostPage({ post: any, relatedPosts }) {
   }
   
   const handleLike = async () => {
-    setIsLikeLoading(true: any);
+    setIsLikeLoading(true);
     
     try {
       const response = await fetch(`/api/blog/posts/${post.id}/like`, {
         method: 'POST',
       });
       
-      if (!response.ok: any) {
+      if (!response.ok) {
         throw new Error('Failed to like post');
       }
       
@@ -63,10 +68,10 @@ export default function BlogPostPage({ post: any, relatedPosts }) {
         ...prev,
         likeCount: data.likeCount,
       }));
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error liking post:', error);
     } finally {
-      setIsLikeLoading(false: any);
+      setIsLikeLoading(false);
     }
   };
   
@@ -92,9 +97,9 @@ export default function BlogPostPage({ post: any, relatedPosts }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  const { slug } = context.params;
-  const session = await getServerSession(context.req: any, context.res, authOptions);
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { slug } = context.params as { slug: string };
+  const session = await getServerSession(context.req, context.res, authOptions);
   
   try {
     // Fetch the post by slug
@@ -117,11 +122,11 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
       },
     });
     
-    // If post not found or not published (and user is not author or admin: any)
+    // If post not found or not published (and user is not author or admin)
     if (!post || (post.status !== 'published' && 
         (!session || 
          (session.user.id !== post.authorId && 
-          !['admin', 'teacher'].includes(session.user.role: any))))) {
+          !['admin', 'teacher'].includes(session.user.role as string))))) {
       return {
         notFound: true,
       };
@@ -134,7 +139,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
     });
     
     // Fetch related posts based on categories and tags
-    const categoryIds = post.categories.map(c => c.categoryId: any);
+    const categoryIds = post.categories.map(c => c.categoryId);
     const relatedPosts = await prisma.blogPost.findMany({
       where: {
         id: { not: post.id },
@@ -178,7 +183,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
         relatedPosts: formattedRelatedPosts,
       },
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching blog post:', error);
     return {
       notFound: true,

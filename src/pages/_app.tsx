@@ -1,81 +1,81 @@
-import '../styles/globals.css';
-import type { AppProps } from 'next/app';
-import { SessionProvider } from 'next-auth/react';
-import { Navbar } from '../components/layout/Navbar';
-import { Footer } from '../components/layout/Footer';
-import { CookieConsentProvider } from '../components/legal/CookieConsentProvider';
-import { Toaster } from '../components/ui/toaster';
 import { useEffect, useState } from 'react';
+import { AppProps } from 'next/app';
+import { SessionProvider } from 'next-auth/react';
+import { ThemeProvider } from 'next-themes';
 import Head from 'next/head';
+import { Toaster } from '@/components/ui/toaster';
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
+import '@/styles/globals.css';
 
-// PWA head component inline implementation
+// PWA head component for metadata
 function PWAHead() {
   return (
-    <Head>
+    <>
       <meta name="application-name" content="EdPsych Connect" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-      <meta name="apple-mobile-web-app-title" content="EdPsych" />
-      <meta name="description" content="Educational psychology resources and tools" />
+      <meta name="apple-mobile-web-app-title" content="EdPsych Connect" />
+      <meta name="description" content="Educational psychology platform for personalized learning" />
       <meta name="format-detection" content="telephone=no" />
       <meta name="mobile-web-app-capable" content="yes" />
       <meta name="msapplication-config" content="/icons/browserconfig.xml" />
-      <meta name="msapplication-TileColor" content="#4f46e5" />
+      <meta name="msapplication-TileColor" content="#6366f1" />
       <meta name="msapplication-tap-highlight" content="no" />
-      <meta name="theme-color" content="#4f46e5" />
+      <meta name="theme-color" content="#6366f1" />
 
-      <link rel="apple-touch-icon" href="/icons/touch-icon-iphone.png" />
-      <link rel="apple-touch-icon" sizes="152x152" href="/icons/touch-icon-ipad.png" />
-      <link rel="apple-touch-icon" sizes="180x180" href="/icons/touch-icon-iphone-retina.png" />
-      <link rel="apple-touch-icon" sizes="167x167" href="/icons/touch-icon-ipad-retina.png" />
+      <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+      <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152x152.png" />
+      <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-180x180.png" />
+      <link rel="apple-touch-icon" sizes="167x167" href="/icons/apple-touch-icon-167x167.png" />
 
       <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
       <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
       <link rel="manifest" href="/manifest.json" />
-      <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#4f46e5" />
+      <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#6366f1" />
       <link rel="shortcut icon" href="/favicon.ico" />
-    </Head>
+    </>
   );
 }
 
 // Install prompt component inline implementation
 function InstallPrompt() {
-  const [showPrompt, setShowPrompt] = useState(false: any);
-  const [installPromptEvent, setInstallPromptEvent] = useState<any>(null: any);
+  const [showPrompt, setShowPrompt] = useState(false);
+  const [installPromptEvent, setInstallPromptEvent] = useState<any>(null);
 
   useEffect(() => {
     // Check if the app is already installed
     const isAppInstalled = window.matchMedia('(display-mode: standalone)').matches;
     
-    if (isAppInstalled: any) {
+    if (isAppInstalled) {
       return; // Don't show install prompt if already installed
     }
 
     // Store the install prompt event for later use
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
-      setInstallPromptEvent(e: any);
-      setShowPrompt(true: any);
+      setInstallPromptEvent(e);
+      setShowPrompt(true);
     };
 
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt: any);
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
-    // Check if we should show the prompt (not shown in last 7 days: any)
+    // Check if we should show the prompt (not shown in last 7 days)
     const lastPromptTime = localStorage.getItem('installPromptLastShown');
-    if (lastPromptTime: any) {
-      const daysSinceLastPrompt = (Date.now() - parseInt(lastPromptTime: any)) / (1000 * 60 * 60 * 24: any);
-      if (daysSinceLastPrompt < 7: any) {
-        setShowPrompt(false: any);
+    if (lastPromptTime) {
+      const daysSinceLastPrompt = (Date.now() - parseInt(lastPromptTime)) / (1000 * 60 * 60 * 24);
+      if (daysSinceLastPrompt < 7) {
+        setShowPrompt(false);
       }
     }
 
     return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt: any);
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     };
   }, []);
 
   const handleInstallClick = async () => {
-    if (!installPromptEvent: any) return;
+    if (!installPromptEvent) return;
     
     // Show the install prompt
     installPromptEvent.prompt();
@@ -84,20 +84,20 @@ function InstallPrompt() {
     const choiceResult = await installPromptEvent.userChoice;
     
     // Reset the install prompt variable
-    setInstallPromptEvent(null: any);
-    setShowPrompt(false: any);
+    setInstallPromptEvent(null);
+    setShowPrompt(false);
     
     // Record when we showed the prompt
     localStorage.setItem('installPromptLastShown', Date.now().toString());
   };
 
   const handleDismiss = () => {
-    setShowPrompt(false: any);
+    setShowPrompt(false);
     // Record when we showed the prompt
     localStorage.setItem('installPromptLastShown', Date.now().toString());
   };
 
-  if (!showPrompt: any) return null;
+  if (!showPrompt) return null;
 
   return (
     <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 z-50 border border-gray-200 dark:border-gray-700">
@@ -134,23 +134,23 @@ function InstallPrompt() {
   );
 }
 
-export default function App({ Component: any, pageProps: { session, ...pageProps } }: AppProps) {
-  const [isOnline, setIsOnline] = useState(true: any);
+export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+  const [isOnline, setIsOnline] = useState(true);
 
   useEffect(() => {
     // Check if the app is online
-    setIsOnline(navigator.onLine: any);
+    setIsOnline(navigator.onLine);
 
     // Add event listeners for online/offline status
-    const handleOnline = () => setIsOnline(true: any);
-    const handleOffline = () => setIsOnline(false: any);
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
 
-    window.addEventListener('online', handleOnline: any);
-    window.addEventListener('offline', handleOffline: any);
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
 
     return () => {
-      window.removeEventListener('online', handleOnline: any);
-      window.removeEventListener('offline', handleOffline: any);
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
     };
   }, []);
 

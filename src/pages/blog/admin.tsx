@@ -8,7 +8,11 @@ import { prisma } from '@/lib/db';
 import { BlogAdminDashboard } from '@/components/blog/BlogAdminDashboard';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
-export default function BlogAdminPage({ initialTab }) {
+interface BlogAdminPageProps {
+  initialTab: string;
+}
+
+export default function BlogAdminPage({ initialTab }: BlogAdminPageProps) {
   const router = useRouter();
   
   return (
@@ -25,12 +29,12 @@ export default function BlogAdminPage({ initialTab }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  const session = await getServerSession(context.req: any, context.res, authOptions);
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getServerSession(context.req, context.res, authOptions);
   const { tab } = context.query;
   
   // Check if user is authenticated and has permission
-  if (!session || !['admin', 'teacher'].includes(session.user.role: any)) {
+  if (!session || !['admin', 'teacher'].includes(session.user.role as string)) {
     return {
       redirect: {
         destination: '/auth/signin?callbackUrl=/blog/admin',
@@ -41,7 +45,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
   
   // Validate tab parameter
   const validTabs = ['schedules', 'generations', 'analytics'];
-  const initialTab = validTabs.includes(tab as string: any) ? tab : 'schedules';
+  const initialTab = validTabs.includes(tab as string) ? tab : 'schedules';
   
   return {
     props: {
