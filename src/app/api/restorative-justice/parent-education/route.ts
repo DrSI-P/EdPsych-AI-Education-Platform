@@ -28,7 +28,34 @@ const FavoriteSchema = z.object({
   isFavorite: z.boolean(),
 });
 
-export async function GET(req: NextRequest) {
+// Define interfaces for request data
+interface ResourceFilter {
+  category?: string;
+  ageGroups?: {
+    has: string;
+  };
+  difficultyLevel?: string;
+  OR?: Array<{
+    title?: { contains: string; mode: string };
+    description?: { contains: string; mode: string };
+    tags?: { has: string };
+  }>;
+}
+
+interface ResourceData {
+  title: string;
+  description: string;
+  category: 'guide' | 'video' | 'activity' | 'printable' | 'course';
+  ageGroups: Array<'early-years' | 'primary' | 'secondary' | 'all-ages'>;
+  difficultyLevel: 'beginner' | 'intermediate' | 'advanced';
+  content: string;
+  videoUrl?: string | null;
+  downloadUrl?: string | null;
+  estimatedTime?: string | null;
+  tags: string[];
+}
+
+export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     const url = new URL(req.url);
     const category = url.searchParams.get("category");
@@ -38,7 +65,7 @@ export async function GET(req: NextRequest) {
     const userId = url.searchParams.get("userId");
 
     // Build filter object
-    const filter: any = {};
+    const filter: ResourceFilter = {};
     
     if (category && category !== "all") {
       filter.category = category;
@@ -94,7 +121,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const body = await req.json();
     
@@ -167,7 +194,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function PATCH(req: NextRequest) {
+export async function PATCH(req: NextRequest): Promise<NextResponse> {
   try {
     const body = await req.json();
     const { id, ...data } = body;
@@ -203,7 +230,7 @@ export async function PATCH(req: NextRequest) {
   }
 }
 
-export async function DELETE(req: NextRequest) {
+export async function DELETE(req: NextRequest): Promise<NextResponse> {
   try {
     const url = new URL(req.url);
     const id = url.searchParams.get("id");
