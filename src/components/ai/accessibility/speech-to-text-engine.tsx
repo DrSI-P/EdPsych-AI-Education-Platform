@@ -432,5 +432,3 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
     </div>
   );
 };
-
-export { SpeechToTextEngine };

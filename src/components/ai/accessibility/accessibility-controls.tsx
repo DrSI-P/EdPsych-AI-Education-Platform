@@ -372,5 +372,3 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
     </div>
   );
 };
-
-export { AccessibilityControls };
