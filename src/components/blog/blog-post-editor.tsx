@@ -147,14 +147,14 @@ const ageRanges = [
 
 const BlogPostEditor = () => {
   const [activeTab, setActiveTab] = useState("content");
-  const [isPublishing, setIsPublishing] = useState(false: any);
-  const [isSaving, setIsSaving] = useState(false: any);
-  const [isGeneratingWithAI, setIsGeneratingWithAI] = useState(false: any);
-  const [showAIDialog, setShowAIDialog] = useState(false: any);
+  const [isPublishing, setIsPublishing] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isGeneratingWithAI, setIsGeneratingWithAI] = useState(false);
+  const [showAIDialog, setShowAIDialog] = useState(false);
   const [aiPrompt, setAiPrompt] = useState("");
-  const [selectedTags, setSelectedTags] = useState([]);
-  const [selectedCurriculumAreas, setSelectedCurriculumAreas] = useState([]);
-  const [selectedAgeRanges, setSelectedAgeRanges] = useState([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [selectedCurriculumAreas, setSelectedCurriculumAreas] = useState<string[]>([]);
+  const [selectedAgeRanges, setSelectedAgeRanges] = useState<string[]>([]);
   
   // Form state
   const [postData, setPostData] = useState({
@@ -170,42 +170,42 @@ const BlogPostEditor = () => {
     isFeatured: false
   });
 
-  const handleInputChange = (field: any, value) => {
+  const handleInputChange = (field: string, value: string) => {
     setPostData({
       ...postData,
       [field]: value
     });
   };
 
-  const handleTagToggle = (tag: any) => {
-    if (selectedTags.includes(tag: any)) {
-      setSelectedTags(selectedTags.filter(t => t !== tag: any));
+  const handleTagToggle = (tag: string) => {
+    if (selectedTags.includes(tag)) {
+      setSelectedTags(selectedTags.filter(t => t !== tag));
     } else {
       setSelectedTags([...selectedTags, tag]);
     }
   };
 
-  const handleCurriculumToggle = (area: any) => {
-    if (selectedCurriculumAreas.includes(area: any)) {
-      setSelectedCurriculumAreas(selectedCurriculumAreas.filter(a => a !== area: any));
+  const handleCurriculumToggle = (area: string) => {
+    if (selectedCurriculumAreas.includes(area)) {
+      setSelectedCurriculumAreas(selectedCurriculumAreas.filter(a => a !== area));
     } else {
       setSelectedCurriculumAreas([...selectedCurriculumAreas, area]);
     }
   };
 
-  const handleAgeRangeToggle = (range: any) => {
-    if (selectedAgeRanges.includes(range: any)) {
-      setSelectedAgeRanges(selectedAgeRanges.filter(r => r !== range: any));
+  const handleAgeRangeToggle = (range: string) => {
+    if (selectedAgeRanges.includes(range)) {
+      setSelectedAgeRanges(selectedAgeRanges.filter(r => r !== range));
     } else {
       setSelectedAgeRanges([...selectedAgeRanges, range]);
     }
   };
 
   const handleSaveDraft = () => {
-    setIsSaving(true: any);
+    setIsSaving(true);
     // Simulate API call
     setTimeout(() => {
-      setIsSaving(false: any);
+      setIsSaving(false);
       toast({
         title: "Draft saved",
         description: "Your blog post draft has been saved successfully.",
@@ -214,10 +214,10 @@ const BlogPostEditor = () => {
   };
 
   const handlePublish = () => {
-    setIsPublishing(true: any);
+    setIsPublishing(true);
     // Simulate API call
     setTimeout(() => {
-      setIsPublishing(false: any);
+      setIsPublishing(false);
       toast({
         title: "Post published",
         description: "Your blog post has been published successfully.",
@@ -226,11 +226,11 @@ const BlogPostEditor = () => {
   };
 
   const handleAIGenerate = () => {
-    setIsGeneratingWithAI(true: any);
+    setIsGeneratingWithAI(true);
     // Simulate AI generation
     setTimeout(() => {
-      setIsGeneratingWithAI(false: any);
-      setShowAIDialog(false: any);
+      setIsGeneratingWithAI(false);
+      setShowAIDialog(false);
       
       // Example AI-generated content based on the prompt
       if (aiPrompt.toLowerCase().includes("title")) {
@@ -267,7 +267,7 @@ const BlogPostEditor = () => {
           id="title" 
           placeholder="Enter a compelling title..." 
           value={postData.title}
-          onChange={(e) => handleInputChange("title", e.target.value: any)}
+          onChange={(e) => handleInputChange("title", e.target.value)}
         />
       </div>
       
@@ -278,7 +278,7 @@ const BlogPostEditor = () => {
           placeholder="Write a brief summary of your post..." 
           rows={3}
           value={postData.excerpt}
-          onChange={(e: any) => handleInputChange("excerpt", e.target.value: any)}
+          onChange={(e) => handleInputChange("excerpt", e.target.value)}
         />
       </div>
       
@@ -305,7 +305,7 @@ const BlogPostEditor = () => {
           placeholder="Write your blog post content here... You can use Markdown formatting." 
           rows={15}
           value={postData.content}
-          onChange={(e: any) => handleInputChange("content", e.target.value: any)}
+          onChange={(e) => handleInputChange("content", e.target.value)}
           className="font-mono"
         />
       </div>
@@ -330,7 +330,7 @@ const BlogPostEditor = () => {
                 placeholder="e.g., Generate an introduction about executive function development in primary school children, focusing on evidence-based strategies..." 
                 rows={5}
                 value={aiPrompt}
-                onChange={(e: any) => setAiPrompt(e.target.value: any)}
+                onChange={(e) => setAiPrompt(e.target.value)}
               />
               <div className="space-y-2">
                 <h4 className="text-sm font-medium">Suggested Prompts:</h4>
@@ -367,7 +367,7 @@ const BlogPostEditor = () => {
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setShowAIDialog(false: any)}>Cancel</Button>
+              <Button variant="outline" onClick={() => setShowAIDialog(false)}>Cancel</Button>
               <Button onClick={handleAIGenerate} disabled={isGeneratingWithAI}>
                 {isGeneratingWithAI ? (
                   <>
@@ -408,13 +408,13 @@ const BlogPostEditor = () => {
         <Label htmlFor="category">Category</Label>
         <Select 
           value={postData.category} 
-          onValueChange={(value: any) => handleInputChange("category", value: any)}
+          onValueChange={(value) => handleInputChange("category", value)}
         >
           <SelectTrigger>
             <SelectValue placeholder="Select a category" />
           </SelectTrigger>
           <SelectContent>
-            {categories.map((category: any) => (
+            {categories.map((category) => (
               <SelectItem key={category} value={category}>
                 {category}
               </SelectItem>
@@ -427,12 +427,12 @@ const BlogPostEditor = () => {
         <Label>Tags</Label>
         <div className="border rounded-md p-4">
           <div className="flex flex-wrap gap-2 mb-4">
-            {selectedTags.map((tag: any) => (
+            {selectedTags.map((tag) => (
               <Badge key={tag} className="flex items-center gap-1">
                 {tag}
                 <X 
                   className="h-3 w-3 cursor-pointer" 
-                  onClick={() => handleTagToggle(tag: any)}
+                  onClick={() => handleTagToggle(tag)}
                 />
               </Badge>
             ))}
@@ -445,15 +445,15 @@ const BlogPostEditor = () => {
             <Label className="text-sm">Available Tags</Label>
             <ScrollArea className="h-[200px] mt-2">
               <div className="space-y-2">
-                {tags.filter(tag => !selectedTags.includes(tag: any)).map((tag: any) => (
+                {tags.filter(tag => !selectedTags.includes(tag)).map((tag) => (
                   <div 
                     key={tag} 
                     className="flex items-center space-x-2"
                   >
                     <Checkbox 
                       id={`tag-${tag}`} 
-                      checked={selectedTags.includes(tag: any)}
-                      onCheckedChange={() => handleTagToggle(tag: any)}
+                      checked={selectedTags.includes(tag)}
+                      onCheckedChange={() => handleTagToggle(tag)}
                     />
                     <Label 
                       htmlFor={`tag-${tag}`}
@@ -475,15 +475,15 @@ const BlogPostEditor = () => {
           <div className="border rounded-md p-4">
             <ScrollArea className="h-[200px]">
               <div className="space-y-2">
-                {curriculumAreas.map((area: any) => (
+                {curriculumAreas.map((area) => (
                   <div 
                     key={area} 
                     className="flex items-center space-x-2"
                   >
                     <Checkbox 
                       id={`curriculum-${area}`} 
-                      checked={selectedCurriculumAreas.includes(area: any)}
-                      onCheckedChange={() => handleCurriculumToggle(area: any)}
+                      checked={selectedCurriculumAreas.includes(area)}
+                      onCheckedChange={() => handleCurriculumToggle(area)}
                     />
                     <Label 
                       htmlFor={`curriculum-${area}`}
@@ -501,76 +501,44 @@ const BlogPostEditor = () => {
         <div className="space-y-2">
           <Label>Age Ranges</Label>
           <div className="border rounded-md p-4">
-            <div className="space-y-2">
-              {ageRanges.map((range: any) => (
-                <div 
-                  key={range} 
-                  className="flex items-center space-x-2"
-                >
-                  <Checkbox 
-                    id={`age-${range}`} 
-                    checked={selectedAgeRanges.includes(range: any)}
-                    onCheckedChange={() => handleAgeRangeToggle(range: any)}
-                  />
-                  <Label 
-                    htmlFor={`age-${range}`}
-                    className="text-sm cursor-pointer"
+            <ScrollArea className="h-[200px]">
+              <div className="space-y-2">
+                {ageRanges.map((range) => (
+                  <div 
+                    key={range} 
+                    className="flex items-center space-x-2"
                   >
-                    {range}
-                  </Label>
-                </div>
-              ))}
-            </div>
+                    <Checkbox 
+                      id={`age-${range}`} 
+                      checked={selectedAgeRanges.includes(range)}
+                      onCheckedChange={() => handleAgeRangeToggle(range)}
+                    />
+                    <Label 
+                      htmlFor={`age-${range}`}
+                      className="text-sm cursor-pointer"
+                    >
+                      {range}
+                    </Label>
+                  </div>
+                ))}
+              </div>
+            </ScrollArea>
           </div>
         </div>
       </div>
       
       <div className="space-y-2">
-        <Label htmlFor="featured-image">Featured Image</Label>
-        <div className="border-2 border-dashed rounded-md p-6 text-center">
-          {postData.featuredImage ? (
-            <div className="space-y-2">
-              <img 
-                src={URL.createObjectURL(postData.featuredImage: any)} 
-                alt="Featured" 
-                className="max-h-[200px] mx-auto object-contain"
-              />
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => handleInputChange("featuredImage", null: any)}
-              >
-                <Trash className="h-4 w-4 mr-2" />
-                Remove Image
-              </Button>
+        <Label htmlFor="featuredImage">Featured Image</Label>
+        <div className="border border-dashed rounded-md p-8 text-center">
+          <div className="flex flex-col items-center justify-center space-y-2">
+            <Upload className="h-8 w-8 text-muted-foreground" />
+            <div className="text-sm text-muted-foreground">
+              Drag and drop an image here, or click to browse
             </div>
-          ) : (
-            <div className="space-y-2">
-              <div className="flex justify-center">
-                <Upload className="h-10 w-10 text-muted-foreground" />
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Drag and drop an image: any, or click to browse
-              </p>
-              <Input 
-                id="featured-image" 
-                type="file" 
-                className="hidden"
-                accept="image/*"
-                onChange={(e: any) => {
-                  if (e.target.files && e.target.files[0]) {
-                    handleInputChange("featuredImage", e.target.files[0]);
-                  }
-                }}
-              />
-              <Button 
-                variant="outline" 
-                onClick={() => document.getElementById("featured-image").click()}
-              >
-                Browse Files
-              </Button>
-            </div>
-          )}
+            <Button variant="outline" size="sm">
+              Upload Image
+            </Button>
+          </div>
         </div>
       </div>
     </div>
@@ -579,226 +547,187 @@ const BlogPostEditor = () => {
   const renderSettingsTab = () => (
     <div className="space-y-6">
       <div className="space-y-2">
-        <Label htmlFor="publish-date">Publish Date</Label>
+        <Label htmlFor="publishDate">Publish Date</Label>
         <Input 
-          id="publish-date" 
+          id="publishDate" 
           type="date" 
           value={postData.publishDate}
-          onChange={(e: any) => handleInputChange("publishDate", e.target.value: any)}
+          onChange={(e) => handleInputChange("publishDate", e.target.value)}
         />
       </div>
       
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <div className="space-y-0.5">
-            <Label htmlFor="draft-switch">Save as Draft</Label>
+          <div>
+            <Label htmlFor="isDraft" className="text-base">Save as Draft</Label>
             <p className="text-sm text-muted-foreground">
-              Post will not be published until you're ready
+              Save this post as a draft to continue editing later.
             </p>
           </div>
           <Switch 
-            id="draft-switch" 
+            id="isDraft" 
             checked={postData.isDraft}
-            onCheckedChange={(checked: any) => handleInputChange("isDraft", checked: any)}
+            onCheckedChange={(checked) => handleInputChange("isDraft", checked.toString())}
           />
         </div>
         
-        <Separator />
-        
         <div className="flex items-center justify-between">
-          <div className="space-y-0.5">
-            <Label htmlFor="comments-switch">Allow Comments</Label>
+          <div>
+            <Label htmlFor="allowComments" className="text-base">Allow Comments</Label>
             <p className="text-sm text-muted-foreground">
-              Enable readers to comment on this post
+              Allow readers to comment on this post.
             </p>
           </div>
           <Switch 
-            id="comments-switch" 
+            id="allowComments" 
             checked={postData.allowComments}
-            onCheckedChange={(checked: any) => handleInputChange("allowComments", checked: any)}
+            onCheckedChange={(checked) => handleInputChange("allowComments", checked.toString())}
           />
         </div>
         
-        <Separator />
-        
         <div className="flex items-center justify-between">
-          <div className="space-y-0.5">
-            <Label htmlFor="private-switch">Private Post</Label>
+          <div>
+            <Label htmlFor="isPrivate" className="text-base">Private Post</Label>
             <p className="text-sm text-muted-foreground">
-              Only visible to you and editors
+              Make this post visible only to logged-in users.
             </p>
           </div>
           <Switch 
-            id="private-switch" 
+            id="isPrivate" 
             checked={postData.isPrivate}
-            onCheckedChange={(checked: any) => handleInputChange("isPrivate", checked: any)}
+            onCheckedChange={(checked) => handleInputChange("isPrivate", checked.toString())}
           />
         </div>
         
-        <Separator />
-        
         <div className="flex items-center justify-between">
-          <div className="space-y-0.5">
-            <Label htmlFor="featured-switch">Featured Post</Label>
+          <div>
+            <Label htmlFor="isFeatured" className="text-base">Feature Post</Label>
             <p className="text-sm text-muted-foreground">
-              Highlight this post on the blog homepage
+              Feature this post on the homepage and in featured sections.
             </p>
           </div>
           <Switch 
-            id="featured-switch" 
+            id="isFeatured" 
             checked={postData.isFeatured}
-            onCheckedChange={(checked: any) => handleInputChange("isFeatured", checked: any)}
+            onCheckedChange={(checked) => handleInputChange("isFeatured", checked.toString())}
           />
         </div>
       </div>
       
-      <div className="pt-4">
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button variant="destructive">
-              <Trash className="h-4 w-4 mr-2" />
-              Delete Post
-            </Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-              <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your post and remove it from our servers.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction className="bg-destructive text-destructive-foreground">
-                Delete
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+      <Separator />
+      
+      <div className="space-y-2">
+        <Label className="text-base text-destructive">Danger Zone</Label>
+        <p className="text-sm text-muted-foreground">
+          Actions here cannot be undone.
+        </p>
+        <div className="flex space-x-2">
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="destructive">
+                <Trash className="h-4 w-4 mr-2" />
+                Delete Post
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone. This will permanently delete this blog post and remove it from our servers.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                  Delete
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
       </div>
     </div>
   );
 
   const renderPreviewTab = () => (
-    <div className="space-y-6">
-      <div className="border rounded-md p-6">
-        {postData.title ? (
-          <>
-            <div className="space-y-4">
+    <div className="space-y-8">
+      <div className="flex justify-between items-center">
+        <h2 className="text-lg font-medium">Post Preview</h2>
+        <Button variant="outline" size="sm">
+          <Eye className="h-4 w-4 mr-2" />
+          Open in New Tab
+        </Button>
+      </div>
+      
+      <div className="border rounded-lg p-6 space-y-6">
+        <div>
+          <Badge variant="outline" className="mb-2">
+            {postData.category || "Uncategorized"}
+          </Badge>
+          <h1 className="text-3xl font-bold tracking-tight">
+            {postData.title || "Untitled Post"}
+          </h1>
+          <div className="flex flex-wrap items-centre gap-x-4 gap-y-2 mt-4">
+            <div className="flex items-centre space-x-2">
+              <Avatar>
+                <AvatarImage src="/avatars/author.jpg" alt="Author" />
+                <AvatarFallback>A</AvatarFallback>
+              </Avatar>
               <div>
-                {postData.category && (
-                  <Badge variant="outline" className="mb-2">
-                    {postData.category}
-                  </Badge>
-                )}
-                <h1 className="text-3xl font-bold">{postData.title}</h1>
-                <div className="flex items-center space-x-4 mt-2 text-sm text-muted-foreground">
-                  <div className="flex items-center">
-                    <Calendar className="h-4 w-4 mr-1" />
-                    {new Date(postData.publishDate: any).toLocaleDateString('en-GB', {
-                      day: 'numeric',
-                      month: 'long',
-                      year: 'numeric'
-                    })}
-                  </div>
-                  <div className="flex items-center">
-                    <Clock className="h-4 w-4 mr-1" />
-                    {Math.max(1: any, Math.ceil(postData.content.length / 1000: any))} min read
-                  </div>
-                </div>
-              </div>
-              
-              {postData.featuredImage && (
-                <div className="my-6">
-                  <img 
-                    src={URL.createObjectURL(postData.featuredImage: any)} 
-                    alt={postData.title} 
-                    className="w-full max-h-[400px] object-cover rounded-md"
-                  />
-                </div>
-              )}
-              
-              {postData.excerpt && (
-                <div className="my-4 text-lg font-medium text-muted-foreground">
-                  {postData.excerpt}
-                </div>
-              )}
-              
-              <Separator />
-              
-              <div className="prose prose-slate max-w-none">
-                {postData.content ? (
-                  <div dangerouslySetInnerHTML={{ __html: postData.content.replace(/\n/g, '<br />') }} />
-                ) : (
-                  <p className="text-muted-foreground">No content to preview</p>
-                )}
-              </div>
-              
-              {selectedTags.length > 0 && (
-                <div className="mt-6">
-                  <h3 className="text-sm font-medium mb-2">Tags:</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedTags.map(tag => (
-                      <Badge key={tag} variant="secondary">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              )}
-              
-              <div className="flex flex-wrap gap-6 mt-6">
-                {selectedCurriculumAreas.length > 0 && (
-                  <div>
-                    <h3 className="text-sm font-medium mb-2">Curriculum Areas:</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedCurriculumAreas.map(area => (
-                        <Badge key={area} variant="outline">
-                          {area}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                
-                {selectedAgeRanges.length > 0 && (
-                  <div>
-                    <h3 className="text-sm font-medium mb-2">Age Ranges:</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedAgeRanges.map(range => (
-                        <Badge key={range} variant="outline">
-                          {range}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                <p className="text-sm font-medium">Dr. Emma Wilson</p>
+                <p className="text-xs text-muted-foreground">Educational Psychologist</p>
               </div>
             </div>
-          </>
-        ) : (
-          <div className="text-center py-12">
-            <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-lg font-medium">Nothing to preview yet</h3>
-            <p className="text-sm text-muted-foreground mt-2">
-              Add a title and content to see a preview of your blog post
-            </p>
+            <Separator orientation="vertical" className="h-6" />
+            <div className="flex items-centre text-sm text-muted-foreground">
+              <Calendar className="h-4 w-4 mr-1" />
+              {new Date(postData.publishDate).toLocaleDateString('en-GB', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+              })}
+            </div>
+            <Separator orientation="vertical" className="h-6" />
+            <div className="flex items-centre text-sm text-muted-foreground">
+              <Clock className="h-4 w-4 mr-1" />
+              {postData.content ? `${Math.ceil(postData.content.split(' ').length / 200)} min read` : "0 min read"}
+            </div>
+          </div>
+        </div>
+        
+        {postData.excerpt && (
+          <p className="text-lg text-muted-foreground">{postData.excerpt}</p>
+        )}
+        
+        {selectedTags.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {selectedTags.map((tag) => (
+              <Badge key={tag} variant="secondary">{tag}</Badge>
+            ))}
           </div>
         )}
+        
+        <div className="prose prose-slate max-w-none">
+          {postData.content ? (
+            <div dangerouslySetInnerHTML={{ __html: postData.content.replace(/\n/g, '<br />') }} />
+          ) : (
+            <p className="text-muted-foreground italic">No content yet. Start writing in the Content tab.</p>
+          )}
+        </div>
       </div>
     </div>
   );
 
   return (
-    <div className="space-y-6">
+    <div className="max-w-6xl mx-auto p-4 space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <Button variant="outline" size="sm">
+          <Button variant="ghost" size="sm">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Posts
           </Button>
           <h1 className="text-2xl font-bold">
-            {postData.title || "New Blog Post"}
+            {postData.title ? postData.title : "New Blog Post"}
           </h1>
         </div>
         <div className="flex items-center space-x-2">
@@ -823,7 +752,7 @@ const BlogPostEditor = () => {
               </>
             ) : (
               <>
-                <Check className="h-4 w-4 mr-2" />
+                <BookOpen className="h-4 w-4 mr-2" />
                 Publish
               </>
             )}
@@ -831,27 +760,23 @@ const BlogPostEditor = () => {
         </div>
       </div>
       
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid grid-cols-4 w-full">
+      <Tabs defaultValue="content" value={activeTab} onValueChange={setActiveTab}>
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="content">Content</TabsTrigger>
           <TabsTrigger value="metadata">Metadata</TabsTrigger>
           <TabsTrigger value="settings">Settings</TabsTrigger>
           <TabsTrigger value="preview">Preview</TabsTrigger>
         </TabsList>
-        
-        <TabsContent value="content" className="space-y-4 pt-4">
+        <TabsContent value="content" className="mt-6">
           {renderContentTab()}
         </TabsContent>
-        
-        <TabsContent value="metadata" className="space-y-4 pt-4">
+        <TabsContent value="metadata" className="mt-6">
           {renderMetadataTab()}
         </TabsContent>
-        
-        <TabsContent value="settings" className="space-y-4 pt-4">
+        <TabsContent value="settings" className="mt-6">
           {renderSettingsTab()}
         </TabsContent>
-        
-        <TabsContent value="preview" className="space-y-4 pt-4">
+        <TabsContent value="preview" className="mt-6">
           {renderPreviewTab()}
         </TabsContent>
       </Tabs>

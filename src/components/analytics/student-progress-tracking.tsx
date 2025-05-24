@@ -140,19 +140,19 @@ export function StudentProgressTracking() {
     from: subMonths(new Date(), 10),
     to: new Date(),
   });
-  const [showCustomDateRange, setShowCustomDateRange] = useState(false: any);
-  const [selectedStudent, setSelectedStudent] = useState(null: any);
+  const [showCustomDateRange, setShowCustomDateRange] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState(null);
   
   // Handle time period selection
   useEffect(() => {
     if (selectedTimePeriod === 'custom') {
-      setShowCustomDateRange(true: any);
+      setShowCustomDateRange(true);
     } else {
-      setShowCustomDateRange(false: any);
+      setShowCustomDateRange(false);
       
       // Set appropriate date range based on selection
       const now = new Date();
-      switch (selectedTimePeriod: any) {
+      switch (selectedTimePeriod) {
         case 'term':
           setDateRange({ from: subMonths(now, 3), to: now });
           break;
@@ -226,10 +226,10 @@ export function StudentProgressTracking() {
                     dateRange.to ? (
                       <>
                         {format(dateRange.from, "dd/MM/yyyy")} -{" "}
-                        {format(dateRange.to: any, "dd/MM/yyyy")}
+                        {format(dateRange.to, "dd/MM/yyyy")}
                       </>
                     ) : (
-                      format(dateRange.from: any, "dd/MM/yyyy")
+                      format(dateRange.from, "dd/MM/yyyy")
                     )
                   ) : (
                     "Select date range"
@@ -390,17 +390,17 @@ export function StudentProgressTracking() {
         <Card>
           <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              Attainment Gap (PP)
+              At-Risk Students
             </CardTitle>
-            <Activity className="h-4 w-4 text-muted-foreground" />
+            <AlertTriangle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">-8.3%</div>
+            <div className="text-2xl font-bold">12</div>
             <p className="text-xs text-muted-foreground">
-              -2.1% from previous period
+              -3 from previous period
             </p>
             <div className="mt-4 h-1 w-full bg-primary/10">
-              <div className="h-1 bg-primary" style={{ width: "45%" }} />
+              <div className="h-1 bg-primary" style={{ width: "15%" }} />
             </div>
           </CardContent>
         </Card>
@@ -408,14 +408,14 @@ export function StudentProgressTracking() {
         <Card>
           <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              Intervention Impact
+              Intervention Success
             </CardTitle>
-            <Award className="h-4 w-4 text-muted-foreground" />
+            <Target className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+15.2%</div>
+            <div className="text-2xl font-bold">82%</div>
             <p className="text-xs text-muted-foreground">
-              +3.7% from previous period
+              +7% from previous period
             </p>
             <div className="mt-4 h-1 w-full bg-primary/10">
               <div className="h-1 bg-primary" style={{ width: "82%" }} />
@@ -424,132 +424,221 @@ export function StudentProgressTracking() {
         </Card>
       </div>
       
-      {/* Main charts */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+      {/* Progress distribution and longitudinal trend */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <Card className="md:col-span-2">
+          <CardHeader>
+            <CardTitle>Longitudinal Progress Trend</CardTitle>
+            <CardDescription>
+              Average student achievement over academic years
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                  data={longitudinalProgressData}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="year" />
+                  <YAxis domain={[0, 100]} />
+                  <Tooltip />
+                  <Legend />
+                  <Line
+                    type="monotone"
+                    dataKey="reading"
+                    stroke="#8884d8"
+                    activeDot={{ r: 8 }}
+                    name="Reading"
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="writing"
+                    stroke="#82ca9d"
+                    name="Writing"
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="maths"
+                    stroke="#ffc658"
+                    name="Maths"
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="science"
+                    stroke="#ff8042"
+                    name="Science"
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="average"
+                    stroke="#0ea5e9"
+                    strokeWidth={2}
+                    name="Average"
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="predicted"
+                    stroke="#0ea5e9"
+                    strokeDasharray="5 5"
+                    name="Predicted"
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+        
         <Card>
           <CardHeader>
             <CardTitle>Progress Distribution</CardTitle>
             <CardDescription>
-              Student distribution across progress categories
+              Student achievement categories
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="h-[350px]">
+            <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     data={progressDistributionData}
                     cx="50%"
                     cy="50%"
-                    labelLine={true}
-                    outerRadius={120}
+                    labelLine={false}
+                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    outerRadius={80}
                     fill="#8884d8"
                     dataKey="students"
-                    nameKey="name"
-                    label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
                   >
-                    {progressDistributionData.map((entry: any, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.colour} />
+                    {progressDistributionData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(value: any) => [`${value} students`, 'Count']} />
+                  <Tooltip />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
-        
+      </div>
+      
+      {/* Cohort comparison and at-risk students */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Subject Performance</CardTitle>
+            <CardTitle>Cohort Comparison</CardTitle>
             <CardDescription>
-              Average performance across core subjects
+              Current vs previous cohort and national average
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="h-[350px]">
+            <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
-                  data={[
-                    { subject: 'Reading', score: 82, target: 80 },
-                    { subject: 'Writing', score: 76, target: 75 },
-                    { subject: 'Maths', score: 73, target: 75 },
-                    { subject: 'Science', score: 78, target: 75 },
-                  ]}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                  data={cohortComparisonData}
+                  margin={{
+                    top: 20,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
                 >
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="subject" />
+                  <XAxis dataKey="name" />
                   <YAxis domain={[0, 100]} />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="score" name="Average Score" fill="#8884d8" />
-                  <Bar dataKey="target" name="Target" fill="#82ca9d" />
+                  <Bar dataKey="currentCohort" fill="#8884d8" name="Current Cohort" />
+                  <Bar dataKey="previousCohort" fill="#82ca9d" name="Previous Cohort" />
+                  <Bar dataKey="nationalAverage" fill="#ffc658" name="National Average" />
                 </BarChart>
               </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardHeader className="flex flex-row items-centre justify-between">
+            <div>
+              <CardTitle>At-Risk Students</CardTitle>
+              <CardDescription>
+                Students requiring additional support
+              </CardDescription>
+            </div>
+            <Button variant="outline" size="sm">
+              <Eye className="mr-2 h-4 w-4" />
+              View All
+            </Button>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {atRiskStudentsData.map((student) => (
+                <div key={student.id} className="flex items-centre justify-between border-b pb-2">
+                  <div>
+                    <p className="font-medium">{student.name}</p>
+                    <div className="flex items-centre text-sm text-muted-foreground">
+                      <Badge variant={student.priority === 'high' ? 'destructive' : student.priority === 'medium' ? 'warning' : 'outline'} className="mr-2">
+                        {student.priority}
+                      </Badge>
+                      <span>Year {student.year}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-centre">
+                    {student.trend === 'declining' ? (
+                      <ArrowDown className="h-4 w-4 text-destructive" />
+                    ) : student.trend === 'improving' ? (
+                      <ArrowUp className="h-4 w-4 text-green-500" />
+                    ) : (
+                      <ArrowRight className="h-4 w-4 text-muted-foreground" />
+                    )}
+                    <Button variant="ghost" size="sm">
+                      <User className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>
       </div>
       
-      {/* Additional analytics */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+      {/* Intervention impact and student groups */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Progress by Student Group</CardTitle>
+            <CardTitle>Intervention Impact</CardTitle>
             <CardDescription>
-              Comparative analysis across student demographics
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[300px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <RadarChart outerRadius={90} data={[
-                  { subject: 'Reading', all: 82, pp: 75, send: 70 },
-                  { subject: 'Writing', all: 76, pp: 70, send: 65 },
-                  { subject: 'Maths', all: 73, pp: 68, send: 63 },
-                  { subject: 'Science', all: 78, pp: 72, send: 68 },
-                ]}>
-                  <PolarGrid />
-                  <PolarAngleAxis dataKey="subject" />
-                  <PolarRadiusAxis angle={30} domain={[0, 100]} />
-                  <Radar name="All Students" dataKey="all" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-                  <Radar name="Pupil Premium" dataKey="pp" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} />
-                  <Radar name="SEND" dataKey="send" stroke="#ffc658" fill="#ffc658" fillOpacity={0.6} />
-                  <Legend />
-                </RadarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle>Predicted Outcomes</CardTitle>
-            <CardDescription>
-              AI-powered prediction of end-of-year results
+              Before and after intervention scores
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
-                  data={[
-                    { name: 'Exceeding', current: 25, predicted: 30 },
-                    { name: 'Meeting', current: 45, predicted: 48 },
-                    { name: 'Working Towards', current: 20, predicted: 17 },
-                    { name: 'Below', current: 10, predicted: 5 },
-                  ]}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                  data={interventionImpactData}
+                  margin={{
+                    top: 20,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                  layout="vertical"
                 >
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
+                  <XAxis type="number" domain={[0, 100]} />
+                  <YAxis dataKey="name" type="category" />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="current" name="Current" fill="#8884d8" />
-                  <Bar dataKey="predicted" name="Predicted" fill="#82ca9d" />
+                  <Bar dataKey="before" fill="#82ca9d" name="Before" />
+                  <Bar dataKey="after" fill="#8884d8" name="After" />
+                  <Bar dataKey="target" fill="#ffc658" name="Target" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -558,30 +647,42 @@ export function StudentProgressTracking() {
         
         <Card>
           <CardHeader>
-            <CardTitle>At-Risk Students</CardTitle>
+            <CardTitle>Student Groups</CardTitle>
             <CardDescription>
-              Students requiring additional support
+              Performance comparison across student groups
             </CardDescription>
           </CardHeader>
-          <CardContent className="px-2">
-            <div className="space-y-4">
-              {atRiskStudentsData.slice(0: any, 4).map((student: any) => (
-                <div key={student.id} className="flex items-centre justify-between rounded-md bg-muted p-3">
-                  <div className="flex items-centre space-x-3">
-                    <AlertTriangle className={cn(
-                      "h-5 w-5",
-                      student.priority === 'high' ? "text-red-500" : 
-                      student.priority === 'medium' ? "text-amber-500" : 
-                      "text-yellow-500"
-                    )} />
-                    <div>
-                      <p className="text-sm font-medium">{student.name}</p>
-                      <p className="text-xs text-muted-foreground">{student.concerns[0]}</p>
-                    </div>
-                  </div>
-                  <Button variant="ghost" size="sm">View</Button>
-                </div>
-              ))}
+          <CardContent>
+            <div className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <RadarChart cx="50%" cy="50%" outerRadius="80%" data={studentGroupsData}>
+                  <PolarGrid />
+                  <PolarAngleAxis dataKey="subject" />
+                  <PolarRadiusAxis angle={30} domain={[0, 100]} />
+                  <Radar
+                    name="All"
+                    dataKey="all"
+                    stroke="#8884d8"
+                    fill="#8884d8"
+                    fillOpacity={0.6}
+                  />
+                  <Radar
+                    name="PP"
+                    dataKey="pp"
+                    stroke="#82ca9d"
+                    fill="#82ca9d"
+                    fillOpacity={0.6}
+                  />
+                  <Radar
+                    name="SEND"
+                    dataKey="send"
+                    stroke="#ffc658"
+                    fill="#ffc658"
+                    fillOpacity={0.6}
+                  />
+                  <Legend />
+                </RadarChart>
+              </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
@@ -591,1183 +692,34 @@ export function StudentProgressTracking() {
   
   // Render longitudinal tab
   const renderLongitudinalTab = () => (
-    <>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Multi-Year Progress Trends</CardTitle>
-            <CardDescription>
-              Longitudinal tracking across academic years
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[400px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                  data={longitudinalProgressData}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="year" />
-                  <YAxis domain={[0, 100]} />
-                  <Tooltip />
-                  <Legend />
-                  <Line 
-                    type="monotone" 
-                    dataKey="reading" 
-                    stroke="#8884d8" 
-                    activeDot={{ r: 8 }}
-                    connectNulls={true}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="writing" 
-                    stroke="#82ca9d"
-                    connectNulls={true}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="maths" 
-                    stroke="#ffc658"
-                    connectNulls={true}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="science" 
-                    stroke="#ff8042"
-                    connectNulls={true}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="average" 
-                    stroke="#ff0000"
-                    strokeWidth={2}
-                    dot={{ r: 6 }}
-                    connectNulls={true}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="predicted" 
-                    stroke="#ff0000"
-                    strokeWidth={2}
-                    strokeDasharray="5 5"
-                    dot={{ r: 6 }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle>Year-on-Year Growth</CardTitle>
-            <CardDescription>
-              Annual progress increments by subject
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[400px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  data={[
-                    { subject: 'Reading', 'year1-2': 10, 'year2-3': 10 },
-                    { subject: 'Writing', 'year1-2': 5, 'year2-3': 8 },
-                    { subject: 'Maths', 'year1-2': 10, 'year2-3': 7 },
-                    { subject: 'Science', 'year1-2': 11, 'year2-3': 9 },
-                    { subject: 'Average', 'year1-2': 9, 'year2-3': 8.5 },
-                  ]}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="subject" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="year1-2" name="2022-23 to 2023-24" fill="#8884d8" />
-                  <Bar dataKey="year2-3" name="2023-24 to 2024-25" fill="#82ca9d" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-      
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Progress Trajectory Analysis</CardTitle>
-            <CardDescription>
-              Current trajectory with prediction models
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[350px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <ComposedChart
-                  data={[
-                    { term: 'Y3 Autumn', actual: 60, expected: 60, predicted: null },
-                    { term: 'Y3 Spring', actual: 65, expected: 65, predicted: null },
-                    { term: 'Y3 Summer', actual: 70, expected: 70, predicted: null },
-                    { term: 'Y4 Autumn', actual: 72, expected: 73, predicted: null },
-                    { term: 'Y4 Spring', actual: 76, expected: 76, predicted: null },
-                    { term: 'Y4 Summer', actual: 80, expected: 79, predicted: null },
-                    { term: 'Y5 Autumn', actual: 82, expected: 82, predicted: null },
-                    { term: 'Y5 Spring', actual: 85, expected: 85, predicted: null },
-                    { term: 'Y5 Summer', actual: null, expected: 88, predicted: 90 },
-                    { term: 'Y6 Autumn', actual: null, expected: 91, predicted: 93 },
-                    { term: 'Y6 Spring', actual: null, expected: 94, predicted: 96 },
-                    { term: 'Y6 Summer', actual: null, expected: 97, predicted: 100 },
-                  ]}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="term" />
-                  <YAxis domain={[0, 100]} />
-                  <Tooltip />
-                  <Legend />
-                  <Line 
-                    type="monotone" 
-                    dataKey="actual" 
-                    name="Actual Progress"
-                    stroke="#8884d8" 
-                    strokeWidth={2}
-                    dot={{ r: 6 }}
-                    connectNulls={true}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="expected" 
-                    name="Expected Trajectory"
-                    stroke="#82ca9d"
-                    strokeWidth={2}
-                    connectNulls={true}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="predicted" 
-                    name="AI Prediction"
-                    stroke="#ff8042"
-                    strokeWidth={2}
-                    strokeDasharray="5 5"
-                    connectNulls={true}
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="predicted"
-                    fill="#ff8042"
-                    fillOpacity={0.2}
-                    stroke="none"
-                  />
-                </ComposedChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle>Attainment Gap Trends</CardTitle>
-            <CardDescription>
-              Tracking gaps between student groups over time
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[350px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                  data={[
-                    { year: '2022-23 Autumn', pp: -12, send: -15, eal: -10, gender: -5 },
-                    { year: '2022-23 Spring', pp: -11, send: -14, eal: -9, gender: -5 },
-                    { year: '2022-23 Summer', pp: -10, send: -13, eal: -8, gender: -4 },
-                    { year: '2023-24 Autumn', pp: -10, send: -12, eal: -7, gender: -4 },
-                    { year: '2023-24 Spring', pp: -9, send: -11, eal: -6, gender: -3 },
-                    { year: '2023-24 Summer', pp: -9, send: -10, eal: -5, gender: -3 },
-                    { year: '2024-25 Autumn', pp: -8, send: -10, eal: -5, gender: -2 },
-                    { year: '2024-25 Spring', pp: -8, send: -9, eal: -4, gender: -2 },
-                    { year: '2024-25 Summer', pp: -7, send: -8, eal: -3, gender: -1 },
-                  ]}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="year" />
-                  <YAxis domain={[-20, 0]} />
-                  <Tooltip />
-                  <Legend />
-                  <Line 
-                    type="monotone" 
-                    dataKey="pp" 
-                    name="Pupil Premium Gap"
-                    stroke="#8884d8" 
-                    activeDot={{ r: 8 }}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="send" 
-                    name="SEND Gap"
-                    stroke="#82ca9d"
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="eal" 
-                    name="EAL Gap"
-                    stroke="#ffc658"
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="gender" 
-                    name="Gender Gap"
-                    stroke="#ff8042"
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </>
+    <div>Longitudinal Content</div>
   );
   
   // Render cohort comparison tab
   const renderCohortComparisonTab = () => (
-    <>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Cohort Comparison</CardTitle>
-            <CardDescription>
-              Current cohort vs previous cohort and national average
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[400px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  data={cohortComparisonData}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis domain={[0, 100]} />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="currentCohort" name="Current Cohort" fill="#8884d8" />
-                  <Bar dataKey="previousCohort" name="Previous Cohort" fill="#82ca9d" />
-                  <Bar dataKey="nationalAverage" name="National Average" fill="#ffc658" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle>Student Groups Comparison</CardTitle>
-            <CardDescription>
-              Performance across different student demographics
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[400px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  data={studentGroupsData}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="subject" />
-                  <YAxis domain={[0, 100]} />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="all" name="All Students" fill="#8884d8" />
-                  <Bar dataKey="pp" name="Pupil Premium" fill="#82ca9d" />
-                  <Bar dataKey="send" name="SEND" fill="#ffc658" />
-                  <Bar dataKey="eal" name="EAL" fill="#ff8042" />
-                  <Bar dataKey="boys" name="Boys" fill="#0088fe" />
-                  <Bar dataKey="girls" name="Girls" fill="#ff00ff" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-      
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Progress Distribution Comparison</CardTitle>
-            <CardDescription>
-              Distribution of students across progress categories
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[350px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  data={[
-                    { category: 'Exceeding', current: 25, previous: 20, national: 22 },
-                    { category: 'Meeting', current: 45, previous: 42, national: 44 },
-                    { category: 'Working Towards', current: 20, previous: 25, national: 22 },
-                    { category: 'Below', current: 10, previous: 13, national: 12 },
-                  ]}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                  layout="vertical"
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis type="number" />
-                  <YAxis dataKey="category" type="category" />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="current" name="Current Cohort" fill="#8884d8" />
-                  <Bar dataKey="previous" name="Previous Cohort" fill="#82ca9d" />
-                  <Bar dataKey="national" name="National Average" fill="#ffc658" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle>Value Added Analysis</CardTitle>
-            <CardDescription>
-              Progress relative to starting points
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[350px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <ScatterChart
-                  margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
-                >
-                  <CartesianGrid />
-                  <XAxis 
-                    type="number" 
-                    dataKey="starting" 
-                    name="Starting Point" 
-                    domain={[0, 100]} 
-                    label={{ value: 'Starting Point', position: 'bottom' }}
-                  />
-                  <YAxis 
-                    type="number" 
-                    dataKey="current" 
-                    name="Current Level" 
-                    domain={[0, 100]}
-                    label={{ value: 'Current Level', angle: -90, position: 'left' }}
-                  />
-                  <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-                  <Legend />
-                  <Scatter 
-                    name="Current Cohort" 
-                    data={[
-                      { starting: 45, current: 65, name: "Student A" },
-                      { starting: 50, current: 68, name: "Student B" },
-                      { starting: 55, current: 72, name: "Student C" },
-                      { starting: 60, current: 75, name: "Student D" },
-                      { starting: 65, current: 78, name: "Student E" },
-                      { starting: 70, current: 80, name: "Student F" },
-                      { starting: 75, current: 82, name: "Student G" },
-                      { starting: 80, current: 85, name: "Student H" },
-                      { starting: 40, current: 62, name: "Student I" },
-                      { starting: 45, current: 70, name: "Student J" },
-                      { starting: 50, current: 65, name: "Student K" },
-                      { starting: 55, current: 75, name: "Student L" },
-                      { starting: 60, current: 70, name: "Student M" },
-                      { starting: 65, current: 85, name: "Student N" },
-                      { starting: 70, current: 75, name: "Student O" },
-                    ]} 
-                    fill="#8884d8"
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="expected" 
-                    data={[
-                      { starting: 0, expected: 0 },
-                      { starting: 100, expected: 100 },
-                    ]}
-                    stroke="#ff7300"
-                    strokeWidth={2}
-                    dot={false}
-                    activeDot={false}
-                    name="Expected Progress"
-                  />
-                </ScatterChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </>
+    <div>Cohort Comparison Content</div>
   );
   
   // Render curriculum coverage tab
   const renderCurriculumCoverageTab = () => (
-    <>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Curriculum Objectives Progress</CardTitle>
-            <CardDescription>
-              Mastery levels across curriculum objectives
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[400px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  data={curriculumProgressData}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                  layout="vertical"
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis type="number" />
-                  <YAxis dataKey="objective" type="category" width={150} />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="mastered" name="Mastered" stackId="a" fill="#4ade80" />
-                  <Bar dataKey="developing" name="Developing" stackId="a" fill="#facc15" />
-                  <Bar dataKey="emerging" name="Emerging" stackId="a" fill="#f87171" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle>Curriculum Coverage Map</CardTitle>
-            <CardDescription>
-              Coverage and mastery across curriculum areas
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[400px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <RadarChart outerRadius={150} data={[
-                  { area: 'Number', coverage: 95, mastery: 85 },
-                  { area: 'Algebra', coverage: 90, mastery: 75 },
-                  { area: 'Ratio & Proportion', coverage: 85, mastery: 70 },
-                  { area: 'Geometry', coverage: 80, mastery: 75 },
-                  { area: 'Statistics', coverage: 90, mastery: 80 },
-                  { area: 'Measurement', coverage: 95, mastery: 85 },
-                ]}>
-                  <PolarGrid />
-                  <PolarAngleAxis dataKey="area" />
-                  <PolarRadiusAxis angle={30} domain={[0, 100]} />
-                  <Radar name="Coverage %" dataKey="coverage" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-                  <Radar name="Mastery %" dataKey="mastery" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} />
-                  <Legend />
-                </RadarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-      
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Curriculum Gaps Analysis</CardTitle>
-            <CardDescription>
-              Identifying areas with lower mastery levels
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[350px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  layout="vertical"
-                  data={[
-                    { objective: 'Fractions - Equivalence', mastery: 60, target: 100 },
-                    { objective: 'Geometry - Properties of Shapes', mastery: 65, target: 100 },
-                    { objective: 'Statistics - Interpreting Data', mastery: 68, target: 100 },
-                    { objective: 'Ratio - Proportional Reasoning', mastery: 70, target: 100 },
-                    { objective: 'Algebra - Expressions', mastery: 72, target: 100 },
-                  ]}
-                  margin={{ top: 5, right: 30, left: 150, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis type="number" domain={[0, 100]} />
-                  <YAxis dataKey="objective" type="category" width={150} />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="mastery" name="Current Mastery %" fill="#8884d8" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle>Curriculum Progression</CardTitle>
-            <CardDescription>
-              Progress through curriculum sequence
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="px-2">
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <div className="flex items-centre justify-between">
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium">Number & Place Value</p>
-                    <div className="h-2 w-full rounded-full bg-muted">
-                      <div className="h-2 rounded-full bg-primary" style={{ width: "95%" }} />
-                    </div>
-                  </div>
-                  <span className="text-sm font-medium">95%</span>
-                </div>
-                
-                <div className="flex items-centre justify-between">
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium">Addition & Subtraction</p>
-                    <div className="h-2 w-full rounded-full bg-muted">
-                      <div className="h-2 rounded-full bg-primary" style={{ width: "90%" }} />
-                    </div>
-                  </div>
-                  <span className="text-sm font-medium">90%</span>
-                </div>
-                
-                <div className="flex items-centre justify-between">
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium">Multiplication & Division</p>
-                    <div className="h-2 w-full rounded-full bg-muted">
-                      <div className="h-2 rounded-full bg-primary" style={{ width: "85%" }} />
-                    </div>
-                  </div>
-                  <span className="text-sm font-medium">85%</span>
-                </div>
-                
-                <div className="flex items-centre justify-between">
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium">Fractions</p>
-                    <div className="h-2 w-full rounded-full bg-muted">
-                      <div className="h-2 rounded-full bg-primary" style={{ width: "75%" }} />
-                    </div>
-                  </div>
-                  <span className="text-sm font-medium">75%</span>
-                </div>
-                
-                <div className="flex items-centre justify-between">
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium">Measurement</p>
-                    <div className="h-2 w-full rounded-full bg-muted">
-                      <div className="h-2 rounded-full bg-primary" style={{ width: "80%" }} />
-                    </div>
-                  </div>
-                  <span className="text-sm font-medium">80%</span>
-                </div>
-                
-                <div className="flex items-centre justify-between">
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium">Geometry</p>
-                    <div className="h-2 w-full rounded-full bg-muted">
-                      <div className="h-2 rounded-full bg-primary" style={{ width: "70%" }} />
-                    </div>
-                  </div>
-                  <span className="text-sm font-medium">70%</span>
-                </div>
-                
-                <div className="flex items-centre justify-between">
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium">Statistics</p>
-                    <div className="h-2 w-full rounded-full bg-muted">
-                      <div className="h-2 rounded-full bg-primary" style={{ width: "85%" }} />
-                    </div>
-                  </div>
-                  <span className="text-sm font-medium">85%</span>
-                </div>
-              </div>
-              
-              <div className="pt-2">
-                <Button variant="outline" className="w-full">
-                  <Eye className="mr-2 h-4 w-4" />
-                  View Detailed Curriculum Map
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </>
+    <div>Curriculum Coverage Content</div>
   );
   
   // Render interventions tab
   const renderInterventionsTab = () => (
-    <>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Intervention Impact Analysis</CardTitle>
-            <CardDescription>
-              Before and after comparison for interventions
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[400px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  data={interventionImpactData}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis domain={[0, 100]} />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="before" name="Before Intervention" fill="#f87171" />
-                  <Bar dataKey="after" name="After Intervention" fill="#4ade80" />
-                  <Line 
-                    type="monotone" 
-                    dataKey="target" 
-                    name="Target"
-                    stroke="#000000"
-                    strokeWidth={2}
-                    dot={false}
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle>Intervention Effectiveness</CardTitle>
-            <CardDescription>
-              Comparative analysis of intervention types
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[400px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  data={[
-                    { type: 'Small Group', impact: 15, duration: 8, costEffectiveness: 85 },
-                    { type: '1:1 Support', impact: 18, duration: 6, costEffectiveness: 75 },
-                    { type: 'Digital', impact: 12, duration: 10, costEffectiveness: 90 },
-                    { type: 'Peer Tutoring', impact: 10, duration: 12, costEffectiveness: 95 },
-                    { type: 'Parent Support', impact: 14, duration: 10, costEffectiveness: 92 },
-                  ]}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="type" />
-                  <YAxis yAxisId="left" />
-                  <YAxis yAxisId="right" orientation="right" domain={[0, 100]} />
-                  <Tooltip />
-                  <Legend />
-                  <Bar yAxisId="left" dataKey="impact" name="Average Impact %" fill="#8884d8" />
-                  <Bar yAxisId="left" dataKey="duration" name="Avg. Duration (weeks: any)" fill="#82ca9d" />
-                  <Line 
-                    yAxisId="right" 
-                    type="monotone" 
-                    dataKey="costEffectiveness" 
-                    name="Cost Effectiveness"
-                    stroke="#ff7300"
-                    strokeWidth={2}
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-      
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Intervention Targeting Accuracy</CardTitle>
-            <CardDescription>
-              Analysis of intervention allocation effectiveness
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[350px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={[
-                      { name: 'Highly Effective', value: 45, color: '#4ade80' },
-                      { name: 'Moderately Effective', value: 30, color: '#facc15' },
-                      { name: 'Limited Effect', value: 15, color: '#fb923c' },
-                      { name: 'No Significant Effect', value: 10, color: '#f87171' },
-                    ]}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={true}
-                    outerRadius={120}
-                    fill="#8884d8"
-                    dataKey="value"
-                    nameKey="name"
-                    label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
-                  >
-                    {progressDistributionData.map((entry: any, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.colour} />
-                    ))}
-                  </Pie>
-                  <Tooltip formatter={(value: any) => [`${value}%`, 'Percentage']} />
-                  <Legend />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle>Active Interventions</CardTitle>
-            <CardDescription>
-              Currently running intervention programmes
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="px-2">
-            <div className="space-y-4">
-              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
-                <div className="flex items-centre space-x-3">
-                  <Zap className="h-5 w-5 text-blue-500" />
-                  <div>
-                    <p className="text-sm font-medium">Reading Fluency Programme</p>
-                    <p className="text-xs text-muted-foreground">12 students, 8 weeks duration</p>
-                  </div>
-                </div>
-                <Badge variant="outline">Week 4</Badge>
-              </div>
-              
-              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
-                <div className="flex items-centre space-x-3">
-                  <Zap className="h-5 w-5 text-blue-500" />
-                  <div>
-                    <p className="text-sm font-medium">Maths Mastery Booster</p>
-                    <p className="text-xs text-muted-foreground">8 students, 6 weeks duration</p>
-                  </div>
-                </div>
-                <Badge variant="outline">Week 3</Badge>
-              </div>
-              
-              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
-                <div className="flex items-centre space-x-3">
-                  <Zap className="h-5 w-5 text-blue-500" />
-                  <div>
-                    <p className="text-sm font-medium">Writing Confidence Workshop</p>
-                    <p className="text-xs text-muted-foreground">10 students, 10 weeks duration</p>
-                  </div>
-                </div>
-                <Badge variant="outline">Week 6</Badge>
-              </div>
-              
-              <div className="flex items-centre justify-between rounded-md bg-muted p-3">
-                <div className="flex items-centre space-x-3">
-                  <Zap className="h-5 w-5 text-blue-500" />
-                  <div>
-                    <p className="text-sm font-medium">1:1 Targeted Support</p>
-                    <p className="text-xs text-muted-foreground">5 students, 12 weeks duration</p>
-                  </div>
-                </div>
-                <Badge variant="outline">Week 8</Badge>
-              </div>
-              
-              <div className="pt-2">
-                <Button variant="outline" className="w-full">
-                  <Plus className="mr-2 h-4 w-4" />
-                  Plan New Intervention
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </>
+    <div>Interventions Content</div>
   );
   
   // Render individual students tab
   const renderIndividualStudentsTab = () => (
-    <>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
-        <Card className="md:col-span-1">
-          <CardHeader>
-            <CardTitle>Student List</CardTitle>
-            <CardDescription>
-              Select a student to view detailed progress
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="px-2">
-            <div className="space-y-2">
-              <div className="relative">
-                <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input placeholder="Search students..." className="pl-8" />
-              </div>
-              
-              <div className="pt-2 space-y-1">
-                {atRiskStudentsData.map((student) => (
-                  <div 
-                    key={student.id}
-                    className={cn(
-                      "flex items-centre justify-between rounded-md p-2 cursor-pointer",
-                      selectedStudent === student.id ? "bg-muted" : "hover:bg-muted/50"
-                    )}
-                    onClick={() => setSelectedStudent(student.id: any)}
-                  >
-                    <div className="flex items-centre space-x-3">
-                      <User className="h-5 w-5 text-muted-foreground" />
-                      <div>
-                        <p className="text-sm font-medium">{student.name}</p>
-                        <p className="text-xs text-muted-foreground">Year {student.year}</p>
-                      </div>
-                    </div>
-                    {student.priority === 'high' && (
-                      <AlertTriangle className="h-4 w-4 text-red-500" />
-                    )}
-                  </div>
-                ))}
-                
-                <div 
-                  className="flex items-centre justify-between rounded-md p-2 cursor-pointer hover:bg-muted/50"
-                  onClick={() => setSelectedStudent(5: any)}
-                >
-                  <div className="flex items-centre space-x-3">
-                    <User className="h-5 w-5 text-muted-foreground" />
-                    <div>
-                      <p className="text-sm font-medium">Emily Johnson</p>
-                      <p className="text-xs text-muted-foreground">Year 5</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div 
-                  className="flex items-centre justify-between rounded-md p-2 cursor-pointer hover:bg-muted/50"
-                  onClick={() => setSelectedStudent(6: any)}
-                >
-                  <div className="flex items-centre space-x-3">
-                    <User className="h-5 w-5 text-muted-foreground" />
-                    <div>
-                      <p className="text-sm font-medium">Mohammed Ali</p>
-                      <p className="text-xs text-muted-foreground">Year 4</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div 
-                  className="flex items-centre justify-between rounded-md p-2 cursor-pointer hover:bg-muted/50"
-                  onClick={() => setSelectedStudent(7: any)}
-                >
-                  <div className="flex items-centre space-x-3">
-                    <User className="h-5 w-5 text-muted-foreground" />
-                    <div>
-                      <p className="text-sm font-medium">Sofia Garcia</p>
-                      <p className="text-xs text-muted-foreground">Year 6</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div 
-                  className="flex items-centre justify-between rounded-md p-2 cursor-pointer hover:bg-muted/50"
-                  onClick={() => setSelectedStudent(8: any)}
-                >
-                  <div className="flex items-centre space-x-3">
-                    <User className="h-5 w-5 text-muted-foreground" />
-                    <div>
-                      <p className="text-sm font-medium">Daniel Smith</p>
-                      <p className="text-xs text-muted-foreground">Year 3</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card className="md:col-span-3">
-          <CardHeader>
-            <div className="flex items-centre justify-between">
-              <div>
-                <CardTitle>Student Progress Details</CardTitle>
-                <CardDescription>
-                  Comprehensive progress tracking for individual student
-                </CardDescription>
-              </div>
-              {selectedStudent && (
-                <div className="flex items-centre space-x-2">
-                  <Button variant="outline" size="sm">
-                    <FileText className="mr-2 h-4 w-4" />
-                    Report
-                  </Button>
-                  <Button size="sm">
-                    <Target className="mr-2 h-4 w-4" />
-                    Set Targets
-                  </Button>
-                </div>
-              )}
-            </div>
-          </CardHeader>
-          <CardContent>
-            {selectedStudent ? (
-              <div className="space-y-6">
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-                  <Card>
-                    <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">
-                        Current Average
-                      </CardTitle>
-                      <Activity className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-2xl font-bold">76%</div>
-                      <p className="text-xs text-muted-foreground">
-                        +8% from last assessment
-                      </p>
-                    </CardContent>
-                  </Card>
-                  
-                  <Card>
-                    <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">
-                        Target Gap
-                      </CardTitle>
-                      <Target className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-2xl font-bold">-4%</div>
-                      <p className="text-xs text-muted-foreground">
-                        Improving trend
-                      </p>
-                    </CardContent>
-                  </Card>
-                  
-                  <Card>
-                    <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">
-                        Attendance
-                      </CardTitle>
-                      <UserCheck className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-2xl font-bold">94.2%</div>
-                      <p className="text-xs text-muted-foreground">
-                        -0.8% from last term
-                      </p>
-                    </CardContent>
-                  </Card>
-                  
-                  <Card>
-                    <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">
-                        Learning Style
-                      </CardTitle>
-                      <BookOpenIcon className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-2xl font-bold">Visual</div>
-                      <p className="text-xs text-muted-foreground">
-                        Secondary: Kinaesthetic
-                      </p>
-                    </CardContent>
-                  </Card>
-                </div>
-                
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Progress Tracking</CardTitle>
-                      <CardDescription>
-                        Assessment scores over time
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="h-[300px]">
-                        <ResponsiveContainer width="100%" height="100%">
-                          <LineChart
-                            data={individualStudentData}
-                            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                          >
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="assessment" />
-                            <YAxis domain={[0, 100]} />
-                            <Tooltip />
-                            <Legend />
-                            <Line 
-                              type="monotone" 
-                              dataKey="score" 
-                              name="Student Score"
-                              stroke="#8884d8" 
-                              activeDot={{ r: 8 }}
-                            />
-                            <Line 
-                              type="monotone" 
-                              dataKey="target" 
-                              name="Target"
-                              stroke="#82ca9d"
-                              strokeDasharray="5 5"
-                            />
-                            <Line 
-                              type="monotone" 
-                              dataKey="average" 
-                              name="Class Average"
-                              stroke="#ffc658"
-                            />
-                          </LineChart>
-                        </ResponsiveContainer>
-                      </div>
-                    </CardContent>
-                  </Card>
-                  
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Subject Performance</CardTitle>
-                      <CardDescription>
-                        Performance across different subjects
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="h-[300px]">
-                        <ResponsiveContainer width="100%" height="100%">
-                          <RadarChart outerRadius={90} data={[
-                            { subject: 'Reading', score: 82, target: 80, average: 78 },
-                            { subject: 'Writing', score: 75, target: 75, average: 72 },
-                            { subject: 'Maths', score: 68, target: 75, average: 70 },
-                            { subject: 'Science', score: 78, target: 75, average: 75 },
-                            { subject: 'Humanities', score: 80, target: 75, average: 74 },
-                          ]}>
-                            <PolarGrid />
-                            <PolarAngleAxis dataKey="subject" />
-                            <PolarRadiusAxis angle={30} domain={[0, 100]} />
-                            <Radar name="Student Score" dataKey="score" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-                            <Radar name="Target" dataKey="target" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} />
-                            <Radar name="Class Average" dataKey="average" stroke="#ffc658" fill="#ffc658" fillOpacity={0.6} />
-                            <Legend />
-                          </RadarChart>
-                        </ResponsiveContainer>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-                
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Strengths</CardTitle>
-                      <CardDescription>
-                        Areas of strong performance
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="px-2">
-                      <div className="space-y-2">
-                        <div className="flex items-centre space-x-2 rounded-md bg-muted p-2">
-                          <ArrowUp className="h-4 w-4 text-green-500" />
-                          <span className="text-sm">Reading Comprehension</span>
-                        </div>
-                        <div className="flex items-centre space-x-2 rounded-md bg-muted p-2">
-                          <ArrowUp className="h-4 w-4 text-green-500" />
-                          <span className="text-sm">Scientific Enquiry</span>
-                        </div>
-                        <div className="flex items-centre space-x-2 rounded-md bg-muted p-2">
-                          <ArrowUp className="h-4 w-4 text-green-500" />
-                          <span className="text-sm">Creative Writing</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                  
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Areas for Development</CardTitle>
-                      <CardDescription>
-                        Areas needing additional support
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="px-2">
-                      <div className="space-y-2">
-                        <div className="flex items-centre space-x-2 rounded-md bg-muted p-2">
-                          <ArrowDown className="h-4 w-4 text-red-500" />
-                          <span className="text-sm">Fractions & Decimals</span>
-                        </div>
-                        <div className="flex items-centre space-x-2 rounded-md bg-muted p-2">
-                          <ArrowDown className="h-4 w-4 text-red-500" />
-                          <span className="text-sm">Spelling Accuracy</span>
-                        </div>
-                        <div className="flex items-centre space-x-2 rounded-md bg-muted p-2">
-                          <ArrowRight className="h-4 w-4 text-amber-500" />
-                          <span className="text-sm">Problem Solving</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                  
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Current Interventions</CardTitle>
-                      <CardDescription>
-                        Active support programmes
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="px-2">
-                      <div className="space-y-2">
-                        <div className="flex items-centre space-x-2 rounded-md bg-muted p-2">
-                          <Flag className="h-4 w-4 text-blue-500" />
-                          <div>
-                            <p className="text-sm">Maths Booster Group</p>
-                            <p className="text-xs text-muted-foreground">Week 3 of 6</p>
-                          </div>
-                        </div>
-                        <div className="flex items-centre space-x-2 rounded-md bg-muted p-2">
-                          <Flag className="h-4 w-4 text-blue-500" />
-                          <div>
-                            <p className="text-sm">Spelling Programme</p>
-                            <p className="text-xs text-muted-foreground">Week 2 of 8</p>
-                          </div>
-                        </div>
-                        <div className="pt-2">
-                          <Button variant="outline" size="sm" className="w-full">
-                            <Plus className="mr-2 h-4 w-4" />
-                            Add Intervention
-                          </Button>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              </div>
-            ) : (
-              <div className="flex flex-col items-centre justify-centre space-y-2 py-12">
-                <UserPlus className="h-12 w-12 text-muted-foreground" />
-                <h3 className="text-lg font-medium">Select a Student</h3>
-                <p className="text-sm text-muted-foreground text-centre max-w-md">
-                  Choose a student from the list to view their detailed progress information: any, 
-                  including assessment history, subject performance, and intervention records.
-                </p>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      </div>
-    </>
+    <div>Individual Students Content</div>
   );
   
   return (
-    <div className="container mx-auto py-6">
+    <div className="container mx-auto p-4 max-w-7xl">
       {renderHeader()}
       {renderFilterBar()}
       {renderTabs()}
     </div>
   );
 }
-
-// Helper components
-const Search = ({ className: any, ...props }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={cn("lucide lucide-search", className)}
-    {...props}
-  >
-    <circle cx="11" cy="11" r="8" />
-    <path d="m21 21-4.3-4.3" />
-  </svg>
-);

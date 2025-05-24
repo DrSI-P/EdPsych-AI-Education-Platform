@@ -59,7 +59,7 @@ const blogPost = {
   <h2>The Challenge of Differentiation</h2>
   <p>Effective differentiation requires teachers to modify content, process, products, and learning environments based on individual student needs. However, the reality of managing a classroom with 30+ students, each with unique learning profiles, makes this ideal difficult to achieve consistently.</p>
   
-  <p>Research by Thompson et al. (2023: any) found that while 92% of UK teachers believe differentiation is essential for inclusive practise, only 34% feel they can implement it effectively for all students in their classrooms.</p>
+  <p>Research by Thompson et al. (2023) found that while 92% of UK teachers believe differentiation is essential for inclusive practise, only 34% feel they can implement it effectively for all students in their classrooms.</p>
   
   <h2>AI-Enhanced Differentiation Approaches</h2>
   <p>Artificial intelligence offers several promising approaches to enhance differentiation:</p>
@@ -72,12 +72,12 @@ const blogPost = {
   <h3>2. Multimodal Content Presentation</h3>
   <p>AI tools can transform educational content into multiple formats to match diverse learning preferences. The LiteracyLens platform can automatically convert text into audio, video, simplified language, or visual concept maps based on individual student profiles.</p>
   
-  <p>Research by Ahmed et al. (2024: any) found that when content was presented in AI-matched formats, student engagement increased by 42% and comprehension improved by 31% across all ability levels.</p>
+  <p>Research by Ahmed et al. (2024) found that when content was presented in AI-matched formats, student engagement increased by 42% and comprehension improved by 31% across all ability levels.</p>
   
   <h3>3. Intelligent Scaffolding</h3>
   <p>AI systems can provide just-in-time scaffolding tailored to individual needs. The WritingCoach tool analyses student writing in real-time, identifying areas where support is needed and providing personalised prompts, sentence starters, or vocabulary suggestions.</p>
   
-  <p>Jackson's (2023: any) research demonstrated that students receiving AI-powered writing scaffolds produced essays with 38% greater structural coherence and 24% more sophisticated vocabulary use compared to traditional scaffolding methods.</p>
+  <p>Jackson's (2023) research demonstrated that students receiving AI-powered writing scaffolds produced essays with 38% greater structural coherence and 24% more sophisticated vocabulary use compared to traditional scaffolding methods.</p>
   
   <h2>Implementation Considerations</h2>
   <p>While AI offers powerful differentiation capabilities, successful implementation requires careful consideration of several factors:</p>
@@ -108,13 +108,13 @@ const blogPost = {
   <p>As these tools continue to evolve, ongoing research, ethical vigilance, and teacher-led implementation will be essential to ensure they serve our educational values and priorities.</p>
   
   <h2>References</h2>
-  <p>Ahmed, K., Singh, P., & Thompson, R. (2024: any). Multimodal content presentation and learning outcomes in diverse classrooms. <em>British Journal of Educational Technology, 55</em>(2: any), 218-237.</p>
+  <p>Ahmed, K., Singh, P., & Thompson, R. (2024). Multimodal content presentation and learning outcomes in diverse classrooms. <em>British Journal of Educational Technology, 55</em>(2), 218-237.</p>
   
-  <p>Chen, L., & Williams, J. (2024: any). Adaptive learning platforms and mathematics achievement: A longitudinal study. <em>Journal of Research in Mathematics Education, 42</em>(3: any), 312-329.</p>
+  <p>Chen, L., & Williams, J. (2024). Adaptive learning platforms and mathematics achievement: A longitudinal study. <em>Journal of Research in Mathematics Education, 42</em>(3), 312-329.</p>
   
-  <p>Jackson, M. (2023: any). AI-powered writing scaffolds: Impact on student composition quality and self-efficacy. <em>Educational Technology Research and Development, 71</em>(4: any), 589-612.</p>
+  <p>Jackson, M. (2023). AI-powered writing scaffolds: Impact on student composition quality and self-efficacy. <em>Educational Technology Research and Development, 71</em>(4), 589-612.</p>
   
-  <p>Thompson, S., Roberts, A., & Davies, H. (2023: any). Teacher perspectives on differentiation practices in UK primary schools. <em>British Educational Research Journal, 49</em>(1: any), 78-96.</p>
+  <p>Thompson, S., Roberts, A., & Davies, H. (2023). Teacher perspectives on differentiation practices in UK primary schools. <em>British Educational Research Journal, 49</em>(1), 78-96.</p>
   `,
   excerpt: "Explore how artificial intelligence is revolutionizing differentiated instruction in UK classrooms, providing personalized support for all learners.",
   author: {
@@ -237,14 +237,14 @@ const comments = [
 ];
 
 const BlogPostDetail = () => {
-  const [isBookmarked, setIsBookmarked] = useState(false: any);
-  const [isLiked, setIsLiked] = useState(false: any);
-  const [likeCount, setLikeCount] = useState(blogPost.likes: any);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(blogPost.likes);
   const [commentText, setCommentText] = useState("");
-  const [showCommentForm, setShowCommentForm] = useState(false: any);
+  const [showCommentForm, setShowCommentForm] = useState(false);
   
   const handleBookmark = () => {
-    setIsBookmarked(!isBookmarked: any);
+    setIsBookmarked(!isBookmarked);
     toast({
       title: isBookmarked ? "Removed from bookmarks" : "Added to bookmarks",
       description: isBookmarked ? "This post has been removed from your bookmarks." : "This post has been added to your bookmarks.",
@@ -252,15 +252,15 @@ const BlogPostDetail = () => {
   };
   
   const handleLike = () => {
-    if (isLiked: any) {
-      setLikeCount(likeCount - 1: any);
+    if (isLiked) {
+      setLikeCount(likeCount - 1);
     } else {
-      setLikeCount(likeCount + 1: any);
+      setLikeCount(likeCount + 1);
     }
-    setIsLiked(!isLiked: any);
+    setIsLiked(!isLiked);
   };
   
-  const handleShare = (platform: any) => {
+  const handleShare = (platform: string) => {
     // In a real implementation, this would share to the specified platform
     toast({
       title: `Shared on ${platform}`,
@@ -268,7 +268,7 @@ const BlogPostDetail = () => {
     });
   };
   
-  const handleSubmitComment = (e: any) => {
+  const handleSubmitComment = (e: React.FormEvent) => {
     e.preventDefault();
     if (commentText.trim()) {
       toast({
@@ -276,7 +276,7 @@ const BlogPostDetail = () => {
         description: "Your comment has been submitted for moderation.",
       });
       setCommentText("");
-      setShowCommentForm(false: any);
+      setShowCommentForm(false);
     }
   };
   
@@ -298,7 +298,7 @@ const BlogPostDetail = () => {
           <div className="flex items-centre space-x-2">
             <Avatar>
               <AvatarImage src={blogPost.author.avatar} alt={blogPost.author.name} />
-              <AvatarFallback>{blogPost.author.name.charAt(0: any)}</AvatarFallback>
+              <AvatarFallback>{blogPost.author.name.charAt(0)}</AvatarFallback>
             </Avatar>
             <div>
               <p className="text-sm font-medium">{blogPost.author.name}</p>
@@ -308,7 +308,7 @@ const BlogPostDetail = () => {
           <Separator orientation="vertical" className="h-6" />
           <div className="flex items-centre text-sm text-muted-foreground">
             <Calendar className="h-4 w-4 mr-1" />
-            {new Date(blogPost.publishedAt: any).toLocaleDateString('en-GB', {
+            {new Date(blogPost.publishedAt).toLocaleDateString('en-GB', {
               day: 'numeric',
               month: 'long',
               year: 'numeric'
@@ -327,86 +327,102 @@ const BlogPostDetail = () => {
         </div>
       </div>
       
-      <div className="relative h-[400px] overflow-hidden rounded-lg">
+      <div className="relative">
         <img 
           src={blogPost.image} 
-          alt={blogPost.title} 
-          className="w-full h-full object-cover"
+          alt={blogPost.title}
+          className="w-full h-[400px] object-cover rounded-lg"
         />
+        <div className="absolute bottom-4 right-4 flex space-x-2">
+          <Button variant="secondary" size="sm" onClick={handleBookmark}>
+            {isBookmarked ? <Bookmark className="h-4 w-4 mr-2" /> : <BookmarkPlus className="h-4 w-4 mr-2" />}
+            {isBookmarked ? "Bookmarked" : "Bookmark"}
+          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="secondary" size="sm">
+                <Share2 className="h-4 w-4 mr-2" />
+                Share
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>Share this post</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => handleShare("Twitter")}>
+                <Twitter className="h-4 w-4 mr-2" />
+                Twitter
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleShare("Facebook")}>
+                <Facebook className="h-4 w-4 mr-2" />
+                Facebook
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleShare("LinkedIn")}>
+                <Linkedin className="h-4 w-4 mr-2" />
+                LinkedIn
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleShare("Email")}>
+                <Mail className="h-4 w-4 mr-2" />
+                Email
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => {
+                navigator.clipboard.writeText(window.location.href);
+                toast({
+                  title: "Link copied",
+                  description: "The link has been copied to your clipboard.",
+                });
+              }}>
+                <Copy className="h-4 w-4 mr-2" />
+                Copy link
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleShare("Print")}>
+                <Printer className="h-4 w-4 mr-2" />
+                Print
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
       
-      <div className="flex justify-between items-centre">
-        <div className="flex space-x-4">
+      <div className="flex flex-wrap gap-2">
+        {blogPost.tags.map((tag, index) => (
+          <Badge key={index} variant="secondary">{tag}</Badge>
+        ))}
+      </div>
+      
+      <div className="prose prose-slate max-w-none" dangerouslySetInnerHTML={{ __html: blogPost.content }} />
+      
+      <div className="flex items-centre justify-between border-t border-b py-4">
+        <div className="flex items-centre space-x-4">
           <Button 
-            variant="outline" 
+            variant={isLiked ? "default" : "outline"} 
             size="sm" 
-            className={isLiked ? "text-primary" : ""}
             onClick={handleLike}
+            className="flex items-centre"
           >
-            <ThumbsUp className={`h-4 w-4 mr-2 ${isLiked ? "fill-primary" : ""}`} />
+            <ThumbsUp className={`h-4 w-4 mr-2 ${isLiked ? "fill-white" : ""}`} />
             {likeCount}
           </Button>
           <Button 
             variant="outline" 
-            size="sm"
-            onClick={() => setShowCommentForm(!showCommentForm: any)}
+            size="sm" 
+            onClick={() => setShowCommentForm(!showCommentForm)}
+            className="flex items-centre"
           >
             <MessageSquare className="h-4 w-4 mr-2" />
-            {blogPost.comments}
-          </Button>
-          <Button 
-            variant="outline" 
-            size="sm"
-            onClick={handleBookmark}
-          >
-            {isBookmarked ? (
-              <Bookmark className="h-4 w-4 mr-2 fill-primary" />
-            ) : (
-              <BookmarkPlus className="h-4 w-4 mr-2" />
-            )}
-            Bookmark
+            {blogPost.comments} Comments
           </Button>
         </div>
-        
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="sm">
-              <Share2 className="h-4 w-4 mr-2" />
-              Share
+            <Button variant="ghost" size="sm">
+              <MoreHorizontal className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => handleShare("Twitter")}>
-              <Twitter className="h-4 w-4 mr-2" />
-              Twitter
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleShare("Facebook")}>
-              <Facebook className="h-4 w-4 mr-2" />
-              Facebook
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleShare("LinkedIn")}>
-              <Linkedin className="h-4 w-4 mr-2" />
-              LinkedIn
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => handleShare("Email")}>
-              <Mail className="h-4 w-4 mr-2" />
-              Email
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => {
-              navigator.clipboard.writeText(window.location.href: any);
-              toast({
-                title: "Link copied",
-                description: "The link to this post has been copied to your clipboard.",
-              });
-            }}>
-              <Copy className="h-4 w-4 mr-2" />
-              Copy Link
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => window.print()}>
-              <Printer className="h-4 w-4 mr-2" />
-              Print
+            <DropdownMenuItem onClick={handleReport}>
+              <Flag className="h-4 w-4 mr-2" />
+              Report content
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -415,270 +431,146 @@ const BlogPostDetail = () => {
       {showCommentForm && (
         <Card>
           <CardHeader>
-            <CardTitle>Leave a Comment</CardTitle>
+            <CardTitle>Leave a comment</CardTitle>
             <CardDescription>
-              Share your thoughts on this article. All comments are moderated.
+              Your comment will be reviewed before being published.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmitComment}>
               <Textarea 
-                placeholder="Write your comment here..." 
+                placeholder="Share your thoughts..." 
                 value={commentText}
-                onChange={(e) => setCommentText(e.target.value: any)}
+                onChange={(e) => setCommentText(e.target.value)}
                 className="mb-4"
-                rows={4}
               />
               <div className="flex justify-end space-x-2">
-                <Button 
-                  type="button" 
-                  variant="outline"
-                  onClick={() => setShowCommentForm(false: any)}
-                >
+                <Button variant="outline" type="button" onClick={() => setShowCommentForm(false)}>
                   Cancel
                 </Button>
-                <Button type="submit" disabled={!commentText.trim()}>
-                  Submit Comment
-                </Button>
+                <Button type="submit">Submit</Button>
               </div>
             </form>
           </CardContent>
         </Card>
       )}
       
-      <div className="prose prose-slate max-w-none">
-        <div dangerouslySetInnerHTML={{ __html: blogPost.content }} />
-      </div>
-      
-      <div className="flex flex-wrap gap-2">
-        {blogPost.tags.map((tag: any) => (
-          <Badge key={tag} variant="secondary">
-            {tag}
-          </Badge>
-        ))}
-      </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <h3 className="text-lg font-medium mb-2">Curriculum Areas</h3>
-          <div className="flex flex-wrap gap-2">
-            {blogPost.curriculum.map((area: any) => (
-              <Badge key={area} variant="outline">
-                {area}
-              </Badge>
-            ))}
-          </div>
-        </div>
-        
-        <div>
-          <h3 className="text-lg font-medium mb-2">Age Ranges</h3>
-          <div className="flex flex-wrap gap-2">
-            {blogPost.ageRange.map((range: any) => (
-              <Badge key={range} variant="outline">
-                {range}
-              </Badge>
-            ))}
-          </div>
-        </div>
-      </div>
-      
-      <Separator />
-      
-      <div>
-        <h2 className="text-2xl font-bold mb-4">About the Author</h2>
-        <div className="flex items-start space-x-4">
-          <Avatar className="h-12 w-12">
-            <AvatarImage src={blogPost.author.avatar} alt={blogPost.author.name} />
-            <AvatarFallback>{blogPost.author.name.charAt(0: any)}</AvatarFallback>
-          </Avatar>
-          <div>
-            <h3 className="text-lg font-medium">{blogPost.author.name}</h3>
-            <p className="text-sm text-muted-foreground mb-2">{blogPost.author.role}</p>
-            <p className="text-sm">{blogPost.author.bio}</p>
-          </div>
-        </div>
-      </div>
-      
-      <Separator />
-      
-      <div>
-        <h2 className="text-2xl font-bold mb-4">Comments ({comments.length})</h2>
-        <div className="space-y-6">
-          {comments.map((comment: any) => (
-            <div key={comment.id} className="space-y-4">
-              <div className="flex items-start space-x-4">
-                <Avatar>
-                  <AvatarImage src={comment.author.avatar} alt={comment.author.name} />
-                  <AvatarFallback>{comment.author.name.charAt(0: any)}</AvatarFallback>
-                </Avatar>
-                <div className="flex-1">
-                  <div className="flex items-centre justify-between">
-                    <div>
-                      <h4 className="font-medium">{comment.author.name}</h4>
-                      <p className="text-xs text-muted-foreground">{comment.author.role}</p>
-                    </div>
-                    <div className="flex items-centre">
-                      <p className="text-xs text-muted-foreground">
-                        {new Date(comment.publishedAt: any).toLocaleDateString('en-GB', {
-                          day: 'numeric',
-                          month: 'short',
-                          year: 'numeric'
-                        })}
-                      </p>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="sm" className="h-8 w-8 p-0 ml-2">
-                            <MoreHorizontal className="h-4 w-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem onClick={handleReport}>
-                            <Flag className="h-4 w-4 mr-2" />
-                            Report
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </div>
-                  </div>
-                  <p className="mt-2 text-sm">{comment.content}</p>
-                  <div className="flex items-centre space-x-4 mt-2">
-                    <Button variant="ghost" size="sm" className="h-8 px-2">
-                      <ThumbsUp className="h-3 w-3 mr-1" />
-                      {comment.likes}
-                    </Button>
-                    <Button variant="ghost" size="sm" className="h-8 px-2">
-                      Reply
-                    </Button>
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold">Comments ({comments.length})</h2>
+        {comments.map((comment) => (
+          <Card key={comment.id}>
+            <CardHeader>
+              <div className="flex items-centre justify-between">
+                <div className="flex items-centre space-x-2">
+                  <Avatar>
+                    <AvatarImage src={comment.author.avatar} alt={comment.author.name} />
+                    <AvatarFallback>{comment.author.name.charAt(0)}</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="text-sm font-medium">{comment.author.name}</p>
+                    <p className="text-xs text-muted-foreground">{comment.author.role}</p>
                   </div>
                 </div>
-              </div>
-              
-              {comment.replies && comment.replies.length > 0 && (
-                <div className="ml-12 space-y-4">
-                  {comment.replies.map((reply: any) => (
-                    <div key={reply.id} className="flex items-start space-x-4">
-                      <Avatar className="h-8 w-8">
-                        <AvatarImage src={reply.author.avatar} alt={reply.author.name} />
-                        <AvatarFallback>{reply.author.name.charAt(0: any)}</AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1">
-                        <div className="flex items-centre justify-between">
-                          <div>
-                            <h4 className="font-medium text-sm">{reply.author.name}</h4>
-                            <p className="text-xs text-muted-foreground">{reply.author.role}</p>
-                          </div>
-                          <div className="flex items-centre">
-                            <p className="text-xs text-muted-foreground">
-                              {new Date(reply.publishedAt: any).toLocaleDateString('en-GB', {
-                                day: 'numeric',
-                                month: 'short',
-                                year: 'numeric'
-                              })}
-                            </p>
-                            <DropdownMenu>
-                              <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" size="sm" className="h-8 w-8 p-0 ml-2">
-                                  <MoreHorizontal className="h-4 w-4" />
-                                </Button>
-                              </DropdownMenuTrigger>
-                              <DropdownMenuContent align="end">
-                                <DropdownMenuItem onClick={handleReport}>
-                                  <Flag className="h-4 w-4 mr-2" />
-                                  Report
-                                </DropdownMenuItem>
-                              </DropdownMenuContent>
-                            </DropdownMenu>
-                          </div>
-                        </div>
-                        <p className="mt-2 text-sm">{reply.content}</p>
-                        <div className="flex items-centre space-x-4 mt-2">
-                          <Button variant="ghost" size="sm" className="h-8 px-2">
-                            <ThumbsUp className="h-3 w-3 mr-1" />
-                            {reply.likes}
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-        
-        <div className="mt-6">
-          <Button 
-            variant="outline" 
-            className="w-full"
-            onClick={() => setShowCommentForm(!showCommentForm: any)}
-          >
-            {showCommentForm ? "Cancel" : "Add a Comment"}
-          </Button>
-        </div>
-      </div>
-      
-      <Separator />
-      
-      <div>
-        <h2 className="text-2xl font-bold mb-4">Related Articles</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {blogPost.relatedPosts.map((post: any) => (
-            <Card key={post.id} className="overflow-hidden">
-              <div className="h-48 overflow-hidden">
-                <img 
-                  src={post.image} 
-                  alt={post.title} 
-                  className="w-full h-full object-cover transition-transform hover:scale-105"
-                />
-              </div>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg line-clamp-2">
-                  <a href={`/blog/post/${post.id}`} className="hover:underline">
-                    {post.title}
-                  </a>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground line-clamp-3">
-                  {post.excerpt}
-                </p>
-              </CardContent>
-              <CardFooter className="flex justify-between pt-0">
-                <p className="text-sm">{post.author}</p>
                 <p className="text-xs text-muted-foreground">
-                  {new Date(post.publishedAt).toLocaleDateString('en-GB', {
+                  {new Date(comment.publishedAt).toLocaleDateString('en-GB', {
                     day: 'numeric',
                     month: 'short',
                     year: 'numeric'
                   })}
                 </p>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p>{comment.content}</p>
+            </CardContent>
+            <CardFooter className="flex justify-between">
+              <Button variant="ghost" size="sm">
+                <ThumbsUp className="h-4 w-4 mr-2" />
+                {comment.likes}
+              </Button>
+              <Button variant="ghost" size="sm">
+                Reply
+              </Button>
+            </CardFooter>
+            {comment.replies.length > 0 && (
+              <div className="ml-12 space-y-4 px-6 pb-6">
+                {comment.replies.map((reply) => (
+                  <Card key={reply.id}>
+                    <CardHeader>
+                      <div className="flex items-centre justify-between">
+                        <div className="flex items-centre space-x-2">
+                          <Avatar>
+                            <AvatarImage src={reply.author.avatar} alt={reply.author.name} />
+                            <AvatarFallback>{reply.author.name.charAt(0)}</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <p className="text-sm font-medium">{reply.author.name}</p>
+                            <p className="text-xs text-muted-foreground">{reply.author.role}</p>
+                          </div>
+                        </div>
+                        <p className="text-xs text-muted-foreground">
+                          {new Date(reply.publishedAt).toLocaleDateString('en-GB', {
+                            day: 'numeric',
+                            month: 'short',
+                            year: 'numeric'
+                          })}
+                        </p>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p>{reply.content}</p>
+                    </CardContent>
+                    <CardFooter>
+                      <Button variant="ghost" size="sm">
+                        <ThumbsUp className="h-4 w-4 mr-2" />
+                        {reply.likes}
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </Card>
+        ))}
+      </div>
+      
+      <div>
+        <h2 className="text-2xl font-bold mb-4">Related Posts</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {blogPost.relatedPosts.map((post) => (
+            <Card key={post.id}>
+              <img 
+                src={post.image} 
+                alt={post.title}
+                className="w-full h-40 object-cover"
+              />
+              <CardHeader>
+                <CardTitle className="text-lg">{post.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">{post.excerpt}</p>
+              </CardContent>
+              <CardFooter className="flex justify-between">
+                <p className="text-xs text-muted-foreground">{post.author}</p>
+                <p className="text-xs text-muted-foreground">{post.publishedAt}</p>
               </CardFooter>
             </Card>
           ))}
         </div>
       </div>
       
-      <div className="flex justify-between items-centre">
-        <Button variant="outline">
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          Back to Blog
-        </Button>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="sm">
-              <AlertTriangle className="h-4 w-4 mr-2" />
-              Report
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Report Content</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleReport}>Inaccurate Information</DropdownMenuItem>
-            <DropdownMenuItem onClick={handleReport}>Copyright Violation</DropdownMenuItem>
-            <DropdownMenuItem onClick={handleReport}>Inappropriate Content</DropdownMenuItem>
-            <DropdownMenuItem onClick={handleReport}>Other Issue</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+      <div className="border-t pt-8">
+        <div className="flex items-centre space-x-4">
+          <Avatar className="h-16 w-16">
+            <AvatarImage src={blogPost.author.avatar} alt={blogPost.author.name} />
+            <AvatarFallback>{blogPost.author.name.charAt(0)}</AvatarFallback>
+          </Avatar>
+          <div>
+            <h3 className="text-lg font-bold">{blogPost.author.name}</h3>
+            <p className="text-sm text-muted-foreground">{blogPost.author.role}</p>
+            <p className="mt-2">{blogPost.author.bio}</p>
+          </div>
+        </div>
       </div>
     </div>
   );
