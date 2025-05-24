@@ -3,6 +3,31 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 
+interface AccessibilitySettings {
+  textSize: number;
+  lineSpacing: number;
+  highContrastMode: boolean;
+  contrastMode?: string;
+  contrastLevel?: number;
+  reduceAnimations?: boolean;
+  customTextColor?: string;
+  customBackgroundColor?: string;
+  customLinkColor?: string;
+  screenReaderOptimized: boolean;
+  dyslexiaFriendly: boolean;
+  dyslexiaFont: string;
+  voiceInputEnabled: boolean;
+  voiceCommandsEnabled: boolean;
+  keyboardNavigationOptimized: boolean;
+  focusIndicators: boolean;
+  reduceMotion: boolean;
+  colorBlindnessType?: string;
+}
+
+interface RequestBody {
+  settings: Partial<AccessibilitySettings>;
+}
+
 /**
  * API endpoint for accessibility settings
  * 
@@ -14,7 +39,7 @@ export async function GET(req: NextRequest) {
   try {
     // Verify authentication
     const session = await getServerSession(authOptions);
-    if (!session) {
+    if (!session || !session.user || !session.user.id) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -37,7 +62,7 @@ export async function GET(req: NextRequest) {
         highContrastMode: false,
         dyslexiaFont: "opendyslexic",
         dyslexiaFriendly: false,
-        reducedMotion: false,
+        reduceMotion: false,
         voiceInputEnabled: false,
         voiceCommandsEnabled: false,
         screenReaderOptimized: false,
@@ -58,7 +83,7 @@ export async function POST(req: NextRequest) {
   try {
     // Verify authentication
     const session = await getServerSession(authOptions);
-    if (!session) {
+    if (!session || !session.user || !session.user.id) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -66,7 +91,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Parse request body
-    const body = await req.json();
+    const body = await req.json() as RequestBody;
     const { settings } = body;
 
     if (!settings) {
@@ -78,7 +103,7 @@ export async function POST(req: NextRequest) {
 
     // Validate settings - ensure types match schema definitions
     // Only include fields that exist in the AccessibilitySettings model
-    const validatedSettings = {
+    const validatedSettings: Partial<AccessibilitySettings> = {
       textSize: Number(settings.textSize) || 100,
       lineSpacing: Number(settings.lineSpacing) || 150,
       highContrastMode: Boolean(settings.highContrastMode),
