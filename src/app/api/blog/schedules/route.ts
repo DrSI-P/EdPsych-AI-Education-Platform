@@ -19,8 +19,14 @@ const blogContentScheduleSchema = z.object({
   isActive: z.boolean().default(true),
 });
 
+// Define interface for schedule update data
+interface ScheduleUpdateData {
+  id: string;
+  [key: string]: unknown;
+}
+
 // GET handler for retrieving blog content schedules
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     // Verify authentication
     const session = await getServerSession(authOptions);
@@ -80,6 +86,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(schedules);
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error fetching blog content schedules:', error);
     return NextResponse.json(
       { error: 'Failed to fetch blog content schedules' },
@@ -89,7 +96,7 @@ export async function GET(req: NextRequest) {
 }
 
 // POST handler for creating a new blog content schedule
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     // Verify authentication
     const session = await getServerSession(authOptions);
@@ -158,6 +165,7 @@ export async function POST(req: NextRequest) {
       schedule,
     });
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error creating blog content schedule:', error);
     return NextResponse.json(
       { error: 'Failed to create blog content schedule' },
@@ -167,7 +175,7 @@ export async function POST(req: NextRequest) {
 }
 
 // PUT handler for updating a blog content schedule
-export async function PUT(req: NextRequest) {
+export async function PUT(req: NextRequest): Promise<NextResponse> {
   try {
     // Verify authentication
     const session = await getServerSession(authOptions);
@@ -187,7 +195,7 @@ export async function PUT(req: NextRequest) {
     }
 
     // Parse request body
-    const body = await req.json();
+    const body = await req.json() as ScheduleUpdateData;
     const { id, ...updateData } = body;
 
     if (!id) {
@@ -239,6 +247,7 @@ export async function PUT(req: NextRequest) {
       schedule: updatedSchedule,
     });
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error updating blog content schedule:', error);
     return NextResponse.json(
       { error: 'Failed to update blog content schedule' },
@@ -248,7 +257,7 @@ export async function PUT(req: NextRequest) {
 }
 
 // DELETE handler for deleting a blog content schedule
-export async function DELETE(req: NextRequest) {
+export async function DELETE(req: NextRequest): Promise<NextResponse> {
   try {
     // Verify authentication
     const session = await getServerSession(authOptions);
@@ -299,6 +308,7 @@ export async function DELETE(req: NextRequest) {
       message: 'Schedule deleted successfully',
     });
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error deleting blog content schedule:', error);
     return NextResponse.json(
       { error: 'Failed to delete blog content schedule' },
