@@ -1,25 +1,8 @@
 // @ts-check
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import ResponsiveLayout from '../../components/layouts/ResponsiveLayout';
-
-// Mock the useRouter hook
-vi.mock('next/navigation', () => ({
-  useRouter: () => ({
-    push: vi.fn(),
-    pathname: '/test-path',
-  }),
-}));
-
-// Mock the useMediaQuery hook
-vi.mock('@/hooks/useMediaQuery', () => ({
-  useMediaQuery: vi.fn().mockImplementation((query) => {
-    if (query === '(max-width: 768px)') return true;
-    if (query === '(max-width: 1024px)') return true;
-    return false;
-  }),
-}));
 
 describe('ResponsiveLayout Component', () => {
   it('renders responsive layout correctly', () => {
@@ -37,11 +20,13 @@ describe('ResponsiveLayout Component', () => {
   });
 
   it('applies mobile styles when on small screens', () => {
-    const { useMediaQuery } = require('@/hooks/useMediaQuery');
-    useMediaQuery.mockImplementation((query) => {
-      if (query === '(max-width: 768px)') return true;
-      return false;
-    });
+    // Mock the media query
+    vi.mock('@/hooks/useMediaQuery', () => ({
+      useMediaQuery: vi.fn().mockImplementation((query) => {
+        if (query === '(max-width: 768px)') return true;
+        return false;
+      })
+    }));
     
     render(
       <ResponsiveLayout>
@@ -54,12 +39,14 @@ describe('ResponsiveLayout Component', () => {
   });
 
   it('applies tablet styles when on medium screens', () => {
-    const { useMediaQuery } = require('@/hooks/useMediaQuery');
-    useMediaQuery.mockImplementation((query) => {
-      if (query === '(max-width: 768px)') return false;
-      if (query === '(max-width: 1024px)') return true;
-      return false;
-    });
+    // Mock the media query
+    vi.mock('@/hooks/useMediaQuery', () => ({
+      useMediaQuery: vi.fn().mockImplementation((query) => {
+        if (query === '(max-width: 768px)') return false;
+        if (query === '(max-width: 1024px)') return true;
+        return false;
+      })
+    }));
     
     render(
       <ResponsiveLayout>
@@ -72,10 +59,12 @@ describe('ResponsiveLayout Component', () => {
   });
 
   it('applies desktop styles when on large screens', () => {
-    const { useMediaQuery } = require('@/hooks/useMediaQuery');
-    useMediaQuery.mockImplementation((query) => {
-      return false; // No media queries match (large screen)
-    });
+    // Mock the media query
+    vi.mock('@/hooks/useMediaQuery', () => ({
+      useMediaQuery: vi.fn().mockImplementation(() => {
+        return false; // No media queries match (large screen)
+      })
+    }));
     
     render(
       <ResponsiveLayout>
@@ -99,11 +88,13 @@ describe('ResponsiveLayout Component', () => {
   });
 
   it('toggles mobile menu when hamburger icon is clicked', async () => {
-    const { useMediaQuery } = require('@/hooks/useMediaQuery');
-    useMediaQuery.mockImplementation((query) => {
-      if (query === '(max-width: 768px)') return true;
-      return false;
-    });
+    // Mock the media query
+    vi.mock('@/hooks/useMediaQuery', () => ({
+      useMediaQuery: vi.fn().mockImplementation((query) => {
+        if (query === '(max-width: 768px)') return true;
+        return false;
+      })
+    }));
     
     render(
       <ResponsiveLayout>
@@ -131,12 +122,14 @@ describe('ResponsiveLayout Component', () => {
   });
 
   it('handles orientation changes correctly', async () => {
-    const { useMediaQuery } = require('@/hooks/useMediaQuery');
-    useMediaQuery.mockImplementation((query) => {
-      if (query === '(max-width: 768px)') return true;
-      if (query === '(orientation: landscape)') return false;
-      return false;
-    });
+    // Mock the media query
+    vi.mock('@/hooks/useMediaQuery', () => ({
+      useMediaQuery: vi.fn().mockImplementation((query) => {
+        if (query === '(max-width: 768px)') return true;
+        if (query === '(orientation: landscape)') return false;
+        return false;
+      })
+    }));
     
     render(
       <ResponsiveLayout>
@@ -148,11 +141,13 @@ describe('ResponsiveLayout Component', () => {
     expect(screen.getByTestId('responsive-container')).toHaveClass('portrait');
     
     // Change orientation to landscape
-    useMediaQuery.mockImplementation((query) => {
-      if (query === '(max-width: 768px)') return true;
-      if (query === '(orientation: landscape)') return true;
-      return false;
-    });
+    vi.mock('@/hooks/useMediaQuery', () => ({
+      useMediaQuery: vi.fn().mockImplementation((query) => {
+        if (query === '(max-width: 768px)') return true;
+        if (query === '(orientation: landscape)') return true;
+        return false;
+      })
+    }));
     
     // Trigger re-render
     fireEvent(window, new Event('resize'));
@@ -164,13 +159,13 @@ describe('ResponsiveLayout Component', () => {
   });
 
   it('adapts content layout based on screen size', () => {
-    const { useMediaQuery } = require('@/hooks/useMediaQuery');
-    
-    // Test with mobile view
-    useMediaQuery.mockImplementation((query) => {
-      if (query === '(max-width: 768px)') return true;
-      return false;
-    });
+    // Mock the media query for mobile view
+    vi.mock('@/hooks/useMediaQuery', () => ({
+      useMediaQuery: vi.fn().mockImplementation((query) => {
+        if (query === '(max-width: 768px)') return true;
+        return false;
+      })
+    }));
     
     const { rerender } = render(
       <ResponsiveLayout>
@@ -182,9 +177,11 @@ describe('ResponsiveLayout Component', () => {
     expect(screen.getByTestId('content-wrapper')).toHaveClass('mobile-layout');
     
     // Change to desktop view
-    useMediaQuery.mockImplementation((query) => {
-      return false; // No media queries match (large screen)
-    });
+    vi.mock('@/hooks/useMediaQuery', () => ({
+      useMediaQuery: vi.fn().mockImplementation(() => {
+        return false; // No media queries match (large screen)
+      })
+    }));
     
     // Re-render with same props
     rerender(

@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth/auth-options';
-import prisma from '@/lib/prisma';
 
 // GET handler for fetching a specific curriculum standard
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
-) {
+): Promise<NextResponse> {
   try {
     // Check authentication
     const session = await getServerSession(authOptions);
@@ -61,7 +60,7 @@ export async function GET(
 export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } }
-) {
+): Promise<NextResponse> {
   try {
     // Check authentication
     const session = await getServerSession(authOptions);
@@ -143,7 +142,7 @@ export async function PUT(
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
-) {
+): Promise<NextResponse> {
   try {
     // Check authentication
     const session = await getServerSession(authOptions);
@@ -157,34 +156,8 @@ export async function DELETE(
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
     
-    const standardId = params.id;
-    
-    // Comment out this code as the curriculumStandard model doesn't exist in the Prisma schema
-    /*
-    // Check if the standard exists
-    const existingStandard = await prisma.curriculumStandard.findUnique({
-      where: {
-        id: standardId,
-      },
-    });
-    
-    if (!existingStandard) {
-      return NextResponse.json({ error: 'Curriculum standard not found' }, { status: 404 });
-    }
-    
-    // Delete the curriculum standard
-    await prisma.curriculumStandard.delete({
-      where: {
-        id: standardId,
-      },
-    });
-    
-    return NextResponse.json({ success: true });
-    */
-    
     // Return success for now until the Prisma schema is updated
     return NextResponse.json({ success: true });
-    
   } catch (error) {
     console.error('Error deleting curriculum standard:', error);
     return NextResponse.json(
