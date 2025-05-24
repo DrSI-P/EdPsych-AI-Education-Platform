@@ -47,7 +47,56 @@ const evidenceSchema = z.object({
   userId: z.string()
 });
 
-export async function POST(req: NextRequest) {
+// Define interfaces for request data
+interface CPDActivityData {
+  userId: string;
+  title: string;
+  type: string;
+  provider?: string;
+  date: string;
+  duration: number;
+  points: number;
+  categories: number[];
+  standards: number[];
+  status: 'Planned' | 'In Progress' | 'Completed';
+  evidence?: string;
+  reflection?: string;
+}
+
+interface CPDGoalData {
+  userId: string;
+  title: string;
+  description?: string;
+  targetPoints: number;
+  categories: number[];
+  standards: number[];
+  deadline: string;
+}
+
+interface CPDReflectionData {
+  userId: string;
+  activityId: string;
+  content: string;
+  impactRating?: number;
+  nextSteps?: string;
+}
+
+interface CPDEvidenceData {
+  userId: string;
+  activityId: string;
+  title: string;
+  fileUrl: string;
+  fileType: string;
+}
+
+interface ReportRequestData {
+  userId: string;
+  startDate?: string;
+  endDate?: string;
+  format?: string;
+}
+
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const body = await req.json();
     const { action } = body;
@@ -82,7 +131,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-async function handleCreateActivity(body: any) {
+async function handleCreateActivity(body: CPDActivityData): Promise<NextResponse> {
   try {
     const { userId, ...activityData } = cpdActivitySchema.parse(body);
 
@@ -110,7 +159,7 @@ async function handleCreateActivity(body: any) {
   }
 }
 
-async function handleUpdateActivity(body: any) {
+async function handleUpdateActivity(body: CPDActivityData & { id: string }): Promise<NextResponse> {
   try {
     const { id, userId, ...activityData } = body;
 
@@ -162,7 +211,7 @@ async function handleUpdateActivity(body: any) {
   }
 }
 
-async function handleCreateGoal(body: any) {
+async function handleCreateGoal(body: CPDGoalData): Promise<NextResponse> {
   try {
     const { userId, ...goalData } = cpdGoalSchema.parse(body);
 
@@ -190,7 +239,7 @@ async function handleCreateGoal(body: any) {
   }
 }
 
-async function handleUpdateGoal(body: any) {
+async function handleUpdateGoal(body: CPDGoalData & { id: string }): Promise<NextResponse> {
   try {
     const { id, userId, ...goalData } = body;
 
@@ -242,7 +291,7 @@ async function handleUpdateGoal(body: any) {
   }
 }
 
-async function handleAddReflection(body: any) {
+async function handleAddReflection(body: CPDReflectionData): Promise<NextResponse> {
   try {
     const { activityId, userId, content, impactRating, nextSteps } = cpdReflectionSchema.parse(body);
 
@@ -312,7 +361,7 @@ async function handleAddReflection(body: any) {
   }
 }
 
-async function handleAddEvidence(body: any) {
+async function handleAddEvidence(body: CPDEvidenceData): Promise<NextResponse> {
   try {
     const { activityId, userId, title, fileUrl, fileType } = evidenceSchema.parse(body);
 
@@ -357,7 +406,7 @@ async function handleAddEvidence(body: any) {
   }
 }
 
-async function handleGenerateReport(body: any) {
+async function handleGenerateReport(body: ReportRequestData): Promise<NextResponse> {
   try {
     const { userId, startDate, endDate, format } = body;
 
@@ -387,7 +436,7 @@ async function handleGenerateReport(body: any) {
     });
 
     // Calculate total points
-    const totalPoints = activities.reduce((sum: number, activity: any) => {
+    const totalPoints = activities.reduce((sum: number, activity) => {
       if (activity.status === 'Completed') {
         return sum + activity.points;
       }
@@ -399,8 +448,8 @@ async function handleGenerateReport(body: any) {
       user: await prisma.user.findUnique({ where: { id: userId } }),
       activities,
       totalPoints,
-      totalHours: activities.reduce((sum: number, activity: any) => sum + activity.duration, 0),
-      completedActivities: activities.filter((a: any) => a.status === 'Completed').length,
+      totalHours: activities.reduce((sum: number, activity) => sum + activity.duration, 0),
+      completedActivities: activities.filter(a => a.status === 'Completed').length,
       generatedAt: new Date(),
       period: {
         start: startDate ? new Date(startDate) : undefined,
@@ -423,7 +472,7 @@ async function handleGenerateReport(body: any) {
   }
 }
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     const url = new URL(req.url);
     const userId = url.searchParams.get('userId');
@@ -480,7 +529,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-async function getUserActivities(userId: string, startDate: string | null, endDate: string | null) {
+async function getUserActivities(userId: string, startDate: string | null, endDate: string | null): Promise<NextResponse> {
   const activities = await prisma.cPDActivity.findMany({
     where: {
       userId,
@@ -497,7 +546,7 @@ async function getUserActivities(userId: string, startDate: string | null, endDa
   return NextResponse.json({ activities }, { status: 200 });
 }
 
-async function getActivityDetails(activityId: string, userId: string) {
+async function getActivityDetails(activityId: string, userId: string): Promise<NextResponse> {
   const activity = await prisma.cPDActivity.findFirst({
     where: {
       id: activityId,
@@ -519,7 +568,7 @@ async function getActivityDetails(activityId: string, userId: string) {
   return NextResponse.json({ activity }, { status: 200 });
 }
 
-async function getUserGoals(userId: string) {
+async function getUserGoals(userId: string): Promise<NextResponse> {
   const goals = await prisma.cPDGoal.findMany({
     where: {
       userId,
@@ -532,7 +581,7 @@ async function getUserGoals(userId: string) {
   return NextResponse.json({ goals }, { status: 200 });
 }
 
-async function getGoalDetails(goalId: string, userId: string) {
+async function getGoalDetails(goalId: string, userId: string): Promise<NextResponse> {
   const goal = await prisma.cPDGoal.findFirst({
     where: {
       id: goalId,
@@ -570,8 +619,8 @@ async function getGoalDetails(goalId: string, userId: string) {
   });
 
   // Calculate progress towards goal
-  const completedActivities = relatedActivities.filter((a: any) => a.status === 'Completed');
-  const pointsAchieved = completedActivities.reduce((sum: number, activity: any) => sum + activity.points, 0);
+  const completedActivities = relatedActivities.filter(a => a.status === 'Completed');
+  const pointsAchieved = completedActivities.reduce((sum: number, activity) => sum + activity.points, 0);
   const progressPercentage = Math.min(100, (pointsAchieved / goal.targetPoints) * 100);
 
   return NextResponse.json({ 
@@ -587,7 +636,7 @@ async function getGoalDetails(goalId: string, userId: string) {
   }, { status: 200 });
 }
 
-async function getUserAnalytics(userId: string, startDate: string | null, endDate: string | null) {
+async function getUserAnalytics(userId: string, startDate: string | null, endDate: string | null): Promise<NextResponse> {
   // Fetch all user's CPD activities
   const activities = await prisma.cPDActivity.findMany({
     where: {
@@ -601,18 +650,18 @@ async function getUserAnalytics(userId: string, startDate: string | null, endDat
 
   // Calculate total points and hours
   const totalPoints = activities
-    .filter((a: any) => a.status === 'Completed')
-    .reduce((sum: number, activity: any) => sum + activity.points, 0);
+    .filter(a => a.status === 'Completed')
+    .reduce((sum: number, activity) => sum + activity.points, 0);
   
   const totalHours = activities
-    .filter((a: any) => a.status === 'Completed')
-    .reduce((sum: number, activity: any) => sum + activity.duration, 0);
+    .filter(a => a.status === 'Completed')
+    .reduce((sum: number, activity) => sum + activity.duration, 0);
 
   // Calculate points by category
   const categoryPoints: Record<number, number> = {};
   activities
-    .filter((a: any) => a.status === 'Completed')
-    .forEach((activity: any) => {
+    .filter(a => a.status === 'Completed')
+    .forEach(activity => {
       activity.categories.forEach((categoryId: number) => {
         if (!categoryPoints[categoryId]) {
           categoryPoints[categoryId] = 0;
@@ -624,8 +673,8 @@ async function getUserAnalytics(userId: string, startDate: string | null, endDat
   // Calculate points by standard
   const standardPoints: Record<number, number> = {};
   activities
-    .filter((a: any) => a.status === 'Completed')
-    .forEach((activity: any) => {
+    .filter(a => a.status === 'Completed')
+    .forEach(activity => {
       activity.standards.forEach((standardId: number) => {
         if (!standardPoints[standardId]) {
           standardPoints[standardId] = 0;
@@ -634,115 +683,105 @@ async function getUserAnalytics(userId: string, startDate: string | null, endDat
       });
     });
 
-  // Calculate points by month
-  const monthlyPoints: Record<string, number> = {};
-  activities
-    .filter((a: any) => a.status === 'Completed')
-    .forEach((activity: any) => {
-      const month = new Date(activity.date).toISOString().substring(0, 7); // YYYY-MM format
-      if (!monthlyPoints[month]) {
-        monthlyPoints[month] = 0;
-      }
-      monthlyPoints[month] += activity.points;
-    });
-
-  // Calculate activity type distribution
-  const activityTypes: Record<string, number> = {};
-  activities.forEach((activity: any) => {
-    if (!activityTypes[activity.type]) {
-      activityTypes[activity.type] = 0;
-    }
-    activityTypes[activity.type]++;
-  });
+  // Calculate activity completion rate
+  const completionRate = activities.length > 0 
+    ? (activities.filter(a => a.status === 'Completed').length / activities.length) * 100 
+    : 0;
 
   return NextResponse.json({
     analytics: {
       totalPoints,
       totalHours,
-      completedActivities: activities.filter((a: any) => a.status === 'Completed').length,
-      plannedActivities: activities.filter((a: any) => a.status === 'Planned').length,
-      inProgressActivities: activities.filter((a: any) => a.status === 'In Progress').length,
+      totalActivities: activities.length,
+      completedActivities: activities.filter(a => a.status === 'Completed').length,
+      plannedActivities: activities.filter(a => a.status === 'Planned').length,
+      inProgressActivities: activities.filter(a => a.status === 'In Progress').length,
+      completionRate,
       categoryPoints,
       standardPoints,
-      monthlyPoints,
-      activityTypes,
+      period: {
+        start: startDate ? new Date(startDate) : undefined,
+        end: endDate ? new Date(endDate) : undefined,
+      },
     }
   }, { status: 200 });
 }
 
-async function getUserRecommendations(userId: string) {
-  // Fetch user's CPD activities
-  const activities = await prisma.cPDActivity.findMany({
+async function getUserRecommendations(userId: string): Promise<NextResponse> {
+  // Fetch user's completed activities to analyze patterns
+  const completedActivities = await prisma.cPDActivity.findMany({
     where: {
       userId,
+      status: 'Completed',
+    },
+    orderBy: {
+      date: 'desc',
+    },
+    take: 20, // Consider recent activities for recommendations
+  });
+
+  // Fetch user's goals to align recommendations
+  const goals = await prisma.cPDGoal.findMany({
+    where: {
+      userId,
+      deadline: {
+        gte: new Date(), // Only consider active goals
+      },
     },
   });
 
-  // Calculate points by category
-  const categoryPoints: Record<number, number> = {};
-  activities
-    .filter((a: any) => a.status === 'Completed')
-    .forEach((activity: any) => {
-      activity.categories.forEach((categoryId: number) => {
-        if (!categoryPoints[categoryId]) {
-          categoryPoints[categoryId] = 0;
-        }
-        categoryPoints[categoryId] += activity.points;
-      });
-    });
+  // Extract categories and standards the user has focused on
+  const focusedCategories = new Set<number>();
+  const focusedStandards = new Set<number>();
 
-  // Calculate points by standard
-  const standardPoints: Record<number, number> = {};
-  activities
-    .filter((a: any) => a.status === 'Completed')
-    .forEach((activity: any) => {
-      activity.standards.forEach((standardId: number) => {
-        if (!standardPoints[standardId]) {
-          standardPoints[standardId] = 0;
-        }
-        standardPoints[standardId] += activity.points;
-      });
-    });
+  completedActivities.forEach(activity => {
+    activity.categories.forEach(categoryId => focusedCategories.add(categoryId));
+    activity.standards.forEach(standardId => focusedStandards.add(standardId));
+  });
 
-  // Identify gaps in categories and standards
-  // In a real implementation, this would fetch all available categories and standards
-  // For now, we'll use placeholder data
-  const allCategories = [1, 2, 3, 4, 5, 6, 7, 8];
-  const allStandards = [1, 2, 3, 4, 5, 6, 7, 8];
+  // Extract categories and standards from goals
+  const goalCategories = new Set<number>();
+  const goalStandards = new Set<number>();
 
-  const categoryGaps = allCategories.filter(id => !categoryPoints[id] || categoryPoints[id] < 5);
-  const standardGaps = allStandards.filter(id => !standardPoints[id] || standardPoints[id] < 5);
+  goals.forEach(goal => {
+    goal.categories.forEach(categoryId => goalCategories.add(categoryId));
+    goal.standards.forEach(standardId => goalStandards.add(standardId));
+  });
 
-  // In a real implementation, this would fetch actual course recommendations
-  // For now, we'll return placeholder recommendations
+  // In a real implementation, this would query a recommendation engine
+  // For now, we'll return some placeholder recommendations
   const recommendations = [
     {
-      id: 1,
-      title: "Digital Assessment Strategies",
-      type: "Webinar",
-      provider: "EdTech Learning",
-      duration: 1.5,
-      points: 1.5,
-      categories: [3, 8],
-      description: "Learn effective strategies for implementing digital assessment tools in your classroom."
+      type: 'course',
+      title: 'Advanced Teaching Strategies',
+      description: 'Enhance your teaching skills with this comprehensive course.',
+      points: 10,
+      duration: 8,
+      relevance: 'high',
+      categories: Array.from(focusedCategories).slice(0, 2),
+      standards: Array.from(focusedStandards).slice(0, 2),
     },
     {
-      id: 2,
-      title: "Behaviour Management for Secondary",
-      type: "Course",
-      provider: "Behaviour Support Network",
-      duration: 3,
+      type: 'webinar',
+      title: 'Educational Psychology in Practice',
+      description: 'Learn how to apply psychological principles in educational settings.',
+      points: 5,
+      duration: 2,
+      relevance: 'medium',
+      categories: Array.from(goalCategories).slice(0, 2),
+      standards: Array.from(goalStandards).slice(0, 2),
+    },
+    {
+      type: 'reading',
+      title: 'Latest Research in Learning Disabilities',
+      description: 'Stay up-to-date with the latest research and findings.',
       points: 3,
-      categories: [4],
-      description: "Practical techniques for effective behaviour management in secondary classrooms."
-    }
+      duration: 1.5,
+      relevance: 'high',
+      categories: Array.from(focusedCategories).slice(0, 1),
+      standards: Array.from(focusedStandards).slice(0, 1),
+    },
   ];
 
-  return NextResponse.json({
-    recommendations,
-    gaps: {
-      categories: categoryGaps,
-      standards: standardGaps,
-    }
-  }, { status: 200 });
+  return NextResponse.json({ recommendations }, { status: 200 });
 }
