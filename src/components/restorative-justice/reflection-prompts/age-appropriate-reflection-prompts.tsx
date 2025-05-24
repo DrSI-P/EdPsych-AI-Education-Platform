@@ -54,6 +54,20 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
+// Define types for prompts
+interface ReflectionPrompt {
+  id: string;
+  title: string;
+  description: string;
+  ageGroup: string;
+  category: string;
+  promptText: string;
+  supportingQuestions: string[];
+  visualSupports: boolean;
+  simplifiedLanguage: boolean;
+  visualAids?: string[];
+}
+
 /**
  * Age-Appropriate Reflection Prompts Component
  * 
@@ -71,8 +85,9 @@ const AgeAppropriateReflectionPrompts = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("browse");
-  const [selectedPrompt, setSelectedPrompt] = useState(null);
-  const [customPrompt, setCustomPrompt] = useState({
+  const [selectedPrompt, setSelectedPrompt] = useState<ReflectionPrompt | null>(null);
+  const [customPrompt, setCustomPrompt] = useState<ReflectionPrompt>({
+    id: "",
     title: "",
     description: "",
     ageGroup: "",
@@ -82,14 +97,14 @@ const AgeAppropriateReflectionPrompts = () => {
     visualSupports: false,
     simplifiedLanguage: false
   });
-  const [savedPrompts, setSavedPrompts] = useState([]);
+  const [savedPrompts, setSavedPrompts] = useState<ReflectionPrompt[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterAgeGroup, setFilterAgeGroup] = useState("all");
   const [filterCategory, setFilterCategory] = useState("all");
 
   // Predefined reflection prompts based on restorative justice research and developmental psychology
-  const predefinedPrompts = [
+  const predefinedPrompts: ReflectionPrompt[] = [
     // Early Years (3-5)
     {
       id: "early-1",
@@ -389,13 +404,13 @@ const AgeAppropriateReflectionPrompts = () => {
   });
 
   // Handle prompt selection
-  const handleSelectPrompt = (prompt) => {
+  const handleSelectPrompt = (prompt: ReflectionPrompt) => {
     setSelectedPrompt(prompt);
     setActiveTab("view");
   };
 
   // Handle custom prompt changes
-  const handleCustomPromptChange = (field, value) => {
+  const handleCustomPromptChange = (field: keyof ReflectionPrompt, value: string | boolean | string[]) => {
     setCustomPrompt(prev => ({
       ...prev,
       [field]: value
@@ -411,7 +426,7 @@ const AgeAppropriateReflectionPrompts = () => {
   };
 
   // Handle supporting question changes
-  const handleQuestionChange = (index, value) => {
+  const handleQuestionChange = (index: number, value: string) => {
     setCustomPrompt(prev => {
       const updatedQuestions = [...prev.supportingQuestions];
       updatedQuestions[index] = value;
@@ -423,7 +438,7 @@ const AgeAppropriateReflectionPrompts = () => {
   };
 
   // Remove a supporting question
-  const removeQuestion = (index) => {
+  const removeQuestion = (index: number) => {
     setCustomPrompt(prev => {
       const updatedQuestions = [...prev.supportingQuestions];
       updatedQuestions.splice(index, 1);
@@ -453,13 +468,15 @@ const AgeAppropriateReflectionPrompts = () => {
 
     setSavedPrompts(prev => {
       const updated = [...prev, newPrompt];
-      // In a real implementation, this would save to an API
+      // Save to localStorage
       localStorage.setItem('savedReflectionPrompts', JSON.stringify(updated));
       return updated;
     });
 
-    toast.success('Reflection prompt saved successfully');
+    toast.success('Prompt saved successfully');
+    setActiveTab("browse");
     setCustomPrompt({
+      id: "",
       title: "",
       description: "",
       ageGroup: "",
@@ -469,510 +486,470 @@ const AgeAppropriateReflectionPrompts = () => {
       visualSupports: false,
       simplifiedLanguage: false
     });
-    setActiveTab("browse");
   };
 
-  // Export prompt as PDF
-  const exportPromptAsPDF = () => {
+  // Download prompt as PDF
+  const downloadPromptPDF = () => {
     if (!selectedPrompt) return;
     
+    toast.success('Downloading prompt as PDF...');
     // In a real implementation, this would generate and download a PDF
-    toast.success('Prompt exported as PDF');
   };
 
-  // Duplicate a prompt
-  const duplicatePrompt = (prompt) => {
-    const duplicated = {
-      ...prompt,
-      id: `custom-${Date.now()}`,
-      title: `Copy of ${prompt.title}`
+  // Export prompt collection
+  const exportPromptCollection = () => {
+    const dataStr = JSON.stringify(savedPrompts);
+    const dataUri = `data:application/json;charset=utf-8,${encodeURIComponent(dataStr)}`;
+    
+    const exportFileDefaultName = 'reflection-prompts.json';
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
+    
+    toast.success('Prompt collection exported successfully');
+  };
+
+  // Import prompt collection
+  const importPromptCollection = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const fileReader = new FileReader();
+    if (!event.target.files || event.target.files.length === 0) return;
+    
+    fileReader.readAsText(event.target.files[0], "UTF-8");
+    fileReader.onload = e => {
+      try {
+        if (!e.target || typeof e.target.result !== 'string') return;
+        
+        const imported = JSON.parse(e.target.result);
+        if (!Array.isArray(imported)) {
+          toast.error('Invalid file format');
+          return;
+        }
+        
+        setSavedPrompts(imported);
+        localStorage.setItem('savedReflectionPrompts', JSON.stringify(imported));
+        toast.success('Prompt collection imported successfully');
+      } catch (error) {
+        console.error('Error importing prompts:', error);
+        toast.error('Failed to import prompts');
+      }
     };
-
-    setSavedPrompts(prev => {
-      const updated = [...prev, duplicated];
-      localStorage.setItem('savedReflectionPrompts', JSON.stringify(updated));
-      return updated;
-    });
-
-    toast.success('Prompt duplicated successfully');
-  };
-
-  // Get age group display name
-  const getAgeGroupDisplay = (ageGroup) => {
-    switch (ageGroup) {
-      case 'early-years': return 'Early Years (3-5)';
-      case 'primary': return 'Primary (5-11)';
-      case 'secondary': return 'Secondary (11-18)';
-      case 'staff': return 'Staff';
-      default: return ageGroup;
-    }
-  };
-
-  // Get category display name
-  const getCategoryDisplay = (category) => {
-    return category
-      .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
   };
 
   return (
     <div className="container mx-auto py-6">
-      <div className="flex flex-col space-y-6">
-        <div className="flex flex-col space-y-2">
-          <h1 className="text-3xl font-bold">Age-Appropriate Reflection Prompts</h1>
-          <p className="text-muted-foreground">
-            Developmentally appropriate prompts to support reflection within the restorative justice framework.
-          </p>
-        </div>
-
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid grid-cols-3 mb-6">
-            <TabsTrigger value="browse">Browse Prompts</TabsTrigger>
-            <TabsTrigger value="view" disabled={!selectedPrompt}>View Prompt</TabsTrigger>
-            <TabsTrigger value="create">Create Custom</TabsTrigger>
-          </TabsList>
-
-          {/* Browse Prompts Tab */}
-          <TabsContent value="browse" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Reflection Prompts</CardTitle>
-                <CardDescription>
-                  Browse age-appropriate prompts for different restorative contexts
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-col space-y-4">
-                  <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4">
-                    <div className="flex-1">
-                      <Label htmlFor="search">Search</Label>
-                      <div className="relative">
-                        <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          id="search"
-                          placeholder="Search prompts..."
-                          value={searchTerm}
-                          onChange={(e) => setSearchTerm(e.target.value)}
-                          className="pl-8"
-                        />
-                      </div>
-                    </div>
-                    <div className="w-full md:w-1/4">
-                      <Label htmlFor="age-group">Age Group</Label>
-                      <Select value={filterAgeGroup} onValueChange={setFilterAgeGroup}>
-                        <SelectTrigger id="age-group">
-                          <SelectValue placeholder="All age groups" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="all">All age groups</SelectItem>
-                          <SelectItem value="early-years">Early Years (3-5)</SelectItem>
-                          <SelectItem value="primary">Primary (5-11)</SelectItem>
-                          <SelectItem value="secondary">Secondary (11-18)</SelectItem>
-                          <SelectItem value="staff">Staff</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="w-full md:w-1/4">
-                      <Label htmlFor="category">Category</Label>
-                      <Select value={filterCategory} onValueChange={setFilterCategory}>
-                        <SelectTrigger id="category">
-                          <SelectValue placeholder="All categories" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="all">All categories</SelectItem>
-                          <SelectItem value="self-awareness">Self-Awareness</SelectItem>
-                          <SelectItem value="incident-reflection">Incident Reflection</SelectItem>
-                          <SelectItem value="making-amends">Making Amends</SelectItem>
-                          <SelectItem value="impact-awareness">Impact Awareness</SelectItem>
-                          <SelectItem value="choice-reflection">Choice Reflection</SelectItem>
-                          <SelectItem value="community-awareness">Community Awareness</SelectItem>
-                          <SelectItem value="responsibility">Responsibility</SelectItem>
-                          <SelectItem value="empathy">Empathy</SelectItem>
-                          <SelectItem value="values">Values</SelectItem>
-                          <SelectItem value="relationships">Relationships</SelectItem>
-                          <SelectItem value="future-planning">Future Planning</SelectItem>
-                          <SelectItem value="facilitation">Facilitation</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-                    {filteredPrompts.map((prompt) => (
-                      <Card key={prompt.id} className="cursor-pointer hover:shadow-md transition-shadow">
-                        <CardHeader className="pb-2">
+      <h1 className="text-3xl font-bold mb-6">Age-Appropriate Reflection Prompts</h1>
+      
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="browse">Browse Prompts</TabsTrigger>
+          <TabsTrigger value="create">Create Custom Prompt</TabsTrigger>
+          <TabsTrigger value="view" disabled={!selectedPrompt}>View Prompt</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="browse" className="space-y-4">
+          <div className="flex flex-col md:flex-row gap-4 mb-6">
+            <div className="flex-1">
+              <div className="relative">
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input
+                  type="search"
+                  placeholder="Search prompts..."
+                  className="pl-8"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
+            </div>
+            
+            <div className="flex gap-2">
+              <Select value={filterAgeGroup} onValueChange={setFilterAgeGroup}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Age Group" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Age Groups</SelectItem>
+                  <SelectItem value="early-years">Early Years (3-5)</SelectItem>
+                  <SelectItem value="primary">Primary (5-11)</SelectItem>
+                  <SelectItem value="secondary">Secondary (11-18)</SelectItem>
+                  <SelectItem value="staff">Staff</SelectItem>
+                </SelectContent>
+              </Select>
+              
+              <Select value={filterCategory} onValueChange={setFilterCategory}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Categories</SelectItem>
+                  <SelectItem value="self-awareness">Self-Awareness</SelectItem>
+                  <SelectItem value="incident-reflection">Incident Reflection</SelectItem>
+                  <SelectItem value="making-amends">Making Amends</SelectItem>
+                  <SelectItem value="impact-awareness">Impact Awareness</SelectItem>
+                  <SelectItem value="choice-reflection">Choice Reflection</SelectItem>
+                  <SelectItem value="community-awareness">Community Awareness</SelectItem>
+                  <SelectItem value="responsibility">Responsibility</SelectItem>
+                  <SelectItem value="empathy">Empathy</SelectItem>
+                  <SelectItem value="values">Values</SelectItem>
+                  <SelectItem value="relationships">Relationships</SelectItem>
+                  <SelectItem value="future-planning">Future Planning</SelectItem>
+                  <SelectItem value="facilitation">Facilitation</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          
+          {isLoading ? (
+            <div className="flex justify-center items-center h-64">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filteredPrompts.length > 0 ? (
+                filteredPrompts.map((prompt) => (
+                  <Card key={prompt.id} className="cursor-pointer hover:shadow-md transition-shadow" onClick={() => handleSelectPrompt(prompt)}>
+                    <CardHeader className="pb-2">
+                      <div className="flex justify-between items-start">
+                        <div>
                           <CardTitle className="text-lg">{prompt.title}</CardTitle>
-                          <div className="flex space-x-2">
-                            <span className="inline-flex items-centre rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
-                              {getAgeGroupDisplay(prompt.ageGroup)}
-                            </span>
-                            <span className="inline-flex items-centre rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                              {getCategoryDisplay(prompt.category)}
-                            </span>
-                          </div>
-                        </CardHeader>
-                        <CardContent className="pb-2">
-                          <p className="text-sm text-muted-foreground">{prompt.description}</p>
-                          <p className="text-sm mt-2 font-medium">
-                            "{prompt.promptText.length > 100 ? prompt.promptText.substring(0, 100) + '...' : prompt.promptText}"
-                          </p>
-                        </CardContent>
-                        <CardFooter className="flex justify-between">
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => duplicatePrompt(prompt)}
-                          >
-                            <Copy className="h-4 w-4 mr-1" />
-                            Duplicate
-                          </Button>
-                          <Button 
-                            variant="default" 
-                            size="sm"
-                            onClick={() => handleSelectPrompt(prompt)}
-                          >
-                            View
-                          </Button>
-                        </CardFooter>
-                      </Card>
-                    ))}
-
-                    {filteredPrompts.length === 0 && (
-                      <div className="col-span-full flex flex-col items-centre justify-centre p-6 text-centre">
-                        <AlertCircle className="h-10 w-10 text-muted-foreground mb-2" />
-                        <h3 className="text-lg font-medium">No prompts found</h3>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          Try adjusting your search or filters, or create a custom prompt.
-                        </p>
+                          <CardDescription className="line-clamp-2">{prompt.description}</CardDescription>
+                        </div>
                       </div>
-                    )}
-                  </div>
+                    </CardHeader>
+                    <CardContent className="pb-2">
+                      <div className="flex flex-wrap gap-2 mb-2">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                          {prompt.ageGroup === 'early-years' && 'Early Years (3-5)'}
+                          {prompt.ageGroup === 'primary' && 'Primary (5-11)'}
+                          {prompt.ageGroup === 'secondary' && 'Secondary (11-18)'}
+                          {prompt.ageGroup === 'staff' && 'Staff'}
+                        </span>
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                          {prompt.category === 'self-awareness' && 'Self-Awareness'}
+                          {prompt.category === 'incident-reflection' && 'Incident Reflection'}
+                          {prompt.category === 'making-amends' && 'Making Amends'}
+                          {prompt.category === 'impact-awareness' && 'Impact Awareness'}
+                          {prompt.category === 'choice-reflection' && 'Choice Reflection'}
+                          {prompt.category === 'community-awareness' && 'Community Awareness'}
+                          {prompt.category === 'responsibility' && 'Responsibility'}
+                          {prompt.category === 'empathy' && 'Empathy'}
+                          {prompt.category === 'values' && 'Values'}
+                          {prompt.category === 'relationships' && 'Relationships'}
+                          {prompt.category === 'future-planning' && 'Future Planning'}
+                          {prompt.category === 'facilitation' && 'Facilitation'}
+                        </span>
+                      </div>
+                      <p className="text-sm line-clamp-3">{prompt.promptText}</p>
+                    </CardContent>
+                    <CardFooter className="pt-0">
+                      <div className="flex justify-between w-full text-xs text-muted-foreground">
+                        <span className="flex items-center">
+                          {prompt.visualSupports && <span className="mr-2">Visual Supports</span>}
+                          {prompt.simplifiedLanguage && <span>Simplified Language</span>}
+                        </span>
+                        <span>{prompt.supportingQuestions.length} supporting questions</span>
+                      </div>
+                    </CardFooter>
+                  </Card>
+                ))
+              ) : (
+                <div className="col-span-full flex flex-col items-center justify-center h-64">
+                  <HelpCircle className="h-12 w-12 text-muted-foreground mb-2" />
+                  <h3 className="text-lg font-medium">No prompts found</h3>
+                  <p className="text-muted-foreground">Try adjusting your search or filters</p>
                 </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* View Prompt Tab */}
-          <TabsContent value="view" className="space-y-6">
-            {selectedPrompt && (
-              <>
-                <div className="flex justify-between items-centre">
-                  <h2 className="text-2xl font-bold">{selectedPrompt.title}</h2>
-                  <div className="flex space-x-2">
-                    <Button variant="outline" onClick={() => setActiveTab("browse")}>
-                      Back to Prompts
-                    </Button>
-                    <Button variant="outline" onClick={exportPromptAsPDF}>
-                      <Download className="h-4 w-4 mr-2" />
-                      Export as PDF
-                    </Button>
-                  </div>
+              )}
+            </div>
+          )}
+          
+          <div className="flex justify-between mt-6">
+            <div className="flex gap-2">
+              <input
+                type="file"
+                id="import-prompts"
+                className="hidden"
+                accept=".json"
+                onChange={importPromptCollection}
+              />
+              <Button variant="outline" onClick={() => document.getElementById('import-prompts')?.click()}>
+                <Download className="h-4 w-4 mr-2" />
+                Import
+              </Button>
+              <Button variant="outline" onClick={exportPromptCollection} disabled={savedPrompts.length === 0}>
+                <Save className="h-4 w-4 mr-2" />
+                Export
+              </Button>
+            </div>
+            <Button onClick={() => setActiveTab("create")}>
+              <Plus className="h-4 w-4 mr-2" />
+              Create Custom Prompt
+            </Button>
+          </div>
+        </TabsContent>
+        
+        <TabsContent value="create">
+          <Card>
+            <CardHeader>
+              <CardTitle>Create Custom Reflection Prompt</CardTitle>
+              <CardDescription>
+                Design your own age-appropriate reflection prompt for restorative practices
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-4">
+                  <Input
+                    label="Title"
+                    placeholder="E.g., Conflict Resolution Reflection"
+                    value={customPrompt.title}
+                    onChange={(e) => handleCustomPromptChange('title', e.target.value)}
+                    required
+                  />
+                  
+                  <Textarea
+                    label="Description"
+                    placeholder="Brief description of this prompt's purpose"
+                    value={customPrompt.description}
+                    onChange={(e) => handleCustomPromptChange('description', e.target.value)}
+                  />
+                  
+                  <Select
+                    value={customPrompt.ageGroup}
+                    onValueChange={(value) => handleCustomPromptChange('ageGroup', value)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select Age Group" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="early-years">Early Years (3-5)</SelectItem>
+                      <SelectItem value="primary">Primary (5-11)</SelectItem>
+                      <SelectItem value="secondary">Secondary (11-18)</SelectItem>
+                      <SelectItem value="staff">Staff</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  
+                  <Select
+                    value={customPrompt.category}
+                    onValueChange={(value) => handleCustomPromptChange('category', value)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select Category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="self-awareness">Self-Awareness</SelectItem>
+                      <SelectItem value="incident-reflection">Incident Reflection</SelectItem>
+                      <SelectItem value="making-amends">Making Amends</SelectItem>
+                      <SelectItem value="impact-awareness">Impact Awareness</SelectItem>
+                      <SelectItem value="choice-reflection">Choice Reflection</SelectItem>
+                      <SelectItem value="community-awareness">Community Awareness</SelectItem>
+                      <SelectItem value="responsibility">Responsibility</SelectItem>
+                      <SelectItem value="empathy">Empathy</SelectItem>
+                      <SelectItem value="values">Values</SelectItem>
+                      <SelectItem value="relationships">Relationships</SelectItem>
+                      <SelectItem value="future-planning">Future Planning</SelectItem>
+                      <SelectItem value="facilitation">Facilitation</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="md:col-span-2">
-                    <Card>
-                      <CardHeader>
-                        <CardTitle>Reflection Prompt</CardTitle>
-                        <CardDescription>
-                          {selectedPrompt.description}
-                        </CardDescription>
-                        <div className="flex space-x-2 mt-2">
-                          <span className="inline-flex items-centre rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
-                            {getAgeGroupDisplay(selectedPrompt.ageGroup)}
-                          </span>
-                          <span className="inline-flex items-centre rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                            {getCategoryDisplay(selectedPrompt.category)}
-                          </span>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-6">
-                          <div className="p-4 border rounded-lg bg-blue-50 border-blue-200">
-                            <h3 className="text-lg font-medium mb-2">Main Prompt</h3>
-                            <p className="text-lg">{selectedPrompt.promptText}</p>
-                          </div>
-                          
-                          <div>
-                            <h3 className="text-lg font-medium mb-2">Supporting Questions</h3>
-                            <ul className="space-y-2">
-                              {selectedPrompt.supportingQuestions.map((question, index) => (
-                                <li key={index} className="flex items-start p-3 border rounded-lg">
-                                  <ArrowRight className="h-5 w-5 mr-2 mt-0.5 text-blue-500" />
-                                  <span>{question}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-
-                          {selectedPrompt.visualSupports && selectedPrompt.visualAids && (
-                            <div>
-                              <h3 className="text-lg font-medium mb-2">Visual Supports</h3>
-                              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                {selectedPrompt.visualAids.map((aid, index) => (
-                                  <div key={index} className="border rounded-lg p-2 flex items-centre justify-centre bg-grey-50">
-                                    <div className="text-centre">
-                                      <div className="w-16 h-16 mx-auto bg-grey-200 rounded-full flex items-centre justify-centre">
-                                        <span className="text-xs text-grey-500">Image</span>
-                                      </div>
-                                      <p className="text-xs mt-1 text-grey-500">Visual Aid {index + 1}</p>
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-
-                  <div>
-                    <Card>
-                      <CardHeader>
-                        <CardTitle>Usage Guidelines</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-4">
-                          <div>
-                            <h3 className="text-sm font-medium mb-1">Recommended For</h3>
-                            <p className="text-sm text-muted-foreground">{getAgeGroupDisplay(selectedPrompt.ageGroup)}</p>
-                          </div>
-
-                          <div>
-                            <h3 className="text-sm font-medium mb-1">Best Used When</h3>
-                            <p className="text-sm text-muted-foreground">
-                              {selectedPrompt.category === 'self-awareness' && 'Students need to identify and express their feelings'}
-                              {selectedPrompt.category === 'incident-reflection' && 'Reflecting on a specific incident or event'}
-                              {selectedPrompt.category === 'making-amends' && 'Considering how to repair harm or make things right'}
-                              {selectedPrompt.category === 'impact-awareness' && 'Exploring how actions affect others'}
-                              {selectedPrompt.category === 'choice-reflection' && 'Examining decision-making processes'}
-                              {selectedPrompt.category === 'community-awareness' && 'Understanding impacts on the wider community'}
-                              {selectedPrompt.category === 'responsibility' && 'Exploring personal responsibility in a situation'}
-                              {selectedPrompt.category === 'empathy' && 'Developing perspective-taking skills'}
-                              {selectedPrompt.category === 'values' && 'Connecting actions to personal values'}
-                              {selectedPrompt.category === 'relationships' && 'Examining effects on relationships'}
-                              {selectedPrompt.category === 'future-planning' && 'Planning for similar situations in the future'}
-                              {selectedPrompt.category === 'facilitation' && 'Reflecting on restorative facilitation practise'}
-                            </p>
-                          </div>
-
-                          <div>
-                            <h3 className="text-sm font-medium mb-1">Adaptations</h3>
-                            <div className="space-y-2">
-                              <div className="flex items-centre">
-                                <Checkbox id="simplified" checked={selectedPrompt.simplifiedLanguage} disabled />
-                                <label htmlFor="simplified" className="ml-2 text-sm">
-                                  Simplified language
-                                </label>
-                              </div>
-                              <div className="flex items-centre">
-                                <Checkbox id="visual" checked={selectedPrompt.visualSupports} disabled />
-                                <label htmlFor="visual" className="ml-2 text-sm">
-                                  Visual supports available
-                                </label>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="mt-6">
-                            <h3 className="text-sm font-medium mb-3">Facilitation Tips</h3>
-                            <div className="space-y-3">
-                              <div className="flex items-start">
-                                <Lightbulb className="h-4 w-4 mr-2 mt-0.5 text-amber-500" />
-                                <span className="text-sm">Allow plenty of time for reflection</span>
-                              </div>
-                              <div className="flex items-start">
-                                <Lightbulb className="h-4 w-4 mr-2 mt-0.5 text-amber-500" />
-                                <span className="text-sm">Use a calm, non-judgmental tone</span>
-                              </div>
-                              <div className="flex items-start">
-                                <Lightbulb className="h-4 w-4 mr-2 mt-0.5 text-amber-500" />
-                                <span className="text-sm">Validate feelings while exploring actions</span>
-                              </div>
-                              <div className="flex items-start">
-                                <Lightbulb className="h-4 w-4 mr-2 mt-0.5 text-amber-500" />
-                                <span className="text-sm">Adapt language to match developmental level</span>
-                              </div>
-                              <div className="flex items-start">
-                                <Lightbulb className="h-4 w-4 mr-2 mt-0.5 text-amber-500" />
-                                <span className="text-sm">Consider offering drawing or writing options</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
-              </>
-            )}
-          </TabsContent>
-
-          {/* Create Custom Tab */}
-          <TabsContent value="create" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Create Custom Reflection Prompt</CardTitle>
-                <CardDescription>
-                  Design your own age-appropriate reflection prompt
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="custom-title">Prompt Title</Label>
-                      <Input
-                        id="custom-title"
-                        placeholder="Enter a title for your prompt"
-                        value={customPrompt.title}
-                        onChange={(e) => handleCustomPromptChange('title', e.target.value)}
+                
+                <div className="space-y-4">
+                  <Textarea
+                    label="Main Prompt"
+                    placeholder="The main reflection question or prompt"
+                    value={customPrompt.promptText}
+                    onChange={(e) => handleCustomPromptChange('promptText', e.target.value)}
+                    required
+                  />
+                  
+                  <div className="flex flex-col space-y-2">
+                    <Label>Options</Label>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="visual-supports"
+                        checked={customPrompt.visualSupports}
+                        onCheckedChange={(checked) => 
+                          handleCustomPromptChange('visualSupports', checked === true)
+                        }
                       />
+                      <label
+                        htmlFor="visual-supports"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        Include visual supports
+                      </label>
                     </div>
-                    <div>
-                      <Label htmlFor="custom-description">Description</Label>
-                      <Input
-                        id="custom-description"
-                        placeholder="Briefly describe your prompt"
-                        value={customPrompt.description}
-                        onChange={(e) => handleCustomPromptChange('description', e.target.value)}
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="simplified-language"
+                        checked={customPrompt.simplifiedLanguage}
+                        onCheckedChange={(checked) => 
+                          handleCustomPromptChange('simplifiedLanguage', checked === true)
+                        }
                       />
-                    </div>
-                    <div>
-                      <Label htmlFor="custom-age-group">Age Group</Label>
-                      <Select 
-                        value={customPrompt.ageGroup} 
-                        onValueChange={(value) => handleCustomPromptChange('ageGroup', value)}
+                      <label
+                        htmlFor="simplified-language"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
-                        <SelectTrigger id="custom-age-group">
-                          <SelectValue placeholder="Select age group" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="early-years">Early Years (3-5)</SelectItem>
-                          <SelectItem value="primary">Primary (5-11)</SelectItem>
-                          <SelectItem value="secondary">Secondary (11-18)</SelectItem>
-                          <SelectItem value="staff">Staff</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <Label htmlFor="custom-category">Category</Label>
-                      <Select 
-                        value={customPrompt.category} 
-                        onValueChange={(value) => handleCustomPromptChange('category', value)}
-                      >
-                        <SelectTrigger id="custom-category">
-                          <SelectValue placeholder="Select category" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="self-awareness">Self-Awareness</SelectItem>
-                          <SelectItem value="incident-reflection">Incident Reflection</SelectItem>
-                          <SelectItem value="making-amends">Making Amends</SelectItem>
-                          <SelectItem value="impact-awareness">Impact Awareness</SelectItem>
-                          <SelectItem value="choice-reflection">Choice Reflection</SelectItem>
-                          <SelectItem value="community-awareness">Community Awareness</SelectItem>
-                          <SelectItem value="responsibility">Responsibility</SelectItem>
-                          <SelectItem value="empathy">Empathy</SelectItem>
-                          <SelectItem value="values">Values</SelectItem>
-                          <SelectItem value="relationships">Relationships</SelectItem>
-                          <SelectItem value="future-planning">Future Planning</SelectItem>
-                          <SelectItem value="facilitation">Facilitation</SelectItem>
-                          <SelectItem value="other">Other</SelectItem>
-                        </SelectContent>
-                      </Select>
+                        Use simplified language
+                      </label>
                     </div>
                   </div>
-
-                  <div>
-                    <Label htmlFor="main-prompt">Main Reflection Prompt</Label>
-                    <Textarea
-                      id="main-prompt"
-                      placeholder="Enter the main reflection prompt question"
-                      value={customPrompt.promptText}
-                      onChange={(e) => handleCustomPromptChange('promptText', e.target.value)}
-                      className="min-h-[100px]"
-                    />
-                  </div>
-
-                  <div className="space-y-4">
-                    <div className="flex items-centre justify-between">
-                      <Label>Supporting Questions</Label>
-                      <Button variant="outline" size="sm" onClick={addSupportingQuestion}>
-                        <Plus className="h-4 w-4 mr-1" />
-                        Add Question
-                      </Button>
-                    </div>
-
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <Label>Supporting Questions</Label>
+                  <Button variant="outline" size="sm" onClick={addSupportingQuestion}>
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Question
+                  </Button>
+                </div>
+                
+                {customPrompt.supportingQuestions.length > 0 ? (
+                  <div className="space-y-2">
                     {customPrompt.supportingQuestions.map((question, index) => (
-                      <div key={index} className="flex items-centre space-x-2">
+                      <div key={index} className="flex items-center gap-2">
                         <Input
-                          placeholder="Enter supporting question"
                           value={question}
                           onChange={(e) => handleQuestionChange(index, e.target.value)}
+                          placeholder={`Supporting question ${index + 1}`}
                           className="flex-1"
                         />
-                        <Button 
-                          variant="ghost" 
-                          size="sm"
+                        <Button
+                          variant="ghost"
+                          size="icon"
                           onClick={() => removeQuestion(index)}
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
                     ))}
-
-                    {customPrompt.supportingQuestions.length === 0 && (
-                      <p className="text-sm text-muted-foreground">
-                        Add supporting questions to help guide the reflection process.
-                      </p>
-                    )}
                   </div>
-
-                  <div className="space-y-4">
-                    <Label>Adaptations</Label>
-                    <div className="space-y-2">
-                      <div className="flex items-centre">
-                        <Checkbox 
-                          id="custom-simplified" 
-                          checked={customPrompt.simplifiedLanguage}
-                          onCheckedChange={(checked) => 
-                            handleCustomPromptChange('simplifiedLanguage', checked)
-                          }
-                        />
-                        <label htmlFor="custom-simplified" className="ml-2 text-sm">
-                          Simplified language for younger students
-                        </label>
-                      </div>
-                      <div className="flex items-centre">
-                        <Checkbox 
-                          id="custom-visual" 
-                          checked={customPrompt.visualSupports}
-                          onCheckedChange={(checked) => 
-                            handleCustomPromptChange('visualSupports', checked)
-                          }
-                        />
-                        <label htmlFor="custom-visual" className="ml-2 text-sm">
-                          Visual supports recommended
-                        </label>
-                      </div>
+                ) : (
+                  <div className="text-center py-4 text-muted-foreground">
+                    <p>No supporting questions added yet</p>
+                    <p className="text-sm">Click "Add Question" to add follow-up questions</p>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+            <CardFooter className="flex justify-between">
+              <Button variant="outline" onClick={() => setActiveTab("browse")}>Cancel</Button>
+              <Button onClick={saveCustomPrompt}>Save Prompt</Button>
+            </CardFooter>
+          </Card>
+        </TabsContent>
+        
+        <TabsContent value="view">
+          {selectedPrompt && (
+            <Card>
+              <CardHeader>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <CardTitle className="text-2xl">{selectedPrompt.title}</CardTitle>
+                    <CardDescription>{selectedPrompt.description}</CardDescription>
+                  </div>
+                  <Button variant="ghost" size="icon" onClick={() => setActiveTab("browse")}>
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </div>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                    {selectedPrompt.category === 'self-awareness' && 'Students need to identify and express their feelings'}
+                    {selectedPrompt.category === 'incident-reflection' && 'Reflecting on a specific incident or event'}
+                    {selectedPrompt.category === 'making-amends' && 'Considering how to repair harm or make things right'}
+                    {selectedPrompt.category === 'impact-awareness' && 'Exploring how actions affect others'}
+                    {selectedPrompt.category === 'choice-reflection' && 'Examining decision-making processes'}
+                    {selectedPrompt.category === 'community-awareness' && 'Understanding impacts on the wider community'}
+                    {selectedPrompt.category === 'responsibility' && 'Exploring personal responsibility in a situation'}
+                    {selectedPrompt.category === 'empathy' && 'Developing perspective-taking skills'}
+                    {selectedPrompt.category === 'values' && 'Connecting actions to personal values'}
+                    {selectedPrompt.category === 'relationships' && 'Examining effects on relationships'}
+                    {selectedPrompt.category === 'future-planning' && 'Planning for similar situations in the future'}
+                    {selectedPrompt.category === 'facilitation' && 'Reflecting on restorative facilitation practise'}
+                  </span>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="bg-muted p-4 rounded-md">
+                  <h3 className="text-lg font-medium mb-2">Main Prompt:</h3>
+                  <p className="text-lg">{selectedPrompt.promptText}</p>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-medium mb-2">Supporting Questions:</h3>
+                  <ul className="space-y-2">
+                    {selectedPrompt.supportingQuestions.map((question, index) => (
+                      <li key={index} className="flex items-start">
+                        <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-primary text-primary-foreground text-xs mr-2">
+                          {index + 1}
+                        </span>
+                        <span>{question}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                {selectedPrompt.visualAids && selectedPrompt.visualAids.length > 0 && (
+                  <div>
+                    <h3 className="text-lg font-medium mb-2">Visual Supports:</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      {selectedPrompt.visualAids.map((image, index) => (
+                        <div key={index} className="relative aspect-square rounded-md overflow-hidden border">
+                          {/* In a real implementation, this would display actual images */}
+                          <div className="absolute inset-0 flex items-center justify-center bg-muted">
+                            <span className="text-xs text-muted-foreground">Image placeholder</span>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
+                )}
+                
+                <div className="flex flex-wrap gap-4">
+                  <div className="flex items-center">
+                    <span className="font-medium mr-2">Age Group:</span>
+                    <span>
+                      {selectedPrompt.ageGroup === 'early-years' && 'Early Years (3-5)'}
+                      {selectedPrompt.ageGroup === 'primary' && 'Primary (5-11)'}
+                      {selectedPrompt.ageGroup === 'secondary' && 'Secondary (11-18)'}
+                      {selectedPrompt.ageGroup === 'staff' && 'Staff'}
+                    </span>
+                  </div>
+                  
+                  {selectedPrompt.visualSupports && (
+                    <div className="flex items-center">
+                      <CheckCircle2 className="h-4 w-4 mr-1 text-green-500" />
+                      <span>Visual Supports</span>
+                    </div>
+                  )}
+                  
+                  {selectedPrompt.simplifiedLanguage && (
+                    <div className="flex items-center">
+                      <CheckCircle2 className="h-4 w-4 mr-1 text-green-500" />
+                      <span>Simplified Language</span>
+                    </div>
+                  )}
                 </div>
               </CardContent>
-              <CardFooter className="flex justify-end space-x-2">
-                <Button variant="outline" onClick={() => setActiveTab("browse")}>
-                  Cancel
-                </Button>
-                <Button onClick={saveCustomPrompt}>
-                  Save Prompt
-                </Button>
+              <CardFooter className="flex justify-between">
+                <div className="flex gap-2">
+                  <Button variant="outline" onClick={downloadPromptPDF}>
+                    <FileText className="h-4 w-4 mr-2" />
+                    Download PDF
+                  </Button>
+                  <Button variant="outline">
+                    <Copy className="h-4 w-4 mr-2" />
+                    Copy to Clipboard
+                  </Button>
+                </div>
+                <Button onClick={() => setActiveTab("browse")}>Back to Browse</Button>
               </CardFooter>
             </Card>
-          </TabsContent>
-        </Tabs>
-      </div>
+          )}
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
