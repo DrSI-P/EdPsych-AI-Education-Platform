@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -16,8 +16,27 @@ const reflectionPromptSchema = z.object({
   simplifiedLanguage: z.boolean()
 });
 
+// Define interface for reflection prompt data
+interface ReflectionPromptData {
+  title: string;
+  description: string;
+  ageGroup: "early-years" | "primary" | "secondary" | "staff";
+  category: string;
+  promptText: string;
+  supportingQuestions: string[];
+  visualSupports: boolean;
+  simplifiedLanguage: boolean;
+}
+
+// Define interface for filters
+interface PromptFilters {
+  userId: string;
+  ageGroup?: string;
+  category?: string;
+}
+
 // GET handler for retrieving reflection prompts
-export async function GET(req: Request) {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -34,7 +53,7 @@ export async function GET(req: Request) {
     const category = url.searchParams.get('category');
     
     // Build query filters
-    let filters: any = {
+    const filters: PromptFilters = {
       userId: session.user.id
     };
     
@@ -65,7 +84,7 @@ export async function GET(req: Request) {
 }
 
 // POST handler for creating a new reflection prompt
-export async function POST(req: Request) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -107,7 +126,7 @@ export async function POST(req: Request) {
 }
 
 // PUT handler for updating an existing reflection prompt
-export async function PUT(req: Request) {
+export async function PUT(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -177,7 +196,7 @@ export async function PUT(req: Request) {
 }
 
 // DELETE handler for removing a reflection prompt
-export async function DELETE(req: Request) {
+export async function DELETE(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
