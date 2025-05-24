@@ -4,15 +4,55 @@ import { authOptions } from '@/lib/auth/auth-options';
 import { prisma } from '@/lib/db';
 import { getAIService } from '@/lib/ai/ai-service';
 
+interface ComplexitySettings {
+  targetComplexityLevel: number;
+  adaptToPerformance: boolean;
+  includeScaffolding: boolean;
+  includeExtensions: boolean;
+  preserveMultiModal: boolean;
+  adaptationStrength: number;
+  autoAssessComprehension: boolean;
+}
+
+interface PerformanceMetrics {
+  comprehensionLevel: number;
+  engagementLevel: number;
+  completionRate: number;
+  assessmentScore: number;
+  recommendedComplexity: number;
+}
+
+interface AdaptiveComplexityRequest {
+  content?: string;
+  title?: string;
+  subject?: string;
+  keyStage?: string;
+  contentId?: string;
+  settings?: ComplexitySettings;
+  performanceMetrics?: PerformanceMetrics;
+}
+
+interface AdjustedContent {
+  title: string;
+  originalContent: string;
+  adjustedContent: string;
+  originalComplexity: number;
+  adjustedComplexity: number;
+  adaptationType: string;
+  scaffolding?: string;
+  extensions?: string;
+  comprehensionChecks?: string;
+}
+
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
     
-    if (!session?.user) {
+    if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const data = await req.json();
+    const data = await req.json() as AdaptiveComplexityRequest;
     const { 
       content, 
       title,
@@ -78,7 +118,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Determine target complexity level
-    let targetComplexity = settings?.targetComplexityLevel;
+    let targetComplexity = settings?.targetComplexityLevel ?? 50;
     
     // If adapt to performance is enabled and performance metrics are available
     if (settings?.adaptToPerformance && performanceMetrics?.recommendedComplexity) {
@@ -111,7 +151,7 @@ export async function POST(req: NextRequest) {
       
       Target Complexity Level: ${targetComplexity}% (${targetComplexity < 30 ? 'Simple' : targetComplexity < 60 ? 'Moderate' : 'Complex'})
       Adaptation Type: ${adaptationType}
-      Adaptation Strength: ${settings?.adaptationStrength}%
+      Adaptation Strength: ${settings?.adaptationStrength ?? 50}%
       
       Adjustment Settings:
       - Include Scaffolding: ${settings?.includeScaffolding ? 'Yes' : 'No'}
@@ -204,9 +244,9 @@ export async function POST(req: NextRequest) {
     });
     
     // Parse the response
-    let adjustedContent;
+    let adjustedContent: AdjustedContent;
     try {
-      adjustedContent = JSON.parse(response.text);
+      adjustedContent = JSON.parse(response.text) as AdjustedContent;
     } catch (error) {
       console.error('Error parsing AI response:', error);
       return NextResponse.json({ error: 'Failed to parse adjusted content' }, { status: 500 });
@@ -218,8 +258,8 @@ export async function POST(req: NextRequest) {
         userId: session.user.id,
         title: adjustedContent.title || contentTitle || 'Adjusted Content',
         originalContent: contentToAdjust || '',
-        adjustedContent: adjustedContent,
-        settings: settings,
+        adjustedContent: adjustedContent as any, // Type cast needed for Prisma schema compatibility
+        settings: settings as any, // Type cast needed for Prisma schema compatibility
         subject: contentSubject || undefined,
         keyStage: contentKeyStage || undefined,
         sourceContentId: contentId || undefined,
@@ -243,7 +283,7 @@ export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
     
-    if (!session?.user) {
+    if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     

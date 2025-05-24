@@ -16,6 +16,7 @@
 - [x] Replace any types in src/app/api/special-needs/mindfulness/route.ts (2025-05-24)
 - [x] Replace any types in src/components/ai/adaptive-complexity/adaptive-complexity-engine.tsx (2025-05-24)
 - [x] Replace any types in src/app/api/ai/accessibility/route.ts (2025-05-24)
+- [x] Replace any types in src/app/api/ai/adaptive-complexity/route.ts (2025-05-24)
 - [ ] Replace any types in remaining components/
 - [ ] Replace any types in lib/
 - [x] Add null checks to API routes (2025-05-24)
