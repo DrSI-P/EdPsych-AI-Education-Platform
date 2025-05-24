@@ -1,14 +1,13 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { handleWebhookEvent } from '@/lib/stripe/stripe-service';
+import { getEnv } from '@/lib/env-validator';
+
 /**
  * Stripe Webhook Handler for EdPsych AI Education Platform
  * 
  * This API route handles incoming webhook events from Stripe for subscription
  * management, payment processing, and credit purchases.
  */
-
-import { NextRequest, NextResponse } from 'next/server';
-import stripeService from '@/lib/stripe/stripe-service';
-import { getEnv } from '@/lib/env-validator';
-
 export async function POST(req: NextRequest) {
   try {
     // Get the request body as raw buffer
@@ -25,7 +24,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Process the webhook event
-    const { received, event } = await stripeService.handleWebhookEvent(
+    const { received, event } = await handleWebhookEvent(
       Buffer.from(payload),
       signature
     );
