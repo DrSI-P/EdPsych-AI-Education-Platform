@@ -30,7 +30,38 @@ const feedbackSchema = z.object({
   comments: z.string().optional(),
 });
 
-export async function POST(req: NextRequest) {
+// Define interfaces for request data
+interface WebinarCreateData {
+  title: string;
+  description: string;
+  presenterId: string;
+  date: string;
+  duration: number;
+  capacity: number;
+  topics: string[];
+  level: 'Beginner' | 'Intermediate' | 'Advanced' | 'All Levels';
+  recordingEnabled: boolean;
+}
+
+interface RegistrationData {
+  userId: string;
+  webinarId: string;
+  addToCalendar: boolean;
+}
+
+interface FeedbackData {
+  userId: string;
+  webinarId: string;
+  rating: number;
+  comments?: string;
+}
+
+interface RecordingUploadData {
+  webinarId: string;
+  recordingUrl: string;
+}
+
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const body = await req.json();
     const { action } = body;
@@ -59,7 +90,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-async function handleCreateWebinar(body: any) {
+async function handleCreateWebinar(body: WebinarCreateData): Promise<NextResponse> {
   try {
     const webinarData = webinarCreateSchema.parse(body);
 
@@ -85,7 +116,7 @@ async function handleCreateWebinar(body: any) {
   }
 }
 
-async function handleRegistration(body: any) {
+async function handleRegistration(body: RegistrationData): Promise<NextResponse> {
   try {
     const { userId, webinarId, addToCalendar } = registrationSchema.parse(body);
 
@@ -161,7 +192,7 @@ async function handleRegistration(body: any) {
   }
 }
 
-async function handleFeedback(body: any) {
+async function handleFeedback(body: FeedbackData): Promise<NextResponse> {
   try {
     const { userId, webinarId, rating, comments } = feedbackSchema.parse(body);
 
@@ -244,7 +275,7 @@ async function handleFeedback(body: any) {
   }
 }
 
-async function handleRecordingUpload(body: any) {
+async function handleRecordingUpload(body: RecordingUploadData): Promise<NextResponse> {
   // In a real implementation, this would handle secure upload of webinar recordings
   // For now, we'll just simulate the process
   try {
@@ -276,7 +307,7 @@ async function handleRecordingUpload(body: any) {
   }
 }
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     const url = new URL(req.url);
     const webinarId = url.searchParams.get('webinarId');
@@ -319,7 +350,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-async function getUpcomingWebinars() {
+async function getUpcomingWebinars(): Promise<NextResponse> {
   const now = new Date();
   
   const webinars = await prisma.webinar.findMany({
@@ -351,7 +382,7 @@ async function getUpcomingWebinars() {
   return NextResponse.json({ webinars }, { status: 200 });
 }
 
-async function getPastWebinars() {
+async function getPastWebinars(): Promise<NextResponse> {
   const now = new Date();
   
   const webinars = await prisma.webinar.findMany({
@@ -384,7 +415,7 @@ async function getPastWebinars() {
   return NextResponse.json({ webinars }, { status: 200 });
 }
 
-async function getUserWebinars(userId: string) {
+async function getUserWebinars(userId: string): Promise<NextResponse> {
   const now = new Date();
   
   const registrations = await prisma.webinarRegistration.findMany({
@@ -430,7 +461,7 @@ async function getUserWebinars(userId: string) {
   }, { status: 200 });
 }
 
-async function getWebinarDetails(webinarId: string) {
+async function getWebinarDetails(webinarId: string): Promise<NextResponse> {
   const webinar = await prisma.webinar.findUnique({
     where: {
       id: webinarId,
