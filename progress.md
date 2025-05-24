@@ -26,6 +26,7 @@
 - [x] Replace any types in src/app/api/restorative-justice/conversation-frameworks/route.ts (2025-05-24)
 - [x] Replace any types in src/app/api/restorative-justice/reflection-prompts/route.ts (2025-05-24)
 - [x] Replace any types in src/app/api/restorative-justice/community-building/route.ts (2025-05-24)
+- [x] Replace any types in src/app/api/restorative-justice/parent-education/route.ts (2025-05-24)
 - [ ] Replace any types in remaining components/
 - [ ] Replace any types in lib/
 - [x] Add null checks to API routes (2025-05-24)
