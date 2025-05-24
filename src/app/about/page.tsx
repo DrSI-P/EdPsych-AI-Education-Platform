@@ -7,9 +7,9 @@ import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ChevronRight, Users, BookOpen, Award, Heart, Lightbulb, Target } from 'lucide-react';
+import { ChevronRight, Target, Lightbulb, BookOpen, Heart, Award } from 'lucide-react';
 
-export default function AboutPage() {
+export default function AboutPage(): React.ReactNode {
   return (
     <div className="container mx-auto py-12 px-4">
       {/* Hero Section */}
@@ -33,7 +33,7 @@ export default function AboutPage() {
         className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20 items-centre"
       >
         <div className="order-2 md:order-1">
-          <h2 className="text-3xl font-bold mb-6">Our Mission & Vision</h2>
+          <h2 className="text-3xl font-bold mb-6">Our Mission &amp; Vision</h2>
           
           <div className="space-y-6">
             <div className="flex gap-4">
@@ -111,7 +111,7 @@ export default function AboutPage() {
               <div>
                 <h3 className="text-2xl font-semibold mb-4">From Vision to Reality</h3>
                 <p className="text-muted-foreground mb-4">
-                  EdPsych Connect began with Dr. Scott Ighavongbe-Patrick's vision to transform educational experiences for all children. Drawing from over 12 years of experience as an Educational Psychologist, Dr. Scott recognised the need for a platform that could truly personalize learning based on sound educational psychology principles.
+                  EdPsych Connect began with Dr. Scott Ighavongbe-Patrick&apos;s vision to transform educational experiences for all children. Drawing from over 12 years of experience as an Educational Psychologist, Dr. Scott recognised the need for a platform that could truly personalize learning based on sound educational psychology principles.
                 </p>
                 <p className="text-muted-foreground">
                   The platform was born from a commitment to empower learners through tailored, evidence-based support, with a particular focus on creating equitable access for disadvantaged children and young people.
@@ -160,7 +160,7 @@ export default function AboutPage() {
                   The future of EdPsych Connect is focused on continuous innovation and expansion. We envision a platform that not only adapts to individual learning needs but anticipates them, creating truly personalized educational journeys for every child.
                 </p>
                 <p className="text-muted-foreground">
-                  Our roadmap includes advanced features like neuroscience-informed adaptive interfaces, digital twin learning companions, and integrated biofeedback systems. We're committed to pushing the boundaries of what's possible in educational technology while staying true to our foundation in educational psychology principles.
+                  Our roadmap includes advanced features like neuroscience-informed adaptive interfaces, digital twin learning companions, and integrated biofeedback systems. We&apos;re committed to pushing the boundaries of what&apos;s possible in educational technology while staying true to our foundation in educational psychology principles.
                 </p>
               </div>
             </div>
@@ -212,7 +212,7 @@ export default function AboutPage() {
               </div>
               <h3 className="text-xl font-semibold mb-3">Excellence in Innovation</h3>
               <p className="text-muted-foreground">
-                We strive for excellence in everything we do, constantly pushing the boundaries of what's possible in educational technology while maintaining the highest standards of quality and effectiveness.
+                We strive for excellence in everything we do, constantly pushing the boundaries of what&apos;s possible in educational technology while maintaining the highest standards of quality and effectiveness.
               </p>
             </CardContent>
           </Card>
