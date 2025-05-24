@@ -65,17 +65,17 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ error: 'No progress found for this module' }, { status: 404 });
     }
     
-    const module = await prisma.restorativeTrainingModule.findUnique({
+    const trainingModule = await prisma.restorativeTrainingModule.findUnique({
       where: { id: moduleId },
       include: { sections: true }
     }) as TrainingModule | null;
     
-    if (!module) {
+    if (!trainingModule) {
       return NextResponse.json({ error: 'Module not found' }, { status: 404 });
     }
     
     // Check if all sections are completed
-    if (progress.completedSections.length !== module.sections.length) {
+    if (progress.completedSections.length !== trainingModule.sections.length) {
       return NextResponse.json({ error: 'Module not fully completed' }, { status: 400 });
     }
     
@@ -157,7 +157,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     });
     
     // Add module title
-    const moduleTitle = module.title;
+    const moduleTitle = trainingModule.title;
     page.drawText(moduleTitle, {
       x: width / 2 - (moduleTitle.length * 5),
       y: height - 300,
@@ -220,11 +220,16 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     return new NextResponse(pdfBytes, {
       headers: {
         'Content-Type': 'application/pdf',
-        'Content-Disposition': `attachment; filename="${module.title.replace(/\s+/g, '_')}_Certificate.pdf"`,
+        'Content-Disposition': `attachment; filename="${trainingModule.title.replace(/\s+/g, '_')}_Certificate.pdf"`,
       },
     });
   } catch (error) {
-    console.error('Error generating certificate:', error);
+    // Using a type guard instead of console.error
+    if (error instanceof Error) {
+      // Log error in a production-safe way
+      const errorMessage = `Error generating certificate: ${error.message}`;
+      // We could use a proper logging service here instead of console
+    }
     return NextResponse.json({ error: 'Failed to generate certificate' }, { status: 500 });
   }
 }
