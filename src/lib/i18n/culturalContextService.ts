@@ -348,7 +348,7 @@ export class CulturalContextService {
       
       const culturalNotes: string[] = [];
       const adaptationsMade: string[] = [];
-      let adaptedContent = content;
+      const adaptedContent = content;
       
       // Get cultural context
       const culturalContext = await this.getCulturalContext(targetLanguage);

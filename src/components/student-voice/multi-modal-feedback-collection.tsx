@@ -544,7 +544,7 @@ export default function MultiModalFeedbackCollection() {
       prev.map(entry => {
         if (entry.id === feedbackId) {
           const existingReactionIndex = entry.reactions?.findIndex(r => r.emoji === emoji) ?? -1;
-          let updatedReactions = entry.reactions ? [...entry.reactions] : [];
+          const updatedReactions = entry.reactions ? [...entry.reactions] : [];
           
           if (existingReactionIndex >= 0) {
             updatedReactions[existingReactionIndex] = {
