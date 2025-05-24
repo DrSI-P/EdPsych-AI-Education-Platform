@@ -16,9 +16,9 @@ import { BlogEditor } from './BlogEditor';
 
 // Define form schema
 const blogFormSchema = z.object({
-  title: z.string().min(5: any, 'Title must be at least 5 characters'),
-  summary: z.string().min(10: any, 'Summary must be at least 10 characters'),
-  content: z.string().min(50: any, 'Content must be at least 50 characters'),
+  title: z.string().min(5, 'Title must be at least 5 characters'),
+  summary: z.string().min(10, 'Summary must be at least 10 characters'),
+  content: z.string().min(50, 'Content must be at least 50 characters'),
   featuredImage: z.string().optional(),
   status: z.enum(['draft', 'published', 'archived']).default('draft'),
   keyStage: z.string().optional(),
@@ -39,7 +39,7 @@ interface BlogFormProps {
 }
 
 export function BlogForm({
-  initialData: any,
+  initialData,
   categories = [],
   isSubmitting = false,
   onSubmit,
@@ -106,7 +106,7 @@ export function BlogForm({
   };
 
   const handleRemoveTag = (tag: string) => {
-    form.setValue('tags', form.getValues('tags').filter(t => t !== tag: any));
+    form.setValue('tags', form.getValues('tags').filter(t => t !== tag));
   };
 
   return (
@@ -299,9 +299,9 @@ export function BlogForm({
                   <FormLabel>Categories</FormLabel>
                   <FormControl>
                     <Select 
-                      onValueChange={(value: any) => {
+                      onValueChange={(value) => {
                         const currentValues = field.value || [];
-                        if (!currentValues.includes(value: any)) {
+                        if (!currentValues.includes(value)) {
                           field.onChange([...currentValues, value]);
                         }
                       }}
@@ -320,7 +320,7 @@ export function BlogForm({
                   </FormControl>
                   <div className="flex flex-wrap gap-2 mt-2">
                     {field.value?.map(categoryId => {
-                      const category = categories.find(c => c.id === categoryId: any);
+                      const category = categories.find(c => c.id === categoryId);
                       return category ? (
                         <Badge 
                           key={categoryId}
@@ -330,7 +330,7 @@ export function BlogForm({
                           {category.name}
                           <button
                             type="button"
-                            onClick={() => field.onChange(field.value?.filter(id => id !== categoryId: any))}
+                            onClick={() => field.onChange(field.value?.filter(id => id !== categoryId))}
                             className="ml-1 rounded-full hover:bg-muted p-1"
                           >
                             ×
@@ -349,9 +349,9 @@ export function BlogForm({
               <div className="flex gap-2 mt-1">
                 <Input
                   value={tagInput}
-                  onChange={(e: any) => setTagInput(e.target.value: any)}
+                  onChange={(e) => setTagInput(e.target.value)}
                   placeholder="Add a tag"
-                  onKeyDown={(e: any) => {
+                  onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       e.preventDefault();
                       handleAddTag();
@@ -372,7 +372,7 @@ export function BlogForm({
                     {tag}
                     <button
                       type="button"
-                      onClick={() => handleRemoveTag(tag: any)}
+                      onClick={() => handleRemoveTag(tag)}
                       className="ml-1 rounded-full hover:bg-muted p-1"
                     >
                       ×
@@ -414,16 +414,6 @@ export function BlogForm({
                 </FormItem>
               )}
             />
-            
-            {form.getValues('status') === 'published' && (
-              <Card>
-                <CardContent className="pt-6">
-                  <p className="text-sm text-muted-foreground">
-                    This post will be immediately visible to all users once saved with "Published" status.
-                  </p>
-                </CardContent>
-              </Card>
-            )}
           </TabsContent>
         </Tabs>
         
@@ -432,8 +422,14 @@ export function BlogForm({
             Cancel
           </Button>
           <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {mode === 'create' ? 'Create Post' : 'Update Post'}
+            {isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Saving...
+              </>
+            ) : (
+              mode === 'create' ? 'Create Post' : 'Update Post'
+            )}
           </Button>
         </div>
       </form>
