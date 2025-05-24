@@ -1,17 +1,17 @@
-# GitHub Actions workflow for EdPsych-AI-Education-Platform
-# This workflow handles CI/CD for the platform, including testing, building, and deployment
+# GitHub Actions Workflow for EdPsych AI Education Platform
+# This workflow handles CI/CD for the platform with optimized build process
 
 name: EdPsych CI/CD Pipeline
 
 on:
   push:
-    branches: [main, development]
+    branches: [ main, complete-rebuild ]
   pull_request:
-    branches: [main, development]
+    branches: [ main ]
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Environment to deploy to'
+        description: 'Deployment environment'
         required: true
         default: 'staging'
         type: choice
@@ -20,159 +20,226 @@ on:
           - production
 
 jobs:
-  lint:
-    name: Lint Code
+  # Dependency installation and caching
+  setup:
+    name: Setup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
+      
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
           cache: 'npm'
-
+      
       - name: Install dependencies
         run: npm ci
+      
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/.next/cache
+            ${{ github.workspace }}/node_modules
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
+  # Linting and type checking
+  lint:
+    name: Lint and Type Check
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Restore cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/.next/cache
+            ${{ github.workspace }}/node_modules
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+      
+      - name: Install dependencies if needed
+        run: npm ci --if-present
+      
       - name: Run ESLint
         run: npm run lint
+      
+      - name: Run TypeScript type check
+        run: npm run type-check
 
+  # Unit and integration tests
   test:
     name: Run Tests
-    needs: lint
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
+      
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
           cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run Jest tests
+      
+      - name: Restore cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/.next/cache
+            ${{ github.workspace }}/node_modules
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+      
+      - name: Install dependencies if needed
+        run: npm ci --if-present
+      
+      - name: Run tests
         run: npm test
-
+      
       - name: Upload test results
         uses: actions/upload-artifact@v3
         with:
           name: test-results
           path: coverage/
-        if: always()
 
+  # Build process with optimizations
   build:
-    name: Build Application
-    needs: test
+    name: Build
+    needs: [lint, test]
     runs-on: ubuntu-latest
+    # Use a larger runner for build process to avoid timeouts
+    env:
+      NODE_OPTIONS: "--max-old-space-size=8192"
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
+      
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
           cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Generate Prisma client
-        run: npx prisma generate
-
+      
+      - name: Restore cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/.next/cache
+            ${{ github.workspace }}/node_modules
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+      
+      - name: Install dependencies if needed
+        run: npm ci --if-present
+      
+      - name: Set environment variables
+        run: |
+          echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" >> .env
+          echo "NEXT_PUBLIC_HEYGEN_API_KEY=${{ secrets.NEXT_PUBLIC_HEYGEN_API_KEY }}" >> .env
+          echo "NEXT_PUBLIC_HEYGEN_API_URL=${{ secrets.NEXT_PUBLIC_HEYGEN_API_URL }}" >> .env
+          echo "NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}" >> .env
+          echo "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}" >> .env
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+      
       - name: Build application
         run: npm run build
-
+      
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
           name: build-output
-          path: .next/
+          path: |
+            .next/
+            public/
+            package.json
+            next.config.js
+            cache-handler.js
 
+  # Deployment to staging
   deploy-staging:
     name: Deploy to Staging
     needs: build
-    if: github.ref == 'refs/heads/development' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'staging')
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'staging')
     runs-on: ubuntu-latest
     environment: staging
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install Vercel CLI
-        run: npm install -g vercel
-
+      
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
           name: build-output
-          path: .next/
+          path: .
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      
+      - name: Install production dependencies
+        run: npm ci --only=production
+      
+      - name: Deploy to staging
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+          working-directory: ./
 
-      - name: Deploy to Vercel (Staging)
-        run: |
-          vercel deploy --token ${{ secrets.VERCEL_TOKEN }} \
-            --env DATABASE_URL=${{ secrets.DATABASE_URL }} \
-            --env NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} \
-            --env NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }} \
-            --env OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} \
-            --env ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }} \
-            --env GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} \
-            --env GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} \
-            --env VEED_API_KEY=${{ secrets.VEED_API_KEY }} \
-            --env SIMLI_API_KEY=${{ secrets.SIMLI_API_KEY }} \
-            --env ELEVENLABS_API_KEY=${{ secrets.ELEVENLABS_API_KEY }} \
-            --env HEYGEN_API_KEY=${{ secrets.HEYGEN_API_KEY }} \
-            --prod
-
+  # Deployment to production
   deploy-production:
     name: Deploy to Production
     needs: build
-    if: github.ref == 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'production')
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'production'
     runs-on: ubuntu-latest
     environment: production
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install Vercel CLI
-        run: npm install -g vercel
-
+      
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
           name: build-output
-          path: .next/
-
-      - name: Deploy to Vercel (Production)
-        run: |
-          vercel deploy --token ${{ secrets.VERCEL_TOKEN }} \
-            --env DATABASE_URL=${{ secrets.DATABASE_URL }} \
-            --env NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} \
-            --env NEXTAUTH_URL=https://edpsychconnect.com \
-            --env OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} \
-            --env ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }} \
-            --env GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} \
-            --env GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} \
-            --env VEED_API_KEY=${{ secrets.VEED_API_KEY }} \
-            --env SIMLI_API_KEY=${{ secrets.SIMLI_API_KEY }} \
-            --env ELEVENLABS_API_KEY=${{ secrets.ELEVENLABS_API_KEY }} \
-            --env HEYGEN_API_KEY=${{ secrets.HEYGEN_API_KEY }} \
-            --prod
+          path: .
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      
+      - name: Install production dependencies
+        run: npm ci --only=production
+      
+      - name: Deploy to production
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+          working-directory: ./
