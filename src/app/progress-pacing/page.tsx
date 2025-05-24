@@ -5,7 +5,7 @@ import ProgressPacingEngine from '@/components/ai/progress-pacing/progress-pacin
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Clock, BookOpen, Users, ArrowRight, CheckCircle2, BarChart3 } from "lucide-react";
+import { BookOpen, Users, ArrowRight, CheckCircle2, BarChart3 } from "lucide-react";
 import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function ProgressPacingPage() {

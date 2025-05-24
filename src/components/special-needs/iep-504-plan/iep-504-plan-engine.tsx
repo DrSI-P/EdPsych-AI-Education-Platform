@@ -17,7 +17,7 @@ import { toast } from "@/components/ui/use-toast";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
-import { CalendarIcon, PlusCircle, CheckCircle2, XCircle, FileText, Users, School, Briefcase, BookOpen, Pencil, Clock, Target, AlertCircle } from "lucide-react";
+import { CalendarIcon, PlusCircle, CheckCircle2, XCircle, FileText, Users, School, Briefcase, BookOpen, Pencil, Target, AlertCircle } from "lucide-react";
 
 const IEP504PlanEngine = () => {
   const { data: session } = useSession();
