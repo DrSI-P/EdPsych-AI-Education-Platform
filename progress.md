@@ -18,6 +18,8 @@
 - [x] Replace any types in src/app/api/ai/accessibility/route.ts (2025-05-24)
 - [x] Replace any types in src/app/api/ai/adaptive-complexity/route.ts (2025-05-24)
 - [x] Replace any types in src/lib/ai/ai-service.ts (2025-05-24)
+- [x] Replace any types in src/app/api/professional-development/route.ts (2025-05-24)
+- [x] Replace any types in src/app/api/resource/recommendations/route.ts (2025-05-24)
 - [ ] Replace any types in remaining components/
 - [ ] Replace any types in lib/
 - [x] Add null checks to API routes (2025-05-24)
