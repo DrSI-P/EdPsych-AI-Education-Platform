@@ -23,6 +23,11 @@ export function Alert({ variant = 'default', title, children }: AlertProps) {
   );
 }
 
+// Add missing AlertTitle component that's causing build errors
+export function AlertTitle({ children }: { children: React.ReactNode }) {
+  return <h5 className="font-medium mb-2">{children}</h5>;
+}
+
 export function AlertDescription({ children }: { children: React.ReactNode }) {
   return <div className="text-sm">{children}</div>;
 }
