@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Explore, learn, and practise using words to identify and express emotions with our comprehensive emotional vocabulary development tools.',
 };
 
-export default function EmotionalVocabularyPage() {
+export default function EmotionalVocabularyPage(): React.ReactNode {
   return (
     <div className="container mx-auto py-6">
       <EmotionalVocabularyDevelopment />
