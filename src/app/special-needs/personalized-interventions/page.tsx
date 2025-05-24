@@ -6,10 +6,10 @@ import PersonalizedInterventionsEngine from '@/components/special-needs/personal
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Sparkles, Info, BookOpen, AlertTriangle, Lightbulb, GraduationCap, FileText } from "lucide-react";
+import { Info, GraduationCap, FileText } from "lucide-react";
 
-export default function PersonalizedInterventionsPage() {
-  const [settings, setSettings] = useState({
+export default function PersonalizedInterventionsPage(): React.ReactNode {
+  const [settings] = useState({
     enabled: false,
     learningProfile: '',
     interventionLevel: 'moderate',
@@ -36,7 +36,7 @@ export default function PersonalizedInterventionsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           <PersonalizedInterventionsEngine 
-            onSettingsChange={setSettings}
+            onSettingsChange={() => {}}
             className="mb-8"
           />
           
@@ -104,7 +104,7 @@ export default function PersonalizedInterventionsPage() {
                       A 2023 meta-analysis in the Journal of Learning Disabilities found that interventions tailored to specific learning profiles were 42% more effective than generic support approaches.
                     </p>
                     <p>
-                      The Department for Education's SEN Code of Practise emphasizes the importance of targeted, evidence-based interventions as part of the graduated approach to supporting pupils with SEN.
+                      The Department for Education&apos;s SEN Code of Practise emphasizes the importance of targeted, evidence-based interventions as part of the graduated approach to supporting pupils with SEN.
                     </p>
                     <p>
                       Research from the National Centre on Intensive Intervention demonstrates that systematic data collection and analysis is essential for optimising intervention effectiveness.
@@ -130,7 +130,7 @@ export default function PersonalizedInterventionsPage() {
                       <li>Maintain regular communication with teachers about progress</li>
                       <li>Share observations about what works well at home</li>
                       <li>Celebrate small steps of progress to build confidence</li>
-                      <li>Advocate for adjustments to interventions based on your child's response</li>
+                      <li>Advocate for adjustments to interventions based on your child&apos;s response</li>
                     </ul>
                     
                     <h4>Implementation Cycle:</h4>
