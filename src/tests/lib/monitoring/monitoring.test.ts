@@ -1,7 +1,22 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { sentry, logger, performance, healthChecks, alerting } from '../../../lib/monitoring';
+
+// Define interfaces for monitoring components
+interface AlertConfig {
+  name: string;
+  description: string;
+  level: string;
+  threshold: number;
+  cooldown: number;
+  channels: string[];
+  enabled: boolean;
+}
+
+interface HealthCheckResult {
+  status: string;
+  latency: number;
+  message: string;
+}
 
 // Mock dependencies
 vi.mock('@sentry/nextjs', () => ({
@@ -44,7 +59,6 @@ vi.mock('winston', () => ({
 
 // Use import instead of require
 import { PrismaClient } from '@prisma/client';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 vi.mock('@prisma/client', () => ({
   PrismaClient: vi.fn().mockImplementation(() => ({
     $queryRaw: vi.fn().mockResolvedValue([{ 1: 1 }])
@@ -179,7 +193,7 @@ describe('Monitoring System', () => {
 
   describe('Health Checks', () => {
     it('should perform database health check', async () => {
-      const result = await healthChecks.checkDatabase();
+      const result = await healthChecks.checkDatabase() as HealthCheckResult;
       
       expect(result.status).toBe('healthy');
       expect(result).toHaveProperty('latency');
@@ -194,7 +208,7 @@ describe('Monitoring System', () => {
         heapTotal: 100 * 1024 * 1024 // 100MB
       });
       
-      const result = healthChecks.checkMemoryUsage();
+      const result = healthChecks.checkMemoryUsage() as HealthCheckResult;
       
       expect(result.status).toBe('healthy');
       expect(result).toHaveProperty('latency');
@@ -219,7 +233,7 @@ describe('Monitoring System', () => {
 
   describe('Alerting', () => {
     it('should register and trigger alerts', () => {
-      const alertConfig = {
+      const alertConfig: AlertConfig = {
         name: 'test-alert',
         description: 'Test alert',
         level: 'warning',
@@ -241,7 +255,7 @@ describe('Monitoring System', () => {
     });
 
     it('should not trigger disabled alerts', () => {
-      const alertConfig = {
+      const alertConfig: AlertConfig = {
         name: 'disabled-alert',
         description: 'Disabled alert',
         level: 'warning',
@@ -259,7 +273,7 @@ describe('Monitoring System', () => {
     });
 
     it('should enable and disable alerts', () => {
-      const alertConfig = {
+      const alertConfig: AlertConfig = {
         name: 'toggle-alert',
         description: 'Toggle alert',
         level: 'warning',
