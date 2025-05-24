@@ -5,8 +5,10 @@
  * and manages video generation, retrieval, and management.
  */
 
-import { HeygenAPI, HeygenVideo, HeygenAvatar, VideoGenerationRequest } from './heygen-api';
+import { HeygenAPI, HeygenVideo as HeyGenVideo, HeygenAvatar, VideoGenerationRequest } from './heygen-api';
 import { db } from '../db';
+
+export { HeyGenVideo };
 
 export class HeygenService {
   private static instance: HeygenService;
@@ -58,7 +60,7 @@ export class HeygenService {
   /**
    * Get all videos
    */
-  public async getAllVideos(): Promise<HeygenVideo[]> {
+  public async getAllVideos(): Promise<HeyGenVideo[]> {
     this.checkInitialized();
     return this.heygenApi.getVideos();
   }
@@ -67,7 +69,7 @@ export class HeygenService {
    * Get videos for a specific user
    * @param userId User ID
    */
-  public async getUserVideos(userId: string): Promise<HeygenVideo[]> {
+  public async getUserVideos(userId: string): Promise<HeyGenVideo[]> {
     this.checkInitialized();
     
     try {
@@ -101,7 +103,7 @@ export class HeygenService {
    * Get a specific video by ID
    * @param id Video ID
    */
-  public async getVideo(id: string): Promise<HeygenVideo> {
+  public async getVideo(id: string): Promise<HeyGenVideo> {
     this.checkInitialized();
     return this.heygenApi.getVideo(id);
   }
@@ -159,12 +161,15 @@ export class HeygenService {
     
     // If userId is provided, verify ownership before deletion
     if (userId) {
-      const userVideo = await db.userVideos.findFirst({
+      const userVideos = await db.userVideos.findMany({
         where: {
           videoId: id,
           userId
-        }
+        },
+        take: 1
       });
+      
+      const userVideo = userVideos.length > 0 ? userVideos[0] : null;
       
       if (!userVideo) {
         throw new Error('Video not found or you do not have permission to delete it');
@@ -198,11 +203,14 @@ export class HeygenService {
     
     // Update video status in the database
     if (data.video_id && data.status) {
-      const userVideo = await db.userVideos.findFirst({
+      const userVideos = await db.userVideos.findMany({
         where: {
           videoId: data.video_id
-        }
+        },
+        take: 1
       });
+      
+      const userVideo = userVideos.length > 0 ? userVideos[0] : null;
       
       if (userVideo) {
         await db.userVideos.update({
