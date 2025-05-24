@@ -35,6 +35,16 @@ const user = {
   },
 
   /**
+   * Find a user by unique criteria
+   */
+  findUnique: async (params: {
+    where: Prisma.UserWhereUniqueInput;
+    select?: Prisma.UserSelect;
+  }) => {
+    return prisma.user.findUnique(params);
+  },
+
+  /**
    * Create a new user
    */
   create: async (data: Prisma.UserCreateInput) => {
@@ -257,6 +267,135 @@ const mindfulnessLog = {
   }
 };
 
+// BlogPost model interface
+const blogPost = {
+  /**
+   * Find a blog post by ID
+   */
+  findUnique: async (params: {
+    where: Prisma.BlogPostWhereUniqueInput;
+    include?: Prisma.BlogPostInclude;
+  }) => {
+    return prisma.blogPost.findUnique(params);
+  },
+
+  /**
+   * Find many blog posts with optional filtering
+   */
+  findMany: async (params?: {
+    skip?: number;
+    take?: number;
+    where?: Prisma.BlogPostWhereInput;
+    orderBy?: Prisma.BlogPostOrderByWithRelationInput;
+    include?: Prisma.BlogPostInclude;
+  }) => {
+    return prisma.blogPost.findMany(params);
+  },
+
+  /**
+   * Create a new blog post
+   */
+  create: async (params: {
+    data: Prisma.BlogPostCreateInput;
+  }) => {
+    return prisma.blogPost.create(params);
+  },
+
+  /**
+   * Update a blog post
+   */
+  update: async (params: {
+    where: Prisma.BlogPostWhereUniqueInput;
+    data: Prisma.BlogPostUpdateInput;
+  }) => {
+    return prisma.blogPost.update(params);
+  },
+
+  /**
+   * Delete a blog post
+   */
+  delete: async (params: {
+    where: Prisma.BlogPostWhereUniqueInput;
+  }) => {
+    return prisma.blogPost.delete(params);
+  },
+
+  /**
+   * Count blog posts
+   */
+  count: async (params?: {
+    where?: Prisma.BlogPostWhereInput;
+  }) => {
+    return prisma.blogPost.count(params);
+  }
+};
+
+// UserCredits model interface
+const userCredits = {
+  /**
+   * Find user credits by ID
+   */
+  findUnique: async (params: {
+    where: Prisma.UserCreditsWhereUniqueInput;
+  }) => {
+    return prisma.userCredits.findUnique(params);
+  },
+
+  /**
+   * Create or update user credits
+   */
+  upsert: async (params: {
+    where: Prisma.UserCreditsWhereUniqueInput;
+    create: Prisma.UserCreditsCreateInput;
+    update: Prisma.UserCreditsUpdateInput;
+  }) => {
+    return prisma.userCredits.upsert(params);
+  },
+
+  /**
+   * Update user credits
+   */
+  update: async (params: {
+    where: Prisma.UserCreditsWhereUniqueInput;
+    data: Prisma.UserCreditsUpdateInput;
+  }) => {
+    return prisma.userCredits.update(params);
+  }
+};
+
+// CreditPurchase model interface
+const creditPurchase = {
+  /**
+   * Find a credit purchase by ID
+   */
+  findUnique: async (params: {
+    where: Prisma.CreditPurchaseWhereUniqueInput;
+  }) => {
+    return prisma.creditPurchase.findUnique(params);
+  },
+
+  /**
+   * Find many credit purchases with optional filtering
+   */
+  findMany: async (params?: {
+    skip?: number;
+    take?: number;
+    where?: Prisma.CreditPurchaseWhereInput;
+    orderBy?: Prisma.CreditPurchaseOrderByWithRelationInput;
+  }) => {
+    return prisma.creditPurchase.findMany(params);
+  },
+
+  /**
+   * Create a new credit purchase
+   */
+  create: async (params: {
+    data: Prisma.CreditPurchaseCreateInput;
+  }) => {
+    return prisma.creditPurchase.create(params);
+  }
+};
+
 // Export the database interface
 const db = {
   user,
@@ -264,6 +403,9 @@ const db = {
   reflectionPrompt,
   mindfulnessSettings,
   mindfulnessLog,
+  blogPost,
+  userCredits,
+  creditPurchase,
   // Expose the raw prisma client for direct access when needed
   prisma
 };
