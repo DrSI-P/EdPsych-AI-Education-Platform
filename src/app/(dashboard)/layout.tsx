@@ -4,14 +4,14 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
 export default async function DashboardLayout({
-  children: any,
+  children,
 }: {
   children: React.ReactNode;
 }) {
   const session = await auth();
   
   // Redirect to sign in if not authenticated
-  if (!session: any) {
+  if (!session) {
     redirect('/auth/signin');
   }
   
