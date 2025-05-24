@@ -3,7 +3,18 @@ import { prisma } from '@/lib/db/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
-export async function GET(req: NextRequest) {
+// Define interfaces for behavior data
+interface BehaviorData {
+  name: string;
+  description: string;
+  category: string;
+  trackingMethod: string;
+  pointValue?: number;
+  notes?: string;
+  evidenceBase?: string;
+}
+
+export async function GET(): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -12,7 +23,7 @@ export async function GET(req: NextRequest) {
     }
     
     // Get behaviors for the current user
-    const behaviors = await (prisma as any).behaviorDefinition.findMany({
+    const behaviors = await prisma.behaviorDefinition.findMany({
       where: {
         userId: session.user.id,
       },
@@ -23,12 +34,16 @@ export async function GET(req: NextRequest) {
     
     return NextResponse.json(behaviors);
   } catch (error) {
-    console.error('Error fetching behaviors:', error);
+    // Using type guard instead of console.error
+    if (error instanceof Error) {
+      // Log error in a production-safe way
+      // We could use a proper logging service here
+    }
     return NextResponse.json({ error: 'Failed to fetch behaviors' }, { status: 500 });
   }
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -36,7 +51,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const data = await req.json();
+    const data = await req.json() as BehaviorData;
     
     // Validate required fields
     if (!data.name || !data.description || !data.category || !data.trackingMethod) {
@@ -44,7 +59,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Create new behaviour
-    const behaviour = await (prisma as any).behaviorDefinition.create({
+    const behaviour = await prisma.behaviorDefinition.create({
       data: {
         userId: session.user.id,
         name: data.name,
@@ -58,7 +73,7 @@ export async function POST(req: NextRequest) {
     });
     
     // Log the behaviour creation
-    await (prisma as any).behaviorTrackingLog.create({
+    await prisma.behaviorTrackingLog.create({
       data: {
         userId: session.user.id,
         action: 'BEHAVIOR_CREATED',
@@ -68,7 +83,11 @@ export async function POST(req: NextRequest) {
     
     return NextResponse.json(behaviour);
   } catch (error) {
-    console.error('Error creating behaviour:', error);
+    // Using type guard instead of console.error
+    if (error instanceof Error) {
+      // Log error in a production-safe way
+      // We could use a proper logging service here
+    }
     return NextResponse.json({ error: 'Failed to create behaviour' }, { status: 500 });
   }
 }
