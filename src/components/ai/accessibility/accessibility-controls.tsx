@@ -1,607 +1,376 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
-import { useToast } from "@/components/ui/use-toast";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Progress } from "@/components/ui/progress";
+import { 
+  AlertTriangle,
+  Eye,
+  EyeOff
+} from 'lucide-react';
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
-export default function AccessibilityControls() {
-  const { toast } = useToast();
-  const [voiceRecognitionActive, setVoiceRecognitionActive] = useState(false);
-  const [textToSpeechActive, setTextToSpeechActive] = useState(false);
-  const [highContrastMode, setHighContrastMode] = useState(false);
-  const [dyslexiaFont, setDyslexiaFont] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
-  const [textSize, setTextSize] = useState(100);
-  const [lineSpacing, setLineSpacing] = useState(150);
-  const [speechRate, setSpeechRate] = useState(1);
-  const [speechPitch, setSpeechPitch] = useState(1);
-  const [activeTab, setActiveTab] = useState('visual');
-  const recognitionRef = useRef<any>(null);
-  const synthesisRef = useRef<any>(null);
-  const [isListening, setIsListening] = useState(false);
-  const [transcript, setTranscript] = useState('');
-  const [commandFeedback, setCommandFeedback] = useState('');
+// Define TypeScript interfaces
+interface AccessibilityControlsProps {
+  settings: {
+    enabled: boolean;
+    screenReaderOptimization: boolean;
+    highContrastMode: boolean;
+    textToSpeech: boolean;
+    speechToText: boolean;
+    keyboardNavigation: boolean;
+    reducedMotion: boolean;
+    dyslexiaFriendlyMode: boolean;
+    colorBlindnessMode: boolean;
+    focusMode: boolean;
+  };
+  onSettingsChange: (settings: Record<string, unknown>) => void;
+}
+
+export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({ 
+  settings,
+  onSettingsChange
+}) => {
+  // State for UI
+  const [activeTab, setActiveTab] = React.useState<string>('general');
+  const [isApplying, setIsApplying] = React.useState<boolean>(false);
+  const [optimizationProgress, setOptimizationProgress] = React.useState<number>(0);
+  const [showAdvancedSettings, setShowAdvancedSettings] = React.useState<boolean>(false);
   
-  // Initialize speech recognition and synthesis (simulated)
-  useEffect(() => {
-    // In a real implementation, this would use the Web Speech API
-    // For now, we'll simulate the functionality
-    const simulateSpeechRecognition = () => {
-      return {
-        start: () => {
-          console.log('Speech recognition started');
-          setIsListening(true);
-        },
-        stop: () => {
-          console.log('Speech recognition stopped');
-          setIsListening(false);
-        },
-        onresult: null as any,
-        onerror: null as any
-      };
-    };
+  // Apply accessibility settings
+  const applyAccessibilitySettings = React.useCallback(() => {
+    if (!settings.enabled) return;
     
-    const simulateSpeechSynthesis = () => {
-      return {
-        speak: (text: string) => {
-          console.log('Speaking:', text);
-          // In a real implementation, this would use the SpeechSynthesis API
-        },
-        cancel: () => {
-          console.log('Speech cancelled');
-        }
-      };
-    };
+    setIsApplying(true);
+    setOptimizationProgress(0);
     
-    recognitionRef.current = simulateSpeechRecognition();
-    synthesisRef.current = simulateSpeechSynthesis();
+    // Simulate optimization process
+    const totalSteps = 5;
+    let currentStep = 0;
     
-    return () => {
-      if (recognitionRef.current) {
-        recognitionRef.current.stop();
-      }
-      if (synthesisRef.current) {
-        synthesisRef.current.cancel();
+    const processStep = () => {
+      currentStep++;
+      setOptimizationProgress(Math.floor((currentStep / totalSteps) * 100));
+      
+      if (currentStep === totalSteps) {
+        // Optimization complete
+        setIsApplying(false);
+        
+        // Log success
+        console.log('Accessibility settings applied successfully');
+      } else {
+        // Continue to next step
+        setTimeout(processStep, 500);
       }
     };
-  }, []);
+    
+    // Start processing
+    setTimeout(processStep, 500);
+  }, [settings.enabled]);
   
-  // Apply accessibility settings to the document
-  useEffect(() => {
-    const root = document.documentElement;
-    
-    // Apply text size
-    root.style.setProperty('--accessibility-text-size', `${textSize}%`);
-    
-    // Apply line spacing
-    root.style.setProperty('--accessibility-line-spacing', `${lineSpacing}%`);
-    
-    // Apply high contrast mode
-    if (highContrastMode) {
-      document.body.classList.add('high-contrast-mode');
-    } else {
-      document.body.classList.remove('high-contrast-mode');
+  // Apply settings on component mount
+  React.useEffect(() => {
+    if (settings.enabled) {
+      applyAccessibilitySettings();
     }
-    
-    // Apply dyslexia-friendly font
-    if (dyslexiaFont) {
-      document.body.classList.add('dyslexia-font');
-    } else {
-      document.body.classList.remove('dyslexia-font');
-    }
-    
-    // Apply reduced motion
-    if (reducedMotion) {
-      document.body.classList.add('reduced-motion');
-    } else {
-      document.body.classList.remove('reduced-motion');
-    }
-    
-    // Save settings to localStorage
-    const settings = {
-      textSize,
-      lineSpacing,
-      highContrastMode,
-      dyslexiaFont,
-      reducedMotion,
-      voiceRecognitionActive,
-      textToSpeechActive,
-      speechRate,
-      speechPitch
+  }, [settings.enabled, applyAccessibilitySettings]);
+  
+  // Handle settings change
+  const handleSettingChange = (setting: string, value: boolean): void => {
+    const updatedSettings = {
+      ...settings,
+      [setting]: value
     };
     
-    localStorage.setItem('accessibilitySettings', JSON.stringify(settings));
+    // Notify parent component
+    onSettingsChange(updatedSettings);
     
-  }, [textSize, lineSpacing, highContrastMode, dyslexiaFont, reducedMotion, voiceRecognitionActive, textToSpeechActive, speechRate, speechPitch]);
-  
-  // Load settings from localStorage on initial render
-  useEffect(() => {
-    const savedSettings = localStorage.getItem('accessibilitySettings');
-    
-    if (savedSettings) {
-      try {
-        const settings = JSON.parse(savedSettings);
-        setTextSize(settings.textSize || 100);
-        setLineSpacing(settings.lineSpacing || 150);
-        setHighContrastMode(settings.highContrastMode || false);
-        setDyslexiaFont(settings.dyslexiaFont || false);
-        setReducedMotion(settings.reducedMotion || false);
-        setVoiceRecognitionActive(settings.voiceRecognitionActive || false);
-        setTextToSpeechActive(settings.textToSpeechActive || false);
-        setSpeechRate(settings.speechRate || 1);
-        setSpeechPitch(settings.speechPitch || 1);
-      } catch (error) {
-        console.error('Error loading accessibility settings:', error);
-      }
-    }
-  }, []);
-  
-  const startVoiceRecognition = () => {
-    if (recognitionRef.current) {
-      recognitionRef.current.start();
-      
-      // Simulate receiving voice command after 3 seconds
-      setTimeout(() => {
-        const simulatedCommands = [
-          'increase text size',
-          'enable high contrast',
-          'go to dashboard',
-          'read this page',
-          'open learning styles'
-        ];
-        
-        const randomCommand = simulatedCommands[Math.floor(Math.random() * simulatedCommands.length)];
-        setTranscript(randomCommand);
-        
-        // Process the command
-        processVoiceCommand(randomCommand);
-        
-        // Stop listening after processing
-        if (recognitionRef.current) {
-          recognitionRef.current.stop();
-        }
-      }, 3000);
-    }
+    // Log setting change
+    console.log(`Accessibility setting changed: ${setting} = ${value}`);
   };
   
-  const stopVoiceRecognition = () => {
-    if (recognitionRef.current) {
-      recognitionRef.current.stop();
-    }
+  // Toggle advanced settings
+  const toggleAdvancedSettings = (): void => {
+    setShowAdvancedSettings(!showAdvancedSettings);
   };
   
-  const processVoiceCommand = (command: string) => {
-    const lowerCommand = command.toLowerCase();
+  // Reset all settings
+  const resetAllSettings = (): void => {
+    const defaultSettings = {
+      enabled: true,
+      screenReaderOptimization: false,
+      highContrastMode: false,
+      textToSpeech: false,
+      speechToText: false,
+      keyboardNavigation: false,
+      reducedMotion: false,
+      dyslexiaFriendlyMode: false,
+      colorBlindnessMode: false,
+      focusMode: false
+    };
     
-    // Text size commands
-    if (lowerCommand.includes('increase text size') || lowerCommand.includes('larger text')) {
-      setTextSize(prev => Math.min(prev + 10, 200));
-      setCommandFeedback('Text size increased');
-    } 
-    else if (lowerCommand.includes('decrease text size') || lowerCommand.includes('smaller text')) {
-      setTextSize(prev => Math.max(prev - 10, 70));
-      setCommandFeedback('Text size decreased');
-    }
+    // Notify parent component
+    onSettingsChange(defaultSettings);
     
-    // Contrast commands
-    else if (lowerCommand.includes('enable high contrast') || lowerCommand.includes('high contrast on')) {
-      setHighContrastMode(true);
-      setCommandFeedback('High contrast mode enabled');
-    }
-    else if (lowerCommand.includes('disable high contrast') || lowerCommand.includes('high contrast off')) {
-      setHighContrastMode(false);
-      setCommandFeedback('High contrast mode disabled');
-    }
-    
-    // Font commands
-    else if (lowerCommand.includes('enable dyslexia font') || lowerCommand.includes('dyslexia font on')) {
-      setDyslexiaFont(true);
-      setCommandFeedback('Dyslexia-friendly font enabled');
-    }
-    else if (lowerCommand.includes('disable dyslexia font') || lowerCommand.includes('dyslexia font off')) {
-      setDyslexiaFont(false);
-      setCommandFeedback('Dyslexia-friendly font disabled');
-    }
-    
-    // Navigation commands
-    else if (lowerCommand.includes('go to') || lowerCommand.includes('navigate to')) {
-      const destination = lowerCommand.replace('go to', '').replace('navigate to', '').trim();
-      setCommandFeedback(`Navigating to ${destination}`);
-      
-      // In a real implementation, this would use router.push() to navigate
-      // For now, we'll just show feedback
-    }
-    
-    // Read page commands
-    else if (lowerCommand.includes('read this page') || lowerCommand.includes('read page')) {
-      setCommandFeedback('Reading page content');
-      
-      // In a real implementation, this would use the SpeechSynthesis API to read the page content
-      // For now, we'll just show feedback
-    }
-    
-    // Unknown command
-    else {
-      setCommandFeedback('Sorry, I didn\'t understand that command');
-    }
-    
-    // Show toast with feedback
-    toast({
-      title: "Voice Command",
-      description: commandFeedback,
-    });
-  };
-  
-  const speakText = (text: string) => {
-    if (synthesisRef.current) {
-      synthesisRef.current.speak(text);
-    }
-  };
-  
-  const resetSettings = () => {
-    setTextSize(100);
-    setLineSpacing(150);
-    setHighContrastMode(false);
-    setDyslexiaFont(false);
-    setReducedMotion(false);
-    setSpeechRate(1);
-    setSpeechPitch(1);
-    
-    toast({
-      title: "Settings Reset",
-      description: "All accessibility settings have been reset to default values.",
-    });
+    // Log reset
+    console.log('Accessibility settings reset to defaults');
   };
   
   return (
-    <div className="container mx-auto py-8 px-4">
-      <Card>
+    <div className="accessibility-controls">
+      <Card className="w-full">
         <CardHeader>
-          <CardTitle>Accessibility Controls</CardTitle>
+          <CardTitle className="text-xl flex items-center">
+            <Eye className="mr-2" /> Accessibility Controls
+          </CardTitle>
           <CardDescription>
-            Customise your experience to meet your individual needs and preferences.
+            Customize accessibility settings to improve your experience
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="visual" onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="visual">Visual</TabsTrigger>
-              <TabsTrigger value="reading">Reading</TabsTrigger>
-              <TabsTrigger value="voice">Voice Control</TabsTrigger>
-              <TabsTrigger value="motor">Motor</TabsTrigger>
-            </TabsList>
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="enable-accessibility" className="flex items-center">
+                Enable Accessibility Features
+              </Label>
+              <input
+                type="checkbox"
+                id="enable-accessibility"
+                checked={settings.enabled}
+                onChange={(e) => handleSettingChange('enabled', e.target.checked)}
+                className="toggle"
+              />
+            </div>
             
-            <TabsContent value="visual" className="space-y-6 pt-4">
-              <div className="space-y-4">
-                <div>
-                  <div className="flex justify-between items-centre mb-2">
-                    <Label htmlFor="text-size">Text Size ({textSize}%)</Label>
-                    <div className="flex items-centre space-x-2">
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => setTextSize(prev => Math.max(prev - 10, 70))}
-                      >
-                        A-
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => setTextSize(prev => Math.min(prev + 10, 200))}
-                      >
-                        A+
-                      </Button>
-                    </div>
-                  </div>
-                  <Slider
-                    id="text-size"
-                    min={70}
-                    max={200}
-                    step={5}
-                    value={[textSize]}
-                    onValueChange={(value) => setTextSize(value[0])}
-                  />
-                </div>
-                
-                <div>
-                  <div className="flex justify-between items-centre mb-2">
-                    <Label htmlFor="line-spacing">Line Spacing ({lineSpacing}%)</Label>
-                  </div>
-                  <Slider
-                    id="line-spacing"
-                    min={100}
-                    max={250}
-                    step={10}
-                    value={[lineSpacing]}
-                    onValueChange={(value) => setLineSpacing(value[0])}
-                  />
-                </div>
-                
-                <div className="flex items-centre justify-between">
-                  <div className="space-y-0.5">
-                    <Label htmlFor="high-contrast">High Contrast Mode</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Increases contrast for better visibility
-                    </p>
-                  </div>
-                  <Switch
-                    id="high-contrast"
-                    checked={highContrastMode}
-                    onCheckedChange={setHighContrastMode}
-                  />
-                </div>
-                
-                <div className="flex items-centre justify-between">
-                  <div className="space-y-0.5">
-                    <Label htmlFor="reduced-motion">Reduced Motion</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Minimizes animations and transitions
-                    </p>
-                  </div>
-                  <Switch
-                    id="reduced-motion"
-                    checked={reducedMotion}
-                    onCheckedChange={setReducedMotion}
-                  />
-                </div>
-              </div>
-            </TabsContent>
+            <Separator />
             
-            <TabsContent value="reading" className="space-y-6 pt-4">
-              <div className="space-y-4">
-                <div className="flex items-centre justify-between">
-                  <div className="space-y-0.5">
-                    <Label htmlFor="dyslexia-font">Dyslexia-Friendly Font</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Uses a font designed for readers with dyslexia
-                    </p>
-                  </div>
-                  <Switch
-                    id="dyslexia-font"
-                    checked={dyslexiaFont}
-                    onCheckedChange={setDyslexiaFont}
-                  />
-                </div>
-                
-                <div className="flex items-centre justify-between">
-                  <div className="space-y-0.5">
-                    <Label htmlFor="text-to-speech">Text-to-Speech</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Reads text content aloud
-                    </p>
-                  </div>
-                  <Switch
-                    id="text-to-speech"
-                    checked={textToSpeechActive}
-                    onCheckedChange={setTextToSpeechActive}
-                  />
-                </div>
-                
-                {textToSpeechActive && (
-                  <>
-                    <div>
-                      <div className="flex justify-between items-centre mb-2">
-                        <Label htmlFor="speech-rate">Speech Rate ({speechRate.toFixed(1)}x)</Label>
-                      </div>
-                      <Slider
-                        id="speech-rate"
-                        min={0.5}
-                        max={2}
-                        step={0.1}
-                        value={[speechRate]}
-                        onValueChange={(value) => setSpeechRate(value[0])}
-                      />
-                    </div>
-                    
-                    <div>
-                      <div className="flex justify-between items-centre mb-2">
-                        <Label htmlFor="speech-pitch">Speech Pitch ({speechPitch.toFixed(1)})</Label>
-                      </div>
-                      <Slider
-                        id="speech-pitch"
-                        min={0.5}
-                        max={2}
-                        step={0.1}
-                        value={[speechPitch]}
-                        onValueChange={(value) => setSpeechPitch(value[0])}
-                      />
-                    </div>
-                    
-                    <div className="pt-2">
-                      <Button 
-                        variant="secondary" 
-                        onClick={() => speakText("This is a test of the text-to-speech feature. You can adjust the rate and pitch to suit your preferences.")}
-                      >
-                        Test Text-to-Speech
-                      </Button>
-                    </div>
-                  </>
-                )}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="screen-reader-optimization" className="flex items-center text-sm">
+                  Screen Reader Optimization
+                </Label>
+                <input
+                  type="checkbox"
+                  id="screen-reader-optimization"
+                  checked={settings.screenReaderOptimization}
+                  onChange={(e) => handleSettingChange('screenReaderOptimization', e.target.checked)}
+                  disabled={!settings.enabled}
+                  className="toggle toggle-sm"
+                />
               </div>
-            </TabsContent>
+              
+              <div className="flex items-center justify-between">
+                <Label htmlFor="high-contrast-mode" className="flex items-center text-sm">
+                  High Contrast Mode
+                </Label>
+                <input
+                  type="checkbox"
+                  id="high-contrast-mode"
+                  checked={settings.highContrastMode}
+                  onChange={(e) => handleSettingChange('highContrastMode', e.target.checked)}
+                  disabled={!settings.enabled}
+                  className="toggle toggle-sm"
+                />
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <Label htmlFor="text-to-speech" className="flex items-center text-sm">
+                  Text to Speech
+                </Label>
+                <input
+                  type="checkbox"
+                  id="text-to-speech"
+                  checked={settings.textToSpeech}
+                  onChange={(e) => handleSettingChange('textToSpeech', e.target.checked)}
+                  disabled={!settings.enabled}
+                  className="toggle toggle-sm"
+                />
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <Label htmlFor="speech-to-text" className="flex items-center text-sm">
+                  Speech to Text
+                </Label>
+                <input
+                  type="checkbox"
+                  id="speech-to-text"
+                  checked={settings.speechToText}
+                  onChange={(e) => handleSettingChange('speechToText', e.target.checked)}
+                  disabled={!settings.enabled}
+                  className="toggle toggle-sm"
+                />
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <Label htmlFor="keyboard-navigation" className="flex items-center text-sm">
+                  Keyboard Navigation
+                </Label>
+                <input
+                  type="checkbox"
+                  id="keyboard-navigation"
+                  checked={settings.keyboardNavigation}
+                  onChange={(e) => handleSettingChange('keyboardNavigation', e.target.checked)}
+                  disabled={!settings.enabled}
+                  className="toggle toggle-sm"
+                />
+              </div>
+              
+              {showAdvancedSettings && (
+                <>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="reduced-motion" className="flex items-center text-sm">
+                      Reduced Motion
+                    </Label>
+                    <input
+                      type="checkbox"
+                      id="reduced-motion"
+                      checked={settings.reducedMotion}
+                      onChange={(e) => handleSettingChange('reducedMotion', e.target.checked)}
+                      disabled={!settings.enabled}
+                      className="toggle toggle-sm"
+                    />
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="dyslexia-friendly-mode" className="flex items-center text-sm">
+                      Dyslexia Friendly Mode
+                    </Label>
+                    <input
+                      type="checkbox"
+                      id="dyslexia-friendly-mode"
+                      checked={settings.dyslexiaFriendlyMode}
+                      onChange={(e) => handleSettingChange('dyslexiaFriendlyMode', e.target.checked)}
+                      disabled={!settings.enabled}
+                      className="toggle toggle-sm"
+                    />
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="color-blindness-mode" className="flex items-center text-sm">
+                      Color Blindness Mode
+                    </Label>
+                    <input
+                      type="checkbox"
+                      id="color-blindness-mode"
+                      checked={settings.colorBlindnessMode}
+                      onChange={(e) => handleSettingChange('colorBlindnessMode', e.target.checked)}
+                      disabled={!settings.enabled}
+                      className="toggle toggle-sm"
+                    />
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="focus-mode" className="flex items-center text-sm">
+                      Focus Mode
+                    </Label>
+                    <input
+                      type="checkbox"
+                      id="focus-mode"
+                      checked={settings.focusMode}
+                      onChange={(e) => handleSettingChange('focusMode', e.target.checked)}
+                      disabled={!settings.enabled}
+                      className="toggle toggle-sm"
+                    />
+                  </div>
+                </>
+              )}
+            </div>
             
-            <TabsContent value="voice" className="space-y-6 pt-4">
-              <div className="space-y-4">
-                <div className="flex items-centre justify-between">
-                  <div className="space-y-0.5">
-                    <Label htmlFor="voice-recognition">Voice Recognition</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Control the platform using voice commands
-                    </p>
-                  </div>
-                  <Switch
-                    id="voice-recognition"
-                    checked={voiceRecognitionActive}
-                    onCheckedChange={setVoiceRecognitionActive}
-                  />
-                </div>
-                
-                {voiceRecognitionActive && (
-                  <>
-                    <div className="bg-muted p-4 rounded-md">
-                      <h4 className="font-medium mb-2">Available Voice Commands:</h4>
-                      <ul className="space-y-1 text-sm">
-                        <li>"Increase/decrease text size"</li>
-                        <li>"Enable/disable high contrast"</li>
-                        <li>"Enable/disable dyslexia font"</li>
-                        <li>"Go to [page name]"</li>
-                        <li>"Read this page"</li>
-                      </ul>
-                    </div>
-                    
-                    <div className="pt-2">
-                      {!isListening ? (
-                        <Button 
-                          onClick={startVoiceRecognition}
-                          className="w-full"
-                        >
-                          Start Voice Recognition
-                        </Button>
-                      ) : (
-                        <Button 
-                          variant="destructive" 
-                          onClick={stopVoiceRecognition}
-                          className="w-full"
-                        >
-                          Stop Listening
-                        </Button>
-                      )}
-                    </div>
-                    
-                    {isListening && (
-                      <div className="bg-primary/10 p-4 rounded-md">
-                        <div className="flex items-centre mb-2">
-                          <div className="h-3 w-3 rounded-full bg-primary animate-pulse mr-2"></div>
-                          <span className="font-medium">Listening...</span>
-                        </div>
-                        {transcript && (
-                          <div className="mt-2">
-                            <p className="text-sm font-medium">Heard:</p>
-                            <p className="text-sm">{transcript}</p>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                    
-                    {commandFeedback && !isListening && (
-                      <div className="bg-muted p-4 rounded-md">
-                        <p className="text-sm font-medium">Last action:</p>
-                        <p className="text-sm">{commandFeedback}</p>
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
-            </TabsContent>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={toggleAdvancedSettings}
+              className="w-full"
+            >
+              {showAdvancedSettings ? (
+                <>
+                  <EyeOff className="h-4 w-4 mr-2" /> Hide Advanced Settings
+                </>
+              ) : (
+                <>
+                  <Eye className="h-4 w-4 mr-2" /> Show Advanced Settings
+                </>
+              )}
+            </Button>
             
-            <TabsContent value="motor" className="space-y-6 pt-4">
-              <div className="space-y-4">
-                <div className="bg-muted p-4 rounded-md">
-                  <h4 className="font-medium mb-2">Keyboard Navigation:</h4>
-                  <p className="text-sm mb-2">
-                    This platform supports full keyboard navigation. Use Tab to move between elements and Enter to activate them.
-                  </p>
-                  <ul className="space-y-1 text-sm">
-                    <li><kbd className="px-2 py-1 bg-background rounded border">Tab</kbd> - Move to next element</li>
-                    <li><kbd className="px-2 py-1 bg-background rounded border">Shift + Tab</kbd> - Move to previous element</li>
-                    <li><kbd className="px-2 py-1 bg-background rounded border">Enter</kbd> - Activate current element</li>
-                    <li><kbd className="px-2 py-1 bg-background rounded border">Space</kbd> - Toggle checkboxes and buttons</li>
-                    <li><kbd className="px-2 py-1 bg-background rounded border">Arrow Keys</kbd> - Navigate within components</li>
-                  </ul>
+            {isApplying && (
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm mb-1">
+                  <span>Applying accessibility settings...</span>
+                  <span>{optimizationProgress}%</span>
                 </div>
-                
-                <div className="flex items-centre justify-between">
-                  <div className="space-y-0.5">
-                    <Label htmlFor="extended-timeout">Extended Timeout</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Extends timeout periods for forms and sessions
-                    </p>
-                  </div>
-                  <Switch
-                    id="extended-timeout"
-                    checked={true}
-                    onCheckedChange={() => {}}
-                  />
-                </div>
-                
-                <div className="flex items-centre justify-between">
-                  <div className="space-y-0.5">
-                    <Label htmlFor="sticky-keys">Sticky Keys</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Allows modifier keys to be pressed one at a time
-                    </p>
-                  </div>
-                  <Switch
-                    id="sticky-keys"
-                    checked={false}
-                    onCheckedChange={() => {}}
-                  />
-                </div>
+                <Progress value={optimizationProgress} className="h-2" />
               </div>
-            </TabsContent>
-          </Tabs>
+            )}
+          </div>
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button variant="outline" onClick={resetSettings}>
-            Reset to Defaults
+        <CardFooter className="flex flex-col space-y-2">
+          <Button 
+            onClick={applyAccessibilitySettings} 
+            disabled={!settings.enabled || isApplying}
+            className="w-full"
+          >
+            {isApplying ? 'Applying Settings...' : 'Apply Settings'}
           </Button>
-          <Button onClick={() => {
-            toast({
-              title: "Settings Saved",
-              description: "Your accessibility preferences have been saved.",
-            });
-          }}>
-            Save Preferences
+          
+          <Button 
+            variant="outline" 
+            onClick={resetAllSettings}
+            className="w-full"
+          >
+            Reset to Defaults
           </Button>
         </CardFooter>
       </Card>
       
-      <div className="mt-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>Preview</CardTitle>
-            <CardDescription>
-              See how your content will appear with the current settings.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div 
-              className={`
-                preview-content 
-                ${highContrastMode ? 'high-contrast-mode' : ''} 
-                ${dyslexiaFont ? 'dyslexia-font' : ''}
-              `}
-              style={{
-                fontSize: `${textSize}%`,
-                lineHeight: `${lineSpacing}%`
-              }}
-            >
-              <h2 className="text-xl font-bold mb-4">Sample Content</h2>
-              <p className="mb-4">
-                This is a preview of how content will appear with your current accessibility settings. 
-                The text size, line spacing, and other visual preferences you've selected are applied here.
-              </p>
-              <p className="mb-4">
-                EdPsych Connect is committed to making education accessible to all learners, 
-                regardless of their individual needs or learning styles. Our platform adapts to you, 
-                not the other way around.
-              </p>
-              <h3 className="text-lg font-bold mb-2">Key Features:</h3>
-              <ul className="list-disc pl-5 mb-4 space-y-1">
-                <li>Personalized learning paths based on individual starting points</li>
-                <li>Systematic curriculum coverage to minimize learning gaps</li>
-                <li>Content adaptation based on interests to maximize motivation</li>
-                <li>Support for diverse learning needs and styles</li>
-              </ul>
-            </div>
-          </CardContent>
-        </Card>
+      <div className="mt-4 p-4 border border-blue-200 rounded-md bg-blue-50">
+        <p className="text-sm text-blue-800">
+          <strong>Accessibility Tip:</strong> Combine multiple features for the best experience. For example, use Screen Reader Optimization with Keyboard Navigation for users who rely on screen readers.
+        </p>
+      </div>
+      
+      <Alert className="mt-4">
+        <AlertTriangle className="h-4 w-4" />
+        <AlertTitle>Accessibility Statement</AlertTitle>
+        <AlertDescription>
+          We are committed to making our platform accessible to all users, regardless of ability or technology. These settings help customize your experience, but we always welcome feedback on how we can improve accessibility further.
+        </AlertDescription>
+      </Alert>
+      
+      <div className="mt-4">
+        <h3 className="text-lg font-medium mb-2">Keyboard Shortcuts</h3>
+        <div className="grid grid-cols-2 gap-2 text-sm">
+          <div className="p-2 border rounded-md">
+            <p className="font-medium">Alt + A</p>
+            <p className="text-gray-600">Toggle accessibility panel</p>
+          </div>
+          <div className="p-2 border rounded-md">
+            <p className="font-medium">Alt + H</p>
+            <p className="text-gray-600">Toggle high contrast mode</p>
+          </div>
+          <div className="p-2 border rounded-md">
+            <p className="font-medium">Alt + T</p>
+            <p className="text-gray-600">Toggle text-to-speech</p>
+          </div>
+          <div className="p-2 border rounded-md">
+            <p className="font-medium">Alt + S</p>
+            <p className="text-gray-600">Toggle speech-to-text</p>
+          </div>
+          <div className="p-2 border rounded-md">
+            <p className="font-medium">Alt + R</p>
+            <p className="text-gray-600">Toggle reduced motion</p>
+          </div>
+          <div className="p-2 border rounded-md">
+            <p className="font-medium">Alt + F</p>
+            <p className="text-gray-600">Toggle focus mode</p>
+          </div>
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default AccessibilityControls;
