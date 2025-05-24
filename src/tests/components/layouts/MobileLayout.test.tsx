@@ -1,18 +1,20 @@
+// @ts-check
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import MobileLayout from '../../components/layouts/MobileLayout';
 
 // Mock the useRouter hook
-jest.mock('next/navigation', () => ({
+vi.mock('next/navigation', () => ({
   useRouter: () => ({
-    push: jest.fn(),
+    push: vi.fn(),
     pathname: '/test-path',
   }),
 }));
 
 // Mock the useMediaQuery hook
-jest.mock('@/hooks/useMediaQuery', () => ({
-  useMediaQuery: jest.fn().mockImplementation((query) => {
+vi.mock('@/hooks/useMediaQuery', () => ({
+  useMediaQuery: vi.fn().mockImplementation((query) => {
     if (query === '(max-width: 768px)') return true;
     if (query === '(orientation: portrait)') return true;
     return false;
@@ -127,7 +129,7 @@ describe('MobileLayout Component', () => {
   });
 
   it('handles pull-to-refresh gesture', async () => {
-    const mockRefresh = jest.fn();
+    const mockRefresh = vi.fn();
     
     render(
       <MobileLayout onRefresh={mockRefresh}>
