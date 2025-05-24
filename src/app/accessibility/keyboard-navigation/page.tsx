@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import KeyboardNavigationEngine from '@/components/ai/accessibility/keyboard-navigation-engine';
+import { KeyboardNavigationEngine } from '@/components/ai/accessibility/keyboard-navigation-engine';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -12,29 +12,28 @@ import { Keyboard, Info, BookOpen, AlertTriangle, KeyRound } from "lucide-react"
 interface KeyboardNavigationSettings {
   enabled: boolean;
   highlightFocus: boolean;
-  skipLinks: boolean;
   keyboardShortcuts: boolean;
-  tabSize: string;
-  focusIndicatorSize: number;
-  focusIndicatorColor: string;
-  customFocusColor: string;
+  skipToContent: boolean;
+  arrowNavigation: boolean;
+  tabTrap: boolean;
 }
 
 export default function KeyboardNavigationPage() {
   const [settings, setSettings] = useState<KeyboardNavigationSettings>({
     enabled: false,
     highlightFocus: true,
-    skipLinks: true,
     keyboardShortcuts: true,
-    tabSize: 'normal',
-    focusIndicatorSize: 3,
-    focusIndicatorColor: 'blue',
-    customFocusColor: '#0066cc',
+    skipToContent: true,
+    arrowNavigation: true,
+    tabTrap: true
   });
   
   // Create a handler function with the correct type signature
-  const handleSettingsChange = (newSettings: KeyboardNavigationSettings) => {
-    setSettings(newSettings);
+  const handleSettingsChange = (newSettings: Record<string, unknown>): void => {
+    setSettings(prevSettings => ({
+      ...prevSettings,
+      ...newSettings
+    }) as KeyboardNavigationSettings);
   };
 
   return (
@@ -53,11 +52,11 @@ export default function KeyboardNavigationPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           <KeyboardNavigationEngine 
+            settings={settings}
             onSettingsChange={handleSettingsChange}
-            className="mb-8"
           />
           
-          <Alert className="mb-8">
+          <Alert>
             <Info className="h-4 w-4" />
             <AlertTitle>Accessibility Tip</AlertTitle>
             <AlertDescription>
