@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth/auth-options';
-import prisma from '@/lib/prisma';
+// Remove unused import
+// import prisma from '@/lib/prisma';
 
 // GET handler for fetching assessments aligned to a curriculum standard
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
-) {
+): Promise<NextResponse> {
   try {
     // Check authentication
     const session = await getServerSession(authOptions);
@@ -16,7 +17,8 @@ export async function GET(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const standardId = params.id;
+    // Unused variable - commented out
+    // const standardId = params.id;
     
     // Fetch the curriculum standard
     // Comment out this code as the curriculumStandard model doesn't exist in the Prisma schema
@@ -46,6 +48,7 @@ export async function GET(
     return NextResponse.json([]);
     
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error fetching aligned assessments:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching aligned assessments' },
@@ -58,7 +61,7 @@ export async function GET(
 export async function POST(
   request: NextRequest,
   { params }: { params: { id: string } }
-) {
+): Promise<NextResponse> {
   try {
     // Check authentication
     const session = await getServerSession(authOptions);
@@ -67,7 +70,8 @@ export async function POST(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const standardId = params.id;
+    // Unused variable - commented out
+    // const standardId = params.id;
     
     // Check if the standard exists
     // Comment out this code as the curriculumStandard model doesn't exist in the Prisma schema
@@ -118,6 +122,7 @@ export async function POST(
     return NextResponse.json({ success: true, count: 0 });
     
   } catch (error) {
+    // Replace console.error with structured logging when available
     console.error('Error aligning assessments:', error);
     return NextResponse.json(
       { error: 'An error occurred while aligning assessments' },
