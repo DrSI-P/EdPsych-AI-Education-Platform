@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -19,8 +19,28 @@ const FavoriteToggleSchema = z.object({
   isFavorite: z.boolean()
 });
 
+// Define interfaces for request data
+interface ActivityFilters {
+  category?: string;
+  ageGroups?: {
+    has: string;
+  };
+  timeRequired?: string;
+  groupSize?: string;
+  OR?: Array<{
+    title?: {
+      contains: string;
+      mode: string;
+    };
+    description?: {
+      contains: string;
+      mode: string;
+    };
+  }>;
+}
+
 // GET handler for retrieving activities
-export async function GET(req: Request) {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -45,7 +65,7 @@ export async function GET(req: Request) {
     });
     
     // Build query filters
-    const filters: any = {};
+    const filters: ActivityFilters = {};
     
     if (validatedFilters.category && validatedFilters.category !== 'all') {
       filters.category = validatedFilters.category;
@@ -120,7 +140,7 @@ export async function GET(req: Request) {
 }
 
 // POST handler for toggling favorites
-export async function POST(req: Request) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
