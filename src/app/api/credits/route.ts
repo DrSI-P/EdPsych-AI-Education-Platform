@@ -1,16 +1,19 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth/auth-options';
+import { 
+  createCustomer, 
+  createCreditPurchaseCheckout, 
+  CREDIT_PACKAGES 
+} from '@/lib/stripe/stripe-service';
+import { db } from '@/lib/db';
+
 /**
  * API Route for Credit Purchases
  * 
  * This API route handles the purchase of additional AI video generation credits
  * for the EdPsych AI Education Platform.
  */
-
-import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth/auth-options';
-import stripeService, { CREDIT_PACKAGES } from '@/lib/stripe/stripe-service';
-import { db } from '@/lib/db';
-
 export async function POST(req: NextRequest) {
   try {
     // Get the authenticated user
@@ -50,7 +53,7 @@ export async function POST(req: NextRequest) {
     
     if (!customerId) {
       // Create a new Stripe customer
-      customerId = await stripeService.createCustomer(
+      customerId = await createCustomer(
         user.email,
         user.name || undefined,
         { userId: user.id }
@@ -84,7 +87,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Create a checkout session
-    const checkoutUrl = await stripeService.createCreditPurchaseCheckout({
+    const checkoutUrl = await createCreditPurchaseCheckout({
       customerId,
       priceId,
       quantity,
