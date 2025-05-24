@@ -472,4 +472,4 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
   );
 };
 
-export default ReadingTimeEstimator;
+export { ReadingTimeEstimator };

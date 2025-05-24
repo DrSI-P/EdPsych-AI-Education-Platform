@@ -509,4 +509,4 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
   );
 };
 
-export default FocusModeEngine;
+export { FocusModeEngine };

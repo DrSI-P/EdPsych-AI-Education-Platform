@@ -583,4 +583,4 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
   );
 };
 
-export default DyslexiaFriendlyModeEngine;
+export { DyslexiaFriendlyModeEngine };

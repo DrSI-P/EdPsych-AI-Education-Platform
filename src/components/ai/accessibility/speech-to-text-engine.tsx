@@ -433,4 +433,4 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
   );
 };
 
-export default SpeechToTextEngine;
+export { SpeechToTextEngine };
