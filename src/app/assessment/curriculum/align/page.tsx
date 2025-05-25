@@ -34,7 +34,7 @@ interface Assessment {
   };
 }
 
-export default function AlignAssessmentPage() {
+export default function AlignAssessmentPage(): React.ReactNode {
   const router = useRouter();
   const searchParams = useSearchParams();
   const standardId = searchParams.get('standard');
@@ -78,10 +78,10 @@ export default function AlignAssessmentPage() {
           
           if (alignedResponse.ok) {
             const alignedData = await alignedResponse.json();
-            setSelectedAssessments(alignedData.map(a => a.id));
+            setSelectedAssessments(alignedData.map((a: any) => a.id));
           }
         }
-      } catch (err) {
+      } catch (err: any) {
         console.error('Error fetching data:', err);
         setError('An error occurred while fetching data');
       } finally {
@@ -141,7 +141,7 @@ export default function AlignAssessmentPage() {
 
       // Redirect back to curriculum page
       router.push('/assessment/curriculum');
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error saving alignment:', err);
       setError(err.message || 'An error occurred while saving the alignment');
     } finally {
@@ -161,7 +161,7 @@ export default function AlignAssessmentPage() {
     return (
       <div className="container mx-auto px-4 py-8">
         <Alert type="error">
-          Curriculum standard not found or you don't have permission to access it.
+          Curriculum standard not found or you don&apos;t have permission to access it.
         </Alert>
         <div className="mt-4">
           <Button onClick={() => router.push('/assessment/curriculum')}>
