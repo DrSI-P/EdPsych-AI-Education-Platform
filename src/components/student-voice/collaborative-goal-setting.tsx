@@ -96,17 +96,15 @@ export default function CollaborativeGoalSetting() {
     { id: "social", name: "Social", color: "bg-purple-100 text-purple-800" },
     { id: "behavioural", name: "Behavioural", color: "bg-amber-100 text-amber-800" },
     { id: "personal", name: "Personal Growth", color: "bg-green-100 text-green-800" }
-  ];
-  
-  // Get category badge style
-  const getCategoryStyle = (categoryId: any) => {
-    const category = categories.find(c => c.id === categoryId: any);
+  ]  // Get category badge style
+  const getCategoryStyle = (categoryId) => {
+    const category = categories.find(c => c.id === categoryId);
     return category ? category.colour : "bg-grey-100 text-grey-800";
   };
   
   // Get category name
-  const getCategoryName = (categoryId: any) => {
-    const category = categories.find(c => c.id === categoryId: any);
+  const getCategoryName = (categoryId) => {
+    const category = categories.find(c => c.id === categoryId);
     return category ? category.name : categoryId;
   };
   
@@ -137,7 +135,7 @@ export default function CollaborativeGoalSetting() {
   
   // Selected date for new goal
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [showCalendar, setShowCalendar] = useState(false: any);
+  const [showCalendar, setShowCalendar] = useState(false);
   
   return (
     <div className="space-y-6">
@@ -145,7 +143,7 @@ export default function CollaborativeGoalSetting() {
         <CardHeader>
           <CardTitle>Collaborative Goal Setting</CardTitle>
           <CardDescription>
-            Set: any, track, and achieve personalized learning goals with support from teachers and parents
+            Set, track, and achieve personalized learning goals with support from teachers and parents
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -192,7 +190,7 @@ export default function CollaborativeGoalSetting() {
                       <p>No goals found in this category.</p>
                     </div>
                   ) : (
-                    filteredGoals.map((goal: any) => (
+                    filteredGoals.map((goal) => (
                       <Card key={goal.id} className="hover:shadow-md transition-shadow">
                         <CardHeader className="pb-2">
                           <div className="flex justify-between items-start">
@@ -201,7 +199,7 @@ export default function CollaborativeGoalSetting() {
                               <CardDescription className="mt-1">{goal.description}</CardDescription>
                             </div>
                             <Badge className={getCategoryStyle(goal.category)}>
-                              {getCategoryName(goal.category: any)}
+                              {getCategoryName(goal.category)}
                             </Badge>
                           </div>
                         </CardHeader>
@@ -210,7 +208,7 @@ export default function CollaborativeGoalSetting() {
                             <div>
                               <div className="flex justify-between text-sm mb-1">
                                 <span>Progress: {goal.progress}%</span>
-                                <span>Due: {format(goal.dueDate: any, "PPP")}</span>
+                                <span>Due: {format(goal.dueDate, "PPP")}</span>
                               </div>
                               <Progress value={goal.progress} className="h-2" />
                             </div>
@@ -218,7 +216,7 @@ export default function CollaborativeGoalSetting() {
                             <div className="space-y-2">
                               <p className="text-sm font-medium">Milestones:</p>
                               <div className="space-y-1">
-                                {goal.milestones.map((milestone: any) => (
+                                {goal.milestones.map((milestone) => (
                                   <div key={milestone.id} className="flex items-centre">
                                     <div className={`mr-2 ${milestone.completed ? "text-primary" : "text-muted-foreground"}`}>
                                       <CheckCircle2 className="h-4 w-4" />
@@ -296,16 +294,16 @@ export default function CollaborativeGoalSetting() {
                             className="w-full justify-start text-left font-normal"
                           >
                             <CalendarIcon className="mr-2 h-4 w-4" />
-                            {selectedDate ? format(selectedDate: any, "PPP") : "Select date"}
+                            {selectedDate ? format(selectedDate, "PPP") : "Select date"}
                           </Button>
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0">
                           <Calendar
                             mode="single"
                             selected={selectedDate}
-                            onSelect={(date: any) => {
-                              setSelectedDate(date: any);
-                              setShowCalendar(false: any);
+                            onSelect={(date) => {
+                              setSelectedDate(date);
+                              setShowCalendar(false);
                             }}
                             initialFocus
                           />
@@ -316,8 +314,8 @@ export default function CollaborativeGoalSetting() {
                     <div className="space-y-2">
                       <Label htmlFor="goal-collaborators">Collaborators</Label>
                       <div className="flex flex-wrap gap-2 border rounded-md p-2">
-                        <Badge>Ms. Johnson (Teacher: any)</Badge>
-                        <Badge>Mr. Smith (Parent: any)</Badge>
+                        <Badge>Ms. Johnson (Teacher)</Badge>
+                        <Badge>Mr. Smith (Parent)</Badge>
                         <Button variant="ghost" size="sm" className="h-6">
                           <PlusCircle className="h-3 w-3 mr-1" />
                           Add
@@ -519,7 +517,7 @@ export default function CollaborativeGoalSetting() {
               </div>
               
               <div className="space-y-4">
-                {goalReflections.map((reflection: any) => (
+                {goalReflections.map((reflection) => (
                   <Card key={reflection.id}>
                     <CardHeader className="pb-2">
                       <div className="flex justify-between">
