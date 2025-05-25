@@ -72,7 +72,7 @@ class ErrorBoundary extends Component<Props, State> {
       this.state.hasError &&
       this.props.resetKeys &&
       prevProps.resetKeys &&
-      this.props.resetKeys.some((key: any, index) => key !== prevProps.resetKeys[index])
+      this.props.resetKeys.some((key, index) => key !== prevProps.resetKeys[index])
     ) {
       this.reset();
     }
@@ -87,9 +87,9 @@ class ErrorBoundary extends Component<Props, State> {
   };
 
   render(): ReactNode {
-    if (this.state.hasError: any) {
+    if (this.state.hasError) {
       // If a custom fallback is provided, use it
-      if (this.props.fallback: any) {
+      if (this.props.fallback) {
         return this.props.fallback;
       }
 
