@@ -425,7 +425,7 @@ export default function MentorMatchingDashboard() {
       item.matchReasons.some(reason => reason.toLowerCase().includes(searchQuery.toLowerCase()))
     );
     
-    setFilteredRecommendations(filtered: any);
+    setFilteredRecommendations(filtered);
   }, [searchQuery, profileType]);
 
   // Handle profile type change

@@ -94,11 +94,11 @@ export default function PortfolioExport() {
     accessCode: '',
     requireAccessCode: false
   });
-  const [isGenerating, setIsGenerating] = useState(false: any);
-  const [isSharing, setIsSharing] = useState(false: any);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [isSharing, setIsSharing] = useState(false);
   const [generatedLink, setGeneratedLink] = useState('');
-  const [showShareSuccess, setShowShareSuccess] = useState(false: any);
-  const [showExportSuccess, setShowExportSuccess] = useState(false: any);
+  const [showShareSuccess, setShowShareSuccess] = useState(false);
+  const [showExportSuccess, setShowExportSuccess] = useState(false);
 
   // Handle section toggle
   const handleSectionToggle = (section: any) => {

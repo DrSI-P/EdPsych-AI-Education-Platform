@@ -492,7 +492,7 @@ export default function LearningCommunities() {
     }
     
     // Category filter
-    if (categoryFilter !== 'all' && !community.categories.includes(categoryFilter: any)) {
+    if (categoryFilter !== 'all' && !community.categories.includes(categoryFilter)) {
       return false;
     }
     
