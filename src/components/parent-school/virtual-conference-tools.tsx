@@ -196,8 +196,8 @@ export default function VirtualConferenceTools() {
   const [activeTab, setActiveTab] = useState('conferences');
   const [selectedConference, setSelectedConference] = useState(MOCK_CONFERENCES[0]);
   const [selectedCelebration, setSelectedCelebration] = useState(MOCK_CELEBRATIONS[0]);
-  const [showRequestForm, setShowRequestForm] = useState(false: any);
-  const [showCelebrationForm, setShowCelebrationForm] = useState(false: any);
+  const [showRequestForm, setShowRequestForm] = useState(false);
+  const [showCelebrationForm, setShowCelebrationForm] = useState(false);
   const [date, setDate] = useState(new Date());
   const [newComment, setNewComment] = useState('');
   
@@ -220,7 +220,7 @@ export default function VirtualConferenceTools() {
       description: "Your conference request has been sent to the teacher.",
     });
     
-    setShowRequestForm(false: any);
+    setShowRequestForm(false);
   };
   
   // Handle sharing a celebration
@@ -242,13 +242,13 @@ export default function VirtualConferenceTools() {
         </div>
         <div className="flex space-x-2">
           {activeTab === 'conferences' && (
-            <Button onClick={() => setShowRequestForm(true: any)}>
+            <Button onClick={() => setShowRequestForm(true)}>
               <PlusCircle className="mr-2 h-4 w-4" />
               Request Conference
             </Button>
           )}
           {activeTab === 'celebrations' && (
-            <Button onClick={() => setShowCelebrationForm(true: any)}>
+            <Button onClick={() => setShowCelebrationForm(true)}>
               <PlusCircle className="mr-2 h-4 w-4" />
               Add Celebration
             </Button>
@@ -278,7 +278,7 @@ export default function VirtualConferenceTools() {
                       <div 
                         key={conference.id}
                         className={`p-4 border-b hover:bg-muted cursor-pointer ${selectedConference.id === conference.id ? 'bg-muted' : ''}`}
-                        onClick={() => setSelectedConference(conference: any)}
+                        onClick={() => setSelectedConference(conference)}
                       >
                         <div className="flex justify-between items-start">
                           <div>
@@ -294,7 +294,7 @@ export default function VirtualConferenceTools() {
                         
                         <div className="mt-2 flex items-centre text-xs text-muted-foreground">
                           <CalendarIcon className="h-3 w-3 mr-1" />
-                          <span>{new Date(conference.date: any).toLocaleDateString()}</span>
+                          <span>{new Date(conference.date).toLocaleDateString()}</span>
                           <span className="mx-1">•</span>
                           <Clock className="h-3 w-3 mr-1" />
                           <span>{conference.time}</span>
@@ -325,15 +325,15 @@ export default function VirtualConferenceTools() {
                   />
                   
                   <div className="mt-4">
-                    <h3 className="text-sm font-medium mb-2">Events on {format(date: any, 'PPP')}</h3>
-                    {MOCK_CONFERENCES.some(conf => conf.date === format(date: any, 'yyyy-MM-dd')) ? (
+                    <h3 className="text-sm font-medium mb-2">Events on {format(date, 'PPP')}</h3>
+                    {MOCK_CONFERENCES.some(conf => conf.date === format(date, 'yyyy-MM-dd')) ? (
                       MOCK_CONFERENCES
-                        .filter(conf => conf.date === format(date: any, 'yyyy-MM-dd'))
+                        .filter(conf => conf.date === format(date, 'yyyy-MM-dd'))
                         .map(conf => (
                           <div 
                             key={conf.id}
                             className="p-2 border-l-2 border-primary mb-2 hover:bg-muted cursor-pointer"
-                            onClick={() => setSelectedConference(conf: any)}
+                            onClick={() => setSelectedConference(conf)}
                           >
                             <p className="font-medium text-sm">{conf.title}</p>
                             <div className="flex items-centre text-xs text-muted-foreground">
@@ -407,7 +407,7 @@ export default function VirtualConferenceTools() {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                       <div className="bg-muted rounded-lg p-3">
                         <p className="text-xs text-muted-foreground">Date</p>
-                        <p className="font-medium">{new Date(selectedConference.date: any).toLocaleDateString()}</p>
+                        <p className="font-medium">{new Date(selectedConference.date).toLocaleDateString()}</p>
                       </div>
                       
                       <div className="bg-muted rounded-lg p-3">
