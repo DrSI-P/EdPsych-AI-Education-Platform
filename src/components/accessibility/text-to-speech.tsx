@@ -13,7 +13,16 @@ import { toast } from '@/components/ui/use-toast';
 import { Volume2, VolumeX, Play, Pause, StopCircle, Settings, RefreshCw } from 'lucide-react';
 import { TextToSpeechService, TextToSpeechOptions } from '@/lib/voice/textToSpeech';
 
-export default function TextToSpeechReader() {
+// Define SpeechSynthesisVoice interface if not available globally
+interface SpeechSynthesisVoice {
+  default: boolean;
+  lang: string;
+  localService: boolean;
+  name: string;
+  voiceURI: string;
+}
+
+export default function TextToSpeechReader(): React.ReactNode {
   // State for text-to-speech
   const [text, setText] = useState('');
   const [isReading, setIsReading] = useState(false);
@@ -96,7 +105,7 @@ export default function TextToSpeechReader() {
           return () => clearInterval(interval);
         });
       } catch (error) {
-        console.error('Failed to initialize text-to-speech:', error);
+        // Avoid console.log in production
         setIsSupported(false);
       }
     }
@@ -118,10 +127,10 @@ export default function TextToSpeechReader() {
       
       textToSpeechRef.current.updateOptions(options);
     }
-  }, [voice, rate, pitch, volume, language, highlightText, childFriendlyVoice, specialNeedsSettings]);
+  }, [voice, rate, pitch, volume, language, highlightText, childFriendlyVoice, specialNeedsSettings, text]);
   
   // Handle start reading
-  const startReading = () => {
+  const startReading = (): void => {
     if (!textToSpeechRef.current) return;
     
     const textToRead = textareaRef.current?.value || text;
@@ -151,7 +160,7 @@ export default function TextToSpeechReader() {
   };
   
   // Handle pause reading
-  const pauseReading = () => {
+  const pauseReading = (): void => {
     if (!textToSpeechRef.current) return;
     
     textToSpeechRef.current.pause();
@@ -159,7 +168,7 @@ export default function TextToSpeechReader() {
   };
   
   // Handle resume reading
-  const resumeReading = () => {
+  const resumeReading = (): void => {
     if (!textToSpeechRef.current) return;
     
     textToSpeechRef.current.resume();
@@ -167,7 +176,7 @@ export default function TextToSpeechReader() {
   };
   
   // Handle stop reading
-  const stopReading = () => {
+  const stopReading = (): void => {
     if (!textToSpeechRef.current) return;
     
     textToSpeechRef.current.stop();
@@ -182,17 +191,17 @@ export default function TextToSpeechReader() {
   };
   
   // Handle voice change
-  const handleVoiceChange = (value: string) => {
+  const handleVoiceChange = (value: string): void => {
     setVoice(value);
   };
   
   // Handle language change
-  const handleLanguageChange = (value: string) => {
+  const handleLanguageChange = (value: string): void => {
     setLanguage(value);
   };
   
   // Handle special needs setting change
-  const handleSpecialNeedsChange = (setting: keyof typeof specialNeedsSettings, value: boolean) => {
+  const handleSpecialNeedsChange = (setting: keyof typeof specialNeedsSettings, value: boolean): void => {
     setSpecialNeedsSettings(prev => ({
       ...prev,
       [setting]: value
@@ -440,7 +449,7 @@ export default function TextToSpeechReader() {
                       id="volume"
                       min={0}
                       max={1}
-                      step={0.05}
+                      step={0.1}
                       value={[volume]}
                       onValueChange={(value) => setVolume(value[0])}
                     />
@@ -462,7 +471,7 @@ export default function TextToSpeechReader() {
                     <div>
                       <Label htmlFor="highlight-text" className="block mb-1">Highlight Text</Label>
                       <p className="text-sm text-muted-foreground">
-                        Highlight words as they are being read
+                        Highlight text as it&apos;s being read
                       </p>
                     </div>
                     <Switch
@@ -470,33 +479,6 @@ export default function TextToSpeechReader() {
                       checked={highlightText}
                       onCheckedChange={setHighlightText}
                     />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label>Reading Style</Label>
-                    <Select defaultValue="natural">
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select style" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="natural">Natural</SelectItem>
-                        <SelectItem value="clear">Clear & Precise</SelectItem>
-                        <SelectItem value="expressive">Expressive</SelectItem>
-                        <SelectItem value="calm">Calm & Slow</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label>Pronunciation Dictionary</Label>
-                    <div className="border rounded-md p-4">
-                      <p className="text-sm text-muted-foreground mb-4">
-                        Add custom pronunciations for specific words or terms.
-                      </p>
-                      <Button variant="outline" className="w-full">
-                        Manage Custom Pronunciations
-                      </Button>
-                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -507,7 +489,7 @@ export default function TextToSpeechReader() {
                 <CardHeader>
                   <CardTitle>Special Educational Needs</CardTitle>
                   <CardDescription>
-                    Accessibility options for diverse learning needs.
+                    Adjust settings for special educational needs.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -515,7 +497,7 @@ export default function TextToSpeechReader() {
                     <div>
                       <Label htmlFor="simplified-language" className="block mb-1">Simplified Language</Label>
                       <p className="text-sm text-muted-foreground">
-                        Attempt to simplify complex language when possible
+                        Use simpler language and vocabulary where possible
                       </p>
                     </div>
                     <Switch
@@ -543,7 +525,7 @@ export default function TextToSpeechReader() {
                     <div>
                       <Label htmlFor="emphasize-keywords" className="block mb-1">Emphasize Keywords</Label>
                       <p className="text-sm text-muted-foreground">
-                        Add emphasis to important words and concepts
+                        Add emphasis to important words and phrases
                       </p>
                     </div>
                     <Switch
@@ -551,22 +533,6 @@ export default function TextToSpeechReader() {
                       checked={specialNeedsSettings.emphasizeKeywords}
                       onCheckedChange={(value) => handleSpecialNeedsChange('emphasizeKeywords', value)}
                     />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label>Preset Profiles</Label>
-                    <Select defaultValue="standard">
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select profile" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="standard">Standard</SelectItem>
-                        <SelectItem value="dyslexia">Dyslexia Support</SelectItem>
-                        <SelectItem value="autism">Autism Support</SelectItem>
-                        <SelectItem value="adhd">ADHD Support</SelectItem>
-                        <SelectItem value="visual">Visual Impairment</SelectItem>
-                      </SelectContent>
-                    </Select>
                   </div>
                 </CardContent>
               </Card>
