@@ -43,7 +43,7 @@ export default function TermsOfServicePage(): React.ReactNode {
                 <a href="#account" className="block p-2 rounded-md hover:bg-muted transition-colors">Account Registration</a>
                 <a href="#services" className="block p-2 rounded-md hover:bg-muted transition-colors">Services</a>
                 <a href="#content" className="block p-2 rounded-md hover:bg-muted transition-colors">User Content</a>
-                <a href="#privacy" className="block p-2 rounded-md hover:bg-muted transition-colors">Privacy & Data</a>
+                <a href="#privacy" className="block p-2 rounded-md hover:bg-muted transition-colors">Privacy &amp; Data</a>
                 <a href="#intellectual" className="block p-2 rounded-md hover:bg-muted transition-colors">Intellectual Property</a>
                 <a href="#liability" className="block p-2 rounded-md hover:bg-muted transition-colors">Limitation of Liability</a>
                 <a href="#termination" className="block p-2 rounded-md hover:bg-muted transition-colors">Termination</a>
