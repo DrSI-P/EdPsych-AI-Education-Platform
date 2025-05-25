@@ -69,7 +69,7 @@ interface Assessment {
   updatedAt: string;
 }
 
-export default function ManualGradingPage() {
+export default function ManualGradingPage(): React.ReactNode {
   const router = useRouter();
   const params = useParams();
   const [assessment, setAssessment] = useState<Assessment | null>(null);
@@ -124,7 +124,7 @@ export default function ManualGradingPage() {
         });
         
         setGrades(initialGrades);
-      } catch (err) {
+      } catch (err: any) {
         console.error('Error fetching data:', err);
         setError('An error occurred while fetching the data');
       } finally {
@@ -207,7 +207,7 @@ export default function ManualGradingPage() {
       const updatedRes = await fetch(`/api/assessment/response/${params.id}`);
       const updatedData = await updatedRes.json();
       setResponse(updatedData);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error saving grades:', err);
       setError('An error occurred while saving the grades');
     } finally {
@@ -243,7 +243,7 @@ export default function ManualGradingPage() {
           }
         }));
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error generating AI feedback:', err);
     } finally {
       setIsGeneratingAiSuggestion(null);
@@ -496,260 +496,348 @@ export default function ManualGradingPage() {
         </Alert>
       )}
 
-      <Card className="mb-6">
-        <CardContent className="p-6">
-          <SimpleTabs
-            tabs={[
-              { id: 'overview', label: 'Overview' },
-              { id: 'question-by-question', label: 'Question by Question' },
-            ]}
-            activeTab={activeTab}
-            onChange={setActiveTab}
-            className="mb-6"
-          />
+      <div className="mb-6">
+        <SimpleTabs
+          tabs={[
+            { id: 'overview', label: 'Overview' },
+            { id: 'grade', label: 'Grade Questions' },
+          ]}
+          activeTab={activeTab}
+          onChange={setActiveTab}
+          className="mb-4"
+        />
 
-          {activeTab === 'overview' && (
-            <div className="space-y-6">
-              <div className="bg-grey-50 p-4 rounded-md mb-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div>
-                    <p className="text-sm font-medium text-grey-500">Student</p>
-                    <p className="text-base font-medium text-grey-900">{response.user.name}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-grey-500">Submitted</p>
-                    <p className="text-base font-medium text-grey-900">
-                      {new Date(response.completedAt).toLocaleString()}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-grey-500">Current Score</p>
-                    <p className="text-base font-medium text-grey-900">
-                      {currentTotalScore}/{totalPoints} ({scorePercentage}%)
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <h2 className="text-xl font-semibold">Questions Overview</h2>
-                
-                {assessment.questions.map((question, index) => {
-                  const answer = response.answers.find(a => a.questionId === question.id);
-                  const grade = grades[question.id];
-                  
-                  return (
-                    <div key={question.id} className="p-4 border rounded-md">
-                      <div className="flex justify-between mb-2">
-                        <h3 className="font-medium">Question {index + 1}</h3>
-                        <div className="flex items-centre space-x-2">
-                          <span className="text-sm text-grey-500">
-                            {grade?.score || 0}/{question.points} points
-                          </span>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => {
-                              setCurrentQuestionIndex(index);
-                              setActiveTab('question-by-question');
-                            }}
-                          >
-                            Grade
-                          </Button>
-                        </div>
-                      </div>
-                      
-                      <p className="mb-2 line-clamp-1">{question.content}</p>
-                      
-                      <div className="text-sm text-grey-600">
-                        <span className="font-medium">Type:</span> {question.type.replace('-', ' ')}
-                      </div>
+        {activeTab === 'overview' && (
+          <Card>
+            <CardHeader>
+              <h2 className="text-xl font-semibold">Assessment Overview</h2>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h3 className="text-lg font-medium mb-3">Assessment Details</h3>
+                  <dl className="space-y-2">
+                    <div className="flex">
+                      <dt className="w-32 font-medium text-grey-600">Title:</dt>
+                      <dd>{assessment.title}</dd>
                     </div>
-                  );
-                })}
-              </div>
-
-              <div className="pt-4 border-t">
-                <div className="mb-4">
-                  <label htmlFor="overall-feedback" className="block text-sm font-medium text-grey-700 mb-1">
-                    Overall Feedback
-                  </label>
-                  <textarea
-                    id="overall-feedback"
-                    rows={4}
-                    className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Provide overall feedback for the student"
-                    value={response.feedback || ''}
-                    onChange={(e) => {
-                      // This would need an API endpoint to update overall feedback
-                      // For now, just update the local state
-                      setResponse({
-                        ...response,
-                        feedback: e.target.value
-                      });
-                    }}
-                  ></textarea>
+                    <div className="flex">
+                      <dt className="w-32 font-medium text-grey-600">Subject:</dt>
+                      <dd>{assessment.subject}</dd>
+                    </div>
+                    <div className="flex">
+                      <dt className="w-32 font-medium text-grey-600">Key Stage:</dt>
+                      <dd>{assessment.keyStage}</dd>
+                    </div>
+                    <div className="flex">
+                      <dt className="w-32 font-medium text-grey-600">Type:</dt>
+                      <dd>{assessment.type}</dd>
+                    </div>
+                    <div className="flex">
+                      <dt className="w-32 font-medium text-grey-600">Questions:</dt>
+                      <dd>{assessment.questions.length}</dd>
+                    </div>
+                    <div className="flex">
+                      <dt className="w-32 font-medium text-grey-600">Total Points:</dt>
+                      <dd>{totalPoints}</dd>
+                    </div>
+                    <div className="flex">
+                      <dt className="w-32 font-medium text-grey-600">Passing Score:</dt>
+                      <dd>{assessment.passingScore}%</dd>
+                    </div>
+                  </dl>
                 </div>
                 
-                <div className="flex justify-end space-x-3">
-                  <Button
-                    variant="outline"
-                    onClick={() => router.back()}
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    onClick={handleSaveGrades}
-                    disabled={isSaving}
-                  >
-                    {isSaving ? <Spinner size="sm" className="mr-2" /> : null}
-                    Save Grades
-                  </Button>
+                <div>
+                  <h3 className="text-lg font-medium mb-3">Response Details</h3>
+                  <dl className="space-y-2">
+                    <div className="flex">
+                      <dt className="w-32 font-medium text-grey-600">Student:</dt>
+                      <dd>{response.user.name}</dd>
+                    </div>
+                    <div className="flex">
+                      <dt className="w-32 font-medium text-grey-600">Email:</dt>
+                      <dd>{response.user.email}</dd>
+                    </div>
+                    <div className="flex">
+                      <dt className="w-32 font-medium text-grey-600">Started:</dt>
+                      <dd>{new Date(response.startedAt).toLocaleString()}</dd>
+                    </div>
+                    <div className="flex">
+                      <dt className="w-32 font-medium text-grey-600">Completed:</dt>
+                      <dd>{new Date(response.completedAt).toLocaleString()}</dd>
+                    </div>
+                    <div className="flex">
+                      <dt className="w-32 font-medium text-grey-600">Current Score:</dt>
+                      <dd className="font-semibold">
+                        {currentTotalScore} / {totalPoints} ({scorePercentage}%)
+                      </dd>
+                    </div>
+                    <div className="flex">
+                      <dt className="w-32 font-medium text-grey-600">Status:</dt>
+                      <dd>
+                        <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                          isPassing ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                        }`}>
+                          {isPassing ? 'Passing' : 'Not Passing'}
+                        </span>
+                      </dd>
+                    </div>
+                  </dl>
                 </div>
+              </div>
+              
+              <div className="mt-6">
+                <h3 className="text-lg font-medium mb-3">Questions Summary</h3>
+                <div className="overflow-x-auto">
+                  <table className="min-w-full divide-y divide-grey-200">
+                    <thead>
+                      <tr>
+                        <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Question</th>
+                        <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Type</th>
+                        <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Points</th>
+                        <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Score</th>
+                        <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Status</th>
+                        <th className="px-4 py-3 text-right text-xs font-medium text-grey-500 uppercase tracking-wider">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-grey-200">
+                      {assessment.questions.map((question, index) => {
+                        const answer = response.answers.find(a => a.questionId === question.id);
+                        const grade = grades[question.id] || { score: 0, feedback: '' };
+                        const isGraded = answer && (answer.isCorrect !== null || grade.score > 0);
+                        
+                        return (
+                          <tr key={question.id}>
+                            <td className="px-4 py-3 whitespace-nowrap">
+                              <div className="text-sm font-medium text-grey-900">
+                                Question {index + 1}
+                              </div>
+                              <div className="text-sm text-grey-500 truncate max-w-xs">
+                                {question.content.length > 50 ? `${question.content.substring(0, 50)}...` : question.content}
+                              </div>
+                            </td>
+                            <td className="px-4 py-3 whitespace-nowrap text-sm text-grey-500">
+                              {question.type}
+                            </td>
+                            <td className="px-4 py-3 whitespace-nowrap text-sm text-grey-500">
+                              {question.points}
+                            </td>
+                            <td className="px-4 py-3 whitespace-nowrap text-sm font-medium">
+                              {grade.score} / {question.points}
+                            </td>
+                            <td className="px-4 py-3 whitespace-nowrap">
+                              {isGraded ? (
+                                <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                                  grade.score > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                                }`}>
+                                  {grade.score > 0 ? 'Correct' : 'Incorrect'}
+                                </span>
+                              ) : (
+                                <span className="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                  Needs Grading
+                                </span>
+                              )}
+                            </td>
+                            <td className="px-4 py-3 whitespace-nowrap text-right text-sm font-medium">
+                              <Button 
+                                size="sm" 
+                                variant="outline"
+                                onClick={() => {
+                                  setCurrentQuestionIndex(index);
+                                  setActiveTab('grade');
+                                }}
+                              >
+                                {isGraded ? 'Review' : 'Grade'}
+                              </Button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </CardContent>
+            <CardFooter className="flex justify-end">
+              <Button 
+                onClick={() => setActiveTab('grade')}
+                className="ml-2"
+              >
+                Grade Questions
+              </Button>
+            </CardFooter>
+          </Card>
+        )}
+
+        {activeTab === 'grade' && currentQuestion && (
+          <div className="space-y-6">
+            <div className="flex items-centre justify-between mb-4">
+              <div className="flex items-centre">
+                <span className="text-lg font-medium">
+                  Question {currentQuestionIndex + 1} of {assessment.questions.length}
+                </span>
+                <span className="ml-2 px-2 py-1 text-xs font-semibold rounded-full bg-grey-100 text-grey-800">
+                  {currentQuestion.type}
+                </span>
+              </div>
+              <div className="flex space-x-2">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setCurrentQuestionIndex(prev => Math.max(0, prev - 1))}
+                  disabled={currentQuestionIndex === 0}
+                >
+                  Previous
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setCurrentQuestionIndex(prev => Math.min(assessment.questions.length - 1, prev + 1))}
+                  disabled={currentQuestionIndex === assessment.questions.length - 1}
+                >
+                  Next
+                </Button>
               </div>
             </div>
-          )}
-
-          {activeTab === 'question-by-question' && currentQuestion && (
-            <div className="space-y-6">
-              <div className="flex justify-between items-centre">
-                <div className="flex items-centre space-x-2">
-                  <Button
-                    variant="outline"
-                    onClick={() => setCurrentQuestionIndex(Math.max(0, currentQuestionIndex - 1))}
-                    disabled={currentQuestionIndex === 0}
-                  >
-                    Previous
-                  </Button>
-                  <span className="text-sm">
-                    Question {currentQuestionIndex + 1} of {assessment.questions.length}
-                  </span>
-                  <Button
-                    variant="outline"
-                    onClick={() => setCurrentQuestionIndex(Math.min(assessment.questions.length - 1, currentQuestionIndex + 1))}
-                    disabled={currentQuestionIndex === assessment.questions.length - 1}
-                  >
-                    Next
-                  </Button>
+            
+            <Card>
+              <CardHeader>
+                <h3 className="text-lg font-semibold">Question</h3>
+              </CardHeader>
+              <CardContent>
+                {renderQuestionContent(currentQuestion)}
+                <div className="mt-4">
+                  <p className="font-medium text-grey-600">
+                    Points: {currentQuestion.points}
+                  </p>
                 </div>
-                <div className="text-sm text-grey-600">
-                  <span className="font-medium">Type:</span> {currentQuestion.type.replace('-', ' ')}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <h3 className="text-lg font-medium">Question</h3>
-                  <div className="p-4 bg-grey-50 rounded-md">
-                    {renderQuestionContent(currentQuestion)}
-                  </div>
-                </div>
-                
-                <div className="space-y-4">
-                  <h3 className="text-lg font-medium">Student's Answer</h3>
-                  <div className="p-4 bg-grey-50 rounded-md">
-                    {renderStudentAnswer(currentQuestion, currentAnswer)}
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-4 border rounded-md">
-                <h3 className="text-lg font-medium mb-4">Grading</h3>
-                
-                <div className="mb-4">
-                  <label htmlFor="question-score" className="block text-sm font-medium text-grey-700 mb-1">
-                    Score (out of {currentQuestion.points})
-                  </label>
-                  <input
-                    id="question-score"
-                    type="number"
-                    min="0"
-                    max={currentQuestion.points}
-                    value={grades[currentQuestion.id]?.score || 0}
-                    onChange={(e) => handleScoreChange(currentQuestion.id, parseInt(e.target.value) || 0)}
-                    className="w-24 px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                
-                <div className="mb-4">
-                  <label htmlFor="question-feedback" className="block text-sm font-medium text-grey-700 mb-1">
-                    Feedback
-                  </label>
-                  <textarea
-                    id="question-feedback"
-                    rows={4}
-                    className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Provide feedback for this answer"
-                    value={grades[currentQuestion.id]?.feedback || ''}
-                    onChange={(e) => handleFeedbackChange(currentQuestion.id, e.target.value)}
-                  ></textarea>
-                </div>
-                
-                {currentQuestion.type === 'open-ended' && (
-                  <div className="mt-4 p-4 bg-blue-50 rounded-md">
-                    <div className="flex justify-between items-centre mb-2">
-                      <h4 className="font-medium text-blue-800">AI Grading Assistance</h4>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleGenerateAiFeedback(currentQuestion.id)}
-                        disabled={isGeneratingAiSuggestion === currentQuestion.id}
-                      >
-                        {isGeneratingAiSuggestion === currentQuestion.id ? (
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <h3 className="text-lg font-semibold">Student&apos;s Answer</h3>
+              </CardHeader>
+              <CardContent>
+                {renderStudentAnswer(currentQuestion, currentAnswer)}
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <div className="flex justify-between items-centre">
+                  <h3 className="text-lg font-semibold">Grading</h3>
+                  {currentQuestion.type === 'open-ended' && (
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => handleGenerateAiFeedback(currentQuestion.id)}
+                      disabled={isGeneratingAiSuggestion === currentQuestion.id}
+                    >
+                      {isGeneratingAiSuggestion === currentQuestion.id ? (
+                        <>
                           <Spinner size="sm" className="mr-2" />
-                        ) : null}
-                        Generate AI Suggestion
+                          Generating...
+                        </>
+                      ) : (
+                        'Generate AI Feedback'
+                      )}
+                    </Button>
+                  )}
+                </div>
+              </CardHeader>
+              <CardContent>
+                {aiSuggestions[currentQuestion.id] && (
+                  <div className="mb-6 p-4 border border-blue-200 bg-blue-50 rounded-md">
+                    <div className="flex justify-between items-centre mb-2">
+                      <h4 className="font-medium text-blue-800">AI Suggested Grading</h4>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleApplyAiSuggestion(currentQuestion.id)}
+                      >
+                        Apply Suggestion
                       </Button>
                     </div>
-                    
-                    {aiSuggestions[currentQuestion.id] ? (
-                      <div className="space-y-2">
-                        <div>
-                          <span className="text-sm font-medium text-blue-800">Suggested Score:</span>
-                          <span className="ml-2">{aiSuggestions[currentQuestion.id].score}/{currentQuestion.points}</span>
-                        </div>
-                        <div>
-                          <span className="text-sm font-medium text-blue-800">Suggested Feedback:</span>
-                          <p className="text-sm mt-1 p-2 bg-white rounded">
-                            {aiSuggestions[currentQuestion.id].feedback}
-                          </p>
-                        </div>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => handleApplyAiSuggestion(currentQuestion.id)}
-                        >
-                          Apply AI Suggestion
-                        </Button>
-                      </div>
-                    ) : (
-                      <p className="text-sm text-blue-800">
-                        Generate AI suggestions to help grade this open-ended response.
-                      </p>
-                    )}
+                    <div className="mb-2">
+                      <p className="text-sm font-medium text-grey-600">Suggested Score:</p>
+                      <p>{aiSuggestions[currentQuestion.id].score} / {currentQuestion.points}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-grey-600">Suggested Feedback:</p>
+                      <p className="text-sm">{aiSuggestions[currentQuestion.id].feedback}</p>
+                    </div>
                   </div>
                 )}
-              </div>
-
-              <div className="flex justify-end space-x-3 pt-4 border-t">
+                
+                <div className="space-y-4">
+                  <div>
+                    <label htmlFor="score" className="block text-sm font-medium text-grey-700 mb-1">
+                      Score (0-{currentQuestion.points})
+                    </label>
+                    <input
+                      type="number"
+                      id="score"
+                      min="0"
+                      max={currentQuestion.points}
+                      value={grades[currentQuestion.id]?.score || 0}
+                      onChange={(e) => handleScoreChange(currentQuestion.id, parseInt(e.target.value, 10))}
+                      className="w-24 px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="feedback" className="block text-sm font-medium text-grey-700 mb-1">
+                      Feedback
+                    </label>
+                    <textarea
+                      id="feedback"
+                      rows={4}
+                      value={grades[currentQuestion.id]?.feedback || ''}
+                      onChange={(e) => handleFeedbackChange(currentQuestion.id, e.target.value)}
+                      className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      placeholder="Provide feedback to the student..."
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <div className="flex justify-between">
+              <Button
+                variant="outline"
+                onClick={() => setActiveTab('overview')}
+              >
+                Back to Overview
+              </Button>
+              
+              <div className="flex space-x-2">
                 <Button
                   variant="outline"
-                  onClick={() => setActiveTab('overview')}
+                  onClick={() => setCurrentQuestionIndex(prev => Math.max(0, prev - 1))}
+                  disabled={currentQuestionIndex === 0}
                 >
-                  Back to Overview
+                  Previous Question
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setCurrentQuestionIndex(prev => Math.min(assessment.questions.length - 1, prev + 1))}
+                  disabled={currentQuestionIndex === assessment.questions.length - 1}
+                >
+                  Next Question
                 </Button>
                 <Button
                   onClick={handleSaveGrades}
                   disabled={isSaving}
                 >
-                  {isSaving ? <Spinner size="sm" className="mr-2" /> : null}
-                  Save Grades
+                  {isSaving ? <Spinner size="sm" /> : 'Save All Grades'}
                 </Button>
               </div>
             </div>
-          )}
-        </CardContent>
-      </Card>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
