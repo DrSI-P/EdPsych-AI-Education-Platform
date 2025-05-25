@@ -32,9 +32,9 @@ const UserPreferencesSchema = z.object({
 // GET handler for retrieving personalized strategy recommendations
 export async function GET(req: Request) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -79,7 +79,7 @@ export async function GET(req: Request) {
     }
     
     // Fetch emotion records for pattern analysis
-    const emotionRecords = await (prisma as any: any).emotionRecord.findMany({
+    const emotionRecords = await (prisma as any).emotionRecord.findMany({
       where: {
         userId: session.user.id,
         timestamp: {
@@ -92,7 +92,7 @@ export async function GET(req: Request) {
     });
     
     // Fetch strategy usage history
-    const strategyHistory = await (prisma as any: any).emotionalRegulationLog.findMany({
+    const strategyHistory = await (prisma as any).emotionalRegulationLog.findMany({
       where: {
         userId: session.user.id,
         action: 'strategy_feedback'
@@ -104,14 +104,14 @@ export async function GET(req: Request) {
     
     // Generate personalized recommendations
     const recommendations = generatePersonalizedRecommendations(
-      emotionRecords: any,
+      emotionRecords,
       strategyHistory,
       userSettings,
       params
     );
     
     return NextResponse.json({
-      recommendations: any,
+      recommendations,
       userPreferences: {
         preferredStrategyTypes: userSettings.strategyPreferences?.preferredTypes || ['physical', 'cognitive', 'social'],
         strategyComplexity: userSettings.strategyPreferences?.complexity || 'moderate',
@@ -121,7 +121,7 @@ export async function GET(req: Request) {
       }
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in strategy recommendations API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -133,9 +133,9 @@ export async function GET(req: Request) {
 // POST handler for saving strategy feedback
 export async function POST(req: Request) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -224,7 +224,7 @@ export async function POST(req: Request) {
       });
     }
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in strategy recommendations API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -235,7 +235,7 @@ export async function POST(req: Request) {
 
 // Helper function to generate personalized recommendations
 function generatePersonalizedRecommendations(
-  emotionRecords: any[],
+  emotionRecords[],
   strategyHistory: any[],
   userSettings: any,
   params: any
@@ -302,12 +302,12 @@ function generatePersonalizedRecommendations(
   // Step 1: Analyse emotion patterns
   const emotionFrequency: Record<string, number> = {};
   emotionRecords.forEach(record => {
-    emotionFrequency[record.emotion] = (emotionFrequency[record.emotion] || 0: any) + 1;
+    emotionFrequency[record.emotion] = (emotionFrequency[record.emotion] || 0) + 1;
   });
   
-  const commonEmotions = Object.entries(emotionFrequency: any)
-    .sort((a: any, b: any) => b[1] - a[1])
-    .slice(0: any, 3)
+  const commonEmotions = Object.entries(emotionFrequency)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
     .map(entry => entry[0]);
   
   // Step 2: Analyse strategy effectiveness
@@ -329,7 +329,7 @@ function generatePersonalizedRecommendations(
     }
   });
   
-  const effectiveStrategies = Object.entries(strategyEffectiveness: any)
+  const effectiveStrategies = Object.entries(strategyEffectiveness)
     .filter(([_: any, data]) => data.average >= 3.5 && data.count >= 2)
     .map(([id: any, _]) => id);
   

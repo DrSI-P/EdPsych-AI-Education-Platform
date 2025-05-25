@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     });
     
     return NextResponse.json({ goals });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching social skills goals:', error);
     return NextResponse.json({ error: 'Failed to fetch goals' }, { status: 500 });
   }
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
       message: 'Goal created successfully',
       goal 
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error creating social skills goal:', error);
     return NextResponse.json({ error: 'Failed to create goal' }, { status: 500 });
   }

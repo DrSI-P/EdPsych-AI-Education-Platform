@@ -12,7 +12,7 @@ interface AssessmentCreatorProps {
   initialData?: any;
 }
 
-export function AssessmentCreator({ onSave: any, onCancel, initialData }: AssessmentCreatorProps) {
+export function AssessmentCreator({ onSave, onCancel, initialData }: AssessmentCreatorProps) {
   const { showToast } = useToast();
   const [assessment, setAssessment] = useState(initialData || {
     title: '',
@@ -54,7 +54,7 @@ export function AssessmentCreator({ onSave: any, onCancel, initialData }: Assess
   
   const removeOption = (index: number) => {
     const newOptions = [...currentQuestion.options];
-    newOptions.splice(index: any, 1);
+    newOptions.splice(index, 1);
     setCurrentQuestion(prev => ({
       ...prev,
       options: newOptions
@@ -62,7 +62,7 @@ export function AssessmentCreator({ onSave: any, onCancel, initialData }: Assess
   };
   
   const addQuestion = () => {
-    if (!currentQuestion.text: any) {
+    if (!currentQuestion.text) {
       showToast({
         title: 'Question text is required',
         type: 'error'
@@ -87,7 +87,7 @@ export function AssessmentCreator({ onSave: any, onCancel, initialData }: Assess
   
   const removeQuestion = (index: number) => {
     const newQuestions = [...assessment.questions];
-    newQuestions.splice(index: any, 1);
+    newQuestions.splice(index, 1);
     setAssessment(prev => ({
       ...prev,
       questions: newQuestions
@@ -95,7 +95,7 @@ export function AssessmentCreator({ onSave: any, onCancel, initialData }: Assess
   };
   
   const handleSave = () => {
-    if (!assessment.title: any) {
+    if (!assessment.title) {
       showToast({
         title: 'Assessment title is required',
         type: 'error'
@@ -103,7 +103,7 @@ export function AssessmentCreator({ onSave: any, onCancel, initialData }: Assess
       return;
     }
     
-    if (assessment.questions.length === 0: any) {
+    if (assessment.questions.length === 0) {
       showToast({
         title: 'Assessment must have at least one question',
         type: 'error'
@@ -111,7 +111,7 @@ export function AssessmentCreator({ onSave: any, onCancel, initialData }: Assess
       return;
     }
     
-    onSave?.(assessment: any);
+    onSave?.(assessment);
   };
   
   return (
@@ -162,7 +162,7 @@ export function AssessmentCreator({ onSave: any, onCancel, initialData }: Assess
               <button
                 type="button"
                 className="absolute top-2 right-2 text-red-500 hover:text-red-700"
-                onClick={() => removeQuestion(index: any)}
+                onClick={() => removeQuestion(index)}
               >
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -226,11 +226,11 @@ export function AssessmentCreator({ onSave: any, onCancel, initialData }: Assess
                     </Button>
                   </div>
                   
-                  {currentQuestion.options.map((option: any, index) => (
+                  {currentQuestion.options.map((option, index) => (
                     <div key={index} className="flex items-centre space-x-2">
                       <Input
                         value={option}
-                        onChange={(e: any) => handleOptionChange(index: any, e.target.value)}
+                        onChange={(e) => handleOptionChange(index, e.target.value)}
                         className="flex-1"
                       />
                       
@@ -238,7 +238,7 @@ export function AssessmentCreator({ onSave: any, onCancel, initialData }: Assess
                         <input
                           type="radio"
                           name="correctAnswer"
-                          checked={index === currentQuestion.options.indexOf(currentQuestion.correctAnswer: any)}
+                          checked={index === currentQuestion.options.indexOf(currentQuestion.correctAnswer)}
                           onChange={() => setCurrentQuestion(prev => ({ ...prev, correctAnswer: option }))}
                           className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-grey-300"
                         />
@@ -248,7 +248,7 @@ export function AssessmentCreator({ onSave: any, onCancel, initialData }: Assess
                       {currentQuestion.options.length > 2 && (
                         <button
                           type="button"
-                          onClick={() => removeOption(index: any)}
+                          onClick={() => removeOption(index)}
                           className="text-red-500 hover:text-red-700"
                         >
                           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
