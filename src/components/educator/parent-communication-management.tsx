@@ -302,8 +302,8 @@ export function ParentCommunicationManagement() {
     );
   };
   
-  // Render message composition section
-  const renderMessageComposition = () => {
+   // Render message composition section
+  function renderMessageComposition() {
     return (
       <Card>
         <CardHeader>
@@ -313,15 +313,14 @@ export function ParentCommunicationManagement() {
         <CardContent>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-1">Subject</label>
+              <Label htmlFor="subject">Subject</Label>
               <Input 
-                placeholder="Enter subject..." 
-                value={subject}
-                onChange={(e) => setSubject(e.target.value)}
+                id="subject" 
+                value={subject} 
+                onChange={(e) => setSubject(e.target.value)} 
+                placeholder="Enter message subject"
               />
-          </div>
-          
-          <div>
+            </div>        <div>
             <label className="block text-sm font-medium mb-1">Message</label>
             <Textarea 
               placeholder="Enter your message..." 
