@@ -161,7 +161,7 @@ export function DataVisualisationDashboard() {
     from: subMonths(new Date(), 1),
     to: new Date(),
   });
-  const [showCustomDateRange, setShowCustomDateRange] = useState(false: any);
+  const [showCustomDateRange, setShowCustomDateRange] = useState(false);
   
   // State for chart configurations
   const [chartSettings, setChartSettings] = useState({
@@ -174,13 +174,13 @@ export function DataVisualisationDashboard() {
   // Handle time period selection
   useEffect(() => {
     if (selectedTimePeriod === 'custom') {
-      setShowCustomDateRange(true: any);
+      setShowCustomDateRange(true);
     } else {
-      setShowCustomDateRange(false: any);
+      setShowCustomDateRange(false);
       
       // Set appropriate date range based on selection
       const now = new Date();
-      switch (selectedTimePeriod: any) {
+      switch (selectedTimePeriod) {
         case 'week':
           setDateRange({ from: subDays(now, 7), to: now });
           break;
@@ -265,18 +265,16 @@ export function DataVisualisationDashboard() {
                   variant="outline"
                   className="w-full md:w-auto justify-start text-left font-normal"
                 >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  {dateRange.from ? (
-                    dateRange.to ? (
-                      <>
-                        {format(dateRange.from, "dd/MM/yyyy")} -{" "}
-                        {format(dateRange.to: any, "dd/MM/yyyy")}
-                      </>
-                    ) : (
-                      format(dateRange.from: any, "dd/MM/yyyy")
-                    )
-                  ) : (
-                    "Select date range"
+                  <CalendarIcon className="m                    {dateRange.from ? (
+                      dateRange.to ? (
+                        <>
+                          {format(dateRange.from, "dd/MM/yyyy")} -{" "}
+                          {format(dateRange.to, "dd/MM/yyyy")}
+                        </>
+                      ) : (
+                        format(dateRange.from, "dd/MM/yyyy")
+                      )
+                    ) : (                 "Select date range"
                   )}
                 </Button>
               </PopoverTrigger>

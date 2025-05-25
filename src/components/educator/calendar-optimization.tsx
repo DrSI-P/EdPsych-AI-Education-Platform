@@ -36,7 +36,7 @@ import {
   Filter
 } from 'lucide-react';
 // Set up the localizer for react-big-calendar
-const localizer = momentLocalizer(moment: any);
+const localizer = momentLocalizer(moment);
 
 // Activity types with their colors and icons
 const activityTypes = {
@@ -84,8 +84,8 @@ const sampleActivities = [
   {
     id: '1',
     title: 'Year 5 Mathematics',
-    start: moment().hour(9: any).minute(0: any).toDate(),
-    end: moment().hour(10: any).minute(0: any).toDate(),
+    start: moment().hour(9).minute(0).toDate(),
+    end: moment().hour(10).minute(0).toDate(),
     type: 'teaching',
     priority: 'high',
     location: 'Room 101',
@@ -96,8 +96,8 @@ const sampleActivities = [
   {
     id: '2',
     title: 'Lesson Planning',
-    start: moment().hour(11: any).minute(0: any).toDate(),
-    end: moment().hour(12: any).minute(0: any).toDate(),
+    start: moment().hour(11).minute(0).toDate(),
+    end: moment().hour(12).minute(0).toDate(),
     type: 'preparation',
     priority: 'medium',
     location: 'Staff Room',
@@ -108,8 +108,8 @@ const sampleActivities = [
   {
     id: '3',
     title: 'Staff Meeting',
-    start: moment().hour(15: any).minute(30: any).toDate(),
-    end: moment().hour(16: any).minute(30: any).toDate(),
+    start: moment().hour(15).minute(30).toDate(),
+    end: moment().hour(16).minute(30).toDate(),
     type: 'meeting',
     priority: 'medium',
     location: 'Conference Room',
@@ -120,8 +120,8 @@ const sampleActivities = [
   {
     id: '4',
     title: 'Progress Reports',
-    start: moment().add(1: any, 'days').hour(13: any).minute(0: any).toDate(),
-    end: moment().add(1: any, 'days').hour(15: any).minute(0: any).toDate(),
+    start: moment().add(1, 'days').hour(13).minute(0).toDate(),
+    end: moment().add(1, 'days').hour(15).minute(0).toDate(),
     type: 'administrative',
     priority: 'high',
     location: 'Office',
@@ -132,8 +132,8 @@ const sampleActivities = [
   {
     id: '5',
     title: 'Inclusive Teaching Workshop',
-    start: moment().add(2: any, 'days').hour(9: any).minute(0: any).toDate(),
-    end: moment().add(2: any, 'days').hour(12: any).minute(0: any).toDate(),
+    start: moment().add(2, 'days').hour(9).minute(0).toDate(),
+    end: moment().add(2, 'days').hour(12).minute(0).toDate(),
     type: 'professional',
     priority: 'medium',
     location: 'Training Center',
@@ -152,13 +152,13 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
   const aiService = useAIService();
   
   // State for activities
-  const [activities, setActivities] = useState<any[]>(sampleActivities: any);
-  const [selectedActivity, setSelectedActivity] = useState<any | null>(null: any);
-  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false: any);
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false: any);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false: any);
-  const [isOptimizeDialogOpen, setIsOptimizeDialogOpen] = useState(false: any);
-  const [isAnalyticsDialogOpen, setIsAnalyticsDialogOpen] = useState(false: any);
+  const [activities, setActivities] = useState<any[]>(sampleActivities);
+  const [selectedActivity, setSelectedActivity] = useState<any | null>(null);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isOptimizeDialogOpen, setIsOptimizeDialogOpen] = useState(false);
+  const [isAnalyticsDialogOpen, setIsAnalyticsDialogOpen] = useState(false);
   
   // State for new/edited activity
   const [activityForm, setActivityForm] = useState({
@@ -177,42 +177,42 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
   // State for filters
   const [filters, setFilters] = useState({
     types: Object.keys(activityTypes),
-    priorities: Object.keys(priorityLevels: any),
+    priorities: Object.keys(priorityLevels),
     showPast: false
   });
   
   // State for optimization
-  const [isOptimizing, setIsOptimizing] = useState(false: any);
+  const [isOptimizing, setIsOptimizing] = useState(false);
   const [optimizationFocus, setOptimizationFocus] = useState('balance');
   const [optimizationSuggestions, setOptimizationSuggestions] = useState<any[]>([]);
   
   // State for analytics
-  const [analyticsData, setAnalyticsData] = useState<any>(null: any);
-  const [isLoadingAnalytics, setIsLoadingAnalytics] = useState(false: any);
+  const [analyticsData, setAnalyticsData] = useState<any>(null);
+  const [isLoadingAnalytics, setIsLoadingAnalytics] = useState(false);
   
   // Calendar view state
   const [calendarView, setCalendarView] = useState('week');
 // Apply filters to activities
   const filteredActivities = activities.filter(activity => {
     // Filter by type
-    if (!filters.types.includes(activity.type: any)) return false;
+    if (!filters.types.includes(activity.type)) return false;
     
     // Filter by priority
-    if (!filters.priorities.includes(activity.priority: any)) return false;
+    if (!filters.priorities.includes(activity.priority)) return false;
     
     // Filter past events if not showing past
-    if (!filters.showPast && new Date(activity.end: any) < new Date()) return false;
+    if (!filters.showPast && new Date(activity.end) < new Date()) return false;
     
     return true;
   });
   
   // Handle activity selection
-  const handleSelectActivity = (event: any) => {
-    setSelectedActivity(event: any);
+  const handleSelectActivity = (event) => {
+    setSelectedActivity(event);
   };
   
   // Handle adding new activity slot
-  const handleSelectSlot = ({ start: any, end }: { start: Date, end: Date }) => {
+  const handleSelectSlot = ({ start, end }: { start: Date, end: Date }) => {
     setActivityForm({
       id: '',
       title: '',
@@ -225,7 +225,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
       recurring: false,
       participants: []
     });
-    setIsAddDialogOpen(true: any);
+    setIsAddDialogOpen(true);
   };
   
   // Handle form changes
@@ -257,10 +257,10 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
   // Handle filter changes
   const handleFilterTypeToggle = (type: string) => {
     setFilters(prev => {
-      if (prev.types.includes(type: any)) {
+      if (prev.types.includes(type)) {
         return {
           ...prev,
-          types: prev.types.filter(t => t !== type: any)
+          types: prev.types.filter(t => t !== type)
         };
       } else {
         return {
@@ -273,10 +273,10 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
   
   const handleFilterPriorityToggle = (priority: string) => {
     setFilters(prev => {
-      if (prev.priorities.includes(priority: any)) {
+      if (prev.priorities.includes(priority)) {
         return {
           ...prev,
-          priorities: prev.priorities.filter(p => p !== priority: any)
+          priorities: prev.priorities.filter(p => p !== priority)
         };
       } else {
         return {
@@ -295,7 +295,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
   };
 // Save new activity
   const handleSaveActivity = () => {
-    if (!activityForm.title: any) {
+    if (!activityForm.title) {
       toast({
         title: "Title required",
         description: "Please provide a title for the activity.",
@@ -309,7 +309,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
       id: activityForm.id || `activity-${Date.now()}`
     };
     
-    if (activityForm.id: any) {
+    if (activityForm.id) {
       // Update existing activity
       setActivities(prev => prev.map(activity => 
         activity.id === activityForm.id ? newActivity : activity
@@ -329,13 +329,13 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
       });
     }
     
-    setIsAddDialogOpen(false: any);
-    setIsEditDialogOpen(false: any);
+    setIsAddDialogOpen(false);
+    setIsEditDialogOpen(false);
   };
   
   // Edit activity
   const handleEditActivity = () => {
-    if (!selectedActivity: any) return;
+    if (!selectedActivity) return;
     
     setActivityForm({
       id: selectedActivity.id,
@@ -350,33 +350,33 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
       participants: selectedActivity.participants || []
     });
     
-    setIsEditDialogOpen(true: any);
-    setSelectedActivity(null: any);
+    setIsEditDialogOpen(true);
+    setSelectedActivity(null);
   };
   
   // Delete activity
   const handleDeleteActivity = () => {
-    if (!selectedActivity: any) return;
+    if (!selectedActivity) return;
     
-    setActivities(prev => prev.filter(activity => activity.id !== selectedActivity.id: any));
+    setActivities(prev => prev.filter(activity => activity.id !== selectedActivity.id));
     
     toast({
       title: "Activity deleted",
       description: `"${selectedActivity.title}" has been removed from your calendar.`
     });
     
-    setIsDeleteDialogOpen(false: any);
-    setSelectedActivity(null: any);
+    setIsDeleteDialogOpen(false);
+    setSelectedActivity(null);
   };
   
   // Duplicate activity
   const handleDuplicateActivity = () => {
-    if (!selectedActivity: any) return;
+    if (!selectedActivity) return;
     
     const duplicatedActivity = {
       ...selectedActivity,
       id: `activity-${Date.now()}`,
-      title: `${selectedActivity.title} (Copy: any)`,
+      title: `${selectedActivity.title} (Copy)`,
       start: new Date(selectedActivity.start.getTime() + 24 * 60 * 60 * 1000), // Next day
       end: new Date(selectedActivity.end.getTime() + 24 * 60 * 60 * 1000) // Next day
     };
@@ -388,28 +388,28 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
       description: `"${duplicatedActivity.title}" has been added to your calendar.`
     });
     
-    setSelectedActivity(null: any);
+    setSelectedActivity(null);
   };
 // Optimize calendar
   const handleOptimizeCalendar = async () => {
-    setIsOptimizing(true: any);
+    setIsOptimizing(true);
     
     try {
       // In a real implementation, this would call the API
       // For now, we'll simulate the optimization process
       
       // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve: any, 2000));
+      await new Promise(resolve => setTimeout(resolve, 2000));
       
       // Generate optimization suggestions based on focus
-      const suggestions = generateOptimizationSuggestions(optimizationFocus: any);
-      setOptimizationSuggestions(suggestions: any);
+      const suggestions = generateOptimizationSuggestions(optimizationFocus);
+      setOptimizationSuggestions(suggestions);
       
       toast({
         title: "Calendar optimized",
         description: `${suggestions.length} suggestions generated based on your preferences.`
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error optimizing calendar:', error);
       toast({
         title: "Optimization failed",
@@ -417,7 +417,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
         variant: "destructive"
       });
     } finally {
-      setIsOptimizing(false: any);
+      setIsOptimizing(false);
     }
   };
   
@@ -462,7 +462,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
   };
   
   // Apply optimization suggestion
-  const handleApplySuggestion = (suggestion: any) => {
+  const handleApplySuggestion = (suggestion) => {
     // In a real implementation, this would update the activities based on the suggestion
     // For now, we'll just show a toast
     
@@ -472,19 +472,19 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
     });
     
     // Remove the suggestion from the list
-    setOptimizationSuggestions(prev => prev.filter(s => s.id !== suggestion.id: any));
+    setOptimizationSuggestions(prev => prev.filter(s => s.id !== suggestion.id));
   };
   
   // Load analytics data
   const handleLoadAnalytics = async () => {
-    setIsLoadingAnalytics(true: any);
+    setIsLoadingAnalytics(true);
     
     try {
       // In a real implementation, this would call the API
       // For now, we'll simulate the analytics data
       
       // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve: any, 1500));
+      await new Promise(resolve => setTimeout(resolve, 1500));
       
       // Generate mock analytics data
       const data = {
@@ -506,12 +506,12 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
           'You spend 15% more time on administrative tasks than the average educator',
           'Your teaching time is well-distributed throughout the week',
           'Consider allocating more time for preparation on Thursdays',
-          'Your meeting schedule appears to be efficiently managed'
+          'Your professional development activities are concentrated on Fridays'
         ]
       };
       
-      setAnalyticsData(data: any);
-    } catch (error: any) {
+      setAnalyticsData(data);
+    } catch (error) {
       console.error('Error loading analytics:', error);
       toast({
         title: "Analytics failed",
@@ -519,862 +519,594 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
         variant: "destructive"
       });
     } finally {
-      setIsLoadingAnalytics(false: any);
+      setIsLoadingAnalytics(false);
     }
   };
-// Custom event styling
-  const eventStyleGetter = (event: any) => {
-    const type = event.type;
-    const backgroundColor = activityTypes[type as keyof typeof activityTypes]?.color || '#3174ad';
-    
+
+  // Event style getter for calendar
+  const eventStyleGetter = (event) => {
     const style = {
-      backgroundColor,
+      backgroundColor: activityTypes[event.type as keyof typeof activityTypes]?.color || '#4f46e5',
       borderRadius: '4px',
       opacity: 0.9,
       color: 'white',
-      border: 'none',
+      border: '0',
       display: 'block'
     };
-    
-    return {
-      style
-    };
+    return { style };
   };
-  
-  // Custom toolbar component
-  const CustomToolbar = (toolbar: any) => {
-    const goToBack = () => {
-      toolbar.onNavigate('PREV');
-    };
-    
-    const goToNext = () => {
-      toolbar.onNavigate('NEXT');
-    };
-    
-    const goToToday = () => {
-      toolbar.onNavigate('TODAY');
-    };
-    
-    const label = () => {
-      const date = toolbar.date;
-      return (
-        <span className="text-lg font-semibold">
-          {moment(date: any).format('MMMM YYYY')}
-        </span>
-      );
-    };
-    
-    return (
-      <div className="flex justify-between items-center mb-4">
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" onClick={goToBack}>
-            Previous
-          </Button>
-          <Button variant="outline" size="sm" onClick={goToToday}>
-            Today
-          </Button>
-          <Button variant="outline" size="sm" onClick={goToNext}>
-            Next
-          </Button>
+
+  return (
+    <div className={`space-y-6 ${className}`}>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight">Calendar Optimization</h2>
+          <p className="text-muted-foreground">
+            Manage your schedule efficiently with AI-powered optimization.
+          </p>
         </div>
         
-        <div className="text-center">
-          {label()}
-        </div>
-        
-        <div className="flex items-center gap-2">
-          <Select value={calendarView} onValueChange={setCalendarView}>
-            <SelectTrigger className="w-[120px]">
-              <SelectValue placeholder="View" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="day">Day</SelectItem>
-              <SelectItem value="week">Week</SelectItem>
-              <SelectItem value="month">Month</SelectItem>
-              <SelectItem value="agenda">Agenda</SelectItem>
-            </SelectContent>
-          </Select>
-          
-          <Button variant="outline" size="sm" onClick={() => setIsOptimizeDialogOpen(true: any)}>
-            <RefreshCw className="h-4 w-4 mr-2" />
-            Optimize
+        <div className="flex flex-wrap gap-2">
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => setIsOptimizeDialogOpen(true)}
+          >
+            <RefreshCw className="mr-2 h-4 w-4" />
+            Optimize Schedule
           </Button>
           
-          <Button variant="outline" size="sm" onClick={() => setIsAnalyticsDialogOpen(true: any)}>
-            <BarChart4 className="h-4 w-4 mr-2" />
-            Analytics
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => setIsAnalyticsDialogOpen(true)}
+          >
+            <BarChart4 className="mr-2 h-4 w-4" />
+            View Analytics
+          </Button>
+          
+          <Button 
+            size="sm"
+            onClick={() => {
+              setActivityForm({
+                id: '',
+                title: '',
+                start: new Date(),
+                end: new Date(new Date().getTime() + 60 * 60 * 1000), // 1 hour later
+                type: 'teaching',
+                priority: 'medium',
+                location: '',
+                description: '',
+                recurring: false,
+                participants: []
+              });
+              setIsAddDialogOpen(true);
+            }}
+          >
+            <Plus className="mr-2 h-4 w-4" />
+            Add Activity
           </Button>
         </div>
       </div>
-    );
-  };
-return (
-    <div className={`calendar-optimization ${className}`}>
-      <Card className="mb-6">
-        <CardHeader>
-          <div className="flex justify-between items-center">
+      
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        {/* Sidebar */}
+        <Card className="lg:col-span-1">
+          <CardHeader>
+            <CardTitle className="flex items-center">
+              <Filter className="mr-2 h-5 w-5" />
+              Filters
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {/* Activity Type Filters */}
             <div>
-              <CardTitle>Calendar Optimization</CardTitle>
-              <CardDescription>
-                Efficiently manage and optimize your educational activities
-              </CardDescription>
-            </div>
-            <Button onClick={() => setIsAddDialogOpen(true: any)}>
-              <Plus className="h-4 w-4 mr-2" />
-              Add Activity
-            </Button>
-          </div>
-        </CardHeader>
-        
-        <CardContent>
-          {/* Filters */}
-          <div className="mb-6 p-4 bg-muted/30 rounded-lg">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-medium flex items-center">
-                <Filter className="h-4 w-4 mr-2" />
-                Filters
-              </h3>
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => setFilters({
-                  types: Object.keys(activityTypes),
-                  priorities: Object.keys(priorityLevels: any),
-                  showPast: false
-                })}
-              >
-                Reset
-              </Button>
+              <h3 className="text-sm font-medium mb-2">Activity Types</h3>
+              <div className="flex flex-wrap gap-2">
+                {Object.entries(activityTypes).map(([key, { label, color }]) => (
+                  <Badge 
+                    key={key}
+                    variant={filters.types.includes(key) ? "default" : "outline"}
+                    style={{ 
+                      backgroundColor: filters.types.includes(key) ? color : 'transparent',
+                      color: filters.types.includes(key) ? 'white' : 'inherit',
+                      borderColor: color,
+                      opacity: filters.types.includes(key) ? 1 : 0.7
+                    }}
+                    className="cursor-pointer"
+                    onClick={() => handleFilterTypeToggle(key)}
+                  >
+                    {label}
+                  </Badge>
+                ))}
+              </div>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {/* Activity Type Filters */}
-              <div>
-                <h4 className="text-xs font-medium mb-2">Activity Types</h4>
-                <div className="flex flex-wrap gap-2">
-                  {Object.entries(activityTypes: any).map(([key: any, { label, color, icon }]) => (
-                    <Badge
-                      key={key}
-                      variant={filters.types.includes(key: any) ? "default" : "outline"}
-                      className="cursor-pointer"
-                      style={{
-                        backgroundColor: filters.types.includes(key: any) ? color : 'transparent',
-                        borderColor: color,
-                        color: filters.types.includes(key: any) ? 'white' : undefined
-                      }}
-                      onClick={() => handleFilterTypeToggle(key: any)}
-                    >
-                      <span className="mr-1">{icon}</span>
-                      {label}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-              
-              {/* Priority Filters */}
-              <div>
-                <h4 className="text-xs font-medium mb-2">Priority Levels</h4>
-                <div className="flex flex-wrap gap-2">
-                  {Object.entries(priorityLevels: any).map(([key: any, { label, color }]) => (
-                    <Badge
-                      key={key}
-                      variant={filters.priorities.includes(key: any) ? "default" : "outline"}
-                      className="cursor-pointer"
-                      style={{
-                        backgroundColor: filters.priorities.includes(key: any) ? color : 'transparent',
-                        borderColor: color,
-                        color: filters.priorities.includes(key: any) ? 'white' : undefined
-                      }}
-                      onClick={() => handleFilterPriorityToggle(key: any)}
-                    >
-                      {label}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-              
-              {/* Other Filters */}
-              <div>
-                <h4 className="text-xs font-medium mb-2">Other Filters</h4>
-                <div className="flex items-center">
-                  <input 
-                    type="checkbox" 
-                    id="showPast" 
-                    checked={filters.showPast} 
-                    onChange={handleTogglePastEvents}
-                    className="h-4 w-4 rounded border-gray-300"
-                  />
-                  <Label htmlFor="showPast" className="ml-2 text-sm font-normal">
-                    Show past events
-                  </Label>
-                </div>
+            {/* Priority Filters */}
+            <div>
+              <h3 className="text-sm font-medium mb-2">Priority Levels</h3>
+              <div className="flex flex-wrap gap-2">
+                {Object.entries(priorityLevels).map(([key, { label, color }]) => (
+                  <Badge 
+                    key={key}
+                    variant={filters.priorities.includes(key) ? "default" : "outline"}
+                    style={{ 
+                      backgroundColor: filters.priorities.includes(key) ? color : 'transparent',
+                      color: filters.priorities.includes(key) ? 'white' : 'inherit',
+                      borderColor: color,
+                      opacity: filters.priorities.includes(key) ? 1 : 0.7
+                    }}
+                    className="cursor-pointer"
+                    onClick={() => handleFilterPriorityToggle(key)}
+                  >
+                    {label}
+                  </Badge>
+                ))}
               </div>
             </div>
-          </div>
-          
-          {/* Calendar */}
-          <div className="h-[600px]">
+            
+            {/* Other Filters */}
+            <div>
+              <h3 className="text-sm font-medium mb-2">Other Filters</h3>
+              <div className="flex items-center space-x-2">
+                <input 
+                  type="checkbox" 
+                  id="showPast" 
+                  checked={filters.showPast} 
+                  onChange={handleTogglePastEvents}
+                  className="rounded border-gray-300 text-primary focus:ring-primary"
+                />
+                <label htmlFor="showPast" className="text-sm">Show past events</label>
+              </div>
+            </div>
+            
+            {/* Calendar View */}
+            <div>
+              <h3 className="text-sm font-medium mb-2">Calendar View</h3>
+              <Select value={calendarView} onValueChange={setCalendarView}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select view" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="day">Day</SelectItem>
+                  <SelectItem value="week">Week</SelectItem>
+                  <SelectItem value="month">Month</SelectItem>
+                  <SelectItem value="agenda">Agenda</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </CardContent>
+        </Card>
+        
+        {/* Calendar */}
+        <Card className="lg:col-span-3">
+          <CardContent className="pt-6">
             <Calendar
               localizer={localizer}
               events={filteredActivities}
               startAccessor="start"
               endAccessor="end"
-              style={{ height: '100%' }}
-              views={['day', 'week', 'month', 'agenda']}
+              style={{ height: 600 }}
+              eventPropGetter={eventStyleGetter}
               view={calendarView as any}
-              onView={(view: any) => setCalendarView(view: any)}
-              selectable
+              onView={(view) => setCalendarView(view)}
               onSelectEvent={handleSelectActivity}
               onSelectSlot={handleSelectSlot}
-              eventPropGetter={eventStyleGetter}
-              components={{
-                toolbar: CustomToolbar
-              }}
+              selectable
+              popup
             />
-          </div>
-        </CardContent>
-      </Card>
-{/* Activity Details Card (when activity is selected: any) */}
+          </CardContent>
+        </Card>
+      </div>
+      
+      {/* Activity Details Dialog */}
       {selectedActivity && (
-        <Card className="mb-6">
-          <CardHeader>
-            <div className="flex justify-between items-center">
+        <Dialog open={!!selectedActivity} onOpenChange={(open) => !open && setSelectedActivity(null)}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>{selectedActivity.title}</DialogTitle>
+              <DialogDescription>
+                <div className="flex items-center mt-2">
+                  <Badge 
+                    style={{ 
+                      backgroundColor: activityTypes[selectedActivity.type as keyof typeof activityTypes]?.color 
+                    }}
+                  >
+                    {activityTypes[selectedActivity.type as keyof typeof activityTypes]?.label}
+                  </Badge>
+                  <Badge 
+                    variant="outline"
+                    className="ml-2"
+                    style={{ 
+                      borderColor: priorityLevels[selectedActivity.priority as keyof typeof priorityLevels]?.color,
+                      color: priorityLevels[selectedActivity.priority as keyof typeof priorityLevels]?.color
+                    }}
+                  >
+                    {priorityLevels[selectedActivity.priority as keyof typeof priorityLevels]?.label} Priority
+                  </Badge>
+                </div>
+              </DialogDescription>
+            </DialogHeader>
+            
+            <div className="space-y-4 py-4">
               <div className="flex items-center">
-                <div
-                  className="w-4 h-4 rounded-full mr-2"
-                  style={{ backgroundColor: activityTypes[selectedActivity.type as keyof typeof activityTypes]?.color }}
-                />
-                <CardTitle>{selectedActivity.title}</CardTitle>
-              </div>
-              <Badge 
-                style={{
-                  backgroundColor: priorityLevels[selectedActivity.priority as keyof typeof priorityLevels]?.color
-                }}
-              >
-                {priorityLevels[selectedActivity.priority as keyof typeof priorityLevels]?.label} Priority
-              </Badge>
-            </div>
-            <CardDescription>
-              {activityTypes[selectedActivity.type as keyof typeof activityTypes]?.label}
-            </CardDescription>
-          </CardHeader>
-          
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <div className="flex items-center mb-2">
-                  <CalendarIcon className="h-4 w-4 mr-2 text-muted-foreground" />
-                  <span>
-                    {moment(selectedActivity.start).format('dddd: any, MMMM D, YYYY')}
-                  </span>
-                </div>
-                
-                <div className="flex items-center mb-2">
-                  <Clock className="h-4 w-4 mr-2 text-muted-foreground" />
-                  <span>
-                    {moment(selectedActivity.start: any).format('h:mm A')} - {moment(selectedActivity.end: any).format('h:mm A')}
-                  </span>
-                </div>
-                
-                {selectedActivity.location && (
-                  <div className="flex items-start mb-2">
-                    <span className="h-4 w-4 mr-2 text-muted-foreground">📍</span>
-                    <span>{selectedActivity.location}</span>
-                  </div>
-                )}
-                
-                {selectedActivity.recurring && (
-                  <div className="flex items-center mb-2">
-                    <RefreshCw className="h-4 w-4 mr-2 text-muted-foreground" />
-                    <span>Recurring activity</span>
-                  </div>
-                )}
+                <CalendarIcon className="h-4 w-4 mr-2 text-muted-foreground" />
+                <span>
+                  {moment(selectedActivity.start).format('ddd, MMM D, YYYY')}
+                </span>
               </div>
               
-              <div>
-                {selectedActivity.description && (
-                  <div className="mb-4">
-                    <h4 className="text-sm font-medium mb-1">Description</h4>
-                    <p className="text-sm text-muted-foreground">{selectedActivity.description}</p>
-                  </div>
-                )}
-                
-                {selectedActivity.participants && selectedActivity.participants.length > 0 && (
-                  <div>
-                    <h4 className="text-sm font-medium mb-1">Participants</h4>
-                    <ul className="text-sm text-muted-foreground">
-                      {selectedActivity.participants.map((participant: string, index: number) => (
-                        <li key={index}>{participant}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+              <div className="flex items-center">
+                <Clock className="h-4 w-4 mr-2 text-muted-foreground" />
+                <span>
+                  {moment(selectedActivity.start).format('h:mm A')} - {moment(selectedActivity.end).format('h:mm A')}
+                </span>
               </div>
+              
+              {selectedActivity.location && (
+                <div className="flex items-start">
+                  <div className="h-4 w-4 mr-2 text-muted-foreground">📍</div>
+                  <span>{selectedActivity.location}</span>
+                </div>
+              )}
+              
+              {selectedActivity.description && (
+                <div className="pt-2">
+                  <h4 className="text-sm font-medium mb-1">Description</h4>
+                  <p className="text-sm text-muted-foreground">{selectedActivity.description}</p>
+                </div>
+              )}
+              
+              {selectedActivity.participants && selectedActivity.participants.length > 0 && (
+                <div className="pt-2">
+                  <h4 className="text-sm font-medium mb-1">Participants</h4>
+                  <ul className="text-sm text-muted-foreground">
+                    {selectedActivity.participants.map((participant: string, index: number) => (
+                      <li key={index}>{participant}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              
+              {selectedActivity.recurring && (
+                <div className="flex items-center pt-2">
+                  <RefreshCw className="h-4 w-4 mr-2 text-muted-foreground" />
+                  <span className="text-sm">Recurring event</span>
+                </div>
+              )}
             </div>
-          </CardContent>
-          
-          <CardFooter className="flex justify-end gap-2">
-            <Button variant="outline" size="sm" onClick={() => setSelectedActivity(null: any)}>
-              Close
-            </Button>
-            <Button variant="outline" size="sm" onClick={handleDuplicateActivity}>
-              <Copy className="h-4 w-4 mr-2" />
-              Duplicate
-            </Button>
-            <Button variant="outline" size="sm" onClick={handleEditActivity}>
-              <Edit className="h-4 w-4 mr-2" />
-              Edit
-            </Button>
-            <Button variant="destructive" size="sm" onClick={() => setIsDeleteDialogOpen(true: any)}>
-              <Trash2 className="h-4 w-4 mr-2" />
-              Delete
-            </Button>
-          </CardFooter>
-        </Card>
+            
+            <DialogFooter className="flex justify-between">
+              <div className="flex space-x-2">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => {
+                    setIsDeleteDialogOpen(true);
+                    setSelectedActivity(null);
+                  }}
+                >
+                  <Trash2 className="h-4 w-4 mr-1" />
+                  Delete
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={handleDuplicateActivity}
+                >
+                  <Copy className="h-4 w-4 mr-1" />
+                  Duplicate
+                </Button>
+              </div>
+              <Button 
+                size="sm"
+                onClick={handleEditActivity}
+              >
+                <Edit className="h-4 w-4 mr-1" />
+                Edit
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       )}
       
-      {/* Add Activity Dialog */}
-      <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-        <DialogContent className="sm:max-w-[550px]">
+      {/* Add/Edit Activity Dialog */}
+      <Dialog open={isAddDialogOpen || isEditDialogOpen} onOpenChange={(open) => {
+        if (!open) {
+          setIsAddDialogOpen(false);
+          setIsEditDialogOpen(false);
+        }
+      }}>
+        <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Add New Activity</DialogTitle>
+            <DialogTitle>{activityForm.id ? 'Edit Activity' : 'Add Activity'}</DialogTitle>
             <DialogDescription>
-              Create a new activity in your calendar.
+              {activityForm.id 
+                ? 'Update the details of this activity in your calendar.' 
+                : 'Add a new activity to your calendar.'}
             </DialogDescription>
           </DialogHeader>
           
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="title" className="text-right">
-                Title
-              </Label>
-              <Input
-                id="title"
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="title">Title</Label>
+              <Input 
+                id="title" 
                 name="title"
-                value={activityForm.title}
+                value={activityForm.title} 
                 onChange={handleFormChange}
-                className="col-span-3"
-              />
-            </div>
-<div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="type" className="text-right">
-                Type
-              </Label>
-              <Select
-                value={activityForm.type}
-                onValueChange={(value: any) => handleSelectChange('type', value: any)}
-              >
-                <SelectTrigger className="col-span-3">
-                  <SelectValue placeholder="Select activity type" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.entries(activityTypes: any).map(([key: any, { label, icon }]) => (
-                    <SelectItem key={key} value={key}>
-                      <div className="flex items-center">
-                        <span className="mr-2">{icon}</span>
-                        {label}
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="priority" className="text-right">
-                Priority
-              </Label>
-              <Select
-                value={activityForm.priority}
-                onValueChange={(value: any) => handleSelectChange('priority', value: any)}
-              >
-                <SelectTrigger className="col-span-3">
-                  <SelectValue placeholder="Select priority level" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.entries(priorityLevels: any).map(([key: any, { label }]) => (
-                    <SelectItem key={key} value={key}>{label}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="start" className="text-right">
-                Start
-              </Label>
-              <Input
-                id="start"
-                name="start"
-                type="datetime-local"
-                value={moment(activityForm.start: any).format('YYYY-MM-DDTHH:mm')}
-                onChange={(e: any) => setActivityForm(prev => ({
-                  ...prev,
-                  start: new Date(e.target.value: any)
-                }))}
-                className="col-span-3"
+                placeholder="Activity title"
               />
             </div>
             
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="end" className="text-right">
-                End
-              </Label>
-              <Input
-                id="end"
-                name="end"
-                type="datetime-local"
-                value={moment(activityForm.end: any).format('YYYY-MM-DDTHH:mm')}
-                onChange={(e: any) => setActivityForm(prev => ({
-                  ...prev,
-                  end: new Date(e.target.value: any)
-                }))}
-                className="col-span-3"
-              />
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label>Type</Label>
+                <Select 
+                  value={activityForm.type} 
+                  onValueChange={(value) => handleSelectChange('type', value)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Object.entries(activityTypes).map(([key, { label }]) => (
+                      <SelectItem key={key} value={key}>{label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div className="space-y-2">
+                <Label>Priority</Label>
+                <Select 
+                  value={activityForm.priority} 
+                  onValueChange={(value) => handleSelectChange('priority', value)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select priority" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Object.entries(priorityLevels).map(([key, { label }]) => (
+                      <SelectItem key={key} value={key}>{label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
             
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="location" className="text-right">
-                Location
-              </Label>
-              <Input
-                id="location"
+            <div className="space-y-2">
+              <Label htmlFor="location">Location</Label>
+              <Input 
+                id="location" 
                 name="location"
-                value={activityForm.location}
+                value={activityForm.location} 
                 onChange={handleFormChange}
-                className="col-span-3"
+                placeholder="Activity location"
               />
             </div>
             
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="description" className="text-right">
-                Description
-              </Label>
-              <Textarea
-                id="description"
+            <div className="space-y-2">
+              <Label htmlFor="description">Description</Label>
+              <Textarea 
+                id="description" 
                 name="description"
-                value={activityForm.description}
+                value={activityForm.description} 
                 onChange={handleFormChange}
-                className="col-span-3"
+                placeholder="Activity description"
+                rows={3}
               />
             </div>
             
-            <div className="grid grid-cols-4 items-center gap-4">
-              <div className="text-right">
-                <Label htmlFor="recurring">Recurring</Label>
-              </div>
-              <div className="col-span-3 flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  id="recurring"
-                  name="recurring"
-                  checked={activityForm.recurring}
-                  onChange={handleCheckboxChange}
-                  className="h-4 w-4 rounded border-gray-300"
-                />
-                <Label htmlFor="recurring" className="font-normal">
-                  This is a recurring activity
-                </Label>
-              </div>
+            <div className="flex items-center space-x-2">
+              <input 
+                type="checkbox" 
+                id="recurring" 
+                name="recurring"
+                checked={activityForm.recurring} 
+                onChange={handleCheckboxChange}
+                className="rounded border-gray-300 text-primary focus:ring-primary"
+              />
+              <Label htmlFor="recurring" className="text-sm">Recurring event</Label>
             </div>
           </div>
           
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsAddDialogOpen(false: any)}>
+            <Button variant="outline" onClick={() => {
+              setIsAddDialogOpen(false);
+              setIsEditDialogOpen(false);
+            }}>
               Cancel
             </Button>
-            <Button onClick={handleSaveActivity}>Save Activity</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-{/* Edit Activity Dialog */}
-      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="sm:max-w-[550px]">
-          <DialogHeader>
-            <DialogTitle>Edit Activity</DialogTitle>
-            <DialogDescription>
-              Make changes to your activity.
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="edit-title" className="text-right">
-                Title
-              </Label>
-              <Input
-                id="edit-title"
-                name="title"
-                value={activityForm.title}
-                onChange={handleFormChange}
-                className="col-span-3"
-              />
-            </div>
-            
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="edit-type" className="text-right">
-                Type
-              </Label>
-              <Select
-                value={activityForm.type}
-                onValueChange={(value: any) => handleSelectChange('type', value: any)}
-              >
-                <SelectTrigger className="col-span-3">
-                  <SelectValue placeholder="Select activity type" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.entries(activityTypes: any).map(([key: any, { label, icon }]) => (
-                    <SelectItem key={key} value={key}>
-                      <div className="flex items-center">
-                        <span className="mr-2">{icon}</span>
-                        {label}
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="edit-priority" className="text-right">
-                Priority
-              </Label>
-              <Select
-                value={activityForm.priority}
-                onValueChange={(value: any) => handleSelectChange('priority', value: any)}
-              >
-                <SelectTrigger className="col-span-3">
-                  <SelectValue placeholder="Select priority level" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.entries(priorityLevels: any).map(([key: any, { label }]) => (
-                    <SelectItem key={key} value={key}>{label}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="edit-start" className="text-right">
-                Start
-              </Label>
-              <Input
-                id="edit-start"
-                name="start"
-                type="datetime-local"
-                value={moment(activityForm.start: any).format('YYYY-MM-DDTHH:mm')}
-                onChange={(e: any) => setActivityForm(prev => ({
-                  ...prev,
-                  start: new Date(e.target.value: any)
-                }))}
-                className="col-span-3"
-              />
-            </div>
-            
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="edit-end" className="text-right">
-                End
-              </Label>
-              <Input
-                id="edit-end"
-                name="end"
-                type="datetime-local"
-                value={moment(activityForm.end: any).format('YYYY-MM-DDTHH:mm')}
-                onChange={(e: any) => setActivityForm(prev => ({
-                  ...prev,
-                  end: new Date(e.target.value: any)
-                }))}
-                className="col-span-3"
-              />
-            </div>
-            
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="edit-location" className="text-right">
-                Location
-              </Label>
-              <Input
-                id="edit-location"
-                name="location"
-                value={activityForm.location}
-                onChange={handleFormChange}
-                className="col-span-3"
-              />
-            </div>
-            
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="edit-description" className="text-right">
-                Description
-              </Label>
-              <Textarea
-                id="edit-description"
-                name="description"
-                value={activityForm.description}
-                onChange={handleFormChange}
-                className="col-span-3"
-              />
-            </div>
-            
-            <div className="grid grid-cols-4 items-center gap-4">
-              <div className="text-right">
-                <Label htmlFor="edit-recurring">Recurring</Label>
-              </div>
-              <div className="col-span-3 flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  id="edit-recurring"
-                  name="recurring"
-                  checked={activityForm.recurring}
-                  onChange={handleCheckboxChange}
-                  className="h-4 w-4 rounded border-gray-300"
-                />
-                <Label htmlFor="edit-recurring" className="font-normal">
-                  This is a recurring activity
-                </Label>
-              </div>
-            </div>
-          </div>
-          
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setIsEditDialogOpen(false: any)}>
-              Cancel
+            <Button onClick={handleSaveActivity}>
+              {activityForm.id ? 'Update' : 'Add'} Activity
             </Button>
-            <Button onClick={handleSaveActivity}>Update Activity</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
       
       {/* Delete Confirmation Dialog */}
       <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Confirm Deletion</DialogTitle>
+            <DialogTitle>Delete Activity</DialogTitle>
             <DialogDescription>
               Are you sure you want to delete this activity? This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
           
-          {selectedActivity && (
-            <div className="py-4">
-              <p className="font-medium">{selectedActivity.title}</p>
-              <p className="text-sm text-muted-foreground">
-                {moment(selectedActivity.start: any).format('dddd: any, MMMM D, YYYY')} at {moment(selectedActivity.start: any).format('h:mm A')}
-              </p>
-            </div>
-          )}
-          
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false: any)}>
+            <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false)}>
               Cancel
             </Button>
             <Button variant="destructive" onClick={handleDeleteActivity}>
-              Delete Activity
+              Delete
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
-{/* Optimize Calendar Dialog */}
+      
+      {/* Optimize Dialog */}
       <Dialog open={isOptimizeDialogOpen} onOpenChange={setIsOptimizeDialogOpen}>
-        <DialogContent className="sm:max-w-[600px]">
+        <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>Optimize Your Calendar</DialogTitle>
             <DialogDescription>
-              Let AI help you optimize your schedule for better productivity and well-being.
+              Let AI help you optimize your schedule based on your preferences.
             </DialogDescription>
           </DialogHeader>
           
-          <div className="py-4">
-            <div className="mb-4">
-              <Label htmlFor="optimization-focus" className="mb-2 block">
-                Optimization Focus
-              </Label>
-              <Select
-                value={optimizationFocus}
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label>Optimization Focus</Label>
+              <Select 
+                value={optimizationFocus} 
                 onValueChange={setOptimizationFocus}
+                disabled={isOptimizing}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select optimization focus" />
+                  <SelectValue placeholder="Select focus" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="balance">Balanced Schedule</SelectItem>
+                  <SelectItem value="balance">Work-Life Balance</SelectItem>
                   <SelectItem value="efficiency">Maximum Efficiency</SelectItem>
                   <SelectItem value="teaching">Teaching Quality</SelectItem>
-                  <SelectItem value="well-being">Educator Well-being</SelectItem>
+                  <SelectItem value="well-being">Well-being</SelectItem>
                 </SelectContent>
               </Select>
-              <p className="text-sm text-muted-foreground mt-2">
-                {optimizationFocus === 'balance' && 'Create a well-balanced schedule with appropriate time for all activity types.'}
-                {optimizationFocus === 'efficiency' && 'Optimize for maximum productivity and efficient use of time.'}
-                {optimizationFocus === 'teaching' && 'Prioritize teaching quality by optimizing preparation and delivery time.'}
-                {optimizationFocus === 'well-being' && 'Focus on sustainable workload and preventing burnout.'}
-              </p>
             </div>
             
             {optimizationSuggestions.length > 0 ? (
-              <div className="space-y-4">
+              <div className="space-y-3 mt-4">
                 <h3 className="text-sm font-medium">Optimization Suggestions</h3>
-                
                 {optimizationSuggestions.map(suggestion => (
                   <Card key={suggestion.id}>
                     <CardHeader className="py-3">
-                      <div className="flex justify-between items-center">
-                        <CardTitle className="text-base">{suggestion.title}</CardTitle>
-                        <Badge variant="outline">
-                          {suggestion.type === 'reschedule' && 'Reschedule'}
-                          {suggestion.type === 'break' && 'Add Break'}
-                          {suggestion.type === 'batch' && 'Batch Activities'}
-                        </Badge>
-                      </div>
+                      <CardTitle className="text-base">{suggestion.title}</CardTitle>
                     </CardHeader>
                     <CardContent className="py-2">
-                      <p className="text-sm">{suggestion.description}</p>
-                      <p className="text-sm text-muted-foreground mt-2">
-                        <strong>Impact:</strong> {suggestion.impact}
-                      </p>
+                      <p className="text-sm text-muted-foreground">{suggestion.description}</p>
+                      <p className="text-sm font-medium mt-2">{suggestion.impact}</p>
                     </CardContent>
-                    <CardFooter className="py-3 flex justify-end">
+                    <CardFooter className="py-2">
                       <Button 
-                        variant="outline" 
                         size="sm" 
-                        className="mr-2"
-                        onClick={() => handleApplySuggestion(suggestion: any)}
+                        className="w-full"
+                        onClick={() => handleApplySuggestion(suggestion)}
                       >
-                        Apply
-                      </Button>
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        onClick={() => setOptimizationSuggestions(prev =>
-                          prev.filter(s => s.id !== suggestion.id: any)
-                        )}
-                      >
-                        Dismiss
+                        Apply Suggestion
                       </Button>
                     </CardFooter>
                   </Card>
                 ))}
               </div>
             ) : (
-              <div className="text-center py-8">
+              <div className="flex flex-col items-center justify-center py-8">
                 {isOptimizing ? (
-                  <div className="flex flex-col items-center">
-                    <Spinner size="lg" className="mb-4" />
-                    <p>Analyzing your calendar and generating optimization suggestions...</p>
-                  </div>
+                  <>
+                    <Spinner className="h-8 w-8 mb-4" />
+                    <p className="text-center text-muted-foreground">
+                      Analyzing your calendar and generating optimization suggestions...
+                    </p>
+                  </>
                 ) : (
-                  <div>
-                    <p className="mb-4">Click the button below to generate optimization suggestions.</p>
-                    <Button onClick={handleOptimizeCalendar}>
-                      <RefreshCw className="h-4 w-4 mr-2" />
-                      Generate Suggestions
-                    </Button>
-                  </div>
+                  <>
+                    <Settings className="h-12 w-12 text-muted-foreground mb-4" />
+                    <p className="text-center text-muted-foreground">
+                      Select your optimization focus and click the button below to get AI-powered suggestions.
+                    </p>
+                  </>
                 )}
               </div>
             )}
           </div>
           
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsOptimizeDialogOpen(false: any)}>
+            <Button 
+              variant="outline" 
+              onClick={() => setIsOptimizeDialogOpen(false)}
+              disabled={isOptimizing}
+            >
               Close
             </Button>
+            {optimizationSuggestions.length === 0 && (
+              <Button 
+                onClick={handleOptimizeCalendar}
+                disabled={isOptimizing}
+              >
+                {isOptimizing && <Spinner className="mr-2 h-4 w-4" />}
+                {isOptimizing ? 'Optimizing...' : 'Optimize Calendar'}
+              </Button>
+            )}
           </DialogFooter>
         </DialogContent>
       </Dialog>
       
       {/* Analytics Dialog */}
       <Dialog open={isAnalyticsDialogOpen} onOpenChange={setIsAnalyticsDialogOpen}>
-        <DialogContent className="sm:max-w-[700px]">
+        <DialogContent className="sm:max-w-xl">
           <DialogHeader>
             <DialogTitle>Calendar Analytics</DialogTitle>
             <DialogDescription>
-              Insights and analysis of your calendar activities.
+              Insights and statistics about your calendar activities.
             </DialogDescription>
           </DialogHeader>
           
-          <div className="py-4">
+          <div className="space-y-4 py-4">
             {analyticsData ? (
               <Tabs defaultValue="distribution">
-                <TabsList className="grid w-full grid-cols-3">
+                <TabsList className="grid grid-cols-3 mb-4">
                   <TabsTrigger value="distribution">Time Distribution</TabsTrigger>
                   <TabsTrigger value="trends">Weekly Trends</TabsTrigger>
                   <TabsTrigger value="insights">Insights</TabsTrigger>
                 </TabsList>
                 
-                <TabsContent value="distribution" className="py-4">
-                  <h3 className="text-sm font-medium mb-4">Activity Time Distribution</h3>
-                  
-                  <div className="space-y-4">
-                    {Object.entries(analyticsData.timeDistribution: any).map(([type: any, percentage]) => (
-                      <div key={type}>
-                        <div className="flex justify-between items-center mb-1">
-                          <div className="flex items-center">
-                            <div 
-                              className="w-3 h-3 rounded-full mr-2"
-                              style={{ backgroundColor: activityTypes[type as keyof typeof activityTypes]?.color }}
-                            />
-                            <span className="text-sm">
-                              {activityTypes[type as keyof typeof activityTypes]?.label}
-                            </span>
-                          </div>
-                          <span className="text-sm font-medium">{percentage}%</span>
-                        </div>
-                        <div className="w-full bg-muted rounded-full h-2">
-                          <div 
-                            className="h-2 rounded-full" 
-                            style={{
-                              width: `${percentage}%`,
-                              backgroundColor: activityTypes[type as keyof typeof activityTypes]?.color
+                <TabsContent value="distribution" className="space-y-4">
+                  <h3 className="text-sm font-medium">How You Spend Your Time</h3>
+                  <div className="h-64 bg-muted rounded-md flex items-center justify-center">
+                    {/* In a real implementation, this would be a chart */}
+                    <div className="text-center">
+                      <p className="text-muted-foreground">Time Distribution Chart</p>
+                      <div className="flex flex-wrap justify-center gap-2 mt-4">
+                        {Object.entries(analyticsData.timeDistribution).map(([key, value]) => (
+                          <Badge 
+                            key={key}
+                            style={{ 
+                              backgroundColor: activityTypes[key as keyof typeof activityTypes]?.color 
                             }}
-                          />
-                        </div>
+                          >
+                            {activityTypes[key as keyof typeof activityTypes]?.label}: {value}%
+                          </Badge>
+                        ))}
                       </div>
-                    ))}
+                    </div>
                   </div>
                 </TabsContent>
                 
-                <TabsContent value="trends" className="py-4">
-                  <h3 className="text-sm font-medium mb-4">Weekly Activity Trends</h3>
-                  
-                  <div className="space-y-6">
-                    {Object.entries(analyticsData.weeklyTrends: any).map(([day: any, activities]) => (
-                      <div key={day}>
-                        <h4 className="text-sm font-medium mb-2 capitalize">{day}</h4>
-                        <div className="flex items-center h-8">
-                          {Object.entries(activities: any).map(([type: any, hours]) => (
-                            hours > 0 && (
-                              <div 
-                                key={type}
-                                style={{
-                                  width: `${(hours / 12) * 100}%`,
-                                  backgroundColor: activityTypes[type as keyof typeof activityTypes]?.color
-                                }}
-                                className="h-full first:rounded-l-md last:rounded-r-md flex items-center justify-center text-white text-xs"
-                                title={`${activityTypes[type as keyof typeof activityTypes]?.label}: ${hours} hours`}
-                              >
-                                {hours > 1 && activityTypes[type as keyof typeof activityTypes]?.icon}
-                              </div>
-                            )
-                          ))}
-                        </div>
-                        <div className="flex justify-between mt-1">
-                          <span className="text-xs text-muted-foreground">8:00</span>
-                          <span className="text-xs text-muted-foreground">12:00</span>
-                          <span className="text-xs text-muted-foreground">16:00</span>
-                          <span className="text-xs text-muted-foreground">20:00</span>
-                        </div>
+                <TabsContent value="trends" className="space-y-4">
+                  <h3 className="text-sm font-medium">Weekly Activity Patterns</h3>
+                  <div className="h-64 bg-muted rounded-md flex items-center justify-center">
+                    {/* In a real implementation, this would be a chart */}
+                    <div className="text-center">
+                      <p className="text-muted-foreground">Weekly Trends Chart</p>
+                      <div className="flex flex-wrap justify-center gap-2 mt-4">
+                        {Object.keys(analyticsData.weeklyTrends).map((day) => (
+                          <Badge key={day} variant="outline">
+                            {day.charAt(0).toUpperCase() + day.slice(1)}
+                          </Badge>
+                        ))}
                       </div>
-                    ))}
+                    </div>
                   </div>
                 </TabsContent>
                 
-                <TabsContent value="insights" className="py-4">
-                  <h3 className="text-sm font-medium mb-4">Calendar Insights</h3>
-                  
+                <TabsContent value="insights" className="space-y-4">
+                  <h3 className="text-sm font-medium">AI-Generated Insights</h3>
                   <div className="space-y-3">
-                    {analyticsData.insights.map((insight: any, index) => (
+                    {analyticsData.insights.map((insight: string, index: number) => (
                       <div key={index} className="flex items-start">
-                        <div className="mt-0.5 mr-2 text-primary">
-                          <AlertCircle className="h-4 w-4" />
+                        <div className="mr-2 mt-0.5">
+                          <CheckCircle2 className="h-4 w-4 text-primary" />
                         </div>
                         <p className="text-sm">{insight}</p>
                       </div>
@@ -1383,29 +1115,42 @@ return (
                 </TabsContent>
               </Tabs>
             ) : (
-              <div className="text-center py-8">
+              <div className="flex flex-col items-center justify-center py-8">
                 {isLoadingAnalytics ? (
-                  <div className="flex flex-col items-center">
-                    <Spinner size="lg" className="mb-4" />
-                    <p>Analyzing your calendar data...</p>
-                  </div>
+                  <>
+                    <Spinner className="h-8 w-8 mb-4" />
+                    <p className="text-center text-muted-foreground">
+                      Analyzing your calendar data...
+                    </p>
+                  </>
                 ) : (
-                  <div>
-                    <p className="mb-4">Click the button below to generate calendar analytics.</p>
-                    <Button onClick={handleLoadAnalytics}>
-                      <BarChart4 className="h-4 w-4 mr-2" />
-                      Generate Analytics
-                    </Button>
-                  </div>
+                  <>
+                    <BarChart4 className="h-12 w-12 text-muted-foreground mb-4" />
+                    <p className="text-center text-muted-foreground">
+                      Click the button below to generate analytics based on your calendar data.
+                    </p>
+                  </>
                 )}
               </div>
             )}
           </div>
           
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsAnalyticsDialogOpen(false: any)}>
+            <Button 
+              variant="outline" 
+              onClick={() => setIsAnalyticsDialogOpen(false)}
+              disabled={isLoadingAnalytics}
+            >
               Close
             </Button>
+            {!analyticsData && !isLoadingAnalytics && (
+              <Button 
+                onClick={handleLoadAnalytics}
+                disabled={isLoadingAnalytics}
+              >
+                Generate Analytics
+              </Button>
+            )}
           </DialogFooter>
         </DialogContent>
       </Dialog>
