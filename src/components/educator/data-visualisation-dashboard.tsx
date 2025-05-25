@@ -198,42 +198,44 @@ export function DataVisualisationDashboard() {
   }, [selectedTimePeriod]);
   
   // Render dashboard header with controls
-  const renderDashboardHeader = () => (
-    <div className="flex flex-col space-y-4 md:flex-row md:items-centre md:justify-between md:space-y-0">
-      <div>
-        <h2 className="text-3xl font-bold tracking-tight">Data Visualisation Dashboard</h2>
-        <p className="text-muted-foreground">
-          Interactive analytics and insights to support evidence-based educational practices
-        </p>
-      </div>
-      <div className="flex flex-col space-y-2 md:flex-row md:items-centre md:space-x-2 md:space-y-0">
-        <Select value={selectedConfig} onValueChange={setSelectedConfig}>
-          <SelectTrigger className="w-full md:w-[180px]">
-            <SelectValue placeholder="Select dashboard" />
-          </SelectTrigger>
-          <SelectContent>
-            {dashboardConfigs.map(config => (
-              <SelectItem key={config.id} value={config.id}>
-                {config.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        
-        <div className="flex items-centre space-x-2">
-          <Button variant="outline" size="icon">
-            <RefreshCw className="h-4 w-4" />
-          </Button>
-          <Button variant="outline" size="icon">
-            <Settings className="h-4 w-4" />
-          </Button>
-          <Button variant="outline" size="icon">
-            <Download className="h-4 w-4" />
-          </Button>
+  const renderDashboardHeader = () => {
+    return (
+      <div className="flex flex-col space-y-4 md:flex-row md:items-centre md:justify-between md:space-y-0">
+        <div>
+          <h2 className="text-3xl font-bold tracking-tight">Data Visualisation Dashboard</h2>
+          <p className="text-muted-foreground">
+            Interactive analytics and insights to support evidence-based educational practices
+          </p>
+        </div>
+        <div className="flex flex-col space-y-2 md:flex-row md:items-centre md:space-x-2 md:space-y-0">
+          <Select value={selectedConfig} onValueChange={setSelectedConfig}>
+            <SelectTrigger className="w-full md:w-[180px]">
+              <SelectValue placeholder="Select dashboard" />
+            </SelectTrigger>
+            <SelectContent>
+              {dashboardConfigs.map(config => (
+                <SelectItem key={config.id} value={config.id}>
+                  {config.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          
+          <div className="flex items-centre space-x-2">
+            <Button variant="outline" size="icon">
+              <RefreshCw className="h-4 w-4" />
+            </Button>
+            <Button variant="outline" size="icon">
+              <Settings className="h-4 w-4" />
+            </Button>
+            <Button variant="outline" size="icon">
+              <Download className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
   
   // Render filter bar
   const renderFilterBar = () => {
@@ -324,111 +326,85 @@ export function DataVisualisationDashboard() {
   };
   
   // Render overview dashboard
-  const renderOverviewDashboard = () => (
-    <div className="space-y-6">
-      {/* Key metrics */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
-          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Average Progress
-            </CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">+12.5%</div>
-              <p className="text-xs text-muted-foreground">
-                +2.1% from previous period
-              </p>
-              <div className="mt-4 h-1 w-full bg-primary/10">
-                <div className="h-1 bg-primary" style={{ width: "75%" }} />
-              </div>
-            </CardContent>
-          </Card>
+  const renderOverviewDashboard = () => {
+    return (
+      <div className="space-y-6">
+        {/* Key metrics */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Attendance Rate
+                Average Progress
               </CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
+              <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">94.2%</div>
-              <p className="text-xs text-muted-foreground">
-                +0.8% from previous period
-              </p>
-              <div className="mt-4 h-1 w-full bg-primary/10">
-                <div className="h-1 bg-primary" style={{ width: "94%" }} />
-              </div>
-            </CardContent>
-          </Card>
-        
-          <Card>
-            <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Resource Utilisation
-              </CardTitle>
-              <BookOpenIcon className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">78.3%</div>
-              <p className="text-xs text-muted-foreground">
-                +5.2% from previous period
-              </p>
-              <div className="mt-4 h-1 w-full bg-primary/10">
-                <div className="h-1 bg-primary" style={{ width: "78%" }} />
-              </div>
-            </CardContent>
-          </Card>
-        
-          <Card>
-            <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Parent Engagement
-              </CardTitle>
-              <Activity className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">67.8%</div>
-              <p className="text-xs text-muted-foreground">
-                +12.3% from previous period
-              </p>
-              <div className="mt-4 h-1 w-full bg-primary/10">
-                <div className="h-1 bg-primary" style={{ width: "68%" }} />
-              </div>
-            </CardContent>
-          </Card>
+              <div className="text-2xl font-bold">+12.5%</div>
+                <p className="text-xs text-muted-foreground">
+                  +2.1% from previous period
+                </p>
+                <div className="mt-4 h-1 w-full bg-primary/10">
+                  <div className="h-1 bg-primary" style={{ width: "75%" }} />
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Attendance Rate
+                </CardTitle>
+                <Users className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">94.2%</div>
+                <p className="text-xs text-muted-foreground">
+                  +0.8% from previous period
+                </p>
+                <div className="mt-4 h-1 w-full bg-primary/10">
+                  <div className="h-1 bg-primary" style={{ width: "94%" }} />
+                </div>
+              </CardContent>
+            </Card>
+          
+            <Card>
+              <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Resource Utilisation
+                </CardTitle>
+                <BookOpenIcon className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">78.3%</div>
+                <p className="text-xs text-muted-foreground">
+                  +5.2% from previous period
+                </p>
+                <div className="mt-4 h-1 w-full bg-primary/10">
+                  <div className="h-1 bg-primary" style={{ width: "78%" }} />
+                </div>
+              </CardContent>
+            </Card>
+          
+            <Card>
+              <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Parent Engagement
+                </CardTitle>
+                <Activity className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">67.8%</div>
+                <p className="text-xs text-muted-foreground">
+                  +12.3% from previous period
+                </p>
+                <div className="mt-4 h-1 w-full bg-primary/10">
+                  <div className="h-1 bg-primary" style={{ width: "68%" }} />
+                </div>
+              </CardContent>
+            </Card>
+        </div>
       </div>
-      
-      {/* Main charts */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Student Progress Trends</CardTitle>
-            <CardDescription>
-              Average progress scores across core subjects
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[300px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                  data={studentProgressData}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                >
-                  {chartSettings.showGrid && <CartesianGrid strokeDasharray="3 3" />}
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  {chartSettings.showLegend && <Legend />}
-                  <Tooltip />
-                  <Line 
-                    type="monotone" 
-                    dataKey="maths" 
-                    stroke="#8884d8" 
-                    activeDot={{ r: 8 }}
-                    isAnimationActive={chartSettings.animationEnabled}
-                  />
-                  <Line 
+    );
+  }; 
                     type="monotone" 
                     dataKey="english" 
                     stroke="#82ca9d"
