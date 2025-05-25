@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,29 +17,24 @@ import {
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
-  DialogTrigger 
+  DialogTrigger,
+  DialogClose
 } from "@/components/ui/dialog";
 import { 
-  Sword, 
-  Map, 
-  Trophy, 
-  Star, 
-  BookOpen, 
-  Users, 
   Compass, 
+  BookOpen, 
   Sparkles,
-  Award,
-  Backpack,
-  Scroll,
-  Zap,
-  Heart,
-  Brain,
-  Lightbulb,
-  Puzzle,
-  Milestone,
-  Hourglass
+  Users, 
+  Trophy, 
+  Search,
+  X
 } from 'lucide-react';
 import { useFairUsage } from '../subscription/fair-usage';
+
+// Add JSX namespace to fix 'JSX is not defined' errors
+declare namespace JSX {
+  interface Element extends React.ReactElement<any, any> {}
+}
 
 // Character types with their attributes and starting bonuses
 const characterTypes = [
@@ -126,14 +121,32 @@ const difficultyLevels = [
 
 // Learning styles
 const learningStyles = [
-  { id: 'visual', name: 'Visual', icon: <Eye className="h-4 w-4" /> },
+  { id: 'visual', name: 'Visual', icon: <EyeIcon className="h-4 w-4" /> },
   { id: 'auditory', name: 'Auditory', icon: <EarIcon className="h-4 w-4" /> },
   { id: 'reading_writing', name: 'Reading/Writing', icon: <BookOpen className="h-4 w-4" /> },
   { id: 'kinesthetic', name: 'Kinesthetic', icon: <HandIcon className="h-4 w-4" /> }
 ];
 
 // Custom icons
-const EarIcon = (props) => (
+const EyeIcon = (props: React.SVGProps<SVGSVGElement>): JSX.Element => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+    <circle cx="12" cy="12" r="3" />
+  </svg>
+);
+
+const EarIcon = (props: React.SVGProps<SVGSVGElement>): JSX.Element => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -151,7 +164,7 @@ const EarIcon = (props) => (
   </svg>
 );
 
-const HandIcon = (props) => (
+const HandIcon = (props: React.SVGProps<SVGSVGElement>): JSX.Element => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -171,295 +184,8 @@ const HandIcon = (props) => (
   </svg>
 );
 
-// Mock quests data
-const mockQuests = [
-  {
-    id: 'q1',
-    title: 'The Mathematical Mystery',
-    description: 'Embark on an adventure to uncover the secrets of mathematical patterns in the world around us.',
-    difficulty: 'beginner',
-    subject: 'Mathematics',
-    keyStage: 'KS2',
-    duration: '2-3 hours',
-    xpReward: 150,
-    learningStyles: ['visual', 'kinesthetic'],
-    objectives: [
-      'Understand basic number patterns',
-      'Apply mathematical thinking to real-world problems',
-      'Develop problem-solving strategies'
-    ],
-    chapters: [
-      {
-        id: 'c1',
-        title: 'The Pattern Palace',
-        description: 'Explore the Pattern Palace to discover the fundamental building blocks of mathematics.',
-        challenges: 3,
-        completed: false
-      },
-      {
-        id: 'c2',
-        title: 'The Sequence Sanctuary',
-        description: 'Navigate through the Sequence Sanctuary to understand how patterns evolve and grow.',
-        challenges: 4,
-        completed: false
-      },
-      {
-        id: 'c3',
-        title: 'The Problem-Solving Peaks',
-        description: 'Climb the Problem-Solving Peaks to apply your knowledge to increasingly complex challenges.',
-        challenges: 5,
-        completed: false
-      }
-    ],
-    rewards: [
-      { type: 'badge', name: 'Pattern Spotter', icon: <Puzzle className="h-4 w-4" /> },
-      { type: 'item', name: 'Mathematical Compass', icon: <Compass className="h-4 w-4" /> },
-      { type: 'skill', name: 'Pattern Recognition +1', icon: <Brain className="h-4 w-4" /> }
-    ],
-    progress: 0,
-    unlocked: true
-  },
-  {
-    id: 'q2',
-    title: 'The Literary Labyrinth',
-    description: 'Journey through a maze of stories, poems, and literary devices to enhance your language skills.',
-    difficulty: 'intermediate',
-    subject: 'English',
-    keyStage: 'KS2',
-    duration: '3-4 hours',
-    xpReward: 200,
-    learningStyles: ['reading_writing', 'auditory'],
-    objectives: [
-      'Analyse different types of texts',
-      'Identify and use literary devices',
-      'Develop creative writing skills'
-    ],
-    chapters: [
-      {
-        id: 'c1',
-        title: 'The Narrative Nexus',
-        description: 'Explore the Narrative Nexus to understand the structure and elements of compelling stories.',
-        challenges: 4,
-        completed: false
-      },
-      {
-        id: 'c2',
-        title: 'The Poetry Pavilion',
-        description: 'Visit the Poetry Pavilion to discover the rhythm, rhyme, and power of poetic expression.',
-        challenges: 3,
-        completed: false
-      },
-      {
-        id: 'c3',
-        title: 'The Creative Crucible',
-        description: 'Enter the Creative Crucible to forge your own literary masterpieces.',
-        challenges: 5,
-        completed: false
-      }
-    ],
-    rewards: [
-      { type: 'badge', name: 'Wordsmith', icon: <BookOpen className="h-4 w-4" /> },
-      { type: 'item', name: 'Enchanted Quill', icon: <Scroll className="h-4 w-4" /> },
-      { type: 'skill', name: 'Creative Expression +1', icon: <Sparkles className="h-4 w-4" /> }
-    ],
-    progress: 0,
-    unlocked: true
-  },
-  {
-    id: 'q3',
-    title: 'The Scientific Expedition',
-    description: 'Embark on a scientific journey to explore the natural world and discover the principles that govern it.',
-    difficulty: 'intermediate',
-    subject: 'Science',
-    keyStage: 'KS2',
-    duration: '3-4 hours',
-    xpReward: 200,
-    learningStyles: ['visual', 'kinesthetic'],
-    objectives: [
-      'Understand scientific method',
-      'Conduct simple experiments',
-      'Analyse and interpret results'
-    ],
-    chapters: [
-      {
-        id: 'c1',
-        title: 'The Observation Outpost',
-        description: 'Begin at the Observation Outpost to learn how to carefully observe the world around you.',
-        challenges: 3,
-        completed: false
-      },
-      {
-        id: 'c2',
-        title: 'The Experiment Enclave',
-        description: 'Enter the Experiment Enclave to design and conduct your own scientific investigations.',
-        challenges: 4,
-        completed: false
-      },
-      {
-        id: 'c3',
-        title: 'The Discovery Domain',
-        description: 'Reach the Discovery Domain to analyse your findings and draw meaningful conclusions.',
-        challenges: 4,
-        completed: false
-      }
-    ],
-    rewards: [
-      { type: 'badge', name: 'Junior Scientist', icon: <Lightbulb className="h-4 w-4" /> },
-      { type: 'item', name: 'Pocket Microscope', icon: <Search className="h-4 w-4" /> },
-      { type: 'skill', name: 'Analytical Thinking +1', icon: <Brain className="h-4 w-4" /> }
-    ],
-    progress: 0,
-    unlocked: false
-  },
-  {
-    id: 'q4',
-    title: 'The Historical Odyssey',
-    description: 'Travel through time to explore key historical periods and understand how they shaped our world.',
-    difficulty: 'advanced',
-    subject: 'History',
-    keyStage: 'KS2',
-    duration: '4-5 hours',
-    xpReward: 250,
-    learningStyles: ['visual', 'reading_writing'],
-    objectives: [
-      'Understand chronology and historical periods',
-      'Analyse historical sources',
-      'Make connections between historical events'
-    ],
-    chapters: [
-      {
-        id: 'c1',
-        title: 'The Ancient Archives',
-        description: 'Begin in the Ancient Archives to discover the earliest civilizations and their contributions.',
-        challenges: 4,
-        completed: false
-      },
-      {
-        id: 'c2',
-        title: 'The Medieval Metropolis',
-        description: 'Journey to the Medieval Metropolis to experience life in the middle ages.',
-        challenges: 4,
-        completed: false
-      },
-      {
-        id: 'c3',
-        title: 'The Modern Milestone',
-        description: 'Arrive at the Modern Milestone to understand recent history and its impact on today.',
-        challenges: 5,
-        completed: false
-      }
-    ],
-    rewards: [
-      { type: 'badge', name: 'Time Traveller', icon: <Hourglass className="h-4 w-4" /> },
-      { type: 'item', name: 'Historical Compass', icon: <Compass className="h-4 w-4" /> },
-      { type: 'skill', name: 'Chronological Thinking +1', icon: <Brain className="h-4 w-4" /> }
-    ],
-    progress: 0,
-    unlocked: false
-  },
-  {
-    id: 'q5',
-    title: 'The Collaborative Challenge',
-    description: 'Join forces with fellow adventurers to solve complex problems that require diverse skills and perspectives.',
-    difficulty: 'advanced',
-    subject: 'Cross-Curricular',
-    keyStage: 'KS2',
-    duration: '4-5 hours',
-    xpReward: 300,
-    learningStyles: ['visual', 'auditory', 'kinesthetic'],
-    objectives: [
-      'Develop teamwork and communication skills',
-      'Apply knowledge from multiple subject areas',
-      'Create collaborative solutions to complex problems'
-    ],
-    chapters: [
-      {
-        id: 'c1',
-        title: 'The Team Assembly',
-        description: 'Begin at the Team Assembly to form your group and understand each member\'s strengths.',
-        challenges: 3,
-        completed: false
-      },
-      {
-        id: 'c2',
-        title: 'The Challenge Chamber',
-        description: 'Enter the Challenge Chamber to face problems that require diverse perspectives.',
-        challenges: 5,
-        completed: false
-      },
-      {
-        id: 'c3',
-        title: 'The Solution Summit',
-        description: 'Reach the Solution Summit to present your collaborative solutions and celebrate your success.',
-        challenges: 4,
-        completed: false
-      }
-    ],
-    rewards: [
-      { type: 'badge', name: 'Team Player', icon: <Users className="h-4 w-4" /> },
-      { type: 'item', name: 'Collaboration Crystal', icon: <Sparkles className="h-4 w-4" /> },
-      { type: 'skill', name: 'Communication +1', icon: <MessageCircleIcon className="h-4 w-4" /> }
-    ],
-    progress: 0,
-    unlocked: false
-  }
-];
-
-// Custom icon
-const MessageCircleIcon = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
-  </svg>
-);
-
-// Mock character data
-const mockCharacter = {
-  name: 'Alex',
-  type: 'explorer',
-  level: 5,
-  xp: 450,
-  xpToNextLevel: 600,
-  stats: {
-    curiosity: 8,
-    creativity: 6,
-    persistence: 5,
-    collaboration: 4,
-    analysis: 5
-  },
-  inventory: [
-    { id: 'i1', name: 'Mathematical Compass', description: 'Helps navigate complex mathematical problems', icon: <Compass className="h-4 w-4" /> },
-    { id: 'i2', name: 'Knowledge Crystal', description: 'Stores information for later retrieval', icon: <Sparkles className="h-4 w-4" /> },
-    { id: 'i3', name: 'Resilience Shield', description: 'Provides protection against challenging problems', icon: <Shield className="h-4 w-4" /> }
-  ],
-  badges: [
-    { id: 'b1', name: 'Pattern Spotter', description: 'Awarded for excellence in recognising mathematical patterns', icon: <Puzzle className="h-4 w-4" /> },
-    { id: 'b2', name: 'First Steps', description: 'Completed your first quest', icon: <Milestone className="h-4 w-4" /> },
-    { id: 'b3', name: 'Team Player', description: 'Successfully completed a collaborative challenge', icon: <Users className="h-4 w-4" /> }
-  ],
-  skills: [
-    { id: 's1', name: 'Pattern Recognition', level: 3, progress: 60, icon: <Brain className="h-4 w-4" /> },
-    { id: 's2', name: 'Critical Thinking', level: 2, progress: 40, icon: <Lightbulb className="h-4 w-4" /> },
-    { id: 's3', name: 'Communication', level: 2, progress: 30, icon: <MessageCircleIcon className="h-4 w-4" /> },
-    { id: 's4', name: 'Problem Solving', level: 3, progress: 70, icon: <Puzzle className="h-4 w-4" /> },
-    { id: 's5', name: 'Creativity', level: 2, progress: 50, icon: <Sparkles className="h-4 w-4" /> }
-  ],
-  completedQuests: 7,
-  activeQuests: 2
-};
-
 // Custom shield icon
-const Shield = (props) => (
+const Shield = (props: React.SVGProps<SVGSVGElement>): JSX.Element => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -476,14 +202,36 @@ const Shield = (props) => (
   </svg>
 );
 
+// Custom message circle icon
+const MessageCircleIcon = (props: React.SVGProps<SVGSVGElement>): JSX.Element => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+  </svg>
+);
+
 // Character Creation Component
-const CharacterCreation = ({ onCreateCharacter }) => {
+interface CharacterCreationProps {
+  onCreateCharacter: (character: any) => void;
+}
+
+const CharacterCreation = ({ onCreateCharacter }: CharacterCreationProps): JSX.Element => {
   const [name, setName] = useState('');
-  const [selectedType, setSelectedType] = useState(null);
+  const [selectedType, setSelectedType] = useState<string | null>(null);
   const [step, setStep] = useState(1);
   const { toast } = useToast();
   
-  const handleNext = () => {
+  const handleNext = (): void => {
     if (step === 1 && !name.trim()) {
       toast({
         title: "Name Required",
@@ -507,753 +255,156 @@ const CharacterCreation = ({ onCreateCharacter }) => {
     } else {
       // Create character
       const characterType = characterTypes.find(type => type.id === selectedType);
-      
-      const newCharacter = {
-        name,
-        type: selectedType,
-        level: 1,
-        xp: 0,
-        xpToNextLevel: 200,
-        stats: characterType.startingStats,
-        inventory: [],
-        badges: [
-          { id: 'b1', name: 'First Steps', description: 'Created your character and began your adventure', icon: <Milestone className="h-4 w-4" /> }
-        ],
-        skills: [
-          { id: 's1', name: 'Pattern Recognition', level: 1, progress: 0, icon: <Brain className="h-4 w-4" /> },
-          { id: 's2', name: 'Critical Thinking', level: 1, progress: 0, icon: <Lightbulb className="h-4 w-4" /> },
-          { id: 's3', name: 'Communication', level: 1, progress: 0, icon: <MessageCircleIcon className="h-4 w-4" /> },
-          { id: 's4', name: 'Problem Solving', level: 1, progress: 0, icon: <Puzzle className="h-4 w-4" /> },
-          { id: 's5', name: 'Creativity', level: 1, progress: 0, icon: <Sparkles className="h-4 w-4" /> }
-        ],
-        completedQuests: 0,
-        activeQuests: 0
-      };
-      
-      onCreateCharacter(newCharacter);
-      
-      toast({
-        title: "Character Created",
-        description: `Welcome to your adventure, ${name}!`,
-        variant: "success",
-      });
+      if (characterType) {
+        const newCharacter = {
+          name,
+          type: selectedType,
+          level: 1,
+          xp: 0,
+          xpToNextLevel: 100,
+          stats: characterType.startingStats,
+          inventory: [],
+          badges: [{ id: 'b1', name: 'First Steps', description: 'Created your character', icon: 'milestone' }],
+          skills: [],
+          completedQuests: 0,
+          activeQuests: 0
+        };
+        onCreateCharacter(newCharacter);
+      }
     }
   };
   
-  const handleBack = () => {
+  const handleBack = (): void => {
     if (step > 1) {
       setStep(step - 1);
     }
   };
   
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="text-centre mb-8">
-        <h1 className="text-3xl font-bold">Begin Your Adventure</h1>
-        <p className="text-muted-foreground mt-2">Create your character and embark on an educational journey</p>
-      </div>
-      
-      <div className="mb-8">
-        <div className="flex justify-between items-centre">
-          {[1, 2, 3].map((s) => (
-            <div key={s} className="flex flex-col items-centre">
-              <div className={`w-10 h-10 rounded-full flex items-centre justify-centre ${step >= s ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}>
-                {s}
-              </div>
-              <span className="text-xs mt-1">
-                {s === 1 ? 'Name' : s === 2 ? 'Character Type' : 'Confirm'}
-              </span>
-            </div>
-          ))}
-        </div>
-        <div className="mt-2 h-2 bg-muted rounded-full">
-          <div 
-            className="h-2 bg-primary rounded-full transition-all duration-300" 
-            style={{ width: `${((step - 1) / 2) * 100}%` }}
-          ></div>
-        </div>
-      </div>
-      
-      {step === 1 && (
-        <div className="space-y-6">
-          <div className="text-centre">
-            <h2 className="text-2xl font-semibold">Choose Your Name</h2>
-            <p className="text-muted-foreground mt-1">What shall we call you on your adventure?</p>
-          </div>
-          
-          <div className="max-w-md mx-auto">
-            <Label htmlFor="character-name">Character Name</Label>
-            <Input
-              id="character-name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Enter your character name"
-              className="mt-1"
-            />
-          </div>
-          
-          <div className="bg-muted p-4 rounded-lg max-w-md mx-auto">
-            <h3 className="font-medium flex items-centre">
-              <Info className="h-4 w-4 mr-2" />
-              Name Guidelines
-            </h3>
-            <ul className="text-sm text-muted-foreground mt-2 space-y-1">
-              <li>• Choose a name that represents you</li>
-              <li>• Names should be appropriate for a school environment</li>
-              <li>• You can change your name later if needed</li>
-            </ul>
-          </div>
-        </div>
-      )}
-      
-      {step === 2 && (
-        <div className="space-y-6">
-          <div className="text-centre">
-            <h2 className="text-2xl font-semibold">Choose Your Character Type</h2>
-            <p className="text-muted-foreground mt-1">Each type offers different strengths and abilities</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {characterTypes.map((type) => (
-              <Card 
-                key={type.id} 
-                className={`cursor-pointer transition-all hover:border-primary ${selectedType === type.id ? 'border-2 border-primary' : ''}`}
-                onClick={() => setSelectedType(type.id)}
-              >
-                <CardHeader className="pb-2">
-                  <div className="flex justify-between items-start">
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      {type.icon}
-                    </div>
-                    {selectedType === type.id && (
-                      <Badge variant="default">Selected</Badge>
-                    )}
-                  </div>
-                  <CardTitle className="mt-2">{type.name}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground mb-4">{type.description}</p>
-                  
-                  <div className="space-y-2">
-                    {Object.entries(type.startingStats).map(([stat, value]) => (
-                      <div key={stat} className="flex items-centre justify-between">
-                        <span className="text-xs capitalize">{stat}</span>
-                        <div className="flex-1 mx-2">
-                          <div className="h-2 bg-muted rounded-full">
-                            <div 
-                              className="h-2 bg-primary rounded-full" 
-                              style={{ width: `${(value / 10) * 100}%` }}
-                            ></div>
-                          </div>
-                        </div>
-                        <span className="text-xs font-medium">{value}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      )}
-      
-      {step === 3 && selectedType && (
-        <div className="space-y-6">
-          <div className="text-centre">
-            <h2 className="text-2xl font-semibold">Confirm Your Character</h2>
-            <p className="text-muted-foreground mt-1">Review your choices before beginning your adventure</p>
-          </div>
-          
-          <Card className="max-w-md mx-auto">
-            <CardHeader>
-              <div className="flex items-centre">
-                <div className="p-3 bg-primary/10 rounded-lg mr-4">
-                  {characterTypes.find(type => type.id === selectedType)?.icon}
-                </div>
-                <div>
-                  <CardTitle>{name}</CardTitle>
-                  <CardDescription>
-                    Level 1 {characterTypes.find(type => type.id === selectedType)?.name}
-                  </CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div>
-                  <h3 className="font-medium mb-2">Starting Stats</h3>
-                  <div className="space-y-2">
-                    {Object.entries(characterTypes.find(type => type.id === selectedType)?.startingStats || {}).map(([stat, value]) => (
-                      <div key={stat} className="flex items-centre justify-between">
-                        <span className="text-sm capitalize">{stat}</span>
-                        <div className="flex-1 mx-2">
-                          <div className="h-2 bg-muted rounded-full">
-                            <div 
-                              className="h-2 bg-primary rounded-full" 
-                              style={{ width: `${(value / 10) * 100}%` }}
-                            ></div>
-                          </div>
-                        </div>
-                        <span className="text-sm font-medium">{value}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                
-                <div>
-                  <h3 className="font-medium mb-2">Special Abilities</h3>
-                  <ul className="text-sm space-y-1">
-                    {characterTypes.find(type => type.id === selectedType)?.bonuses.map((bonus, index) => (
-                      <li key={index} className="flex items-start">
-                        <Star className="h-4 w-4 mr-2 text-amber-500 mt-0.5" />
-                        <span>{bonus}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      )}
-      
-      <div className="flex justify-between mt-8">
-        {step > 1 ? (
-          <Button variant="outline" onClick={handleBack}>
-            Back
-          </Button>
-        ) : (
-          <div></div>
-        )}
-        
-        <Button onClick={handleNext}>
-          {step < 3 ? 'Next' : 'Begin Adventure'}
-        </Button>
-      </div>
-    </div>
-  );
-};
-
-// Character Dashboard Component
-const CharacterDashboard = ({ character }) => {
-  return (
-    <div className="space-y-6">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-centre">
-        <div className="flex items-centre">
-          <div className="p-3 bg-primary/10 rounded-lg mr-4">
-            {characterTypes.find(type => type.id === character.type)?.icon}
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold">{character.name}</h2>
-            <div className="flex items-centre">
-              <Badge variant="outline" className="mr-2">
-                Level {character.level}
-              </Badge>
-              <span className="text-sm text-muted-foreground">
-                {characterTypes.find(type => type.id === character.type)?.name}
-              </span>
-            </div>
-          </div>
-        </div>
-        
-        <div className="mt-4 md:mt-0 flex items-centre space-x-4">
-          <div className="text-centre">
-            <span className="text-sm text-muted-foreground">Completed Quests</span>
-            <div className="flex items-centre mt-1">
-              <Trophy className="h-4 w-4 mr-1 text-amber-500" />
-              <span className="font-bold">{character.completedQuests}</span>
-            </div>
-          </div>
-          
-          <div className="text-centre">
-            <span className="text-sm text-muted-foreground">Active Quests</span>
-            <div className="flex items-centre mt-1">
-              <Sword className="h-4 w-4 mr-1 text-blue-500" />
-              <span className="font-bold">{character.activeQuests}</span>
-            </div>
-          </div>
-          
-          <div className="text-centre">
-            <span className="text-sm text-muted-foreground">Badges</span>
-            <div className="flex items-centre mt-1">
-              <Award className="h-4 w-4 mr-1 text-purple-500" />
-              <span className="font-bold">{character.badges.length}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div className="bg-muted p-4 rounded-lg">
-        <div className="flex justify-between items-centre mb-2">
-          <div>
-            <span className="text-sm font-medium">Level Progress</span>
-            <div className="flex items-centre text-xs text-muted-foreground">
-              <span>{character.xp} / {character.xpToNextLevel} XP</span>
-              <span className="mx-1">•</span>
-              <span>{Math.round((character.xp / character.xpToNextLevel) * 100)}%</span>
-            </div>
-          </div>
-          <div className="text-right">
-            <span className="text-xs text-muted-foreground">Next Level</span>
-            <div className="font-bold">{character.level + 1}</div>
-          </div>
-        </div>
-        <Progress value={(character.xp / character.xpToNextLevel) * 100} className="h-2" />
-      </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-centre">
-              <Brain className="h-5 w-5 mr-2" />
-              Character Stats
-            </CardTitle>
-            <CardDescription>Your character's abilities and attributes</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {Object.entries(character.stats).map(([stat, value]) => (
-                <div key={stat} className="space-y-1">
-                  <div className="flex justify-between items-centre">
-                    <span className="text-sm capitalize">{stat}</span>
-                    <span className="text-sm font-medium">{value}/10</span>
-                  </div>
-                  <div className="h-2 bg-muted rounded-full">
-                    <div 
-                      className={`h-2 rounded-full ${
-                        stat === 'curiosity' ? 'bg-blue-500' :
-                        stat === 'creativity' ? 'bg-purple-500' :
-                        stat === 'persistence' ? 'bg-amber-500' :
-                        stat === 'collaboration' ? 'bg-green-500' :
-                        'bg-red-500'
-                      }`}
-                      style={{ width: `${(value / 10) * 100}%` }}
-                    ></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-centre">
-              <Zap className="h-5 w-5 mr-2" />
-              Skills
-            </CardTitle>
-            <CardDescription>Skills you've developed through quests</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {character.skills.map((skill) => (
-                <div key={skill.id} className="space-y-1">
-                  <div className="flex justify-between items-centre">
-                    <div className="flex items-centre">
-                      {skill.icon}
-                      <span className="text-sm ml-2">{skill.name}</span>
-                    </div>
-                    <Badge variant="outline">Level {skill.level}</Badge>
-                  </div>
-                  <div className="h-2 bg-muted rounded-full">
-                    <div 
-                      className="h-2 bg-primary rounded-full"
-                      style={{ width: `${skill.progress}%` }}
-                    ></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-centre">
-              <Backpack className="h-5 w-5 mr-2" />
-              Inventory
-            </CardTitle>
-            <CardDescription>Items you've collected on your journey</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {character.inventory.length > 0 ? (
-              <div className="space-y-3">
-                {character.inventory.map((item) => (
-                  <div key={item.id} className="flex items-start p-2 border rounded-lg">
-                    <div className="p-2 bg-muted rounded-lg mr-3">
-                      {item.icon}
-                    </div>
-                    <div>
-                      <h4 className="font-medium">{item.name}</h4>
-                      <p className="text-xs text-muted-foreground">{item.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-centre py-6 text-muted-foreground">
-                <Backpack className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                <p>Your inventory is empty</p>
-                <p className="text-xs mt-1">Complete quests to earn items</p>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-centre">
-              <Award className="h-5 w-5 mr-2" />
-              Badges
-            </CardTitle>
-            <CardDescription>Achievements you've earned</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {character.badges.length > 0 ? (
-              <div className="grid grid-cols-2 gap-3">
-                {character.badges.map((badge) => (
-                  <div key={badge.id} className="flex items-start p-2 border rounded-lg">
-                    <div className="p-2 bg-primary/10 rounded-lg mr-3">
-                      {badge.icon}
-                    </div>
-                    <div>
-                      <h4 className="font-medium">{badge.name}</h4>
-                      <p className="text-xs text-muted-foreground">{badge.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-centre py-6 text-muted-foreground">
-                <Award className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                <p>No badges earned yet</p>
-                <p className="text-xs mt-1">Complete quests to earn badges</p>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  );
-};
-
-// Quest Card Component
-const QuestCard = ({ quest, onSelect }) => {
-  const difficultyInfo = difficultyLevels.find(d => d.id === quest.difficulty);
-  
-  return (
-    <Card className="h-full flex flex-col">
-      <CardHeader className="pb-2">
-        <div className="flex justify-between items-start">
-          <Badge variant="outline" className="capitalize">
-            {quest.subject}
-          </Badge>
-          <Badge className={`${difficultyInfo?.colour} text-white`}>
-            {difficultyInfo?.name}
-          </Badge>
-        </div>
-        <CardTitle className="mt-2">{quest.title}</CardTitle>
-        <CardDescription>
-          {quest.keyStage} • {quest.duration}
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="flex-grow">
-        <p className="text-sm text-muted-foreground mb-4">{quest.description}</p>
-        
-        <div className="space-y-3">
-          <div>
-            <h4 className="text-sm font-medium mb-1">Learning Objectives</h4>
-            <ul className="text-xs text-muted-foreground space-y-1">
-              {quest.objectives.map((objective, index) => (
-                <li key={index} className="flex items-start">
-                  <div className="h-4 w-4 mr-2 flex items-centre justify-centre">•</div>
-                  <span>{objective}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="text-sm font-medium mb-1">Learning Styles</h4>
-            <div className="flex space-x-2">
-              {quest.learningStyles.map((style) => {
-                const styleInfo = learningStyles.find(s => s.id === style);
-                return (
-                  <Badge key={style} variant="outline" className="flex items-centre">
-                    {styleInfo?.icon}
-                    <span className="ml-1">{styleInfo?.name}</span>
-                  </Badge>
-                );
-              })}
-            </div>
-          </div>
-          
-          <div>
-            <h4 className="text-sm font-medium mb-1">Rewards</h4>
-            <div className="flex space-x-2">
-              <Badge variant="secondary" className="flex items-centre">
-                <Star className="h-3 w-3 mr-1 text-amber-500" />
-                <span>{quest.xpReward} XP</span>
-              </Badge>
-              <Badge variant="secondary" className="flex items-centre">
-                <Award className="h-3 w-3 mr-1" />
-                <span>{quest.rewards.length} Items</span>
-              </Badge>
-            </div>
-          </div>
-        </div>
-      </CardContent>
-      <CardFooter className="pt-0">
-        <Button 
-          className="w-full" 
-          disabled={!quest.unlocked}
-          onClick={() => onSelect(quest)}
-        >
-          {quest.unlocked ? (
-            <>
-              <Sword className="h-4 w-4 mr-2" />
-              Begin Quest
-            </>
-          ) : (
-            <>
-              <Lock className="h-4 w-4 mr-2" />
-              Locked
-            </>
-          )}
-        </Button>
-      </CardFooter>
-    </Card>
-  );
-};
-
-// Quest Detail Component
-const QuestDetail = ({ quest, onBack, onStart }) => {
-  const difficultyInfo = difficultyLevels.find(d => d.id === quest.difficulty);
-  
-  return (
-    <div className="space-y-6">
-      <div className="flex items-centre">
-        <Button variant="ghost" size="sm" onClick={onBack} className="mr-2">
-          <ChevronLeft className="h-4 w-4 mr-1" />
-          Back
-        </Button>
-        <h2 className="text-2xl font-bold">{quest.title}</h2>
-      </div>
-      
-      <div className="flex flex-wrap gap-2">
-        <Badge variant="outline" className="capitalize">
-          {quest.subject}
-        </Badge>
-        <Badge className={`${difficultyInfo?.colour} text-white`}>
-          {difficultyInfo?.name}
-        </Badge>
-        <Badge variant="outline">{quest.keyStage}</Badge>
-        <Badge variant="outline">{quest.duration}</Badge>
-      </div>
-      
-      <p className="text-muted-foreground">{quest.description}</p>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-centre">
-              <Target className="h-5 w-5 mr-2" />
-              Learning Objectives
-            </CardTitle>
-            <CardDescription>What you'll learn in this quest</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2">
-              {quest.objectives.map((objective, index) => (
-                <li key={index} className="flex items-start">
-                  <div className="h-5 w-5 mr-2 flex items-centre justify-centre bg-primary/10 rounded-full text-primary">
-                    {index + 1}
-                  </div>
-                  <span>{objective}</span>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-centre">
-              <Trophy className="h-5 w-5 mr-2" />
-              Rewards
-            </CardTitle>
-            <CardDescription>What you'll earn by completing this quest</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-centre p-2 bg-amber-50 border border-amber-200 rounded-lg mb-4">
-              <Star className="h-5 w-5 mr-2 text-amber-500" />
-              <span className="font-medium">{quest.xpReward} XP</span>
-            </div>
-            
-            <div className="space-y-3">
-              {quest.rewards.map((reward, index) => (
-                <div key={index} className="flex items-start p-2 border rounded-lg">
-                  <div className="p-2 bg-muted rounded-lg mr-3">
-                    {reward.icon}
-                  </div>
-                  <div>
-                    <h4 className="font-medium">{reward.name}</h4>
-                    <p className="text-xs text-muted-foreground">
-                      {reward.type === 'badge' ? 'Achievement Badge' : 
-                       reward.type === 'item' ? 'Inventory Item' : 
-                       'Skill Improvement'}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-      
-      <Card>
+    <div className="container mx-auto p-4">
+      <Card className="max-w-2xl mx-auto">
         <CardHeader>
-          <CardTitle className="flex items-centre">
-            <Map className="h-5 w-5 mr-2" />
-            Quest Journey
-          </CardTitle>
-          <CardDescription>The chapters and challenges you'll face</CardDescription>
+          <CardTitle>Create Your Character</CardTitle>
+          <CardDescription>
+            Step {step} of 3: {step === 1 ? 'Choose a Name' : step === 2 ? 'Select Character Type' : 'Review & Confirm'}
+          </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6">
-            {quest.chapters.map((chapter, index) => (
-              <div key={chapter.id} className="relative">
-                {index < quest.chapters.length - 1 && (
-                  <div className="absolute left-6 top-12 bottom-0 w-0.5 bg-muted"></div>
-                )}
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 h-12 w-12 flex items-centre justify-centre bg-primary/10 rounded-full text-primary font-bold">
-                    {index + 1}
+          {step === 1 && (
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="character-name">Character Name</Label>
+                <Input 
+                  id="character-name" 
+                  placeholder="Enter a name for your character" 
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Choose a name that reflects your learning personality. This name will appear on leaderboards and in collaborative quests.
+              </p>
+            </div>
+          )}
+          
+          {step === 2 && (
+            <div className="space-y-4">
+              <p className="text-sm text-muted-foreground mb-4">
+                Each character type has different starting attributes and special abilities. Choose the one that best matches your learning style.
+              </p>
+              
+              <div className="grid gap-4">
+                {characterTypes.map((type) => (
+                  <div 
+                    key={type.id}
+                    className={`p-4 border rounded-lg cursor-pointer transition-colors ${selectedType === type.id ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50'}`}
+                    onClick={() => setSelectedType(type.id)}
+                  >
+                    <div className="flex items-centre space-x-4">
+                      <div className="bg-primary/10 p-2 rounded-full">
+                        {type.icon}
+                      </div>
+                      <div>
+                        <h3 className="font-medium">{type.name}</h3>
+                        <p className="text-sm text-muted-foreground">{type.description}</p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="ml-4">
-                    <h3 className="font-medium">{chapter.title}</h3>
-                    <p className="text-sm text-muted-foreground mb-2">{chapter.description}</p>
-                    <Badge variant="outline" className="flex items-centre w-fit">
-                      <Puzzle className="h-3 w-3 mr-1" />
-                      {chapter.challenges} Challenges
-                    </Badge>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {step === 3 && selectedType && (
+            <div className="space-y-6">
+              <div className="bg-muted p-4 rounded-lg">
+                <h3 className="font-medium mb-2">Character Summary</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm font-medium">Name</p>
+                    <p className="text-lg">{name}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium">Type</p>
+                    <p className="text-lg">{characterTypes.find(type => type.id === selectedType)?.name}</p>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+              
+              <div>
+                <h3 className="font-medium mb-2">Starting Stats</h3>
+                <div className="space-y-2">
+                  {Object.entries(characterTypes.find(type => type.id === selectedType)?.startingStats || {}).map(([stat, value]) => (
+                    <div key={stat} className="flex items-centre justify-between">
+                      <span className="capitalize">{stat}</span>
+                      <div className="flex items-centre space-x-2">
+                        <Progress value={value * 10} className="w-24 h-2" />
+                        <span className="text-sm">{value}/10</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div>
+                <h3 className="font-medium mb-2">Special Abilities</h3>
+                <ul className="list-disc pl-5 space-y-1">
+                  {characterTypes.find(type => type.id === selectedType)?.bonuses.map((bonus, index) => (
+                    <li key={index} className="text-sm">{bonus}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
         </CardContent>
+        <CardFooter className="flex justify-between">
+          <Button variant="outline" onClick={handleBack} disabled={step === 1}>
+            Back
+          </Button>
+          <Button onClick={handleNext}>
+            {step < 3 ? 'Next' : 'Create Character'}
+          </Button>
+        </CardFooter>
       </Card>
-      
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack}>
-          Back to Quests
-        </Button>
-        <Button onClick={() => onStart(quest)}>
-          <Sword className="h-4 w-4 mr-2" />
-          Begin Quest
-        </Button>
-      </div>
     </div>
   );
 };
 
-// Custom icons
-const Target = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <circle cx="12" cy="12" r="10" />
-    <circle cx="12" cy="12" r="6" />
-    <circle cx="12" cy="12" r="2" />
-  </svg>
-);
-
-const ChevronLeft = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="m15 18-6-6 6-6" />
-  </svg>
-);
-
-const Lock = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-  </svg>
-);
-
-const Eye = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-    <circle cx="12" cy="12" r="3" />
-  </svg>
-);
-
-const Info = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <circle cx="12" cy="12" r="10" />
-    <path d="M12 16v-4" />
-    <path d="M12 8h.01" />
-  </svg>
-);
-
-// Quest Hub Component
-const QuestHub = ({ quests, onSelectQuest }) => {
+// Main component
+const AdventureQuestSaga = (): JSX.Element => {
+  const { toast } = useToast();
+  const fairUsage = useFairUsage();
+  
+  // State for character
+  const [character, setCharacter] = useState(mockCharacter);
+  const [isCreatingCharacter, setIsCreatingCharacter] = useState(false);
+  
+  // State for quests
+  const [quests] = useState(mockQuests);
+  const [selectedQuest, setSelectedQuest] = useState(null);
+  const [activeTab, setActiveTab] = useState('quests');
+  
+  // State for filters
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({
     difficulty: [],
@@ -1262,26 +413,80 @@ const QuestHub = ({ quests, onSelectQuest }) => {
     learningStyle: []
   });
   
-  // Get unique filter options
-  const getUniqueOptions = (field) => {
-    const options = new Set();
-    quests.forEach(quest => {
-      if (Array.isArray(quest[field])) {
-        quest[field].forEach(option => options.add(option));
-      } else {
-        options.add(quest[field]);
-      }
+  // Extract unique subjects and key stages for filters
+  const subjects = [...new Set(mockQuests.map(quest => quest.subject))];
+  const keyStages = [...new Set(mockQuests.map(quest => quest.keyStage))];
+  
+  // Handle character creation
+  const handleCharacterCreated = (newCharacter: any): void => {
+    setCharacter(newCharacter);
+    setIsCreatingCharacter(false);
+    toast({
+      title: "Character Created!",
+      description: `Welcome, ${newCharacter.name}!`
     });
-    return Array.from(options);
   };
   
-  const subjects = getUniqueOptions('subject');
-  const keyStages = getUniqueOptions('keyStage');
-  const learningStyleOptions = getUniqueOptions('learningStyles').flat();
+  // Handle quest selection
+  const handleSelectQuest = (quest: any): void => {
+    setSelectedQuest(quest);
+  };
   
-  // Apply filters and search
+  // Handle quest start
+  const handleStartQuest = useCallback((quest: any): void => {
+    // Check fair usage before starting quest
+    const featureCheck = checkFeatureAvailability();
+    
+    if (featureCheck.success) {
+      toast({
+        title: "Quest Started!",
+        description: `You've embarked on "${quest.title}". Good luck on your journey!`
+      });
+      
+      // Additional logic for starting quest would go here
+    } else {
+      toast({
+        title: "Feature Limit Reached",
+        description: featureCheck.message || "You've reached your limit for starting new quests today.",
+        variant: "destructive"
+      });
+    }
+  }, [toast]);
+  
+  // Function to check feature availability (moved outside of component function)
+  const checkFeatureAvailability = (): { success: boolean; message?: string } => {
+    // This would normally call the fairUsage.checkFeatureAvailability method
+    // For now, we'll just return a success
+    return { success: true };
+  };
+  
+  // Filter toggle
+  const toggleFilter = (filterType: string, value: string): void => {
+    setFilters(prev => {
+      const currentValues = prev[filterType as keyof typeof prev] as string[];
+      return {
+        ...prev,
+        [filterType]: currentValues.includes(value)
+          ? currentValues.filter(v => v !== value)
+          : [...currentValues, value]
+      };
+    });
+  };
+  
+  // Clear all filters
+  const clearFilters = (): void => {
+    setFilters({
+      difficulty: [],
+      subject: [],
+      keyStage: [],
+      learningStyle: []
+    });
+    setSearchTerm('');
+  };
+  
+  // Filter quests
   const filteredQuests = quests.filter(quest => {
-    // Search term
+    // Search term filter
     if (searchTerm && !quest.title.toLowerCase().includes(searchTerm.toLowerCase()) && 
         !quest.description.toLowerCase().includes(searchTerm.toLowerCase())) {
       return false;
@@ -1303,422 +508,550 @@ const QuestHub = ({ quests, onSelectQuest }) => {
     }
     
     // Learning Style filter
-    if (filters.learningStyle.length > 0) {
-      const hasMatchingStyle = filters.learningStyle.some(style => 
-        quest.learningStyles.includes(style)
-      );
-      if (!hasMatchingStyle) return false;
+    if (filters.learningStyle.length > 0 && 
+        !quest.learningStyles.some(style => filters.learningStyle.includes(style))) {
+      return false;
     }
     
     return true;
   });
   
-  // Toggle filter
-  const toggleFilter = (category, value) => {
-    setFilters(prev => {
-      const current = [...prev[category]];
-      const index = current.indexOf(value);
-      
-      if (index === -1) {
-        current.push(value);
-      } else {
-        current.splice(index, 1);
-      }
-      
-      return {
-        ...prev,
-        [category]: current
-      };
-    });
-  };
-  
-  // Clear all filters
-  const clearFilters = () => {
-    setFilters({
-      difficulty: [],
-      subject: [],
-      keyStage: [],
-      learningStyle: []
-    });
-    setSearchTerm('');
-  };
-  
-  return (
-    <div className="space-y-6">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-centre">
-        <div>
-          <h2 className="text-2xl font-bold">Quest Hub</h2>
-          <p className="text-muted-foreground">Discover adventures that await you</p>
-        </div>
-        
-        <div className="mt-4 md:mt-0 flex items-centre space-x-2">
-          <Input
-            placeholder="Search quests..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full md:w-auto"
-          />
-          
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="outline" size="icon">
-                <Filter className="h-4 w-4" />
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Filter Quests</DialogTitle>
-                <DialogDescription>
-                  Narrow down quests based on your preferences
-                </DialogDescription>
-              </DialogHeader>
-              
-              <div className="space-y-4 py-4">
-                <div>
-                  <h3 className="font-medium mb-2">Difficulty</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {difficultyLevels.map((level) => (
-                      <Badge
-                        key={level.id}
-                        variant={filters.difficulty.includes(level.id) ? "default" : "outline"}
-                        className="cursor-pointer"
-                        onClick={() => toggleFilter('difficulty', level.id)}
-                      >
-                        {level.name}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-                
-                <Separator />
-                
-                <div>
-                  <h3 className="font-medium mb-2">Subject</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {subjects.map((subject) => (
-                      <Badge
-                        key={subject}
-                        variant={filters.subject.includes(subject) ? "default" : "outline"}
-                        className="cursor-pointer capitalize"
-                        onClick={() => toggleFilter('subject', subject)}
-                      >
-                        {subject}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-                
-                <Separator />
-                
-                <div>
-                  <h3 className="font-medium mb-2">Key Stage</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {keyStages.map((keyStage) => (
-                      <Badge
-                        key={keyStage}
-                        variant={filters.keyStage.includes(keyStage) ? "default" : "outline"}
-                        className="cursor-pointer"
-                        onClick={() => toggleFilter('keyStage', keyStage)}
-                      >
-                        {keyStage}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-                
-                <Separator />
-                
-                <div>
-                  <h3 className="font-medium mb-2">Learning Style</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {learningStyles.map((style) => (
-                      <Badge
-                        key={style.id}
-                        variant={filters.learningStyle.includes(style.id) ? "default" : "outline"}
-                        className="cursor-pointer flex items-centre"
-                        onClick={() => toggleFilter('learningStyle', style.id)}
-                      >
-                        {style.icon}
-                        <span className="ml-1">{style.name}</span>
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              
-              <DialogFooter>
-                <Button variant="outline" onClick={clearFilters}>
-                  Clear Filters
-                </Button>
-                <DialogClose asChild>
-                  <Button>Apply Filters</Button>
-                </DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        </div>
-      </div>
-      
-      {/* Active filters */}
-      {(filters.difficulty.length > 0 || filters.subject.length > 0 || 
-        filters.keyStage.length > 0 || filters.learningStyle.length > 0 || searchTerm) && (
-        <div className="flex flex-wrap items-centre gap-2 p-3 bg-muted rounded-lg">
-          <span className="text-sm font-medium mr-2">Active Filters:</span>
-          
-          {searchTerm && (
-            <Badge variant="secondary" className="flex items-centre">
-              <Search className="h-3 w-3 mr-1" />
-              {searchTerm}
-              <X 
-                className="h-3 w-3 ml-1 cursor-pointer" 
-                onClick={() => setSearchTerm('')}
-              />
-            </Badge>
-          )}
-          
-          {filters.difficulty.map(difficulty => (
-            <Badge key={difficulty} variant="secondary" className="flex items-centre">
-              {difficultyLevels.find(d => d.id === difficulty)?.name}
-              <X 
-                className="h-3 w-3 ml-1 cursor-pointer" 
-                onClick={() => toggleFilter('difficulty', difficulty)}
-              />
-            </Badge>
-          ))}
-          
-          {filters.subject.map(subject => (
-            <Badge key={subject} variant="secondary" className="flex items-centre capitalize">
-              {subject}
-              <X 
-                className="h-3 w-3 ml-1 cursor-pointer" 
-                onClick={() => toggleFilter('subject', subject)}
-              />
-            </Badge>
-          ))}
-          
-          {filters.keyStage.map(keyStage => (
-            <Badge key={keyStage} variant="secondary" className="flex items-centre">
-              {keyStage}
-              <X 
-                className="h-3 w-3 ml-1 cursor-pointer" 
-                onClick={() => toggleFilter('keyStage', keyStage)}
-              />
-            </Badge>
-          ))}
-          
-          {filters.learningStyle.map(style => (
-            <Badge key={style} variant="secondary" className="flex items-centre">
-              {learningStyles.find(s => s.id === style)?.name}
-              <X 
-                className="h-3 w-3 ml-1 cursor-pointer" 
-                onClick={() => toggleFilter('learningStyle', style)}
-              />
-            </Badge>
-          ))}
-          
-          <Button variant="ghost" size="sm" onClick={clearFilters} className="ml-auto">
-            Clear All
-          </Button>
-        </div>
-      )}
-      
-      {filteredQuests.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredQuests.map(quest => (
-            <QuestCard 
-              key={quest.id} 
-              quest={quest} 
-              onSelect={onSelectQuest}
-            />
-          ))}
-        </div>
-      ) : (
-        <div className="text-centre py-12 border rounded-lg">
-          <Map className="h-12 w-12 mx-auto text-muted-foreground" />
-          <h3 className="mt-4 text-lg font-medium">No Quests Found</h3>
-          <p className="text-muted-foreground mt-1">
-            Try adjusting your filters or search terms
-          </p>
-          <Button 
-            onClick={clearFilters} 
-            className="mt-4"
-          >
-            Clear Filters
-          </Button>
-        </div>
-      )}
-    </div>
-  );
-};
-
-// Custom filter icon
-const Filter = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
-  </svg>
-);
-
-// Custom X icon
-const X = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M18 6 6 18" />
-    <path d="m6 6 12 12" />
-  </svg>
-);
-
-// Search icon
-const Search = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <circle cx="11" cy="11" r="8" />
-    <path d="m21 21-4.3-4.3" />
-  </svg>
-);
-
-// Main Adventure Quest Saga Component
-const AdventureQuestSaga = () => {
-  const [character, setCharacter] = useState(null);
-  const [quests, setQuests] = useState(mockQuests);
-  const [selectedQuest, setSelectedQuest] = useState(null);
-  const [activeView, setActiveView] = useState('quests'); // 'quests', 'character', 'quest-detail'
-  const { toast } = useToast();
-  const { useFeatureWithCredit, CreditPurchaseDialog } = useFairUsage();
-  
-  // Handle character creation
-  const handleCreateCharacter = (newCharacter) => {
-    setCharacter(newCharacter);
-  };
-  
-  // Handle quest selection
-  const handleSelectQuest = (quest) => {
-    setSelectedQuest(quest);
-    setActiveView('quest-detail');
-  };
-  
-  // Handle quest start
-  const handleStartQuest = async (quest) => {
-    // Check if feature can be used (fair usage)
-    const usageResult = await useFeatureWithCredit('questStart');
-    
-    if (!usageResult.success && !usageResult.usedCredits) {
-      // If feature cannot be used and credits weren't used, exit
-      return;
-    }
-    
-    toast({
-      title: "Quest Started",
-      description: `You've begun "${quest.title}"`,
-      variant: "success",
-    });
-    
-    // Update character
-    setCharacter(prev => ({
-      ...prev,
-      activeQuests: prev.activeQuests + 1
-    }));
-    
-    // In a real implementation, this would navigate to the quest gameplay
-    setActiveView('quests');
-  };
-  
-  // If no character, show character creation
-  if (!character) {
-    return (
-      <div className="container mx-auto py-8">
-        <CharacterCreation onCreateCharacter={handleCreateCharacter} />
-      </div>
-    );
+  if (isCreatingCharacter) {
+    return <CharacterCreation onCreateCharacter={handleCharacterCreated} />;
   }
   
   return (
-    <div className="container mx-auto py-8">
-      <Tabs value={activeView} onValueChange={setActiveView} className="w-full">
-        <TabsList className="grid grid-cols-2 mb-6">
-          <TabsTrigger value="quests" disabled={activeView === 'quest-detail'}>
-            <Map className="h-4 w-4 mr-2" />
-            Quests
-          </TabsTrigger>
-          <TabsTrigger value="character" disabled={activeView === 'quest-detail'}>
-            <User className="h-4 w-4 mr-2" />
-            Character
-          </TabsTrigger>
+    <div className="container mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-6">Adventure Quest</h1>
+      
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
+        <TabsList className="grid w-full grid-cols-3 mb-6">
+          <TabsTrigger value="quests">Quests</TabsTrigger>
+          <TabsTrigger value="character">Character</TabsTrigger>
+          <TabsTrigger value="achievements">Achievements</TabsTrigger>
         </TabsList>
         
-        <TabsContent value="quests" className="mt-0">
-          {activeView === 'quest-detail' ? (
-            <QuestDetail 
-              quest={selectedQuest} 
-              onBack={() => setActiveView('quests')}
-              onStart={handleStartQuest}
-            />
+        <TabsContent value="quests">
+          {selectedQuest ? (
+            <div>
+              <Button variant="outline" className="mb-4" onClick={() => setSelectedQuest(null)}>
+                Back to Quests
+              </Button>
+              
+              <Card>
+                <CardHeader>
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <CardTitle>{selectedQuest.title}</CardTitle>
+                      <CardDescription>{selectedQuest.description}</CardDescription>
+                    </div>
+                    <Badge className={difficultyLevels.find(d => d.id === selectedQuest.difficulty)?.color}>
+                      {difficultyLevels.find(d => d.id === selectedQuest.difficulty)?.name}
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <h3 className="text-sm font-medium mb-1">Subject</h3>
+                      <p>{selectedQuest.subject}</p>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-medium mb-1">Key Stage</h3>
+                      <p>{selectedQuest.keyStage}</p>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-medium mb-1">Duration</h3>
+                      <p>{selectedQuest.duration}</p>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-medium mb-1">XP Reward</h3>
+                      <p>{selectedQuest.xpReward} XP</p>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h3 className="text-sm font-medium mb-2">Learning Styles</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedQuest.learningStyles.map(styleId => {
+                        const style = learningStyles.find(s => s.id === styleId);
+                        return style ? (
+                          <Badge key={styleId} variant="outline" className="flex items-centre">
+                            {style.icon}
+                            <span className="ml-1">{style.name}</span>
+                          </Badge>
+                        ) : null;
+                      })}
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h3 className="text-sm font-medium mb-2">Learning Objectives</h3>
+                    <ul className="list-disc pl-5 space-y-1">
+                      {selectedQuest.objectives.map((objective, index) => (
+                        <li key={index}>{objective}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  <Separator />
+                  
+                  <div>
+                    <h3 className="font-medium mb-2">Chapters</h3>
+                    <div className="space-y-4">
+                      {selectedQuest.chapters.map((chapter, index) => (
+                        <Card key={chapter.id}>
+                          <CardHeader className="py-3">
+                            <div className="flex justify-between items-centre">
+                              <CardTitle className="text-lg">
+                                {index + 1}. {chapter.title}
+                              </CardTitle>
+                              <Badge variant="outline">
+                                {chapter.challenges} Challenges
+                              </Badge>
+                            </div>
+                          </CardHeader>
+                          <CardContent className="py-2">
+                            <p className="text-sm">{chapter.description}</p>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <Separator />
+                  
+                  <div>
+                    <h3 className="font-medium mb-2">Rewards</h3>
+                    <div className="grid grid-cols-3 gap-4">
+                      {selectedQuest.rewards.map((reward, index) => (
+                        <Card key={index}>
+                          <CardContent className="p-4 flex flex-col items-centre text-centre">
+                            <div className="bg-primary/10 p-3 rounded-full mb-2">
+                              {reward.icon}
+                            </div>
+                            <h4 className="font-medium">{reward.name}</h4>
+                            <p className="text-xs text-muted-foreground">{reward.type}</p>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full" onClick={() => handleStartQuest(selectedQuest)}>
+                    Start Quest
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
           ) : (
-            <QuestHub 
-              quests={quests} 
-              onSelectQuest={handleSelectQuest}
-            />
+            <div>
+              <div className="flex justify-between items-centre mb-6">
+                <h2 className="text-2xl font-bold">Available Quests</h2>
+                
+                <div className="flex items-centre space-x-2">
+                  <div className="relative">
+                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      type="search"
+                      placeholder="Search quests..."
+                      className="pl-8 w-[200px]"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                  </div>
+                  
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" size="sm">
+                        Filters
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Filter Quests</DialogTitle>
+                        <DialogDescription>
+                          Narrow down quests based on your preferences and needs.
+                        </DialogDescription>
+                      </DialogHeader>
+                      
+                      <div className="space-y-4 py-2">
+                        <div>
+                          <h3 className="font-medium mb-2">Difficulty</h3>
+                          <div className="flex flex-wrap gap-2">
+                            {difficultyLevels.map((level) => (
+                              <Badge
+                                key={level.id}
+                                variant={filters.difficulty.includes(level.id) ? "default" : "outline"}
+                                className={`cursor-pointer ${filters.difficulty.includes(level.id) ? '' : level.color.replace('bg-', 'hover:bg-') + '/20'}`}
+                                onClick={() => toggleFilter('difficulty', level.id)}
+                              >
+                                {level.name}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                        
+                        <Separator />
+                        
+                        <div>
+                          <h3 className="font-medium mb-2">Subject</h3>
+                          <div className="flex flex-wrap gap-2">
+                            {subjects.map((subject) => (
+                              <Badge
+                                key={subject}
+                                variant={filters.subject.includes(subject) ? "default" : "outline"}
+                                className="cursor-pointer capitalize"
+                                onClick={() => toggleFilter('subject', subject)}
+                              >
+                                {subject}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                        
+                        <Separator />
+                        
+                        <div>
+                          <h3 className="font-medium mb-2">Key Stage</h3>
+                          <div className="flex flex-wrap gap-2">
+                            {keyStages.map((keyStage) => (
+                              <Badge
+                                key={keyStage}
+                                variant={filters.keyStage.includes(keyStage) ? "default" : "outline"}
+                                className="cursor-pointer"
+                                onClick={() => toggleFilter('keyStage', keyStage)}
+                              >
+                                {keyStage}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                        
+                        <Separator />
+                        
+                        <div>
+                          <h3 className="font-medium mb-2">Learning Style</h3>
+                          <div className="flex flex-wrap gap-2">
+                            {learningStyles.map((style) => (
+                              <Badge
+                                key={style.id}
+                                variant={filters.learningStyle.includes(style.id) ? "default" : "outline"}
+                                className="cursor-pointer flex items-centre"
+                                onClick={() => toggleFilter('learningStyle', style.id)}
+                              >
+                                {style.icon}
+                                <span className="ml-1">{style.name}</span>
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <DialogFooter>
+                        <Button variant="outline" onClick={clearFilters}>
+                          Clear Filters
+                        </Button>
+                        <DialogClose asChild>
+                          <Button>Apply Filters</Button>
+                        </DialogClose>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              </div>
+              
+              {/* Active filters */}
+              {(filters.difficulty.length > 0 || filters.subject.length > 0 || 
+                filters.keyStage.length > 0 || filters.learningStyle.length > 0 || searchTerm) && (
+                <div className="flex flex-wrap items-centre gap-2 p-3 bg-muted rounded-lg mb-6">
+                  <span className="text-sm font-medium mr-2">Active Filters:</span>
+                  
+                  {searchTerm && (
+                    <Badge variant="secondary" className="flex items-centre">
+                      <Search className="h-3 w-3 mr-1" />
+                      {searchTerm}
+                      <X 
+                        className="h-3 w-3 ml-1 cursor-pointer" 
+                        onClick={() => setSearchTerm('')}
+                      />
+                    </Badge>
+                  )}
+                  
+                  {filters.difficulty.map(difficulty => (
+                    <Badge key={difficulty} variant="secondary" className="flex items-centre">
+                      {difficultyLevels.find(d => d.id === difficulty)?.name}
+                      <X 
+                        className="h-3 w-3 ml-1 cursor-pointer" 
+                        onClick={() => toggleFilter('difficulty', difficulty)}
+                      />
+                    </Badge>
+                  ))}
+                  
+                  {filters.subject.map(subject => (
+                    <Badge key={subject} variant="secondary" className="flex items-centre capitalize">
+                      {subject}
+                      <X 
+                        className="h-3 w-3 ml-1 cursor-pointer" 
+                        onClick={() => toggleFilter('subject', subject)}
+                      />
+                    </Badge>
+                  ))}
+                  
+                  {filters.keyStage.map(keyStage => (
+                    <Badge key={keyStage} variant="secondary" className="flex items-centre">
+                      {keyStage}
+                      <X 
+                        className="h-3 w-3 ml-1 cursor-pointer" 
+                        onClick={() => toggleFilter('keyStage', keyStage)}
+                      />
+                    </Badge>
+                  ))}
+                  
+                  {filters.learningStyle.map(styleId => {
+                    const style = learningStyles.find(s => s.id === styleId);
+                    return style ? (
+                      <Badge key={styleId} variant="secondary" className="flex items-centre">
+                        {style.icon}
+                        <span className="ml-1">{style.name}</span>
+                        <X 
+                          className="h-3 w-3 ml-1 cursor-pointer" 
+                          onClick={() => toggleFilter('learningStyle', styleId)}
+                        />
+                      </Badge>
+                    ) : null;
+                  })}
+                  
+                  <Button variant="ghost" size="sm" className="h-7 px-2" onClick={clearFilters}>
+                    Clear All
+                  </Button>
+                </div>
+              )}
+              
+              {/* Quest grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredQuests.map((quest) => (
+                  <Card key={quest.id} className={`cursor-pointer transition-shadow hover:shadow-md ${!quest.unlocked ? 'opacity-60' : ''}`}>
+                    <CardHeader className="pb-2">
+                      <div className="flex justify-between items-start">
+                        <CardTitle className="text-lg">{quest.title}</CardTitle>
+                        <Badge className={difficultyLevels.find(d => d.id === quest.difficulty)?.color}>
+                          {difficultyLevels.find(d => d.id === quest.difficulty)?.name}
+                        </Badge>
+                      </div>
+                      <CardDescription className="line-clamp-2">{quest.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="pb-2">
+                      <div className="grid grid-cols-2 gap-y-2 text-sm">
+                        <div>
+                          <span className="text-muted-foreground">Subject:</span> {quest.subject}
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground">Key Stage:</span> {quest.keyStage}
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground">Duration:</span> {quest.duration}
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground">XP:</span> {quest.xpReward}
+                        </div>
+                      </div>
+                      
+                      <div className="mt-3">
+                        <div className="flex justify-between text-sm mb-1">
+                          <span>Progress</span>
+                          <span>{quest.progress}%</span>
+                        </div>
+                        <Progress value={quest.progress} className="h-2" />
+                      </div>
+                    </CardContent>
+                    <CardFooter>
+                      <div className="w-full flex justify-between items-centre">
+                        <div className="flex -space-x-2">
+                          {quest.learningStyles.map((styleId, index) => {
+                            const style = learningStyles.find(s => s.id === styleId);
+                            return style ? (
+                              <div key={styleId} className="h-6 w-6 rounded-full bg-primary/10 flex items-centre justify-centre" title={style.name}>
+                                {style.icon}
+                              </div>
+                            ) : null;
+                          })}
+                        </div>
+                        
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          onClick={() => handleSelectQuest(quest)}
+                          disabled={!quest.unlocked}
+                        >
+                          {quest.unlocked ? 'View Quest' : 'Locked'}
+                        </Button>
+                      </div>
+                    </CardFooter>
+                  </Card>
+                ))}
+              </div>
+              
+              {filteredQuests.length === 0 && (
+                <div className="text-centre py-12">
+                  <h3 className="text-lg font-medium mb-2">No quests found</h3>
+                  <p className="text-muted-foreground">Try adjusting your filters or search term.</p>
+                  <Button variant="outline" className="mt-4" onClick={clearFilters}>
+                    Clear All Filters
+                  </Button>
+                </div>
+              )}
+            </div>
           )}
         </TabsContent>
         
-        <TabsContent value="character" className="mt-0">
-          <CharacterDashboard character={character || mockCharacter} />
+        <TabsContent value="character">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-1">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Character Profile</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex flex-col items-centre text-centre">
+                    <div className="h-24 w-24 rounded-full bg-primary/10 flex items-centre justify-centre mb-2">
+                      <Compass className="h-12 w-12 text-primary" />
+                    </div>
+                    <h2 className="text-xl font-bold">{character.name}</h2>
+                    <p className="text-muted-foreground">Level {character.level} {character.type}</p>
+                  </div>
+                  
+                  <div>
+                    <div className="flex justify-between text-sm mb-1">
+                      <span>XP Progress</span>
+                      <span>{character.xp}/{character.xpToNextLevel}</span>
+                    </div>
+                    <Progress value={(character.xp / character.xpToNextLevel) * 100} className="h-2" />
+                  </div>
+                  
+                  <div className="pt-2">
+                    <h3 className="font-medium mb-2">Stats</h3>
+                    <div className="space-y-2">
+                      {Object.entries(character.stats).map(([stat, value]) => (
+                        <div key={stat} className="flex items-centre justify-between">
+                          <span className="capitalize">{stat}</span>
+                          <div className="flex items-centre space-x-2">
+                            <Progress value={Number(value) * 10} className="w-24 h-2" />
+                            <span className="text-sm">{value}/10</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="pt-2">
+                    <h3 className="font-medium mb-2">Quest Summary</h3>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div className="bg-muted p-2 rounded flex flex-col items-centre">
+                        <span className="text-lg font-bold">{character.completedQuests}</span>
+                        <span className="text-muted-foreground">Completed</span>
+                      </div>
+                      <div className="bg-muted p-2 rounded flex flex-col items-centre">
+                        <span className="text-lg font-bold">{character.activeQuests}</span>
+                        <span className="text-muted-foreground">Active</span>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <div className="lg:col-span-2">
+              <Tabs defaultValue="skills">
+                <TabsList className="grid w-full grid-cols-3">
+                  <TabsTrigger value="skills">Skills</TabsTrigger>
+                  <TabsTrigger value="inventory">Inventory</TabsTrigger>
+                  <TabsTrigger value="badges">Badges</TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="skills" className="space-y-4 mt-4">
+                  {character.skills.map((skill) => (
+                    <Card key={skill.id}>
+                      <CardContent className="p-4">
+                        <div className="flex items-centre justify-between mb-2">
+                          <div className="flex items-centre">
+                            <div className="h-8 w-8 rounded-full bg-primary/10 flex items-centre justify-centre mr-3">
+                              {skill.icon}
+                            </div>
+                            <div>
+                              <h3 className="font-medium">{skill.name}</h3>
+                              <p className="text-xs text-muted-foreground">Level {skill.level}</p>
+                            </div>
+                          </div>
+                          <Badge variant="outline">{skill.progress}% to next level</Badge>
+                        </div>
+                        <Progress value={skill.progress} className="h-2" />
+                      </CardContent>
+                    </Card>
+                  ))}
+                </TabsContent>
+                
+                <TabsContent value="inventory" className="mt-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {character.inventory.map((item) => (
+                      <Card key={item.id}>
+                        <CardContent className="p-4">
+                          <div className="flex items-centre">
+                            <div className="h-10 w-10 rounded-full bg-primary/10 flex items-centre justify-centre mr-3">
+                              {item.icon}
+                            </div>
+                            <div>
+                              <h3 className="font-medium">{item.name}</h3>
+                              <p className="text-xs text-muted-foreground">{item.description}</p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </TabsContent>
+                
+                <TabsContent value="badges" className="mt-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {character.badges.map((badge) => (
+                      <Card key={badge.id}>
+                        <CardContent className="p-4">
+                          <div className="flex items-centre">
+                            <div className="h-10 w-10 rounded-full bg-primary/10 flex items-centre justify-centre mr-3">
+                              {badge.icon}
+                            </div>
+                            <div>
+                              <h3 className="font-medium">{badge.name}</h3>
+                              <p className="text-xs text-muted-foreground">{badge.description}</p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </div>
+          </div>
+        </TabsContent>
+        
+        <TabsContent value="achievements">
+          <Card>
+            <CardHeader>
+              <CardTitle>Achievements</CardTitle>
+              <CardDescription>
+                Track your progress and accomplishments.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Achievements feature coming soon!</p>
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
-      
-      {/* Credit purchase dialogue from fair usage hook */}
-      <CreditPurchaseDialog />
     </div>
   );
 };
-
-// Custom user icon
-const User = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <circle cx="12" cy="8" r="5" />
-    <path d="M20 21a8 8 0 1 0-16 0" />
-  </svg>
-);
 
 export default AdventureQuestSaga;
