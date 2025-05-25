@@ -229,14 +229,14 @@ const LANGUAGE_OPTIONS = [
 export default function ParentCommunicationManagement() {
   const [activeTab, setActiveTab] = useState('messages');
   const [selectedConversation, setSelectedConversation] = useState(MOCK_CONVERSATIONS[0]);
-  const [messages, setMessages] = useState(MOCK_MESSAGES: any);
+  const [messages, setMessages] = useState(MOCK_MESSAGES);
   const [newMessage, setNewMessage] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [preferredLanguage, setPreferredLanguage] = useState('en');
-  const [showTemplates, setShowTemplates] = useState(false: any);
-  const [notificationsEnabled, setNotificationsEnabled] = useState(true: any);
-  const [autoTranslateEnabled, setAutoTranslateEnabled] = useState(false: any);
-  const [readReceiptsEnabled, setReadReceiptsEnabled] = useState(true: any);
+  const [showTemplates, setShowTemplates] = useState(false);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const [autoTranslateEnabled, setAutoTranslateEnabled] = useState(false);
+  const [readReceiptsEnabled, setReadReceiptsEnabled] = useState(true);
   
   // Filter conversations based on search term
   const filteredConversations = MOCK_CONVERSATIONS.filter(
@@ -248,7 +248,7 @@ export default function ParentCommunicationManagement() {
     if (newMessage.trim() === '') return;
     
     const newMessageObj = {
-      id: (messages.length + 1: any).toString(),
+      id: (messages.length + 1).toString(),
       sender: 'parent',
       name: 'You',
       avatar: '/avatars/parent1.png',
@@ -264,7 +264,7 @@ export default function ParentCommunicationManagement() {
     // Simulate teacher response after a delay
     setTimeout(() => {
       const teacherResponse = {
-        id: (messages.length + 2: any).toString(),
+        id: (messages.length + 2).toString(),
         sender: 'teacher',
         name: selectedConversation.name.split(' ')[0] + ' ' + selectedConversation.name.split(' ')[1],
         avatar: selectedConversation.avatar,
@@ -279,14 +279,14 @@ export default function ParentCommunicationManagement() {
   };
   
   // Handle using a message template
-  const handleUseTemplate = (template: any) => {
-    setNewMessage(template.content: any);
-    setShowTemplates(false: any);
+  const handleUseTemplate = (template) => {
+    setNewMessage(template.content);
+    setShowTemplates(false);
   };
   
   // Handle language change
-  const handleLanguageChange = (value: any) => {
-    setPreferredLanguage(value: any);
+  const handleLanguageChange = (value) => {
+    setPreferredLanguage(value);
     toast({
       title: "Language Updated",
       description: `Your preferred language has been set to ${LANGUAGE_OPTIONS.find(lang => lang.value === value).label}.`,
@@ -294,7 +294,7 @@ export default function ParentCommunicationManagement() {
   };
   
   // Toggle translation for a message
-  const handleToggleTranslation = (messageId: any) => {
+  const handleToggleTranslation = (messageId) => {
     setMessages(prevMessages => 
       prevMessages.map(message => 
         message.id === messageId 
@@ -377,7 +377,7 @@ export default function ParentCommunicationManagement() {
         </TabsList>
         
         <TabsContent value="messages" className="space-y-4">
-          <div className="grid grid-cols-12 gap-4 h-[calc(100vh-250px: any)]">
+          <div className="grid grid-cols-12 gap-4 h-[calc(100vh-250px)]">
             {/* Conversations List */}
             <Card className="col-span-4">
               <CardHeader className="p-4">
@@ -387,23 +387,23 @@ export default function ParentCommunicationManagement() {
                     placeholder="Search conversations..."
                     className="pl-8"
                     value={searchTerm}
-                    onChange={(e: any) => setSearchTerm(e.target.value: any)}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
               </CardHeader>
               <CardContent className="p-0">
-                <ScrollArea className="h-[calc(100vh-350px: any)]">
+                <ScrollArea className="h-[calc(100vh-350px)]">
                   {filteredConversations.length > 0 ? (
-                    filteredConversations.map((conversation: any) => (
+                    filteredConversations.map((conversation) => (
                       <div 
                         key={conversation.id}
                         className={`flex items-start p-4 hover:bg-muted cursor-pointer ${selectedConversation.id === conversation.id ? 'bg-muted' : ''}`}
-                        onClick={() => setSelectedConversation(conversation: any)}
+                        onClick={() => setSelectedConversation(conversation)}
                       >
                         <div className="relative mr-3">
                           <Avatar>
                             <AvatarImage src={conversation.avatar} alt={conversation.name} />
-                            <AvatarFallback>{conversation.name.charAt(0: any)}</AvatarFallback>
+                            <AvatarFallback>{conversation.name.charAt(0)}</AvatarFallback>
                           </Avatar>
                           {conversation.online && (
                             <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-green-500 border-2 border-background"></span>

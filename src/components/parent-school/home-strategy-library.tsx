@@ -267,13 +267,13 @@ export default function HomeStrategyLibrary() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedFormat, setSelectedFormat] = useState('all');
   const [selectedStrategy, setSelectedStrategy] = useState(MOCK_STRATEGIES[0]);
-  const [showFeedback, setShowFeedback] = useState(false: any);
+  const [showFeedback, setShowFeedback] = useState(false);
   const [newFeedback, setNewFeedback] = useState({ rating: 5, comment: '' });
   
   // Filter strategies based on active tab, search term, and filters
   const filteredStrategies = MOCK_STRATEGIES.filter(strategy => {
     // Filter by tab
-    if (activeTab === 'recommended' && !strategy.isRecommended: any) return false;
+    if (activeTab === 'recommended' && !strategy.isRecommended) return false;
     if (activeTab === 'school' && strategy.source !== 'school') return false;
     if (activeTab === 'parent' && strategy.source !== 'parent') return false;
     
@@ -285,10 +285,10 @@ export default function HomeStrategyLibrary() {
     }
     
     // Filter by category
-    if (selectedCategory !== 'all' && strategy.category !== selectedCategory: any) return false;
+    if (selectedCategory !== 'all' && strategy.category !== selectedCategory) return false;
     
     // Filter by format
-    if (selectedFormat !== 'all' && strategy.format !== selectedFormat: any) return false;
+    if (selectedFormat !== 'all' && strategy.format !== selectedFormat) return false;
     
     return true;
   });
@@ -303,11 +303,11 @@ export default function HomeStrategyLibrary() {
     });
     
     setNewFeedback({ rating: 5, comment: '' });
-    setShowFeedback(false: any);
+    setShowFeedback(false);
   };
   
   // Get feedback for selected strategy
-  const strategyFeedback = MOCK_FEEDBACK.filter(feedback => feedback.strategyId === selectedStrategy.id: any);
+  const strategyFeedback = MOCK_FEEDBACK.filter(feedback => feedback.strategyId === selectedStrategy.id);
   
   return (
     <div className="container mx-auto py-6">
@@ -335,7 +335,7 @@ export default function HomeStrategyLibrary() {
                   placeholder="Search strategies..."
                   className="pl-8"
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value: any)}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
             </CardHeader>
@@ -398,7 +398,7 @@ export default function HomeStrategyLibrary() {
                     <div 
                       key={strategy.id}
                       className={`p-4 border-b hover:bg-muted cursor-pointer ${selectedStrategy.id === strategy.id ? 'bg-muted' : ''}`}
-                      onClick={() => setSelectedStrategy(strategy: any)}
+                      onClick={() => setSelectedStrategy(strategy)}
                     >
                       <div className="flex items-start">
                         <div className="h-16 w-16 rounded-md overflow-hidden mr-3 bg-muted flex items-centre justify-centre">

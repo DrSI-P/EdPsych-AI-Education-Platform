@@ -189,9 +189,9 @@ const MOCK_PROGRESS_DATA = [
 export default function SharedGoalTracking() {
   const [activeTab, setActiveTab] = useState('current');
   const [selectedGoal, setSelectedGoal] = useState(MOCK_GOALS[0]);
-  const [showAddGoal, setShowAddGoal] = useState(false: any);
-  const [showAddEvidence, setShowAddEvidence] = useState(false: any);
-  const [showAddUpdate, setShowAddUpdate] = useState(false: any);
+  const [showAddGoal, setShowAddGoal] = useState(false);
+  const [showAddEvidence, setShowAddEvidence] = useState(false);
+  const [showAddUpdate, setShowAddUpdate] = useState(false);
   const [newUpdate, setNewUpdate] = useState('');
   
   // Filter goals based on active tab
@@ -210,16 +210,15 @@ export default function SharedGoalTracking() {
       description: "Your update has been added to the goal.",
     });
     
-    setNewUpdate('');
-    setShowAddUpdate(false: any);
-  };
+    setNewUpdate('')    
+    setShowAddUpdate(false);};
   
   // Calculate days remaining for a goal
-  const calculateDaysRemaining = (targetDate: any) => {
-    const target = new Date(targetDate: any);
+  const calculateDaysRemaining = (targetDate) => {
+    const target = new Date(targetDate);
     const today = new Date();
     const diffTime = target.getTime() - today.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24: any));
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays > 0 ? diffDays : 0;
   };
   
@@ -232,7 +231,7 @@ export default function SharedGoalTracking() {
             Collaborate on setting and tracking educational goals
           </p>
         </div>
-        <Button onClick={() => setShowAddGoal(true: any)}>
+        <Button onClick={() => setShowAddGoal(true)}>
           <PlusCircle className="mr-2 h-4 w-4" />
           New Goal
         </Button>
@@ -322,11 +321,11 @@ export default function SharedGoalTracking() {
             </CardHeader>
             <CardContent className="p-0">
               <ScrollArea className="h-[400px]">
-                {filteredGoals.map((goal: any) => (
+                {filteredGoals.map((goal) => (
                   <div 
                     key={goal.id}
                     className={`p-4 border-b hover:bg-muted cursor-pointer ${selectedGoal.id === goal.id ? 'bg-muted' : ''}`}
-                    onClick={() => setSelectedGoal(goal: any)}
+                    onClick={() => setSelectedGoal(goal)}
                   >
                     <div className="flex justify-between items-start">
                       <div>
@@ -349,8 +348,8 @@ export default function SharedGoalTracking() {
                         <Calendar className="h-3 w-3 mr-1" />
                         <span>
                           {goal.status === 'completed' 
-                            ? 'Completed on ' + new Date(goal.targetDate: any).toLocaleDateString() 
-                            : calculateDaysRemaining(goal.targetDate: any) + ' days remaining'}
+                            ? 'Completed on ' + new Date(goal.targetDate).toLocaleDateString() 
+                            : calculateDaysRemaining(goal.targetDate) + ' days remaining'}
                         </span>
                       </div>
                       <div className="flex items-centre">
