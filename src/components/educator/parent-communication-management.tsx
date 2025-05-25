@@ -320,37 +320,37 @@ export function ParentCommunicationManagement() {
                 onChange={(e) => setSubject(e.target.value)} 
                 placeholder="Enter message subject"
               />
-            </div>        <div>
-            <label className="block text-sm font-medium mb-1">Message</label>
-            <Textarea 
-              placeholder="Enter your message..." 
-              value={messageContent}
-              onChange={(e) => setMessageContent(e.target.value)}
-              rows={10}
-              className="resize-none"
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium mb-1">Translation Language</label>
-            <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select language" />
-              </SelectTrigger>
-              <SelectContent>
-                {supportedLanguages.map(language => (
-                  <SelectItem key={language.code} value={language.code}>{language.name}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <p className="text-xs text-muted-foreground mt-1">
-              Messages will be automatically translated for parents who prefer this language
-            </p>
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium mb-1">Schedule (Optional)</label>
-            <Popover>
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Message</label>
+              <Textarea 
+                placeholder="Enter your message..." 
+                value={messageContent}
+                onChange={(e) => setMessageContent(e.target.value)}
+                rows={10}
+                className="resize-none"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium mb-1">Translation Language</label>
+              <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select language" />
+                </SelectTrigger>
+                <SelectContent>
+                  {supportedLanguages.map(language => (
+                    <SelectItem key={language.code} value={language.code}>{language.name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-muted-foreground mt-1">
+                Messages will be automatically translated for parents who prefer this language
+              </p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Schedule (Optional)</label>
+              <Popover>
               <PopoverTrigger asChild>
                 <Button
                   variant="outline"

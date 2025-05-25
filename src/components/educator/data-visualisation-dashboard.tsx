@@ -427,23 +427,65 @@ export function DataVisualisationDashboard() {
                     <Line 
                       type="monotone" 
                       dataKey="maths" 
-                      stroke="#8884d8" 
-                      activeDot={{ r: 8 }}
+                      stroke="#3b82f6" 
+                      strokeWidth={2}
                       isAnimationActive={chartSettings.animationEnabled}
                     />
                     <Line 
                       type="monotone" 
                       dataKey="english" 
-                      stroke="#82ca9d"
+                      stroke="#10b981" 
+                      strokeWidth={2}
                       isAnimationActive={chartSettings.animationEnabled}
                     />
                     <Line 
                       type="monotone" 
                       dataKey="science" 
-                      stroke="#ffc658"
+                      stroke="#f59e0b" 
+                      strokeWidth={2}
                       isAnimationActive={chartSettings.animationEnabled}
                     />
                   </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardHeader>
+              <CardTitle>Attendance Breakdown</CardTitle>
+              <CardDescription>
+                Weekly attendance patterns
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="h-[300px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart
+                    data={attendanceData}
+                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                  >
+                    {chartSettings.showGrid && <CartesianGrid strokeDasharray="3 3" />}
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    {chartSettings.showLegend && <Legend />}
+                    <Tooltip />
+                    <Bar 
+                      dataKey="present" 
+                      fill="#4ade80"
+                      isAnimationActive={chartSettings.animationEnabled}
+                    />
+                    <Bar 
+                      dataKey="absent" 
+                      fill="#f87171"
+                      isAnimationActive={chartSettings.animationEnabled}
+                    />
+                    <Bar 
+                      dataKey="late" 
+                      fill="#facc15"
+                      isAnimationActive={chartSettings.animationEnabled}
+                    />
+                  </BarChart>
                 </ResponsiveContainer>
               </div>
             </CardContent>
@@ -457,608 +499,27 @@ export function DataVisualisationDashboard() {
     <div className="space-y-6">
       {renderDashboardHeader()}
       {renderFilterBar()}
-      
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-3 lg:w-auto">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="academic">Academic</TabsTrigger>
-          <TabsTrigger value="behaviour">Behaviour & Wellbeing</TabsTrigger>
+          <TabsTrigger value="behaviour">Behaviour</TabsTrigger>
+          <TabsTrigger value="resources">Resources</TabsTrigger>
         </TabsList>
-        <TabsContent value="overview" className="space-y-6">
+        <TabsContent value="overview" className="space-y-4">
           {renderOverviewDashboard()}
         </TabsContent>
-        <TabsContent value="academic">
-          {/* Academic dashboard content */}
+        <TabsContent value="academic" className="space-y-4">
+          {/* Academic content will go here */}
         </TabsContent>
-        <TabsContent value="behaviour">
-          {/* Behaviour dashboard content */}
+        <TabsContent value="behaviour" className="space-y-4">
+          {/* Behaviour content will go here */}
         </TabsContent>
-      </Tabs>
-    </div>
-  );
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[300px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  data={attendanceData}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                >
-                  {chartSettings.showGrid && <CartesianGrid strokeDasharray="3 3" />}
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  {chartSettings.showLegend && <Legend />}
-                  <Tooltip />
-                  <Bar 
-                    dataKey="present" 
-                    fill="#4ade80"
-                    isAnimationActive={chartSettings.animationEnabled}
-                  />
-                  <Bar 
-                    dataKey="absent" 
-                    fill="#f87171"
-                    isAnimationActive={chartSettings.animationEnabled}
-                  />
-                  <Bar 
-                    dataKey="late" 
-                    fill="#facc15"
-                    isAnimationActive={chartSettings.animationEnabled}
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-      
-      {/* Secondary charts */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        <Card>
-          <CardHeader>
-            <CardTitle>Behaviour Incidents</CardTitle>
-            <CardDescription>
-              Positive vs. concern incidents
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[250px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart
-                  data={behaviourIncidentsData}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                >
-                  {chartSettings.showGrid && <CartesianGrid strokeDasharray="3 3" />}
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  {chartSettings.showLegend && <Legend />}
-                  <Tooltip />
-                  <Area 
-                    type="monotone" 
-                    dataKey="positive" 
-                    stackId="1" 
-                    stroke="#4ade80" 
-                    fill="#4ade80"
-                    isAnimationActive={chartSettings.animationEnabled}
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="concern" 
-                    stackId="1" 
-                    stroke="#f87171" 
-                    fill="#f87171"
-                    isAnimationActive={chartSettings.animationEnabled}
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle>Resource Usage</CardTitle>
-            <CardDescription>
-              Distribution by resource type
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[250px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={resourceUsageData}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="value"
-                    isAnimationActive={chartSettings.animationEnabled}
-                    label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
-                  >
-                    {resourceUsageData.map((entry: any, index) => (
-                      <Cell 
-                        key={`cell-${index}`} 
-                        fill={[
-                          '#8884d8', '#82ca9d', '#ffc658', '#ff8042', '#0088fe'
-                        ][index % 5]} 
-                      />
-                    ))}
-                  </Pie>
-                  {chartSettings.showLegend && <Legend />}
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle>Parent Engagement</CardTitle>
-            <CardDescription>
-              Levels of parent participation
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[250px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={parentEngagementData}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="value"
-                    isAnimationActive={chartSettings.animationEnabled}
-                    label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
-                  >
-                    {parentEngagementData.map((entry: any, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.colour} />
-                    ))}
-                  </Pie>
-                  {chartSettings.showLegend && <Legend />}
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-      
-      {/* Alerts and insights */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        <Card className="md:col-span-2">
-          <CardHeader>
-            <CardTitle>Recent Alerts & Insights</CardTitle>
-            <CardDescription>
-              Important notifications requiring attention
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {alerts.map(alert => (
-                <div 
-                  key={alert.id} 
-                  className={cn(
-                    "p-4 rounded-lg border flex items-start space-x-4",
-                    alert.type === 'warning' && "bg-yellow-50 border-yellow-200",
-                    alert.type === 'success' && "bg-green-50 border-green-200",
-                    alert.type === 'info' && "bg-blue-50 border-blue-200"
-                  )}
-                >
-                  {alert.type === 'warning' && (
-                    <AlertTriangle className="h-5 w-5 text-yellow-500 flex-shrink-0" />
-                  )}
-                  {alert.type === 'success' && (
-                    <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                  )}
-                  {alert.type === 'info' && (
-                    <Info className="h-5 w-5 text-blue-500 flex-shrink-0" />
-                  )}
-                  <div className="flex-1">
-                    <div className="flex items-centre justify-between">
-                      <p className="font-medium">{alert.message}</p>
-                      <span className="text-xs text-muted-foreground">{alert.date}</span>
-                    </div>
-                    <Button variant="link" className="p-0 h-auto text-sm">
-                      {alert.action}
-                    </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle>Time Allocation</CardTitle>
-            <CardDescription>
-              How educator time is distributed
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[250px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={timeAllocationData}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="value"
-                    isAnimationActive={chartSettings.animationEnabled}
-                    label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
-                  >
-                    {timeAllocationData.map((entry: any, index) => (
-                      <Cell 
-                        key={`cell-${index}`} 
-                        fill={[
-                          '#8884d8', '#82ca9d', '#ffc658', '#ff8042', '#0088fe'
-                        ][index % 5]} 
-                      />
-                    ))}
-                  </Pie>
-                  {chartSettings.showLegend && <Legend />}
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  );
-  
-  // Render academic dashboard
-  const renderAcademicDashboard = () => (
-    <div className="space-y-6">
-      {/* Key metrics */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <Card>
-          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Average Academic Progress
-            </CardTitle>
-            <Award className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">+14.2%</div>
-            <p className="text-xs text-muted-foreground">
-              +3.5% from previous term
-            </p>
-            <div className="mt-4 h-1 w-full bg-primary/10">
-              <div className="h-1 bg-primary" style={{ width: "82%" }} />
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Assessment Completion
-            </CardTitle>
-            <BookOpen className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">96.5%</div>
-            <p className="text-xs text-muted-foreground">
-              +1.2% from previous term
-            </p>
-            <div className="mt-4 h-1 w-full bg-primary/10">
-              <div className="h-1 bg-primary" style={{ width: "96%" }} />
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Curriculum Coverage
-            </CardTitle>
-            <BookOpenIcon className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">87.3%</div>
-            <p className="text-xs text-muted-foreground">
-              On track for term completion
-            </p>
-            <div className="mt-4 h-1 w-full bg-primary/10">
-              <div className="h-1 bg-primary" style={{ width: "87%" }} />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-      
-      {/* Learning styles distribution */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Learning Styles Distribution</CardTitle>
-          <CardDescription>
-            Student preferences across learning modalities
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart
-                data={learningStylesData}
-                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-              >
-                {chartSettings.showGrid && <CartesianGrid strokeDasharray="3 3" />}
-                <XAxis dataKey="name" />
-                <YAxis />
-                {chartSettings.showLegend && <Legend />}
-                <Tooltip />
-                <Bar 
-                  dataKey="students" 
-                  fill="#8884d8"
-                  isAnimationActive={chartSettings.animationEnabled}
-                />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </CardContent>
-      </Card>
-      
-      {/* Intervention effectiveness */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Intervention Effectiveness</CardTitle>
-          <CardDescription>
-            Before and after comparison of targeted interventions
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart
-                data={interventionEffectivenessData}
-                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-              >
-                {chartSettings.showGrid && <CartesianGrid strokeDasharray="3 3" />}
-                <XAxis dataKey="name" />
-                <YAxis />
-                {chartSettings.showLegend && <Legend />}
-                <Tooltip />
-                <Bar 
-                  dataKey="before" 
-                  fill="#f87171"
-                  name="Before Intervention"
-                  isAnimationActive={chartSettings.animationEnabled}
-                />
-                <Bar 
-                  dataKey="after" 
-                  fill="#4ade80"
-                  name="After Intervention"
-                  isAnimationActive={chartSettings.animationEnabled}
-                />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-  
-  // Render chart settings panel
-  const renderChartSettings = () => (
-    <Card>
-      <CardHeader>
-        <CardTitle>Visualisation Settings</CardTitle>
-        <CardDescription>
-          Customise how charts and data are displayed
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          <div className="flex items-centre justify-between">
-            <Label htmlFor="show-grid">Show grid lines</Label>
-            <Switch
-              id="show-grid"
-              checked={chartSettings.showGrid}
-              onCheckedChange={(checked: any) => 
-                setChartSettings({...chartSettings, showGrid: checked})
-              }
-            />
-          </div>
-          
-          <div className="flex items-centre justify-between">
-            <Label htmlFor="show-legend">Show legends</Label>
-            <Switch
-              id="show-legend"
-              checked={chartSettings.showLegend}
-              onCheckedChange={(checked: any) => 
-                setChartSettings({...chartSettings, showLegend: checked})
-              }
-            />
-          </div>
-          
-          <div className="flex items-centre justify-between">
-            <Label htmlFor="enable-animation">Enable animations</Label>
-            <Switch
-              id="enable-animation"
-              checked={chartSettings.animationEnabled}
-              onCheckedChange={(checked: any) => 
-                setChartSettings({...chartSettings, animationEnabled: checked})
-              }
-            />
-          </div>
-          
-          <div className="flex items-centre justify-between">
-            <Label htmlFor="dark-mode">Dark mode charts</Label>
-            <Switch
-              id="dark-mode"
-              checked={chartSettings.darkMode}
-              onCheckedChange={(checked: any) => 
-                setChartSettings({...chartSettings, darkMode: checked})
-              }
-            />
-          </div>
-          
-          <div className="space-y-2">
-            <Label>Chart opacity</Label>
-            <Slider
-              defaultValue={[80]}
-              max={100}
-              step={1}
-              className="w-full"
-            />
-          </div>
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button className="w-full">Apply Settings</Button>
-      </CardFooter>
-    </Card>
-  );
-  
-  return (
-    <div className="space-y-6">
-      {renderDashboardHeader()}
-      
-      {renderFilterBar()}
-      
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="overview">
-            <BarChart2 className="h-4 w-4 mr-2" />
-            Overview
-          </TabsTrigger>
-          <TabsTrigger value="academic">
-            <BookOpen className="h-4 w-4 mr-2" />
-            Academic
-          </TabsTrigger>
-          <TabsTrigger value="settings">
-            <Settings className="h-4 w-4 mr-2" />
-            Settings
-          </TabsTrigger>
-          <TabsTrigger value="help">
-            <HelpCircle className="h-4 w-4 mr-2" />
-            Help
-          </TabsTrigger>
-        </TabsList>
-        
-        <TabsContent value="overview" className="mt-6">
-          {renderOverviewDashboard()}
-        </TabsContent>
-        
-        <TabsContent value="academic" className="mt-6">
-          {renderAcademicDashboard()}
-        </TabsContent>
-        
-        <TabsContent value="settings" className="mt-6">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {renderChartSettings()}
-            
-            <Card>
-              <CardHeader>
-                <CardTitle>Dashboard Configuration</CardTitle>
-                <CardDescription>
-                  Manage your dashboard layouts and preferences
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <Label>Saved Dashboards</Label>
-                    <div className="mt-2 space-y-2">
-                      {dashboardConfigs.map(config => (
-                        <div 
-                          key={config.id}
-                          className="flex items-centre justify-between p-2 border rounded-md"
-                        >
-                          <div className="flex items-centre">
-                            <span>{config.name}</span>
-                            {config.isDefault && (
-                              <Badge variant="outline" className="ml-2">Default</Badge>
-                            )}
-                          </div>
-                          <div className="flex items-centre space-x-2">
-                            <Button variant="ghost" size="sm">Edit</Button>
-                            {!config.isDefault && (
-                              <Button variant="ghost" size="sm">Delete</Button>
-                            )}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <Button className="w-full">
-                    Save Current Configuration
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
-        
-        <TabsContent value="help" className="mt-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Data Visualisation Dashboard Help</CardTitle>
-              <CardDescription>
-                Learn how to get the most from your analytics
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <h3 className="text-lg font-medium">Getting Started</h3>
-                <p className="text-muted-foreground mt-1">
-                  The Data Visualisation Dashboard provides interactive analytics to help you make data-informed decisions about your educational practise. Here's how to get started:
-                </p>
-                <ul className="list-disc pl-6 mt-2 space-y-1">
-                  <li>Use the filters at the top to select time periods and student groups</li>
-                  <li>Switch between dashboard tabs to focus on different aspects of your data</li>
-                  <li>Hover over charts to see detailed information</li>
-                  <li>Customise your view in the Settings tab</li>
-                </ul>
-              </div>
-              
-              <div>
-                <h3 className="text-lg font-medium">Understanding the Data</h3>
-                <p className="text-muted-foreground mt-1">
-                  The dashboard presents data from across the platform, including:
-                </p>
-                <ul className="list-disc pl-6 mt-2 space-y-1">
-                  <li>Student academic progress across subjects</li>
-                  <li>Attendance and behaviour patterns</li>
-                  <li>Resource utilisation and effectiveness</li>
-                  <li>Parent engagement metrics</li>
-                  <li>Time allocation analysis</li>
-                </ul>
-              </div>
-              
-              <div>
-                <h3 className="text-lg font-medium">Taking Action</h3>
-                <p className="text-muted-foreground mt-1">
-                  The insights from this dashboard can help you:
-                </p>
-                <ul className="list-disc pl-6 mt-2 space-y-1">
-                  <li>Identify students who may need additional support</li>
-                  <li>Recognise successful teaching strategies</li>
-                  <li>Optimise resource allocation</li>
-                  <li>Improve parent communication</li>
-                  <li>Make evidence-based decisions about your practise</li>
-                </ul>
-              </div>
-              
-              <div className="flex justify-centre mt-4">
-                <Button>
-                  View Full Documentation
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+        <TabsContent value="resources" className="space-y-4">
+          {/* Resources content will go here */}
         </TabsContent>
       </Tabs>
+      {/* Only need one set of Tabs, removing duplicate */}
     </div>
   );
 }
