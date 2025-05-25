@@ -16,7 +16,7 @@ import { CheckCircle, AlertTriangle, Info } from 'lucide-react';
  * This component provides examples and guidelines for integrating
  * error boundaries throughout the platform.
  */
-const ErrorBoundaryIntegration: React.FC = () => {
+const ErrorBoundaryIntegration: React.FC = (): React.ReactNode => {
   const router = useRouter();
   const [activeTab, setActiveTab] = React.useState('usage');
   
@@ -75,7 +75,7 @@ import RootErrorBoundary from '@/components/error-boundary/root-error-boundary';
                     <span className="font-medium">Page-level boundaries:</span> Wrap each page component to prevent full-page crashes
                   </li>
                   <li>
-                    <span className="font-medium">Feature-level boundaries:</span> Isolate complex features so errors don't affect the rest of the page
+                    <span className="font-medium">Feature-level boundaries:</span> Isolate complex features so errors don&apos;t affect the rest of the page
                   </li>
                   <li>
                     <span className="font-medium">Data-dependent components:</span> Wrap components that rely on external data
@@ -268,14 +268,14 @@ export default function DashboardWrapper() {
                   <div className="bg-green-50 p-3 rounded-md border border-green-100">
                     <h4 className="text-sm font-medium text-green-800 mb-1">✅ Good Example</h4>
                     <p className="text-xs text-green-700">
-                      Using age-appropriate language and visuals for younger students: "Oops! Something went wrong. Let's try again!"
+                      Using age-appropriate language and visuals for younger students: &quot;Oops! Something went wrong. Let&apos;s try again!&quot;
                     </p>
                   </div>
                   
                   <div className="bg-red-50 p-3 rounded-md border border-red-100">
                     <h4 className="text-sm font-medium text-red-800 mb-1">❌ Bad Example</h4>
                     <p className="text-xs text-red-700">
-                      Using technical jargon for young children: "Error: Component failed to render due to invalid props. Check console for stack trace."
+                      Using technical jargon for young children: &quot;Error: Component failed to render due to invalid props. Check console for stack trace.&quot;
                     </p>
                   </div>
                 </div>
@@ -317,7 +317,7 @@ export default function DashboardWrapper() {
                   <div className="bg-green-50 p-3 rounded-md border border-green-100">
                     <h4 className="text-sm font-medium text-green-800 mb-1">✅ Good Example</h4>
                     <p className="text-xs text-green-700">
-                      Providing both "Try Again" and "Go Home" buttons with clear labels and icons
+                      Providing both &quot;Try Again&quot; and &quot;Go Home&quot; buttons with clear labels and icons
                     </p>
                   </div>
                   
