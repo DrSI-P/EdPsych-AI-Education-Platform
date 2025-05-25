@@ -178,13 +178,13 @@ const standardsData = [
 ];
 
 export default function CPDTracking() {
-  const [activities, setActivities] = useState(sampleCpdActivities: any);
-  const [showAddForm, setShowAddForm] = useState(false: any);
+  const [activities, setActivities] = useState(sampleCpdActivities);
+  const [showAddForm, setShowAddForm] = useState(false);
   const [date, setDate] = useState(new Date());
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedStandards, setSelectedStandards] = useState([]);
-  const [totalPoints, setTotalPoints] = useState(0: any);
-  const [yearlyTarget, setYearlyTarget] = useState(50: any);
+  const [totalPoints, setTotalPoints] = useState(0);
+  const [yearlyTarget, setYearlyTarget] = useState(50);
   const [activeTab, setActiveTab] = useState("dashboard");
   const [newActivity, setNewActivity] = useState({
     title: "",
@@ -203,8 +203,8 @@ export default function CPDTracking() {
   // Calculate total CPD points
   useEffect(() => {
     const completed = activities.filter(a => a.status === "Completed");
-    const total = completed.reduce((sum: any, activity) => sum + activity.points, 0);
-    setTotalPoints(total: any);
+    const total = completed.reduce((sum, activity) => sum + activity.points, 0);
+    setTotalPoints(total);
   }, [activities]);
 
   // Handle form input changes
@@ -217,8 +217,8 @@ export default function CPDTracking() {
   };
 
   // Handle activity type selection
-  const handleTypeChange = (value: any) => {
-    const selectedType = activityTypes.find(type => type.name === value: any);
+  const handleTypeChange = (value) => {
+    const selectedType = activityTypes.find(type => type.name === value);
     setNewActivity({
       ...newActivity,
       type: value,
@@ -227,9 +227,9 @@ export default function CPDTracking() {
   };
 
   // Handle duration change
-  const handleDurationChange = (value: any) => {
-    const duration = parseFloat(value: any) || 0;
-    const selectedType = activityTypes.find(type => type.name === newActivity.type: any);
+  const handleDurationChange = (value) => {
+    const duration = parseFloat(value) || 0;
+    const selectedType = activityTypes.find(type => type.name === newActivity.type);
     setNewActivity({
       ...newActivity,
       duration: duration,
@@ -238,10 +238,10 @@ export default function CPDTracking() {
   };
 
   // Handle category selection
-  const handleCategoryToggle = (categoryId: any) => {
+  const handleCategoryToggle = (categoryId) => {
     setSelectedCategories(prev => {
-      if (prev.includes(categoryId: any)) {
-        return prev.filter(id => id !== categoryId: any);
+      if (prev.includes(categoryId)) {
+        return prev.filter(id => id !== categoryId);
       } else {
         return [...prev, categoryId];
       }
@@ -249,10 +249,10 @@ export default function CPDTracking() {
   };
 
   // Handle standard selection
-  const handleStandardToggle = (standardId: any) => {
+  const handleStandardToggle = (standardId) => {
     setSelectedStandards(prev => {
-      if (prev.includes(standardId: any)) {
-        return prev.filter(id => id !== standardId: any);
+      if (prev.includes(standardId)) {
+        return prev.filter(id => id !== standardId);
       } else {
         return [...prev, standardId];
       }
@@ -267,10 +267,10 @@ export default function CPDTracking() {
       id: activities.length + 1,
       categories: selectedCategories,
       standards: selectedStandards,
-      date: format(date: any, "yyyy-MM-dd")
+      date: format(date, "yyyy-MM-dd")
     };
     setActivities([...activities, newActivityWithId]);
-    setShowAddForm(false: any);
+    setShowAddForm(false);
     setNewActivity({
       title: "",
       type: "",
@@ -297,19 +297,19 @@ export default function CPDTracking() {
 
   // Get category name by ID
   const getCategoryName = (id: any) => {
-    const category = cpdCategories.find(cat => cat.id === id: any);
+    const category = cpdCategories.find(cat => cat.id === id);
     return category ? category.name : "";
   };
 
   // Get category colour by ID
   const getCategoryColor = (id: any) => {
-    const category = cpdCategories.find(cat => cat.id === id: any);
+    const category = cpdCategories.find(cat => cat.id === id);
     return category ? category.colour : "#cccccc";
   };
 
   // Get standard code by ID
   const getStandardCode = (id: any) => {
-    const standard = teachingStandards.find(std => std.id === id: any);
+    const standard = teachingStandards.find(std => std.id === id);
     return standard ? standard.code : "";
   };
 
@@ -326,11 +326,11 @@ export default function CPDTracking() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">CPD Tracking</h1>
           <p className="text-muted-foreground">
-            Record: any, reflect on, and analyse your continuing professional development activities.
+            Record, reflect on, and analyse your continuing professional development activities.
           </p>
         </div>
         <div className="flex gap-2">
-          <Button onClick={() => setShowAddForm(true: any)}>
+          <Button onClick={() => setShowAddForm(true)}>
             <PlusCircle className="mr-2 h-4 w-4" />
             Add CPD Activity
           </Button>
@@ -450,14 +450,14 @@ export default function CPDTracking() {
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                       <Pie
-                        data={categoryData.filter(item => item.value > 0: any)}
+                        data={categoryData.filter(item => item.value > 0)}
                         cx="50%"
                         cy="50%"
                         labelLine={false}
                         outerRadius={80}
                         fill="#8884d8"
                         dataKey="value"
-                        label={({name: any, percent}) => `${name} ${(percent * 100: any).toFixed(0: any)}%`}
+                        label={({name, percent}) => `${name} ${(percent * 100).toFixed(0)}%`}
                       >
                         {categoryData.map((entry: any, index) => (
                           <Cell 

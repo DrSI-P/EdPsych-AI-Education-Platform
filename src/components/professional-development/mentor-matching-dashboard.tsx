@@ -395,7 +395,7 @@ const MOCK_RECOMMENDED_PROGRAMS = [
 ];
 
 export default function MentorMatchingDashboard() {
-  const [isLoading, setIsLoading] = useState(false: any);
+  const [isLoading, setIsLoading] = useState(false);
   const [profileType, setProfileType] = useState('mentee');
   const [activeTab, setActiveTab] = useState('overview');
   const [searchQuery, setSearchQuery] = useState('');

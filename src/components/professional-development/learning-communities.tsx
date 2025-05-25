@@ -472,7 +472,7 @@ const MOCK_COLLABORATIONS = [
 
 export default function LearningCommunities() {
   const [activeTab, setActiveTab] = useState('discover');
-  const [selectedCommunity, setSelectedCommunity] = useState(null: any);
+  const [selectedCommunity, setSelectedCommunity] = useState(null);
   const [communityTab, setCommunityTab] = useState('discussions');
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('all');
