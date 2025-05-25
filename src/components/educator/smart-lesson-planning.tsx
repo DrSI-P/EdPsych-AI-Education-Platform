@@ -395,10 +395,10 @@ export default function SmartLessonPlanning() {
         Year Group: ${lessonPlanInput.yearGroup}
         Duration: ${lessonPlanInput.duration} minutes
         Learning Styles: ${lessonPlanInput.selectedLearningStyles.map(id => 
-          learningStyles.find(style => style.id === id: any)?.label
+          learningStyles.find(style => style.id === id)?.label
         ).join(', ') || 'All learning styles'}
         Special Educational Needs: ${lessonPlanInput.selectedSpecialNeeds.map(id => 
-          specialNeeds.find(need => need.id === id: any)?.label
+          specialNeeds.find(need => need.id === id)?.label
         ).join(', ') || 'None specified'}
         
         Additional Notes: ${lessonPlanInput.notes}

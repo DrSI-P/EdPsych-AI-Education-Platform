@@ -297,13 +297,9 @@ export function ParentCommunicationManagement() {
               )}
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </CardContent>      </Card>
     );
-  };
-  );
-  
-  // Render message composition section
+  };  // Render message composition section
   const renderMessageComposition = () => (
     <Card>
       <CardHeader>
