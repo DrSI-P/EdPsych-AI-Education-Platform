@@ -313,12 +313,13 @@ export default function SmartLessonPlanning() {
         duration: lessonPlanInput.duration,
         objectives: lessonPlanInput.objectives,
         priorKnowledge: lessonPlanInput.priorKnowledge,
-        keyVocabulary: lessonPlanInput.keyVocabulary        learningStyles: ${lessonPlanInput.selectedLearningStyles.map(id => 
+        keyVocabulary: lessonPlanInput.keyVocabulary,
+        learningStyles: `${lessonPlanInput.selectedLearningStyles.map(id => 
           learningStyles.find(style => style.id === id)?.label
-        ).join(', ') || 'All learning styles'}
-        specialNeeds: ${lessonPlanInput.selectedSpecialNeeds.map(id => 
+        ).join(', ') || 'All learning styles'}`,
+        specialNeeds: `${lessonPlanInput.selectedSpecialNeeds.map(id => 
           specialNeeds.find(need => need.id === id)?.label
-        ).join(', ') || 'None specified'}
+        ).join(', ') || 'None specified'}`
       };
       
       const prompt = `

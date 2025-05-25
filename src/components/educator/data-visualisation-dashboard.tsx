@@ -237,9 +237,9 @@ export function DataVisualisationDashboard() {
   
   // Render filter bar
   const renderFilterBar = () => (
-    <div className="bg-muted/50 p-4 rounded-lg flex flex-col space-y-4 md:flex-row md:items-centre md:justify-between md:space-y-0">
-      <div className="flex flex-col space-y-2 md:flex-row md:items-centre md:space-x-2 md:space-y-0">
-        <div className="flex items-centre space-x-2">
+    <div className="bg-muted/50 p-4 rounded-lg flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
+      <div className="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-2 md:space-y-0">
+        <div className="flex items-center space-x-2">
           <Filter className="h-4 w-4 text-muted-foreground" />
           <span className="text-sm font-medium">Filters:</span>
         </div>
