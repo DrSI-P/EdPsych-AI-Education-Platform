@@ -8,7 +8,7 @@ import { Tabs } from '@/components/ui/tabs';
 import { Spinner } from '@/components/ui/loading';
 import { Alert } from '@/components/ui/alert';
 import { useToast } from '@/components/ui/toast';
-import { AIPrompt } from '@/components/ai/ai-prompt';
+// Removed unused import: AIPrompt
 
 interface AdminDashboardProps {
   className?: string;
@@ -16,10 +16,10 @@ interface AdminDashboardProps {
 
 export function AdminDashboard({
   className = ''
-}: AdminDashboardProps) {
+}: AdminDashboardProps): React.ReactNode {
   const { showToast } = useToast();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  // Removed unused state: error
   
   // Mock data for demonstration
   const [adminData, setAdminData] = useState({
@@ -202,7 +202,7 @@ export function AdminDashboard({
   }, []);
   
   // Handle user status change
-  const handleUserStatusChange = (userId: string, newStatus: string) => {
+  const handleUserStatusChange = (userId: string, newStatus: string): void => {
     setAdminData(prev => ({
       ...prev,
       users: prev.users.map(user => 
@@ -219,7 +219,7 @@ export function AdminDashboard({
   };
   
   // Handle school status change
-  const handleSchoolStatusChange = (schoolId: string, newStatus: string) => {
+  const handleSchoolStatusChange = (schoolId: string, newStatus: string): void => {
     setAdminData(prev => ({
       ...prev,
       schools: prev.schools.map(school => 
@@ -236,7 +236,7 @@ export function AdminDashboard({
   };
   
   // Handle alert dismissal
-  const handleDismissAlert = (alertId: string) => {
+  const handleDismissAlert = (alertId: string): void => {
     setAdminData(prev => ({
       ...prev,
       alerts: prev.alerts.filter(alert => alert.id !== alertId)
@@ -254,10 +254,6 @@ export function AdminDashboard({
             <div className="flex justify-centre py-8">
               <Spinner size="lg" />
             </div>
-          ) : error ? (
-            <Alert variant="error">
-              {error}
-            </Alert>
           ) : (
             <>
               <div className="flex justify-between items-centre">
@@ -453,25 +449,45 @@ export function AdminDashboard({
                           <span className={`text-xs px-2 py-0.5 rounded-full ${
                             user.status === 'active' ? 'bg-green-100 text-green-800' :
                             user.status === 'inactive' ? 'bg-grey-100 text-grey-800' :
-                            'bg-yellow-100 text-yellow-800'
+                            'bg-amber-100 text-amber-800'
                           }`}>
                             {user.status}
                           </span>
                         </div>
                         <div className="flex justify-between text-sm text-grey-600 mt-1">
-                          <span>Role: {user.role}</span>
-                          <span>Last Login: {user.lastLogin}</span>
+                          <span>{user.role}</span>
+                          <span>Last login: {user.lastLogin}</span>
+                        </div>
+                        <div className="mt-2 flex space-x-2">
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => handleUserStatusChange(user.id, user.status === 'active' ? 'inactive' : 'active')}
+                          >
+                            {user.status === 'active' ? 'Deactivate' : 'Activate'}
+                          </Button>
+                          <Button size="sm" variant="outline">
+                            Edit
+                          </Button>
                         </div>
                       </div>
                     ))}
                   </CardContent>
+                  <CardFooter>
+                    <Button 
+                      variant="outline"
+                      className="w-full"
+                    >
+                      View All Users
+                    </Button>
+                  </CardFooter>
                 </Card>
                 
                 <Card>
                   <CardHeader>
                     <div className="flex justify-between items-centre">
-                      <h3 className="text-lg font-semibold">Recent Schools</h3>
-                      <Button size="sm">Manage Schools</Button>
+                      <h3 className="text-lg font-semibold">Schools</h3>
+                      <Button size="sm">Add School</Button>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-3">
@@ -484,19 +500,38 @@ export function AdminDashboard({
                           </div>
                           <span className={`text-xs px-2 py-0.5 rounded-full ${
                             school.status === 'active' ? 'bg-green-100 text-green-800' :
-                            school.status === 'inactive' ? 'bg-grey-100 text-grey-800' :
-                            'bg-yellow-100 text-yellow-800'
+                            'bg-amber-100 text-amber-800'
                           }`}>
                             {school.status}
                           </span>
                         </div>
                         <div className="flex justify-between text-sm text-grey-600 mt-1">
-                          <span>Users: {school.usersCount}</span>
+                          <span>{school.usersCount} users</span>
                           <span>Added: {school.dateAdded}</span>
+                        </div>
+                        <div className="mt-2 flex space-x-2">
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => handleSchoolStatusChange(school.id, school.status === 'active' ? 'inactive' : 'active')}
+                          >
+                            {school.status === 'active' ? 'Deactivate' : 'Activate'}
+                          </Button>
+                          <Button size="sm" variant="outline">
+                            Manage
+                          </Button>
                         </div>
                       </div>
                     ))}
                   </CardContent>
+                  <CardFooter>
+                    <Button 
+                      variant="outline"
+                      className="w-full"
+                    >
+                      View All Schools
+                    </Button>
+                  </CardFooter>
                 </Card>
               </div>
             </>
@@ -508,722 +543,71 @@ export function AdminDashboard({
       id: 'users',
       label: 'User Management',
       content: (
-        <div className="space-y-6">
-          {loading ? (
-            <div className="flex justify-centre py-8">
-              <Spinner size="lg" />
-            </div>
-          ) : error ? (
-            <Alert variant="error">
-              {error}
-            </Alert>
-          ) : (
-            <>
-              <div className="flex justify-between items-centre">
-                <h2 className="text-xl font-semibold">User Management</h2>
-                <div className="flex gap-2">
-                  <Input
-                    placeholder="Search users..."
-                    className="w-64"
-                  />
-                  <Select
-                    options={[
-                      { value: 'all', label: 'All Roles' },
-                      { value: 'educational_psychologist', label: 'Educational Psychologist' },
-                      { value: 'teacher', label: 'Teacher' },
-                      { value: 'student', label: 'Student' },
-                      { value: 'parent', label: 'Parent' },
-                      { value: 'school_admin', label: 'School Administrator' }
-                    ]}
-                    className="w-48"
-                  />
-                  <Button>
-                    Add User
-                  </Button>
-                </div>
-              </div>
-              
-              <Card>
-                <CardContent className="p-0">
-                  <div className="overflow-x-auto">
-                    <table className="w-full">
-                      <thead className="bg-grey-50">
-                        <tr>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Name</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Email</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Role</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Status</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Last Login</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Date Created</th>
-                          <th className="px-4 py-3 text-right text-xs font-medium text-grey-500 uppercase tracking-wider">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody className="bg-white divide-y divide-grey-200">
-                        {adminData.users.map(user => (
-                          <tr key={user.id} className="hover:bg-grey-50">
-                            <td className="px-4 py-4 whitespace-nowrap">
-                              <div className="font-medium">{user.name}</div>
-                            </td>
-                            <td className="px-4 py-4 whitespace-nowrap">
-                              <div className="text-sm text-grey-600">{user.email}</div>
-                            </td>
-                            <td className="px-4 py-4 whitespace-nowrap">
-                              <div className="text-sm">{user.role}</div>
-                            </td>
-                            <td className="px-4 py-4 whitespace-nowrap">
-                              <span className={`px-2 py-1 text-xs rounded-full ${
-                                user.status === 'active' ? 'bg-green-100 text-green-800' :
-                                user.status === 'inactive' ? 'bg-grey-100 text-grey-800' :
-                                'bg-yellow-100 text-yellow-800'
-                              }`}>
-                                {user.status}
-                              </span>
-                            </td>
-                            <td className="px-4 py-4 whitespace-nowrap">
-                              <div className="text-sm text-grey-600">{user.lastLogin}</div>
-                            </td>
-                            <td className="px-4 py-4 whitespace-nowrap">
-                              <div className="text-sm text-grey-600">{user.dateCreated}</div>
-                            </td>
-                            <td className="px-4 py-4 whitespace-nowrap text-right">
-                              <div className="flex justify-end gap-2">
-                                <Button size="sm" variant="outline">Edit</Button>
-                                {user.status === 'active' ? (
-                                  <Button 
-                                    size="sm" 
-                                    variant="outline"
-                                    onClick={() => handleUserStatusChange(user.id, 'inactive')}
-                                  >
-                                    Deactivate
-                                  </Button>
-                                ) : (
-                                  <Button 
-                                    size="sm" 
-                                    variant="outline"
-                                    onClick={() => handleUserStatusChange(user.id, 'active')}
-                                  >
-                                    Activate
-                                  </Button>
-                                )}
-                              </div>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <div className="flex justify-between items-centre">
-                <div>
-                  <p className="text-sm text-grey-600">Showing {adminData.users.length} of {adminData.systemStats.totalUsers} users</p>
-                </div>
-                <div className="flex gap-2">
-                  <Button variant="outline" size="sm">Previous</Button>
-                  <Button variant="outline" size="sm">Next</Button>
-                </div>
-              </div>
-              
-              <Card>
-                <CardHeader>
-                  <h3 className="text-lg font-semibold">Bulk User Actions</h3>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <Card>
-                      <CardContent className="pt-4">
-                        <h4 className="font-medium mb-2">Import Users</h4>
-                        <p className="text-sm text-grey-600 mb-4">
-                          Import multiple users from a CSV file.
-                        </p>
-                        <Button variant="outline" className="w-full">
-                          Import CSV
-                        </Button>
-                      </CardContent>
-                    </Card>
-                    
-                    <Card>
-                      <CardContent className="pt-4">
-                        <h4 className="font-medium mb-2">Export Users</h4>
-                        <p className="text-sm text-grey-600 mb-4">
-                          Export user data to CSV or Excel format.
-                        </p>
-                        <Button variant="outline" className="w-full">
-                          Export Data
-                        </Button>
-                      </CardContent>
-                    </Card>
-                    
-                    <Card>
-                      <CardContent className="pt-4">
-                        <h4 className="font-medium mb-2">Bulk Update</h4>
-                        <p className="text-sm text-grey-600 mb-4">
-                          Update multiple user accounts at once.
-                        </p>
-                        <Button variant="outline" className="w-full">
-                          Bulk Update
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </CardContent>
-              </Card>
-            </>
-          )}
+        <div className="p-4">
+          <h2 className="text-xl font-semibold mb-4">User Management</h2>
+          <p className="text-grey-600 mb-4">Manage user accounts, roles, and permissions.</p>
+          
+          {/* User management content would go here */}
+          <div className="text-centre py-8 text-grey-500">
+            <p>User management interface will be implemented here.</p>
+          </div>
         </div>
       )
     },
     {
       id: 'schools',
-      label: 'School Management',
+      label: 'Schools',
       content: (
-        <div className="space-y-6">
-          {loading ? (
-            <div className="flex justify-centre py-8">
-              <Spinner size="lg" />
-            </div>
-          ) : error ? (
-            <Alert variant="error">
-              {error}
-            </Alert>
-          ) : (
-            <>
-              <div className="flex justify-between items-centre">
-                <h2 className="text-xl font-semibold">School Management</h2>
-                <div className="flex gap-2">
-                  <Input
-                    placeholder="Search schools..."
-                    className="w-64"
-                  />
-                  <Select
-                    options={[
-                      { value: 'all', label: 'All Types' },
-                      { value: 'primary', label: 'Primary' },
-                      { value: 'secondary', label: 'Secondary' },
-                      { value: 'special', label: 'Special Education' }
-                    ]}
-                    className="w-40"
-                  />
-                  <Button>
-                    Add School
-                  </Button>
-                </div>
-              </div>
-              
-              <Card>
-                <CardContent className="p-0">
-                  <div className="overflow-x-auto">
-                    <table className="w-full">
-                      <thead className="bg-grey-50">
-                        <tr>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Name</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Type</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Location</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Users</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Status</th>
-                          <th className="px-4 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">Date Added</th>
-                          <th className="px-4 py-3 text-right text-xs font-medium text-grey-500 uppercase tracking-wider">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody className="bg-white divide-y divide-grey-200">
-                        {adminData.schools.map(school => (
-                          <tr key={school.id} className="hover:bg-grey-50">
-                            <td className="px-4 py-4 whitespace-nowrap">
-                              <div className="font-medium">{school.name}</div>
-                            </td>
-                            <td className="px-4 py-4 whitespace-nowrap">
-                              <div className="text-sm">{school.type}</div>
-                            </td>
-                            <td className="px-4 py-4 whitespace-nowrap">
-                              <div className="text-sm text-grey-600">{school.location}</div>
-                            </td>
-                            <td className="px-4 py-4 whitespace-nowrap">
-                              <div className="text-sm">{school.usersCount}</div>
-                            </td>
-                            <td className="px-4 py-4 whitespace-nowrap">
-                              <span className={`px-2 py-1 text-xs rounded-full ${
-                                school.status === 'active' ? 'bg-green-100 text-green-800' :
-                                school.status === 'inactive' ? 'bg-grey-100 text-grey-800' :
-                                'bg-yellow-100 text-yellow-800'
-                              }`}>
-                                {school.status}
-                              </span>
-                            </td>
-                            <td className="px-4 py-4 whitespace-nowrap">
-                              <div className="text-sm text-grey-600">{school.dateAdded}</div>
-                            </td>
-                            <td className="px-4 py-4 whitespace-nowrap text-right">
-                              <div className="flex justify-end gap-2">
-                                <Button size="sm" variant="outline">Edit</Button>
-                                <Button size="sm" variant="outline">View Users</Button>
-                                {school.status === 'active' ? (
-                                  <Button 
-                                    size="sm" 
-                                    variant="outline"
-                                    onClick={() => handleSchoolStatusChange(school.id, 'inactive')}
-                                  >
-                                    Deactivate
-                                  </Button>
-                                ) : (
-                                  <Button 
-                                    size="sm" 
-                                    variant="outline"
-                                    onClick={() => handleSchoolStatusChange(school.id, 'active')}
-                                  >
-                                    Activate
-                                  </Button>
-                                )}
-                              </div>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <div className="flex justify-between items-centre">
-                <div>
-                  <p className="text-sm text-grey-600">Showing {adminData.schools.length} of {adminData.systemStats.totalSchools} schools</p>
-                </div>
-                <div className="flex gap-2">
-                  <Button variant="outline" size="sm">Previous</Button>
-                  <Button variant="outline" size="sm">Next</Button>
-                </div>
-              </div>
-              
-              <Card>
-                <CardHeader>
-                  <h3 className="text-lg font-semibold">School Onboarding</h3>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <h4 className="font-medium mb-2">Onboarding Steps</h4>
-                      <ol className="space-y-2 text-sm">
-                        <li className="flex items-centre gap-2">
-                          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-centre justify-centre font-medium">1</div>
-                          <span>Add school details and administrator</span>
-                        </li>
-                        <li className="flex items-centre gap-2">
-                          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-centre justify-centre font-medium">2</div>
-                          <span>Configure school settings and permissions</span>
-                        </li>
-                        <li className="flex items-centre gap-2">
-                          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-centre justify-centre font-medium">3</div>
-                          <span>Import users (staff and students)</span>
-                        </li>
-                        <li className="flex items-centre gap-2">
-                          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-centre justify-centre font-medium">4</div>
-                          <span>Set up curriculum and resources</span>
-                        </li>
-                        <li className="flex items-centre gap-2">
-                          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-centre justify-centre font-medium">5</div>
-                          <span>Provide training and support</span>
-                        </li>
-                      </ol>
-                    </div>
-                    
-                    <div>
-                      <h4 className="font-medium mb-2">Quick Actions</h4>
-                      <div className="space-y-2">
-                        <Button variant="outline" className="w-full justify-start">
-                          <svg className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                          </svg>
-                          Start New School Onboarding
-                        </Button>
-                        <Button variant="outline" className="w-full justify-start">
-                          <svg className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                          </svg>
-                          Generate Onboarding Templates
-                        </Button>
-                        <Button variant="outline" className="w-full justify-start">
-                          <svg className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                          Schedule Onboarding Session
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </>
-          )}
+        <div className="p-4">
+          <h2 className="text-xl font-semibold mb-4">School Management</h2>
+          <p className="text-grey-600 mb-4">Manage schools, classes, and educational resources.</p>
+          
+          {/* School management content would go here */}
+          <div className="text-centre py-8 text-grey-500">
+            <p>School management interface will be implemented here.</p>
+          </div>
         </div>
       )
     },
     {
-      id: 'system',
+      id: 'settings',
       label: 'System Settings',
       content: (
-        <div className="space-y-6">
-          {loading ? (
-            <div className="flex justify-centre py-8">
-              <Spinner size="lg" />
-            </div>
-          ) : error ? (
-            <Alert variant="error">
-              {error}
-            </Alert>
-          ) : (
-            <>
-              <div className="flex justify-between items-centre">
-                <h2 className="text-xl font-semibold">System Settings</h2>
-                <Button>
-                  Save Changes
-                </Button>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card>
-                  <CardHeader>
-                    <h3 className="text-lg font-semibold">General Settings</h3>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Platform Name</label>
-                      <Input 
-                        value="EdPsych Connect"
-                        className="w-full"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Support Email</label>
-                      <Input 
-                        value="support@edpsychconnect.com"
-                        className="w-full"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Default Language</label>
-                      <Select
-                        options={[
-                          { value: 'en-GB', label: 'English (UK)' },
-                          { value: 'en-US', label: 'English (US)' },
-                          { value: 'fr', label: 'French' },
-                          { value: 'es', label: 'Spanish' }
-                        ]}
-                        value="en-GB"
-                        className="w-full"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Default Time Zone</label>
-                      <Select
-                        options={[
-                          { value: 'Europe/London', label: 'London (GMT/BST)' },
-                          { value: 'Europe/Paris', label: 'Paris (CET/CEST)' },
-                          { value: 'America/New_York', label: 'New York (EST/EDT)' }
-                        ]}
-                        value="Europe/London"
-                        className="w-full"
-                      />
-                    </div>
-                    
-                    <div className="pt-2">
-                      <Checkbox 
-                        label="Enable maintenance mode"
-                        checked={false}
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
-                
-                <Card>
-                  <CardHeader>
-                    <h3 className="text-lg font-semibold">AI Service Settings</h3>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Default AI Provider</label>
-                      <Select
-                        options={[
-                          { value: 'openai', label: 'OpenAI' },
-                          { value: 'anthropic', label: 'Anthropic' },
-                          { value: 'gemini', label: 'Google Gemini' },
-                          { value: 'grok', label: 'GROK' },
-                          { value: 'openrouter', label: 'OpenRouter' }
-                        ]}
-                        value="openai"
-                        className="w-full"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Default Model</label>
-                      <Select
-                        options={[
-                          { value: 'gpt-4o', label: 'GPT-4o' },
-                          { value: 'claude-3-opus', label: 'Claude 3 Opus' },
-                          { value: 'gemini-pro', label: 'Gemini Pro' }
-                        ]}
-                        value="gpt-4o"
-                        className="w-full"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium mb-1">API Rate Limit (calls/minute)</label>
-                      <Input 
-                        type="number"
-                        value="100"
-                        className="w-full"
-                      />
-                    </div>
-                    
-                    <div className="pt-2">
-                      <Checkbox 
-                        label="Enable content filtering"
-                        checked={true}
-                      />
-                    </div>
-                    
-                    <div>
-                      <Checkbox 
-                        label="Log all AI interactions"
-                        checked={true}
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
-                
-                <Card>
-                  <CardHeader>
-                    <h3 className="text-lg font-semibold">Security Settings</h3>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Session Timeout (minutes)</label>
-                      <Input 
-                        type="number"
-                        value="60"
-                        className="w-full"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Password Policy</label>
-                      <Select
-                        options={[
-                          { value: 'standard', label: 'Standard (8+ chars, mixed case)' },
-                          { value: 'strong', label: 'Strong (10+ chars, mixed case, symbols)' },
-                          { value: 'very_strong', label: 'Very Strong (12+ chars, mixed case, symbols, numbers)' }
-                        ]}
-                        value="strong"
-                        className="w-full"
-                      />
-                    </div>
-                    
-                    <div className="pt-2">
-                      <Checkbox 
-                        label="Enable two-factor authentication"
-                        checked={true}
-                      />
-                    </div>
-                    
-                    <div>
-                      <Checkbox 
-                        label="Enforce password rotation (90 days)"
-                        checked={true}
-                      />
-                    </div>
-                    
-                    <div>
-                      <Checkbox 
-                        label="Log all authentication attempts"
-                        checked={true}
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card>
-                  <CardHeader>
-                    <h3 className="text-lg font-semibold">API Configuration</h3>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-1">OpenAI API Key</label>
-                      <Input 
-                        type="password"
-                        value="••••••••••••••••••••••••••••••"
-                        className="w-full"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Anthropic API Key</label>
-                      <Input 
-                        type="password"
-                        value="••••••••••••••••••••••••••••••"
-                        className="w-full"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Google Gemini API Key</label>
-                      <Input 
-                        type="password"
-                        value="••••••••••••••••••••••••••••••"
-                        className="w-full"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium mb-1">GROK API Key</label>
-                      <Input 
-                        type="password"
-                        value="••••••••••••••••••••••••••••••"
-                        className="w-full"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium mb-1">OpenRouter API Key</label>
-                      <Input 
-                        type="password"
-                        value="••••••••••••••••••••••••••••••"
-                        className="w-full"
-                      />
-                    </div>
-                    
-                    <div className="pt-2">
-                      <Button variant="outline" className="w-full">
-                        Test API Connections
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-                
-                <Card>
-                  <CardHeader>
-                    <h3 className="text-lg font-semibold">Database & Storage</h3>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-1">PostgreSQL Connection</label>
-                      <Input 
-                        type="password"
-                        value="••••••••••••••••••••••••••••••"
-                        className="w-full"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium mb-1">MongoDB Connection</label>
-                      <Input 
-                        type="password"
-                        value="••••••••••••••••••••••••••••••"
-                        className="w-full"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Firebase Configuration</label>
-                      <Textarea
-                        value={'{\n  "apiKey": "•••••••••••••••••••••••",\n  "authDomain": "edpsych-connect.firebaseapp.com",\n  "projectId": "edpsych-connect"\n  /* Additional fields hidden */\n}'}
-                        className="w-full h-24 font-mono text-xs"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Storage Provider</label>
-                      <Select
-                        options={[
-                          { value: 'local', label: 'Local Storage' },
-                          { value: 's3', label: 'Amazon S3' },
-                          { value: 'firebase', label: 'Firebase Storage' }
-                        ]}
-                        value="s3"
-                        className="w-full"
-                      />
-                    </div>
-                    
-                    <div className="pt-2">
-                      <Button variant="outline" className="w-full">
-                        Test Database Connections
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-              
-              <Card>
-                <CardHeader>
-                  <h3 className="text-lg font-semibold">System Maintenance</h3>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <Card>
-                      <CardContent className="pt-4">
-                        <h4 className="font-medium mb-2">Backup Database</h4>
-                        <p className="text-sm text-grey-600 mb-4">
-                          Create a full backup of all system databases.
-                        </p>
-                        <Button variant="outline" className="w-full">
-                          Create Backup
-                        </Button>
-                      </CardContent>
-                    </Card>
-                    
-                    <Card>
-                      <CardContent className="pt-4">
-                        <h4 className="font-medium mb-2">Clear Cache</h4>
-                        <p className="text-sm text-grey-600 mb-4">
-                          Clear system cache to improve performance.
-                        </p>
-                        <Button variant="outline" className="w-full">
-                          Clear Cache
-                        </Button>
-                      </CardContent>
-                    </Card>
-                    
-                    <Card>
-                      <CardContent className="pt-4">
-                        <h4 className="font-medium mb-2">System Logs</h4>
-                        <p className="text-sm text-grey-600 mb-4">
-                          View and download system logs for troubleshooting.
-                        </p>
-                        <Button variant="outline" className="w-full">
-                          View Logs
-                        </Button>
-                      </CardContent>
-                    </Card>
-                    
-                    <Card>
-                      <CardContent className="pt-4">
-                        <h4 className="font-medium mb-2">Update System</h4>
-                        <p className="text-sm text-grey-600 mb-4">
-                          Check for and apply system updates.
-                        </p>
-                        <Button variant="outline" className="w-full">
-                          Check Updates
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </CardContent>
-              </Card>
-            </>
-          )}
+        <div className="p-4">
+          <h2 className="text-xl font-semibold mb-4">System Settings</h2>
+          <p className="text-grey-600 mb-4">Configure system settings, integrations, and preferences.</p>
+          
+          {/* Settings content would go here */}
+          <div className="text-centre py-8 text-grey-500">
+            <p>System settings interface will be implemented here.</p>
+          </div>
         </div>
       )
     }
   ];
   
   return (
-    <div className={className}>
-      <Tabs tabs={tabs} />
+    <div className={`container mx-auto py-6 ${className}`}>
+      <Tabs defaultValue="dashboard" className="w-full">
+        <div className="flex border-b mb-4">
+          {tabs.map(tab => (
+            <Button
+              key={tab.id}
+              variant="tab"
+              value={tab.id}
+              className="mr-2"
+            >
+              {tab.label}
+            </Button>
+          ))}
+        </div>
+        
+        {tabs.map(tab => (
+          <div key={tab.id} className={`tab-content ${tab.id}`}>
+            {tab.content}
+          </div>
+        ))}
+      </Tabs>
     </div>
   );
 }
