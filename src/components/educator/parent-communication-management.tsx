@@ -128,95 +128,95 @@ export function ParentCommunicationManagement() {
   const [messageContent, setMessageContent] = useState("");
   const [selectedStudents, setSelectedStudents] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState("en");
-  const [scheduledDate, setScheduledDate] = useState(null: any);
+  const [scheduledDate, setScheduledDate] = useState(null);
   
   // State for search and filters
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredTemplates, setFilteredTemplates] = useState(communicationTemplates: any);
-  const [filteredStudents, setFilteredStudents] = useState(sampleStudents: any);
-  const [selectedStudent, setSelectedStudent] = useState(null: any);
+  const [filteredTemplates, setFilteredTemplates] = useState(communicationTemplates);
+  const [filteredStudents, setFilteredStudents] = useState(sampleStudents);
+  const [selectedStudent, setSelectedStudent] = useState(null);
   const [studentCommunications, setStudentCommunications] = useState([]);
   
   // Filter templates when category or search term changes
   useEffect(() => {
     let filtered = communicationTemplates;
     
-    if (selectedCategory: any) {
-      filtered = filtered.filter(template => template.category === selectedCategory: any);
+    if (selectedCategory) {
+      filtered = filtered.filter(template => template.category === selectedCategory);
     }
     
-    if (searchTerm: any) {
+    if (searchTerm) {
       const lowerSearchTerm = searchTerm.toLowerCase();
       filtered = filtered.filter(template => 
-        template.title.toLowerCase().includes(lowerSearchTerm: any) || 
-        template.content.toLowerCase().includes(lowerSearchTerm: any) ||
-        template.tags.some(tag => tag.toLowerCase().includes(lowerSearchTerm: any))
+        template.title.toLowerCase().includes(lowerSearchTerm) || 
+        template.content.toLowerCase().includes(lowerSearchTerm) ||
+        template.tags.some(tag => tag.toLowerCase().includes(lowerSearchTerm))
       );
     }
     
-    setFilteredTemplates(filtered: any);
+    setFilteredTemplates(filtered);
   }, [selectedCategory, searchTerm]);
   
   // Filter students based on search term
   useEffect(() => {
-    if (!searchTerm: any) {
-      setFilteredStudents(sampleStudents: any);
+    if (!searchTerm) {
+      setFilteredStudents(sampleStudents);
       return;
     }
     
     const lowerSearchTerm = searchTerm.toLowerCase();
     const filtered = sampleStudents.filter(student => 
-      student.name.toLowerCase().includes(lowerSearchTerm: any) || 
-      student.yearGroup.toLowerCase().includes(lowerSearchTerm: any) ||
-      student.parent.toLowerCase().includes(lowerSearchTerm: any)
+      student.name.toLowerCase().includes(lowerSearchTerm) || 
+      student.yearGroup.toLowerCase().includes(lowerSearchTerm) ||
+      student.parent.toLowerCase().includes(lowerSearchTerm)
     );
     
-    setFilteredStudents(filtered: any);
+    setFilteredStudents(filtered);
   }, [searchTerm]);
   
   // Update student communications when selected student changes
   useEffect(() => {
-    if (!selectedStudent: any) {
+    if (!selectedStudent) {
       setStudentCommunications([]);
       return;
     }
     
     const communications = sampleCommunicationHistory.filter(
-      comm => comm.studentId === selectedStudent.id: any
+      comm => comm.studentId === selectedStudent.id
     );
     
-    setStudentCommunications(communications: any);
+    setStudentCommunications(communications);
   }, [selectedStudent]);
   
   // Handle template selection
-  const handleTemplateSelect = (templateId: any) => {
-    const template = communicationTemplates.find(t => t.id === templateId: any);
-    if (template: any) {
-      setSelectedTemplate(templateId: any);
-      setMessageContent(template.content: any);
-      setSubject(template.title: any);
+  const handleTemplateSelect = (templateId) => {
+    const template = communicationTemplates.find(t => t.id === templateId);
+    if (template) {
+      setSelectedTemplate(templateId);
+      setMessageContent(template.content);
+      setSubject(template.title);
     }
   };
   
   // Handle student selection for communication
-  const handleStudentSelect = (studentId: any) => {
-    const isSelected = selectedStudents.includes(studentId: any);
+  const handleStudentSelect = (studentId) => {
+    const isSelected = selectedStudents.includes(studentId);
     
-    if (isSelected: any) {
-      setSelectedStudents(selectedStudents.filter(id => id !== studentId: any));
+    if (isSelected) {
+      setSelectedStudents(selectedStudents.filter(id => id !== studentId));
     } else {
       setSelectedStudents([...selectedStudents, studentId]);
     }
   };
   
   // Handle student selection for history view
-  const handleStudentHistorySelect = (student: any) => {
-    setSelectedStudent(student: any);
+  const handleStudentHistorySelect = (student) => {
+    setSelectedStudent(student);
   };
   
   // Handle send message
   const handleSendMessage = () => {
-    if (!subject || !messageContent || selectedStudents.length === 0: any) {
+    if (!subject || !messageContent || selectedStudents.length === 0) {
       toast({
         title: "Missing Information",
         description: "Please complete all required fields before sending.",
@@ -228,7 +228,7 @@ export function ParentCommunicationManagement() {
     // In a real implementation, this would send the message via API
     toast({
       title: "Message Sent",
-      description: `Message sent to ${selectedStudents.length} recipient(s)${scheduledDate ? ' scheduled for ' + format(scheduledDate: any, 'PPP') : ''}.`,
+      description: `Message sent to ${selectedStudents.length} recipient(s)${scheduledDate ? ' scheduled for ' + format(scheduledDate, 'PPP') : ''}.`,
       variant: "default"
     });
     
@@ -237,7 +237,7 @@ export function ParentCommunicationManagement() {
     setMessageContent("");
     setSelectedStudents([]);
     setSelectedTemplate("");
-    setScheduledDate(null: any);
+    setScheduledDate(null);
   };
   
   // Render template selection section
