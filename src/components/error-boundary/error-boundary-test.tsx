@@ -24,7 +24,7 @@ const ErrorBoundaryTest: React.FC = () => {
       <div className="p-4 bg-green-50 border border-green-200 rounded-md">
         <p className="text-green-800">This component is working correctly!</p>
         <p className="text-sm text-green-600 mt-2">
-          Click the "Trigger Error" button to test the error boundary.
+          Click the &quot;Trigger Error&quot; button to test the error boundary.
         </p>
       </div>
     );
@@ -104,11 +104,11 @@ const ErrorBoundaryTest: React.FC = () => {
         <div className="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-md">
           <h2 className="text-lg font-medium text-yellow-800 mb-2">Testing Instructions</h2>
           <ol className="list-decimal pl-5 space-y-2 text-yellow-700">
-            <li>Click the "Trigger Error" button to simulate an error in the components</li>
+            <li>Click the &quot;Trigger Error&quot; button to simulate an error in the components</li>
             <li>Observe how both error boundaries handle the error differently</li>
             <li>Try different age groups to see how the age-adaptive error boundary changes</li>
-            <li>Click the "Reset Error" button to restore the components to working state</li>
-            <li>Test the "Try Again" and "Go Home" buttons in the error UI</li>
+            <li>Click the &quot;Reset Error&quot; button to restore the components to working state</li>
+            <li>Test the &quot;Try Again&quot; and &quot;Go Home&quot; buttons in the error UI</li>
           </ol>
         </div>
       </div>
