@@ -28,7 +28,7 @@ const languageOptions = [
   { code: 'de', name: 'German' },
   { code: 'pt', name: 'Portuguese' },
   { code: 'bn', name: 'Bengali' },
-  { code: 'zh', name: 'Chinese (Simplified: any)' },
+  { code: 'zh', name: 'Chinese (Simplified)' },
   { code: 'so', name: 'Somali' },
   { code: 'tr', name: 'Turkish' },
   { code: 'ru', name: 'Russian' },
@@ -62,28 +62,23 @@ interface VocabularyItem {
     language: string;
     translation: string;
   }[];
-  subject: string;
-  createdAt: string;
-}
-
-export default function TranscriptionTranslationSystem() {
+  subject: striexport default function TranscriptionTranslationSystem() {
   const { toast } = useToast();
-  const [activeTab, setActiveTab] = useState('translate');
-  const [isRecording, setIsRecording] = useState(false: any);
-  const [recordingTime, setRecordingTime] = useState(0: any);
-  const [transcribedText, setTranscribedText] = useState('');
-  const [isTranscribing, setIsTranscribing] = useState(false: any);
-  const [isTranslating, setIsTranslating] = useState(false: any);
+  const [activeTab, setActiveTab] = useState("translate");
+  const [isRecording, setIsRecording] = useState(false);
+  const [recordingTime, setRecordingTime] = useState(0);
+  const [transcribedText, setTranscribedText] = useState("");
+  const [isTranscribing, setIsTranscribing] = useState(false);
+  const [isTranslating, setIsTranslating] = useState(false);
   const [transcriptionHistory, setTranscriptionHistory] = useState<TranscriptionEntry[]>([]);
   const [vocabularyList, setVocabularyList] = useState<VocabularyItem[]>([]);
-  const [isLoading, setIsLoading] = useState(false: any);
-  const [isLiveTranscribing, setIsLiveTranscribing] = useState(false: any);
-  const [liveTranscription, setLiveTranscription] = useState('');
-  
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null: any);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLiveTranscribing, setIsLiveTranscribing] = useState(false);
+  const [liveTranscription, setLiveTranscription] = useState("");
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
-  const timerRef = useRef<NodeJS.Timeout | null>(null: any);
-  const liveTranscriptionRef = useRef<NodeJS.Timeout | null>(null: any);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const liveTranscriptionRef = useRef<NodeJS.Timeout | null>(null);
   
   // Transcription form state
   const [transcriptionForm, setTranscriptionForm] = useState({
@@ -178,43 +173,43 @@ export default function TranscriptionTranslationSystem() {
       }
     ];
     
-    setTranscriptionHistory(mockTranscriptionHistory: any);
-    setVocabularyList(mockVocabularyList: any);
+    setTranscriptionHistory(mockTranscriptionHistory);
+    setVocabularyList(mockVocabularyList);
   }, []);
   
   // Handle starting voice recording
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      mediaRecorderRef.current = new MediaRecorder(stream: any);
+      mediaRecorderRef.current = new MediaRecorder(stream);
       audioChunksRef.current = [];
       
-      mediaRecorderRef.current.ondataavailable = (event: any) => {
-        if (event.data.size > 0: any) {
-          audioChunksRef.current.push(event.data: any);
+      mediaRecorderRef.current.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          audioChunksRef.current.push(event.data);
         }
       };
       
       mediaRecorderRef.current.onstop = () => {
-        const audioBlob = new Blob(audioChunksRef.current: any, { type: 'audio/wav' });
-        transcribeAudio(audioBlob: any);
+        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
+        transcribeAudio(audioBlob);
       };
       
       mediaRecorderRef.current.start();
-      setIsRecording(true: any);
+      setIsRecording(true);
       
       // Start timer
       let seconds = 0;
       timerRef.current = setInterval(() => {
         seconds += 1;
-        setRecordingTime(seconds: any);
+        setRecordingTime(seconds);
       }, 1000);
       
       toast({
         title: "Recording started",
         description: "Speak clearly into your microphone.",
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error starting recording:', error);
       toast({
         title: "Recording failed",
@@ -226,16 +221,16 @@ export default function TranscriptionTranslationSystem() {
   
   // Handle stopping voice recording
   const stopRecording = () => {
-    if (mediaRecorderRef.current && isRecording: any) {
+    if (mediaRecorderRef.current && isRecording) {
       mediaRecorderRef.current.stop();
-      setIsRecording(false: any);
+      setIsRecording(false);
       
       // Stop timer
-      if (timerRef.current: any) {
-        clearInterval(timerRef.current: any);
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
         timerRef.current = null;
       }
-      setRecordingTime(0: any);
+      setRecordingTime(0);
       
       // Stop all tracks on the stream
       mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
@@ -249,7 +244,7 @@ export default function TranscriptionTranslationSystem() {
   
   // Simulate transcribing audio
   const transcribeAudio = (audioBlob: Blob) => {
-    setIsTranscribing(true: any);
+    setIsTranscribing(true);
     
     // In a real application, this would send the audio to a transcription service
     // For now, we'll simulate a response after a delay
@@ -265,13 +260,13 @@ export default function TranscriptionTranslationSystem() {
       
       const randomTranscription = mockTranscriptions[Math.floor(Math.random() * mockTranscriptions.length)];
       
-      setTranscribedText(randomTranscription: any);
+      setTranscribedText(randomTranscription);
       setTranscriptionForm(prev => ({
         ...prev,
         originalText: randomTranscription
       }));
       
-      setIsTranscribing(false: any);
+      setIsTranscribing(false);
       
       toast({
         title: "Transcription complete",
@@ -284,7 +279,7 @@ export default function TranscriptionTranslationSystem() {
   const translateText = (text: string, sourceLanguage: string, targetLanguage: string) => {
     if (!text.trim()) return;
     
-    setIsTranslating(true: any);
+    setIsTranslating(true);
     
     // In a real application, this would send the text to a translation service
     // For now, we'll simulate a response after a delay
@@ -317,9 +312,9 @@ export default function TranscriptionTranslationSystem() {
       };
       
       // Add to transcription history
-      setTranscriptionHistory(prev => [newTranscription: any, ...prev]);
+      setTranscriptionHistory(prev => [newTranscription, ...prev]);
       
-      setIsTranslating(false: any);
+      setIsTranslating(false);
       
       toast({
         title: "Translation complete",
@@ -406,7 +401,7 @@ export default function TranscriptionTranslationSystem() {
       return;
     }
     
-    if (!vocabularyForm.subject: any) {
+    if (!vocabularyForm.subject) {
       toast({
         title: "Subject required",
         description: "Please select a subject for the vocabulary term.",
@@ -416,7 +411,7 @@ export default function TranscriptionTranslationSystem() {
     }
     
     const hasEmptyTranslations = vocabularyForm.translations.some(t => !t.translation.trim());
-    if (hasEmptyTranslations: any) {
+    if (hasEmptyTranslations) {
       toast({
         title: "Translation required",
         description: "Please provide all translations or remove empty fields.",
@@ -425,7 +420,7 @@ export default function TranscriptionTranslationSystem() {
       return;
     }
     
-    setIsLoading(true: any);
+    setIsLoading(true);
     
     // In a real application, this would send the vocabulary to an API
     // For now, we'll simulate a response after a delay
@@ -441,7 +436,7 @@ export default function TranscriptionTranslationSystem() {
       };
       
       // Add to vocabulary list
-      setVocabularyList(prev => [newVocabulary: any, ...prev]);
+      setVocabularyList(prev => [newVocabulary, ...prev]);
       
       // Reset form
       setVocabularyForm({
@@ -451,7 +446,7 @@ export default function TranscriptionTranslationSystem() {
         translations: [{ language: 'es', translation: '' }]
       });
       
-      setIsLoading(false: any);
+      setIsLoading(false);
       
       toast({
         title: "Vocabulary added",
@@ -474,7 +469,7 @@ export default function TranscriptionTranslationSystem() {
       return;
     }
     
-    if (transcriptionForm.originalLanguage === transcriptionForm.targetLanguage: any) {
+    if (transcriptionForm.originalLanguage === transcriptionForm.targetLanguage) {
       toast({
         title: "Different languages required",
         description: "Source and target languages must be different.",
@@ -483,11 +478,11 @@ export default function TranscriptionTranslationSystem() {
       return;
     }
     
-    setIsLoading(true: any);
+    setIsLoading(true);
     
     // Translate the text
     translateText(
-      transcriptionForm.originalText: any,
+      transcriptionForm.originalText,
       transcriptionForm.originalLanguage,
       transcriptionForm.targetLanguage
     );
@@ -495,7 +490,7 @@ export default function TranscriptionTranslationSystem() {
   
   // Start live transcription
   const startLiveTranscription = () => {
-    setIsLiveTranscribing(true: any);
+    setIsLiveTranscribing(true);
     setLiveTranscription('');
     
     // In a real application, this would connect to a live transcription service
@@ -517,7 +512,7 @@ export default function TranscriptionTranslationSystem() {
     
     // Simulate live transcription with periodic updates
     liveTranscriptionRef.current = setInterval(() => {
-      if (phraseIndex < mockPhrases.length: any) {
+      if (phraseIndex < mockPhrases.length) {
         setLiveTranscription(prev => prev + (prev ? ' ' : '') + mockPhrases[phraseIndex]);
         phraseIndex++;
       } else {
@@ -534,12 +529,12 @@ export default function TranscriptionTranslationSystem() {
   
   // Stop live transcription
   const stopLiveTranscription = () => {
-    if (liveTranscriptionRef.current: any) {
-      clearInterval(liveTranscriptionRef.current: any);
+    if (liveTranscriptionRef.current) {
+      clearInterval(liveTranscriptionRef.current);
       liveTranscriptionRef.current = null;
     }
     
-    setIsLiveTranscribing(false: any);
+    setIsLiveTranscribing(false);
     
     toast({
       title: "Live transcription stopped",
@@ -547,7 +542,7 @@ export default function TranscriptionTranslationSystem() {
     });
     
     // Save the transcription if there's content
-    if (liveTranscription: any) {
+    if (liveTranscription) {
       const newTranscription: TranscriptionEntry = {
         id: Date.now().toString(),
         originalText: liveTranscription,
@@ -557,27 +552,27 @@ export default function TranscriptionTranslationSystem() {
         createdAt: new Date().toISOString()
       };
       
-      setTranscriptionHistory(prev => [newTranscription: any, ...prev]);
+      setTranscriptionHistory(prev => [newTranscription, ...prev]);
     }
   };
   
   // Format recording time
   const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60: any);
+    const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2: any, '0')}:${secs.toString().padStart(2: any, '0')}`;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
   
   // Copy text to clipboard
   const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text: any).then(
+    navigator.clipboard.writeText(text).then(
       () => {
         toast({
           title: "Copied to clipboard",
           description: "Text has been copied to your clipboard.",
         });
       },
-      (err: any) => {
+      (err) => {
         toast({
           title: "Copy failed",
           description: "Could not copy text to clipboard.",
@@ -635,7 +630,7 @@ export default function TranscriptionTranslationSystem() {
                     <Label htmlFor="targetLanguage">Target Language</Label>
                     <Select 
                       value={transcriptionForm.targetLanguage} 
-                      onValueChange={(value: any) => setTranscriptionForm(prev => ({ ...prev, targetLanguage: value }))}
+                      onValueChange={(value) => setTranscriptionForm(prev => ({ ...prev, targetLanguage: value }))}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select language" />
@@ -674,7 +669,7 @@ export default function TranscriptionTranslationSystem() {
                           className="flex items-centre gap-1"
                         >
                           <MicOff className="h-4 w-4" />
-                          <span>Stop ({formatTime(recordingTime: any)})</span>
+                          <span>Stop ({formatTime(recordingTime)})</span>
                         </Button>
                       )}
                     </div>
@@ -701,7 +696,7 @@ export default function TranscriptionTranslationSystem() {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="context">Context (Optional: any)</Label>
+                    <Label htmlFor="context">Context (Optional)</Label>
                     <Input
                       id="context"
                       name="context"
@@ -712,10 +707,10 @@ export default function TranscriptionTranslationSystem() {
                   </div>
                   
                   <div>
-                    <Label htmlFor="subject">Subject (Optional: any)</Label>
+                    <Label htmlFor="subject">Subject (Optional)</Label>
                     <Select 
                       value={transcriptionForm.subject} 
-                      onValueChange={(value: any) => setTranscriptionForm(prev => ({ ...prev, subject: value }))}
+                      onValueChange={(value) => setTranscriptionForm(prev => ({ ...prev, subject: value }))}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select subject" />
@@ -773,11 +768,11 @@ export default function TranscriptionTranslationSystem() {
                         <div className="flex justify-between items-start">
                           <div>
                             <CardTitle className="text-base">
-                              {languageOptions.find(l => l.code === entry.originalLanguage: any)?.name || entry.originalLanguage}
-                              {entry.targetLanguage && ` → ${languageOptions.find(l => l.code === entry.targetLanguage: any)?.name || entry.targetLanguage}`}
+                              {languageOptions.find(l => l.code === entry.originalLanguage)?.name || entry.originalLanguage}
+                              {entry.targetLanguage && ` → ${languageOptions.find(l => l.code === entry.targetLanguage)?.name || entry.targetLanguage}`}
                             </CardTitle>
                             <CardDescription>
-                              {new Date(entry.createdAt: any).toLocaleDateString()}
+                              {new Date(entry.createdAt).toLocaleDateString()}
                               {entry.subject && ` • ${entry.subject}`}
                               {entry.context && ` • ${entry.context}`}
                             </CardDescription>
@@ -786,7 +781,7 @@ export default function TranscriptionTranslationSystem() {
                             <Button
                               variant="ghost"
                               size="sm"
-                              onClick={() => copyToClipboard(entry.originalText: any)}
+                              onClick={() => copyToClipboard(entry.originalText)}
                               className="h-8 w-8 p-0"
                               title="Copy original text"
                             >
@@ -872,7 +867,7 @@ export default function TranscriptionTranslationSystem() {
                     <Label htmlFor="subject">Subject</Label>
                     <Select 
                       value={vocabularyForm.subject} 
-                      onValueChange={(value: any) => setVocabularyForm(prev => ({ ...prev, subject: value }))}
+                      onValueChange={(value) => setVocabularyForm(prev => ({ ...prev, subject: value }))}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select subject" />
@@ -899,11 +894,11 @@ export default function TranscriptionTranslationSystem() {
                       </Button>
                     </div>
                     
-                    {vocabularyForm.translations.map((translation: any, index) => (
+                    {vocabularyForm.translations.map((translation, index) => (
                       <div key={index} className="flex items-centre gap-2">
                         <Select 
                           value={translation.language} 
-                          onValueChange={(value: any) => handleTranslationChange(index: any, 'language', value)}
+                          onValueChange={(value) => handleTranslationChange(index, 'language', value)}
                         >
                           <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="Select language" />
@@ -917,8 +912,8 @@ export default function TranscriptionTranslationSystem() {
                         
                         <Input
                           value={translation.translation}
-                          onChange={(e: any) => handleTranslationChange(index: any, 'translation', e.target.value)}
-                          placeholder={`Translation in ${languageOptions.find(l => l.code === translation.language: any)?.name || 'selected language'}`}
+                          onChange={(e) => handleTranslationChange(index, 'translation', e.target.value)}
+                          placeholder={`Translation in ${languageOptions.find(l => l.code === translation.language)?.name || 'selected language'}`}
                           className="flex-grow"
                         />
                         
@@ -926,7 +921,7 @@ export default function TranscriptionTranslationSystem() {
                           type="button"
                           variant="ghost"
                           size="sm"
-                          onClick={() => removeTranslation(index: any)}
+                          onClick={() => removeTranslation(index)}
                           disabled={vocabularyForm.translations.length <= 1}
                           className="h-8 w-8 p-0"
                         >
@@ -989,7 +984,7 @@ export default function TranscriptionTranslationSystem() {
                                 <Badge variant="outline">{item.subject}</Badge>
                               </CardTitle>
                               <CardDescription>
-                                Added on {new Date(item.createdAt: any).toLocaleDateString()}
+                                Added on {new Date(item.createdAt).toLocaleDateString()}
                               </CardDescription>
                             </div>
                             <Button
@@ -1015,10 +1010,10 @@ export default function TranscriptionTranslationSystem() {
                             <div>
                               <Label className="text-xs text-muted-foreground">Translations</Label>
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-1">
-                                {item.translations.map((translation: any, index) => (
+                                {item.translations.map((translation, index) => (
                                   <div key={index} className="flex items-centre gap-2 text-sm">
                                     <Badge variant="outline" className="min-w-[80px] justify-centre">
-                                      {languageOptions.find(l => l.code === translation.language: any)?.name || translation.language}
+                                      {languageOptions.find(l => l.code === translation.language)?.name || translation.language}
                                     </Badge>
                                     <span>{translation.translation}</span>
                                   </div>
@@ -1094,7 +1089,7 @@ export default function TranscriptionTranslationSystem() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => copyToClipboard(liveTranscription: any)}
+                          onClick={() => copyToClipboard(liveTranscription)}
                           className="h-7 w-7 p-0"
                           title="Copy transcription"
                         >
@@ -1161,9 +1156,9 @@ export default function TranscriptionTranslationSystem() {
                             <SelectValue placeholder="Select format" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="txt">Plain Text (.txt: any)</SelectItem>
-                            <SelectItem value="pdf">PDF Document (.pdf: any)</SelectItem>
-                            <SelectItem value="docx">Word Document (.docx: any)</SelectItem>
+                            <SelectItem value="txt">Plain Text (.txt)</SelectItem>
+                            <SelectItem value="pdf">PDF Document (.pdf)</SelectItem>
+                            <SelectItem value="docx">Word Document (.docx)</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
