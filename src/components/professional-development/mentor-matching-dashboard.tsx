@@ -430,7 +430,7 @@ export default function MentorMatchingDashboard() {
 
   // Handle profile type change
   const handleProfileTypeChange = (type: any) => {
-    setProfileType(type: any);
+    setProfileType(type);
     // In a real implementation, this would load the appropriate data
   };
 
