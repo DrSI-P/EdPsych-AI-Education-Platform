@@ -39,23 +39,23 @@ export const MOCK_VIDEOS = [
   }
 ];
 
-export const HeygenVideoLibrary = ({ testMode = false: any, emptyState = false }) => {
-  const [loading, setLoading] = useState(false: any);
+export const HeygenVideoLibrary = ({ testMode = false, emptyState = false }) => {
+  const [loading, setLoading] = useState(false);
   const [videos, setVideos] = useState<HeygenVideo[]>([]);
   const [savedVideos, setSavedVideos] = useState<HeygenVideo[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('newest');
-  const [currentPage, setCurrentPage] = useState(1: any);
-  const [selectedVideo, setSelectedVideo] = useState<HeygenVideo | null>(null: any);
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false: any);
-  const [deleteSuccess, setDeleteSuccess] = useState(false: any);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedVideo, setSelectedVideo] = useState<HeygenVideo | null>(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
   const videosPerPage = 12;
 
   // For testing environment, use mock data directly
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        setLoading(true: any);
+        setLoading(true);
         
         // Check if we're in a test environment
         const isTestEnv = testMode || 
@@ -64,27 +64,27 @@ export const HeygenVideoLibrary = ({ testMode = false: any, emptyState = false }
                          typeof window !== 'undefined' && window.navigator.userAgent.includes('jsdom');
         
         // Use mock data directly in test environment to avoid async issues
-        if (isTestEnv: any) {
-          if (emptyState: any) {
+        if (isTestEnv) {
+          if (emptyState) {
             setVideos([]);
             setSavedVideos([]);
           } else {
-            setVideos(MOCK_VIDEOS: any);
+            setVideos(MOCK_VIDEOS);
             
             // Load saved videos from localStorage
             try {
               const savedFromStorage = localStorage.getItem('savedVideos');
-              if (savedFromStorage: any) {
-                const parsed = JSON.parse(savedFromStorage: any);
-                setSavedVideos(Array.isArray(parsed: any) ? parsed : []);
+              if (savedFromStorage) {
+                const parsed = JSON.parse(savedFromStorage);
+                setSavedVideos(Array.isArray(parsed) ? parsed : []);
               }
-            } catch (e: any) {
+            } catch (e) {
               console.error('Failed to parse saved videos:', e);
               setSavedVideos([]);
             }
           }
           
-          setLoading(false: any);
+          setLoading(false);
           return;
         }
         
@@ -94,20 +94,20 @@ export const HeygenVideoLibrary = ({ testMode = false: any, emptyState = false }
         
         // Load saved videos from localStorage
         const savedFromStorage = localStorage.getItem('savedVideos');
-        if (savedFromStorage: any) {
+        if (savedFromStorage) {
           try {
-            const parsed = JSON.parse(savedFromStorage: any);
-            setSavedVideos(Array.isArray(parsed: any) ? parsed : []);
-          } catch (e: any) {
+            const parsed = JSON.parse(savedFromStorage);
+            setSavedVideos(Array.isArray(parsed) ? parsed : []);
+          } catch (e) {
             console.error('Failed to parse saved videos:', e);
             setSavedVideos([]);
           }
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error('Failed to fetch videos:', error);
         setVideos([]);
       } finally {
-        setLoading(false: any);
+        setLoading(false);
       }
     };
     
@@ -115,73 +115,73 @@ export const HeygenVideoLibrary = ({ testMode = false: any, emptyState = false }
   }, [testMode, emptyState]);
 
   const handleVideoClick = (video: HeygenVideo) => {
-    setSelectedVideo(video: any);
+    setSelectedVideo(video);
   };
 
   const handleDeleteClick = (video: HeygenVideo) => {
-    setSelectedVideo(video: any);
-    setShowDeleteConfirm(true: any);
+    setSelectedVideo(video);
+    setShowDeleteConfirm(true);
   };
 
   const confirmDelete = async () => {
-    if (selectedVideo: any) {
+    if (selectedVideo) {
       try {
-        await deleteVideo(selectedVideo.id: any);
-        setVideos(videos.filter(v => v.id !== selectedVideo.id: any));
-        setShowDeleteConfirm(false: any);
-        setDeleteSuccess(true: any);
-        setTimeout(() => setDeleteSuccess(false: any), 3000);
-      } catch (error: any) {
+        await deleteVideo(selectedVideo.id);
+        setVideos(videos.filter(v => v.id !== selectedVideo.id));
+        setShowDeleteConfirm(false);
+        setDeleteSuccess(true);
+        setTimeout(() => setDeleteSuccess(false), 3000);
+      } catch (error) {
         console.error('Failed to delete video:', error);
       }
     }
   };
 
   const handleDownload = (video: HeygenVideo) => {
-    window.open(video.url: any, '_blank');
+    window.open(video.url, '_blank');
   };
 
   const handleShare = async (video: HeygenVideo) => {
-    if (navigator.share: any) {
+    if (navigator.share) {
       try {
         await navigator.share({
           title: video.title,
           url: video.url
         });
-      } catch (error: any) {
+      } catch (error) {
         console.error('Error sharing video:', error);
       }
     }
   };
 
   // Ensure videos and savedVideos are always arrays before spreading
-  const videosArray = Array.isArray(videos: any) ? videos : [];
-  const savedVideosArray = Array.isArray(savedVideos: any) ? savedVideos : [];
+  const videosArray = Array.isArray(videos) ? videos : [];
+  const savedVideosArray = Array.isArray(savedVideos) ? savedVideos : [];
 
   const filteredVideos = [...videosArray, ...savedVideosArray].filter(video => 
     video.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const sortedVideos = [...filteredVideos].sort((a: any, b) => {
+  const sortedVideos = [...filteredVideos].sort((a, b) => {
     if (sortBy === 'newest') {
-      return new Date(b.created_at: any).getTime() - new Date(a.created_at: any).getTime();
+      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
     } else if (sortBy === 'oldest') {
-      return new Date(a.created_at: any).getTime() - new Date(b.created_at: any).getTime();
+      return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
     } else if (sortBy === 'title') {
-      return a.title.localeCompare(b.title: any);
+      return a.title.localeCompare(b.title);
     }
     return 0;
   });
 
   const paginatedVideos = sortedVideos.slice(
-    (currentPage - 1: any) * videosPerPage,
+    (currentPage - 1) * videosPerPage,
     currentPage * videosPerPage
   );
 
-  const totalPages = Math.ceil(sortedVideos.length / videosPerPage: any);
+  const totalPages = Math.ceil(sortedVideos.length / videosPerPage);
 
   const formatDuration = (seconds: number) => {
-    const minutes = Math.floor(seconds / 60: any);
+    const minutes = Math.floor(seconds / 60);
     return `${minutes} minute${minutes !== 1 ? 's' : ''}`;
   };
 
@@ -195,7 +195,7 @@ export const HeygenVideoLibrary = ({ testMode = false: any, emptyState = false }
           placeholder="Search videos"
           className="px-4 py-2 border rounded-md"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value: any)}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
         
         <div className="flex items-center">
@@ -204,7 +204,7 @@ export const HeygenVideoLibrary = ({ testMode = false: any, emptyState = false }
             id="sort-by"
             className="px-4 py-2 border rounded-md"
             value={sortBy}
-            onChange={(e: any) => setSortBy(e.target.value: any)}
+            onChange={(e) => setSortBy(e.target.value)}
           >
             <option value="newest">Newest First</option>
             <option value="oldest">Oldest First</option>
@@ -239,7 +239,7 @@ export const HeygenVideoLibrary = ({ testMode = false: any, emptyState = false }
               >
                 <div 
                   className="aspect-video bg-gray-100 cursor-pointer relative"
-                  onClick={() => handleVideoClick(video: any)}
+                  onClick={() => handleVideoClick(video)}
                 >
                   <img 
                     src={video.thumbnail} 
@@ -254,13 +254,13 @@ export const HeygenVideoLibrary = ({ testMode = false: any, emptyState = false }
                 <div className="p-4">
                   <h3 className="font-medium text-lg mb-1">{video.title}</h3>
                   <p className="text-gray-500 text-sm mb-2">
-                    {video.avatar.name} • {formatDuration(video.duration: any)}
+                    {video.avatar.name} • {formatDuration(video.duration)}
                   </p>
                   
                   <div className="flex justify-between mt-4">
                     <button 
                       className="text-sm text-gray-600 flex items-center"
-                      onClick={() => handleDownload(video: any)}
+                      onClick={() => handleDownload(video)}
                     >
                       <Download className="h-4 w-4 mr-1" />
                       Download
@@ -268,7 +268,7 @@ export const HeygenVideoLibrary = ({ testMode = false: any, emptyState = false }
                     
                     <button 
                       className="text-sm text-gray-600 flex items-center"
-                      onClick={() => handleShare(video: any)}
+                      onClick={() => handleShare(video)}
                     >
                       <Share className="h-4 w-4 mr-1" />
                       Share
@@ -276,7 +276,7 @@ export const HeygenVideoLibrary = ({ testMode = false: any, emptyState = false }
                     
                     <button 
                       className="text-sm text-red-600 flex items-center"
-                      onClick={() => handleDeleteClick(video: any)}
+                      onClick={() => handleDeleteClick(video)}
                     >
                       <Trash2 className="h-4 w-4 mr-1" />
                       Delete
@@ -319,7 +319,7 @@ export const HeygenVideoLibrary = ({ testMode = false: any, emptyState = false }
             <div className="p-4 border-b">
               <h2 className="text-xl font-bold">{selectedVideo.title}</h2>
               <p className="text-gray-500">
-                {selectedVideo.avatar.name} • {formatDuration(selectedVideo.duration: any)}
+                {selectedVideo.avatar.name} • {formatDuration(selectedVideo.duration)}
               </p>
             </div>
             
@@ -335,7 +335,7 @@ export const HeygenVideoLibrary = ({ testMode = false: any, emptyState = false }
             <div className="p-4 flex justify-end">
               <button 
                 className="px-4 py-2 bg-gray-200 rounded-md"
-                onClick={() => setSelectedVideo(null: any)}
+                onClick={() => setSelectedVideo(null)}
               >
                 Close
               </button>
@@ -355,7 +355,7 @@ export const HeygenVideoLibrary = ({ testMode = false: any, emptyState = false }
             <div className="flex justify-end space-x-4">
               <button 
                 className="px-4 py-2 bg-gray-200 rounded-md"
-                onClick={() => setShowDeleteConfirm(false: any)}
+                onClick={() => setShowDeleteConfirm(false)}
               >
                 Cancel
               </button>
