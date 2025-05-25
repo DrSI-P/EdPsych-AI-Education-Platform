@@ -8,10 +8,30 @@ import {
 
 // Add Jest globals
 declare global {
-  const describe: any;
-  const beforeEach: any;
-  const test: any;
-  const expect: any;
+  namespace jest {
+    interface Mock<T = any, Y extends any[] = any[]> {
+      mockReturnValue: (val: T) => Mock<T, Y>;
+      fn: () => Mock;
+      clearAllMocks: () => void;
+    }
+  }
+  const jest: {
+    fn: <T = any>() => jest.Mock<T>;
+    mock: (moduleName: string) => any;
+    clearAllMocks: () => void;
+  };
+  const describe: (name: string, fn: () => void) => void;
+  const beforeEach: (fn: () => void) => void;
+  const test: (name: string, fn: () => void | Promise<void>) => void;
+  const expect: <T>(actual: T) => {
+    toBe: (expected: T) => void;
+    toHaveLength: (length: number) => void;
+    toBeDefined: () => void;
+    not: {
+      toBe: (expected: T) => void;
+      toBeInTheDocument: () => void;
+    };
+  };
 }
 
 describe('AdaptiveComplexityService', () => {
