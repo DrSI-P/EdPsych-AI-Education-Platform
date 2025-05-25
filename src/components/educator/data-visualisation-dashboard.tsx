@@ -510,7 +510,7 @@ export function DataVisualisationDashboard() {
                   <Area 
                     type="monotone" 
                     dataKey="positive" 
-                    stackId="1" 
+                    stackId="1"
                     stroke="#4ade80" 
                     fill="#4ade80"
                     isAnimationActive={chartSettings.animationEnabled}
@@ -518,7 +518,7 @@ export function DataVisualisationDashboard() {
                   <Area 
                     type="monotone" 
                     dataKey="concern" 
-                    stackId="1" 
+                    stackId="1"
                     stroke="#f87171" 
                     fill="#f87171"
                     isAnimationActive={chartSettings.animationEnabled}
@@ -533,7 +533,7 @@ export function DataVisualisationDashboard() {
           <CardHeader>
             <CardTitle>Resource Usage</CardTitle>
             <CardDescription>
-              Distribution by resource type
+              Distribution of educational resources
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -549,15 +549,10 @@ export function DataVisualisationDashboard() {
                     fill="#8884d8"
                     dataKey="value"
                     isAnimationActive={chartSettings.animationEnabled}
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                   >
                     {resourceUsageData.map((entry, index) => (
-                      <Cell 
-                        key={`cell-${index}`} 
-                        fill={[
-                          '#8884d8', '#82ca9d', '#ffc658', '#ff8042', '#0088fe'
-                        ][index % 5]} 
-                      />
+                      <Cell key={`cell-${index}`} fill={['#8884d8', '#82ca9d', '#ffc658', '#ff8042', '#0088fe'][index % 5]} />
                     ))}
                   </Pie>
                   {chartSettings.showLegend && <Legend />}
@@ -588,10 +583,10 @@ export function DataVisualisationDashboard() {
                     fill="#8884d8"
                     dataKey="value"
                     isAnimationActive={chartSettings.animationEnabled}
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                   >
                     {parentEngagementData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.colour} />
+                      <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
                   {chartSettings.showLegend && <Legend />}
@@ -601,10 +596,7 @@ export function DataVisualisationDashboard() {
             </div>
           </CardContent>
         </Card>
-      </div>
-      
-      {/* Alerts and insights */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        
         <Card className="md:col-span-2">
           <CardHeader>
             <CardTitle>Recent Alerts & Insights</CardTitle>
@@ -616,31 +608,27 @@ export function DataVisualisationDashboard() {
             <div className="space-y-4">
               {alerts.map(alert => (
                 <div 
-                  key={alert.id} 
+                  key={alert.id}
                   className={cn(
-                    "p-4 rounded-lg border flex items-start space-x-4",
-                    alert.type === 'warning' && "bg-yellow-50 border-yellow-200",
-                    alert.type === 'success' && "bg-green-50 border-green-200",
-                    alert.type === 'info' && "bg-blue-50 border-blue-200"
+                    "flex items-start p-3 rounded-lg",
+                    alert.type === 'warning' && "bg-yellow-50 border border-yellow-200",
+                    alert.type === 'success' && "bg-green-50 border border-green-200",
+                    alert.type === 'info' && "bg-blue-50 border border-blue-200"
                   )}
                 >
-                  {alert.type === 'warning' && (
-                    <AlertTriangle className="h-5 w-5 text-yellow-500 flex-shrink-0" />
-                  )}
-                  {alert.type === 'success' && (
-                    <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                  )}
-                  {alert.type === 'info' && (
-                    <Info className="h-5 w-5 text-blue-500 flex-shrink-0" />
-                  )}
+                  <div className="mr-3 mt-0.5">
+                    {alert.type === 'warning' && <AlertTriangle className="h-5 w-5 text-yellow-500" />}
+                    {alert.type === 'success' && <CheckCircle className="h-5 w-5 text-green-500" />}
+                    {alert.type === 'info' && <Info className="h-5 w-5 text-blue-500" />}
+                  </div>
                   <div className="flex-1">
-                    <div className="flex items-centre justify-between">
-                      <p className="font-medium">{alert.message}</p>
-                      <span className="text-xs text-muted-foreground">{alert.date}</span>
+                    <p className="text-sm font-medium">{alert.message}</p>
+                    <div className="flex items-centre justify-between mt-1">
+                      <p className="text-xs text-muted-foreground">{alert.date}</p>
+                      <Button variant="link" size="sm" className="h-auto p-0 text-xs">
+                        {alert.action}
+                      </Button>
                     </div>
-                    <Button variant="link" className="p-0 h-auto text-sm">
-                      {alert.action}
-                    </Button>
                   </div>
                 </div>
               ))}
@@ -668,15 +656,10 @@ export function DataVisualisationDashboard() {
                     fill="#8884d8"
                     dataKey="value"
                     isAnimationActive={chartSettings.animationEnabled}
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                   >
                     {timeAllocationData.map((entry, index) => (
-                      <Cell 
-                        key={`cell-${index}`} 
-                        fill={[
-                          '#8884d8', '#82ca9d', '#ffc658', '#ff8042', '#0088fe'
-                        ][index % 5]} 
-                      />
+                      <Cell key={`cell-${index}`} fill={['#8884d8', '#82ca9d', '#ffc658', '#ff8042', '#0088fe'][index % 5]} />
                     ))}
                   </Pie>
                   {chartSettings.showLegend && <Legend />}
@@ -693,64 +676,93 @@ export function DataVisualisationDashboard() {
   // Render academic dashboard
   const renderAcademicDashboard = () => (
     <div className="space-y-6">
-      {/* Key metrics */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+      {/* Academic performance charts */}
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
-          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Average Academic Progress
-            </CardTitle>
-            <Award className="h-4 w-4 text-muted-foreground" />
+          <CardHeader>
+            <CardTitle>Subject Performance Comparison</CardTitle>
+            <CardDescription>
+              Average scores across all subjects
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+14.2%</div>
-            <p className="text-xs text-muted-foreground">
-              +3.5% from previous term
-            </p>
-            <div className="mt-4 h-1 w-full bg-primary/10">
-              <div className="h-1 bg-primary" style={{ width: "82%" }} />
+            <div className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={[
+                    { subject: 'Maths', score: 78, target: 75 },
+                    { subject: 'English', score: 72, target: 75 },
+                    { subject: 'Science', score: 68, target: 70 },
+                    { subject: 'History', score: 74, target: 70 },
+                    { subject: 'Geography', score: 71, target: 70 },
+                    { subject: 'Art', score: 82, target: 75 },
+                    { subject: 'PE', score: 85, target: 80 },
+                  ]}
+                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                  layout="vertical"
+                >
+                  {chartSettings.showGrid && <CartesianGrid strokeDasharray="3 3" />}
+                  <XAxis type="number" />
+                  <YAxis dataKey="subject" type="category" />
+                  {chartSettings.showLegend && <Legend />}
+                  <Tooltip />
+                  <Bar 
+                    dataKey="score" 
+                    fill="#8884d8"
+                    isAnimationActive={chartSettings.animationEnabled}
+                  />
+                  <Bar 
+                    dataKey="target" 
+                    fill="#82ca9d"
+                    isAnimationActive={chartSettings.animationEnabled}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
         
         <Card>
-          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Assessment Completion
-            </CardTitle>
-            <BookOpen className="h-4 w-4 text-muted-foreground" />
+          <CardHeader>
+            <CardTitle>Progress Over Time</CardTitle>
+            <CardDescription>
+              Tracking improvement across assessment points
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">96.5%</div>
-            <p className="text-xs text-muted-foreground">
-              +1.2% from previous term
-            </p>
-            <div className="mt-4 h-1 w-full bg-primary/10">
-              <div className="h-1 bg-primary" style={{ width: "96%" }} />
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Curriculum Coverage
-            </CardTitle>
-            <BookOpenIcon className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">87.3%</div>
-            <p className="text-xs text-muted-foreground">
-              On track for term completion
-            </p>
-            <div className="mt-4 h-1 w-full bg-primary/10">
-              <div className="h-1 bg-primary" style={{ width: "87%" }} />
+            <div className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                  data={[
+                    { period: 'Baseline', average: 62 },
+                    { period: 'Term 1', average: 65 },
+                    { period: 'Term 2', average: 68 },
+                    { period: 'Term 3', average: 72 },
+                    { period: 'Term 4', average: 75 },
+                    { period: 'Term 5', average: 78 },
+                    { period: 'Term 6', average: 82 },
+                  ]}
+                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                >
+                  {chartSettings.showGrid && <CartesianGrid strokeDasharray="3 3" />}
+                  <XAxis dataKey="period" />
+                  <YAxis domain={[50, 100]} />
+                  {chartSettings.showLegend && <Legend />}
+                  <Tooltip />
+                  <Line 
+                    type="monotone" 
+                    dataKey="average" 
+                    stroke="#8884d8" 
+                    activeDot={{ r: 8 }}
+                    isAnimationActive={chartSettings.animationEnabled}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
       </div>
       
-      {/* Learning styles distribution */}
       <Card>
         <CardHeader>
           <CardTitle>Learning Styles Distribution</CardTitle>
@@ -781,7 +793,6 @@ export function DataVisualisationDashboard() {
         </CardContent>
       </Card>
       
-      {/* Intervention effectiveness */}
       <Card>
         <CardHeader>
           <CardTitle>Intervention Effectiveness</CardTitle>
@@ -804,13 +815,11 @@ export function DataVisualisationDashboard() {
                 <Bar 
                   dataKey="before" 
                   fill="#f87171"
-                  name="Before Intervention"
                   isAnimationActive={chartSettings.animationEnabled}
                 />
                 <Bar 
                   dataKey="after" 
                   fill="#4ade80"
-                  name="After Intervention"
                   isAnimationActive={chartSettings.animationEnabled}
                 />
               </BarChart>
@@ -821,8 +830,8 @@ export function DataVisualisationDashboard() {
     </div>
   );
   
-  // Render chart settings panel
-  const renderChartSettings = () => (
+  // Render settings panel
+  const renderSettingsPanel = () => (
     <Card>
       <CardHeader>
         <CardTitle>Visualisation Settings</CardTitle>
@@ -877,13 +886,28 @@ export function DataVisualisationDashboard() {
           </div>
           
           <div className="space-y-2">
-            <Label>Chart opacity</Label>
+            <Label>Chart scale</Label>
             <Slider
-              defaultValue={[80]}
+              defaultValue={[75]}
               max={100}
-              step={1}
-              className="w-full"
+              step={5}
             />
+          </div>
+          
+          <div className="space-y-2">
+            <Label>Data refresh interval</Label>
+            <Select defaultValue="30min">
+              <SelectTrigger>
+                <SelectValue placeholder="Select interval" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="5min">Every 5 minutes</SelectItem>
+                <SelectItem value="15min">Every 15 minutes</SelectItem>
+                <SelectItem value="30min">Every 30 minutes</SelectItem>
+                <SelectItem value="1hr">Every hour</SelectItem>
+                <SelectItem value="manual">Manual refresh only</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
       </CardContent>
@@ -929,7 +953,7 @@ export function DataVisualisationDashboard() {
         
         <TabsContent value="settings" className="mt-6">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {renderChartSettings()}
+            {renderSettingsPanel()}
             
             <Card>
               <CardHeader>
@@ -944,15 +968,12 @@ export function DataVisualisationDashboard() {
                     <Label>Saved Dashboards</Label>
                     <div className="mt-2 space-y-2">
                       {dashboardConfigs.map(config => (
-                        <div 
-                          key={config.id}
-                          className="flex items-centre justify-between p-2 border rounded-md"
-                        >
-                          <div className="flex items-centre">
+                        <div key={config.id} className="flex items-centre justify-between">
+                          <div className="flex items-centre space-x-2">
+                            <Badge variant={config.isDefault ? "default" : "outline"}>
+                              {config.isDefault ? "Default" : "Custom"}
+                            </Badge>
                             <span>{config.name}</span>
-                            {config.isDefault && (
-                              <Badge variant="outline" className="ml-2">Default</Badge>
-                            )}
                           </div>
                           <div className="flex items-centre space-x-2">
                             <Button variant="ghost" size="sm">Edit</Button>
@@ -965,9 +986,7 @@ export function DataVisualisationDashboard() {
                     </div>
                   </div>
                   
-                  <Button className="w-full">
-                    Save Current Configuration
-                  </Button>
+                  <Button className="w-full">Create New Dashboard</Button>
                 </div>
               </CardContent>
             </Card>
@@ -986,50 +1005,37 @@ export function DataVisualisationDashboard() {
               <div>
                 <h3 className="text-lg font-medium">Getting Started</h3>
                 <p className="text-muted-foreground mt-1">
-                  The Data Visualisation Dashboard provides interactive analytics to help you make data-informed decisions about your educational practise. Here's how to get started:
+                  The Data Visualisation Dashboard provides interactive analytics and insights to support evidence-based educational practices. Use the tabs at the top to navigate between different views.
                 </p>
-                <ul className="list-disc pl-6 mt-2 space-y-1">
-                  <li>Use the filters at the top to select time periods and student groups</li>
-                  <li>Switch between dashboard tabs to focus on different aspects of your data</li>
-                  <li>Hover over charts to see detailed information</li>
-                  <li>Customise your view in the Settings tab</li>
-                </ul>
               </div>
               
               <div>
-                <h3 className="text-lg font-medium">Understanding the Data</h3>
+                <h3 className="text-lg font-medium">Using Filters</h3>
                 <p className="text-muted-foreground mt-1">
-                  The dashboard presents data from across the platform, including:
+                  Apply filters using the filter bar to focus on specific time periods, student groups, or other criteria. Custom date ranges allow for precise analysis of specific periods.
                 </p>
-                <ul className="list-disc pl-6 mt-2 space-y-1">
-                  <li>Student academic progress across subjects</li>
-                  <li>Attendance and behaviour patterns</li>
-                  <li>Resource utilisation and effectiveness</li>
-                  <li>Parent engagement metrics</li>
-                  <li>Time allocation analysis</li>
-                </ul>
               </div>
               
               <div>
-                <h3 className="text-lg font-medium">Taking Action</h3>
+                <h3 className="text-lg font-medium">Customising Your View</h3>
                 <p className="text-muted-foreground mt-1">
-                  The insights from this dashboard can help you:
+                  Use the Settings tab to customise how charts and data are displayed. You can toggle grid lines, legends, animations, and more to suit your preferences.
                 </p>
-                <ul className="list-disc pl-6 mt-2 space-y-1">
-                  <li>Identify students who may need additional support</li>
-                  <li>Recognise successful teaching strategies</li>
-                  <li>Optimise resource allocation</li>
-                  <li>Improve parent communication</li>
-                  <li>Make evidence-based decisions about your practise</li>
-                </ul>
               </div>
               
-              <div className="flex justify-centre mt-4">
-                <Button>
-                  View Full Documentation
-                </Button>
+              <div>
+                <h3 className="text-lg font-medium">Saving & Sharing</h3>
+                <p className="text-muted-foreground mt-1">
+                  Create and save custom dashboard configurations for different purposes. Use the share button to export or share insights with colleagues.
+                </p>
               </div>
             </CardContent>
+            <CardFooter>
+              <Button variant="outline" className="w-full">
+                <BookOpen className="mr-2 h-4 w-4" />
+                View Full Documentation
+              </Button>
+            </CardFooter>
           </Card>
         </TabsContent>
       </Tabs>
