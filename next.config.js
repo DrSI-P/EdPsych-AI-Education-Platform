@@ -3,6 +3,8 @@
  * 
  * @type {import('next').NextConfig}
  */
+const path = require('path');
+
 const nextConfig = {
   reactStrictMode: true,
   
@@ -52,10 +54,10 @@ const nextConfig = {
     // Add module resolution aliases for better imports
     config.resolve.alias = {
       ...config.resolve.alias,
-      // Add explicit aliases for problematic paths
-      '@/lib/auth/auth-options': require.resolve('src/lib/auth/auth-options'),
-      '@/lib/db/prisma': require.resolve('src/lib/db/prisma'),
-      '@/lib/ai/ai-service': require.resolve('src/lib/ai/ai-service')
+      // Add explicit aliases for problematic paths using plain string paths
+      '@/lib/auth/auth-options': path.join(__dirname, 'src/lib/auth/auth-options'),
+      '@/lib/db/prisma': path.join(__dirname, 'src/lib/db/prisma'),
+      '@/lib/ai/ai-service': path.join(__dirname, 'src/lib/ai/ai-service')
     };
     
     return config;
