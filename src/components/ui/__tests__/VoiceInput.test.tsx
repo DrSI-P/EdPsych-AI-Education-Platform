@@ -88,7 +88,6 @@ describe('VoiceInput', () => {
     fireEvent.click(button);
     
     // Simulate speech recognition result
-    const instance = new MockSpeechRecognition();
     const mockEvent = {
       resultIndex: 0,
       results: [
@@ -111,7 +110,6 @@ describe('VoiceInput', () => {
     fireEvent.click(button);
     
     // Simulate final speech recognition result
-    const instance = new MockSpeechRecognition();
     const mockEvent = {
       resultIndex: 0,
       results: [
@@ -134,7 +132,6 @@ describe('VoiceInput', () => {
     fireEvent.click(button);
     
     // Simulate final speech recognition result
-    const instance = new MockSpeechRecognition();
     const mockEvent = {
       resultIndex: 0,
       results: [
