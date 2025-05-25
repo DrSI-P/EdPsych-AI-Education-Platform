@@ -303,13 +303,12 @@ export function ParentCommunicationManagement() {
   };
   
   // Render message composition section
-  const renderMessageComposition = () => {
-    return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Compose Message</CardTitle>
-          <CardDescription>Customise your message and select recipients</CardDescription>
-        </CardHeader>
+  const renderMessageComposition = () => (
+    <Card>
+      <CardHeader>
+        <CardTitle>Compose Message</CardTitle>
+        <CardDescription>Customise your message and select recipients</CardDescription>
+      </CardHeader>
         <CardContent>
           <div className="space-y-4">
             <div>
