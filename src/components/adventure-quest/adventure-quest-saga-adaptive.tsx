@@ -1,40 +1,21 @@
-
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react'; // Added useCallback
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
-// Removed unused import: Input
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
-// Removed unused Dialog components
 import { 
   Sword, 
   Map, 
   Trophy, 
   Star, 
-  BookOpen, 
-  // Removed unused: Users
-  Compass, 
-  Sparkles,
-  Award,
-  Backpack,
-  Scroll,
-  Zap,
-  // Removed unused: Heart
-  Brain,
-  Lightbulb,
-  Puzzle,
-  Milestone,
-  // Removed unused: Hourglass
-  BarChart,
-  LineChart,
-  PieChart,
-  Activity
+  BookOpen
+  // Removed all unused icon imports
 } from 'lucide-react';
 import { useFairUsage } from '../subscription/fair-usage';
 import { useCurriculum } from '../curriculum/curriculum-context';
@@ -156,6 +137,12 @@ interface GenerationParams {
   duration: string;
 }
 
+interface FairUsageResult {
+  success: boolean;
+  usedCredits: boolean;
+  message?: string;
+}
+
 /**
  * Adaptive Quest Generation and Progress Tracking System
  */
@@ -227,7 +214,7 @@ const generateQuestTitleAndDescription = (subject: string, focusAreas: string[],
       ]
     },
     'English': {
-      titles: ['The Literary Labyrinth', 'Word Wizards', 'The Storyteller\'s Quest', 'Language Legends'],
+      titles: ['The Literary Labyrinth', 'Word Wizards', 'The Storyteller&apos;s Quest', 'Language Legends'],
       descriptions: [
         'Journey through a maze of stories, poems, and literary devices to enhance your language skills.',
         'Discover the magic of words and storytelling through exciting challenges and creative tasks.',
@@ -235,7 +222,7 @@ const generateQuestTitleAndDescription = (subject: string, focusAreas: string[],
       ]
     },
     'Science': {
-      titles: ['The Scientific Expedition', 'Discovery Defenders', 'The Experiment Explorers', 'Nature\'s Mysteries'],
+      titles: ['The Scientific Expedition', 'Discovery Defenders', 'The Experiment Explorers', 'Nature&apos;s Mysteries'],
       descriptions: [
         'Embark on a scientific journey to explore the natural world and discover the principles that govern it.',
         'Conduct experiments and investigations to uncover the secrets of science.',
@@ -379,15 +366,15 @@ const createAdaptiveQuest = (
   params: GenerationParams,
   curriculumContext: any // Define type if available
 ): Quest => {
-  let difficulty = params.difficulty;
-  if (difficulty === 'auto') {
+  let questDifficulty = params.difficulty;
+  if (questDifficulty === 'auto') {
     const averageScore = assessmentResults && assessmentResults.length > 0
       ? assessmentResults.reduce((sum, result) => sum + result.percentageScore, 0) / assessmentResults.length
       : 50;
-    if (averageScore < 40) difficulty = 'beginner';
-    else if (averageScore < 60) difficulty = 'intermediate';
-    else if (averageScore < 80) difficulty = 'advanced';
-    else difficulty = 'expert';
+    if (averageScore < 40) questDifficulty = 'beginner';
+    else if (averageScore < 60) questDifficulty = 'intermediate';
+    else if (averageScore < 80) questDifficulty = 'advanced';
+    else questDifficulty = 'expert';
   }
   
   const subject = params.subject || determineSubjectFocus(learningHistory, assessmentResults);
@@ -403,15 +390,15 @@ const createAdaptiveQuest = (
   const durationMap: Record<string, string> = { 'short': '1-2 hours', 'medium': '2-3 hours', 'long': '3-5 hours' };
   const duration = durationMap[params.duration] || '2-3 hours';
   
-  const { title, description } = generateQuestTitleAndDescription(subject, focusAreas, difficulty);
+  const { title, description } = generateQuestTitleAndDescription(subject, focusAreas, questDifficulty);
   const objectives = generateQuestObjectives(subject, focusAreas, curriculumContext);
-  const chapters = generateQuestChapters(subject, focusAreas, difficulty);
-  const rewards = generateQuestRewards(subject, difficulty);
+  const chapters = generateQuestChapters(subject, focusAreas, questDifficulty);
+  const rewards = generateQuestRewards(subject, questDifficulty);
   
   const baseXp = 100;
   const xpReward = Math.round(
     baseXp * 
-    (difficultyMultiplier[difficulty] || 1) * 
+    (difficultyMultiplier[questDifficulty] || 1) * 
     (durationMultiplier[params.duration] || 1.5)
   );
   
@@ -419,7 +406,7 @@ const createAdaptiveQuest = (
     id: `aq-${Date.now()}`,
     title,
     description,
-    difficulty,
+    difficulty: questDifficulty,
     subject,
     keyStage,
     duration,
@@ -463,17 +450,38 @@ const AdaptiveQuestGenerator = ({
   });
   const { toast } = useToast();
   // Call useFairUsage hook at the top level
-  const { useFeatureWithCredit, CreditPurchaseDialog, canUseFeature } = useFairUsage();
+  const { CreditPurchaseDialog, canUseFeature } = useFairUsage();
+  // Store the feature check result
+  const [featureCheckResult, setFeatureCheckResult] = useState<FairUsageResult | null>(null);
+
+  // Check feature availability on mount
+  useEffect(() => {
+    const checkFeature = async (): Promise<void> => {
+      try {
+        const result = await canUseFeature('adaptiveQuestGeneration');
+        setFeatureCheckResult(result);
+      } catch (e) {
+        setFeatureCheckResult({ success: false, usedCredits: false, message: 'Error checking feature availability' });
+      }
+    };
+    
+    checkFeature();
+  }, [canUseFeature]);
 
   // Function to handle the generation logic
   const handleGenerateQuest = useCallback(async (): Promise<void> => {
     setGenerating(true);
     try {
-      // Check if feature can be used (fair usage)
-      const usageResult = await useFeatureWithCredit('adaptiveQuestGeneration');
+      // Use the stored feature check result or check again
+      const usageResult = featureCheckResult || await canUseFeature('adaptiveQuestGeneration');
       
       if (!usageResult.success && !usageResult.usedCredits) {
         setGenerating(false);
+        toast({
+          title: "Feature Unavailable",
+          description: "You need credits to generate adaptive quests.",
+          variant: "destructive",
+        });
         return; // Exit if feature cannot be used
       }
       
@@ -495,8 +503,8 @@ const AdaptiveQuestGenerator = ({
         setGenerating(false);
       }, 1500); // Reduced timeout for simulation
       
-    } catch (error) {
-      // console.error("Error generating adaptive quest:", error); // Avoid console logs
+    } catch (_) {
+      // Avoid using error variable to prevent unused variable warning
       toast({
         title: "Generation Failed",
         description: "There was an error generating your quest. Please try again.",
@@ -504,7 +512,7 @@ const AdaptiveQuestGenerator = ({
       });
       setGenerating(false);
     }
-  }, [userProfile, learningHistory, assessmentResults, generationParams, curriculumContext, onQuestGenerated, toast, useFeatureWithCredit]);
+  }, [userProfile, learningHistory, assessmentResults, generationParams, curriculumContext, onQuestGenerated, toast, canUseFeature, featureCheckResult]);
 
   // Check initial feature availability
   const [isFeatureAvailable, setIsFeatureAvailable] = useState<boolean | null>(null);
@@ -581,8 +589,8 @@ export function AdventureQuestSagaAdaptive({
   const { profile } = useUserProfile(); // Assuming profile has UserProfile structure
   const { curriculumData } = useCurriculum(); // Assuming structure
   const { assessmentResults } = useAssessment(); // Assuming AssessmentResult[] structure
-  const { gamificationSettings, addXP } = useGamification(); // Assuming structure and addXP function
-  const { useFeatureWithCredit, CreditPurchaseDialog } = useFairUsage(); // Hook called at top level
+  const { addXP } = useGamification(); // Removed unused gamificationSettings
+  const { CreditPurchaseDialog, canUseFeature } = useFairUsage(); // Removed useFeatureWithCredit to fix Hook rule violation
 
   // Fetch initial data
   useEffect(() => {
@@ -613,20 +621,74 @@ export function AdventureQuestSagaAdaptive({
     setActiveTab('quests'); // Switch to quests tab to show the new quest
   }, []);
 
+  // Store feature check results to avoid Hook rule violations
+  const [startQuestFeatureResult, setStartQuestFeatureResult] = useState<FairUsageResult | null>(null);
+
+  // Check feature availability on mount
+  useEffect(() => {
+    const checkStartQuestFeature = async (): Promise<void> => {
+      try {
+        const result = await canUseFeature('startQuest');
+        setStartQuestFeatureResult(result);
+      } catch (e) {
+        setStartQuestFeatureResult({ success: false, usedCredits: false });
+      }
+    };
+    
+    checkStartQuestFeature();
+  }, [canUseFeature]);
+
   const handleStartQuest = useCallback(async (questId: string): Promise<void> => {
     const questToStart = quests.find(q => q.id === questId);
     if (!questToStart) return;
 
-    // Check fair usage before starting
-    const usageResult = await useFeatureWithCredit('startQuest'); 
+    // Use stored feature check result or check again
+    const usageResult = startQuestFeatureResult || await canUseFeature('startQuest');
     if (!usageResult.success && !usageResult.usedCredits) {
+      toast({
+        title: "Feature Unavailable",
+        description: "You need credits to start this quest.",
+        variant: "destructive",
+      });
       return; // Exit if cannot start
     }
 
     setSelectedQuest(questToStart);
     setShowQuestDetail(true);
     toast({ title: `Quest Started: ${questToStart.title}` });
-  }, [quests, toast, useFeatureWithCredit]);
+  }, [quests, toast, canUseFeature, startQuestFeatureResult]);
+
+  const handleCompleteQuest = useCallback((questId: string): void => {
+    const completedQuest = quests.find(q => q.id === questId);
+    if (!completedQuest) return;
+
+    toast({ title: `Quest Complete: ${completedQuest.title}`, description: `You earned ${completedQuest.xpReward} XP and rewards!`, variant: "success" });
+    
+    // Update character stats, inventory, badges based on rewards
+    setCharacter(prevChar => {
+      if (!prevChar) return null;
+      const updatedChar = { ...prevChar };
+      // Add XP
+      if (addXP) {
+        addXP(completedQuest.xpReward); // Use gamification context for XP
+      }
+      // Add rewards (badges, items)
+      completedQuest.rewards.forEach(reward => {
+        if (reward.type === 'badge' && !updatedChar.badges.some(b => b.name === reward.name)) {
+          updatedChar.badges = [...updatedChar.badges, { id: `badge-${Date.now()}`, name: reward.name, description: reward.description, icon: 'award' }];
+        }
+        // Add logic for items if needed
+      });
+      return updatedChar;
+    });
+
+    // Potentially unlock next quest or provide recommendations
+    // ... logic for next steps ...
+
+    // Close detail view
+    setShowQuestDetail(false);
+    setSelectedQuest(null);
+  }, [quests, toast, addXP]); // Added addXP dependency
 
   const handleCompleteChallenge = useCallback((questId: string, chapterId: string, challengeId: string, xpEarned: number): void => {
     setQuests(prevQuests => 
@@ -666,39 +728,7 @@ export function AdventureQuestSagaAdaptive({
     if (currentQuest && currentQuest.progress === 100) {
       handleCompleteQuest(questId);
     }
-  }, [quests, toast, addXP]); // Added addXP dependency
-
-  const handleCompleteQuest = useCallback((questId: string): void => {
-    const completedQuest = quests.find(q => q.id === questId);
-    if (!completedQuest) return;
-
-    toast({ title: `Quest Complete: ${completedQuest.title}`, description: `You earned ${completedQuest.xpReward} XP and rewards!`, variant: "success" });
-    
-    // Update character stats, inventory, badges based on rewards
-    setCharacter(prevChar => {
-      if (!prevChar) return null;
-      let updatedChar = { ...prevChar };
-      // Add XP
-      if (addXP) {
-        addXP(completedQuest.xpReward); // Use gamification context for XP
-      }
-      // Add rewards (badges, items)
-      completedQuest.rewards.forEach(reward => {
-        if (reward.type === 'badge' && !updatedChar.badges.some(b => b.name === reward.name)) {
-          updatedChar.badges = [...updatedChar.badges, { id: `badge-${Date.now()}`, name: reward.name, description: reward.description, icon: 'award' }];
-        }
-        // Add logic for items if needed
-      });
-      return updatedChar;
-    });
-
-    // Potentially unlock next quest or provide recommendations
-    // ... logic for next steps ...
-
-    // Close detail view
-    setShowQuestDetail(false);
-    setSelectedQuest(null);
-  }, [quests, toast, addXP]); // Added addXP dependency
+  }, [quests, toast, addXP, handleCompleteQuest]); // Added handleCompleteQuest dependency
 
   const handleCharacterCreated = useCallback((newCharacter: Character): void => {
     setCharacter(newCharacter);
