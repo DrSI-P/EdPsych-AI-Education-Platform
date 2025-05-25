@@ -2,13 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
-import { Input, Textarea, Select, Checkbox } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Tabs } from '@/components/ui/tabs';
 import { Spinner } from '@/components/ui/loading';
 import { Alert } from '@/components/ui/alert';
 import { useToast } from '@/components/ui/toast';
-// Removed unused import: AIPrompt
 
 interface AdminDashboardProps {
   className?: string;
@@ -19,7 +17,6 @@ export function AdminDashboard({
 }: AdminDashboardProps): React.ReactNode {
   const { showToast } = useToast();
   const [loading, setLoading] = useState(true);
-  // Removed unused state: error
   
   // Mock data for demonstration
   const [adminData, setAdminData] = useState({
@@ -458,18 +455,6 @@ export function AdminDashboard({
                           <span>{user.role}</span>
                           <span>Last login: {user.lastLogin}</span>
                         </div>
-                        <div className="mt-2 flex space-x-2">
-                          <Button 
-                            size="sm" 
-                            variant="outline"
-                            onClick={() => handleUserStatusChange(user.id, user.status === 'active' ? 'inactive' : 'active')}
-                          >
-                            {user.status === 'active' ? 'Deactivate' : 'Activate'}
-                          </Button>
-                          <Button size="sm" variant="outline">
-                            Edit
-                          </Button>
-                        </div>
                       </div>
                     ))}
                   </CardContent>
@@ -486,8 +471,8 @@ export function AdminDashboard({
                 <Card>
                   <CardHeader>
                     <div className="flex justify-between items-centre">
-                      <h3 className="text-lg font-semibold">Schools</h3>
-                      <Button size="sm">Add School</Button>
+                      <h3 className="text-lg font-semibold">Recent Schools</h3>
+                      <Button size="sm">Manage Schools</Button>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-3">
@@ -500,6 +485,7 @@ export function AdminDashboard({
                           </div>
                           <span className={`text-xs px-2 py-0.5 rounded-full ${
                             school.status === 'active' ? 'bg-green-100 text-green-800' :
+                            school.status === 'inactive' ? 'bg-grey-100 text-grey-800' :
                             'bg-amber-100 text-amber-800'
                           }`}>
                             {school.status}
@@ -508,18 +494,6 @@ export function AdminDashboard({
                         <div className="flex justify-between text-sm text-grey-600 mt-1">
                           <span>{school.usersCount} users</span>
                           <span>Added: {school.dateAdded}</span>
-                        </div>
-                        <div className="mt-2 flex space-x-2">
-                          <Button 
-                            size="sm" 
-                            variant="outline"
-                            onClick={() => handleSchoolStatusChange(school.id, school.status === 'active' ? 'inactive' : 'active')}
-                          >
-                            {school.status === 'active' ? 'Deactivate' : 'Activate'}
-                          </Button>
-                          <Button size="sm" variant="outline">
-                            Manage
-                          </Button>
                         </div>
                       </div>
                     ))}
@@ -541,16 +515,11 @@ export function AdminDashboard({
     },
     {
       id: 'users',
-      label: 'User Management',
+      label: 'Users',
       content: (
         <div className="p-4">
           <h2 className="text-xl font-semibold mb-4">User Management</h2>
-          <p className="text-grey-600 mb-4">Manage user accounts, roles, and permissions.</p>
-          
-          {/* User management content would go here */}
-          <div className="text-centre py-8 text-grey-500">
-            <p>User management interface will be implemented here.</p>
-          </div>
+          <p className="text-grey-600">Manage user accounts, roles, and permissions.</p>
         </div>
       )
     },
@@ -560,53 +529,45 @@ export function AdminDashboard({
       content: (
         <div className="p-4">
           <h2 className="text-xl font-semibold mb-4">School Management</h2>
-          <p className="text-grey-600 mb-4">Manage schools, classes, and educational resources.</p>
-          
-          {/* School management content would go here */}
-          <div className="text-centre py-8 text-grey-500">
-            <p>School management interface will be implemented here.</p>
-          </div>
+          <p className="text-grey-600">Manage schools, departments, and classes.</p>
         </div>
       )
     },
     {
       id: 'settings',
-      label: 'System Settings',
+      label: 'Settings',
       content: (
         <div className="p-4">
           <h2 className="text-xl font-semibold mb-4">System Settings</h2>
-          <p className="text-grey-600 mb-4">Configure system settings, integrations, and preferences.</p>
-          
-          {/* Settings content would go here */}
-          <div className="text-centre py-8 text-grey-500">
-            <p>System settings interface will be implemented here.</p>
-          </div>
+          <p className="text-grey-600">Configure system settings, integrations, and preferences.</p>
         </div>
       )
     }
   ];
   
   return (
-    <div className={`container mx-auto py-6 ${className}`}>
-      <Tabs defaultValue="dashboard" className="w-full">
-        <div className="flex border-b mb-4">
-          {tabs.map(tab => (
-            <Button
-              key={tab.id}
-              variant="tab"
-              value={tab.id}
-              className="mr-2"
-            >
-              {tab.label}
-            </Button>
-          ))}
-        </div>
-        
-        {tabs.map(tab => (
-          <div key={tab.id} className={`tab-content ${tab.id}`}>
-            {tab.content}
+    <div className={`space-y-6 ${className}`}>
+      <Tabs defaultValue="dashboard">
+        <div className="border-b">
+          <div className="flex space-x-4">
+            {tabs.map(tab => (
+              <button
+                key={tab.id}
+                value={tab.id}
+                className={`px-4 py-2 border-b-2 ${
+                  tab.id === 'dashboard' 
+                    ? 'border-primary text-primary' 
+                    : 'border-transparent hover:text-primary hover:border-primary/40'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
-        ))}
+        </div>
+        <div className="py-4">
+          {tabs.find(tab => tab.id === 'dashboard')?.content}
+        </div>
       </Tabs>
     </div>
   );
