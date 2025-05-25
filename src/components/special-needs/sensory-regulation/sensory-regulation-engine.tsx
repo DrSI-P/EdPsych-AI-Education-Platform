@@ -13,1017 +13,1011 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
-} from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
-import { Slider } from '@/components/ui/slider';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { 
+  Activity, 
+  BookOpen, 
   CheckCircle, 
-  Clock, 
-  Calendar, 
-  BarChart, 
-  Settings, 
+  Download, 
+  FileText, 
+  Filter, 
+  Info, 
+  Layers, 
+  Play, 
   Plus, 
-  Trash2, 
-  Save, 
-  RefreshCw,
-  Brain,
-  Eye,
-  Ear,
-  Hand,
-  Activity,
-  Compass
+  RefreshCw, 
+  Search, 
+  Settings, 
+  Sliders, 
+  ThumbsUp, 
+  Volume2 
 } from 'lucide-react';
-import { toast } from '@/components/ui/use-toast';
+import { useToast } from '@/components/ui/use-toast';
+import { Badge } from '@/components/ui/badge';
+import { Switch } from '@/components/ui/switch';
+import { Textarea } from '@/components/ui/textarea';
+import { Slider } from '@/components/ui/slider';
+
+// Types for type safety
+interface SensoryActivity {
+  id: string;
+  name: string;
+  description: string;
+  category: string;
+  duration: string;
+  intensity: number;
+  suitableFor: string[];
+  materials: string[];
+  steps: string[];
+  benefits: string[];
+  cautions: string[];
+  imageUrl?: string;
+}
+
+interface SensoryProfile {
+  id: string;
+  name: string;
+  visual: number;
+  auditory: number;
+  tactile: number;
+  vestibular: number;
+  proprioceptive: number;
+  olfactory: number;
+  gustatory: number;
+  notes: string;
+}
 
 export function SensoryRegulationEngine() {
-  // State for user settings
-  const [settings, setSettings] = useState({
-    visualStimulation: 50,
-    auditoryStimulation: 50,
-    tactileStimulation: 50,
-    vestibularStimulation: 50,
-    proprioceptiveStimulation: 50,
-    environmentalControls: true,
-    sensoryBreaks: true,
-    sensoryProfile: 'balanced',
-    alertnessLevel: 'optimal'
-  });
-
-  // State for activities
-  const [activities, setActivities] = useState([  const [selectedActivity, setSelectedActivity] = useState(null);  const [newActivity, setNewActivity] = useState({
-    name: '',
-    description: '',
-    category: 'calming',
-    sensorySystems: [],
-    duration: 5,
-    materials: '',
-    instructions: '',
-    evidenceBase: ''
-  });
-
-  // State for sensory diets
-  const [diets, setDiets] = useState([]);
-  const [selectedDiet, setSelectedDiet] = useState(null);
-  const [newDiet, setNewDiet] = useState({
-    name: '',
-    description: '',
-    isActive: false
-  });
-
-  // State for diet schedules
-  const [schedules, setSchedules] = useState([]);
-  const [newSchedule, setNewSchedule] = useState({
-    activityId: '',
-    time: '08:00',
-    duration: 5,
-    notes: ''
-  });
-
+  const { toast } = useToast();
+  
+  // State for activities and profiles
+  const [activities, setActivities] = useState<SensoryActivity[]>([]);
+  const [selectedActivity, setSelectedActivity] = useState(null);
+  const [sensoryProfile, setSensoryProfile] = useState<SensoryProfile | null>(null);
+  
   // State for UI
-  const [activeTab, setActiveTab] = useState('profile');
-  const [loading, setLoading] = useState(false);
-
-  // Fetch user settings on component mount
+  const [activeTab, setActiveTab] = useState('activities');
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('all');
+  const [intensityFilter, setIntensityFilter] = useState('all');
+  
+  // Sample sensory activities
+  const sampleActivities: SensoryActivity[] = [
+    {
+      id: 'act1',
+      name: 'Deep Pressure Squeeze',
+      description: 'A calming activity that provides deep pressure input to help with regulation.',
+      category: 'proprioceptive',
+      duration: '5-10 minutes',
+      intensity: 2,
+      suitableFor: ['Sensory seeking', 'Anxiety', 'Hyperactivity'],
+      materials: ['Therapy blanket or mat (optional)'],
+      steps: [
+        'Find a quiet, comfortable space',
+        'Sit or lie down in a comfortable position',
+        'Apply gentle, firm pressure across the body',
+        'Hold pressure for 5-10 seconds, then release',
+        'Repeat as needed for regulation'
+      ],
+      benefits: [
+        'Promotes calm and focus',
+        'Reduces anxiety and stress',
+        'Improves body awareness',
+        'Helps with emotional regulation'
+      ],
+      cautions: [
+        'Always respect personal boundaries',
+        'Adjust pressure based on individual comfort',
+        'Discontinue if signs of distress appear'
+      ],
+      imageUrl: '/images/deep-pressure.jpg'
+    },
+    {
+      id: 'act2',
+      name: 'Calming Sound Journey',
+      description: 'An auditory activity using specific sounds and music to promote regulation and focus.',
+      category: 'auditory',
+      duration: '10-15 minutes',
+      intensity: 1,
+      suitableFor: ['Auditory sensitivity', 'Anxiety', 'Focus challenges'],
+      materials: [
+        'Headphones',
+        'Device for playing sounds',
+        'Calming sound tracks or white noise'
+      ],
+      steps: [
+        'Find a quiet, comfortable space',
+        'Put on headphones',
+        'Select appropriate calming sounds or music',
+        'Close eyes and focus on breathing',
+        'Listen for 10-15 minutes'
+      ],
+      benefits: [
+        'Reduces auditory overstimulation',
+        'Promotes relaxation and calm',
+        'Improves focus and attention',
+        'Supports emotional regulation'
+      ],
+      cautions: [
+        'Keep volume at a safe level',
+        'Select sounds appropriate for individual sensitivities',
+        'Monitor for signs of discomfort'
+      ],
+      imageUrl: '/images/sound-journey.jpg'
+    },
+    {
+      id: 'act3',
+      name: 'Tactile Exploration Box',
+      description: 'A sensory activity using various textures and materials for tactile input and exploration.',
+      category: 'tactile',
+      duration: '15-20 minutes',
+      intensity: 3,
+      suitableFor: ['Tactile sensitivity', 'Sensory seeking', 'Fine motor development'],
+      materials: [
+        'Container or box',
+        'Various textured materials (soft, rough, smooth, etc.)',
+        'Small objects with different textures',
+        'Sensory tools (brushes, balls, etc.)'
+      ],
+      steps: [
+        'Prepare box with various tactile materials',
+        'Introduce the activity calmly',
+        'Allow exploration at individual pace',
+        'Encourage description of sensations',
+        'Provide guidance for uncomfortable textures'
+      ],
+      benefits: [
+        'Develops tactile discrimination',
+        'Reduces tactile defensiveness',
+        'Improves sensory processing',
+        'Enhances fine motor skills'
+      ],
+      cautions: [
+        'Monitor for signs of tactile overload',
+        'Introduce new textures gradually',
+        'Respect preferences and boundaries',
+        'Ensure all materials are safe'
+      ],
+      imageUrl: '/images/tactile-box.jpg'
+    },
+    {
+      id: 'act4',
+      name: 'Vestibular Balance Course',
+      description: 'A movement-based activity to provide vestibular input and improve balance and coordination.',
+      category: 'vestibular',
+      duration: '15-20 minutes',
+      intensity: 4,
+      suitableFor: ['Vestibular seeking', 'Balance challenges', 'Coordination development'],
+      materials: [
+        'Balance beam or line on floor',
+        'Stepping stones or markers',
+        'Balance board (optional)',
+        'Soft surface for safety'
+      ],
+      steps: [
+        'Set up a simple obstacle course',
+        'Demonstrate each movement',
+        'Start with simpler movements',
+        'Progress to more challenging activities',
+        'Include a calming activity at the end'
+      ],
+      benefits: [
+        'Improves balance and coordination',
+        'Develops body awareness',
+        'Enhances vestibular processing',
+        'Builds confidence in movement'
+      ],
+      cautions: [
+        'Ensure safety with proper supervision',
+        'Monitor for signs of overstimulation',
+        'Provide physical support when needed',
+        'Adjust difficulty based on individual needs'
+      ],
+      imageUrl: '/images/balance-course.jpg'
+    },
+    {
+      id: 'act5',
+      name: 'Calming Visual Bottle',
+      description: 'A visual sensory tool that provides calming visual input through movement and color.',
+      category: 'visual',
+      duration: '5-10 minutes',
+      intensity: 1,
+      suitableFor: ['Visual stimulation', 'Anxiety', 'Self-regulation'],
+      materials: [
+        'Clear bottle with lid',
+        'Water',
+        'Glitter or small objects',
+        'Food coloring (optional)',
+        'Glue for sealing'
+      ],
+      steps: [
+        'Fill bottle with water and materials',
+        'Secure lid tightly',
+        'Shake bottle to activate',
+        'Observe the movement of materials',
+        'Focus on breathing while watching'
+      ],
+      benefits: [
+        'Provides calming visual input',
+        'Supports mindfulness and focus',
+        'Helps with emotional regulation',
+        'Creates a visual break from stimulation'
+      ],
+      cautions: [
+        'Ensure bottle is securely sealed',
+        'Monitor for appropriate use',
+        'Replace if damaged',
+        'Use as a tool, not a distraction'
+      ],
+      imageUrl: '/images/visual-bottle.jpg'
+    }
+  ];
+  
+  // Sample sensory profile
+  const sampleProfile: SensoryProfile = {
+    id: 'profile1',
+    name: 'Default Sensory Profile',
+    visual: 3,
+    auditory: 4,
+    tactile: 2,
+    vestibular: 5,
+    proprioceptive: 3,
+    olfactory: 2,
+    gustatory: 1,
+    notes: 'This is a sample sensory profile. In a real implementation, this would be personalized based on assessment.'
+  };
+  
+  // Load data on component mount
   useEffect(() => {
-    const fetchSettings = async () => {
+    // Simulate API call to load activities
+    const loadActivities = async () => {
       try {
-        setLoading(true);
-        const response = await fetch('/api/special-needs/sensory-regulation/settings');
-        if (response.ok) {
-          const data = await response.json();
-          setSettings(data);
-        }
+        // In a real implementation, this would be an API call
+        setTimeout(() => {
+          setActivities(sampleActivities);
+          setSensoryProfile(sampleProfile);
+          setIsLoading(false);
+        }, 1000);
       } catch (error) {
-        console.error('Error fetching sensory settings:', error);
+        console.error('Error loading activities:', error);
         toast({
           title: 'Error',
-          description: 'Failed to load sensory settings. Please try again.',
+          description: 'Failed to load sensory activities. Please try again.',
           variant: 'destructive'
         });
-      } finally {
-        setLoading(false);
       }
     };
-
-    const fetchActivities = async () => {
-      try {
-        const response = await fetch('/api/special-needs/sensory-regulation/activities');
-        if (response.ok) {
-          const data = await response.json();
-          setActivities(data);
-        }
-      } catch (error) {
-        console.error('Error fetching sensory activities:', error);
-      }
-    };
-
-    const fetchDiets = async () => {
-      try {
-        const response = await fetch('/api/special-needs/sensory-regulation/diets');
-        if (response.ok) {
-          const data = await response.json();
-          setDiets(data);
-          
-          // If there's an active diet, select it
-          const activeDiet = data.find(diet => diet.isActive);
-          if (activeDiet) {
-            setSelectedDiet(activeDiet);
-            fetchDietSchedules(activeDiet.id);
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching sensory diets:', error);
-      }
-    };
-
-    fetchSettings();
-    fetchActivities();
-    fetchDiets();
-  }, []);
-
-  // Fetch diet schedules
-  const fetchDietSchedules = async (dietId) => {
-    try {
-      const response = await fetch(`/api/special-needs/sensory-regulation/diets/${dietId}/schedules`);
-      if (response.ok) {
-        const data = await response.json();
-        setSchedules(data);
-      }
-    } catch (error) {
-      console.error('Error fetching diet schedules:', error);
+    
+    loadActivities();
+  }, [toast]);
+  
+  // Handle activity selection
+  const handleActivitySelect = (activity: SensoryActivity) => {
+    setSelectedActivity(activity);
+  };
+  
+  // Filter activities based on search query and filters
+  const filteredActivities = activities.filter(activity => {
+    // Search query filter
+    if (searchQuery && !activity.name.toLowerCase().includes(searchQuery.toLowerCase()) && 
+        !activity.description.toLowerCase().includes(searchQuery.toLowerCase())) {
+      return false;
     }
-  };
-
-  // Save settings
-  const saveSettings = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch('/api/special-needs/sensory-regulation/settings', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(settings),
-      });
-
-      if (response.ok) {
-        toast({
-          title: 'Success',
-          description: 'Sensory regulation settings saved successfully.',
-        });
-      } else {
-        throw new Error('Failed to save settings');
-      }
-    } catch (error) {
-      console.error('Error saving settings:', error);
-      toast({
-        title: 'Error',
-        description: 'Failed to save settings. Please try again.',
-        variant: 'destructive'
-      });
-    } finally {
-      setLoading(false);
+    
+    // Category filter
+    if (categoryFilter !== 'all' && activity.category !== categoryFilter) {
+      return false;
     }
-  };
-
-  // Save activity
-  const saveActivity = async () => {
-    try {
-      setLoading(true);
-      
-      if (!newActivity.name || !newActivity.description || !newActivity.instructions) {
-        toast({
-          title: 'Validation Error',
-          description: 'Please fill in all required fields.',
-          variant: 'destructive'
-        });
-        return;
+    
+    // Intensity filter
+    if (intensityFilter !== 'all') {
+      const intensity = parseInt(intensityFilter);
+      if (activity.intensity !== intensity) {
+        return false;
       }
-      
-      const response = await fetch('/api/special-needs/sensory-regulation/activities', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newActivity),
-      });
-
-      if (response.ok) {
-        const savedActivity = await response.json();
-        setActivities([...activities, savedActivity]);
-        setNewActivity({
-          name: '',
-          description: '',
-          category: 'calming',
-          sensorySystems: [],
-          duration: 5,
-          materials: '',
-          instructions: '',
-          evidenceBase: ''
-        });
-        toast({
-          title: 'Success',
-          description: 'Sensory activity saved successfully.',
-        });
-      } else {
-        throw new Error('Failed to save activity');
-      }
-    } catch (error) {
-      console.error('Error saving activity:', error);
-      toast({
-        title: 'Error',
-        description: 'Failed to save activity. Please try again.',
-        variant: 'destructive'
-      });
-    } finally {
-      setLoading(false);
     }
-  };
-
-  // Save diet
-  const saveDiet = async () => {
-    try {
-      setLoading(true);
-      
-      if (!newDiet.name) {
-        toast({
-          title: 'Validation Error',
-          description: 'Please provide a name for the sensory diet.',
-          variant: 'destructive'
-        });
-        return;
-      }
-      
-      const response = await fetch('/api/special-needs/sensory-regulation/diets', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newDiet),
-      });
-
-      if (response.ok) {
-        const savedDiet = await response.json();
-        setDiets([...diets, savedDiet]);
-        setSelectedDiet(savedDiet);
-        setNewDiet({
-          name: '',
-          description: '',
-          isActive: false
-        });
-        toast({
-          title: 'Success',
-          description: 'Sensory diet saved successfully.',
-        });
-      } else {
-        throw new Error('Failed to save diet');
-      }
-    } catch (error) {
-      console.error('Error saving diet:', error);
-      toast({
-        title: 'Error',
-        description: 'Failed to save diet. Please try again.',
-        variant: 'destructive'
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Add schedule item
-  const addScheduleItem = async () => {
-    try {
-      setLoading(true);
-      
-      if (!selectedDiet || !newSchedule.activityId) {
-        toast({
-          title: 'Validation Error',
-          description: 'Please select a diet and activity.',
-          variant: 'destructive'
-        });
-        return;
-      }
-      
-      const scheduleItem = {
-        ...newSchedule,
-        dietId: selectedDiet.id
-      };
-      
-      const response = await fetch(`/api/special-needs/sensory-regulation/diets/${selectedDiet.id}/schedules`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(scheduleItem),
-      });
-
-      if (response.ok) {
-        const savedSchedule = await response.json();
-        setSchedules([...schedules, savedSchedule]);
-        setNewSchedule({
-          activityId: '',
-          time: '08:00',
-          duration: 5,
-          notes: ''
-        });
-        toast({
-          title: 'Success',
-          description: 'Schedule item added successfully.',
-        });
-      } else {
-        throw new Error('Failed to add schedule item');
-      }
-    } catch (error) {
-      console.error('Error adding schedule item:', error);
-      toast({
-        title: 'Error',
-        description: 'Failed to add schedule item. Please try again.',
-        variant: 'destructive'
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Handle sensory system selection
-  const toggleSensorySystem = (system) => {
-    setNewActivity(prev => {
-      const systems = [...prev.sensorySystems];
-      if (systems.includes(system)) {
-        return {
-          ...prev,
-          sensorySystems: systems.filter(s => s !== system)
-        };
-      } else {
-        return {
-          ...prev,
-          sensorySystems: [...systems, system]
-        };
-      }
-    });
-  };
-
-  // Get icon for sensory system
-  const getSensorySystemIcon = (system) => {
-    switch (system) {
-      case 'visual':
-        return <Eye className="h-4 w-4" />;
-      case 'auditory':
-        return <Ear className="h-4 w-4" />;
-      case 'tactile':
-        return <Hand className="h-4 w-4" />;
-      case 'vestibular':
-        return <Activity className="h-4 w-4" />;
-      case 'proprioceptive':
-        return <Compass className="h-4 w-4" />;
-      default:
-        return <Brain className="h-4 w-4" />;
-    }
-  };
-
-  // Get colour for activity category
-  const getCategoryColor = (category) => {
+    
+    return true;
+  });
+  
+  // Get category badge color
+  const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'calming':
-        return 'bg-blue-100 text-blue-800';
-      case 'alerting':
-        return 'bg-red-100 text-red-800';
-      case 'organising':
-        return 'bg-green-100 text-green-800';
+      case 'visual':
+        return 'bg-blue-100 text-blue-800 border-blue-200';
+      case 'auditory':
+        return 'bg-purple-100 text-purple-800 border-purple-200';
+      case 'tactile':
+        return 'bg-green-100 text-green-800 border-green-200';
+      case 'vestibular':
+        return 'bg-amber-100 text-amber-800 border-amber-200';
+      case 'proprioceptive':
+        return 'bg-red-100 text-red-800 border-red-200';
+      case 'olfactory':
+        return 'bg-indigo-100 text-indigo-800 border-indigo-200';
+      case 'gustatory':
+        return 'bg-pink-100 text-pink-800 border-pink-200';
       default:
-        return 'bg-grey-100 text-grey-800';
+        return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
-
+  
+  // Get intensity label
+  const getIntensityLabel = (intensity: number) => {
+    switch (intensity) {
+      case 1:
+        return 'Very Calm';
+      case 2:
+        return 'Calm';
+      case 3:
+        return 'Moderate';
+      case 4:
+        return 'Energetic';
+      case 5:
+        return 'Very Energetic';
+      default:
+        return 'Unknown';
+    }
+  };
+  
   return (
     <div className="space-y-6">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="activities">Sensory Activities</TabsTrigger>
           <TabsTrigger value="profile">Sensory Profile</TabsTrigger>
-          <TabsTrigger value="activities">Activities</TabsTrigger>
-          <TabsTrigger value="diets">Sensory Diets</TabsTrigger>
-          <TabsTrigger value="analytics">Analytics</TabsTrigger>
+          <TabsTrigger value="settings">Settings</TabsTrigger>
         </TabsList>
+        
+        {/* Sensory Activities Tab */}
+        <TabsContent value="activities" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Activity className="mr-2 h-5 w-5" />
+                Sensory Regulation Activities
+              </CardTitle>
+              <CardDescription>
+                Explore and implement sensory activities for regulation
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center space-x-2">
+                <div className="relative flex-1">
+                  <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                  <Input 
+                    placeholder="Search activities..." 
+                    className="pl-8" 
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </div>
+                <Select 
+                  value={categoryFilter}
+                  onValueChange={setCategoryFilter}
+                >
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Filter by category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Categories</SelectItem>
+                    <SelectItem value="visual">Visual</SelectItem>
+                    <SelectItem value="auditory">Auditory</SelectItem>
+                    <SelectItem value="tactile">Tactile</SelectItem>
+                    <SelectItem value="vestibular">Vestibular</SelectItem>
+                    <SelectItem value="proprioceptive">Proprioceptive</SelectItem>
+                    <SelectItem value="olfactory">Olfactory</SelectItem>
+                    <SelectItem value="gustatory">Gustatory</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select 
+                  value={intensityFilter}
+                  onValueChange={setIntensityFilter}
+                >
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Filter by intensity" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Intensities</SelectItem>
+                    <SelectItem value="1">Very Calm</SelectItem>
+                    <SelectItem value="2">Calm</SelectItem>
+                    <SelectItem value="3">Moderate</SelectItem>
+                    <SelectItem value="4">Energetic</SelectItem>
+                    <SelectItem value="5">Very Energetic</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Button variant="outline" size="icon">
+                  <Filter className="h-4 w-4" />
+                </Button>
+              </div>
+              
+              {isLoading ? (
+                <div className="flex justify-center items-center h-[400px]">
+                  <RefreshCw className="h-8 w-8 animate-spin text-muted-foreground" />
+                </div>
+              ) : filteredActivities.length > 0 ? (
+                <div className="grid grid-cols-1 gap-4">
+                  {filteredActivities.map((activity) => (
+                    <Card 
+                      key={activity.id} 
+                      className="cursor-pointer hover:bg-muted/50 transition-colors"
+                      onClick={() => handleActivitySelect(activity)}
+                    >
+                      <CardHeader className="pb-2">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <CardTitle className="text-lg">{activity.name}</CardTitle>
+                            <div className="flex space-x-2 mt-1">
+                              <Badge className={getCategoryColor(activity.category)}>
+                                {activity.category.charAt(0).toUpperCase() + activity.category.slice(1)}
+                              </Badge>
+                              <Badge variant="outline">
+                                {getIntensityLabel(activity.intensity)}
+                              </Badge>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-sm text-muted-foreground">Duration</p>
+                            <p className="text-sm font-medium">{activity.duration}</p>
+                          </div>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="pb-2">
+                        <p className="text-sm mb-3">{activity.description}</p>
+                        
+                        <div className="flex flex-wrap gap-1">
+                          {activity.suitableFor.map((item, index) => (
+                            <Badge key={index} variant="secondary" className="text-xs">
+                              {item}
+                            </Badge>
+                          ))}
+                        </div>
+                      </CardContent>
+                      <CardFooter className="flex justify-between">
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleActivitySelect(activity);
+                          }}
+                        >
+                          <Info className="h-4 w-4 mr-2" />
+                          Details
+                        </Button>
+                        <Button 
+                          size="sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleActivitySelect(activity);
+                            toast({
+                              title: 'Activity Added',
+                              description: `${activity.name} has been added to your schedule.`,
+                            });
+                          }}
+                        >
+                          <Plus className="h-4 w-4 mr-2" />
+                          Add to Schedule
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center h-[400px] bg-muted/50 rounded-md">
+                  <p className="text-muted-foreground mb-4">No activities found matching your filters</p>
+                  <Button variant="outline" onClick={() => {
+                    setSearchQuery('');
+                    setCategoryFilter('all');
+                    setIntensityFilter('all');
+                  }}>
+                    Clear Filters
+                  </Button>
+                </div>
+              )}
+            </CardContent>
+            <CardFooter>
+              <Button className="w-full">
+                <Plus className="h-4 w-4 mr-2" />
+                Create Custom Activity
+              </Button>
+            </CardFooter>
+          </Card>
+          
+          {selectedActivity && (
+            <Card>
+              <CardHeader>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <CardTitle>{selectedActivity.name}</CardTitle>
+                    <CardDescription>
+                      Detailed information and implementation guide
+                    </CardDescription>
+                  </div>
+                  <Badge className={getCategoryColor(selectedActivity.category)}>
+                    {selectedActivity.category.charAt(0).toUpperCase() + selectedActivity.category.slice(1)}
+                  </Badge>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <h3 className="text-sm font-medium mb-2">Description</h3>
+                  <p className="text-sm">{selectedActivity.description}</p>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <h3 className="text-sm font-medium mb-2">Materials Needed</h3>
+                    <ul className="space-y-1">
+                      {selectedActivity.materials.map((material, index) => (
+                        <li key={index} className="text-sm flex items-start">
+                          <CheckCircle className="h-4 w-4 mr-2 text-green-600 mt-0.5" />
+                          {material}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium mb-2">Suitable For</h3>
+                    <div className="flex flex-wrap gap-1">
+                      {selectedActivity.suitableFor.map((item, index) => (
+                        <Badge key={index} variant="secondary" className="text-xs">
+                          {item}
+                        </Badge>
+                      ))}
+                    </div>
+                    
+                    <h3 className="text-sm font-medium mt-4 mb-2">Intensity</h3>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-xs">Calm</span>
+                      <div className="w-full bg-muted rounded-full h-2">
+                        <div 
+                          className="bg-blue-600 h-2 rounded-full" 
+                          style={{ width: `${(selectedActivity.intensity / 5) * 100}%` }}
+                        ></div>
+                      </div>
+                      <span className="text-xs">Energetic</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-sm font-medium mb-2">Implementation Steps</h3>
+                  <ol className="space-y-1">
+                    {selectedActivity.steps.map((step, index) => (
+                      <li key={index} className="text-sm flex items-start">
+                        <span className="font-medium mr-2">{index + 1}.</span>
+                        {step}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <h3 className="text-sm font-medium mb-2">Benefits</h3>
+                    <ul className="space-y-1">
+                      {selectedActivity.benefits.map((benefit, index) => (
+                        <li key={index} className="text-sm flex items-start">
+                          <ThumbsUp className="h-4 w-4 mr-2 text-blue-600 mt-0.5" />
+                          {benefit}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium mb-2">Cautions</h3>
+                    <ul className="space-y-1">
+                      {selectedActivity.cautions.map((caution, index) => (
+                        <li key={index} className="text-sm flex items-start">
+                          <Info className="h-4 w-4 mr-2 text-amber-600 mt-0.5" />
+                          {caution}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter className="flex justify-between">
+                <Button variant="outline">
+                  <Download className="h-4 w-4 mr-2" />
+                  Download Guide
+                </Button>
+                <Button>
+                  <Play className="h-4 w-4 mr-2" />
+                  Start Activity
+                </Button>
+              </CardFooter>
+            </Card>
+          )}
+        </TabsContent>
         
         {/* Sensory Profile Tab */}
         <TabsContent value="profile" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-centre">
-                <Brain className="mr-2 h-5 w-5" />
-                Sensory Regulation Profile
+              <CardTitle className="flex items-center">
+                <Layers className="mr-2 h-5 w-5" />
+                Sensory Profile
               </CardTitle>
               <CardDescription>
-                Customise your sensory preferences to maintain an optimal state for learning
+                View and manage sensory processing profile
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-4">
-                <div>
-                  <div className="flex justify-between items-centre mb-2">
-                    <Label htmlFor="visualStimulation" className="flex items-centre">
-                      <Eye className="mr-2 h-4 w-4" />
-                      Visual Stimulation
-                    </Label>
-                    <span className="text-sm text-muted-foreground">{settings.visualStimulation}%</span>
+            <CardContent>
+              {isLoading ? (
+                <div className="flex justify-center items-center h-[400px]">
+                  <RefreshCw className="h-8 w-8 animate-spin text-muted-foreground" />
+                </div>
+              ) : sensoryProfile ? (
+                <div className="space-y-6">
+                  <div className="flex justify-between items-center">
+                    <h3 className="text-lg font-medium">{sensoryProfile.name}</h3>
+                    <Button variant="outline" size="sm">
+                      <FileText className="h-4 w-4 mr-2" />
+                      View Full Assessment
+                    </Button>
                   </div>
-                  <Slider
-                    id="visualStimulation"
-                    min={0}
-                    max={100}
-                    step={5}
-                    value={[settings.visualStimulation]}
-                    onValueChange={(value) => setSettings({...settings, visualStimulation: value[0]})}
-                  />
-                  <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                    <span>Minimal</span>
-                    <span>Balanced</span>
-                    <span>Maximum</span>
+                  
+                  <div className="space-y-4">
+                    <div>
+                      <div className="flex justify-between mb-2">
+                        <h4 className="text-sm font-medium">Visual Processing</h4>
+                        <span className="text-sm">
+                          {sensoryProfile.visual < 3 ? 'Under-responsive' : 
+                           sensoryProfile.visual > 3 ? 'Over-responsive' : 'Typical'}
+                        </span>
+                      </div>
+                      <div className="w-full bg-muted rounded-full h-2.5">
+                        <div 
+                          className="bg-blue-600 h-2.5 rounded-full" 
+                          style={{ width: `${(sensoryProfile.visual / 5) * 100}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <div className="flex justify-between mb-2">
+                        <h4 className="text-sm font-medium">Auditory Processing</h4>
+                        <span className="text-sm">
+                          {sensoryProfile.auditory < 3 ? 'Under-responsive' : 
+                           sensoryProfile.auditory > 3 ? 'Over-responsive' : 'Typical'}
+                        </span>
+                      </div>
+                      <div className="w-full bg-muted rounded-full h-2.5">
+                        <div 
+                          className="bg-purple-600 h-2.5 rounded-full" 
+                          style={{ width: `${(sensoryProfile.auditory / 5) * 100}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <div className="flex justify-between mb-2">
+                        <h4 className="text-sm font-medium">Tactile Processing</h4>
+                        <span className="text-sm">
+                          {sensoryProfile.tactile < 3 ? 'Under-responsive' : 
+                           sensoryProfile.tactile > 3 ? 'Over-responsive' : 'Typical'}
+                        </span>
+                      </div>
+                      <div className="w-full bg-muted rounded-full h-2.5">
+                        <div 
+                          className="bg-green-600 h-2.5 rounded-full" 
+                          style={{ width: `${(sensoryProfile.tactile / 5) * 100}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <div className="flex justify-between mb-2">
+                        <h4 className="text-sm font-medium">Vestibular Processing</h4>
+                        <span className="text-sm">
+                          {sensoryProfile.vestibular < 3 ? 'Under-responsive' : 
+                           sensoryProfile.vestibular > 3 ? 'Over-responsive' : 'Typical'}
+                        </span>
+                      </div>
+                      <div className="w-full bg-muted rounded-full h-2.5">
+                        <div 
+                          className="bg-amber-600 h-2.5 rounded-full" 
+                          style={{ width: `${(sensoryProfile.vestibular / 5) * 100}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <div className="flex justify-between mb-2">
+                        <h4 className="text-sm font-medium">Proprioceptive Processing</h4>
+                        <span className="text-sm">
+                          {sensoryProfile.proprioceptive < 3 ? 'Under-responsive' : 
+                           sensoryProfile.proprioceptive > 3 ? 'Over-responsive' : 'Typical'}
+                        </span>
+                      </div>
+                      <div className="w-full bg-muted rounded-full h-2.5">
+                        <div 
+                          className="bg-red-600 h-2.5 rounded-full" 
+                          style={{ width: `${(sensoryProfile.proprioceptive / 5) * 100}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <div className="flex justify-between mb-2">
+                        <h4 className="text-sm font-medium">Olfactory Processing</h4>
+                        <span className="text-sm">
+                          {sensoryProfile.olfactory < 3 ? 'Under-responsive' : 
+                           sensoryProfile.olfactory > 3 ? 'Over-responsive' : 'Typical'}
+                        </span>
+                      </div>
+                      <div className="w-full bg-muted rounded-full h-2.5">
+                        <div 
+                          className="bg-indigo-600 h-2.5 rounded-full" 
+                          style={{ width: `${(sensoryProfile.olfactory / 5) * 100}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <div className="flex justify-between mb-2">
+                        <h4 className="text-sm font-medium">Gustatory Processing</h4>
+                        <span className="text-sm">
+                          {sensoryProfile.gustatory < 3 ? 'Under-responsive' : 
+                           sensoryProfile.gustatory > 3 ? 'Over-responsive' : 'Typical'}
+                        </span>
+                      </div>
+                      <div className="w-full bg-muted rounded-full h-2.5">
+                        <div 
+                          className="bg-pink-600 h-2.5 rounded-full" 
+                          style={{ width: `${(sensoryProfile.gustatory / 5) * 100}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h3 className="text-sm font-medium mb-2">Notes</h3>
+                    <div className="bg-muted p-3 rounded-md">
+                      <p className="text-sm">{sensoryProfile.notes}</p>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h3 className="text-sm font-medium mb-2">Recommended Activities</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {activities.slice(0, 4).map((activity) => (
+                        <Card key={activity.id} className="p-3">
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <h4 className="text-sm font-medium">{activity.name}</h4>
+                              <Badge className={getCategoryColor(activity.category)} variant="secondary" className="mt-1 text-xs">
+                                {activity.category}
+                              </Badge>
+                            </div>
+                            <Button 
+                              variant="ghost" 
+                              size="icon" 
+                              className="h-6 w-6"
+                              onClick={() => handleActivitySelect(activity)}
+                            >
+                              <Info className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </Card>
+                      ))}
+                    </div>
                   </div>
                 </div>
-
-                <div>
-                  <div className="flex justify-between items-centre mb-2">
-                    <Label htmlFor="auditoryStimulation" className="flex items-centre">
-                      <Ear className="mr-2 h-4 w-4" />
-                      Auditory Stimulation
-                    </Label>
-                    <span className="text-sm text-muted-foreground">{settings.auditoryStimulation}%</span>
-                  </div>
-                  <Slider
-                    id="auditoryStimulation"
-                    min={0}
-                    max={100}
-                    step={5}
-                    value={[settings.auditoryStimulation]}
-                    onValueChange={(value) => setSettings({...settings, auditoryStimulation: value[0]})}
-                  />
-                  <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                    <span>Minimal</span>
-                    <span>Balanced</span>
-                    <span>Maximum</span>
-                  </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center h-[400px] bg-muted/50 rounded-md">
+                  <p className="text-muted-foreground mb-4">No sensory profile found</p>
+                  <Button>Create New Profile</Button>
                 </div>
-
-                <div>
-                  <div className="flex justify-between items-centre mb-2">
-                    <Label htmlFor="tactileStimulation" className="flex items-centre">
-                      <Hand className="mr-2 h-4 w-4" />
-                      Tactile Stimulation
-                    </Label>
-                    <span className="text-sm text-muted-foreground">{settings.tactileStimulation}%</span>
-                  </div>
-                  <Slider
-                    id="tactileStimulation"
-                    min={0}
-                    max={100}
-                    step={5}
-                    value={[settings.tactileStimulation]}
-                    onValueChange={(value) => setSettings({...settings, tactileStimulation: value[0]})}
-                  />
-                  <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                    <span>Minimal</span>
-                    <span>Balanced</span>
-                    <span>Maximum</span>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between items-centre mb-2">
-                    <Label htmlFor="vestibularStimulation" className="flex items-centre">
-                      <Activity className="mr-2 h-4 w-4" />
-                      Vestibular Stimulation (Movement)
-                    </Label>
-                    <span className="text-sm text-muted-foreground">{settings.vestibularStimulation}%</span>
-                  </div>
-                  <Slider
-                    id="vestibularStimulation"
-                    min={0}
-                    max={100}
-                    step={5}
-                    value={[settings.vestibularStimulation]}
-                    onValueChange={(value) => setSettings({...settings, vestibularStimulation: value[0]})}
-                  />
-                  <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                    <span>Minimal</span>
-                    <span>Balanced</span>
-                    <span>Maximum</span>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between items-centre mb-2">
-                    <Label htmlFor="proprioceptiveStimulation" className="flex items-centre">
-                      <Compass className="mr-2 h-4 w-4" />
-                      Proprioceptive Stimulation (Body Awareness)
-                    </Label>
-                    <span className="text-sm text-muted-foreground">{settings.proprioceptiveStimulation}%</span>
-                  </div>
-                  <Slider
-                    id="proprioceptiveStimulation"
-                    min={0}
-                    max={100}
-                    step={5}
-                    value={[settings.proprioceptiveStimulation]}
-                    onValueChange={(value) => setSettings({...settings, proprioceptiveStimulation: value[0]})}
-                  />
-                  <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                    <span>Minimal</span>
-                    <span>Balanced</span>
-                    <span>Maximum</span>
-                  </div>
-                </div>
-              </div>
-
-              <Separator />
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="sensoryProfile">Sensory Profile</Label>
-                  <Select
-                    value={settings.sensoryProfile}
-                    onValueChange={(value) => setSettings({...settings, sensoryProfile: value})}
-                  >
-                    <SelectTrigger id="sensoryProfile">
-                      <SelectValue placeholder="Select a sensory profile" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="sensory_seeking">Sensory Seeking</SelectItem>
-                      <SelectItem value="sensory_avoiding">Sensory Avoiding</SelectItem>
-                      <SelectItem value="sensory_sensitive">Sensory Sensitive</SelectItem>
-                      <SelectItem value="low_registration">Low Registration</SelectItem>
-                      <SelectItem value="balanced">Balanced</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="alertnessLevel">Optimal Alertness Level</Label>
-                  <Select
-                    value={settings.alertnessLevel}
-                    onValueChange={(value) => setSettings({...settings, alertnessLevel: value})}
-                  >
-                    <SelectTrigger id="alertnessLevel">
-                      <SelectValue placeholder="Select alertness level" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="low">Low Alertness</SelectItem>
-                      <SelectItem value="optimal">Optimal Alertness</SelectItem>
-                      <SelectItem value="high">High Alertness</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-
-              <Separator />
-
-              <div className="flex flex-col space-y-4">
-                <div className="flex items-centre justify-between">
-                  <div className="space-y-0.5">
-                    <Label htmlFor="environmentalControls">Environmental Controls</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Enable adjustments to lighting, sound, and other environmental factors
-                    </p>
-                  </div>
-                  <Switch
-                    id="environmentalControls"
-                    checked={settings.environmentalControls}
-                    onCheckedChange={(checked) => setSettings({...settings, environmentalControls: checked})}
-                  />
-                </div>
-
-                <div className="flex items-centre justify-between">
-                  <div className="space-y-0.5">
-                    <Label htmlFor="sensoryBreaks">Sensory Breaks</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Enable scheduled sensory breaks during learning activities
-                    </p>
-                  </div>
-                  <Switch
-                    id="sensoryBreaks"
-                    checked={settings.sensoryBreaks}
-                    onCheckedChange={(checked) => setSettings({...settings, sensoryBreaks: checked})}
-                  />
-                </div>
-              </div>
+              )}
             </CardContent>
-            <CardFooter>
-              <Button onClick={saveSettings} disabled={loading}>
-                {loading ? <RefreshCw className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
-                Save Settings
+            <CardFooter className="flex justify-between">
+              <Button variant="outline">
+                <Download className="h-4 w-4 mr-2" />
+                Export Profile
+              </Button>
+              <Button>
+                <FileText className="h-4 w-4 mr-2" />
+                Update Assessment
               </Button>
             </CardFooter>
           </Card>
         </TabsContent>
         
-        {/* Activities Tab */}
-        <TabsContent value="activities" className="space-y-4">
+        {/* Settings Tab */}
+        <TabsContent value="settings" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Sensory Activities</CardTitle>
+              <CardTitle className="flex items-center">
+                <Settings className="mr-2 h-5 w-5" />
+                Sensory Regulation Settings
+              </CardTitle>
               <CardDescription>
-                Create and manage sensory activities for different sensory needs
+                Customize sensory regulation tools and preferences
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {activities.map((activity) => (
-                  <Card key={activity.id} className="overflow-hidden">
-                    <CardHeader className="p-4">
-                      <CardTitle className="text-base">{activity.name}</CardTitle>
-                      <div className="flex flex-wrap gap-1 mt-1">
-                        <Badge className={getCategoryColor(activity.category)}>
-                          {activity.category.charAt(0).toUpperCase() + activity.category.slice(1)}
-                        </Badge>
-                        <Badge variant="outline" className="flex items-centre">
-                          <Clock className="mr-1 h-3 w-3" />
-                          {activity.duration} min
-                        </Badge>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="p-4 pt-0">
-                      <p className="text-sm text-muted-foreground line-clamp-2">{activity.description}</p>
-                      <div className="flex flex-wrap gap-1 mt-2">
-                        {activity.sensorySystems.map((system) => (
-                          <Badge key={system} variant="secondary" className="flex items-centre">
-                            {getSensorySystemIcon(system)}
-                            <span className="ml-1">{system.charAt(0).toUpperCase() + system.slice(1)}</span>
-                          </Badge>
-                        ))}
-                      </div>
-                    </CardContent>
-                    <CardFooter className="p-4 pt-0 flex justify-between">
-                      <Button variant="outline" size="sm" onClick={() => setSelectedActivity(activity)}>
-                        View Details
-                      </Button>
-                      <Button variant="ghost" size="sm" className="text-destructive">
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                ))}
-              </div>
-
-              <Separator />
-
+            <CardContent className="space-y-6">
               <div className="space-y-4">
-                <h3 className="text-lg font-medium">Create New Activity</h3>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="activityName">Activity Name</Label>
-                    <Input
-                      id="activityName"
-                      value={newActivity.name}
-                      onChange={(e) => setNewActivity({...newActivity, name: e.target.value})}
-                      placeholder="e.g., Deep Pressure Squeezes"
-                    />
+                <h3 className="text-sm font-medium">Environment Settings</h3>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-0.5">
+                      <Label htmlFor="reducedVisual">Reduced Visual Stimulation</Label>
+                      <p className="text-xs text-muted-foreground">
+                        Minimize visual distractions and bright elements
+                      </p>
+                    </div>
+                    <Switch id="reducedVisual" />
                   </div>
-
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-0.5">
+                      <Label htmlFor="reducedAudio">Reduced Auditory Stimulation</Label>
+                      <p className="text-xs text-muted-foreground">
+                        Lower volume and minimize background sounds
+                      </p>
+                    </div>
+                    <Switch id="reducedAudio" defaultChecked />
+                  </div>
+                  
                   <div className="space-y-2">
-                    <Label htmlFor="activityCategory">Category</Label>
-                    <Select
-                      value={newActivity.category}
-                      onValueChange={(value) => setNewActivity({...newActivity, category: value})}
-                    >
-                      <SelectTrigger id="activityCategory">
-                        <SelectValue placeholder="Select category" />
+                    <Label htmlFor="brightness">Screen Brightness</Label>
+                    <div className="flex items-center space-x-2">
+                      <Sliders className="h-4 w-4" />
+                      <Slider
+                        id="brightness"
+                        defaultValue={[70]}
+                        max={100}
+                        step={10}
+                        className="flex-1"
+                      />
+                      <Sliders className="h-5 w-5" />
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="volume">Audio Volume</Label>
+                    <div className="flex items-center space-x-2">
+                      <Volume2 className="h-4 w-4" />
+                      <Slider
+                        id="volume"
+                        defaultValue={[50]}
+                        max={100}
+                        step={10}
+                        className="flex-1"
+                      />
+                      <Volume2 className="h-5 w-5" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <h3 className="text-sm font-medium">Activity Preferences</h3>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-0.5">
+                      <Label htmlFor="timerVisual">Visual Timer</Label>
+                      <p className="text-xs text-muted-foreground">
+                        Show visual countdown timer during activities
+                      </p>
+                    </div>
+                    <Switch id="timerVisual" defaultChecked />
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-0.5">
+                      <Label htmlFor="audioPrompts">Audio Prompts</Label>
+                      <p className="text-xs text-muted-foreground">
+                        Provide verbal instructions and prompts
+                      </p>
+                    </div>
+                    <Switch id="audioPrompts" defaultChecked />
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-0.5">
+                      <Label htmlFor="visualSupports">Visual Supports</Label>
+                      <p className="text-xs text-muted-foreground">
+                        Include visual aids and demonstrations
+                      </p>
+                    </div>
+                    <Switch id="visualSupports" defaultChecked />
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-0.5">
+                      <Label htmlFor="breakReminders">Break Reminders</Label>
+                      <p className="text-xs text-muted-foreground">
+                        Prompt for sensory breaks at regular intervals
+                      </p>
+                    </div>
+                    <Switch id="breakReminders" />
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <h3 className="text-sm font-medium">Notification Settings</h3>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-0.5">
+                      <Label htmlFor="scheduleReminders">Schedule Reminders</Label>
+                      <p className="text-xs text-muted-foreground">
+                        Send reminders for scheduled sensory activities
+                      </p>
+                    </div>
+                    <Switch id="scheduleReminders" defaultChecked />
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-0.5">
+                      <Label htmlFor="progressUpdates">Progress Updates</Label>
+                      <p className="text-xs text-muted-foreground">
+                        Receive updates on sensory regulation progress
+                      </p>
+                    </div>
+                    <Switch id="progressUpdates" defaultChecked />
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-0.5">
+                      <Label htmlFor="newActivities">New Activities</Label>
+                      <p className="text-xs text-muted-foreground">
+                        Notify when new sensory activities are available
+                      </p>
+                    </div>
+                    <Switch id="newActivities" />
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <h3 className="text-sm font-medium">Data Collection</h3>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-0.5">
+                      <Label htmlFor="trackEffectiveness">Track Effectiveness</Label>
+                      <p className="text-xs text-muted-foreground">
+                        Record effectiveness of sensory activities
+                      </p>
+                    </div>
+                    <Switch id="trackEffectiveness" defaultChecked />
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-0.5">
+                      <Label htmlFor="autoSuggestions">Automatic Suggestions</Label>
+                      <p className="text-xs text-muted-foreground">
+                        Suggest activities based on collected data
+                      </p>
+                    </div>
+                    <Switch id="autoSuggestions" defaultChecked />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="dataSharing">Data Sharing</Label>
+                    <Select defaultValue="team">
+                      <SelectTrigger id="dataSharing">
+                        <SelectValue placeholder="Select sharing option" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="calming">Calming</SelectItem>
-                        <SelectItem value="alerting">Alerting</SelectItem>
-                        <SelectItem value="organising">Organising</SelectItem>
+                        <SelectItem value="none">No sharing</SelectItem>
+                        <SelectItem value="team">Educational team only</SelectItem>
+                        <SelectItem value="parents">Include parents/guardians</SelectItem>
+                        <SelectItem value="all">All stakeholders</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                 </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="activityDescription">Description</Label>
-                  <Textarea
-                    id="activityDescription"
-                    value={newActivity.description}
-                    onChange={(e) => setNewActivity({...newActivity, description: e.target.value})}
-                    placeholder="Describe the activity and its benefits"
-                    rows={3}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label>Sensory Systems</Label>
-                  <div className="flex flex-wrap gap-2">
-                    {['visual', 'auditory', 'tactile', 'vestibular', 'proprioceptive'].map((system) => (
-                      <Badge
-                        key={system}
-                        variant={newActivity.sensorySystems.includes(system) ? "default" : "outline"}
-                        className="cursor-pointer flex items-centre"
-                        onClick={() => toggleSensorySystem(system)}
-                      >
-                        {getSensorySystemIcon(system)}
-                        <span className="ml-1">{system.charAt(0).toUpperCase() + system.slice(1)}</span>
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="activityDuration">Duration (minutes)</Label>
-                    <Input
-                      id="activityDuration"
-                      type="number"
-                      min={1}
-                      max={60}
-                      value={newActivity.duration}
-                      onChange={(e) => setNewActivity({...newActivity, duration: parseInt(e.target.value) || 5})}
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="activityMaterials">Materials Needed</Label>
-                    <Input
-                      id="activityMaterials"
-                      value={newActivity.materials}
-                      onChange={(e) => setNewActivity({...newActivity, materials: e.target.value})}
-                      placeholder="e.g., Therapy ball, weighted blanket"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="activityInstructions">Instructions</Label>
-                  <Textarea
-                    id="activityInstructions"
-                    value={newActivity.instructions}
-                    onChange={(e) => setNewActivity({...newActivity, instructions: e.target.value})}
-                    placeholder="Step-by-step instructions for the activity"
-                    rows={4}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="activityEvidenceBase">Evidence Base (Optional)</Label>
-                  <Textarea
-                    id="activityEvidenceBase"
-                    value={newActivity.evidenceBase}
-                    onChange={(e) => setNewActivity({...newActivity, evidenceBase: e.target.value})}
-                    placeholder="Research or evidence supporting this activity"
-                    rows={2}
-                  />
-                </div>
-
-                <Button onClick={saveActivity} disabled={loading} className="w-full">
-                  {loading ? <RefreshCw className="mr-2 h-4 w-4 animate-spin" /> : <Plus className="mr-2 h-4 w-4" />}
-                  Create Activity
-                </Button>
               </div>
             </CardContent>
-          </Card>
-        </TabsContent>
-        
-        {/* Sensory Diets Tab */}
-        <TabsContent value="diets" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Sensory Diets</CardTitle>
-              <CardDescription>
-                Create and manage scheduled sensory activities throughout the day
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {diets.map((diet) => (
-                  <Card 
-                    key={diet.id} 
-                    className={`overflow-hidden cursor-pointer ${selectedDiet?.id === diet.id ? 'ring-2 ring-primary' : ''}`}
-                    onClick={() => {
-                      setSelectedDiet(diet);
-                      fetchDietSchedules(diet.id);
-                    }}
-                  >
-                    <CardHeader className="p-4">
-                      <CardTitle className="text-base flex items-centre justify-between">
-                        {diet.name}
-                        {diet.isActive && (
-                          <Badge variant="default" className="ml-2">Active</Badge>
-                        )}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-4 pt-0">
-                      <p className="text-sm text-muted-foreground">
-                        {diet.description || 'No description provided'}
-                      </p>
-                    </CardContent>
-                    <CardFooter className="p-4 pt-0 flex justify-between">
-                      <Button variant="outline" size="sm">
-                        <Calendar className="mr-2 h-4 w-4" />
-                        View Schedule
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                ))}
-              </div>
-
-              {selectedDiet && (
-                <>
-                  <Separator />
-                  
-                  <div className="space-y-4">
-                    <div className="flex items-centre justify-between">
-                      <h3 className="text-lg font-medium">Schedule for {selectedDiet.name}</h3>
-                      <Badge variant={selectedDiet.isActive ? "default" : "outline"}>
-                        {selectedDiet.isActive ? "Active" : "Inactive"}
-                      </Badge>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      {schedules.length > 0 ? (
-                        <div className="rounded-md border">
-                          <table className="min-w-full divide-y divide-border">
-                            <thead>
-                              <tr className="divide-x divide-border">
-                                <th className="px-4 py-3 text-left text-sm font-medium">Time</th>
-                                <th className="px-4 py-3 text-left text-sm font-medium">Activity</th>
-                                <th className="px-4 py-3 text-left text-sm font-medium">Duration</th>
-                                <th className="px-4 py-3 text-left text-sm font-medium">Notes</th>
-                                <th className="px-4 py-3 text-left text-sm font-medium">Actions</th>
-                              </tr>
-                            </thead>
-                            <tbody className="divide-y divide-border">
-                              {schedules.map((schedule) => {
-                                const activity = activities.find(a => a.id === schedule.activityId);
-                                return (
-                                  <tr key={schedule.id} className="divide-x divide-border">
-                                    <td className="px-4 py-3 text-sm">{schedule.time}</td>
-                                    <td className="px-4 py-3 text-sm">
-                                      {activity ? (
-                                        <div className="flex flex-col">
-                                          <span>{activity.name}</span>
-                                          <Badge className={`mt-1 w-fit ${getCategoryColor(activity.category)}`}>
-                                            {activity.category}
-                                          </Badge>
-                                        </div>
-                                      ) : 'Unknown Activity'}
-                                    </td>
-                                    <td className="px-4 py-3 text-sm">{schedule.duration} min</td>
-                                    <td className="px-4 py-3 text-sm">{schedule.notes || '-'}</td>
-                                    <td className="px-4 py-3 text-sm">
-                                      <Button variant="ghost" size="sm" className="text-destructive h-8 w-8 p-0">
-                                        <Trash2 className="h-4 w-4" />
-                                      </Button>
-                                    </td>
-                                  </tr>
-                                );
-                              })}
-                            </tbody>
-                          </table>
-                        </div>
-                      ) : (
-                        <div className="text-centre p-4 border rounded-md">
-                          <p className="text-muted-foreground">No scheduled activities yet.</p>
-                        </div>
-                      )}
-                    </div>
-                    
-                    <div className="space-y-4">
-                      <h4 className="font-medium">Add Activity to Schedule</h4>
-                      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="scheduleTime">Time</Label>
-                          <Input
-                            id="scheduleTime"
-                            type="time"
-                            value={newSchedule.time}
-                            onChange={(e) => setNewSchedule({...newSchedule, time: e.target.value})}
-                          />
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="scheduleActivity">Activity</Label>
-                          <Select
-                            value={newSchedule.activityId}
-                            onValueChange={(value) => setNewSchedule({...newSchedule, activityId: value})}
-                          >
-                            <SelectTrigger id="scheduleActivity">
-                              <SelectValue placeholder="Select activity" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {activities.map((activity) => (
-                                <SelectItem key={activity.id} value={activity.id}>
-                                  {activity.name}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="scheduleDuration">Duration (min)</Label>
-                          <Input
-                            id="scheduleDuration"
-                            type="number"
-                            min={1}
-                            max={60}
-                            value={newSchedule.duration}
-                            onChange={(e) => setNewSchedule({...newSchedule, duration: parseInt(e.target.value) || 5})}
-                          />
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="scheduleNotes">Notes (Optional)</Label>
-                          <Input
-                            id="scheduleNotes"
-                            value={newSchedule.notes}
-                            onChange={(e) => setNewSchedule({...newSchedule, notes: e.target.value})}
-                            placeholder="Any special instructions"
-                          />
-                        </div>
-                      </div>
-                      
-                      <Button onClick={addScheduleItem} disabled={loading || !newSchedule.activityId}>
-                        {loading ? <RefreshCw className="mr-2 h-4 w-4 animate-spin" /> : <Plus className="mr-2 h-4 w-4" />}
-                        Add to Schedule
-                      </Button>
-                    </div>
-                  </div>
-                </>
-              )}
-
-              <Separator />
-
-              <div className="space-y-4">
-                <h3 className="text-lg font-medium">Create New Sensory Diet</h3>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="dietName">Diet Name</Label>
-                    <Input
-                      id="dietName"
-                      value={newDiet.name}
-                      onChange={(e) => setNewDiet({...newDiet, name: e.target.value})}
-                      placeholder="e.g., School Day Routine"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="dietDescription">Description (Optional)</Label>
-                    <Input
-                      id="dietDescription"
-                      value={newDiet.description}
-                      onChange={(e) => setNewDiet({...newDiet, description: e.target.value})}
-                      placeholder="Brief description of this sensory diet"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex items-centre space-x-2">
-                  <Checkbox
-                    id="dietActive"
-                    checked={newDiet.isActive}
-                    onCheckedChange={(checked) => setNewDiet({...newDiet, isActive: !!checked})}
-                  />
-                  <Label htmlFor="dietActive">Set as active diet</Label>
-                </div>
-
-                <Button onClick={saveDiet} disabled={loading || !newDiet.name}>
-                  {loading ? <RefreshCw className="mr-2 h-4 w-4 animate-spin" /> : <Plus className="mr-2 h-4 w-4" />}
-                  Create Sensory Diet
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-        
-        {/* Analytics Tab */}
-        <TabsContent value="analytics" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-centre">
-                <BarChart className="mr-2 h-5 w-5" />
-                Sensory Regulation Analytics
-              </CardTitle>
-              <CardDescription>
-                Track and analyse sensory regulation patterns and effectiveness
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="h-[400px] flex items-centre justify-centre">
-              <div className="text-centre">
-                <Settings className="mx-auto h-12 w-12 text-muted-foreground" />
-                <h3 className="mt-4 text-lg font-medium">Analytics Coming Soon</h3>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Detailed analytics for sensory regulation will be available in a future update.
-                </p>
-              </div>
-            </CardContent>
+            <CardFooter>
+              <Button className="w-full">Save Settings</Button>
+            </CardFooter>
           </Card>
         </TabsContent>
       </Tabs>
