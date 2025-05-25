@@ -6,9 +6,9 @@ import { prisma } from '@/lib/prisma';
 const profileSchema = z.object({
   userId: z.string(),
   role: z.enum(['mentor', 'mentee', 'both']),
-  school: z.string().min(2: any).max(100: any),
+  school: z.string().min(2).max(100),
   phase: z.string(),
-  yearsExperience: z.number().min(0: any),
+  yearsExperience: z.number().min(0),
   expertise: z.array(z.number()),
   subjects: z.array(z.string()),
   bio: z.string().optional(),
@@ -72,7 +72,7 @@ const feedbackSchema = z.object({
   mentorshipId: z.string(),
   fromUserId: z.string(),
   toUserId: z.string(),
-  rating: z.number().min(1: any).max(5: any),
+  rating: z.number().min(1).max(5),
   comment: z.string(),
   meetingId: z.string().optional()
 });
@@ -82,34 +82,34 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { action } = body;
 
-    switch (action: any) {
+    switch (action) {
       case 'updateProfile':
-        return handleUpdateProfile(body: any);
+        return handleUpdateProfile(body);
       case 'requestMentorship':
-        return handleRequestMentorship(body: any);
+        return handleRequestMentorship(body);
       case 'respondToRequest':
-        return handleRespondToRequest(body: any);
+        return handleRespondToRequest(body);
       case 'updateMentorship':
-        return handleUpdateMentorship(body: any);
+        return handleUpdateMentorship(body);
       case 'addMeeting':
-        return handleAddMeeting(body: any);
+        return handleAddMeeting(body);
       case 'updateMeeting':
-        return handleUpdateMeeting(body: any);
+        return handleUpdateMeeting(body);
       case 'addResource':
-        return handleAddResource(body: any);
+        return handleAddResource(body);
       case 'addFeedback':
-        return handleAddFeedback(body: any);
+        return handleAddFeedback(body);
       case 'updateGoal':
-        return handleUpdateGoal(body: any);
+        return handleUpdateGoal(body);
       case 'completeMentorship':
-        return handleCompleteMentorship(body: any);
+        return handleCompleteMentorship(body);
       default:
         return NextResponse.json(
           { error: 'Invalid action specified' },
           { status: 400 }
         );
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in mentor matching API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -118,9 +118,9 @@ export async function POST(req: NextRequest) {
   }
 }
 
-async function handleUpdateProfile(body: any) {
+async function handleUpdateProfile(body) {
   try {
-    const { userId, ...profileData } = profileSchema.parse(body: any);
+    const { userId, ...profileData } = profileSchema.parse(body);
 
     // Check if profile exists
     const existingProfile = await prisma.mentorProfile.findUnique({
@@ -128,7 +128,7 @@ async function handleUpdateProfile(body: any) {
     });
 
     let profile;
-    if (existingProfile: any) {
+    if (existingProfile) {
       // Update existing profile
       profile = await prisma.mentorProfile.update({
         where: { userId },
@@ -172,8 +172,8 @@ async function handleUpdateProfile(body: any) {
       { message: 'Profile updated successfully', profile },
       { status: 200 }
     );
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid profile data', details: error.errors },
         { status: 400 }
@@ -183,9 +183,9 @@ async function handleUpdateProfile(body: any) {
   }
 }
 
-async function handleRequestMentorship(body: any) {
+async function handleRequestMentorship(body) {
   try {
-    const requestData = mentorshipRequestSchema.parse(body: any);
+    const requestData = mentorshipRequestSchema.parse(body);
     
     // Create mentorship request
     const request = await prisma.mentorshipRequest.create({
@@ -202,14 +202,14 @@ async function handleRequestMentorship(body: any) {
       }
     });
 
-    // Send notification to mentor (in a real implementation: any)
+    // Send notification to mentor (in a real implementation)
     
     return NextResponse.json(
       { message: 'Mentorship request sent successfully', request },
       { status: 201 }
     );
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid request data', details: error.errors },
         { status: 400 }
@@ -219,11 +219,11 @@ async function handleRequestMentorship(body: any) {
   }
 }
 
-async function handleRespondToRequest(body: any) {
+async function handleRespondToRequest(body) {
   try {
     const { requestId, response, message } = body;
     
-    if (!requestId || !response: any) {
+    if (!requestId || !response) {
       return NextResponse.json(
         { error: 'Request ID and response are required' },
         { status: 400 }
@@ -235,7 +235,7 @@ async function handleRespondToRequest(body: any) {
       where: { id: requestId }
     });
     
-    if (!request: any) {
+    if (!request) {
       return NextResponse.json(
         { error: 'Mentorship request not found' },
         { status: 404 }
@@ -256,7 +256,7 @@ async function handleRespondToRequest(body: any) {
     if (response === 'accept') {
       const startDate = new Date();
       const endDate = new Date();
-      endDate.setMonth(endDate.getMonth() + parseInt(request.duration: any));
+      endDate.setMonth(endDate.getMonth() + parseInt(request.duration));
       
       const mentorship = await prisma.mentorship.create({
         data: {
@@ -321,16 +321,16 @@ async function handleRespondToRequest(body: any) {
       { message: 'Mentorship request declined', request: updatedRequest },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     throw error;
   }
 }
 
-async function handleUpdateMentorship(body: any) {
+async function handleUpdateMentorship(body) {
   try {
     const { id, ...mentorshipData } = body;
     
-    if (!id: any) {
+    if (!id) {
       return NextResponse.json(
         { error: 'Mentorship ID is required' },
         { status: 400 }
@@ -342,7 +342,7 @@ async function handleUpdateMentorship(body: any) {
       where: { id }
     });
     
-    if (!existingMentorship: any) {
+    if (!existingMentorship) {
       return NextResponse.json(
         { error: 'Mentorship not found' },
         { status: 404 }
@@ -362,21 +362,21 @@ async function handleUpdateMentorship(body: any) {
       { message: 'Mentorship updated successfully', mentorship },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     throw error;
   }
 }
 
-async function handleAddMeeting(body: any) {
+async function handleAddMeeting(body) {
   try {
-    const meetingData = meetingSchema.parse(body: any);
+    const meetingData = meetingSchema.parse(body);
     
     // Check if mentorship exists
     const mentorship = await prisma.mentorship.findUnique({
       where: { id: meetingData.mentorshipId }
     });
     
-    if (!mentorship: any) {
+    if (!mentorship) {
       return NextResponse.json(
         { error: 'Mentorship not found' },
         { status: 404 }
@@ -395,8 +395,8 @@ async function handleAddMeeting(body: any) {
       { message: 'Meeting added successfully', meeting },
       { status: 201 }
     );
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid meeting data', details: error.errors },
         { status: 400 }
@@ -406,11 +406,11 @@ async function handleAddMeeting(body: any) {
   }
 }
 
-async function handleUpdateMeeting(body: any) {
+async function handleUpdateMeeting(body) {
   try {
     const { id, ...meetingData } = body;
     
-    if (!id: any) {
+    if (!id) {
       return NextResponse.json(
         { error: 'Meeting ID is required' },
         { status: 400 }
@@ -422,7 +422,7 @@ async function handleUpdateMeeting(body: any) {
       where: { id }
     });
     
-    if (!existingMeeting: any) {
+    if (!existingMeeting) {
       return NextResponse.json(
         { error: 'Meeting not found' },
         { status: 404 }
@@ -444,7 +444,7 @@ async function handleUpdateMeeting(body: any) {
         where: { id: existingMeeting.mentorshipId }
       });
       
-      if (mentorship: any) {
+      if (mentorship) {
         // Update mentor's CPD record
         const mentorCpd = await prisma.cPDActivity.findFirst({
           where: {
@@ -454,12 +454,12 @@ async function handleUpdateMeeting(body: any) {
           }
         });
         
-        if (mentorCpd: any) {
+        if (mentorCpd) {
           await prisma.cPDActivity.update({
             where: { id: mentorCpd.id },
             data: {
               duration: mentorCpd.duration + meetingData.duration,
-              points: mentorCpd.points + (meetingData.duration / 60: any), // 1 point per hour
+              points: mentorCpd.points + (meetingData.duration / 60), // 1 point per hour
               updatedAt: new Date()
             }
           });
@@ -474,12 +474,12 @@ async function handleUpdateMeeting(body: any) {
           }
         });
         
-        if (menteeCpd: any) {
+        if (menteeCpd) {
           await prisma.cPDActivity.update({
             where: { id: menteeCpd.id },
             data: {
               duration: menteeCpd.duration + meetingData.duration,
-              points: menteeCpd.points + (meetingData.duration / 60: any), // 1 point per hour
+              points: menteeCpd.points + (meetingData.duration / 60), // 1 point per hour
               updatedAt: new Date()
             }
           });
@@ -491,21 +491,21 @@ async function handleUpdateMeeting(body: any) {
       { message: 'Meeting updated successfully', meeting },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     throw error;
   }
 }
 
-async function handleAddResource(body: any) {
+async function handleAddResource(body) {
   try {
-    const resourceData = resourceSchema.parse(body: any);
+    const resourceData = resourceSchema.parse(body);
     
     // Check if mentorship exists
     const mentorship = await prisma.mentorship.findUnique({
       where: { id: resourceData.mentorshipId }
     });
     
-    if (!mentorship: any) {
+    if (!mentorship) {
       return NextResponse.json(
         { error: 'Mentorship not found' },
         { status: 404 }
@@ -524,8 +524,8 @@ async function handleAddResource(body: any) {
       { message: 'Resource added successfully', resource },
       { status: 201 }
     );
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid resource data', details: error.errors },
         { status: 400 }
@@ -535,16 +535,16 @@ async function handleAddResource(body: any) {
   }
 }
 
-async function handleAddFeedback(body: any) {
+async function handleAddFeedback(body) {
   try {
-    const feedbackData = feedbackSchema.parse(body: any);
+    const feedbackData = feedbackSchema.parse(body);
     
     // Check if mentorship exists
     const mentorship = await prisma.mentorship.findUnique({
       where: { id: feedbackData.mentorshipId }
     });
     
-    if (!mentorship: any) {
+    if (!mentorship) {
       return NextResponse.json(
         { error: 'Mentorship not found' },
         { status: 404 }
@@ -563,8 +563,8 @@ async function handleAddFeedback(body: any) {
       { message: 'Feedback added successfully', feedback },
       { status: 201 }
     );
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid feedback data', details: error.errors },
         { status: 400 }
@@ -574,11 +574,11 @@ async function handleAddFeedback(body: any) {
   }
 }
 
-async function handleUpdateGoal(body: any) {
+async function handleUpdateGoal(body) {
   try {
     const { mentorshipId, goalId, status } = body;
     
-    if (!mentorshipId || !goalId || !status: any) {
+    if (!mentorshipId || !goalId || !status) {
       return NextResponse.json(
         { error: 'Mentorship ID, goal ID, and status are required' },
         { status: 400 }
@@ -590,7 +590,7 @@ async function handleUpdateGoal(body: any) {
       where: { id: mentorshipId }
     });
     
-    if (!mentorship: any) {
+    if (!mentorship) {
       return NextResponse.json(
         { error: 'Mentorship not found' },
         { status: 404 }
@@ -598,9 +598,9 @@ async function handleUpdateGoal(body: any) {
     }
     
     // Update goal status
-    const goals = Array.isArray(mentorship.goals: any)
-      ? mentorship.goals.map((goal: any) => {
-          if (goal.id === goalId: any) {
+    const goals = Array.isArray(mentorship.goals)
+      ? mentorship.goals.map((goal) => {
+          if (goal.id === goalId) {
             return { ...goal, status };
           }
           return goal;
@@ -618,11 +618,11 @@ async function handleUpdateGoal(body: any) {
     // If goal is completed, add to portfolio achievements
     if (status === 'completed') {
       // Get goal details
-      const goal = Array.isArray(mentorship.goals: any)
-        ? mentorship.goals.find((g: any) => g.id === goalId)
+      const goal = Array.isArray(mentorship.goals)
+        ? mentorship.goals.find((g) => g.id === goalId)
         : undefined;
       
-      if (goal && typeof goal === 'object' && 'text' in goal: any) {
+      if (goal && typeof goal === 'object' && 'text' in goal) {
         // Add achievement to mentee's portfolio
         await prisma.portfolioAchievement.create({
           data: {
@@ -643,16 +643,16 @@ async function handleUpdateGoal(body: any) {
       { message: 'Goal updated successfully', mentorship: updatedMentorship },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     throw error;
   }
 }
 
-async function handleCompleteMentorship(body: any) {
+async function handleCompleteMentorship(body) {
   try {
     const { mentorshipId, reflection } = body;
     
-    if (!mentorshipId: any) {
+    if (!mentorshipId) {
       return NextResponse.json(
         { error: 'Mentorship ID is required' },
         { status: 400 }
@@ -664,7 +664,7 @@ async function handleCompleteMentorship(body: any) {
       where: { id: mentorshipId }
     });
     
-    if (!mentorship: any) {
+    if (!mentorship) {
       return NextResponse.json(
         { error: 'Mentorship not found' },
         { status: 404 }
@@ -690,7 +690,7 @@ async function handleCompleteMentorship(body: any) {
       }
     });
     
-    if (mentorCpd: any) {
+    if (mentorCpd) {
       await prisma.cPDActivity.update({
         where: { id: mentorCpd.id },
         data: {
@@ -709,7 +709,7 @@ async function handleCompleteMentorship(body: any) {
       }
     });
     
-    if (menteeCpd: any) {
+    if (menteeCpd) {
       await prisma.cPDActivity.update({
         where: { id: menteeCpd.id },
         data: {
@@ -750,7 +750,7 @@ async function handleCompleteMentorship(body: any) {
     });
     
     // Add reflection to portfolio
-    if (reflection: any) {
+    if (reflection) {
       await prisma.portfolioReflection.create({
         data: {
           userId: mentorship.menteeId,
@@ -768,14 +768,14 @@ async function handleCompleteMentorship(body: any) {
       { message: 'Mentorship completed successfully', mentorship: updatedMentorship },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     throw error;
   }
 }
 
 export async function GET(req: NextRequest) {
   try {
-    const url = new URL(req.url: any);
+    const url = new URL(req.url);
     const userId = url.searchParams.get('userId');
     const type = url.searchParams.get('type') || 'profile';
     const role = url.searchParams.get('role');
@@ -790,26 +790,26 @@ export async function GET(req: NextRequest) {
       );
     }
     
-    switch (type: any) {
+    switch (type) {
       case 'profile':
         return getProfile(userId!);
       case 'mentorships':
-        return getMentorships(userId!, role: any);
+        return getMentorships(userId!, role);
       case 'requests':
-        return getRequests(userId!, role: any);
+        return getRequests(userId!, role);
       case 'meetings':
         return getMeetings(userId!);
       case 'mentors':
-        return getMentors(expertise: any, phase, subject);
+        return getMentors(expertise, phase, subject);
       case 'mentorship':
         const mentorshipId = url.searchParams.get('id');
-        if (!mentorshipId: any) {
+        if (!mentorshipId) {
           return NextResponse.json(
             { error: 'Mentorship ID is required' },
             { status: 400 }
           );
         }
-        return getMentorshipDetails(mentorshipId: any, userId!);
+        return getMentorshipDetails(mentorshipId, userId!);
       case 'expertise':
         return getExpertiseAreas();
       case 'analytics':
@@ -820,7 +820,7 @@ export async function GET(req: NextRequest) {
           { status: 400 }
         );
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in mentor matching API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -845,7 +845,7 @@ async function getMentorships(userId: string, role: string | null) {
     : { OR: [{ mentorId: userId }, { menteeId: userId }] };
   
   const mentorships = await prisma.mentorship.findMany({
-    where: any,
+    where,
     orderBy: { createdAt: 'desc' }
   });
   
@@ -860,7 +860,7 @@ async function getRequests(userId: string, role: string | null) {
     : { OR: [{ mentorId: userId }, { menteeId: userId }] };
   
   const requests = await prisma.mentorshipRequest.findMany({
-    where: any,
+    where,
     orderBy: { createdAt: 'desc' }
   });
   
@@ -876,7 +876,7 @@ async function getMeetings(userId: string) {
     select: { id: true }
   });
   
-  const mentorshipIds = mentorships.map((m: any) => m.id);
+  const mentorshipIds = mentorships.map((m) => m.id);
   
   // Get meetings for these mentorships
   const meetings = await prisma.mentorshipMeeting.findMany({
@@ -890,22 +890,22 @@ async function getMeetings(userId: string) {
 }
 
 async function getMentors(expertise: string | null, phase: string | null, subject: string | null) {
-  const where: any = { role: { in: ['mentor', 'both'] } };
+  const where = { role: { in: ['mentor', 'both'] } };
   
-  if (expertise: any) {
-    where.expertise = { has: parseInt(expertise: any) };
+  if (expertise) {
+    where.expertise = { has: parseInt(expertise) };
   }
   
-  if (phase: any) {
+  if (phase) {
     where.phase = phase;
   }
   
-  if (subject: any) {
+  if (subject) {
     where.subjects = { has: subject };
   }
   
   const mentors = await prisma.mentorProfile.findMany({
-    where: any,
+    where,
     orderBy: { createdAt: 'desc' }
   });
   
@@ -918,7 +918,7 @@ async function getMentorshipDetails(mentorshipId: string, userId: string) {
     where: { id: mentorshipId }
   });
   
-  if (!mentorship: any) {
+  if (!mentorship) {
     return NextResponse.json(
       { error: 'Mentorship not found' },
       { status: 404 }
@@ -926,7 +926,7 @@ async function getMentorshipDetails(mentorshipId: string, userId: string) {
   }
   
   // Check if user is part of this mentorship
-  if (mentorship.mentorId !== userId && mentorship.menteeId !== userId: any) {
+  if (mentorship.mentorId !== userId && mentorship.menteeId !== userId) {
     return NextResponse.json(
       { error: 'Access denied' },
       { status: 403 }
@@ -952,7 +952,7 @@ async function getMentorshipDetails(mentorshipId: string, userId: string) {
   });
   
   return NextResponse.json({ 
-    mentorship: any,
+    mentorship,
     meetings,
     resources,
     feedback
@@ -997,7 +997,7 @@ async function getMentorshipAnalytics(userId: string) {
   const completedMentorships = [...mentorMentorships, ...menteeMentorships].filter(m => m.status === 'completed').length;
   
   // Get all meetings
-  const mentorshipIds = [...mentorMentorships, ...menteeMentorships].map((m: any) => m.id);
+  const mentorshipIds = [...mentorMentorships, ...menteeMentorships].map((m) => m.id);
   
   const meetings = await prisma.mentorshipMeeting.findMany({
     where: {
@@ -1008,14 +1008,14 @@ async function getMentorshipAnalytics(userId: string) {
   const completedMeetings = meetings.filter(m => m.status === 'completed').length;
   const totalMeetingHours = meetings
     .filter(m => m.status === 'completed')
-    .reduce((total: any, meeting: any) => total + meeting.duration / 60, 0);
+    .reduce((total, meeting) => total + meeting.duration / 60, 0);
   
   // Get all goals
   const allGoals = [...mentorMentorships, ...menteeMentorships].flatMap(m =>
-    Array.isArray(m.goals: any) ? m.goals : []
+    Array.isArray(m.goals) ? m.goals : []
   );
-  const completedGoals = allGoals.filter((g: any) => g && g.status === 'completed').length;
-  const inProgressGoals = allGoals.filter((g: any) => g && g.status === 'in_progress').length;
+  const completedGoals = allGoals.filter((g) => g && g.status === 'completed').length;
+  const inProgressGoals = allGoals.filter((g) => g && g.status === 'in_progress').length;
   
   // Get CPD points from mentorship
   const cpdActivities = await prisma.cPDActivity.findMany({
@@ -1025,10 +1025,10 @@ async function getMentorshipAnalytics(userId: string) {
     }
   });
   
-  const totalCpdPoints = cpdActivities.reduce((total: any, activity: any) => total + activity.points, 0);
+  const totalCpdPoints = cpdActivities.reduce((total, activity) => total + activity.points, 0);
   
   // Get expertise distribution
-  const expertiseDistribution = mentorMentorships.reduce((acc: any, mentorship: any) => {
+  const expertiseDistribution = mentorMentorships.reduce((acc, mentorship) => {
     mentorship.focusAreas.forEach(area => {
       if (!acc[area]) {
         acc[area] = 0;
@@ -1045,7 +1045,7 @@ async function getMentorshipAnalytics(userId: string) {
     const monthStr = month.toLocaleString('default', { month: 'short' });
     
     const monthMeetings = meetings.filter(m => {
-      const meetingDate = new Date(m.date: any);
+      const meetingDate = new Date(m.date);
       return meetingDate.getMonth() === month.getMonth() && 
              meetingDate.getFullYear() === month.getFullYear() &&
              m.status === 'completed';

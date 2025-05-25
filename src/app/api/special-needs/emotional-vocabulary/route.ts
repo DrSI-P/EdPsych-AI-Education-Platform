@@ -6,10 +6,10 @@ import prisma from '@/lib/prisma';
 
 // Schema for emotion vocabulary preferences
 const PreferencesSchema = z.object({
-  voiceEnabled: z.boolean().default(true: any),
-  animationsEnabled: z.boolean().default(true: any),
-  simplifiedView: z.boolean().default(false: any),
-  highContrast: z.boolean().default(false: any),
+  voiceEnabled: z.boolean().default(true),
+  animationsEnabled: z.boolean().default(true),
+  simplifiedView: z.boolean().default(false),
+  highContrast: z.boolean().default(false),
   textSize: z.enum(['small', 'medium', 'large', 'x-large']).default('medium'),
 });
 
@@ -23,30 +23,30 @@ const ProgressSchema = z.object({
 // GET handler for retrieving vocabulary data
 export async function GET(req: Request) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
       );
     }
     
-    const { searchParams } = new URL(req.url: any);
+    const { searchParams } = new URL(req.url);
     const type = searchParams.get('type');
     const ageGroup = searchParams.get('ageGroup');
     const category = searchParams.get('category');
     const intensity = searchParams.get('intensity');
     
     // Fetch user preferences
-    const userPreferences = await (prisma as any: any).emotionalVocabularyPreferences.findUnique({
+    const userPreferences = await (prisma as any).emotionalVocabularyPreferences.findUnique({
       where: {
         userId: session.user.id,
       },
     });
     
     // Fetch user progress
-    const userProgress = await (prisma as any: any).emotionalVocabularyProgress.findMany({
+    const userProgress = await (prisma as any).emotionalVocabularyProgress.findMany({
       where: {
         userId: session.user.id,
       },
@@ -56,7 +56,7 @@ export async function GET(req: Request) {
     });
     
     // Fetch emotions based on filters
-    const emotions = await (prisma as any: any).emotion.findMany({
+    const emotions = await (prisma as any).emotion.findMany({
       where: {
         ...(ageGroup && ageGroup !== 'all' ? { ageGroups: { has: ageGroup } } : {}),
         ...(category && category !== 'all' ? { category } : {}),
@@ -73,7 +73,7 @@ export async function GET(req: Request) {
     });
     
     // Fetch activities based on filters
-    const activities = await (prisma as any: any).emotionalVocabularyActivity.findMany({
+    const activities = await (prisma as any).emotionalVocabularyActivity.findMany({
       where: {
         ...(ageGroup && ageGroup !== 'all' ? { ageGroups: { has: ageGroup } } : {}),
         ...(category && category !== 'all' ? { 
@@ -86,7 +86,7 @@ export async function GET(req: Request) {
     });
     
     // Fetch quizzes based on filters
-    const quizzes = await (prisma as any: any).emotionalVocabularyQuiz.findMany({
+    const quizzes = await (prisma as any).emotionalVocabularyQuiz.findMany({
       where: {
         ...(ageGroup && ageGroup !== 'all' ? { ageGroups: { has: ageGroup } } : {}),
       },
@@ -96,16 +96,16 @@ export async function GET(req: Request) {
     });
     
     // Fetch resources based on filters
-    const resources = await (prisma as any: any).emotionalVocabularyResource.findMany({
+    const resources = await (prisma as any).emotionalVocabularyResource.findMany({
       where: {
         ...(ageGroup && ageGroup !== 'all' ? { ageGroups: { has: ageGroup } } : {}),
       },
     });
     
     // Determine what data to return based on type parameter
-    let responseData: any = {};
+    let responseData = {};
     
-    switch (type: any) {
+    switch (type) {
       case 'emotions':
         responseData = { emotions };
         break;
@@ -136,9 +136,9 @@ export async function GET(req: Request) {
         };
     }
     
-    return NextResponse.json(responseData: any);
+    return NextResponse.json(responseData);
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in emotional vocabulary API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -150,9 +150,9 @@ export async function GET(req: Request) {
 // POST handler for updating preferences or recording progress
 export async function POST(req: Request) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -164,10 +164,10 @@ export async function POST(req: Request) {
     
     if (type === 'preferences') {
       // Validate preferences data
-      const preferences = PreferencesSchema.parse(body.preferences: any);
+      const preferences = PreferencesSchema.parse(body.preferences);
       
       // Update or create user preferences
-      const updatedPreferences = await (prisma as any: any).emotionalVocabularyPreferences.upsert({
+      const updatedPreferences = await (prisma as any).emotionalVocabularyPreferences.upsert({
         where: {
           userId: session.user.id,
         },
@@ -183,10 +183,10 @@ export async function POST(req: Request) {
     
     if (type === 'progress') {
       // Validate progress data
-      const progress = ProgressSchema.parse(body.progress: any);
+      const progress = ProgressSchema.parse(body.progress);
       
       // Record user progress
-      const newProgress = await (prisma as any: any).emotionalVocabularyProgress.create({
+      const newProgress = await (prisma as any).emotionalVocabularyProgress.create({
         data: {
           userId: session.user.id,
           emotionId: progress.emotionId,
@@ -204,10 +204,10 @@ export async function POST(req: Request) {
       { status: 400 }
     );
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in emotional vocabulary API:', error);
     
-    if (error instanceof z.ZodError: any) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Validation error', details: error.errors },
         { status: 400 }

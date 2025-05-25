@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get('status');
     
     // Build the query
-    const query: any = {
+    const query = {
       creatorId: session.user.id,
     };
     
@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
           },
         },
         questions: {
-          create: questions?.map((question: any) => ({
+          create: questions?.map((question) => ({
             text: question.text,
             type: question.type,
             required: question.required || false,
