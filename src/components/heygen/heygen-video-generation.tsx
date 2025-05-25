@@ -13,14 +13,33 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { HeyGenService, VideoGenerationParams } from '@/lib/heygen/heygen-service';
 import { Loader2, Upload, Check, AlertCircle } from 'lucide-react';
 
+// Define proper types instead of using 'any'
+interface Avatar {
+  id: string;
+  name: string;
+  imageUrl?: string;
+}
+
+interface Voice {
+  id: string;
+  name: string;
+  sampleUrl?: string;
+}
+
+interface Script {
+  id: string;
+  title: string;
+  content: string;
+}
+
 const HeyGenVideoGeneration = (): React.ReactNode => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
-  const [avatars, setAvatars] = useState<any[]>([]);
-  const [voices, setVoices] = useState<any[]>([]);
-  const [scripts, setScripts] = useState<any[]>([]);
+  const [avatars, setAvatars] = useState<Avatar[]>([]);
+  const [voices, setVoices] = useState<Voice[]>([]);
+  const [scripts, setScripts] = useState<Script[]>([]);
   const [selectedAvatar, setSelectedAvatar] = useState('');
   const [selectedVoice, setSelectedVoice] = useState('');
   const [selectedScript, setSelectedScript] = useState('');
@@ -33,7 +52,7 @@ const HeyGenVideoGeneration = (): React.ReactNode => {
   const [avatarName, setAvatarName] = useState('Dr. Scott Ighavongbe-Patrick');
   const [scriptContent, setScriptContent] = useState('');
   const [scriptTitle, setScriptTitle] = useState('');
-  const [availableScripts, setAvailableScripts] = useState<{id: string, title: string, content: string}[]>([
+  const [availableScripts, setAvailableScripts] = useState<Script[]>([
     { id: 'executive_summary', title: 'Executive Summary', content: 'Welcome to EdPsych Connect, where educational psychology meets cutting-edge technology...' },
     { id: 'platform_features', title: 'Platform Features Overview', content: 'EdPsych Connect offers a comprehensive suite of features designed to transform education...' },
     { id: 'educational_psychology', title: 'Educational Psychology Foundations', content: 'At the heart of EdPsych Connect is a deep commitment to educational psychology principles...' },
@@ -68,7 +87,6 @@ const HeyGenVideoGeneration = (): React.ReactNode => {
         if (drScottVoice) setSelectedVoice(drScottVoice.id);
         
       } catch (err) {
-        // Removed console.error statement
         setError('Failed to initialize video generation service. Please try again later.');
       }
     };
@@ -134,7 +152,6 @@ const HeyGenVideoGeneration = (): React.ReactNode => {
       }
       
     } catch (err) {
-      // Removed console.error statement
       setError('Failed to create avatar. Please try again.');
     } finally {
       setLoading(false);
@@ -165,7 +182,6 @@ const HeyGenVideoGeneration = (): React.ReactNode => {
       setSuccess(true);
       
     } catch (err) {
-      // Removed console.error statement
       setError('Failed to upload script. Please try again.');
     } finally {
       setLoading(false);
@@ -226,7 +242,6 @@ const HeyGenVideoGeneration = (): React.ReactNode => {
       }, 2000);
       
     } catch (err) {
-      // Removed console.error statement
       setError('Failed to generate video. Please try again.');
       setLoading(false);
     }
@@ -467,31 +482,12 @@ const HeyGenVideoGeneration = (): React.ReactNode => {
                 />
               </div>
               
-              {selectedScript && (
-                <div className="p-4 border rounded-md bg-muted">
-                  <h3 className="font-medium mb-2">Selected Script: {availableScripts.find(s => s.id === selectedScript)?.title}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {availableScripts.find(s => s.id === selectedScript)?.content.substring(0, 150)}...
-                  </p>
-                </div>
-              )}
-              
               {error && (
                 <Alert variant="destructive">
                   <AlertCircle className="h-4 w-4" />
                   <AlertTitle>Error</AlertTitle>
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
-              )}
-              
-              {loading && (
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span>Generating video...</span>
-                    <span>{progress}%</span>
-                  </div>
-                  <Progress value={progress} />
-                </div>
               )}
               
               {success && generatedVideoId && (
@@ -503,40 +499,37 @@ const HeyGenVideoGeneration = (): React.ReactNode => {
                   </AlertDescription>
                 </Alert>
               )}
+              
+              {loading && (
+                <div className="space-y-2">
+                  <div className="flex items-centre justify-between">
+                    <span>Generating video...</span>
+                    <span>{progress}%</span>
+                  </div>
+                  <Progress value={progress} />
+                </div>
+              )}
             </CardContent>
             <CardFooter className="flex justify-between">
               <Button variant="outline" onClick={() => setActiveTab('script')}>
                 Back
               </Button>
-              <Button 
-                onClick={generateVideo} 
-                disabled={loading || !selectedAvatar || !selectedScript || !videoTitle}
-              >
+              <Button onClick={generateVideo} disabled={loading || !selectedAvatar || !selectedScript || !videoTitle}>
                 {loading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Generating...
                   </>
                 ) : (
-                  'Generate Video'
+                  <>
+                    Generate Video
+                  </>
                 )}
               </Button>
             </CardFooter>
           </Card>
         </TabsContent>
       </Tabs>
-      
-      {generatedVideoId && success && (
-        <div className="mt-8">
-          <h2 className="text-2xl font-bold mb-4">Generated Video</h2>
-          <div className="aspect-video bg-black rounded-lg flex items-centre justify-centre">
-            <div className="text-white text-centre p-8">
-              <p className="text-lg mb-2">Video ID: {generatedVideoId}</p>
-              <p>In a real implementation, the video would be embedded here.</p>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
