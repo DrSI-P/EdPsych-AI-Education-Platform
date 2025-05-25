@@ -19,7 +19,7 @@ interface CurriculumStandard {
   category: string;
 }
 
-export default function CurriculumAlignmentPage() {
+export default function CurriculumAlignmentPage(): React.ReactNode {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -94,7 +94,7 @@ export default function CurriculumAlignmentPage() {
         const data = await response.json();
         setStandards(data);
         setFilteredStandards(data);
-      } catch (err) {
+      } catch (err: any) {
         console.error('Error fetching curriculum standards:', err);
         setError('An error occurred while fetching the curriculum standards');
       } finally {
