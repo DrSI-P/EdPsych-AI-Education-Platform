@@ -4,12 +4,12 @@ import { prisma } from '@/lib/prisma';
 
 // Schema for CPD activity
 const cpdActivitySchema = z.object({
-  title: z.string().min(3: any).max(200: any),
-  type: z.string().min(1: any),
+  title: z.string().min(3).max(200),
+  type: z.string().min(1),
   provider: z.string().optional(),
   date: z.string().datetime(),
-  duration: z.number().min(0: any),
-  points: z.number().min(0: any),
+  duration: z.number().min(0),
+  points: z.number().min(0),
   categories: z.array(z.number()),
   standards: z.array(z.number()),
   status: z.enum(['Planned', 'In Progress', 'Completed']),
@@ -20,9 +20,9 @@ const cpdActivitySchema = z.object({
 
 // Schema for CPD goal
 const cpdGoalSchema = z.object({
-  title: z.string().min(3: any).max(200: any),
+  title: z.string().min(3).max(200),
   description: z.string().optional(),
-  targetPoints: z.number().min(0: any),
+  targetPoints: z.number().min(0),
   categories: z.array(z.number()),
   standards: z.array(z.number()),
   deadline: z.string().datetime(),
@@ -32,8 +32,8 @@ const cpdGoalSchema = z.object({
 // Schema for CPD reflection
 const cpdReflectionSchema = z.object({
   activityId: z.string(),
-  content: z.string().min(1: any),
-  impactRating: z.number().min(1: any).max(5: any).optional(),
+  content: z.string().min(1),
+  impactRating: z.number().min(1).max(5).optional(),
   nextSteps: z.string().optional(),
   userId: z.string()
 });
@@ -41,7 +41,7 @@ const cpdReflectionSchema = z.object({
 // Schema for evidence upload
 const evidenceSchema = z.object({
   activityId: z.string(),
-  title: z.string().min(1: any),
+  title: z.string().min(1),
   fileUrl: z.string().url(),
   fileType: z.string(),
   userId: z.string()
@@ -101,21 +101,21 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const body = await req.json();
     const { action } = body;
 
-    switch (action: any) {
+    switch (action) {
       case 'createActivity':
-        return handleCreateActivity(body: any);
+        return handleCreateActivity(body);
       case 'updateActivity':
-        return handleUpdateActivity(body: any);
+        return handleUpdateActivity(body);
       case 'createGoal':
-        return handleCreateGoal(body: any);
+        return handleCreateGoal(body);
       case 'updateGoal':
-        return handleUpdateGoal(body: any);
+        return handleUpdateGoal(body);
       case 'addReflection':
-        return handleAddReflection(body: any);
+        return handleAddReflection(body);
       case 'addEvidence':
-        return handleAddEvidence(body: any);
+        return handleAddEvidence(body);
       case 'generateReport':
-        return handleGenerateReport(body: any);
+        return handleGenerateReport(body);
       default:
         return NextResponse.json(
           { error: 'Invalid action specified' },
