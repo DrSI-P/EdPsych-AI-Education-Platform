@@ -1,3 +1,17 @@
+import * as React from "react";
+import { Input } from "./input";
+import { Progress } from "./progress";
+import { 
+  Table, 
+  TableBody, 
+  TableCaption, 
+  TableCell, 
+  TableFooter, 
+  TableHead, 
+  TableHeader, 
+  TableRow 
+} from "./table";
+
 import { Alert as AlertComponent, AlertDescription, AlertTitle } from './alert';
 import { Button } from './button';
 import { Badge } from './badge';
@@ -22,6 +36,20 @@ export const AlertTitle = AlertTitle;
 export { Button };
 export { Badge };
 export { Label };
+export { Input };
+export { Progress };
+
+// Export Table components
+export {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow
+};
 
 // Export Select components
 export {
