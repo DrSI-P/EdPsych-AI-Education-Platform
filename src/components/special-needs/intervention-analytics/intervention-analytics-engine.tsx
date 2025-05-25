@@ -9,11 +9,8 @@ import { Badge } from '@/components/ui/badge';
 
 // Create stub InterventionAnalyticsEngine component to fix build warnings
 export function InterventionAnalyticsEngine() {
-  const [activeTab, setActiveTab] = useState('overview');
-  const [isLoading, setIsLoading] = useState(true: any);
-  const [analyticsData, setAnalyticsData] = useState(null: any);
-
-  useEffect(() => {
+  const [activeTab, setActiveTab] = useState('over  const [isLoading, setIsLoading] = useState(true);
+  const [analyticsData, setAnalyticsData] = useState(null);  useEffect(() => {
     // Simulate data loading
     const timer = setTimeout(() => {
       setAnalyticsData({
@@ -28,13 +25,13 @@ export function InterventionAnalyticsEngine() {
           { id: 4, name: 'Social Skills Development', student: 'Tyler Williams', progress: 60, status: 'active' }
         ]
       });
-      setIsLoading(false: any);
+      setIsLoading(false);
     }, 1500);
 
-    return () => clearTimeout(timer: any);
+    return () => clearTimeout(timer);
   }, []);
 
-  if (isLoading: any) {
+  if (isLoading) {
     return (
       <div className="flex flex-col items-centre justify-centre min-h-[400px]">
         <div className="w-16 h-16 border-4 border-t-blue-500 border-b-blue-700 border-l-blue-500 border-r-blue-700 rounded-full animate-spin"></div>

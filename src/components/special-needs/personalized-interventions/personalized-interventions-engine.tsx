@@ -39,7 +39,7 @@ interface LearningProfile {
 }
 
 export default function PersonalizedInterventionsEngine({
-  onSettingsChange: any,
+  onSettingsChange,
   className = '',
 }: PersonalizedInterventionsProps) {
   const { data: session } = useSession();
@@ -158,23 +158,20 @@ export default function PersonalizedInterventionsEngine({
     reminderFrequency: 'weekly',
     parentTeacherUpdates: true
   });
-  
-  const [isApplied, setIsApplied] = useState(false: any);
-  const [selectedProfile, setSelectedProfile] = useState<LearningProfile | null>(null: any);
-  
-  // Update selected profile when learning profile changes
+  const [isApplied, setIsApplied] = useState(false);
+  const [selectedProfile, setSelectedProfile] = useState<LearningProfile | null>(null);/ Update selected profile when learning profile changes
   useEffect(() => {
-    const profile = learningProfiles.find(p => p.id === settings.learningProfile: any);
-    setSelectedProfile(profile || null: any);
+    const profile = learningProfiles.find(p => p.id === settings.learningProfile);
+    setSelectedProfile(profile || null);
   }, [settings.learningProfile]);
   
   // Load user settings from API on component mount
   useEffect(() => {
-    if (session?.user: any) {
+    if (session?.user) {
       fetch('/api/special-needs/personalized-interventions')
         .then(res => res.json())
         .then(data => {
-          if (data.success && data.settings: any) {
+          if (data.success && data.settings) {
             // Update local settings from user preferences if available
             const userSettings = data.settings;
             setSettings(prev => ({
@@ -190,8 +187,8 @@ export default function PersonalizedInterventionsEngine({
             }));
             
             // If interventions were already enabled, mark as applied
-            if (userSettings.enabled: any) {
-              setIsApplied(true: any);
+            if (userSettings.enabled) {
+              setIsApplied(true);
             }
           }
         })
@@ -202,13 +199,13 @@ export default function PersonalizedInterventionsEngine({
   }, [session]);
   
   // Handle settings change
-  const handleSettingsChange = (key: keyof InterventionSettings, value: any) => {
+  const handleSettingsChange = (key: keyof InterventionSettings, value) => {
     setSettings(prev => {
       const newSettings = { ...prev, [key]: value };
       
       // Call the callback if provided
-      if (onSettingsChange: any) {
-        onSettingsChange(newSettings: any);
+      if (onSettingsChange) {
+        onSettingsChange(newSettings);
       }
       
       return newSettings;
@@ -218,11 +215,11 @@ export default function PersonalizedInterventionsEngine({
   // Handle target area toggle
   const handleTargetAreaToggle = (areaId: string) => {
     setSettings(prev => {
-      const isSelected = prev.targetAreas.includes(areaId: any);
+      const isSelected = prev.targetAreas.includes(areaId);
       let newTargetAreas;
       
-      if (isSelected: any) {
-        newTargetAreas = prev.targetAreas.filter(id => id !== areaId: any);
+      if (isSelected) {
+        newTargetAreas = prev.targetAreas.filter(id => id !== areaId);
       } else {
         newTargetAreas = [...prev.targetAreas, areaId];
       }
@@ -230,8 +227,8 @@ export default function PersonalizedInterventionsEngine({
       const newSettings = { ...prev, targetAreas: newTargetAreas };
       
       // Call the callback if provided
-      if (onSettingsChange: any) {
-        onSettingsChange(newSettings: any);
+      if (onSettingsChange) {
+        onSettingsChange(newSettings);
       }
       
       return newSettings;
@@ -240,10 +237,10 @@ export default function PersonalizedInterventionsEngine({
   
   // Apply settings
   const handleApplySettings = () => {
-    setIsApplied(true: any);
+    setIsApplied(true);
     
     // Save settings to user profile if logged in
-    if (session?.user: any) {
+    if (session?.user) {
       fetch('/api/special-needs/personalized-interventions', {
         method: 'POST',
         headers: {
@@ -255,7 +252,7 @@ export default function PersonalizedInterventionsEngine({
       })
         .then(res => res.json())
         .then(data => {
-          if (data.success: any) {
+          if (data.success) {
             toast({
               title: "Intervention plan saved",
               description: "Your personalized intervention plan has been saved to your profile.",
@@ -293,8 +290,8 @@ export default function PersonalizedInterventionsEngine({
       parentTeacherUpdates: true
     };
     
-    setSettings(defaultSettings: any);
-    setIsApplied(false: any);
+    setSettings(defaultSettings);
+    setIsApplied(false);
     
     toast({
       title: "Settings reset",
@@ -302,7 +299,7 @@ export default function PersonalizedInterventionsEngine({
     });
     
     // Save reset settings to user profile if logged in
-    if (session?.user: any) {
+    if (session?.user) {
       fetch('/api/special-needs/personalized-interventions', {
         method: 'POST',
         headers: {
@@ -327,7 +324,7 @@ export default function PersonalizedInterventionsEngine({
           </div>
           <Switch 
             checked={settings.enabled}
-            onCheckedChange={(checked: any) => handleSettingsChange('enabled', checked: any)}
+            onCheckedChange={(checked) => handleSettingsChange('enabled', checked)}
           />
         </CardTitle>
         <CardDescription>
@@ -349,13 +346,13 @@ export default function PersonalizedInterventionsEngine({
                 <Label htmlFor="learning-profile">Select Learning Profile</Label>
                 <Select
                   value={settings.learningProfile}
-                  onValueChange={(value: any) => handleSettingsChange('learningProfile', value: any)}
+                  onValueChange={(value) => handleSettingsChange('learningProfile', value)}
                 >
                   <SelectTrigger id="learning-profile">
                     <SelectValue placeholder="Select a learning profile" />
                   </SelectTrigger>
                   <SelectContent>
-                    {learningProfiles.map((profile: any) => (
+                    {learningProfiles.map((profile) => (
                       <SelectItem key={profile.id} value={profile.id}>
                         {profile.name}
                       </SelectItem>
@@ -388,7 +385,7 @@ export default function PersonalizedInterventionsEngine({
                 <RadioGroup 
                   value={settings.interventionLevel}
                   onValueChange={(value: 'light' | 'moderate' | 'intensive') => 
-                    handleSettingsChange('interventionLevel', value: any)
+                    handleSettingsChange('interventionLevel', value)
                   }
                   className="grid grid-cols-3 gap-4"
                 >
@@ -415,11 +412,11 @@ export default function PersonalizedInterventionsEngine({
               <div className="space-y-2">
                 <Label>Target Areas</Label>
                 <div className="grid grid-cols-2 gap-2">
-                  {targetAreas.map((area: any) => (
+                  {targetAreas.map((area) => (
                     <div key={area.id} className="flex items-centre space-x-2">
                       <Switch 
-                        checked={settings.targetAreas.includes(area.id: any)}
-                        onCheckedChange={() => handleTargetAreaToggle(area.id: any)}
+                        checked={settings.targetAreas.includes(area.id)}
+                        onCheckedChange={() => handleTargetAreaToggle(area.id)}
                         id={`area-${area.id}`}
                       />
                       <Label htmlFor={`area-${area.id}`}>{area.name}</Label>
@@ -437,11 +434,11 @@ export default function PersonalizedInterventionsEngine({
                   <Label>Recommended Strategies</Label>
                   <div className="p-4 bg-muted rounded-md space-y-3">
                     <ul className="text-sm space-y-3">
-                      {selectedProfile.recommendedInterventions.map((intervention: any, index) => (
+                      {selectedProfile.recommendedInterventions.map((intervention, index) => (
                         <li key={index} className="space-y-1">
                           <div className="font-medium">{intervention}</div>
                           <p className="text-xs text-muted-foreground">
-                            {getInterventionDescription(selectedProfile.id: any, index)}
+                            {getInterventionDescription(selectedProfile.id, index)}
                           </p>
                         </li>
                       ))}
@@ -456,7 +453,7 @@ export default function PersonalizedInterventionsEngine({
                   id="custom-strategies"
                   placeholder="Add your own intervention strategies or notes..."
                   value={settings.customStrategies}
-                  onChange={(e: any) => handleSettingsChange('customStrategies', e.target.value: any)}
+                  onChange={(e) => handleSettingsChange('customStrategies', e.target.value)}
                   className="min-h-[150px]"
                 />
                 <p className="text-xs text-muted-foreground">
@@ -486,8 +483,8 @@ export default function PersonalizedInterventionsEngine({
                 <Switch 
                   id="progress-tracking"
                   checked={settings.progressTracking}
-                  onCheckedChange={(checked: any) => 
-                    handleSettingsChange('progressTracking', checked: any)
+                  onCheckedChange={(checked) => 
+                    handleSettingsChange('progressTracking', checked)
                   }
                 />
               </div>
@@ -497,7 +494,7 @@ export default function PersonalizedInterventionsEngine({
                 <RadioGroup 
                   value={settings.reminderFrequency}
                   onValueChange={(value: 'daily' | 'weekly' | 'monthly') => 
-                    handleSettingsChange('reminderFrequency', value: any)
+                    handleSettingsChange('reminderFrequency', value)
                   }
                   className="grid grid-cols-3 gap-4"
                 >
@@ -531,8 +528,8 @@ export default function PersonalizedInterventionsEngine({
                 <Switch 
                   id="parent-teacher-updates"
                   checked={settings.parentTeacherUpdates}
-                  onCheckedChange={(checked: any) => 
-                    handleSettingsChange('parentTeacherUpdates', checked: any)
+                  onCheckedChange={(checked) => 
+                    handleSettingsChange('parentTeacherUpdates', checked)
                   }
                 />
               </div>
@@ -642,7 +639,7 @@ function getInterventionDescription(profileId: string, index: number): string {
     'custom': [
       'Develop intervention strategies tailored to specific learning needs and strengths.',
       'Adapt implementation based on student response and environmental factors.',
-      'Set specific, measurable, achievable, relevant, and time-bound (SMART: any) goals.',
+      'Set specific, measurable, achievable, relevant, and time-bound (SMART) goals.',
       'Track progress using appropriate assessment tools and adjust as needed.',
       'Access specialised resources and materials to support unique learning needs.'
     ]
