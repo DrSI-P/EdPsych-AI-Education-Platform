@@ -5,25 +5,11 @@ import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { 
-  // Remove unused icon imports
-  BookOpen
-} from 'lucide-react';
-import { useFairUsage } from '../subscription/fair-usage';
-import { useCurriculum } from '../curriculum/curriculum-context';
-import { useGamification } from '../gamification/gamification-context';
-import { useAssessment } from '../assessment/assessment-context';
-import { useUserProfile } from '../user/user-profile-context';
+// Removed unused Dialog imports
 import { CharacterCreation } from './character-creation';
 import { QuestDetail } from './quest-detail';
 import { QuestHub } from './quest-hub';
 import { CharacterDashboard } from './character-dashboard';
-
-// Add JSX namespace to fix 'JSX is not defined' errors
-declare namespace JSX {
-  interface Element extends React.ReactElement<any, any> {}
-}
 
 // Define types for clarity
 interface Quest {
@@ -155,7 +141,7 @@ interface CurriculumQuest {
 
 // Helper functions moved outside the component for better structure and testability
 
-const determineSubjectFocus = (learningHistory: unknown, assessmentResults: AssessmentResult[] | null): string => {
+const determineSubjectFocus = (learningHistory: Record<string, unknown>, assessmentResults: AssessmentResult[] | null): string => {
   if (!assessmentResults || assessmentResults.length === 0) {
     return 'Mathematics'; // Default subject
   }
@@ -209,7 +195,7 @@ const determineFocusAreas = (assessmentResults: AssessmentResult[] | null): stri
   return sortedSkills.slice(0, 3).map(item => item.skill);
 };
 
-const generateQuestTitleAndDescription = (subject: string, focusAreas: string[], difficulty: string): {title: string, description: string} => {
+const generateQuestTitleAndDescription = (subject: string, focusAreas: string[]): {title: string, description: string} => {
   const subjectThemes: Record<string, {titles: string[], descriptions: string[]}> = {
     'Mathematics': {
       titles: ['The Mathematical Mystery', 'Number Explorers', 'Patterns and Puzzles', 'The Calculation Chronicles'],
@@ -257,20 +243,16 @@ const generateQuestTitleAndDescription = (subject: string, focusAreas: string[],
 };
 
 // Main component
-const AdventureQuestSagaIntegrated: React.FC = (): JSX.Element => {
+const AdventureQuestSagaIntegrated = (): React.ReactElement => {
   const { toast } = useToast();
-  const fairUsage = useFairUsage();
-  const curriculumContext = useCurriculum();
-  const gamificationContext = useGamification();
-  const assessmentContext = useAssessment();
+  // Removed unused context variables
   
   // State
   const [activeTab, setActiveTab] = useState<string>("quests");
   const [character, setCharacter] = useState<Character | null>(null);
   const [selectedQuest, setSelectedQuest] = useState<CurriculumQuest | null>(null);
-  const [activeChapter, setActiveChapter] = useState<Record<string, unknown> | null>(null);
   const [isCreatingCharacter, setIsCreatingCharacter] = useState<boolean>(false);
-  const [selectedCharacterType, setSelectedCharacterType] = useState<string>("");
+  // Removed unused state variables
   
   // Fetch initial data
   useEffect(() => {
