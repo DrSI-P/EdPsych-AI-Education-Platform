@@ -324,9 +324,10 @@ export function DataVisualisationDashboard() {
   };
   
   // Render overview dashboard
-  const renderOverviewDashboard = () => (
-    <div className="space-y-6">
-      {/* Key metrics */}
+  const renderOverviewDashboard = () => {
+    return (
+      <div className="space-y-6">
+        {/* Key metrics */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
