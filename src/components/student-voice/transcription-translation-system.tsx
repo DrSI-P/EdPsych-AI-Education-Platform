@@ -62,7 +62,11 @@ interface VocabularyItem {
     language: string;
     translation: string;
   }[];
-  subject: striexport default function TranscriptionTranslationSystem() {
+  subject: string;
+  createdAt: string;
+}
+
+export default function TranscriptionTranslationSystem() {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("translate");
   const [isRecording, setIsRecording] = useState(false);
@@ -455,189 +459,257 @@ interface VocabularyItem {
     }, 1000);
   };
   
-  // Handle transcription request
-  const handleRequestTranscription = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Validate form
-    if (!transcriptionForm.originalText.trim()) {
-      toast({
-        title: "Text required",
-        description: "Please enter the text to translate.",
-        variant: "destructive"
-      });
-      return;
-    }
-    
-    if (transcriptionForm.originalLanguage === transcriptionForm.targetLanguage) {
-      toast({
-        title: "Different languages required",
-        description: "Source and target languages must be different.",
-        variant: "destructive"
-      });
-      return;
-    }
-    
-    setIsLoading(true);
-    
-    // Translate the text
-    translateText(
-      transcriptionForm.originalText,
-      transcriptionForm.originalLanguage,
-      transcriptionForm.targetLanguage
-    );
+  // Format date for display
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat('en-GB', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    }).format(date);
   };
   
-  // Start live transcription
-  const startLiveTranscription = () => {
-    setIsLiveTranscribing(true);
-    setLiveTranscription('');
-    
-    // In a real application, this would connect to a live transcription service
-    // For now, we'll simulate with periodic updates
-    const mockPhrases = [
-      "Today we're going to learn about the water cycle.",
-      "Water can exist in three states: liquid, solid, and gas.",
-      "When water heats up, it evaporates and becomes water vapor.",
-      "This water vapor rises into the atmosphere and forms clouds.",
-      "When the water vapor cools, it condenses and forms droplets.",
-      "These droplets fall back to Earth as precipitation.",
-      "This continuous movement of water is called the water cycle.",
-      "The water cycle is essential for all life on Earth.",
-      "Can anyone tell me why the water cycle is important?",
-      "Very good! The water cycle provides fresh water for plants and animals."
-    ];
-    
-    let phraseIndex = 0;
-    
-    // Simulate live transcription with periodic updates
-    liveTranscriptionRef.current = setInterval(() => {
-      if (phraseIndex < mockPhrases.length) {
-        setLiveTranscription(prev => prev + (prev ? ' ' : '') + mockPhrases[phraseIndex]);
-        phraseIndex++;
-      } else {
-        // End transcription when all phrases are used
-        stopLiveTranscription();
-      }
-    }, 3000);
-    
+  // Simulate text-to-speech
+  const speakText = (text: string, language: string) => {
     toast({
-      title: "Live transcription started",
-      description: "Transcribing classroom speech in real-time.",
-    });
-  };
-  
-  // Stop live transcription
-  const stopLiveTranscription = () => {
-    if (liveTranscriptionRef.current) {
-      clearInterval(liveTranscriptionRef.current);
-      liveTranscriptionRef.current = null;
-    }
-    
-    setIsLiveTranscribing(false);
-    
-    toast({
-      title: "Live transcription stopped",
-      description: "Transcription has been saved.",
+      title: "Text-to-speech",
+      description: `Speaking text in ${languageOptions.find(l => l.code === language)?.name || language}...`,
     });
     
-    // Save the transcription if there's content
-    if (liveTranscription) {
-      const newTranscription: TranscriptionEntry = {
-        id: Date.now().toString(),
-        originalText: liveTranscription,
-        originalLanguage: 'en',
-        context: 'Live classroom transcription',
-        subject: 'Science',
-        createdAt: new Date().toISOString()
-      };
-      
-      setTranscriptionHistory(prev => [newTranscription, ...prev]);
-    }
+    // In a real application, this would use the Web Speech API or a TTS service
+    console.log(`Speaking: ${text} in ${language}`);
   };
   
-  // Format recording time
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  };
-  
-  // Copy text to clipboard
+  // Simulate copying text to clipboard
   const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text).then(
-      () => {
-        toast({
-          title: "Copied to clipboard",
-          description: "Text has been copied to your clipboard.",
-        });
-      },
-      (err) => {
-        toast({
-          title: "Copy failed",
-          description: "Could not copy text to clipboard.",
-          variant: "destructive"
-        });
-        console.error('Could not copy text: ', err);
-      }
-    );
+    navigator.clipboard.writeText(text);
+    
+    toast({
+      title: "Copied to clipboard",
+      description: "Text has been copied to your clipboard.",
+    });
   };
   
-  return (
-    <div className="container mx-auto py-6">
-      <h1 className="text-3xl font-bold mb-2">Transcription & Translation System</h1>
-      <p className="text-muted-foreground mb-6">
-        Supporting EAL students with transcription and translation tools
-      </p>
+  // Simulate downloading transcription as text file
+  const downloadTranscription = (transcription: TranscriptionEntry) => {
+    const filename = `transcription_${new Date().toISOString().slice(0, 10)}.txt`;
+    const content = `Original (${transcription.originalLanguage}): ${transcription.originalText}\n\nTranslation (${transcription.targetLanguage}): ${transcription.translatedText}\n\nContext: ${transcription.context || 'N/A'}\nSubject: ${transcription.subject || 'N/A'}\nDate: ${formatDate(transcription.createdAt)}`;
+    
+    const element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
+    element.setAttribute('download', filename);
+    
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    
+    element.click();
+    
+    document.body.removeChild(element);
+    
+    toast({
+      title: "Download started",
+      description: `Downloading as ${filename}`,
+    });
+  };
+  
+  // Simulate live transcription
+  const toggleLiveTranscription = () => {
+    if (isLiveTranscribing) {
+      // Stop live transcription
+      if (liveTranscriptionRef.current) {
+        clearInterval(liveTranscriptionRef.current);
+        liveTranscriptionRef.current = null;
+      }
+      setIsLiveTranscribing(false);
       
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid grid-cols-3 mb-6">
-          <TabsTrigger value="translate">Translate Content</TabsTrigger>
-          <TabsTrigger value="vocabulary">Key Vocabulary</TabsTrigger>
-          <TabsTrigger value="classroom">Classroom Support</TabsTrigger>
+      toast({
+        title: "Live transcription stopped",
+        description: "Live transcription has been stopped.",
+      });
+    } else {
+      // Start live transcription
+      setIsLiveTranscribing(true);
+      setLiveTranscription("Listening...");
+      
+      // Simulate receiving transcription updates
+      liveTranscriptionRef.current = setInterval(() => {
+        const mockPhrases = [
+          "The mitochondria is the powerhouse of the cell.",
+          "In 1492, Columbus sailed the ocean blue.",
+          "Water is composed of hydrogen and oxygen atoms.",
+          "The square root of 144 is 12.",
+          "Shakespeare wrote Romeo and Juliet.",
+          "The capital of France is Paris."
+        ];
+        
+        const randomPhrase = mockPhrases[Math.floor(Math.random() * mockPhrases.length)];
+        setLiveTranscription(randomPhrase);
+      }, 5000);
+      
+      toast({
+        title: "Live transcription started",
+        description: "Live transcription is now active.",
+      });
+    }
+  };
+  
+  // Render the component
+  return (
+    <div className="container mx-auto py-6 space-y-8">
+      <div className="flex flex-col space-y-2">
+        <h1 className="text-3xl font-bold tracking-tight">Transcription & Translation System</h1>
+        <p className="text-muted-foreground">
+          Transcribe speech, translate text, and build multilingual vocabulary resources for students.
+        </p>
+      </div>
+      
+      <Tabs defaultValue="translate" value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="translate">
+            <Globe className="mr-2 h-4 w-4" />
+            Translate
+          </TabsTrigger>
+          <TabsTrigger value="vocabulary">
+            <BookOpen className="mr-2 h-4 w-4" />
+            Vocabulary
+          </TabsTrigger>
+          <TabsTrigger value="history">
+            <FileText className="mr-2 h-4 w-4" />
+            History
+          </TabsTrigger>
         </TabsList>
         
-        {/* Translate Content Tab */}
-        <TabsContent value="translate" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Translate Educational Content</CardTitle>
-              <CardDescription>
-                Convert text between languages to support EAL students
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleRequestTranscription} className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="originalLanguage">Source Language</Label>
-                    <Select 
-                      value={transcriptionForm.originalLanguage} 
-                      onValueChange={(value) => setTranscriptionForm(prev => ({ ...prev, originalLanguage: value }))}
+        <TabsContent value="translate" className="space-y-4 mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Speech to Text</CardTitle>
+                <CardDescription>
+                  Record speech and convert it to text for translation.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex flex-col space-y-2">
+                  <div className="flex items-center justify-between">
+                    <Label>Recording Status</Label>
+                    <Badge variant={isRecording ? "destructive" : "outline"}>
+                      {isRecording ? `Recording (${recordingTime}s)` : "Ready"}
+                    </Badge>
+                  </div>
+                  
+                  <div className="flex space-x-2">
+                    <Button 
+                      variant={isRecording ? "destructive" : "default"} 
+                      onClick={isRecording ? stopRecording : startRecording}
+                      disabled={isTranscribing}
+                      className="flex-1"
                     >
-                      <SelectTrigger>
+                      {isRecording ? (
+                        <>
+                          <MicOff className="mr-2 h-4 w-4" />
+                          Stop Recording
+                        </>
+                      ) : (
+                        <>
+                          <Mic className="mr-2 h-4 w-4" />
+                          Start Recording
+                        </>
+                      )}
+                    </Button>
+                    
+                    <Button
+                      variant="outline"
+                      onClick={toggleLiveTranscription}
+                      className="flex-1"
+                    >
+                      {isLiveTranscribing ? (
+                        <>
+                          <X className="mr-2 h-4 w-4" />
+                          Stop Live
+                        </>
+                      ) : (
+                        <>
+                          <MessageSquare className="mr-2 h-4 w-4" />
+                          Live Transcribe
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </div>
+                
+                {isLiveTranscribing && (
+                  <div className="bg-muted p-3 rounded-md">
+                    <p className="text-sm font-medium">Live Transcription:</p>
+                    <p className="italic">{liveTranscription}</p>
+                  </div>
+                )}
+                
+                <div className="space-y-2">
+                  <Label htmlFor="transcribedText">Transcribed Text</Label>
+                  <Textarea
+                    id="transcribedText"
+                    placeholder={isTranscribing ? "Transcribing..." : "Transcribed text will appear here..."}
+                    value={transcribedText}
+                    onChange={(e) => {
+                      setTranscribedText(e.target.value);
+                      setTranscriptionForm(prev => ({
+                        ...prev,
+                        originalText: e.target.value
+                      }));
+                    }}
+                    className="min-h-[120px]"
+                    disabled={isTranscribing}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Translation Settings</CardTitle>
+                <CardDescription>
+                  Configure translation options and context.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="originalLanguage">Original Language</Label>
+                    <Select
+                      value={transcriptionForm.originalLanguage}
+                      onValueChange={(value) => setTranscriptionForm(prev => ({ ...prev, originalLanguage: value }))}
+                      disabled={isTranslating}
+                    >
+                      <SelectTrigger id="originalLanguage">
                         <SelectValue placeholder="Select language" />
                       </SelectTrigger>
                       <SelectContent>
-                        {languageOptions.map(language => (
-                          <SelectItem key={language.code} value={language.code}>{language.name}</SelectItem>
+                        {languageOptions.map((lang) => (
+                          <SelectItem key={lang.code} value={lang.code}>
+                            {lang.name}
+                          </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                   </div>
                   
-                  <div>
+                  <div className="space-y-2">
                     <Label htmlFor="targetLanguage">Target Language</Label>
-                    <Select 
-                      value={transcriptionForm.targetLanguage} 
+                    <Select
+                      value={transcriptionForm.targetLanguage}
                       onValueChange={(value) => setTranscriptionForm(prev => ({ ...prev, targetLanguage: value }))}
+                      disabled={isTranslating}
                     >
-                      <SelectTrigger>
+                      <SelectTrigger id="targetLanguage">
                         <SelectValue placeholder="Select language" />
                       </SelectTrigger>
                       <SelectContent>
-                        {languageOptions.map(language => (
-                          <SelectItem key={language.code} value={language.code}>{language.name}</SelectItem>
+                        {languageOptions.map((lang) => (
+                          <SelectItem key={lang.code} value={lang.code}>
+                            {lang.name}
+                          </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -645,599 +717,333 @@ interface VocabularyItem {
                 </div>
                 
                 <div className="space-y-2">
-                  <div className="flex items-centre justify-between">
-                    <Label htmlFor="originalText">Text to Translate</Label>
-                    <div className="flex items-centre gap-2">
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        onClick={startRecording}
-                        disabled={isRecording || isTranscribing}
-                        className="flex items-centre gap-1"
-                      >
-                        <Mic className="h-4 w-4" />
-                        <span>Record</span>
-                      </Button>
-                      
-                      {isRecording && (
-                        <Button
-                          type="button"
-                          variant="destructive"
-                          size="sm"
-                          onClick={stopRecording}
-                          className="flex items-centre gap-1"
-                        >
-                          <MicOff className="h-4 w-4" />
-                          <span>Stop ({formatTime(recordingTime)})</span>
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                  
-                  {isTranscribing ? (
-                    <div className="min-h-[150px] flex items-centre justify-centre border rounded-md bg-muted/20">
-                      <div className="flex flex-col items-centre gap-2">
-                        <RefreshCw className="h-8 w-8 animate-spin text-muted-foreground" />
-                        <span className="text-sm text-muted-foreground">Transcribing audio...</span>
-                      </div>
-                    </div>
-                  ) : (
-                    <Textarea
-                      id="originalText"
-                      name="originalText"
-                      value={transcriptionForm.originalText}
-                      onChange={handleTranscriptionFormChange}
-                      placeholder="Enter text to translate or record speech..."
-                      className="min-h-[150px]"
-                    />
-                  )}
+                  <Label htmlFor="context">Context (Optional)</Label>
+                  <Input
+                    id="context"
+                    name="context"
+                    placeholder="e.g., Science lesson, Parent meeting"
+                    value={transcriptionForm.context}
+                    onChange={handleTranscriptionFormChange}
+                    disabled={isTranslating}
+                  />
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="context">Context (Optional)</Label>
-                    <Input
-                      id="context"
-                      name="context"
-                      value={transcriptionForm.context}
-                      onChange={handleTranscriptionFormChange}
-                      placeholder="e.g., Science lesson, Homework instructions, etc."
-                    />
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="subject">Subject (Optional)</Label>
-                    <Select 
-                      value={transcriptionForm.subject} 
-                      onValueChange={(value) => setTranscriptionForm(prev => ({ ...prev, subject: value }))}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select subject" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="">Not specified</SelectItem>
-                        {subjects.map(subject => (
-                          <SelectItem key={subject} value={subject}>{subject}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-                
-                <div className="flex justify-end pt-4">
-                  <Button
-                    type="submit"
-                    disabled={isLoading || !transcriptionForm.originalText.trim() || transcriptionForm.originalLanguage === transcriptionForm.targetLanguage}
-                    className="w-full md:w-auto"
+                <div className="space-y-2">
+                  <Label htmlFor="subject">Subject (Optional)</Label>
+                  <Select
+                    value={transcriptionForm.subject}
+                    onValueChange={(value) => setTranscriptionForm(prev => ({ ...prev, subject: value }))}
+                    disabled={isTranslating}
                   >
-                    {isLoading ? (
-                      <>
-                        <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                        Translating...
-                      </>
-                    ) : (
-                      <>
-                        <Globe className="mr-2 h-4 w-4" />
-                        Translate
-                      </>
-                    )}
-                  </Button>
+                    <SelectTrigger id="subject">
+                      <SelectValue placeholder="Select subject" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {subjects.map((subject) => (
+                        <SelectItem key={subject} value={subject}>
+                          {subject}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
-              </form>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader>
-              <CardTitle>Translation History</CardTitle>
-              <CardDescription>
-                Recently translated content
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {transcriptionHistory.length === 0 ? (
-                  <div className="text-centre py-8 text-muted-foreground">
-                    No translation history available.
-                  </div>
-                ) : (
-                  transcriptionHistory.map(entry => (
-                    <Card key={entry.id} className="overflow-hidden">
-                      <CardHeader className="pb-2">
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <CardTitle className="text-base">
-                              {languageOptions.find(l => l.code === entry.originalLanguage)?.name || entry.originalLanguage}
-                              {entry.targetLanguage && ` → ${languageOptions.find(l => l.code === entry.targetLanguage)?.name || entry.targetLanguage}`}
-                            </CardTitle>
-                            <CardDescription>
-                              {new Date(entry.createdAt).toLocaleDateString()}
-                              {entry.subject && ` • ${entry.subject}`}
-                              {entry.context && ` • ${entry.context}`}
-                            </CardDescription>
-                          </div>
-                          <div className="flex gap-1">
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => copyToClipboard(entry.originalText)}
-                              className="h-8 w-8 p-0"
-                              title="Copy original text"
-                            >
-                              <Copy className="h-4 w-4" />
-                            </Button>
-                            {entry.translatedText && (
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => copyToClipboard(entry.translatedText || '')}
-                                className="h-8 w-8 p-0"
-                                title="Copy translation"
-                              >
-                                <FileText className="h-4 w-4" />
-                              </Button>
-                            )}
-                          </div>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-3">
-                          <div>
-                            <Label className="text-xs text-muted-foreground">Original Text</Label>
-                            <div className="text-sm p-2 bg-muted/20 rounded-md">
-                              {entry.originalText}
-                            </div>
-                          </div>
-                          
-                          {entry.translatedText && (
-                            <div>
-                              <Label className="text-xs text-muted-foreground">Translated Text</Label>
-                              <div className="text-sm p-2 bg-muted/20 rounded-md">
-                                {entry.translatedText}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))
-                )}
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-        
-        {/* Key Vocabulary Tab */}
-        <TabsContent value="vocabulary" className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Add Key Vocabulary</CardTitle>
-                <CardDescription>
-                  Create translated vocabulary lists for EAL students
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmitVocabulary} className="space-y-4">
-                  <div>
-                    <Label htmlFor="term">Term</Label>
-                    <Input
-                      id="term"
-                      name="term"
-                      value={vocabularyForm.term}
-                      onChange={handleVocabularyFormChange}
-                      placeholder="Enter vocabulary term"
-                    />
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="definition">Definition</Label>
-                    <Textarea
-                      id="definition"
-                      name="definition"
-                      value={vocabularyForm.definition}
-                      onChange={handleVocabularyFormChange}
-                      placeholder="Enter definition"
-                      className="min-h-[100px]"
-                    />
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="subject">Subject</Label>
-                    <Select 
-                      value={vocabularyForm.subject} 
-                      onValueChange={(value) => setVocabularyForm(prev => ({ ...prev, subject: value }))}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select subject" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {subjects.map(subject => (
-                          <SelectItem key={subject} value={subject}>{subject}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    <div className="flex items-centre justify-between">
-                      <Label>Translations</Label>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        onClick={addTranslation}
-                        className="flex items-centre gap-1"
-                      >
-                        <span>Add Language</span>
-                      </Button>
-                    </div>
-                    
-                    {vocabularyForm.translations.map((translation, index) => (
-                      <div key={index} className="flex items-centre gap-2">
-                        <Select 
-                          value={translation.language} 
-                          onValueChange={(value) => handleTranslationChange(index, 'language', value)}
-                        >
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select language" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {languageOptions.filter(l => l.code !== 'en').map(language => (
-                              <SelectItem key={language.code} value={language.code}>{language.name}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        
-                        <Input
-                          value={translation.translation}
-                          onChange={(e) => handleTranslationChange(index, 'translation', e.target.value)}
-                          placeholder={`Translation in ${languageOptions.find(l => l.code === translation.language)?.name || 'selected language'}`}
-                          className="flex-grow"
-                        />
-                        
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => removeTranslation(index)}
-                          disabled={vocabularyForm.translations.length <= 1}
-                          className="h-8 w-8 p-0"
-                        >
-                          <X className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <div className="flex justify-end pt-4">
-                    <Button
-                      type="submit"
-                      disabled={
-                        isLoading || 
-                        !vocabularyForm.term.trim() || 
-                        !vocabularyForm.definition.trim() || 
-                        !vocabularyForm.subject ||
-                        vocabularyForm.translations.some(t => !t.translation.trim())
-                      }
-                      className="w-full md:w-auto"
-                    >
-                      {isLoading ? (
-                        <>
-                          <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                          Saving...
-                        </>
-                      ) : (
-                        <>
-                          <BookOpen className="mr-2 h-4 w-4" />
-                          Add Vocabulary
-                        </>
-                      )}
-                    </Button>
-                  </div>
-                </form>
               </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader>
-                <CardTitle>Vocabulary List</CardTitle>
-                <CardDescription>
-                  Key terms with translations
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {vocabularyList.length === 0 ? (
-                    <div className="text-centre py-8 text-muted-foreground">
-                      No vocabulary items available.
-                    </div>
-                  ) : (
-                    vocabularyList.map(item => (
-                      <Card key={item.id}>
-                        <CardHeader className="pb-2">
-                          <div className="flex justify-between items-start">
-                            <div>
-                              <CardTitle className="text-base flex items-centre gap-2">
-                                {item.term}
-                                <Badge variant="outline">{item.subject}</Badge>
-                              </CardTitle>
-                              <CardDescription>
-                                Added on {new Date(item.createdAt).toLocaleDateString()}
-                              </CardDescription>
-                            </div>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => copyToClipboard(`${item.term}: ${item.definition}`)}
-                              className="h-8 w-8 p-0"
-                              title="Copy term and definition"
-                            >
-                              <Copy className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </CardHeader>
-                        <CardContent className="pb-2">
-                          <div className="space-y-3">
-                            <div>
-                              <Label className="text-xs text-muted-foreground">Definition</Label>
-                              <div className="text-sm p-2 bg-muted/20 rounded-md">
-                                {item.definition}
-                              </div>
-                            </div>
-                            
-                            <div>
-                              <Label className="text-xs text-muted-foreground">Translations</Label>
-                              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-1">
-                                {item.translations.map((translation, index) => (
-                                  <div key={index} className="flex items-centre gap-2 text-sm">
-                                    <Badge variant="outline" className="min-w-[80px] justify-centre">
-                                      {languageOptions.find(l => l.code === translation.language)?.name || translation.language}
-                                    </Badge>
-                                    <span>{translation.translation}</span>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))
+              <CardFooter>
+                <Button 
+                  className="w-full" 
+                  onClick={() => translateText(
+                    transcriptionForm.originalText,
+                    transcriptionForm.originalLanguage,
+                    transcriptionForm.targetLanguage
                   )}
-                </div>
-              </CardContent>
+                  disabled={!transcriptionForm.originalText.trim() || isTranslating || transcriptionForm.originalLanguage === transcriptionForm.targetLanguage}
+                >
+                  {isTranslating ? (
+                    <>
+                      <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                      Translating...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="mr-2 h-4 w-4" />
+                      Translate Text
+                    </>
+                  )}
+                </Button>
+              </CardFooter>
             </Card>
           </div>
         </TabsContent>
         
-        {/* Classroom Support Tab */}
-        <TabsContent value="classroom" className="space-y-6">
+        <TabsContent value="vocabulary" className="space-y-4 mt-4">
           <Card>
             <CardHeader>
-              <CardTitle>Live Classroom Transcription</CardTitle>
+              <CardTitle>Add Vocabulary Term</CardTitle>
               <CardDescription>
-                Real-time transcription of classroom speech to support EAL students
+                Create multilingual vocabulary resources for students.
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex justify-between items-centre">
-                <div className="space-y-1">
-                  <h3 className="text-lg font-medium">Current Lesson</h3>
-                  <p className="text-sm text-muted-foreground">Science - The Water Cycle</p>
+            <CardContent>
+              <form onSubmit={handleSubmitVocabulary} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="term">Term</Label>
+                    <Input
+                      id="term"
+                      name="term"
+                      placeholder="e.g., Photosynthesis"
+                      value={vocabularyForm.term}
+                      onChange={handleVocabularyFormChange}
+                      disabled={isLoading}
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="subject">Subject</Label>
+                    <Select
+                      value={vocabularyForm.subject}
+                      onValueChange={(value) => setVocabularyForm(prev => ({ ...prev, subject: value }))}
+                      disabled={isLoading}
+                    >
+                      <SelectTrigger id="subject">
+                        <SelectValue placeholder="Select subject" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {subjects.map((subject) => (
+                          <SelectItem key={subject} value={subject}>
+                            {subject}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
                 
-                {!isLiveTranscribing ? (
-                  <Button
-                    onClick={startLiveTranscription}
-                    className="flex items-centre gap-2"
-                  >
-                    <VolumeUp className="h-4 w-4" />
-                    Start Transcription
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={stopLiveTranscription}
-                    variant="destructive"
-                    className="flex items-centre gap-2"
-                  >
-                    <MicOff className="h-4 w-4" />
-                    Stop Transcription
-                  </Button>
-                )}
-              </div>
-              
-              <div className="border rounded-md p-4 min-h-[200px] bg-muted/20">
-                {isLiveTranscribing && !liveTranscription && (
-                  <div className="flex items-centre justify-centre h-full">
-                    <div className="flex flex-col items-centre gap-2">
-                      <RefreshCw className="h-8 w-8 animate-spin text-muted-foreground" />
-                      <span className="text-sm text-muted-foreground">Waiting for speech...</span>
-                    </div>
-                  </div>
-                )}
+                <div className="space-y-2">
+                  <Label htmlFor="definition">Definition</Label>
+                  <Textarea
+                    id="definition"
+                    name="definition"
+                    placeholder="Enter the definition of the term..."
+                    value={vocabularyForm.definition}
+                    onChange={handleVocabularyFormChange}
+                    className="min-h-[100px]"
+                    disabled={isLoading}
+                  />
+                </div>
                 
-                {liveTranscription && (
-                  <div className="space-y-2">
-                    <div className="flex justify-between items-centre">
-                      <Badge variant="outline" className="flex items-centre gap-1">
-                        <Volume2 className="h-3 w-3" />
-                        Live Transcription
-                      </Badge>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <Label>Translations</Label>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={addTranslation}
+                      disabled={isLoading}
+                    >
+                      Add Translation
+                    </Button>
+                  </div>
+                  
+                  {vocabularyForm.translations.map((translation, index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <Select
+                        value={translation.language}
+                        onValueChange={(value) => handleTranslationChange(index, 'language', value)}
+                        disabled={isLoading}
+                      >
+                        <SelectTrigger className="w-[140px]">
+                          <SelectValue placeholder="Language" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {languageOptions.map((lang) => (
+                            <SelectItem key={lang.code} value={lang.code}>
+                              {lang.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       
-                      <div className="flex gap-1">
+                      <Input
+                        placeholder="Translation"
+                        value={translation.translation}
+                        onChange={(e) => handleTranslationChange(index, 'translation', e.target.value)}
+                        className="flex-1"
+                        disabled={isLoading}
+                      />
+                      
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => removeTranslation(index)}
+                        disabled={vocabularyForm.translations.length === 1 || isLoading}
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+                
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? (
+                    <>
+                      <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                      Saving...
+                    </>
+                  ) : (
+                    <>
+                      <Check className="mr-2 h-4 w-4" />
+                      Save Vocabulary Term
+                    </>
+                  )}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+          
+          <div className="space-y-4">
+            <h3 className="text-lg font-medium">Vocabulary List</h3>
+            
+            {vocabularyList.length === 0 ? (
+              <p className="text-muted-foreground">No vocabulary terms added yet.</p>
+            ) : (
+              vocabularyList.map((item) => (
+                <Card key={item.id}>
+                  <CardHeader className="pb-2">
+                    <div className="flex items-center justify-between">
+                      <CardTitle>{item.term}</CardTitle>
+                      <Badge>{item.subject}</Badge>
+                    </div>
+                    <CardDescription>{formatDate(item.createdAt)}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="pb-2">
+                    <p className="mb-2">{item.definition}</p>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {item.translations.map((translation, index) => (
+                        <Badge key={index} variant="outline" className="flex items-center">
+                          <span className="font-semibold mr-1">
+                            {languageOptions.find(l => l.code === translation.language)?.name || translation.language}:
+                          </span>
+                          {translation.translation}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                  <CardFooter className="flex justify-end space-x-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => speakText(item.term, 'en')}
+                    >
+                      <VolumeUp className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => copyToClipboard(`${item.term}: ${item.definition}`)}
+                    >
+                      <Copy className="h-4 w-4" />
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))
+            )}
+          </div>
+        </TabsContent>
+        
+        <TabsContent value="history" className="space-y-4 mt-4">
+          <div className="space-y-4">
+            <h3 className="text-lg font-medium">Transcription & Translation History</h3>
+            
+            {transcriptionHistory.length === 0 ? (
+              <p className="text-muted-foreground">No transcription history yet.</p>
+            ) : (
+              transcriptionHistory.map((entry) => (
+                <Card key={entry.id}>
+                  <CardHeader className="pb-2">
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-base">
+                        {entry.subject && (
+                          <Badge className="mr-2">{entry.subject}</Badge>
+                        )}
+                        {entry.context || "Untitled"}
+                      </CardTitle>
+                      <CardDescription>{formatDate(entry.createdAt)}</CardDescription>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="pb-2 space-y-3">
+                    <div>
+                      <div className="flex items-center mb-1">
+                        <Badge variant="outline" className="mr-2">
+                          {languageOptions.find(l => l.code === entry.originalLanguage)?.name || entry.originalLanguage}
+                        </Badge>
+                        <div className="flex-1"></div>
                         <Button
                           variant="ghost"
-                          size="sm"
-                          onClick={() => copyToClipboard(liveTranscription)}
-                          className="h-7 w-7 p-0"
-                          title="Copy transcription"
+                          size="icon"
+                          className="h-8 w-8"
+                          onClick={() => speakText(entry.originalText, entry.originalLanguage)}
+                        >
+                          <VolumeUp className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8"
+                          onClick={() => copyToClipboard(entry.originalText)}
                         >
                           <Copy className="h-4 w-4" />
                         </Button>
                       </div>
+                      <p className="text-sm">{entry.originalText}</p>
                     </div>
                     
-                    <p className="text-sm leading-relaxed">
-                      {liveTranscription}
-                    </p>
-                  </div>
-                )}
-                
-                {!isLiveTranscribing && !liveTranscription && (
-                  <div className="flex items-centre justify-centre h-full text-muted-foreground">
-                    Click "Start Transcription" to begin capturing classroom speech
-                  </div>
-                )}
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-base">Translation Options</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      <div className="flex items-centre justify-between">
-                        <Label htmlFor="targetLanguage">Target Language</Label>
-                        <Select disabled={!liveTranscription || isLiveTranscribing}>
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select language" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {languageOptions.filter(l => l.code !== 'en').map(language => (
-                              <SelectItem key={language.code} value={language.code}>{language.name}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
+                    {entry.translatedText && (
+                      <div>
+                        <Separator className="my-2" />
+                        <div className="flex items-center mb-1">
+                          <Badge variant="outline" className="mr-2">
+                            {languageOptions.find(l => l.code === entry.targetLanguage)?.name || entry.targetLanguage}
+                          </Badge>
+                          <div className="flex-1"></div>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8"
+                            onClick={() => speakText(entry.translatedText, entry.targetLanguage || 'en')}
+                          >
+                            <VolumeUp className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8"
+                            onClick={() => copyToClipboard(entry.translatedText)}
+                          >
+                            <Copy className="h-4 w-4" />
+                          </Button>
+                        </div>
+                        <p className="text-sm">{entry.translatedText}</p>
                       </div>
-                      
-                      <Button 
-                        className="w-full" 
-                        disabled={!liveTranscription || isLiveTranscribing}
-                      >
-                        <Globe className="mr-2 h-4 w-4" />
-                        Translate Transcription
-                      </Button>
-                    </div>
+                    )}
                   </CardContent>
-                </Card>
-                
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-base">Export Options</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      <div className="flex items-centre justify-between">
-                        <Label>Format</Label>
-                        <Select disabled={!liveTranscription || isLiveTranscribing}>
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select format" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="txt">Plain Text (.txt)</SelectItem>
-                            <SelectItem value="pdf">PDF Document (.pdf)</SelectItem>
-                            <SelectItem value="docx">Word Document (.docx)</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      
-                      <Button 
-                        className="w-full" 
-                        disabled={!liveTranscription || isLiveTranscribing}
-                      >
-                        <Download className="mr-2 h-4 w-4" />
-                        Export Transcription
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader>
-              <CardTitle>EAL Support Resources</CardTitle>
-              <CardDescription>
-                Tools and resources to support EAL students in the classroom
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-lg">Visual Aids</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      Generate visual aids with translated labels to support concept understanding.
-                    </p>
-                    <Button className="w-full" disabled>
-                      <Image className="mr-2 h-4 w-4" />
-                      Create Visual Aids
+                  <CardFooter>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="ml-auto"
+                      onClick={() => downloadTranscription(entry)}
+                    >
+                      <Download className="mr-2 h-4 w-4" />
+                      Download
                     </Button>
-                  </CardContent>
+                  </CardFooter>
                 </Card>
-                
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-lg">Simplified Materials</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      Create simplified versions of learning materials with key vocabulary highlighted.
-                    </p>
-                    <Button className="w-full" disabled>
-                      <FileText className="mr-2 h-4 w-4" />
-                      Simplify Materials
-                    </Button>
-                  </CardContent>
-                </Card>
-                
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-lg">Parent Communication</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      Translate important messages and announcements for EAL parents and guardians.
-                    </p>
-                    <Button className="w-full" disabled>
-                      <MessageSquare className="mr-2 h-4 w-4" />
-                      Translate Messages
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <p className="text-sm text-muted-foreground">
-                Note: Advanced features will be available in the next update. Current implementation provides basic translation support.
-              </p>
-            </CardFooter>
-          </Card>
+              ))
+            )}
+          </div>
         </TabsContent>
       </Tabs>
     </div>
