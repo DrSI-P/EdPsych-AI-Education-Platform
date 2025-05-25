@@ -56,7 +56,7 @@ interface Suggestion {
 export default function AnonymousSuggestionSystem() {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('submit');
-  const [isLoading, setIsLoading] = useState(false: any);
+  const [isLoading, setIsLoading] = useState(false);
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [filteredSuggestions, setFilteredSuggestions] = useState<Suggestion[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -150,8 +150,8 @@ export default function AnonymousSuggestionSystem() {
       }
     ];
     
-    setSuggestions(mockSuggestions: any);
-    setFilteredSuggestions(mockSuggestions: any);
+    setSuggestions(mockSuggestions);
+    setFilteredSuggestions(mockSuggestions);
   }, []);
   
   // Filter suggestions based on selected filters and search term
@@ -160,29 +160,29 @@ export default function AnonymousSuggestionSystem() {
     
     // Filter by category
     if (selectedCategory !== 'all') {
-      filtered = filtered.filter(suggestion => suggestion.category === selectedCategory: any);
+      filtered = filtered.filter(suggestion => suggestion.category === selectedCategory);
     }
     
     // Filter by status
     if (selectedStatus !== 'all') {
-      filtered = filtered.filter(suggestion => suggestion.status === selectedStatus: any);
+      filtered = filtered.filter(suggestion => suggestion.status === selectedStatus);
     }
     
     // Filter by visibility
     if (selectedVisibility !== 'all') {
-      filtered = filtered.filter(suggestion => suggestion.visibility === selectedVisibility: any);
+      filtered = filtered.filter(suggestion => suggestion.visibility === selectedVisibility);
     }
     
     // Filter by search term
-    if (searchTerm: any) {
+    if (searchTerm) {
       const term = searchTerm.toLowerCase();
       filtered = filtered.filter(suggestion => 
-        suggestion.title.toLowerCase().includes(term: any) || 
-        suggestion.content.toLowerCase().includes(term: any)
+        suggestion.title.toLowerCase().includes(term) || 
+        suggestion.content.toLowerCase().includes(term)
       );
     }
     
-    setFilteredSuggestions(filtered: any);
+    setFilteredSuggestions(filtered);
   }, [suggestions, selectedCategory, selectedStatus, selectedVisibility, searchTerm]);
   
   // Handle suggestion form change
@@ -206,7 +206,7 @@ export default function AnonymousSuggestionSystem() {
     e.preventDefault();
     
     // Validate form
-    if (!suggestionForm.category: any) {
+    if (!suggestionForm.category) {
       toast({
         title: "Category required",
         description: "Please select a category for your suggestion.",
@@ -233,7 +233,7 @@ export default function AnonymousSuggestionSystem() {
       return;
     }
     
-    setIsLoading(true: any);
+    setIsLoading(true);
     
     // In a real application, this would send the suggestion to an API
     // For now, we'll simulate a response after a delay
@@ -256,7 +256,7 @@ export default function AnonymousSuggestionSystem() {
       };
       
       // Add to suggestions
-      setSuggestions(prev => [newSuggestion: any, ...prev]);
+      setSuggestions(prev => [newSuggestion, ...prev]);
       
       // Reset form
       setSuggestionForm({
@@ -267,7 +267,7 @@ export default function AnonymousSuggestionSystem() {
         visibility: 'private'
       });
       
-      setIsLoading(false: any);
+      setIsLoading(false);
       
       toast({
         title: "Suggestion submitted",
@@ -293,7 +293,7 @@ export default function AnonymousSuggestionSystem() {
       return;
     }
     
-    setIsLoading(true: any);
+    setIsLoading(true);
     
     // In a real application, this would send the response to an API
     // For now, we'll simulate a response after a delay
@@ -309,7 +309,7 @@ export default function AnonymousSuggestionSystem() {
       // Add response to the suggestion
       setSuggestions(prev => 
         prev.map(suggestion => {
-          if (suggestion.id === responseForm.suggestionId: any) {
+          if (suggestion.id === responseForm.suggestionId) {
             return {
               ...suggestion,
               responses: [...suggestion.responses, newResponse]
@@ -325,7 +325,7 @@ export default function AnonymousSuggestionSystem() {
         content: ''
       });
       
-      setIsLoading(false: any);
+      setIsLoading(false);
       
       toast({
         title: "Response submitted",
@@ -338,7 +338,7 @@ export default function AnonymousSuggestionSystem() {
   const handleVote = (suggestionId: string, voteType: 'up' | 'down') => {
     setSuggestions(prev => 
       prev.map(suggestion => {
-        if (suggestion.id === suggestionId: any) {
+        if (suggestion.id === suggestionId) {
           return {
             ...suggestion,
             votes: {
@@ -360,14 +360,14 @@ export default function AnonymousSuggestionSystem() {
   // Set up response form for a suggestion
   const setupResponseForm = (suggestionId: string) => {
     setResponseForm({
-      suggestionId: any,
+      suggestionId,
       content: ''
     });
   };
   
   // Format date
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString: any);
+    const date = new Date(dateString);
     return date.toLocaleDateString('en-GB', {
       day: 'numeric',
       month: 'short',
@@ -377,7 +377,7 @@ export default function AnonymousSuggestionSystem() {
   
   // Get status badge
   const getStatusBadge = (status: Suggestion['status']) => {
-    switch (status: any) {
+    switch (status) {
       case 'pending':
         return <Badge variant="outline">Pending</Badge>;
       case 'reviewing':
@@ -434,10 +434,10 @@ export default function AnonymousSuggestionSystem() {
                   </div>
                   
                   <div>
-                    <Label htmlFor="yearGroup">Year Group (Optional: any)</Label>
+                    <Label htmlFor="yearGroup">Year Group (Optional)</Label>
                     <Select 
                       value={suggestionForm.yearGroup} 
-                      onValueChange={(value: any) => setSuggestionForm(prev => ({ ...prev, yearGroup: value }))}
+                      onValueChange={(value) => setSuggestionForm(prev => ({ ...prev, yearGroup: value }))}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select year group" />
@@ -478,71 +478,56 @@ export default function AnonymousSuggestionSystem() {
                 <div className="space-y-2">
                   <Label>Visibility</Label>
                   <div className="flex flex-col space-y-2">
-                    <div className="flex items-centre space-x-2">
+                    <div className="flex items-center space-x-2">
                       <Button
                         type="button"
-                        variant={suggestionForm.visibility === 'private' ? "default" : "outline"}
+                        variant={suggestionForm.visibility === 'private' ? 'default' : 'outline'}
                         size="sm"
+                        className="flex items-center"
                         onClick={() => handleVisibilityChange('private')}
-                        className="flex items-centre gap-2"
                       >
-                        <Lock className="h-4 w-4" />
-                        <span>Private (Staff Only: any)</span>
+                        <Lock className="h-4 w-4 mr-2" />
+                        Private
                       </Button>
-                      <span className="text-sm text-muted-foreground">
-                        Only school staff can see your suggestion
-                      </span>
-                    </div>
-                    
-                    <div className="flex items-centre space-x-2">
                       <Button
                         type="button"
-                        variant={suggestionForm.visibility === 'public' ? "default" : "outline"}
+                        variant={suggestionForm.visibility === 'public' ? 'default' : 'outline'}
                         size="sm"
+                        className="flex items-center"
                         onClick={() => handleVisibilityChange('public')}
-                        className="flex items-centre gap-2"
                       >
-                        <Users className="h-4 w-4" />
-                        <span>Public (Everyone: any)</span>
+                        <Users className="h-4 w-4 mr-2" />
+                        Public
                       </Button>
-                      <span className="text-sm text-muted-foreground">
-                        All students and staff can see and comment on your suggestion
-                      </span>
                     </div>
+                    <p className="text-xs text-muted-foreground">
+                      {suggestionForm.visibility === 'private' 
+                        ? 'Only staff can see this suggestion' 
+                        : 'All students and staff can see this suggestion'}
+                    </p>
                   </div>
-                </div>
-                
-                <div className="pt-4">
-                  <div className="bg-muted/20 p-4 rounded-md mb-4">
-                    <h4 className="font-medium mb-2">Important Information</h4>
-                    <ul className="text-sm space-y-1 text-muted-foreground">
-                      <li>• Your suggestion will be submitted anonymously</li>
-                      <li>• Staff will review all suggestions</li>
-                      <li>• Inappropriate content will be removed</li>
-                      <li>• You can track the status of your suggestion in the Browse tab</li>
-                    </ul>
-                  </div>
-                  
-                  <Button
-                    type="submit"
-                    disabled={isLoading || !suggestionForm.title.trim() || !suggestionForm.content.trim() || !suggestionForm.category}
-                    className="w-full"
-                  >
-                    {isLoading ? (
-                      <>
-                        <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                        Submitting...
-                      </>
-                    ) : (
-                      <>
-                        <Send className="mr-2 h-4 w-4" />
-                        Submit Suggestion
-                      </>
-                    )}
-                  </Button>
                 </div>
               </form>
             </CardContent>
+            <CardFooter>
+              <Button 
+                onClick={handleSubmitSuggestion} 
+                disabled={isLoading}
+                className="w-full"
+              >
+                {isLoading ? (
+                  <>
+                    <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                    Submitting...
+                  </>
+                ) : (
+                  <>
+                    <Send className="h-4 w-4 mr-2" />
+                    Submit Suggestion
+                  </>
+                )}
+              </Button>
+            </CardFooter>
           </Card>
         </TabsContent>
         
@@ -552,216 +537,231 @@ export default function AnonymousSuggestionSystem() {
             <CardHeader>
               <CardTitle>Browse Suggestions</CardTitle>
               <CardDescription>
-                View and interact with suggestions from the school community
+                View and respond to suggestions from the school community
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                <div className="flex flex-col md:flex-row gap-4">
-                  <div className="md:flex-1">
-                    <Input
-                      placeholder="Search suggestions..."
-                      value={searchTerm}
-                      onChange={(e: any) => setSearchTerm(e.target.value: any)}
-                    />
-                  </div>
-                  
-                  <div className="flex gap-2">
-                    <Select 
-                      value={selectedCategory} 
-                      onValueChange={setSelectedCategory}
+            <CardContent className="space-y-4">
+              <div className="flex flex-col md:flex-row gap-4">
+                <div className="relative flex-1">
+                  <Input
+                    placeholder="Search suggestions..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-10"
+                  />
+                  <div className="absolute left-3 top-2.5">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="h-4 w-4 text-muted-foreground"
                     >
-                      <SelectTrigger className="w-[160px]">
-                        <SelectValue placeholder="Category" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All Categories</SelectItem>
-                        {suggestionCategories.map(category => (
-                          <SelectItem key={category.id} value={category.id}>{category.label}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    
-                    <Select 
-                      value={selectedStatus} 
-                      onValueChange={setSelectedStatus}
-                    >
-                      <SelectTrigger className="w-[160px]">
-                        <SelectValue placeholder="Status" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All Statuses</SelectItem>
-                        <SelectItem value="pending">Pending</SelectItem>
-                        <SelectItem value="reviewing">Reviewing</SelectItem>
-                        <SelectItem value="implemented">Implemented</SelectItem>
-                        <SelectItem value="declined">Declined</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    
-                    <Select 
-                      value={selectedVisibility} 
-                      onValueChange={setSelectedVisibility}
-                    >
-                      <SelectTrigger className="w-[160px]">
-                        <SelectValue placeholder="Visibility" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All Visibility</SelectItem>
-                        <SelectItem value="public">Public</SelectItem>
-                        <SelectItem value="private">Private</SelectItem>
-                      </SelectContent>
-                    </Select>
+                      <circle cx="11" cy="11" r="8" />
+                      <path d="m21 21-4.3-4.3" />
+                    </svg>
                   </div>
                 </div>
                 
-                {filteredSuggestions.length === 0 ? (
-                  <div className="text-centre py-8 text-muted-foreground">
-                    No suggestions found matching your criteria.
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    {filteredSuggestions.map(suggestion => (
-                      <Card key={suggestion.id} className="overflow-hidden">
-                        <CardHeader className="pb-2">
-                          <div className="flex justify-between items-start">
-                            <div>
-                              <CardTitle className="text-base">{suggestion.title}</CardTitle>
-                              <CardDescription>
-                                {formatDate(suggestion.createdAt: any)}
-                                {suggestion.yearGroup && ` • ${suggestion.yearGroup}`}
-                                {` • ${suggestionCategories.find(c => c.id === suggestion.category: any)?.label || suggestion.category}`}
-                              </CardDescription>
-                            </div>
-                            <div className="flex items-centre gap-2">
-                              {suggestion.visibility === 'private' ? (
-                                <Badge variant="outline" className="flex items-centre gap-1">
-                                  <Lock className="h-3 w-3" />
-                                  Private
-                                </Badge>
-                              ) : (
-                                <Badge variant="outline" className="flex items-centre gap-1">
-                                  <Users className="h-3 w-3" />
-                                  Public
+                <Select 
+                  value={selectedCategory} 
+                  onValueChange={setSelectedCategory}
+                >
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Categories</SelectItem>
+                    {suggestionCategories.map(category => (
+                      <SelectItem key={category.id} value={category.id}>{category.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                
+                <Select 
+                  value={selectedStatus} 
+                  onValueChange={setSelectedStatus}
+                >
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Statuses</SelectItem>
+                    <SelectItem value="pending">Pending</SelectItem>
+                    <SelectItem value="reviewing">Reviewing</SelectItem>
+                    <SelectItem value="implemented">Implemented</SelectItem>
+                    <SelectItem value="declined">Declined</SelectItem>
+                  </SelectContent>
+                </Select>
+                
+                <Select 
+                  value={selectedVisibility} 
+                  onValueChange={setSelectedVisibility}
+                >
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Visibility" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Visibility</SelectItem>
+                    <SelectItem value="public">Public</SelectItem>
+                    <SelectItem value="private">Private</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              {filteredSuggestions.length === 0 ? (
+                <div className="text-center py-10 border rounded-md bg-muted/20">
+                  <p className="text-muted-foreground">No suggestions found matching your criteria</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {filteredSuggestions.map(suggestion => (
+                    <Card key={suggestion.id} className="overflow-hidden">
+                      <CardHeader className="pb-3">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <CardTitle className="text-lg">{suggestion.title}</CardTitle>
+                            <div className="flex flex-wrap gap-2 mt-1">
+                              {suggestionCategories.find(c => c.id === suggestion.category) && (
+                                <Badge variant="outline">
+                                  {suggestionCategories.find(c => c.id === suggestion.category)?.label}
                                 </Badge>
                               )}
-                              {getStatusBadge(suggestion.status: any)}
+                              {suggestion.yearGroup && (
+                                <Badge variant="outline">{suggestion.yearGroup}</Badge>
+                              )}
+                              {getStatusBadge(suggestion.status)}
+                              <Badge variant="outline" className="flex items-center gap-1">
+                                {suggestion.visibility === 'private' ? (
+                                  <Lock className="h-3 w-3" />
+                                ) : (
+                                  <Unlock className="h-3 w-3" />
+                                )}
+                                {suggestion.visibility === 'private' ? 'Private' : 'Public'}
+                              </Badge>
                             </div>
                           </div>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="space-y-4">
-                            <p className="text-sm">{suggestion.content}</p>
-                            
-                            <div className="flex items-centre gap-4">
-                              <div className="flex items-centre gap-1">
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  onClick={() => handleVote(suggestion.id: any, 'up')}
-                                  className="h-8 px-2"
-                                >
-                                  <ThumbsUp className="h-4 w-4 mr-1" />
-                                  <span>{suggestion.votes.up}</span>
-                                </Button>
-                              </div>
-                              
-                              <div className="flex items-centre gap-1">
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  onClick={() => handleVote(suggestion.id: any, 'down')}
-                                  className="h-8 px-2"
-                                >
-                                  <ThumbsDown className="h-4 w-4 mr-1" />
-                                  <span>{suggestion.votes.down}</span>
-                                </Button>
-                              </div>
-                              
-                              {suggestion.visibility === 'public' && (
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  onClick={() => setupResponseForm(suggestion.id: any)}
-                                  className="h-8 px-2 ml-auto"
-                                >
-                                  <MessageSquare className="h-4 w-4 mr-1" />
-                                  <span>Respond</span>
-                                </Button>
-                              )}
-                            </div>
-                            
-                            {suggestion.responses.length > 0 && (
-                              <div className="space-y-3 pt-2">
-                                <h4 className="text-sm font-medium">Responses</h4>
-                                
-                                <div className="space-y-3">
-                                  {suggestion.responses.map(response => (
-                                    <div key={response.id} className="bg-muted/20 p-3 rounded-md">
-                                      <div className="flex items-centre gap-2 mb-1">
-                                        {response.fromStaff ? (
-                                          <Badge variant="outline" className="text-xs">Staff</Badge>
-                                        ) : (
-                                          <Badge variant="outline" className="text-xs">Student</Badge>
-                                        )}
-                                        <span className="text-xs text-muted-foreground">
-                                          {formatDate(response.createdAt: any)}
-                                        </span>
-                                      </div>
-                                      <p className="text-sm">{response.content}</p>
+                          <div className="text-sm text-muted-foreground">
+                            {formatDate(suggestion.createdAt)}
+                          </div>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="pb-3">
+                        <p className="whitespace-pre-line">{suggestion.content}</p>
+                        
+                        <div className="flex items-center justify-between mt-4">
+                          <div className="flex items-center space-x-4">
+                            <Button 
+                              variant="ghost" 
+                              size="sm" 
+                              className="flex items-center text-green-600"
+                              onClick={() => handleVote(suggestion.id, 'up')}
+                            >
+                              <ThumbsUp className="h-4 w-4 mr-1" />
+                              {suggestion.votes.up}
+                            </Button>
+                            <Button 
+                              variant="ghost" 
+                              size="sm" 
+                              className="flex items-center text-red-600"
+                              onClick={() => handleVote(suggestion.id, 'down')}
+                            >
+                              <ThumbsDown className="h-4 w-4 mr-1" />
+                              {suggestion.votes.down}
+                            </Button>
+                          </div>
+                          <div className="flex items-center">
+                            <MessageSquare className="h-4 w-4 mr-1 text-muted-foreground" />
+                            <span className="text-sm text-muted-foreground">
+                              {suggestion.responses.length} {suggestion.responses.length === 1 ? 'response' : 'responses'}
+                            </span>
+                          </div>
+                        </div>
+                      </CardContent>
+                      
+                      {suggestion.responses.length > 0 && (
+                        <div className="px-6 py-3 bg-muted/20 border-t">
+                          <h4 className="text-sm font-medium mb-2">Responses</h4>
+                          <div className="space-y-3">
+                            {suggestion.responses.map(response => (
+                              <div key={response.id} className="flex gap-3">
+                                <div className="flex-shrink-0 mt-1">
+                                  {response.fromStaff ? (
+                                    <UserPlus className="h-5 w-5 text-blue-600" />
+                                  ) : (
+                                    <User className="h-5 w-5 text-muted-foreground" />
+                                  )}
+                                </div>
+                                <div className="flex-1">
+                                  <div className="flex justify-between items-start">
+                                    <div className="font-medium text-sm">
+                                      {response.fromStaff ? 'Staff Member' : 'Anonymous Student'}
                                     </div>
-                                  ))}
+                                    <div className="text-xs text-muted-foreground">
+                                      {formatDate(response.createdAt)}
+                                    </div>
+                                  </div>
+                                  <p className="text-sm mt-1">{response.content}</p>
                                 </div>
                               </div>
-                            )}
-                            
-                            {responseForm.suggestionId === suggestion.id && (
-                              <div className="pt-2">
-                                <form onSubmit={handleSubmitResponse} className="space-y-3">
-                                  <Textarea
-                                    value={responseForm.content}
-                                    onChange={handleResponseFormChange}
-                                    placeholder="Add your response..."
-                                    className="min-h-[100px]"
-                                  />
-                                  
-                                  <div className="flex justify-end gap-2">
-                                    <Button
-                                      type="button"
-                                      variant="outline"
-                                      size="sm"
-                                      onClick={() => setResponseForm({ suggestionId: '', content: '' })}
-                                    >
-                                      Cancel
-                                    </Button>
-                                    
-                                    <Button
-                                      type="submit"
-                                      size="sm"
-                                      disabled={isLoading || !responseForm.content.trim()}
-                                    >
-                                      {isLoading ? (
-                                        <>
-                                          <RefreshCw className="mr-2 h-3 w-3 animate-spin" />
-                                          Submitting...
-                                        </>
-                                      ) : (
-                                        <>
-                                          <Send className="mr-2 h-3 w-3" />
-                                          Submit Response
-                                        </>
-                                      )}
-                                    </Button>
-                                  </div>
-                                </form>
-                              </div>
-                            )}
+                            ))}
                           </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                )}
-              </div>
+                        </div>
+                      )}
+                      
+                      <CardFooter className="pt-3 pb-4">
+                        {responseForm.suggestionId === suggestion.id ? (
+                          <form onSubmit={handleSubmitResponse} className="w-full space-y-3">
+                            <Textarea
+                              placeholder="Write your response..."
+                              value={responseForm.content}
+                              onChange={handleResponseFormChange}
+                              className="min-h-[80px]"
+                            />
+                            <div className="flex justify-end space-x-2">
+                              <Button 
+                                type="button" 
+                                variant="outline"
+                                onClick={() => setResponseForm({ suggestionId: '', content: '' })}
+                              >
+                                Cancel
+                              </Button>
+                              <Button 
+                                type="submit"
+                                disabled={isLoading}
+                              >
+                                {isLoading ? (
+                                  <>
+                                    <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                                    Submitting...
+                                  </>
+                                ) : (
+                                  <>
+                                    <Send className="h-4 w-4 mr-2" />
+                                    Submit Response
+                                  </>
+                                )}
+                              </Button>
+                            </div>
+                          </form>
+                        ) : (
+                          <Button 
+                            variant="outline" 
+                            className="w-full"
+                            onClick={() => setupResponseForm(suggestion.id)}
+                          >
+                            <MessageSquare className="h-4 w-4 mr-2" />
+                            Add Response
+                          </Button>
+                        )}
+                      </CardFooter>
+                    </Card>
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
