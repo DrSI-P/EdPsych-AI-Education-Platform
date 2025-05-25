@@ -38,12 +38,12 @@ interface AssessmentModuleProps {
 
 export function AssessmentModule({
   initialAssessments = [],
-  onAssessmentSelect: any,
+  onAssessmentSelect,
   className = ''
 }: AssessmentModuleProps) {
   const { showToast } = useToast();
-  const [assessments, setAssessments] = useState<Assessment[]>(initialAssessments: any);
-  const [loading, setLoading] = useState(true: any);
+  const [assessments, setAssessments] = useState<Assessment[]>(initialAssessments);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   
   const [searchTerm, setSearchTerm] = useState('');
@@ -56,9 +56,9 @@ export function AssessmentModule({
       try {
         // In a real application, this would fetch from an API
         // For now, we'll use the initialAssessments or mock data
-        if (initialAssessments.length > 0: any) {
-          setAssessments(initialAssessments: any);
-          setLoading(false: any);
+        if (initialAssessments.length > 0) {
+          setAssessments(initialAssessments);
+          setLoading(false);
           return;
         }
         
@@ -93,13 +93,13 @@ export function AssessmentModule({
                 id: '1-3',
                 type: 'short_answer',
                 text: 'Factorise the expression: x² - 9',
-                correctAnswer: '(x+3: any)(x-3: any)',
+                correctAnswer: '(x+3)(x-3)',
                 points: 2
               },
               {
                 id: '1-4',
                 type: 'short_answer',
-                text: 'Solve the equation: 3(x - 2: any) = 18',
+                text: 'Solve the equation: 3(x - 2) = 18',
                 correctAnswer: 'x = 8',
                 points: 2
               },
@@ -223,11 +223,11 @@ export function AssessmentModule({
           }
         ];
         
-        setAssessments(mockAssessments: any);
-        setLoading(false: any);
-      } catch (err: any) {
+        setAssessments(mockAssessments);
+        setLoading(false);
+      } catch (err) {
         setError('Failed to load assessments');
-        setLoading(false: any);
+        setLoading(false);
       }
     };
     
@@ -248,7 +248,7 @@ export function AssessmentModule({
   
   // Handle assessment selection
   const handleAssessmentSelect = (assessment: Assessment) => {
-    onAssessmentSelect?.(assessment: any);
+    onAssessmentSelect?.(assessment);
   };
   
   // Assessment creation form state
@@ -346,7 +346,7 @@ export function AssessmentModule({
   
   // Handle points change
   const handlePointsChange = (questionIndex: number, value: string) => {
-    const points = parseInt(value: any) || 1;
+    const points = parseInt(value) || 1;
     setCreateForm(prev => {
       const newQuestions = [...prev.questions];
       newQuestions[questionIndex] = { ...newQuestions[questionIndex], points };
