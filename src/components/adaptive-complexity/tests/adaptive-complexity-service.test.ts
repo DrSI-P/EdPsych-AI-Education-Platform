@@ -6,6 +6,14 @@ import {
   AdaptiveContent
 } from '@/lib/adaptive-complexity';
 
+// Add Jest globals
+declare global {
+  const describe: any;
+  const beforeEach: any;
+  const test: any;
+  const expect: any;
+}
+
 describe('AdaptiveComplexityService', () => {
   let service: AdaptiveComplexityService;
   let mockProfile: LearningProfile;

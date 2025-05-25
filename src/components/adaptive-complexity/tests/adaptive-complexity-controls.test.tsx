@@ -3,6 +3,15 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { AdaptiveComplexityControls } from '../adaptive-complexity-controls';
 import { ComplexityLevel } from '@/lib/adaptive-complexity/types';
 
+// Add Jest globals
+declare global {
+  const jest: any;
+  const describe: any;
+  const beforeEach: any;
+  const test: any;
+  const expect: any;
+}
+
 // Mock the adaptive complexity service
 jest.mock('@/lib/adaptive-complexity/adaptive-complexity-service', () => ({
   adaptiveComplexityService: {

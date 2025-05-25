@@ -1,3 +1,5 @@
+/* global SpeechSynthesisVoice */
+
 /**
  * Text-to-Speech Service
  * 
@@ -41,11 +43,11 @@ export class TextToSpeechService {
   
   constructor(options: TextToSpeechOptions = {}) {
     this.options = {
-      voice: '',
+      voice: 
       rate: 1,
       pitch: 1,
       volume: 1,
-      lang: 'en-GB',
+      lang: 
       highlightText: true,
       childFriendlyVoice: false,
       ...options
@@ -54,7 +56,7 @@ export class TextToSpeechService {
     this.state = {
       isReading: false,
       currentPosition: 0,
-      currentSentence: '',
+      currentSentence: 
       progress: 0,
       availableVoices: []
     };
@@ -68,7 +70,7 @@ export class TextToSpeechService {
   private initSynthesis(): void {
     // Check if browser supports speech synthesis
     if (!this.isBrowserSupported()) {
-      console.error('Speech synthesis is not supported in this browser');
+      console.error(
       return;
     }
     
@@ -97,15 +99,15 @@ export class TextToSpeechService {
     if (!this.options.voice && voices.length > 0) {
       // Try to find a UK English voice
       const ukVoice = voices.find(voice => 
-        voice.lang === 'en-GB' && 
-        (this.options.childFriendlyVoice ? voice.name.toLowerCase().includes('child') : true)
+        voice.lang === 
+        (this.options.childFriendlyVoice ? voice.name.toLowerCase().includes(
       );
       
       if (ukVoice) {
         this.options.voice = ukVoice.name;
       } else {
         // Fall back to any English voice
-        const anyEnglishVoice = voices.find(voice => voice.lang.startsWith('en'));
+        const anyEnglishVoice = voices.find(voice => voice.lang.startsWith(
         if (anyEnglishVoice) {
           this.options.voice = anyEnglishVoice.name;
         } else {
@@ -120,7 +122,7 @@ export class TextToSpeechService {
    * Check if browser supports speech synthesis
    */
   public isBrowserSupported(): boolean {
-    return 'speechSynthesis' in window;
+    return 
   }
   
   /**
@@ -203,16 +205,16 @@ export class TextToSpeechService {
     
     // Replace complex words with simpler alternatives
     const simplifications: [RegExp, string][] = [
-      [/(\b)utilize(\b)/g, '$1use$2'],
-      [/(\b)commence(\b)/g, '$1start$2'],
-      [/(\b)terminate(\b)/g, '$1end$2'],
-      [/(\b)purchase(\b)/g, '$1buy$2'],
-      [/(\b)inquire(\b)/g, '$1ask$2'],
-      [/(\b)sufficient(\b)/g, '$1enough$2'],
-      [/(\b)require(\b)/g, '$1need$2'],
-      [/(\b)obtain(\b)/g, '$1get$2'],
-      [/(\b)comprehend(\b)/g, '$1understand$2'],
-      [/(\b)additional(\b)/g, '$1more$2']
+      [/(\b)utilize(\b)/g, 
+      [/(\b)commence(\b)/g, 
+      [/(\b)terminate(\b)/g, 
+      [/(\b)purchase(\b)/g, 
+      [/(\b)inquire(\b)/g, 
+      [/(\b)sufficient(\b)/g, 
+      [/(\b)require(\b)/g, 
+      [/(\b)obtain(\b)/g, 
+      [/(\b)comprehend(\b)/g, 
+      [/(\b)additional(\b)/g, 
     ];
     
     let simplifiedText = text;
@@ -229,11 +231,11 @@ export class TextToSpeechService {
   private addExtendedPauses(text: string): string {
     // Add pauses after punctuation
     return text
-      .replace(/\./g, '... ')
-      .replace(/\,/g, ', ')
-      .replace(/\;/g, '... ')
-      .replace(/\:/g, '... ')
-      .replace(/\n/g, '...... ');
+      .replace(/\./g, 
+      .replace(/\,/g, 
+      .replace(/\;/g, 
+      .replace(/\:/g, 
+      .replace(/\n/g, 
   }
   
   /**
@@ -255,8 +257,8 @@ export class TextToSpeechService {
   private splitIntoSentences(text: string): string[] {
     // Simple sentence splitting - in a real implementation, this would be more sophisticated
     return text
-      .replace(/([.!?])\s+/g, '$1|')
-      .split('|')
+      .replace(/([.!?])\s+/g, 
+      .split(
       .filter(sentence => sentence.trim().length > 0);
   }
   
@@ -275,7 +277,7 @@ export class TextToSpeechService {
       return;
     }
     
-    const sentence = this.textQueue.shift() || '';
+    const sentence = this.textQueue.shift() || 
     this.state.currentSentence = sentence;
     this.state.isReading = true;
     
@@ -286,7 +288,7 @@ export class TextToSpeechService {
     this.utterance.rate = this.options.rate || 1;
     this.utterance.pitch = this.options.pitch || 1;
     this.utterance.volume = this.options.volume || 1;
-    this.utterance.lang = this.options.lang || 'en-GB';
+    this.utterance.lang = this.options.lang || 
     
     // Set voice if specified
     if (this.options.voice) {
@@ -316,7 +318,7 @@ export class TextToSpeechService {
     };
     
     this.utterance.onerror = (event) => {
-      console.error('Speech synthesis error:', event);
+      console.error(
       
       // Try to continue with next sentence
       this.speakNextSentence();
@@ -361,7 +363,7 @@ export class TextToSpeechService {
     this.textQueue = [];
     this.state.isReading = false;
     this.state.currentPosition = 0;
-    this.state.currentSentence = '';
+    this.state.currentSentence = 
     this.state.progress = 0;
   }
   
@@ -384,7 +386,7 @@ export class TextToSpeechService {
    */
   public updateOptions(options: Partial<TextToSpeechOptions>): void {
     const wasReading = this.state.isReading;
-    const currentText = this.state.currentSentence + this.textQueue.join('');
+    const currentText = this.state.currentSentence + this.textQueue.join(
     
     if (wasReading) {
       this.stop();
@@ -413,3 +415,4 @@ export function getTextToSpeechService(options?: TextToSpeechOptions): TextToSpe
   
   return textToSpeechService;
 }
+

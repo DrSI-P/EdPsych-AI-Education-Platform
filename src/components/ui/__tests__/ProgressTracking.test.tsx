@@ -2,6 +2,15 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import ProgressTracking from '@/components/ui/ProgressTracking';
 
+// Add Jest globals
+declare global {
+  const jest: any;
+  const describe: any;
+  const beforeEach: any;
+  const it: any;
+  const expect: any;
+}
+
 // Mock framer-motion
 jest.mock('framer-motion', () => ({
   motion: {

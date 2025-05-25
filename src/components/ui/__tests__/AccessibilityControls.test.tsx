@@ -2,6 +2,15 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import AccessibilityControls from '@/components/ui/AccessibilityControls';
 
+// Add Jest globals
+declare global {
+  const jest: any;
+  const describe: any;
+  const beforeEach: any;
+  const it: any;
+  const expect: any;
+}
+
 // Mock localStorage
 const localStorageMock = (function() {
   let store: Record<string, string> = {};

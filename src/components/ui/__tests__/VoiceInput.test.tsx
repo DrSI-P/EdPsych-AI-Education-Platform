@@ -2,6 +2,15 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import VoiceInput from '@/components/ui/VoiceInput';
 
+// Add Jest globals
+declare global {
+  const jest: any;
+  const describe: any;
+  const beforeEach: any;
+  const it: any;
+  const expect: any;
+}
+
 // Mock SpeechRecognition
 const mockStart = jest.fn();
 const mockStop = jest.fn();
@@ -18,8 +27,8 @@ class MockSpeechRecognition {
   stop = mockStop;
 }
 
-window.SpeechRecognition = MockSpeechRecognition;
-window.webkitSpeechRecognition = MockSpeechRecognition;
+(window as any).SpeechRecognition = MockSpeechRecognition;
+(window as any).webkitSpeechRecognition = MockSpeechRecognition;
 
 describe('VoiceInput', () => {
   const mockOnSpeechResult = jest.fn();
@@ -83,7 +92,7 @@ describe('VoiceInput', () => {
     };
     
     // Get the onresult callback from the mock constructor and call it
-    const onresultProp = MockSpeechRecognition.mock.instances[0].onresult;
+    const onresultProp = (MockSpeechRecognition as any).mock.instances[0].onresult;
     onresultProp(mockEvent);
     
     expect(screen.getByText('Hello world')).toBeInTheDocument();
@@ -106,7 +115,7 @@ describe('VoiceInput', () => {
     };
     
     // Get the onresult callback from the mock constructor and call it
-    const onresultProp = MockSpeechRecognition.mock.instances[0].onresult;
+    const onresultProp = (MockSpeechRecognition as any).mock.instances[0].onresult;
     onresultProp(mockEvent);
     
     expect(mockOnSpeechResult).toHaveBeenCalledWith('Final result');
@@ -129,7 +138,7 @@ describe('VoiceInput', () => {
     };
     
     // Get the onresult callback from the mock constructor and call it
-    const onresultProp = MockSpeechRecognition.mock.instances[0].onresult;
+    const onresultProp = (MockSpeechRecognition as any).mock.instances[0].onresult;
     onresultProp(mockEvent);
     
     expect(screen.getByLabelText('Start listening')).toBeInTheDocument();
@@ -137,19 +146,19 @@ describe('VoiceInput', () => {
   
   it('shows error message when speech recognition is not supported', () => {
     // Temporarily remove SpeechRecognition from window
-    const originalSpeechRecognition = window.SpeechRecognition;
-    const originalWebkitSpeechRecognition = window.webkitSpeechRecognition;
+    const originalSpeechRecognition = (window as any).SpeechRecognition;
+    const originalWebkitSpeechRecognition = (window as any).webkitSpeechRecognition;
     
-    delete window.SpeechRecognition;
-    delete window.webkitSpeechRecognition;
+    delete (window as any).SpeechRecognition;
+    delete (window as any).webkitSpeechRecognition;
     
     render(<VoiceInput onSpeechResult={mockOnSpeechResult} />);
     
     expect(screen.getByText(/Speech recognition is not supported in your browser/i)).toBeInTheDocument();
     
     // Restore SpeechRecognition
-    window.SpeechRecognition = originalSpeechRecognition;
-    window.webkitSpeechRecognition = originalWebkitSpeechRecognition;
+    (window as any).SpeechRecognition = originalSpeechRecognition;
+    (window as any).webkitSpeechRecognition = originalWebkitSpeechRecognition;
   });
   
   it('disables the button when disabled prop is true', () => {
