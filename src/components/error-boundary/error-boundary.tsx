@@ -37,7 +37,7 @@ interface State {
  */
 class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
-    super(props: any);
+    super(props);
     this.state = {
       hasError: false,
       error: null,

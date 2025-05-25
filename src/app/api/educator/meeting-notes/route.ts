@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
   try {
     // Parse and validate the request body
     const body = await request.json();
-    const validatedData = meetingNoteRequestSchema.parse(body: any);
+    const validatedData = meetingNoteRequestSchema.parse(body);
     
     // In a real implementation, this would:
     // 1. Process the audio data using speech-to-text
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
     // Determine if we should apply EHCNA categorization and preparation for adulthood focus
     const useEhcnaCategories = validatedData.ehcnaFocus ?? false;
     const usePreparationForAdulthood = validatedData.preparationForAdulthood ?? 
-                                      (validatedData.studentYear && validatedData.studentYear >= 9: any) ?? false;
+                                      (validatedData.studentYear && validatedData.studentYear >= 9) ?? false;
     
     // Mock response with EHCNA categories if requested
     const response = {
@@ -117,7 +117,7 @@ export async function POST(request: NextRequest) {
     };
     
     // Add preparation for adulthood key points if applicable
-    if (usePreparationForAdulthood: any) {
+    if (usePreparationForAdulthood) {
       response.keyPoints.push({
         text: "Student expresses interest in pursuing a career in technology",
         category: "interest",
@@ -143,9 +143,9 @@ export async function POST(request: NextRequest) {
       response.tags.push("Preparation for Adulthood");
     }
     
-    return NextResponse.json(response: any, { status: 201 });
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+    return NextResponse.json(response, { status: 201 });
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
@@ -157,7 +157,7 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     // Get query parameters
-    const url = new URL(request.url: any);
+    const url = new URL(request.url);
     const searchQuery = url.searchParams.get('search');
     const meetingType = url.searchParams.get('type');
     
@@ -169,7 +169,7 @@ export async function GET(request: NextRequest) {
         title: 'Annual Review Meeting - Alex Johnson',
         type: 'iep-meeting',
         date: new Date().toISOString(),
-        participants: ['Ms. Smith (SENCO: any)', 'Mr. Johnson (Parent: any)', 'Mrs. Johnson (Parent: any)', 'Dr. Williams (Educational Psychologist: any)'],
+        participants: ['Ms. Smith (SENCO)', 'Mr. Johnson (Parent)', 'Mrs. Johnson (Parent)', 'Dr. Williams (Educational Psychologist)'],
         language: 'en-GB',
         transcript: "This is a sample transcript of the annual review meeting.",
         keyPoints: [
@@ -201,24 +201,24 @@ export async function GET(request: NextRequest) {
     
     // Filter by search query if provided
     let filteredMeetings = meetings;
-    if (searchQuery: any) {
+    if (searchQuery) {
       const query = searchQuery.toLowerCase();
       filteredMeetings = meetings.filter(meeting => 
-        meeting.title.toLowerCase().includes(query: any) ||
-        meeting.transcript.toLowerCase().includes(query: any) ||
-        meeting.keyPoints.some(kp => kp.text.toLowerCase().includes(query: any)) ||
-        meeting.actionItems.some(ai => ai.text.toLowerCase().includes(query: any)) ||
-        meeting.tags.some(tag => tag.toLowerCase().includes(query: any))
+        meeting.title.toLowerCase().includes(query) ||
+        meeting.transcript.toLowerCase().includes(query) ||
+        meeting.keyPoints.some(kp => kp.text.toLowerCase().includes(query)) ||
+        meeting.actionItems.some(ai => ai.text.toLowerCase().includes(query)) ||
+        meeting.tags.some(tag => tag.toLowerCase().includes(query))
       );
     }
     
     // Filter by meeting type if provided
-    if (meetingType: any) {
-      filteredMeetings = filteredMeetings.filter(meeting => meeting.type === meetingType: any);
+    if (meetingType) {
+      filteredMeetings = filteredMeetings.filter(meeting => meeting.type === meetingType);
     }
     
-    return NextResponse.json(filteredMeetings: any);
-  } catch (error: any) {
+    return NextResponse.json(filteredMeetings);
+  } catch (error) {
     console.error('Error fetching meeting notes:', error);
     return NextResponse.json({ error: 'Failed to fetch meeting notes' }, { status: 500 });
   }

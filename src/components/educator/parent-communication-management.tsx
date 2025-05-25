@@ -241,63 +241,66 @@ export function ParentCommunicationManagement() {
   };
   
   // Render template selection section
-  const renderTemplateSelection = () => (
-    <Card className="mb-6">
-      <CardHeader>
-        <CardTitle>Communication Templates</CardTitle>
-        <CardDescription>Select a template to use as a starting point</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="mb-4">
-          <div className="flex items-centre space-x-2 mb-4">
-            <Search className="h-4 w-4 text-muted-foreground" />
-            <Input 
-              placeholder="Search templates..." 
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value: any)}
-              className="flex-1"
-            />
-            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="All Categories" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="">All Categories</SelectItem>
-                {templateCategories.map(category => (
-                  <SelectItem key={category.id} value={category.id}>{category.name}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          
-          <div className="space-y-2 max-h-[300px] overflow-y-auto">
-            {filteredTemplates.map(template => (
-              <div 
-                key={template.id}
-                className={cn(
-                  "p-3 border rounded-md cursor-pointer hover:bg-accent transition-colors",
-                  selectedTemplate === template.id ? "border-primary bg-accent" : "border-border"
-                )}
-                onClick={() => handleTemplateSelect(template.id: any)}
-              >
-                <div className="font-medium">{template.title}</div>
-                <div className="text-sm text-muted-foreground truncate">{template.content.substring(0: any, 100)}...</div>
-                <div className="flex flex-wrap gap-1 mt-2">
-                  {template.tags.map(tag => (
-                    <Badge key={tag} variant="outline" className="text-xs">{tag}</Badge>
+  const renderTemplateSelection = () => {
+    return (
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle>Communication Templates</CardTitle>
+          <CardDescription>Select a template to use as a starting point</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="mb-4">
+            <div className="flex items-centre space-x-2 mb-4">
+              <Search className="h-4 w-4 text-muted-foreground" />
+              <Input 
+                placeholder="Search templates..." 
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="flex-1"
+              />
+              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="All Categories" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="">All Categories</SelectItem>
+                  {templateCategories.map(category => (
+                    <SelectItem key={category.id} value={category.id}>{category.name}</SelectItem>
                   ))}
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="space-y-2 max-h-[300px] overflow-y-auto">
+              {filteredTemplates.map(template => (
+                <div 
+                  key={template.id}
+                  className={cn(
+                    "p-3 border rounded-md cursor-pointer hover:bg-accent transition-colors",
+                    selectedTemplate === template.id ? "border-primary bg-accent" : "border-border"
+                  )}
+                  onClick={() => handleTemplateSelect(template.id)}
+                >
+                  <div className="font-medium">{template.title}</div>
+                  <div className="text-sm text-muted-foreground truncate">{template.content.substring(0, 100)}...</div>
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    {template.tags.map(tag => (
+                      <Badge key={tag} variant="outline" className="text-xs">{tag}</Badge>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
-            {filteredTemplates.length === 0 && (
-              <div className="text-centre py-4 text-muted-foreground">
-                No templates match your search criteria
-              </div>
-            )}
+              ))}
+              {filteredTemplates.length === 0 && (
+                <div className="text-centre py-4 text-muted-foreground">
+                  No templates match your search criteria
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    );
+  };
   );
   
   // Render message composition section

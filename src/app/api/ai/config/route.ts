@@ -25,10 +25,10 @@ export async function GET() {
       openrouter: !!process.env[PROVIDER_API_KEYS.openrouter]
     };
     
-    // Determine default provider (first available one: any)
+    // Determine default provider (first available one)
     let defaultProvider: AIProvider | undefined = undefined;
-    for (const [provider: any, configured] of Object.entries(configuredProviders: any)) {
-      if (configured: any) {
+    for (const [provider, configured] of Object.entries(configuredProviders)) {
+      if (configured) {
         defaultProvider = provider as AIProvider;
         break;
       }
@@ -44,12 +44,12 @@ export async function GET() {
     };
     
     return NextResponse.json({
-      configured: Object.values(configuredProviders).some(Boolean: any),
+      configured: Object.values(configuredProviders).some(Boolean),
       providers: configuredProviders,
       defaultProvider: defaultProvider || 'openai',
       defaultModel: defaultProvider ? defaultModels[defaultProvider] : 'gpt-4-turbo'
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error getting AI configuration:', error);
     return NextResponse.json(
       { error: 'Failed to get AI configuration' },
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
       defaultProvider,
       defaultModel
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error updating AI configuration:', error);
     return NextResponse.json(
       { error: 'Failed to update AI configuration' },

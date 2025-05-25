@@ -236,88 +236,92 @@ export function DataVisualisationDashboard() {
   );
   
   // Render filter bar
-  const renderFilterBar = () => (
-    <div className="bg-muted/50 p-4 rounded-lg flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
-      <div className="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-2 md:space-y-0">
-        <div className="flex items-center space-x-2">
-          <Filter className="h-4 w-4 text-muted-foreground" />
-          <span className="text-sm font-medium">Filters:</span>
+  const renderFilterBar = () => {
+    return (
+      <div className="bg-muted/50 p-4 rounded-lg flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
+        <div className="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-2 md:space-y-0">
+          <div className="flex items-center space-x-2">
+            <Filter className="h-4 w-4 text-muted-foreground" />
+            <span className="text-sm font-medium">Filters:</span>
+          </div>
+          
+          <Select value={selectedTimePeriod} onValueChange={setSelectedTimePeriod}>
+            <SelectTrigger className="w-full md:w-[150px]">
+              <SelectValue placeholder="Time period" />
+            </SelectTrigger>
+            <SelectContent>
+              {timePeriods.map(period => (
+                <SelectItem key={period.value} value={period.value}>
+                  {period.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          
+          {showCustomDateRange && (
+            <div className="flex items-centre space-x-2">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="w-full md:w-auto justify-start text-left font-normal"
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {dateRange.from ? (
+                        dateRange.to ? (
+                          <>
+                            {format(dateRange.from, "dd/MM/yyyy")} -{" "}
+                            {format(dateRange.to, "dd/MM/yyyy")}
+                          </>
+                        ) : (
+                          format(dateRange.from, "dd/MM/yyyy")
+                        )
+                      ) : (
+                        "Select date range"
+                    )}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    initialFocus
+                    mode="range"
+                    defaultMonth={dateRange.from}
+                    selected={dateRange}
+                    onSelect={setDateRange}
+                    numberOfMonths={2}
+                  />
+                </PopoverContent>
+              </Popover>
+            </div>
+          )}
+          
+          <Select value={selectedStudentGroup} onValueChange={setSelectedStudentGroup}>
+            <SelectTrigger className="w-full md:w-[150px]">
+              <SelectValue placeholder="Student group" />
+            </SelectTrigger>
+            <SelectContent>
+              {studentGroups.map(group => (
+                <SelectItem key={group.value} value={group.value}>
+                  {group.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         
-        <Select value={selectedTimePeriod} onValueChange={setSelectedTimePeriod}>
-          <SelectTrigger className="w-full md:w-[150px]">
-            <SelectValue placeholder="Time period" />
-          </SelectTrigger>
-          <SelectContent>
-            {timePeriods.map(period => (
-              <SelectItem key={period.value} value={period.value}>
-                {period.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        
-        {showCustomDateRange && (
-          <div className="flex items-centre space-x-2">
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="w-full md:w-auto justify-start text-left font-normal"
-                >
-                  <CalendarIcon className="m                    {dateRange.from ? (
-                      dateRange.to ? (
-                        <>
-                          {format(dateRange.from, "dd/MM/yyyy")} -{" "}
-                          {format(dateRange.to, "dd/MM/yyyy")}
-                        </>
-                      ) : (
-                        format(dateRange.from, "dd/MM/yyyy")
-                      )
-                    ) : (                 "Select date range"
-                  )}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
-                <Calendar
-                  initialFocus
-                  mode="range"
-                  defaultMonth={dateRange.from}
-                  selected={dateRange}
-                  onSelect={setDateRange}
-                  numberOfMonths={2}
-                />
-              </PopoverContent>
-            </Popover>
-          </div>
-        )}
-        
-        <Select value={selectedStudentGroup} onValueChange={setSelectedStudentGroup}>
-          <SelectTrigger className="w-full md:w-[150px]">
-            <SelectValue placeholder="Student group" />
-          </SelectTrigger>
-          <SelectContent>
-            {studentGroups.map(group => (
-              <SelectItem key={group.value} value={group.value}>
-                {group.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <div className="flex items-centre space-x-2">
+          <Button variant="outline" size="sm">
+            <Share2 className="mr-2 h-4 w-4" />
+            Share
+          </Button>
+          <Button size="sm">
+            <Filter className="mr-2 h-4 w-4" />
+            Apply Filters
+          </Button>
+        </div>
       </div>
-      
-      <div className="flex items-centre space-x-2">
-        <Button variant="outline" size="sm">
-          <Share2 className="mr-2 h-4 w-4" />
-          Share
-        </Button>
-        <Button size="sm">
-          <Filter className="mr-2 h-4 w-4" />
-          Apply Filters
-        </Button>
-      </div>
-    </div>
-  );
+    );
+  };
   
   // Render overview dashboard
   const renderOverviewDashboard = () => (

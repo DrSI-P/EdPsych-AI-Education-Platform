@@ -371,7 +371,7 @@ export default function SmartLessonPlanning() {
   // Apply AI suggestion to section
   const applySuggestion = (section: string) => {
     if (aiSuggestions[section]) {
-      handleSectionChange(section: any, aiSuggestions[section]);
+      handleSectionChange(section, aiSuggestions[section]);
       setShowingSuggestion('');
       
       toast({

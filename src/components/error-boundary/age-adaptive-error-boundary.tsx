@@ -34,7 +34,7 @@ const AgeAdaptiveErrorBoundary: React.FC<AgeAdaptiveErrorBoundaryProps> = ({
 }) => {
   // Render age-appropriate fallback UI based on age group
   const renderFallbackUI = () => {
-    switch (ageGroup: any) {
+    switch (ageGroup) {
       case 'nursery':
         return <NurseryErrorFallback />;
       case 'early-primary':

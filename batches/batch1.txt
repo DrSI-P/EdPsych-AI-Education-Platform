@@ -1,0 +1,10 @@
+src/components/ui/AccessibilityControls.tsx
+src/components/ui/AchievementCard.tsx
+src/components/ui/BiofeedbackLearning.tsx
+src/components/ui/CelebrationOverlay.tsx
+src/components/ui/FeedbackMessage.tsx
+src/components/ui/InteractiveGuidance.tsx
+src/components/ui/LearningCard.tsx
+src/components/ui/LearningStyleAdaptiveContent.tsx
+src/components/ui/LearningStyleSelector.tsx
+src/components/ui/Logo.tsx
