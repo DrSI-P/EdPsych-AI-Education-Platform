@@ -15,21 +15,21 @@ interface AccordionContextType {
   allowMultiple: boolean;
 }
 
-const AccordionContext = React.createContext<AccordionContextType | undefined>(undefined: any);
+const AccordionContext = React.createContext<AccordionContextType | undefined>(undefined);
 
 export function Accordion({
-  children: any,
+  children,
   defaultExpanded = [],
   allowMultiple = false,
   className = '',
 }: AccordionProps) {
-  const [expandedItems, setExpandedItems] = useState<string[]>(defaultExpanded: any);
+  const [expandedItems, setExpandedItems] = useState<string[]>(defaultExpanded);
 
   const toggleItem = (id: string) => {
-    if (expandedItems.includes(id: any)) {
-      setExpandedItems(expandedItems.filter((item: any) => item !== id));
+    if (expandedItems.includes(id)) {
+      setExpandedItems(expandedItems.filter((item) => item !== id));
     } else {
-      if (allowMultiple: any) {
+      if (allowMultiple) {
         setExpandedItems([...expandedItems, id]);
       } else {
         setExpandedItems([id]);
@@ -38,7 +38,7 @@ export function Accordion({
   };
 
   return (
-    <AccordionContext.Provider value={{ expandedItems: any, toggleItem, allowMultiple }}>
+    <AccordionContext.Provider value={{ expandedItems, toggleItem, allowMultiple }}>
       <div className={`divide-y divide-grey-200 border border-grey-200 rounded-md ${className}`}>
         {children}
       </div>
@@ -52,10 +52,10 @@ interface AccordionItemProps {
   className?: string;
 }
 
-export function AccordionItem({ children: any, id, className = '' }: AccordionItemProps) {
-  const context = React.useContext(AccordionContext: any);
+export function AccordionItem({ children, id, className = '' }: AccordionItemProps) {
+  const context = React.useContext(AccordionContext);
 
-  if (!context: any) {
+  if (!context) {
     throw new Error('AccordionItem must be used within an Accordion component');
   }
 
@@ -72,15 +72,15 @@ interface AccordionTriggerProps {
   className?: string;
 }
 
-export function AccordionTrigger({ children: any, id, className = '' }: AccordionTriggerProps) {
-  const context = React.useContext(AccordionContext: any);
+export function AccordionTrigger({ children, id, className = '' }: AccordionTriggerProps) {
+  const context = React.useContext(AccordionContext);
 
-  if (!context: any) {
+  if (!context) {
     throw new Error('AccordionTrigger must be used within an Accordion component');
   }
 
   const { expandedItems, toggleItem } = context;
-  const isExpanded = expandedItems.includes(id: any);
+  const isExpanded = expandedItems.includes(id);
 
   return (
     <button
@@ -89,7 +89,7 @@ export function AccordionTrigger({ children: any, id, className = '' }: Accordio
       aria-controls={`accordion-content-${id}`}
       id={`accordion-trigger-${id}`}
       className={`flex justify-between items-centre w-full px-4 py-3 text-left text-grey-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${className}`}
-      onClick={() => toggleItem(id: any)}
+      onClick={() => toggleItem(id)}
     >
       {children}
       <svg
@@ -113,17 +113,17 @@ interface AccordionContentProps {
   className?: string;
 }
 
-export function AccordionContent({ children: any, id, className = '' }: AccordionContentProps) {
-  const context = React.useContext(AccordionContext: any);
+export function AccordionContent({ children, id, className = '' }: AccordionContentProps) {
+  const context = React.useContext(AccordionContext);
 
-  if (!context: any) {
+  if (!context) {
     throw new Error('AccordionContent must be used within an Accordion component');
   }
 
   const { expandedItems } = context;
-  const isExpanded = expandedItems.includes(id: any);
+  const isExpanded = expandedItems.includes(id);
 
-  if (!isExpanded: any) return null;
+  if (!isExpanded) return null;
 
   return (
     <div
@@ -142,19 +142,19 @@ interface DisclosureProps {
   className?: string;
 }
 
-export function Disclosure({ children: any, defaultOpen = false, className = '' }: DisclosureProps) {
-  const [isOpen, setIsOpen] = useState(defaultOpen: any);
+export function Disclosure({ children, defaultOpen = false, className = '' }: DisclosureProps) {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
   const toggle = () => {
-    setIsOpen(!isOpen: any);
+    setIsOpen(!isOpen);
   };
 
   return (
     <div className={`border border-grey-200 rounded-md ${className}`}>
-      {React.Children.map(children: any, (child: any) => {
-        if (React.isValidElement(child: any)) {
+      {React.Children.map(children, (child) => {
+        if (React.isValidElement(child)) {
           return React.cloneElement(child as React.ReactElement<any>, {
-            isOpen: any,
+            isOpen,
             toggle,
           });
         }
@@ -172,7 +172,7 @@ interface DisclosureTriggerProps {
 }
 
 export function DisclosureTrigger({
-  children: any,
+  children,
   isOpen,
   toggle,
   className = '',
@@ -206,8 +206,8 @@ interface DisclosureContentProps {
   className?: string;
 }
 
-export function DisclosureContent({ children: any, isOpen, className = '' }: DisclosureContentProps) {
-  if (!isOpen: any) return null;
+export function DisclosureContent({ children, isOpen, className = '' }: DisclosureContentProps) {
+  if (!isOpen) return null;
 
   return <div className={`px-4 py-3 ${className}`}>{children}</div>;
 }
