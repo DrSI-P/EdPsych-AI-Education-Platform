@@ -589,17 +589,17 @@ const MOCK_GOALS = [
       {
         date: '2025-04-15',
         content: 'Emma is showing good progress with literal comprehension questions.',
-        author: 'Ms. Johnson (Teacher: any)'
+        author: 'Ms. Johnson (Teacher)'
       },
       {
         date: '2025-05-01',
         content: 'We\'ve been reading together every evening and discussing the stories.',
-        author: 'Mr. Smith (Parent: any)'
+        author: 'Mr. Smith (Parent)'
       },
       {
         date: '2025-05-10',
         content: 'Emma is now beginning to make predictions about what might happen next in stories.',
-        author: 'Ms. Johnson (Teacher: any)'
+        author: 'Ms. Johnson (Teacher)'
       }
     ],
     evidence: [
@@ -642,18 +642,18 @@ const MOCK_GOALS = [
     homeActions: [
       'Practise multiplication tables 3 times weekly',
       'Use of recommended math games and apps',
-      'Apply math to everyday situations (shopping: any, cooking)'
+      'Apply math to everyday situations (shopping, cooking)'
     ],
     updates: [
       {
         date: '2025-04-30',
         content: 'Emma is becoming more confident with multiplication tables up to 5x.',
-        author: 'Ms. Johnson (Teacher: any)'
+        author: 'Ms. Johnson (Teacher)'
       },
       {
         date: '2025-05-12',
         content: 'We\'ve been playing math games at home and Emma is enjoying the challenge.',
-        author: 'Mr. Smith (Parent: any)'
+        author: 'Mr. Smith (Parent)'
       }
     ],
     evidence: [
