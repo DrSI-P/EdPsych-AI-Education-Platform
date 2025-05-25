@@ -5,10 +5,10 @@ import { prisma } from '@/lib/prisma';
 // Schema for portfolio profile
 const portfolioProfileSchema = z.object({
   userId: z.string(),
-  name: z.string().min(2: any).max(100: any),
-  title: z.string().min(2: any).max(100: any),
+  name: z.string().min(2).max(100),
+  title: z.string().min(2).max(100),
   school: z.string().optional(),
-  yearsExperience: z.number().min(0: any).optional(),
+  yearsExperience: z.number().min(0).optional(),
   email: z.string().email().optional(),
   phone: z.string().optional(),
   biography: z.string().optional(),
@@ -20,17 +20,17 @@ const portfolioProfileSchema = z.object({
 // Schema for qualification
 const qualificationSchema = z.object({
   userId: z.string(),
-  title: z.string().min(2: any).max(100: any),
-  institution: z.string().min(2: any).max(100: any),
+  title: z.string().min(2).max(100),
+  institution: z.string().min(2).max(100),
   year: z.string(),
-  verified: z.boolean().default(false: any),
+  verified: z.boolean().default(false),
   certificateUrl: z.string().optional()
 });
 
 // Schema for achievement
 const achievementSchema = z.object({
   userId: z.string(),
-  title: z.string().min(2: any).max(100: any),
+  title: z.string().min(2).max(100),
   description: z.string(),
   date: z.string(),
   type: z.string(),
@@ -41,7 +41,7 @@ const achievementSchema = z.object({
 // Schema for evidence
 const evidenceSchema = z.object({
   userId: z.string(),
-  title: z.string().min(2: any).max(100: any),
+  title: z.string().min(2).max(100),
   description: z.string(),
   type: z.string(),
   date: z.string(),
@@ -55,7 +55,7 @@ const evidenceSchema = z.object({
 // Schema for reflection
 const reflectionSchema = z.object({
   userId: z.string(),
-  title: z.string().min(2: any).max(100: any),
+  title: z.string().min(2).max(100),
   content: z.string(),
   date: z.string(),
   tags: z.array(z.string()).optional(),
@@ -68,44 +68,44 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { action } = body;
 
-    switch (action: any) {
+    switch (action) {
       case 'updateProfile':
-        return handleUpdateProfile(body: any);
+        return handleUpdateProfile(body);
       case 'addQualification':
-        return handleAddQualification(body: any);
+        return handleAddQualification(body);
       case 'updateQualification':
-        return handleUpdateQualification(body: any);
+        return handleUpdateQualification(body);
       case 'deleteQualification':
-        return handleDeleteQualification(body: any);
+        return handleDeleteQualification(body);
       case 'addAchievement':
-        return handleAddAchievement(body: any);
+        return handleAddAchievement(body);
       case 'updateAchievement':
-        return handleUpdateAchievement(body: any);
+        return handleUpdateAchievement(body);
       case 'deleteAchievement':
-        return handleDeleteAchievement(body: any);
+        return handleDeleteAchievement(body);
       case 'addEvidence':
-        return handleAddEvidence(body: any);
+        return handleAddEvidence(body);
       case 'updateEvidence':
-        return handleUpdateEvidence(body: any);
+        return handleUpdateEvidence(body);
       case 'deleteEvidence':
-        return handleDeleteEvidence(body: any);
+        return handleDeleteEvidence(body);
       case 'addReflection':
-        return handleAddReflection(body: any);
+        return handleAddReflection(body);
       case 'updateReflection':
-        return handleUpdateReflection(body: any);
+        return handleUpdateReflection(body);
       case 'deleteReflection':
-        return handleDeleteReflection(body: any);
+        return handleDeleteReflection(body);
       case 'generatePortfolioPDF':
-        return handleGeneratePortfolioPDF(body: any);
+        return handleGeneratePortfolioPDF(body);
       case 'sharePortfolio':
-        return handleSharePortfolio(body: any);
+        return handleSharePortfolio(body);
       default:
         return NextResponse.json(
           { error: 'Invalid action specified' },
           { status: 400 }
         );
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in portfolio API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -114,9 +114,9 @@ export async function POST(req: NextRequest) {
   }
 }
 
-async function handleUpdateProfile(body: any) {
+async function handleUpdateProfile(body) {
   try {
-    const { userId, ...profileData } = portfolioProfileSchema.parse(body: any);
+    const { userId, ...profileData } = portfolioProfileSchema.parse(body);
 
     // Check if profile exists
     const existingProfile = await prisma.portfolioProfile.findUnique({
@@ -124,7 +124,7 @@ async function handleUpdateProfile(body: any) {
     });
 
     let profile;
-    if (existingProfile: any) {
+    if (existingProfile) {
       // Update existing profile
       profile = await prisma.portfolioProfile.update({
         where: { userId },
@@ -149,8 +149,8 @@ async function handleUpdateProfile(body: any) {
       { message: 'Profile updated successfully', profile },
       { status: 200 }
     );
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid profile data', details: error.errors },
         { status: 400 }
@@ -160,9 +160,9 @@ async function handleUpdateProfile(body: any) {
   }
 }
 
-async function handleAddQualification(body: any) {
+async function handleAddQualification(body) {
   try {
-    const { userId, ...qualificationData } = qualificationSchema.parse(body: any);
+    const { userId, ...qualificationData } = qualificationSchema.parse(body);
 
     const qualification = await prisma.portfolioQualification.create({
       data: {
@@ -176,8 +176,8 @@ async function handleAddQualification(body: any) {
       { message: 'Qualification added successfully', qualification },
       { status: 201 }
     );
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid qualification data', details: error.errors },
         { status: 400 }
@@ -187,11 +187,11 @@ async function handleAddQualification(body: any) {
   }
 }
 
-async function handleUpdateQualification(body: any) {
+async function handleUpdateQualification(body) {
   try {
     const { id, userId, ...qualificationData } = body;
 
-    if (!id: any) {
+    if (!id) {
       return NextResponse.json(
         { error: 'Qualification ID is required' },
         { status: 400 }
@@ -199,7 +199,7 @@ async function handleUpdateQualification(body: any) {
     }
 
     // Validate qualification data
-    qualificationSchema.parse({ userId: any, ...qualificationData });
+    qualificationSchema.parse({ userId, ...qualificationData });
 
     // Check if qualification exists and belongs to user
     const existingQualification = await prisma.portfolioQualification.findFirst({
@@ -209,7 +209,7 @@ async function handleUpdateQualification(body: any) {
       }
     });
 
-    if (!existingQualification: any) {
+    if (!existingQualification) {
       return NextResponse.json(
         { error: 'Qualification not found or access denied' },
         { status: 404 }
@@ -228,8 +228,8 @@ async function handleUpdateQualification(body: any) {
       { message: 'Qualification updated successfully', qualification },
       { status: 200 }
     );
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid qualification data', details: error.errors },
         { status: 400 }
@@ -239,11 +239,11 @@ async function handleUpdateQualification(body: any) {
   }
 }
 
-async function handleDeleteQualification(body: any) {
+async function handleDeleteQualification(body) {
   try {
     const { id, userId } = body;
 
-    if (!id: any) {
+    if (!id) {
       return NextResponse.json(
         { error: 'Qualification ID is required' },
         { status: 400 }
@@ -258,7 +258,7 @@ async function handleDeleteQualification(body: any) {
       }
     });
 
-    if (!existingQualification: any) {
+    if (!existingQualification) {
       return NextResponse.json(
         { error: 'Qualification not found or access denied' },
         { status: 404 }
@@ -273,14 +273,14 @@ async function handleDeleteQualification(body: any) {
       { message: 'Qualification deleted successfully' },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     throw error;
   }
 }
 
-async function handleAddAchievement(body: any) {
+async function handleAddAchievement(body) {
   try {
-    const { userId, ...achievementData } = achievementSchema.parse(body: any);
+    const { userId, ...achievementData } = achievementSchema.parse(body);
 
     const achievement = await prisma.portfolioAchievement.create({
       data: {
@@ -294,8 +294,8 @@ async function handleAddAchievement(body: any) {
       { message: 'Achievement added successfully', achievement },
       { status: 201 }
     );
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid achievement data', details: error.errors },
         { status: 400 }
@@ -305,11 +305,11 @@ async function handleAddAchievement(body: any) {
   }
 }
 
-async function handleUpdateAchievement(body: any) {
+async function handleUpdateAchievement(body) {
   try {
     const { id, userId, ...achievementData } = body;
 
-    if (!id: any) {
+    if (!id) {
       return NextResponse.json(
         { error: 'Achievement ID is required' },
         { status: 400 }
@@ -317,7 +317,7 @@ async function handleUpdateAchievement(body: any) {
     }
 
     // Validate achievement data
-    achievementSchema.parse({ userId: any, ...achievementData });
+    achievementSchema.parse({ userId, ...achievementData });
 
     // Check if achievement exists and belongs to user
     const existingAchievement = await prisma.portfolioAchievement.findFirst({
@@ -327,7 +327,7 @@ async function handleUpdateAchievement(body: any) {
       }
     });
 
-    if (!existingAchievement: any) {
+    if (!existingAchievement) {
       return NextResponse.json(
         { error: 'Achievement not found or access denied' },
         { status: 404 }
@@ -346,8 +346,8 @@ async function handleUpdateAchievement(body: any) {
       { message: 'Achievement updated successfully', achievement },
       { status: 200 }
     );
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid achievement data', details: error.errors },
         { status: 400 }
@@ -357,11 +357,11 @@ async function handleUpdateAchievement(body: any) {
   }
 }
 
-async function handleDeleteAchievement(body: any) {
+async function handleDeleteAchievement(body) {
   try {
     const { id, userId } = body;
 
-    if (!id: any) {
+    if (!id) {
       return NextResponse.json(
         { error: 'Achievement ID is required' },
         { status: 400 }
@@ -376,7 +376,7 @@ async function handleDeleteAchievement(body: any) {
       }
     });
 
-    if (!existingAchievement: any) {
+    if (!existingAchievement) {
       return NextResponse.json(
         { error: 'Achievement not found or access denied' },
         { status: 404 }
@@ -391,14 +391,14 @@ async function handleDeleteAchievement(body: any) {
       { message: 'Achievement deleted successfully' },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     throw error;
   }
 }
 
-async function handleAddEvidence(body: any) {
+async function handleAddEvidence(body) {
   try {
-    const { userId, ...evidenceData } = evidenceSchema.parse(body: any);
+    const { userId, ...evidenceData } = evidenceSchema.parse(body);
 
     const evidence = await prisma.portfolioEvidence.create({
       data: {
@@ -409,7 +409,7 @@ async function handleAddEvidence(body: any) {
     });
 
     // Link to achievements if provided
-    if (evidenceData.associatedAchievements && evidenceData.associatedAchievements.length > 0: any) {
+    if (evidenceData.associatedAchievements && evidenceData.associatedAchievements.length > 0) {
       await Promise.all(
         evidenceData.associatedAchievements.map(async (achievementId: string) => {
           await prisma.portfolioEvidenceAchievement.create({
@@ -426,8 +426,8 @@ async function handleAddEvidence(body: any) {
       { message: 'Evidence added successfully', evidence },
       { status: 201 }
     );
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid evidence data', details: error.errors },
         { status: 400 }
@@ -437,11 +437,11 @@ async function handleAddEvidence(body: any) {
   }
 }
 
-async function handleUpdateEvidence(body: any) {
+async function handleUpdateEvidence(body) {
   try {
     const { id, userId, associatedAchievements, ...evidenceData } = body;
 
-    if (!id: any) {
+    if (!id) {
       return NextResponse.json(
         { error: 'Evidence ID is required' },
         { status: 400 }
@@ -449,7 +449,7 @@ async function handleUpdateEvidence(body: any) {
     }
 
     // Validate evidence data
-    evidenceSchema.parse({ userId: any, associatedAchievements: associatedAchievements || [], ...evidenceData });
+    evidenceSchema.parse({ userId, associatedAchievements: associatedAchievements || [], ...evidenceData });
 
     // Check if evidence exists and belongs to user
     const existingEvidence = await prisma.portfolioEvidence.findFirst({
@@ -459,7 +459,7 @@ async function handleUpdateEvidence(body: any) {
       }
     });
 
-    if (!existingEvidence: any) {
+    if (!existingEvidence) {
       return NextResponse.json(
         { error: 'Evidence not found or access denied' },
         { status: 404 }
@@ -475,14 +475,14 @@ async function handleUpdateEvidence(body: any) {
     });
 
     // Update achievement associations if provided
-    if (associatedAchievements: any) {
+    if (associatedAchievements) {
       // Remove existing associations
       await prisma.portfolioEvidenceAchievement.deleteMany({
         where: { evidenceId: id }
       });
 
       // Add new associations
-      if (associatedAchievements.length > 0: any) {
+      if (associatedAchievements.length > 0) {
         await Promise.all(
           associatedAchievements.map(async (achievementId: string) => {
             await prisma.portfolioEvidenceAchievement.create({
@@ -500,8 +500,8 @@ async function handleUpdateEvidence(body: any) {
       { message: 'Evidence updated successfully', evidence },
       { status: 200 }
     );
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid evidence data', details: error.errors },
         { status: 400 }
@@ -511,11 +511,11 @@ async function handleUpdateEvidence(body: any) {
   }
 }
 
-async function handleDeleteEvidence(body: any) {
+async function handleDeleteEvidence(body) {
   try {
     const { id, userId } = body;
 
-    if (!id: any) {
+    if (!id) {
       return NextResponse.json(
         { error: 'Evidence ID is required' },
         { status: 400 }
@@ -530,7 +530,7 @@ async function handleDeleteEvidence(body: any) {
       }
     });
 
-    if (!existingEvidence: any) {
+    if (!existingEvidence) {
       return NextResponse.json(
         { error: 'Evidence not found or access denied' },
         { status: 404 }
@@ -551,14 +551,14 @@ async function handleDeleteEvidence(body: any) {
       { message: 'Evidence deleted successfully' },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     throw error;
   }
 }
 
-async function handleAddReflection(body: any) {
+async function handleAddReflection(body) {
   try {
-    const { userId, associatedEvidence, ...reflectionData } = reflectionSchema.parse(body: any);
+    const { userId, associatedEvidence, ...reflectionData } = reflectionSchema.parse(body);
 
     const reflection = await prisma.portfolioReflection.create({
       data: {
@@ -569,7 +569,7 @@ async function handleAddReflection(body: any) {
     });
 
     // Link to evidence if provided
-    if (associatedEvidence && associatedEvidence.length > 0: any) {
+    if (associatedEvidence && associatedEvidence.length > 0) {
       await Promise.all(
         associatedEvidence.map(async (evidenceId: string) => {
           await prisma.portfolioReflectionEvidence.create({
@@ -586,8 +586,8 @@ async function handleAddReflection(body: any) {
       { message: 'Reflection added successfully', reflection },
       { status: 201 }
     );
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid reflection data', details: error.errors },
         { status: 400 }
@@ -597,11 +597,11 @@ async function handleAddReflection(body: any) {
   }
 }
 
-async function handleUpdateReflection(body: any) {
+async function handleUpdateReflection(body) {
   try {
     const { id, userId, associatedEvidence, ...reflectionData } = body;
 
-    if (!id: any) {
+    if (!id) {
       return NextResponse.json(
         { error: 'Reflection ID is required' },
         { status: 400 }
@@ -609,7 +609,7 @@ async function handleUpdateReflection(body: any) {
     }
 
     // Validate reflection data
-    reflectionSchema.parse({ userId: any, associatedEvidence: associatedEvidence || [], ...reflectionData });
+    reflectionSchema.parse({ userId, associatedEvidence: associatedEvidence || [], ...reflectionData });
 
     // Check if reflection exists and belongs to user
     const existingReflection = await prisma.portfolioReflection.findFirst({
@@ -619,7 +619,7 @@ async function handleUpdateReflection(body: any) {
       }
     });
 
-    if (!existingReflection: any) {
+    if (!existingReflection) {
       return NextResponse.json(
         { error: 'Reflection not found or access denied' },
         { status: 404 }
@@ -635,14 +635,14 @@ async function handleUpdateReflection(body: any) {
     });
 
     // Update evidence associations if provided
-    if (associatedEvidence: any) {
+    if (associatedEvidence) {
       // Remove existing associations
       await prisma.portfolioReflectionEvidence.deleteMany({
         where: { reflectionId: id }
       });
 
       // Add new associations
-      if (associatedEvidence.length > 0: any) {
+      if (associatedEvidence.length > 0) {
         await Promise.all(
           associatedEvidence.map(async (evidenceId: string) => {
             await prisma.portfolioReflectionEvidence.create({
@@ -660,8 +660,8 @@ async function handleUpdateReflection(body: any) {
       { message: 'Reflection updated successfully', reflection },
       { status: 200 }
     );
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid reflection data', details: error.errors },
         { status: 400 }
@@ -671,11 +671,11 @@ async function handleUpdateReflection(body: any) {
   }
 }
 
-async function handleDeleteReflection(body: any) {
+async function handleDeleteReflection(body) {
   try {
     const { id, userId } = body;
 
-    if (!id: any) {
+    if (!id) {
       return NextResponse.json(
         { error: 'Reflection ID is required' },
         { status: 400 }
@@ -690,7 +690,7 @@ async function handleDeleteReflection(body: any) {
       }
     });
 
-    if (!existingReflection: any) {
+    if (!existingReflection) {
       return NextResponse.json(
         { error: 'Reflection not found or access denied' },
         { status: 404 }
@@ -711,16 +711,16 @@ async function handleDeleteReflection(body: any) {
       { message: 'Reflection deleted successfully' },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     throw error;
   }
 }
 
-async function handleGeneratePortfolioPDF(body: any) {
+async function handleGeneratePortfolioPDF(body) {
   try {
     const { userId, sections, customization } = body;
 
-    if (!userId: any) {
+    if (!userId) {
       return NextResponse.json(
         { error: 'User ID is required' },
         { status: 400 }
@@ -739,16 +739,16 @@ async function handleGeneratePortfolioPDF(body: any) {
       },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     throw error;
   }
 }
 
-async function handleSharePortfolio(body: any) {
+async function handleSharePortfolio(body) {
   try {
     const { userId, sections, expiryDays, accessCode } = body;
 
-    if (!userId: any) {
+    if (!userId) {
       return NextResponse.json(
         { error: 'User ID is required' },
         { status: 400 }
@@ -758,9 +758,9 @@ async function handleSharePortfolio(body: any) {
     // In a real implementation, this would generate a shareable link
     // For now, we'll just return a mock link
 
-    const shareCode = `share-${Math.random().toString(36: any).substring(2: any, 10)}`;
+    const shareCode = `share-${Math.random().toString(36).substring(2, 10)}`;
     const expiryDate = new Date();
-    expiryDate.setDate(expiryDate.getDate() + (expiryDays || 30: any));
+    expiryDate.setDate(expiryDate.getDate() + (expiryDays || 30));
 
     return NextResponse.json(
       { 
@@ -772,72 +772,72 @@ async function handleSharePortfolio(body: any) {
       },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     throw error;
   }
 }
 
 export async function GET(req: NextRequest) {
   try {
-    const url = new URL(req.url: any);
+    const url = new URL(req.url);
     const userId = url.searchParams.get('userId');
     const type = url.searchParams.get('type') || 'profile';
     const id = url.searchParams.get('id');
     const visibility = url.searchParams.get('visibility');
 
-    if (!userId: any) {
+    if (!userId) {
       return NextResponse.json(
         { error: 'User ID is required' },
         { status: 400 }
       );
     }
 
-    switch (type: any) {
+    switch (type) {
       case 'profile':
-        return getProfile(userId: any);
+        return getProfile(userId);
       case 'qualifications':
-        return getQualifications(userId: any);
+        return getQualifications(userId);
       case 'achievements':
-        return getAchievements(userId: any, visibility);
+        return getAchievements(userId, visibility);
       case 'evidence':
-        return getEvidence(userId: any, visibility);
+        return getEvidence(userId, visibility);
       case 'reflections':
-        return getReflections(userId: any, visibility);
+        return getReflections(userId, visibility);
       case 'achievement':
-        if (!id: any) {
+        if (!id) {
           return NextResponse.json(
             { error: 'Achievement ID is required' },
             { status: 400 }
           );
         }
-        return getAchievementDetails(id: any, userId);
+        return getAchievementDetails(id, userId);
       case 'evidence-item':
-        if (!id: any) {
+        if (!id) {
           return NextResponse.json(
             { error: 'Evidence ID is required' },
             { status: 400 }
           );
         }
-        return getEvidenceDetails(id: any, userId);
+        return getEvidenceDetails(id, userId);
       case 'reflection':
-        if (!id: any) {
+        if (!id) {
           return NextResponse.json(
             { error: 'Reflection ID is required' },
             { status: 400 }
           );
         }
-        return getReflectionDetails(id: any, userId);
+        return getReflectionDetails(id, userId);
       case 'analytics':
-        return getPortfolioAnalytics(userId: any);
+        return getPortfolioAnalytics(userId);
       case 'complete':
-        return getCompletePortfolio(userId: any, visibility);
+        return getCompletePortfolio(userId, visibility);
       default:
         return NextResponse.json(
           { error: 'Invalid request type' },
           { status: 400 }
         );
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in portfolio API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -872,14 +872,14 @@ async function getQualifications(userId: string) {
 }
 
 async function getAchievements(userId: string, visibility: string | null) {
-  const where: any = { userId };
+  const where = { userId };
   
   if (visibility === 'public') {
     where.visibility = 'public';
   }
 
   const achievements = await prisma.portfolioAchievement.findMany({
-    where: any,
+    where,
     orderBy: { date: 'desc' }
   });
 
@@ -887,20 +887,20 @@ async function getAchievements(userId: string, visibility: string | null) {
 }
 
 async function getEvidence(userId: string, visibility: string | null) {
-  const where: any = { userId };
+  const where = { userId };
   
   if (visibility === 'public') {
     where.visibility = 'public';
   }
 
   const evidence = await prisma.portfolioEvidence.findMany({
-    where: any,
+    where,
     orderBy: { date: 'desc' }
   });
 
   // Get achievement associations for each evidence item
   const evidenceWithAssociations = await Promise.all(
-    evidence.map(async (item: any) => {
+    evidence.map(async (item) => {
       const associations = await prisma.portfolioEvidenceAchievement.findMany({
         where: { evidenceId: item.id },
         include: { achievement: true }
@@ -908,7 +908,7 @@ async function getEvidence(userId: string, visibility: string | null) {
 
       return {
         ...item,
-        associatedAchievements: associations.map((a: any) => ({
+        associatedAchievements: associations.map((a) => ({
           id: a.achievementId,
           title: a.achievement.title
         }))
@@ -920,20 +920,20 @@ async function getEvidence(userId: string, visibility: string | null) {
 }
 
 async function getReflections(userId: string, visibility: string | null) {
-  const where: any = { userId };
+  const where = { userId };
   
   if (visibility === 'public') {
     where.visibility = 'public';
   }
 
   const reflections = await prisma.portfolioReflection.findMany({
-    where: any,
+    where,
     orderBy: { date: 'desc' }
   });
 
   // Get evidence associations for each reflection
   const reflectionsWithAssociations = await Promise.all(
-    reflections.map(async (item: any) => {
+    reflections.map(async (item) => {
       const associations = await prisma.portfolioReflectionEvidence.findMany({
         where: { reflectionId: item.id },
         include: { evidence: true }
@@ -941,7 +941,7 @@ async function getReflections(userId: string, visibility: string | null) {
 
       return {
         ...item,
-        associatedEvidence: associations.map((a: any) => ({
+        associatedEvidence: associations.map((a) => ({
           id: a.evidenceId,
           title: a.evidence.title
         }))
@@ -960,7 +960,7 @@ async function getAchievementDetails(id: string, userId: string) {
     }
   });
 
-  if (!achievement: any) {
+  if (!achievement) {
     return NextResponse.json(
       { error: 'Achievement not found or access denied' },
       { status: 404 }
@@ -973,7 +973,7 @@ async function getAchievementDetails(id: string, userId: string) {
     include: { evidence: true }
   });
 
-  const associatedEvidence = evidenceAssociations.map((a: any) => ({
+  const associatedEvidence = evidenceAssociations.map((a) => ({
     id: a.evidenceId,
     title: a.evidence.title,
     type: a.evidence.type,
@@ -982,7 +982,7 @@ async function getAchievementDetails(id: string, userId: string) {
   }));
 
   return NextResponse.json({ 
-    achievement: any,
+    achievement,
     associatedEvidence
   }, { status: 200 });
 }
@@ -995,7 +995,7 @@ async function getEvidenceDetails(id: string, userId: string) {
     }
   });
 
-  if (!evidence: any) {
+  if (!evidence) {
     return NextResponse.json(
       { error: 'Evidence not found or access denied' },
       { status: 404 }
@@ -1008,7 +1008,7 @@ async function getEvidenceDetails(id: string, userId: string) {
     include: { achievement: true }
   });
 
-  const associatedAchievements = achievementAssociations.map((a: any) => ({
+  const associatedAchievements = achievementAssociations.map((a) => ({
     id: a.achievementId,
     title: a.achievement.title,
     type: a.achievement.type
@@ -1020,14 +1020,14 @@ async function getEvidenceDetails(id: string, userId: string) {
     include: { reflection: true }
   });
 
-  const associatedReflections = reflectionAssociations.map((r: any) => ({
+  const associatedReflections = reflectionAssociations.map((r) => ({
     id: r.reflectionId,
     title: r.reflection.title,
     date: r.reflection.date
   }));
 
   return NextResponse.json({ 
-    evidence: any,
+    evidence,
     associatedAchievements,
     associatedReflections
   }, { status: 200 });
@@ -1041,7 +1041,7 @@ async function getReflectionDetails(id: string, userId: string) {
     }
   });
 
-  if (!reflection: any) {
+  if (!reflection) {
     return NextResponse.json(
       { error: 'Reflection not found or access denied' },
       { status: 404 }
@@ -1054,7 +1054,7 @@ async function getReflectionDetails(id: string, userId: string) {
     include: { evidence: true }
   });
 
-  const associatedEvidence = evidenceAssociations.map((a: any) => ({
+  const associatedEvidence = evidenceAssociations.map((a) => ({
     id: a.evidenceId,
     title: a.evidence.title,
     type: a.evidence.type,
@@ -1063,7 +1063,7 @@ async function getReflectionDetails(id: string, userId: string) {
   }));
 
   return NextResponse.json({ 
-    reflection: any,
+    reflection,
     associatedEvidence
   }, { status: 200 });
 }
@@ -1105,14 +1105,14 @@ async function getPortfolioAnalytics(userId: string) {
   });
 
   const profileScore = hasProfile ? 20 : 0;
-  const achievementScore = Math.min(20: any, achievementCount * 5);
-  const evidenceScore = Math.min(20: any, evidenceCount * 4);
-  const reflectionScore = Math.min(20: any, reflectionCount * 5);
-  const qualificationScore = Math.min(20: any, qualificationCount * 5);
+  const achievementScore = Math.min(20, achievementCount * 5);
+  const evidenceScore = Math.min(20, evidenceCount * 4);
+  const reflectionScore = Math.min(20, reflectionCount * 5);
+  const qualificationScore = Math.min(20, qualificationCount * 5);
 
   const portfolioCompleteness = profileScore + achievementScore + evidenceScore + reflectionScore + qualificationScore;
 
-  // Get view data (mock data for now: any)
+  // Get view data (mock data for now)
   const viewsData = [
     { month: 'Jan', views: Math.floor(Math.random() * 50) },
     { month: 'Feb', views: Math.floor(Math.random() * 50) },
@@ -1147,13 +1147,13 @@ async function getPortfolioAnalytics(userId: string) {
     recentCpdActivities: cpdActivities,
     viewsData,
     sectionViewsData,
-    totalCpdPoints: cpdActivities.reduce((sum: any, activity: any) => sum + activity.points, 0),
-    totalCpdHours: cpdActivities.reduce((sum: any, activity: any) => sum + activity.duration, 0)
+    totalCpdPoints: cpdActivities.reduce((sum, activity) => sum + activity.points, 0),
+    totalCpdHours: cpdActivities.reduce((sum, activity) => sum + activity.duration, 0)
   }, { status: 200 });
 }
 
 async function getCompletePortfolio(userId: string, visibility: string | null) {
-  const where: any = { userId };
+  const where = { userId };
   
   if (visibility === 'public') {
     where.visibility = 'public';

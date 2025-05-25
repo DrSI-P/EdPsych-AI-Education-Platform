@@ -13,7 +13,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { HeyGenService, VideoGenerationParams } from '@/lib/heygen/heygen-service';
 import { Loader2, Upload, Check, AlertCircle } from 'lucide-react';
 
-function HeyGenVideoGeneration() {
+export function HeyGenVideoGeneration() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);

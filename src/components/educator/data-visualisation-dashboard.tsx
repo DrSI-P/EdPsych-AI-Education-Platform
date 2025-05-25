@@ -452,9 +452,6 @@ export function DataVisualisationDashboard() {
       </div>
     );
   };
-            </div>
-          </CardContent>
-        </Card>
         
         <Card>
           <CardHeader>

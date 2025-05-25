@@ -150,7 +150,7 @@ const specialNeeds = [
   { id: 'gifted', label: 'Gifted and Talented' }
 ];
 
-export default function SmartLessonPlanning() {
+export function SmartLessonPlanning() {
   const { toast } = useToast();
   const aiService = useAIService();
   const [activeTab, setActiveTab] = useState('create');

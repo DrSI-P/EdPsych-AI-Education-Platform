@@ -8,7 +8,7 @@ const progressUpdateSchema = z.object({
   courseId: z.string(),
   moduleId: z.string().optional(),
   contentId: z.string().optional(),
-  progress: z.number().min(0: any).max(100: any),
+  progress: z.number().min(0).max(100),
   completed: z.boolean().optional(),
   timeSpent: z.number().optional(), // in seconds
 });
@@ -24,7 +24,7 @@ const completionSchema = z.object({
   userId: z.string(),
   courseId: z.string(),
   feedback: z.string().optional(),
-  rating: z.number().min(1: any).max(5: any).optional(),
+  rating: z.number().min(1).max(5).optional(),
 });
 
 export async function POST(req: NextRequest) {
@@ -32,20 +32,20 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { action } = body;
 
-    switch (action: any) {
+    switch (action) {
       case 'enroll':
-        return handleEnrollment(body: any);
+        return handleEnrollment(body);
       case 'updateProgress':
-        return handleProgressUpdate(body: any);
+        return handleProgressUpdate(body);
       case 'complete':
-        return handleCompletion(body: any);
+        return handleCompletion(body);
       default:
         return NextResponse.json(
           { error: 'Invalid action specified' },
           { status: 400 }
         );
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in professional development API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -54,19 +54,19 @@ export async function POST(req: NextRequest) {
   }
 }
 
-async function handleEnrollment(body: any) {
+async function handleEnrollment(body) {
   try {
-    const { userId, courseId } = enrollmentSchema.parse(body: any);
+    const { userId, courseId } = enrollmentSchema.parse(body);
 
     // Check if already enrolled
-    const existingEnrollment = await (prisma as any: any).enrollment.findFirst({
+    const existingEnrollment = await (prisma as any).enrollment.findFirst({
       where: {
         userId,
         courseId,
       },
     });
 
-    if (existingEnrollment: any) {
+    if (existingEnrollment) {
       return NextResponse.json(
         { message: 'Already enrolled in this course' },
         { status: 200 }
@@ -74,7 +74,7 @@ async function handleEnrollment(body: any) {
     }
 
     // Create new enrolment
-    const enrolment = await (prisma as any: any).enrollment.create({
+    const enrolment = await (prisma as any).enrollment.create({
       data: {
         userId,
         courseId,
@@ -88,8 +88,8 @@ async function handleEnrollment(body: any) {
       { message: 'Successfully enrolled', enrolment },
       { status: 201 }
     );
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid enrolment data', details: error.errors },
         { status: 400 }
@@ -99,14 +99,14 @@ async function handleEnrollment(body: any) {
   }
 }
 
-async function handleProgressUpdate(body: any) {
+async function handleProgressUpdate(body) {
   try {
     const { userId, courseId, moduleId, contentId, progress, completed, timeSpent } = 
-      progressUpdateSchema.parse(body: any);
+      progressUpdateSchema.parse(body);
 
     // Update course progress
-    const updatedProgress = await prisma.$transaction(async (tx: any) => {
-      return (tx as any: any).courseProgress.upsert({
+    const updatedProgress = await prisma.$transaction(async (tx) => {
+      return (tx as any).courseProgress.upsert({
         where: {
           userId_courseId_moduleId_contentId: {
             userId,
@@ -135,8 +135,8 @@ async function handleProgressUpdate(body: any) {
     });
 
     // Update overall course progress
-    const allModuleProgress = await prisma.$transaction(async (tx: any) => {
-      return (tx as any: any).courseProgress.findMany({
+    const allModuleProgress = await prisma.$transaction(async (tx) => {
+      return (tx as any).courseProgress.findMany({
         where: {
           userId,
           courseId,
@@ -146,13 +146,13 @@ async function handleProgressUpdate(body: any) {
 
     // Calculate overall progress
     let overallProgress = 0;
-    if (allModuleProgress.length > 0: any) {
+    if (allModuleProgress.length > 0) {
       const totalProgress = allModuleProgress.reduce((sum: number, item: { progress: number }) => sum + item.progress, 0);
-      overallProgress = Math.round(totalProgress / allModuleProgress.length: any);
+      overallProgress = Math.round(totalProgress / allModuleProgress.length);
     }
 
     // Update enrolment record
-    await (prisma as any: any).enrollment.updateMany({
+    await (prisma as any).enrollment.updateMany({
       where: {
         userId,
         courseId,
@@ -168,8 +168,8 @@ async function handleProgressUpdate(body: any) {
       { message: 'Progress updated successfully', progress: updatedProgress },
       { status: 200 }
     );
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid progress data', details: error.errors },
         { status: 400 }
@@ -179,12 +179,12 @@ async function handleProgressUpdate(body: any) {
   }
 }
 
-async function handleCompletion(body: any) {
+async function handleCompletion(body) {
   try {
-    const { userId, courseId, feedback, rating } = completionSchema.parse(body: any);
+    const { userId, courseId, feedback, rating } = completionSchema.parse(body);
 
     // Update enrolment status
-    const updatedEnrollment = await (prisma as any: any).enrollment.updateMany({
+    const updatedEnrollment = await (prisma as any).enrollment.updateMany({
       where: {
         userId,
         courseId,
@@ -198,7 +198,7 @@ async function handleCompletion(body: any) {
     });
 
     // Generate certificate
-    const certificate = await (prisma as any: any).certificate.create({
+    const certificate = await (prisma as any).certificate.create({
       data: {
         userId,
         courseId,
@@ -217,8 +217,8 @@ async function handleCompletion(body: any) {
       },
       { status: 200 }
     );
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid completion data', details: error.errors },
         { status: 400 }
@@ -230,38 +230,38 @@ async function handleCompletion(body: any) {
 
 export async function GET(req: NextRequest) {
   try {
-    const url = new URL(req.url: any);
+    const url = new URL(req.url);
     const userId = url.searchParams.get('userId');
     const courseId = url.searchParams.get('courseId');
     const type = url.searchParams.get('type') || 'enrollments';
 
-    if (!userId: any) {
+    if (!userId) {
       return NextResponse.json(
         { error: 'User ID is required' },
         { status: 400 }
       );
     }
 
-    switch (type: any) {
+    switch (type) {
       case 'enrollments':
-        return await getUserEnrollments(userId: any, courseId);
+        return await getUserEnrollments(userId, courseId);
       case 'certificates':
-        return await getUserCertificates(userId: any);
+        return await getUserCertificates(userId);
       case 'progress':
-        if (!courseId: any) {
+        if (!courseId) {
           return NextResponse.json(
             { error: 'Course ID is required for progress' },
             { status: 400 }
           );
         }
-        return await getUserCourseProgress(userId: any, courseId);
+        return await getUserCourseProgress(userId, courseId);
       default:
         return NextResponse.json(
           { error: 'Invalid request type' },
           { status: 400 }
         );
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in professional development API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -271,7 +271,7 @@ export async function GET(req: NextRequest) {
 }
 
 async function getUserEnrollments(userId: string, courseId?: string | null) {
-  const enrollments = await (prisma as any: any).enrollment.findMany({
+  const enrollments = await (prisma as any).enrollment.findMany({
     where: {
       userId,
       ...(courseId ? { courseId } : {}),
@@ -288,7 +288,7 @@ async function getUserEnrollments(userId: string, courseId?: string | null) {
 }
 
 async function getUserCertificates(userId: string) {
-  const certificates = await (prisma as any: any).certificate.findMany({
+  const certificates = await (prisma as any).certificate.findMany({
     where: {
       userId,
     },
@@ -301,8 +301,8 @@ async function getUserCertificates(userId: string) {
 }
 
 async function getUserCourseProgress(userId: string, courseId: string) {
-  const progress = await prisma.$transaction(async (tx: any) => {
-    return (tx as any: any).courseProgress.findMany({
+  const progress = await prisma.$transaction(async (tx) => {
+    return (tx as any).courseProgress.findMany({
       where: {
         userId,
         courseId,
