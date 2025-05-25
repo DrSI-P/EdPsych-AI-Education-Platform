@@ -402,22 +402,56 @@ export function DataVisualisationDashboard() {
               </CardContent>
             </Card>
         </div>
+        
+        {/* Main charts */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <Card>
+            <CardHeader>
+              <CardTitle>Student Progress Trends</CardTitle>
+              <CardDescription>
+                Average progress scores across core subjects
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="h-[300px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart
+                    data={studentProgressData}
+                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                  >
+                    {chartSettings.showGrid && <CartesianGrid strokeDasharray="3 3" />}
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    {chartSettings.showLegend && <Legend />}
+                    <Tooltip />
+                    <Line 
+                      type="monotone" 
+                      dataKey="maths" 
+                      stroke="#8884d8" 
+                      activeDot={{ r: 8 }}
+                      isAnimationActive={chartSettings.animationEnabled}
+                    />
+                    <Line 
+                      type="monotone" 
+                      dataKey="english" 
+                      stroke="#82ca9d"
+                      isAnimationActive={chartSettings.animationEnabled}
+                    />
+                    <Line 
+                      type="monotone" 
+                      dataKey="science" 
+                      stroke="#ffc658"
+                      isAnimationActive={chartSettings.animationEnabled}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     );
-  }; 
-                    type="monotone" 
-                    dataKey="english" 
-                    stroke="#82ca9d"
-                    isAnimationActive={chartSettings.animationEnabled}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="science" 
-                    stroke="#ffc658"
-                    isAnimationActive={chartSettings.animationEnabled}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
+  };
             </div>
           </CardContent>
         </Card>
