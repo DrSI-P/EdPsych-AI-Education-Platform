@@ -68,7 +68,9 @@ export default function ProgressMonitoringEngine({
   });
   
   // State for goals and data points
-  const [goals, setGoals] = useState<Goal[]>([]  const [selectedGoal, setSelectedGoal] = useState<Goal | null>(null); const [dataPoints, setDataPoints] = useState<DataPoint[]>([]);
+  const [goals, setGoals] = useState<Goal[]>([]);
+  const [selectedGoal, setSelectedGoal] = useState<Goal | null>(null);
+  const [dataPoints, setDataPoints] = useState<DataPoint[]>([]);
   const [newDataPoint, setNewDataPoint] = useState<{
     date: Date;
     value: string;

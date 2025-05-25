@@ -159,7 +159,8 @@ export default function PersonalizedInterventionsEngine({
     parentTeacherUpdates: true
   });
   const [isApplied, setIsApplied] = useState(false);
-  const [selectedProfile, setSelectedProfile] = useState<LearningProfile | null>(null);/ Update selected profile when learning profile changes
+  const [selectedProfile, setSelectedProfile] = useState<LearningProfile | null>(null);
+  // Update selected profile when learning profile changes
   useEffect(() => {
     const profile = learningProfiles.find(p => p.id === settings.learningProfile);
     setSelectedProfile(profile || null);
