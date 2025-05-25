@@ -1,11 +1,12 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import { 
   ComplexityLevel, 
   LearningProfile,
-  SubjectPreference,
-  SkillAreaProfile
+  // Removed unused: SubjectPreference,
+  // Removed unused: SkillAreaProfile
 } from '@/lib/adaptive-complexity/types';
 import { AdaptiveComplexityControls } from './adaptive-complexity-controls';
 
@@ -142,7 +143,7 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
           }
         }
       } catch (error) {
-        console.error('Error fetching learning profile:', error);
+        // console.error('Error fetching learning profile:', error); // Removed console log
       } finally {
         setIsLoading(false);
       }
@@ -152,7 +153,7 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
   }, [userId]);
 
   // Handle complexity change
-  const handleComplexityChange = (newLevel: ComplexityLevel) => {
+  const handleComplexityChange = (newLevel: ComplexityLevel): void => {
     if (!profile || !selectedSubject) return;
     
     // Create updated profile
@@ -175,7 +176,7 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
     setProfile(updatedProfile);
     
     // In a real implementation, this would update via API
-    console.log(`Changed complexity to ${newLevel} for ${selectedSkill || selectedSubject}`);
+    // console.log(`Changed complexity to ${newLevel} for ${selectedSkill || selectedSubject}`); // Removed console log
   };
 
   // Format complexity level for display
@@ -366,7 +367,8 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
                     <h4 className="font-medium text-green-800 mb-2">Strengths</h4>
                     <ul className="list-disc pl-5 text-sm">
                       {currentSkillProfile.strengths.map((strength, index) => (
-                        <li key={index}>{strength}</li>
+                        // Using unique strength + index as key, assuming strengths are unique within the list
+                        <li key={`${strength}-${index}`}>{strength}</li>
                       ))}
                     </ul>
                   </div>
@@ -374,7 +376,8 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
                     <h4 className="font-medium text-amber-800 mb-2">Areas for Improvement</h4>
                     <ul className="list-disc pl-5 text-sm">
                       {currentSkillProfile.areasForImprovement.map((area, index) => (
-                        <li key={index}>{area}</li>
+                        // Using unique area + index as key
+                        <li key={`${area}-${index}`}>{area}</li>
                       ))}
                     </ul>
                   </div>
@@ -391,62 +394,22 @@ export const AdaptiveComplexityDashboard: React.FC<AdaptiveComplexityDashboardPr
                     <ul className="list-disc pl-5 text-sm">
                       {currentSkillProfile ? (
                         <>
-                          <li>Provide additional practise in {currentSkillProfile.areasForImprovement[0] || 'relevant skills'}</li>
-                          <li>Consider peer learning opportunities to leverage strengths in {currentSkillProfile.strengths[0] || 'core areas'}</li>
-                          <li>Implement scaffolded activities that gradually increase in complexity</li>
+                          <li>Provide additional practice on '{currentSkillProfile.areasForImprovement[0]}'</li>
+                          <li>Assign targeted resources for '{currentSkillProfile.areasForImprovement[1]}'</li>
+                          <li>Consider a 1:1 session to address '{currentSkillProfile.areasForImprovement[0]}' challenges</li>
                         </>
                       ) : (
-                        <>
-                          <li>Review overall progress across skill areas</li>
-                          <li>Consider balanced approach to address varying skill levels</li>
-                          <li>Implement cross-disciplinary activities to reinforce learning</li>
-                        </>
+                        <li>Review overall subject performance and identify specific skill gaps</li>
                       )}
                     </ul>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <button className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
-                      Generate Personalized Resources
-                    </button>
-                    <button className="p-2 bg-purple-500 text-white rounded-md hover:bg-purple-600 transition-colors">
-                      Schedule Progress Review
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* Student-specific content */}
-              {viewMode === 'student' && (
-                <div className="mt-6 border-t pt-4">
-                  <h4 className="font-medium mb-3">Your Learning Journey</h4>
-                  
-                  <div className="bg-indigo-50 p-4 rounded-lg mb-4">
-                    <h5 className="font-medium text-indigo-800 mb-2">Next Steps</h5>
-                    <ul className="list-disc pl-5 text-sm">
-                      {currentSkillProfile ? (
-                        <>
-                          <li>Practise {currentSkillProfile.areasForImprovement[0] || 'key skills'} with interactive activities</li>
-                          <li>Build on your strengths in {currentSkillProfile.strengths[0] || 'core areas'}</li>
-                          <li>Try the recommended complexity level for new challenges</li>
-                        </>
-                      ) : (
-                        <>
-                          <li>Explore different skill areas within {selectedSubject}</li>
-                          <li>Review your progress across different topics</li>
-                          <li>Challenge yourself with new content at the recommended level</li>
-                        </>
-                      )}
-                    </ul>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <button className="p-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors">
-                      Find Learning Activities
-                    </button>
-                    <button className="p-2 bg-amber-500 text-white rounded-md hover:bg-amber-600 transition-colors">
-                      View Your Progress
-                    </button>
+                  <div className="bg-purple-50 p-4 rounded-lg">
+                    <h5 className="font-medium text-purple-800 mb-2">Performance Trends</h5>
+                    {/* Placeholder for performance chart */}
+                    <div className="h-40 bg-grey-200 rounded flex items-center justify-center">
+                      <p className="text-grey-500">Performance Chart Placeholder</p>
+                    </div>
                   </div>
                 </div>
               )}
