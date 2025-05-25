@@ -15,11 +15,10 @@ import {
   Moon, 
   ZoomIn, 
   ZoomOut, 
-  Check,
   RefreshCw
 } from 'lucide-react';
 
-export default function AccessibilitySettings() {
+export default function AccessibilitySettings(): React.ReactNode {
   // Visual settings
   const [theme, setTheme] = useState('system');
   const [highContrast, setHighContrast] = useState(false);
@@ -146,7 +145,7 @@ export default function AccessibilitySettings() {
   ]);
   
   // Save settings to local storage
-  const saveSettings = () => {
+  const saveSettings = (): void => {
     const settings = {
       theme,
       highContrast,
@@ -201,13 +200,13 @@ export default function AccessibilitySettings() {
         setExtendedTimers(settings.extendedTimers || false);
         setFocusMode(settings.focusMode || false);
       } catch (error) {
-        console.error('Failed to parse saved accessibility settings:', error);
+        // Removed console.error statement
       }
     }
   }, []);
   
   // Reset settings to defaults
-  const resetSettings = () => {
+  const resetSettings = (): void => {
     setTheme('system');
     setHighContrast(false);
     setReducedMotion(false);
@@ -240,7 +239,7 @@ export default function AccessibilitySettings() {
       <Tabs defaultValue="visual">
         <TabsList className="grid grid-cols-3 w-[400px] mb-6">
           <TabsTrigger value="visual">Visual</TabsTrigger>
-          <TabsTrigger value="reading">Reading & Navigation</TabsTrigger>
+          <TabsTrigger value="reading">Reading &amp; Navigation</TabsTrigger>
           <TabsTrigger value="cognitive">Cognitive Support</TabsTrigger>
         </TabsList>
         
@@ -385,7 +384,7 @@ export default function AccessibilitySettings() {
         <TabsContent value="reading">
           <Card>
             <CardHeader>
-              <CardTitle>Reading & Navigation Settings</CardTitle>
+              <CardTitle>Reading &amp; Navigation Settings</CardTitle>
               <CardDescription>
                 Customise reading and navigation features to improve accessibility.
               </CardDescription>
@@ -469,7 +468,7 @@ export default function AccessibilitySettings() {
             <CardHeader>
               <CardTitle>Cognitive Support Settings</CardTitle>
               <CardDescription>
-                Features to support different cognitive needs and preferences.
+                Customise features to reduce cognitive load and improve focus.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -491,7 +490,7 @@ export default function AccessibilitySettings() {
                 <div>
                   <Label htmlFor="extended-timers" className="block mb-1">Extended Timers</Label>
                   <p className="text-sm text-muted-foreground">
-                    Increase time limits for forms and interactive elements
+                    Increase time limits for activities and quizzes
                   </p>
                 </div>
                 <Switch
@@ -505,7 +504,7 @@ export default function AccessibilitySettings() {
                 <div>
                   <Label htmlFor="focus-mode" className="block mb-1">Focus Mode</Label>
                   <p className="text-sm text-muted-foreground">
-                    Highlight active content and reduce peripheral distractions
+                    Highlight active content and dim surrounding elements
                   </p>
                 </div>
                 <Switch
@@ -513,22 +512,6 @@ export default function AccessibilitySettings() {
                   checked={focusMode}
                   onCheckedChange={setFocusMode}
                 />
-              </div>
-              
-              <div className="space-y-2">
-                <Label>Cognitive Profile</Label>
-                <Select defaultValue="standard">
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select profile" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="standard">Standard</SelectItem>
-                    <SelectItem value="adhd">ADHD Support</SelectItem>
-                    <SelectItem value="autism">Autism Support</SelectItem>
-                    <SelectItem value="anxiety">Anxiety Support</SelectItem>
-                    <SelectItem value="learning">Learning Difficulties</SelectItem>
-                  </SelectContent>
-                </Select>
               </div>
             </CardContent>
           </Card>
@@ -540,7 +523,6 @@ export default function AccessibilitySettings() {
           Reset to Defaults
         </Button>
         <Button onClick={saveSettings}>
-          <Check className="h-4 w-4 mr-2" />
           Save Settings
         </Button>
       </div>
