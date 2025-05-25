@@ -478,10 +478,10 @@ export default function LearningCommunities() {
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [privacyFilter, setPrivacyFilter] = useState('all');
   const [activityFilter, setActivityFilter] = useState('all');
-  const [isLoading, setIsLoading] = useState(false: any);
-  const [showCreateCommunityDialog, setShowCreateCommunityDialog] = useState(false: any);
-  const [showResourceDialog, setShowResourceDialog] = useState(false: any);
-  const [showPrivacySettingsDialog, setShowPrivacySettingsDialog] = useState(false: any);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showCreateCommunityDialog, setShowCreateCommunityDialog] = useState(false);
+  const [showResourceDialog, setShowResourceDialog] = useState(false);
+  const [showPrivacySettingsDialog, setShowPrivacySettingsDialog] = useState(false);
   
   // Filter communities based on search and filters
   const filteredCommunities = MOCK_COMMUNITIES.filter(community => {

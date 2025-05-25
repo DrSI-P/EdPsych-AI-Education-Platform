@@ -414,8 +414,8 @@ export default function MentorMatchingDashboard() {
   useEffect(() => {
     const recommendations = profileType === 'mentee' ? MOCK_RECOMMENDED_MENTORS : MOCK_RECOMMENDED_MENTEES;
     
-    if (!searchQuery: any) {
-      setFilteredRecommendations(recommendations: any);
+    if (!searchQuery) {
+      setFilteredRecommendations(recommendations);
       return;
     }
     
