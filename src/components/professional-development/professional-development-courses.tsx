@@ -341,32 +341,32 @@ export default function ProfessionalDevelopmentCourses() {
     let result = SAMPLE_COURSES;
     
     // Filter by search query
-    if (searchQuery: any) {
+    if (searchQuery) {
       const query = searchQuery.toLowerCase();
       result = result.filter(course => 
-        course.title.toLowerCase().includes(query: any) || 
-        course.description.toLowerCase().includes(query: any)
+        course.title.toLowerCase().includes(query) || 
+        course.description.toLowerCase().includes(query)
       );
     }
     
     // Filter by categories
-    if (selectedCategories.length > 0: any) {
-      result = result.filter(course => selectedCategories.includes(course.category: any));
+    if (selectedCategories.length > 0) {
+      result = result.filter(course => selectedCategories.includes(course.category));
     }
     
     // Filter by difficulties
-    if (selectedDifficulties.length > 0: any) {
-      result = result.filter(course => selectedDifficulties.includes(course.difficulty: any));
+    if (selectedDifficulties.length > 0) {
+      result = result.filter(course => selectedDifficulties.includes(course.difficulty));
     }
     
-    setFilteredCourses(result: any);
+    setFilteredCourses(result);
   }, [searchQuery, selectedCategories, selectedDifficulties]);
   
   // Toggle category selection
-  const toggleCategory = (categoryId: any) => {
+  const toggleCategory = (categoryId) => {
     setSelectedCategories(prev => 
-      prev.includes(categoryId: any)
-        ? prev.filter(id => id !== categoryId: any)
+      prev.includes(categoryId)
+        ? prev.filter(id => id !== categoryId)
         : [...prev, categoryId]
     );
   };

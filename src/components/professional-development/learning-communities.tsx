@@ -511,14 +511,14 @@ export default function LearningCommunities() {
   
   // Handle community selection
   const handleCommunitySelect = (community: any) => {
-    setSelectedCommunity(community: any);
+    setSelectedCommunity(community);
     setActiveTab('community');
     setCommunityTab('discussions');
   };
   
   // Handle back to communities list
   const handleBackToCommunities = () => {
-    setSelectedCommunity(null: any);
+    setSelectedCommunity(null);
     setActiveTab('discover');
   };
   

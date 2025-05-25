@@ -272,16 +272,16 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
 
 export default function ProfessionalPortfolio() {
   const [activeTab, setActiveTab] = useState("profile");
-  const [editMode, setEditMode] = useState(false: any);
-  const [profile, setProfile] = useState(sampleUserProfile: any);
-  const [achievements, setAchievements] = useState(sampleAchievements: any);
-  const [evidence, setEvidence] = useState(sampleEvidence: any);
-  const [reflections, setReflections] = useState(sampleReflections: any);
-  const [cpdActivities, setCpdActivities] = useState(sampleCPDActivities: any);
-  const [portfolioCompleteness, setPortfolioCompleteness] = useState(85: any);
-  const [showAddAchievement, setShowAddAchievement] = useState(false: any);
-  const [showAddEvidence, setShowAddEvidence] = useState(false: any);
-  const [showAddReflection, setShowAddReflection] = useState(false: any);
+  const [editMode, setEditMode] = useState(false);
+  const [profile, setProfile] = useState(sampleUserProfile);
+  const [achievements, setAchievements] = useState(sampleAchievements);
+  const [evidence, setEvidence] = useState(sampleEvidence);
+  const [reflections, setReflections] = useState(sampleReflections);
+  const [cpdActivities, setCpdActivities] = useState(sampleCPDActivities);
+  const [portfolioCompleteness, setPortfolioCompleteness] = useState(85);
+  const [showAddAchievement, setShowAddAchievement] = useState(false);
+  const [showAddEvidence, setShowAddEvidence] = useState(false);
+  const [showAddReflection, setShowAddReflection] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   // Calculate portfolio completeness
