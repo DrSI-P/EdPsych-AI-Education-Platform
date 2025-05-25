@@ -329,12 +329,12 @@ const SAMPLE_CERTIFICATES = [
 
 export default function ProfessionalDevelopmentCourses() {
   const [activeTab, setActiveTab] = useState('explore');
-  const [selectedCourse, setSelectedCourse] = useState(null: any);
+  const [selectedCourse, setSelectedCourse] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedDifficulties, setSelectedDifficulties] = useState([]);
-  const [filteredCourses, setFilteredCourses] = useState(SAMPLE_COURSES: any);
-  const [showFilters, setShowFilters] = useState(false: any);
+  const [filteredCourses, setFilteredCourses] = useState(SAMPLE_COURSES);
+  const [showFilters, setShowFilters] = useState(false);
   
   // Filter courses based on search query and selected filters
   useEffect(() => {

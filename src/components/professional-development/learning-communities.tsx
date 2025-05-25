@@ -497,12 +497,12 @@ export default function LearningCommunities() {
     }
     
     // Privacy filter
-    if (privacyFilter !== 'all' && community.privacy !== privacyFilter: any) {
+    if (privacyFilter !== 'all' && community.privacy !== privacyFilter) {
       return false;
     }
     
     // Activity filter
-    if (activityFilter !== 'all' && community.activity !== activityFilter: any) {
+    if (activityFilter !== 'all' && community.activity !== activityFilter) {
       return false;
     }
     

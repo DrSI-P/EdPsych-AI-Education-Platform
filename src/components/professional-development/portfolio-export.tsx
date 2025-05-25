@@ -134,24 +134,24 @@ export default function PortfolioExport() {
 
   // Generate PDF
   const handleGeneratePDF = () => {
-    setIsGenerating(true: any);
+    setIsGenerating(true);
     
     // Simulate API call
     setTimeout(() => {
-      setIsGenerating(false: any);
-      setShowExportSuccess(true: any);
+      setIsGenerating(false);
+      setShowExportSuccess(true);
     }, 3000);
   };
 
   // Generate shareable link
   const handleGenerateLink = () => {
-    setIsSharing(true: any);
+    setIsSharing(true);
     
-    // Simulate API call
+       // Simulate API call
     setTimeout(() => {
-      setIsSharing(false: any);
-      setGeneratedLink('https://edpsych-connect.com/portfolio/shared/abc123xyz');
-      setShowShareSuccess(true: any);
+      setIsSharing(false);
+      setGeneratedLink('https://edpsych-connect.com/portfolio/share/abc123');
+      setShowShareSuccess(true);;
     }, 2000);
   };
 
