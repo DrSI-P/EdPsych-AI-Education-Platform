@@ -45,7 +45,8 @@ const EmotionalRegulationEngine = () => {
   
   const [strategies, setStrategies] = useState([]);
   const [emotionHistory, setEmotionHistory] = useState([]);
-  const [emotionJournal, setEmotionJournal] = useState([])  const [isLoading, setIsLoading] = useState(false);
+  const [emotionJournal, setEmotionJournal] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   // Basic emotions with UK spelling
   const basicEmotions = [
     { name: "Happy", color: "#FFD700", icon: "😊" },

@@ -9,8 +9,11 @@ import { Badge } from '@/components/ui/badge';
 
 // Create stub InterventionAnalyticsEngine component to fix build warnings
 export function InterventionAnalyticsEngine() {
-  const [activeTab, setActiveTab] = useState('over  const [isLoading, setIsLoading] = useState(true);
-  const [analyticsData, setAnalyticsData] = useState(null);  useEffect(() => {
+  const [activeTab, setActiveTab] = useState("overview");
+  const [isLoading, setIsLoading] = useState(true);
+  const [analyticsData, setAnalyticsData] = useState(null);
+
+  useEffect(() => {
     // Simulate data loading
     const timer = setTimeout(() => {
       setAnalyticsData({

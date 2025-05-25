@@ -59,9 +59,7 @@ export function SensoryRegulationEngine() {
   });
 
   // State for activities
-  const [activities, setActivities] = useState([]);
-  const [selectedActivity, setSelectedActivity] = useState(null: any);
-  const [newActivity, setNewActivity] = useState({
+  const [activities, setActivities] = useState([  const [selectedActivity, setSelectedActivity] = useState(null);  const [newActivity, setNewActivity] = useState({
     name: '',
     description: '',
     category: 'calming',
@@ -74,7 +72,7 @@ export function SensoryRegulationEngine() {
 
   // State for sensory diets
   const [diets, setDiets] = useState([]);
-  const [selectedDiet, setSelectedDiet] = useState(null: any);
+  const [selectedDiet, setSelectedDiet] = useState(null);
   const [newDiet, setNewDiet] = useState({
     name: '',
     description: '',
@@ -92,19 +90,19 @@ export function SensoryRegulationEngine() {
 
   // State for UI
   const [activeTab, setActiveTab] = useState('profile');
-  const [loading, setLoading] = useState(false: any);
+  const [loading, setLoading] = useState(false);
 
   // Fetch user settings on component mount
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        setLoading(true: any);
+        setLoading(true);
         const response = await fetch('/api/special-needs/sensory-regulation/settings');
-        if (response.ok: any) {
+        if (response.ok) {
           const data = await response.json();
-          setSettings(data: any);
+          setSettings(data);
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error('Error fetching sensory settings:', error);
         toast({
           title: 'Error',
@@ -112,18 +110,18 @@ export function SensoryRegulationEngine() {
           variant: 'destructive'
         });
       } finally {
-        setLoading(false: any);
+        setLoading(false);
       }
     };
 
     const fetchActivities = async () => {
       try {
         const response = await fetch('/api/special-needs/sensory-regulation/activities');
-        if (response.ok: any) {
+        if (response.ok) {
           const data = await response.json();
-          setActivities(data: any);
+          setActivities(data);
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error('Error fetching sensory activities:', error);
       }
     };
@@ -131,18 +129,18 @@ export function SensoryRegulationEngine() {
     const fetchDiets = async () => {
       try {
         const response = await fetch('/api/special-needs/sensory-regulation/diets');
-        if (response.ok: any) {
+        if (response.ok) {
           const data = await response.json();
-          setDiets(data: any);
+          setDiets(data);
           
           // If there's an active diet, select it
-          const activeDiet = data.find(diet => diet.isActive: any);
-          if (activeDiet: any) {
-            setSelectedDiet(activeDiet: any);
-            fetchDietSchedules(activeDiet.id: any);
+          const activeDiet = data.find(diet => diet.isActive);
+          if (activeDiet) {
+            setSelectedDiet(activeDiet);
+            fetchDietSchedules(activeDiet.id);
           }
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error('Error fetching sensory diets:', error);
       }
     };
@@ -153,14 +151,14 @@ export function SensoryRegulationEngine() {
   }, []);
 
   // Fetch diet schedules
-  const fetchDietSchedules = async (dietId: any) => {
+  const fetchDietSchedules = async (dietId) => {
     try {
       const response = await fetch(`/api/special-needs/sensory-regulation/diets/${dietId}/schedules`);
-      if (response.ok: any) {
+      if (response.ok) {
         const data = await response.json();
-        setSchedules(data: any);
+        setSchedules(data);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching diet schedules:', error);
     }
   };
@@ -168,7 +166,7 @@ export function SensoryRegulationEngine() {
   // Save settings
   const saveSettings = async () => {
     try {
-      setLoading(true: any);
+      setLoading(true);
       const response = await fetch('/api/special-needs/sensory-regulation/settings', {
         method: 'POST',
         headers: {
@@ -177,7 +175,7 @@ export function SensoryRegulationEngine() {
         body: JSON.stringify(settings),
       });
 
-      if (response.ok: any) {
+      if (response.ok) {
         toast({
           title: 'Success',
           description: 'Sensory regulation settings saved successfully.',
@@ -185,7 +183,7 @@ export function SensoryRegulationEngine() {
       } else {
         throw new Error('Failed to save settings');
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error saving settings:', error);
       toast({
         title: 'Error',
@@ -193,16 +191,16 @@ export function SensoryRegulationEngine() {
         variant: 'destructive'
       });
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   };
 
   // Save activity
   const saveActivity = async () => {
     try {
-      setLoading(true: any);
+      setLoading(true);
       
-      if (!newActivity.name || !newActivity.description || !newActivity.instructions: any) {
+      if (!newActivity.name || !newActivity.description || !newActivity.instructions) {
         toast({
           title: 'Validation Error',
           description: 'Please fill in all required fields.',
@@ -219,7 +217,7 @@ export function SensoryRegulationEngine() {
         body: JSON.stringify(newActivity),
       });
 
-      if (response.ok: any) {
+      if (response.ok) {
         const savedActivity = await response.json();
         setActivities([...activities, savedActivity]);
         setNewActivity({
@@ -239,7 +237,7 @@ export function SensoryRegulationEngine() {
       } else {
         throw new Error('Failed to save activity');
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error saving activity:', error);
       toast({
         title: 'Error',
@@ -247,16 +245,16 @@ export function SensoryRegulationEngine() {
         variant: 'destructive'
       });
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   };
 
   // Save diet
   const saveDiet = async () => {
     try {
-      setLoading(true: any);
+      setLoading(true);
       
-      if (!newDiet.name: any) {
+      if (!newDiet.name) {
         toast({
           title: 'Validation Error',
           description: 'Please provide a name for the sensory diet.',
@@ -273,10 +271,10 @@ export function SensoryRegulationEngine() {
         body: JSON.stringify(newDiet),
       });
 
-      if (response.ok: any) {
+      if (response.ok) {
         const savedDiet = await response.json();
         setDiets([...diets, savedDiet]);
-        setSelectedDiet(savedDiet: any);
+        setSelectedDiet(savedDiet);
         setNewDiet({
           name: '',
           description: '',
@@ -289,7 +287,7 @@ export function SensoryRegulationEngine() {
       } else {
         throw new Error('Failed to save diet');
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error saving diet:', error);
       toast({
         title: 'Error',
@@ -297,16 +295,16 @@ export function SensoryRegulationEngine() {
         variant: 'destructive'
       });
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   };
 
   // Add schedule item
   const addScheduleItem = async () => {
     try {
-      setLoading(true: any);
+      setLoading(true);
       
-      if (!selectedDiet || !newSchedule.activityId: any) {
+      if (!selectedDiet || !newSchedule.activityId) {
         toast({
           title: 'Validation Error',
           description: 'Please select a diet and activity.',
@@ -328,7 +326,7 @@ export function SensoryRegulationEngine() {
         body: JSON.stringify(scheduleItem),
       });
 
-      if (response.ok: any) {
+      if (response.ok) {
         const savedSchedule = await response.json();
         setSchedules([...schedules, savedSchedule]);
         setNewSchedule({
@@ -344,7 +342,7 @@ export function SensoryRegulationEngine() {
       } else {
         throw new Error('Failed to add schedule item');
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error adding schedule item:', error);
       toast({
         title: 'Error',
@@ -352,18 +350,18 @@ export function SensoryRegulationEngine() {
         variant: 'destructive'
       });
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   };
 
   // Handle sensory system selection
-  const toggleSensorySystem = (system: any) => {
+  const toggleSensorySystem = (system) => {
     setNewActivity(prev => {
       const systems = [...prev.sensorySystems];
       if (systems.includes(system)) {
         return {
           ...prev,
-          sensorySystems: systems.filter(s => s !== system: any)
+          sensorySystems: systems.filter(s => s !== system)
         };
       } else {
         return {
@@ -375,8 +373,8 @@ export function SensoryRegulationEngine() {
   };
 
   // Get icon for sensory system
-  const getSensorySystemIcon = (system: any) => {
-    switch (system: any) {
+  const getSensorySystemIcon = (system) => {
+    switch (system) {
       case 'visual':
         return <Eye className="h-4 w-4" />;
       case 'auditory':
@@ -393,8 +391,8 @@ export function SensoryRegulationEngine() {
   };
 
   // Get colour for activity category
-  const getCategoryColor = (category: any) => {
-    switch (category: any) {
+  const getCategoryColor = (category) => {
+    switch (category) {
       case 'calming':
         return 'bg-blue-100 text-blue-800';
       case 'alerting':
@@ -444,7 +442,7 @@ export function SensoryRegulationEngine() {
                     max={100}
                     step={5}
                     value={[settings.visualStimulation]}
-                    onValueChange={(value: any) => setSettings({...settings, visualStimulation: value[0]})}
+                    onValueChange={(value) => setSettings({...settings, visualStimulation: value[0]})}
                   />
                   <div className="flex justify-between text-xs text-muted-foreground mt-1">
                     <span>Minimal</span>
@@ -467,7 +465,7 @@ export function SensoryRegulationEngine() {
                     max={100}
                     step={5}
                     value={[settings.auditoryStimulation]}
-                    onValueChange={(value: any) => setSettings({...settings, auditoryStimulation: value[0]})}
+                    onValueChange={(value) => setSettings({...settings, auditoryStimulation: value[0]})}
                   />
                   <div className="flex justify-between text-xs text-muted-foreground mt-1">
                     <span>Minimal</span>
@@ -490,7 +488,7 @@ export function SensoryRegulationEngine() {
                     max={100}
                     step={5}
                     value={[settings.tactileStimulation]}
-                    onValueChange={(value: any) => setSettings({...settings, tactileStimulation: value[0]})}
+                    onValueChange={(value) => setSettings({...settings, tactileStimulation: value[0]})}
                   />
                   <div className="flex justify-between text-xs text-muted-foreground mt-1">
                     <span>Minimal</span>
@@ -503,7 +501,7 @@ export function SensoryRegulationEngine() {
                   <div className="flex justify-between items-centre mb-2">
                     <Label htmlFor="vestibularStimulation" className="flex items-centre">
                       <Activity className="mr-2 h-4 w-4" />
-                      Vestibular Stimulation (Movement: any)
+                      Vestibular Stimulation (Movement)
                     </Label>
                     <span className="text-sm text-muted-foreground">{settings.vestibularStimulation}%</span>
                   </div>
@@ -513,7 +511,7 @@ export function SensoryRegulationEngine() {
                     max={100}
                     step={5}
                     value={[settings.vestibularStimulation]}
-                    onValueChange={(value: any) => setSettings({...settings, vestibularStimulation: value[0]})}
+                    onValueChange={(value) => setSettings({...settings, vestibularStimulation: value[0]})}
                   />
                   <div className="flex justify-between text-xs text-muted-foreground mt-1">
                     <span>Minimal</span>
@@ -526,7 +524,7 @@ export function SensoryRegulationEngine() {
                   <div className="flex justify-between items-centre mb-2">
                     <Label htmlFor="proprioceptiveStimulation" className="flex items-centre">
                       <Compass className="mr-2 h-4 w-4" />
-                      Proprioceptive Stimulation (Body Awareness: any)
+                      Proprioceptive Stimulation (Body Awareness)
                     </Label>
                     <span className="text-sm text-muted-foreground">{settings.proprioceptiveStimulation}%</span>
                   </div>
@@ -536,7 +534,7 @@ export function SensoryRegulationEngine() {
                     max={100}
                     step={5}
                     value={[settings.proprioceptiveStimulation]}
-                    onValueChange={(value: any) => setSettings({...settings, proprioceptiveStimulation: value[0]})}
+                    onValueChange={(value) => setSettings({...settings, proprioceptiveStimulation: value[0]})}
                   />
                   <div className="flex justify-between text-xs text-muted-foreground mt-1">
                     <span>Minimal</span>
@@ -553,7 +551,7 @@ export function SensoryRegulationEngine() {
                   <Label htmlFor="sensoryProfile">Sensory Profile</Label>
                   <Select
                     value={settings.sensoryProfile}
-                    onValueChange={(value: any) => setSettings({...settings, sensoryProfile: value})}
+                    onValueChange={(value) => setSettings({...settings, sensoryProfile: value})}
                   >
                     <SelectTrigger id="sensoryProfile">
                       <SelectValue placeholder="Select a sensory profile" />
@@ -572,7 +570,7 @@ export function SensoryRegulationEngine() {
                   <Label htmlFor="alertnessLevel">Optimal Alertness Level</Label>
                   <Select
                     value={settings.alertnessLevel}
-                    onValueChange={(value: any) => setSettings({...settings, alertnessLevel: value})}
+                    onValueChange={(value) => setSettings({...settings, alertnessLevel: value})}
                   >
                     <SelectTrigger id="alertnessLevel">
                       <SelectValue placeholder="Select alertness level" />
@@ -599,7 +597,7 @@ export function SensoryRegulationEngine() {
                   <Switch
                     id="environmentalControls"
                     checked={settings.environmentalControls}
-                    onCheckedChange={(checked: any) => setSettings({...settings, environmentalControls: checked})}
+                    onCheckedChange={(checked) => setSettings({...settings, environmentalControls: checked})}
                   />
                 </div>
 
@@ -613,7 +611,7 @@ export function SensoryRegulationEngine() {
                   <Switch
                     id="sensoryBreaks"
                     checked={settings.sensoryBreaks}
-                    onCheckedChange={(checked: any) => setSettings({...settings, sensoryBreaks: checked})}
+                    onCheckedChange={(checked) => setSettings({...settings, sensoryBreaks: checked})}
                   />
                 </div>
               </div>
@@ -638,13 +636,13 @@ export function SensoryRegulationEngine() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {activities.map((activity: any) => (
+                {activities.map((activity) => (
                   <Card key={activity.id} className="overflow-hidden">
                     <CardHeader className="p-4">
                       <CardTitle className="text-base">{activity.name}</CardTitle>
                       <div className="flex flex-wrap gap-1 mt-1">
-                        <Badge className={getCategoryColor(activity.category: any)}>
-                          {activity.category.charAt(0: any).toUpperCase() + activity.category.slice(1: any)}
+                        <Badge className={getCategoryColor(activity.category)}>
+                          {activity.category.charAt(0).toUpperCase() + activity.category.slice(1)}
                         </Badge>
                         <Badge variant="outline" className="flex items-centre">
                           <Clock className="mr-1 h-3 w-3" />
@@ -655,16 +653,16 @@ export function SensoryRegulationEngine() {
                     <CardContent className="p-4 pt-0">
                       <p className="text-sm text-muted-foreground line-clamp-2">{activity.description}</p>
                       <div className="flex flex-wrap gap-1 mt-2">
-                        {activity.sensorySystems.map((system: any) => (
+                        {activity.sensorySystems.map((system) => (
                           <Badge key={system} variant="secondary" className="flex items-centre">
-                            {getSensorySystemIcon(system: any)}
-                            <span className="ml-1">{system.charAt(0: any).toUpperCase() + system.slice(1: any)}</span>
+                            {getSensorySystemIcon(system)}
+                            <span className="ml-1">{system.charAt(0).toUpperCase() + system.slice(1)}</span>
                           </Badge>
                         ))}
                       </div>
                     </CardContent>
                     <CardFooter className="p-4 pt-0 flex justify-between">
-                      <Button variant="outline" size="sm" onClick={() => setSelectedActivity(activity: any)}>
+                      <Button variant="outline" size="sm" onClick={() => setSelectedActivity(activity)}>
                         View Details
                       </Button>
                       <Button variant="ghost" size="sm" className="text-destructive">
@@ -686,7 +684,7 @@ export function SensoryRegulationEngine() {
                     <Input
                       id="activityName"
                       value={newActivity.name}
-                      onChange={(e: any) => setNewActivity({...newActivity, name: e.target.value})}
+                      onChange={(e) => setNewActivity({...newActivity, name: e.target.value})}
                       placeholder="e.g., Deep Pressure Squeezes"
                     />
                   </div>
@@ -695,7 +693,7 @@ export function SensoryRegulationEngine() {
                     <Label htmlFor="activityCategory">Category</Label>
                     <Select
                       value={newActivity.category}
-                      onValueChange={(value: any) => setNewActivity({...newActivity, category: value})}
+                      onValueChange={(value) => setNewActivity({...newActivity, category: value})}
                     >
                       <SelectTrigger id="activityCategory">
                         <SelectValue placeholder="Select category" />
@@ -714,7 +712,7 @@ export function SensoryRegulationEngine() {
                   <Textarea
                     id="activityDescription"
                     value={newActivity.description}
-                    onChange={(e: any) => setNewActivity({...newActivity, description: e.target.value})}
+                    onChange={(e) => setNewActivity({...newActivity, description: e.target.value})}
                     placeholder="Describe the activity and its benefits"
                     rows={3}
                   />
@@ -723,15 +721,15 @@ export function SensoryRegulationEngine() {
                 <div className="space-y-2">
                   <Label>Sensory Systems</Label>
                   <div className="flex flex-wrap gap-2">
-                    {['visual', 'auditory', 'tactile', 'vestibular', 'proprioceptive'].map((system: any) => (
+                    {['visual', 'auditory', 'tactile', 'vestibular', 'proprioceptive'].map((system) => (
                       <Badge
                         key={system}
-                        variant={newActivity.sensorySystems.includes(system: any) ? "default" : "outline"}
+                        variant={newActivity.sensorySystems.includes(system) ? "default" : "outline"}
                         className="cursor-pointer flex items-centre"
-                        onClick={() => toggleSensorySystem(system: any)}
+                        onClick={() => toggleSensorySystem(system)}
                       >
-                        {getSensorySystemIcon(system: any)}
-                        <span className="ml-1">{system.charAt(0: any).toUpperCase() + system.slice(1: any)}</span>
+                        {getSensorySystemIcon(system)}
+                        <span className="ml-1">{system.charAt(0).toUpperCase() + system.slice(1)}</span>
                       </Badge>
                     ))}
                   </div>
@@ -739,14 +737,14 @@ export function SensoryRegulationEngine() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="activityDuration">Duration (minutes: any)</Label>
+                    <Label htmlFor="activityDuration">Duration (minutes)</Label>
                     <Input
                       id="activityDuration"
                       type="number"
                       min={1}
                       max={60}
                       value={newActivity.duration}
-                      onChange={(e: any) => setNewActivity({...newActivity, duration: parseInt(e.target.value: any) || 5})}
+                      onChange={(e) => setNewActivity({...newActivity, duration: parseInt(e.target.value) || 5})}
                     />
                   </div>
 
@@ -755,7 +753,7 @@ export function SensoryRegulationEngine() {
                     <Input
                       id="activityMaterials"
                       value={newActivity.materials}
-                      onChange={(e: any) => setNewActivity({...newActivity, materials: e.target.value})}
+                      onChange={(e) => setNewActivity({...newActivity, materials: e.target.value})}
                       placeholder="e.g., Therapy ball, weighted blanket"
                     />
                   </div>
@@ -766,18 +764,18 @@ export function SensoryRegulationEngine() {
                   <Textarea
                     id="activityInstructions"
                     value={newActivity.instructions}
-                    onChange={(e: any) => setNewActivity({...newActivity, instructions: e.target.value})}
+                    onChange={(e) => setNewActivity({...newActivity, instructions: e.target.value})}
                     placeholder="Step-by-step instructions for the activity"
                     rows={4}
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="activityEvidenceBase">Evidence Base (Optional: any)</Label>
+                  <Label htmlFor="activityEvidenceBase">Evidence Base (Optional)</Label>
                   <Textarea
                     id="activityEvidenceBase"
                     value={newActivity.evidenceBase}
-                    onChange={(e: any) => setNewActivity({...newActivity, evidenceBase: e.target.value})}
+                    onChange={(e) => setNewActivity({...newActivity, evidenceBase: e.target.value})}
                     placeholder="Research or evidence supporting this activity"
                     rows={2}
                   />
@@ -803,13 +801,13 @@ export function SensoryRegulationEngine() {
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {diets.map((diet: any) => (
+                {diets.map((diet) => (
                   <Card 
                     key={diet.id} 
                     className={`overflow-hidden cursor-pointer ${selectedDiet?.id === diet.id ? 'ring-2 ring-primary' : ''}`}
                     onClick={() => {
-                      setSelectedDiet(diet: any);
-                      fetchDietSchedules(diet.id: any);
+                      setSelectedDiet(diet);
+                      fetchDietSchedules(diet.id);
                     }}
                   >
                     <CardHeader className="p-4">
@@ -862,7 +860,7 @@ export function SensoryRegulationEngine() {
                             </thead>
                             <tbody className="divide-y divide-border">
                               {schedules.map((schedule) => {
-                                const activity = activities.find(a => a.id === schedule.activityId: any);
+                                const activity = activities.find(a => a.id === schedule.activityId);
                                 return (
                                   <tr key={schedule.id} className="divide-x divide-border">
                                     <td className="px-4 py-3 text-sm">{schedule.time}</td>
@@ -870,7 +868,7 @@ export function SensoryRegulationEngine() {
                                       {activity ? (
                                         <div className="flex flex-col">
                                           <span>{activity.name}</span>
-                                          <Badge className={`mt-1 w-fit ${getCategoryColor(activity.category: any)}`}>
+                                          <Badge className={`mt-1 w-fit ${getCategoryColor(activity.category)}`}>
                                             {activity.category}
                                           </Badge>
                                         </div>
@@ -905,7 +903,7 @@ export function SensoryRegulationEngine() {
                             id="scheduleTime"
                             type="time"
                             value={newSchedule.time}
-                            onChange={(e: any) => setNewSchedule({...newSchedule, time: e.target.value})}
+                            onChange={(e) => setNewSchedule({...newSchedule, time: e.target.value})}
                           />
                         </div>
                         
@@ -913,13 +911,13 @@ export function SensoryRegulationEngine() {
                           <Label htmlFor="scheduleActivity">Activity</Label>
                           <Select
                             value={newSchedule.activityId}
-                            onValueChange={(value: any) => setNewSchedule({...newSchedule, activityId: value})}
+                            onValueChange={(value) => setNewSchedule({...newSchedule, activityId: value})}
                           >
                             <SelectTrigger id="scheduleActivity">
                               <SelectValue placeholder="Select activity" />
                             </SelectTrigger>
                             <SelectContent>
-                              {activities.map((activity: any) => (
+                              {activities.map((activity) => (
                                 <SelectItem key={activity.id} value={activity.id}>
                                   {activity.name}
                                 </SelectItem>
@@ -929,23 +927,23 @@ export function SensoryRegulationEngine() {
                         </div>
                         
                         <div className="space-y-2">
-                          <Label htmlFor="scheduleDuration">Duration (min: any)</Label>
+                          <Label htmlFor="scheduleDuration">Duration (min)</Label>
                           <Input
                             id="scheduleDuration"
                             type="number"
                             min={1}
                             max={60}
                             value={newSchedule.duration}
-                            onChange={(e: any) => setNewSchedule({...newSchedule, duration: parseInt(e.target.value: any) || 5})}
+                            onChange={(e) => setNewSchedule({...newSchedule, duration: parseInt(e.target.value) || 5})}
                           />
                         </div>
                         
                         <div className="space-y-2">
-                          <Label htmlFor="scheduleNotes">Notes (Optional: any)</Label>
+                          <Label htmlFor="scheduleNotes">Notes (Optional)</Label>
                           <Input
                             id="scheduleNotes"
                             value={newSchedule.notes}
-                            onChange={(e: any) => setNewSchedule({...newSchedule, notes: e.target.value})}
+                            onChange={(e) => setNewSchedule({...newSchedule, notes: e.target.value})}
                             placeholder="Any special instructions"
                           />
                         </div>
@@ -971,17 +969,17 @@ export function SensoryRegulationEngine() {
                     <Input
                       id="dietName"
                       value={newDiet.name}
-                      onChange={(e: any) => setNewDiet({...newDiet, name: e.target.value})}
+                      onChange={(e) => setNewDiet({...newDiet, name: e.target.value})}
                       placeholder="e.g., School Day Routine"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="dietDescription">Description (Optional: any)</Label>
+                    <Label htmlFor="dietDescription">Description (Optional)</Label>
                     <Input
                       id="dietDescription"
                       value={newDiet.description}
-                      onChange={(e: any) => setNewDiet({...newDiet, description: e.target.value})}
+                      onChange={(e) => setNewDiet({...newDiet, description: e.target.value})}
                       placeholder="Brief description of this sensory diet"
                     />
                   </div>
@@ -991,7 +989,7 @@ export function SensoryRegulationEngine() {
                   <Checkbox
                     id="dietActive"
                     checked={newDiet.isActive}
-                    onCheckedChange={(checked: any) => setNewDiet({...newDiet, isActive: !!checked})}
+                    onCheckedChange={(checked) => setNewDiet({...newDiet, isActive: !!checked})}
                   />
                   <Label htmlFor="dietActive">Set as active diet</Label>
                 </div>
