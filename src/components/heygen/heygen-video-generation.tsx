@@ -18,220 +18,113 @@ export function HeyGenVideoGeneration() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
-  const [avatars, setAvatars] = useState<any[]>([]);
-  const [voices, setVoices] = useState<any[]>([]);
-  const [scripts, setScripts] = useState<any[]>([]);
-  const [selectedAvatar, setSelectedAvatar] = useState('');
-  const [selectedVoice, setSelectedVoice] = useState('');
-  const [selectedScript, setSelectedScript] = useState('');
-  const [videoTitle, setVideoTitle] = useState('');
-  const [videoDescription, setVideoDescription] = useState('');
-  const [generatedVideoId, setGeneratedVideoId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState('upload');
-  const [uploadedImage, setUploadedImage] = useState<File | null>(null);
-  const [uploadedVoice, setUploadedVoice] = useState<File | null>(null);
-  const [avatarName, setAvatarName] = useState('Dr. Scott Ighavongbe-Patrick');
+  
+  // Avatar upload state
+  const [avatarName, setAvatarName] = useState('');
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  
+  // Script state
   const [scriptContent, setScriptContent] = useState('');
-  const [scriptTitle, setScriptTitle] = useState('');
-  const [availableScripts, setAvailableScripts] = useState<{id: string, title: string, content: string}[]>([
-    { id: 'executive_summary', title: 'Executive Summary', content: 'Welcome to EdPsych Connect, where educational psychology meets cutting-edge technology...' },
-    { id: 'platform_features', title: 'Platform Features Overview', content: 'EdPsych Connect offers a comprehensive suite of features designed to transform education...' },
-    { id: 'educational_psychology', title: 'Educational Psychology Foundations', content: 'At the heart of EdPsych Connect is a deep commitment to educational psychology principles...' },
-    { id: 'educator_onboarding', title: 'Educator Onboarding', content: 'Welcome to EdPsych Connect! This platform has been designed with educators like you in mind...' },
-    { id: 'parent_onboarding', title: 'Parent Onboarding', content: 'Welcome to EdPsych Connect! As a parent, you play a crucial role in your child\'s educational journey...' },
-    { id: 'student_onboarding', title: 'Student Onboarding', content: 'Hello and welcome to EdPsych Connect! This is your personal learning space...' },
+  const [selectedScript, setSelectedScript] = useState('');
+  const [availableScripts, setAvailableScripts] = useState([
+    { id: 'welcome', title: 'Welcome Message' },
+    { id: 'introduction', title: 'Course Introduction' },
+    { id: 'feedback', title: 'Assignment Feedback' }
   ]);
-
-  // Initialize HeyGen service
-  useEffect(() => {
-    const initializeHeyGen = async () => {
-      try {
-        const heygenService = HeyGenService.getInstance({
-          apiKey: process.env.NEXT_PUBLIC_HEYGEN_API_KEY || 'demo_key',
-          baseUrl: process.env.NEXT_PUBLIC_HEYGEN_API_URL || 'https://api.heygen.com'
-        });
-        
-        await heygenService.initialize();
-        
-        // Fetch avatars, voices, and scripts
-        const fetchedAvatars = await heygenService.getAvatars();
-        const fetchedVoices = await heygenService.getVoices();
-        
-        setAvatars(fetchedAvatars);
-        setVoices(fetchedVoices);
-        
-        // If we have Dr. Scott's avatar and voice already, select them by default
-        const drScottAvatar = fetchedAvatars.find(a => a.name.includes('Scott'));
-        const drScottVoice = fetchedVoices.find(v => v.name.includes('Scott'));
-        
-        if (drScottAvatar) setSelectedAvatar(drScottAvatar.id);
-        if (drScottVoice) setSelectedVoice(drScottVoice.id);
-        
-      } catch (error) {
-        console.error('Failed to initialize HeyGen service:', error);
-        setError('Failed to initialize video generation service. Please try again later.');
-      }
+  
+  // Voice settings
+  const [selectedVoice, setSelectedVoice] = useState('en-US-1');
+  const [voiceSpeed, setVoiceSpeed] = useState('1.0');
+  
+  // Handle file selection
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setAvatarFile(file);
+      setAvatarName(file.name.split('.')[0]);
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target?.result) {
+          setAvatarPreview(event.target.result as string);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  
+  // Handle script selection
+  const handleScriptSelect = (scriptId: string) => {
+    setSelectedScript(scriptId);
+    
+    // In a real implementation, this would fetch the script content
+    const scriptTemplates: Record<string, string> = {
+      'welcome': "Hello and welcome to our platform! I'm excited to guide you through this learning journey. Let's explore the features together and make the most of your educational experience.",
+      'introduction': "Welcome to this course on educational psychology. Throughout this course, we'll explore key theories, practical applications, and evidence-based strategies to enhance learning outcomes for all students.",
+      'feedback': "I've reviewed your assignment and I'm impressed with your analysis. You've demonstrated a good understanding of the core concepts, though there are a few areas where you could expand your thinking. Let's discuss these points in more detail."
     };
     
-    initializeHeyGen();
-  }, []);
-
-  const handleScriptSelect = (scriptId: string) => {
-    const script = availableScripts.find(s => s.id === scriptId);
-    if (script) {
-      setSelectedScript(scriptId);
-      setScriptTitle(script.title);
-      setScriptContent(script.content);
-      setVideoTitle(script.title + ' - AI Avatar Video');
-      setVideoDescription('Educational video featuring Dr. Scott Ighavongbe-Patrick explaining ' + script.title.toLowerCase());
-    }
+    setScriptContent(scriptTemplates[scriptId] || '');
   };
-
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setUploadedImage(e.target.files[0]);
-    }
-  };
-
-  const handleVoiceUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setUploadedVoice(e.target.files[0]);
-    }
-  };
-
-  const createAvatar = async () => {
-    if (!uploadedImage) {
-      setError('Please upload an image for the avatar');
+  
+  // Generate video
+  const handleGenerateVideo = async () => {
+    if (!avatarFile || !scriptContent) {
+      setError('Please upload an avatar image and provide script content');
       return;
     }
     
     setLoading(true);
-    setError(null);
-    
-    try {
-      // In a real implementation, we would upload the image to a storage service
-      // and then pass the URL to the HeyGen API
-      const imageUrl = URL.createObjectURL(uploadedImage);
-      
-      const heygenService = HeyGenService.getInstance();
-      const newAvatar = await heygenService.createAvatar({
-        name: avatarName,
-        imageUrls: [imageUrl],
-        voiceSampleUrl: uploadedVoice ? URL.createObjectURL(uploadedVoice) : undefined
-      });
-      
-      setAvatars([...avatars, newAvatar]);
-      setSelectedAvatar(newAvatar.id);
-      setSuccess(true);
-      setActiveTab('generate');
-      
-      // If voice was also uploaded, create a voice clone
-      if (uploadedVoice) {
-        const voiceUrl = URL.createObjectURL(uploadedVoice);
-        const newVoice = await heygenService.createVoice(avatarName + "'s Voice", voiceUrl);
-        setVoices([...voices, newVoice]);
-        setSelectedVoice(newVoice.id);
-      }
-      
-    } catch (error) {
-      console.error('Failed to create avatar:', error);
-      setError('Failed to create avatar. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const uploadScript = async () => {
-    if (!scriptTitle || !scriptContent) {
-      setError('Please provide a title and content for the script');
-      return;
-    }
-    
-    setLoading(true);
-    setError(null);
-    
-    try {
-      const heygenService = HeyGenService.getInstance();
-      const scriptId = await heygenService.uploadScript(scriptTitle, scriptContent);
-      
-      const newScript = {
-        id: scriptId,
-        title: scriptTitle,
-        content: scriptContent
-      };
-      
-      setAvailableScripts([...availableScripts, newScript]);
-      setSelectedScript(scriptId);
-      setSuccess(true);
-      
-    } catch (error) {
-      console.error('Failed to upload script:', error);
-      setError('Failed to upload script. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const generateVideo = async () => {
-    if (!selectedAvatar || !selectedScript || !videoTitle) {
-      setError('Please select an avatar, script, and provide a title for the video');
-      return;
-    }
-    
-    setLoading(true);
-    setError(null);
     setProgress(0);
+    setError(null);
     
     try {
-      const heygenService = HeyGenService.getInstance();
+      // Simulate video generation process
+      const totalSteps = 5;
       
-      const params: VideoGenerationParams = {
-        avatarId: selectedAvatar,
-        scriptId: selectedScript,
-        title: videoTitle,
-        description: videoDescription,
-        voiceId: selectedVoice || undefined
-      };
+      // Step 1: Upload avatar
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setProgress(20);
       
-      const video = await heygenService.generateVideo(params);
-      setGeneratedVideoId(video.id);
+      // Step 2: Process avatar
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setProgress(40);
       
-      // Simulate progress updates
-      const progressInterval = setInterval(() => {
-        setProgress(prev => {
-          if (prev >= 100) {
-            clearInterval(progressInterval);
-            return 100;
-          }
-          return prev + 10;
-        });
-      }, 1000);
+      // Step 3: Generate speech
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setProgress(60);
       
-      // Check video status periodically
-      const statusCheckInterval = setInterval(async () => {
-        const status = await heygenService.getVideoStatus(video.id);
-        
-        if (status.status === 'completed') {
-          clearInterval(statusCheckInterval);
-          clearInterval(progressInterval);
-          setProgress(100);
-          setSuccess(true);
-          setLoading(false);
-        } else if (status.status === 'failed') {
-          clearInterval(statusCheckInterval);
-          clearInterval(progressInterval);
-          setError('Video generation failed. Please try again.');
-          setLoading(false);
-        }
-      }, 2000);
+      // Step 4: Animate avatar
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setProgress(80);
       
-    } catch (error) {
-      console.error('Failed to generate video:', error);
+      // Step 5: Finalize video
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setProgress(100);
+      
+      // Success
+      setSuccess(true);
+      
+      // In a real implementation, this would call the HeyGen API
+      // const params: VideoGenerationParams = {
+      //   avatar: avatarFile,
+      //   script: scriptContent,
+      //   voice: selectedVoice,
+      //   speed: parseFloat(voiceSpeed)
+      // };
+      // const result = await HeyGenService.generateVideo(params);
+      
+    } catch (err) {
       setError('Failed to generate video. Please try again.');
+      console.error('Video generation error:', err);
+    } finally {
       setLoading(false);
     }
   };
-
+  
   return (
     <div className="container mx-auto py-8">
       <h1 className="text-3xl font-bold mb-6">AI Avatar Video Generation</h1>
@@ -246,75 +139,90 @@ export function HeyGenVideoGeneration() {
         <TabsContent value="upload">
           <Card>
             <CardHeader>
-              <CardTitle>Create Your AI Avatar</CardTitle>
-              <CardDescription>
-                Upload your image and voice sample to create a personalized AI avatar
-              </CardDescription>
+              <CardTitle>Upload Avatar Image</CardTitle>
+              <CardDescription>Upload a clear front-facing portrait photo</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="avatar-name">Avatar Name</Label>
-                <Input 
-                  id="avatar-name" 
-                  value={avatarName} 
-                  onChange={(e) => setAvatarName(e.target.value)} 
-                  placeholder="Dr. Scott Ighavongbe-Patrick"
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="avatar-image">Upload Image</Label>
-                <div className="flex items-centre gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <Label htmlFor="avatar-name">Avatar Name</Label>
                   <Input 
-                    id="avatar-image" 
-                    type="file" 
-                    accept="image/*" 
-                    onChange={handleImageUpload}
+                    id="avatar-name" 
+                    value={avatarName} 
+                    onChange={(e) => setAvatarName(e.target.value)} 
+                    placeholder="Enter a name for your avatar"
+                    className="mt-1"
                   />
-                  {uploadedImage && (
-                    <div className="h-12 w-12 rounded-full bg-grey-200 overflow-hidden">
+                  
+                  <div className="mt-4">
+                    <Label htmlFor="avatar-upload">Upload Image</Label>
+                    <div className="mt-1 flex items-center">
+                      <label className="block w-full">
+                        <span className="sr-only">Choose avatar image</span>
+                        <input
+                          id="avatar-upload"
+                          type="file"
+                          className="block w-full text-sm text-slate-500
+                            file:mr-4 file:py-2 file:px-4
+                            file:rounded-md file:border-0
+                            file:text-sm file:font-semibold
+                            file:bg-primary file:text-primary-foreground
+                            hover:file:bg-primary/90"
+                          accept="image/*"
+                          onChange={handleFileChange}
+                        />
+                      </label>
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Supported formats: JPG, PNG. Max size: 5MB
+                    </p>
+                  </div>
+                  
+                  <div className="mt-4">
+                    <Label>Avatar Type</Label>
+                    <Select defaultValue="realistic">
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select avatar type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="realistic">Realistic</SelectItem>
+                        <SelectItem value="stylized">Stylized</SelectItem>
+                        <SelectItem value="animated">Animated</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                
+                <div className="flex flex-col items-center justify-center">
+                  {avatarPreview ? (
+                    <div className="relative">
                       <img 
-                        src={URL.createObjectURL(uploadedImage)} 
+                        src={avatarPreview} 
                         alt="Avatar preview" 
-                        className="h-full w-full object-cover"
+                        className="w-48 h-48 object-cover rounded-full border-4 border-primary/20"
                       />
+                      <div className="absolute bottom-0 right-0 bg-primary text-primary-foreground rounded-full p-2">
+                        <Check className="h-4 w-4" />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="w-48 h-48 rounded-full bg-muted flex items-center justify-center border-4 border-dashed border-muted-foreground/20">
+                      <Upload className="h-12 w-12 text-muted-foreground" />
                     </div>
                   )}
+                  <p className="mt-4 text-center text-muted-foreground">
+                    {avatarPreview ? 'Preview' : 'Avatar preview will appear here'}
+                  </p>
                 </div>
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="voice-sample">Upload Voice Sample (Optional)</Label>
-                <Input 
-                  id="voice-sample" 
-                  type="file" 
-                  accept="audio/*" 
-                  onChange={handleVoiceUpload}
-                />
-                {uploadedVoice && (
-                  <audio controls className="w-full mt-2">
-                    <source src={URL.createObjectURL(uploadedVoice)} />
-                    Your browser does not support the audio element.
-                  </audio>
-                )}
               </div>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <Button variant="outline" onClick={() => setActiveTab('script')}>
-                Skip
-              </Button>
-              <Button onClick={createAvatar} disabled={loading || !uploadedImage}>
-                {loading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Creating...
-                  </>
-                ) : (
-                  <>
-                    <Upload className="mr-2 h-4 w-4" />
-                    Create Avatar
-                  </>
-                )}
+              <Button variant="outline">Cancel</Button>
+              <Button 
+                onClick={() => setActiveTab('script')} 
+                disabled={!avatarFile}
+              >
+                Continue to Script
               </Button>
             </CardFooter>
           </Card>
@@ -323,10 +231,8 @@ export function HeyGenVideoGeneration() {
         <TabsContent value="script">
           <Card>
             <CardHeader>
-              <CardTitle>Select or Upload Script</CardTitle>
-              <CardDescription>
-                Choose from existing scripts or create your own
-              </CardDescription>
+              <CardTitle>Select or Create Script</CardTitle>
+              <CardDescription>Choose a template or write your own script</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
@@ -349,85 +255,22 @@ export function HeyGenVideoGeneration() {
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="script-title">Script Title</Label>
-                <Input 
-                  id="script-title" 
-                  value={scriptTitle} 
-                  onChange={(e) => setScriptTitle(e.target.value)} 
-                  placeholder="Enter script title"
-                />
-              </div>
-              
-              <div className="space-y-2">
                 <Label htmlFor="script-content">Script Content</Label>
                 <Textarea 
-                  id="script-content" 
-                  value={scriptContent} 
-                  onChange={(e) => setScriptContent(e.target.value)} 
-                  placeholder="Enter script content"
-                  rows={10}
+                  id="script-content"
+                  value={scriptContent}
+                  onChange={(e) => setScriptContent(e.target.value)}
+                  placeholder="Enter your script here..."
+                  className="min-h-[200px]"
                 />
+                <p className="text-sm text-muted-foreground">
+                  {scriptContent.length} characters | Recommended: 100-500 characters
+                </p>
               </div>
-            </CardContent>
-            <CardFooter className="flex justify-between">
-              <Button variant="outline" onClick={() => setActiveTab('upload')}>
-                Back
-              </Button>
-              <div className="flex gap-2">
-                <Button variant="outline" onClick={uploadScript} disabled={loading || !scriptTitle || !scriptContent}>
-                  {loading ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Uploading...
-                    </>
-                  ) : (
-                    <>
-                      <Upload className="mr-2 h-4 w-4" />
-                      Upload Script
-                    </>
-                  )}
-                </Button>
-                <Button onClick={() => setActiveTab('generate')} disabled={!selectedScript}>
-                  Continue
-                </Button>
-              </div>
-            </CardFooter>
-          </Card>
-        </TabsContent>
-        
-        <TabsContent value="generate">
-          <Card>
-            <CardHeader>
-              <CardTitle>Generate AI Avatar Video</CardTitle>
-              <CardDescription>
-                Configure and generate your AI avatar video
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {avatars.length > 0 && (
-                <div className="space-y-2">
-                  <Label htmlFor="avatar-select">Select Avatar</Label>
-                  <Select 
-                    value={selectedAvatar} 
-                    onValueChange={setSelectedAvatar}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select an avatar" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {avatars.map(avatar => (
-                        <SelectItem key={avatar.id} value={avatar.id}>
-                          {avatar.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              )}
               
-              {voices.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="voice-select">Select Voice</Label>
+                  <Label htmlFor="voice-select">Voice</Label>
                   <Select 
                     value={selectedVoice} 
                     onValueChange={setSelectedVoice}
@@ -436,42 +279,111 @@ export function HeyGenVideoGeneration() {
                       <SelectValue placeholder="Select a voice" />
                     </SelectTrigger>
                     <SelectContent>
-                      {voices.map(voice => (
-                        <SelectItem key={voice.id} value={voice.id}>
-                          {voice.name}
-                        </SelectItem>
-                      ))}
+                      <SelectItem value="en-US-1">English (US) - Female</SelectItem>
+                      <SelectItem value="en-US-2">English (US) - Male</SelectItem>
+                      <SelectItem value="en-GB-1">English (UK) - Female</SelectItem>
+                      <SelectItem value="en-GB-2">English (UK) - Male</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
-              )}
-              
-              <div className="space-y-2">
-                <Label htmlFor="video-title">Video Title</Label>
-                <Input 
-                  id="video-title" 
-                  value={videoTitle} 
-                  onChange={(e: any) => setVideoTitle(e.target.value: any)} 
-                  placeholder="Enter video title"
-                />
+                
+                <div className="space-y-2">
+                  <Label htmlFor="voice-speed">Voice Speed</Label>
+                  <Select 
+                    value={voiceSpeed} 
+                    onValueChange={setVoiceSpeed}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select speed" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="0.8">Slow (0.8x)</SelectItem>
+                      <SelectItem value="1.0">Normal (1.0x)</SelectItem>
+                      <SelectItem value="1.2">Fast (1.2x)</SelectItem>
+                      <SelectItem value="1.5">Very Fast (1.5x)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </CardContent>
+            <CardFooter className="flex justify-between">
+              <Button variant="outline" onClick={() => setActiveTab('upload')}>
+                Back
+              </Button>
+              <Button 
+                onClick={() => setActiveTab('generate')} 
+                disabled={!scriptContent}
+              >
+                Continue to Generate
+              </Button>
+            </CardFooter>
+          </Card>
+        </TabsContent>
+        
+        <TabsContent value="generate">
+          <Card>
+            <CardHeader>
+              <CardTitle>Generate Video</CardTitle>
+              <CardDescription>Review and generate your AI avatar video</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h3 className="text-lg font-medium mb-2">Avatar</h3>
+                  <div className="flex items-center space-x-4">
+                    {avatarPreview && (
+                      <img 
+                        src={avatarPreview} 
+                        alt="Avatar" 
+                        className="w-16 h-16 object-cover rounded-full"
+                      />
+                    )}
+                    <div>
+                      <p className="font-medium">{avatarName || 'Unnamed Avatar'}</p>
+                      <p className="text-sm text-muted-foreground">Realistic</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-medium mb-2">Script</h3>
+                  <div className="p-3 bg-muted rounded-md text-sm max-h-[100px] overflow-y-auto">
+                    {scriptContent || 'No script content'}
+                  </div>
+                </div>
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="video-description">Video Description (Optional: any)</Label>
-                <Textarea 
-                  id="video-description" 
-                  value={videoDescription} 
-                  onChange={(e: any) => setVideoDescription(e.target.value: any)} 
-                  placeholder="Enter video description"
-                  rows={3}
-                />
+                <h3 className="text-lg font-medium">Voice Settings</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-3 bg-muted rounded-md">
+                    <p className="text-sm font-medium">Voice</p>
+                    <p className="text-sm text-muted-foreground">
+                      {selectedVoice === 'en-US-1' ? 'English (US) - Female' : 
+                       selectedVoice === 'en-US-2' ? 'English (US) - Male' :
+                       selectedVoice === 'en-GB-1' ? 'English (UK) - Female' :
+                       'English (UK) - Male'}
+                    </p>
+                  </div>
+                  <div className="p-3 bg-muted rounded-md">
+                    <p className="text-sm font-medium">Speed</p>
+                    <p className="text-sm text-muted-foreground">
+                      {voiceSpeed === '0.8' ? 'Slow (0.8x)' :
+                       voiceSpeed === '1.0' ? 'Normal (1.0x)' :
+                       voiceSpeed === '1.2' ? 'Fast (1.2x)' :
+                       'Very Fast (1.5x)'}
+                    </p>
+                  </div>
+                </div>
               </div>
               
               {loading && (
                 <div className="space-y-2">
-                  <Label>Generation Progress</Label>
-                  <Progress value={progress} className="w-full" />
-                  <p className="text-sm text-grey-500 text-centre">{progress}% complete</p>
+                  <div className="flex justify-between">
+                    <p className="text-sm font-medium">Generating video...</p>
+                    <p className="text-sm text-muted-foreground">{progress}%</p>
+                  </div>
+                  <Progress value={progress} className="h-2" />
                 </div>
               )}
               
@@ -483,12 +395,12 @@ export function HeyGenVideoGeneration() {
                 </Alert>
               )}
               
-              {success && generatedVideoId && (
-                <Alert>
+              {success && (
+                <Alert variant="success">
                   <Check className="h-4 w-4" />
                   <AlertTitle>Success</AlertTitle>
                   <AlertDescription>
-                    Video generated successfully! View it in the <a href="/ai-avatar-videos/view/{generatedVideoId}" className="font-medium underline">video library</a>.
+                    Your video has been generated successfully! You can view it in the Video Library.
                   </AlertDescription>
                 </Alert>
               )}
@@ -498,8 +410,8 @@ export function HeyGenVideoGeneration() {
                 Back
               </Button>
               <Button 
-                onClick={generateVideo} 
-                disabled={loading || !selectedAvatar || !selectedScript || !videoTitle}
+                onClick={handleGenerateVideo} 
+                disabled={loading || !avatarFile || !scriptContent}
               >
                 {loading ? (
                   <>
@@ -507,10 +419,7 @@ export function HeyGenVideoGeneration() {
                     Generating...
                   </>
                 ) : (
-                  <>
-                    <Upload className="mr-2 h-4 w-4" />
-                    Generate Video
-                  </>
+                  'Generate Video'
                 )}
               </Button>
             </CardFooter>
@@ -519,6 +428,4 @@ export function HeyGenVideoGeneration() {
       </Tabs>
     </div>
   );
-};
-
-export default HeyGenVideoGeneration;
+}

@@ -12,556 +12,193 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { useAIService } from '@/lib/ai/ai-service';
 import { Save, Copy, Download, FileText, RefreshCw, BookOpen, Lightbulb, Wand2 } from 'lucide-react';
 
 interface LessonPlanTemplate {
   id: string;
   name: string;
   description: string;
-  structure: string[];
+  ageRange: string;
+  subject: string;
+  duration: string;
+  content: string;
 }
 
 const lessonPlanTemplates: LessonPlanTemplate[] = [
   {
-    id: 'standard',
-    name: 'Standard Lesson Plan',
-    description: 'A comprehensive lesson plan suitable for most subjects and year groups',
-    structure: [
-      'Learning Objectives',
-      'Success Criteria',
-      'Prior Knowledge',
-      'Resources',
-      'Introduction (10-15 min)',
-      'Main Activities (25-30 min)',
-      'Plenary (5-10 min)',
-      'Assessment',
-      'Differentiation',
-      'Extension Activities',
-      'Homework'
-    ]
+    id: "1",
+    name: "Literacy Hour",
+    description: "A structured literacy lesson following the national framework",
+    ageRange: "KS1",
+    subject: "English",
+    duration: "60 minutes",
+    content: "# Literacy Hour Lesson Plan\n\n## Learning Objectives\n- To understand the main features of a story\n- To identify and use descriptive language\n- To develop comprehension skills\n\n## Resources\n- Story book\n- Whiteboards and pens\n- Character cards\n- Vocabulary list\n\n## Introduction (15 minutes)\n- Introduce the story and discuss the cover\n- Activate prior knowledge through questioning\n- Introduce key vocabulary\n\n## Main Activity (30 minutes)\n- Shared reading of the story\n- Discuss characters and setting\n- Model descriptive writing\n- Independent writing activity\n\n## Plenary (15 minutes)\n- Share examples of good work\n- Review learning objectives\n- Set follow-up activities"
   },
   {
-    id: 'inquiry',
-    name: 'Inquiry-Based Learning',
-    description: 'A lesson plan focused on student-led inquiry and discovery',
-    structure: [
-      'Essential Question',
-      'Learning Objectives',
-      'Resources and Materials',
-      'Hook/Engagement (10 min)',
-      'Exploration Phase (20 min)',
-      'Explanation Phase (15 min)',
-      'Elaboration Activities (15 min)',
-      'Evaluation/Assessment',
-      'Differentiation Strategies',
-      'Reflection Prompts'
-    ]
-  },
-  {
-    id: 'workshop',
-    name: 'Workshop Model',
-    description: 'A structured approach with mini-lesson, independent work, and sharing',
-    structure: [
-      'Learning Objectives',
-      'Connection to Prior Learning',
-      'Mini-Lesson (10-15 min)',
-      'Independent/Group Work (25-30 min)',
-      'Mid-Workshop Teaching Point',
-      'Sharing/Reflection (10 min)',
-      'Assessment Strategy',
-      'Differentiation',
-      'Next Steps'
-    ]
-  },
-  {
-    id: 'direct',
-    name: 'Direct Instruction',
-    description: 'A teacher-led approach focused on explicit instruction and guided practise',
-    structure: [
-      'Learning Objectives',
-      'Success Criteria',
-      'Prerequisite Skills',
-      'Materials and Resources',
-      'Anticipatory Set (5 min)',
-      'Teacher Presentation (15 min)',
-      'Guided Practise (15 min)',
-      'Independent Practise (15 min)',
-      'Assessment',
-      'Reteaching Strategies',
-      'Extension Activities'
-    ]
-  },
-  {
-    id: 'station',
-    name: 'Station Rotation',
-    description: 'A plan organising learning through multiple activity stations',
-    structure: [
-      'Learning Objectives',
-      'Station Setup and Materials',
-      'Introduction and Directions (10 min)',
-      'Station 1: Teacher-Led (15-20 min)',
-      'Station 2: Collaborative Work (15-20 min)',
-      'Station 3: Independent Practise (15-20 min)',
-      'Station 4: Digital Content (15-20 min)',
-      'Wrap-Up and Reflection (10 min)',
-      'Assessment Strategy',
-      'Differentiation Plan'
-    ]
-  },
-  {
-    id: 'custom',
-    name: 'Custom Lesson Plan',
-    description: 'Create your own lesson plan structure',
-    structure: [
-      'Learning Objectives',
-      'Activities',
-      'Assessment',
-      'Resources'
-    ]
+    id: "2",
+    name: "Scientific Investigation",
+    description: "A hands-on science investigation lesson",
+    ageRange: "KS2",
+    subject: "Science",
+    duration: "45 minutes",
+    content: "# Scientific Investigation Lesson Plan\n\n## Learning Objectives\n- To plan and conduct a fair test\n- To make predictions based on scientific knowledge\n- To record and interpret results\n\n## Resources\n- Investigation equipment\n- Recording sheets\n- Safety equipment\n- Results table template\n\n## Introduction (10 minutes)\n- Introduce the scientific question\n- Discuss variables and fair testing\n- Model the investigation process\n\n## Main Activity (25 minutes)\n- Students conduct investigation in groups\n- Record results systematically\n- Analyze findings\n\n## Plenary (10 minutes)\n- Groups share findings\n- Discuss patterns and conclusions\n- Link to scientific concepts"
   }
 ];
 
-const yearGroups = [
-  'Reception', 'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5', 'Year 6',
-  'Year 7', 'Year 8', 'Year 9', 'Year 10', 'Year 11', 'Year 12', 'Year 13'
+const curriculumStandards = [
+  { id: "nc-en1", name: "National Curriculum - English KS1" },
+  { id: "nc-en2", name: "National Curriculum - English KS2" },
+  { id: "nc-ma1", name: "National Curriculum - Mathematics KS1" },
+  { id: "nc-ma2", name: "National Curriculum - Mathematics KS2" },
+  { id: "nc-sc1", name: "National Curriculum - Science KS1" },
+  { id: "nc-sc2", name: "National Curriculum - Science KS2" }
 ];
 
-const subjects = [
-  'English', 'Mathematics', 'Science', 'History', 'Geography', 'Art and Design',
-  'Computing', 'Design and Technology', 'Languages', 'Music', 'Physical Education',
-  'Religious Education', 'PSHE', 'Citizenship', 'Business Studies', 'Drama'
-];
-
-const learningStyles = [
-  { id: 'visual', label: 'Visual' },
-  { id: 'auditory', label: 'Auditory' },
-  { id: 'kinesthetic', label: 'Kinesthetic' },
-  { id: 'reading', label: 'Reading/Writing' }
-];
-
-const specialNeeds = [
-  { id: 'adhd', label: 'ADHD' },
-  { id: 'dyslexia', label: 'Dyslexia' },
-  { id: 'asd', label: 'Autism Spectrum' },
-  { id: 'esl', label: 'English as Additional Language' },
-  { id: 'hearing', label: 'Hearing Impairment' },
-  { id: 'visual', label: 'Visual Impairment' },
-  { id: 'gifted', label: 'Gifted and Talented' }
+const differentiationStrategies = [
+  { id: "visual", name: "Visual supports", description: "Add visual aids and diagrams" },
+  { id: "scaffold", name: "Scaffolding", description: "Provide writing frames and structured support" },
+  { id: "extension", name: "Extension tasks", description: "Additional challenges for advanced learners" },
+  { id: "group", name: "Mixed ability grouping", description: "Collaborative learning in diverse groups" },
+  { id: "concrete", name: "Concrete resources", description: "Hands-on manipulatives and resources" }
 ];
 
 export function SmartLessonPlanning() {
   const { toast } = useToast();
-  const aiService = useAIService();
-  const [activeTab, setActiveTab] = useState('create');
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [selectedTemplate, setSelectedTemplate] = useState<LessonPlanTemplate | null>(null);
-  const [customSections, setCustomSections] = useState<string[]>(['Learning Objectives', 'Activities', 'Assessment', 'Resources']);
-  const [newSection, setNewSection] = useState('');
-  
-  const [lessonPlanInput, setLessonPlanInput] = useState({
-    title: '',
-    subject: '',
-    yearGroup: '',
-    duration: '60',
-    objectives: '',
-    priorKnowledge: '',
-    keyVocabulary: '',
-    resources: '',
-    notes: '',
-    selectedLearningStyles: [] as string[],
-    selectedSpecialNeeds: [] as string[]
-  });
-  
-  const [sectionContent, setSectionContent] = useState<Record<string, string>>({});
-  const [generatedLessonPlan, setGeneratedLessonPlan] = useState('');
-  const [savedLessonPlans, setSavedLessonPlans] = useState<any[]>([]);
-  const [aiSuggestions, setAiSuggestions] = useState<Record<string, string>>({});
-  const [showingSuggestion, setShowingSuggestion] = useState('');
-  
-  // Initialize saved lesson plans from localStorage
-  useEffect(() => {
-    const loadSavedLessonPlans = () => {
-      try {
-        const saved = localStorage.getItem('smartLessonPlans');
-        if (saved) {
-          setSavedLessonPlans(JSON.parse(saved));
-        }
-      } catch (error: any) {
-        console.error('Error loading saved lesson plans:', error);
-      }
-    };
-    
-    loadSavedLessonPlans();
-  }, []);
+  const [activeTab, setActiveTab] = useState("create");
+  const [lessonTitle, setLessonTitle] = useState("");
+  const [subject, setSubject] = useState("");
+  const [ageRange, setAgeRange] = useState("");
+  const [duration, setDuration] = useState("");
+  const [objectives, setObjectives] = useState("");
+  const [resources, setResources] = useState("");
+  const [introduction, setIntroduction] = useState("");
+  const [mainActivity, setMainActivity] = useState("");
+  const [plenary, setPlenary] = useState("");
+  const [assessment, setAssessment] = useState("");
+  const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
+  const [selectedStandards, setSelectedStandards] = useState<string[]>([]);
+  const [selectedDifferentiation, setSelectedDifferentiation] = useState<string[]>([]);
+  const [generatedPlan, setGeneratedPlan] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
   
   // Handle template selection
   const handleTemplateSelect = (templateId: string) => {
     const template = lessonPlanTemplates.find(t => t.id === templateId);
     if (template) {
-      setSelectedTemplate(template);
+      setSelectedTemplate(templateId);
+      setLessonTitle(template.name);
+      setSubject(template.subject);
+      setAgeRange(template.ageRange);
+      setDuration(template.duration);
       
-      // Initialize section content with empty strings
-      const initialContent: Record<string, string> = {};
-      template.structure.forEach(section => {
-        initialContent[section] = '';
-      });
-      setSectionContent(initialContent);
+      // Parse the markdown content to extract sections
+      const content = template.content;
       
-      // For custom template, set up the custom sections
-      if (template.id === 'custom') {
-        setCustomSections(['Learning Objectives', 'Activities', 'Assessment', 'Resources']);
-      }
+      // Extract objectives
+      const objectivesMatch = content.match(/## Learning Objectives\n([\s\S]*?)(?=\n##|$)/);
+      if (objectivesMatch) setObjectives(objectivesMatch[1].trim());
+      
+      // Extract resources
+      const resourcesMatch = content.match(/## Resources\n([\s\S]*?)(?=\n##|$)/);
+      if (resourcesMatch) setResources(resourcesMatch[1].trim());
+      
+      // Extract introduction
+      const introMatch = content.match(/## Introduction.*\n([\s\S]*?)(?=\n##|$)/);
+      if (introMatch) setIntroduction(introMatch[1].trim());
+      
+      // Extract main activity
+      const mainMatch = content.match(/## Main Activity.*\n([\s\S]*?)(?=\n##|$)/);
+      if (mainMatch) setMainActivity(mainMatch[1].trim());
+      
+      // Extract plenary
+      const plenaryMatch = content.match(/## Plenary.*\n([\s\S]*?)(?=\n##|$)/);
+      if (plenaryMatch) setPlenary(plenaryMatch[1].trim());
     }
   };
   
-  // Handle lesson plan input change
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setLessonPlanInput(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-  
-  // Handle section content change
-  const handleSectionChange = (section: string, content: string) => {
-    setSectionContent(prev => ({
-      ...prev,
-      [section]: content
-    }));
-  };
-  
-  // Toggle learning style selection
-  const toggleLearningStyle = (styleId: string) => {
-    setLessonPlanInput(prev => {
-      const current = [...prev.selectedLearningStyles];
-      if (current.includes(styleId)) {
-          return {
-            ...prev,
-            selectedLearningStyles: current.filter(id => id !== styleId)
-          };
-      } else {
-        return {
-          ...prev,
-          selectedLearningStyles: [...current, styleId]
-        };
-      }
-    });
-  };
-  
-  // Toggle special needs selection
-  const toggleSpecialNeed = (needId: string) => {
-    setLessonPlanInput(prev => {
-      const current = [...prev.selectedSpecialNeeds];
-      if (current.includes(needId)) {
-          return {
-            ...prev,
-            selectedSpecialNeeds: current.filter(id => id !== needId)
-          };
-      } else {
-        return {
-          ...prev,
-          selectedSpecialNeeds: [...current, needId]
-        };
-      }
-    });
-  };
-  
-  // Add custom section
-  const addCustomSection = () => {
-    if (newSection.trim() && !customSections.includes(newSection.trim())) {
-      const updatedSections = [...customSections, newSection.trim()];
-      setCustomSections(updatedSections);
-      
-      // Initialize content for the new section
-      setSectionContent(prev => ({
-        ...prev,
-        [newSection.trim()]: ''
-      }));
-      
-      setNewSection('');
-    }
-  };
-  
-  // Remove custom section
-  const removeCustomSection = (section: string) => {
-    const updatedSections = customSections.filter(s => s !== section);
-    setCustomSections(updatedSections);
-    
-    // Remove content for this section
-    setSectionContent(prev => {
-      const updated = { ...prev };
-      delete updated[section];
-      return updated;
-    });
-  };
-  
-  // Get AI suggestion for a specific section
-  const getAiSuggestion = async (section: string) => {
-    if (isProcessing) return;
-    
-    setIsProcessing(true);
-    setShowingSuggestion(section);
-    
-    try {
-      // Prepare context for AI
-      const context = {
-        title: lessonPlanInput.title,
-        subject: lessonPlanInput.subject,
-        yearGroup: lessonPlanInput.yearGroup,
-        duration: lessonPlanInput.duration,
-        objectives: lessonPlanInput.objectives,
-        priorKnowledge: lessonPlanInput.priorKnowledge,
-        keyVocabulary: lessonPlanInput.keyVocabulary,
-        learningStyles: `${lessonPlanInput.selectedLearningStyles.map(id => 
-          learningStyles.find(style => style.id === id)?.label
-        ).join(', ') || 'All learning styles'}`,
-        specialNeeds: `${lessonPlanInput.selectedSpecialNeeds.map(id => 
-          specialNeeds.find(need => need.id === id)?.label
-        ).join(', ') || 'None specified'}`
-      };
-      
-      const prompt = `
-        You are an experienced UK educator creating a lesson plan. Please provide a detailed suggestion for the "${section}" section of a lesson plan with the following details:
-        
-        Title: ${context.title || 'Not specified'}
-        Subject: ${context.subject || 'Not specified'}
-        Year Group: ${context.yearGroup || 'Not specified'}
-        Duration: ${context.duration} minutes
-        Learning Objectives: ${context.objectives || 'Not specified'}
-        Prior Knowledge: ${context.priorKnowledge || 'Not specified'}
-        Key Vocabulary: ${context.keyVocabulary || 'Not specified'}
-        Learning Styles to Address: ${context.learningStyles?.join(', ') || 'All learning styles'}
-        Special Educational Needs: ${context.specialNeeds?.join(', ') || 'None specified'}
-        
-        Please provide a detailed, practical, and specific suggestion for the "${section}" section only.
-        Your suggestion should be aligned with UK curriculum standards and educational best practices.
-        Include specific activities, questions, or resources where appropriate.
-        Ensure the content is appropriate for the specified year group and subject.
-        
-        Format your response as a ready-to-use section that the teacher can directly include in their lesson plan.
-      `;
-      
-      const response = await aiService.getCompletion({
-        prompt,
-        model: 'gpt-4',
-        temperature: 0.7,
-        max_tokens: 500
-      });
-      
-      // Store the suggestion
-      setAiSuggestions(prev => ({
-        ...prev,
-        [section]: response
-      }));
-      
-    } catch (error) {
-      console.error('Error getting AI suggestion:', error);
-      toast({
-        title: "Error getting suggestion",
-        description: "There was a problem generating the suggestion. Please try again.",
-        variant: "destructive"
-      });
-    } finally {
-      setIsProcessing(false);
-    }
-  };
-  
-  // Apply AI suggestion to section
-  const applySuggestion = (section: string) => {
-    if (aiSuggestions[section]) {
-      handleSectionChange(section, aiSuggestions[section]);
-      setShowingSuggestion('');
-      
-      toast({
-        title: "Suggestion applied",
-        description: `The suggestion for "${section}" has been applied to your lesson plan.`,
-      });
-    }
-  };
-  
-  // Generate complete lesson plan
-  const generateLessonPlan = async () => {
-    if (!selectedTemplate) return;
-    
-    setIsProcessing(true);
-    
-    try {
-      // Prepare the content for AI processing
-      let contentForAI = `
-        Title: ${lessonPlanInput.title || 'Untitled Lesson Plan'}
-        Subject: ${lessonPlanInput.subject}
-        Year Group: ${lessonPlanInput.yearGroup}
-        Duration: ${lessonPlanInput.duration} minutes
-        Learning Styles: ${lessonPlanInput.selectedLearningStyles.map(id => 
-          learningStyles.find(style => style.id === id)?.label
-        ).join(', ') || 'All learning styles'}
-        Special Educational Needs: ${lessonPlanInput.selectedSpecialNeeds.map(id => 
-          specialNeeds.find(need => need.id === id)?.label
-        ).join(', ') || 'None specified'}
-        
-        Additional Notes: ${lessonPlanInput.notes}
-        
-        Lesson Plan Structure:
-      `;
-      
-      // Get the appropriate sections based on template
-      const sections = selectedTemplate.id === 'custom' ? customSections : selectedTemplate.structure;
-      
-      sections.forEach(section => {
-        const content = sectionContent[section] || '';
-        contentForAI += `\n## ${section}\n${content}\n`;
-      });
-      
-      const prompt = `
-        You are an experienced UK educator creating a comprehensive lesson plan. Please format, enhance, and complete the following lesson plan draft.
-        
-        ${contentForAI}
-        
-        Please format this into a professional, comprehensive lesson plan following these guidelines:
-        1. Maintain all the content provided but enhance clarity, organisation, and presentation
-        2. Fill in any missing details or sections that would make the lesson plan more complete
-        3. Ensure all activities and assessments align with the stated learning objectives
-        4. Include appropriate differentiation strategies for the specified learning styles and special needs
-        5. Use UK curriculum terminology and standards
-        6. Format the lesson plan with clear headings, proper structure, and professional language
-        7. Add timing suggestions for each activity if not already specified
-        8. Ensure the lesson has a clear beginning, middle, and end structure
-        
-        The final lesson plan should be ready for classroom use with minimal additional preparation.
-      `;
-      
-      const response = await aiService.getCompletion({
-        prompt,
-        model: 'gpt-4',
-        temperature: 0.5,
-        max_tokens: 2000
-      });
-      
-      setGeneratedLessonPlan(response);
-      setActiveTab('preview');
-      
-    } catch (error) {
-      console.error("Error generating lesson plan:", error);
-      toast({
-        title: "Error generating lesson plan",
-        description: "There was a problem creating your lesson plan. Please try again.",
-        variant: "destructive"
-      });
-    } finally {
-      setIsProcessing(false);
-    }
-  };
-  
-  // Save lesson plan
-  const saveLessonPlan = () => {
-    if (!generatedLessonPlan) return;
-    
-    const newLessonPlan = {
-      id: Date.now().toString(),
-      title: lessonPlanInput.title || 'Untitled Lesson Plan',
-      subject: lessonPlanInput.subject,
-      yearGroup: lessonPlanInput.yearGroup,
-      template: selectedTemplate?.id || 'custom',
-      content: generatedLessonPlan,
-      date: new Date().toISOString()
-    };
-    
-    const updatedLessonPlans = [...savedLessonPlans, newLessonPlan];
-    setSavedLessonPlans(updatedLessonPlans);
-    
-    // Save to localStorage
-    try {
-      localStorage.setItem('smartLessonPlans', JSON.stringify(updatedLessonPlans));
-      
-      toast({
-        title: "Lesson plan saved",
-        description: "Your lesson plan has been saved successfully.",
-      });
-    } catch (error) {
-      console.error('Error saving lesson plan:', error);
-      toast({
-        title: "Error saving lesson plan",
-        description: "There was a problem saving your lesson plan.",
-        variant: "destructive"
-      });
-    }
-  };
-  
-  // Copy lesson plan to clipboard
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(generatedLessonPlan).then(
-      () => {
-        toast({
-          title: "Copied to clipboard",
-          description: "The lesson plan has been copied to your clipboard.",
-        });
-      },
-      (err) => {
-        toast({
-          title: "Failed to copy",
-          description: "There was an error copying the lesson plan.",
-          variant: "destructive"
-        });
-        console.error('Could not copy text: ', err);
-      }
+  // Handle standard selection
+  const handleStandardToggle = (standardId: string) => {
+    setSelectedStandards(prev => 
+      prev.includes(standardId)
+        ? prev.filter(id => id !== standardId)
+        : [...prev, standardId]
     );
   };
   
-  // Download lesson plan as text file
-  const downloadLessonPlan = () => {
-    if (!generatedLessonPlan) return;
-    
-    const element = document.createElement('a');
-    const file = new Blob([generatedLessonPlan], {type: 'text/plain'});
-    element.href = URL.createObjectURL(file);
-    
-    // Create filename from title or use default
-    const filename = lessonPlanInput.title 
-      ? `${lessonPlanInput.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.txt`
-      : 'lesson_plan.txt';
-    
-    element.download = filename;
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-    
-    toast({
-      title: "Download started",
-      description: `Your file "${filename}" is being downloaded.`,
-    });
+  // Handle differentiation strategy selection
+  const handleDifferentiationToggle = (strategyId: string) => {
+    setSelectedDifferentiation(prev => 
+      prev.includes(strategyId)
+        ? prev.filter(id => id !== strategyId)
+        : [...prev, strategyId]
+    );
   };
   
-  // Delete saved lesson plan
-  const deleteLessonPlan = (id: string) => {
-    const updatedLessonPlans = savedLessonPlans.filter(plan => plan.id !== id);
-    setSavedLessonPlans(updatedLessonPlans);
-    
-    // Update localStorage
-    try {
-      localStorage.setItem('smartLessonPlans', JSON.stringify(updatedLessonPlans));
-      
+  // Generate lesson plan
+  const generateLessonPlan = () => {
+    if (!lessonTitle || !subject || !objectives) {
       toast({
-        title: "Lesson plan deleted",
-        description: "The lesson plan has been deleted.",
+        title: "Missing information",
+        description: "Please fill in at least the title, subject, and objectives.",
+        variant: "destructive"
       });
-    } catch (error) {
-      console.error('Error deleting lesson plan:', error);
+      return;
     }
+    
+    setIsGenerating(true);
+    
+    // In a real implementation, this would call an AI service
+    setTimeout(() => {
+      const selectedStandardsText = selectedStandards.map(id => 
+        curriculumStandards.find(s => s.id === id)?.name
+      ).join(", ");
+      
+      const selectedDiffText = selectedDifferentiation.map(id => 
+        differentiationStrategies.find(s => s.id === id)?.name
+      ).join(", ");
+      
+      const plan = `# ${lessonTitle}
+
+## Overview
+- Subject: ${subject}
+- Age Range: ${ageRange}
+- Duration: ${duration}
+- Curriculum Standards: ${selectedStandardsText || "None specified"}
+
+## Learning Objectives
+${objectives}
+
+## Resources
+${resources}
+
+## Differentiation Strategies
+${selectedDiffText || "None specified"}
+
+## Lesson Structure
+
+### Introduction (${duration.split(" ")[0] === "60" ? "15 minutes" : "10 minutes"})
+${introduction}
+
+### Main Activity (${duration.split(" ")[0] === "60" ? "30 minutes" : "20 minutes"})
+${mainActivity}
+
+### Plenary (${duration.split(" ")[0] === "60" ? "15 minutes" : "10 minutes"})
+${plenary}
+
+## Assessment
+${assessment || "Ongoing assessment through observation and questioning."}
+
+## Notes
+- This lesson plan was generated using the Smart Lesson Planning tool.
+- Adjust timing and activities as needed for your specific class.
+- Consider additional differentiation strategies as appropriate.`;
+      
+      setGeneratedPlan(plan);
+      setIsGenerating(false);
+      setActiveTab('preview');
+    }, 2000);
   };
   
-  // View saved lesson plan
-  const viewLessonPlan = (lessonPlan) => {
-    setLessonPlanInput(prev => ({
-      ...prev,
-      title: lessonPlan.title,
-      subject: lessonPlan.subject,
-      yearGroup: lessonPlan.yearGroup
-    }));
-    setGeneratedLessonPlan(lessonPlan.content);
-    setActiveTab('preview');
-  };
   return (
     <div className="container mx-auto py-6">
       <h1 className="text-3xl font-bold mb-2">Smart Lesson Planning</h1>
@@ -570,499 +207,317 @@ export function SmartLessonPlanning() {
       </p>
       
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid grid-cols-3 mb-6">
-          <TabsTrigger value="create">Create Lesson Plan</TabsTrigger>
-          <TabsTrigger value="preview">Preview & Export</TabsTrigger>
-          <TabsTrigger value="saved">Saved Lesson Plans</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="create">Create Plan</TabsTrigger>
+          <TabsTrigger value="templates">Templates</TabsTrigger>
+          <TabsTrigger value="preview">Preview</TabsTrigger>
         </TabsList>
         
-        {/* Create Lesson Plan Tab */}
         <TabsContent value="create" className="space-y-6">
-          {!selectedTemplate ? (
-            <div className="space-y-6">
-              <h2 className="text-xl font-semibold">Select a Lesson Plan Template</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Lesson Details</CardTitle>
+              <CardDescription>Enter the basic information for your lesson plan</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="lesson-title">Lesson Title</Label>
+                  <Input 
+                    id="lesson-title" 
+                    value={lessonTitle} 
+                    onChange={(e) => setLessonTitle(e.target.value)} 
+                    placeholder="Enter lesson title"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="subject">Subject</Label>
+                  <Input 
+                    id="subject" 
+                    value={subject} 
+                    onChange={(e) => setSubject(e.target.value)} 
+                    placeholder="e.g., Mathematics, English, Science"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="age-range">Age Range/Key Stage</Label>
+                  <Select value={ageRange} onValueChange={setAgeRange}>
+                    <SelectTrigger id="age-range">
+                      <SelectValue placeholder="Select age range" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="EYFS">EYFS</SelectItem>
+                      <SelectItem value="KS1">Key Stage 1</SelectItem>
+                      <SelectItem value="KS2">Key Stage 2</SelectItem>
+                      <SelectItem value="KS3">Key Stage 3</SelectItem>
+                      <SelectItem value="KS4">Key Stage 4</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="duration">Duration</Label>
+                  <Select value={duration} onValueChange={setDuration}>
+                    <SelectTrigger id="duration">
+                      <SelectValue placeholder="Select duration" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="30 minutes">30 minutes</SelectItem>
+                      <SelectItem value="45 minutes">45 minutes</SelectItem>
+                      <SelectItem value="60 minutes">60 minutes</SelectItem>
+                      <SelectItem value="90 minutes">90 minutes</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="objectives">Learning Objectives</Label>
+                <Textarea 
+                  id="objectives" 
+                  value={objectives} 
+                  onChange={(e) => setObjectives(e.target.value)} 
+                  placeholder="Enter learning objectives (one per line)"
+                  className="min-h-[100px]"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="resources">Resources</Label>
+                <Textarea 
+                  id="resources" 
+                  value={resources} 
+                  onChange={(e) => setResources(e.target.value)} 
+                  placeholder="List required resources (one per line)"
+                  className="min-h-[100px]"
+                />
+              </div>
+            </CardContent>
+          </Card>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Curriculum Standards</CardTitle>
+                <CardDescription>Select relevant curriculum standards</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  {curriculumStandards.map(standard => (
+                    <div key={standard.id} className="flex items-center space-x-2">
+                      <Checkbox 
+                        id={standard.id} 
+                        checked={selectedStandards.includes(standard.id)}
+                        onCheckedChange={() => handleStandardToggle(standard.id)}
+                      />
+                      <Label htmlFor={standard.id}>{standard.name}</Label>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Differentiation</CardTitle>
+                <CardDescription>Select differentiation strategies</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  {differentiationStrategies.map(strategy => (
+                    <div key={strategy.id} className="flex items-center space-x-2">
+                      <Checkbox 
+                        id={strategy.id} 
+                        checked={selectedDifferentiation.includes(strategy.id)}
+                        onCheckedChange={() => handleDifferentiationToggle(strategy.id)}
+                      />
+                      <div>
+                        <Label htmlFor={strategy.id}>{strategy.name}</Label>
+                        <p className="text-sm text-muted-foreground">{strategy.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          
+          <Card>
+            <CardHeader>
+              <CardTitle>Lesson Structure</CardTitle>
+              <CardDescription>Outline the structure of your lesson</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="introduction">Introduction</Label>
+                <Textarea 
+                  id="introduction" 
+                  value={introduction} 
+                  onChange={(e) => setIntroduction(e.target.value)} 
+                  placeholder="Describe the introduction/starter activity"
+                  className="min-h-[100px]"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="main-activity">Main Activity</Label>
+                <Textarea 
+                  id="main-activity" 
+                  value={mainActivity} 
+                  onChange={(e) => setMainActivity(e.target.value)} 
+                  placeholder="Describe the main teaching and learning activities"
+                  className="min-h-[150px]"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="plenary">Plenary</Label>
+                <Textarea 
+                  id="plenary" 
+                  value={plenary} 
+                  onChange={(e) => setPlenary(e.target.value)} 
+                  placeholder="Describe the closing/summary activity"
+                  className="min-h-[100px]"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="assessment">Assessment</Label>
+                <Textarea 
+                  id="assessment" 
+                  value={assessment} 
+                  onChange={(e) => setAssessment(e.target.value)} 
+                  placeholder="Describe assessment methods and success criteria"
+                  className="min-h-[100px]"
+                />
+              </div>
+            </CardContent>
+            <CardFooter className="flex justify-between">
+              <Button variant="outline" onClick={() => setActiveTab('templates')}>
+                <FileText className="mr-2 h-4 w-4" />
+                Browse Templates
+              </Button>
+              <Button onClick={generateLessonPlan} disabled={isGenerating}>
+                {isGenerating ? (
+                  <>
+                    <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                    Generating...
+                  </>
+                ) : (
+                  <>
+                    <Wand2 className="mr-2 h-4 w-4" />
+                    Generate Plan
+                  </>
+                )}
+              </Button>
+            </CardFooter>
+          </Card>
+        </TabsContent>
+        
+        <TabsContent value="templates" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Lesson Plan Templates</CardTitle>
+              <CardDescription>Choose a template as a starting point</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {lessonPlanTemplates.map(template => (
                   <Card 
                     key={template.id} 
-                    className="cursor-pointer hover:border-primary transition-colors"
-                    onClick={() => handleTemplateSelect(template.id: any)}
+                    className={`cursor-pointer hover:border-primary transition-colors ${selectedTemplate === template.id ? 'border-primary' : ''}`}
+                    onClick={() => handleTemplateSelect(template.id)}
                   >
                     <CardHeader className="pb-2">
-                      <CardTitle>{template.name}</CardTitle>
+                      <CardTitle className="text-lg">{template.name}</CardTitle>
                       <CardDescription>{template.description}</CardDescription>
                     </CardHeader>
                     <CardContent className="pb-2">
-                      <p className="text-sm text-muted-foreground">Includes sections for:</p>
-                      <ul className="text-sm list-disc list-inside">
-                        {template.structure.slice(0: any, 3).map((section: any, index) => (
-                          <li key={index}>{section}</li>
-                        ))}
-                        {template.structure.length > 3 && (
-                          <li>+ {template.structure.length - 3} more sections</li>
-                        )}
-                      </ul>
+                      <div className="flex flex-wrap gap-2">
+                        <Badge variant="outline">{template.subject}</Badge>
+                        <Badge variant="outline">{template.ageRange}</Badge>
+                        <Badge variant="outline">{template.duration}</Badge>
+                      </div>
                     </CardContent>
                     <CardFooter>
-                      <Button variant="outline" className="w-full">Select</Button>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="w-full"
+                        onClick={() => handleTemplateSelect(template.id)}
+                      >
+                        <FileText className="mr-2 h-4 w-4" />
+                        Use Template
+                      </Button>
                     </CardFooter>
                   </Card>
                 ))}
               </div>
-            </div>
-          ) : (
-            <div className="space-y-6">
-              <div className="flex justify-between items-centre">
-                <h2 className="text-xl font-semibold">{selectedTemplate.name}</h2>
-                <Button 
-                  variant="outline" 
-                  onClick={() => setSelectedTemplate(null: any)}
-                >
-                  Change Template
-                </Button>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Lesson Details</CardTitle>
-                    <CardDescription>Basic information about your lesson</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div>
-                      <Label htmlFor="title">Lesson Title</Label>
-                      <Input 
-                        id="title" 
-                        name="title" 
-                        value={lessonPlanInput.title} 
-                        onChange={handleInputChange} 
-                        placeholder="Enter a title for your lesson"
-                      />
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="subject">Subject</Label>
-                        <Select 
-                          value={lessonPlanInput.subject} 
-                          onValueChange={(value: any) => setLessonPlanInput(prev => ({ ...prev, subject: value }))}
-                        >
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select subject" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {subjects.map(subject => (
-                              <SelectItem key={subject} value={subject}>{subject}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      
-                      <div>
-                        <Label htmlFor="yearGroup">Year Group</Label>
-                        <Select 
-                          value={lessonPlanInput.yearGroup} 
-                          onValueChange={(value: any) => setLessonPlanInput(prev => ({ ...prev, yearGroup: value }))}
-                        >
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select year group" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {yearGroups.map(year => (
-                              <SelectItem key={year} value={year}>{year}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <Label htmlFor="duration">Duration (minutes)</Label>
-                      <Input 
-                        id="duration" 
-                        name="duration" 
-                        type="number" 
-                        value={lessonPlanInput.duration} 
-                        onChange={handleInputChange} 
-                        min="15"
-                        max="180"
-                      />
-                    </div>
-                    
-                    <div>
-                      <Label htmlFor="objectives">Learning Objectives</Label>
-                      <Textarea 
-                        id="objectives" 
-                        name="objectives" 
-                        value={lessonPlanInput.objectives} 
-                        onChange={handleInputChange} 
-                        placeholder="What students will know or be able to do by the end of the lesson"
-                        className="min-h-[100px]"
-                      />
-                    </div>
-                    
-                    <div>
-                      <Label htmlFor="priorKnowledge">Prior Knowledge</Label>
-                      <Textarea 
-                        id="priorKnowledge" 
-                        name="priorKnowledge" 
-                        value={lessonPlanInput.priorKnowledge} 
-                        onChange={handleInputChange} 
-                        placeholder="What students should already know before this lesson"
-                      />
-                    </div>
-                    
-                    <div>
-                      <Label htmlFor="keyVocabulary">Key Vocabulary</Label>
-                      <Textarea 
-                        id="keyVocabulary" 
-                        name="keyVocabulary" 
-                        value={lessonPlanInput.keyVocabulary} 
-                        onChange={handleInputChange} 
-                        placeholder="Important terms and concepts for this lesson"
-                      />
-                    </div>
-                    
-                    <div>
-                      <Label htmlFor="resources">Resources Needed</Label>
-                      <Textarea 
-                        id="resources" 
-                        name="resources" 
-                        value={lessonPlanInput.resources} 
-                        onChange={handleInputChange} 
-                        placeholder="Materials, equipment, and resources required"
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
-                
-                <div className="space-y-6">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Differentiation</CardTitle>
-                      <CardDescription>Customise your lesson for diverse learners</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div>
-                        <Label className="block mb-2">Learning Styles to Address</Label>
-                        <div className="grid grid-cols-2 gap-2">
-                          {learningStyles.map(style => (
-                            <div key={style.id} className="flex items-centre space-x-2">
-                              <Checkbox 
-                                id={`style-${style.id}`} 
-                                checked={lessonPlanInput.selectedLearningStyles.includes(style.id)} 
-                                onCheckedChange={() => toggleLearningStyle(style.id)}
-                              />
-                              <Label htmlFor={`style-${style.id}`} className="text-sm font-normal">
-                                {style.label}
-                              </Label>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <Label className="block mb-2">Special Educational Needs</Label>
-                        <div className="grid grid-cols-2 gap-2">
-                          {specialNeeds.map(need => (
-                            <div key={need.id} className="flex items-centre space-x-2">
-                              <Checkbox 
-                                id={`need-${need.id}`} 
-                                checked={lessonPlanInput.selectedSpecialNeeds.includes(need.id)} 
-                                onCheckedChange={() => toggleSpecialNeed(need.id)}
-                              />
-                              <Label htmlFor={`need-${need.id}`} className="text-sm font-normal">
-                                {need.label}
-                              </Label>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <Label htmlFor="notes">Additional Notes</Label>
-                        <Textarea 
-                          id="notes" 
-                          name="notes" 
-                          value={lessonPlanInput.notes} 
-                          onChange={handleInputChange} 
-                          placeholder="Any other information to consider for this lesson"
-                        />
-                      </div>
-                    </CardContent>
-                  </Card>
-                  
-                  {selectedTemplate.id === 'custom' && (
-                    <Card>
-                      <CardHeader>
-                        <CardTitle>Custom Sections</CardTitle>
-                        <CardDescription>Add or remove sections for your custom lesson plan</CardDescription>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                        <div className="flex gap-2">
-                          <Input 
-                            value={newSection} 
-                            onChange={(e) => setNewSection(e.target.value)} 
-                            placeholder="New section name"
-                          />
-                          <Button 
-                            variant="outline" 
-                            onClick={addCustomSection}
-                            disabled={!newSection.trim()}
-                          >
-                            Add
-                          </Button>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          {customSections.map((section, index) => (
-                            <div key={index} className="flex justify-between items-centre p-2 bg-muted rounded-md">
-                              <span>{section}</span>
-                              <Button 
-                                variant="ghost" 
-                                size="sm"
-                                onClick={() => removeCustomSection(section)}
-                                disabled={customSections.length <= 1}
-                              >
-                                Remove
-                              </Button>
-                            </div>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  )}
-                </div>
-              </div>
-              
-              <Separator />
-              
-              <div className="space-y-6">
-                <h3 className="text-lg font-semibold">Lesson Plan Content</h3>
-                
-                {/* Render sections based on template */}
-                {(selectedTemplate.id === 'custom' ? customSections : selectedTemplate.structure).map((section, index) => (
-                  <div key={index} className="space-y-2">
-                    <div className="flex justify-between items-centre">
-                      <Label htmlFor={`section-${index}`}>{section}</Label>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => getAiSuggestion(section)}
-                        disabled={isProcessing}
-                        className="flex items-centre gap-1"
-                      >
-                        {isProcessing && showingSuggestion === section ? (
-                          <RefreshCw className="h-4 w-4 animate-spin" />
-                        ) : (
-                          <Wand2 className="h-4 w-4" />
-                        )}
-                        <span>Get AI Suggestion</span>
-                      </Button>
-                    </div>
-                    
-                    {showingSuggestion === section && aiSuggestions[section] && (
-                      <Card className="bg-muted/50 border-dashed">
-                        <CardHeader className="py-2 px-4">
-                          <div className="flex justify-between items-centre">
-                            <CardTitle className="text-sm font-medium flex items-centre">
-                              <Lightbulb className="h-4 w-4 mr-2" />
-                              AI Suggestion
-                            </CardTitle>
-                            <Button 
-                              variant="ghost" 
-                              size="sm"
-                              onClick={() => setShowingSuggestion('')}
-                            >
-                              Close
-                            </Button>
-                          </div>
-                        </CardHeader>
-                        <CardContent className="py-2 px-4">
-                          <div className="text-sm">
-                            {aiSuggestions[section].split('\n').map((line, i) => (
-                              <React.Fragment key={i}>
-                                {line}
-                                <br />
-                              </React.Fragment>
-                            ))}
-                          </div>
-                        </CardContent>
-                        <CardFooter className="py-2 px-4">
-                          <Button 
-                            size="sm" 
-                            onClick={() => applySuggestion(section)}
-                          >
-                            Apply Suggestion
-                          </Button>
-                        </CardFooter>
-                      </Card>
-                    )}
-                    
-                    <Textarea 
-                      id={`section-${index}`} 
-                      value={sectionContent[section] || ''} 
-                      onChange={(e) => handleSectionChange(section, e.target.value)} 
-                      placeholder={`Enter content for ${section}`}
-                      className="min-h-[100px]"
-                    />
-                  </div>
-                ))}
-                
-                <div className="pt-4">
-                  <Button 
-                    onClick={generateLessonPlan} 
-                    disabled={isProcessing}
-                    className="w-full"
-                  >
-                    {isProcessing ? (
-                      <>
-                        <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                        Generating Lesson Plan...
-                      </>
-                    ) : (
-                      'Generate Complete Lesson Plan'
-                    )}
-                  </Button>
-                </div>
-              </div>
-            </div>
-          )}
+            </CardContent>
+            <CardFooter>
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={() => setActiveTab('create')}
+              >
+                Back to Create
+              </Button>
+            </CardFooter>
+          </Card>
         </TabsContent>
         
-        {/* Preview & Export Tab */}
         <TabsContent value="preview" className="space-y-6">
-          {generatedLessonPlan ? (
-            <div className="space-y-6">
-              <div className="flex justify-between items-centre">
-                <h2 className="text-xl font-semibold">
-                  {lessonPlanInput.title || 'Untitled Lesson Plan'}
-                </h2>
-                <div className="flex gap-2">
+          <Card>
+            <CardHeader>
+              <CardTitle>Lesson Plan Preview</CardTitle>
+              <CardDescription>Review and export your lesson plan</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {generatedPlan ? (
+                <div className="prose prose-sm max-w-none dark:prose-invert">
+                  <pre className="whitespace-pre-wrap bg-muted p-4 rounded-md overflow-auto">
+                    {generatedPlan}
+                  </pre>
+                </div>
+              ) : (
+                <div className="text-center py-12">
+                  <BookOpen className="mx-auto h-12 w-12 text-muted-foreground" />
+                  <h3 className="mt-4 text-lg font-medium">No plan generated yet</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Fill in the lesson details and click "Generate Plan" to preview your lesson plan.
+                  </p>
                   <Button 
                     variant="outline" 
-                    size="sm"
-                    onClick={copyToClipboard}
-                    className="flex items-centre gap-1"
+                    className="mt-4"
+                    onClick={() => setActiveTab('create')}
                   >
-                    <Copy className="h-4 w-4" />
-                    <span>Copy</span>
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    onClick={downloadLessonPlan}
-                    className="flex items-centre gap-1"
-                  >
-                    <Download className="h-4 w-4" />
-                    <span>Download</span>
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    onClick={saveLessonPlan}
-                    className="flex items-centre gap-1"
-                  >
-                    <Save className="h-4 w-4" />
-                    <span>Save</span>
+                    Go to Create
                   </Button>
                 </div>
-              </div>
-              
-              <Card>
-                <CardContent className="p-6">
-                  <div className="prose max-w-none">
-                    {generatedLessonPlan.split('\n').map((line, index) => (
-                      <React.Fragment key={index}>
-                        {line}
-                        <br />
-                      </React.Fragment>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <div className="flex justify-end">
-                <Button 
-                  variant="outline" 
-                  onClick={() => setActiveTab('create')}
-                >
-                  Back to Editor
+              )}
+            </CardContent>
+            {generatedPlan && (
+              <CardFooter className="flex justify-between">
+                <Button variant="outline" onClick={() => setActiveTab('create')}>
+                  <RefreshCw className="mr-2 h-4 w-4" />
+                  Edit Plan
                 </Button>
-              </div>
-            </div>
-          ) : (
-            <div className="text-centre py-12">
-              <BookOpen className="mx-auto h-12 w-12 text-muted-foreground" />
-              <h3 className="mt-4 text-lg font-medium">No lesson plan to preview</h3>
-              <p className="mt-2 text-muted-foreground">
-                Create a lesson plan first or select a saved plan to view.
-              </p>
-              <Button 
-                className="mt-4" 
-                onClick={() => setActiveTab('create')}
-              >
-                Create Lesson Plan
-              </Button>
-            </div>
-          )}
-        </TabsContent>
-        
-        {/* Saved Lesson Plans Tab */}
-        <TabsContent value="saved" className="space-y-6">
-          <h2 className="text-xl font-semibold">Saved Lesson Plans</h2>
-          
-          {savedLessonPlans.length > 0 ? (
-            <div className="space-y-4">
-              {savedLessonPlans.map(plan => (
-                <Card key={plan.id}>
-                  <CardHeader className="pb-2">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <CardTitle>{plan.title}</CardTitle>
-                        <CardDescription>
-                          {plan.subject} | {plan.yearGroup}
-                        </CardDescription>
-                      </div>
-                      <Badge>
-                        {lessonPlanTemplates.find(t => t.id === plan.template)?.name || 'Custom'}
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  <CardFooter className="flex justify-between">
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => viewLessonPlan(plan)}
-                    >
-                      View
-                    </Button>
-                    <Button 
-                      variant="ghost" 
-                      size="sm"
-                      onClick={() => deleteLessonPlan(plan.id)}
-                    >
-                      Delete
-                    </Button>
-                  </CardFooter>
-                </Card>
-              ))}
-            </div>
-          ) : (
-            <div className="text-centre py-12">
-              <BookOpen className="mx-auto h-12 w-12 text-muted-foreground" />
-              <h3 className="mt-4 text-lg font-medium">No saved lesson plans</h3>
-              <p className="mt-2 text-muted-foreground">
-                Lesson plans you save will appear here.
-              </p>
-              <Button 
-                className="mt-4" 
-                onClick={() => setActiveTab('create')}
-              >
-                Create Lesson Plan
-              </Button>
-            </div>
-          )}
+                <div className="flex space-x-2">
+                  <Button variant="outline">
+                    <Copy className="mr-2 h-4 w-4" />
+                    Copy
+                  </Button>
+                  <Button variant="outline">
+                    <Download className="mr-2 h-4 w-4" />
+                    Download
+                  </Button>
+                  <Button>
+                    <Save className="mr-2 h-4 w-4" />
+                    Save Plan
+                  </Button>
+                </div>
+              </CardFooter>
+            )}
+          </Card>
         </TabsContent>
       </Tabs>
     </div>
