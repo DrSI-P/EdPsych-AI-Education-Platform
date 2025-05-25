@@ -193,13 +193,13 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const { searchParams } = new URL(req.url: any);
+    const { searchParams } = new URL(req.url);
     const curriculumPlanId = searchParams.get('curriculumPlanId');
     
     // Get user's differentiated curricula
@@ -219,7 +219,7 @@ export async function GET(req: NextRequest) {
       differentiations
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching curriculum differentiations:', error);
     return NextResponse.json({ error: 'Failed to fetch curriculum differentiations' }, { status: 500 });
   }
