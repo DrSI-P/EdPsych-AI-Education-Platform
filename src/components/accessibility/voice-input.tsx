@@ -381,24 +381,6 @@ export default function VoiceInput(): React.ReactNode {
                       onCheckedChange={(value) => handleSpecialNeedsChange('processing', value)}
                     />
                   </div>
-                  
-                  <div className="bg-muted p-4 rounded-md">
-                    <h4 className="font-medium mb-2">Recommended Settings</h4>
-                    <div className="space-y-2">
-                      <div className="flex items-centre justify-between">
-                        <Badge variant="outline">Articulation Difficulties</Badge>
-                        <Button variant="ghost" size="sm" className="h-7">Apply</Button>
-                      </div>
-                      <div className="flex items-centre justify-between">
-                        <Badge variant="outline">Fluency Challenges</Badge>
-                        <Button variant="ghost" size="sm" className="h-7">Apply</Button>
-                      </div>
-                      <div className="flex items-centre justify-between">
-                        <Badge variant="outline">Processing Needs</Badge>
-                        <Button variant="ghost" size="sm" className="h-7">Apply</Button>
-                      </div>
-                    </div>
-                  </div>
                 </CardContent>
               </Card>
             </TabsContent>
@@ -412,36 +394,24 @@ export default function VoiceInput(): React.ReactNode {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div>
-                    <h3 className="font-medium mb-2">Getting Started</h3>
-                    <ul className="list-disc pl-5 space-y-1">
-                      <li>Ensure your microphone is connected and working</li>
-                      <li>Click the microphone button to start listening</li>
-                      <li>Speak clearly at a normal pace</li>
-                      <li>Click the stop button when finished</li>
-                    </ul>
-                  </div>
+                  <h3 className="font-semibold text-lg">Tips for Clear Recognition</h3>
+                  <ul className="space-y-2 list-disc pl-5">
+                    <li>Speak clearly and at a moderate pace</li>
+                    <li>Minimize background noise</li>
+                    <li>Position your microphone 15-20cm from your mouth</li>
+                    <li>Use short phrases rather than long sentences</li>
+                    <li>For children, select the Child Voice Optimization option</li>
+                  </ul>
                   
-                  <div>
-                    <h3 className="font-medium mb-2">Tips for Better Recognition</h3>
-                    <ul className="list-disc pl-5 space-y-1">
-                      <li>Use in a quiet environment with minimal background noise</li>
-                      <li>Position your microphone properly (10-15cm from mouth)</li>
-                      <li>Speak clearly and at a consistent pace</li>
-                      <li>Use short phrases rather than long sentences</li>
-                      <li>For children, enable the Child Voice Optimization setting</li>
-                    </ul>
-                  </div>
-                  
-                  <div>
-                    <h3 className="font-medium mb-2">Voice Commands</h3>
-                    <ul className="list-disc pl-5 space-y-1">
-                      <li>Say &quot;new line&quot; to create a new paragraph</li>
-                      <li>Say &quot;full stop&quot; or &quot;period&quot; for punctuation</li>
-                      <li>Say &quot;question mark&quot; for a question mark</li>
-                      <li>Say &quot;comma&quot; for a comma</li>
-                    </ul>
-                  </div>
+                  <h3 className="font-semibold text-lg mt-4">Voice Commands</h3>
+                  <p>You can use the following voice commands while speaking:</p>
+                  <ul className="space-y-2 list-disc pl-5">
+                    <li>&quot;New line&quot; - Start a new paragraph</li>
+                    <li>&quot;Full stop&quot; or &quot;Period&quot; - Add a period</li>
+                    <li>&quot;Question mark&quot; - Add a question mark</li>
+                    <li>&quot;Exclamation mark&quot; - Add an exclamation mark</li>
+                    <li>&quot;Comma&quot; - Add a comma</li>
+                  </ul>
                 </CardContent>
               </Card>
             </TabsContent>
