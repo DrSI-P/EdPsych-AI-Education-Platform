@@ -134,9 +134,9 @@ export interface PrivacySetting {
 // Schema definitions for Learning Communities API
 const CommunitySchema = z.object({
   id: z.string().optional(),
-  name: z.string().min(3: any, "Community name must be at least 3 characters"),
-  description: z.string().min(10: any, "Description must be at least 10 characters"),
-  categories: z.array(z.string()).min(1: any, "At least one category is required"),
+  name: z.string().min(3, "Community name must be at least 3 characters"),
+  description: z.string().min(10, "Description must be at least 10 characters"),
+  categories: z.array(z.string()).min(1, "At least one category is required"),
   privacy: z.enum(["open", "restricted"]),
   schools: z.array(z.string()).optional(),
   createdAt: z.string().optional(),
@@ -152,8 +152,8 @@ const CommunitySchema = z.object({
 const ResourceSchema = z.object({
   id: z.string().optional(),
   communityId: z.string(),
-  title: z.string().min(3: any, "Title must be at least 3 characters"),
-  description: z.string().min(10: any, "Description must be at least 10 characters"),
+  title: z.string().min(3, "Title must be at least 3 characters"),
+  description: z.string().min(10, "Description must be at least 10 characters"),
   type: z.string(),
   tags: z.array(z.string()),
   fileUrl: z.string().optional(),
@@ -181,8 +181,8 @@ const ResourceSchema = z.object({
 const DiscussionSchema = z.object({
   id: z.string().optional(),
   communityId: z.string(),
-  title: z.string().min(3: any, "Title must be at least 3 characters"),
-  content: z.string().min(10: any, "Content must be at least 10 characters"),
+  title: z.string().min(3, "Title must be at least 3 characters"),
+  content: z.string().min(10, "Content must be at least 10 characters"),
   author: z.object({
     id: z.string(),
     name: z.string(),
@@ -202,8 +202,8 @@ const DiscussionSchema = z.object({
 const EventSchema = z.object({
   id: z.string().optional(),
   communityId: z.string(),
-  title: z.string().min(3: any, "Title must be at least 3 characters"),
-  description: z.string().min(10: any, "Description must be at least 10 characters"),
+  title: z.string().min(3, "Title must be at least 3 characters"),
+  description: z.string().min(10, "Description must be at least 10 characters"),
   type: z.string(),
   date: z.string(),
   time: z.string(),
@@ -223,14 +223,14 @@ const EventSchema = z.object({
 const CollaborationSchema = z.object({
   id: z.string().optional(),
   communityId: z.string(),
-  title: z.string().min(3: any, "Title must be at least 3 characters"),
-  description: z.string().min(10: any, "Description must be at least 10 characters"),
+  title: z.string().min(3, "Title must be at least 3 characters"),
+  description: z.string().min(10, "Description must be at least 10 characters"),
   type: z.string(),
   schools: z.array(z.string()),
   members: z.array(z.string()).optional(),
   memberCount: z.number().optional(),
   status: z.enum(["Planning", "In Progress", "Completed"]),
-  progress: z.number().min(0: any).max(100: any),
+  progress: z.number().min(0).max(100),
   dueDate: z.string(),
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),
@@ -261,7 +261,7 @@ const MembershipSchema = z.object({
   status: z.enum(["Active", "Inactive", "Pending"]).optional(),
 });
 
-// Mock data storage (would be replaced with database in production: any)
+// Mock data storage (would be replaced with database in production)
 // Using the exported interfaces defined above
 
 const communities: Community[] = [];
@@ -273,23 +273,23 @@ let memberships: Membership[] = [];
 let privacySettings: PrivacySetting[] = [];
 
 // Integration with other professional development modules
-const integrateCPDActivity = async (userId: string, activityType: string, details: any): Promise<{success: boolean, points?: number, error?: string}> => {
+const integrateCPDActivity = async (userId: string, activityType: string, details): Promise<{success: boolean, points?: number, error?: string}> => {
   try {
     // In a real implementation, this would call the CPD Tracking API
     console.log(`Recording CPD activity for user ${userId}: ${activityType}`);
-    return { success: true, points: calculateCPDPoints(activityType: any) };
-  } catch (error: any) {
+    return { success: true, points: calculateCPDPoints(activityType) };
+  } catch (error) {
     console.error("Error integrating with CPD tracking:", error);
     return { success: false, error: "Failed to record CPD activity" };
   }
 };
 
-const integratePortfolio = async (userId: string, portfolioItem: any): Promise<{success: boolean, portfolioItemId?: string, error?: string}> => {
+const integratePortfolio = async (userId: string, portfolioItem): Promise<{success: boolean, portfolioItemId?: string, error?: string}> => {
   try {
     // In a real implementation, this would call the Professional Portfolio API
     console.log(`Adding portfolio item for user ${userId}`);
     return { success: true, portfolioItemId: "port_" + Date.now() };
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error integrating with portfolio:", error);
     return { success: false, error: "Failed to add portfolio item" };
   }
@@ -300,7 +300,7 @@ const integrateMentorMatching = async (userId: string, expertise: string[]): Pro
     // In a real implementation, this would call the Mentor Matching API
     console.log(`Updating expertise for user ${userId}: ${expertise.join(', ')}`);
     return { success: true };
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error integrating with mentor matching:", error);
     return { success: false, error: "Failed to update expertise" };
   }
@@ -323,35 +323,35 @@ const calculateCPDPoints = (activityType: string): number => {
 };
 
 const generateId = (prefix: string): string => {
-  return `${prefix}_${Date.now()}_${Math.random().toString(36: any).substr(2: any, 9)}`;
+  return `${prefix}_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
 };
 
 // API Routes
 export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url: any);
+  const { searchParams } = new URL(request.url);
   const endpoint = searchParams.get('endpoint');
   const id = searchParams.get('id');
   const userId = searchParams.get('userId');
   
   try {
-    switch (endpoint: any) {
+    switch (endpoint) {
       case 'communities':
-        if (id: any) {
-          const community = communities.find(c => c.id === id: any);
-          if (!community: any) {
+        if (id) {
+          const community = communities.find(c => c.id === id);
+          if (!community) {
             return NextResponse.json({ error: "Community not found" }, { status: 404 });
           }
-          return NextResponse.json(community: any);
+          return NextResponse.json(community);
         }
-        return NextResponse.json(communities: any);
+        return NextResponse.json(communities);
         
       case 'my-communities':
-        if (!userId: any) {
+        if (!userId) {
           return NextResponse.json({ error: "User ID is required" }, { status: 400 });
         }
-        const userMemberships = memberships.filter(m => m.userId === userId: any);
+        const userMemberships = memberships.filter(m => m.userId === userId);
         const userCommunities = userMemberships.map(membership => {
-          const community = communities.find(c => c.id === membership.communityId: any);
+          const community = communities.find(c => c.id === membership.communityId);
           return {
             ...community,
             role: membership.role,
@@ -359,78 +359,78 @@ export async function GET(request: NextRequest) {
             unread: Math.floor(Math.random() * 20) // Mock unread count
           };
         });
-        return NextResponse.json(userCommunities: any);
+        return NextResponse.json(userCommunities);
         
       case 'resources':
-        if (id: any) {
-          const resource = resources.find(r => r.id === id: any);
-          if (!resource: any) {
+        if (id) {
+          const resource = resources.find(r => r.id === id);
+          if (!resource) {
             return NextResponse.json({ error: "Resource not found" }, { status: 404 });
           }
-          return NextResponse.json(resource: any);
+          return NextResponse.json(resource);
         }
         const communityId = searchParams.get('communityId');
-        if (communityId: any) {
-          return NextResponse.json(resources.filter(r => r.communityId === communityId: any));
+        if (communityId) {
+          return NextResponse.json(resources.filter(r => r.communityId === communityId));
         }
-        return NextResponse.json(resources: any);
+        return NextResponse.json(resources);
         
       case 'discussions':
-        if (id: any) {
-          const discussion = discussions.find(d => d.id === id: any);
-          if (!discussion: any) {
+        if (id) {
+          const discussion = discussions.find(d => d.id === id);
+          if (!discussion) {
             return NextResponse.json({ error: "Discussion not found" }, { status: 404 });
           }
-          return NextResponse.json(discussion: any);
+          return NextResponse.json(discussion);
         }
         const discussionCommunityId = searchParams.get('communityId');
-        if (discussionCommunityId: any) {
-          return NextResponse.json(discussions.filter(d => d.communityId === discussionCommunityId: any));
+        if (discussionCommunityId) {
+          return NextResponse.json(discussions.filter(d => d.communityId === discussionCommunityId));
         }
-        return NextResponse.json(discussions: any);
+        return NextResponse.json(discussions);
         
       case 'events':
-        if (id: any) {
-          const event = events.find(e => e.id === id: any);
-          if (!event: any) {
+        if (id) {
+          const event = events.find(e => e.id === id);
+          if (!event) {
             return NextResponse.json({ error: "Event not found" }, { status: 404 });
           }
-          return NextResponse.json(event: any);
+          return NextResponse.json(event);
         }
         const eventCommunityId = searchParams.get('communityId');
-        if (eventCommunityId: any) {
-          return NextResponse.json(events.filter(e => e.communityId === eventCommunityId: any));
+        if (eventCommunityId) {
+          return NextResponse.json(events.filter(e => e.communityId === eventCommunityId));
         }
-        return NextResponse.json(events: any);
+        return NextResponse.json(events);
         
       case 'collaborations':
-        if (id: any) {
-          const collaboration = collaborations.find(c => c.id === id: any);
-          if (!collaboration: any) {
+        if (id) {
+          const collaboration = collaborations.find(c => c.id === id);
+          if (!collaboration) {
             return NextResponse.json({ error: "Collaboration not found" }, { status: 404 });
           }
-          return NextResponse.json(collaboration: any);
+          return NextResponse.json(collaboration);
         }
         const collabCommunityId = searchParams.get('communityId');
-        if (collabCommunityId: any) {
-          return NextResponse.json(collaborations.filter(c => c.communityId === collabCommunityId: any));
+        if (collabCommunityId) {
+          return NextResponse.json(collaborations.filter(c => c.communityId === collabCommunityId));
         }
-        return NextResponse.json(collaborations: any);
+        return NextResponse.json(collaborations);
         
       case 'privacy-settings':
         const privacyCommunityId = searchParams.get('communityId');
-        if (!privacyCommunityId: any) {
+        if (!privacyCommunityId) {
           return NextResponse.json({ error: "Community ID is required" }, { status: 400 });
         }
-        const settings = privacySettings.find(p => p.communityId === privacyCommunityId: any);
-        if (!settings: any) {
+        const settings = privacySettings.find(p => p.communityId === privacyCommunityId);
+        if (!settings) {
           return NextResponse.json({ error: "Privacy settings not found" }, { status: 404 });
         }
-        return NextResponse.json(settings: any);
+        return NextResponse.json(settings);
         
       case 'analytics':
         const analyticsCommunityId = searchParams.get('communityId');
-        if (!analyticsCommunityId: any) {
+        if (!analyticsCommunityId) {
           return NextResponse.json({ error: "Community ID is required" }, { status: 400 });
         }
         // Generate mock analytics data
@@ -465,7 +465,7 @@ export async function GET(request: NextRequest) {
       default:
         return NextResponse.json({ error: "Invalid endpoint" }, { status: 400 });
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error processing GET request:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
@@ -476,10 +476,10 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { endpoint } = body;
     
-    switch (endpoint: any) {
+    switch (endpoint) {
       case 'create-community':
         try {
-          const communityData = CommunitySchema.parse(body.community: any);
+          const communityData = CommunitySchema.parse(body.community);
           const newCommunity = {
             ...communityData,
             id: generateId('comm'),
@@ -490,7 +490,7 @@ export async function POST(request: NextRequest) {
             activity: "low" as const,
           };
           
-          communities.push(newCommunity: any);
+          communities.push(newCommunity);
           
           // Create default privacy settings
           const newPrivacySettings = {
@@ -506,7 +506,7 @@ export async function POST(request: NextRequest) {
             approvedSchools: [],
           };
           
-          privacySettings.push(newPrivacySettings: any);
+          privacySettings.push(newPrivacySettings);
           
           // Create membership for creator
           const newMembership = {
@@ -518,16 +518,16 @@ export async function POST(request: NextRequest) {
             status: "Active" as "Active" | "Inactive" | "Pending",
           };
           
-          memberships.push(newMembership: any);
+          memberships.push(newMembership);
           
           // Integrate with CPD tracking
-          await integrateCPDActivity(body.userId: any, 'community_facilitate', {
+          await integrateCPDActivity(body.userId, 'community_facilitate', {
             communityId: newCommunity.id,
             communityName: newCommunity.name,
           });
           
           // Integrate with portfolio
-          await integratePortfolio(body.userId: any, {
+          await integratePortfolio(body.userId, {
             type: 'community_creation',
             title: `Created Learning Community: ${newCommunity.name}`,
             date: new Date().toISOString(),
@@ -536,11 +536,11 @@ export async function POST(request: NextRequest) {
           });
           
           // Integrate with mentor matching
-          await integrateMentorMatching(body.userId: any, newCommunity.categories);
+          await integrateMentorMatching(body.userId, newCommunity.categories);
           
           return NextResponse.json({ success: true, community: newCommunity });
-        } catch (error: any) {
-          if (error instanceof z.ZodError: any) {
+        } catch (error) {
+          if (error instanceof z.ZodError) {
             return NextResponse.json({ error: error.errors }, { status: 400 });
           }
           throw error;
@@ -549,17 +549,17 @@ export async function POST(request: NextRequest) {
       case 'join-community':
         const { userId, communityId, role = 'Member' } = body;
         
-        if (!userId || !communityId: any) {
+        if (!userId || !communityId) {
           return NextResponse.json({ error: "User ID and Community ID are required" }, { status: 400 });
         }
         
-        const community = communities.find(c => c.id === communityId: any);
-        if (!community: any) {
+        const community = communities.find(c => c.id === communityId);
+        if (!community) {
           return NextResponse.json({ error: "Community not found" }, { status: 404 });
         }
         
-        const existingMembership = memberships.find(m => m.userId === userId && m.communityId === communityId: any);
-        if (existingMembership: any) {
+        const existingMembership = memberships.find(m => m.userId === userId && m.communityId === communityId);
+        if (existingMembership) {
           return NextResponse.json({ error: "User is already a member of this community" }, { status: 400 });
         }
         
@@ -572,13 +572,13 @@ export async function POST(request: NextRequest) {
           status: (community.privacy === 'restricted' ? 'Pending' : 'Active') as "Active" | "Inactive" | "Pending",
         };
         
-        memberships.push(newMembership: any);
+        memberships.push(newMembership);
         
         // Update community member count
-        community.members = (community.members ?? 0: any) + 1;
+        community.members = (community.members ?? 0) + 1;
         
         // Integrate with CPD tracking
-        await integrateCPDActivity(userId: any, 'community_join', {
+        await integrateCPDActivity(userId, 'community_join', {
           communityId,
           communityName: community.name,
         });
@@ -587,7 +587,7 @@ export async function POST(request: NextRequest) {
         
       case 'share-resource':
         try {
-          const resourceData = ResourceSchema.parse(body.resource: any);
+          const resourceData = ResourceSchema.parse(body.resource);
           const newResource = {
             ...resourceData,
             id: generateId('res'),
@@ -598,17 +598,17 @@ export async function POST(request: NextRequest) {
             reviews: 0,
           };
           
-          resources.push(newResource: any);
+          resources.push(newResource);
           
           // Integrate with CPD tracking
-          await integrateCPDActivity(resourceData.author.id: any, 'resource_share', {
+          await integrateCPDActivity(resourceData.author.id, 'resource_share', {
             resourceId: newResource.id,
             resourceTitle: newResource.title,
             communityId: newResource.communityId,
           });
           
           // Integrate with portfolio
-          await integratePortfolio(resourceData.author.id: any, {
+          await integratePortfolio(resourceData.author.id, {
             type: 'resource_contribution',
             title: `Shared Resource: ${newResource.title}`,
             date: new Date().toISOString(),
@@ -618,8 +618,8 @@ export async function POST(request: NextRequest) {
           });
           
           return NextResponse.json({ success: true, resource: newResource });
-        } catch (error: any) {
-          if (error instanceof z.ZodError: any) {
+        } catch (error) {
+          if (error instanceof z.ZodError) {
             return NextResponse.json({ error: error.errors }, { status: 400 });
           }
           throw error;
@@ -627,7 +627,7 @@ export async function POST(request: NextRequest) {
         
       case 'create-discussion':
         try {
-          const discussionData = DiscussionSchema.parse(body.discussion: any);
+          const discussionData = DiscussionSchema.parse(body.discussion);
           const newDiscussion = {
             ...discussionData,
             id: generateId('disc'),
@@ -639,18 +639,18 @@ export async function POST(request: NextRequest) {
             pinned: false,
           };
           
-          discussions.push(newDiscussion: any);
+          discussions.push(newDiscussion);
           
           // Integrate with CPD tracking
-          await integrateCPDActivity(discussionData.author.id: any, 'discussion_post', {
+          await integrateCPDActivity(discussionData.author.id, 'discussion_post', {
             discussionId: newDiscussion.id,
             discussionTitle: newDiscussion.title,
             communityId: newDiscussion.communityId,
           });
           
           return NextResponse.json({ success: true, discussion: newDiscussion });
-        } catch (error: any) {
-          if (error instanceof z.ZodError: any) {
+        } catch (error) {
+          if (error instanceof z.ZodError) {
             return NextResponse.json({ error: error.errors }, { status: 400 });
           }
           throw error;
@@ -658,7 +658,7 @@ export async function POST(request: NextRequest) {
         
       case 'create-event':
         try {
-          const eventData = EventSchema.parse(body.event: any);
+          const eventData = EventSchema.parse(body.event);
           const newEvent = {
             ...eventData,
             id: generateId('evt'),
@@ -668,17 +668,17 @@ export async function POST(request: NextRequest) {
             attendeeCount: 0,
           };
           
-          events.push(newEvent: any);
+          events.push(newEvent);
           
           // Integrate with CPD tracking
-          await integrateCPDActivity(eventData.host.id: any, 'event_host', {
+          await integrateCPDActivity(eventData.host.id, 'event_host', {
             eventId: newEvent.id,
             eventTitle: newEvent.title,
             communityId: newEvent.communityId,
           });
           
           // Integrate with portfolio
-          await integratePortfolio(eventData.host.id: any, {
+          await integratePortfolio(eventData.host.id, {
             type: 'event_hosting',
             title: `Hosted Event: ${newEvent.title}`,
             date: new Date().toISOString(),
@@ -688,8 +688,8 @@ export async function POST(request: NextRequest) {
           });
           
           return NextResponse.json({ success: true, event: newEvent });
-        } catch (error: any) {
-          if (error instanceof z.ZodError: any) {
+        } catch (error) {
+          if (error instanceof z.ZodError) {
             return NextResponse.json({ error: error.errors }, { status: 400 });
           }
           throw error;
@@ -697,7 +697,7 @@ export async function POST(request: NextRequest) {
         
       case 'create-collaboration':
         try {
-          const collaborationData = CollaborationSchema.parse(body.collaboration: any);
+          const collaborationData = CollaborationSchema.parse(body.collaboration);
           const newCollaboration = {
             ...collaborationData,
             id: generateId('collab'),
@@ -709,17 +709,17 @@ export async function POST(request: NextRequest) {
             discussions: [],
           };
           
-          collaborations.push(newCollaboration: any);
+          collaborations.push(newCollaboration);
           
           // Integrate with CPD tracking
-          await integrateCPDActivity(body.userId: any, 'collaboration_lead', {
+          await integrateCPDActivity(body.userId, 'collaboration_lead', {
             collaborationId: newCollaboration.id,
             collaborationTitle: newCollaboration.title,
             communityId: newCollaboration.communityId,
           });
           
           // Integrate with portfolio
-          await integratePortfolio(body.userId: any, {
+          await integratePortfolio(body.userId, {
             type: 'collaboration_leadership',
             title: `Led Collaboration: ${newCollaboration.title}`,
             date: new Date().toISOString(),
@@ -730,8 +730,8 @@ export async function POST(request: NextRequest) {
           });
           
           return NextResponse.json({ success: true, collaboration: newCollaboration });
-        } catch (error: any) {
-          if (error instanceof z.ZodError: any) {
+        } catch (error) {
+          if (error instanceof z.ZodError) {
             return NextResponse.json({ error: error.errors }, { status: 400 });
           }
           throw error;
@@ -739,24 +739,24 @@ export async function POST(request: NextRequest) {
         
       case 'update-privacy-settings':
         try {
-          const settingsData = PrivacySettingsSchema.parse(body.settings: any);
-          const existingSettingsIndex = privacySettings.findIndex(p => p.communityId === settingsData.communityId: any);
+          const settingsData = PrivacySettingsSchema.parse(body.settings);
+          const existingSettingsIndex = privacySettings.findIndex(p => p.communityId === settingsData.communityId);
           
-          if (existingSettingsIndex === -1: any) {
-            privacySettings.push(settingsData: any);
+          if (existingSettingsIndex === -1) {
+            privacySettings.push(settingsData);
           } else {
             privacySettings[existingSettingsIndex] = settingsData;
           }
           
           // Update community privacy
-          const communityIndex = communities.findIndex(c => c.id === settingsData.communityId: any);
-          if (communityIndex !== -1: any) {
+          const communityIndex = communities.findIndex(c => c.id === settingsData.communityId);
+          if (communityIndex !== -1) {
             communities[communityIndex].privacy = settingsData.visibility;
           }
           
           return NextResponse.json({ success: true, settings: settingsData });
-        } catch (error: any) {
-          if (error instanceof z.ZodError: any) {
+        } catch (error) {
+          if (error instanceof z.ZodError) {
             return NextResponse.json({ error: error.errors }, { status: 400 });
           }
           throw error;
@@ -765,7 +765,7 @@ export async function POST(request: NextRequest) {
       case 'anonymize-content':
         const { content, contentType } = body;
         
-        if (!content: any) {
+        if (!content) {
           return NextResponse.json({ error: "Content is required" }, { status: 400 });
         }
         
@@ -773,25 +773,25 @@ export async function POST(request: NextRequest) {
         // For this mock implementation, we'll just simulate the process
         
         // Simulate AI processing delay
-        await new Promise(resolve => setTimeout(resolve: any, 500));
+        await new Promise(resolve => setTimeout(resolve, 500));
         
-        // Simple pattern-based anonymization (would be much more sophisticated in production: any)
+        // Simple pattern-based anonymization (would be much more sophisticated in production)
         let anonymizedContent = content;
         
-        // Replace names (simple pattern for demonstration: any)
-        anonymizedContent = anonymizedContent.replace(/\b[A-Z][a-z]+ [A-Z][a-z]+\b/g: any, "[Student Name]");
+        // Replace names (simple pattern for demonstration)
+        anonymizedContent = anonymizedContent.replace(/\b[A-Z][a-z]+ [A-Z][a-z]+\b/g, "[Student Name]");
         
-        // Replace school names (simple pattern for demonstration: any)
-        anonymizedContent = anonymizedContent.replace(/\b[A-Z][a-z]+ (School|Academy|Primary|Secondary: any)\b/g, "[School Name]");
+        // Replace school names (simple pattern for demonstration)
+        anonymizedContent = anonymizedContent.replace(/\b[A-Z][a-z]+ (School|Academy|Primary|Secondary)\b/g, "[School Name]");
         
-        // Replace dates of birth (simple pattern for demonstration: any)
-        anonymizedContent = anonymizedContent.replace(/\b\d{1: any,2}\/\d{1,2}\/\d{2,4}\b/g, "[DOB]");
+        // Replace dates of birth (simple pattern for demonstration)
+        anonymizedContent = anonymizedContent.replace(/\b\d{1,2}\/\d{1,2}\/\d{2,4}\b/g, "[DOB]");
         
-        // Replace email addresses (simple pattern for demonstration: any)
-        anonymizedContent = anonymizedContent.replace(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2: any,}\b/g, "[Email]");
+        // Replace email addresses (simple pattern for demonstration)
+        anonymizedContent = anonymizedContent.replace(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g, "[Email]");
         
-        // Replace phone numbers (simple pattern for demonstration: any)
-        anonymizedContent = anonymizedContent.replace(/\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/g: any, "[Phone]");
+        // Replace phone numbers (simple pattern for demonstration)
+        anonymizedContent = anonymizedContent.replace(/\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/g, "[Phone]");
         
         return NextResponse.json({
           success: true,
@@ -808,7 +808,7 @@ export async function POST(request: NextRequest) {
       default:
         return NextResponse.json({ error: "Invalid endpoint" }, { status: 400 });
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error processing POST request:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
@@ -819,17 +819,17 @@ export async function PUT(request: NextRequest) {
     const body = await request.json();
     const { endpoint, id } = body;
     
-    if (!id: any) {
+    if (!id) {
       return NextResponse.json({ error: "ID is required" }, { status: 400 });
     }
     
-    switch (endpoint: any) {
+    switch (endpoint) {
       case 'update-community':
         try {
-          const communityData = CommunitySchema.parse(body.community: any);
-          const communityIndex = communities.findIndex(c => c.id === id: any);
+          const communityData = CommunitySchema.parse(body.community);
+          const communityIndex = communities.findIndex(c => c.id === id);
           
-          if (communityIndex === -1: any) {
+          if (communityIndex === -1) {
             return NextResponse.json({ error: "Community not found" }, { status: 404 });
           }
           
@@ -842,8 +842,8 @@ export async function PUT(request: NextRequest) {
           communities[communityIndex] = updatedCommunity;
           
           return NextResponse.json({ success: true, community: updatedCommunity });
-        } catch (error: any) {
-          if (error instanceof z.ZodError: any) {
+        } catch (error) {
+          if (error instanceof z.ZodError) {
             return NextResponse.json({ error: error.errors }, { status: 400 });
           }
           throw error;
@@ -851,10 +851,10 @@ export async function PUT(request: NextRequest) {
         
       case 'update-resource':
         try {
-          const resourceData = ResourceSchema.parse(body.resource: any);
-          const resourceIndex = resources.findIndex(r => r.id === id: any);
+          const resourceData = ResourceSchema.parse(body.resource);
+          const resourceIndex = resources.findIndex(r => r.id === id);
           
-          if (resourceIndex === -1: any) {
+          if (resourceIndex === -1) {
             return NextResponse.json({ error: "Resource not found" }, { status: 404 });
           }
           
@@ -867,8 +867,8 @@ export async function PUT(request: NextRequest) {
           resources[resourceIndex] = updatedResource;
           
           return NextResponse.json({ success: true, resource: updatedResource });
-        } catch (error: any) {
-          if (error instanceof z.ZodError: any) {
+        } catch (error) {
+          if (error instanceof z.ZodError) {
             return NextResponse.json({ error: error.errors }, { status: 400 });
           }
           throw error;
@@ -876,10 +876,10 @@ export async function PUT(request: NextRequest) {
         
       case 'update-discussion':
         try {
-          const discussionData = DiscussionSchema.parse(body.discussion: any);
-          const discussionIndex = discussions.findIndex(d => d.id === id: any);
+          const discussionData = DiscussionSchema.parse(body.discussion);
+          const discussionIndex = discussions.findIndex(d => d.id === id);
           
-          if (discussionIndex === -1: any) {
+          if (discussionIndex === -1) {
             return NextResponse.json({ error: "Discussion not found" }, { status: 404 });
           }
           
@@ -892,8 +892,8 @@ export async function PUT(request: NextRequest) {
           discussions[discussionIndex] = updatedDiscussion;
           
           return NextResponse.json({ success: true, discussion: updatedDiscussion });
-        } catch (error: any) {
-          if (error instanceof z.ZodError: any) {
+        } catch (error) {
+          if (error instanceof z.ZodError) {
             return NextResponse.json({ error: error.errors }, { status: 400 });
           }
           throw error;
@@ -901,10 +901,10 @@ export async function PUT(request: NextRequest) {
         
       case 'update-event':
         try {
-          const eventData = EventSchema.parse(body.event: any);
-          const eventIndex = events.findIndex(e => e.id === id: any);
+          const eventData = EventSchema.parse(body.event);
+          const eventIndex = events.findIndex(e => e.id === id);
           
-          if (eventIndex === -1: any) {
+          if (eventIndex === -1) {
             return NextResponse.json({ error: "Event not found" }, { status: 404 });
           }
           
@@ -917,8 +917,8 @@ export async function PUT(request: NextRequest) {
           events[eventIndex] = updatedEvent;
           
           return NextResponse.json({ success: true, event: updatedEvent });
-        } catch (error: any) {
-          if (error instanceof z.ZodError: any) {
+        } catch (error) {
+          if (error instanceof z.ZodError) {
             return NextResponse.json({ error: error.errors }, { status: 400 });
           }
           throw error;
@@ -926,10 +926,10 @@ export async function PUT(request: NextRequest) {
         
       case 'update-collaboration':
         try {
-          const collaborationData = CollaborationSchema.parse(body.collaboration: any);
-          const collaborationIndex = collaborations.findIndex(c => c.id === id: any);
+          const collaborationData = CollaborationSchema.parse(body.collaboration);
+          const collaborationIndex = collaborations.findIndex(c => c.id === id);
           
-          if (collaborationIndex === -1: any) {
+          if (collaborationIndex === -1) {
             return NextResponse.json({ error: "Collaboration not found" }, { status: 404 });
           }
           
@@ -942,8 +942,8 @@ export async function PUT(request: NextRequest) {
           collaborations[collaborationIndex] = updatedCollaboration;
           
           return NextResponse.json({ success: true, collaboration: updatedCollaboration });
-        } catch (error: any) {
-          if (error instanceof z.ZodError: any) {
+        } catch (error) {
+          if (error instanceof z.ZodError) {
             return NextResponse.json({ error: error.errors }, { status: 400 });
           }
           throw error;
@@ -952,13 +952,13 @@ export async function PUT(request: NextRequest) {
       case 'update-membership':
         const { userId, communityId, role, status } = body;
         
-        if (!userId || !communityId: any) {
+        if (!userId || !communityId) {
           return NextResponse.json({ error: "User ID and Community ID are required" }, { status: 400 });
         }
         
-        const membershipIndex = memberships.findIndex(m => m.userId === userId && m.communityId === communityId: any);
+        const membershipIndex = memberships.findIndex(m => m.userId === userId && m.communityId === communityId);
         
-        if (membershipIndex === -1: any) {
+        if (membershipIndex === -1) {
           return NextResponse.json({ error: "Membership not found" }, { status: 404 });
         }
         
@@ -976,88 +976,88 @@ export async function PUT(request: NextRequest) {
       default:
         return NextResponse.json({ error: "Invalid endpoint" }, { status: 400 });
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error processing PUT request:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
 export async function DELETE(request: NextRequest) {
-  const { searchParams } = new URL(request.url: any);
+  const { searchParams } = new URL(request.url);
   const endpoint = searchParams.get('endpoint');
   const id = searchParams.get('id');
   
-  if (!endpoint || !id: any) {
+  if (!endpoint || !id) {
     return NextResponse.json({ error: "Endpoint and ID are required" }, { status: 400 });
   }
   
   try {
-    switch (endpoint: any) {
+    switch (endpoint) {
       case 'community':
-        const communityIndex = communities.findIndex(c => c.id === id: any);
+        const communityIndex = communities.findIndex(c => c.id === id);
         
-        if (communityIndex === -1: any) {
+        if (communityIndex === -1) {
           return NextResponse.json({ error: "Community not found" }, { status: 404 });
         }
         
         const deletedCommunity = communities[communityIndex];
-        communities.splice(communityIndex: any, 1);
+        communities.splice(communityIndex, 1);
         
         // Clean up related data
-        resources = resources.filter(r => r.communityId !== id: any);
-        discussions = discussions.filter(d => d.communityId !== id: any);
-        events = events.filter(e => e.communityId !== id: any);
-        collaborations = collaborations.filter(c => c.communityId !== id: any);
-        memberships = memberships.filter(m => m.communityId !== id: any);
-        privacySettings = privacySettings.filter(p => p.communityId !== id: any);
+        resources = resources.filter(r => r.communityId !== id);
+        discussions = discussions.filter(d => d.communityId !== id);
+        events = events.filter(e => e.communityId !== id);
+        collaborations = collaborations.filter(c => c.communityId !== id);
+        memberships = memberships.filter(m => m.communityId !== id);
+        privacySettings = privacySettings.filter(p => p.communityId !== id);
         
         return NextResponse.json({ success: true, deleted: deletedCommunity });
         
       case 'resource':
-        const resourceIndex = resources.findIndex(r => r.id === id: any);
+        const resourceIndex = resources.findIndex(r => r.id === id);
         
-        if (resourceIndex === -1: any) {
+        if (resourceIndex === -1) {
           return NextResponse.json({ error: "Resource not found" }, { status: 404 });
         }
         
         const deletedResource = resources[resourceIndex];
-        resources.splice(resourceIndex: any, 1);
+        resources.splice(resourceIndex, 1);
         
         return NextResponse.json({ success: true, deleted: deletedResource });
         
       case 'discussion':
-        const discussionIndex = discussions.findIndex(d => d.id === id: any);
+        const discussionIndex = discussions.findIndex(d => d.id === id);
         
-        if (discussionIndex === -1: any) {
+        if (discussionIndex === -1) {
           return NextResponse.json({ error: "Discussion not found" }, { status: 404 });
         }
         
         const deletedDiscussion = discussions[discussionIndex];
-        discussions.splice(discussionIndex: any, 1);
+        discussions.splice(discussionIndex, 1);
         
         return NextResponse.json({ success: true, deleted: deletedDiscussion });
         
       case 'event':
-        const eventIndex = events.findIndex(e => e.id === id: any);
+        const eventIndex = events.findIndex(e => e.id === id);
         
-        if (eventIndex === -1: any) {
+        if (eventIndex === -1) {
           return NextResponse.json({ error: "Event not found" }, { status: 404 });
         }
         
         const deletedEvent = events[eventIndex];
-        events.splice(eventIndex: any, 1);
+        events.splice(eventIndex, 1);
         
         return NextResponse.json({ success: true, deleted: deletedEvent });
         
       case 'collaboration':
-        const collaborationIndex = collaborations.findIndex(c => c.id === id: any);
+        const collaborationIndex = collaborations.findIndex(c => c.id === id);
         
-        if (collaborationIndex === -1: any) {
+        if (collaborationIndex === -1) {
           return NextResponse.json({ error: "Collaboration not found" }, { status: 404 });
         }
         
         const deletedCollaboration = collaborations[collaborationIndex];
-        collaborations.splice(collaborationIndex: any, 1);
+        collaborations.splice(collaborationIndex, 1);
         
         return NextResponse.json({ success: true, deleted: deletedCollaboration });
         
@@ -1065,23 +1065,23 @@ export async function DELETE(request: NextRequest) {
         const userId = searchParams.get('userId');
         const communityId = searchParams.get('communityId');
         
-        if (!userId || !communityId: any) {
+        if (!userId || !communityId) {
           return NextResponse.json({ error: "User ID and Community ID are required" }, { status: 400 });
         }
         
-        const membershipIndex = memberships.findIndex(m => m.userId === userId && m.communityId === communityId: any);
+        const membershipIndex = memberships.findIndex(m => m.userId === userId && m.communityId === communityId);
         
-        if (membershipIndex === -1: any) {
+        if (membershipIndex === -1) {
           return NextResponse.json({ error: "Membership not found" }, { status: 404 });
         }
         
         const deletedMembership = memberships[membershipIndex];
-        memberships.splice(membershipIndex: any, 1);
+        memberships.splice(membershipIndex, 1);
         
         // Update community member count
-        const memberCommunityIndex = communities.findIndex(c => c.id === communityId: any);
-        if (memberCommunityIndex !== -1 && communities[memberCommunityIndex]?.members !== undefined: any) {
-          communities[memberCommunityIndex].members = (communities[memberCommunityIndex].members ?? 0: any) - 1;
+        const memberCommunityIndex = communities.findIndex(c => c.id === communityId);
+        if (memberCommunityIndex !== -1 && communities[memberCommunityIndex]?.members !== undefined) {
+          communities[memberCommunityIndex].members = (communities[memberCommunityIndex].members ?? 0) - 1;
         }
         
         return NextResponse.json({ success: true, deleted: deletedMembership });
@@ -1089,7 +1089,7 @@ export async function DELETE(request: NextRequest) {
       default:
         return NextResponse.json({ error: "Invalid endpoint" }, { status: 400 });
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error processing DELETE request:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }

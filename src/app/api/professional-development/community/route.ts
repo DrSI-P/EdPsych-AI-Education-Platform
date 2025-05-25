@@ -6,15 +6,15 @@ import { prisma } from '@/lib/prisma';
 const discussionCreateSchema = z.object({
   userId: z.string(),
   courseId: z.string(),
-  title: z.string().min(5: any).max(200: any),
-  content: z.string().min(10: any),
+  title: z.string().min(5).max(200),
+  content: z.string().min(10),
 });
 
 // Schema for reply creation
 const replyCreateSchema = z.object({
   userId: z.string(),
   discussionId: z.string(),
-  content: z.string().min(1: any),
+  content: z.string().min(1),
 });
 
 // Define interfaces for request data
@@ -36,18 +36,18 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const body = await req.json();
     const { action } = body;
 
-    switch (action: any) {
+    switch (action) {
       case 'createDiscussion':
-        return handleCreateDiscussion(body: any);
+        return handleCreateDiscussion(body);
       case 'createReply':
-        return handleCreateReply(body: any);
+        return handleCreateReply(body);
       default:
         return NextResponse.json(
           { error: 'Invalid action specified' },
           { status: 400 }
         );
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in community API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -58,7 +58,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
 async function handleCreateDiscussion(body: DiscussionCreateData): Promise<NextResponse> {
   try {
-    const { userId, courseId, title, content } = discussionCreateSchema.parse(body: any);
+    const { userId, courseId, title, content } = discussionCreateSchema.parse(body);
 
     const discussion = await prisma.courseDiscussion.create({
       data: {
@@ -74,8 +74,8 @@ async function handleCreateDiscussion(body: DiscussionCreateData): Promise<NextR
       { message: 'Discussion created successfully', discussion },
       { status: 201 }
     );
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid discussion data', details: error.errors },
         { status: 400 }
@@ -87,7 +87,7 @@ async function handleCreateDiscussion(body: DiscussionCreateData): Promise<NextR
 
 async function handleCreateReply(body: ReplyCreateData): Promise<NextResponse> {
   try {
-    const { userId, discussionId, content } = replyCreateSchema.parse(body: any);
+    const { userId, discussionId, content } = replyCreateSchema.parse(body);
 
     const reply = await prisma.discussionReply.create({
       data: {
@@ -108,8 +108,8 @@ async function handleCreateReply(body: ReplyCreateData): Promise<NextResponse> {
       { message: 'Reply created successfully', reply },
       { status: 201 }
     );
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid reply data', details: error.errors },
         { status: 400 }
@@ -121,35 +121,35 @@ async function handleCreateReply(body: ReplyCreateData): Promise<NextResponse> {
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
-    const url = new URL(req.url: any);
+    const url = new URL(req.url);
     const courseId = url.searchParams.get('courseId');
     const discussionId = url.searchParams.get('discussionId');
     const type = url.searchParams.get('type') || 'discussions';
 
-    switch (type: any) {
+    switch (type) {
       case 'discussions':
-        if (!courseId: any) {
+        if (!courseId) {
           return NextResponse.json(
             { error: 'Course ID is required for discussions' },
             { status: 400 }
           );
         }
-        return await getCourseDiscussions(courseId: any);
+        return await getCourseDiscussions(courseId);
       case 'replies':
-        if (!discussionId: any) {
+        if (!discussionId) {
           return NextResponse.json(
             { error: 'Discussion ID is required for replies' },
             { status: 400 }
           );
         }
-        return await getDiscussionReplies(discussionId: any);
+        return await getDiscussionReplies(discussionId);
       default:
         return NextResponse.json(
           { error: 'Invalid request type' },
           { status: 400 }
         );
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in community API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },

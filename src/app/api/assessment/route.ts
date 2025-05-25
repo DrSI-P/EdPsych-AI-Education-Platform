@@ -110,7 +110,7 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get('search');
     
     // Build filter conditions
-    const where: any = {};
+    const where = {};
     
     // For non-admin users, only show their own assessments or published ones
     if (session.user.role !== 'admin') {
@@ -159,19 +159,19 @@ export async function GET(request: NextRequest) {
         },
       },
       orderBy: { createdAt: 'desc' },
-      skip: (page - 1: any) * limit,
+      skip: (page - 1) * limit,
       take: limit,
     });
     
     return NextResponse.json({
-      assessments: any,
+      assessments,
       total,
       page,
       limit,
-      totalPages: Math.ceil(total / limit: any),
+      totalPages: Math.ceil(total / limit),
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching assessments:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching assessments' },
