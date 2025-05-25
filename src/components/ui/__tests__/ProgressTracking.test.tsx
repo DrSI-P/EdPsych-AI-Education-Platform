@@ -4,11 +4,16 @@ import ProgressTracking from '@/components/ui/ProgressTracking';
 
 // Add Jest globals
 declare global {
-  const jest: any;
-  const describe: any;
-  const beforeEach: any;
-  const it: any;
-  const expect: any;
+  namespace NodeJS {
+    interface Global {
+      jest: typeof jest;
+      describe: typeof describe;
+      beforeEach: typeof beforeEach;
+      it: typeof it;
+      expect: typeof expect;
+      test: typeof test;
+    }
+  }
 }
 
 // Mock framer-motion
