@@ -157,7 +157,7 @@ export default function PortfolioExport() {
 
   // Copy link to clipboard
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(generatedLink: any);
+    navigator.clipboard.writeText(generatedLink);
     // Show copy success message
   };
 
