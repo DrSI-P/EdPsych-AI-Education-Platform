@@ -27,331 +27,228 @@ export function ErrorBoundaryIntegration() {
         Guidelines and examples for integrating error boundaries throughout the platform
       </p>
       
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-8">
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="usage">Usage Guidelines</TabsTrigger>
-          <TabsTrigger value="examples">Integration Examples</TabsTrigger>
-          <TabsTrigger value="best-practices">Best Practices</TabsTrigger>
+          <TabsTrigger value="examples">Examples</TabsTrigger>
+          <TabsTrigger value="testing">Testing</TabsTrigger>
         </TabsList>
         
-        <TabsContent value="usage" className="mt-6">
+        <TabsContent value="usage" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>How to Use Error Boundaries</CardTitle>
+              <CardTitle>When to Use Error Boundaries</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div>
-                <h3 className="text-lg font-medium mb-2">Basic Usage</h3>
-                <div className="bg-grey-50 p-4 rounded-md border">
-                  <pre className="text-sm overflow-auto">
-{`// Standard Error Boundary
-import ErrorBoundary from '@/components/error-boundary/error-boundary';
-
-<ErrorBoundary>
-  <YourComponent />
-</ErrorBoundary>
-
-// Age-Adaptive Error Boundary
-import AgeAdaptiveErrorBoundary from '@/components/error-boundary/age-adaptive-error-boundary';
-
-<AgeAdaptiveErrorBoundary ageGroup="late-primary">
-  <YourComponent />
-</AgeAdaptiveErrorBoundary>
-
-// Root Error Boundary (for app-wide error handling)
-import RootErrorBoundary from '@/components/error-boundary/root-error-boundary';
-
-<RootErrorBoundary>
-  <YourApp />
-</RootErrorBoundary>`}
-                  </pre>
-                </div>
-              </div>
+            <CardContent className="space-y-4">
+              <p>Error boundaries should be used in the following scenarios:</p>
               
-              <div>
-                <h3 className="text-lg font-medium mb-2">When to Use Error Boundaries</h3>
-                <ul className="list-disc pl-5 space-y-2">
-                  <li>
-                    <span className="font-medium">Page-level boundaries:</span> Wrap each page component to prevent full-page crashes
-                  </li>
-                  <li>
-                    <span className="font-medium">Feature-level boundaries:</span> Isolate complex features so errors don't affect the rest of the page
-                  </li>
-                  <li>
-                    <span className="font-medium">Data-dependent components:</span> Wrap components that rely on external data
-                  </li>
-                  <li>
-                    <span className="font-medium">Third-party integrations:</span> Isolate third-party components that might be unstable
-                  </li>
-                  <li>
-                    <span className="font-medium">User input processing:</span> Protect form submission and input handling
-                  </li>
-                </ul>
-              </div>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Around complex interactive components</li>
+                <li>When integrating third-party libraries</li>
+                <li>Around data visualization components</li>
+                <li>For components that rely on external APIs</li>
+                <li>Around user-generated content rendering</li>
+              </ul>
               
-              <Alert variant="info" className="bg-blue-50 border-blue-100">
-                <Info className="h-4 w-4 text-blue-600" />
+              <Alert>
+                <Info className="h-4 w-4" />
                 <AlertTitle>Important Note</AlertTitle>
                 <AlertDescription>
-                  Error boundaries only catch errors in the React component tree. They do not catch errors in:
-                  <ul className="list-disc pl-5 mt-2 text-sm">
-                    <li>Event handlers (use try/catch directly)</li>
-                    <li>Asynchronous code (use try/catch and setState)</li>
-                    <li>Server-side rendering (use error.tsx files)</li>
-                    <li>Errors thrown outside of React components</li>
-                  </ul>
+                  Error boundaries only catch errors in the components below them in the tree.
+                  They do not catch errors in event handlers or asynchronous code.
                 </AlertDescription>
               </Alert>
             </CardContent>
           </Card>
-        </TabsContent>
-        
-        <TabsContent value="examples" className="mt-6">
+          
           <Card>
             <CardHeader>
-              <CardTitle>Integration Examples</CardTitle>
+              <CardTitle>Implementation Guidelines</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div>
-                <h3 className="text-lg font-medium mb-2">Page-Level Integration</h3>
-                <div className="bg-grey-50 p-4 rounded-md border">
-                  <pre className="text-sm overflow-auto">
-{`// app/some-feature/page.tsx
-'use client';
-
-import ErrorBoundary from '@/components/error-boundary/error-boundary';
-import { SomeFeatureContent } from '@/components/some-feature/content';
-
-export default function SomeFeaturePage() {
-  return (
-    <ErrorBoundary>
-      <div className="container mx-auto py-8">
-        <SomeFeatureContent />
-      </div>
-    </ErrorBoundary>
-  );
-}`}
-                  </pre>
-                </div>
-              </div>
+            <CardContent className="space-y-4">
+              <p>Follow these guidelines when implementing error boundaries:</p>
               
-              <div>
-                <h3 className="text-lg font-medium mb-2">Age-Adaptive Integration</h3>
-                <div className="bg-grey-50 p-4 rounded-md border">
-                  <pre className="text-sm overflow-auto">
-{`// components/learning-activity/activity-content.tsx
-'use client';
-
-import { useUser } from '@/lib/auth';
-import AgeAdaptiveErrorBoundary from '@/components/error-boundary/age-adaptive-error-boundary';
-import { ActivityContent } from './activity-content';
-
-export default function LearningActivity({ activityId }) {
-  const { user } = useUser();
-  const ageGroup = user?.ageGroup || 'late-primary';
-  
-  return (
-    <AgeAdaptiveErrorBoundary ageGroup={ageGroup}>
-      <ActivityContent activityId={activityId} />
-    </AgeAdaptiveErrorBoundary>
-  );
-}`}
-                  </pre>
-                </div>
-              </div>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Use the standard ErrorBoundary component for most cases</li>
+                <li>Use AgeAdaptiveErrorBoundary for student-facing content</li>
+                <li>Provide meaningful fallback UI that explains the error</li>
+                <li>Include retry mechanisms where appropriate</li>
+                <li>Log errors to monitoring services</li>
+              </ul>
               
-              <div>
-                <h3 className="text-lg font-medium mb-2">Data Fetching Integration</h3>
-                <div className="bg-grey-50 p-4 rounded-md border">
-                  <pre className="text-sm overflow-auto">
-{`// components/dashboard/data-visualisation.tsx
-'use client';
-
-import { useState, useEffect } from 'react';
-import ErrorBoundary from '@/components/error-boundary/error-boundary';
-import { fetchDashboardData } from '@/lib/api';
-
-function DataVisualization() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  
-  useEffect(() => {
-    async function loadData() {
-      try {
-        const result = await fetchDashboardData();
-        setData(result);
-      } catch (error) {
-        // This error will be caught by the error boundary
-        throw new Error(`Failed to load dashboard data: ${error.message}`);
-      } finally {
-        setLoading(false);
-      }
-    }
-    
-    loadData();
-  }, []);
-  
-  if (loading) return <div>Loading...</div>;
-  
-  return <DashboardChart data={data} />;
-}
-
-export default function DashboardWrapper() {
-  return (
-    <ErrorBoundary>
-      <DataVisualization />
-    </ErrorBoundary>
-  );
-}`}
-                  </pre>
-                </div>
-              </div>
-              
-              <Alert variant="success" className="bg-green-50 border-green-100">
-                <CheckCircle className="h-4 w-4 text-green-600" />
-                <AlertTitle>Testing Tip</AlertTitle>
+              <Alert variant="success">
+                <CheckCircle className="h-4 w-4" />
+                <AlertTitle>Best Practice</AlertTitle>
                 <AlertDescription>
-                  Use the <Button variant="link" className="p-0 h-auto text-green-600" onClick={() => router.push('/error-boundary-test')}>Error Boundary Test Page</Button> to see how error boundaries behave with different age groups and error scenarios.
+                  Place error boundaries strategically to isolate failures to specific components
+                  rather than crashing the entire application.
                 </AlertDescription>
               </Alert>
             </CardContent>
           </Card>
         </TabsContent>
         
-        <TabsContent value="best-practices" className="mt-6">
+        <TabsContent value="examples" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Best Practices</CardTitle>
+              <CardTitle>Standard Error Boundary Example</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div>
-                <h3 className="text-lg font-medium mb-2">Granular Error Boundaries</h3>
-                <p className="mb-2">
-                  Use multiple error boundaries at different levels of your component tree rather than just one at the top level. This prevents a single error from taking down the entire UI.
-                </p>
-                <div className="bg-grey-50 p-4 rounded-md border">
-                  <pre className="text-sm overflow-auto">
-{`// Good: Granular error boundaries
-<ErrorBoundary>
-  <Header />
-</ErrorBoundary>
-
-<ErrorBoundary>
-  <Sidebar />
-</ErrorBoundary>
-
-<ErrorBoundary>
-  <MainContent />
-</ErrorBoundary>
-
-<ErrorBoundary>
-  <Footer />
-</ErrorBoundary>
-
-// Avoid: Single error boundary for everything
-<ErrorBoundary>
-  <Header />
-  <Sidebar />
-  <MainContent />
-  <Footer />
-</ErrorBoundary>`}
-                  </pre>
-                </div>
+            <CardContent>
+              <div className="p-4 border rounded-md">
+                <ErrorBoundary
+                  fallback={
+                    <div className="p-4 bg-red-50 border border-red-200 rounded-md">
+                      <h3 className="text-lg font-medium text-red-800">Something went wrong</h3>
+                      <p className="text-red-600">The component failed to render. Please try again later.</p>
+                      <Button variant="outline" className="mt-2" onClick={() => window.location.reload()}>
+                        Reload Page
+                      </Button>
+                    </div>
+                  }
+                >
+                  <div className="p-4 bg-green-50 border border-green-200 rounded-md">
+                    <h3 className="text-lg font-medium text-green-800">Component Rendered Successfully</h3>
+                    <p className="text-green-600">This is a working component wrapped in an error boundary.</p>
+                    <Button variant="outline" className="mt-2" onClick={() => { throw new Error("Test error!"); }}>
+                      Trigger Error
+                    </Button>
+                  </div>
+                </ErrorBoundary>
               </div>
               
-              <div>
-                <h3 className="text-lg font-medium mb-2">Age-Appropriate Error Messages</h3>
-                <p className="mb-2">
-                  Always use the AgeAdaptiveErrorBoundary when the component will be used by students. Match the error message complexity to the cognitive development of the user.
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                  <div className="bg-green-50 p-3 rounded-md border border-green-100">
-                    <h4 className="text-sm font-medium text-green-800 mb-1">✅ Good Example</h4>
-                    <p className="text-xs text-green-700">
-                      Using age-appropriate language and visuals for younger students: "Oops! Something went wrong. Let's try again!"
-                    </p>
-                  </div>
-                  
-                  <div className="bg-red-50 p-3 rounded-md border border-red-100">
-                    <h4 className="text-sm font-medium text-red-800 mb-1">❌ Bad Example</h4>
-                    <p className="text-xs text-red-700">
-                      Using technical jargon for young children: "Error: Component failed to render due to invalid props. Check console for stack trace."
-                    </p>
-                  </div>
-                </div>
-              </div>
-              
-              <div>
-                <h3 className="text-lg font-medium mb-2">Error Reporting</h3>
-                <p className="mb-2">
-                  Always use the onError prop to log errors for monitoring and debugging. In production, these should be sent to an error monitoring service.
-                </p>
-                <div className="bg-grey-50 p-4 rounded-md border">
-                  <pre className="text-sm overflow-auto">
-{`<ErrorBoundary
-  onError={(error, errorInfo) => {
-    // Log to console in development
-    console.error(error);
-    
-    // In production, send to monitoring service
-    if (process.env.NODE_ENV === 'production') {
-      // Example with Sentry
-      // Sentry.captureException(error, {
-      //   extra: { componentStack: errorInfo.componentStack }
-      // });
-    }
-  }}
+              <div className="mt-4 p-4 bg-gray-50 rounded-md">
+                <h3 className="text-lg font-medium mb-2">Implementation Code</h3>
+                <pre className="text-sm bg-gray-100 p-4 rounded overflow-x-auto">
+                  {`<ErrorBoundary
+  fallback={
+    <div className="p-4 bg-red-50 border border-red-200 rounded-md">
+      <h3 className="text-lg font-medium text-red-800">Something went wrong</h3>
+      <p className="text-red-600">The component failed to render.</p>
+      <Button variant="outline" className="mt-2" onClick={() => window.location.reload()}>
+        Reload Page
+      </Button>
+    </div>
+  }
 >
-  <YourComponent />
+  {/* Your component code here */}
 </ErrorBoundary>`}
-                  </pre>
-                </div>
+                </pre>
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardHeader>
+              <CardTitle>Age-Adaptive Error Boundary Example</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="p-4 border rounded-md">
+                <AgeAdaptiveErrorBoundary
+                  ageGroup="primary"
+                  fallback={
+                    <div className="p-4 bg-blue-50 border border-blue-200 rounded-md">
+                      <h3 className="text-lg font-medium text-blue-800">Oops! Something's not working</h3>
+                      <p className="text-blue-600">Don't worry! This isn't your fault. Let's try again.</p>
+                      <Button variant="outline" className="mt-2" onClick={() => window.location.reload()}>
+                        Try Again
+                      </Button>
+                    </div>
+                  }
+                >
+                  <div className="p-4 bg-green-50 border border-green-200 rounded-md">
+                    <h3 className="text-lg font-medium text-green-800">Age-Adaptive Component</h3>
+                    <p className="text-green-600">This component uses age-appropriate error messages.</p>
+                    <Button variant="outline" className="mt-2" onClick={() => { throw new Error("Test error!"); }}>
+                      Trigger Error
+                    </Button>
+                  </div>
+                </AgeAdaptiveErrorBoundary>
               </div>
               
-              <div>
-                <h3 className="text-lg font-medium mb-2">Recovery Options</h3>
-                <p className="mb-2">
-                  Always provide clear recovery options in your error UI. Users should be able to either retry the operation or navigate away from the error.
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                  <div className="bg-green-50 p-3 rounded-md border border-green-100">
-                    <h4 className="text-sm font-medium text-green-800 mb-1">✅ Good Example</h4>
-                    <p className="text-xs text-green-700">
-                      Providing both "Try Again" and "Go Home" buttons with clear labels and icons
-                    </p>
-                  </div>
-                  
-                  <div className="bg-red-50 p-3 rounded-md border border-red-100">
-                    <h4 className="text-sm font-medium text-red-800 mb-1">❌ Bad Example</h4>
-                    <p className="text-xs text-red-700">
-                      Showing only an error message with no way to recover or navigate away
-                    </p>
-                  </div>
-                </div>
+              <div className="mt-4 p-4 bg-gray-50 rounded-md">
+                <h3 className="text-lg font-medium mb-2">Implementation Code</h3>
+                <pre className="text-sm bg-gray-100 p-4 rounded overflow-x-auto">
+                  {`<AgeAdaptiveErrorBoundary
+  ageGroup="primary" // Options: "early-years", "primary", "secondary", "adult"
+  fallback={
+    <div className="p-4 bg-blue-50 border border-blue-200 rounded-md">
+      <h3 className="text-lg font-medium text-blue-800">Oops! Something's not working</h3>
+      <p className="text-blue-600">Don't worry! This isn't your fault. Let's try again.</p>
+      <Button variant="outline" className="mt-2" onClick={() => window.location.reload()}>
+        Try Again
+      </Button>
+    </div>
+  }
+>
+  {/* Your component code here */}
+</AgeAdaptiveErrorBoundary>`}
+                </pre>
               </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        
+        <TabsContent value="testing" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Testing Error Boundaries</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p>
+                Error boundaries should be thoroughly tested to ensure they catch errors
+                properly and display appropriate fallback UI.
+              </p>
               
-              <Alert variant="warning" className="bg-amber-50 border-amber-100">
-                <AlertTriangle className="h-4 w-4 text-amber-600" />
-                <AlertTitle>Important Reminder</AlertTitle>
+              <Alert variant="warning">
+                <AlertTriangle className="h-4 w-4" />
+                <AlertTitle>Testing Challenge</AlertTitle>
                 <AlertDescription>
-                  Error boundaries are a last resort for unexpected errors. They do not replace proper error handling and validation in your application logic. Always validate inputs, handle expected errors gracefully, and use try/catch for async operations.
+                  React error boundaries can be challenging to test because they rely on
+                  errors being thrown during rendering.
                 </AlertDescription>
               </Alert>
+              
+              <div className="p-4 bg-gray-50 rounded-md">
+                <h3 className="text-lg font-medium mb-2">Jest Test Example</h3>
+                <pre className="text-sm bg-gray-100 p-4 rounded overflow-x-auto">
+                  {`import { render } from '@testing-library/react';
+import ErrorBoundary from './error-boundary';
+
+// Component that throws an error when rendered
+const ThrowError = () => {
+  throw new Error('Test error');
+  return null;
+};
+
+describe('ErrorBoundary', () => {
+  // Suppress console errors during tests
+  const originalConsoleError = console.error;
+  beforeAll(() => {
+    console.error = jest.fn();
+  });
+  
+  afterAll(() => {
+    console.error = originalConsoleError;
+  });
+  
+  it('renders fallback UI when child throws', () => {
+    const { getByText } = render(
+      <ErrorBoundary fallback={<div>Error occurred!</div>}>
+        <ThrowError />
+      </ErrorBoundary>
+    );
+    
+    expect(getByText('Error occurred!')).toBeInTheDocument();
+  });
+});\`}
+                </pre>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
-      
-      <div className="mt-8 flex justify-centre">
-        <Button 
-          onClick={() => router.push('/error-boundary-test')}
-          className="px-6"
-        >
-          Go to Error Boundary Test Page
-        </Button>
-      </div>
     </div>
   );
-};
+}
 
-export { ErrorBoundaryIntegration };
+export default ErrorBoundaryIntegration;
