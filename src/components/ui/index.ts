@@ -16,6 +16,7 @@ import { Alert as AlertComponent, AlertDescription, AlertTitle } from './alert';
 import { Button } from './button';
 import { Badge } from './badge';
 import { Label } from './label';
+import { Textarea } from './textarea';
 import {
   Select,
   SelectGroup,
@@ -38,6 +39,7 @@ export { Badge };
 export { Label };
 export { Input };
 export { Progress };
+export { Textarea };
 
 // Export Table components
 export {
