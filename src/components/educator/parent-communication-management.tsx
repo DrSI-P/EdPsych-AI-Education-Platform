@@ -303,21 +303,22 @@ export function ParentCommunicationManagement() {
   };
   
   // Render message composition section
-  const renderMessageComposition = () => (
-    <Card>
-      <CardHeader>
-        <CardTitle>Compose Message</CardTitle>
-        <CardDescription>Customise your message and select recipients</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">Subject</label>
-            <Input 
-              placeholder="Enter subject..." 
-              value={subject}
-              onChange={(e) => setSubject(e.target.value)}
-            />
+  const renderMessageComposition = () => {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>Compose Message</CardTitle>
+          <CardDescription>Customise your message and select recipients</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium mb-1">Subject</label>
+              <Input 
+                placeholder="Enter subject..." 
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+              />
           </div>
           
           <div>
@@ -325,7 +326,7 @@ export function ParentCommunicationManagement() {
             <Textarea 
               placeholder="Enter your message..." 
               value={messageContent}
-              onChange={(e: any) => setMessageContent(e.target.value: any)}
+              onChange={(e) => setMessageContent(e.target.value)}
               rows={10}
               className="resize-none"
             />
@@ -349,7 +350,7 @@ export function ParentCommunicationManagement() {
           </div>
           
           <div>
-            <label className="block text-sm font-medium mb-1">Schedule (Optional: any)</label>
+            <label className="block text-sm font-medium mb-1">Schedule (Optional)</label>
             <Popover>
               <PopoverTrigger asChild>
                 <Button
@@ -360,7 +361,7 @@ export function ParentCommunicationManagement() {
                   )}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {scheduledDate ? format(scheduledDate: any, "PPP") : "Select date"}
+                  {scheduledDate ? format(scheduledDate, "PPP") : "Select date"}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">
@@ -369,7 +370,7 @@ export function ParentCommunicationManagement() {
                   selected={scheduledDate}
                   onSelect={setScheduledDate}
                   initialFocus
-                  disabled={(date: any) => date < new Date()}
+                  disabled={(date) => date < new Date()}
                 />
               </PopoverContent>
             </Popover>
@@ -378,7 +379,7 @@ export function ParentCommunicationManagement() {
                 variant="ghost" 
                 size="sm" 
                 className="mt-1"
-                onClick={() => setScheduledDate(null: any)}
+                onClick={() => setScheduledDate(null)}
               >
                 Clear date
               </Button>
@@ -392,7 +393,7 @@ export function ParentCommunicationManagement() {
                 <Input 
                   placeholder="Search students..." 
                   value={searchTerm}
-                  onChange={(e: any) => setSearchTerm(e.target.value: any)}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full"
                 />
               </div>
