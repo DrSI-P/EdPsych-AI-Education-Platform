@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     });
     
     return NextResponse.json({ interactions });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching peer interactions:', error);
     return NextResponse.json({ error: 'Failed to fetch interactions' }, { status: 500 });
   }
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
       message: 'Peer interaction recorded successfully',
       interaction 
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error recording peer interaction:', error);
     return NextResponse.json({ error: 'Failed to record peer interaction' }, { status: 500 });
   }
