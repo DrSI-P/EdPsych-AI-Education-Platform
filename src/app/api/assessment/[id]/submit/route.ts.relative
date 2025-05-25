@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from '../../../../lib/auth';
-import { prisma } from '../../../../lib/db';
-import { aiService } from '../../../../lib/ai';
+import { authOptions } from '../../../../lib/auth/auth-options';
+import prisma from '../../../../lib/db/prisma';
+import { aiService } from '../../../../lib/ai/ai-service';
 
 // Type for route params
 type RouteParams = {
@@ -176,7 +176,7 @@ export async function POST(
               });
               
               continue; // Skip the rest of the loop for this answer
-            } catch (error) {
+            } catch (error: any) {
               console.error('Error evaluating open-ended answer with AI:', error);
               // Fall back to manual grading (marked as needing review)
               isCorrect = false; // Use false instead of null for manual review
@@ -263,7 +263,7 @@ export async function POST(
       answers: processedAnswers,
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error submitting assessment:', error);
     return NextResponse.json(
       { error: 'An error occurred while submitting the assessment' },
