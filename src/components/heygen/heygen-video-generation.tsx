@@ -13,7 +13,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { HeyGenService, VideoGenerationParams } from '@/lib/heygen/heygen-service';
 import { Loader2, Upload, Check, AlertCircle } from 'lucide-react';
 
-const HeyGenVideoGeneration = () => {
+const HeyGenVideoGeneration = (): React.ReactNode => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -67,8 +67,8 @@ const HeyGenVideoGeneration = () => {
         if (drScottAvatar) setSelectedAvatar(drScottAvatar.id);
         if (drScottVoice) setSelectedVoice(drScottVoice.id);
         
-      } catch (error) {
-        console.error('Failed to initialize HeyGen service:', error);
+      } catch (err: any) {
+        console.error('Failed to initialize HeyGen service:', err);
         setError('Failed to initialize video generation service. Please try again later.');
       }
     };
@@ -133,8 +133,8 @@ const HeyGenVideoGeneration = () => {
         setSelectedVoice(newVoice.id);
       }
       
-    } catch (error) {
-      console.error('Failed to create avatar:', error);
+    } catch (err: any) {
+      console.error('Failed to create avatar:', err);
       setError('Failed to create avatar. Please try again.');
     } finally {
       setLoading(false);
@@ -164,8 +164,8 @@ const HeyGenVideoGeneration = () => {
       setSelectedScript(scriptId);
       setSuccess(true);
       
-    } catch (error) {
-      console.error('Failed to upload script:', error);
+    } catch (err: any) {
+      console.error('Failed to upload script:', err);
       setError('Failed to upload script. Please try again.');
     } finally {
       setLoading(false);
@@ -225,8 +225,8 @@ const HeyGenVideoGeneration = () => {
         }
       }, 2000);
       
-    } catch (error) {
-      console.error('Failed to generate video:', error);
+    } catch (err: any) {
+      console.error('Failed to generate video:', err);
       setError('Failed to generate video. Please try again.');
       setLoading(false);
     }
@@ -457,7 +457,7 @@ const HeyGenVideoGeneration = () => {
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="video-description">Video Description (Optional)</Label>
+                <Label htmlFor="video-description">Video Description</Label>
                 <Textarea 
                   id="video-description" 
                   value={videoDescription} 
@@ -467,10 +467,19 @@ const HeyGenVideoGeneration = () => {
                 />
               </div>
               
+              {selectedScript && (
+                <div className="p-4 bg-grey-50 rounded-md">
+                  <h3 className="font-medium mb-2">Selected Script: {availableScripts.find(s => s.id === selectedScript)?.title}</h3>
+                  <p className="text-sm text-grey-600 whitespace-pre-wrap">
+                    {availableScripts.find(s => s.id === selectedScript)?.content}
+                  </p>
+                </div>
+              )}
+              
               {loading && (
                 <div className="space-y-2">
                   <Label>Generation Progress</Label>
-                  <Progress value={progress} className="w-full" />
+                  <Progress value={progress} className="h-2" />
                   <p className="text-sm text-grey-500 text-centre">{progress}% complete</p>
                 </div>
               )}
@@ -484,11 +493,11 @@ const HeyGenVideoGeneration = () => {
               )}
               
               {success && generatedVideoId && (
-                <Alert>
+                <Alert className="bg-green-50 text-green-800 border-green-200">
                   <Check className="h-4 w-4" />
                   <AlertTitle>Success</AlertTitle>
                   <AlertDescription>
-                    Video generated successfully! View it in the <a href="/ai-avatar-videos/view/{generatedVideoId}" className="font-medium underline">video library</a>.
+                    Video generated successfully! Video ID: {generatedVideoId}
                   </AlertDescription>
                 </Alert>
               )}
@@ -507,16 +516,39 @@ const HeyGenVideoGeneration = () => {
                     Generating...
                   </>
                 ) : (
-                  <>
-                    <Upload className="mr-2 h-4 w-4" />
-                    Generate Video
-                  </>
+                  'Generate Video'
                 )}
               </Button>
             </CardFooter>
           </Card>
         </TabsContent>
       </Tabs>
+      
+      {generatedVideoId && progress === 100 && (
+        <div className="mt-8">
+          <Card>
+            <CardHeader>
+              <CardTitle>Generated Video</CardTitle>
+              <CardDescription>
+                Your AI avatar video has been generated successfully
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="aspect-video bg-black rounded-md flex items-centre justify-centre">
+                <div className="text-white text-centre p-4">
+                  <p className="mb-2">Video ID: {generatedVideoId}</p>
+                  <p className="text-sm">In a real implementation, the video would be embedded here</p>
+                </div>
+              </div>
+            </CardContent>
+            <CardFooter className="flex justify-end">
+              <Button>
+                Download Video
+              </Button>
+            </CardFooter>
+          </Card>
+        </div>
+      )}
     </div>
   );
 };
