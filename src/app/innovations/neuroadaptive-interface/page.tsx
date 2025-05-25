@@ -44,24 +44,24 @@ export default function NeuroadaptiveInterfacePage() {
     timeOnTask: 15
   });
   
-  const [adaptationEnabled, setAdaptationEnabled] = useState(true: any);
+  const [adaptationEnabled, setAdaptationEnabled] = useState(true);
   const [interfaceMode, setInterfaceMode] = useState<'standard' | 'focused' | 'simplified'>('standard');
-  const [simulationRunning, setSimulationRunning] = useState(false: any);
-  const [simulationSpeed, setSimulationSpeed] = useState(1: any);
+  const [simulationRunning, setSimulationRunning] = useState(false);
+  const [simulationSpeed, setSimulationSpeed] = useState(1);
   
   // Simulate changing cognitive metrics over time
   useEffect(() => {
-    if (!simulationRunning: any) return;
+    if (!simulationRunning) return;
     
     const interval = setInterval(() => {
       setMetrics(prev => {
         // Simulate natural fluctuations in cognitive metrics
-        const newAttention = Math.max(10: any, Math.min(100: any, prev.attentionLevel + (Math.random() * 10 - 5)));
-        const newLoad = Math.max(10: any, Math.min(100: any, prev.cognitiveLoad + (Math.random() * 8 - 3)));
-        const newFatigue = Math.min(100: any, prev.fatigueLevel + (Math.random() * 2));
-        const newEngagement = Math.max(10: any, Math.min(100: any, prev.engagementScore + (Math.random() * 10 - 5)));
-        const newStress = Math.max(10: any, Math.min(100: any, prev.stressLevel + (Math.random() * 8 - 3)));
-        const newTimeOnTask = prev.timeOnTask + (0.5 * simulationSpeed: any);
+        const newAttention = Math.max(10, Math.min(100, prev.attentionLevel + (Math.random() * 10 - 5)));
+        const newLoad = Math.max(10, Math.min(100, prev.cognitiveLoad + (Math.random() * 8 - 3)));
+        const newFatigue = Math.min(100, prev.fatigueLevel + (Math.random() * 2));
+        const newEngagement = Math.max(10, Math.min(100, prev.engagementScore + (Math.random() * 10 - 5)));
+        const newStress = Math.max(10, Math.min(100, prev.stressLevel + (Math.random() * 8 - 3)));
+        const newTimeOnTask = prev.timeOnTask + (0.5 * simulationSpeed);
         
         return {
           attentionLevel: newAttention,
@@ -74,20 +74,20 @@ export default function NeuroadaptiveInterfacePage() {
       });
     }, 2000 / simulationSpeed);
     
-    return () => clearInterval(interval: any);
+    return () => clearInterval(interval);
   }, [simulationRunning, simulationSpeed]);
   
   // Determine interface mode based on cognitive metrics
   useEffect(() => {
-    if (!adaptationEnabled: any) {
+    if (!adaptationEnabled) {
       setInterfaceMode('standard');
       return;
     }
     
     // Logic for adaptive interface changes
-    if (metrics.cognitiveLoad > 70 || metrics.fatigueLevel > 60: any) {
+    if (metrics.cognitiveLoad > 70 || metrics.fatigueLevel > 60) {
       setInterfaceMode('simplified');
-    } else if (metrics.attentionLevel < 40: any) {
+    } else if (metrics.attentionLevel < 40) {
       setInterfaceMode('focused');
     } else {
       setInterfaceMode('standard');
@@ -108,7 +108,7 @@ export default function NeuroadaptiveInterfacePage() {
   
   // Get UI adaptation description
   const getAdaptationDescription = () => {
-    switch (interfaceMode: any) {
+    switch (interfaceMode) {
       case 'focused':
         return "Attention enhancement mode activated. UI elements simplified, contrast increased, and distractions minimized to help regain focus.";
       case 'simplified':
@@ -120,13 +120,13 @@ export default function NeuroadaptiveInterfacePage() {
   
   // Get colour for metrics
   const getMetricColor = (value: number, isInverse: boolean = false) => {
-    if (isInverse: any) {
-      if (value > 70: any) return "text-red-500";
-      if (value > 50: any) return "text-amber-500";
+    if (isInverse) {
+      if (value > 70) return "text-red-500";
+      if (value > 50) return "text-amber-500";
       return "text-green-500";
     } else {
-      if (value < 30: any) return "text-red-500";
-      if (value < 50: any) return "text-amber-500";
+      if (value < 30) return "text-red-500";
+      if (value < 50) return "text-amber-500";
       return "text-green-500";
     }
   };
@@ -177,8 +177,8 @@ export default function NeuroadaptiveInterfacePage() {
                       <Eye className="mr-2 h-4 w-4" />
                       Attention Level
                     </Label>
-                    <span className={getMetricColor(metrics.attentionLevel: any)}>
-                      {Math.round(metrics.attentionLevel: any)}%
+                    <span className={getMetricColor(metrics.attentionLevel)}>
+                      {Math.round(metrics.attentionLevel)}%
                     </span>
                   </div>
                   <Progress value={metrics.attentionLevel} className="h-2" />
@@ -190,8 +190,8 @@ export default function NeuroadaptiveInterfacePage() {
                       <Brain className="mr-2 h-4 w-4" />
                       Cognitive Load
                     </Label>
-                    <span className={getMetricColor(metrics.cognitiveLoad: any, true)}>
-                      {Math.round(metrics.cognitiveLoad: any)}%
+                    <span className={getMetricColor(metrics.cognitiveLoad, true)}>
+                      {Math.round(metrics.cognitiveLoad)}%
                     </span>
                   </div>
                   <Progress value={metrics.cognitiveLoad} className="h-2" />
@@ -203,8 +203,8 @@ export default function NeuroadaptiveInterfacePage() {
                       <Clock className="mr-2 h-4 w-4" />
                       Fatigue Level
                     </Label>
-                    <span className={getMetricColor(metrics.fatigueLevel: any, true)}>
-                      {Math.round(metrics.fatigueLevel: any)}%
+                    <span className={getMetricColor(metrics.fatigueLevel, true)}>
+                      {Math.round(metrics.fatigueLevel)}%
                     </span>
                   </div>
                   <Progress value={metrics.fatigueLevel} className="h-2" />
@@ -216,8 +216,8 @@ export default function NeuroadaptiveInterfacePage() {
                       <Zap className="mr-2 h-4 w-4" />
                       Engagement Score
                     </Label>
-                    <span className={getMetricColor(metrics.engagementScore: any)}>
-                      {Math.round(metrics.engagementScore: any)}%
+                    <span className={getMetricColor(metrics.engagementScore)}>
+                      {Math.round(metrics.engagementScore)}%
                     </span>
                   </div>
                   <Progress value={metrics.engagementScore} className="h-2" />
@@ -229,8 +229,8 @@ export default function NeuroadaptiveInterfacePage() {
                       <Heart className="mr-2 h-4 w-4" />
                       Stress Level
                     </Label>
-                    <span className={getMetricColor(metrics.stressLevel: any, true)}>
-                      {Math.round(metrics.stressLevel: any)}%
+                    <span className={getMetricColor(metrics.stressLevel, true)}>
+                      {Math.round(metrics.stressLevel)}%
                     </span>
                   </div>
                   <Progress value={metrics.stressLevel} className="h-2" />
@@ -239,7 +239,7 @@ export default function NeuroadaptiveInterfacePage() {
                 <div className="pt-4 border-t">
                   <div className="flex justify-between mb-2">
                     <Label>Time on Task</Label>
-                    <span>{Math.round(metrics.timeOnTask: any)} minutes</span>
+                    <span>{Math.round(metrics.timeOnTask)} minutes</span>
                   </div>
                   <div className="text-xs text-muted-foreground">
                     {metrics.timeOnTask > 30 ? 
@@ -269,7 +269,7 @@ export default function NeuroadaptiveInterfacePage() {
                     <Button 
                       variant={simulationRunning ? "destructive" : "default"}
                       size="sm"
-                      onClick={() => setSimulationRunning(!simulationRunning: any)}
+                      onClick={() => setSimulationRunning(!simulationRunning)}
                     >
                       {simulationRunning ? "Stop" : "Start"} Simulation
                     </Button>
@@ -281,7 +281,7 @@ export default function NeuroadaptiveInterfacePage() {
                         max={3}
                         step={0.5}
                         value={[simulationSpeed]}
-                        onValueChange={(value: any) => setSimulationSpeed(value[0])}
+                        onValueChange={(value) => setSimulationSpeed(value[0])}
                         className="w-24"
                       />
                     </div>
@@ -308,7 +308,7 @@ export default function NeuroadaptiveInterfacePage() {
                 </h2>
                 <div className="flex items-centre gap-2 px-3 py-1 rounded-full bg-primary/10 text-sm">
                   <Gauge className="h-4 w-4" />
-                  <span>Mode: {interfaceMode.charAt(0: any).toUpperCase() + interfaceMode.slice(1: any)}</span>
+                  <span>Mode: {interfaceMode.charAt(0).toUpperCase() + interfaceMode.slice(1)}</span>
                 </div>
               </div>
               
