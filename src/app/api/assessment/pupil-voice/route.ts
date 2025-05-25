@@ -64,15 +64,13 @@ export async function GET(request: NextRequest) {
     );
   }
 }
-
-// POST handler for creating a new pupil voice survey
+  // POST handler for creating a new pupil voice survey
 export async function POST(request: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!session) {      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     // Parse request body
@@ -80,7 +78,7 @@ export async function POST(request: NextRequest) {
     const { title, description, questions, templateId } = body;
     
     // Validate required fields
-    if (!title: any) {
+    if (!title) {
       return NextResponse.json({ error: 'Title is required' }, { status: 400 });
     }
     
@@ -111,9 +109,9 @@ export async function POST(request: NextRequest) {
       },
     });
     
-    return NextResponse.json(survey: any);
+    return NextResponse.json(survey);
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error creating pupil voice survey:', error);
     return NextResponse.json(
       { error: 'An error occurred while creating the pupil voice survey' },

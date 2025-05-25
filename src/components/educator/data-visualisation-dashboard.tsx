@@ -346,60 +346,59 @@ export function DataVisualisationDashboard() {
               </div>
             </CardContent>
           </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Attendance Rate
+              </CardTitle>
+              <Users className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">94.2%</div>
+              <p className="text-xs text-muted-foreground">
+                +0.8% from previous period
+              </p>
+              <div className="mt-4 h-1 w-full bg-primary/10">
+                <div className="h-1 bg-primary" style={{ width: "94%" }} />
+              </div>
+            </CardContent>
+          </Card>
         
-        <Card>
-          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Attendance Rate
-            </CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">94.2%</div>
-            <p className="text-xs text-muted-foreground">
-              +0.8% from previous period
-            </p>
-            <div className="mt-4 h-1 w-full bg-primary/10">
-              <div className="h-1 bg-primary" style={{ width: "94%" }} />
-            </div>
-          </CardContent>
-        </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Resource Utilisation
+              </CardTitle>
+              <BookOpenIcon className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">78.3%</div>
+              <p className="text-xs text-muted-foreground">
+                +5.2% from previous period
+              </p>
+              <div className="mt-4 h-1 w-full bg-primary/10">
+                <div className="h-1 bg-primary" style={{ width: "78%" }} />
+              </div>
+            </CardContent>
+          </Card>
         
-        <Card>
-          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Resource Utilisation
-            </CardTitle>
-            <BookOpenIcon className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">78.3%</div>
-            <p className="text-xs text-muted-foreground">
-              +5.2% from previous period
-            </p>
-            <div className="mt-4 h-1 w-full bg-primary/10">
-              <div className="h-1 bg-primary" style={{ width: "78%" }} />
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Parent Engagement
-            </CardTitle>
-            <Activity className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">67.8%</div>
-            <p className="text-xs text-muted-foreground">
-              +12.3% from previous period
-            </p>
-            <div className="mt-4 h-1 w-full bg-primary/10">
-              <div className="h-1 bg-primary" style={{ width: "68%" }} />
-            </div>
-          </CardContent>
-        </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-centre justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Parent Engagement
+              </CardTitle>
+              <Activity className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">67.8%</div>
+              <p className="text-xs text-muted-foreground">
+                +12.3% from previous period
+              </p>
+              <div className="mt-4 h-1 w-full bg-primary/10">
+                <div className="h-1 bg-primary" style={{ width: "68%" }} />
+              </div>
+            </CardContent>
+          </Card>
       </div>
       
       {/* Main charts */}
