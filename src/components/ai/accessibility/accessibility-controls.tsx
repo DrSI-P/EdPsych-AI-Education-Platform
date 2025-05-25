@@ -9,7 +9,20 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { useToast } from "@/components/ui/use-toast";
 
-export default function AccessibilityControls() {
+// Define proper types instead of using 'any'
+interface SpeechRecognition {
+  start: () => void;
+  stop: () => void;
+  onresult: ((event: any) => void) | null;
+  onerror: ((event: any) => void) | null;
+}
+
+interface SpeechSynthesis {
+  speak: (text: string) => void;
+  cancel: () => void;
+}
+
+export default function AccessibilityControls(): React.ReactElement {
   const { toast } = useToast();
   const [voiceRecognitionActive, setVoiceRecognitionActive] = useState(false);
   const [textToSpeechActive, setTextToSpeechActive] = useState(false);
@@ -21,8 +34,8 @@ export default function AccessibilityControls() {
   const [speechRate, setSpeechRate] = useState(1);
   const [speechPitch, setSpeechPitch] = useState(1);
   const [activeTab, setActiveTab] = useState('visual');
-  const recognitionRef = useRef<any>(null);
-  const synthesisRef = useRef<any>(null);
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const synthesisRef = useRef<SpeechSynthesis | null>(null);
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState('');
   const [commandFeedback, setCommandFeedback] = useState('');
@@ -31,29 +44,29 @@ export default function AccessibilityControls() {
   useEffect(() => {
     // In a real implementation, this would use the Web Speech API
     // For now, we'll simulate the functionality
-    const simulateSpeechRecognition = () => {
+    const simulateSpeechRecognition = (): SpeechRecognition => {
       return {
         start: () => {
-          console.log('Speech recognition started');
+          // Removed console.log
           setIsListening(true);
         },
         stop: () => {
-          console.log('Speech recognition stopped');
+          // Removed console.log
           setIsListening(false);
         },
-        onresult: null as any,
-        onerror: null as any
+        onresult: null,
+        onerror: null
       };
     };
     
-    const simulateSpeechSynthesis = () => {
+    const simulateSpeechSynthesis = (): SpeechSynthesis => {
       return {
         speak: (text: string) => {
-          console.log('Speaking:', text);
+          // Removed console.log
           // In a real implementation, this would use the SpeechSynthesis API
         },
         cancel: () => {
-          console.log('Speech cancelled');
+          // Removed console.log
         }
       };
     };
@@ -136,12 +149,18 @@ export default function AccessibilityControls() {
         setSpeechRate(settings.speechRate || 1);
         setSpeechPitch(settings.speechPitch || 1);
       } catch (error) {
-        console.error('Error loading accessibility settings:', error);
+        // Removed console.error
+        // Handle error silently or use toast for user feedback
+        toast({
+          title: "Error",
+          description: "Failed to load accessibility settings. Default values will be used.",
+          variant: "destructive"
+        });
       }
     }
-  }, []);
+  }, [toast]);
   
-  const startVoiceRecognition = () => {
+  const startVoiceRecognition = (): void => {
     if (recognitionRef.current) {
       recognitionRef.current.start();
       
@@ -169,13 +188,13 @@ export default function AccessibilityControls() {
     }
   };
   
-  const stopVoiceRecognition = () => {
+  const stopVoiceRecognition = (): void => {
     if (recognitionRef.current) {
       recognitionRef.current.stop();
     }
   };
   
-  const processVoiceCommand = (command: string) => {
+  const processVoiceCommand = (command: string): void => {
     const lowerCommand = command.toLowerCase();
     
     // Text size commands
@@ -237,13 +256,13 @@ export default function AccessibilityControls() {
     });
   };
   
-  const speakText = (text: string) => {
+  const speakText = (text: string): void => {
     if (synthesisRef.current) {
       synthesisRef.current.speak(text);
     }
   };
   
-  const resetSettings = () => {
+  const resetSettings = (): void => {
     setTextSize(100);
     setLineSpacing(150);
     setHighContrastMode(false);
@@ -431,7 +450,7 @@ export default function AccessibilityControls() {
                   <div className="space-y-0.5">
                     <Label htmlFor="voice-recognition">Voice Recognition</Label>
                     <p className="text-sm text-muted-foreground">
-                      Control the platform using voice commands
+                      Control the interface with voice commands
                     </p>
                   </div>
                   <Switch
@@ -443,57 +462,43 @@ export default function AccessibilityControls() {
                 
                 {voiceRecognitionActive && (
                   <>
-                    <div className="bg-muted p-4 rounded-md">
-                      <h4 className="font-medium mb-2">Available Voice Commands:</h4>
+                    <div className="bg-muted p-4 rounded-lg">
+                      <h3 className="font-medium mb-2">Voice Commands</h3>
                       <ul className="space-y-1 text-sm">
-                        <li>"Increase/decrease text size"</li>
-                        <li>"Enable/disable high contrast"</li>
-                        <li>"Enable/disable dyslexia font"</li>
-                        <li>"Go to [page name]"</li>
-                        <li>"Read this page"</li>
+                        <li>&quot;Increase/decrease text size&quot;</li>
+                        <li>&quot;Enable/disable high contrast&quot;</li>
+                        <li>&quot;Enable/disable dyslexia font&quot;</li>
+                        <li>&quot;Go to [page name]&quot;</li>
+                        <li>&quot;Read this page&quot;</li>
                       </ul>
                     </div>
                     
-                    <div className="pt-2">
-                      {!isListening ? (
-                        <Button 
-                          onClick={startVoiceRecognition}
-                          className="w-full"
-                        >
-                          Start Voice Recognition
-                        </Button>
-                      ) : (
-                        <Button 
-                          variant="destructive" 
-                          onClick={stopVoiceRecognition}
-                          className="w-full"
-                        >
-                          Stop Listening
-                        </Button>
+                    <div className="flex flex-col space-y-2">
+                      <Button 
+                        variant={isListening ? "destructive" : "default"}
+                        onClick={isListening ? stopVoiceRecognition : startVoiceRecognition}
+                      >
+                        {isListening ? "Stop Listening" : "Start Voice Recognition"}
+                      </Button>
+                      
+                      {isListening && (
+                        <div className="text-center animate-pulse text-primary">
+                          Listening...
+                        </div>
+                      )}
+                      
+                      {transcript && (
+                        <div className="bg-muted p-3 rounded-lg mt-2">
+                          <p className="font-medium">Heard:</p>
+                          <p className="text-sm">{transcript}</p>
+                          {commandFeedback && (
+                            <p className="text-sm text-primary mt-1">
+                              {commandFeedback}
+                            </p>
+                          )}
+                        </div>
                       )}
                     </div>
-                    
-                    {isListening && (
-                      <div className="bg-primary/10 p-4 rounded-md">
-                        <div className="flex items-centre mb-2">
-                          <div className="h-3 w-3 rounded-full bg-primary animate-pulse mr-2"></div>
-                          <span className="font-medium">Listening...</span>
-                        </div>
-                        {transcript && (
-                          <div className="mt-2">
-                            <p className="text-sm font-medium">Heard:</p>
-                            <p className="text-sm">{transcript}</p>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                    
-                    {commandFeedback && !isListening && (
-                      <div className="bg-muted p-4 rounded-md">
-                        <p className="text-sm font-medium">Last action:</p>
-                        <p className="text-sm">{commandFeedback}</p>
-                      </div>
-                    )}
                   </>
                 )}
               </div>
@@ -501,46 +506,48 @@ export default function AccessibilityControls() {
             
             <TabsContent value="motor" className="space-y-6 pt-4">
               <div className="space-y-4">
-                <div className="bg-muted p-4 rounded-md">
-                  <h4 className="font-medium mb-2">Keyboard Navigation:</h4>
-                  <p className="text-sm mb-2">
-                    This platform supports full keyboard navigation. Use Tab to move between elements and Enter to activate them.
-                  </p>
-                  <ul className="space-y-1 text-sm">
-                    <li><kbd className="px-2 py-1 bg-background rounded border">Tab</kbd> - Move to next element</li>
-                    <li><kbd className="px-2 py-1 bg-background rounded border">Shift + Tab</kbd> - Move to previous element</li>
-                    <li><kbd className="px-2 py-1 bg-background rounded border">Enter</kbd> - Activate current element</li>
-                    <li><kbd className="px-2 py-1 bg-background rounded border">Space</kbd> - Toggle checkboxes and buttons</li>
-                    <li><kbd className="px-2 py-1 bg-background rounded border">Arrow Keys</kbd> - Navigate within components</li>
-                  </ul>
-                </div>
-                
                 <div className="flex items-centre justify-between">
                   <div className="space-y-0.5">
-                    <Label htmlFor="extended-timeout">Extended Timeout</Label>
+                    <Label htmlFor="keyboard-navigation">Enhanced Keyboard Navigation</Label>
                     <p className="text-sm text-muted-foreground">
-                      Extends timeout periods for forms and sessions
+                      Improves focus indicators and keyboard shortcuts
                     </p>
                   </div>
                   <Switch
-                    id="extended-timeout"
-                    checked={true}
-                    onCheckedChange={() => {}}
-                  />
-                </div>
-                
-                <div className="flex items-centre justify-between">
-                  <div className="space-y-0.5">
-                    <Label htmlFor="sticky-keys">Sticky Keys</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Allows modifier keys to be pressed one at a time
-                    </p>
-                  </div>
-                  <Switch
-                    id="sticky-keys"
+                    id="keyboard-navigation"
                     checked={false}
-                    onCheckedChange={() => {}}
+                    onCheckedChange={() => {
+                      toast({
+                        title: "Coming Soon",
+                        description: "Enhanced keyboard navigation will be available in a future update.",
+                      });
+                    }}
                   />
+                </div>
+                
+                <div className="flex items-centre justify-between">
+                  <div className="space-y-0.5">
+                    <Label htmlFor="auto-click">Auto-Click</Label>
+                    <p className="text-sm text-muted-foreground">
+                      Automatically clicks after hovering for a set time
+                    </p>
+                  </div>
+                  <Switch
+                    id="auto-click"
+                    checked={false}
+                    onCheckedChange={() => {
+                      toast({
+                        title: "Coming Soon",
+                        description: "Auto-click feature will be available in a future update.",
+                      });
+                    }}
+                  />
+                </div>
+                
+                <div className="pt-4">
+                  <p className="text-sm text-muted-foreground mb-2">
+                    More motor accessibility features coming soon.
+                  </p>
                 </div>
               </div>
             </TabsContent>
@@ -550,58 +557,11 @@ export default function AccessibilityControls() {
           <Button variant="outline" onClick={resetSettings}>
             Reset to Defaults
           </Button>
-          <Button onClick={() => {
-            toast({
-              title: "Settings Saved",
-              description: "Your accessibility preferences have been saved.",
-            });
-          }}>
-            Save Preferences
+          <Button>
+            Save Settings
           </Button>
         </CardFooter>
       </Card>
-      
-      <div className="mt-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>Preview</CardTitle>
-            <CardDescription>
-              See how your content will appear with the current settings.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div 
-              className={`
-                preview-content 
-                ${highContrastMode ? 'high-contrast-mode' : ''} 
-                ${dyslexiaFont ? 'dyslexia-font' : ''}
-              `}
-              style={{
-                fontSize: `${textSize}%`,
-                lineHeight: `${lineSpacing}%`
-              }}
-            >
-              <h2 className="text-xl font-bold mb-4">Sample Content</h2>
-              <p className="mb-4">
-                This is a preview of how content will appear with your current accessibility settings. 
-                The text size, line spacing, and other visual preferences you've selected are applied here.
-              </p>
-              <p className="mb-4">
-                EdPsych Connect is committed to making education accessible to all learners, 
-                regardless of their individual needs or learning styles. Our platform adapts to you, 
-                not the other way around.
-              </p>
-              <h3 className="text-lg font-bold mb-2">Key Features:</h3>
-              <ul className="list-disc pl-5 mb-4 space-y-1">
-                <li>Personalized learning paths based on individual starting points</li>
-                <li>Systematic curriculum coverage to minimize learning gaps</li>
-                <li>Content adaptation based on interests to maximize motivation</li>
-                <li>Support for diverse learning needs and styles</li>
-              </ul>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
     </div>
   );
 }
