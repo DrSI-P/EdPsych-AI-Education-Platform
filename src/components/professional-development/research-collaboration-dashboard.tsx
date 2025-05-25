@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   Card, 
   CardContent, 
@@ -12,981 +12,524 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 import { 
-  BarChart, 
-  Bar, 
-  LineChart, 
-  Line, 
-  PieChart, 
-  Pie, 
-  Cell, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  Legend, 
-  ResponsiveContainer,
-  ScatterChart,
-  Scatter,
-  ZAxis,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  Radar
-} from 'recharts';
-import { 
-  BarChart2, 
-  PieChart as PieChartIcon, 
-  LineChart as LineChartIcon,
-  Activity,
-  TrendingUp,
-  Users,
-  School,
-  BookOpen,
-  FileText,
-  Award,
-  Globe,
-  Calendar,
-  Search,
-  Filter,
+  Search, 
+  Filter, 
+  ChevronDown, 
+  ChevronUp, 
+  MessageSquare, 
+  Users, 
+  Calendar, 
+  Clock, 
+  Star, 
+  Award, 
+  BookOpen, 
+  FileText, 
+  Settings, 
+  Plus, 
+  X, 
+  Check, 
+  ArrowLeft, 
+  Share2, 
+  UserPlus, 
+  Bell, 
+  Lock, 
+  Globe, 
+  Shield, 
+  Bookmark, 
+  MoreHorizontal,
   Download,
-  Share2,
-  ExternalLink,
-  Info,
-  HelpCircle,
-  Settings,
-  ChevronDown,
-  ChevronUp,
-  ArrowUpRight,
-  ArrowDownRight
+  Copy,
+  Link,
+  Eye,
+  Mail,
+  Loader2
 } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 
-// Mock data for research analytics
-const MOCK_PROJECT_TRENDS = [
-  { month: 'Jan', active: 8, completed: 2, new: 3 },
-  { month: 'Feb', active: 9, completed: 3, new: 4 },
-  { month: 'Mar', active: 10, completed: 3, new: 4 },
-  { month: 'Apr', active: 11, completed: 4, new: 5 },
-  { month: 'May', active: 12, completed: 4, new: 3 },
-  { month: 'Jun', active: 13, completed: 5, new: 6 },
+// Sample data for research collaboration opportunities
+const researchProjects = [
+  {
+    id: 1,
+    title: "Impact of Trauma-Informed Practices on Student Outcomes",
+    institution: "University of Cambridge",
+    department: "Faculty of Education",
+    lead: "Prof. Emma Thompson",
+    status: "Recruiting",
+    deadline: "June 30, 2025",
+    description: "This research project aims to evaluate the effectiveness of trauma-informed practices in educational settings. We are seeking educational psychologists to collaborate on data collection and analysis across multiple school settings.",
+    requirements: ["Experience with trauma-informed approaches", "Access to school settings", "Quantitative research skills"],
+    commitment: "5-10 hours per month for 12 months",
+    focusAreas: ["Trauma-Informed Practice", "Student Outcomes", "School Psychology"]
+  },
+  {
+    id: 2,
+    title: "Neurodevelopmental Profiles and Personalized Learning Strategies",
+    institution: "University College London",
+    department: "Institute of Education",
+    lead: "Dr. James Wilson",
+    status: "Recruiting",
+    deadline: "July 15, 2025",
+    description: "This project explores the relationship between neurodevelopmental profiles and effective personalized learning strategies. We are looking for educational psychologists to contribute to assessment protocol development and implementation.",
+    requirements: ["Experience with neurodevelopmental assessments", "Knowledge of personalized learning approaches", "Qualitative research skills"],
+    commitment: "8-12 hours per month for 18 months",
+    focusAreas: ["Neurodevelopment", "Personalized Learning", "Assessment"]
+  },
+  {
+    id: 3,
+    title: "School-Based Mental Health Interventions: Comparative Effectiveness",
+    institution: "King's College London",
+    department: "Institute of Psychiatry, Psychology & Neuroscience",
+    lead: "Dr. Sarah Ahmed",
+    status: "Ongoing",
+    deadline: "Open",
+    description: "This longitudinal study compares the effectiveness of different school-based mental health interventions. We are seeking educational psychologists to join our research team for implementation and evaluation phases.",
+    requirements: ["Mental health intervention experience", "School-based research experience", "Mixed methods research skills"],
+    commitment: "10-15 hours per month for 24 months",
+    focusAreas: ["Mental Health", "Intervention", "School Psychology"]
+  },
+  {
+    id: 4,
+    title: "Digital Assessment Tools for Special Educational Needs",
+    institution: "University of Edinburgh",
+    department: "School of Education",
+    lead: "Prof. Robert Campbell",
+    status: "Planning",
+    deadline: "August 31, 2025",
+    description: "This project aims to develop and validate digital assessment tools for identifying special educational needs in primary school settings. We are looking for educational psychologists to contribute to tool design and validation.",
+    requirements: ["Experience with SEN assessment", "Interest in digital tools", "Access to primary school settings"],
+    commitment: "6-10 hours per month for 15 months",
+    focusAreas: ["Digital Assessment", "SEN", "Primary Education"]
+  },
+  {
+    id: 5,
+    title: "Parental Engagement in Educational Psychology Interventions",
+    institution: "University of Manchester",
+    department: "School of Environment, Education and Development",
+    lead: "Dr. Lisa Chen",
+    status: "Recruiting",
+    deadline: "July 1, 2025",
+    description: "This research examines factors affecting parental engagement in educational psychology interventions. We are seeking practicing educational psychologists to contribute case studies and participate in collaborative analysis.",
+    requirements: ["Experience with parent-focused interventions", "Case study documentation", "Qualitative analysis skills"],
+    commitment: "4-8 hours per month for 12 months",
+    focusAreas: ["Parental Engagement", "Intervention", "Case Study Research"]
+  }
 ];
 
-const MOCK_OUTPUT_TRENDS = [
-  { month: 'Jan', reports: 3, articles: 1, guides: 2, other: 1 },
-  { month: 'Feb', reports: 4, articles: 2, guides: 2, other: 2 },
-  { month: 'Mar', reports: 5, articles: 2, guides: 3, other: 2 },
-  { month: 'Apr', reports: 6, articles: 3, guides: 3, other: 3 },
-  { month: 'May', reports: 7, articles: 3, guides: 4, other: 3 },
-  { month: 'Jun', reports: 8, articles: 4, guides: 5, other: 4 },
+const researchPublications = [
+  {
+    id: 1,
+    title: "Trauma-Informed Educational Psychology Practice: A Systematic Review",
+    authors: "Thompson, E., Wilson, J., & Johnson, S.",
+    journal: "Journal of Educational Psychology",
+    year: 2024,
+    doi: "10.1234/jep.2024.001",
+    abstract: "This systematic review examines the evidence base for trauma-informed approaches in educational psychology practice. The review identifies key principles, implementation challenges, and outcomes across 45 studies published between 2010-2023.",
+    keywords: ["Trauma-Informed Practice", "Educational Psychology", "Systematic Review"],
+    citations: 12,
+    link: "https://doi.org/10.1234/jep.2024.001"
+  },
+  {
+    id: 2,
+    title: "Neurodevelopmental Profiles and Academic Achievement: Implications for Personalized Learning",
+    authors: "Wilson, J., Ahmed, S., & Johnson, S.",
+    journal: "Educational Psychology Review",
+    year: 2024,
+    doi: "10.1234/epr.2024.002",
+    abstract: "This study investigates the relationship between neurodevelopmental profiles and academic achievement in a sample of 250 primary school students. Results indicate specific patterns of strengths and challenges that can inform personalized learning approaches.",
+    keywords: ["Neurodevelopment", "Academic Achievement", "Personalized Learning"],
+    citations: 8,
+    link: "https://doi.org/10.1234/epr.2024.002"
+  },
+  {
+    id: 3,
+    title: "School-Based Mental Health Interventions: A Comparative Analysis",
+    authors: "Ahmed, S., Campbell, R., & Johnson, S.",
+    journal: "School Psychology International",
+    year: 2023,
+    doi: "10.1234/spi.2023.003",
+    abstract: "This study compares the effectiveness of three different school-based mental health interventions across 15 schools. Results indicate differential effectiveness based on school context and implementation factors.",
+    keywords: ["Mental Health", "School-Based Intervention", "Comparative Analysis"],
+    citations: 15,
+    link: "https://doi.org/10.1234/spi.2023.003"
+  },
+  {
+    id: 4,
+    title: "Digital Assessment Tools for Special Educational Needs: Development and Validation",
+    authors: "Campbell, R., Chen, L., & Johnson, S.",
+    journal: "Journal of Special Education Technology",
+    year: 2023,
+    doi: "10.1234/jset.2023.004",
+    abstract: "This paper describes the development and validation of a suite of digital assessment tools for identifying special educational needs in primary school settings. Psychometric properties and user experience data are presented.",
+    keywords: ["Digital Assessment", "Special Educational Needs", "Validation"],
+    citations: 6,
+    link: "https://doi.org/10.1234/jset.2023.004"
+  },
+  {
+    id: 5,
+    title: "Parental Engagement in Educational Psychology Interventions: Barriers and Facilitators",
+    authors: "Chen, L., Thompson, E., & Johnson, S.",
+    journal: "Educational and Child Psychology",
+    year: 2022,
+    doi: "10.1234/ecp.2022.005",
+    abstract: "This qualitative study explores factors affecting parental engagement in educational psychology interventions. Thematic analysis of interviews with 30 parents and 15 educational psychologists identifies key barriers and facilitators.",
+    keywords: ["Parental Engagement", "Educational Psychology", "Qualitative Research"],
+    citations: 20,
+    link: "https://doi.org/10.1234/ecp.2022.005"
+  }
 ];
 
-const MOCK_METHODOLOGY_DISTRIBUTION = [
-  { name: 'Mixed Methods', value: 35 },
-  { name: 'Experimental', value: 20 },
-  { name: 'Case Study', value: 15 },
-  { name: 'Action Research', value: 25 },
-  { name: 'Survey', value: 10 },
-  { name: 'Ethnographic', value: 5 },
+const researchNetworks = [
+  {
+    id: 1,
+    name: "Educational Psychology Research Collaborative",
+    members: 156,
+    focus: "Collaborative research in educational psychology practice",
+    events: ["Annual Research Symposium", "Monthly Online Seminars", "Collaborative Grant Writing Workshops"],
+    benefits: ["Access to research partners", "Collaborative funding opportunities", "Shared resources and tools"],
+    joining: "Open to practicing educational psychologists and researchers"
+  },
+  {
+    id: 2,
+    name: "Neurodevelopmental Assessment Network",
+    members: 89,
+    focus: "Advancing neurodevelopmental assessment approaches",
+    events: ["Quarterly Assessment Workshops", "Case Study Discussions", "Tool Development Sprints"],
+    benefits: ["Assessment protocol sharing", "Peer supervision", "Joint publication opportunities"],
+    joining: "Application-based membership for specialists in neurodevelopmental assessment"
+  },
+  {
+    id: 3,
+    name: "School Mental Health Research Alliance",
+    members: 124,
+    focus: "Evidence-based mental health interventions in schools",
+    events: ["Biannual Conference", "Intervention Showcase Events", "Data Analysis Workshops"],
+    benefits: ["Multi-site research opportunities", "Intervention resource library", "Implementation support"],
+    joining: "Open to researchers and practitioners focused on school mental health"
+  }
 ];
-
-const MOCK_SCHOOL_TYPE_DISTRIBUTION = [
-  { name: 'Primary', value: 45 },
-  { name: 'Secondary', value: 35 },
-  { name: 'Special', value: 10 },
-  { name: 'All-through', value: 5 },
-  { name: 'Alternative Provision', value: 5 },
-];
-
-const MOCK_RESEARCH_FOCUS_DISTRIBUTION = [
-  { subject: 'Literacy', value: 80 },
-  { subject: 'Numeracy', value: 65 },
-  { subject: 'SEND', value: 70 },
-  { subject: 'Behaviour', value: 55 },
-  { subject: 'Digital Learning', value: 60 },
-  { subject: 'Wellbeing', value: 75 },
-  { subject: 'Assessment', value: 50 },
-  { subject: 'Curriculum', value: 45 },
-];
-
-const MOCK_IMPACT_METRICS = [
-  { name: 'Practise Change', value: 75 },
-  { name: 'Policy Influence', value: 45 },
-  { name: 'Student Outcomes', value: 85 },
-  { name: 'Teacher Development', value: 70 },
-  { name: 'Resource Creation', value: 60 },
-  { name: 'Knowledge Sharing', value: 80 },
-];
-
-const MOCK_COLLABORATION_METRICS = [
-  { name: 'Cross-School Projects', value: 18 },
-  { name: 'Research Networks', value: 5 },
-  { name: 'Joint Publications', value: 12 },
-  { name: 'Shared Methods', value: 24 },
-  { name: 'Collaborative Events', value: 8 },
-];
-
-const MOCK_ENGAGEMENT_METRICS = [
-  { month: 'Jan', views: 120, downloads: 45, citations: 8 },
-  { month: 'Feb', views: 145, downloads: 52, citations: 10 },
-  { month: 'Mar', views: 165, downloads: 58, citations: 12 },
-  { month: 'Apr', views: 190, downloads: 65, citations: 15 },
-  { month: 'May', views: 210, downloads: 72, citations: 18 },
-  { month: 'Jun', views: 245, downloads: 87, citations: 22 },
-];
-
-const MOCK_REGIONAL_DISTRIBUTION = [
-  { region: 'London', schools: 8, projects: 12 },
-  { region: 'South East', schools: 6, projects: 9 },
-  { region: 'South West', schools: 4, projects: 6 },
-  { region: 'East of England', schools: 3, projects: 5 },
-  { region: 'West Midlands', schools: 5, projects: 7 },
-  { region: 'East Midlands', schools: 3, projects: 4 },
-  { region: 'Yorkshire', schools: 4, projects: 6 },
-  { region: 'North West', schools: 5, projects: 8 },
-  { region: 'North East', schools: 2, projects: 3 },
-  { region: 'Wales', schools: 3, projects: 4 },
-  { region: 'Scotland', schools: 4, projects: 5 },
-  { region: 'Northern Ireland', schools: 2, projects: 3 },
-];
-
-// Colors for charts
-const COLORS = ['#4f46e5', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4', '#f43f5e', '#84cc16'];
 
 export default function ResearchCollaborationDashboard() {
-  const [activeTab, setActiveTab] = useState('overview');
-  const [timeframe, setTimeframe] = useState('6months');
+  const [activeTab, setActiveTab] = useState('opportunities');
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const [focusArea, setFocusArea] = useState('all');
   
   return (
     <div className="container mx-auto py-6 space-y-8">
-      <div className="flex justify-between items-centre">
+      <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Research Analytics</h1>
           <p className="text-muted-foreground">
-            Comprehensive analytics for research collaboration activities
+            Discover research opportunities, publications, and collaboration networks
           </p>
         </div>
-        <div className="flex space-x-2">
-          <Select value={timeframe} onValueChange={setTimeframe}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Timeframe" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="30days">Last 30 Days</SelectItem>
-              <SelectItem value="3months">Last 3 Months</SelectItem>
-              <SelectItem value="6months">Last 6 Months</SelectItem>
-              <SelectItem value="year">Last Year</SelectItem>
-              <SelectItem value="all">All Time</SelectItem>
-            </SelectContent>
-          </Select>
-          
-          <Select value={focusArea} onValueChange={setFocusArea}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Focus Area" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Areas</SelectItem>
-              <SelectItem value="literacy">Literacy</SelectItem>
-              <SelectItem value="numeracy">Numeracy</SelectItem>
-              <SelectItem value="send">SEND</SelectItem>
-              <SelectItem value="behaviour">Behaviour</SelectItem>
-              <SelectItem value="digital">Digital Learning</SelectItem>
-              <SelectItem value="wellbeing">Wellbeing</SelectItem>
-            </SelectContent>
-          </Select>
-          
+        <div className="flex gap-2">
           <Button variant="outline">
-            <Download className="mr-2 h-4 w-4" /> Export
+            <BookOpen className="h-4 w-4 mr-2" />
+            My Research
+          </Button>
+          <Button>
+            <Plus className="h-4 w-4 mr-2" />
+            New Project
           </Button>
         </div>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex justify-between items-start">
-              <div className="space-y-1">
-                <p className="text-sm text-muted-foreground">Active Projects</p>
-                <p className="text-3xl font-bold">12</p>
-              </div>
-              <div className="bg-primary/10 p-2 rounded-full">
-                <FileText className="h-6 w-6 text-primary" />
-              </div>
-            </div>
-            <div className="mt-4 flex items-centre text-xs text-muted-foreground">
-              <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
-              <span className="text-green-500 font-medium">+3</span>
-              <span className="ml-1">from last month</span>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex justify-between items-start">
-              <div className="space-y-1">
-                <p className="text-sm text-muted-foreground">Research Outputs</p>
-                <p className="text-3xl font-bold">28</p>
-              </div>
-              <div className="bg-primary/10 p-2 rounded-full">
-                <BookOpen className="h-6 w-6 text-primary" />
-              </div>
-            </div>
-            <div className="mt-4 flex items-centre text-xs text-muted-foreground">
-              <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
-              <span className="text-green-500 font-medium">+5</span>
-              <span className="ml-1">from last month</span>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex justify-between items-start">
-              <div className="space-y-1">
-                <p className="text-sm text-muted-foreground">Participating Schools</p>
-                <p className="text-3xl font-bold">32</p>
-              </div>
-              <div className="bg-primary/10 p-2 rounded-full">
-                <School className="h-6 w-6 text-primary" />
-              </div>
-            </div>
-            <div className="mt-4 flex items-centre text-xs text-muted-foreground">
-              <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
-              <span className="text-green-500 font-medium">+2</span>
-              <span className="ml-1">from last month</span>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex justify-between items-start">
-              <div className="space-y-1">
-                <p className="text-sm text-muted-foreground">Total Citations</p>
-                <p className="text-3xl font-bold">87</p>
-              </div>
-              <div className="bg-primary/10 p-2 rounded-full">
-                <Award className="h-6 w-6 text-primary" />
-              </div>
-            </div>
-            <div className="mt-4 flex items-centre text-xs text-muted-foreground">
-              <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
-              <span className="text-green-500 font-medium">+12</span>
-              <span className="ml-1">from last month</span>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-      
-      <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-        <TabsList className="grid grid-cols-5 w-full">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="projects">Projects</TabsTrigger>
-          <TabsTrigger value="outputs">Outputs</TabsTrigger>
-          <TabsTrigger value="impact">Impact</TabsTrigger>
-          <TabsTrigger value="collaboration">Collaboration</TabsTrigger>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
+        <TabsList>
+          <TabsTrigger value="opportunities">Research Opportunities</TabsTrigger>
+          <TabsTrigger value="publications">Publications</TabsTrigger>
+          <TabsTrigger value="networks">Research Networks</TabsTrigger>
+          <TabsTrigger value="analytics">Research Impact</TabsTrigger>
         </TabsList>
         
-        {/* Overview Tab */}
-        <TabsContent value="overview" className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-centre">
-                  <Activity className="mr-2 h-5 w-5" /> Research Activity Trends
-                </CardTitle>
-                <CardDescription>
-                  Project and output activity over time
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="h-80">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart
-                      data={MOCK_PROJECT_TRENDS}
-                      margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="month" />
-                      <YAxis />
-                      <Tooltip />
-                      <Legend />
-                      <Line type="monotone" dataKey="active" stroke="#4f46e5" strokeWidth={2} />
-                      <Line type="monotone" dataKey="completed" stroke="#10b981" strokeWidth={2} />
-                      <Line type="monotone" dataKey="new" stroke="#f59e0b" strokeWidth={2} />
-                    </LineChart>
-                  </ResponsiveContainer>
+        <TabsContent value="opportunities" className="space-y-4">
+          {!selectedProject ? (
+            <>
+              <div className="flex flex-col md:flex-row gap-4 mb-4">
+                <div className="relative flex-1">
+                  <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Search research opportunities..."
+                    className="pl-8"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
                 </div>
-              </CardContent>
-            </Card>
-            
+                <Select value={focusArea} onValueChange={setFocusArea}>
+                  <SelectTrigger className="w-full md:w-[200px]">
+                    <SelectValue placeholder="Filter by focus area" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Focus Areas</SelectItem>
+                    <SelectItem value="Trauma-Informed Practice">Trauma-Informed Practice</SelectItem>
+                    <SelectItem value="Neurodevelopment">Neurodevelopment</SelectItem>
+                    <SelectItem value="Mental Health">Mental Health</SelectItem>
+                    <SelectItem value="Digital Assessment">Digital Assessment</SelectItem>
+                    <SelectItem value="Parental Engagement">Parental Engagement</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div className="grid gap-4">
+                {researchProjects
+                  .filter(project => 
+                    (searchQuery === '' || 
+                      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                      project.description.toLowerCase().includes(searchQuery.toLowerCase())) &&
+                    (focusArea === 'all' || project.focusAreas.includes(focusArea))
+                  )
+                  .map(project => (
+                    <Card key={project.id} className="overflow-hidden">
+                      <CardContent className="p-0">
+                        <div className="p-4">
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <h3 className="font-semibold text-lg">{project.title}</h3>
+                              <p className="text-sm text-muted-foreground">{project.institution} • {project.department}</p>
+                            </div>
+                            <Badge variant={project.status === 'Recruiting' ? 'default' : 'secondary'}>
+                              {project.status}
+                            </Badge>
+                          </div>
+                          <p className="mt-2 line-clamp-2">{project.description}</p>
+                          <div className="flex flex-wrap gap-1 mt-2">
+                            {project.focusAreas.map((area, i) => (
+                              <Badge key={i} variant="outline">{area}</Badge>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="bg-muted p-4 flex justify-between items-center">
+                          <div className="text-sm">
+                            <span className="font-medium">Lead:</span> {project.lead} • 
+                            <span className="font-medium ml-2">Deadline:</span> {project.deadline}
+                          </div>
+                          <Button size="sm" onClick={() => setSelectedProject(project)}>
+                            View Details
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+              </div>
+            </>
+          ) : (
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-centre">
-                  <PieChartIcon className="mr-2 h-5 w-5" /> Research Focus Distribution
-                </CardTitle>
-                <CardDescription>
-                  Distribution of research projects by focus area
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="h-80">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <RadarChart cx="50%" cy="50%" outerRadius="80%" data={MOCK_RESEARCH_FOCUS_DISTRIBUTION}>
-                      <PolarGrid />
-                      <PolarAngleAxis dataKey="subject" />
-                      <PolarRadiusAxis angle={30} domain={[0, 100]} />
-                      <Radar name="Research Focus" dataKey="value" stroke="#4f46e5" fill="#4f46e5" fillOpacity={0.6} />
-                      <Tooltip />
-                    </RadarChart>
-                  </ResponsiveContainer>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <Button variant="ghost" size="sm" className="mb-2 -ml-2" onClick={() => setSelectedProject(null)}>
+                      <ArrowLeft className="h-4 w-4 mr-1" />
+                      Back to opportunities
+                    </Button>
+                    <CardTitle>{selectedProject.title}</CardTitle>
+                    <CardDescription>{selectedProject.institution} • {selectedProject.department}</CardDescription>
+                  </div>
+                  <Badge variant={selectedProject.status === 'Recruiting' ? 'default' : 'secondary'}>
+                    {selectedProject.status}
+                  </Badge>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-centre">
-                  <BarChart2 className="mr-2 h-5 w-5" /> Methodology Distribution
-                </CardTitle>
-                <CardDescription>
-                  Research projects by methodology
-                </CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={MOCK_METHODOLOGY_DISTRIBUTION}
-                        cx="50%"
-                        cy="50%"
-                        labelLine={false}
-                        label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
-                        outerRadius={80}
-                        fill="#8884d8"
-                        dataKey="value"
-                      >
-                        {MOCK_METHODOLOGY_DISTRIBUTION.map((entry: any, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip />
-                    </PieChart>
-                  </ResponsiveContainer>
+              <CardContent className="space-y-4">
+                <div>
+                  <h3 className="font-medium mb-1">Project Description</h3>
+                  <p>{selectedProject.description}</p>
                 </div>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-centre">
-                  <School className="mr-2 h-5 w-5" /> School Type Distribution
-                </CardTitle>
-                <CardDescription>
-                  Participating schools by type
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={MOCK_SCHOOL_TYPE_DISTRIBUTION}
-                        cx="50%"
-                        cy="50%"
-                        labelLine={false}
-                        label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
-                        outerRadius={80}
-                        fill="#8884d8"
-                        dataKey="value"
-                      >
-                        {MOCK_SCHOOL_TYPE_DISTRIBUTION.map((entry: any, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-centre">
-                  <Globe className="mr-2 h-5 w-5" /> Regional Distribution
-                </CardTitle>
-                <CardDescription>
-                  Schools and projects by region
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="h-64 overflow-y-auto pr-2">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="border-b">
-                        <th className="text-left py-2">Region</th>
-                        <th className="text-right py-2">Schools</th>
-                        <th className="text-right py-2">Projects</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {MOCK_REGIONAL_DISTRIBUTION.map((region: any, index) => (
-                        <tr key={index} className="border-b border-muted">
-                          <td className="py-2">{region.region}</td>
-                          <td className="text-right py-2">{region.schools}</td>
-                          <td className="text-right py-2">{region.projects}</td>
-                        </tr>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <h3 className="font-medium mb-1">Requirements</h3>
+                    <ul className="list-disc pl-5 space-y-1">
+                      {selectedProject.requirements.map((req, i) => (
+                        <li key={i}>{req}</li>
                       ))}
-                    </tbody>
-                  </table>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
-        
-        {/* Projects Tab */}
-        <TabsContent value="projects" className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-centre">
-                  <Activity className="mr-2 h-5 w-5" /> Project Status Trends
-                </CardTitle>
-                <CardDescription>
-                  Project status changes over time
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="h-80">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={MOCK_PROJECT_TRENDS}
-                      margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="month" />
-                      <YAxis />
-                      <Tooltip />
-                      <Legend />
-                      <Bar dataKey="active" stackId="a" fill="#4f46e5" />
-                      <Bar dataKey="completed" stackId="a" fill="#10b981" />
-                      <Bar dataKey="new" stackId="a" fill="#f59e0b" />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-centre">
-                  <Users className="mr-2 h-5 w-5" /> Collaboration Metrics
-                </CardTitle>
-                <CardDescription>
-                  Cross-school collaboration statistics
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="h-80">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      layout="vertical"
-                      data={MOCK_COLLABORATION_METRICS}
-                      margin={{ top: 20, right: 30, left: 100, bottom: 5 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis type="number" />
-                      <YAxis type="category" dataKey="name" />
-                      <Tooltip />
-                      <Bar dataKey="value" fill="#8b5cf6" />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-          
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-centre">
-                <Calendar className="mr-2 h-5 w-5" /> Project Timeline
-              </CardTitle>
-              <CardDescription>
-                Active research projects timeline
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="relative overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b">
-                      <th className="text-left py-2 w-1/4">Project</th>
-                      <th className="text-left py-2 w-1/6">Lead</th>
-                      <th className="text-left py-2 w-1/6">Status</th>
-                      <th className="text-left py-2 w-1/6">Schools</th>
-                      <th className="text-left py-2 w-1/4">Timeline</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="border-b border-muted">
-                      <td className="py-3">Impact of Phonics Teaching Approaches</td>
-                      <td>Sarah Johnson</td>
-                      <td>
-                        <span className="inline-flex items-centre px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                          In Progress
-                        </span>
-                      </td>
-                      <td>3</td>
-                      <td>
-                        <div className="flex items-centre">
-                          <span className="text-xs text-muted-foreground mr-2">Jan 2025</span>
-                          <div className="w-32 bg-muted rounded-full h-2">
-                            <div className="bg-blue-500 h-2 rounded-full" style={{ width: '65%' }}></div>
-                          </div>
-                          <span className="text-xs text-muted-foreground ml-2">Jul 2025</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className="border-b border-muted">
-                      <td className="py-3">Mathematics Anxiety Intervention Study</td>
-                      <td>David Wilson</td>
-                      <td>
-                        <span className="inline-flex items-centre px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
-                          Planning
-                        </span>
-                      </td>
-                      <td>2</td>
-                      <td>
-                        <div className="flex items-centre">
-                          <span className="text-xs text-muted-foreground mr-2">Jun 2025</span>
-                          <div className="w-32 bg-muted rounded-full h-2">
-                            <div className="bg-amber-500 h-2 rounded-full" style={{ width: '25%' }}></div>
-                          </div>
-                          <span className="text-xs text-muted-foreground ml-2">Mar 2026</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className="border-b border-muted">
-                      <td className="py-3">Digital Literacy Development in KS3</td>
-                      <td>Michael Chen</td>
-                      <td>
-                        <span className="inline-flex items-centre px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                          Analysis
-                        </span>
-                      </td>
-                      <td>3</td>
-                      <td>
-                        <div className="flex items-centre">
-                          <span className="text-xs text-muted-foreground mr-2">Nov 2024</span>
-                          <div className="w-32 bg-muted rounded-full h-2">
-                            <div className="bg-purple-500 h-2 rounded-full" style={{ width: '80%' }}></div>
-                          </div>
-                          <span className="text-xs text-muted-foreground ml-2">Jun 2025</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className="border-b border-muted">
-                      <td className="py-3">Restorative Practise Implementation Study</td>
-                      <td>Priya Patel</td>
-                      <td>
-                        <span className="inline-flex items-centre px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                          In Progress
-                        </span>
-                      </td>
-                      <td>5</td>
-                      <td>
-                        <div className="flex items-centre">
-                          <span className="text-xs text-muted-foreground mr-2">Jan 2025</span>
-                          <div className="w-32 bg-muted rounded-full h-2">
-                            <div className="bg-blue-500 h-2 rounded-full" style={{ width: '45%' }}></div>
-                          </div>
-                          <span className="text-xs text-muted-foreground ml-2">Dec 2025</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className="border-b border-muted">
-                      <td className="py-3">SEND Provision Mapping Effectiveness</td>
-                      <td>Emma Thompson</td>
-                      <td>
-                        <span className="inline-flex items-centre px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                          Completed
-                        </span>
-                      </td>
-                      <td>4</td>
-                      <td>
-                        <div className="flex items-centre">
-                          <span className="text-xs text-muted-foreground mr-2">Sep 2024</span>
-                          <div className="w-32 bg-muted rounded-full h-2">
-                            <div className="bg-green-500 h-2 rounded-full" style={{ width: '100%' }}></div>
-                          </div>
-                          <span className="text-xs text-muted-foreground ml-2">Mar 2025</span>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-        
-        {/* Outputs Tab */}
-        <TabsContent value="outputs" className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-centre">
-                  <BarChart2 className="mr-2 h-5 w-5" /> Output Types
-                </CardTitle>
-                <CardDescription>
-                  Research outputs by type over time
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="h-80">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={MOCK_OUTPUT_TRENDS}
-                      margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="month" />
-                      <YAxis />
-                      <Tooltip />
-                      <Legend />
-                      <Bar dataKey="reports" stackId="a" fill="#4f46e5" />
-                      <Bar dataKey="articles" stackId="a" fill="#10b981" />
-                      <Bar dataKey="guides" stackId="a" fill="#f59e0b" />
-                      <Bar dataKey="other" stackId="a" fill="#8b5cf6" />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-centre">
-                  <LineChart className="mr-2 h-5 w-5" /> Engagement Metrics
-                </CardTitle>
-                <CardDescription>
-                  Views, downloads, and citations over time
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="h-80">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart
-                      data={MOCK_ENGAGEMENT_METRICS}
-                      margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="month" />
-                      <YAxis yAxisId="left" />
-                      <YAxis yAxisId="right" orientation="right" />
-                      <Tooltip />
-                      <Legend />
-                      <Line yAxisId="left" type="monotone" dataKey="views" stroke="#4f46e5" strokeWidth={2} />
-                      <Line yAxisId="left" type="monotone" dataKey="downloads" stroke="#10b981" strokeWidth={2} />
-                      <Line yAxisId="right" type="monotone" dataKey="citations" stroke="#f59e0b" strokeWidth={2} />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-          
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-centre">
-                <BookOpen className="mr-2 h-5 w-5" /> Top Research Outputs
-              </CardTitle>
-              <CardDescription>
-                Most impactful research outputs by engagement
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="relative overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b">
-                      <th className="text-left py-2">Title</th>
-                      <th className="text-left py-2">Type</th>
-                      <th className="text-left py-2">Authors</th>
-                      <th className="text-left py-2">Date</th>
-                      <th className="text-right py-2">Views</th>
-                      <th className="text-right py-2">Downloads</th>
-                      <th className="text-right py-2">Citations</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="border-b border-muted">
-                      <td className="py-3">Digital Literacy Framework for Secondary Schools</td>
-                      <td>Toolkit</td>
-                      <td>Chen, Patel, Johnson</td>
-                      <td>Jan 2025</td>
-                      <td className="text-right">356</td>
-                      <td className="text-right">156</td>
-                      <td className="text-right">5</td>
-                    </tr>
-                    <tr className="border-b border-muted">
-                      <td className="py-3">Supporting SEND Students: Effective Provision Mapping</td>
-                      <td>Journal Article</td>
-                      <td>Thompson, Wilson, Chen</td>
-                      <td>Feb 2025</td>
-                      <td className="text-right">287</td>
-                      <td className="text-right">124</td>
-                      <td className="text-right">8</td>
-                    </tr>
-                    <tr className="border-b border-muted">
-                      <td className="py-3">Restorative Approaches in UK Schools: Implementation Guide</td>
-                      <td>Practise Guide</td>
-                      <td>Patel, Johnson, Smith</td>
-                      <td>Apr 2025</td>
-                      <td className="text-right">245</td>
-                      <td className="text-right">112</td>
-                      <td className="text-right">7</td>
-                    </tr>
-                    <tr className="border-b border-muted">
-                      <td className="py-3">Synthetic Phonics Implementation: A Cross-School Analysis</td>
-                      <td>Report</td>
-                      <td>Johnson, Smith, Brown</td>
-                      <td>Mar 2025</td>
-                      <td className="text-right">198</td>
-                      <td className="text-right">87</td>
-                      <td className="text-right">12</td>
-                    </tr>
-                    <tr className="border-b border-muted">
-                      <td className="py-3">Mathematics Anxiety: Early Intervention Approaches</td>
-                      <td>Conference Paper</td>
-                      <td>Wilson, Thompson</td>
-                      <td>Nov 2024</td>
-                      <td className="text-right">145</td>
-                      <td className="text-right">68</td>
-                      <td className="text-right">3</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-        
-        {/* Impact Tab */}
-        <TabsContent value="impact" className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-centre">
-                  <BarChart2 className="mr-2 h-5 w-5" /> Impact Categories
-                </CardTitle>
-                <CardDescription>
-                  Research impact by category
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="h-80">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <RadarChart cx="50%" cy="50%" outerRadius="80%" data={MOCK_IMPACT_METRICS}>
-                      <PolarGrid />
-                      <PolarAngleAxis dataKey="name" />
-                      <PolarRadiusAxis angle={30} domain={[0, 100]} />
-                      <Radar name="Impact Score" dataKey="value" stroke="#4f46e5" fill="#4f46e5" fillOpacity={0.6} />
-                      <Tooltip />
-                    </RadarChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-centre">
-                  <Users className="mr-2 h-5 w-5" /> Reach Statistics
-                </CardTitle>
-                <CardDescription>
-                  Number of schools and students impacted
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="h-80">
-                  <div className="grid grid-cols-2 gap-4 h-full">
-                    <div className="flex flex-col items-centre justify-centre bg-muted/50 rounded-lg p-6">
-                      <School className="h-12 w-12 text-primary mb-4" />
-                      <p className="text-4xl font-bold">67</p>
-                      <p className="text-sm text-muted-foreground mt-2">Schools Impacted</p>
-                      <div className="mt-4 flex items-centre text-xs">
-                        <ArrowUpRight className="h-3 w-3 mr-1 text-green-500" />
-                        <span className="text-green-500 font-medium">+12</span>
-                        <span className="ml-1 text-muted-foreground">from last period</span>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h3 className="font-medium mb-1">Project Details</h3>
+                    <div className="space-y-2">
+                      <div className="flex">
+                        <span className="font-medium w-24">Lead:</span>
+                        <span>{selectedProject.lead}</span>
                       </div>
+                      <div className="flex">
+                        <span className="font-medium w-24">Deadline:</span>
+                        <span>{selectedProject.deadline}</span>
+                      </div>
+                      <div className="flex">
+                        <span className="font-medium w-24">Commitment:</span>
+                        <span>{selectedProject.commitment}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="font-medium mb-1">Focus Areas</h3>
+                  <div className="flex flex-wrap gap-1">
+                    {selectedProject.focusAreas.map((area, i) => (
+                      <Badge key={i} variant="outline">{area}</Badge>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter className="flex justify-between">
+                <Button variant="outline">
+                  <Mail className="h-4 w-4 mr-2" />
+                  Contact Lead Researcher
+                </Button>
+                <Button>
+                  <UserPlus className="h-4 w-4 mr-2" />
+                  Express Interest
+                </Button>
+              </CardFooter>
+            </Card>
+          )}
+        </TabsContent>
+        
+        <TabsContent value="publications" className="space-y-4">
+          <div className="relative flex-1 mb-4">
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search publications..."
+              className="pl-8"
+            />
+          </div>
+          
+          <div className="grid gap-4">
+            {researchPublications.map(publication => (
+              <Card key={publication.id}>
+                <CardContent className="p-4">
+                  <div>
+                    <h3 className="font-semibold">{publication.title}</h3>
+                    <p className="text-sm text-muted-foreground">{publication.authors} • {publication.journal}, {publication.year}</p>
+                  </div>
+                  <p className="mt-2 text-sm">{publication.abstract}</p>
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    {publication.keywords.map((keyword, i) => (
+                      <Badge key={i} variant="outline">{keyword}</Badge>
+                    ))}
+                  </div>
+                  <div className="flex justify-between items-center mt-3">
+                    <div className="flex items-center text-sm text-muted-foreground">
+                      <FileText className="h-4 w-4 mr-1" />
+                      <span>DOI: {publication.doi}</span>
+                      <Star className="h-4 w-4 ml-3 mr-1" />
+                      <span>{publication.citations} citations</span>
+                    </div>
+                    <Button size="sm" variant="outline" asChild>
+                      <a href={publication.link} target="_blank" rel="noopener noreferrer">
+                        View Publication
+                      </a>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+        
+        <TabsContent value="networks" className="space-y-4">
+          <div className="grid gap-4">
+            {researchNetworks.map(network => (
+              <Card key={network.id}>
+                <CardContent className="p-4">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="font-semibold">{network.name}</h3>
+                      <p className="text-sm text-muted-foreground">{network.members} members • {network.focus}</p>
+                    </div>
+                    <Button size="sm">Join Network</Button>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div>
+                      <h4 className="text-sm font-medium mb-1">Events & Activities</h4>
+                      <ul className="list-disc pl-5 space-y-1 text-sm">
+                        {network.events.map((event, i) => (
+                          <li key={i}>{event}</li>
+                        ))}
+                      </ul>
                     </div>
                     
-                    <div className="flex flex-col items-centre justify-centre bg-muted/50 rounded-lg p-6">
-                      <Users className="h-12 w-12 text-primary mb-4" />
-                      <p className="text-4xl font-bold">23,900</p>
-                      <p className="text-sm text-muted-foreground mt-2">Students Reached</p>
-                      <div className="mt-4 flex items-centre text-xs">
-                        <ArrowUpRight className="h-3 w-3 mr-1 text-green-500" />
-                        <span className="text-green-500 font-medium">+3,450</span>
-                        <span className="ml-1 text-muted-foreground">from last period</span>
-                      </div>
+                    <div>
+                      <h4 className="text-sm font-medium mb-1">Membership Benefits</h4>
+                      <ul className="list-disc pl-5 space-y-1 text-sm">
+                        {network.benefits.map((benefit, i) => (
+                          <li key={i}>{benefit}</li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                  
+                  <div className="mt-4">
+                    <h4 className="text-sm font-medium mb-1">How to Join</h4>
+                    <p className="text-sm">{network.joining}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
-          
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-centre">
-                <TrendingUp className="mr-2 h-5 w-5" /> Impact Case Studies
-              </CardTitle>
-              <CardDescription>
-                Documented impact from research projects
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="bg-muted/50 rounded-lg p-4">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-medium">Synthetic Phonics Implementation Study</h3>
-                      <p className="text-sm text-muted-foreground mt-1">Implementation of revised synthetic phonics approach based on research findings, resulting in 15% improvement in early reading outcomes.</p>
-                    </div>
-                    <span className="inline-flex items-centre px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                      Practise Change
-                    </span>
-                  </div>
-                  <div className="mt-4 grid grid-cols-3 gap-4">
-                    <div className="text-centre">
-                      <p className="text-2xl font-bold">18</p>
-                      <p className="text-xs text-muted-foreground">Schools</p>
-                    </div>
-                    <div className="text-centre">
-                      <p className="text-2xl font-bold">4,500</p>
-                      <p className="text-xs text-muted-foreground">Students</p>
-                    </div>
-                    <div className="text-centre">
-                      <p className="text-2xl font-bold">15%</p>
-                      <p className="text-xs text-muted-foreground">Improvement</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-muted/50 rounded-lg p-4">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-medium">SEND Provision Mapping Study</h3>
-                      <p className="text-sm text-muted-foreground mt-1">Development of new SEND provision mapping policy adopted by local authority, improving consistency and effectiveness of support.</p>
-                    </div>
-                    <span className="inline-flex items-centre px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                      Policy Change
-                    </span>
-                  </div>
-                  <div className="mt-4 grid grid-cols-3 gap-4">
-                    <div className="text-centre">
-                      <p className="text-2xl font-bold">12</p>
-                      <p className="text-xs text-muted-foreground">Schools</p>
-                    </div>
-                    <div className="text-centre">
-                      <p className="text-2xl font-bold">3,200</p>
-                      <p className="text-xs text-muted-foreground">Students</p>
-                    </div>
-                    <div className="text-centre">
-                      <p className="text-2xl font-bold">1</p>
-                      <p className="text-xs text-muted-foreground">Policy Adopted</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-muted/50 rounded-lg p-4">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-medium">Restorative Practise Implementation Study</h3>
-                      <p className="text-sm text-muted-foreground mt-1">Whole-school implementation of restorative approaches, resulting in 40% reduction in exclusions and improved school climate.</p>
-                    </div>
-                    <span className="inline-flex items-centre px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                      School Culture
-                    </span>
-                  </div>
-                  <div className="mt-4 grid grid-cols-3 gap-4">
-                    <div className="text-centre">
-                      <p className="text-2xl font-bold">10</p>
-                      <p className="text-xs text-muted-foreground">Schools</p>
-                    </div>
-                    <div className="text-centre">
-                      <p className="text-2xl font-bold">6,500</p>
-                      <p className="text-xs text-muted-foreground">Students</p>
-                    </div>
-                    <div className="text-centre">
-                      <p className="text-2xl font-bold">-40%</p>
-                      <p className="text-xs text-muted-foreground">Exclusions</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
         </TabsContent>
         
-        {/* Collaboration Tab */}
-        <TabsContent value="collaboration" className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <TabsContent value="analytics" className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card>
-              <CardHeader>
-                <CardTitle className="flex items-centre">
-                  <Users className="mr-2 h-5 w-5" /> Collaboration Network
-                </CardTitle>
-                <CardDescription>
-                  Connections between schools and researchers
-                </CardDescription>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg">Publication Impact</CardTitle>
+                <CardDescription>Your research citation metrics</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="h-80 flex items-centre justify-centre">
-                  <div className="text-centre">
-                    <div className="bg-muted/50 p-8 rounded-lg">
-                      <div className="text-muted-foreground mb-4">Network visualisation would appear here</div>
-                      <p className="text-sm">Interactive network graph showing connections between 32 schools and 85 researchers across 5 research networks</p>
-                    </div>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm font-medium">Total Publications</span>
+                    <span className="text-2xl font-bold">12</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm font-medium">Total Citations</span>
+                    <span className="text-2xl font-bold">87</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm font-medium">h-index</span>
+                    <span className="text-2xl font-bold">5</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm font-medium">i10-index</span>
+                    <span className="text-2xl font-bold">2</span>
                   </div>
                 </div>
               </CardContent>
             </Card>
             
             <Card>
-              <CardHeader>
-                <CardTitle className="flex items-centre">
-                  <BarChart2 className="mr-2 h-5 w-5" /> Cross-School Collaboration
-                </CardTitle>
-                <CardDescription>
-                  Collaboration metrics by type
-                </CardDescription>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg">Research Focus</CardTitle>
+                <CardDescription>Your research area distribution</CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="h-80">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={MOCK_COLLABORATION_METRICS}
-                      margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis />
-                      <Tooltip />
-                      <Bar dataKey="value" fill="#4f46e5" />
-                    </BarChart>
-                  </ResponsiveContainer>
+              <CardContent className="h-[200px] flex items-center justify-center">
+                <div className="text-center text-muted-foreground">
+                  [Research Focus Chart]
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg">Collaboration Network</CardTitle>
+                <CardDescription>Your research collaborators</CardDescription>
+              </CardHeader>
+              <CardContent className="h-[200px] flex items-center justify-center">
+                <div className="text-center text-muted-foreground">
+                  [Collaboration Network Visualization]
                 </div>
               </CardContent>
             </Card>
@@ -994,102 +537,68 @@ export default function ResearchCollaborationDashboard() {
           
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-centre">
-                <Globe className="mr-2 h-5 w-5" /> Research Networks
-              </CardTitle>
-              <CardDescription>
-                Active research networks and communities
-              </CardDescription>
+              <CardTitle>Citation Trends</CardTitle>
+              <CardDescription>Your citation metrics over time</CardDescription>
+            </CardHeader>
+            <CardContent className="h-[300px] flex items-center justify-center">
+              <div className="text-center text-muted-foreground">
+                [Citation Trends Chart]
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardHeader>
+              <CardTitle>Research Impact</CardTitle>
+              <CardDescription>Metrics beyond academic citations</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <div className="bg-muted/50 rounded-lg p-4">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-medium">Early Literacy Research Network</h3>
-                      <p className="text-sm text-muted-foreground mt-1">A collaborative network of researchers and practitioners focused on early literacy development and effective teaching approaches.</p>
-                    </div>
-                    <Button variant="outline" size="sm">
-                      <ExternalLink className="h-4 w-4 mr-1" /> View
-                    </Button>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <h3 className="text-sm font-medium">Academic Impact</h3>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm">Journal Articles</span>
+                    <span className="font-medium">8</span>
                   </div>
-                  <div className="mt-4 grid grid-cols-4 gap-4">
-                    <div className="text-centre">
-                      <p className="text-xl font-bold">42</p>
-                      <p className="text-xs text-muted-foreground">Members</p>
-                    </div>
-                    <div className="text-centre">
-                      <p className="text-xl font-bold">15</p>
-                      <p className="text-xs text-muted-foreground">Schools</p>
-                    </div>
-                    <div className="text-centre">
-                      <p className="text-xl font-bold">8</p>
-                      <p className="text-xs text-muted-foreground">Projects</p>
-                    </div>
-                    <div className="text-centre">
-                      <p className="text-xl font-bold">12</p>
-                      <p className="text-xs text-muted-foreground">Outputs</p>
-                    </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm">Conference Papers</span>
+                    <span className="font-medium">4</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm">Book Chapters</span>
+                    <span className="font-medium">2</span>
                   </div>
                 </div>
                 
-                <div className="bg-muted/50 rounded-lg p-4">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-medium">SEND Research Collaborative</h3>
-                      <p className="text-sm text-muted-foreground mt-1">A network dedicated to researching effective approaches for supporting students with special educational needs and disabilities.</p>
-                    </div>
-                    <Button variant="outline" size="sm">
-                      <ExternalLink className="h-4 w-4 mr-1" /> View
-                    </Button>
+                <div className="space-y-2">
+                  <h3 className="text-sm font-medium">Practice Impact</h3>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm">Practice Guidelines</span>
+                    <span className="font-medium">3</span>
                   </div>
-                  <div className="mt-4 grid grid-cols-4 gap-4">
-                    <div className="text-centre">
-                      <p className="text-xl font-bold">38</p>
-                      <p className="text-xs text-muted-foreground">Members</p>
-                    </div>
-                    <div className="text-centre">
-                      <p className="text-xl font-bold">22</p>
-                      <p className="text-xs text-muted-foreground">Schools</p>
-                    </div>
-                    <div className="text-centre">
-                      <p className="text-xl font-bold">6</p>
-                      <p className="text-xs text-muted-foreground">Projects</p>
-                    </div>
-                    <div className="text-centre">
-                      <p className="text-xl font-bold">9</p>
-                      <p className="text-xs text-muted-foreground">Outputs</p>
-                    </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm">Assessment Tools</span>
+                    <span className="font-medium">2</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm">Intervention Programs</span>
+                    <span className="font-medium">1</span>
                   </div>
                 </div>
                 
-                <div className="bg-muted/50 rounded-lg p-4">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-medium">Behaviour and Wellbeing Research Collaborative</h3>
-                      <p className="text-sm text-muted-foreground mt-1">A collaborative network researching approaches to supporting positive behaviour and wellbeing in educational settings.</p>
-                    </div>
-                    <Button variant="outline" size="sm">
-                      <ExternalLink className="h-4 w-4 mr-1" /> View
-                    </Button>
+                <div className="space-y-2">
+                  <h3 className="text-sm font-medium">Public Impact</h3>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm">Media Mentions</span>
+                    <span className="font-medium">5</span>
                   </div>
-                  <div className="mt-4 grid grid-cols-4 gap-4">
-                    <div className="text-centre">
-                      <p className="text-xl font-bold">45</p>
-                      <p className="text-xs text-muted-foreground">Members</p>
-                    </div>
-                    <div className="text-centre">
-                      <p className="text-xl font-bold">28</p>
-                      <p className="text-xs text-muted-foreground">Schools</p>
-                    </div>
-                    <div className="text-centre">
-                      <p className="text-xl font-bold">9</p>
-                      <p className="text-xs text-muted-foreground">Projects</p>
-                    </div>
-                    <div className="text-centre">
-                      <p className="text-xl font-bold">14</p>
-                      <p className="text-xs text-muted-foreground">Outputs</p>
-                    </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm">Policy Citations</span>
+                    <span className="font-medium">2</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm">Public Engagement Events</span>
+                    <span className="font-medium">7</span>
                   </div>
                 </div>
               </div>
