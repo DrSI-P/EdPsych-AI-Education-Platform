@@ -1,1222 +1,847 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/components/ui/use-toast";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { format } from "date-fns";
-import { CalendarIcon, BarChart3, Check, RefreshCw, FileText, AlertTriangle, Info, Target, BookOpen, Clock, Plus, Trash2 } from "lucide-react";
-import { useSession } from 'next-auth/react';
+import React, { useState, useEffect } from 'react';
+import { 
+  Card, 
+  CardContent, 
+  CardDescription, 
+  CardFooter, 
+  CardHeader, 
+  CardTitle 
+} from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { 
+  LineChart, 
+  BarChart, 
+  CheckCircle, 
+  ChevronRight, 
+  Download, 
+  FileText, 
+  Filter, 
+  Plus, 
+  RefreshCw, 
+  Search, 
+  Settings, 
+  Target, 
+  TrendingUp 
+} from 'lucide-react';
+import { useToast } from '@/components/ui/use-toast';
+import { Badge } from '@/components/ui/badge';
+import { Switch } from '@/components/ui/switch';
+import { Textarea } from '@/components/ui/textarea';
+import { DatePicker } from '@/components/ui/date-picker';
 
-interface ProgressMonitoringProps {
-  onSettingsChange?: (settings: MonitoringSettings) => void;
-  className?: string;
-}
-
-interface MonitoringSettings {
-  enabled: boolean;
-  monitoringFrequency: 'daily' | 'weekly' | 'biweekly' | 'monthly';
-  automaticReminders: boolean;
-  dataVisualization: boolean;
-  progressReports: boolean;
-  goalTracking: boolean;
-  interventionId?: string;
-}
-
+// Types for type safety
 interface Goal {
   id: string;
-  title: string;
+  name: string;
   description: string;
+  category: string;
   targetDate: Date;
   baseline: number;
   target: number;
-  currentValue: number;
-  unit: string;
-  notes: string;
+  progress: number;
+  status: 'not-started' | 'in-progress' | 'achieved' | 'discontinued';
+  notes: string[];
 }
 
 interface DataPoint {
-  date: string;
+  id: string;
+  date: Date;
   value: number;
-  notes?: string;
+  notes: string;
 }
 
-export default function ProgressMonitoringEngine({
-  onSettingsChange,
-  className = '',
-}: ProgressMonitoringProps) {
-  const { data: session } = useSession();
+export function ProgressMonitoringEngine() {
   const { toast } = useToast();
-  
-  // State for monitoring settings
-  const [settings, setSettings] = useState<MonitoringSettings>({
-    enabled: false,
-    monitoringFrequency: 'weekly',
-    automaticReminders: true,
-    dataVisualization: true,
-    progressReports: true,
-    goalTracking: true,
-  });
   
   // State for goals and data points
   const [goals, setGoals] = useState<Goal[]>([]);
   const [selectedGoal, setSelectedGoal] = useState<Goal | null>(null);
   const [dataPoints, setDataPoints] = useState<DataPoint[]>([]);
-  const [newDataPoint, setNewDataPoint] = useState<{
-    date: Date;
-    value: string;
-    notes: string;
-  }>({
-    date: new Date(),
-    value: '',
-    notes: '',
-  });
-  
-  // State for new goal form
-  const [newGoal, setNewGoal] = useState<{
-    title: string;
-    description: string;
-    targetDate: Date;
-    baseline: string;
-    target: string;
-    unit: string;
-    notes: string;
-  }>({
-    title: '',
-    description: '',
-    targetDate: undefined,
-    baseline: '',
-    target: '',
-    unit: '',
-    notes: '',
-  });
   
   // State for UI
-  const [isApplied, setIsApplied] = useState(false);
-  const [activeTab, setActiveTab] = useState('settings');
-  const [interventions, setInterventions] = useState<{id: string, name: string}[]>([]);
+  const [activeTab, setActiveTab] = useState('goals');
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('all');
+  const [statusFilter, setStatusFilter] = useState('all');
   
-  // Load user settings from API on component mount
+  // Sample goals data
+  const sampleGoals: Goal[] = [
+    {
+      id: 'goal1',
+      name: 'Reading Fluency',
+      description: 'Increase reading fluency from 60 words per minute to 90 words per minute with 95% accuracy.',
+      category: 'academic',
+      targetDate: new Date(2025, 7, 15),
+      baseline: 60,
+      target: 90,
+      progress: 75,
+      status: 'in-progress',
+      notes: [
+        'Initial assessment completed on May 1, 2025',
+        'Using repeated reading strategy with visual tracking support',
+        'Mid-point check shows 25% improvement'
+      ]
+    },
+    {
+      id: 'goal2',
+      name: 'Task Completion',
+      description: 'Increase independent task completion from 40% to 80% of assigned classwork.',
+      category: 'executive-function',
+      targetDate: new Date(2025, 5, 30),
+      baseline: 40,
+      target: 80,
+      progress: 65,
+      status: 'in-progress',
+      notes: [
+        'Using visual checklist and timer',
+        'Breaking tasks into smaller steps',
+        'Reinforcement system in place'
+      ]
+    },
+    {
+      id: 'goal3',
+      name: 'Social Interaction',
+      description: 'Initiate positive peer interactions during unstructured time from 2 to 5 times per day.',
+      category: 'social',
+      targetDate: new Date(2025, 6, 20),
+      baseline: 2,
+      target: 5,
+      progress: 100,
+      status: 'achieved',
+      notes: [
+        'Social stories used as preparation',
+        'Peer buddy system implemented',
+        'Goal achieved on June 10, 2025'
+      ]
+    },
+    {
+      id: 'goal4',
+      name: 'Math Problem Solving',
+      description: 'Increase accuracy in multi-step math problems from 50% to 85%.',
+      category: 'academic',
+      targetDate: new Date(2025, 8, 10),
+      baseline: 50,
+      target: 85,
+      progress: 30,
+      status: 'in-progress',
+      notes: [
+        'Using visual problem-solving template',
+        'Explicit strategy instruction in place',
+        'Weekly progress monitoring'
+      ]
+    },
+    {
+      id: 'goal5',
+      name: 'Emotional Regulation',
+      description: 'Reduce emotional outbursts from 5 per week to 1 per week using self-regulation strategies.',
+      category: 'behavioral',
+      targetDate: new Date(2025, 7, 25),
+      baseline: 5,
+      target: 1,
+      progress: 60,
+      status: 'in-progress',
+      notes: [
+        'Using zones of regulation framework',
+        'Self-monitoring chart implemented',
+        'Calming corner established in classroom'
+      ]
+    }
+  ];
+  
+  // Sample data points for the first goal
+  const sampleDataPoints: DataPoint[] = [
+    {
+      id: 'dp1',
+      date: new Date(2025, 4, 1),
+      value: 60,
+      notes: 'Baseline assessment'
+    },
+    {
+      id: 'dp2',
+      date: new Date(2025, 4, 8),
+      value: 63,
+      notes: 'First week of intervention'
+    },
+    {
+      id: 'dp3',
+      date: new Date(2025, 4, 15),
+      value: 67,
+      notes: 'Showing steady improvement'
+    },
+    {
+      id: 'dp4',
+      date: new Date(2025, 4, 22),
+      value: 70,
+      notes: 'Consistent practice at home and school'
+    },
+    {
+      id: 'dp5',
+      date: new Date(2025, 4, 29),
+      value: 75,
+      notes: 'Implemented additional visual supports'
+    }
+  ];
+  
+  // Load data on component mount
   useEffect(() => {
-    if (session?.user) {
-      // Load progress monitoring settings
-      fetch('/api/special-needs/progress-monitoring')
-        .then(res => res.json())
-        .then(data => {
-          if (data.success && data.settings) {
-            setSettings(prev => ({
-              ...prev,
-              ...data.settings,
-            }));
-            
-            // If monitoring was already enabled, mark as applied
-            if (data.settings.enabled) {
-              setIsApplied(true);
-            }
-          }
-        })
-        .catch(error => {
-          console.error('Error loading progress monitoring settings:', error);
+    // Simulate API call to load goals
+    const loadGoals = async () => {
+      try {
+        // In a real implementation, this would be an API call
+        setTimeout(() => {
+          setGoals(sampleGoals);
+          setIsLoading(false);
+        }, 1000);
+      } catch (error) {
+        console.error('Error loading goals:', error);
+        toast({
+          title: 'Error',
+          description: 'Failed to load goals. Please try again.',
+          variant: 'destructive'
         });
-      
-      // Load goals
-      fetch('/api/special-needs/progress-monitoring/goals')
-        .then(res => res.json())
-        .then(data => {
-          if (data.success && data.goals) {
-            setGoals(data.goals.map((goal) => ({
-              ...goal,
-              targetDate: new Date(goal.targetDate),
-            })));
-            
-            if (data.goals.length > 0) {
-              setSelectedGoal({
-                ...data.goals[0],
-                targetDate: new Date(data.goals[0].targetDate),
-              });
-            }
-          }
-        })
-        .catch(error => {
-          console.error('Error loading goals:', error);
-        });
-      
-      // Load available interventions
-      fetch('/api/special-needs/personalized-interventions')
-        .then(res => res.json())
-        .then(data => {
-          if (data.success && data.settings) {
-            setInterventions([
-              {
-                id: data.settings.id || 'default',
-                name: `${data.settings.learningProfile} (${data.settings.interventionLevel})`
-              }
-            ]);
-          }
-        })
-        .catch(error => {
-          console.error('Error loading interventions:', error);
-        });
-    }
-  }, [session]);
+      }
+    };
+    
+    loadGoals();
+  }, [toast]);
   
-  // Load data points when selected goal changes
+  // Load data points when a goal is selected
   useEffect(() => {
-    if (selectedGoal && session?.user) {
-      fetch(`/api/special-needs/progress-monitoring/goals/${selectedGoal.id}/data`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.success && data.dataPoints) {
-            setDataPoints(data.dataPoints);
-          }
-        })
-        .catch(error => {
-          console.error('Error loading data points:', error);
-        });
-    } else {
-      setDataPoints([]);
+    if (selectedGoal) {
+      setIsLoading(true);
+      // Simulate API call to load data points for the selected goal
+      setTimeout(() => {
+        setDataPoints(sampleDataPoints);
+        setIsLoading(false);
+      }, 800);
     }
-  }, [selectedGoal, session]);
+  }, [selectedGoal]);
   
-  // Handle settings change
-  const handleSettingsChange = (key: keyof MonitoringSettings, value) => {
-    setSettings(prev => {
-      const newSettings = { ...prev, [key]: value };
-      
-      // Call the callback if provided
-      if (onSettingsChange) {
-        onSettingsChange(newSettings);
-      }
-      
-      return newSettings;
+  // Handle goal selection
+  const handleGoalSelect = (goal: Goal) => {
+    setSelectedGoal(goal);
+    setActiveTab('progress');
+  };
+  
+  // Filter goals based on search query and filters
+  const filteredGoals = goals.filter(goal => {
+    // Search query filter
+    if (searchQuery && !goal.name.toLowerCase().includes(searchQuery.toLowerCase()) && 
+        !goal.description.toLowerCase().includes(searchQuery.toLowerCase())) {
+      return false;
+    }
+    
+    // Category filter
+    if (categoryFilter !== 'all' && goal.category !== categoryFilter) {
+      return false;
+    }
+    
+    // Status filter
+    if (statusFilter !== 'all' && goal.status !== statusFilter) {
+      return false;
+    }
+    
+    return true;
+  });
+  
+  // Get status badge color
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'not-started':
+        return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'in-progress':
+        return 'bg-blue-100 text-blue-800 border-blue-200';
+      case 'achieved':
+        return 'bg-green-100 text-green-800 border-green-200';
+      case 'discontinued':
+        return 'bg-red-100 text-red-800 border-red-200';
+      default:
+        return 'bg-gray-100 text-gray-800 border-gray-200';
+    }
+  };
+  
+  // Get progress color
+  const getProgressColor = (progress: number) => {
+    if (progress < 30) return 'bg-red-600';
+    if (progress < 70) return 'bg-yellow-600';
+    return 'bg-green-600';
+  };
+  
+  // Format date
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
     });
-  };
-  
-  // Apply settings
-  const handleApplySettings = () => {
-    setIsApplied(true);
-    
-    // Save settings to user profile if logged in
-    if (session?.user) {
-      fetch('/api/special-needs/progress-monitoring', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          settings: settings
-        }),
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (data.success) {
-            toast({
-              title: "Monitoring settings saved",
-              description: "Your progress monitoring settings have been saved to your profile.",
-            });
-          } else {
-            throw new Error(data.error || 'Failed to save settings');
-          }
-        })
-        .catch(error => {
-          console.error('Error saving monitoring settings:', error);
-          toast({
-            title: "Error saving settings",
-            description: "Your monitoring settings could not be saved to your profile.",
-            variant: "destructive",
-          });
-        });
-    } else {
-      toast({
-        title: "Monitoring settings created",
-        description: "Sign in to save these settings to your profile.",
-      });
-    }
-  };
-  
-  // Reset settings to defaults
-  const handleResetSettings = () => {
-    const defaultSettings: MonitoringSettings = {
-      enabled: false,
-      monitoringFrequency: 'weekly',
-      automaticReminders: true,
-      dataVisualization: true,
-      progressReports: true,
-      goalTracking: true,
-    };
-    
-    setSettings(defaultSettings);
-    setIsApplied(false);
-    
-    toast({
-      title: "Settings reset",
-      description: "Progress monitoring settings have been reset to defaults.",
-    });
-    
-    // Save reset settings to user profile if logged in
-    if (session?.user) {
-      fetch('/api/special-needs/progress-monitoring', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          settings: defaultSettings
-        }),
-      }).catch(error => {
-        console.error('Error resetting monitoring settings:', error);
-      });
-    }
-  };
-  
-  // Add new goal
-  const handleAddGoal = () => {
-    if (!newGoal.title || !newGoal.targetDate || !newGoal.baseline || !newGoal.target || !newGoal.unit) {
-      toast({
-        title: "Missing information",
-        description: "Please fill in all required fields for the goal.",
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    const goalData = {
-      title: newGoal.title,
-      description: newGoal.description,
-      targetDate: newGoal.targetDate,
-      baseline: parseFloat(newGoal.baseline),
-      target: parseFloat(newGoal.target),
-      currentValue: parseFloat(newGoal.baseline),
-      unit: newGoal.unit,
-      notes: newGoal.notes,
-    };
-    
-    if (session?.user) {
-      fetch('/api/special-needs/progress-monitoring/goals', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          goal: goalData
-        }),
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (data.success && data.goal) {
-            const newGoalWithId = {
-              ...goalData,
-              id: data.goal.id,
-              currentValue: parseFloat(newGoal.baseline),
-            };
-            
-            setGoals(prev => [...prev, newGoalWithId]);
-            setSelectedGoal(newGoalWithId);
-            
-            // Reset form
-            setNewGoal({
-              title: '',
-              description: '',
-              targetDate: undefined,
-              baseline: '',
-              target: '',
-              unit: '',
-              notes: '',
-            });
-            
-            toast({
-              title: "Goal created",
-              description: "Your new goal has been created successfully.",
-            });
-            
-            // Switch to goals tab
-            setActiveTab('goals');
-          } else {
-            throw new Error(data.error || 'Failed to create goal');
-          }
-        })
-        .catch(error => {
-          console.error('Error creating goal:', error);
-          toast({
-            title: "Error creating goal",
-            description: "Your goal could not be created. Please try again.",
-            variant: "destructive",
-          });
-        });
-    } else {
-      // For demo purposes when not logged in
-      const demoGoal = {
-        ...goalData,
-        id: `demo-${Date.now()}`,
-        currentValue: parseFloat(newGoal.baseline),
-      };
-      
-      setGoals(prev => [...prev, demoGoal]);
-      setSelectedGoal(demoGoal);
-      
-      // Reset form
-      setNewGoal({
-        title: '',
-        description: '',
-        targetDate: undefined,
-        baseline: '',
-        target: '',
-        unit: '',
-        notes: '',
-      });
-      
-      toast({
-        title: "Demo goal created",
-        description: "This is a demo goal. Sign in to save goals to your profile.",
-      });
-      
-      // Switch to goals tab
-      setActiveTab('goals');
-    }
-  };
-  
-  // Add new data point
-  const handleAddDataPoint = () => {
-    if (!selectedGoal || !newDataPoint.date || !newDataPoint.value) {
-      toast({
-        title: "Missing information",
-        description: "Please select a goal and provide a date and value.",
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    const dataPointValue = parseFloat(newDataPoint.value);
-    
-    if (isNaN(dataPointValue)) {
-      toast({
-        title: "Invalid value",
-        description: "Please enter a valid number for the value.",
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    const dataPoint = {
-      date: format(newDataPoint.date, 'yyyy-MM-dd'),
-      value: dataPointValue,
-      notes: newDataPoint.notes,
-    };
-    
-    if (session?.user) {
-      fetch(`/api/special-needs/progress-monitoring/goals/${selectedGoal.id}/data`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          dataPoint: dataPoint
-        }),
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (data.success && data.dataPoint) {
-            setDataPoints(prev => [...prev, dataPoint]);
-            
-            // Update current value in selected goal
-            setSelectedGoal(prev => {
-              if (prev) {
-                return {
-                  ...prev,
-                  currentValue: dataPointValue,
-                };
-              }
-              return prev;
-            });
-            
-            // Update current value in goals list
-            setGoals(prev => prev.map(goal => 
-              goal.id === selectedGoal.id 
-                ? { ...goal, currentValue: dataPointValue } 
-                : goal
-            ));
-            
-            // Reset form
-            setNewDataPoint({
-              date: new Date(),
-              value: '',
-              notes: '',
-            });
-            
-            toast({
-              title: "Data point added",
-              description: "Your new data point has been added successfully.",
-            });
-          } else {
-            throw new Error(data.error || 'Failed to add data point');
-          }
-        })
-        .catch(error => {
-          console.error('Error adding data point:', error);
-          toast({
-            title: "Error adding data point",
-            description: "Your data point could not be added. Please try again.",
-            variant: "destructive",
-          });
-        });
-    } else {
-      // For demo purposes when not logged in
-      setDataPoints(prev => [...prev, dataPoint]);
-      
-      // Update current value in selected goal
-      setSelectedGoal(prev => {
-        if (prev) {
-          return {
-            ...prev,
-            currentValue: dataPointValue,
-          };
-        }
-        return prev;
-      });
-      
-      // Update current value in goals list
-      setGoals(prev => prev.map(goal => 
-        goal.id === selectedGoal.id 
-          ? { ...goal, currentValue: dataPointValue } 
-          : goal
-      ));
-      
-      // Reset form
-      setNewDataPoint({
-        date: new Date(),
-        value: '',
-        notes: '',
-      });
-      
-      toast({
-        title: "Demo data point added",
-        description: "This is a demo data point. Sign in to save data to your profile.",
-      });
-    }
-  };
-  
-  // Delete goal
-  const handleDeleteGoal = (goalId: string) => {
-    if (session?.user) {
-      fetch(`/api/special-needs/progress-monitoring/goals/${goalId}`, {
-        method: 'DELETE',
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (data.success) {
-            // Remove goal from state
-            setGoals(prev => prev.filter(goal => goal.id !== goalId));
-            
-            // If the deleted goal was selected, select another one or set to null
-            if (selectedGoal && selectedGoal.id === goalId) {
-              const remainingGoals = goals.filter(goal => goal.id !== goalId);
-              setSelectedGoal(remainingGoals.length > 0 ? remainingGoals[0] : null);
-            }
-            
-            toast({
-              title: "Goal deleted",
-              description: "The goal has been deleted successfully.",
-            });
-          } else {
-            throw new Error(data.error || 'Failed to delete goal');
-          }
-        })
-        .catch(error => {
-          console.error('Error deleting goal:', error);
-          toast({
-            title: "Error deleting goal",
-            description: "The goal could not be deleted. Please try again.",
-            variant: "destructive",
-          });
-        });
-    } else {
-      // For demo purposes when not logged in
-      setGoals(prev => prev.filter(goal => goal.id !== goalId));
-      
-      // If the deleted goal was selected, select another one or set to null
-      if (selectedGoal && selectedGoal.id === goalId) {
-        const remainingGoals = goals.filter(goal => goal.id !== goalId);
-        setSelectedGoal(remainingGoals.length > 0 ? remainingGoals[0] : null);
-      }
-      
-      toast({
-        title: "Demo goal deleted",
-        description: "This is a demo deletion. Sign in to manage goals in your profile.",
-      });
-    }
-  };
-  
-  // Calculate progress percentage
-  const calculateProgress = (goal: Goal) => {
-    if (goal.target === goal.baseline) return 100; // Avoid division by zero
-    const range = goal.target - goal.baseline;
-    const progress = goal.currentValue - goal.baseline;
-    const percentage = (progress / range) * 100;
-    return Math.min(Math.max(0, percentage), 100); // Clamp between 0 and 100
-  };
-  
-  // Format chart data
-  const getChartData = () => {
-    return dataPoints.map(point => ({
-      date: point.date,
-      value: point.value,
-    }));
   };
   
   return (
-    <Card className={className}>
-      <CardHeader>
-        <CardTitle className="flex items-centre justify-between">
-          <div className="flex items-centre gap-2">
-            <BarChart3 className="h-5 w-5" />
-            Progress Monitoring
-          </div>
-          <Switch 
-            checked={settings.enabled}
-            onCheckedChange={(checked) => handleSettingsChange('enabled', checked)}
-          />
-        </CardTitle>
-        <CardDescription>
-          Track intervention effectiveness and student progress over time
-        </CardDescription>
-      </CardHeader>
-      
-      <CardContent>
-        <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="settings">Settings</TabsTrigger>
-            <TabsTrigger value="goals">Goals</TabsTrigger>
-            <TabsTrigger value="data">Data</TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="settings" className="space-y-6 pt-4">
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="monitoring-frequency">Monitoring Frequency</Label>
-                <Select
-                  value={settings.monitoringFrequency}
-                  onValueChange={(value: 'daily' | 'weekly' | 'biweekly' | 'monthly') => 
-                    handleSettingsChange('monitoringFrequency', value)
-                  }
+    <div className="space-y-6">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="goals">Goals</TabsTrigger>
+          <TabsTrigger value="progress">Progress Monitoring</TabsTrigger>
+          <TabsTrigger value="reports">Reports & Analysis</TabsTrigger>
+        </TabsList>
+        
+        {/* Goals Tab */}
+        <TabsContent value="goals" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Target className="mr-2 h-5 w-5" />
+                Goals Dashboard
+              </CardTitle>
+              <CardDescription>
+                Create, view, and manage personalized learning and development goals
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center space-x-2">
+                <div className="relative flex-1">
+                  <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                  <Input 
+                    placeholder="Search goals..." 
+                    className="pl-8" 
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </div>
+                <Select 
+                  value={categoryFilter}
+                  onValueChange={setCategoryFilter}
                 >
-                  <SelectTrigger id="monitoring-frequency">
-                    <SelectValue placeholder="Select frequency" />
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Filter by category" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="daily">Daily</SelectItem>
-                    <SelectItem value="weekly">Weekly</SelectItem>
-                    <SelectItem value="biweekly">Bi-weekly</SelectItem>
-                    <SelectItem value="monthly">Monthly</SelectItem>
+                    <SelectItem value="all">All Categories</SelectItem>
+                    <SelectItem value="academic">Academic</SelectItem>
+                    <SelectItem value="behavioral">Behavioral</SelectItem>
+                    <SelectItem value="social">Social</SelectItem>
+                    <SelectItem value="executive-function">Executive Function</SelectItem>
+                    <SelectItem value="communication">Communication</SelectItem>
                   </SelectContent>
                 </Select>
-                <p className="text-xs text-muted-foreground">
-                  How often data should be collected to monitor progress
-                </p>
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="intervention-link">Link to Intervention</Label>
-                <Select
-                  value={settings.interventionId}
-                  onValueChange={(value) => 
-                    handleSettingsChange('interventionId', value)
-                  }
+                <Select 
+                  value={statusFilter}
+                  onValueChange={setStatusFilter}
                 >
-                  <SelectTrigger id="intervention-link">
-                    <SelectValue placeholder="Select intervention" />
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Filter by status" />
                   </SelectTrigger>
                   <SelectContent>
-                    {interventions.map((intervention) => (
-                      <SelectItem key={intervention.id} value={intervention.id}>
-                        {intervention.name}
-                      </SelectItem>
-                    ))}
+                    <SelectItem value="all">All Statuses</SelectItem>
+                    <SelectItem value="not-started">Not Started</SelectItem>
+                    <SelectItem value="in-progress">In Progress</SelectItem>
+                    <SelectItem value="achieved">Achieved</SelectItem>
+                    <SelectItem value="discontinued">Discontinued</SelectItem>
                   </SelectContent>
                 </Select>
-                <p className="text-xs text-muted-foreground">
-                  Connect monitoring to a specific intervention plan
-                </p>
+                <Button variant="outline" size="icon">
+                  <Filter className="h-4 w-4" />
+                </Button>
               </div>
               
-              <div className="flex items-centre justify-between">
-                <div className="space-y-0.5">
-                  <Label htmlFor="automatic-reminders">Automatic Reminders</Label>
-                  <p className="text-xs text-muted-foreground">
-                    Send reminders when data collection is due
-                  </p>
+              {isLoading ? (
+                <div className="flex justify-center items-center h-[400px]">
+                  <RefreshCw className="h-8 w-8 animate-spin text-muted-foreground" />
                 </div>
-                <Switch 
-                  id="automatic-reminders"
-                  checked={settings.automaticReminders}
-                  onCheckedChange={(checked) => 
-                    handleSettingsChange('automaticReminders', checked)
-                  }
-                />
-              </div>
-              
-              <div className="flex items-centre justify-between">
-                <div className="space-y-0.5">
-                  <Label htmlFor="data-visualisation">Data Visualisation</Label>
-                  <p className="text-xs text-muted-foreground">
-                    Show charts and graphs of progress data
-                  </p>
-                </div>
-                <Switch 
-                  id="data-visualisation"
-                  checked={settings.dataVisualization}
-                  onCheckedChange={(checked) => 
-                    handleSettingsChange('dataVisualization', checked)
-                  }
-                />
-              </div>
-              
-              <div className="flex items-centre justify-between">
-                <div className="space-y-0.5">
-                  <Label htmlFor="progress-reports">Progress Reports</Label>
-                  <p className="text-xs text-muted-foreground">
-                    Generate shareable progress reports
-                  </p>
-                </div>
-                <Switch 
-                  id="progress-reports"
-                  checked={settings.progressReports}
-                  onCheckedChange={(checked) => 
-                    handleSettingsChange('progressReports', checked)
-                  }
-                />
-              </div>
-              
-              <div className="flex items-centre justify-between">
-                <div className="space-y-0.5">
-                  <Label htmlFor="goal-tracking">Goal Tracking</Label>
-                  <p className="text-xs text-muted-foreground">
-                    Set and monitor progress toward specific goals
-                  </p>
-                </div>
-                <Switch 
-                  id="goal-tracking"
-                  checked={settings.goalTracking}
-                  onCheckedChange={(checked) => 
-                    handleSettingsChange('goalTracking', checked)
-                  }
-                />
-              </div>
-            </div>
-          </TabsContent>
-          
-          <TabsContent value="goals" className="space-y-6 pt-4">
-            {goals.length > 0 ? (
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label>Select Goal to View</Label>
-                  <Select
-                    value={selectedGoal?.id}
-                    onValueChange={(value) => {
-                      const goal = goals.find(g => g.id === value);
-                      if (goal) setSelectedGoal(goal);
-                    }}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a goal" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {goals.map((goal) => (
-                        <SelectItem key={goal.id} value={goal.id}>
-                          {goal.title}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                
-                {selectedGoal && (
-                  <Card>
-                    <CardHeader className="pb-2">
-                      <div className="flex justify-between items-start">
-                        <CardTitle>{selectedGoal.title}</CardTitle>
-                        <Button 
-                          variant="ghost" 
-                          size="icon"
-                          onClick={() => handleDeleteGoal(selectedGoal.id)}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                      <CardDescription>{selectedGoal.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        <div className="grid grid-cols-3 gap-4">
-                          <div className="space-y-1">
-                            <p className="text-sm font-medium">Baseline</p>
-                            <p className="text-2xl">{selectedGoal.baseline} <span className="text-sm text-muted-foreground">{selectedGoal.unit}</span></p>
+              ) : filteredGoals.length > 0 ? (
+                <div className="grid grid-cols-1 gap-4">
+                  {filteredGoals.map((goal) => (
+                    <Card 
+                      key={goal.id} 
+                      className="cursor-pointer hover:bg-muted/50 transition-colors"
+                      onClick={() => handleGoalSelect(goal)}
+                    >
+                      <CardHeader className="pb-2">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <CardTitle className="text-lg">{goal.name}</CardTitle>
+                            <div className="flex space-x-2 mt-1">
+                              <Badge>{goal.category}</Badge>
+                              <Badge className={getStatusColor(goal.status)}>
+                                {goal.status.replace('-', ' ')}
+                              </Badge>
+                            </div>
                           </div>
-                          <div className="space-y-1">
-                            <p className="text-sm font-medium">Current</p>
-                            <p className="text-2xl">{selectedGoal.currentValue} <span className="text-sm text-muted-foreground">{selectedGoal.unit}</span></p>
-                          </div>
-                          <div className="space-y-1">
-                            <p className="text-sm font-medium">Target</p>
-                            <p className="text-2xl">{selectedGoal.target} <span className="text-sm text-muted-foreground">{selectedGoal.unit}</span></p>
+                          <div className="text-right">
+                            <p className="text-sm text-muted-foreground">Target Date</p>
+                            <p className="text-sm font-medium">{formatDate(goal.targetDate)}</p>
                           </div>
                         </div>
+                      </CardHeader>
+                      <CardContent className="pb-2">
+                        <p className="text-sm mb-3">{goal.description}</p>
                         
-                        <div className="space-y-1">
-                          <div className="flex justify-between text-sm">
-                            <span>Progress</span>
-                            <span>{Math.round(calculateProgress(selectedGoal))}%</span>
+                        <div className="space-y-2">
+                          <div className="flex justify-between text-xs mb-1">
+                            <span>Progress: {goal.baseline} → {goal.target}</span>
+                            <span>{goal.progress}%</span>
                           </div>
-                          <div className="h-2 bg-muted rounded-full overflow-hidden">
+                          <div className="w-full bg-muted rounded-full h-2">
                             <div 
-                              className="h-full bg-primary"
-                              style={{ width: `${calculateProgress(selectedGoal)}%` }}
+                              className={`h-2 rounded-full ${getProgressColor(goal.progress)}`}
+                              style={{ width: `${goal.progress}%` }}
                             ></div>
                           </div>
                         </div>
-                        
-                        <div className="grid grid-cols-2 gap-4">
-                          <div className="space-y-1">
-                            <p className="text-sm font-medium">Target Date</p>
-                            <p className="text-sm">{format(selectedGoal.targetDate, 'PPP')}</p>
-                          </div>
-                          <div className="space-y-1">
-                            <p className="text-sm font-medium">Notes</p>
-                            <p className="text-sm text-muted-foreground line-clamp-2">{selectedGoal.notes || "No notes"}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-                
-                <div className="pt-4">
-                  <h3 className="text-lg font-medium mb-4">Add New Goal</h3>
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-1 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="goal-title">Goal Title</Label>
-                        <Input 
-                          id="goal-title" 
-                          placeholder="e.g., Improve reading fluency"
-                          value={newGoal.title}
-                          onChange={(e) => setNewGoal({...newGoal, title: e.target.value})}
-                        />
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <Label htmlFor="goal-description">Description</Label>
-                        <Textarea 
-                          id="goal-description" 
-                          placeholder="Describe the goal and how it will be measured"
-                          value={newGoal.description}
-                          onChange={(e) => setNewGoal({...newGoal, description: e.target.value})}
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label>Target Date</Label>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant="outline"
-                              className="w-full justify-start text-left font-normal"
-                            >
-                              <CalendarIcon className="mr-2 h-4 w-4" />
-                              {newGoal.targetDate ? (
-                                format(newGoal.targetDate, "PPP")
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0">
-                            <Calendar
-                              mode="single"
-                              selected={newGoal.targetDate}
-                              onSelect={(date) => setNewGoal({...newGoal, targetDate: date})}
-                              initialFocus
-                            />
-                          </PopoverContent>
-                        </Popover>
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <Label htmlFor="goal-unit">Unit of Measurement</Label>
-                        <Input 
-                          id="goal-unit" 
-                          placeholder="e.g., words per minute"
-                          value={newGoal.unit}
-                          onChange={(e) => setNewGoal({...newGoal, unit: e.target.value})}
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="goal-baseline">Baseline Value</Label>
-                        <Input 
-                          id="goal-baseline" 
-                          type="number"
-                          placeholder="Current value"
-                          value={newGoal.baseline}
-                          onChange={(e) => setNewGoal({...newGoal, baseline: e.target.value})}
-                        />
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <Label htmlFor="goal-target">Target Value</Label>
-                        <Input 
-                          id="goal-target" 
-                          type="number"
-                          placeholder="Goal value"
-                          value={newGoal.target}
-                          onChange={(e) => setNewGoal({...newGoal, target: e.target.value})}
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="goal-notes">Notes</Label>
-                      <Textarea 
-                        id="goal-notes" 
-                        placeholder="Additional notes about this goal"
-                        value={newGoal.notes}
-                        onChange={(e) => setNewGoal({...newGoal, notes: e.target.value})}
-                      />
-                    </div>
-                    
-                    <Button 
-                      onClick={handleAddGoal}
-                      className="w-full"
-                    >
-                      <Plus className="mr-2 h-4 w-4" />
-                      Add Goal
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                <div className="p-8 text-centre">
-                  <Target className="mx-auto h-12 w-12 text-muted-foreground" />
-                  <h3 className="mt-4 text-lg font-medium">No Goals Yet</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    Create your first goal to start tracking progress.
-                  </p>
-                </div>
-                
-                <div className="pt-4">
-                  <h3 className="text-lg font-medium mb-4">Add New Goal</h3>
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-1 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="goal-title">Goal Title</Label>
-                        <Input 
-                          id="goal-title" 
-                          placeholder="e.g., Improve reading fluency"
-                          value={newGoal.title}
-                          onChange={(e) => setNewGoal({...newGoal, title: e.target.value})}
-                        />
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <Label htmlFor="goal-description">Description</Label>
-                        <Textarea 
-                          id="goal-description" 
-                          placeholder="Describe the goal and how it will be measured"
-                          value={newGoal.description}
-                          onChange={(e) => setNewGoal({...newGoal, description: e.target.value})}
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label>Target Date</Label>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant="outline"
-                              className="w-full justify-start text-left font-normal"
-                            >
-                              <CalendarIcon className="mr-2 h-4 w-4" />
-                              {newGoal.targetDate ? (
-                                format(newGoal.targetDate, "PPP")
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0">
-                            <Calendar
-                              mode="single"
-                              selected={newGoal.targetDate}
-                              onSelect={(date) => setNewGoal({...newGoal, targetDate: date})}
-                              initialFocus
-                            />
-                          </PopoverContent>
-                        </Popover>
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <Label htmlFor="goal-unit">Unit of Measurement</Label>
-                        <Input 
-                          id="goal-unit" 
-                          placeholder="e.g., words per minute"
-                          value={newGoal.unit}
-                          onChange={(e) => setNewGoal({...newGoal, unit: e.target.value})}
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="goal-baseline">Baseline Value</Label>
-                        <Input 
-                          id="goal-baseline" 
-                          type="number"
-                          placeholder="Current value"
-                          value={newGoal.baseline}
-                          onChange={(e) => setNewGoal({...newGoal, baseline: e.target.value})}
-                        />
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <Label htmlFor="goal-target">Target Value</Label>
-                        <Input 
-                          id="goal-target" 
-                          type="number"
-                          placeholder="Goal value"
-                          value={newGoal.target}
-                          onChange={(e) => setNewGoal({...newGoal, target: e.target.value})}
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="goal-notes">Notes</Label>
-                      <Textarea 
-                        id="goal-notes" 
-                        placeholder="Additional notes about this goal"
-                        value={newGoal.notes}
-                        onChange={(e) => setNewGoal({...newGoal, notes: e.target.value})}
-                      />
-                    </div>
-                    
-                    <Button 
-                      onClick={handleAddGoal}
-                      className="w-full"
-                    >
-                      <Plus className="mr-2 h-4 w-4" />
-                      Add Goal
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            )}
-          </TabsContent>
-          
-          <TabsContent value="data" className="space-y-6 pt-4">
-            {selectedGoal ? (
-              <div className="space-y-6">
-                <div className="space-y-2">
-                  <h3 className="text-lg font-medium">Data for: {selectedGoal.title}</h3>
-                  
-                  {dataPoints.length > 0 && settings.dataVisualization ? (
-                    <div className="h-[300px] w-full">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <LineChart
-                          data={getChartData()}
-                          margin={{
-                            top: 5,
-                            right: 30,
-                            left: 20,
-                            bottom: 5,
+                      </CardContent>
+                      <CardFooter className="flex justify-between">
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleGoalSelect(goal);
                           }}
                         >
-                          <CartesianGrid strokeDasharray="3 3" />
-                          <XAxis dataKey="date" />
-                          <YAxis 
-                            domain={[
-                              Math.min(selectedGoal.baseline, Math.min(...dataPoints.map(d => d.value))) * 0.9,
-                              Math.max(selectedGoal.target, Math.max(...dataPoints.map(d => d.value))) * 1.1
-                            ]}
-                          />
-                          <Tooltip />
-                          <Legend />
-                          <Line 
-                            type="monotone" 
-                            dataKey="value" 
-                            name={`${selectedGoal.title} (${selectedGoal.unit})`}
-                            stroke="#8884d8" 
-                            activeDot={{ r: 8 }} 
-                          />
-                          {/* Horizontal line for target */}
-                          <Line 
-                            type="monotone" 
-                            dataKey={() => selectedGoal.target} 
-                            stroke="#82ca9d" 
-                            strokeDasharray="5 5" 
-                            name="Target" 
-                            dot={false}
-                          />
-                          {/* Horizontal line for baseline */}
-                          <Line 
-                            type="monotone" 
-                            dataKey={() => selectedGoal.baseline} 
-                            stroke="#ff7300" 
-                            strokeDasharray="5 5" 
-                            name="Baseline" 
-                            dot={false}
-                          />
-                        </LineChart>
-                      </ResponsiveContainer>
+                          <FileText className="h-4 w-4 mr-2" />
+                          Details
+                        </Button>
+                        <Button 
+                          size="sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedGoal(goal);
+                            setActiveTab('progress');
+                          }}
+                        >
+                          <TrendingUp className="h-4 w-4 mr-2" />
+                          Track Progress
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center h-[400px] bg-muted/50 rounded-md">
+                  <p className="text-muted-foreground mb-4">No goals found matching your filters</p>
+                  <Button variant="outline" onClick={() => {
+                    setSearchQuery('');
+                    setCategoryFilter('all');
+                    setStatusFilter('all');
+                  }}>
+                    Clear Filters
+                  </Button>
+                </div>
+              )}
+            </CardContent>
+            <CardFooter>
+              <Button className="w-full">
+                <Plus className="h-4 w-4 mr-2" />
+                Create New Goal
+              </Button>
+            </CardFooter>
+          </Card>
+        </TabsContent>
+        
+        {/* Progress Monitoring Tab */}
+        <TabsContent value="progress" className="space-y-4">
+          {selectedGoal ? (
+            <>
+              <Card>
+                <CardHeader>
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <CardTitle>{selectedGoal.name}</CardTitle>
+                      <CardDescription>
+                        Track and monitor progress toward this goal
+                      </CardDescription>
                     </div>
-                  ) : dataPoints.length === 0 ? (
-                    <div className="p-8 text-centre bg-muted rounded-md">
-                      <BarChart3 className="mx-auto h-12 w-12 text-muted-foreground" />
-                      <h3 className="mt-4 text-lg font-medium">No Data Points Yet</h3>
-                      <p className="mt-2 text-sm text-muted-foreground">
-                        Add data points to start tracking progress for this goal.
-                      </p>
+                    <div className="flex space-x-2">
+                      <Badge>{selectedGoal.category}</Badge>
+                      <Badge className={getStatusColor(selectedGoal.status)}>
+                        {selectedGoal.status.replace('-', ' ')}
+                      </Badge>
                     </div>
-                  ) : null}
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <h3 className="text-sm font-medium mb-2">Goal Description</h3>
+                    <p className="text-sm">{selectedGoal.description}</p>
+                  </div>
                   
-                  <div className="pt-4">
-                    <h4 className="text-md font-medium mb-2">Add New Data Point</h4>
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label>Date</Label>
-                          <Popover>
-                            <PopoverTrigger asChild>
-                              <Button
-                                variant="outline"
-                                className="w-full justify-start text-left font-normal"
-                              >
-                                <CalendarIcon className="mr-2 h-4 w-4" />
-                                {newDataPoint.date ? (
-                                  format(newDataPoint.date, "PPP")
-                                ) : (
-                                  <span>Pick a date</span>
-                                )}
-                              </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0">
-                              <Calendar
-                                mode="single"
-                                selected={newDataPoint.date}
-                                onSelect={(date) => setNewDataPoint({...newDataPoint, date})}
-                                initialFocus
-                              />
-                            </PopoverContent>
-                          </Popover>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="data-value">Value ({selectedGoal.unit})</Label>
-                          <Input 
-                            id="data-value" 
-                            type="number"
-                            placeholder={`Value in ${selectedGoal.unit}`}
-                            value={newDataPoint.value}
-                            onChange={(e) => setNewDataPoint({...newDataPoint, value: e.target.value})}
-                          />
-                        </div>
+                  <div className="grid grid-cols-3 gap-4">
+                    <Card className="p-4">
+                      <div className="text-center">
+                        <h4 className="text-xs text-muted-foreground">Baseline</h4>
+                        <p className="text-2xl font-bold">{selectedGoal.baseline}</p>
                       </div>
-                      
-                      <div className="space-y-2">
-                        <Label htmlFor="data-notes">Notes</Label>
-                        <Textarea 
-                          id="data-notes" 
-                          placeholder="Additional notes about this data point"
-                          value={newDataPoint.notes}
-                          onChange={(e) => setNewDataPoint({...newDataPoint, notes: e.target.value})}
-                        />
+                    </Card>
+                    <Card className="p-4">
+                      <div className="text-center">
+                        <h4 className="text-xs text-muted-foreground">Current</h4>
+                        <p className="text-2xl font-bold">
+                          {Math.round(selectedGoal.baseline + (selectedGoal.target - selectedGoal.baseline) * (selectedGoal.progress / 100))}
+                        </p>
                       </div>
-                      
-                      <Button 
-                        onClick={handleAddDataPoint}
-                        className="w-full"
-                      >
-                        <Plus className="mr-2 h-4 w-4" />
-                        Add Data Point
-                      </Button>
+                    </Card>
+                    <Card className="p-4">
+                      <div className="text-center">
+                        <h4 className="text-xs text-muted-foreground">Target</h4>
+                        <p className="text-2xl font-bold">{selectedGoal.target}</p>
+                      </div>
+                    </Card>
+                  </div>
+                  
+                  <div>
+                    <div className="flex justify-between text-xs mb-1">
+                      <span>Overall Progress</span>
+                      <span>{selectedGoal.progress}%</span>
+                    </div>
+                    <div className="w-full bg-muted rounded-full h-2.5">
+                      <div 
+                        className={`h-2.5 rounded-full ${getProgressColor(selectedGoal.progress)}`}
+                        style={{ width: `${selectedGoal.progress}%` }}
+                      ></div>
                     </div>
                   </div>
                   
-                  {dataPoints.length > 0 && (
-                    <div className="pt-4">
-                      <h4 className="text-md font-medium mb-2">Data History</h4>
+                  <div>
+                    <h3 className="text-sm font-medium mb-2">Notes</h3>
+                    <div className="space-y-2">
+                      {selectedGoal.notes.map((note, index) => (
+                        <div key={index} className="bg-muted p-2 rounded-md text-sm">
+                          {note}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader>
+                  <CardTitle>Progress Data</CardTitle>
+                  <CardDescription>
+                    Record and visualize progress data points
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {isLoading ? (
+                    <div className="flex justify-center items-center h-[300px]">
+                      <RefreshCw className="h-8 w-8 animate-spin text-muted-foreground" />
+                    </div>
+                  ) : (
+                    <>
+                      <div className="h-[300px] flex items-center justify-center border rounded-md">
+                        <LineChart className="h-8 w-8 text-muted-foreground" />
+                        <span className="ml-2 text-sm text-muted-foreground">Progress trend visualization</span>
+                      </div>
+                      
                       <div className="border rounded-md">
-                        <div className="grid grid-cols-3 font-medium p-3 border-b">
+                        <div className="grid grid-cols-4 gap-4 p-4 border-b bg-muted font-medium text-sm">
                           <div>Date</div>
                           <div>Value</div>
+                          <div>Change</div>
                           <div>Notes</div>
                         </div>
                         <div className="divide-y">
-                          {dataPoints.map((point, index) => (
-                            <div key={index} className="grid grid-cols-3 p-3">
-                              <div>{point.date}</div>
-                              <div>{point.value} {selectedGoal.unit}</div>
-                              <div className="text-sm text-muted-foreground truncate">{point.notes || "—"}</div>
-                            </div>
-                          ))}
+                          {dataPoints.map((dataPoint, index) => {
+                            const prevValue = index > 0 ? dataPoints[index - 1].value : selectedGoal.baseline;
+                            const change = dataPoint.value - prevValue;
+                            const changePercent = ((change / prevValue) * 100).toFixed(1);
+                            
+                            return (
+                              <div key={dataPoint.id} className="grid grid-cols-4 gap-4 p-4 items-center">
+                                <div className="text-sm">{formatDate(dataPoint.date)}</div>
+                                <div className="font-medium">{dataPoint.value}</div>
+                                <div className={`text-sm ${change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                  {change >= 0 ? '+' : ''}{change} ({change >= 0 ? '+' : ''}{changePercent}%)
+                                </div>
+                                <div className="text-sm">{dataPoint.notes}</div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </CardContent>
+                <CardFooter className="flex justify-between">
+                  <Button variant="outline">
+                    <Download className="h-4 w-4 mr-2" />
+                    Export Data
+                  </Button>
+                  <Button>
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Data Point
+                  </Button>
+                </CardFooter>
+              </Card>
+              
+              <Card>
+                <CardHeader>
+                  <CardTitle>Add New Data Point</CardTitle>
+                  <CardDescription>
+                    Record a new measurement for this goal
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="date">Date</Label>
+                        <DatePicker />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="value">Value</Label>
+                        <Input id="value" type="number" placeholder="Enter measurement value" />
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="notes">Notes</Label>
+                      <Textarea id="notes" placeholder="Add notes about this data point..." />
+                    </div>
+                  </div>
+                </CardContent>
+                <CardFooter className="flex justify-end">
+                  <Button>Save Data Point</Button>
+                </CardFooter>
+              </Card>
+            </>
+          ) : (
+            <Card>
+              <CardContent className="flex flex-col items-center justify-center h-[400px]">
+                <p className="text-muted-foreground mb-4">Select a goal to monitor progress</p>
+                <Button onClick={() => setActiveTab('goals')}>View Goals</Button>
+              </CardContent>
+            </Card>
+          )}
+        </TabsContent>
+        
+        {/* Reports & Analysis Tab */}
+        <TabsContent value="reports" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <BarChart className="mr-2 h-5 w-5" />
+                Progress Analysis
+              </CardTitle>
+              <CardDescription>
+                Analyze progress data and generate reports
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid grid-cols-2 gap-4">
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-md">Goal Achievement Rate</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="h-[200px] flex items-center justify-center">
+                      <PieChart className="h-8 w-8 text-muted-foreground" />
+                      <span className="ml-2 text-sm text-muted-foreground">Pie chart visualization</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 mt-4">
+                      <div className="flex items-center">
+                        <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                        <span className="text-sm">Achieved (20%)</span>
+                      </div>
+                      <div className="flex items-center">
+                        <div className="w-3 h-3 rounded-full bg-blue-500 mr-2"></div>
+                        <span className="text-sm">In Progress (60%)</span>
+                      </div>
+                      <div className="flex items-center">
+                        <div className="w-3 h-3 rounded-full bg-gray-500 mr-2"></div>
+                        <span className="text-sm">Not Started (15%)</span>
+                      </div>
+                      <div className="flex items-center">
+                        <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                        <span className="text-sm">Discontinued (5%)</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-md">Progress by Category</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="h-[200px] flex items-center justify-center">
+                      <BarChart className="h-8 w-8 text-muted-foreground" />
+                      <span className="ml-2 text-sm text-muted-foreground">Bar chart visualization</span>
+                    </div>
+                    <div className="space-y-2 mt-4">
+                      <div>
+                        <div className="flex justify-between text-xs mb-1">
+                          <span>Academic</span>
+                          <span>68%</span>
+                        </div>
+                        <div className="w-full bg-muted rounded-full h-1.5">
+                          <div className="bg-blue-600 h-1.5 rounded-full" style={{ width: '68%' }}></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-between text-xs mb-1">
+                          <span>Behavioral</span>
+                          <span>60%</span>
+                        </div>
+                        <div className="w-full bg-muted rounded-full h-1.5">
+                          <div className="bg-green-600 h-1.5 rounded-full" style={{ width: '60%' }}></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-between text-xs mb-1">
+                          <span>Social</span>
+                          <span>85%</span>
+                        </div>
+                        <div className="w-full bg-muted rounded-full h-1.5">
+                          <div className="bg-purple-600 h-1.5 rounded-full" style={{ width: '85%' }}></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-between text-xs mb-1">
+                          <span>Executive Function</span>
+                          <span>65%</span>
+                        </div>
+                        <div className="w-full bg-muted rounded-full h-1.5">
+                          <div className="bg-amber-600 h-1.5 rounded-full" style={{ width: '65%' }}></div>
                         </div>
                       </div>
                     </div>
-                  )}
-                </div>
+                  </CardContent>
+                </Card>
               </div>
-            ) : (
-              <div className="p-8 text-centre">
-                <Target className="mx-auto h-12 w-12 text-muted-foreground" />
-                <h3 className="mt-4 text-lg font-medium">No Goal Selected</h3>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Please select or create a goal first to add and view data points.
-                </p>
-                <Button 
-                  variant="outline" 
-                  className="mt-4"
-                  onClick={() => setActiveTab('goals')}
-                >
-                  Go to Goals
-                </Button>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-md">Progress Over Time</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-[300px] flex items-center justify-center">
+                    <LineChart className="h-8 w-8 text-muted-foreground" />
+                    <span className="ml-2 text-sm text-muted-foreground">Line chart visualization</span>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-md">Generate Reports</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="reportType">Report Type</Label>
+                      <Select defaultValue="progress">
+                        <SelectTrigger id="reportType">
+                          <SelectValue placeholder="Select report type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="progress">Progress Summary</SelectItem>
+                          <SelectItem value="detailed">Detailed Analysis</SelectItem>
+                          <SelectItem value="comparison">Comparison Report</SelectItem>
+                          <SelectItem value="trend">Trend Analysis</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="dateRange">Date Range</Label>
+                      <Select defaultValue="30days">
+                        <SelectTrigger id="dateRange">
+                          <SelectValue placeholder="Select date range" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="7days">Last 7 days</SelectItem>
+                          <SelectItem value="30days">Last 30 days</SelectItem>
+                          <SelectItem value="90days">Last 90 days</SelectItem>
+                          <SelectItem value="year">Last year</SelectItem>
+                          <SelectItem value="custom">Custom range</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="format">Format</Label>
+                      <Select defaultValue="pdf">
+                        <SelectTrigger id="format">
+                          <SelectValue placeholder="Select format" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="pdf">PDF</SelectItem>
+                          <SelectItem value="excel">Excel</SelectItem>
+                          <SelectItem value="csv">CSV</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    <Button className="w-full">
+                      <Download className="h-4 w-4 mr-2" />
+                      Generate Report
+                    </Button>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-md">Settings</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="autoTrack">Automatic Tracking</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Automatically track progress from connected systems
+                        </p>
+                      </div>
+                      <Switch id="autoTrack" />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="notifications">Progress Notifications</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Receive alerts for significant progress changes
+                        </p>
+                      </div>
+                      <Switch id="notifications" defaultChecked />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="sharing">Data Sharing</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Share progress data with authorized team members
+                        </p>
+                      </div>
+                      <Switch id="sharing" defaultChecked />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="reminders">Tracking Reminders</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Send reminders for scheduled progress monitoring
+                        </p>
+                      </div>
+                      <Switch id="reminders" defaultChecked />
+                    </div>
+                    
+                    <Button variant="outline" className="w-full">
+                      <Settings className="h-4 w-4 mr-2" />
+                      Advanced Settings
+                    </Button>
+                  </CardContent>
+                </Card>
               </div>
-            )}
-          </TabsContent>
-        </Tabs>
-      </CardContent>
-      
-      <CardFooter className="flex justify-between">
-        <Button 
-          variant="outline" 
-          onClick={handleResetSettings}
-          className="flex items-centre gap-2"
-        >
-          <RefreshCw className="h-4 w-4" />
-          Reset
-        </Button>
-        
-        <Button 
-          onClick={handleApplySettings}
-          className="flex items-centre gap-2"
-        >
-          <Check className="h-4 w-4" />
-          {isApplied ? "Update Settings" : "Apply Settings"}
-        </Button>
-      </CardFooter>
-    </Card>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+    </div>
   );
 }
