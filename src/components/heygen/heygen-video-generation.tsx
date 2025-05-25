@@ -44,7 +44,7 @@ const HeyGenVideoGeneration = (): React.ReactNode => {
 
   // Initialize HeyGen service
   useEffect(() => {
-    const initializeHeyGen = async () => {
+    const initializeHeyGen = async (): Promise<void> => {
       try {
         const heygenService = HeyGenService.getInstance({
           apiKey: process.env.NEXT_PUBLIC_HEYGEN_API_KEY || 'demo_key',
@@ -67,8 +67,8 @@ const HeyGenVideoGeneration = (): React.ReactNode => {
         if (drScottAvatar) setSelectedAvatar(drScottAvatar.id);
         if (drScottVoice) setSelectedVoice(drScottVoice.id);
         
-      } catch (err: any) {
-        console.error('Failed to initialize HeyGen service:', err);
+      } catch (err) {
+        // Removed console.error statement
         setError('Failed to initialize video generation service. Please try again later.');
       }
     };
@@ -76,7 +76,7 @@ const HeyGenVideoGeneration = (): React.ReactNode => {
     initializeHeyGen();
   }, []);
 
-  const handleScriptSelect = (scriptId: string) => {
+  const handleScriptSelect = (scriptId: string): void => {
     const script = availableScripts.find(s => s.id === scriptId);
     if (script) {
       setSelectedScript(scriptId);
@@ -87,19 +87,19 @@ const HeyGenVideoGeneration = (): React.ReactNode => {
     }
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.files && e.target.files[0]) {
       setUploadedImage(e.target.files[0]);
     }
   };
 
-  const handleVoiceUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleVoiceUpload = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.files && e.target.files[0]) {
       setUploadedVoice(e.target.files[0]);
     }
   };
 
-  const createAvatar = async () => {
+  const createAvatar = async (): Promise<void> => {
     if (!uploadedImage) {
       setError('Please upload an image for the avatar');
       return;
@@ -133,15 +133,15 @@ const HeyGenVideoGeneration = (): React.ReactNode => {
         setSelectedVoice(newVoice.id);
       }
       
-    } catch (err: any) {
-      console.error('Failed to create avatar:', err);
+    } catch (err) {
+      // Removed console.error statement
       setError('Failed to create avatar. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
-  const uploadScript = async () => {
+  const uploadScript = async (): Promise<void> => {
     if (!scriptTitle || !scriptContent) {
       setError('Please provide a title and content for the script');
       return;
@@ -164,15 +164,15 @@ const HeyGenVideoGeneration = (): React.ReactNode => {
       setSelectedScript(scriptId);
       setSuccess(true);
       
-    } catch (err: any) {
-      console.error('Failed to upload script:', err);
+    } catch (err) {
+      // Removed console.error statement
       setError('Failed to upload script. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
-  const generateVideo = async () => {
+  const generateVideo = async (): Promise<void> => {
     if (!selectedAvatar || !selectedScript || !videoTitle) {
       setError('Please select an avatar, script, and provide a title for the video');
       return;
@@ -225,8 +225,8 @@ const HeyGenVideoGeneration = (): React.ReactNode => {
         }
       }, 2000);
       
-    } catch (err: any) {
-      console.error('Failed to generate video:', err);
+    } catch (err) {
+      // Removed console.error statement
       setError('Failed to generate video. Please try again.');
       setLoading(false);
     }
@@ -468,19 +468,11 @@ const HeyGenVideoGeneration = (): React.ReactNode => {
               </div>
               
               {selectedScript && (
-                <div className="p-4 bg-grey-50 rounded-md">
+                <div className="p-4 border rounded-md bg-muted">
                   <h3 className="font-medium mb-2">Selected Script: {availableScripts.find(s => s.id === selectedScript)?.title}</h3>
-                  <p className="text-sm text-grey-600 whitespace-pre-wrap">
-                    {availableScripts.find(s => s.id === selectedScript)?.content}
+                  <p className="text-sm text-muted-foreground">
+                    {availableScripts.find(s => s.id === selectedScript)?.content.substring(0, 150)}...
                   </p>
-                </div>
-              )}
-              
-              {loading && (
-                <div className="space-y-2">
-                  <Label>Generation Progress</Label>
-                  <Progress value={progress} className="h-2" />
-                  <p className="text-sm text-grey-500 text-centre">{progress}% complete</p>
                 </div>
               )}
               
@@ -492,8 +484,18 @@ const HeyGenVideoGeneration = (): React.ReactNode => {
                 </Alert>
               )}
               
+              {loading && (
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Generating video...</span>
+                    <span>{progress}%</span>
+                  </div>
+                  <Progress value={progress} />
+                </div>
+              )}
+              
               {success && generatedVideoId && (
-                <Alert className="bg-green-50 text-green-800 border-green-200">
+                <Alert>
                   <Check className="h-4 w-4" />
                   <AlertTitle>Success</AlertTitle>
                   <AlertDescription>
@@ -524,29 +526,15 @@ const HeyGenVideoGeneration = (): React.ReactNode => {
         </TabsContent>
       </Tabs>
       
-      {generatedVideoId && progress === 100 && (
+      {generatedVideoId && success && (
         <div className="mt-8">
-          <Card>
-            <CardHeader>
-              <CardTitle>Generated Video</CardTitle>
-              <CardDescription>
-                Your AI avatar video has been generated successfully
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="aspect-video bg-black rounded-md flex items-centre justify-centre">
-                <div className="text-white text-centre p-4">
-                  <p className="mb-2">Video ID: {generatedVideoId}</p>
-                  <p className="text-sm">In a real implementation, the video would be embedded here</p>
-                </div>
-              </div>
-            </CardContent>
-            <CardFooter className="flex justify-end">
-              <Button>
-                Download Video
-              </Button>
-            </CardFooter>
-          </Card>
+          <h2 className="text-2xl font-bold mb-4">Generated Video</h2>
+          <div className="aspect-video bg-black rounded-lg flex items-centre justify-centre">
+            <div className="text-white text-centre p-8">
+              <p className="text-lg mb-2">Video ID: {generatedVideoId}</p>
+              <p>In a real implementation, the video would be embedded here.</p>
+            </div>
+          </div>
         </div>
       )}
     </div>
