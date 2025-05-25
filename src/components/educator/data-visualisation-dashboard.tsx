@@ -452,12 +452,30 @@ export function DataVisualisationDashboard() {
       </div>
     );
   };
-        
-        <Card>
-          <CardHeader>
-            <CardTitle>Attendance Patterns</CardTitle>
-            <CardDescription>
-              Weekly attendance breakdown
+
+  return (
+    <div className="space-y-6">
+      {renderDashboardHeader()}
+      {renderFilterBar()}
+      
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
+        <TabsList className="grid w-full grid-cols-3 lg:w-auto">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="academic">Academic</TabsTrigger>
+          <TabsTrigger value="behaviour">Behaviour & Wellbeing</TabsTrigger>
+        </TabsList>
+        <TabsContent value="overview" className="space-y-6">
+          {renderOverviewDashboard()}
+        </TabsContent>
+        <TabsContent value="academic">
+          {/* Academic dashboard content */}
+        </TabsContent>
+        <TabsContent value="behaviour">
+          {/* Behaviour dashboard content */}
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
             </CardDescription>
           </CardHeader>
           <CardContent>

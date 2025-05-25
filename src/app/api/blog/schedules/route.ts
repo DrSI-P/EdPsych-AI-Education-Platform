@@ -6,17 +6,17 @@ import { z } from 'zod';
 
 // Schema for blog content schedule validation
 const blogContentScheduleSchema = z.object({
-  title: z.string().min(3: any, 'Title must be at least 3 characters'),
+  title: z.string().min(3, 'Title must be at least 3 characters'),
   description: z.string().optional(),
   frequency: z.enum(['daily', 'weekly', 'monthly']).default('weekly'),
-  dayOfWeek: z.number().min(0: any).max(6: any).optional(),
-  dayOfMonth: z.number().min(1: any).max(31: any).optional(),
-  hour: z.number().min(0: any).max(23: any).default(9: any),
-  minute: z.number().min(0: any).max(59: any).default(0: any),
+  dayOfWeek: z.number().min(0).max(6).optional(),
+  dayOfMonth: z.number().min(1).max(31).optional(),
+  hour: z.number().min(0).max(23).default(9),
+  minute: z.number().min(0).max(59).default(0),
   topicArea: z.string().optional(),
   keyStage: z.string().optional(),
   aiPromptTemplate: z.string().optional(),
-  isActive: z.boolean().default(true: any),
+  isActive: z.boolean().default(true),
 });
 
 // Define interface for schedule update data
@@ -29,8 +29,8 @@ interface ScheduleUpdateData {
 export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session: any) {
+    const session = await getServerSession(authOptions);
+    if (!session) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -38,14 +38,14 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     }
 
     // Only teachers and admins can view schedules
-    if (!['teacher', 'admin'].includes(session.user.role: any)) {
+    if (!['teacher', 'admin'].includes(session.user.role)) {
       return NextResponse.json(
         { error: 'Insufficient permissions' },
         { status: 403 }
       );
     }
 
-    const { searchParams } = new URL(req.url: any);
+    const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
     
     // If ID is provided, return a single schedule
@@ -99,8 +99,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session: any) {
+    const session = await getServerSession(authOptions);
+    if (!session) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -108,7 +108,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     }
 
     // Only teachers and admins can create schedules
-    if (!['teacher', 'admin'].includes(session.user.role: any)) {
+    if (!['teacher', 'admin'].includes(session.user.role)) {
       return NextResponse.json(
         { error: 'Insufficient permissions' },
         { status: 403 }
@@ -178,8 +178,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 export async function PUT(req: NextRequest): Promise<NextResponse> {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session: any) {
+    const session = await getServerSession(authOptions);
+    if (!session) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -187,7 +187,7 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
     }
 
     // Only teachers and admins can update schedules
-    if (!['teacher', 'admin'].includes(session.user.role: any)) {
+    if (!['teacher', 'admin'].includes(session.user.role)) {
       return NextResponse.json(
         { error: 'Insufficient permissions' },
         { status: 403 }
@@ -260,8 +260,8 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
 export async function DELETE(req: NextRequest): Promise<NextResponse> {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session: any) {
+    const session = await getServerSession(authOptions);
+    if (!session) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -276,7 +276,7 @@ export async function DELETE(req: NextRequest): Promise<NextResponse> {
       );
     }
 
-    const { searchParams } = new URL(req.url: any);
+    const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
 
     if (!id: any) {

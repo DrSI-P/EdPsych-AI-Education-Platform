@@ -302,8 +302,8 @@ export function ParentCommunicationManagement() {
     );
   };
   
-   // Render message composition section
-  function renderMessageComposition() {
+  // Render message composition section
+  const renderMessageComposition = () => {
     return (
       <Card>
         <CardHeader>

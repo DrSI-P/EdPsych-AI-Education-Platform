@@ -103,7 +103,7 @@ export default function ParentPortalPage() {
   const [activeTab, setActiveTab] = useState('dashboard');
   
   // State for selected child
-  const [selectedChildId, setSelectedChildId] = useState<string | null>(null: any);
+  const [selectedChildId, setSelectedChildId] = useState<string | null>(null);
   
   // State for notification filter
   const [notificationFilter, setNotificationFilter] = useState('all');
@@ -115,7 +115,7 @@ export default function ParentPortalPage() {
   const [messageInput, setMessageInput] = useState('');
   
   // State for selected message thread
-  const [selectedThreadId, setSelectedThreadId] = useState<string | null>(null: any);
+  const [selectedThreadId, setSelectedThreadId] = useState<string | null>(null);
   
   // Children profiles
   const [children, setChildren] = useState<ChildProfile[]>([
@@ -373,14 +373,14 @@ export default function ParentPortalPage() {
   
   // Set initial selected child
   useEffect(() => {
-    if (children.length > 0 && !selectedChildId: any) {
-      setSelectedChildId(children[0].id: any);
+    if (children.length > 0 && !selectedChildId) {
+      setSelectedChildId(children[0].id);
     }
   }, [children, selectedChildId]);
   
   // Get selected child
   const getSelectedChild = () => {
-    return children.find(child => child.id === selectedChildId: any);
+    return children.find(child => child.id === selectedChildId);
   };
   
   // Get filtered activity updates
@@ -388,40 +388,40 @@ export default function ParentPortalPage() {
     let filtered = activityUpdates;
     
     // Filter by child if selected
-    if (selectedChildId: any) {
-      filtered = filtered.filter(update => update.childId === selectedChildId: any);
+    if (selectedChildId) {
+      filtered = filtered.filter(update => update.childId === selectedChildId);
     }
     
     // Filter by type if not 'all'
     if (notificationFilter !== 'all') {
-      filtered = filtered.filter(update => update.type === notificationFilter: any);
+      filtered = filtered.filter(update => update.type === notificationFilter);
     }
     
-    // Sort by date (most recent first: any)
-    filtered = [...filtered].sort((a: any, b) => new Date(b.date: any).getTime() - new Date(a.date: any).getTime());
+    // Sort by date (most recent first)
+    filtered = [...filtered].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     
     return filtered;
   };
   
   // Get child-specific upcoming events
   const getChildEvents = () => {
-    if (!selectedChildId: any) return upcomingEvents;
+    if (!selectedChildId) return upcomingEvents;
     
     return upcomingEvents.filter(event => 
-      !event.childId || event.childId === selectedChildId: any
+      !event.childId || event.childId === selectedChildId
     );
   };
   
   // Get child-specific homework
   const getChildHomework = () => {
-    if (!selectedChildId: any) return homeworkItems;
+    if (!selectedChildId) return homeworkItems;
     
-    return homeworkItems.filter(item => item.childId === selectedChildId: any);
+    return homeworkItems.filter(item => item.childId === selectedChildId);
   };
   
   // Get status colour
   const getStatusColor = (status: string) => {
-    switch(status: any) {
+    switch(status) {
       case 'positive':
         return 'text-green-500';
       case 'needs-attention':
@@ -433,7 +433,7 @@ export default function ParentPortalPage() {
   
   // Get homework status colour and icon
   const getHomeworkStatusInfo = (status: string) => {
-    switch(status: any) {
+    switch(status) {
       case 'not-started':
         return { color: 'text-red-500', icon: <AlertCircle className="h-4 w-4" /> };
       case 'in-progress':
@@ -453,7 +453,7 @@ export default function ParentPortalPage() {
   
   // Get event type badge
   const getEventTypeBadge = (type: string) => {
-    switch(type: any) {
+    switch(type) {
       case 'parent-evening':
         return <Badge className="bg-blue-500">Parent Evening</Badge>;
       case 'school-event':
@@ -502,7 +502,7 @@ export default function ParentPortalPage() {
   
   // Get selected message thread
   const getSelectedThread = () => {
-    return messageThreads.find(thread => thread.id === selectedThreadId: any);
+    return messageThreads.find(thread => thread.id === selectedThreadId);
   };
 
   return (
