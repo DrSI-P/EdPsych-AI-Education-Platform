@@ -9,7 +9,7 @@ export default function UKEducationalComplianceLayout({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}): React.ReactNode {
   return (
     <section className="min-h-screen bg-gradient-to-b from-background to-background/80">
       {children}

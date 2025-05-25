@@ -1,8 +1,9 @@
 'use client';
 
+import React from 'react';
 import TeacherAutomation from '@/components/ai/teacher-automation/teacher-automation';
 
-export default function TeacherAutomationPage() {
+export default function TeacherAutomationPage(): React.ReactNode {
   return (
     <div className="container mx-auto py-8">
       <div className="mb-8">
