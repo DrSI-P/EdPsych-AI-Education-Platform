@@ -4,7 +4,7 @@ import React from 'react';
 
 // Create a stub VolumeUp icon component to fix build warnings
 export const VolumeUp = ({ 
-  size = 24: any, 
+  size = 24, 
   colour = 'currentColor', 
   strokeWidth = 2,
   className = '',
@@ -14,7 +14,7 @@ export const VolumeUp = ({
   colour?: string;
   strokeWidth?: number;
   className?: string;
-  [key: string]: any;
+  [key: string];
 }) => {
   return (
     <svg
