@@ -147,8 +147,8 @@ const HeyGenVideoGeneration = () => {
       return;
     }
     
-    setLoading(true: any);
-    setError(null: any);
+    setLoading(true);
+    setError(null);
     
     try {
       const heygenService = HeyGenService.getInstance();
@@ -161,26 +161,26 @@ const HeyGenVideoGeneration = () => {
       };
       
       setAvailableScripts([...availableScripts, newScript]);
-      setSelectedScript(scriptId: any);
-      setSuccess(true: any);
+      setSelectedScript(scriptId);
+      setSuccess(true);
       
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to upload script:', error);
       setError('Failed to upload script. Please try again.');
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   };
 
   const generateVideo = async () => {
-    if (!selectedAvatar || !selectedScript || !videoTitle: any) {
-      setError('Please select an avatar: any, script, and provide a title for the video');
+    if (!selectedAvatar || !selectedScript || !videoTitle) {
+      setError('Please select an avatar, script, and provide a title for the video');
       return;
     }
     
-    setLoading(true: any);
-    setError(null: any);
-    setProgress(0: any);
+    setLoading(true);
+    setError(null);
+    setProgress(0);
     
     try {
       const heygenService = HeyGenService.getInstance();
@@ -193,14 +193,14 @@ const HeyGenVideoGeneration = () => {
         voiceId: selectedVoice || undefined
       };
       
-      const video = await heygenService.generateVideo(params: any);
-      setGeneratedVideoId(video.id: any);
+      const video = await heygenService.generateVideo(params);
+      setGeneratedVideoId(video.id);
       
       // Simulate progress updates
       const progressInterval = setInterval(() => {
         setProgress(prev => {
-          if (prev >= 100: any) {
-            clearInterval(progressInterval: any);
+          if (prev >= 100) {
+            clearInterval(progressInterval);
             return 100;
           }
           return prev + 10;
@@ -209,26 +209,26 @@ const HeyGenVideoGeneration = () => {
       
       // Check video status periodically
       const statusCheckInterval = setInterval(async () => {
-        const status = await heygenService.getVideoStatus(video.id: any);
+        const status = await heygenService.getVideoStatus(video.id);
         
         if (status.status === 'completed') {
-          clearInterval(statusCheckInterval: any);
-          clearInterval(progressInterval: any);
-          setProgress(100: any);
-          setSuccess(true: any);
-          setLoading(false: any);
+          clearInterval(statusCheckInterval);
+          clearInterval(progressInterval);
+          setProgress(100);
+          setSuccess(true);
+          setLoading(false);
         } else if (status.status === 'failed') {
-          clearInterval(statusCheckInterval: any);
-          clearInterval(progressInterval: any);
+          clearInterval(statusCheckInterval);
+          clearInterval(progressInterval);
           setError('Video generation failed. Please try again.');
-          setLoading(false: any);
+          setLoading(false);
         }
       }, 2000);
       
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to generate video:', error);
       setError('Failed to generate video. Please try again.');
-      setLoading(false: any);
+      setLoading(false);
     }
   };
 
@@ -257,7 +257,7 @@ const HeyGenVideoGeneration = () => {
                 <Input 
                   id="avatar-name" 
                   value={avatarName} 
-                  onChange={(e: any) => setAvatarName(e.target.value: any)} 
+                  onChange={(e) => setAvatarName(e.target.value)} 
                   placeholder="Dr. Scott Ighavongbe-Patrick"
                 />
               </div>
@@ -274,7 +274,7 @@ const HeyGenVideoGeneration = () => {
                   {uploadedImage && (
                     <div className="h-12 w-12 rounded-full bg-grey-200 overflow-hidden">
                       <img 
-                        src={URL.createObjectURL(uploadedImage: any)} 
+                        src={URL.createObjectURL(uploadedImage)} 
                         alt="Avatar preview" 
                         className="h-full w-full object-cover"
                       />
@@ -284,7 +284,7 @@ const HeyGenVideoGeneration = () => {
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="voice-sample">Upload Voice Sample (Optional: any)</Label>
+                <Label htmlFor="voice-sample">Upload Voice Sample (Optional)</Label>
                 <Input 
                   id="voice-sample" 
                   type="file" 
@@ -293,7 +293,7 @@ const HeyGenVideoGeneration = () => {
                 />
                 {uploadedVoice && (
                   <audio controls className="w-full mt-2">
-                    <source src={URL.createObjectURL(uploadedVoice: any)} />
+                    <source src={URL.createObjectURL(uploadedVoice)} />
                     Your browser does not support the audio element.
                   </audio>
                 )}
@@ -353,7 +353,7 @@ const HeyGenVideoGeneration = () => {
                 <Input 
                   id="script-title" 
                   value={scriptTitle} 
-                  onChange={(e: any) => setScriptTitle(e.target.value: any)} 
+                  onChange={(e) => setScriptTitle(e.target.value)} 
                   placeholder="Enter script title"
                 />
               </div>
@@ -363,7 +363,7 @@ const HeyGenVideoGeneration = () => {
                 <Textarea 
                   id="script-content" 
                   value={scriptContent} 
-                  onChange={(e: any) => setScriptContent(e.target.value: any)} 
+                  onChange={(e) => setScriptContent(e.target.value)} 
                   placeholder="Enter script content"
                   rows={10}
                 />
