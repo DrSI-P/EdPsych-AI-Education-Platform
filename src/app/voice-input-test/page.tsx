@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { VoiceInputProvider } from '@/providers/voice-input-provider';
 import UniversalVoiceInput from '@/components/voice-input/universal-voice-input';
 import AssessmentVoiceInput from '@/components/voice-input/activity-specific/assessment-voice-input';

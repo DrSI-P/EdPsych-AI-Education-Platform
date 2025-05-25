@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
@@ -15,14 +15,6 @@ import {
   Moon, 
   ZoomIn, 
   ZoomOut, 
-  Type, 
-  Contrast, 
-  MousePointer, 
-  Keyboard, 
-  Volume2, 
-  Eye, 
-  Sparkles, 
-  Wand2, 
   Check,
   RefreshCw
 } from 'lucide-react';
@@ -477,7 +469,7 @@ export default function AccessibilitySettings() {
             <CardHeader>
               <CardTitle>Cognitive Support Settings</CardTitle>
               <CardDescription>
-                Customise features to support different cognitive needs.
+                Features to support different cognitive needs and preferences.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -499,7 +491,7 @@ export default function AccessibilitySettings() {
                 <div>
                   <Label htmlFor="extended-timers" className="block mb-1">Extended Timers</Label>
                   <p className="text-sm text-muted-foreground">
-                    Provide additional time for timed activities
+                    Increase time limits for forms and interactive elements
                   </p>
                 </div>
                 <Switch
@@ -513,7 +505,7 @@ export default function AccessibilitySettings() {
                 <div>
                   <Label htmlFor="focus-mode" className="block mb-1">Focus Mode</Label>
                   <p className="text-sm text-muted-foreground">
-                    Highlight active elements and reduce distractions
+                    Highlight active content and reduce peripheral distractions
                   </p>
                 </div>
                 <Switch
@@ -523,36 +515,20 @@ export default function AccessibilitySettings() {
                 />
               </div>
               
-              <Separator />
-              
-              <div className="bg-muted p-4 rounded-md">
-                <h4 className="font-medium mb-2">Recommended Settings</h4>
-                <div className="space-y-3">
-                  <div>
-                    <p className="font-medium">For ADHD:</p>
-                    <ul className="list-disc pl-5 text-sm">
-                      <li>Enable Focus Mode</li>
-                      <li>Enable Reduced Motion</li>
-                      <li>Enable Extended Timers</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p className="font-medium">For Dyslexia:</p>
-                    <ul className="list-disc pl-5 text-sm">
-                      <li>Enable Dyslexia-Friendly Font</li>
-                      <li>Increase Line Spacing (1.8+)</li>
-                      <li>Enable Reading Guide</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p className="font-medium">For Visual Processing:</p>
-                    <ul className="list-disc pl-5 text-sm">
-                      <li>Enable High Contrast</li>
-                      <li>Increase Font Size (120%+)</li>
-                      <li>Enable Simplified Interface</li>
-                    </ul>
-                  </div>
-                </div>
+              <div className="space-y-2">
+                <Label>Cognitive Profile</Label>
+                <Select defaultValue="standard">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select profile" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="standard">Standard</SelectItem>
+                    <SelectItem value="adhd">ADHD Support</SelectItem>
+                    <SelectItem value="autism">Autism Support</SelectItem>
+                    <SelectItem value="anxiety">Anxiety Support</SelectItem>
+                    <SelectItem value="learning">Learning Difficulties</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </CardContent>
           </Card>

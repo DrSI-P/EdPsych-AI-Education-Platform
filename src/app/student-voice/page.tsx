@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import TranscriptionTranslationSystem from '@/components/student-voice/transcription-translation-system';
 import AnonymousSuggestionSystem from '@/components/student-voice/anonymous-suggestion-system';
 

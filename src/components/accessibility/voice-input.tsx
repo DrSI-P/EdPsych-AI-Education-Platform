@@ -2,24 +2,21 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { Slider } from '@/components/ui/slider';
 import { Textarea } from '@/components/ui/textarea';
-import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { toast } from '@/components/ui/use-toast';
-import { Mic, MicOff, Volume2, VolumeX, RefreshCw, Check, Settings, Keyboard } from 'lucide-react';
+import { Mic, MicOff, RefreshCw, Settings, Keyboard } from 'lucide-react';
 import { SpeechRecognitionService, SpeechRecognitionResult, SpeechRecognitionOptions } from '@/lib/voice/speechRecognition';
 
 export default function VoiceInput() {
   // State for speech recognition
   const [isListening, setIsListening] = useState(false);
-  const [transcript, setTranscript] = useState('');
   const [confidence, setConfidence] = useState(0);
   const [isSupported, setIsSupported] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -95,7 +92,6 @@ export default function VoiceInput() {
         
         // Update transcript and confidence
         if (result.isFinal || !continuousListening) {
-          setTranscript(prev => prev + ' ' + result.text);
           setConfidence(result.confidence * 100);
           
           // Insert text at cursor position in textarea
@@ -147,7 +143,6 @@ export default function VoiceInput() {
   
   // Clear transcript
   const clearTranscript = () => {
-    setTranscript('');
     if (textareaRef.current) {
       textareaRef.current.value = '';
     }
@@ -295,7 +290,7 @@ export default function VoiceInput() {
                     <div>
                       <Label htmlFor="child-voice" className="block mb-1">Child Voice Optimization</Label>
                       <p className="text-sm text-muted-foreground">
-                        Optimise recognition for children's voices and speech patterns
+                        Optimise recognition for children&apos;s voices and speech patterns
                       </p>
                     </div>
                     <Switch
@@ -390,17 +385,17 @@ export default function VoiceInput() {
                   <div className="bg-muted p-4 rounded-md">
                     <h4 className="font-medium mb-2">Recommended Settings</h4>
                     <div className="space-y-2">
-                      <div className="flex items-centre space-x-2">
-                        <Badge variant="outline">Dyspraxia</Badge>
-                        <span className="text-sm">Enable Articulation Support</span>
+                      <div className="flex items-centre justify-between">
+                        <Badge variant="outline">Articulation Difficulties</Badge>
+                        <Button variant="ghost" size="sm" className="h-7">Apply</Button>
                       </div>
-                      <div className="flex items-centre space-x-2">
+                      <div className="flex items-centre justify-between">
                         <Badge variant="outline">Stuttering</Badge>
-                        <span className="text-sm">Enable Fluency Support</span>
+                        <Button variant="ghost" size="sm" className="h-7">Apply</Button>
                       </div>
-                      <div className="flex items-centre space-x-2">
-                        <Badge variant="outline">Auditory Processing</Badge>
-                        <span className="text-sm">Enable Processing Support</span>
+                      <div className="flex items-centre justify-between">
+                        <Badge variant="outline">Processing Delay</Badge>
+                        <Button variant="ghost" size="sm" className="h-7">Apply</Button>
                       </div>
                     </div>
                   </div>
@@ -413,39 +408,43 @@ export default function VoiceInput() {
                 <CardHeader>
                   <CardTitle>Voice Input Help</CardTitle>
                   <CardDescription>
-                    Tips for using voice input effectively.
+                    Tips for getting the best results with voice input.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-6">
                   <div>
-                    <h3 className="font-medium mb-2">Getting Started</h3>
-                    <ul className="list-disc pl-5 space-y-1">
-                      <li>Click the microphone button to start listening</li>
-                      <li>Speak clearly and at a normal pace</li>
-                      <li>Click the microphone button again to stop listening</li>
-                      <li>Your speech will be converted to text in the input field</li>
+                    <h3 className="font-medium text-lg mb-2">Best Practices</h3>
+                    <ul className="space-y-2 list-disc pl-5">
+                      <li>Speak clearly and at a moderate pace</li>
+                      <li>Use a good quality microphone</li>
+                      <li>Reduce background noise when possible</li>
+                      <li>Position the microphone 15-30cm from your mouth</li>
+                      <li>For children, select the &quot;Child Voice Optimization&quot; option</li>
                     </ul>
                   </div>
                   
                   <div>
-                    <h3 className="font-medium mb-2">Voice Commands</h3>
-                    <ul className="list-disc pl-5 space-y-1">
-                      <li>"New line" - Creates a new paragraph</li>
-                      <li>"Full stop" or "Period" - Adds a period</li>
-                      <li>"Question mark" - Adds a question mark</li>
-                      <li>"Exclamation mark" - Adds an exclamation mark</li>
-                      <li>"Comma" - Adds a comma</li>
-                    </ul>
+                    <h3 className="font-medium text-lg mb-2">Voice Commands</h3>
+                    <div className="bg-muted p-4 rounded-md">
+                      <p className="mb-2">You can use these voice commands while speaking:</p>
+                      <ul className="space-y-2 list-disc pl-5">
+                        <li>&quot;New line&quot; - Starts a new paragraph</li>
+                        <li>&quot;Full stop&quot; or &quot;Period&quot; - Adds a period</li>
+                        <li>&quot;Question mark&quot; - Adds a question mark</li>
+                        <li>&quot;Exclamation mark&quot; - Adds an exclamation mark</li>
+                        <li>&quot;Comma&quot; - Adds a comma</li>
+                        <li>&quot;Delete that&quot; - Removes the last phrase</li>
+                      </ul>
+                    </div>
                   </div>
                   
                   <div>
-                    <h3 className="font-medium mb-2">Troubleshooting</h3>
-                    <ul className="list-disc pl-5 space-y-1">
-                      <li>Ensure your microphone is connected and working</li>
-                      <li>Allow microphone permissions when prompted</li>
-                      <li>Try speaking more clearly and directly into the microphone</li>
-                      <li>Reduce background noise if possible</li>
-                      <li>Try refreshing the page if recognition stops working</li>
+                    <h3 className="font-medium text-lg mb-2">Troubleshooting</h3>
+                    <ul className="space-y-2 list-disc pl-5">
+                      <li>If recognition is poor, try adjusting your microphone</li>
+                      <li>Make sure your browser has permission to access your microphone</li>
+                      <li>Try using a different language if you have an accent</li>
+                      <li>For special needs support, use the options in the Special Needs tab</li>
                     </ul>
                   </div>
                 </CardContent>

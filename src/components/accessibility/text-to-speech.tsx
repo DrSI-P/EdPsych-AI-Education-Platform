@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
@@ -10,8 +10,8 @@ import { Slider } from '@/components/ui/slider';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Progress } from '@/components/ui/progress';
 import { toast } from '@/components/ui/use-toast';
-import { Volume2, VolumeX, Play, Pause, StopCircle, Settings, RefreshCw, Check } from 'lucide-react';
-import { TextToSpeechService, TextToSpeechOptions, TextToSpeechState } from '@/lib/voice/textToSpeech';
+import { Volume2, VolumeX, Play, Pause, StopCircle, Settings, RefreshCw } from 'lucide-react';
+import { TextToSpeechService, TextToSpeechOptions } from '@/lib/voice/textToSpeech';
 
 export default function TextToSpeechReader() {
   // State for text-to-speech
@@ -440,7 +440,7 @@ export default function TextToSpeechReader() {
                       id="volume"
                       min={0}
                       max={1}
-                      step={0.1}
+                      step={0.05}
                       value={[volume]}
                       onValueChange={(value) => setVolume(value[0])}
                     />
@@ -454,7 +454,7 @@ export default function TextToSpeechReader() {
                 <CardHeader>
                   <CardTitle>Reading Style</CardTitle>
                   <CardDescription>
-                    Customise how text is read aloud.
+                    Adjust how text is read and displayed.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -462,7 +462,7 @@ export default function TextToSpeechReader() {
                     <div>
                       <Label htmlFor="highlight-text" className="block mb-1">Highlight Text</Label>
                       <p className="text-sm text-muted-foreground">
-                        Highlight text as it is being read
+                        Highlight words as they are being read
                       </p>
                     </div>
                     <Switch
@@ -472,14 +472,31 @@ export default function TextToSpeechReader() {
                     />
                   </div>
                   
-                  <div className="bg-muted p-4 rounded-md">
-                    <h4 className="font-medium mb-2">Reading Tips</h4>
-                    <ul className="list-disc pl-5 space-y-1 text-sm">
-                      <li>Use a slower rate for complex or educational content</li>
-                      <li>Higher pitch works well for younger children</li>
-                      <li>Text highlighting helps with reading comprehension</li>
-                      <li>For longer texts, break into smaller paragraphs</li>
-                    </ul>
+                  <div className="space-y-2">
+                    <Label>Reading Style</Label>
+                    <Select defaultValue="natural">
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select style" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="natural">Natural</SelectItem>
+                        <SelectItem value="clear">Clear & Precise</SelectItem>
+                        <SelectItem value="expressive">Expressive</SelectItem>
+                        <SelectItem value="calm">Calm & Slow</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label>Pronunciation Dictionary</Label>
+                    <div className="border rounded-md p-4">
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Add custom pronunciations for specific words or terms.
+                      </p>
+                      <Button variant="outline" className="w-full">
+                        Manage Custom Pronunciations
+                      </Button>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -488,9 +505,9 @@ export default function TextToSpeechReader() {
             <TabsContent value="special-needs">
               <Card>
                 <CardHeader>
-                  <CardTitle>Special Educational Needs Settings</CardTitle>
+                  <CardTitle>Special Educational Needs</CardTitle>
                   <CardDescription>
-                    Additional settings to support various reading and comprehension needs.
+                    Accessibility options for diverse learning needs.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -498,7 +515,7 @@ export default function TextToSpeechReader() {
                     <div>
                       <Label htmlFor="simplified-language" className="block mb-1">Simplified Language</Label>
                       <p className="text-sm text-muted-foreground">
-                        Simplify complex language when possible
+                        Attempt to simplify complex language when possible
                       </p>
                     </div>
                     <Switch
@@ -536,34 +553,20 @@ export default function TextToSpeechReader() {
                     />
                   </div>
                   
-                  <div className="bg-muted p-4 rounded-md">
-                    <h4 className="font-medium mb-2">Recommended Settings</h4>
-                    <div className="space-y-3">
-                      <div>
-                        <p className="font-medium">For Reading Difficulties:</p>
-                        <ul className="list-disc pl-5 text-sm">
-                          <li>Enable Simplified Language</li>
-                          <li>Enable Extended Pauses</li>
-                          <li>Reduce Reading Rate (0.8x)</li>
-                        </ul>
-                      </div>
-                      <div>
-                        <p className="font-medium">For Auditory Processing:</p>
-                        <ul className="list-disc pl-5 text-sm">
-                          <li>Enable Extended Pauses</li>
-                          <li>Enable Emphasize Keywords</li>
-                          <li>Reduce Reading Rate (0.7x)</li>
-                        </ul>
-                      </div>
-                      <div>
-                        <p className="font-medium">For English as Additional Language:</p>
-                        <ul className="list-disc pl-5 text-sm">
-                          <li>Enable Simplified Language</li>
-                          <li>Enable Extended Pauses</li>
-                          <li>Reduce Reading Rate (0.8x)</li>
-                        </ul>
-                      </div>
-                    </div>
+                  <div className="space-y-2">
+                    <Label>Preset Profiles</Label>
+                    <Select defaultValue="standard">
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select profile" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="standard">Standard</SelectItem>
+                        <SelectItem value="dyslexia">Dyslexia Support</SelectItem>
+                        <SelectItem value="autism">Autism Support</SelectItem>
+                        <SelectItem value="adhd">ADHD Support</SelectItem>
+                        <SelectItem value="visual">Visual Impairment</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </CardContent>
               </Card>
