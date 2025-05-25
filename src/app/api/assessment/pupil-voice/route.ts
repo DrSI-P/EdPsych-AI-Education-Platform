@@ -7,14 +7,14 @@ import prisma from '@/lib/db/prisma';
 export async function GET(request: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     // Get query parameters
-    const { searchParams } = new URL(request.url: any);
+    const { searchParams } = new URL(request.url);
     const status = searchParams.get('status');
     
     // Build the query
@@ -54,9 +54,9 @@ export async function GET(request: NextRequest) {
       responseCount: survey.responses.length,
     }));
     
-    return NextResponse.json(transformedSurveys: any);
+    return NextResponse.json(transformedSurveys);
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching pupil voice surveys:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching pupil voice surveys' },

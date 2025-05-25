@@ -297,9 +297,12 @@ export function ParentCommunicationManagement() {
               )}
             </div>
           </div>
-        </CardContent>      </Card>
+        </CardContent>
+      </Card>
     );
-  };  // Render message composition section
+  };
+  
+  // Render message composition section
   const renderMessageComposition = () => (
     <Card>
       <CardHeader>
@@ -313,7 +316,7 @@ export function ParentCommunicationManagement() {
             <Input 
               placeholder="Enter subject..." 
               value={subject}
-              onChange={(e) => setSubject(e.target.value: any)}
+              onChange={(e) => setSubject(e.target.value)}
             />
           </div>
           

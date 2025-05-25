@@ -21,7 +21,7 @@ const ErrorBoundaryIntegration: React.FC = () => {
   const [activeTab, setActiveTab] = React.useState('usage');
   
   return (
-      <div className="container mx-auto py-8 px-4">
+    <div className="container mx-auto py-8 px-4">
       <h1 className="text-3xl font-bold mb-2">Error Boundary Integration</h1>
       <p className="text-grey-600 mb-6">
         Guidelines and examples for integrating error boundaries throughout the platform
