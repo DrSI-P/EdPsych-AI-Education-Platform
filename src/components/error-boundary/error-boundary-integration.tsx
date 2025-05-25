@@ -16,7 +16,7 @@ import { CheckCircle, AlertTriangle, Info } from 'lucide-react';
  * This component provides examples and guidelines for integrating
  * error boundaries throughout the platform.
  */
-const ErrorBoundaryIntegration: React.FC = () => {
+function ErrorBoundaryIntegration() {
   const router = useRouter();
   const [activeTab, setActiveTab] = React.useState('usage');
   
