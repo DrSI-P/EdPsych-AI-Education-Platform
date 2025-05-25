@@ -372,48 +372,48 @@ export default function ProfessionalDevelopmentCourses() {
   };
   
   // Toggle difficulty selection
-  const toggleDifficulty = (difficultyId: any) => {
+  const toggleDifficulty = (difficultyId) => {
     setSelectedDifficulties(prev => 
-      prev.includes(difficultyId: any)
-        ? prev.filter(id => id !== difficultyId: any)
+      prev.includes(difficultyId)
+        ? prev.filter(id => id !== difficultyId)
         : [...prev, difficultyId]
     );
   };
   
   // Get difficulty badge colour
-  const getDifficultyColor = (difficultyId: any) => {
-    const difficulty = DIFFICULTY_LEVELS.find(d => d.id === difficultyId: any);
+  const getDifficultyColor = (difficultyId) => {
+    const difficulty = DIFFICULTY_LEVELS.find(d => d.id === difficultyId);
     return difficulty ? difficulty.colour : 'bg-grey-500';
   };
   
   // Get difficulty label
-  const getDifficultyLabel = (difficultyId: any) => {
-    const difficulty = DIFFICULTY_LEVELS.find(d => d.id === difficultyId: any);
+  const getDifficultyLabel = (difficultyId) => {
+    const difficulty = DIFFICULTY_LEVELS.find(d => d.id === difficultyId);
     return difficulty ? difficulty.label : 'Unknown';
   };
   
   // Get category label
-  const getCategoryLabel = (categoryId: any) => {
-    const category = COURSE_CATEGORIES.find(c => c.id === categoryId: any);
+  const getCategoryLabel = (categoryId) => {
+    const category = COURSE_CATEGORIES.find(c => c.id === categoryId);
     return category ? category.label : 'Uncategorised';
   };
   
   // Handle course selection
-  const handleCourseSelect = (course: any) => {
-    setSelectedCourse(course: any);
+  const handleCourseSelect = (course) => {
+    setSelectedCourse(course);
     setActiveTab('course');
   };
   
   // Handle back to courses
   const handleBackToCourses = () => {
-    setSelectedCourse(null: any);
+    setSelectedCourse(null);
     setActiveTab('explore');
   };
   
   // Render content type icons
-  const renderContentTypeIcons = (contentTypes: any) => {
+  const renderContentTypeIcons = (contentTypes) => {
     return contentTypes.map(type => {
-      const contentType = CONTENT_TYPES.find(ct => ct.id === type: any);
+      const contentType = CONTENT_TYPES.find(ct => ct.id === type);
       return contentType ? (
         <div key={type} className="tooltip" data-tip={contentType.label}>
           <span className="mr-1">{contentType.icon}</span>
@@ -445,12 +445,12 @@ export default function ProfessionalDevelopmentCourses() {
                     placeholder="Search courses..."
                     className="pl-10"
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value: any)}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                   />
                 </div>
                 <Button 
                   variant="outline" 
-                  onClick={() => setShowFilters(!showFilters: any)}
+                  onClick={() => setShowFilters(!showFilters)}
                   className="flex items-centre gap-2"
                 >
                   <Filter size={16} />
@@ -465,9 +465,9 @@ export default function ProfessionalDevelopmentCourses() {
                     {COURSE_CATEGORIES.map(category => (
                       <Badge
                         key={category.id}
-                        variant={selectedCategories.includes(category.id: any) ? "default" : "outline"}
+                        variant={selectedCategories.includes(category.id) ? "default" : "outline"}
                         className="cursor-pointer"
-                        onClick={() => toggleCategory(category.id: any)}
+                        onClick={() => toggleCategory(category.id)}
                       >
                         {category.label}
                       </Badge>
@@ -479,9 +479,9 @@ export default function ProfessionalDevelopmentCourses() {
                     {DIFFICULTY_LEVELS.map(difficulty => (
                       <Badge
                         key={difficulty.id}
-                        variant={selectedDifficulties.includes(difficulty.id: any) ? "default" : "outline"}
-                        className={`cursor-pointer ${selectedDifficulties.includes(difficulty.id: any) ? difficulty.colour : ''}`}
-                        onClick={() => toggleDifficulty(difficulty.id: any)}
+                        variant={selectedDifficulties.includes(difficulty.id) ? "default" : "outline"}
+                        className={`cursor-pointer ${selectedDifficulties.includes(difficulty.id) ? difficulty.colour : ''}`}
+                        onClick={() => toggleDifficulty(difficulty.id)}
                       >
                         {difficulty.label}
                       </Badge>
@@ -498,14 +498,14 @@ export default function ProfessionalDevelopmentCourses() {
                         {/* Course image would be here */}
                         <div className="absolute top-2 right-2">
                           <Badge className={getDifficultyColor(course.difficulty)}>
-                            {getDifficultyLabel(course.difficulty: any)}
+                            {getDifficultyLabel(course.difficulty)}
                           </Badge>
                         </div>
                       </div>
                       <CardHeader>
                         <div className="flex justify-between items-start">
                           <CardTitle className="text-xl">{course.title}</CardTitle>
-                          <Badge variant="outline">{getCategoryLabel(course.category: any)}</Badge>
+                          <Badge variant="outline">{getCategoryLabel(course.category)}</Badge>
                         </div>
                         <CardDescription className="line-clamp-2">{course.description}</CardDescription>
                       </CardHeader>
@@ -542,7 +542,7 @@ export default function ProfessionalDevelopmentCourses() {
                         </div>
                       </CardContent>
                       <CardFooter>
-                        <Button className="w-full" onClick={() => handleCourseSelect(course: any)}>
+                        <Button className="w-full" onClick={() => handleCourseSelect(course)}>
                           {course.progress > 0 ? 'Continue Course' : 'View Course'}
                         </Button>
                       </CardFooter>
@@ -570,9 +570,9 @@ export default function ProfessionalDevelopmentCourses() {
                     
                     <div className="flex flex-wrap gap-2 mb-4">
                       <Badge className={getDifficultyColor(selectedCourse.difficulty)}>
-                        {getDifficultyLabel(selectedCourse.difficulty: any)}
+                        {getDifficultyLabel(selectedCourse.difficulty)}
                       </Badge>
-                      <Badge variant="outline">{getCategoryLabel(selectedCourse.category: any)}</Badge>
+                      <Badge variant="outline">{getCategoryLabel(selectedCourse.category)}</Badge>
                     </div>
                     
                     <div className="flex flex-wrap gap-4 text-sm">
@@ -620,7 +620,7 @@ export default function ProfessionalDevelopmentCourses() {
                     </CardHeader>
                     <CardContent>
                       <Accordion type="single" collapsible className="w-full">
-                        {SAMPLE_MODULES.map((module: any, index) => (
+                        {SAMPLE_MODULES.map((module, index) => (
                           <AccordionItem key={module.id} value={`module-${module.id}`}>
                             <AccordionTrigger>
                               <div className="flex items-centre gap-3">
@@ -706,16 +706,16 @@ export default function ProfessionalDevelopmentCourses() {
         {/* My Courses Tab */}
         <TabsContent value="my-courses">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SAMPLE_COURSES.filter(course => course.progress > 0: any).map(course => (
+            {SAMPLE_COURSES.filter(course => course.progress > 0).map(course => (
               <Card key={course.id}>
                 <CardHeader>
                   <div className="flex justify-between items-start">
                     <CardTitle className="text-xl">{course.title}</CardTitle>
-                    <Badge className={getDifficultyColor(course.difficulty: any)}>
-                      {getDifficultyLabel(course.difficulty: any)}
+                    <Badge className={getDifficultyColor(course.difficulty)}>
+                      {getDifficultyLabel(course.difficulty)}
                     </Badge>
                   </div>
-                  <CardDescription>{getCategoryLabel(course.category: any)}</CardDescription>
+                  <CardDescription>{getCategoryLabel(course.category)}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="mb-2">
@@ -737,14 +737,14 @@ export default function ProfessionalDevelopmentCourses() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full" onClick={() => handleCourseSelect(course: any)}>
+                  <Button className="w-full" onClick={() => handleCourseSelect(course)}>
                     Continue Course
                   </Button>
                 </CardFooter>
               </Card>
             ))}
             
-            {SAMPLE_COURSES.filter(course => course.progress > 0: any).length === 0 && (
+            {SAMPLE_COURSES.filter(course => course.progress > 0).length === 0 && (
               <div className="col-span-full text-centre py-12">
                 <h3 className="text-xl font-medium mb-2">No courses in progress</h3>
                 <p className="text-muted-foreground mb-4">Explore our course catalogue to get started</p>

@@ -720,8 +720,8 @@ export default function ResearchCollaboration() {
   const [selectedMethodology, setSelectedMethodology] = useState('all');
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [selectedSchool, setSelectedSchool] = useState('all');
-  const [selectedProject, setSelectedProject] = useState(null: any);
-  const [isCreatingProject, setIsCreatingProject] = useState(false: any);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isCreatingProject, setIsCreatingProject] = useState(false);
   
   // Filter projects based on search and filters
   const filteredProjects = MOCK_RESEARCH_PROJECTS.filter(project => {
@@ -744,19 +744,19 @@ export default function ResearchCollaboration() {
   });
   
   // Handle project selection
-  const handleProjectSelect = (project: any) => {
-    setSelectedProject(project: any);
+  const handleProjectSelect = (project) => {
+    setSelectedProject(project);
   };
   
   // Handle project creation
   const handleCreateProject = () => {
-    setIsCreatingProject(true: any);
-    setSelectedProject(null: any);
+    setIsCreatingProject(true);
+    setSelectedProject(null);
   };
   
   // Handle cancel project creation
   const handleCancelCreate = () => {
-    setIsCreatingProject(false: any);
+    setIsCreatingProject(false);
   };
   
   return (
@@ -765,7 +765,7 @@ export default function ResearchCollaboration() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Research Collaboration</h1>
           <p className="text-muted-foreground">
-            Conduct: any, share, and collaborate on educational research projects
+            Conduct, share, and collaborate on educational research projects
           </p>
         </div>
         <div className="flex space-x-2">
@@ -861,7 +861,7 @@ export default function ResearchCollaboration() {
             placeholder="Search projects, outputs, or methods..."
             className="pl-8"
             value={searchTerm}
-            onChange={(e: any) => setSearchTerm(e.target.value: any)}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
         
@@ -936,8 +936,8 @@ export default function ResearchCollaboration() {
                     )}
                   </div>
                   <Button variant="outline" onClick={() => {
-                    setSelectedProject(null: any);
-                    setIsCreatingProject(false: any);
+                    setSelectedProject(null);
+                    setIsCreatingProject(false);
                   }}>
                     <ArrowLeft className="mr-2 h-4 w-4" /> Back to Projects
                   </Button>
@@ -1003,7 +1003,7 @@ export default function ResearchCollaboration() {
                     </div>
                     
                     <div className="space-y-2">
-                      <Label htmlFor="project-tags">Tags (comma separated: any)</Label>
+                      <Label htmlFor="project-tags">Tags (comma separated)</Label>
                       <Input id="project-tags" placeholder="e.g., Literacy, Primary, Reading" />
                     </div>
                     
@@ -1262,8 +1262,8 @@ export default function ResearchCollaboration() {
             </Card>
           ) : (
             <div className="grid grid-cols-1 gap-4">
-              {filteredProjects.map((project: any) => (
-                <Card key={project.id} className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => handleProjectSelect(project: any)}>
+              {filteredProjects.map((project) => (
+                <Card key={project.id} className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => handleProjectSelect(project)}>
                   <CardContent className="p-6">
                     <div className="flex justify-between">
                       <div className="space-y-1">
@@ -1333,7 +1333,7 @@ export default function ResearchCollaboration() {
         {/* Research Outputs Tab */}
         <TabsContent value="outputs" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {filteredOutputs.map((output: any) => (
+            {filteredOutputs.map((output) => (
               <Card key={output.id}>
                 <CardContent className="p-6">
                   <div className="flex justify-between">
@@ -1355,7 +1355,7 @@ export default function ResearchCollaboration() {
                     </p>
                   </div>
                   <div className="mt-4 flex flex-wrap gap-2">
-                    {output.tags.map((tag: any, index) => (
+                    {output.tags.map((tag, index) => (
                       <Badge key={index} variant="secondary">{tag}</Badge>
                     ))}
                   </div>
@@ -1398,7 +1398,7 @@ export default function ResearchCollaboration() {
         {/* Research Methods Tab */}
         <TabsContent value="methods" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {MOCK_RESEARCH_METHODS.map((method: any) => (
+            {MOCK_RESEARCH_METHODS.map((method) => (
               <Card key={method.id}>
                 <CardContent className="p-6">
                   <div className="flex justify-between">
@@ -1450,7 +1450,7 @@ export default function ResearchCollaboration() {
         {/* Research Networks Tab */}
         <TabsContent value="networks" className="space-y-4">
           <div className="grid grid-cols-1 gap-4">
-            {MOCK_RESEARCH_NETWORKS.map((network: any) => (
+            {MOCK_RESEARCH_NETWORKS.map((network) => (
               <Card key={network.id}>
                 <CardContent className="p-6">
                   <div className="flex justify-between">
@@ -1565,12 +1565,12 @@ export default function ResearchCollaboration() {
                         cx="50%"
                         cy="50%"
                         labelLine={false}
-                        label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
+                        label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                         outerRadius={80}
                         fill="#8884d8"
                         dataKey="value"
                       >
-                        {MOCK_CATEGORY_DISTRIBUTION.map((entry: any, index) => (
+                        {MOCK_CATEGORY_DISTRIBUTION.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>
@@ -1583,7 +1583,7 @@ export default function ResearchCollaboration() {
           </div>
           
           <div className="grid grid-cols-1 gap-4">
-            {MOCK_RESEARCH_IMPACT.map((impact: any) => (
+            {MOCK_RESEARCH_IMPACT.map((impact) => (
               <Card key={impact.id}>
                 <CardContent className="p-6">
                   <div className="flex justify-between">
