@@ -1,0 +1,12 @@
+src/tests/components/ui/AccessibilityControls.test.tsx
+src/tests/components/ui/BiofeedbackLearning.test.tsx
+src/tests/components/ui/InteractiveGuidance.test.tsx
+src/tests/components/ui/LearningCard.test.tsx
+src/tests/components/ui/LearningStyleAdaptiveContent.test.tsx
+src/tests/components/ui/MultilingualSupport.test.tsx
+src/tests/components/ui/ProgressTracking.test.tsx
+src/tests/components/ui/VoiceInput.test.tsx
+src/tests/e2e/homepage.spec.ts
+src/tests/lib/monitoring/monitoring.test.ts
+src/types/next-auth.d.ts
+src/types/next-route.d.ts

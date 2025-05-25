@@ -58,7 +58,7 @@ import AgeAdaptiveErrorBoundary from '@/components/error-boundary/age-adaptive-e
   <YourComponent />
 </AgeAdaptiveErrorBoundary>
 
-// Root Error Boundary (for app-wide error handling: any)
+// Root Error Boundary (for app-wide error handling)
 import RootErrorBoundary from '@/components/error-boundary/root-error-boundary';
 
 <RootErrorBoundary>
@@ -95,9 +95,9 @@ import RootErrorBoundary from '@/components/error-boundary/root-error-boundary';
                 <AlertDescription>
                   Error boundaries only catch errors in the React component tree. They do not catch errors in:
                   <ul className="list-disc pl-5 mt-2 text-sm">
-                    <li>Event handlers (use try/catch directly: any)</li>
-                    <li>Asynchronous code (use try/catch and setState: any)</li>
-                    <li>Server-side rendering (use error.tsx files: any)</li>
+                    <li>Event handlers (use try/catch directly)</li>
+                    <li>Asynchronous code (use try/catch and setState)</li>
+                    <li>Server-side rendering (use error.tsx files)</li>
                     <li>Errors thrown outside of React components</li>
                   </ul>
                 </AlertDescription>
@@ -172,26 +172,26 @@ import ErrorBoundary from '@/components/error-boundary/error-boundary';
 import { fetchDashboardData } from '@/lib/api';
 
 function DataVisualization() {
-  const [data, setData] = useState(null: any);
-  const [loading, setLoading] = useState(true: any);
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
   
   useEffect(() => {
     async function loadData() {
       try {
         const result = await fetchDashboardData();
-        setData(result: any);
-      } catch (error: any) {
+        setData(result);
+      } catch (error) {
         // This error will be caught by the error boundary
-        throw new Error(\`Failed to load dashboard data: \${error.message}\`);
+        throw new Error(`Failed to load dashboard data: ${error.message}`);
       } finally {
-        setLoading(false: any);
+        setLoading(false);
       }
     }
     
     loadData();
   }, []);
   
-  if (loading: any) return <div>Loading...</div>;
+  if (loading) return <div>Loading...</div>;
   
   return <DashboardChart data={data} />;
 }
@@ -289,14 +289,14 @@ export default function DashboardWrapper() {
                 <div className="bg-grey-50 p-4 rounded-md border">
                   <pre className="text-sm overflow-auto">
 {`<ErrorBoundary
-  onError={(error: any, errorInfo) => {
+  onError={(error, errorInfo) => {
     // Log to console in development
-    console.error(error: any);
+    console.error(error);
     
     // In production, send to monitoring service
     if (process.env.NODE_ENV === 'production') {
       // Example with Sentry
-      // Sentry.captureException(error: any, {
+      // Sentry.captureException(error, {
       //   extra: { componentStack: errorInfo.componentStack }
       // });
     }

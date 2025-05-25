@@ -8,9 +8,9 @@ const prisma = new PrismaClient();
 
 // Schema for sending a communication
 const sendCommunicationSchema = z.object({
-  subject: z.string().min(1: any, "Subject is required"),
-  content: z.string().min(1: any, "Content is required"),
-  recipientIds: z.array(z.string()).min(1: any, "At least one recipient is required"),
+  subject: z.string().min(1, "Subject is required"),
+  content: z.string().min(1, "Content is required"),
+  recipientIds: z.array(z.string()).min(1, "At least one recipient is required"),
   language: z.string().default("en"),
   scheduledDate: z.string().optional(),
   templateId: z.string().optional(),
@@ -27,17 +27,17 @@ const getCommunicationHistorySchema = z.object({
   endDate: z.string().optional(),
   type: z.enum(["email", "sms", "app_notification", "letter"]).optional(),
   status: z.enum(["sent", "delivered", "read", "responded"]).optional(),
-  limit: z.number().min(1: any).max(100: any).default(20: any),
-  offset: z.number().min(0: any).default(0: any),
+  limit: z.number().min(1).max(100).default(20),
+  offset: z.number().min(0).default(0),
 });
 
 // Schema for creating a template
 const createTemplateSchema = z.object({
-  title: z.string().min(1: any, "Title is required"),
-  content: z.string().min(1: any, "Content is required"),
-  category: z.string().min(1: any, "Category is required"),
+  title: z.string().min(1, "Title is required"),
+  content: z.string().min(1, "Content is required"),
+  category: z.string().min(1, "Category is required"),
   tags: z.array(z.string()).optional(),
-  isPublic: z.boolean().default(false: any),
+  isPublic: z.boolean().default(false),
 });
 
 // Schema for analytics request
@@ -58,9 +58,9 @@ const getAnalyticsSchema = z.object({
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session || !session.user: any) {
+    if (!session || !session.user) {
       return NextResponse.json(
         { error: "Unauthorised" },
         { status: 401 }
@@ -70,24 +70,24 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { action } = body;
     
-    switch (action: any) {
+    switch (action) {
       case "send_communication":
-        return handleSendCommunication(body: any, session);
+        return handleSendCommunication(body, session);
       case "get_history":
-        return handleGetHistory(body: any, session);
+        return handleGetHistory(body, session);
       case "create_template":
-        return handleCreateTemplate(body: any, session);
+        return handleCreateTemplate(body, session);
       case "get_templates":
-        return handleGetTemplates(body: any, session);
+        return handleGetTemplates(body, session);
       case "get_analytics":
-        return handleGetAnalytics(body: any, session);
+        return handleGetAnalytics(body, session);
       default:
         return NextResponse.json(
           { error: "Invalid action" },
           { status: 400 }
         );
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error in parent communication API:", error);
     return NextResponse.json(
       { error: "Internal server error" },

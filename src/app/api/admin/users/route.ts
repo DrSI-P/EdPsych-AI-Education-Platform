@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
     const { page, limit, role, search } = parsed.data;
     
     // Build filter conditions
-    const where: any = {};
+    const where: Record<string, any> = {};
     
     if (role) {
       where.role = role;

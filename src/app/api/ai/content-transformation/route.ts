@@ -6,9 +6,9 @@ import { getAIService } from '@/lib/ai/ai-service';
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
       learningStylePreference = null
     } = data;
     
-    if (!originalContent: any) {
+    if (!originalContent) {
       return NextResponse.json({ error: 'No content provided for transformation' }, { status: 400 });
     }
     
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     
     // Get user's learning style profile if available and no preference specified
     let userLearningStyle = null;
-    if (!learningStylePreference: any) {
+    if (!learningStylePreference) {
       try {
         const learningStyle = await prisma.learningStyle.findFirst({
           where: {
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
           }
         });
         
-        if (learningStyle: any) {
+        if (learningStyle) {
           // Determine primary style based on highest score
           const scores = {
             visual: learningStyle.visual,
@@ -51,10 +51,10 @@ export async function POST(req: NextRequest) {
             kinesthetic: learningStyle.kinesthetic
           };
           
-          const primaryStyle = Object.entries(scores: any).reduce((a: any, b: any) => a[1] > b[1] ? a : b)[0];
+          const primaryStyle = Object.entries(scores).reduce((a, b) => a[1] > b[1] ? a : b)[0];
           userLearningStyle = primaryStyle.toLowerCase();
         }
-      } catch (error: any) {
+      } catch (error) {
         console.log('Learning style not found:', error);
         // Continue without learning style
       }
@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
       Content Type: ${contentType}
       ${subjectArea ? `Subject Area: ${subjectArea}` : ''}
       Target Age: ${targetAge}
-      Complexity Level (0-100: any): ${complexity}
+      Complexity Level (0-100): ${complexity}
       ${userLearningStyle || learningStylePreference ? `User's Learning Style Preference: ${userLearningStyle || learningStylePreference}` : ''}
       
       Original Content:
@@ -101,7 +101,7 @@ export async function POST(req: NextRequest) {
     `;
     
     // Call AI service for transformation
-    const aiResponse = await aiService.generateText(prompt: any, {
+    const aiResponse = await aiService.generateText(prompt, {
       model: 'gpt-4',
       temperature: 0.7,
       maxTokens: 2500,
@@ -113,8 +113,8 @@ export async function POST(req: NextRequest) {
     try {
       // Extract text from AI response object
       const responseText = aiResponse.text;
-      transformedContent = JSON.parse(responseText: any);
-    } catch (error: any) {
+      transformedContent = JSON.parse(responseText);
+    } catch (error) {
       console.error('Failed to parse AI response:', error);
       return NextResponse.json({ error: 'Failed to transform content' }, { status: 500 });
     }
@@ -138,7 +138,7 @@ export async function POST(req: NextRequest) {
           multimodalContent: transformedContent.multimodal
         }
       });
-    } catch (error: any) {
+    } catch (error) {
       console.log('Failed to save content transformation to database:', error);
       // Continue without saving to database
     }
@@ -149,7 +149,7 @@ export async function POST(req: NextRequest) {
       transformationId: contentTransformation?.id
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in content transformation:', error);
     return NextResponse.json({ error: 'Failed to process content transformation' }, { status: 500 });
   }
@@ -157,16 +157,16 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const url = new URL(req.url: any);
+    const url = new URL(req.url);
     const transformationId = url.searchParams.get('id');
     
-    if (!transformationId: any) {
+    if (!transformationId) {
       // Get recent transformations for the user
       const recentTransformations = await prisma.contentTransformation.findMany({
         where: {
@@ -198,12 +198,12 @@ export async function GET(req: NextRequest) {
       }
     });
     
-    if (!transformation: any) {
+    if (!transformation) {
       return NextResponse.json({ error: 'Transformation not found' }, { status: 404 });
     }
     
     // Check if user has access to this transformation
-    if (transformation.userId !== session.user.id: any) {
+    if (transformation.userId !== session.user.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
     }
     
@@ -228,7 +228,7 @@ export async function GET(req: NextRequest) {
       }
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching content transformation:', error);
     return NextResponse.json({ error: 'Failed to fetch content transformation' }, { status: 500 });
   }

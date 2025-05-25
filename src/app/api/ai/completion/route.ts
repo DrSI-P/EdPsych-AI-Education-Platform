@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     const requestData: AICompletionRequest = await request.json();
     
     // Validate request
-    if (!requestData.provider || !requestData.model || !requestData.prompt: any) {
+    if (!requestData.provider || !requestData.model || !requestData.prompt) {
       return NextResponse.json(
         { error: 'Missing required fields: provider, model, or prompt' },
         { status: 400 }
@@ -37,21 +37,21 @@ export async function POST(request: NextRequest) {
     
     // Route to appropriate provider
     let completion;
-    switch (requestData.provider: any) {
+    switch (requestData.provider) {
       case 'openai':
-        completion = await handleOpenAICompletion(requestData: any, temperature, maxTokens);
+        completion = await handleOpenAICompletion(requestData, temperature, maxTokens);
         break;
       case 'anthropic':
-        completion = await handleAnthropicCompletion(requestData: any, temperature, maxTokens);
+        completion = await handleAnthropicCompletion(requestData, temperature, maxTokens);
         break;
       case 'gemini':
-        completion = await handleGeminiCompletion(requestData: any, temperature, maxTokens);
+        completion = await handleGeminiCompletion(requestData, temperature, maxTokens);
         break;
       case 'grok':
-        completion = await handleGrokCompletion(requestData: any, temperature, maxTokens);
+        completion = await handleGrokCompletion(requestData, temperature, maxTokens);
         break;
       case 'openrouter':
-        completion = await handleOpenRouterCompletion(requestData: any, temperature, maxTokens);
+        completion = await handleOpenRouterCompletion(requestData, temperature, maxTokens);
         break;
       default:
         return NextResponse.json(
@@ -60,8 +60,8 @@ export async function POST(request: NextRequest) {
         );
     }
     
-    return NextResponse.json(completion: any);
-  } catch (error: any) {
+    return NextResponse.json(completion);
+  } catch (error) {
     console.error('Error processing AI completion request:', error);
     return NextResponse.json(
       { error: 'Failed to process AI completion request' },
@@ -77,7 +77,7 @@ async function handleOpenAICompletion(
   maxTokens: number
 ) {
   const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey: any) {
+  if (!apiKey) {
     throw new Error('OpenAI API key not configured');
   }
   
@@ -112,7 +112,7 @@ async function handleAnthropicCompletion(
   maxTokens: number
 ) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey: any) {
+  if (!apiKey) {
     throw new Error('Anthropic API key not configured');
   }
   
@@ -133,10 +133,10 @@ async function handleAnthropicCompletion(
   
   // Extract text from content blocks safely
   let extractedText = '';
-  if (response.content && Array.isArray(response.content: any) && response.content.length > 0) {
-    for (const block of response.content: any) {
+  if (response.content && Array.isArray(response.content) && response.content.length > 0) {
+    for (const block of response.content) {
       // Check if this is a text block
-      if (block.type === 'text' && 'text' in block: any) {
+      if (block.type === 'text' && 'text' in block) {
         extractedText += block.text;
       }
       // Handle other block types if needed in the future
@@ -157,11 +157,11 @@ async function handleGeminiCompletion(
   maxTokens: number
 ) {
   const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey: any) {
+  if (!apiKey) {
     throw new Error('Gemini API key not configured');
   }
   
-  const genAI = new GoogleGenerativeAI(apiKey: any);
+  const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({ model: requestData.model });
   
   // Ensure UK spelling in prompts for educational content
@@ -194,7 +194,7 @@ async function handleGrokCompletion(
   maxTokens: number
 ) {
   const apiKey = process.env.GROK_API_KEY;
-  if (!apiKey: any) {
+  if (!apiKey) {
     throw new Error('Grok API key not configured');
   }
   
@@ -228,7 +228,7 @@ async function handleGrokCompletion(
       provider: 'grok',
       model: requestData.model || 'grok-1'
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error calling Grok API:', error);
     // Implement fallback to OpenAI if Grok fails
     console.log('Falling back to OpenAI for completion');
@@ -247,7 +247,7 @@ async function handleOpenRouterCompletion(
   maxTokens: number
 ) {
   const apiKey = process.env.OPENROUTER_API_KEY;
-  if (!apiKey: any) {
+  if (!apiKey) {
     throw new Error('OpenRouter API key not configured');
   }
   
