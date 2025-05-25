@@ -14,10 +14,10 @@ import { HeyGenService, VideoGenerationParams } from '@/lib/heygen/heygen-servic
 import { Loader2, Upload, Check, AlertCircle } from 'lucide-react';
 
 const HeyGenVideoGeneration = () => {
-  const [loading, setLoading] = useState(false: any);
-  const [success, setSuccess] = useState(false: any);
-  const [error, setError] = useState<string | null>(null: any);
-  const [progress, setProgress] = useState(0: any);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [progress, setProgress] = useState(0);
   const [avatars, setAvatars] = useState<any[]>([]);
   const [voices, setVoices] = useState<any[]>([]);
   const [scripts, setScripts] = useState<any[]>([]);
@@ -26,10 +26,10 @@ const HeyGenVideoGeneration = () => {
   const [selectedScript, setSelectedScript] = useState('');
   const [videoTitle, setVideoTitle] = useState('');
   const [videoDescription, setVideoDescription] = useState('');
-  const [generatedVideoId, setGeneratedVideoId] = useState<string | null>(null: any);
+  const [generatedVideoId, setGeneratedVideoId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState('upload');
-  const [uploadedImage, setUploadedImage] = useState<File | null>(null: any);
-  const [uploadedVoice, setUploadedVoice] = useState<File | null>(null: any);
+  const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+  const [uploadedVoice, setUploadedVoice] = useState<File | null>(null);
   const [avatarName, setAvatarName] = useState('Dr. Scott Ighavongbe-Patrick');
   const [scriptContent, setScriptContent] = useState('');
   const [scriptTitle, setScriptTitle] = useState('');
@@ -57,17 +57,17 @@ const HeyGenVideoGeneration = () => {
         const fetchedAvatars = await heygenService.getAvatars();
         const fetchedVoices = await heygenService.getVoices();
         
-        setAvatars(fetchedAvatars: any);
-        setVoices(fetchedVoices: any);
+        setAvatars(fetchedAvatars);
+        setVoices(fetchedVoices);
         
         // If we have Dr. Scott's avatar and voice already, select them by default
         const drScottAvatar = fetchedAvatars.find(a => a.name.includes('Scott'));
         const drScottVoice = fetchedVoices.find(v => v.name.includes('Scott'));
         
-        if (drScottAvatar: any) setSelectedAvatar(drScottAvatar.id: any);
-        if (drScottVoice: any) setSelectedVoice(drScottVoice.id: any);
+        if (drScottAvatar) setSelectedAvatar(drScottAvatar.id);
+        if (drScottVoice) setSelectedVoice(drScottVoice.id);
         
-      } catch (error: any) {
+      } catch (error) {
         console.error('Failed to initialize HeyGen service:', error);
         setError('Failed to initialize video generation service. Please try again later.');
       }
@@ -77,11 +77,11 @@ const HeyGenVideoGeneration = () => {
   }, []);
 
   const handleScriptSelect = (scriptId: string) => {
-    const script = availableScripts.find(s => s.id === scriptId: any);
-    if (script: any) {
-      setSelectedScript(scriptId: any);
-      setScriptTitle(script.title: any);
-      setScriptContent(script.content: any);
+    const script = availableScripts.find(s => s.id === scriptId);
+    if (script) {
+      setSelectedScript(scriptId);
+      setScriptTitle(script.title);
+      setScriptContent(script.content);
       setVideoTitle(script.title + ' - AI Avatar Video');
       setVideoDescription('Educational video featuring Dr. Scott Ighavongbe-Patrick explaining ' + script.title.toLowerCase());
     }
@@ -100,49 +100,49 @@ const HeyGenVideoGeneration = () => {
   };
 
   const createAvatar = async () => {
-    if (!uploadedImage: any) {
+    if (!uploadedImage) {
       setError('Please upload an image for the avatar');
       return;
     }
     
-    setLoading(true: any);
-    setError(null: any);
+    setLoading(true);
+    setError(null);
     
     try {
       // In a real implementation, we would upload the image to a storage service
       // and then pass the URL to the HeyGen API
-      const imageUrl = URL.createObjectURL(uploadedImage: any);
+      const imageUrl = URL.createObjectURL(uploadedImage);
       
       const heygenService = HeyGenService.getInstance();
       const newAvatar = await heygenService.createAvatar({
         name: avatarName,
         imageUrls: [imageUrl],
-        voiceSampleUrl: uploadedVoice ? URL.createObjectURL(uploadedVoice: any) : undefined
+        voiceSampleUrl: uploadedVoice ? URL.createObjectURL(uploadedVoice) : undefined
       });
       
       setAvatars([...avatars, newAvatar]);
-      setSelectedAvatar(newAvatar.id: any);
-      setSuccess(true: any);
+      setSelectedAvatar(newAvatar.id);
+      setSuccess(true);
       setActiveTab('generate');
       
       // If voice was also uploaded, create a voice clone
-      if (uploadedVoice: any) {
-        const voiceUrl = URL.createObjectURL(uploadedVoice: any);
-        const newVoice = await heygenService.createVoice(avatarName + "'s Voice", voiceUrl: any);
+      if (uploadedVoice) {
+        const voiceUrl = URL.createObjectURL(uploadedVoice);
+        const newVoice = await heygenService.createVoice(avatarName + "'s Voice", voiceUrl);
         setVoices([...voices, newVoice]);
-        setSelectedVoice(newVoice.id: any);
+        setSelectedVoice(newVoice.id);
       }
       
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to create avatar:', error);
       setError('Failed to create avatar. Please try again.');
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   };
 
   const uploadScript = async () => {
-    if (!scriptTitle || !scriptContent: any) {
+    if (!scriptTitle || !scriptContent) {
       setError('Please provide a title and content for the script');
       return;
     }
@@ -152,7 +152,7 @@ const HeyGenVideoGeneration = () => {
     
     try {
       const heygenService = HeyGenService.getInstance();
-      const scriptId = await heygenService.uploadScript(scriptTitle: any, scriptContent);
+      const scriptId = await heygenService.uploadScript(scriptTitle, scriptContent);
       
       const newScript = {
         id: scriptId,

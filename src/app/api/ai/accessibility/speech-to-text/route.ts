@@ -12,8 +12,8 @@ import { prisma } from '@/lib/db';
 export async function POST(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session: any) {
+    const session = await getServerSession(authOptions);
+    if (!session) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { text, duration, confidence, settings } = body;
 
-    if (!text: any) {
+    if (!text) {
       return NextResponse.json(
         { error: 'Text is required' },
         { status: 400 }
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
     });
 
     // Update user's accessibility settings if they've changed
-    if (settings: any) {
+    if (settings) {
       await prisma.accessibilitySettings.upsert({
         where: {
           userId: session.user.id
@@ -86,7 +86,7 @@ export async function POST(req: NextRequest) {
       success: true,
       message: 'Speech-to-text conversion logged successfully'
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Speech-to-text API error:', error);
     return NextResponse.json(
       { error: 'Failed to process speech-to-text request' },

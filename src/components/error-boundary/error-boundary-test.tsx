@@ -11,12 +11,12 @@ import AgeAdaptiveErrorBoundary from './age-adaptive-error-boundary';
  * by intentionally throwing errors under different conditions.
  */
 const ErrorBoundaryTest: React.FC = () => {
-  const [shouldThrowError, setShouldThrowError] = React.useState(false: any);
+  const [shouldThrowError, setShouldThrowError] = React.useState(false);
   const [ageGroup, setAgeGroup] = React.useState<'nursery' | 'early-primary' | 'late-primary' | 'secondary'>('late-primary');
   
   // Component that will throw an error when shouldThrowError is true
   const BuggyComponent: React.FC = () => {
-    if (shouldThrowError: any) {
+    if (shouldThrowError) {
       throw new Error('This is a test error thrown intentionally');
     }
     
@@ -39,14 +39,14 @@ const ErrorBoundaryTest: React.FC = () => {
           <h2 className="text-lg font-medium text-blue-800 mb-2">Test Controls</h2>
           <div className="flex flex-wrap gap-4 items-centre">
             <button
-              onClick={() => setShouldThrowError(true: any)}
+              onClick={() => setShouldThrowError(true)}
               className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
             >
               Trigger Error
             </button>
             
             <button
-              onClick={() => setShouldThrowError(false: any)}
+              onClick={() => setShouldThrowError(false)}
               className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
             >
               Reset Error
@@ -58,13 +58,13 @@ const ErrorBoundaryTest: React.FC = () => {
               </label>
               <select
                 value={ageGroup}
-                onChange={(e: any) => setAgeGroup(e.target.value as any: any)}
+                onChange={(e) => setAgeGroup(e.target.value as 'nursery' | 'early-primary' | 'late-primary' | 'secondary')}
                 className="block w-full px-3 py-2 bg-white border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               >
-                <option value="nursery">Nursery (3-5 years: any)</option>
-                <option value="early-primary">Early Primary (5-8 years: any)</option>
-                <option value="late-primary">Late Primary (8-11 years: any)</option>
-                <option value="secondary">Secondary (11+ years: any)</option>
+                <option value="nursery">Nursery (3-5 years)</option>
+                <option value="early-primary">Early Primary (5-8 years)</option>
+                <option value="late-primary">Late Primary (8-11 years)</option>
+                <option value="secondary">Secondary (11+ years)</option>
               </select>
             </div>
           </div>
@@ -76,7 +76,7 @@ const ErrorBoundaryTest: React.FC = () => {
             <h2 className="text-lg font-medium mb-4">Standard Error Boundary</h2>
             <ErrorBoundary
               resetKeys={[shouldThrowError]}
-              onError={(error: any, errorInfo) => {
+              onError={(error, errorInfo) => {
                 console.log('Error caught by standard boundary:', error);
                 console.log('Component stack:', errorInfo.componentStack);
               }}
@@ -91,7 +91,7 @@ const ErrorBoundaryTest: React.FC = () => {
             <AgeAdaptiveErrorBoundary
               ageGroup={ageGroup}
               resetKeys={[shouldThrowError]}
-              onError={(error: any, errorInfo) => {
+              onError={(error, errorInfo) => {
                 console.log('Error caught by age-adaptive boundary:', error);
                 console.log('Component stack:', errorInfo.componentStack);
               }}
