@@ -14,6 +14,7 @@ import { format } from "date-fns";
 import { CalendarIcon, Search, Send, Clock, CheckCircle, AlertCircle, RefreshCw, Download, Upload, Plus, Trash2, Edit, MessageSquare, Users, Calendar as CalendarIcon2, BarChart2 } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
+import { Label } from "@/components/ui/label";
 
 // Template categories for parent communications
 const templateCategories = [
