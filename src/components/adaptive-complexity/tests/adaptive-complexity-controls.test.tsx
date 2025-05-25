@@ -3,13 +3,32 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { AdaptiveComplexityControls } from '../adaptive-complexity-controls';
 import { ComplexityLevel } from '@/lib/adaptive-complexity/types';
 
-// Add Jest globals
+// Add Jest globals with proper TypeScript types
 declare global {
-  const jest: any;
-  const describe: any;
-  const beforeEach: any;
-  const test: any;
-  const expect: any;
+  namespace jest {
+    interface Mock<T = any, Y extends any[] = any[]> {
+      mockReturnValue: (val: T) => Mock<T, Y>;
+      fn: () => Mock;
+      clearAllMocks: () => void;
+    }
+  }
+  const jest: {
+    fn: <T = any>() => jest.Mock<T>;
+    mock: (moduleName: string) => any;
+    clearAllMocks: () => void;
+  };
+  const describe: (name: string, fn: () => void) => void;
+  const beforeEach: (fn: () => void) => void;
+  const test: (name: string, fn: () => void | Promise<void>) => void;
+  const expect: <T>(actual: T) => {
+    toBe: (expected: T) => void;
+    toBeInTheDocument: () => void;
+    toHaveBeenCalledWith: (expected: any) => void;
+    not: {
+      toBe: (expected: T) => void;
+      toBeInTheDocument: () => void;
+    };
+  };
 }
 
 // Mock the adaptive complexity service
