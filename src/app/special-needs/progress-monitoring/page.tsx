@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import ProgressMonitoringEngine from '@/components/special-needs/progress-monitoring/progress-monitoring-engine';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -9,14 +9,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Info, Target, FileText } from "lucide-react";
 
 export default function ProgressMonitoringPage(): React.ReactNode {
-  const [settings] = useState({
-    enabled: false,
-    monitoringFrequency: 'weekly',
-    automaticReminders: true,
-    dataVisualization: true,
-    progressReports: true,
-    goalTracking: true
-  });
+  // Removed unused settings variable
   
   return (
     <div className="container mx-auto py-8 px-4">

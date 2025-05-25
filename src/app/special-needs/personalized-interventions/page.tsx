@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import PersonalizedInterventionsEngine from '@/components/special-needs/personalized-interventions/personalized-interventions-engine';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -9,16 +9,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Info, GraduationCap, FileText } from "lucide-react";
 
 export default function PersonalizedInterventionsPage(): React.ReactNode {
-  const [settings] = useState({
-    enabled: false,
-    learningProfile: '',
-    interventionLevel: 'moderate',
-    targetAreas: [],
-    customStrategies: '',
-    progressTracking: true,
-    reminderFrequency: 'weekly',
-    parentTeacherUpdates: true
-  });
+  // Removed unused settings variable
   
   return (
     <div className="container mx-auto py-8 px-4">

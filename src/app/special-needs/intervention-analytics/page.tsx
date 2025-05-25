@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, Download, Info, BookOpen } from "lucide-react";
@@ -305,7 +305,7 @@ export default function InterventionAnalyticsPage(): React.ReactNode {
                     </CardHeader>
                     <CardContent className="pt-0">
                       <p className="text-sm text-muted-foreground">
-                        Includes progress summaries, intervention effectiveness, and next steps
+                        Ideal for SEND reviews, parent meetings, and professional discussions
                       </p>
                     </CardContent>
                     <CardFooter>
@@ -315,6 +315,29 @@ export default function InterventionAnalyticsPage(): React.ReactNode {
                       </Button>
                     </CardFooter>
                   </Card>
+                </div>
+              </div>
+              
+              <div className="space-y-3">
+                <h3 className="text-lg font-medium">Custom Report Builder</h3>
+                <p>
+                  Create tailored reports by selecting specific metrics, interventions, and time periods.
+                </p>
+                <Button className="mt-2">Launch Custom Report Builder</Button>
+              </div>
+              
+              <Separator />
+              
+              <div className="space-y-3">
+                <h3 className="text-lg font-medium">Report History</h3>
+                <p className="text-sm text-muted-foreground">
+                  Access your previously generated reports
+                </p>
+                
+                <div className="space-y-2">
+                  <p className="text-sm italic text-muted-foreground">
+                    No reports have been generated yet. Use the options above to create your first report.
+                  </p>
                 </div>
               </div>
             </CardContent>

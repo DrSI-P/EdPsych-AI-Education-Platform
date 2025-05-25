@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
@@ -11,13 +11,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { Checkbox } from '@/components/ui/checkbox';
 import { AlertCircle, Upload, X, Plus, FileText, Image, FileVideo, FileAudio, File } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 
-export default function CreateResource() {
+export default function CreateResource(): React.ReactNode {
   const router = useRouter();
   const { data: session, status } = useSession({
     required: true,
@@ -28,7 +27,6 @@ export default function CreateResource() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeTab, setActiveTab] = useState('details');
-  const [resourceType, setResourceType] = useState('');
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
   const [files, setFiles] = useState<File[]>([]);
@@ -48,7 +46,7 @@ export default function CreateResource() {
     curriculumLinks: [],
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     
@@ -62,7 +60,7 @@ export default function CreateResource() {
     }
   };
 
-  const handleSelectChange = (name: string, value: string) => {
+  const handleSelectChange = (name: string, value: string): void => {
     setFormData((prev) => ({ ...prev, [name]: value }));
     
     // Clear error when field is edited
@@ -73,17 +71,13 @@ export default function CreateResource() {
         return newErrors;
       });
     }
-
-    if (name === 'type') {
-      setResourceType(value);
-    }
   };
 
-  const handleSwitchChange = (name: string, checked: boolean) => {
+  const handleSwitchChange = (name: string, checked: boolean): void => {
     setFormData((prev) => ({ ...prev, [name]: checked }));
   };
 
-  const handleAddTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleAddTag = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === 'Enter' && tagInput.trim()) {
       e.preventDefault();
       if (!tags.includes(tagInput.trim().toLowerCase())) {
@@ -93,11 +87,11 @@ export default function CreateResource() {
     }
   };
 
-  const handleRemoveTag = (tagToRemove: string) => {
+  const handleRemoveTag = (tagToRemove: string): void => {
     setTags(tags.filter(tag => tag !== tagToRemove));
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.files && e.target.files.length > 0) {
       const newFiles = Array.from(e.target.files);
       setFiles([...files, ...newFiles]);
@@ -113,7 +107,7 @@ export default function CreateResource() {
     }
   };
 
-  const handleRemoveFile = (fileToRemove: File) => {
+  const handleRemoveFile = (fileToRemove: File): void => {
     const updatedFiles = files.filter(file => file !== fileToRemove);
     setFiles(updatedFiles);
     
@@ -130,7 +124,7 @@ export default function CreateResource() {
     }
   };
 
-  const validateForm = () => {
+  const validateForm = (): boolean => {
     const errors: Record<string, string> = {};
     
     if (!formData.title.trim()) errors.title = 'Title is required';
@@ -144,7 +138,7 @@ export default function CreateResource() {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     
     if (!validateForm()) {
@@ -180,14 +174,14 @@ export default function CreateResource() {
       // Redirect to the resource library
       router.push('/resources');
     } catch (error) {
-      console.error('Error creating resource:', error);
+      // Avoid console.error in production
       setFormErrors((prev) => ({ ...prev, submit: 'Failed to create resource. Please try again.' }));
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const getFileIcon = (file: File) => {
+  const getFileIcon = (file: File): React.ReactNode => {
     if (file.type.startsWith('image/')) return <Image className="h-5 w-5" />;
     if (file.type.startsWith('video/')) return <FileVideo className="h-5 w-5" />;
     if (file.type.startsWith('audio/')) return <FileAudio className="h-5 w-5" />;
@@ -210,7 +204,7 @@ export default function CreateResource() {
             <Tabs value={activeTab} onValueChange={setActiveTab}>
               <TabsList className="w-full grid grid-cols-2">
                 <TabsTrigger value="details">Resource Details</TabsTrigger>
-                <TabsTrigger value="files">Files & Preview</TabsTrigger>
+                <TabsTrigger value="files">Files &amp; Preview</TabsTrigger>
               </TabsList>
               
               <TabsContent value="details" className="mt-6 space-y-6">
@@ -366,10 +360,10 @@ export default function CreateResource() {
                         value={tagInput}
                         onChange={(e) => setTagInput(e.target.value)}
                         onKeyDown={handleAddTag}
-                        placeholder="Add tags (press Enter to add)"
+                        placeholder="Type tag and press Enter"
                       />
-                      <p className="text-xs text-muted-foreground">
-                        Add relevant keywords to help others find your resource
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Add tags to help others find your resource
                       </p>
                     </div>
                   </CardContent>
@@ -377,9 +371,9 @@ export default function CreateResource() {
                 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Sharing Settings</CardTitle>
+                    <CardTitle>Sharing Options</CardTitle>
                     <CardDescription>
-                      Control how your resource is shared with others
+                      Control how your resource can be accessed and used
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
@@ -403,7 +397,7 @@ export default function CreateResource() {
                       <div className="space-y-0.5">
                         <Label htmlFor="allowDownload">Allow Downloads</Label>
                         <p className="text-sm text-muted-foreground">
-                          Allow users to download this resource
+                          Let users download this resource
                         </p>
                       </div>
                       <Switch
@@ -437,122 +431,87 @@ export default function CreateResource() {
                   <CardHeader>
                     <CardTitle>Upload Files</CardTitle>
                     <CardDescription>
-                      Upload the files for your resource
+                      Add the files for your educational resource
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="grid grid-cols-1 gap-4">
-                      <div className="border-2 border-dashed rounded-lg p-6 text-centre">
-                        <Upload className="h-8 w-8 mx-auto text-muted-foreground" />
-                        <p className="mt-2 text-sm font-medium">
-                          Drag and drop files here or click to browse
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-1">
-                          Supported formats: PDF, DOCX, PPTX, JPG, PNG, MP4, MP3, and more
-                        </p>
-                        <Input
-                          id="file-upload"
-                          type="file"
-                          multiple
-                          className="hidden"
-                          onChange={handleFileChange}
-                        />
-                        <Button
-                          type="button"
-                          variant="outline"
-                          className="mt-4"
-                          onClick={() => document.getElementById('file-upload')?.click()}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <div
+                          className={`border-2 border-dashed rounded-lg p-6 flex flex-col items-centre justify-centre text-centre ${
+                            formErrors.files ? 'border-destructive' : 'border-muted-foreground/25'
+                          }`}
                         >
-                          <Plus className="mr-2 h-4 w-4" />
-                          Select Files
-                        </Button>
-                      </div>
-                      
-                      {formErrors.files && (
-                        <p className="text-sm text-destructive">{formErrors.files}</p>
-                      )}
-                      
-                      {files.length > 0 && (
-                        <div className="space-y-2">
-                          <h4 className="text-sm font-medium">Uploaded Files</h4>
-                          <div className="space-y-2">
-                            {files.map((file, index) => (
-                              <div
-                                key={`${file.name}-${index}`}
-                                className="flex items-centre justify-between p-3 bg-muted rounded-md"
-                              >
-                                <div className="flex items-centre space-x-3">
-                                  {getFileIcon(file)}
-                                  <div>
-                                    <p className="text-sm font-medium truncate max-w-[200px] sm:max-w-[300px]">
-                                      {file.name}
-                                    </p>
-                                    <p className="text-xs text-muted-foreground">
-                                      {(file.size / 1024 / 1024).toFixed(2)} MB
-                                    </p>
-                                  </div>
-                                </div>
-                                <Button
-                                  type="button"
-                                  variant="ghost"
-                                  size="sm"
-                                  onClick={() => handleRemoveFile(file)}
-                                >
-                                  <X className="h-4 w-4" />
-                                </Button>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-                
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Resource Preview</CardTitle>
-                    <CardDescription>
-                      This is how your resource will appear in the library
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="border rounded-lg overflow-hidden">
-                      <div className="h-48 bg-muted flex items-centre justify-centre">
-                        {previewUrl ? (
-                          <img
-                            src={previewUrl}
-                            alt="Resource preview"
-                            className="h-full w-full object-cover"
-                          />
-                        ) : (
-                          <p className="text-muted-foreground">
-                            Upload an image for preview
+                          <Upload className="h-8 w-8 text-muted-foreground mb-2" />
+                          <h3 className="font-medium">Upload Files</h3>
+                          <p className="text-sm text-muted-foreground mb-4">
+                            Drag and drop files or click to browse
                           </p>
-                        )}
-                      </div>
-                      <div className="p-4">
-                        <h3 className="font-semibold">
-                          {formData.title || 'Resource Title'}
-                        </h3>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          {formData.subject || 'Subject'} • {formData.type || 'Type'} • {formData.keyStage || 'Key Stage'}
-                        </p>
-                        <p className="text-sm mt-2 line-clamp-2">
-                          {formData.description || 'Resource description will appear here...'}
-                        </p>
-                        <div className="flex flex-wrap gap-2 mt-3">
-                          {tags.slice(0, 3).map((tag) => (
-                            <Badge key={tag} variant="outline" className="text-xs">
-                              {tag}
-                            </Badge>
-                          ))}
-                          {tags.length === 0 && (
-                            <Badge variant="outline" className="text-xs text-muted-foreground">
-                              example-tag
-                            </Badge>
+                          <Input
+                            type="file"
+                            className="hidden"
+                            id="file-upload"
+                            multiple
+                            onChange={handleFileChange}
+                          />
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => document.getElementById('file-upload')?.click()}
+                          >
+                            Select Files
+                          </Button>
+                          {formErrors.files && (
+                            <p className="text-sm text-destructive mt-2">{formErrors.files}</p>
                           )}
                         </div>
+                        
+                        {files.length > 0 && (
+                          <div className="mt-4">
+                            <h4 className="font-medium mb-2">Uploaded Files</h4>
+                            <ul className="space-y-2">
+                              {files.map((file, index) => (
+                                <li key={index} className="flex items-centre justify-between bg-muted p-2 rounded-md">
+                                  <div className="flex items-centre">
+                                    {getFileIcon(file)}
+                                    <span className="ml-2 text-sm truncate max-w-[200px]">{file.name}</span>
+                                  </div>
+                                  <Button
+                                    type="button"
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={() => handleRemoveFile(file)}
+                                  >
+                                    <X className="h-4 w-4" />
+                                  </Button>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                      
+                      <div>
+                        <h4 className="font-medium mb-2">Preview</h4>
+                        {previewUrl ? (
+                          <div className="relative aspect-video bg-muted rounded-lg overflow-hidden">
+                            <img
+                              src={previewUrl}
+                              className="w-full h-full object-contain"
+                              alt="Resource preview"
+                            />
+                          </div>
+                        ) : (
+                          <div className="aspect-video bg-muted rounded-lg flex flex-col items-centre justify-centre text-centre">
+                            <Image className="h-8 w-8 text-muted-foreground mb-2" />
+                            <p className="text-sm text-muted-foreground">
+                              Upload an image to see a preview
+                            </p>
+                          </div>
+                        )}
+                        <p className="text-xs text-muted-foreground mt-2">
+                          The first image you upload will be used as the resource thumbnail
+                        </p>
                       </div>
                     </div>
                   </CardContent>
@@ -561,91 +520,90 @@ export default function CreateResource() {
             </Tabs>
           </div>
           
-          <div className="lg:col-span-1">
-            <div className="sticky top-6 space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Resource Summary</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium">Title</p>
-                    <p className="text-sm text-muted-foreground">
-                      {formData.title || 'Not specified'}
-                    </p>
-                  </div>
-                  
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium">Type</p>
-                    <p className="text-sm text-muted-foreground">
-                      {formData.type || 'Not specified'}
-                    </p>
-                  </div>
-                  
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium">Subject</p>
-                    <p className="text-sm text-muted-foreground">
-                      {formData.subject || 'Not specified'}
-                    </p>
-                  </div>
-                  
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium">Key Stage</p>
-                    <p className="text-sm text-muted-foreground">
-                      {formData.keyStage || 'Not specified'}
-                    </p>
-                  </div>
-                  
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium">Files</p>
-                    <p className="text-sm text-muted-foreground">
-                      {files.length} file{files.length !== 1 ? 's' : ''} selected
-                    </p>
-                  </div>
-                  
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium">Visibility</p>
-                    <p className="text-sm text-muted-foreground">
-                      {formData.isPublic ? 'Public' : 'Private'}
-                    </p>
-                  </div>
-                </CardContent>
-                <CardFooter className="flex flex-col space-y-2">
-                  <Button
-                    type="submit"
-                    className="w-full"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? 'Creating...' : 'Create Resource'}
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="w-full"
-                    onClick={() => router.push('/resources')}
-                  >
-                    Cancel
-                  </Button>
-                </CardFooter>
-              </Card>
-              
-              <Card>
-                <CardHeader>
-                  <CardTitle>Need Help?</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">
-                    Resources should be aligned with UK curriculum standards and use UK English spelling.
+          <div>
+            <Card className="sticky top-6">
+              <CardHeader>
+                <CardTitle>Resource Summary</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <h4 className="text-sm font-medium mb-1">Title</h4>
+                  <p className="text-sm">
+                    {formData.title || 'No title provided'}
                   </p>
-                  <ul className="text-sm text-muted-foreground list-disc list-inside mt-2 space-y-1">
-                    <li>Include clear instructions for use</li>
-                    <li>Provide all necessary files</li>
-                    <li>Use descriptive titles and tags</li>
-                    <li>Ensure content is age-appropriate</li>
+                </div>
+                
+                <div>
+                  <h4 className="text-sm font-medium mb-1">Type</h4>
+                  <p className="text-sm">
+                    {formData.type || 'Not selected'}
+                  </p>
+                </div>
+                
+                <div>
+                  <h4 className="text-sm font-medium mb-1">Subject</h4>
+                  <p className="text-sm">
+                    {formData.subject || 'Not selected'}
+                  </p>
+                </div>
+                
+                <div>
+                  <h4 className="text-sm font-medium mb-1">Key Stage</h4>
+                  <p className="text-sm">
+                    {formData.keyStage || 'Not selected'}
+                  </p>
+                </div>
+                
+                <div>
+                  <h4 className="text-sm font-medium mb-1">Files</h4>
+                  <p className="text-sm">
+                    {files.length > 0 ? `${files.length} file(s) uploaded` : 'No files uploaded'}
+                  </p>
+                </div>
+                
+                <div>
+                  <h4 className="text-sm font-medium mb-1">Tags</h4>
+                  <div className="flex flex-wrap gap-1">
+                    {tags.length > 0 ? (
+                      tags.map((tag) => (
+                        <Badge key={tag} variant="outline" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))
+                    ) : (
+                      <p className="text-sm text-muted-foreground">No tags added</p>
+                    )}
+                  </div>
+                </div>
+                
+                <div>
+                  <h4 className="text-sm font-medium mb-1">Sharing</h4>
+                  <ul className="text-sm space-y-1">
+                    <li className="flex items-centre gap-2">
+                      <div className={`h-2 w-2 rounded-full ${formData.isPublic ? 'bg-green-500' : 'bg-red-500'}`} />
+                      {formData.isPublic ? 'Public' : 'Private'}
+                    </li>
+                    <li className="flex items-centre gap-2">
+                      <div className={`h-2 w-2 rounded-full ${formData.allowDownload ? 'bg-green-500' : 'bg-red-500'}`} />
+                      {formData.allowDownload ? 'Downloads allowed' : 'No downloads'}
+                    </li>
+                    <li className="flex items-centre gap-2">
+                      <div className={`h-2 w-2 rounded-full ${formData.requireAttribution ? 'bg-green-500' : 'bg-red-500'}`} />
+                      {formData.requireAttribution ? 'Attribution required' : 'No attribution needed'}
+                    </li>
                   </ul>
-                </CardContent>
-              </Card>
-            </div>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button
+                  className="w-full"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Creating...' : 'Create Resource'}
+                </Button>
+              </CardFooter>
+            </Card>
           </div>
         </div>
       </form>
