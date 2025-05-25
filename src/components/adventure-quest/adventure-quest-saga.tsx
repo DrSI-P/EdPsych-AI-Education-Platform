@@ -17,6 +17,8 @@ import {
   DialogTrigger,
   DialogClose
 } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import { 
   Compass, 
   BookOpen, 
@@ -28,10 +30,8 @@ import {
 } from 'lucide-react';
 import { useFairUsage } from '../subscription/fair-usage';
 
-// Add JSX namespace to fix 'JSX is not defined' errors
-declare namespace JSX {
-  interface Element extends React.ReactElement<any, any> {}
-}
+// Use React.ReactElement instead of JSX namespace
+type ReactElement = React.ReactElement;
 
 // Mock data for character and quests
 const mockCharacter = {
@@ -213,7 +213,7 @@ const learningStyles = [
 ];
 
 // Custom icons
-const EyeIcon = (props: React.SVGProps<SVGSVGElement>): JSX.Element => (
+const EyeIcon = (props: React.SVGProps<SVGSVGElement>): React.ReactElement => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -231,7 +231,7 @@ const EyeIcon = (props: React.SVGProps<SVGSVGElement>): JSX.Element => (
   </svg>
 );
 
-const EarIcon = (props: React.SVGProps<SVGSVGElement>): JSX.Element => (
+const EarIcon = (props: React.SVGProps<SVGSVGElement>): React.ReactElement => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -249,7 +249,7 @@ const EarIcon = (props: React.SVGProps<SVGSVGElement>): JSX.Element => (
   </svg>
 );
 
-const HandIcon = (props: React.SVGProps<SVGSVGElement>): JSX.Element => (
+const HandIcon = (props: React.SVGProps<SVGSVGElement>): React.ReactElement => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -269,12 +269,68 @@ const HandIcon = (props: React.SVGProps<SVGSVGElement>): JSX.Element => (
   </svg>
 );
 
-// Character Creation Component
-interface CharacterCreationProps {
-  onCreateCharacter: (character: any) => void;
+// Define proper types instead of using 'any'
+interface CharacterStats {
+  curiosity: number;
+  creativity: number;
+  persistence: number;
+  collaboration: number;
+  analysis: number;
 }
 
-const CharacterCreation = ({ onCreateCharacter }: CharacterCreationProps): JSX.Element => {
+interface CharacterBadge {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+}
+
+interface CharacterSkill {
+  id: string;
+  name: string;
+  level: number;
+}
+
+interface Character {
+  name: string;
+  type: string;
+  level: number;
+  xp: number;
+  xpToNextLevel: number;
+  stats: CharacterStats;
+  inventory: Array<{id: string; name: string; description: string; icon: string}>;
+  badges: CharacterBadge[];
+  skills: CharacterSkill[];
+  completedQuests: number;
+  activeQuests: number;
+}
+
+interface Quest {
+  id: string;
+  title: string;
+  description: string;
+  difficulty: string;
+  subject: string;
+  keyStage: string;
+  learningStyles: string[];
+  xpReward: number;
+  duration: string;
+  objectives: string[];
+  progress: number;
+  status: string;
+}
+
+interface FeatureCheckResult {
+  success: boolean;
+  message?: string;
+}
+
+// Character Creation Component
+interface CharacterCreationProps {
+  onCreateCharacter: (character: Character) => void;
+}
+
+const CharacterCreation = ({ onCreateCharacter }: CharacterCreationProps): React.ReactElement => {
   const [name, setName] = useState('');
   const [selectedType, setSelectedType] = useState<string | null>(null);
   const [step, setStep] = useState(1);
@@ -317,7 +373,7 @@ const CharacterCreation = ({ onCreateCharacter }: CharacterCreationProps): JSX.E
           skills: [],
           completedQuests: 0,
           activeQuests: 0
-        };
+        } as Character;
         onCreateCharacter(newCharacter);
       }
     }
@@ -438,27 +494,32 @@ const CharacterCreation = ({ onCreateCharacter }: CharacterCreationProps): JSX.E
   );
 };
 
+// Function to check feature availability
+const checkFeatureAvailability = (): FeatureCheckResult => {
+  // This would normally check against the user's subscription or fair usage limits
+  return { success: true };
+};
+
 // Main component
-const AdventureQuestSaga = (): JSX.Element => {
+const AdventureQuestSaga = (): React.ReactElement => {
   const { toast } = useToast();
   const fairUsage = useFairUsage();
   
   // State for character
-  const [character, setCharacter] = useState(mockCharacter);
+  const [character, setCharacter] = useState<Character>(mockCharacter);
   const [isCreatingCharacter, setIsCreatingCharacter] = useState(false);
   
   // State for quests
-  const [quests] = useState(mockQuests);
-  const [selectedQuest, setSelectedQuest] = useState(null);
-  const [activeTab, setActiveTab] = useState('quests');
+  const [quests] = useState<Quest[]>(mockQuests);
+  const [selectedQuest, setSelectedQuest] = useState<Quest | null>(null);
   
   // State for filters
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({
-    difficulty: [],
-    subject: [],
-    keyStage: [],
-    learningStyle: []
+    difficulty: [] as string[],
+    subject: [] as string[],
+    keyStage: [] as string[],
+    learningStyle: [] as string[]
   });
   
   // Extract unique subjects and key stages for filters
@@ -466,7 +527,7 @@ const AdventureQuestSaga = (): JSX.Element => {
   const keyStages = [...new Set(mockQuests.map(quest => quest.keyStage))];
   
   // Handle character creation
-  const handleCharacterCreated = (newCharacter: any): void => {
+  const handleCharacterCreated = (newCharacter: Character): void => {
     setCharacter(newCharacter);
     setIsCreatingCharacter(false);
     toast({
@@ -476,12 +537,12 @@ const AdventureQuestSaga = (): JSX.Element => {
   };
   
   // Handle quest selection
-  const handleSelectQuest = (quest: any): void => {
+  const handleSelectQuest = (quest: Quest): void => {
     setSelectedQuest(quest);
   };
   
   // Handle quest start
-  const handleStartQuest = useCallback((quest: any): void => {
+  const handleStartQuest = useCallback((quest: Quest): void => {
     // Check fair usage before starting quest
     const featureCheck = checkFeatureAvailability();
     
@@ -495,44 +556,12 @@ const AdventureQuestSaga = (): JSX.Element => {
     } else {
       toast({
         title: "Feature Limit Reached",
-        description: featureCheck.message || "You've reached your limit for starting new quests today.",
-        variant: "destructive"
+        description: featureCheck.message || "You've reached your limit for starting new quests today. Upgrade your plan or try again tomorrow."
       });
     }
   }, [toast]);
   
-  // Function to check feature availability (moved outside of component function)
-  const checkFeatureAvailability = (): { success: boolean; message?: string } => {
-    // This would normally call the fairUsage.checkFeatureAvailability method
-    // For now, we'll just return a success
-    return { success: true };
-  };
-  
-  // Filter toggle
-  const toggleFilter = (filterType: string, value: string): void => {
-    setFilters(prev => {
-      const currentValues = prev[filterType as keyof typeof prev] as string[];
-      return {
-        ...prev,
-        [filterType]: currentValues.includes(value)
-          ? currentValues.filter(v => v !== value)
-          : [...currentValues, value]
-      };
-    });
-  };
-  
-  // Clear all filters
-  const clearFilters = (): void => {
-    setFilters({
-      difficulty: [],
-      subject: [],
-      keyStage: [],
-      learningStyle: []
-    });
-    setSearchTerm('');
-  };
-  
-  // Filter quests
+  // Filter quests based on search term and filters
   const filteredQuests = quests.filter(quest => {
     // Search term filter
     if (searchTerm && !quest.title.toLowerCase().includes(searchTerm.toLowerCase()) && 
@@ -564,365 +593,368 @@ const AdventureQuestSaga = (): JSX.Element => {
     return true;
   });
   
+  // Toggle filter
+  const toggleFilter = (category: keyof typeof filters, value: string): void => {
+    setFilters(prev => {
+      const current = [...prev[category]];
+      const index = current.indexOf(value);
+      
+      if (index === -1) {
+        current.push(value);
+      } else {
+        current.splice(index, 1);
+      }
+      
+      return {
+        ...prev,
+        [category]: current
+      };
+    });
+  };
+  
+  // Clear all filters
+  const clearFilters = (): void => {
+    setFilters({
+      difficulty: [],
+      subject: [],
+      keyStage: [],
+      learningStyle: []
+    });
+    setSearchTerm('');
+  };
+  
   return (
     <div className="container mx-auto p-4">
       {isCreatingCharacter ? (
         <CharacterCreation onCreateCharacter={handleCharacterCreated} />
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Character Panel */}
-          <Card className="lg:col-span-3">
-            <CardHeader>
-              <CardTitle>Character</CardTitle>
-              <CardDescription>Your learning journey</CardDescription>
+        <div className="space-y-6">
+          {/* Character Overview */}
+          <Card>
+            <CardHeader className="pb-2">
+              <div className="flex justify-between items-start">
+                <div>
+                  <CardTitle>{character.name}</CardTitle>
+                  <CardDescription>Level {character.level} {characterTypes.find(t => t.id === character.type)?.name}</CardDescription>
+                </div>
+                <Button variant="outline" size="sm" onClick={() => setIsCreatingCharacter(true)}>
+                  Change Character
+                </Button>
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-centre justify-between">
-                  <div>
-                    <h3 className="text-lg font-medium">{character.name}</h3>
-                    <p className="text-sm text-muted-foreground capitalize">
-                      Level {character.level} {character.type}
-                    </p>
-                  </div>
-                  <div className="bg-primary/10 p-2 rounded-full">
-                    {characterTypes.find(type => type.id === character.type)?.icon}
-                  </div>
-                </div>
-                
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <div className="flex items-centre justify-between mb-1">
-                    <span className="text-sm">XP: {character.xp}/{character.xpToNextLevel}</span>
-                    <span className="text-sm">{Math.round((character.xp / character.xpToNextLevel) * 100)}%</span>
-                  </div>
-                </div>
-                
-                <Separator />
-                
-                <div>
-                  <h4 className="font-medium mb-2">Stats</h4>
-                  <div className="space-y-2">
-                    {Object.entries(character.stats).map(([stat, value]) => (
-                      <div key={stat} className="flex items-centre justify-between">
-                        <span className="capitalize text-sm">{stat}</span>
-                        <div className="flex items-centre space-x-2">
-                          <span className="text-sm">{value}/10</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                
-                <Separator />
-                
-                <div>
-                  <h4 className="font-medium mb-2">Badges</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {character.badges.map(badge => (
+                  <h3 className="text-sm font-medium mb-2">Progress</h3>
+                  <div className="space-y-1">
+                    <div className="flex justify-between text-xs">
+                      <span>XP: {character.xp}/{character.xpToNextLevel}</span>
+                      <span>{Math.round((character.xp / character.xpToNextLevel) * 100)}%</span>
+                    </div>
+                    <div className="h-2 bg-muted rounded-full overflow-hidden">
                       <div 
-                        key={badge.id}
-                        className="bg-muted p-1 rounded-md text-xs"
-                        title={badge.description}
-                      >
-                        {badge.name}
+                        className="h-full bg-primary" 
+                        style={{ width: `${(character.xp / character.xpToNextLevel) * 100}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-sm font-medium mb-2">Stats</h3>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+                    {Object.entries(character.stats).map(([stat, value]) => (
+                      <div key={stat} className="flex justify-between">
+                        <span className="text-xs capitalize">{stat}</span>
+                        <span className="text-xs font-medium">{value}/10</span>
                       </div>
                     ))}
                   </div>
                 </div>
                 
-                <Separator />
-                
-                <div className="flex justify-between text-sm">
-                  <div>
-                    <p className="font-medium">Completed Quests</p>
-                    <p className="text-2xl font-bold">{character.completedQuests}</p>
-                  </div>
-                  <div>
-                    <p className="font-medium">Active Quests</p>
-                    <p className="text-2xl font-bold">{character.activeQuests}</p>
+                <div>
+                  <h3 className="text-sm font-medium mb-2">Achievements</h3>
+                  <div className="flex flex-wrap gap-1">
+                    {character.badges.map(badge => (
+                      <Badge key={badge.id} variant="outline" className="text-xs">
+                        {badge.name}
+                      </Badge>
+                    ))}
                   </div>
                 </div>
               </div>
             </CardContent>
           </Card>
           
-          {/* Main Content */}
-          <div className="lg:col-span-9 space-y-6">
-            <Card>
+          {/* Quest Browser */}
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            {/* Filters */}
+            <Card className="lg:col-span-1">
               <CardHeader>
-                <div className="flex items-centre justify-between">
-                  <CardTitle>Adventure Quest Saga</CardTitle>
-                  <Button variant="outline" size="sm" onClick={() => setIsCreatingCharacter(true)}>
-                    Create New Character
-                  </Button>
-                </div>
-                <CardDescription>
-                  Embark on educational quests tailored to your learning style and curriculum needs
-                </CardDescription>
+                <CardTitle>Filters</CardTitle>
               </CardHeader>
-              <CardContent>
-                <Tabs defaultValue="quests" onValueChange={setActiveTab}>
-                  <TabsList className="mb-4">
-                    <TabsTrigger value="quests">Available Quests</TabsTrigger>
-                    <TabsTrigger value="active">Active Quests</TabsTrigger>
-                    <TabsTrigger value="completed">Completed</TabsTrigger>
-                  </TabsList>
-                  
-                  <TabsContent value="quests">
-                    <div className="space-y-4">
-                      <div className="flex flex-col sm:flex-row gap-4">
-                        <div className="relative flex-1">
-                          <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            placeholder="Search quests..."
-                            className="pl-8"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                          />
-                        </div>
-                        
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button variant="outline" className="flex items-centre gap-2">
-                              <span>Filters</span>
-                              {Object.values(filters).flat().length > 0 && (
-                                <Badge variant="secondary" className="ml-1">
-                                  {Object.values(filters).flat().length}
-                                </Badge>
-                              )}
-                            </Button>
-                          </DialogTrigger>
-                          <DialogContent>
-                            <DialogHeader>
-                              <DialogTitle>Filter Quests</DialogTitle>
-                              <DialogDescription>
-                                Narrow down quests based on your preferences and needs
-                              </DialogDescription>
-                            </DialogHeader>
-                            
-                            <div className="space-y-4 py-4">
-                              <div>
-                                <h4 className="font-medium mb-2">Difficulty</h4>
-                                <div className="flex flex-wrap gap-2">
-                                  {difficultyLevels.map(level => (
-                                    <Badge
-                                      key={level.id}
-                                      variant={filters.difficulty.includes(level.id) ? "default" : "outline"}
-                                      className="cursor-pointer"
-                                      onClick={() => toggleFilter('difficulty', level.id)}
-                                    >
-                                      {level.name}
-                                    </Badge>
-                                  ))}
-                                </div>
-                              </div>
-                              
-                              <div>
-                                <h4 className="font-medium mb-2">Subject</h4>
-                                <div className="flex flex-wrap gap-2">
-                                  {subjects.map(subject => (
-                                    <Badge
-                                      key={subject}
-                                      variant={filters.subject.includes(subject) ? "default" : "outline"}
-                                      className="cursor-pointer"
-                                      onClick={() => toggleFilter('subject', subject)}
-                                    >
-                                      {subject}
-                                    </Badge>
-                                  ))}
-                                </div>
-                              </div>
-                              
-                              <div>
-                                <h4 className="font-medium mb-2">Key Stage</h4>
-                                <div className="flex flex-wrap gap-2">
-                                  {keyStages.map(keyStage => (
-                                    <Badge
-                                      key={keyStage}
-                                      variant={filters.keyStage.includes(keyStage) ? "default" : "outline"}
-                                      className="cursor-pointer"
-                                      onClick={() => toggleFilter('keyStage', keyStage)}
-                                    >
-                                      {keyStage}
-                                    </Badge>
-                                  ))}
-                                </div>
-                              </div>
-                              
-                              <div>
-                                <h4 className="font-medium mb-2">Learning Style</h4>
-                                <div className="flex flex-wrap gap-2">
-                                  {learningStyles.map(style => (
-                                    <Badge
-                                      key={style.id}
-                                      variant={filters.learningStyle.includes(style.id) ? "default" : "outline"}
-                                      className="cursor-pointer flex items-centre gap-1"
-                                      onClick={() => toggleFilter('learningStyle', style.id)}
-                                    >
-                                      {style.icon}
-                                      <span>{style.name}</span>
-                                    </Badge>
-                                  ))}
-                                </div>
-                              </div>
-                            </div>
-                            
-                            <DialogFooter>
-                              <Button variant="outline" onClick={clearFilters}>Clear All</Button>
-                              <DialogClose asChild>
-                                <Button>Apply Filters</Button>
-                              </DialogClose>
-                            </DialogFooter>
-                          </DialogContent>
-                        </Dialog>
-                      </div>
-                      
-                      {filteredQuests.length === 0 ? (
-                        <div className="text-centre p-8">
-                          <p className="text-muted-foreground">No quests match your filters. Try adjusting your criteria.</p>
-                          <Button variant="link" onClick={clearFilters}>Clear all filters</Button>
-                        </div>
-                      ) : (
-                        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                          {filteredQuests.map(quest => (
-                            <Card key={quest.id} className="overflow-hidden">
-                              <div className={`h-2 ${difficultyLevels.find(d => d.id === quest.difficulty)?.color}`} />
-                              <CardHeader className="pb-2">
-                                <CardTitle className="text-base">{quest.title}</CardTitle>
-                                <CardDescription className="line-clamp-2">{quest.description}</CardDescription>
-                              </CardHeader>
-                              <CardContent className="pb-2">
-                                <div className="flex flex-wrap gap-1 mb-2">
-                                  <Badge variant="outline" className="text-xs">
-                                    {quest.subject}
-                                  </Badge>
-                                  <Badge variant="outline" className="text-xs">
-                                    {quest.keyStage}
-                                  </Badge>
-                                  <Badge variant="outline" className="text-xs">
-                                    {difficultyLevels.find(d => d.id === quest.difficulty)?.name}
-                                  </Badge>
-                                </div>
-                                <div className="flex items-centre justify-between text-xs text-muted-foreground">
-                                  <span>{quest.duration}</span>
-                                  <span>{quest.xpReward} XP</span>
-                                </div>
-                              </CardContent>
-                              <CardFooter>
-                                <div className="flex gap-2 w-full">
-                                  <Button 
-                                    variant="outline" 
-                                    size="sm" 
-                                    className="flex-1"
-                                    onClick={() => handleSelectQuest(quest)}
-                                  >
-                                    Details
-                                  </Button>
-                                  <Button 
-                                    size="sm" 
-                                    className="flex-1"
-                                    onClick={() => handleStartQuest(quest)}
-                                  >
-                                    Start
-                                  </Button>
-                                </div>
-                              </CardFooter>
-                            </Card>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </TabsContent>
-                  
-                  <TabsContent value="active">
-                    <div className="text-centre p-8">
-                      <p className="text-muted-foreground">You have no active quests. Start a new quest to begin your adventure!</p>
-                    </div>
-                  </TabsContent>
-                  
-                  <TabsContent value="completed">
-                    <div className="text-centre p-8">
-                      <p className="text-muted-foreground">You haven&apos;t completed any quests yet. Keep exploring!</p>
-                    </div>
-                  </TabsContent>
-                </Tabs>
-              </CardContent>
-            </Card>
-            
-            {/* Quest Details Dialog */}
-            {selectedQuest && (
-              <Dialog open={!!selectedQuest} onOpenChange={(open) => !open && setSelectedQuest(null)}>
-                <DialogContent className="max-w-2xl">
-                  <DialogHeader>
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <DialogTitle>{selectedQuest.title}</DialogTitle>
-                        <DialogDescription>{selectedQuest.description}</DialogDescription>
-                      </div>
-                      <Button 
-                        variant="ghost" 
-                        size="icon" 
-                        onClick={() => setSelectedQuest(null)}
+              <CardContent className="space-y-6">
+                <div>
+                  <Label htmlFor="search-quests">Search</Label>
+                  <div className="relative mt-1">
+                    <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      id="search-quests"
+                      placeholder="Search quests..."
+                      className="pl-8"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                    {searchTerm && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="absolute right-0 top-0 h-full aspect-square p-0"
+                        onClick={() => setSearchTerm('')}
                       >
                         <X className="h-4 w-4" />
                       </Button>
-                    </div>
-                  </DialogHeader>
-                  
-                  <div className="space-y-4">
-                    <div className="flex flex-wrap gap-2">
-                      <Badge>
-                        {difficultyLevels.find(d => d.id === selectedQuest.difficulty)?.name}
+                    )}
+                  </div>
+                </div>
+                
+                <div className="space-y-1">
+                  <h3 className="text-sm font-medium">Difficulty</h3>
+                  <div className="flex flex-wrap gap-1">
+                    {difficultyLevels.map(level => (
+                      <Badge
+                        key={level.id}
+                        variant={filters.difficulty.includes(level.id) ? "default" : "outline"}
+                        className="cursor-pointer"
+                        onClick={() => toggleFilter('difficulty', level.id)}
+                      >
+                        {level.name}
                       </Badge>
-                      <Badge variant="outline">{selectedQuest.subject}</Badge>
-                      <Badge variant="outline">{selectedQuest.keyStage}</Badge>
+                    ))}
+                  </div>
+                </div>
+                
+                <Separator />
+                
+                <div className="space-y-1">
+                  <h3 className="text-sm font-medium">Subject</h3>
+                  <div className="flex flex-wrap gap-1">
+                    {subjects.map(subject => (
+                      <Badge
+                        key={subject}
+                        variant={filters.subject.includes(subject) ? "default" : "outline"}
+                        className="cursor-pointer"
+                        onClick={() => toggleFilter('subject', subject)}
+                      >
+                        {subject}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+                
+                <Separator />
+                
+                <div className="space-y-1">
+                  <h3 className="text-sm font-medium">Key Stage</h3>
+                  <div className="flex flex-wrap gap-1">
+                    {keyStages.map(keyStage => (
+                      <Badge
+                        key={keyStage}
+                        variant={filters.keyStage.includes(keyStage) ? "default" : "outline"}
+                        className="cursor-pointer"
+                        onClick={() => toggleFilter('keyStage', keyStage)}
+                      >
+                        {keyStage}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+                
+                <Separator />
+                
+                <div className="space-y-1">
+                  <h3 className="text-sm font-medium">Learning Style</h3>
+                  <div className="flex flex-wrap gap-1">
+                    {learningStyles.map(style => (
+                      <Badge
+                        key={style.id}
+                        variant={filters.learningStyle.includes(style.id) ? "default" : "outline"}
+                        className="cursor-pointer flex items-centre gap-1"
+                        onClick={() => toggleFilter('learningStyle', style.id)}
+                      >
+                        {style.icon}
+                        <span>{style.name}</span>
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+                
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="w-full"
+                  onClick={clearFilters}
+                >
+                  Clear All Filters
+                </Button>
+              </CardContent>
+            </Card>
+            
+            {/* Quest List */}
+            <div className="lg:col-span-3 space-y-4">
+              <div className="flex justify-between items-centre">
+                <h2 className="text-2xl font-bold">Available Quests</h2>
+                <div className="text-sm text-muted-foreground">
+                  Showing {filteredQuests.length} of {quests.length} quests
+                </div>
+              </div>
+              
+              {filteredQuests.length === 0 ? (
+                <Card>
+                  <CardContent className="flex flex-col items-centre justify-centre p-6">
+                    <div className="text-center space-y-2">
+                      <h3 className="text-lg font-medium">No quests found</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Try adjusting your filters or search term to find quests.
+                      </p>
+                      <Button variant="outline" onClick={clearFilters}>
+                        Clear Filters
+                      </Button>
                     </div>
-                    
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <h4 className="font-medium mb-1">Duration</h4>
-                        <p>{selectedQuest.duration}</p>
+                  </CardContent>
+                </Card>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {filteredQuests.map(quest => (
+                    <Card key={quest.id} className="overflow-hidden">
+                      <CardHeader className="pb-2">
+                        <div className="flex justify-between items-start">
+                          <CardTitle className="text-lg">{quest.title}</CardTitle>
+                          <Badge>
+                            {difficultyLevels.find(d => d.id === quest.difficulty)?.name}
+                          </Badge>
+                        </div>
+                        <CardDescription>{quest.description}</CardDescription>
+                      </CardHeader>
+                      <CardContent className="pb-2">
+                        <div className="grid grid-cols-2 gap-2 text-sm">
+                          <div>
+                            <span className="font-medium">Subject:</span> {quest.subject}
+                          </div>
+                          <div>
+                            <span className="font-medium">Key Stage:</span> {quest.keyStage}
+                          </div>
+                          <div>
+                            <span className="font-medium">Duration:</span> {quest.duration}
+                          </div>
+                          <div>
+                            <span className="font-medium">XP Reward:</span> {quest.xpReward}
+                          </div>
+                        </div>
+                        
+                        <div className="mt-2">
+                          <span className="text-sm font-medium">Learning Styles:</span>
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {quest.learningStyles.map(styleId => {
+                              const style = learningStyles.find(s => s.id === styleId);
+                              return style ? (
+                                <Badge key={styleId} variant="outline" className="text-xs flex items-centre gap-1">
+                                  {style.icon}
+                                  <span>{style.name}</span>
+                                </Badge>
+                              ) : null;
+                            })}
+                          </div>
+                        </div>
+                      </CardContent>
+                      <CardFooter className="flex justify-between">
+                        <Button variant="outline" onClick={() => handleSelectQuest(quest)}>
+                          View Details
+                        </Button>
+                        <Button onClick={() => handleStartQuest(quest)}>
+                          Start Quest
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+          
+          {/* Quest Details Dialog */}
+          {selectedQuest && (
+            <Dialog open={!!selectedQuest} onOpenChange={() => setSelectedQuest(null)}>
+              <DialogContent className="max-w-2xl">
+                <DialogHeader>
+                  <div className="flex justify-between items-start">
+                    <DialogTitle>{selectedQuest.title}</DialogTitle>
+                    <Badge>
+                      {difficultyLevels.find(d => d.id === selectedQuest.difficulty)?.name}
+                    </Badge>
+                  </div>
+                  <DialogDescription>{selectedQuest.description}</DialogDescription>
+                </DialogHeader>
+                
+                <div className="grid grid-cols-2 gap-4 py-4">
+                  <div>
+                    <h3 className="font-medium mb-2">Quest Details</h3>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span>Subject:</span>
+                        <span>{selectedQuest.subject}</span>
                       </div>
-                      <div>
-                        <h4 className="font-medium mb-1">XP Reward</h4>
-                        <p>{selectedQuest.xpReward} XP</p>
+                      <div className="flex justify-between">
+                        <span>Key Stage:</span>
+                        <span>{selectedQuest.keyStage}</span>
                       </div>
-                    </div>
-                    
-                    <div>
-                      <h4 className="font-medium mb-2">Learning Styles</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedQuest.learningStyles.map(styleId => {
-                          const style = learningStyles.find(s => s.id === styleId);
-                          return style ? (
-                            <Badge key={styleId} variant="outline" className="flex items-centre gap-1">
-                              {style.icon}
-                              <span>{style.name}</span>
-                            </Badge>
-                          ) : null;
-                        })}
+                      <div className="flex justify-between">
+                        <span>Duration:</span>
+                        <span>{selectedQuest.duration}</span>
                       </div>
-                    </div>
-                    
-                    <div>
-                      <h4 className="font-medium mb-2">Learning Objectives</h4>
-                      <ul className="list-disc pl-5 space-y-1">
-                        {selectedQuest.objectives.map((objective, i) => (
-                          <li key={i}>{objective}</li>
-                        ))}
-                      </ul>
+                      <div className="flex justify-between">
+                        <span>XP Reward:</span>
+                        <span>{selectedQuest.xpReward}</span>
+                      </div>
                     </div>
                   </div>
                   
-                  <DialogFooter>
-                    <Button onClick={() => handleStartQuest(selectedQuest)}>
-                      Start Quest
-                    </Button>
-                  </DialogFooter>
-                </DialogContent>
-              </Dialog>
-            )}
-          </div>
+                  <div>
+                    <h3 className="font-medium mb-2">Learning Styles</h3>
+                    <div className="flex flex-wrap gap-1">
+                      {selectedQuest.learningStyles.map(styleId => {
+                        const style = learningStyles.find(s => s.id === styleId);
+                        return style ? (
+                          <Badge key={styleId} variant="outline" className="flex items-centre gap-1">
+                            {style.icon}
+                            <span>{style.name}</span>
+                          </Badge>
+                        ) : null;
+                      })}
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="py-4">
+                  <h3 className="font-medium mb-2">Learning Objectives</h3>
+                  <ul className="list-disc pl-5 space-y-1">
+                    {selectedQuest.objectives.map((objective, i) => (
+                      <li key={i} className="text-sm">{objective}</li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setSelectedQuest(null)}>
+                    Close
+                  </Button>
+                  <Button onClick={() => handleStartQuest(selectedQuest)}>
+                    Start Quest
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          )}
         </div>
       )}
     </div>

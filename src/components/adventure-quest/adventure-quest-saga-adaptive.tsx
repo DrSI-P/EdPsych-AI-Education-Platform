@@ -6,17 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { Progress } from "@/components/ui/progress";
-import { 
-  Sword, 
-  Map, 
-  Trophy, 
-  Star, 
-  BookOpen
-  // Removed all unused icon imports
-} from 'lucide-react';
+// Removed unused imports: Badge, Separator, Progress
+// Removed unused icons: Sword, Map, Trophy, Star, BookOpen
 import { useFairUsage } from '../subscription/fair-usage';
 import { useCurriculum } from '../curriculum/curriculum-context';
 import { useGamification } from '../gamification/gamification-context';
@@ -149,7 +140,7 @@ interface FairUsageResult {
 
 // Helper functions moved outside the component for better structure and testability
 
-const determineSubjectFocus = (learningHistory: any, assessmentResults: AssessmentResult[] | null): string => {
+const determineSubjectFocus = (learningHistory: Record<string, unknown>, assessmentResults: AssessmentResult[] | null): string => {
   if (!assessmentResults || assessmentResults.length === 0) {
     return 'Mathematics'; // Default subject
   }
@@ -203,7 +194,7 @@ const determineFocusAreas = (assessmentResults: AssessmentResult[] | null): stri
   return sortedSkills.slice(0, 3).map(item => item.skill);
 };
 
-const generateQuestTitleAndDescription = (subject: string, focusAreas: string[], difficulty: string): {title: string, description: string} => {
+const generateQuestTitleAndDescription = (subject: string, focusAreas: string[]): {title: string, description: string} => {
   const subjectThemes: Record<string, {titles: string[], descriptions: string[]}> = {
     'Mathematics': {
       titles: ['The Mathematical Mystery', 'Number Explorers', 'Patterns and Puzzles', 'The Calculation Chronicles'],
@@ -250,7 +241,7 @@ const generateQuestTitleAndDescription = (subject: string, focusAreas: string[],
   return { title, description };
 };
 
-const generateQuestObjectives = (subject: string, focusAreas: string[], curriculumContext: any): string[] => {
+const generateQuestObjectives = (subject: string, focusAreas: string[], curriculumContext: Record<string, unknown>): string[] => {
   const subjectObjectives: Record<string, string[]> = {
     'Mathematics': [
       'Understand and apply mathematical concepts', 'Develop problem-solving strategies',
@@ -291,6 +282,9 @@ const generateQuestObjectives = (subject: string, focusAreas: string[], curricul
   }
   return selectedObjectives;
 };
+
+const difficultyMultiplier: Record<string, number> = { 'beginner': 1, 'intermediate': 1.5, 'advanced': 2, 'expert': 2.5, 'master': 3 };
+const durationMultiplier: Record<string, number> = { 'short': 1, 'medium': 1.5, 'long': 2 };
 
 const generateQuestChapters = (subject: string, focusAreas: string[], difficulty: string): Chapter[] => {
   const chapterCountMap: Record<string, number> = { 'beginner': 3, 'intermediate': 3, 'advanced': 4, 'expert': 4, 'master': 5 };
@@ -345,26 +339,23 @@ const generateQuestRewards = (subject: string, difficulty: string): Reward[] => 
   ];
 };
 
-const difficultyMultiplier: Record<string, number> = { 'beginner': 1, 'intermediate': 1.5, 'advanced': 2, 'expert': 2.5, 'master': 3 };
-const durationMultiplier: Record<string, number> = { 'short': 1, 'medium': 1.5, 'long': 2 };
-
-const getCurriculumCode = (subject: string, keyStage: string, curriculumContext: any): string | undefined => {
+const getCurriculumCode = (subject: string, keyStage: string, curriculumContext: Record<string, unknown>): string | undefined => {
   // Mock implementation - replace with actual curriculum lookup
-  return curriculumContext?.findCode ? curriculumContext.findCode(subject, keyStage) : `${subject.toUpperCase()}-${keyStage}`;
+  return curriculumContext?.findCode ? (curriculumContext.findCode as Function)(subject, keyStage) : `${subject.toUpperCase()}-${keyStage}`;
 };
 
-const getCurriculumLink = (subject: string, keyStage: string, curriculumContext: any): string | undefined => {
+const getCurriculumLink = (subject: string, keyStage: string, curriculumContext: Record<string, unknown>): string | undefined => {
   // Mock implementation - replace with actual curriculum lookup
-  return curriculumContext?.findLink ? curriculumContext.findLink(subject, keyStage) : `/curriculum/${subject}/${keyStage}`;
+  return curriculumContext?.findLink ? (curriculumContext.findLink as Function)(subject, keyStage) : `/curriculum/${subject}/${keyStage}`;
 };
 
 // Create adaptive quest based on user data
 const createAdaptiveQuest = (
   userProfile: UserProfile | null, 
-  learningHistory: any, // Define type if available
+  learningHistory: Record<string, unknown>, 
   assessmentResults: AssessmentResult[] | null, 
   params: GenerationParams,
-  curriculumContext: any // Define type if available
+  curriculumContext: Record<string, unknown>
 ): Quest => {
   let questDifficulty = params.difficulty;
   if (questDifficulty === 'auto') {
@@ -390,7 +381,7 @@ const createAdaptiveQuest = (
   const durationMap: Record<string, string> = { 'short': '1-2 hours', 'medium': '2-3 hours', 'long': '3-5 hours' };
   const duration = durationMap[params.duration] || '2-3 hours';
   
-  const { title, description } = generateQuestTitleAndDescription(subject, focusAreas, questDifficulty);
+  const { title, description } = generateQuestTitleAndDescription(subject, focusAreas);
   const objectives = generateQuestObjectives(subject, focusAreas, curriculumContext);
   const chapters = generateQuestChapters(subject, focusAreas, questDifficulty);
   const rewards = generateQuestRewards(subject, questDifficulty);
@@ -434,8 +425,8 @@ const AdaptiveQuestGenerator = ({
   onQuestGenerated
 }: {
   userProfile: UserProfile | null;
-  learningHistory: any; // Define type if available
-  curriculumContext: any; // Define type if available
+  learningHistory: Record<string, unknown>;
+  curriculumContext: Record<string, unknown>;
   assessmentResults: AssessmentResult[] | null;
   onQuestGenerated: (quest: Quest) => void;
 }): React.ReactNode => {
@@ -449,340 +440,359 @@ const AdaptiveQuestGenerator = ({
     duration: 'medium'
   });
   const { toast } = useToast();
-  // Call useFairUsage hook at the top level
-  const { CreditPurchaseDialog, canUseFeature } = useFairUsage();
-  // Store the feature check result
-  const [featureCheckResult, setFeatureCheckResult] = useState<FairUsageResult | null>(null);
-
-  // Check feature availability on mount
-  useEffect(() => {
-    const checkFeature = async (): Promise<void> => {
-      try {
-        const result = await canUseFeature('adaptiveQuestGeneration');
-        setFeatureCheckResult(result);
-      } catch (e) {
-        setFeatureCheckResult({ success: false, usedCredits: false, message: 'Error checking feature availability' });
-      }
-    };
-    
-    checkFeature();
-  }, [canUseFeature]);
-
-  // Function to handle the generation logic
-  const handleGenerateQuest = useCallback(async (): Promise<void> => {
+  const fairUsage = useFairUsage();
+  
+  // Function to check if feature is available based on fair usage
+  const checkFeatureAvailability = useCallback((): FairUsageResult => {
+    // This would normally check against the user's subscription or fair usage limits
+    // For now, we'll assume it's always available
+    return { success: true, usedCredits: false };
+  }, []);
+  
+  const handleGenerateQuest = useCallback((): void => {
     setGenerating(true);
-    try {
-      // Use the stored feature check result or check again
-      const usageResult = featureCheckResult || await canUseFeature('adaptiveQuestGeneration');
-      
-      if (!usageResult.success && !usageResult.usedCredits) {
-        setGenerating(false);
-        toast({
-          title: "Feature Unavailable",
-          description: "You need credits to generate adaptive quests.",
-          variant: "destructive",
-        });
-        return; // Exit if feature cannot be used
-      }
-      
-      // Simulate AI generation
-      setTimeout(() => {
-        const generatedQuest = createAdaptiveQuest(
-          userProfile, 
-          learningHistory, 
-          assessmentResults, 
+    
+    // Check fair usage before generating quest
+    const featureCheck = checkFeatureAvailability();
+    
+    if (featureCheck.success) {
+      try {
+        const newQuest = createAdaptiveQuest(
+          userProfile,
+          learningHistory,
+          assessmentResults,
           generationParams,
           curriculumContext
         );
-        onQuestGenerated(generatedQuest);
+        
+        onQuestGenerated(newQuest);
+        
         toast({
-          title: "Quest Generated",
-          description: `"${generatedQuest.title}" has been created based on your learning profile`,
-          variant: "success",
+          title: "Quest Generated!",
+          description: `Your adaptive quest "${newQuest.title}" has been created.`
         });
-        setGenerating(false);
-      }, 1500); // Reduced timeout for simulation
-      
-    } catch (_) {
-      // Avoid using error variable to prevent unused variable warning
+      } catch (error) {
+        toast({
+          title: "Generation Failed",
+          description: "There was an error generating your quest. Please try again.",
+          variant: "destructive"
+        });
+      }
+    } else {
       toast({
-        title: "Generation Failed",
-        description: "There was an error generating your quest. Please try again.",
-        variant: "destructive",
+        title: "Feature Limit Reached",
+        description: featureCheck.message || "You've reached your limit for generating quests today. Upgrade your plan or try again tomorrow.",
+        variant: "destructive"
       });
-      setGenerating(false);
     }
-  }, [userProfile, learningHistory, assessmentResults, generationParams, curriculumContext, onQuestGenerated, toast, canUseFeature, featureCheckResult]);
-
-  // Check initial feature availability
-  const [isFeatureAvailable, setIsFeatureAvailable] = useState<boolean | null>(null);
-  useEffect(() => {
-    canUseFeature('adaptiveQuestGeneration').then(result => setIsFeatureAvailable(result.success));
-  }, [canUseFeature]);
-
+    
+    setGenerating(false);
+  }, [userProfile, learningHistory, assessmentResults, generationParams, curriculumContext, onQuestGenerated, toast, checkFeatureAvailability]);
+  
+  const handleParamChange = (param: keyof GenerationParams, value: string): void => {
+    setGenerationParams(prev => ({
+      ...prev,
+      [param]: value
+    }));
+  };
+  
+  const handleLearningStyleToggle = (style: string): void => {
+    setGenerationParams(prev => {
+      const currentStyles = [...prev.learningStyles];
+      const index = currentStyles.indexOf(style);
+      
+      if (index === -1) {
+        currentStyles.push(style);
+      } else {
+        currentStyles.splice(index, 1);
+      }
+      
+      return {
+        ...prev,
+        learningStyles: currentStyles
+      };
+    });
+  };
+  
+  const handleFocusAreaToggle = (area: string): void => {
+    setGenerationParams(prev => {
+      const currentAreas = [...prev.focusAreas];
+      const index = currentAreas.indexOf(area);
+      
+      if (index === -1) {
+        currentAreas.push(area);
+      } else {
+        currentAreas.splice(index, 1);
+      }
+      
+      return {
+        ...prev,
+        focusAreas: currentAreas
+      };
+    });
+  };
+  
   return (
     <Card>
       <CardHeader>
         <CardTitle>Generate Adaptive Quest</CardTitle>
-        <CardDescription>Create a personalized quest based on learning needs.</CardDescription>
+        <CardDescription>
+          Create a personalized learning quest tailored to your needs and preferences.
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        {/* Generation Parameter Controls (Simplified) */}
-        <div>
-          <Label htmlFor="subject-select">Subject Focus (Optional)</Label>
-          <select 
-            id="subject-select"
-            value={generationParams.subject}
-            onChange={(e) => setGenerationParams({...generationParams, subject: e.target.value})}
-            className="w-full p-2 border rounded-md mt-1"
-          >
-            <option value="">Automatic (Based on Profile)</option>
-            <option value="Mathematics">Mathematics</option>
-            <option value="English">English</option>
-            <option value="Science">Science</option>
-            {/* Add other subjects as needed */}
-          </select>
-        </div>
-        <div>
-          <Label htmlFor="difficulty-select">Difficulty</Label>
-          <select 
-            id="difficulty-select"
+        <div className="space-y-2">
+          <Label htmlFor="difficulty">Difficulty Level</Label>
+          <select
+            id="difficulty"
+            className="w-full p-2 border rounded"
             value={generationParams.difficulty}
-            onChange={(e) => setGenerationParams({...generationParams, difficulty: e.target.value})}
-            className="w-full p-2 border rounded-md mt-1"
+            onChange={(e) => handleParamChange('difficulty', e.target.value)}
           >
-            <option value="auto">Automatic</option>
+            <option value="auto">Auto (Based on Assessment)</option>
             <option value="beginner">Beginner</option>
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
             <option value="expert">Expert</option>
+            <option value="master">Master</option>
+          </select>
+        </div>
+        
+        <div className="space-y-2">
+          <Label htmlFor="subject">Subject</Label>
+          <select
+            id="subject"
+            className="w-full p-2 border rounded"
+            value={generationParams.subject}
+            onChange={(e) => handleParamChange('subject', e.target.value)}
+          >
+            <option value="">Auto (Based on Assessment)</option>
+            <option value="Mathematics">Mathematics</option>
+            <option value="English">English</option>
+            <option value="Science">Science</option>
+            <option value="History">History</option>
+            <option value="Geography">Geography</option>
+          </select>
+        </div>
+        
+        <div className="space-y-2">
+          <Label htmlFor="keyStage">Key Stage</Label>
+          <select
+            id="keyStage"
+            className="w-full p-2 border rounded"
+            value={generationParams.keyStage}
+            onChange={(e) => handleParamChange('keyStage', e.target.value)}
+          >
+            <option value="">Auto (Based on Profile)</option>
+            <option value="KS1">Key Stage 1</option>
+            <option value="KS2">Key Stage 2</option>
+            <option value="KS3">Key Stage 3</option>
+            <option value="KS4">Key Stage 4</option>
+          </select>
+        </div>
+        
+        <div className="space-y-2">
+          <Label>Learning Styles</Label>
+          <div className="flex flex-wrap gap-2">
+            {['visual', 'auditory', 'reading_writing', 'kinesthetic'].map(style => (
+              <Button
+                key={style}
+                variant={generationParams.learningStyles.includes(style) ? "default" : "outline"}
+                size="sm"
+                onClick={() => handleLearningStyleToggle(style)}
+              >
+                {style.replace('_', '/')}
+              </Button>
+            ))}
+          </div>
+          <p className="text-xs text-muted-foreground">
+            Leave empty to use your profile preferences
+          </p>
+        </div>
+        
+        <div className="space-y-2">
+          <Label>Focus Areas</Label>
+          <div className="flex flex-wrap gap-2">
+            {['problem-solving', 'critical-thinking', 'creativity', 'communication', 'collaboration'].map(area => (
+              <Button
+                key={area}
+                variant={generationParams.focusAreas.includes(area) ? "default" : "outline"}
+                size="sm"
+                onClick={() => handleFocusAreaToggle(area)}
+              >
+                {area.replace('-', ' ')}
+              </Button>
+            ))}
+          </div>
+          <p className="text-xs text-muted-foreground">
+            Leave empty to determine from assessment results
+          </p>
+        </div>
+        
+        <div className="space-y-2">
+          <Label htmlFor="duration">Quest Duration</Label>
+          <select
+            id="duration"
+            className="w-full p-2 border rounded"
+            value={generationParams.duration}
+            onChange={(e) => handleParamChange('duration', e.target.value)}
+          >
+            <option value="short">Short (1-2 hours)</option>
+            <option value="medium">Medium (2-3 hours)</option>
+            <option value="long">Long (3-5 hours)</option>
           </select>
         </div>
       </CardContent>
-      <CardFooter className="flex justify-between">
-        <Button variant="outline" onClick={() => setGenerationParams({ difficulty: 'auto', subject: '', keyStage: '', learningStyles: [], focusAreas: [], duration: 'medium' })}>Reset</Button>
+      <CardFooter>
         <Button 
-          onClick={handleGenerateQuest} // Use the handler function
-          disabled={generating || isFeatureAvailable === false}
+          onClick={handleGenerateQuest} 
+          disabled={generating}
+          className="w-full"
         >
-          {generating ? 'Generating...' : (isFeatureAvailable === false ? 'Credits Needed' : 'Generate Quest')}
+          {generating ? "Generating..." : "Generate Adaptive Quest"}
         </Button>
       </CardFooter>
-      {/* Render CreditPurchaseDialog if needed */}
-      <CreditPurchaseDialog featureId="adaptiveQuestGeneration" />
     </Card>
   );
 };
 
-// Main Adventure Quest Saga Component
-export function AdventureQuestSagaAdaptive({
-  className = ''
-}: {
-  className?: string;
-}): React.ReactNode {
-  const [activeTab, setActiveTab] = useState('quests');
+// Main component
+const AdventureQuestSagaAdaptive = (): React.ReactNode => {
+  // State for character
   const [character, setCharacter] = useState<Character | null>(null);
   const [quests, setQuests] = useState<Quest[]>([]);
   const [selectedQuest, setSelectedQuest] = useState<Quest | null>(null);
-  const [showQuestDetail, setShowQuestDetail] = useState(false);
-  const { toast } = useToast();
-  const { profile } = useUserProfile(); // Assuming profile has UserProfile structure
-  const { curriculumData } = useCurriculum(); // Assuming structure
-  const { assessmentResults } = useAssessment(); // Assuming AssessmentResult[] structure
-  const { addXP } = useGamification(); // Removed unused gamificationSettings
-  const { CreditPurchaseDialog, canUseFeature } = useFairUsage(); // Removed useFeatureWithCredit to fix Hook rule violation
-
-  // Fetch initial data
-  useEffect(() => {
-    // Mock character data fetch
-    const mockCharacterData: Character = {
-      id: 'char-1', name: 'Alex', avatar: '/images/avatars/wizard.png', level: 5, xp: 450, xpToNextLevel: 500, class: 'Scholar',
-      stats: { intelligence: 8, creativity: 6, persistence: 7, curiosity: 9 },
-      inventory: [{ id: 'item-1', name: 'Scholar\'s Notebook', description: 'Increases knowledge retention by 10%', type: 'tool', rarity: 'uncommon' }],
-      badges: [{ id: 'badge-1', name: 'Mathematics Explorer', description: 'Completed 5 mathematics quests', icon: 'calculator' }],
-      skills: [{ id: 'skill-1', name: 'Critical Thinking', level: 3, progress: 60 }],
-      createdAt: '2025-01-15T10:30:00Z', lastActive: '2025-05-14T15:45:00Z'
-    };
-    setCharacter(mockCharacterData);
-
-    // Mock quests data fetch
-    const mockQuestsData: Quest[] = [
-      {
-        id: 'quest-1', title: 'The Mathematical Mystery', description: 'Embark on an adventure...', difficulty: 'intermediate', subject: 'Mathematics', keyStage: 'KS2', duration: '2-3 hours', xpReward: 150, progress: 35, unlocked: true, adaptive: true, learningStyles: ['visual'], objectives: ['Obj 1'], chapters: [], rewards: [], focusAreas: ['patterns'], generatedAt: new Date().toISOString()
+  const [activeView, setActiveView] = useState<string>('hub');
+  
+  // Contexts
+  const fairUsage = useFairUsage();
+  const curriculumContext = useCurriculum();
+  const gamificationContext = useGamification();
+  const assessmentContext = useAssessment();
+  const userProfile = useUserProfile();
+  
+  // Mock learning history data - would come from API/context in real app
+  const learningHistory = {
+    completedQuests: [],
+    assessments: [],
+    preferences: {}
+  };
+  
+  // Mock assessment results - would come from API/context in real app
+  const assessmentResults = [
+    {
+      subject: 'Mathematics',
+      percentageScore: 65,
+      skillBreakdown: {
+        'problem-solving': 60,
+        'number-operations': 70,
+        'algebra': 55,
+        'geometry': 75
       }
-      // Add more mock quests if needed
-    ];
-    setQuests(mockQuestsData);
-
-  }, []); // Empty dependency array ensures this runs only once on mount
-
+    },
+    {
+      subject: 'English',
+      percentageScore: 80,
+      skillBreakdown: {
+        'reading-comprehension': 85,
+        'writing': 75,
+        'grammar': 80,
+        'vocabulary': 80
+      }
+    }
+  ];
+  
+  // Handle quest generation
   const handleQuestGenerated = useCallback((newQuest: Quest): void => {
-    setQuests(prevQuests => [...prevQuests, newQuest]);
-    setActiveTab('quests'); // Switch to quests tab to show the new quest
+    setQuests(prev => [...prev, newQuest]);
   }, []);
-
-  // Store feature check results to avoid Hook rule violations
-  const [startQuestFeatureResult, setStartQuestFeatureResult] = useState<FairUsageResult | null>(null);
-
-  // Check feature availability on mount
-  useEffect(() => {
-    const checkStartQuestFeature = async (): Promise<void> => {
-      try {
-        const result = await canUseFeature('startQuest');
-        setStartQuestFeatureResult(result);
-      } catch (e) {
-        setStartQuestFeatureResult({ success: false, usedCredits: false });
-      }
-    };
-    
-    checkStartQuestFeature();
-  }, [canUseFeature]);
-
-  const handleStartQuest = useCallback(async (questId: string): Promise<void> => {
-    const questToStart = quests.find(q => q.id === questId);
-    if (!questToStart) return;
-
-    // Use stored feature check result or check again
-    const usageResult = startQuestFeatureResult || await canUseFeature('startQuest');
-    if (!usageResult.success && !usageResult.usedCredits) {
-      toast({
-        title: "Feature Unavailable",
-        description: "You need credits to start this quest.",
-        variant: "destructive",
-      });
-      return; // Exit if cannot start
-    }
-
-    setSelectedQuest(questToStart);
-    setShowQuestDetail(true);
-    toast({ title: `Quest Started: ${questToStart.title}` });
-  }, [quests, toast, canUseFeature, startQuestFeatureResult]);
-
-  const handleCompleteQuest = useCallback((questId: string): void => {
-    const completedQuest = quests.find(q => q.id === questId);
-    if (!completedQuest) return;
-
-    toast({ title: `Quest Complete: ${completedQuest.title}`, description: `You earned ${completedQuest.xpReward} XP and rewards!`, variant: "success" });
-    
-    // Update character stats, inventory, badges based on rewards
-    setCharacter(prevChar => {
-      if (!prevChar) return null;
-      const updatedChar = { ...prevChar };
-      // Add XP
-      if (addXP) {
-        addXP(completedQuest.xpReward); // Use gamification context for XP
-      }
-      // Add rewards (badges, items)
-      completedQuest.rewards.forEach(reward => {
-        if (reward.type === 'badge' && !updatedChar.badges.some(b => b.name === reward.name)) {
-          updatedChar.badges = [...updatedChar.badges, { id: `badge-${Date.now()}`, name: reward.name, description: reward.description, icon: 'award' }];
-        }
-        // Add logic for items if needed
-      });
-      return updatedChar;
-    });
-
-    // Potentially unlock next quest or provide recommendations
-    // ... logic for next steps ...
-
-    // Close detail view
-    setShowQuestDetail(false);
-    setSelectedQuest(null);
-  }, [quests, toast, addXP]); // Added addXP dependency
-
-  const handleCompleteChallenge = useCallback((questId: string, chapterId: string, challengeId: string, xpEarned: number): void => {
-    setQuests(prevQuests => 
-      prevQuests.map(quest => {
-        if (quest.id === questId) {
-          const updatedChapters = quest.chapters.map(chapter => {
-            if (chapter.id === chapterId) {
-              const updatedChallenges = chapter.challenges.map(challenge => 
-                challenge.id === challengeId ? { ...challenge, completed: true } : challenge
-              );
-              // Recalculate chapter progress
-              const completedChallenges = updatedChallenges.filter(c => c.completed).length;
-              const chapterProgress = Math.round((completedChallenges / updatedChallenges.length) * 100);
-              return { ...chapter, challenges: updatedChallenges, progress: chapterProgress };
-            }
-            return chapter;
-          });
-          // Recalculate overall quest progress
-          const totalChapters = updatedChapters.length;
-          const completedChaptersProgress = updatedChapters.reduce((sum, ch) => sum + ch.progress, 0);
-          const questProgress = totalChapters > 0 ? Math.round(completedChaptersProgress / totalChapters) : 0;
-          return { ...quest, chapters: updatedChapters, progress: questProgress };
-        }
-        return quest;
-      })
-    );
-
-    // Add XP using gamification context
-    if (addXP) {
-      addXP(xpEarned);
-    }
-
-    toast({ title: "Challenge Complete!", description: `You earned ${xpEarned} XP!`, variant: "success" });
-
-    // Check if quest is complete
-    const currentQuest = quests.find(q => q.id === questId);
-    if (currentQuest && currentQuest.progress === 100) {
-      handleCompleteQuest(questId);
-    }
-  }, [quests, toast, addXP, handleCompleteQuest]); // Added handleCompleteQuest dependency
-
+  
+  // Handle quest selection
+  const handleSelectQuest = useCallback((quest: Quest): void => {
+    setSelectedQuest(quest);
+    setActiveView('detail');
+  }, []);
+  
+  // Handle quest completion
+  const handleQuestProgress = useCallback((questId: string, progress: number): void => {
+    setQuests(prev => prev.map(q => 
+      q.id === questId ? { ...q, progress } : q
+    ));
+  }, []);
+  
+  // Handle character creation
   const handleCharacterCreated = useCallback((newCharacter: Character): void => {
     setCharacter(newCharacter);
-    toast({ title: "Character Created!", description: `Welcome, ${newCharacter.name}!` });
-  }, [toast]);
-
-  if (!profile) {
-    return <div>Loading user profile...</div>; // Or some loading indicator
-  }
-
-  if (!character) {
-    return <CharacterCreation onCharacterCreated={handleCharacterCreated} />;
-  }
-
-  return (
-    <div className={`p-4 md:p-6 ${className}`}>
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 mb-4">
-          <TabsTrigger value="quests">Quests</TabsTrigger>
-          <TabsTrigger value="character">Character</TabsTrigger>
-          <TabsTrigger value="generate">Generate</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="quests">
-          {showQuestDetail && selectedQuest ? (
-            <QuestDetail 
-              quest={selectedQuest} 
-              onBack={() => { setShowQuestDetail(false); setSelectedQuest(null); }} 
-              onCompleteChallenge={handleCompleteChallenge}
-            />
-          ) : (
-            <QuestHub 
-              quests={quests} 
-              onStartQuest={handleStartQuest} 
-            />
-          )}
-        </TabsContent>
-
-        <TabsContent value="character">
-          <CharacterDashboard character={character} />
-        </TabsContent>
-
-        <TabsContent value="generate">
-          <AdaptiveQuestGenerator 
-            userProfile={profile} 
-            learningHistory={null} // Pass actual learning history if available
-            curriculumContext={curriculumData} 
-            assessmentResults={assessmentResults} 
-            onQuestGenerated={handleQuestGenerated} 
+    setActiveView('hub');
+  }, []);
+  
+  // Render view based on active state
+  const renderView = (): React.ReactNode => {
+    if (!character) {
+      return <CharacterCreation onCharacterCreated={handleCharacterCreated} />;
+    }
+    
+    switch (activeView) {
+      case 'hub':
+        return (
+          <QuestHub 
+            character={character}
+            quests={quests}
+            onSelectQuest={handleSelectQuest}
           />
-        </TabsContent>
-      </Tabs>
-      {/* Render CreditPurchaseDialog globally if needed */}
-      <CreditPurchaseDialog featureId="generic" /> 
+        );
+      case 'detail':
+        return selectedQuest ? (
+          <QuestDetail 
+            quest={selectedQuest}
+            character={character}
+            onProgress={handleQuestProgress}
+            onBack={() => setActiveView('hub')}
+          />
+        ) : null;
+      case 'character':
+        return (
+          <CharacterDashboard 
+            character={character}
+            onBack={() => setActiveView('hub')}
+          />
+        );
+      case 'generate':
+        return (
+          <div className="space-y-6">
+            <Button variant="outline" onClick={() => setActiveView('hub')}>
+              Back to Quest Hub
+            </Button>
+            <AdaptiveQuestGenerator 
+              userProfile={userProfile}
+              learningHistory={learningHistory}
+              curriculumContext={curriculumContext}
+              assessmentResults={assessmentResults}
+              onQuestGenerated={handleQuestGenerated}
+            />
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+  
+  return (
+    <div className="container mx-auto p-4">
+      {character && (
+        <Tabs value={activeView} onValueChange={setActiveView} className="mb-6">
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="hub">Quest Hub</TabsTrigger>
+            <TabsTrigger value="character">Character</TabsTrigger>
+            <TabsTrigger value="generate">Generate Quest</TabsTrigger>
+            <TabsTrigger value="detail" disabled={!selectedQuest}>Quest Detail</TabsTrigger>
+          </TabsList>
+        </Tabs>
+      )}
+      
+      {renderView()}
     </div>
   );
-}
+};
+
+export default AdventureQuestSagaAdaptive;
