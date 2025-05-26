@@ -81,12 +81,12 @@ export interface LearnerProfile {
     [key in SubjectArea]?: number; // Interest level from 0-100
   };
   specialEducationalNeeds?: {
-    categories: SENCategory: any: any: any[];
-    specificDifficulties?: SpecificLearningDifficulty: any: any: any[];
-    accommodations?: string: any: any: any[];
+    categories: SENCategory[];
+    specificDifficulties?: SpecificLearningDifficulty[];
+    accommodations?: string[];
   };
-  previousAssessments: Assessment: any: any: any[];
-  learningGoals: LearningGoal: any: any: any[];
+  previousAssessments: Assessment[];
+  learningGoals: LearningGoal[];
   engagementMetrics: EngagementMetrics;
   lastUpdated: Date;
 }
@@ -99,8 +99,8 @@ export interface Assessment {
   keyStage: KeyStage;
   dateCompleted: Date;
   score: number; // Percentage
-  strengths: string: any: any: any[];
-  areasForImprovement: string: any: any: any[];
+  strengths: string[];
+  areasForImprovement: string[];
   teacherFeedback?: string;
   duration: number; // In minutes
   questionBreakdown?: {
@@ -122,7 +122,7 @@ export interface LearningGoal {
   status: 'not_started' | 'in_progress' | 'completed';
   progress: number; // Percentage
   priority: 'low' | 'medium' | 'high';
-  associatedCurriculumPoints: string: any: any: any[];
+  associatedCurriculumPoints: string[];
   createdBy: 'student' | 'teacher' | 'parent' | 'system';
   createdAt: Date;
 }
@@ -135,7 +135,7 @@ export interface EngagementMetrics {
   responseTime: number; // Average time to respond to questions in seconds
   focusScore: number; // 0-100 scale measuring focus during sessions
   preferredTimeOfDay: 'morning' | 'afternoon' | 'evening';
-  preferredContentTypes: string: any: any: any[]; // e.g., videos, interactive, text, etc.
+  preferredContentTypes: string[]; // e.g., videos, interactive, text, etc.
   challengeLevel: number; // 1-5 scale of preferred challenge level
 }
 
@@ -147,11 +147,11 @@ export interface LearningPath {
   description: string;
   subject: SubjectArea;
   keyStage: KeyStage;
-  objectives: string: any: any: any[];
+  objectives: string[];
   estimatedDuration: number; // In hours
   difficulty: number; // 1-5 scale
-  modules: LearningModule: any: any: any[];
-  adaptivityRules: AdaptivityRule: any: any: any[];
+  modules: LearningModule[];
+  adaptivityRules: AdaptivityRule[];
   createdAt: Date;
   updatedAt: Date;
   completionStatus: number; // Percentage
@@ -163,12 +163,12 @@ export interface LearningModule {
   id: string;
   title: string;
   description: string;
-  prerequisiteModules: string: any: any: any[]; // IDs of modules that must be completed first
-  learningOutcomes: string: any: any: any[];
+  prerequisiteModules: string[]; // IDs of modules that must be completed first
+  learningOutcomes: string[];
   estimatedDuration: number; // In minutes
   difficulty: number; // 1-5 scale
-  activities: LearningActivity: any: any: any[];
-  assessments: ModuleAssessment: any: any: any[];
+  activities: LearningActivity[];
+  assessments: ModuleAssessment[];
   completionStatus: number; // Percentage
   unlocked: boolean;
 }
@@ -183,7 +183,7 @@ export interface LearningActivity {
     url?: string;
     text?: string;
     interactiveId?: string;
-    attachments?: string: any: any: any[];
+    attachments?: string[];
   };
   duration: number; // In minutes
   learningStyleAlignment: {
@@ -202,7 +202,7 @@ export interface ModuleAssessment {
   id: string;
   title: string;
   description: string;
-  questions: AssessmentQuestion: any: any: any[];
+  questions: AssessmentQuestion[];
   passingScore: number; // Percentage
   maxAttempts: number;
   timeLimit?: number; // In minutes
@@ -224,8 +224,8 @@ export interface AssessmentQuestion {
   id: string;
   questionText: string;
   questionType: 'multiple_choice' | 'true_false' | 'short_answer' | 'essay' | 'matching' | 'fill_in_blank';
-  options?: string: any: any: any[];
-  correctAnswer: string | string: any: any: any[];
+  options?: string[];
+  correctAnswer: string | string[];
   explanation: string;
   difficulty: number; // 1-5 scale
   conceptTested: string;
@@ -286,7 +286,7 @@ export interface InterventionAlert {
   suggestedActions: {
     actionType: string;
     description: string;
-    resources?: string: any: any: any[];
+    resources?: string[];
   }[];
   createdAt: Date;
   acknowledged: boolean;
@@ -311,15 +311,15 @@ export interface ProgressReport {
   timeSpent: number; // In hours
   strengths: {
     subject: SubjectArea;
-    conceptsStrong: string: any: any: any[];
+    conceptsStrong: string[];
     evidence: string;
   }[];
   areasForImprovement: {
     subject: SubjectArea;
-    conceptsToImprove: string: any: any: any[];
-    suggestedActivities: string: any: any: any[];
+    conceptsToImprove: string[];
+    suggestedActivities: string[];
   }[];
-  nextSteps: string: any: any: any[];
+  nextSteps: string[];
   generatedAt: Date;
 }
 

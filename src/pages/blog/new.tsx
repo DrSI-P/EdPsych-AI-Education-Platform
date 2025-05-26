@@ -15,7 +15,7 @@ interface Category {
 }
 
 interface NewBlogPostPageProps {
-  categories: Category: any: any: any[];
+  categories: Category[];
 }
 
 export default function NewBlogPostPage({ categories }: NewBlogPostPageProps) {

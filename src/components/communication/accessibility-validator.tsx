@@ -10,7 +10,7 @@ import { CheckCircle2, AlertCircle, AlertTriangle, Info, HelpCircle } from 'luci
 
 interface AccessibilityValidatorProps {
   componentName: string;
-  onFixIssues?: (issues: AccessibilityIssue: any[]) => void;
+  onFixIssues?: (issues: AccessibilityIssue[]) => void;
 }
 
 export interface AccessibilityIssue {
@@ -49,7 +49,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
     // Simulate validation process
     setTimeout(() => {
       // This would be replaced with actual validation logic in a real implementation
-      const mockIssues: AccessibilityIssue: any[] = [];
+      const mockIssues: AccessibilityIssue[] = [];
       
       // Check for common accessibility issues based on component name
       if (componentName.toLowerCase().includes('message') || componentName.toLowerCase().includes('chat')) {

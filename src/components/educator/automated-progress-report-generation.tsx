@@ -324,7 +324,7 @@ export default function AutomatedProgressReportGeneration() {
         };
       }).filter(Boolean);
       
-      setGeneratedReports(reports as any: any[]);
+      setGeneratedReports(reports as any[]);
       setActiveTab('preview');
       
       toast({
@@ -345,7 +345,7 @@ export default function AutomatedProgressReportGeneration() {
   };
   
   // Generate overall comments based on subject reports
-  const generateOverallComments = (student, subjectReports: any: any: any[], style: string) => {
+  const generateOverallComments = (student, subjectReports[], style: string) => {
     // Calculate average scores and progress
     const averageCurrentScore = Math.round(
       subjectReports.reduce((sum, report) => sum + report.currentScore, 0) / subjectReports.length
@@ -400,7 +400,7 @@ export default function AutomatedProgressReportGeneration() {
   };
   
   // Generate next steps based on subject reports
-  const generateNextSteps = (subjectReports: any: any[]) => {
+  const generateNextSteps = (subjectReports: any[]) => {
     // Find subjects with lowest scores for targeted improvement
     const lowestSubjects = [...subjectReports].sort((a, b) => a.currentScore - b.currentScore).slice(0, 2);
     

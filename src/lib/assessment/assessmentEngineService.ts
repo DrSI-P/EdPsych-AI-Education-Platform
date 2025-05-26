@@ -265,7 +265,7 @@ export class AssessmentEngineService implements AssessmentEngine {
     };
     
     // Generate questions based on template distribution
-    const questions: Question: any[] = await this.generateQuestionsFromTemplate(template);
+    const questions: Question[] = await this.generateQuestionsFromTemplate(template);
     
     // Create the assessment
     const assessment: Assessment = {
@@ -296,7 +296,7 @@ export class AssessmentEngineService implements AssessmentEngine {
    * @param previousResponses The student's previous responses
    * @returns The next question to present
    */
-  async generateAdaptiveQuestion(attemptId: string, previousResponses: QuestionResponse: any[]): Promise<Question> {
+  async generateAdaptiveQuestion(attemptId: string, previousResponses: QuestionResponse[]): Promise<Question> {
     console.log(`Generating adaptive question for attempt ${attemptId}`);
     
     // Get the attempt
@@ -379,8 +379,8 @@ export class AssessmentEngineService implements AssessmentEngine {
   }): Promise<{
     assessmentsCompleted: number;
     averageScore: number;
-    strengths: string: any: any: any[];
-    areasForImprovement: string: any: any: any[];
+    strengths: string[];
+    areasForImprovement: string[];
     progressOverTime: Array<{
       date: Date;
       score: number;
@@ -515,8 +515,8 @@ export class AssessmentEngineService implements AssessmentEngine {
     const passed = percentage >= (assessment.settings.passingScore || 60);
     
     // Generate strengths and areas for improvement
-    const strengths: string: any[] = [];
-    const areasForImprovement: string: any[] = [];
+    const strengths: string[] = [];
+    const areasForImprovement: string[] = [];
     
     // Identify strengths (domains with high performance)
     Object.entries(byCognitiveDomain).forEach(([domain, data]) => {
@@ -625,7 +625,7 @@ export class AssessmentEngineService implements AssessmentEngine {
    * @returns Array of questions
    */
   private async generateQuestionsFromTemplate(template: AssessmentTemplate): Promise<Question[]> {
-    const questions: Question: any[] = [];
+    const questions: Question[] = [];
     
     // Calculate how many questions of each type to generate
     const typeDistribution = new Map<QuestionType, number>();

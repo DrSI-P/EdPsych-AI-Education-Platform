@@ -392,8 +392,8 @@ export class ContentCreationService {
    */
   public async adaptContent(
     contentId: string, 
-    targetLearningStyles: LearningStyle: any: any: any[], 
-    senSupport?: SENCategory: any: any[]
+    targetLearningStyles: LearningStyle[], 
+    senSupport?: SENCategory: any[]
   ): Promise<Partial<ContentDocument>> {
     try {
       const response = await fetch(`${this.apiUrl}/api/content-creation/ai/adapt`, {
@@ -480,8 +480,8 @@ export class ContentCreationService {
    */
   public async checkCurriculumAlignment(contentId: string): Promise<{
     alignmentScore: number;
-    suggestions: string: any: any: any[];
-    curriculumLinks: string: any: any: any[];
+    suggestions: string[];
+    curriculumLinks: string[];
   }> {
     try {
       const response = await fetch(`${this.apiUrl}/api/content-creation/content/${contentId}/curriculum-check`, {

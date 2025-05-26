@@ -13,14 +13,14 @@ interface MatchingItem {
 interface MatchingQuestionProps {
   initialData?: {
     content: string;
-    items: MatchingItem: any: any: any[];
+    items: MatchingItem[];
     points: number;
     shuffleOptions: boolean;
   };
   onSave: (data: {
     type: string;
     content: string;
-    items: MatchingItem: any: any: any[];
+    items: MatchingItem[];
     points: number;
     shuffleOptions: boolean;
   }) => void;

@@ -46,7 +46,7 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
    * @returns The recommended difficulty level for the next question
    */
   calculateNextQuestionDifficulty(
-    previousResponses: QuestionResponse: any: any: any[],
+    previousResponses: QuestionResponse[],
     currentDifficulty: DifficultyLevel
   ): DifficultyLevel {
     // If no previous responses, return the current difficulty
@@ -81,7 +81,7 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
    * @param responses The student's responses
    * @returns The estimated ability level (theta in IRT)
    */
-  estimateStudentAbility(responses: QuestionResponse: any[]): number {
+  estimateStudentAbility(responses: QuestionResponse[]): number {
     // If no responses, return a default ability estimate
     if (responses.length === 0) {
       return 0.0; // Default ability (average)
@@ -130,7 +130,7 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
    * @param studentAbility The student's estimated ability level
    * @returns The selected question
    */
-  selectOptimalQuestion(questionBank: Question: any: any: any[], studentAbility: number): Question {
+  selectOptimalQuestion(questionBank: Question[], studentAbility: number): Question {
     // If no questions available, throw an error
     if (questionBank.length === 0) {
       throw new Error('No questions available for selection');
@@ -162,7 +162,7 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
    * 
    * @param responses The responses to analyse
    */
-  async updateDifficultyModel(responses: QuestionResponse: any[]): Promise<void> {
+  async updateDifficultyModel(responses: QuestionResponse[]): Promise<void> {
     // In a real implementation, this would update the IRT parameters
     // based on accumulated response data
     console.log(`Updating difficulty model with ${responses.length} responses`);
@@ -202,7 +202,7 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
    * @param responses The responses to analyse
    * @returns The success rate (0-1)
    */
-  private calculateSuccessRate(responses: QuestionResponse: any[]): number {
+  private calculateSuccessRate(responses: QuestionResponse[]): number {
     if (responses.length === 0) {
       return 0.5; // Default to 50% if no responses
     }

@@ -108,23 +108,23 @@ export interface ContentMetadata {
   contentType: ContentType;
   keyStage: KeyStage;
   subject: string;
-  topics: string: any: any: any[];
-  learningObjectives: string: any: any: any[];
-  targetLearningStyles: LearningStyle: any: any: any[];
-  senSupport?: SENCategory: any: any: any[];
+  topics: string[];
+  learningObjectives: string[];
+  targetLearningStyles: LearningStyle[];
+  senSupport?: SENCategory[];
   authorId: string;
   createdAt: Date;
   updatedAt: Date;
   estimatedDuration?: number; // in minutes
   difficulty?: 'beginner' | 'intermediate' | 'advanced';
-  keywords: string: any: any: any[];
+  keywords: string[];
   permission: ContentPermission;
-  collaborators?: string: any: any: any[];
+  collaborators?: string[];
   version: number;
   isPublished: boolean;
   publishedAt?: Date;
-  curriculumLinks?: string: any: any: any[];
-  resourceLinks?: string: any: any: any[];
+  curriculumLinks?: string[];
+  resourceLinks?: string[];
 }
 
 /**
@@ -225,13 +225,13 @@ export interface QuestionElement extends ContentElement {
   type: ContentElementType.QUESTION;
   questionType: QuestionType;
   question: string;
-  options?: string: any: any: any[];
-  correctAnswer?: string | string: any: any: any[];
+  options?: string[];
+  correctAnswer?: string | string[];
   explanation?: string;
   points?: number;
   difficulty?: 'easy' | 'medium' | 'hard';
   timeLimit?: number; // in seconds
-  hints?: string: any: any: any[];
+  hints?: string[];
   feedback?: {
     correct?: string;
     incorrect?: string;
@@ -255,7 +255,7 @@ export interface InteractiveElement extends ContentElement {
  */
 export interface TableElement extends ContentElement {
   type: ContentElementType.TABLE;
-  headers: string: any: any: any[];
+  headers: string[];
   rows: string[][];
   caption?: string;
   style?: {
@@ -273,12 +273,12 @@ export interface ChartElement extends ContentElement {
   type: ContentElementType.CHART;
   chartType: 'bar' | 'line' | 'pie' | 'scatter' | 'radar';
   data: {
-    labels: string: any: any: any[];
+    labels: string[];
     datasets: {
       label: string;
-      data: number: any: any: any[];
-      backgroundColor?: string | string: any: any: any[];
-      borderColor?: string | string: any: any: any[];
+      data: number[];
+      backgroundColor?: string | string[];
+      borderColor?: string | string[];
     }[];
   };
   options?: Record<string, any>;
@@ -295,8 +295,8 @@ export interface ContentTemplate {
   name: string;
   description: string;
   contentType: ContentType;
-  keyStage: KeyStage: any: any: any[];
-  subjects: string: any: any: any[];
+  keyStage: KeyStage[];
+  subjects: string[];
   structure: {
     sections: {
       title: string;
@@ -315,7 +315,7 @@ export interface ContentTemplate {
     isPublic: boolean;
     usageCount: number;
     rating?: number;
-    tags: string: any: any: any[];
+    tags: string[];
   };
   previewImage?: string;
 }
@@ -325,7 +325,7 @@ export interface ContentTemplate {
  */
 export interface ContentDocument {
   metadata: ContentMetadata;
-  elements: ContentElement: any: any: any[];
+  elements: ContentElement[];
   version: number;
   settings: {
     theme?: string;
@@ -358,9 +358,9 @@ export interface AIGenerationPrompt {
   subject: string;
   topic: string;
   keyStage: KeyStage;
-  learningObjectives: string: any: any: any[];
-  targetLearningStyles?: LearningStyle: any: any: any[];
-  senSupport?: SENCategory: any: any: any[];
+  learningObjectives: string[];
+  targetLearningStyles?: LearningStyle[];
+  senSupport?: SENCategory[];
   difficulty?: 'beginner' | 'intermediate' | 'advanced';
   duration?: number; // in minutes
   additionalInstructions?: string;
@@ -387,18 +387,18 @@ export interface ContentSharingInvitation {
  * Content library filter interface
  */
 export interface ContentLibraryFilter {
-  contentTypes?: ContentType: any: any: any[];
-  keyStages?: KeyStage: any: any: any[];
-  subjects?: string: any: any: any[];
-  topics?: string: any: any: any[];
-  learningStyles?: LearningStyle: any: any: any[];
-  senCategories?: SENCategory: any: any: any[];
+  contentTypes?: ContentType[];
+  keyStages?: KeyStage[];
+  subjects?: string[];
+  topics?: string[];
+  learningStyles?: LearningStyle[];
+  senCategories?: SENCategory[];
   dateRange?: {
     start: Date;
     end: Date;
   };
-  authors?: string: any: any: any[];
-  permissions?: ContentPermission: any: any: any[];
+  authors?: string[];
+  permissions?: ContentPermission[];
   isPublished?: boolean;
   searchTerm?: string;
   sortBy?: 'title' | 'createdAt' | 'updatedAt' | 'rating';

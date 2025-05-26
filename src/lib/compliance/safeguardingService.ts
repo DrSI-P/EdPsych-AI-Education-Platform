@@ -57,7 +57,7 @@ export class SafeguardingServiceImpl implements SafeguardingService {
     concernType: SafeguardingConcernType;
     description: string;
     reportedBy: string;
-    involvedUsers?: string: any: any: any[];
+    involvedUsers?: string[];
     contentReference?: string;
   }): Promise<string> {
     console.log(`Reporting safeguarding concern: ${concern.concernType}`);
@@ -180,7 +180,7 @@ export class SafeguardingServiceImpl implements SafeguardingService {
       severity: 'low' | 'medium' | 'high';
       detectionDate: Date;
     }>;
-    recommendedActions: string: any: any: any[];
+    recommendedActions: string[];
   }> {
     console.log(`Monitoring user activity for: ${userId}`);
     
@@ -324,7 +324,7 @@ export class SafeguardingServiceImpl implements SafeguardingService {
     indicator: string;
     severity: 'low' | 'medium' | 'high';
     detectionDate: Date;
-  }>): string: any[] {
+  }>): string[] {
     // Count indicators by severity
     const severityCounts = {
       low: 0,
@@ -336,7 +336,7 @@ export class SafeguardingServiceImpl implements SafeguardingService {
       severityCounts[indicator.severity]++;
     }
     
-    const recommendedActions: string: any[] = [];
+    const recommendedActions: string[] = [];
     
     // Generate recommendations based on severity counts
     if (severityCounts.high > 0) {

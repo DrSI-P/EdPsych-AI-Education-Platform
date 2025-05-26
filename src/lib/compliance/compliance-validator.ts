@@ -20,15 +20,15 @@ export interface ComplianceValidationResult {
 export interface ValidationSummary {
   gdpr: {
     passed: boolean;
-    results: ComplianceValidationResult: any: any: any[];
+    results: ComplianceValidationResult[];
   };
   blockchain: {
     passed: boolean;
-    results: ComplianceValidationResult: any: any: any[];
+    results: ComplianceValidationResult[];
   };
   copyright: {
     passed: boolean;
-    results: ComplianceValidationResult: any: any: any[];
+    results: ComplianceValidationResult[];
   };
 }
 
@@ -40,7 +40,7 @@ export class ComplianceValidator {
    * Validate GDPR compliance across the platform
    */
   static async validateGDPRCompliance(): Promise<ComplianceValidationResult[]> {
-    const results: ComplianceValidationResult: any[] = [];
+    const results: ComplianceValidationResult[] = [];
     
     // Check consent mechanisms
     const consentResult = await this.validateConsentMechanisms();
@@ -77,7 +77,7 @@ export class ComplianceValidator {
    * Validate blockchain integrity and validation mechanisms
    */
   static async validateBlockchainIntegrity(): Promise<ComplianceValidationResult[]> {
-    const results: ComplianceValidationResult: any[] = [];
+    const results: ComplianceValidationResult[] = [];
     
     // Check blockchain validation mechanisms
     const validationResult = await this.validateBlockchainValidationMechanisms();
@@ -98,7 +98,7 @@ export class ComplianceValidator {
    * Validate copyright protection mechanisms
    */
   static async validateCopyrightProtection(): Promise<ComplianceValidationResult[]> {
-    const results: ComplianceValidationResult: any[] = [];
+    const results: ComplianceValidationResult[] = [];
     
     // Check content attribution
     const attributionResult = await this.validateContentAttribution();

@@ -12,9 +12,9 @@ interface Question {
   id: string;
   type: string;
   content: string;
-  options?: any: any: any[];
-  items?: any: any: any[];
-  allowedFileTypes?: string: any: any: any[];
+  options?: any: any[];
+  items?: any: any[];
+  allowedFileTypes?: string[];
   maxFileSize?: number;
   wordLimit?: number;
   points: number;
@@ -33,7 +33,7 @@ interface Assessment {
   randomizeQuestions: boolean;
   allowRetakes: boolean;
   status: string;
-  questions: Question: any: any: any[];
+  questions: Question[];
   createdById: string;
   createdAt: string;
   updatedAt: string;

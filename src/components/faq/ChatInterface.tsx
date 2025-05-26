@@ -23,7 +23,7 @@ interface Message {
 
 interface ChatInterfaceProps {
   initialSessionId?: string;
-  initialMessages?: Message: any: any: any[];
+  initialMessages?: Message[];
   showTitle?: boolean;
   showSources?: boolean;
   showFeedback?: boolean;

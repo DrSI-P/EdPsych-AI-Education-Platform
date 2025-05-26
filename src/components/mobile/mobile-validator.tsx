@@ -18,7 +18,7 @@ export interface AccessibilityValidationResults {
   colorIndependence: 'pass' | 'fail' | 'warning';
   motionReduction: 'pass' | 'fail' | 'warning';
   overallScore: number; // 0-100
-  issues: AccessibilityIssue: any: any: any[];
+  issues: AccessibilityIssue[];
 }
 
 export interface AccessibilityIssue {
@@ -122,7 +122,7 @@ export interface UserExperienceValidationResults {
   offlineSupport: 'excellent' | 'good' | 'average' | 'poor';
   touchResponsiveness: 'excellent' | 'good' | 'average' | 'poor';
   overallScore: number; // 0-100
-  issues: UserExperienceIssue: any: any: any[];
+  issues: UserExperienceIssue[];
 }
 
 export interface UserExperienceIssue {
@@ -403,14 +403,14 @@ export interface DeviceCompatibilityResults {
     edge: 'compatible' | 'partially_compatible' | 'not_compatible';
   };
   overallScore: number; // 0-100
-  issues: DeviceCompatibilityIssue: any: any: any[];
+  issues: DeviceCompatibilityIssue[];
 }
 
 export interface DeviceCompatibilityIssue {
   type: string;
   description: string;
   severity: 'critical' | 'serious' | 'moderate' | 'minor';
-  affectedDevices: string: any: any: any[];
+  affectedDevices: string[];
   recommendation: string;
 }
 

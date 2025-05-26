@@ -79,7 +79,7 @@ export async function GET(request: Request) {
       title: string;
       date: string;
       duration: string;
-      participants: string: any: any: any[];
+      participants: string[];
       location: string;
       agenda?: string;
       emotionalFocus: string;
