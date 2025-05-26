@@ -203,7 +203,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
   const createAdaptiveQuest = (
     userProfile: any, 
     learningHistory: any[], 
-    assessmentResults[], 
+    assessmentResults: any[], 
     params: GenerationParams,
     curriculumContext: any
   ): Quest => {
