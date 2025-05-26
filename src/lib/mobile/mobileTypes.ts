@@ -143,7 +143,7 @@ export interface PushNotification {
   clicked: boolean;
   clickedAt?: Date;
   priority: 'high' | 'normal' | 'low';
-  channels[]; // e.g., 'assessment', 'collaboration', 'system'
+  channels: any[]; // e.g., 'assessment', 'collaboration', 'system'
   userId: string;
   deviceId?: string; // If targeted to a specific device
 }
@@ -191,7 +191,7 @@ export interface MobileSettings {
     enabled: boolean;
     maxStorageSize: number; // in MB
     autoDownloadContent: boolean;
-    contentTypes[]; // Types of content to cache
+    contentTypes: any[]; // Types of content to cache
     syncOnWifiOnly: boolean;
   };
   dataUsage: {
@@ -223,7 +223,7 @@ export interface NavigationHistoryItem {
 export interface NavigationHistory {
   userId: string;
   deviceId: string;
-  items[];
+  items: any[];
   currentIndex: number;
   lastUpdated: Date;
 }
@@ -334,7 +334,7 @@ export interface MobileFeatureFlags {
       rolloutPercentage: number; // 0-100
       validFrom?: Date;
       validTo?: Date;
-      targetGroups?: string[]; // e.g., 'beta-testers', 'teachers', 'students'
+      targetGroups?: string: any[]; // e.g., 'beta-testers', 'teachers', 'students'
     };
   };
   lastUpdated: Date;
