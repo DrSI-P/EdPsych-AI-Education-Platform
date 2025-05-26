@@ -418,154 +418,148 @@ export function EmotionalCheckin() {
             <div>
               <h3 className="text-lg font-medium mb-4">Suggested Strategies</h3>
               <p className="text-sm text-muted-foreground mb-4">
-                Based on your check-in, here are some strategies that might help you manage your feelings:
+                Here are some strategies that might help you manage your feelings. Select the ones you'd like to try:
               </p>
               
               <div className="space-y-3">
                 {suggestedStrategies.map((strategy, index) => (
                   <div 
-                    key={index} 
-                    className="flex items-start p-3 border rounded-md hover:bg-accent cursor-pointer"
+                    key={index}
+                    className="flex items-start p-3 border rounded-md hover:bg-muted/50 cursor-pointer"
                     onClick={() => {
-                      saveSelectedStrategies([strategy]);
+                      const isSelected = checkinData.strategies.includes(strategy);
+                      if (isSelected) {
+                        setCheckinData(prev => ({
+                          ...prev,
+                          strategies: prev.strategies.filter(s => s !== strategy)
+                        }));
+                      } else {
+                        setCheckinData(prev => ({
+                          ...prev,
+                          strategies: [...prev.strategies, strategy]
+                        }));
+                      }
                     }}
                   >
-                    <div className="h-6 w-6 rounded-full bg-primary text-primary-foreground flex items-centre justify-centre mr-3 shrink-0">
-                      <span>{index + 1}</span>
+                    <input 
+                      type="checkbox" 
+                      checked={checkinData.strategies.includes(strategy)}
+                      onChange={() => {}}
+                      className="mr-3 mt-1"
+                    />
+                    <div>
+                      <p>{strategy}</p>
                     </div>
-                    <p>{strategy}</p>
                   </div>
                 ))}
               </div>
-              
+            </div>
+            
+            {historicalPatterns && (
               <div className="mt-6">
-                <Button 
-                  variant="outline" 
-                  onClick={() => saveSelectedStrategies([])}
-                  className="w-full"
-                >
-                  Skip for now
-                </Button>
+                <Tabs defaultValue="patterns">
+                  <TabsList className="w-full">
+                    <TabsTrigger value="patterns" className="flex-1">Patterns</TabsTrigger>
+                    <TabsTrigger value="strategies" className="flex-1">Effective Strategies</TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="patterns" className="mt-4">
+                    <div className="space-y-4">
+                      <div>
+                        <h4 className="text-sm font-medium mb-2">Recent Moods</h4>
+                        <div className="flex gap-2">
+                          {historicalPatterns.recentMoods.map((item, i) => (
+                            <Badge key={i} variant="outline">
+                              {item.mood} ({item.count})
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-medium mb-2">Common Triggers</h4>
+                        <div className="flex gap-2">
+                          {historicalPatterns.commonTriggers.map((item, i) => (
+                            <Badge key={i} variant="outline">
+                              {item.trigger} ({item.count})
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </TabsContent>
+                  <TabsContent value="strategies" className="mt-4">
+                    <div className="space-y-4">
+                      {historicalPatterns.effectiveStrategies.map((strategy, i) => (
+                        <div key={i} className="flex justify-between items-centre">
+                          <span>{strategy.strategy}</span>
+                          <div className="flex items-centre">
+                            <div className="w-24 h-2 bg-muted rounded-full overflow-hidden mr-2">
+                              <div 
+                                className="h-full bg-primary" 
+                                style={{ width: `${strategy.effectiveness}%` }}
+                              ></div>
+                            </div>
+                            <span className="text-xs">{strategy.effectiveness}%</span>
+                          </div>
+                        </div>
+                      ))}
+                      <p className="text-xs text-muted-foreground mt-2">
+                        Based on your previous check-ins and feedback
+                      </p>
+                    </div>
+                  </TabsContent>
+                </Tabs>
               </div>
+            )}
+            
+            <div className="flex justify-between mt-6">
+              <Button variant="outline" onClick={() => setStep(3)}>Back</Button>
+              <Button 
+                onClick={() => saveSelectedStrategies(checkinData.strategies)}
+                disabled={checkinData.strategies.length === 0}
+              >
+                Save and Finish
+              </Button>
             </div>
           </div>
         );
       
       case 5:
         return (
-          <div className="space-y-6">
-            <div className="text-centre py-8">
-              <h3 className="text-xl font-medium mb-2">Thank you for checking in!</h3>
-              <p className="text-muted-foreground mb-6">
-                Regular emotional check-ins help you understand and manage your feelings better.
-              </p>
-              
-              {historicalPatterns && (
-                <div className="space-y-6 mt-8">
-                  <h4 className="text-lg font-medium">Your Emotional Patterns</h4>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="text-base">Recent Moods</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-2">
-                          {historicalPatterns.recentMoods.map((item: {mood: string, count: number}, index: number) => (
-                            <div key={index} className="flex justify-between items-centre">
-                              <span>{item.mood}</span>
-                              <div className="flex items-centre">
-                                {Array.from({length: item.count}).map((_, i) => (
-                                  <div key={i} className="h-3 w-3 rounded-full bg-primary ml-1"></div>
-                                ))}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-                    
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="text-base">Common Triggers</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-2">
-                          {historicalPatterns.commonTriggers.map((item: {trigger: string, count: number}, index: number) => (
-                            <div key={index} className="flex justify-between items-centre">
-                              <span>{item.trigger}</span>
-                              <span className="text-muted-foreground">{item.count} times</span>
-                            </div>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                  
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="text-base">Most Effective Strategies</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-3">
-                        {historicalPatterns.effectiveStrategies.map((item: {strategy: string, effectiveness: number}, index: number) => (
-                          <div key={index} className="space-y-1">
-                            <div className="flex justify-between items-centre">
-                              <span>{item.strategy}</span>
-                              <span className="text-muted-foreground">{item.effectiveness}% effective</span>
-                            </div>
-                            <div className="w-full bg-muted rounded-full h-2">
-                              <div 
-                                className="bg-primary h-2 rounded-full" 
-                                style={{ width: `${item.effectiveness}%` }}
-                              ></div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              )}
-              
-              <Button 
-                onClick={() => {
-                  setStep(1);
-                  setCheckinData({
-                    mood: '',
-                    intensity: 5,
-                    notes: '',
-                    triggers: [],
-                    strategies: []
-                  });
-                  setSelectedTriggers([]);
-                  setSuggestedStrategies([]);
-                }}
-                className="mt-8"
-              >
-                New Check-in
-              </Button>
+          <div className="text-centre py-8">
+            <div className="inline-flex items-centre justify-centre rounded-full p-4 bg-green-100 text-green-600 mb-4">
+              <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
             </div>
+            <h3 className="text-xl font-medium mb-2">Check-in Complete!</h3>
+            <p className="text-muted-foreground mb-6">
+              Thank you for sharing how you're feeling. Your check-in has been saved.
+            </p>
+            <Button onClick={() => {
+              setCheckinData({
+                mood: '',
+                intensity: 5,
+                notes: '',
+                triggers: [],
+                strategies: []
+              });
+              setSelectedTriggers([]);
+              setSuggestedStrategies([]);
+              setHistoricalPatterns(null);
+              setStep(1);
+            }}>
+              Start New Check-in
+            </Button>
           </div>
         );
       
       default:
-        return (
-          <div className="text-centre py-8">
-            <p>Something went wrong. Please try again.</p>
-            <Button 
-              onClick={() => setStep(1)}
-              className="mt-4"
-            >
-              Start Over
-            </Button>
-          </div>
-        );
+        return null;
     }
   };
 
   return (
-    <Card className="w-full max-w-3xl mx-auto">
+    <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
         <CardTitle>Emotional Check-in</CardTitle>
         <CardDescription>

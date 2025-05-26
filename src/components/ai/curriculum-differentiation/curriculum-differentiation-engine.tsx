@@ -30,7 +30,7 @@ interface CurriculumDifferentiationEngineProps {
   subject?: string;
   keyStage?: string;
   year?: string;
-  onDifferentiationGenerated?: (differentiatedContent) => void;
+  onDifferentiationGenerated?: (differentiatedContent: any) => void;
   className?: string;
 }
 
@@ -158,7 +158,7 @@ export default function CurriculumDifferentiationEngine({
   const renderLearningStyleContent = (style: string) => {
     if (!differentiatedContent) return null;
     
-    const contentMap: {[key: string]} = {
+    const contentMap: {[key: string]: any} = {
       visual: differentiatedContent.visual,
       auditory: differentiatedContent.auditory,
       kinesthetic: differentiatedContent.kinesthetic,
@@ -429,66 +429,30 @@ export default function CurriculumDifferentiationEngine({
                 </TabsTrigger>
               </TabsList>
               
-              <div className="mt-4 border rounded-md p-4">
-                <div className="flex items-centre gap-2 mb-4">
-                  {activeTab === 'visual' && (
-                    <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
-                      Visual Learners
-                    </Badge>
-                  )}
-                  {activeTab === 'auditory' && (
-                    <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">
-                      Auditory Learners
-                    </Badge>
-                  )}
-                  {activeTab === 'kinesthetic' && (
-                    <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                      Kinesthetic Learners
-                    </Badge>
-                  )}
-                  {activeTab === 'readingWriting' && (
-                    <Badge variant="outline" className="bg-amber-50 text-amber-700 border-amber-200">
-                      Reading/Writing Learners
-                    </Badge>
-                  )}
-                </div>
-                
-                <TabsContent value="visual">
-                  {renderLearningStyleContent('visual')}
-                </TabsContent>
-                
-                <TabsContent value="auditory">
-                  {renderLearningStyleContent('auditory')}
-                </TabsContent>
-                
-                <TabsContent value="kinesthetic">
-                  {renderLearningStyleContent('kinesthetic')}
-                </TabsContent>
-                
-                <TabsContent value="readingWriting">
-                  {renderLearningStyleContent('readingWriting')}
-                </TabsContent>
-              </div>
+              <TabsContent value="visual" className="mt-4">
+                {renderLearningStyleContent('visual')}
+              </TabsContent>
+              
+              <TabsContent value="auditory" className="mt-4">
+                {renderLearningStyleContent('auditory')}
+              </TabsContent>
+              
+              <TabsContent value="kinesthetic" className="mt-4">
+                {renderLearningStyleContent('kinesthetic')}
+              </TabsContent>
+              
+              <TabsContent value="readingWriting" className="mt-4">
+                {renderLearningStyleContent('readingWriting')}
+              </TabsContent>
             </Tabs>
           </CardContent>
           
           <CardFooter className="flex justify-between border-t pt-4">
-            <div className="flex items-centre gap-2">
-              <Button variant="outline" size="sm" onClick={() => setDifferentiatedContent(null)}>
-                Reset
-              </Button>
-            </div>
-            <Button 
-              variant="default" 
-              size="sm"
-              onClick={() => {
-                toast({
-                  title: "Differentiation saved",
-                  description: "The differentiated curriculum has been saved to your account.",
-                });
-              }}
-            >
-              Save Differentiation
+            <Button variant="outline">
+              Download as PDF
+            </Button>
+            <Button>
+              Save to Curriculum
             </Button>
           </CardFooter>
         </Card>
