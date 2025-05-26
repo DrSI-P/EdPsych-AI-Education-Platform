@@ -58,8 +58,8 @@ interface CurriculumValidationResult {
     info: number;
   };
   score: number; // 0-100
-  issues: CurriculumIssue: any[];
-  passedChecks: string: any[];
+  issues: CurriculumIssue[];
+  passedChecks: string[];
 }
 
 interface MultilingualCurriculumValidatorProps {
@@ -75,7 +75,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
 }) => {
   const { t, currentLanguage } = useI18n();
   const [isValidating, setIsValidating] = useState(false);
-  const [results, setResults] = useState<CurriculumValidationResult: any[]>([]);
+  const [results, setResults] = useState<CurriculumValidationResult[]>([]);
   const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage>(currentLanguage);
   const [overallScore, setOverallScore] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
@@ -106,7 +106,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
       setError(null);
       
       const enabledLanguages = i18nService.getEnabledLanguages();
-      const validationResults: CurriculumValidationResult: any[] = [];
+      const validationResults: CurriculumValidationResult[] = [];
       
       // In a real implementation, this would perform actual validation
       // For now, we'll use mock data
@@ -144,7 +144,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
     const score = Math.max(0, Math.min(100, 100 - (errorCount * 15) - (warningCount * 5)));
     
     // Generate mock issues
-    const issues: CurriculumIssue: any[] = [];
+    const issues: CurriculumIssue[] = [];
     
     // Add Welsh-specific issues if applicable (Welsh language has specific curriculum requirements)
     if (isWelsh) {

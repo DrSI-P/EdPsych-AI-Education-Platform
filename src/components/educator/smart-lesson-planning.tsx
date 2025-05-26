@@ -24,7 +24,7 @@ interface LessonPlanTemplate {
   content: string;
 }
 
-const lessonPlanTemplates: LessonPlanTemplate: any[] = [
+const lessonPlanTemplates: LessonPlanTemplate[] = [
   {
     id: "1",
     name: "Literacy Hour",
@@ -77,7 +77,7 @@ export function SmartLessonPlanning() {
   const [assessment, setAssessment] = useState("");
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
   const [selectedStandards, setSelectedStandards] = useState<string[]>([]);
-  const [selectedDifferentiation, setSelectedDifferentiation] = useState<string: any[]>([]);
+  const [selectedDifferentiation, setSelectedDifferentiation] = useState<string[]>([]);
   const [generatedPlan, setGeneratedPlan] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   

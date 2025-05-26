@@ -8,7 +8,7 @@ import { AIAvatarVideo, AIAvatarVideoCategory, AIAvatarVideoAudience } from './t
  */
 export class AIAvatarVideoService {
   private static instance: AIAvatarVideoService;
-  private videos: AIAvatarVideo: any[] = [];
+  private videos: AIAvatarVideo[] = [];
   private initialized: boolean = false;
 
   private constructor() {}
@@ -43,22 +43,22 @@ export class AIAvatarVideoService {
     return video;
   }
 
-  public async getVideosByCategory(category: AIAvatarVideoCategory): Promise<AIAvatarVideo: any[]> {
+  public async getVideosByCategory(category: AIAvatarVideoCategory): Promise<AIAvatarVideo[]> {
     await this.ensureInitialized();
     return this.videos.filter(v => v.category === category);
   }
 
-  public async getVideosByAudience(audience: AIAvatarVideoAudience): Promise<AIAvatarVideo: any[]> {
+  public async getVideosByAudience(audience: AIAvatarVideoAudience): Promise<AIAvatarVideo[]> {
     await this.ensureInitialized();
     return this.videos.filter(v => v.audience === audience);
   }
 
-  public async getFeaturedVideos(): Promise<AIAvatarVideo: any[]> {
+  public async getFeaturedVideos(): Promise<AIAvatarVideo[]> {
     await this.ensureInitialized();
     return this.videos.filter(v => v.featured);
   }
 
-  public async searchVideos(query: string): Promise<AIAvatarVideo: any[]> {
+  public async searchVideos(query: string): Promise<AIAvatarVideo[]> {
     await this.ensureInitialized();
     const lowerQuery = query.toLowerCase();
     return this.videos.filter(v => 
@@ -68,7 +68,7 @@ export class AIAvatarVideoService {
     );
   }
 
-  public async getAllVideos(): Promise<AIAvatarVideo: any[]> {
+  public async getAllVideos(): Promise<AIAvatarVideo[]> {
     await this.ensureInitialized();
     return [...this.videos];
   }
@@ -79,7 +79,7 @@ export class AIAvatarVideoService {
     }
   }
 
-  private async loadVideoMetadata(): Promise<AIAvatarVideo: any[]> {
+  private async loadVideoMetadata(): Promise<AIAvatarVideo[]> {
     // In production, this would fetch from an API or database
     // For now, we'll return our predefined video metadata
     return [

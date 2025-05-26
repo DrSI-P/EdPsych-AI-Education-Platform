@@ -42,15 +42,15 @@ interface LearningProfile {
   id: string;
   name: string;
   learningStyle: string;
-  strengths: string: any[];
-  challenges: string: any[];
+  strengths: string[];
+  challenges: string[];
   preferences: {
     visual: number;
     auditory: number;
     kinesthetic: number;
     reading: number;
   };
-  accommodations: string: any[];
+  accommodations: string[];
 }
 
 interface Intervention {
@@ -58,8 +58,8 @@ interface Intervention {
   name: string;
   description: string;
   targetArea: string;
-  strategies: string: any[];
-  resources: string: any[];
+  strategies: string[];
+  resources: string[];
   duration: string;
   frequency: string;
   progress: number;
@@ -95,7 +95,7 @@ export function PersonalizedInterventionsEngine() {
   const [activeTab, setActiveTab] = useState('profiles');
   
   // Sample learning profiles
-  const learningProfiles: LearningProfile: any[] = [
+  const learningProfiles: LearningProfile[] = [
     {
       id: 'profile1',
       name: 'Visual Learner Profile',
@@ -156,7 +156,7 @@ export function PersonalizedInterventionsEngine() {
   ];
   
   // Sample interventions
-  const sampleInterventions: Intervention: any[] = [
+  const sampleInterventions: Intervention[] = [
     {
       id: 'int1',
       name: 'Reading Comprehension Enhancement',

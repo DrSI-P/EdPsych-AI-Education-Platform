@@ -34,7 +34,7 @@ interface Resource {
   type: 'document' | 'video' | 'audio' | 'link' | 'worksheet';
   url?: string;
   file?: string;
-  tags: string: any[];
+  tags: string[];
   ageRange: string;
   subject: string;
   curriculum: string;
@@ -64,7 +64,7 @@ export function ContextualResourceRecommendation({
   
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const [recommendedResources, setRecommendedResources] = useState<Resource: any[]>([]);
+  const [recommendedResources, setRecommendedResources] = useState<Resource[]>([]);
   const [activeTab, setActiveTab] = useState('recommended');
   const [manualQuery, setManualQuery] = useState('');
   const [showExplanations, setShowExplanations] = useState(true);
@@ -99,7 +99,7 @@ export function ContextualResourceRecommendation({
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       // Generate mock recommendations based on context
-      let mockRecommendations: Resource: any[] = [];
+      let mockRecommendations: Resource[] = [];
       
       if (contextSource === 'lesson-plan') {
         mockRecommendations = generateLessonPlanRecommendations();
@@ -126,7 +126,7 @@ export function ContextualResourceRecommendation({
   };
   
   // Generate mock recommendations for lesson plans
-  const generateLessonPlanRecommendations = (): Resource: any: any[] => {
+  const generateLessonPlanRecommendations = (): Resource[] => {
     // Extract context from contextContent or use default
     const context = contextContent || 'Mathematics lesson on fractions for Year 5 students';
     
@@ -196,7 +196,7 @@ export function ContextualResourceRecommendation({
   };
   
   // Generate mock recommendations for meeting notes
-  const generateMeetingNotesRecommendations = (): Resource: any: any[] => {
+  const generateMeetingNotesRecommendations = (): Resource[] => {
     // Extract context from contextContent or use default
     const context = contextContent || 'EHCNA meeting discussing communication difficulties and social interaction challenges';
     
@@ -251,7 +251,7 @@ export function ContextualResourceRecommendation({
   };
   
   // Generate mock recommendations for student profiles
-  const generateStudentProfileRecommendations = (): Resource: any: any[] => {
+  const generateStudentProfileRecommendations = (): Resource[] => {
     // Extract context from contextContent or use default
     const context = contextContent || 'Year 8 student with dyslexia who enjoys science and has strengths in verbal reasoning';
     
@@ -306,7 +306,7 @@ export function ContextualResourceRecommendation({
   };
   
   // Generate mock recommendations for manual queries
-  const generateManualQueryRecommendations = (): Resource: any: any[] => {
+  const generateManualQueryRecommendations = (): Resource[] => {
     // For demo purposes, we'll return mock data based on the query
     const query = manualQuery.toLowerCase();
     

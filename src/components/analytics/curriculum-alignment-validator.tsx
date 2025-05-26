@@ -11,7 +11,7 @@ import { DashboardConfig } from '@/lib/analytics/types';
 
 interface CurriculumAlignmentValidatorProps {
   dashboard: DashboardConfig;
-  onFixIssues?: (issues: CurriculumAlignmentIssue: any[]) => void;
+  onFixIssues?: (issues: CurriculumAlignmentIssue[]) => void;
 }
 
 export interface CurriculumAlignmentIssue {
@@ -30,7 +30,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
   const [isValidating, setIsValidating] = useState(false);
   const [validationComplete, setValidationComplete] = useState(false);
   const [alignmentScore, setAlignmentScore] = useState(0);
-  const [issues, setIssues] = useState<CurriculumAlignmentIssue: any[]>([]);
+  const [issues, setIssues] = useState<CurriculumAlignmentIssue[]>([]);
   const [validationResults, setValidationResults] = useState<{
     keyStageAlignment: number;
     subjectCoverage: number;
@@ -50,7 +50,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
     // Simulate validation process
     setTimeout(() => {
       // This would be replaced with actual validation logic in a real implementation
-      const mockIssues: CurriculumAlignmentIssue: any[] = [];
+      const mockIssues: CurriculumAlignmentIssue[] = [];
       
       // Check for missing curriculum metadata
       dashboard.widgets.forEach(widget => {

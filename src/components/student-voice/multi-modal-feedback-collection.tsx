@@ -114,8 +114,8 @@ export default function MultiModalFeedbackCollection() {
   const [selectedLanguage, setSelectedLanguage] = useState('en');
   const [translatedText, setTranslatedText] = useState('');
   const [isTranslating, setIsTranslating] = useState(false);
-  const [feedbackEntries, setFeedbackEntries] = useState<FeedbackEntry: any[]>([]);
-  const [transcriptionHistory, setTranscriptionHistory] = useState<TranscriptionEntry: any[]>([]);
+  const [feedbackEntries, setFeedbackEntries] = useState<FeedbackEntry[]>([]);
+  const [transcriptionHistory, setTranscriptionHistory] = useState<TranscriptionEntry[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showTranslation, setShowTranslation] = useState(false);
   
@@ -146,7 +146,7 @@ export default function MultiModalFeedbackCollection() {
   // Load mock data on component mount
   useEffect(() => {
     // Mock feedback entries
-    const mockFeedbackEntries: FeedbackEntry: any[] = [
+    const mockFeedbackEntries: FeedbackEntry[] = [
       {
         id: '1',
         studentName: 'Anonymous',
@@ -201,7 +201,7 @@ export default function MultiModalFeedbackCollection() {
     ];
     
     // Mock transcription history
-    const mockTranscriptionHistory: TranscriptionEntry: any[] = [
+    const mockTranscriptionHistory: TranscriptionEntry[] = [
       {
         id: '1',
         originalText: 'Today we will learn about photosynthesis and how plants convert sunlight into energy.',

@@ -29,13 +29,13 @@ interface ParentResource {
   title: string;
   description: string;
   category: ResourceCategory;
-  ageGroups: AgeGroup: any[];
+  ageGroups: AgeGroup[];
   difficultyLevel: DifficultyLevel;
   content: string;
   videoUrl?: string;
   downloadUrl?: string;
   estimatedTime?: string;
-  tags: string: any[];
+  tags: string[];
   isFavorite: boolean;
 }
 
@@ -43,7 +43,7 @@ interface Module {
   id: string;
   title: string;
   description: string;
-  lessons: Lesson: any[];
+  lessons: Lesson[];
   completed: boolean;
   progress: number;
 }
@@ -61,16 +61,16 @@ interface FamilyActivity {
   id: string;
   title: string;
   description: string;
-  ageGroups: AgeGroup: any[];
-  materials: string: any[];
-  steps: string: any[];
-  tips: string: any[];
+  ageGroups: AgeGroup[];
+  materials: string[];
+  steps: string[];
+  tips: string[];
   estimatedTime: string;
   isFavorite: boolean;
 }
 
 // Mock data for parent resources
-const mockResources: ParentResource: any[] = [
+const mockResources: ParentResource[] = [
   {
     id: '1',
     title: 'Introduction to Restorative Approaches at Home',
@@ -212,7 +212,7 @@ const mockResources: ParentResource: any[] = [
 ];
 
 // Mock data for learning modules
-const mockModules: Module: any[] = [
+const mockModules: Module[] = [
   {
     id: '1',
     title: 'Foundations of Restorative Parenting',
@@ -282,7 +282,7 @@ const mockModules: Module: any[] = [
 ];
 
 // Mock data for family activities
-const mockActivities: FamilyActivity: any[] = [
+const mockActivities: FamilyActivity[] = [
   {
     id: '1',
     title: 'Family Circle Check-In',
@@ -334,9 +334,9 @@ const mockActivities: FamilyActivity: any[] = [
 ];
 
 export default function ParentEducationResources() {
-  const [resources, setResources] = useState<ParentResource: any[]>(mockResources);
-  const [modules, setModules] = useState<Module: any[]>(mockModules);
-  const [activities, setActivities] = useState<FamilyActivity: any[]>(mockActivities);
+  const [resources, setResources] = useState<ParentResource[]>(mockResources);
+  const [modules, setModules] = useState<Module[]>(mockModules);
+  const [activities, setActivities] = useState<FamilyActivity[]>(mockActivities);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedAgeGroup, setSelectedAgeGroup] = useState<string>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');

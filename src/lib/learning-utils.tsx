@@ -100,23 +100,23 @@ export interface LearningProfile {
   secondaryLearningStyle?: LearningStyle;
   learningPace: LearningPace;
   preferredDifficulty: DifficultyLevel;
-  interests: InterestCategory: any[];
+  interests: InterestCategory[];
   goals: {
     type: LearningGoalType;
     description: string;
     targetDate?: Date;
   }[];
-  strengths: string: any[];
-  areasForImprovement: string: any[];
+  strengths: string[];
+  areasForImprovement: string[];
   adaptations?: {
     dyslexia?: boolean;
     adhd?: boolean;
     visualImpairment?: boolean;
     hearingImpairment?: boolean;
     motorSkillChallenges?: boolean;
-    other?: string: any[];
+    other?: string[];
   };
-  preferredActivities: LearningActivityType: any[];
+  preferredActivities: LearningActivityType[];
   lastUpdated: Date;
 }
 
@@ -129,11 +129,11 @@ export interface LearningModule {
   description: string;
   difficulty: DifficultyLevel;
   estimatedDuration: number; // in minutes
-  prerequisites: string: any[];
-  learningOutcomes: string: any[];
-  keywords: string: any[];
-  categories: string: any[];
-  relatedInterests: InterestCategory: any[];
+  prerequisites: string[];
+  learningOutcomes: string[];
+  keywords: string[];
+  categories: string[];
+  relatedInterests: InterestCategory[];
   activities: {
     id: string;
     type: LearningActivityType;
@@ -149,10 +149,10 @@ export interface LearningModule {
     passingScore: number;
   }[];
   adaptiveContent: {
-    visual: string: any[];
-    auditory: string: any[];
-    readingWriting: string: any[];
-    kinesthetic: string: any[];
+    visual: string[];
+    auditory: string[];
+    readingWriting: string[];
+    kinesthetic: string[];
   };
 }
 
@@ -164,7 +164,7 @@ export interface ModuleProgress {
   moduleId: string;
   startDate: Date;
   lastAccessDate: Date;
-  completedActivities: string: any[];
+  completedActivities: string[];
   assessmentResults: {
     assessmentId: string;
     attempts: number;
@@ -209,8 +209,8 @@ export interface LearningRecommendation {
   reasonForRecommendation: string;
   difficulty: DifficultyLevel;
   estimatedDuration: number; // in minutes
-  matchesInterests: InterestCategory: any[];
-  matchesGoals: LearningGoalType: any[];
+  matchesInterests: InterestCategory[];
+  matchesGoals: LearningGoalType[];
   prerequisites: {
     moduleId: string;
     title: string;
@@ -244,7 +244,7 @@ export interface LearningStyleResult {
 }
 
 // Sample learning style assessment questions
-const LEARNING_STYLE_QUESTIONS: LearningStyleQuestion: any[] = [
+const LEARNING_STYLE_QUESTIONS: LearningStyleQuestion[] = [
   {
     id: 'q1',
     question: 'When learning a new skill, I prefer to:',
@@ -382,7 +382,7 @@ export const assessLearningStyle = (answers: Record<string, LearningStyle>): Lea
 /**
  * Get learning style assessment questions
  */
-export const getLearningStyleQuestions = (): LearningStyleQuestion: any: any[] => {
+export const getLearningStyleQuestions = (): LearningStyleQuestion[] => {
   return LEARNING_STYLE_QUESTIONS;
 };
 
@@ -463,12 +463,12 @@ export const trackModuleProgress = (
 export const getLearningRecommendations = (
   userId: string,
   count: number = 3
-): Promise<LearningRecommendation: any[]> => {
+): Promise<LearningRecommendation[]> => {
   // In a real implementation, this would query the database
   // For now, we'll simulate with a delay and return mock data
   return new Promise(resolve => {
     setTimeout(() => {
-      const recommendations: LearningRecommendation: any[] = [
+      const recommendations: LearningRecommendation[] = [
         {
           moduleId: 'module1',
           title: 'Introduction to Educational Psychology',
@@ -527,12 +527,12 @@ export const getLearningRecommendations = (
 /**
  * Get user achievements
  */
-export const getUserAchievements = (userId: string): Promise<Achievement: any[]> => {
+export const getUserAchievements = (userId: string): Promise<Achievement[]> => {
   // In a real implementation, this would query the database
   // For now, we'll simulate with a delay and return mock data
   return new Promise(resolve => {
     setTimeout(() => {
-      const achievements: Achievement: any[] = [
+      const achievements: Achievement[] = [
         {
           id: 'achievement1',
           title: 'First Steps',
@@ -741,14 +741,14 @@ export const getAdaptedContent = (
  * React hook for learning style assessment
  */
 export const useLearningStyleAssessment = (): {
-  questions: LearningStyleQuestion: any[];
+  questions: LearningStyleQuestion[];
   answers: Record<string, LearningStyle>;
   setAnswer: (questionId: string, style: LearningStyle) => void;
   result: LearningStyleResult | null;
   calculateResult: () => void;
   isComplete: boolean;
 } => {
-  const [questions] = useState<LearningStyleQuestion: any[]>(getLearningStyleQuestions());
+  const [questions] = useState<LearningStyleQuestion[]>(getLearningStyleQuestions());
   const [answers, setAnswers] = useState<Record<string, LearningStyle>>({});
   const [result, setResult] = useState<LearningStyleResult | null>(null);
   
@@ -866,12 +866,12 @@ export const useLearningRecommendations = (
   userId: string,
   count: number = 3
 ): {
-  recommendations: LearningRecommendation: any[];
+  recommendations: LearningRecommendation[];
   loading: boolean;
   error: string | null;
   refresh: () => Promise<void>;
 } => {
-  const [recommendations, setRecommendations] = useState<LearningRecommendation: any[]>([]);
+  const [recommendations, setRecommendations] = useState<LearningRecommendation[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   
@@ -907,12 +907,12 @@ export const useLearningRecommendations = (
 export const useAchievements = (
   userId: string
 ): {
-  achievements: Achievement: any[];
+  achievements: Achievement[];
   loading: boolean;
   error: string | null;
   refresh: () => Promise<void>;
 } => {
-  const [achievements, setAchievements] = useState<Achievement: any[]>([]);
+  const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   

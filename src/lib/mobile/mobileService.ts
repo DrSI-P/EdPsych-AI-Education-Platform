@@ -448,7 +448,7 @@ export class DeviceDetectionService {
 export class OfflineStorageService {
   private static instance: OfflineStorageService;
   private db: IDBDatabase | null = null;
-  private syncQueue: SyncQueueItem: any[] = [];
+  private syncQueue: SyncQueueItem[] = [];
   private isSyncing: boolean = false;
   private syncInterval: number = 30000; // 30 seconds
   private syncIntervalId: number | null = null;

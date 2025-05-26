@@ -105,14 +105,14 @@ export class I18nService {
   /**
    * Get all supported languages
    */
-  public getSupportedLanguages(): LanguageMetadata: any: any[] {
+  public getSupportedLanguages(): LanguageMetadata[] {
     return Array.from(this.languageMetadata.values());
   }
   
   /**
    * Get enabled languages
    */
-  public getEnabledLanguages(): LanguageMetadata: any: any[] {
+  public getEnabledLanguages(): LanguageMetadata[] {
     return Array.from(this.languageMetadata.values())
       .filter(lang => lang.isEnabled);
   }

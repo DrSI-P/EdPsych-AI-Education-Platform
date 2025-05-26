@@ -83,14 +83,14 @@ interface Quest {
   difficulty: string;
   duration: number;
   xpReward: number;
-  objectives: string: any[];
+  objectives: string[];
   challenges: Array<{
     id: string;
     title: string;
     description: string;
     content: string;
     type: string;
-    options?: string: any[];
+    options?: string[];
     correctAnswer?: string;
     minScore?: number;
   }>;
@@ -123,7 +123,7 @@ export const AdventureQuestSagaIntegrated = (): JSX.Element => {
   // State for quests
   const [quests, setQuests] = useState<Quest[]>([]);
   const [activeQuest, setActiveQuest] = useState<Quest | null>(null);
-  const [completedQuests, setCompletedQuests] = useState<CompletedQuest: any[]>([]);
+  const [completedQuests, setCompletedQuests] = useState<CompletedQuest[]>([]);
   
   // State for UI
   const [view, setView] = useState<'creation' | 'hub' | 'quest' | 'history' | 'generate' | 'character'>('hub');
@@ -208,7 +208,7 @@ export const AdventureQuestSagaIntegrated = (): JSX.Element => {
     }
     
     // Initialize quests
-    setQuests(mockQuests as Quest: any: any[]);
+    setQuests(mockQuests as Quest[]);
     
     // Initialize completed quests
     setCompletedQuests([

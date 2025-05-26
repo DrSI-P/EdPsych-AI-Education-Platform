@@ -40,7 +40,7 @@ interface LanguageOption {
   nativeName: string;
   flag: string;
   supportLevel: 'full' | 'partial' | 'machine';
-  availableFeatures: string: any[];
+  availableFeatures: string[];
 }
 
 interface TranslationExample {
@@ -79,7 +79,7 @@ export default function MultilingualSupportPage() {
   const [culturalSensitivityEnabled, setCulturalSensitivityEnabled] = useState(true);
   
   // Available languages
-  const languages: LanguageOption: any[] = [
+  const languages: LanguageOption[] = [
     {
       code: 'en-GB',
       name: 'English (UK)',
@@ -179,7 +179,7 @@ export default function MultilingualSupportPage() {
   ];
   
   // Translation examples
-  const translationExamples: TranslationExample: any[] = [
+  const translationExamples: TranslationExample[] = [
     {
       original: "Today we're going to learn about fractions and how they relate to everyday life.",
       translated: "Aujourd'hui, nous allons apprendre les fractions et comment elles se rapportent à la vie quotidienne.",

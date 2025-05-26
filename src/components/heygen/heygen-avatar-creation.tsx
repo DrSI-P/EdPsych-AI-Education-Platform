@@ -23,7 +23,7 @@ export const HeyGenAvatarCreation: React.FC = () => {
   const [avatarName, setAvatarName] = useState('Dr. Scott Avatar');
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
   const [selectedVoiceSample, setSelectedVoiceSample] = useState<File | null>(null);
-  const [previewUrls, setPreviewUrls] = useState<string: any[]>([]);
+  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
   const [voicePreviewUrl, setVoicePreviewUrl] = useState<string | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const [audioRecorder, setAudioRecorder] = useState<MediaRecorder | null>(null);
@@ -78,7 +78,7 @@ export const HeyGenAvatarCreation: React.FC = () => {
       const recorder = new MediaRecorder(stream);
       setAudioRecorder(recorder);
       
-      const chunks: Blob: any[] = [];
+      const chunks: Blob[] = [];
       recorder.ondataavailable = (e) => {
         chunks.push(e.data);
         setAudioChunks(chunks);

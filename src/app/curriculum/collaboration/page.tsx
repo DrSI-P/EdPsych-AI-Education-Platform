@@ -50,7 +50,7 @@ interface Plan {
   id: string;
   title: string;
   description: string;
-  tasks: Task: any[];
+  tasks: Task[];
 }
 
 interface CollaborationData {
@@ -60,8 +60,8 @@ interface CollaborationData {
   createdAt: string;
   updatedAt: string;
   createdBy: User;
-  collaborators: Collaborator: any[];
-  comments: Comment: any[];
+  collaborators: Collaborator[];
+  comments: Comment[];
   plan: Plan;
 }
 
@@ -153,7 +153,7 @@ export default function CollaborationPage() {
           comments: [
             {
               id: 'comment-1',
-              content: 'I've added some resources for the electricity unit in the shared folder.',
+              content: 'I\'ve added some resources for the electricity unit in the shared folder.',
               createdAt: '2025-05-08T09:15:00Z',
               author: {
                 id: 'user-2',
@@ -164,7 +164,7 @@ export default function CollaborationPage() {
             },
             {
               id: 'comment-2',
-              content: 'The practical experiment for the water cycle looks great! I've made some minor adjustments to make it more accessible.',
+              content: 'The practical experiment for the water cycle looks great! I\'ve made some minor adjustments to make it more accessible.',
               createdAt: '2025-05-09T14:30:00Z',
               author: {
                 id: 'user-1',
@@ -455,18 +455,15 @@ export default function CollaborationPage() {
                           <div className="text-xs text-muted-foreground">{collaborator.user.email}</div>
                         </div>
                       </div>
-                      <Badge variant={collaborator.role === 'owner' ? 'default' : 'outline'}>
-                        {collaborator.role.charAt(0).toUpperCase() + collaborator.role.slice(1)}
+                      <Badge variant={
+                        collaborator.role === 'owner' ? 'default' :
+                        collaborator.role === 'editor' ? 'secondary' :
+                        'outline'
+                      }>
+                        {collaborator.role}
                       </Badge>
                     </div>
                   ))}
-                  
-                  {canEdit && (
-                    <Button variant="outline" className="w-full mt-2">
-                      <Users className="h-4 w-4 mr-2" />
-                      Invite Collaborator
-                    </Button>
-                  )}
                 </div>
               </CardContent>
             </Card>
@@ -477,37 +474,33 @@ export default function CollaborationPage() {
           <Card>
             <CardHeader>
               <CardTitle>Discussion</CardTitle>
-              <CardDescription>Collaborate and share ideas with your team</CardDescription>
+              <CardDescription>Collaborate and share ideas</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
                 {comments.map(comment => (
                   <div key={comment.id} className="flex items-start">
-                    <div className="mr-4">
-                      <Avatar>
-                        <AvatarImage src={comment.author.image} alt={comment.author.name} />
-                        <AvatarFallback>{comment.author.name.charAt(0)}</AvatarFallback>
-                      </Avatar>
-                    </div>
+                    <Avatar className="h-10 w-10 mr-4">
+                      <AvatarImage src={comment.author.image} alt={comment.author.name} />
+                      <AvatarFallback>{comment.author.name.charAt(0)}</AvatarFallback>
+                    </Avatar>
                     <div className="flex-1">
-                      <div className="flex items-center">
+                      <div className="flex items-center justify-between">
                         <div className="font-medium">{comment.author.name}</div>
-                        <div className="text-xs text-muted-foreground ml-2">
+                        <div className="text-xs text-muted-foreground">
                           {new Date(comment.createdAt).toLocaleString()}
                         </div>
                       </div>
-                      <div className="mt-1">{comment.content}</div>
+                      <p className="mt-1">{comment.content}</p>
                     </div>
                   </div>
                 ))}
                 
                 <div className="pt-4 border-t">
                   <div className="flex items-start">
-                    <div className="mr-4">
-                      <Avatar>
-                        <AvatarFallback>{currentUser.name.charAt(0)}</AvatarFallback>
-                      </Avatar>
-                    </div>
+                    <Avatar className="h-10 w-10 mr-4">
+                      <AvatarFallback>{currentUser.name.charAt(0)}</AvatarFallback>
+                    </Avatar>
                     <div className="flex-1">
                       <Textarea
                         placeholder="Add a comment..."
@@ -515,10 +508,7 @@ export default function CollaborationPage() {
                         onChange={(e) => setNewComment(e.target.value)}
                         className="mb-2"
                       />
-                      <Button onClick={handleAddComment} disabled={!newComment.trim()}>
-                        <MessageSquare className="h-4 w-4 mr-2" />
-                        Post Comment
-                      </Button>
+                      <Button onClick={handleAddComment}>Post Comment</Button>
                     </div>
                   </div>
                 </div>
@@ -529,243 +519,191 @@ export default function CollaborationPage() {
         
         <TabsContent value="tasks">
           <Card>
-            <CardHeader>
-              <div className="flex justify-between items-center">
-                <div>
-                  <CardTitle>{plan.title}</CardTitle>
-                  <CardDescription>{plan.description}</CardDescription>
-                </div>
-                
-                {canEdit && (
-                  <Dialog open={isAddingTask} onOpenChange={setIsAddingTask}>
-                    <DialogTrigger asChild>
-                      <Button>
-                        <Plus className="h-4 w-4 mr-2" />
-                        Add Task
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>Add New Task</DialogTitle>
-                      </DialogHeader>
-                      <div className="space-y-4 py-4">
-                        <div>
-                          <label htmlFor="title" className="block text-sm font-medium mb-1">
-                            Task Title
-                          </label>
-                          <Input
-                            id="title"
-                            value={newTask.title}
-                            onChange={(e) => setNewTask({...newTask, title: e.target.value})}
-                            placeholder="Enter task title"
-                          />
-                        </div>
-                        
-                        <div>
-                          <label htmlFor="description" className="block text-sm font-medium mb-1">
-                            Description
-                          </label>
-                          <Textarea
-                            id="description"
-                            value={newTask.description}
-                            onChange={(e) => setNewTask({...newTask, description: e.target.value})}
-                            placeholder="Enter task description"
-                          />
-                        </div>
-                        
-                        <div>
-                          <label htmlFor="assignee" className="block text-sm font-medium mb-1">
-                            Assign To
-                          </label>
-                          <Select
-                            value={newTask.assignedToId}
-                            onValueChange={(value) => setNewTask({...newTask, assignedToId: value})}
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select assignee" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {collaborators.map(collaborator => (
-                                <SelectItem key={collaborator.userId} value={collaborator.userId}>
-                                  {collaborator.user.name}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        
-                        <div>
-                          <label htmlFor="dueDate" className="block text-sm font-medium mb-1">
-                            Due Date
-                          </label>
-                          <Popover>
-                            <PopoverTrigger asChild>
-                              <Button
-                                variant="outline"
-                                className="w-full justify-start text-left font-normal"
-                              >
-                                <CalendarIcon className="mr-2 h-4 w-4" />
-                                {newTask.dueDate ? format(newTask.dueDate, 'PPP') : <span>Pick a date</span>}
-                              </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0">
-                              <Calendar
-                                mode="single"
-                                selected={newTask.dueDate || undefined}
-                                onSelect={(date) => setNewTask({...newTask, dueDate: date})}
-                                initialFocus
-                              />
-                            </PopoverContent>
-                          </Popover>
-                        </div>
-                        
-                        <div className="flex justify-end space-x-2 pt-4">
-                          <Button variant="outline" onClick={() => setIsAddingTask(false)}>
-                            Cancel
-                          </Button>
-                          <Button onClick={handleAddTask} disabled={!newTask.title.trim()}>
-                            Add Task
-                          </Button>
-                        </div>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
-                )}
+            <CardHeader className="flex flex-row items-center justify-between">
+              <div>
+                <CardTitle>Tasks</CardTitle>
+                <CardDescription>Track and manage project tasks</CardDescription>
               </div>
+              {canEdit && (
+                <Button onClick={() => setIsAddingTask(true)} size="sm">
+                  <Plus className="mr-1 h-4 w-4" /> Add Task
+                </Button>
+              )}
             </CardHeader>
             <CardContent>
-              <div className="space-y-6">
+              <div className="space-y-4">
                 {tasks.length === 0 ? (
-                  <div className="text-center py-8">
-                    <p className="text-muted-foreground">No tasks yet</p>
-                    {canEdit && (
-                      <Button
-                        variant="outline"
-                        className="mt-4"
-                        onClick={() => setIsAddingTask(true)}
-                      >
-                        <Plus className="h-4 w-4 mr-2" />
-                        Add Your First Task
-                      </Button>
-                    )}
+                  <div className="text-center py-8 text-muted-foreground">
+                    No tasks yet. Add a task to get started.
                   </div>
                 ) : (
-                  <div className="space-y-6">
-                    {/* Pending Tasks */}
-                    <div>
-                      <h3 className="font-medium mb-3">Pending Tasks</h3>
-                      {tasks.filter(t => t.status === 'pending').length === 0 ? (
-                        <p className="text-sm text-muted-foreground">No pending tasks</p>
-                      ) : (
-                        tasks
-                          .filter(t => t.status === 'pending')
-                          .map((task) => (
-                            <div key={task.id} className="border rounded-lg p-4 mb-3">
-                              <div className="flex justify-between items-start">
-                                <div>
+                  <div>
+                    <h3 className="font-medium mb-2">Pending Tasks</h3>
+                    <div className="space-y-2">
+                      {tasks.filter(task => task.status === 'pending').map(task => (
+                        <Card key={task.id}>
+                          <CardContent className="p-4">
+                            <div className="flex items-start justify-between">
+                              <div className="flex-1">
+                                <div className="flex items-center">
+                                  <input
+                                    type="checkbox"
+                                    className="mr-2"
+                                    onChange={() => handleUpdateTaskStatus(task.id, 'completed')}
+                                  />
                                   <h4 className="font-medium">{task.title}</h4>
-                                  <p className="text-sm text-muted-foreground mt-1">{task.description}</p>
                                 </div>
-                                {canEdit && (
-                                  <Button
-                                    size="icon"
-                                    variant="ghost"
-                                    onClick={() => handleDeleteTask(task.id)}
-                                  >
-                                    <Trash2 className="h-4 w-4 text-muted-foreground" />
-                                  </Button>
-                                )}
+                                <p className="text-sm text-muted-foreground mt-1">{task.description}</p>
+                                <div className="flex items-center mt-2 text-xs text-muted-foreground">
+                                  {task.assignedTo && (
+                                    <div className="flex items-center mr-4">
+                                      <Users className="mr-1 h-3 w-3" />
+                                      {task.assignedTo.name}
+                                    </div>
+                                  )}
+                                  {task.dueDate && (
+                                    <div className="flex items-center">
+                                      <Clock className="mr-1 h-3 w-3" />
+                                      Due: {new Date(task.dueDate).toLocaleDateString()}
+                                    </div>
+                                  )}
+                                </div>
                               </div>
-                              <div className="flex flex-wrap items-center gap-2 mt-4">
-                                {task.assignedTo && (
-                                  <div className="flex items-center">
-                                    <Avatar className="h-6 w-6 mr-1">
-                                      <AvatarImage src={task.assignedTo.image} alt={task.assignedTo.name} />
-                                      <AvatarFallback>{task.assignedTo.name?.charAt(0) || 'U'}</AvatarFallback>
-                                    </Avatar>
-                                    <span className="text-xs">{task.assignedTo.name}</span>
-                                  </div>
-                                )}
-                                {task.dueDate && (
-                                  <Badge variant="outline" className="flex items-center">
-                                    <Clock className="h-3 w-3 mr-1" />
-                                    <span className="text-xs">
-                                      Due {new Date(task.dueDate).toLocaleDateString()}
-                                    </span>
-                                  </Badge>
-                                )}
-                                {canEdit && (
-                                  <Button
-                                    size="sm"
-                                    variant="outline"
-                                    className="ml-auto"
-                                    onClick={() => handleUpdateTaskStatus(task.id, 'completed')}
-                                  >
-                                    Mark Complete
-                                  </Button>
-                                )}
-                              </div>
+                              {canEdit && (
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  onClick={() => handleDeleteTask(task.id)}
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              )}
                             </div>
-                          ))
-                      )}
+                          </CardContent>
+                        </Card>
+                      ))}
                     </div>
                     
-                    {/* Completed Tasks */}
-                    <div>
-                      <h3 className="font-medium mb-3">Completed Tasks</h3>
-                      {tasks.filter(t => t.status === 'completed').length === 0 ? (
-                        <p className="text-sm text-muted-foreground">No completed tasks</p>
-                      ) : (
-                        tasks
-                          .filter(t => t.status === 'completed')
-                          .map((task) => (
-                            <div key={task.id} className="border rounded-lg p-4 mb-3 bg-muted/30">
-                              <div className="flex justify-between items-start">
-                                <div>
-                                  <h4 className="font-medium line-through">{task.title}</h4>
-                                  <p className="text-sm text-muted-foreground mt-1">{task.description}</p>
+                    <h3 className="font-medium mb-2 mt-6">Completed Tasks</h3>
+                    <div className="space-y-2">
+                      {tasks.filter(task => task.status === 'completed').map(task => (
+                        <Card key={task.id}>
+                          <CardContent className="p-4">
+                            <div className="flex items-start justify-between">
+                              <div className="flex-1">
+                                <div className="flex items-center">
+                                  <input
+                                    type="checkbox"
+                                    className="mr-2"
+                                    checked
+                                    onChange={() => handleUpdateTaskStatus(task.id, 'pending')}
+                                  />
+                                  <h4 className="font-medium line-through text-muted-foreground">{task.title}</h4>
                                 </div>
-                                {canEdit && (
-                                  <Button
-                                    size="icon"
-                                    variant="ghost"
-                                    onClick={() => handleDeleteTask(task.id)}
-                                  >
-                                    <Trash2 className="h-4 w-4 text-muted-foreground" />
-                                  </Button>
-                                )}
+                                <p className="text-sm text-muted-foreground mt-1">{task.description}</p>
+                                <div className="flex items-center mt-2 text-xs text-muted-foreground">
+                                  {task.assignedTo && (
+                                    <div className="flex items-center mr-4">
+                                      <Users className="mr-1 h-3 w-3" />
+                                      {task.assignedTo.name}
+                                    </div>
+                                  )}
+                                </div>
                               </div>
-                              <div className="flex flex-wrap items-center gap-2 mt-4">
-                                {task.assignedTo && (
-                                  <div className="flex items-center">
-                                    <Avatar className="h-6 w-6 mr-1">
-                                      <AvatarImage src={task.assignedTo.image} alt={task.assignedTo.name} />
-                                      <AvatarFallback>{task.assignedTo.name?.charAt(0) || 'U'}</AvatarFallback>
-                                    </Avatar>
-                                    <span className="text-xs">{task.assignedTo.name}</span>
-                                  </div>
-                                )}
-                                <Badge variant="secondary">Completed</Badge>
-                                {canEdit && (
-                                  <Button
-                                    size="sm"
-                                    variant="outline"
-                                    className="ml-auto"
-                                    onClick={() => handleUpdateTaskStatus(task.id, 'pending')}
-                                  >
-                                    Reopen
-                                  </Button>
-                                )}
-                              </div>
+                              {canEdit && (
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  onClick={() => handleDeleteTask(task.id)}
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              )}
                             </div>
-                          ))
-                      )}
+                          </CardContent>
+                        </Card>
+                      ))}
                     </div>
                   </div>
                 )}
               </div>
             </CardContent>
           </Card>
+          
+          {isAddingTask && (
+            <Dialog open={isAddingTask} onOpenChange={setIsAddingTask}>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Add New Task</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4 py-4">
+                  <div>
+                    <Label htmlFor="task-title">Title</Label>
+                    <Input
+                      id="task-title"
+                      value={newTask.title}
+                      onChange={(e) => setNewTask({...newTask, title: e.target.value})}
+                      placeholder="Task title"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="task-description">Description</Label>
+                    <Textarea
+                      id="task-description"
+                      value={newTask.description}
+                      onChange={(e) => setNewTask({...newTask, description: e.target.value})}
+                      placeholder="Task description"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="task-assignee">Assign To</Label>
+                    <Select
+                      value={newTask.assignedToId}
+                      onValueChange={(value) => setNewTask({...newTask, assignedToId: value})}
+                    >
+                      <SelectTrigger id="task-assignee">
+                        <SelectValue placeholder="Select person" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {collaborators.map(collaborator => (
+                          <SelectItem key={collaborator.userId} value={collaborator.userId}>
+                            {collaborator.user.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label htmlFor="task-due-date">Due Date</Label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className="w-full justify-start text-left font-normal"
+                          id="task-due-date"
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {newTask.dueDate ? format(newTask.dueDate, 'PPP') : <span>Pick a date</span>}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0">
+                        <Calendar
+                          mode="single"
+                          selected={newTask.dueDate || undefined}
+                          onSelect={(date) => setNewTask({...newTask, dueDate: date})}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+                </div>
+                <div className="flex justify-end space-x-2">
+                  <Button variant="outline" onClick={() => setIsAddingTask(false)}>Cancel</Button>
+                  <Button onClick={handleAddTask}>Add Task</Button>
+                </div>
+              </DialogContent>
+            </Dialog>
+          )}
         </TabsContent>
       </Tabs>
     </div>

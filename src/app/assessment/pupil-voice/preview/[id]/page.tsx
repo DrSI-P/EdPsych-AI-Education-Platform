@@ -17,7 +17,7 @@ export default function PreviewPupilVoiceSurveyPage() {
   const [error, setError] = useState('');
   const [survey, setSurvey] = useState<any>(null);
   const [activeTab, setActiveTab] = useState('preview');
-  const [responses, setResponses] = useState<any: any[]>([]);
+  const [responses, setResponses] = useState<any[]>([]);
   
   useEffect(() => {
     const fetchSurvey = async () => {

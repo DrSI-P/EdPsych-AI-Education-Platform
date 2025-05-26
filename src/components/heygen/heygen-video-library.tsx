@@ -22,7 +22,7 @@ export interface HeygenVideo {
 }
 
 // Mock data for testing
-const mockVideos: HeygenVideo: any[] = [
+const mockVideos: HeygenVideo[] = [
   {
     id: 'v1',
     title: 'Welcome to EdPsych Connect',
@@ -54,7 +54,7 @@ const mockVideos: HeygenVideo: any[] = [
 
 export function HeygenVideoLibrary() {
   const [loading, setLoading] = useState(false);
-  const [videos, setVideos] = useState<HeygenVideo: any[]>([]);
+  const [videos, setVideos] = useState<HeygenVideo[]>([]);
   const [selectedVideo, setSelectedVideo] = useState<HeygenVideo | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('newest');

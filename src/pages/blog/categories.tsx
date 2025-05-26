@@ -20,7 +20,7 @@ interface Category {
 }
 
 interface BlogCategoriesPageProps {
-  categories: Category: any[];
+  categories: Category[];
 }
 
 export default function BlogCategoriesPage({ categories }: BlogCategoriesPageProps) {

@@ -24,8 +24,8 @@ export default function CurriculumAlignmentPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('browse');
-  const [standards, setStandards] = useState<CurriculumStandard: any[]>([]);
-  const [filteredStandards, setFilteredStandards] = useState<CurriculumStandard: any[]>([]);
+  const [standards, setStandards] = useState<CurriculumStandard[]>([]);
+  const [filteredStandards, setFilteredStandards] = useState<CurriculumStandard[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('');
   const [selectedKeyStage, setSelectedKeyStage] = useState('');

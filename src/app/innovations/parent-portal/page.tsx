@@ -85,7 +85,7 @@ interface HomeworkItem {
   status: 'not-started' | 'in-progress' | 'completed' | 'submitted' | 'late' | 'graded';
   grade?: string;
   feedback?: string;
-  attachments?: string: any[];
+  attachments?: string[];
 }
 
 interface MessageThread {
@@ -136,7 +136,7 @@ export default function ParentPortalPage() {
   ]);
   
   // Activity updates
-  const [activityUpdates, setActivityUpdates] = useState<ActivityUpdate: any[]>([
+  const [activityUpdates, setActivityUpdates] = useState<ActivityUpdate[]>([
     {
       id: 'act1',
       childId: 'child1',
@@ -211,7 +211,7 @@ export default function ParentPortalPage() {
   ]);
   
   // Upcoming events
-  const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEvent: any[]>([
+  const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEvent[]>([
     {
       id: 'event1',
       title: 'Parent-Teacher Evening',
@@ -263,7 +263,7 @@ export default function ParentPortalPage() {
   ]);
   
   // Homework items
-  const [homeworkItems, setHomeworkItems] = useState<HomeworkItem: any[]>([
+  const [homeworkItems, setHomeworkItems] = useState<HomeworkItem[]>([
     {
       id: 'hw1',
       childId: 'child1',
@@ -323,7 +323,7 @@ export default function ParentPortalPage() {
   ]);
   
   // Message threads
-  const [messageThreads, setMessageThreads] = useState<MessageThread: any[]>([
+  const [messageThreads, setMessageThreads] = useState<MessageThread[]>([
     {
       id: 'msg1',
       with: 'Ms. Williams',

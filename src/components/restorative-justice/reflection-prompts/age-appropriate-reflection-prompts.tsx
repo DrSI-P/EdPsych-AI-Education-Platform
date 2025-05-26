@@ -62,10 +62,10 @@ interface ReflectionPrompt {
   ageGroup: string;
   category: string;
   promptText: string;
-  supportingQuestions: string: any[];
+  supportingQuestions: string[];
   visualSupports: boolean;
   simplifiedLanguage: boolean;
-  visualAids?: string: any[];
+  visualAids?: string[];
 }
 
 /**
@@ -97,14 +97,14 @@ const AgeAppropriateReflectionPrompts = () => {
     visualSupports: false,
     simplifiedLanguage: false
   });
-  const [savedPrompts, setSavedPrompts] = useState<ReflectionPrompt: any[]>([]);
+  const [savedPrompts, setSavedPrompts] = useState<ReflectionPrompt[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterAgeGroup, setFilterAgeGroup] = useState("all");
   const [filterCategory, setFilterCategory] = useState("all");
 
   // Predefined reflection prompts based on restorative justice research and developmental psychology
-  const predefinedPrompts: ReflectionPrompt: any[] = [
+  const predefinedPrompts: ReflectionPrompt[] = [
     // Early Years (3-5)
     {
       id: "early-1",
@@ -410,7 +410,7 @@ const AgeAppropriateReflectionPrompts = () => {
   };
 
   // Handle custom prompt changes
-  const handleCustomPromptChange = (field: keyof ReflectionPrompt, value: string | boolean | string: any: any[]) => {
+  const handleCustomPromptChange = (field: keyof ReflectionPrompt, value: string | boolean | string[]) => {
     setCustomPrompt(prev => ({
       ...prev,
       [field]: value

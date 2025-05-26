@@ -8,13 +8,13 @@ interface FileUploadQuestionProps {
   initialData?: {
     content: string;
     points: number;
-    allowedFileTypes: string: any[];
+    allowedFileTypes: string[];
     maxFileSize: number;
   };
   onSave: (data: {
     type: string;
     content: string;
-    allowedFileTypes: string: any[];
+    allowedFileTypes: string[];
     maxFileSize: number;
     points: number;
   }) => void;
@@ -30,7 +30,7 @@ export default function FileUploadQuestion({
 }: FileUploadQuestionProps) {
   const [content, setContent] = useState(initialData?.content || '');
   const [points, setPoints] = useState(initialData?.points || 1);
-  const [allowedFileTypes, setAllowedFileTypes] = useState<string: any[]>(
+  const [allowedFileTypes, setAllowedFileTypes] = useState<string[]>(
     initialData?.allowedFileTypes || ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png']
   );
   const [maxFileSize, setMaxFileSize] = useState(initialData?.maxFileSize || 5);

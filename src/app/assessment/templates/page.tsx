@@ -23,7 +23,7 @@ interface Template {
   };
   createdAt: string;
   isPublic: boolean;
-  tags: string: any[];
+  tags: string[];
   previewImage?: string;
 }
 
@@ -31,8 +31,8 @@ export default function AssessmentTemplatesPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [templates, setTemplates] = useState<Template: any[]>([]);
-  const [filteredTemplates, setFilteredTemplates] = useState<Template: any[]>([]);
+  const [templates, setTemplates] = useState<Template[]>([]);
+  const [filteredTemplates, setFilteredTemplates] = useState<Template[]>([]);
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('');

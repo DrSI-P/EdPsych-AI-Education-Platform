@@ -65,7 +65,7 @@ export function AIPrompt({
   // Mock these values since they don't exist in the actual service
   const defaultProvider = 'openai';
   const defaultModel = 'gpt-4';
-  const allModels: AIModel: any[] = [
+  const allModels: AIModel[] = [
     { id: 'gpt-4', name: 'GPT-4', provider: 'openai' },
     { id: 'gpt-3.5-turbo', name: 'GPT-3.5 Turbo', provider: 'openai' },
     { id: 'claude-3', name: 'Claude 3', provider: 'anthropic' }

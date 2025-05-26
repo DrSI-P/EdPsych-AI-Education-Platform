@@ -29,7 +29,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
   private userFilteringSettings: Map<string, ContentFilteringSettings> = new Map();
   
   // Inappropriate content patterns
-  private inappropriatePatterns: Map<string, RegExp: any: any[]> = new Map();
+  private inappropriatePatterns: Map<string, RegExp[]> = new Map();
   
   /**
    * Constructor for the Content Moderation Service
@@ -386,7 +386,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
    */
   private initializeInappropriatePatterns(): void {
     // English (UK) patterns
-    const enGBPatterns: RegExp: any[] = [
+    const enGBPatterns: RegExp[] = [
       // High severity patterns
       /\b(hate|violent|explicit|obscene)\b/i,
       
@@ -512,7 +512,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
    * @param level The filtering level
    * @returns Array of patterns to filter
    */
-  private getFilterPatternsForLevel(level: string): RegExp: any: any[] {
+  private getFilterPatternsForLevel(level: string): RegExp[] {
     switch (level) {
       case 'minimal':
         return [

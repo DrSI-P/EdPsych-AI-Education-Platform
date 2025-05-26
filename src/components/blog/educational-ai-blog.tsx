@@ -164,7 +164,7 @@ const popularTags = [
 ];
 
 // Featured Blog Post Component
-const FeaturedPost = ({ post }: { post }) => {
+const FeaturedPost = ({ post }: { post: any }) => {
   return (
     <Card className="overflow-hidden">
       <div className="relative h-[300px] w-full">
@@ -217,7 +217,7 @@ const FeaturedPost = ({ post }: { post }) => {
 };
 
 // Blog Post Card Component
-const BlogPostCard = ({ post }: { post }) => {
+const BlogPostCard = ({ post }: { post: any }) => {
   return (
     <Card className="overflow-hidden h-full flex flex-col">
       <div className="relative h-48">
@@ -276,7 +276,7 @@ const BlogPostCard = ({ post }: { post }) => {
 };
 
 // Category List Component
-const CategoryList = ({ categories }: { categories: any: any[] }) => {
+const CategoryList = ({ categories }: { categories: any[] }) => {
   return (
     <div className="space-y-1">
       {categories.map((category) => (
@@ -293,7 +293,7 @@ const CategoryList = ({ categories }: { categories: any: any[] }) => {
 };
 
 // Tag Cloud Component
-const TagCloud = ({ tags }: { tags: any: any[] }) => {
+const TagCloud = ({ tags }: { tags: any[] }) => {
   return (
     <div className="flex flex-wrap gap-2">
       {tags.map((tag) => (
@@ -445,7 +445,7 @@ export function EducationalAIBlog() {
                   placeholder="Search articles..."
                   className="pl-8"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
                 />
               </div>
             </CardContent>
@@ -485,60 +485,39 @@ export function EducationalAIBlog() {
         <div className="lg:col-span-2 space-y-6">
           {/* Tabs */}
           <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid grid-cols-4">
+            <TabsList className="grid grid-cols-4 mb-6">
               <TabsTrigger value="all">All</TabsTrigger>
               <TabsTrigger value="ai-generated">AI Generated</TabsTrigger>
               <TabsTrigger value="human-authored">Human Authored</TabsTrigger>
               <TabsTrigger value="teaching-strategies">Teaching</TabsTrigger>
             </TabsList>
-            <TabsContent value="all" className="mt-6">
+            
+            <TabsContent value={activeTab} className="mt-0">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {filteredPosts.map(post => (
                   <BlogPostCard key={post.id} post={post} />
                 ))}
               </div>
-            </TabsContent>
-            <TabsContent value="ai-generated" className="mt-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {filteredPosts.map(post => (
-                  <BlogPostCard key={post.id} post={post} />
-                ))}
-              </div>
-            </TabsContent>
-            <TabsContent value="human-authored" className="mt-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {filteredPosts.map(post => (
-                  <BlogPostCard key={post.id} post={post} />
-                ))}
-              </div>
-            </TabsContent>
-            <TabsContent value="teaching-strategies" className="mt-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {filteredPosts.map(post => (
-                  <BlogPostCard key={post.id} post={post} />
-                ))}
-              </div>
+              
+              {filteredPosts.length === 0 && (
+                <Card className="p-8 text-center">
+                  <p className="text-muted-foreground mb-4">No articles found matching your criteria.</p>
+                  <Button variant="outline" onClick={() => setActiveTab("all")}>
+                    View All Articles
+                  </Button>
+                </Card>
+              )}
+              
+              {filteredPosts.length > 0 && (
+                <div className="flex justify-center mt-8">
+                  <Button variant="outline">
+                    Load More Articles
+                    <ChevronRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </div>
+              )}
             </TabsContent>
           </Tabs>
-          
-          {/* Pagination */}
-          <div className="flex items-center justify-center space-x-2 mt-8">
-            <Button variant="outline" size="sm" disabled>
-              Previous
-            </Button>
-            <Button variant="outline" size="sm" className="bg-primary text-primary-foreground">
-              1
-            </Button>
-            <Button variant="outline" size="sm">
-              2
-            </Button>
-            <Button variant="outline" size="sm">
-              3
-            </Button>
-            <Button variant="outline" size="sm">
-              Next
-            </Button>
-          </div>
         </div>
       </div>
     </div>

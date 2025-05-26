@@ -127,7 +127,7 @@ export class AssessmentEngineService implements AssessmentEngine {
     keyStage?: UKKeyStage;
     subject?: UKSubject;
     assessmentType?: AssessmentType;
-  }): Promise<AssessmentMetadata: any[]> {
+  }): Promise<AssessmentMetadata[]> {
     // In a real implementation, this would query a database with filters
     console.log('Listing assessments with filters:', params);
     
@@ -229,7 +229,7 @@ export class AssessmentEngineService implements AssessmentEngine {
    * @param assessmentId Optional assessment ID to filter by
    * @returns Array of assessment attempts
    */
-  async getStudentAttempts(studentId: string, assessmentId?: string): Promise<AssessmentAttempt: any[]> {
+  async getStudentAttempts(studentId: string, assessmentId?: string): Promise<AssessmentAttempt[]> {
     // In a real implementation, this would query a database with filters
     console.log(`Fetching attempts for student ${studentId}${assessmentId ? ` on assessment ${assessmentId}` : ''}`);
     
@@ -265,7 +265,7 @@ export class AssessmentEngineService implements AssessmentEngine {
     };
     
     // Generate questions based on template distribution
-    const questions: Question: any[] = await this.generateQuestionsFromTemplate(template);
+    const questions: Question[] = await this.generateQuestionsFromTemplate(template);
     
     // Create the assessment
     const assessment: Assessment = {
@@ -296,7 +296,7 @@ export class AssessmentEngineService implements AssessmentEngine {
    * @param previousResponses The student's previous responses
    * @returns The next question to present
    */
-  async generateAdaptiveQuestion(attemptId: string, previousResponses: QuestionResponse: any[]): Promise<Question> {
+  async generateAdaptiveQuestion(attemptId: string, previousResponses: QuestionResponse[]): Promise<Question> {
     console.log(`Generating adaptive question for attempt ${attemptId}`);
     
     // Get the attempt
@@ -379,8 +379,8 @@ export class AssessmentEngineService implements AssessmentEngine {
   }): Promise<{
     assessmentsCompleted: number;
     averageScore: number;
-    strengths: string: any[];
-    areasForImprovement: string: any[];
+    strengths: string[];
+    areasForImprovement: string[];
     progressOverTime: Array<{
       date: Date;
       score: number;
@@ -515,8 +515,8 @@ export class AssessmentEngineService implements AssessmentEngine {
     const passed = percentage >= (assessment.settings.passingScore || 60);
     
     // Generate strengths and areas for improvement
-    const strengths: string: any[] = [];
-    const areasForImprovement: string: any[] = [];
+    const strengths: string[] = [];
+    const areasForImprovement: string[] = [];
     
     // Identify strengths (domains with high performance)
     Object.entries(byCognitiveDomain).forEach(([domain, data]) => {
@@ -624,8 +624,8 @@ export class AssessmentEngineService implements AssessmentEngine {
    * @param template The assessment template
    * @returns Array of questions
    */
-  private async generateQuestionsFromTemplate(template: AssessmentTemplate): Promise<Question: any[]> {
-    const questions: Question: any[] = [];
+  private async generateQuestionsFromTemplate(template: AssessmentTemplate): Promise<Question[]> {
+    const questions: Question[] = [];
     
     // Calculate how many questions of each type to generate
     const typeDistribution = new Map<QuestionType, number>();

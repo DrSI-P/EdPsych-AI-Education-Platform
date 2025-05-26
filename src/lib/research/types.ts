@@ -457,10 +457,10 @@ export interface ResearchProjectService {
   updateProject: (projectId: string, updates: Partial<ResearchProject>) => Promise<boolean>;
   
   listProjects: (filters?: {
-    domains?: ResearchDomain: any[];
-    status?: ResearchProjectStatus: any[];
-    keyStages?: UKKeyStage: any[];
-  }) => Promise<ResearchProject: any[]>;
+    domains?: ResearchDomain[];
+    status?: ResearchProjectStatus[];
+    keyStages?: UKKeyStage[];
+  }) => Promise<ResearchProject[]>;
   
   addCollaborator: (projectId: string, collaborator: {
     id: string;
@@ -490,10 +490,10 @@ export interface DataCollectionService {
   updateInstrument: (instrumentId: string, updates: Partial<DataCollectionInstrument>) => Promise<boolean>;
   
   listInstruments: (filters?: {
-    types?: DataCollectionMethod: any[];
-    domains?: ResearchDomain: any[];
-    keyStages?: UKKeyStage: any[];
-  }) => Promise<DataCollectionInstrument: any[]>;
+    types?: DataCollectionMethod[];
+    domains?: ResearchDomain[];
+    keyStages?: UKKeyStage[];
+  }) => Promise<DataCollectionInstrument[]>;
   
   startDataCollectionSession: (session: {
     projectId: string;
@@ -512,7 +512,7 @@ export interface DataCollectionService {
     isValid: boolean;
     reliability: number;
     validity: number;
-    issues: string: any[];
+    issues: string[];
   }>;
 }
 
@@ -527,9 +527,9 @@ export interface ImpactMeasurementService {
   updateFramework: (frameworkId: string, updates: Partial<ImpactMeasurementFramework>) => Promise<boolean>;
   
   listFrameworks: (filters?: {
-    domains?: ResearchDomain: any[];
-    levels?: ImpactLevel: any[];
-  }) => Promise<ImpactMeasurementFramework: any[]>;
+    domains?: ResearchDomain[];
+    levels?: ImpactLevel[];
+  }) => Promise<ImpactMeasurementFramework[]>;
   
   recordMeasurement: (measurement: Omit<ImpactMeasurementResult, 'id' | 'createdAt' | 'updatedAt'>) => Promise<string>;
   
@@ -540,7 +540,7 @@ export interface ImpactMeasurementService {
     level?: ImpactLevel;
     targetEntityId?: string;
     dateRange?: { start: Date; end: Date };
-  }) => Promise<ImpactMeasurementResult: any[]>;
+  }) => Promise<ImpactMeasurementResult[]>;
   
   analyzeImpact: (frameworkId: string, filters?: {
     projectId?: string;
@@ -560,16 +560,16 @@ export interface ImpactMeasurementService {
     domains: Record<ResearchDomain, {
       overallImpact: number;
       confidence: number;
-      keyFindings: string: any[];
+      keyFindings: string[];
     }>;
-    recommendations: string: any[];
+    recommendations: string[];
   }>;
   
   generateImpactReport: (frameworkId: string, projectId?: string) => Promise<{
     reportUrl: string;
     executiveSummary: string;
-    keyFindings: string: any[];
-    visualizations: string: any[];
+    keyFindings: string[];
+    visualizations: string[];
   }>;
 }
 
@@ -608,35 +608,35 @@ export interface LongitudinalTrackingService {
     domain: ResearchDomain;
     observer: string;
     notes: string;
-    attachments?: string: any[];
+    attachments?: string[];
   }) => Promise<boolean>;
   
   analyzeProgressionTrends: (filters: {
-    keyStages?: UKKeyStage: any[];
-    subjects?: UKSubject: any[];
-    interventionTypes?: string: any[];
+    keyStages?: UKKeyStage[];
+    subjects?: UKSubject[];
+    interventionTypes?: string[];
     dateRange?: { start: Date; end: Date };
   }) => Promise<{
     overallTrends: string;
     keyStageProgressions: Record<UKKeyStage, {
       averageProgressRate: number;
-      successFactors: string: any[];
-      challenges: string: any[];
+      successFactors: string[];
+      challenges: string[];
     }>;
     interventionEffectiveness: Record<string, {
       impactScore: number;
       confidence: number;
-      contextualFactors: string: any[];
+      contextualFactors: string[];
     }>;
-    recommendations: string: any[];
+    recommendations: string[];
   }>;
   
   generateProgressionReport: (participantId: string) => Promise<{
     reportUrl: string;
     summary: string;
-    keyMilestones: string: any[];
-    interventionImpacts: string: any[];
-    recommendations: string: any[];
+    keyMilestones: string[];
+    interventionImpacts: string[];
+    recommendations: string[];
   }>;
 }
 
@@ -653,11 +653,11 @@ export interface QualitativeDataService {
   listQualitativeRecords: (filters?: {
     projectId?: string;
     participantId?: string;
-    domains?: ResearchDomain: any[];
-    collectionMethods?: DataCollectionMethod: any[];
+    domains?: ResearchDomain[];
+    collectionMethods?: DataCollectionMethod[];
     dateRange?: { start: Date; end: Date };
-    tags?: string: any[];
-  }) => Promise<QualitativeDataRecord: any[]>;
+    tags?: string[];
+  }) => Promise<QualitativeDataRecord[]>;
   
   addCoding: (recordId: string, coding: {
     code: string;
@@ -666,15 +666,15 @@ export interface QualitativeDataService {
   }) => Promise<boolean>;
   
   identifyThemes: (projectId: string, filters?: {
-    domains?: ResearchDomain: any[];
+    domains?: ResearchDomain[];
     dateRange?: { start: Date; end: Date };
   }) => Promise<{
     themes: Array<{
       name: string;
       frequency: number;
-      relatedCodes: string: any[];
-      keyQuotes: string: any[];
-      domains: ResearchDomain: any[];
+      relatedCodes: string[];
+      keyQuotes: string[];
+      domains: ResearchDomain[];
     }>;
     connections: Array<{
       themeA: string;
@@ -682,16 +682,16 @@ export interface QualitativeDataService {
       strength: number;
       description: string;
     }>;
-    insights: string: any[];
+    insights: string[];
   }>;
   
   generateQualitativeReport: (projectId: string) => Promise<{
     reportUrl: string;
     executiveSummary: string;
     methodologySummary: string;
-    keyThemes: string: any[];
-    illustrativeQuotes: Record<string, string: any: any[]>;
-    implications: string: any[];
+    keyThemes: string[];
+    illustrativeQuotes: Record<string, string[]>;
+    implications: string[];
   }>;
 }
 
@@ -706,10 +706,10 @@ export interface ResearchPartnershipService {
   updatePartnership: (partnershipId: string, updates: Partial<ResearchPartnership>) => Promise<boolean>;
   
   listPartnerships: (filters?: {
-    status?: string: any[];
-    domains?: ResearchDomain: any[];
-    organizationTypes?: string: any[];
-  }) => Promise<ResearchPartnership: any[]>;
+    status?: string[];
+    domains?: ResearchDomain[];
+    organizationTypes?: string[];
+  }) => Promise<ResearchPartnership[]>;
   
   addPartnerOrganization: (partnershipId: string, organisation: {
     id: string;
@@ -731,22 +731,22 @@ export interface ResearchPartnershipService {
   generatePartnershipReport: (partnershipId: string) => Promise<{
     reportUrl: string;
     summary: string;
-    achievements: string: any[];
-    challenges: string: any[];
-    nextSteps: string: any[];
+    achievements: string[];
+    challenges: string[];
+    nextSteps: string[];
   }>;
   
   findPotentialPartners: (criteria: {
-    researchDomains: ResearchDomain: any[];
+    researchDomains: ResearchDomain[];
     geographicArea?: string;
-    organizationTypes?: string: any[];
-    keywords?: string: any[];
+    organizationTypes?: string[];
+    keywords?: string[];
   }) => Promise<Array<{
     organizationId: string;
     name: string;
     type: string;
-    researchInterests: string: any[];
-    previousCollaborations: string: any[];
+    researchInterests: string[];
+    previousCollaborations: string[];
     contactInformation: {
       contactPerson: string;
       email: string;

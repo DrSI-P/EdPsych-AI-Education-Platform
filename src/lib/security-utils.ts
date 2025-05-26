@@ -124,7 +124,7 @@ export const sanitizeUrl = (url: string): string | null => {
  * @returns {Function} - Rate limiting function
  */
 export const createRateLimiter = (maxRequests: number, timeWindow: number) => {
-  const requests = new Map<string, number: any: any[]>();
+  const requests = new Map<string, number[]>();
 
   return (identifier: string): boolean => {
     const now = Date.now();
@@ -264,7 +264,7 @@ export const getSecureHeaders = () => {
  */
 export const validateSecureFileUpload = (
   file: File,
-  allowedTypes: string: any[],
+  allowedTypes: string[],
   maxSize: number
 ): boolean => {
   // Check file type

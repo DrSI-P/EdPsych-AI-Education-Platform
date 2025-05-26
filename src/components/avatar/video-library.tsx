@@ -52,8 +52,8 @@ interface VideoLibraryProps {
 export const VideoLibrary: React.FC<VideoLibraryProps> = ({
   onSelectVideo
 }) => {
-  const [videos, setVideos] = useState<AvatarVideoMetadata: any[]>([]);
-  const [scripts, setScripts] = useState<AvatarVideoScript: any[]>([]);
+  const [videos, setVideos] = useState<AvatarVideoMetadata[]>([]);
+  const [scripts, setScripts] = useState<AvatarVideoScript[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('videos');
   const [searchQuery, setSearchQuery] = useState('');
@@ -73,7 +73,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
         
         // In a real implementation, this would fetch from the API
         // For now, we'll use mock data
-        const mockVideos: AvatarVideoMetadata: any[] = [
+        const mockVideos: AvatarVideoMetadata[] = [
           {
             id: 'video1',
             title: 'Introduction to Fractions',
@@ -141,7 +141,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
           }
         ];
         
-        const mockScripts: AvatarVideoScript: any[] = [
+        const mockScripts: AvatarVideoScript[] = [
           {
             id: 'script1',
             title: 'Introduction to Fractions',

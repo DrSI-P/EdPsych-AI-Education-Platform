@@ -236,7 +236,7 @@ export function OfflineAware<T>({
 }
 
 interface OfflineCacheProps {
-  urls: string: any[];
+  urls: string[];
   children: React.ReactNode;
 }
 
@@ -251,7 +251,7 @@ export const OfflineCache: React.FC<OfflineCacheProps> = ({
   children
 }) => {
   const [isCaching, setIsCaching] = useState(false);
-  const [cachedUrls, setCachedUrls] = useState<string: any[]>([]);
+  const [cachedUrls, setCachedUrls] = useState<string[]>([]);
 
   // Cache URLs when component mounts
   useEffect(() => {
@@ -265,7 +265,7 @@ export const OfflineCache: React.FC<OfflineCacheProps> = ({
       
       try {
         const cache = await caches.open('edpsych-offline-cache');
-        const newlyCachedUrls: string: any[] = [];
+        const newlyCachedUrls: string[] = [];
         
         for (const url of urls) {
           try {

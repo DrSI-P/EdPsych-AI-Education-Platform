@@ -13,7 +13,7 @@ export interface AIAvatarVideo {
   videoPath?: string;
   thumbnailPath?: string;
   featured: boolean;
-  tags: string: any[];
+  tags: string[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -49,16 +49,16 @@ export interface AIAvatarVideoPlayer {
 }
 
 export interface AIAvatarVideoLibrary {
-  videos: AIAvatarVideo: any[];
-  categories: AIAvatarVideoCategory: any[];
-  audiences: AIAvatarVideoAudience: any[];
-  featuredVideos: AIAvatarVideo: any[];
+  videos: AIAvatarVideo[];
+  categories: AIAvatarVideoCategory[];
+  audiences: AIAvatarVideoAudience[];
+  featuredVideos: AIAvatarVideo[];
 }
 
 export interface AIAvatarVideoService {
   getVideo: (id: string) => Promise<AIAvatarVideo>;
-  getVideosByCategory: (category: AIAvatarVideoCategory) => Promise<AIAvatarVideo: any[]>;
-  getVideosByAudience: (audience: AIAvatarVideoAudience) => Promise<AIAvatarVideo: any[]>;
-  getFeaturedVideos: () => Promise<AIAvatarVideo: any[]>;
-  searchVideos: (query: string) => Promise<AIAvatarVideo: any[]>;
+  getVideosByCategory: (category: AIAvatarVideoCategory) => Promise<AIAvatarVideo[]>;
+  getVideosByAudience: (audience: AIAvatarVideoAudience) => Promise<AIAvatarVideo[]>;
+  getFeaturedVideos: () => Promise<AIAvatarVideo[]>;
+  searchVideos: (query: string) => Promise<AIAvatarVideo[]>;
 }

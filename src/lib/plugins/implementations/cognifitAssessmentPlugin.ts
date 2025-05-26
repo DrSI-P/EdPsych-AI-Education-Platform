@@ -20,7 +20,7 @@ interface CognifitApiClient {
   initialize(apiKey: string, apiSecret: string): Promise<boolean>;
   createAssessment(params: CognifitAssessmentParams): Promise<CognifitAssessment>;
   getAssessment(assessmentId: string): Promise<CognifitAssessment>;
-  scoreAssessment(assessmentId: string, responses: CognifitResponse: any[]): Promise<CognifitResult>;
+  scoreAssessment(assessmentId: string, responses: CognifitResponse[]): Promise<CognifitResult>;
   getResults(assessmentId: string): Promise<CognifitResult>;
 }
 
@@ -34,7 +34,7 @@ interface CognifitAssessmentParams {
     max: number;
   };
   domain: string;
-  subdomains: string: any[];
+  subdomains: string[];
   difficulty: string;
   itemCount: number;
   timeLimit?: number;
@@ -56,7 +56,7 @@ interface CognifitAssessment {
   createdAt: string;
   updatedAt: string;
   params: CognifitAssessmentParams;
-  items: CognifitItem: any[];
+  items: CognifitItem[];
 }
 
 /**
@@ -93,7 +93,7 @@ interface CognifitResult {
   percentile: number;
   completedAt: string;
   duration: number;
-  itemResults: CognifitItemResult: any[];
+  itemResults: CognifitItemResult[];
   domainScores: {
     [domain: string]: {
       score: number;
@@ -106,7 +106,7 @@ interface CognifitResult {
     byDomain: {
       [domain: string]: string;
     };
-    activities: string: any[];
+    activities: string[];
   };
 }
 
@@ -161,7 +161,7 @@ class MockCognifitApiClient implements CognifitApiClient {
     const id = `cognifit-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     
     // Create mock items based on parameters
-    const items: CognifitItem: any[] = [];
+    const items: CognifitItem[] = [];
     for (let i = 0; i < params.itemCount; i++) {
       const subdomain = params.subdomains[i % params.subdomains.length];
       items.push({
@@ -223,7 +223,7 @@ class MockCognifitApiClient implements CognifitApiClient {
    * @param responses The responses to score
    * @returns The assessment results
    */
-  async scoreAssessment(assessmentId: string, responses: CognifitResponse: any[]): Promise<CognifitResult> {
+  async scoreAssessment(assessmentId: string, responses: CognifitResponse[]): Promise<CognifitResult> {
     if (!this.initialized) {
       throw new Error('Cognifit API client not initialized');
     }
@@ -232,7 +232,7 @@ class MockCognifitApiClient implements CognifitApiClient {
     const assessment = await this.getAssessment(assessmentId);
     
     // Create mock item results
-    const itemResults: CognifitItemResult: any[] = [];
+    const itemResults: CognifitItemResult[] = [];
     let totalScore = 0;
     const maxScore = assessment.items.length * 10; // Assuming 10 points per item
     
@@ -544,7 +544,7 @@ export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
    * @param responses The student's responses
    * @returns The assessment results
    */
-  protected async scoreAssessmentImpl(assessmentId: string, responses: AssessmentToolPluginResponse: any[]): Promise<any> {
+  protected async scoreAssessmentImpl(assessmentId: string, responses: AssessmentToolPluginResponse[]): Promise<any> {
     try {
       // Convert platform responses to Cognifit responses
       const cognifitResponses = this.convertToCognifitResponses(responses);
@@ -613,7 +613,7 @@ export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
     
     // Map subject to domain
     let domain = 'general_cognition';
-    let subdomains: string: any[] = ['memory', 'attention', 'reasoning'];
+    let subdomains: string[] = ['memory', 'attention', 'reasoning'];
     
     if (params.subject === 'mathematics') {
       domain = 'mathematical_cognition';
@@ -673,7 +673,7 @@ export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
    * @param responses The platform responses
    * @returns The Cognifit responses
    */
-  private convertToCognifitResponses(responses: AssessmentToolPluginResponse: any[]): CognifitResponse: any: any[] {
+  private convertToCognifitResponses(responses: AssessmentToolPluginResponse[]): CognifitResponse[] {
     return responses.map(response => ({
       itemId: response.questionId,
       response: response.responseData,

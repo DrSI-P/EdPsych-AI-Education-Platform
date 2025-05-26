@@ -159,8 +159,8 @@ export default function AutomatedProgressReportGeneration() {
   const aiService = useAIService();
   const [activeTab, setActiveTab] = useState('create');
   const [selectedTemplate, setSelectedTemplate] = useState('');
-  const [selectedStudents, setSelectedStudents] = useState<number: any[]>([]);
-  const [selectedSubjects, setSelectedSubjects] = useState<string: any[]>([]);
+  const [selectedStudents, setSelectedStudents] = useState<number[]>([]);
+  const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
   const [reportPeriod, setReportPeriod] = useState('current-term');
   const [includeAttendance, setIncludeAttendance] = useState(true);
   const [includeBehavior, setIncludeBehavior] = useState(true);
@@ -168,8 +168,8 @@ export default function AutomatedProgressReportGeneration() {
   const [includeNextSteps, setIncludeNextSteps] = useState(true);
   const [commentStyle, setCommentStyle] = useState('balanced');
   const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedReports, setGeneratedReports] = useState<any: any[]>([]);
-  const [savedReports, setSavedReports] = useState<any: any[]>([]);
+  const [generatedReports, setGeneratedReports] = useState<any[]>([]);
+  const [savedReports, setSavedReports] = useState<any[]>([]);
   const [currentReport, setCurrentReport] = useState<any>(null);
   const [editingReport, setEditingReport] = useState(false);
   const [editedComments, setEditedComments] = useState<Record<string, string>>({});
@@ -304,10 +304,10 @@ export default function AutomatedProgressReportGeneration() {
         
         // Generate overall summary
         // In a real implementation, this would use the AI service
-        const overallComments = generateOverallComments(student, subjectReports, commentStyle);
+        const overallComments = generateOverallComments(student, subjectReports as any[], commentStyle);
         
         // Generate next steps
-        const nextSteps = includeNextSteps ? generateNextSteps(subjectReports) : [];
+        const nextSteps = includeNextSteps ? generateNextSteps(subjectReports as any[]) : [];
         
         return {
           id: Date.now() + studentId,
@@ -324,7 +324,7 @@ export default function AutomatedProgressReportGeneration() {
         };
       }).filter(Boolean);
       
-      setGeneratedReports(reports as any: any: any[]);
+      setGeneratedReports(reports as any[]);
       setActiveTab('preview');
       
       toast({
@@ -345,7 +345,7 @@ export default function AutomatedProgressReportGeneration() {
   };
   
   // Generate overall comments based on subject reports
-  const generateOverallComments = (student, subjectReports: any: any[], style: string) => {
+  const generateOverallComments = (student: any, subjectReports: any[], style: string) => {
     // Calculate average scores and progress
     const averageCurrentScore = Math.round(
       subjectReports.reduce((sum, report) => sum + report.currentScore, 0) / subjectReports.length
@@ -379,20 +379,19 @@ export default function AutomatedProgressReportGeneration() {
         break;
         
       case 'constructive':
-        comment = `${student.name} has achieved an average attainment of ${averageCurrentScore}% this term. `;
-        comment += averageProgress > 0 ? `While showing improvement of ${averageProgress}% on average, ` : `While maintaining similar levels to previous assessments, `;
-        comment += `there are several areas where focused effort could yield significant improvements. `;
-        comment += `Particular attention should be given to ${subjectReports.sort((a, b) => a.currentScore - b.currentScore)[0].subject}, where targeted support could help address current challenges. `;
-        comment += effortRatio < 0.7 ? `Consistent effort across all subjects would benefit overall progress. ` : `The good effort shown in most subjects should be maintained. `;
+        comment = `${student.name} has achieved an average attainment of ${averageCurrentScore}%, which represents ${averageProgress > 0 ? 'an improvement of ' + averageProgress + '% from the previous assessment' : 'a consistent performance compared to previous assessments'}. `;
+        comment += `There are clear areas for development in ${subjectReports.sort((a, b) => a.currentScore - b.currentScore)[0].subject}, where focused attention would be beneficial. `;
+        comment += effortRatio < 0.7 ? `Increased effort across all subjects would help to improve overall attainment. ` : `The good effort shown in most subjects should be maintained. `;
+        comment += `Setting specific targets in each subject area will help ${student.name} to make further progress next term.`;
         break;
         
       case 'balanced':
       default:
-        comment = `${student.name} has achieved an average attainment of ${averageCurrentScore}% this term, representing a ${averageProgress > 0 ? 'positive change' : 'slight change'} of ${Math.abs(averageProgress)}% from previous assessments. `;
-        comment += `Particular strengths are evident in ${subjectReports.sort((a, b) => b.currentScore - a.currentScore)[0].subject}, while additional support in ${subjectReports.sort((a, b) => a.currentScore - b.currentScore)[0].subject} could help address current challenges. `;
-        comment += effortRatio > 0.7 ? `Effort has been consistently good across most subjects. ` : `Effort has been variable across different subjects. `;
-        comment += behaviorRatio > 0.7 ? `Behaviour has been positive throughout the term. ` : `Behaviour has been generally appropriate with some inconsistencies. `;
-        comment += `Overall, ${student.name} ${averageProgress > 3 ? 'is making excellent progress' : averageProgress > 0 ? 'is making steady progress' : 'would benefit from additional support'} at this stage of the academic year.`;
+        comment = `${student.name} has achieved an average attainment of ${averageCurrentScore}%, which represents ${averageProgress > 0 ? 'a positive improvement of ' + averageProgress + '%' : 'a consistent performance'} compared to previous assessments. `;
+        comment += `Particular strengths are evident in ${subjectReports.sort((a, b) => b.currentScore - a.currentScore)[0].subject}, while ${subjectReports.sort((a, b) => a.currentScore - b.currentScore)[0].subject} presents opportunities for further development. `;
+        comment += effortRatio > 0.7 ? `${student.name}'s consistent effort across most subjects is commendable. ` : `Increasing effort in some subject areas would help to improve overall attainment. `;
+        comment += behaviorRatio > 0.7 ? `Behaviour has been positive throughout the term. ` : `Some improvements in classroom behaviour would enhance learning experiences. `;
+        comment += `With continued focus and appropriate support, ${student.name} should continue to make good progress.`;
         break;
     }
     
@@ -400,39 +399,45 @@ export default function AutomatedProgressReportGeneration() {
   };
   
   // Generate next steps based on subject reports
-  const generateNextSteps = (subjectReports: any: any[]) => {
-    // Find subjects with lowest scores for targeted improvement
-    const lowestSubjects = [...subjectReports].sort((a, b) => a.currentScore - b.currentScore).slice(0, 2);
+  const generateNextSteps = (subjectReports: any[]) => {
+    const nextSteps = [];
     
-    // Collect areas for development from these subjects
-    const developmentAreas = lowestSubjects.flatMap(subject => 
-      subject.areasForDevelopment.map(area => ({
-        subject: subject.subject,
-        area
-      }))
-    );
+    // Find lowest performing subject
+    const lowestSubject = subjectReports.sort((a, b) => a.currentScore - b.currentScore)[0];
+    if (lowestSubject) {
+      nextSteps.push(`Focus on improving ${lowestSubject.subject} skills, particularly in areas of ${lowestSubject.areasForDevelopment.join(' and ')}.`);
+    }
     
-    // Generate specific next steps
-    return developmentAreas.map(({ subject, area }) => {
-      return `Focus on improving ${area} in ${subject} through regular practise and targeted support.`;
-    });
+    // Find subject with most progress
+    const mostProgressSubject = subjectReports.sort((a, b) => b.progress - a.progress)[0];
+    if (mostProgressSubject && mostProgressSubject.progress > 0) {
+      nextSteps.push(`Continue the excellent progress in ${mostProgressSubject.subject} by building on strengths in ${mostProgressSubject.strengths.join(' and ')}.`);
+    }
+    
+    // General recommendations
+    nextSteps.push('Develop independent study skills through regular revision and self-assessment.');
+    nextSteps.push('Actively participate in class discussions to deepen understanding of key concepts.');
+    
+    return nextSteps;
   };
   
   // View a specific report
-  const viewReport = (report) => {
-    setCurrentReport(report);
-    setEditingReport(false);
-    setEditedComments({});
-    setActiveTab('view');
+  const viewReport = (reportId: string | number) => {
+    const report = [...generatedReports, ...savedReports].find(r => r.id === reportId);
+    if (report) {
+      setCurrentReport(report);
+      setEditingReport(false);
+      setActiveTab('view');
+    }
   };
   
   // Edit a report
   const editReport = () => {
     if (!currentReport) return;
     
-    // Initialize edited comments with current values
-    const initialComments: Record<string, string> = {};
-    currentReport.subjects.forEach((subject) => {
+    // Initialize edited comments with current comments
+    const initialComments = {};
+    currentReport.subjects.forEach((subject: any) => {
       initialComments[subject.subject] = subject.comments;
     });
     initialComments['overall'] = currentReport.overallComments;
@@ -446,22 +451,37 @@ export default function AutomatedProgressReportGeneration() {
     if (!currentReport) return;
     
     // Update subject comments
-    const updatedSubjects = currentReport.subjects.map((subject) => ({
+    const updatedSubjects = currentReport.subjects.map((subject: any) => ({
       ...subject,
       comments: editedComments[subject.subject] || subject.comments
     }));
     
-    // Update overall comments
+    // Create updated report
     const updatedReport = {
       ...currentReport,
       subjects: updatedSubjects,
-      overallComments: editedComments['overall'] || currentReport.overallComments
+      overallComments: editedComments['overall'] || currentReport.overallComments,
+      lastEdited: new Date().toISOString()
     };
     
-    // Update in generated reports list
-    setGeneratedReports(prev => 
-      prev.map(report => report.id === updatedReport.id ? updatedReport : report)
-    );
+    // Update in generated reports if it exists there
+    const genIndex = generatedReports.findIndex(r => r.id === currentReport.id);
+    if (genIndex >= 0) {
+      const updatedGenReports = [...generatedReports];
+      updatedGenReports[genIndex] = updatedReport;
+      setGeneratedReports(updatedGenReports);
+    }
+    
+    // Update in saved reports if it exists there
+    const savedIndex = savedReports.findIndex(r => r.id === currentReport.id);
+    if (savedIndex >= 0) {
+      const updatedSavedReports = [...savedReports];
+      updatedSavedReports[savedIndex] = updatedReport;
+      setSavedReports(updatedSavedReports);
+      
+      // Update localStorage
+      localStorage.setItem('savedProgressReports', JSON.stringify(updatedSavedReports));
+    }
     
     setCurrentReport(updatedReport);
     setEditingReport(false);
@@ -474,783 +494,716 @@ export default function AutomatedProgressReportGeneration() {
   };
   
   // Save report to localStorage
-  const saveReport = (report) => {
-    const updatedSavedReports = [...savedReports, report];
+  const saveReport = (report: any) => {
+    const updatedSavedReports = [...savedReports, { ...report, savedAt: new Date().toISOString() }];
     setSavedReports(updatedSavedReports);
     
-    // Save to localStorage
-    try {
-      localStorage.setItem('savedProgressReports', JSON.stringify(updatedSavedReports));
-      
-      toast({
-        title: "Report saved",
-        description: "The report has been saved to your collection.",
-        variant: "default"
-      });
-    } catch (error) {
-      console.error('Error saving report:', error);
-      toast({
-        title: "Error saving report",
-        description: "An error occurred while saving the report. Please try again.",
-        variant: "destructive"
-      });
-    }
-  };
-  
-  // Delete report from saved collection
-  const deleteReport = (reportId) => {
-    const updatedReports = savedReports.filter(report => report.id !== reportId);
-    setSavedReports(updatedReports);
-    
     // Update localStorage
-    try {
-      localStorage.setItem('savedProgressReports', JSON.stringify(updatedReports));
-      
-      toast({
-        title: "Report deleted",
-        description: "The report has been removed from your collection.",
-        variant: "default"
-      });
-    } catch (error) {
-      console.error('Error deleting report:', error);
-    }
-  };
-  
-  // Generate PDF report
-  const generatePDF = (report) => {
-    // In a real implementation, this would call a backend API to generate a PDF
-    // For now, we'll simulate PDF generation with a toast notification
+    localStorage.setItem('savedProgressReports', JSON.stringify(updatedSavedReports));
     
     toast({
-      title: "Generating PDF",
-      description: "Your PDF report is being generated and will download shortly.",
+      title: "Report saved",
+      description: "The report has been saved to your local storage.",
+      variant: "default"
+    });
+  };
+  
+  // Delete report
+  const deleteReport = (reportId: string | number, isSaved: boolean) => {
+    if (isSaved) {
+      const updatedSavedReports = savedReports.filter(r => r.id !== reportId);
+      setSavedReports(updatedSavedReports);
+      
+      // Update localStorage
+      localStorage.setItem('savedProgressReports', JSON.stringify(updatedSavedReports));
+    } else {
+      setGeneratedReports(generatedReports.filter(r => r.id !== reportId));
+    }
+    
+    // If viewing the deleted report, go back to list
+    if (currentReport && currentReport.id === reportId) {
+      setCurrentReport(null);
+      setActiveTab(isSaved ? 'saved' : 'preview');
+    }
+    
+    toast({
+      title: "Report deleted",
+      description: "The report has been deleted.",
+      variant: "default"
+    });
+  };
+  
+  // Export report as PDF
+  const exportReportAsPDF = () => {
+    if (!currentReport) return;
+    
+    // In a real implementation, this would generate a PDF
+    // For now, we'll just show a toast
+    toast({
+      title: "Export initiated",
+      description: "The report is being exported as PDF. It will download automatically when ready.",
       variant: "default"
     });
     
     // Simulate download delay
     setTimeout(() => {
       toast({
-        title: "PDF Generated",
-        description: "Your PDF report has been generated successfully.",
+        title: "Export complete",
+        description: "The report has been exported as PDF and downloaded.",
         variant: "default"
       });
     }, 2000);
   };
   
-  // Format date for display
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-GB', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
+  // Print report
+  const printReport = () => {
+    if (!currentReport) return;
+    
+    // In a real implementation, this would open the print dialog
+    // For now, we'll just show a toast
+    toast({
+      title: "Print dialog",
+      description: "The print dialog would normally open here.",
+      variant: "default"
     });
   };
   
-  // Get period display name
-  const getPeriodDisplayName = (period: string) => {
-    const periodMap: Record<string, string> = {
-      'current-term': 'Current Term',
-      'previous-term': 'Previous Term',
-      'full-year': 'Full Academic Year',
-      'custom': 'Custom Period'
-    };
+  // Share report
+  const shareReport = () => {
+    if (!currentReport) return;
     
-    return periodMap[period] || period;
+    // In a real implementation, this would open sharing options
+    // For now, we'll just show a toast
+    toast({
+      title: "Share options",
+      description: "Sharing options would normally appear here.",
+      variant: "default"
+    });
   };
   
   return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-centre">
-            <FileText className="mr-2 h-5 w-5" />
-            Automated Progress Report Generation
-          </CardTitle>
-          <CardDescription>
-            Create comprehensive, data-driven student progress reports with minimal effort
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="create">Create</TabsTrigger>
-              <TabsTrigger value="preview">Preview</TabsTrigger>
-              <TabsTrigger value="view">View</TabsTrigger>
-              <TabsTrigger value="saved">Saved</TabsTrigger>
-            </TabsList>
+    <div className="container mx-auto py-8">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+        <div>
+          <h1 className="text-4xl font-bold tracking-tight">Progress Report Generator</h1>
+          <p className="text-xl text-muted-foreground mt-2">
+            Create detailed student progress reports with AI assistance
+          </p>
+        </div>
+      </div>
+      
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
+        <TabsList className="grid grid-cols-3 md:grid-cols-4 w-full md:w-auto">
+          <TabsTrigger value="create" className="flex items-center">
+            <FileText className="mr-2 h-4 w-4" />
+            Create Reports
+          </TabsTrigger>
+          <TabsTrigger value="preview" className="flex items-center">
+            <Eye className="mr-2 h-4 w-4" />
+            Generated Reports
+          </TabsTrigger>
+          <TabsTrigger value="saved" className="flex items-center">
+            <Save className="mr-2 h-4 w-4" />
+            Saved Reports
+          </TabsTrigger>
+          <TabsTrigger value="view" className="flex items-center md:hidden">
+            <BookOpen className="mr-2 h-4 w-4" />
+            View Report
+          </TabsTrigger>
+        </TabsList>
+        
+        {/* Create Reports Tab */}
+        <TabsContent value="create" className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Report Template Selection */}
+            <Card className="md:col-span-1">
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <FileText className="mr-2 h-5 w-5" />
+                  Report Template
+                </CardTitle>
+                <CardDescription>
+                  Select the type of report you want to generate
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 gap-3">
+                  {reportTemplates.map(template => (
+                    <div 
+                      key={template.id}
+                      className={`border rounded-lg p-4 cursor-pointer transition-colors ${
+                        selectedTemplate === template.id 
+                          ? 'border-primary bg-primary/5' 
+                          : 'border-border hover:border-primary/50'
+                      }`}
+                      onClick={() => handleTemplateChange(template.id)}
+                    >
+                      <div className="font-medium">{template.name}</div>
+                      <div className="text-sm text-muted-foreground mt-1">{template.description}</div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
             
-            {/* Create Tab */}
-            <TabsContent value="create" className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Report Template</CardTitle>
-                  <CardDescription>
-                    Select a template for your progress reports
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {reportTemplates.map(template => (
-                      <div 
-                        key={template.id}
-                        className={`border rounded-lg p-4 cursor-pointer transition-colors ${
-                          selectedTemplate === template.id 
-                            ? 'border-primary bg-primary/5' 
-                            : 'hover:border-primary/50'
-                        }`}
-                        onClick={() => handleTemplateChange(template.id)}
-                      >
-                        <h3 className="font-medium">{template.name}</h3>
-                        <p className="text-sm text-muted-foreground">{template.description}</p>
-                        <div className="mt-2">
-                          <Badge variant="outline" className="text-xs">
-                            {template.sections.length} sections
-                          </Badge>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-centre">
-                      <Users className="mr-2 h-5 w-5" />
-                      Select Students
-                    </CardTitle>
-                    <CardDescription>
-                      Choose which students to include in the reports
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="flex flex-wrap gap-2">
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => selectAllStudentsInClass('8A')}
-                        >
-                          Select 8A
-                        </Button>
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => selectAllStudentsInClass('7B')}
-                        >
-                          Select 7B
-                        </Button>
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={clearSelections}
-                        >
-                          Clear All
-                        </Button>
-                      </div>
-                      
-                      <Separator />
-                      
-                      <div className="space-y-2 max-h-[300px] overflow-y-auto">
-                        {sampleStudents.map(student => (
-                          <div key={student.id} className="flex items-centre space-x-2">
-                            <Checkbox 
-                              id={`student-${student.id}`} 
-                              checked={selectedStudents.includes(student.id)}
-                              onCheckedChange={() => handleStudentSelection(student.id)}
-                            />
-                            <Label 
-                              htmlFor={`student-${student.id}`}
-                              className="flex-1 cursor-pointer"
-                            >
-                              {student.name}
-                            </Label>
-                            <span className="text-sm text-muted-foreground">
-                              Year {student.year}, {student.class}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                      
-                      <div className="text-sm text-muted-foreground">
-                        {selectedStudents.length} students selected
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+            {/* Student Selection */}
+            <Card className="md:col-span-1">
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Users className="mr-2 h-5 w-5" />
+                  Select Students
+                </CardTitle>
+                <CardDescription>
+                  Choose the students to generate reports for
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => selectAllStudentsInClass('8A')}
+                  >
+                    Select 8A
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => selectAllStudentsInClass('7B')}
+                  >
+                    Select 7B
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={clearSelections}
+                  >
+                    Clear All
+                  </Button>
+                </div>
                 
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-centre">
-                      <BookOpen className="mr-2 h-5 w-5" />
-                      Select Subjects
-                    </CardTitle>
-                    <CardDescription>
-                      Choose which subjects to include in the reports
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="flex flex-wrap gap-2">
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={selectAllSubjects}
-                        >
-                          Select All Subjects
-                        </Button>
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => setSelectedSubjects([])}
-                        >
-                          Clear All
-                        </Button>
-                      </div>
-                      
-                      <Separator />
-                      
-                      <div className="grid grid-cols-2 gap-2">
-                        {Array.from(new Set(sampleStudents.flatMap(student => student.subjects))).map(subject => (
-                          <div key={subject} className="flex items-centre space-x-2">
-                            <Checkbox 
-                              id={`subject-${subject}`} 
-                              checked={selectedSubjects.includes(subject)}
-                              onCheckedChange={() => handleSubjectSelection(subject)}
-                            />
-                            <Label 
-                              htmlFor={`subject-${subject}`}
-                              className="cursor-pointer"
-                            >
-                              {subject}
-                            </Label>
-                          </div>
-                        ))}
-                      </div>
-                      
-                      <div className="text-sm text-muted-foreground">
-                        {selectedSubjects.length} subjects selected
-                      </div>
+                <div className="space-y-2 max-h-[300px] overflow-y-auto pr-2">
+                  {sampleStudents.map(student => (
+                    <div 
+                      key={student.id}
+                      className="flex items-center space-x-2"
+                    >
+                      <Checkbox 
+                        id={`student-${student.id}`}
+                        checked={selectedStudents.includes(student.id)}
+                        onCheckedChange={() => handleStudentSelection(student.id)}
+                      />
+                      <Label 
+                        htmlFor={`student-${student.id}`}
+                        className="flex flex-1 items-center justify-between cursor-pointer"
+                      >
+                        <span>{student.name}</span>
+                        <Badge variant="outline">{student.class}</Badge>
+                      </Label>
                     </div>
-                  </CardContent>
-                </Card>
-              </div>
-              
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-centre">
-                    <Settings className="mr-2 h-5 w-5" />
-                    Report Options
-                  </CardTitle>
-                  <CardDescription>
-                    Customise the content and style of your reports
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-4">
-                      <div>
-                        <Label htmlFor="report-period">Reporting Period</Label>
-                        <Select value={reportPeriod} onValueChange={setReportPeriod}>
-                          <SelectTrigger id="report-period">
-                            <SelectValue placeholder="Select period" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="current-term">Current Term</SelectItem>
-                            <SelectItem value="previous-term">Previous Term</SelectItem>
-                            <SelectItem value="full-year">Full Academic Year</SelectItem>
-                            <SelectItem value="custom">Custom Period</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      
-                      <div>
-                        <Label htmlFor="comment-style">Comment Style</Label>
-                        <Select value={commentStyle} onValueChange={setCommentStyle}>
-                          <SelectTrigger id="comment-style">
-                            <SelectValue placeholder="Select style" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="balanced">Balanced</SelectItem>
-                            <SelectItem value="positive">Positive Focus</SelectItem>
-                            <SelectItem value="constructive">Constructive Focus</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          {commentStyle === 'balanced' && "Provides a balanced view of achievements and areas for development"}
-                          {commentStyle === 'positive' && "Emphasizes strengths and positive achievements"}
-                          {commentStyle === 'constructive' && "Focuses on specific areas for improvement and growth"}
-                        </p>
-                      </div>
+                  ))}
+                </div>
+                
+                <div className="text-sm text-muted-foreground mt-2">
+                  {selectedStudents.length} students selected
+                </div>
+              </CardContent>
+            </Card>
+            
+            {/* Subject Selection */}
+            <Card className="md:col-span-1">
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <BookOpen className="mr-2 h-5 w-5" />
+                  Select Subjects
+                </CardTitle>
+                <CardDescription>
+                  Choose the subjects to include in the reports
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={selectAllSubjects}
+                  >
+                    Select All
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => setSelectedSubjects([])}
+                  >
+                    Clear All
+                  </Button>
+                </div>
+                
+                <div className="space-y-2">
+                  {Array.from(new Set(sampleStudents.flatMap(student => student.subjects))).map(subject => (
+                    <div 
+                      key={subject}
+                      className="flex items-center space-x-2"
+                    >
+                      <Checkbox 
+                        id={`subject-${subject}`}
+                        checked={selectedSubjects.includes(subject)}
+                        onCheckedChange={() => handleSubjectSelection(subject)}
+                      />
+                      <Label 
+                        htmlFor={`subject-${subject}`}
+                        className="cursor-pointer"
+                      >
+                        {subject}
+                      </Label>
                     </div>
-                    
-                    <div className="space-y-4">
-                      <div className="flex items-centre space-x-2">
+                  ))}
+                </div>
+                
+                <div className="text-sm text-muted-foreground mt-2">
+                  {selectedSubjects.length} subjects selected
+                </div>
+              </CardContent>
+            </Card>
+            
+            {/* Report Options */}
+            <Card className="md:col-span-3">
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Settings className="mr-2 h-5 w-5" />
+                  Report Options
+                </CardTitle>
+                <CardDescription>
+                  Customize the content and style of your reports
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* Report Period */}
+                  <div className="space-y-2">
+                    <Label htmlFor="report-period">Report Period</Label>
+                    <Select value={reportPeriod} onValueChange={setReportPeriod}>
+                      <SelectTrigger id="report-period">
+                        <SelectValue placeholder="Select period" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="current-term">Current Term</SelectItem>
+                        <SelectItem value="previous-term">Previous Term</SelectItem>
+                        <SelectItem value="full-year">Full Academic Year</SelectItem>
+                        <SelectItem value="custom">Custom Period</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  {/* Comment Style */}
+                  <div className="space-y-2">
+                    <Label>Comment Style</Label>
+                    <RadioGroup value={commentStyle} onValueChange={setCommentStyle}>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="balanced" id="balanced" />
+                        <Label htmlFor="balanced">Balanced</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="positive" id="positive" />
+                        <Label htmlFor="positive">Positive Focus</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="constructive" id="constructive" />
+                        <Label htmlFor="constructive">Constructive Focus</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+                  
+                  {/* Include Options */}
+                  <div className="space-y-2">
+                    <Label>Include in Report</Label>
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2">
                         <Checkbox 
                           id="include-attendance" 
                           checked={includeAttendance}
-                          onCheckedChange={(checked) => setIncludeAttendance(checked as boolean)}
+                          onCheckedChange={(checked) => setIncludeAttendance(!!checked)}
                         />
-                        <Label htmlFor="include-attendance">Include attendance data</Label>
+                        <Label htmlFor="include-attendance">Attendance Data</Label>
                       </div>
-                      
-                      <div className="flex items-centre space-x-2">
+                      <div className="flex items-center space-x-2">
                         <Checkbox 
-                          id="include-behaviour" 
+                          id="include-behavior" 
                           checked={includeBehavior}
-                          onCheckedChange={(checked) => setIncludeBehavior(checked as boolean)}
+                          onCheckedChange={(checked) => setIncludeBehavior(!!checked)}
                         />
-                        <Label htmlFor="include-behaviour">Include behaviour information</Label>
+                        <Label htmlFor="include-behavior">Behavior Information</Label>
                       </div>
-                      
-                      <div className="flex items-centre space-x-2">
+                      <div className="flex items-center space-x-2">
                         <Checkbox 
                           id="include-graphs" 
                           checked={includeGraphs}
-                          onCheckedChange={(checked) => setIncludeGraphs(checked as boolean)}
+                          onCheckedChange={(checked) => setIncludeGraphs(!!checked)}
                         />
-                        <Label htmlFor="include-graphs">Include visual progress graphs</Label>
+                        <Label htmlFor="include-graphs">Visual Progress Graphs</Label>
                       </div>
-                      
-                      <div className="flex items-centre space-x-2">
+                      <div className="flex items-center space-x-2">
                         <Checkbox 
                           id="include-next-steps" 
                           checked={includeNextSteps}
-                          onCheckedChange={(checked) => setIncludeNextSteps(checked as boolean)}
+                          onCheckedChange={(checked) => setIncludeNextSteps(!!checked)}
                         />
-                        <Label htmlFor="include-next-steps">Include suggested next steps</Label>
+                        <Label htmlFor="include-next-steps">Next Steps/Targets</Label>
                       </div>
                     </div>
                   </div>
-                </CardContent>
-                <CardFooter className="flex justify-end">
-                  <Button 
-                    onClick={generateReports}
-                    disabled={isGenerating || selectedTemplate === '' || selectedStudents.length === 0 || selectedSubjects.length === 0}
-                  >
-                    {isGenerating ? 'Generating...' : 'Generate Reports'}
-                  </Button>
-                </CardFooter>
-              </Card>
-            </TabsContent>
-            
-            {/* Preview Tab */}
-            <TabsContent value="preview" className="space-y-6">
-              {generatedReports.length > 0 ? (
-                <>
-                  <div className="flex justify-between items-centre">
-                    <h2 className="text-xl font-bold">Generated Reports</h2>
-                    <div className="text-sm text-muted-foreground">
-                      {generatedReports.length} reports generated
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {generatedReports.map(report => (
-                      <Card key={report.id} className="overflow-hidden">
-                        <CardHeader className="pb-2">
-                          <CardTitle>{report.student.name}</CardTitle>
-                          <CardDescription>
-                            {report.template} • {getPeriodDisplayName(report.period)} • {formatDate(report.date)}
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent className="pb-2">
-                          <div className="space-y-2">
-                            <div>
-                              <h3 className="text-sm font-medium">Subjects Included:</h3>
-                              <div className="flex flex-wrap gap-1 mt-1">
-                                {report.subjects.map((subject) => (
-                                  <Badge key={subject.subject} variant="outline">
-                                    {subject.subject}
-                                  </Badge>
-                                ))}
-                              </div>
-                            </div>
-                            
-                            <div>
-                              <h3 className="text-sm font-medium">Overall Comments:</h3>
-                              <p className="text-sm text-muted-foreground line-clamp-3">
-                                {report.overallComments}
-                              </p>
-                            </div>
-                          </div>
-                        </CardContent>
-                        <CardFooter className="flex justify-between">
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => viewReport(report)}
-                          >
-                            <Eye className="mr-2 h-4 w-4" />
-                            View
-                          </Button>
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => saveReport(report)}
-                          >
-                            <Save className="mr-2 h-4 w-4" />
-                            Save
-                          </Button>
-                        </CardFooter>
-                      </Card>
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <div className="text-centre py-12">
-                  <FileText className="h-12 w-12 mx-auto text-muted-foreground" />
-                  <h3 className="mt-4 text-lg font-medium">No reports generated yet</h3>
-                  <p className="mt-2 text-muted-foreground">
-                    Configure your report settings in the Create tab and generate reports to see them here
-                  </p>
-                  <Button 
-                    variant="outline" 
-                    className="mt-4"
-                    onClick={() => setActiveTab('create')}
-                  >
-                    Go to Create
-                  </Button>
                 </div>
-              )}
-            </TabsContent>
-            
-            {/* View Tab */}
-            <TabsContent value="view" className="space-y-6">
-              {currentReport ? (
-                <div className="space-y-6">
-                  <div className="flex justify-between items-centre">
-                    <div>
-                      <h2 className="text-2xl font-bold">{currentReport.student.name}</h2>
-                      <p className="text-muted-foreground">
-                        Year {currentReport.student.year}, {currentReport.student.class} • {currentReport.template} • {getPeriodDisplayName(currentReport.period)}
-                      </p>
+              </CardContent>
+              <CardFooter className="flex justify-between">
+                <Button variant="outline" onClick={clearSelections}>
+                  Reset All
+                </Button>
+                <Button 
+                  onClick={generateReports}
+                  disabled={isGenerating || selectedStudents.length === 0 || selectedSubjects.length === 0 || !selectedTemplate}
+                >
+                  {isGenerating ? (
+                    <>Generating Reports...</>
+                  ) : (
+                    <>
+                      Generate Reports
+                      <FileText className="ml-2 h-4 w-4" />
+                    </>
+                  )}
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
+        </TabsContent>
+        
+        {/* Generated Reports Tab */}
+        <TabsContent value="preview" className="space-y-6">
+          {generatedReports.length === 0 ? (
+            <Card className="p-8 text-center">
+              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-muted">
+                <FileText className="h-10 w-10 text-muted-foreground" />
+              </div>
+              <h3 className="mt-6 text-2xl font-semibold">No Reports Generated</h3>
+              <p className="mt-2 text-muted-foreground">
+                Generate reports using the Create Reports tab to see them here.
+              </p>
+              <Button className="mt-6" onClick={() => setActiveTab('create')}>
+                Create Reports
+              </Button>
+            </Card>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {generatedReports.map(report => (
+                <Card key={report.id} className="overflow-hidden">
+                  <CardHeader className="pb-3">
+                    <CardTitle>{report.student.name}</CardTitle>
+                    <CardDescription>
+                      {report.template} • {new Date(report.date).toLocaleDateString()}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="pb-3">
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">Class:</span>
+                        <span className="font-medium">{report.student.class}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">Subjects:</span>
+                        <span className="font-medium">{report.subjects.length}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">Average Score:</span>
+                        <span className="font-medium">
+                          {Math.round(report.subjects.reduce((sum: number, s: any) => sum + s.currentScore, 0) / report.subjects.length)}%
+                        </span>
+                      </div>
                     </div>
+                    <Separator className="my-3" />
+                    <p className="text-sm text-muted-foreground line-clamp-3">
+                      {report.overallComments}
+                    </p>
+                  </CardContent>
+                  <CardFooter className="flex justify-between">
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => deleteReport(report.id, false)}
+                    >
+                      <Trash className="h-4 w-4 mr-1" />
+                      Delete
+                    </Button>
                     <div className="flex space-x-2">
-                      {!editingReport ? (
-                        <>
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={editReport}
-                          >
-                            <Edit className="mr-2 h-4 w-4" />
-                            Edit
-                          </Button>
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => generatePDF(currentReport)}
-                          >
-                            <Download className="mr-2 h-4 w-4" />
-                            PDF
-                          </Button>
-                        </>
-                      ) : (
-                        <>
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => setEditingReport(false)}
-                          >
-                            Cancel
-                          </Button>
-                          <Button 
-                            size="sm"
-                            onClick={saveEditedReport}
-                          >
-                            Save Changes
-                          </Button>
-                        </>
-                      )}
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => saveReport(report)}
+                      >
+                        <Save className="h-4 w-4 mr-1" />
+                        Save
+                      </Button>
+                      <Button 
+                        variant="default" 
+                        size="sm"
+                        onClick={() => viewReport(report.id)}
+                      >
+                        <Eye className="h-4 w-4 mr-1" />
+                        View
+                      </Button>
                     </div>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          )}
+        </TabsContent>
+        
+        {/* Saved Reports Tab */}
+        <TabsContent value="saved" className="space-y-6">
+          {savedReports.length === 0 ? (
+            <Card className="p-8 text-center">
+              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-muted">
+                <Save className="h-10 w-10 text-muted-foreground" />
+              </div>
+              <h3 className="mt-6 text-2xl font-semibold">No Saved Reports</h3>
+              <p className="mt-2 text-muted-foreground">
+                Save generated reports to access them here later.
+              </p>
+              <Button className="mt-6" onClick={() => setActiveTab('preview')}>
+                View Generated Reports
+              </Button>
+            </Card>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {savedReports.map(report => (
+                <Card key={report.id} className="overflow-hidden">
+                  <CardHeader className="pb-3">
+                    <CardTitle>{report.student.name}</CardTitle>
+                    <CardDescription>
+                      {report.template} • {new Date(report.date).toLocaleDateString()}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="pb-3">
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">Class:</span>
+                        <span className="font-medium">{report.student.class}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">Subjects:</span>
+                        <span className="font-medium">{report.subjects.length}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">Average Score:</span>
+                        <span className="font-medium">
+                          {Math.round(report.subjects.reduce((sum: number, s: any) => sum + s.currentScore, 0) / report.subjects.length)}%
+                        </span>
+                      </div>
+                    </div>
+                    <Separator className="my-3" />
+                    <p className="text-sm text-muted-foreground line-clamp-3">
+                      {report.overallComments}
+                    </p>
+                  </CardContent>
+                  <CardFooter className="flex justify-between">
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => deleteReport(report.id, true)}
+                    >
+                      <Trash className="h-4 w-4 mr-1" />
+                      Delete
+                    </Button>
+                    <Button 
+                      variant="default" 
+                      size="sm"
+                      onClick={() => viewReport(report.id)}
+                    >
+                      <Eye className="h-4 w-4 mr-1" />
+                      View
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          )}
+        </TabsContent>
+        
+        {/* View Report Tab */}
+        <TabsContent value="view" className="space-y-6">
+          {!currentReport ? (
+            <Card className="p-8 text-center">
+              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-muted">
+                <FileText className="h-10 w-10 text-muted-foreground" />
+              </div>
+              <h3 className="mt-6 text-2xl font-semibold">No Report Selected</h3>
+              <p className="mt-2 text-muted-foreground">
+                Select a report to view its details.
+              </p>
+              <div className="flex justify-center space-x-4 mt-6">
+                <Button onClick={() => setActiveTab('preview')}>
+                  Generated Reports
+                </Button>
+                <Button variant="outline" onClick={() => setActiveTab('saved')}>
+                  Saved Reports
+                </Button>
+              </div>
+            </Card>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Report Header */}
+              <Card className="lg:col-span-3">
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <div>
+                    <CardTitle className="text-2xl">{currentReport.student.name} - {currentReport.template}</CardTitle>
+                    <CardDescription>
+                      Generated on {new Date(currentReport.date).toLocaleDateString()} • Class {currentReport.student.class}
+                    </CardDescription>
                   </div>
-                  
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Overall Summary</CardTitle>
-                    </CardHeader>
-                    <CardContent>
+                  <div className="flex space-x-2">
+                    {!editingReport ? (
+                      <>
+                        <Button variant="outline" size="sm" onClick={shareReport}>
+                          <Share2 className="h-4 w-4 mr-1" />
+                          Share
+                        </Button>
+                        <Button variant="outline" size="sm" onClick={printReport}>
+                          <Printer className="h-4 w-4 mr-1" />
+                          Print
+                        </Button>
+                        <Button variant="outline" size="sm" onClick={exportReportAsPDF}>
+                          <Download className="h-4 w-4 mr-1" />
+                          Export PDF
+                        </Button>
+                        <Button variant="default" size="sm" onClick={editReport}>
+                          <Edit className="h-4 w-4 mr-1" />
+                          Edit
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        <Button variant="outline" size="sm" onClick={() => setEditingReport(false)}>
+                          Cancel
+                        </Button>
+                        <Button variant="default" size="sm" onClick={saveEditedReport}>
+                          <Save className="h-4 w-4 mr-1" />
+                          Save Changes
+                        </Button>
+                      </>
+                    )}
+                  </div>
+                </CardHeader>
+              </Card>
+              
+              {/* Overall Summary */}
+              <Card className="lg:col-span-3">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <BarChart className="mr-2 h-5 w-5" />
+                    Overall Summary
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {!editingReport ? (
+                    <p>{currentReport.overallComments}</p>
+                  ) : (
+                    <Textarea 
+                      value={editedComments['overall'] || currentReport.overallComments}
+                      onChange={(e) => setEditedComments({...editedComments, overall: e.target.value})}
+                      className="min-h-[150px]"
+                    />
+                  )}
+                </CardContent>
+              </Card>
+              
+              {/* Subject Reports */}
+              {currentReport.subjects.map((subject: any) => (
+                <Card key={subject.subject}>
+                  <CardHeader>
+                    <CardTitle className="flex items-center justify-between">
+                      <span>{subject.subject}</span>
+                      <Badge className={subject.progress > 0 ? 'bg-green-500' : subject.progress < 0 ? 'bg-red-500' : 'bg-yellow-500'}>
+                        {subject.progress > 0 ? '+' : ''}{subject.progress}%
+                      </Badge>
+                    </CardTitle>
+                    <CardDescription>
+                      Current Score: {subject.currentScore}% (Class Average: {subject.classAverage}%)
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <h4 className="text-sm font-medium mb-2">Strengths</h4>
+                        <ul className="list-disc list-inside text-sm text-muted-foreground">
+                          {subject.strengths.map((strength: string) => (
+                            <li key={strength}>{strength}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-medium mb-2">Areas for Development</h4>
+                        <ul className="list-disc list-inside text-sm text-muted-foreground">
+                          {subject.areasForDevelopment.map((area: string) => (
+                            <li key={area}>{area}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <h4 className="text-sm font-medium mb-2">Teacher Comments</h4>
                       {!editingReport ? (
-                        <p>{currentReport.overallComments}</p>
+                        <p className="text-sm">{subject.comments}</p>
                       ) : (
                         <Textarea 
-                          value={editedComments['overall'] || currentReport.overallComments}
-                          onChange={(e) => setEditedComments({...editedComments, overall: e.target.value})}
+                          value={editedComments[subject.subject] || subject.comments}
+                          onChange={(e) => setEditedComments({...editedComments, [subject.subject]: e.target.value})}
                           className="min-h-[100px]"
                         />
                       )}
-                    </CardContent>
-                  </Card>
-                  
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-medium">Subject Reports</h3>
-                    
-                    {currentReport.subjects.map((subject) => (
-                      <Card key={subject.subject}>
-                        <CardHeader className="pb-2">
-                          <div className="flex justify-between">
-                            <CardTitle>{subject.subject}</CardTitle>
-                            <Badge className={
-                              subject.progress > 3 ? "bg-green-100 text-green-800" : 
-                              subject.progress > 0 ? "bg-blue-100 text-blue-800" : 
-                              "bg-amber-100 text-amber-800"
-                            }>
-                              {subject.progress > 0 ? `+${subject.progress}%` : `${subject.progress}%`}
-                            </Badge>
-                          </div>
-                        </CardHeader>
-                        <CardContent className="pb-2">
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                              <div className="flex justify-between mb-1">
-                                <span className="text-sm font-medium">Current Score</span>
-                                <span className="text-sm font-medium">{subject.currentScore}%</span>
-                              </div>
-                              <div className="w-full bg-grey-200 rounded-full h-2.5">
-                                <div 
-                                  className="bg-primary h-2.5 rounded-full" 
-                                  style={{ width: `${subject.currentScore}%` }}
-                                ></div>
-                              </div>
-                              
-                              <div className="mt-4">
-                                <h4 className="text-sm font-medium mb-1">Strengths:</h4>
-                                <ul className="list-disc list-inside text-sm text-muted-foreground">
-                                  {subject.strengths.map((strength: string, index: number) => (
-                                    <li key={index}>{strength}</li>
-                                  ))}
-                                </ul>
-                              </div>
-                            </div>
-                            
-                            <div>
-                              <div className="flex justify-between mb-1">
-                                <span className="text-sm font-medium">Comparison to Class Average</span>
-                                <span className="text-sm font-medium">
-                                  {subject.comparisonToAverage > 0 ? `+${subject.comparisonToAverage}%` : `${subject.comparisonToAverage}%`}
-                                </span>
-                              </div>
-                              <div className="flex items-centre space-x-2">
-                                <span className="text-sm">Class: {subject.classAverage}%</span>
-                                <div className="flex-1 h-0.5 bg-grey-200"></div>
-                                <span className="text-sm">Student: {subject.currentScore}%</span>
-                              </div>
-                              
-                              <div className="mt-4">
-                                <h4 className="text-sm font-medium mb-1">Areas for Development:</h4>
-                                <ul className="list-disc list-inside text-sm text-muted-foreground">
-                                  {subject.areasForDevelopment.map((area: string, index: number) => (
-                                    <li key={index}>{area}</li>
-                                  ))}
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          <div className="mt-4">
-                            <h4 className="text-sm font-medium mb-1">Teacher Comments:</h4>
-                            {!editingReport ? (
-                              <p className="text-sm text-muted-foreground">{subject.comments}</p>
-                            ) : (
-                              <Textarea 
-                                value={editedComments[subject.subject] || subject.comments}
-                                onChange={(e) => setEditedComments({...editedComments, [subject.subject]: e.target.value})}
-                                className="min-h-[80px] text-sm"
-                              />
-                            )}
-                          </div>
-                          
-                          {currentReport.includeAttendance && (
-                            <div className="mt-4 flex items-centre">
-                              <Clock className="h-4 w-4 mr-2 text-muted-foreground" />
-                              <span className="text-sm">Attendance: {subject.attendance}%</span>
-                            </div>
-                          )}
-                          
-                          {currentReport.includeBehavior && (
-                            <div className="mt-2 flex items-centre">
-                              <Smile className="h-4 w-4 mr-2 text-muted-foreground" />
-                              <span className="text-sm">Behaviour: {subject.behaviour}</span>
-                            </div>
-                          )}
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                  
-                  {currentReport.nextSteps && currentReport.nextSteps.length > 0 && (
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="flex items-centre">
-                          <Target className="mr-2 h-5 w-5" />
-                          Next Steps
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-2">
-                          {currentReport.nextSteps.map((step: string, index: number) => (
-                            <li key={index} className="flex items-start">
-                              <CheckCircle className="h-5 w-5 mr-2 text-primary flex-shrink-0 mt-0.5" />
-                              <span>{step}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </CardContent>
-                    </Card>
-                  )}
-                  
-                  <div className="flex justify-between">
-                    <Button 
-                      variant="outline"
-                      onClick={() => setActiveTab('preview')}
-                    >
-                      Back to Preview
-                    </Button>
-                    
-                    <div className="flex space-x-2">
-                      <Button 
-                        variant="outline"
-                        onClick={() => generatePDF(currentReport)}
-                      >
-                        <Printer className="mr-2 h-4 w-4" />
-                        Print
-                      </Button>
-                      
-                      <Button 
-                        variant="outline"
-                        onClick={() => {
-                          // Simulate sharing functionality
-                          toast({
-                            title: "Share options",
-                            description: "Sharing functionality would open here.",
-                            variant: "default"
-                          });
-                        }}
-                      >
-                        <Share2 className="mr-2 h-4 w-4" />
-                        Share
-                      </Button>
-                      
-                      {!savedReports.some(report => report.id === currentReport.id) && (
-                        <Button 
-                          onClick={() => saveReport(currentReport)}
-                        >
-                          <Save className="mr-2 h-4 w-4" />
-                          Save Report
-                        </Button>
-                      )}
                     </div>
-                  </div>
-                </div>
-              ) : (
-                <div className="text-centre py-12">
-                  <FileText className="h-12 w-12 mx-auto text-muted-foreground" />
-                  <h3 className="mt-4 text-lg font-medium">No report selected</h3>
-                  <p className="mt-2 text-muted-foreground">
-                    Select a report from the Preview or Saved tabs to view it in detail
-                  </p>
-                </div>
+                    
+                    {currentReport.includeAttendance && (
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="font-medium">Attendance:</span>
+                        <Badge variant="outline">{subject.attendance}%</Badge>
+                      </div>
+                    )}
+                    
+                    {currentReport.includeBehavior && (
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="font-medium">Behaviour:</span>
+                        <Badge variant="outline">{subject.behaviour}</Badge>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
+              
+              {/* Next Steps */}
+              {currentReport.includeNextSteps && currentReport.nextSteps.length > 0 && (
+                <Card className="lg:col-span-3">
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <Target className="mr-2 h-5 w-5" />
+                      Next Steps
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2">
+                      {currentReport.nextSteps.map((step: string, index: number) => (
+                        <li key={index} className="flex items-start">
+                          <CheckCircle className="h-5 w-5 mr-2 text-green-500 mt-0.5" />
+                          <span>{step}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
               )}
-            </TabsContent>
-            
-            {/* Saved Tab */}
-            <TabsContent value="saved" className="space-y-6">
-              {savedReports.length > 0 ? (
-                <>
-                  <div className="flex justify-between items-centre">
-                    <h2 className="text-xl font-bold">Saved Reports</h2>
-                    <div className="text-sm text-muted-foreground">
-                      {savedReports.length} reports saved
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {savedReports.map(report => (
-                      <Card key={report.id} className="overflow-hidden">
-                        <CardHeader className="pb-2">
-                          <CardTitle>{report.student.name}</CardTitle>
-                          <CardDescription>
-                            {report.template} • {getPeriodDisplayName(report.period)} • {formatDate(report.date)}
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent className="pb-2">
-                          <div className="space-y-2">
-                            <div>
-                              <h3 className="text-sm font-medium">Subjects Included:</h3>
-                              <div className="flex flex-wrap gap-1 mt-1">
-                                {report.subjects.map((subject) => (
-                                  <Badge key={subject.subject} variant="outline">
-                                    {subject.subject}
-                                  </Badge>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                        </CardContent>
-                        <CardFooter className="flex justify-between">
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => viewReport(report)}
-                          >
-                            <Eye className="mr-2 h-4 w-4" />
-                            View
-                          </Button>
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => deleteReport(report.id)}
-                          >
-                            <Trash className="mr-2 h-4 w-4" />
-                            Delete
-                          </Button>
-                        </CardFooter>
-                      </Card>
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <div className="text-centre py-12">
-                  <Save className="h-12 w-12 mx-auto text-muted-foreground" />
-                  <h3 className="mt-4 text-lg font-medium">No saved reports</h3>
-                  <p className="mt-2 text-muted-foreground">
-                    Generate and save reports to access them here for future reference
-                  </p>
-                  <Button 
-                    variant="outline" 
-                    className="mt-4"
-                    onClick={() => setActiveTab('create')}
-                  >
-                    Create New Reports
-                  </Button>
-                </div>
-              )}
-            </TabsContent>
-          </Tabs>
-        </CardContent>
-        <CardFooter className="flex justify-between border-t pt-6">
-          <Button 
-            variant="outline"
-            onClick={() => {
-              // Open help documentation
-              toast({
-                title: "Help & Documentation",
-                description: "Documentation would open here.",
-                variant: "default"
-              });
-            }}
-          >
-            <HelpCircle className="mr-2 h-4 w-4" />
-            Help
-          </Button>
-          
-          <div className="text-sm text-muted-foreground">
-            Last updated: {new Date().toLocaleDateString()}
-          </div>
-        </CardFooter>
-      </Card>
+            </div>
+          )}
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

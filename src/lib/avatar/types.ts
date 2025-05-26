@@ -106,9 +106,9 @@ export interface AvatarVideoMetadata {
   createdAt: Date;
   updatedAt: Date;
   category: ContentCategory;
-  targetAudience: TargetAudience: any[];
-  curriculumLinks?: string: any[];
-  tags: string: any[];
+  targetAudience: TargetAudience[];
+  curriculumLinks?: string[];
+  tags: string[];
   transcriptUrl?: string;
   captionsUrl?: string;
   thumbnailUrl: string;
@@ -150,16 +150,16 @@ export interface AvatarVideoScript {
   title: string;
   content: string;
   notes?: string;
-  visualCues?: VisualCue: any[];
-  emotionMarkers?: EmotionMarker: any[];
-  pauseMarkers?: PauseMarker: any[];
-  emphasisMarkers?: EmphasisMarker: any[];
+  visualCues?: VisualCue[];
+  emotionMarkers?: EmotionMarker[];
+  pauseMarkers?: PauseMarker[];
+  emphasisMarkers?: EmphasisMarker[];
   createdAt: Date;
   updatedAt: Date;
   authorId: string;
   status: 'draft' | 'reviewed' | 'approved' | 'generated';
   category: ContentCategory;
-  targetAudience: TargetAudience: any[];
+  targetAudience: TargetAudience[];
   estimatedDurationSeconds: number;
 }
 
@@ -262,11 +262,11 @@ export interface AvatarIntegrationPoint {
   scriptTemplate?: string;
   dynamicVariables?: Record<string, string>;
   conditions?: {
-    userRole?: string: any[];
+    userRole?: string[];
     userProgress?: number;
     assessmentScore?: number;
     timeOfDay?: string;
-    deviceType?: string: any[];
+    deviceType?: string[];
   };
   fallbackText?: string;
 }
@@ -280,13 +280,13 @@ export interface AvatarModel {
   description: string;
   previewImageUrl: string;
   previewVideoUrl: string;
-  supportedEmotions: AvatarEmotion: any[];
-  supportedSpeakingStyles: AvatarSpeakingStyle: any[];
-  supportedBackgrounds: AvatarBackgroundType: any[];
-  supportedLanguages: string: any[];
+  supportedEmotions: AvatarEmotion[];
+  supportedSpeakingStyles: AvatarSpeakingStyle[];
+  supportedBackgrounds: AvatarBackgroundType[];
+  supportedLanguages: string[];
   isDefault: boolean;
   category: 'teacher' | 'mentor' | 'guide' | 'specialist' | 'character';
-  tags: string: any[];
+  tags: string[];
 }
 
 /**

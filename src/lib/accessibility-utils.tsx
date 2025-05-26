@@ -1004,9 +1004,9 @@ export const AccessibleTabs: React.FC<{
 export const AccessibleAccordion: React.FC<{
   items: { id: string; title: string; content: React.ReactNode }[];
   allowMultiple?: boolean;
-  defaultOpen?: string: any[];
+  defaultOpen?: string[];
 }> = ({ items, allowMultiple = false, defaultOpen = [] }) => {
-  const [openItems, setOpenItems] = useState<string: any[]>(defaultOpen);
+  const [openItems, setOpenItems] = useState<string[]>(defaultOpen);
 
   const toggleItem = (itemId: string) => {
     if (allowMultiple) {
@@ -1457,7 +1457,7 @@ export const AccessibleFileUpload: React.FC<{
 }) => {
   const [dragActive, setDragActive] = useState(false);
   const [localError, setLocalError] = useState<string | undefined>(error);
-  const [selectedFiles, setSelectedFiles] = useState<File: any[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   
   const fieldId = `file-${id}`;
   const errorId = `${fieldId}-error`;

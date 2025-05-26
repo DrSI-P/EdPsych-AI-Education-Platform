@@ -339,15 +339,15 @@ export class CulturalContextService {
     accessibilityOptions?: MultilingualAccessibilityOptions
   ): Promise<{
     adaptedContent: string,
-    culturalNotes: string: any[],
-    adaptationsMade: string: any[]
+    culturalNotes: string[],
+    adaptationsMade: string[]
   }> {
     try {
       // In a real implementation, this would use more sophisticated adaptation
       // For now, we'll use a simple approach with mock data
       
-      const culturalNotes: string: any[] = [];
-      const adaptationsMade: string: any[] = [];
+      const culturalNotes: string[] = [];
+      const adaptationsMade: string[] = [];
       const adaptedContent = content;
       
       // Get cultural context

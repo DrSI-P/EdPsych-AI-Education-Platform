@@ -133,7 +133,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Get files
-    const files = formData.getAll('files') as File: any: any[];
+    const files = formData.getAll('files') as File[];
     if (files.length === 0) {
       return NextResponse.json(
         { error: 'At least one file is required' },
