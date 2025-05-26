@@ -19,24 +19,24 @@ export interface AIAvatarVideo {
 }
 
 export enum AIAvatarVideoCategory {
-  CORE_PLATFORM = \'CORE_PLATFORM\',
-  USER_ONBOARDING = \'USER_ONBOARDING\',
-  FEATURE_DEMONSTRATION = \'FEATURE_DEMONSTRATION\',
-  ADMINISTRATIVE = \'ADMINISTRATIVE\',
-  INSPIRATIONAL = 'inspirational';
+  CORE_PLATFORM = 'CORE_PLATFORM',
+  USER_ONBOARDING = 'USER_ONBOARDING',
+  FEATURE_DEMONSTRATION = 'FEATURE_DEMONSTRATION',
+  ADMINISTRATIVE = 'ADMINISTRATIVE',
+  INSPIRATIONAL = 'INSPIRATIONAL'
 }
 
 export enum AIAvatarVideoAudience {
-  ALL = \'ALL\',
-  EDUCATORS = \'EDUCATORS\',
-  PARENTS = \'PARENTS\',
-  STUDENTS_EARLY_YEARS = \'STUDENTS_EARLY_YEARS\',
+  ALL = 'ALL',
+  EDUCATORS = 'EDUCATORS',
+  PARENTS = 'PARENTS',
+  STUDENTS_EARLY_YEARS = 'STUDENTS_EARLY_YEARS',
   STUDENTS_KS1 = \'STUDENTS_KS1\',
   STUDENTS_KS2 = \'STUDENTS_KS2\',
   STUDENTS_KS3 = \'STUDENTS_KS3\',
   STUDENTS_KS4 = \'STUDENTS_KS4\',
-  PROFESSIONALS = \'PROFESSIONALS\',
-  ADMINISTRATORS = 'administrators';
+  PROFESSIONALS = 'PROFESSIONALS',
+  ADMINISTRATORS = 'ADMINISTRATORS'
 }
 
 export interface AIAvatarVideoPlayer {
@@ -56,7 +56,7 @@ export interface AIAvatarVideoLibrary {
 }
 
 export interface AIAvatarVideoService {
-  getVideo: (id: string) => Promise<AIAvatarVideo[]>;
+  getVideo: (id: string) => Promise<AIAvatarVideo>;
   getVideosByCategory: (category: AIAvatarVideoCategory) => Promise<AIAvatarVideo[]>;
   getVideosByAudience: (audience: AIAvatarVideoAudience) => Promise<AIAvatarVideo[]>;
   getFeaturedVideos: () => Promise<AIAvatarVideo[]>;
