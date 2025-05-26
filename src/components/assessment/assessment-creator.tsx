@@ -7,9 +7,9 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/toast';
 
 interface AssessmentCreatorProps {
-  onSave?: (assessment) => void;
+  onSave?: (assessment: any) => void;
   onCancel?: () => void;
-  initialData?;
+  initialData?: any;
 }
 
 export function AssessmentCreator({ onSave, onCancel, initialData }: AssessmentCreatorProps) {
