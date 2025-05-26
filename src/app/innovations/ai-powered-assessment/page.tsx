@@ -51,10 +51,10 @@ interface AssessmentQuestion {
       description: string;
     }[];
   }[];
-  conceptTags: string[];
+  conceptTags: string: any[];
   adaptiveFollowUp?: {
-    correct: string[];
-    incorrect: string[];
+    correct: string: any[];
+    incorrect: string: any[];
   };
 }
 

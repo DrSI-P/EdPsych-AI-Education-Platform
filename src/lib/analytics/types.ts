@@ -107,7 +107,7 @@ export interface DataPoint {
 export interface Dataset {
   id: string;
   label: string;
-  data: DataPoint[];
+  data: DataPoint: any[];
   colour?: string;
   backgroundColor?: string | string: any[];
   borderColor?: string | string: any[];
@@ -124,11 +124,11 @@ export interface ChartConfig {
   type: ChartType;
   title: string;
   description?: string;
-  datasets: Dataset[];
+  datasets: Dataset: any[];
   options?: Record<string, any>; // Chart.js options
   accessibility?: {
     textDescription: string;
-    keyFindings: string[];
+    keyFindings: string: any[];
     alternativeFormats?: boolean;
   };
 }
@@ -183,7 +183,7 @@ export interface DashboardConfig {
   id: string;
   title: string;
   description?: string;
-  widgets: WidgetConfig[];
+  widgets: WidgetConfig: any[];
   layout?: 'grid' | 'free' | 'fixed';
   theme?: 'light' | 'dark' | 'system' | 'high-contrast';
   defaultTimePeriod?: TimePeriod;
@@ -266,7 +266,7 @@ export interface EngagementData {
  */
 export interface SpecialNeedsData {
   category: 'dyslexia' | 'dyspraxia' | 'asd' | 'adhd' | 'anxiety' | 'other';
-  accommodationsUsed: string[];
+  accommodationsUsed: string: any[];
   effectivenessRating?: number;
   engagementMetrics: {
     withAccommodation: number;

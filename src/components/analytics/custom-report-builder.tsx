@@ -400,7 +400,7 @@ const TablePreview = ({ dataType }: { dataType: string }): React.ReactNode => {
           </tr>
         </thead>
         <tbody>
-          {data.rows.slice(0, 3).map((row: string[], rowIndex: number) => (
+          {data.rows.slice(0, 3).map((row: string: any[], rowIndex: number) => (
             <tr key={`row-${rowIndex}`} className={rowIndex % 2 === 0 ? "bg-white" : "bg-muted/50"}>
               {row.map((cell: string, cellIndex: number) => (
                 <td key={`cell-${rowIndex}-${cellIndex}`} className="border px-4 py-2 text-sm">

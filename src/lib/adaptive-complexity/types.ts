@@ -64,7 +64,7 @@ export interface SubjectPreference {
   currentComplexityLevel: ComplexityLevel;
   recommendedComplexityLevel: ComplexityLevel;
   confidenceScore: number; // How confident the system is in this recommendation (0-1)
-  performanceHistory: PerformanceMetric[];
+  performanceHistory: PerformanceMetric: any[];
   skillAreas: Record<string, SkillAreaProfile>;
 }
 
@@ -76,7 +76,7 @@ export interface SkillAreaProfile {
   currentComplexityLevel: ComplexityLevel;
   recommendedComplexityLevel: ComplexityLevel;
   confidenceScore: number;
-  performanceHistory: PerformanceMetric[];
+  performanceHistory: PerformanceMetric: any[];
   strengths: string[]; // Specific strengths identified within this skill area
   areasForImprovement: string[]; // Specific areas needing improvement
 }
@@ -94,7 +94,7 @@ export interface AdaptiveContent {
   prerequisites: string[]; // IDs of content that should be completed first
   learningObjectives: string[];
   estimatedTimeMinutes: number;
-  adaptiveElements: AdaptiveElement[];
+  adaptiveElements: AdaptiveElement: any[];
 }
 
 /**
@@ -135,7 +135,7 @@ export interface ComplexityAdjustmentResult {
   adjustmentReason: string;
   confidenceScore: number;
   timestamp: Date;
-  recommendedNextSteps?: string: any[];
+  recommendedNextSteps?: string[];
 }
 
 /**

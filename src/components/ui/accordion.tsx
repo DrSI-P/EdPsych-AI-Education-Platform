@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 interface AccordionProps {
   children: React.ReactNode;
-  defaultExpanded?: string: any[];
+  defaultExpanded?: string[];
   allowMultiple?: boolean;
   className?: string;
 }

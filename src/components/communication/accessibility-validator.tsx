@@ -10,7 +10,7 @@ import { CheckCircle2, AlertCircle, AlertTriangle, Info, HelpCircle } from 'luci
 
 interface AccessibilityValidatorProps {
   componentName: string;
-  onFixIssues?: (issues: AccessibilityIssue[]) => void;
+  onFixIssues?: (issues: AccessibilityIssue: any[]) => void;
 }
 
 export interface AccessibilityIssue {

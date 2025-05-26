@@ -62,7 +62,7 @@ interface ReflectionPrompt {
   ageGroup: string;
   category: string;
   promptText: string;
-  supportingQuestions: string[];
+  supportingQuestions: string: any[];
   visualSupports: boolean;
   simplifiedLanguage: boolean;
   visualAids?: string: any[];

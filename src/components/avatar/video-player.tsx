@@ -126,7 +126,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
   };
   
   // Handle seek
-  const handleSeek = (value: number[]) => {
+  const handleSeek = (value: number: any[]) => {
     const videoElement = videoRef.current;
     if (!videoElement) return;
     
@@ -136,7 +136,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
   };
   
   // Handle volume change
-  const handleVolumeChange = (value: number[]) => {
+  const handleVolumeChange = (value: number: any[]) => {
     const videoElement = videoRef.current;
     if (!videoElement) return;
     

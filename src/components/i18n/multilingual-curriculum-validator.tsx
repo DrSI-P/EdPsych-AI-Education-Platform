@@ -58,8 +58,8 @@ interface CurriculumValidationResult {
     info: number;
   };
   score: number; // 0-100
-  issues: CurriculumIssue[];
-  passedChecks: string[];
+  issues: CurriculumIssue: any[];
+  passedChecks: string: any[];
 }
 
 interface MultilingualCurriculumValidatorProps {

@@ -16,7 +16,7 @@ interface Resource {
   type: 'document' | 'video' | 'audio' | 'link' | 'worksheet';
   url?: string;
   file?: string;
-  tags: string[];
+  tags: string: any[];
   ageRange: string;
   subject: string;
   curriculum: string;

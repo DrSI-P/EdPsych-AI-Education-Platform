@@ -512,7 +512,7 @@ export interface DataCollectionService {
     isValid: boolean;
     reliability: number;
     validity: number;
-    issues: string[];
+    issues: string: any[];
   }>;
 }
 
@@ -560,16 +560,16 @@ export interface ImpactMeasurementService {
     domains: Record<ResearchDomain, {
       overallImpact: number;
       confidence: number;
-      keyFindings: string[];
+      keyFindings: string: any[];
     }>;
-    recommendations: string[];
+    recommendations: string: any[];
   }>;
   
   generateImpactReport: (frameworkId: string, projectId?: string) => Promise<{
     reportUrl: string;
     executiveSummary: string;
-    keyFindings: string[];
-    visualizations: string[];
+    keyFindings: string: any[];
+    visualizations: string: any[];
   }>;
 }
 
@@ -620,23 +620,23 @@ export interface LongitudinalTrackingService {
     overallTrends: string;
     keyStageProgressions: Record<UKKeyStage, {
       averageProgressRate: number;
-      successFactors: string[];
-      challenges: string[];
+      successFactors: string: any[];
+      challenges: string: any[];
     }>;
     interventionEffectiveness: Record<string, {
       impactScore: number;
       confidence: number;
-      contextualFactors: string[];
+      contextualFactors: string: any[];
     }>;
-    recommendations: string[];
+    recommendations: string: any[];
   }>;
   
   generateProgressionReport: (participantId: string) => Promise<{
     reportUrl: string;
     summary: string;
-    keyMilestones: string[];
-    interventionImpacts: string[];
-    recommendations: string[];
+    keyMilestones: string: any[];
+    interventionImpacts: string: any[];
+    recommendations: string: any[];
   }>;
 }
 
@@ -672,9 +672,9 @@ export interface QualitativeDataService {
     themes: Array<{
       name: string;
       frequency: number;
-      relatedCodes: string[];
-      keyQuotes: string[];
-      domains: ResearchDomain[];
+      relatedCodes: string: any[];
+      keyQuotes: string: any[];
+      domains: ResearchDomain: any[];
     }>;
     connections: Array<{
       themeA: string;
@@ -682,16 +682,16 @@ export interface QualitativeDataService {
       strength: number;
       description: string;
     }>;
-    insights: string[];
+    insights: string: any[];
   }>;
   
   generateQualitativeReport: (projectId: string) => Promise<{
     reportUrl: string;
     executiveSummary: string;
     methodologySummary: string;
-    keyThemes: string[];
+    keyThemes: string: any[];
     illustrativeQuotes: Record<string, string[]>;
-    implications: string[];
+    implications: string: any[];
   }>;
 }
 
@@ -731,13 +731,13 @@ export interface ResearchPartnershipService {
   generatePartnershipReport: (partnershipId: string) => Promise<{
     reportUrl: string;
     summary: string;
-    achievements: string[];
-    challenges: string[];
-    nextSteps: string[];
+    achievements: string: any[];
+    challenges: string: any[];
+    nextSteps: string: any[];
   }>;
   
   findPotentialPartners: (criteria: {
-    researchDomains: ResearchDomain[];
+    researchDomains: ResearchDomain: any[];
     geographicArea?: string;
     organizationTypes?: string: any[];
     keywords?: string: any[];
@@ -745,8 +745,8 @@ export interface ResearchPartnershipService {
     organizationId: string;
     name: string;
     type: string;
-    researchInterests: string[];
-    previousCollaborations: string[];
+    researchInterests: string: any[];
+    previousCollaborations: string: any[];
     contactInformation: {
       contactPerson: string;
       email: string;

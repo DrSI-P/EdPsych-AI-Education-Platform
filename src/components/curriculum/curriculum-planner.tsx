@@ -18,9 +18,9 @@ interface CurriculumPlan {
   ageRange: string;
   curriculum: string;
   duration: string;
-  objectives: string[];
-  resources: string[];
-  assessments: string[];
+  objectives: string: any[];
+  resources: string: any[];
+  assessments: string: any[];
   createdAt: string;
   updatedAt: string;
 }
