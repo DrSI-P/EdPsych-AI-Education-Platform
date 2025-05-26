@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from '../../../../lib/auth';
-import { prisma } from '../../../../lib/db';
-import { aiService } from '../../../../lib/ai';
+import { authOptions } from '@/lib/auth';
+import { prisma } from '@/lib/db';
+import { aiService } from '@/lib/ai';
 
 // Type for route params
 type RouteParams = {
