@@ -47,7 +47,7 @@ export interface Message {
   conversationId: string;
   senderId: string;
   senderRole: CommunicationRole;
-  recipientIds: string: any[];
+  recipientIds: string[];
   subject: string;
   content: string;
   attachments?: Attachment: any[];
@@ -79,9 +79,9 @@ export interface Attachment {
 export interface Conversation {
   id: string;
   title: string;
-  participantIds: string: any[];
+  participantIds: string[];
   participantRoles: Record<string, CommunicationRole>;
-  messages: Message: any[];
+  messages: Message[];
   createdAt: Date;
   updatedAt: Date;
   isArchived: boolean;
@@ -104,12 +104,12 @@ export interface ProgressReport {
   createdAt: Date;
   publishedAt?: Date;
   lastViewedByParent?: Date;
-  academicProgress: AcademicProgressEntry: any[];
+  academicProgress: AcademicProgressEntry[];
   behaviouralNotes?: string;
-  strengths: string: any[];
-  areasForImprovement: string: any[];
-  recommendations: string: any[];
-  nextSteps: string: any[];
+  strengths: string[];
+  areasForImprovement: string[];
+  recommendations: string[];
+  nextSteps: string[];
   parentFeedbackRequested: boolean;
   parentFeedback?: string;
   attachments?: Attachment: any[];
@@ -144,9 +144,9 @@ export interface SharedGoal {
   targetDate?: Date;
   status: 'not_started' | 'in_progress' | 'completed' | 'revised';
   progress: number; // 0-100
-  homeActions: string: any[];
-  schoolActions: string: any[];
-  updates: GoalUpdate: any[];
+  homeActions: string[];
+  schoolActions: string[];
+  updates: GoalUpdate[];
   isArchived: boolean;
 }
 
@@ -177,7 +177,7 @@ export interface Meeting {
   virtualMeetingUrl?: string;
   organizerId: string;
   organizerRole: CommunicationRole;
-  attendeeIds: string: any[];
+  attendeeIds: string[];
   attendeeRoles: Record<string, CommunicationRole>;
   relatedStudentIds?: string: any[];
   agenda?: string: any[];
@@ -204,7 +204,7 @@ export interface Celebration {
   category: 'academic' | 'extracurricular' | 'character' | 'effort' | 'other';
   isPublic: boolean;
   kudos: number;
-  comments: CelebrationComment: any[];
+  comments: CelebrationComment[];
   attachments?: Attachment: any[];
 }
 
@@ -248,15 +248,15 @@ export interface HomeStrategy {
   id: string;
   title: string;
   description: string;
-  targetAreas: string: any[];
-  suggestedActivities: string: any[];
-  resources: string: any[];
+  targetAreas: string[];
+  suggestedActivities: string[];
+  resources: string[];
   timeCommitment: string;
   ageRange: {
     min: number;
     max: number;
   };
-  supportNeeds: string: any[];
+  supportNeeds: string[];
   creatorId: string;
   createdByRole: CommunicationRole;
   createdAt: Date;

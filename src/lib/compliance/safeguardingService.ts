@@ -180,7 +180,7 @@ export class SafeguardingServiceImpl implements SafeguardingService {
       severity: 'low' | 'medium' | 'high';
       detectionDate: Date;
     }>;
-    recommendedActions: string: any[];
+    recommendedActions: string[];
   }> {
     console.log(`Monitoring user activity for: ${userId}`);
     

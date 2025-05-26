@@ -106,9 +106,9 @@ export interface AvatarVideoMetadata {
   createdAt: Date;
   updatedAt: Date;
   category: ContentCategory;
-  targetAudience: TargetAudience: any[];
+  targetAudience: TargetAudience[];
   curriculumLinks?: string: any[];
-  tags: string: any[];
+  tags: string[];
   transcriptUrl?: string;
   captionsUrl?: string;
   thumbnailUrl: string;
@@ -159,7 +159,7 @@ export interface AvatarVideoScript {
   authorId: string;
   status: 'draft' | 'reviewed' | 'approved' | 'generated';
   category: ContentCategory;
-  targetAudience: TargetAudience: any[];
+  targetAudience: TargetAudience[];
   estimatedDurationSeconds: number;
 }
 
@@ -280,13 +280,13 @@ export interface AvatarModel {
   description: string;
   previewImageUrl: string;
   previewVideoUrl: string;
-  supportedEmotions: AvatarEmotion: any[];
-  supportedSpeakingStyles: AvatarSpeakingStyle: any[];
-  supportedBackgrounds: AvatarBackgroundType: any[];
-  supportedLanguages: string: any[];
+  supportedEmotions: AvatarEmotion[];
+  supportedSpeakingStyles: AvatarSpeakingStyle[];
+  supportedBackgrounds: AvatarBackgroundType[];
+  supportedLanguages: string[];
   isDefault: boolean;
   category: 'teacher' | 'mentor' | 'guide' | 'specialist' | 'character';
-  tags: string: any[];
+  tags: string[];
 }
 
 /**

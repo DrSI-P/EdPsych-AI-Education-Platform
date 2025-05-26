@@ -26,7 +26,7 @@ interface ResourceRecommendation {
   type: string;
   file?: string;
   url?: string;
-  tags: string: any[];
+  tags: string[];
   ageRange: string;
   subject: string;
   curriculum: string;

@@ -18,7 +18,7 @@ interface ImmersiveEnvironment {
   subject: string;
   ageRange: string;
   curriculum: string;
-  objectives: string: any[];
+  objectives: string[];
   scenarioUrl: string;
   previewImage?: string;
   createdAt: string;
