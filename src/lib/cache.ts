@@ -93,7 +93,7 @@ export async function getCachedValue<T>(
 /**
  * Cache decorator for async functions
  */
-export function withCache<T extends (...args: any[]) => Promise<any>>(
+export function withCache<T extends (...args[]) => Promise<any>>(
   fn: T,
   keyPrefix: string,
   ttlSeconds: number | null = 3600

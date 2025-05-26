@@ -1,0 +1,355 @@
+diff --git a/package-lock.json b/package-lock.json
+index b726525..785026a 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -73,7 +73,7 @@
+         "react-hook-form": "^7.56.4",
+         "react-icons": "^5.5.0",
+         "react-markdown": "^10.1.0",
+-        "recharts": "^2.15.3",
++        "recharts": "^2.12.0",
+         "sonner": "^2.0.3",
+         "stream-browserify": "^3.0.0",
+         "stream-http": "^3.2.0",
+@@ -17674,16 +17674,16 @@
+       }
+     },
+     "node_modules/recharts": {
+-      "version": "2.15.3",
+-      "resolved": "https://registry.npmjs.org/recharts/-/recharts-2.15.3.tgz",
+-      "integrity": "sha512-EdOPzTwcFSuqtvkDoaM5ws/Km1+WTAO2eizL7rqiG0V2UVhTnz0m7J2i0CjVPUCdEkZImaWvXLbZDS2H5t6GFQ==",
++      "version": "2.12.0",
++      "resolved": "https://registry.npmjs.org/recharts/-/recharts-2.12.0.tgz",
++      "integrity": "sha512-rVNcdNQ5b7+40Ue7mcEKZJyEv+3SUk2bDEVvOyXPDXXVE7TU3lrvnJUgAvO36hSzhRP2DnAamKXvHLFIFOU0Ww==",
+       "license": "MIT",
+       "dependencies": {
+         "clsx": "^2.0.0",
+         "eventemitter3": "^4.0.1",
+-        "lodash": "^4.17.21",
+-        "react-is": "^18.3.1",
+-        "react-smooth": "^4.0.4",
++        "lodash": "^4.17.19",
++        "react-is": "^16.10.2",
++        "react-smooth": "^4.0.0",
+         "recharts-scale": "^0.4.4",
+         "tiny-invariant": "^1.3.1",
+         "victory-vendor": "^36.6.8"
+@@ -17692,8 +17692,8 @@
+         "node": ">=14"
+       },
+       "peerDependencies": {
+-        "react": "^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+-        "react-dom": "^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
++        "react": "^16.0.0 || ^17.0.0 || ^18.0.0",
++        "react-dom": "^16.0.0 || ^17.0.0 || ^18.0.0"
+       }
+     },
+     "node_modules/recharts-scale": {
+@@ -17705,12 +17705,6 @@
+         "decimal.js-light": "^2.4.1"
+       }
+     },
+-    "node_modules/recharts/node_modules/react-is": {
+-      "version": "18.3.1",
+-      "resolved": "https://registry.npmjs.org/react-is/-/react-is-18.3.1.tgz",
+-      "integrity": "sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==",
+-      "license": "MIT"
+-    },
+     "node_modules/redent": {
+       "version": "3.0.0",
+       "resolved": "https://registry.npmjs.org/redent/-/redent-3.0.0.tgz",
+diff --git a/package.json b/package.json
+index f8529ce..437f206 100644
+--- a/package.json
++++ b/package.json
+@@ -76,7 +76,7 @@
+     "react-hook-form": "^7.56.4",
+     "react-icons": "^5.5.0",
+     "react-markdown": "^10.1.0",
+-    "recharts": "^2.15.3",
++    "recharts": "^2.12.0",
+     "sonner": "^2.0.3",
+     "stream-browserify": "^3.0.0",
+     "stream-http": "^3.2.0",
+diff --git a/src/app/api/special-needs/emotional-regulation/pattern-recognition/route.ts b/src/app/api/special-needs/emotional-regulation/pattern-recognition/route.ts
+index 499f6cd..a8f3dd6 100644
+--- a/src/app/api/special-needs/emotional-regulation/pattern-recognition/route.ts
++++ b/src/app/api/special-needs/emotional-regulation/pattern-recognition/route.ts
+@@ -97,7 +97,7 @@ export async function GET(req: Request) {
+ }
+ 
+ // Function to generate pattern analysis from emotion data
+-function generatePatternAnalysis(emotionRecords: any[], emotionJournals: any[], analysisType: string = 'all') {
++function generatePatternAnalysis(emotionRecords[], emotionJournals[], analysisType: string = 'all') {
+   // Initialize analysis object
+   const analysis = {
+     insights: [] as Array<{
+@@ -150,7 +150,7 @@ function generatePatternAnalysis(emotionRecords: any[], emotionJournals: any[],
+ }
+ 
+ // Helper function to generate insights
+-function generateInsights(emotionRecords: any[]) {
++function generateInsights(emotionRecords[]) {
+   const insights = [];
+   
+   // Most common emotion
+@@ -314,7 +314,7 @@ function generateInsights(emotionRecords: any[]) {
+ }
+ 
+ // Helper function to generate trigger patterns
+-function generateTriggerPatterns(emotionRecords: any[]) {
++function generateTriggerPatterns(emotionRecords[]) {
+   // Group emotions by triggers
+   const triggerEmotions: Record<string, Record<string, number>> = {};
+   
+@@ -348,7 +348,7 @@ function generateTriggerPatterns(emotionRecords: any[]) {
+ }
+ 
+ // Helper function to generate time patterns
+-function generateTimePatterns(emotionRecords: any[]) {
++function generateTimePatterns(emotionRecords[]) {
+   // Group by hour of day
+   const hourCounts = Array(24).fill(0).map((_, i) => ({ hour: i, count: 0 }));
+   
+@@ -376,7 +376,7 @@ function generateTimePatterns(emotionRecords: any[]) {
+ }
+ 
+ // Helper function to generate emotion trends
+-function generateEmotionTrends(emotionRecords: any[]) {
++function generateEmotionTrends(emotionRecords[]) {
+   // Group by date
+   const dateEmotions: Record<string, Record<string, number>> = {};
+   
+@@ -402,7 +402,7 @@ function generateEmotionTrends(emotionRecords: any[]) {
+ }
+ 
+ // Helper function to generate emotion correlations
+-function generateEmotionCorrelations(emotionRecords: any[]) {
++function generateEmotionCorrelations(emotionRecords[]) {
+   // Find emotions that often occur together or in sequence
+   const emotionPairs: Record<string, { source: string; target: string; count: number; strength: number }> = {};
+   
+diff --git a/src/app/api/special-needs/emotional-regulation/strategy-recommendations/route.ts b/src/app/api/special-needs/emotional-regulation/strategy-recommendations/route.ts
+index e2e3257..b641668 100644
+--- a/src/app/api/special-needs/emotional-regulation/strategy-recommendations/route.ts
++++ b/src/app/api/special-needs/emotional-regulation/strategy-recommendations/route.ts
+@@ -234,7 +234,7 @@ export async function POST(req: Request) {
+ }
+ 
+ // Helper function to generate personalized recommendations
+-function generatePersonalizedRecommendations(emotionRecords: any[], strategyHistory: any[], userSettings: any, params: any) {
++function generatePersonalizedRecommendations(emotionRecords[], strategyHistory[], userSettings: any, params: any) {
+   // This would be replaced with actual recommendation logic in production
+   // For now, we'll return a placeholder response
+   
+diff --git a/src/components/adventure-quest/adventure-quest-saga-adaptive.tsx b/src/components/adventure-quest/adventure-quest-saga-adaptive.tsx
+index 8ca918f..b2a4a2b 100644
+--- a/src/components/adventure-quest/adventure-quest-saga-adaptive.tsx
++++ b/src/components/adventure-quest/adventure-quest-saga-adaptive.tsx
+@@ -202,8 +202,8 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
+   // Create adaptive quest based on user data
+   const createAdaptiveQuest = (
+     userProfile: any, 
+-    learningHistory: any[], 
+-    assessmentResults: any[], 
++    learningHistory[], 
++    assessmentResults[], 
+     params: GenerationParams,
+     curriculumContext: any
+   ): Quest => {
+diff --git a/src/components/analytics/custom-report-builder.tsx b/src/components/analytics/custom-report-builder.tsx
+index cf36766..93fd1d2 100644
+--- a/src/components/analytics/custom-report-builder.tsx
++++ b/src/components/analytics/custom-report-builder.tsx
+@@ -182,8 +182,8 @@ const DraggableComponent = ({ component }: { component: any }): React.ReactNode
+ 
+ // Droppable report canvas
+ const ReportCanvas = ({ items, setItems, onEditItem, onRemoveItem, onMoveItem, onDuplicateItem }: {
+-  items: any[];
+-  setItems: (items: any[]) => void;
++  items[];
++  setItems: (items[]) => void;
+   onEditItem: (id: string) => void;
+   onRemoveItem: (id: string) => void;
+   onMoveItem: (fromIndex: number, toIndex: number) => void;
+diff --git a/src/components/blog/educational-ai-blog.tsx b/src/components/blog/educational-ai-blog.tsx
+index 0623d1b..2185011 100644
+--- a/src/components/blog/educational-ai-blog.tsx
++++ b/src/components/blog/educational-ai-blog.tsx
+@@ -276,7 +276,7 @@ const BlogPostCard = ({ post }: { post: any }) => {
+ };
+ 
+ // Category List Component
+-const CategoryList = ({ categories }: { categories: any[] }) => {
++const CategoryList = ({ categories }: { categories[] }) => {
+   return (
+     <div className="space-y-1">
+       {categories.map((category) => (
+@@ -293,7 +293,7 @@ const CategoryList = ({ categories }: { categories: any[] }) => {
+ };
+ 
+ // Tag Cloud Component
+-const TagCloud = ({ tags }: { tags: any[] }) => {
++const TagCloud = ({ tags }: { tags[] }) => {
+   return (
+     <div className="flex flex-wrap gap-2">
+       {tags.map((tag) => (
+diff --git a/src/components/educator/automated-progress-report-generation.tsx b/src/components/educator/automated-progress-report-generation.tsx
+index 4862b41..bb48a03 100644
+--- a/src/components/educator/automated-progress-report-generation.tsx
++++ b/src/components/educator/automated-progress-report-generation.tsx
+@@ -345,7 +345,7 @@ export default function AutomatedProgressReportGeneration() {
+   };
+   
+   // Generate overall comments based on subject reports
+-  const generateOverallComments = (student: any, subjectReports: any[], style: string) => {
++  const generateOverallComments = (student: any, subjectReports[], style: string) => {
+     // Calculate average scores and progress
+     const averageCurrentScore = Math.round(
+       subjectReports.reduce((sum, report) => sum + report.currentScore, 0) / subjectReports.length
+@@ -399,7 +399,7 @@ export default function AutomatedProgressReportGeneration() {
+   };
+   
+   // Generate next steps based on subject reports
+-  const generateNextSteps = (subjectReports: any[]) => {
++  const generateNextSteps = (subjectReports[]) => {
+     const nextSteps = [];
+     
+     // Find lowest performing subject
+diff --git a/src/lib/ai/guidanceService.ts b/src/lib/ai/guidanceService.ts
+index b7e559e..b1af5aa 100644
+--- a/src/lib/ai/guidanceService.ts
++++ b/src/lib/ai/guidanceService.ts
+@@ -419,7 +419,7 @@ export class AIGuidanceService {
+    */
+   public async monitorProgress(
+     learnerProfile: LearnerProfile,
+-    recentActivities: any[],
++    recentActivities[],
+     currentLearningPaths: LearningPath[]
+   ): Promise<InterventionAlert[]> {
+     // Analyse recent activities and learning paths to identify potential issues
+@@ -523,11 +523,11 @@ export class AIGuidanceService {
+   /**
+    * Identify performance issues from recent activities
+    */
+-  private identifyPerformanceIssues(learnerProfile: LearnerProfile, recentActivities: any[]): any[] {
++  private identifyPerformanceIssues(learnerProfile: LearnerProfile, recentActivities[]): any[] {
+     // This would typically involve complex analysis of performance trends
+     // For now, we'll simulate this with a placeholder implementation
+     
+-    const issues: any[] = [];
++    const issues[] = [];
+     
+     // Placeholder implementation
+     if (recentActivities.length > 0) {
+@@ -548,11 +548,11 @@ export class AIGuidanceService {
+   /**
+    * Identify engagement issues from recent activities
+    */
+-  private identifyEngagementIssues(learnerProfile: LearnerProfile, recentActivities: any[]): any[] {
++  private identifyEngagementIssues(learnerProfile: LearnerProfile, recentActivities[]): any[] {
+     // This would typically involve analysis of engagement patterns
+     // For now, we'll simulate this with a placeholder implementation
+     
+-    const issues: any[] = [];
++    const issues[] = [];
+     
+     // Placeholder implementation
+     if (recentActivities.length === 0) {
+@@ -585,7 +585,7 @@ export class AIGuidanceService {
+     // This would typically involve analysis of goal progress against deadlines
+     // For now, we'll simulate this with a placeholder implementation
+     
+-    const issues: any[] = [];
++    const issues[] = [];
+     
+     // Placeholder implementation
+     const activeGoals = learnerProfile.learningGoals.filter(goal => goal.status === 'in_progress');
+diff --git a/src/lib/analytics/analyticsService.ts b/src/lib/analytics/analyticsService.ts
+index b728b13..5bef482 100644
+--- a/src/lib/analytics/analyticsService.ts
++++ b/src/lib/analytics/analyticsService.ts
+@@ -272,7 +272,7 @@ export class AnalyticsService {
+   /**
+    * Transform raw data into chart datasets
+    */
+-  transformDataToDatasets(data: any[], labelField: string, valueField: string, categoryField?: string): Dataset[] {
++  transformDataToDatasets(data[], labelField: string, valueField: string, categoryField?: string): Dataset[] {
+     if (!data || data.length === 0) {
+       return [];
+     }
+diff --git a/src/lib/cache.ts b/src/lib/cache.ts
+index aeece30..fda25ac 100644
+--- a/src/lib/cache.ts
++++ b/src/lib/cache.ts
+@@ -93,7 +93,7 @@ export async function getCachedValue<T>(
+ /**
+  * Cache decorator for async functions
+  */
+-export function withCache<T extends (...args: any[]) => Promise<any>>(
++export function withCache<T extends (...args[]) => Promise<any>>(
+   fn: T,
+   keyPrefix: string,
+   ttlSeconds: number | null = 3600
+diff --git a/src/lib/collaboration/collaborationService.ts b/src/lib/collaboration/collaborationService.ts
+index 43aff8a..1fc2222 100644
+--- a/src/lib/collaboration/collaborationService.ts
++++ b/src/lib/collaboration/collaborationService.ts
+@@ -359,7 +359,7 @@ export class CollaborationService {
+   /**
+    * Update whiteboard
+    */
+-  public updateWhiteboard(whiteboardId: string, elements: any[], version: number): void {
++  public updateWhiteboard(whiteboardId: string, elements[], version: number): void {
+     if (!this.socket || !this.userId || !this.sessionId) return;
+     
+     this.sendMessage({
+diff --git a/src/lib/db-utils.ts b/src/lib/db-utils.ts
+index 2b6dd40..75d1d2a 100644
+--- a/src/lib/db-utils.ts
++++ b/src/lib/db-utils.ts
+@@ -161,7 +161,7 @@ export async function getPaginatedResults<T>(
+ export interface BulkOperationResult {
+   success: number;
+   failed: number;
+-  errors: any[];
++  errors[];
+ }
+ 
+ /**
+@@ -171,7 +171,7 @@ export interface BulkOperationResult {
+  * @param validator Optional validation function
+  * @returns Bulk operation result
+  */
+-export async function bulkCreate(model: string, data: any[], validator?: (item: any) => any
++export async function bulkCreate(model: string, data[], validator?: (item: any) => any
+ ): Promise<BulkOperationResult> {
+   const result: BulkOperationResult = {
+     success: 0,
+diff --git a/src/lib/utils.ts b/src/lib/utils.ts
+index c7ff1e5..719c029 100644
+--- a/src/lib/utils.ts
++++ b/src/lib/utils.ts
+@@ -78,7 +78,7 @@ export function truncateText(text: string, maxLength: number): string {
+  * @param delay - Delay in milliseconds
+  * @returns Debounced function
+  */
+-export function debounce<T extends (...args: any[]) => any>(
++export function debounce<T extends (...args[]) => any>(
+   fn: T,
+   delay: number
+ ): (...args: Parameters<T>) => void {
+diff --git a/src/pages/blog/[slug].tsx b/src/pages/blog/[slug].tsx
+index 446aa77..52d0fce 100644
+--- a/src/pages/blog/[slug].tsx
++++ b/src/pages/blog/[slug].tsx
+@@ -11,7 +11,7 @@ import { prisma } from '@/lib/db';
+ 
+ interface BlogPostPageProps {
+   post;
+-  relatedPosts: any[];
++  relatedPosts[];
+ }
+ 
+ export default function BlogPostPage({ post, relatedPosts }: BlogPostPageProps) {
