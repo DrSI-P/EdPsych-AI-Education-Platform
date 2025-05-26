@@ -43,8 +43,8 @@
 - [x] Fix syntax errors in src/lib/db-utils.ts (0 errors)
 - [x] Fix syntax errors in src/lib/ai/guidanceService.ts (0 errors)
 - [x] Fix syntax errors in src/components/avatar/video-library.tsx (0 errors)
-- [ ] Fix syntax errors in src/app/api/resources/route.ts (2 errors)
-- [ ] Fix syntax errors in src/app/api/assessment/[id]/submit/route.ts (2 errors)
+- [x] Fix syntax errors in src/app/api/resources/route.ts (0 errors)
+- [x] Fix syntax errors in src/app/api/assessment/[id]/submit/route.ts (0 errors)
 
 ## Common Error Patterns to Address
 - [ ] Missing semicolons (';' expected)
