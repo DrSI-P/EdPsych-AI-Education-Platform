@@ -6,9 +6,9 @@ export interface Community {
   id: string;
   name: string;
   description: string;
-  categories: string[];
+  categories: string: any[];
   privacy: "open" | "restricted";
-  schools?: string[];
+  schools?: string: any[];
   createdAt?: string;
   updatedAt?: string;
   createdBy?: string;
@@ -25,7 +25,7 @@ export interface Resource {
   title: string;
   description: string;
   type: string;
-  tags: string[];
+  tags: string: any[];
   fileUrl?: string;
   fileType?: string;
   fileSize?: number;
@@ -66,7 +66,7 @@ export interface Discussion {
   views?: number;
   lastReplyAt?: string;
   pinned?: boolean;
-  tags?: string[];
+  tags?: string: any[];
 }
 
 export interface Event {
@@ -84,7 +84,7 @@ export interface Event {
     school: string;
   };
   capacity?: number;
-  attendees?: string[];
+  attendees?: string: any[];
   attendeeCount?: number;
   createdAt?: string;
   updatedAt?: string;
@@ -96,8 +96,8 @@ export interface Collaboration {
   title: string;
   description: string;
   type: string;
-  schools: string[];
-  members?: string[];
+  schools: string: any[];
+  members?: string: any[];
   memberCount?: number;
   status: "Planning" | "In Progress" | "Completed";
   progress: number;
@@ -105,8 +105,8 @@ export interface Collaboration {
   createdAt?: string;
   updatedAt?: string;
   createdBy?: string;
-  resources?: string[];
-  discussions?: string[];
+  resources?: string: any[];
+  discussions?: string: any[];
 }
 
 export interface Membership {
@@ -128,7 +128,7 @@ export interface PrivacySetting {
   enableAnonymization: boolean;
   requireApproval: boolean;
   maintainAttribution: boolean;
-  approvedSchools?: string[];
+  approvedSchools?: string: any[];
 }
 
 // Schema definitions for Learning Communities API
@@ -264,13 +264,13 @@ const MembershipSchema = z.object({
 // Mock data storage (would be replaced with database in production)
 // Using the exported interfaces defined above
 
-const communities: Community[] = [];
-let resources: Resource[] = [];
-let discussions: Discussion[] = [];
-let events: Event[] = [];
-let collaborations: Collaboration[] = [];
-let memberships: Membership[] = [];
-let privacySettings: PrivacySetting[] = [];
+const communities: Community: any[] = [];
+let resources: Resource: any[] = [];
+let discussions: Discussion: any[] = [];
+let events: Event: any[] = [];
+let collaborations: Collaboration: any[] = [];
+let memberships: Membership: any[] = [];
+let privacySettings: PrivacySetting: any[] = [];
 
 // Integration with other professional development modules
 const integrateCPDActivity = async (userId: string, activityType: string, details): Promise<{success: boolean, points?: number, error?: string}> => {

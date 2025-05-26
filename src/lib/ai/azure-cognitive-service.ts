@@ -100,8 +100,8 @@ export class AzureCognitiveService {
    * Analyse image and extract information
    */
   async analyzeImage(imageUrl: string, options: {
-    visualFeatures?: string[];
-    details?: string[];
+    visualFeatures?: string: any[];
+    details?: string: any[];
     language?: string;
   } = {}) {
     try {
@@ -369,8 +369,8 @@ export class AzureCognitiveService {
     targetAge: number,
     wordsPerSentence: number,
     syllablesPerWord: number
-  ): string[] {
-    const recommendations: string[] = [];
+  ): string: any[] {
+    const recommendations: string: any[] = [];
     const targetGradeLevel = targetAge - 5;
     
     if (Math.abs(gradeLevel - targetGradeLevel) > 2) {

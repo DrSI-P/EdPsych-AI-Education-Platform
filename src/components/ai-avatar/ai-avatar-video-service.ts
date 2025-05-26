@@ -8,7 +8,7 @@ import { AIAvatarVideo, AIAvatarVideoCategory, AIAvatarVideoAudience } from './t
  */
 export class AIAvatarVideoService {
   private static instance: AIAvatarVideoService;
-  private videos: AIAvatarVideo[] = [];
+  private videos: AIAvatarVideo: any[] = [];
   private initialized: boolean = false;
 
   private constructor() {}

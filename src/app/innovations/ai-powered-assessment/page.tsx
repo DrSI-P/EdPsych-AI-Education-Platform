@@ -42,8 +42,8 @@ interface AssessmentQuestion {
   type: 'multiple-choice' | 'short-answer' | 'essay' | 'interactive';
   difficulty: number;
   question: string;
-  options?: string[];
-  correctAnswer?: string | string[];
+  options?: string: any[];
+  correctAnswer?: string | string: any[];
   rubric?: {
     criteria: string;
     levels: {
@@ -51,10 +51,10 @@ interface AssessmentQuestion {
       description: string;
     }[];
   }[];
-  conceptTags: string[];
+  conceptTags: string: any[];
   adaptiveFollowUp?: {
-    correct: string[];
-    incorrect: string[];
+    correct: string: any[];
+    incorrect: string: any[];
   };
 }
 
@@ -277,7 +277,7 @@ export default function AIPoweredAssessmentPage() {
       } else if ((currentQuestion.type === 'short-answer' || currentQuestion.type === 'essay') && textAnswer) {
         // Simulate AI evaluation for text answers
         if (currentQuestion.type === 'short-answer') {
-          const possibleAnswers = currentQuestion.correctAnswer as string[];
+          const possibleAnswers = currentQuestion.correctAnswer as string: any[];
           isCorrect = possibleAnswers.some(answer => 
             textAnswer.toLowerCase().includes(answer.toLowerCase())
           );

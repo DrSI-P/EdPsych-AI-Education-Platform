@@ -32,7 +32,7 @@ const dataRequestSchema = z.object({
 
 // Define type for chart settings to avoid 'any'
 interface ChartSettings {
-  [key: string]: string | number | boolean | string[] | number[] | null;
+  [key: string]: string | number | boolean | string: any[] | number: any[] | null;
 }
 
 // Define type for filters to avoid 'any'

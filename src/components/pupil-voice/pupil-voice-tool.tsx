@@ -22,12 +22,12 @@ interface PupilVoiceEntry {
     answer: string;
   }[];
   sentiment: 'positive' | 'neutral' | 'negative';
-  tags: string[];
+  tags: string: any[];
   notes: string;
 }
 
 interface PupilVoiceToolProps {
-  initialEntries?: PupilVoiceEntry[];
+  initialEntries?: PupilVoiceEntry: any[];
   onEntrySelect?: (entry: PupilVoiceEntry) => void;
   className?: string;
 }
@@ -59,7 +59,7 @@ export function PupilVoiceTool({
         }
         
         // Mock data for demonstration
-        const mockEntries: PupilVoiceEntry[] = [
+        const mockEntries: PupilVoiceEntry: any[] = [
           {
             id: '1',
             pupilName: 'Alex Thompson',

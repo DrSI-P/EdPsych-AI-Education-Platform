@@ -73,7 +73,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
       try {
         // In a real implementation, this would fetch goals from the API
         // For now, we'll use mock data
-        const mockGoals: SharedGoal[] = [
+        const mockGoals: SharedGoal: any[] = [
           {
             id: 'goal1',
             studentId,

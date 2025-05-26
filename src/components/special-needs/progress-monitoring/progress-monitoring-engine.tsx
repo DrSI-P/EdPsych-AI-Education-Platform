@@ -46,7 +46,7 @@ interface Goal {
   target: number;
   progress: number;
   status: 'not-started' | 'in-progress' | 'achieved' | 'discontinued';
-  notes: string[];
+  notes: string: any[];
 }
 
 interface DataPoint {
@@ -72,7 +72,7 @@ export function ProgressMonitoringEngine() {
   const [statusFilter, setStatusFilter] = useState('all');
   
   // Sample goals data
-  const sampleGoals: Goal[] = [
+  const sampleGoals: Goal: any[] = [
     {
       id: 'goal1',
       name: 'Reading Fluency',
@@ -156,7 +156,7 @@ export function ProgressMonitoringEngine() {
   ];
   
   // Sample data points for the first goal
-  const sampleDataPoints: DataPoint[] = [
+  const sampleDataPoints: DataPoint: any[] = [
     {
       id: 'dp1',
       date: new Date(2025, 4, 1),

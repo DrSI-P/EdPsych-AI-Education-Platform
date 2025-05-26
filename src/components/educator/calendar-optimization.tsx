@@ -171,7 +171,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
     location: '',
     description: '',
     recurring: false,
-    participants: [] as string[]
+    participants: [] as string: any[]
   });
   
   // State for filters
