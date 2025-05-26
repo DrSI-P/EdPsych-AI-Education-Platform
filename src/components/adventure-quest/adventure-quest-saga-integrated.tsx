@@ -105,7 +105,7 @@ interface GenerationParams {
 
 interface CompletedQuest extends Quest {
   completedAt: string;
-  results?;
+  results?: any;
 }
 
 // AdventureQuestSagaIntegrated component
