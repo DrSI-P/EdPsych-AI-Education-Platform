@@ -5,10 +5,11 @@
  * and manages video generation, retrieval, and management.
  */
 
-import { HeygenAPI, HeygenVideo as HeyGenVideo, HeygenAvatar, VideoGenerationRequest } from './heygen-api';
+import { HeygenAPI, HeygenVideo, HeygenAvatar, VideoGenerationRequest } from './heygen-api';
 import { db } from '../db';
 
-export { HeyGenVideo };
+// Use 'export type' for re-exporting types when isolatedModules is enabled
+export type { HeygenVideo };
 
 export class HeygenService {
   private static instance: HeygenService;
@@ -60,7 +61,7 @@ export class HeygenService {
   /**
    * Get all videos
    */
-  public async getAllVideos(): Promise<HeyGenVideo[]> {
+  public async getAllVideos(): Promise<HeygenVideo[]> {
     this.checkInitialized();
     return this.heygenApi.getVideos();
   }
@@ -69,7 +70,7 @@ export class HeygenService {
    * Get videos for a specific user
    * @param userId User ID
    */
-  public async getUserVideos(userId: string): Promise<HeyGenVideo[]> {
+  public async getUserVideos(userId: string): Promise<HeygenVideo[]> {
     this.checkInitialized();
     
     try {
@@ -103,7 +104,7 @@ export class HeygenService {
    * Get a specific video by ID
    * @param id Video ID
    */
-  public async getVideo(id: string): Promise<HeyGenVideo> {
+  public async getVideo(id: string): Promise<HeygenVideo> {
     this.checkInitialized();
     return this.heygenApi.getVideo(id);
   }

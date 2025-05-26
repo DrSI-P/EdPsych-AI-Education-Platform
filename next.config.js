@@ -36,18 +36,15 @@ const nextConfig = {
   
   // Configure webpack for better performance
   webpack: (config, { dev, isServer }) => {
-    // Add polyfill for browser globals
-    const originalEntry = config.entry;
-    config.entry = async () => {
-      const entries = await originalEntry();
-      
-      // Add the polyfill to the main entry points
-      if (entries['main.js'] && !entries['main.js'].includes('./src/polyfills.js')) {
-        entries['main.js'].unshift('./src/polyfills.js');
-      }
-      
-      return entries;
-    };
+    // Get webpack's DefinePlugin
+    const { DefinePlugin } = require('webpack');
+    
+    // Add a plugin to define 'self' for all environments
+    config.plugins.push(
+      new DefinePlugin({
+        'self': isServer ? 'global' : 'window',
+      })
+    );
     
     // Add optimization for production builds
     if (!dev) {
