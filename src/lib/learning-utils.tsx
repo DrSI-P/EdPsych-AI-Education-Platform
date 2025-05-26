@@ -777,7 +777,7 @@ export const useLearningStyleAssessment = (): {
 }
 
 /**
- * React hook for tracking module progress
+ * React hook for module progress tracking
  */
 export const useModuleProgress = (
   userId: string,
@@ -788,7 +788,7 @@ export const useModuleProgress = (
   error: string | null;
   trackActivity: (activityId: string, timeSpent: number) => Promise<void>;
   trackAssessment: (assessmentId: string, score: number, passed: boolean) => Promise<void>;
-const useLearningContent = () => {
+} => {
   const [progress, setProgress] = useState<ModuleProgress | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -870,7 +870,7 @@ export const useLearningRecommendations = (
   loading: boolean;
   error: string | null;
   refresh: () => Promise<void>;
-const useLearningContent = () => {
+} => {
   const [recommendations, setRecommendations] = useState<LearningRecommendation[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -906,12 +906,12 @@ const useLearningContent = () => {
  */
 export const useAchievements = (
   userId: string
-) => {
-  achievements: any[];
+): {
+  achievements: Achievement[];
   loading: boolean;
   error: string | null;
   refresh: () => Promise<void>;
-const useLearningContent = () => {
+} => {
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -949,16 +949,16 @@ export const useAdaptiveContent = (
   moduleId: string,
   activityId: string,
   learningStyle: LearningStyle
-) => {
+): {
   content: string;
   loading: boolean;
   error: string | null;
-  changeStyle: (style: LearningStyle) => void
-const useLearningContent = () => {
+  changeStyle: (style: LearningStyle) => void;
+} => {
   const [content, setContent] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [currentStyle, setCurrentStyle] = useState<LearningStyle>>(learningStyle);
+  const [currentStyle, setCurrentStyle] = useState<LearningStyle>(learningStyle);
   
   const fetchContent = async (style: LearningStyle) => {
     try {
