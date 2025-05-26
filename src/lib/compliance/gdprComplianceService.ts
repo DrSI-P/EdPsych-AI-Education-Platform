@@ -50,11 +50,11 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
   private dataBreachLog: Array<{
     id: string;
     description: string;
-    affectedUsers: string: any[];
-    affectedDataCategories: DataProtectionCategory: any[];
+    affectedUsers: string: any: any: any[];
+    affectedDataCategories: DataProtectionCategory: any: any: any[];
     detectionDate: Date;
     reportDate: Date;
-    containmentActions: string: any[];
+    containmentActions: string: any: any: any[];
     severity: 'low' | 'medium' | 'high' | 'critical';
     status: 'detected' | 'contained' | 'reported' | 'resolved';
     resolution: string;
@@ -141,10 +141,10 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
    */
   async handleSubjectAccessRequest(userId: string): Promise<{
     personalData;
-    processingActivities: string: any[];
-    processingPurposes: string: any[];
+    processingActivities: string: any: any: any[];
+    processingPurposes: string: any: any: any[];
     retentionPeriods: Record<string, string>;
-    recipients: string: any[];
+    recipients: string: any: any: any[];
   }> {
     console.log(`Handling subject access request for user: ${userId}`);
     
@@ -224,10 +224,10 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
    * @param dataCategories Optional specific data categories to erase
    * @returns The result of the erasure request
    */
-  async handleRightToErasure(userId: string, dataCategories?: DataProtectionCategory[]): Promise<{
+  async handleRightToErasure(userId: string, dataCategories?: DataProtectionCategory: any[]): Promise<{
     success: boolean;
-    erasedCategories: DataProtectionCategory: any[];
-    retainedCategories: DataProtectionCategory: any[];
+    erasedCategories: DataProtectionCategory: any: any: any[];
+    retainedCategories: DataProtectionCategory: any: any: any[];
     retentionReasons: Record<string, string>;
   }> {
     console.log(`Handling right to erasure request for user: ${userId}`);
@@ -408,10 +408,10 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
    */
   async logDataBreach(details: {
     description: string;
-    affectedUsers: string: any[];
-    affectedDataCategories: DataProtectionCategory: any[];
+    affectedUsers: string: any: any: any[];
+    affectedDataCategories: DataProtectionCategory: any: any: any[];
     detectionDate: Date;
-    containmentActions: string: any[];
+    containmentActions: string: any: any: any[];
     severity: 'low' | 'medium' | 'high' | 'critical';
   }): Promise<string> {
     console.log(`Logging data breach: ${details.description}`);

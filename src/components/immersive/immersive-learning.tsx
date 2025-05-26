@@ -18,7 +18,7 @@ interface ImmersiveEnvironment {
   subject: string;
   ageRange: string;
   curriculum: string;
-  objectives: string: any[];
+  objectives: string: any: any: any[];
   scenarioUrl: string;
   previewImage?: string;
   createdAt: string;
@@ -26,7 +26,7 @@ interface ImmersiveEnvironment {
 }
 
 interface ImmersiveLearningProps {
-  initialEnvironments?: ImmersiveEnvironment: any[];
+  initialEnvironments?: ImmersiveEnvironment: any: any: any[];
   onEnvironmentSelect?: (environment: ImmersiveEnvironment) => void;
   className?: string;
 }

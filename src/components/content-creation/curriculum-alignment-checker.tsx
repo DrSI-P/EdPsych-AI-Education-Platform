@@ -33,8 +33,8 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
   const [error, setError] = useState<string | null>(null);
   const [results, setResults] = useState<{
     alignmentScore: number;
-    suggestions: string: any[];
-    curriculumLinks: string: any[];
+    suggestions: string: any: any: any[];
+    curriculumLinks: string: any: any: any[];
   } | null>(null);
   
   const { toast } = useToast();

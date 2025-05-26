@@ -52,8 +52,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
   async validateCurriculumAlignment(content, keyStage: UKKeyStage): Promise<{
     isAligned: boolean;
     alignmentScore: number;
-    misalignments: string: any[];
-    recommendations: string: any[];
+    misalignments: string: any: any: any[];
+    recommendations: string: any: any: any[];
   }> {
     console.log(`Validating curriculum alignment for key stage: ${keyStage}`);
     
@@ -96,7 +96,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
   async checkAgeAppropriateness(content, targetAgeRange: { min: number; max: number }): Promise<{
     isAppropriate: boolean;
     appropriatenessScore: number;
-    concerns: string: any[];
+    concerns: string: any: any: any[];
     recommendedAgeRating: AgeAppropriatenessRating;
   }> {
     console.log(`Checking age appropriateness for age range: ${targetAgeRange.min}-${targetAgeRange.max}`);
@@ -136,8 +136,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
   async validateAccessibility(content): Promise<{
     isAccessible: boolean;
     accessibilityScore: number;
-    issues: string: any[];
-    recommendations: string: any[];
+    issues: string: any: any: any[];
+    recommendations: string: any: any: any[];
   }> {
     console.log('Validating accessibility');
     
@@ -178,8 +178,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
   async checkInclusivity(content): Promise<{
     isInclusive: boolean;
     inclusivityScore: number;
-    issues: string: any[];
-    recommendations: string: any[];
+    issues: string: any: any: any[];
+    recommendations: string: any: any: any[];
   }> {
     console.log('Checking inclusivity');
     

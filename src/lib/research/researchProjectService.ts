@@ -105,9 +105,9 @@ export class ResearchProjectServiceImpl implements ResearchProjectService {
    * @returns Array of matching research projects
    */
   async listProjects(filters?: {
-    domains?: ResearchDomain: any[];
-    status?: ResearchProjectStatus: any[];
-    keyStages?: UKKeyStage: any[];
+    domains?: ResearchDomain: any: any: any[];
+    status?: ResearchProjectStatus: any: any: any[];
+    keyStages?: UKKeyStage: any: any: any[];
   }): Promise<ResearchProject[]> {
     console.log('Listing research projects');
     

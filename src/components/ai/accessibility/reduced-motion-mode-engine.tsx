@@ -27,7 +27,7 @@ interface ReducedMotionModeEngineProps {
 interface OptimizationResults {
   elementsProcessed: number;
   motionsReduced: number;
-  warnings: string: any[];
+  warnings: string: any: any: any[];
 }
 
 export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = ({ 

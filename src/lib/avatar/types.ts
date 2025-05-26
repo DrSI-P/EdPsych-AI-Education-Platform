@@ -106,9 +106,9 @@ export interface AvatarVideoMetadata {
   createdAt: Date;
   updatedAt: Date;
   category: ContentCategory;
-  targetAudience: TargetAudience: any[];
-  curriculumLinks?: string: any[];
-  tags: string: any[];
+  targetAudience: TargetAudience: any: any: any[];
+  curriculumLinks?: string: any: any: any[];
+  tags: string: any: any: any[];
   transcriptUrl?: string;
   captionsUrl?: string;
   thumbnailUrl: string;
@@ -150,16 +150,16 @@ export interface AvatarVideoScript {
   title: string;
   content: string;
   notes?: string;
-  visualCues?: VisualCue: any[];
-  emotionMarkers?: EmotionMarker: any[];
-  pauseMarkers?: PauseMarker: any[];
-  emphasisMarkers?: EmphasisMarker: any[];
+  visualCues?: VisualCue: any: any: any[];
+  emotionMarkers?: EmotionMarker: any: any: any[];
+  pauseMarkers?: PauseMarker: any: any: any[];
+  emphasisMarkers?: EmphasisMarker: any: any: any[];
   createdAt: Date;
   updatedAt: Date;
   authorId: string;
   status: 'draft' | 'reviewed' | 'approved' | 'generated';
   category: ContentCategory;
-  targetAudience: TargetAudience: any[];
+  targetAudience: TargetAudience: any: any: any[];
   estimatedDurationSeconds: number;
 }
 
@@ -262,11 +262,11 @@ export interface AvatarIntegrationPoint {
   scriptTemplate?: string;
   dynamicVariables?: Record<string, string>;
   conditions?: {
-    userRole?: string: any[];
+    userRole?: string: any: any: any[];
     userProgress?: number;
     assessmentScore?: number;
     timeOfDay?: string;
-    deviceType?: string: any[];
+    deviceType?: string: any: any: any[];
   };
   fallbackText?: string;
 }
@@ -280,13 +280,13 @@ export interface AvatarModel {
   description: string;
   previewImageUrl: string;
   previewVideoUrl: string;
-  supportedEmotions: AvatarEmotion: any[];
-  supportedSpeakingStyles: AvatarSpeakingStyle: any[];
-  supportedBackgrounds: AvatarBackgroundType: any[];
-  supportedLanguages: string: any[];
+  supportedEmotions: AvatarEmotion: any: any: any[];
+  supportedSpeakingStyles: AvatarSpeakingStyle: any: any: any[];
+  supportedBackgrounds: AvatarBackgroundType: any: any: any[];
+  supportedLanguages: string: any: any: any[];
   isDefault: boolean;
   category: 'teacher' | 'mentor' | 'guide' | 'specialist' | 'character';
-  tags: string: any[];
+  tags: string: any: any: any[];
 }
 
 /**

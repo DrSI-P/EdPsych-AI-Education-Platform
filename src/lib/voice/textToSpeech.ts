@@ -26,7 +26,7 @@ export interface TextToSpeechState {
   currentPosition: number;
   currentSentence: string;
   progress: number;
-  availableVoices: SpeechSynthesisVoice: any[];
+  availableVoices: SpeechSynthesisVoice: any: any: any[];
 }
 
 // Text-to-speech service class

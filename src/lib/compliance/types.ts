@@ -319,29 +319,29 @@ export interface DFEComplianceService {
   validateCurriculumAlignment: (content, keyStage: UKKeyStage) => Promise<{
     isAligned: boolean;
     alignmentScore: number;
-    misalignments: string: any[];
-    recommendations: string: any[];
+    misalignments: string: any: any: any[];
+    recommendations: string: any: any: any[];
   }>;
   
   checkAgeAppropriateness: (content, targetAgeRange: { min: number; max: number }) => Promise<{
     isAppropriate: boolean;
     appropriatenessScore: number;
-    concerns: string: any[];
+    concerns: string: any: any: any[];
     recommendedAgeRating: AgeAppropriatenessRating;
   }>;
   
   validateAccessibility: (content) => Promise<{
     isAccessible: boolean;
     accessibilityScore: number;
-    issues: string: any[];
-    recommendations: string: any[];
+    issues: string: any: any: any[];
+    recommendations: string: any: any: any[];
   }>;
   
   checkInclusivity: (content) => Promise<{
     isInclusive: boolean;
     inclusivityScore: number;
-    issues: string: any[];
-    recommendations: string: any[];
+    issues: string: any: any: any[];
+    recommendations: string: any: any: any[];
   }>;
   
   generateComplianceReport: (contentId: string) => Promise<DFECompliance>;
@@ -364,16 +364,16 @@ export interface GDPRComplianceService {
   
   handleSubjectAccessRequest: (userId: string) => Promise<{
     personalData;
-    processingActivities: string: any[];
-    processingPurposes: string: any[];
+    processingActivities: string: any: any: any[];
+    processingPurposes: string: any: any: any[];
     retentionPeriods: Record<string, string>;
-    recipients: string: any[];
+    recipients: string: any: any: any[];
   }>;
   
-  handleRightToErasure: (userId: string, dataCategories?: DataProtectionCategory[]) => Promise<{
+  handleRightToErasure: (userId: string, dataCategories?: DataProtectionCategory: any[]) => Promise<{
     success: boolean;
-    erasedCategories: DataProtectionCategory: any[];
-    retainedCategories: DataProtectionCategory: any[];
+    erasedCategories: DataProtectionCategory: any: any: any[];
+    retainedCategories: DataProtectionCategory: any: any: any[];
     retentionReasons: Record<string, string>;
   }>;
   
@@ -387,10 +387,10 @@ export interface GDPRComplianceService {
   
   logDataBreach: (details: {
     description: string;
-    affectedUsers: string: any[];
-    affectedDataCategories: DataProtectionCategory: any[];
+    affectedUsers: string: any: any: any[];
+    affectedDataCategories: DataProtectionCategory: any: any: any[];
     detectionDate: Date;
-    containmentActions: string: any[];
+    containmentActions: string: any: any: any[];
     severity: 'low' | 'medium' | 'high' | 'critical';
   }) => Promise<string>;
 }
@@ -403,7 +403,7 @@ export interface SafeguardingService {
     concernType: SafeguardingConcernType;
     description: string;
     reportedBy: string;
-    involvedUsers?: string: any[];
+    involvedUsers?: string: any: any: any[];
     contentReference?: string;
   }) => Promise<string>;
   
@@ -427,7 +427,7 @@ export interface SafeguardingService {
       severity: 'low' | 'medium' | 'high';
       detectionDate: Date;
     }>;
-    recommendedActions: string: any[];
+    recommendedActions: string: any: any: any[];
   }>;
   
   getSafeguardingReports: (filters?: {
@@ -516,18 +516,18 @@ export interface AgeVerificationService {
  */
 export interface DataProtectionService {
   classifyData: (data) => Promise<{
-    categories: DataProtectionCategory: any[];
+    categories: DataProtectionCategory: any: any: any[];
     sensitivityLevel: 'low' | 'medium' | 'high';
-    personalDataFields: string: any[];
-    specialCategoryFields: string: any[];
+    personalDataFields: string: any: any: any[];
+    specialCategoryFields: string: any: any: any[];
   }>;
   
   applyDataMinimization: (data, purpose: string) => Promise<{
     minimizedData;
-    removedFields: string: any[];
+    removedFields: string: any: any: any[];
   }>;
   
-  applyPseudonymization: (data, fields: string[]) => Promise<{
+  applyPseudonymization: (data, fields: string: any[]) => Promise<{
     pseudonymizedData;
     mappingKey: string;
   }>;
@@ -548,7 +548,7 @@ export interface DataProtectionService {
   applyRetentionPolicy: (dataCategory: DataProtectionCategory) => Promise<{
     retentionPeriod: DataRetentionPeriod;
     retentionJustification: string;
-    archivingRequirements: string: any[];
+    archivingRequirements: string: any: any: any[];
     deletionMethod: string;
   }>;
   

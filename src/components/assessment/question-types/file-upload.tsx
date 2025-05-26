@@ -8,13 +8,13 @@ interface FileUploadQuestionProps {
   initialData?: {
     content: string;
     points: number;
-    allowedFileTypes: string: any[];
+    allowedFileTypes: string: any: any: any[];
     maxFileSize: number;
   };
   onSave: (data: {
     type: string;
     content: string;
-    allowedFileTypes: string: any[];
+    allowedFileTypes: string: any: any: any[];
     maxFileSize: number;
     points: number;
   }) => void;

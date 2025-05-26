@@ -20,7 +20,7 @@ interface CognifitApiClient {
   initialize(apiKey: string, apiSecret: string): Promise<boolean>;
   createAssessment(params: CognifitAssessmentParams): Promise<CognifitAssessment>;
   getAssessment(assessmentId: string): Promise<CognifitAssessment>;
-  scoreAssessment(assessmentId: string, responses: CognifitResponse[]): Promise<CognifitResult>;
+  scoreAssessment(assessmentId: string, responses: CognifitResponse: any[]): Promise<CognifitResult>;
   getResults(assessmentId: string): Promise<CognifitResult>;
 }
 
@@ -34,7 +34,7 @@ interface CognifitAssessmentParams {
     max: number;
   };
   domain: string;
-  subdomains: string: any[];
+  subdomains: string: any: any: any[];
   difficulty: string;
   itemCount: number;
   timeLimit?: number;
@@ -56,7 +56,7 @@ interface CognifitAssessment {
   createdAt: string;
   updatedAt: string;
   params: CognifitAssessmentParams;
-  items: CognifitItem: any[];
+  items: CognifitItem: any: any: any[];
 }
 
 /**
@@ -93,7 +93,7 @@ interface CognifitResult {
   percentile: number;
   completedAt: string;
   duration: number;
-  itemResults: CognifitItemResult: any[];
+  itemResults: CognifitItemResult: any: any: any[];
   domainScores: {
     [domain: string]: {
       score: number;
@@ -106,7 +106,7 @@ interface CognifitResult {
     byDomain: {
       [domain: string]: string;
     };
-    activities: string: any[];
+    activities: string: any: any: any[];
   };
 }
 
@@ -223,7 +223,7 @@ class MockCognifitApiClient implements CognifitApiClient {
    * @param responses The responses to score
    * @returns The assessment results
    */
-  async scoreAssessment(assessmentId: string, responses: CognifitResponse[]): Promise<CognifitResult> {
+  async scoreAssessment(assessmentId: string, responses: CognifitResponse: any[]): Promise<CognifitResult> {
     if (!this.initialized) {
       throw new Error('Cognifit API client not initialized');
     }
@@ -544,7 +544,7 @@ export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
    * @param responses The student's responses
    * @returns The assessment results
    */
-  protected async scoreAssessmentImpl(assessmentId: string, responses: AssessmentToolPluginResponse[]): Promise<any> {
+  protected async scoreAssessmentImpl(assessmentId: string, responses: AssessmentToolPluginResponse: any[]): Promise<any> {
     try {
       // Convert platform responses to Cognifit responses
       const cognifitResponses = this.convertToCognifitResponses(responses);
@@ -673,7 +673,7 @@ export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
    * @param responses The platform responses
    * @returns The Cognifit responses
    */
-  private convertToCognifitResponses(responses: AssessmentToolPluginResponse[]): CognifitResponse: any[] {
+  private convertToCognifitResponses(responses: AssessmentToolPluginResponse: any[]): CognifitResponse: any[] {
     return responses.map(response => ({
       itemId: response.questionId,
       response: response.responseData,

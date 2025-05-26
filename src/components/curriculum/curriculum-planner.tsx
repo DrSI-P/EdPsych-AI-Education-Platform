@@ -18,15 +18,15 @@ interface CurriculumPlan {
   ageRange: string;
   curriculum: string;
   duration: string;
-  objectives: string: any[];
-  resources: string: any[];
-  assessments: string: any[];
+  objectives: string: any: any: any[];
+  resources: string: any: any: any[];
+  assessments: string: any: any: any[];
   createdAt: string;
   updatedAt: string;
 }
 
 interface CurriculumPlannerProps {
-  initialPlans?: CurriculumPlan: any[];
+  initialPlans?: CurriculumPlan: any: any: any[];
   onPlanSelect?: (plan: CurriculumPlan) => void;
   className?: string;
 }

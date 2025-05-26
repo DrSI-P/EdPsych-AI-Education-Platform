@@ -6,9 +6,9 @@ export interface Community {
   id: string;
   name: string;
   description: string;
-  categories: string: any[];
+  categories: string: any: any: any[];
   privacy: "open" | "restricted";
-  schools?: string: any[];
+  schools?: string: any: any: any[];
   createdAt?: string;
   updatedAt?: string;
   createdBy?: string;
@@ -25,7 +25,7 @@ export interface Resource {
   title: string;
   description: string;
   type: string;
-  tags: string: any[];
+  tags: string: any: any: any[];
   fileUrl?: string;
   fileType?: string;
   fileSize?: number;
@@ -66,7 +66,7 @@ export interface Discussion {
   views?: number;
   lastReplyAt?: string;
   pinned?: boolean;
-  tags?: string: any[];
+  tags?: string: any: any: any[];
 }
 
 export interface Event {
@@ -84,7 +84,7 @@ export interface Event {
     school: string;
   };
   capacity?: number;
-  attendees?: string: any[];
+  attendees?: string: any: any: any[];
   attendeeCount?: number;
   createdAt?: string;
   updatedAt?: string;
@@ -96,8 +96,8 @@ export interface Collaboration {
   title: string;
   description: string;
   type: string;
-  schools: string: any[];
-  members?: string: any[];
+  schools: string: any: any: any[];
+  members?: string: any: any: any[];
   memberCount?: number;
   status: "Planning" | "In Progress" | "Completed";
   progress: number;
@@ -105,8 +105,8 @@ export interface Collaboration {
   createdAt?: string;
   updatedAt?: string;
   createdBy?: string;
-  resources?: string: any[];
-  discussions?: string: any[];
+  resources?: string: any: any: any[];
+  discussions?: string: any: any: any[];
 }
 
 export interface Membership {
@@ -128,7 +128,7 @@ export interface PrivacySetting {
   enableAnonymization: boolean;
   requireApproval: boolean;
   maintainAttribution: boolean;
-  approvedSchools?: string: any[];
+  approvedSchools?: string: any: any: any[];
 }
 
 // Schema definitions for Learning Communities API
@@ -295,7 +295,7 @@ const integratePortfolio = async (userId: string, portfolioItem): Promise<{succe
   }
 };
 
-const integrateMentorMatching = async (userId: string, expertise: string[]): Promise<{success: boolean, error?: string}> => {
+const integrateMentorMatching = async (userId: string, expertise: string: any[]): Promise<{success: boolean, error?: string}> => {
   try {
     // In a real implementation, this would call the Mentor Matching API
     console.log(`Updating expertise for user ${userId}: ${expertise.join(', ')}`);

@@ -29,13 +29,13 @@ interface ParentResource {
   title: string;
   description: string;
   category: ResourceCategory;
-  ageGroups: AgeGroup: any[];
+  ageGroups: AgeGroup: any: any: any[];
   difficultyLevel: DifficultyLevel;
   content: string;
   videoUrl?: string;
   downloadUrl?: string;
   estimatedTime?: string;
-  tags: string: any[];
+  tags: string: any: any: any[];
   isFavorite: boolean;
 }
 
@@ -43,7 +43,7 @@ interface Module {
   id: string;
   title: string;
   description: string;
-  lessons: Lesson: any[];
+  lessons: Lesson: any: any: any[];
   completed: boolean;
   progress: number;
 }
@@ -61,10 +61,10 @@ interface FamilyActivity {
   id: string;
   title: string;
   description: string;
-  ageGroups: AgeGroup: any[];
-  materials: string: any[];
-  steps: string: any[];
-  tips: string: any[];
+  ageGroups: AgeGroup: any: any: any[];
+  materials: string: any: any: any[];
+  steps: string: any: any: any[];
+  tips: string: any: any: any[];
   estimatedTime: string;
   isFavorite: boolean;
 }

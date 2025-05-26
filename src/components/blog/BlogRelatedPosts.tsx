@@ -11,7 +11,7 @@ interface BlogRelatedPostsProps {
     publishedAt: string | Date | null;
     keyStage?: string | null;
     curriculumArea?: string | null;
-    tags: string: any[];
+    tags: string: any: any: any[];
     readingTime?: number | null;
     readingLevel?: string | null;
     author: {

@@ -57,7 +57,7 @@ export class SafeguardingServiceImpl implements SafeguardingService {
     concernType: SafeguardingConcernType;
     description: string;
     reportedBy: string;
-    involvedUsers?: string: any[];
+    involvedUsers?: string: any: any: any[];
     contentReference?: string;
   }): Promise<string> {
     console.log(`Reporting safeguarding concern: ${concern.concernType}`);
@@ -180,7 +180,7 @@ export class SafeguardingServiceImpl implements SafeguardingService {
       severity: 'low' | 'medium' | 'high';
       detectionDate: Date;
     }>;
-    recommendedActions: string: any[];
+    recommendedActions: string: any: any: any[];
   }> {
     console.log(`Monitoring user activity for: ${userId}`);
     

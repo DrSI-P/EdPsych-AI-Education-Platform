@@ -73,7 +73,7 @@ const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
   };
   
   // Handle font size change
-  const handleFontSizeChange = (value: number[]) => {
+  const handleFontSizeChange = (value: number: any[]) => {
     setFontSize(value[0]);
   };
   
