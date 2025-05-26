@@ -160,7 +160,7 @@ export interface DocumentVersion {
       endIndex: number;
       before: string;
       after: string;
-    }[];
+    };[];
   };
 }
 
@@ -178,7 +178,7 @@ export interface CollaborativeWhiteboard {
   updatedAt: Date;
   createdBy: string;
   lastEditedBy: string;
-  contributors: string[];
+   contributors: string[];
   currentEditors: string[];
   status: 'active' | 'archived';
 }
@@ -264,7 +264,7 @@ export interface ProjectTask {
     userName: string;
     content: string;
     createdAt: Date;
-  }[];
+  };[];
   attachments: {
     id: string;
     name: string;
@@ -272,7 +272,7 @@ export interface ProjectTask {
     type: string;
     uploadedBy: string;
     uploadedAt: Date;
-  }[];
+  };[];
   progress: number; // 0-100
   estimatedHours: number;
   actualHours: number;
@@ -280,7 +280,7 @@ export interface ProjectTask {
     id: string;
     title: string;
     completed: boolean;
-  }[];
+  };[];
 }
 
 // Project resource interface
@@ -293,7 +293,7 @@ export interface ProjectResource {
   description: string;
   addedBy: string;
   addedAt: Date;
-  tags[];
+  tags: string[];
 }
 
 // Project milestone interface
@@ -303,8 +303,8 @@ export interface ProjectMilestone {
   description: string;
   dueDate: Date;
   status: 'not_started' | 'in_progress' | 'completed' | 'overdue';
-  associatedTasks[]; // IDs of tasks associated with this milestone
-  deliverables[];
+  associatedTasks: string[]; // IDs of tasks associated with this milestone
+  deliverables: string[];
   completedAt?: Date;
 }
 
@@ -318,11 +318,11 @@ export interface DiscussionThread {
   createdBy: string;
   updatedAt: Date;
   category: string;
-  tags[];
+  tags: string[];
   status: 'active' | 'resolved' | 'archived';
   pinned: boolean;
-  messages[];
-  participants[];
+  messages: DiscussionMessage[];
+  participants: string[];
   views: number;
   lastActivity: Date;
 }
@@ -341,13 +341,13 @@ export interface DiscussionMessage {
     name: string;
     url: string;
     type: string;
-  }[];
+  };[];
   reactions: {
     type: string;
     count: number;
-    users[];
+    users: string[];
   }[];
-  mentions[];
+  mentions: string[];
   parentId?: string; // For replies
   edited: boolean;
   pinned: boolean;
@@ -405,7 +405,7 @@ export interface VideoConference {
   breakoutRooms?: {
     id: string;
     name: string;
-    participants[];
+    participants: string[];
     createdAt: Date;
     endedAt?: Date;
   }[];
@@ -441,7 +441,7 @@ export interface CollaborationActivity {
     targetType?: string;
     before?;
     after?;
-    [key: string];
+    [key: string]: any;
   };
 }
 

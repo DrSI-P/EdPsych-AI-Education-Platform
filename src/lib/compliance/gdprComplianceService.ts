@@ -140,7 +140,7 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
    * @returns The user's personal data and processing information
    */
   async handleSubjectAccessRequest(userId: string): Promise<{
-    personalData;
+    personalData: any;
     processingActivities: any[];
     processingPurposes: any[];
     retentionPeriods: Record<string, string>;
@@ -408,7 +408,7 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
    */
   async logDataBreach(details: {
     description: string;
-    affectedUsers[];
+    affectedUsers: any[];
     affectedDataCategories: any[];
     detectionDate: Date;
     containmentActions: any[];

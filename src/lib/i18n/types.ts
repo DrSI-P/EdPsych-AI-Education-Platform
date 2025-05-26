@@ -107,7 +107,7 @@ export interface TranslationEntry {
  */
 export interface TranslationNamespaceData {
   namespace: TranslationNamespace;
-  translations[];
+  translations: TranslationEntry[];
   // Added for expansion
   completionPercentage?: number; // Percentage of completed translations
   lastUpdated?: Date; // When this namespace was last updated
@@ -118,7 +118,7 @@ export interface TranslationNamespaceData {
  */
 export interface LanguagePack {
   language: SupportedLanguage;
-  namespaces[];
+  namespaces: TranslationNamespaceData[];
   // Added for expansion
   version?: string; // Version of the language pack
   contributors?: string[]; // People who contributed to translations
@@ -132,7 +132,7 @@ export interface LanguagePack {
 export interface UserLanguagePreferences {
   userId: string;
   primaryLanguage: SupportedLanguage;
-  secondaryLanguages[];
+  secondaryLanguages: SupportedLanguage[];
   autoDetect: boolean;
   translateContent: boolean;
   translateUserContent: boolean;
@@ -194,12 +194,11 @@ export interface TranslationResponse {
   sourceLanguage: SupportedLanguage;
   targetLanguage: SupportedLanguage;
   confidence?: number;
-  alternatives?: string[];
-  // Added for expansion
+   alternatives?: string[]; // Alternative translations
   engine?: string; // Translation engine used
   processingTime?: number; // Time taken to translate in ms
   characterCount?: number; // Number of characters translated
-  glossaryTermsUsed?: string[]; // Glossary terms used in translation
+  glossaryTermsUsed?: string[]; // Glossary terms used in translationlation
   qualityEstimate?: number; // Estimated quality score (0-1)
   needsReview?: boolean; // Whether this translation needs human review
   culturalNotes?: string[]; // Cultural context notes
@@ -228,7 +227,7 @@ export interface ContentLocalizationMetadata {
   contentId: string;
   contentType: 'lesson' | 'assessment' | 'feedback' | 'resource' | 'communication';
   originalLanguage: SupportedLanguage;
-  availableTranslations[];
+  availableTranslations: SupportedLanguage[];
   lastUpdated: Date;
   translationStatus: {
     [key in SupportedLanguage]?: 'complete' | 'partial' | 'machine-translated' | 'needs-review';
@@ -317,7 +316,7 @@ export interface DocumentTranslationStatus {
 export interface BatchTranslationRequest {
   batchId: string;
   userId: string;
-  documentIds[];
+  documentIds: string[];
   sourceLanguage: SupportedLanguage;
   targetLanguage: SupportedLanguage;
   priority: 'high' | 'normal' | 'low';

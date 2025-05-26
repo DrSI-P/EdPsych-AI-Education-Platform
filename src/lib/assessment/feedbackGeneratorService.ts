@@ -35,7 +35,7 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
    * @param correct Whether the response was correct
    * @returns Personalized feedback text
    */
-  generateQuestionFeedback(question: Question, response, correct: boolean): string {
+  generateQuestionFeedback(question: Question, response: any, correct: boolean): string {
     // If the question has specific feedback defined, use that
     if (question.feedback) {
       if (correct && question.feedback.correct) {
@@ -70,7 +70,7 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
   generateAssessmentFeedback(result: AssessmentResult): {
     overall: string;
     byTopic: Record<string, string>;
-    nextSteps[];
+    nextSteps: string[];
   } {
     // Generate overall feedback
     const overall = this.generateOverallFeedback(result);
@@ -161,9 +161,9 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
     timeframe: 'week' | 'month' | 'term' | 'year'
   ): Promise<{
     summary: string;
-    strengths[];
-    areasForImprovement[];
-    recommendations[];
+    strengths: string[];
+    areasForImprovement: string[];
+    recommendations: string[];
   }> {
     // In a real implementation, this would analyse the student's assessment history
     // For now, we'll return mock data
@@ -270,7 +270,7 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
    * @returns Array of next step recommendations
    */
   private generateNextSteps(result: AssessmentResult): string[] {
-    const nextSteps[] = [];
+    const nextSteps: string[] = [];
     
     // Add general next step based on overall performance
     if (result.percentage >= 80) {
@@ -282,9 +282,10 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
     }
     
     // Add specific next steps based on cognitive domains
-    const weakDomains[] = [];
     
     // Identify domains with lower performance
+    const weakDomains: CognitiveDomain[] = [];
+    
     for (const [domain, data] of Object.entries(result.analytics.byCognitiveDomain)) {
       if (data.percentage < 60 && data.count > 0) {
         weakDomains.push(domain as CognitiveDomain);

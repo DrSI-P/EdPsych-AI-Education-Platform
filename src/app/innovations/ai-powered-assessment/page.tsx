@@ -38,43 +38,55 @@ import {
 // This component demonstrates the concept of intelligent, adaptive assessment systems
 
 interface AssessmentQuestion {
-  id: string;
+  id: string;,
+
   type: 'multiple-choice' | 'short-answer' | 'essay' | 'interactive';
-  difficulty: number;
+  difficulty: number;,
+
   question: string;
-  options?: string[];
-  correctAnswer?: string | string: any[];
-  rubric?: {
-    criteria: string;
+  options?: string;
+  correctAnswer?: string | string: any;,
+ rubric?: {
+    criteria: string;,
+
     levels: {
-      score: number;
+      score: number;,
+
       description: string;
     }[];
   }[];
-  conceptTags: any[];
+  conceptTags: any;,
+
   adaptiveFollowUp?: {
-    correct: any[];
-    incorrect: any[];
+    correct: any;,
+
+    incorrect: any;
   };
 }
 
 interface AssessmentResult {
-  questionId: string;
+  questionId: string;,
+
   correct: boolean;
-  score: number;
+  score: number;,
+
   response: string;
-  feedback: string;
+  feedback: string;,
+
   conceptsAssessed: {
-    concept: string;
+    concept: string;,
+
     mastery: number;
   }[];
   timeSpent: number;
 }
 
 interface ConceptMastery {
-  concept: string;
+  concept: string;,
+
   mastery: number;
-  confidence: number;
+  confidence: number;,
+
   lastAssessed: string;
   trend: 'improving' | 'stable' | 'declining';
 }
@@ -105,10 +117,10 @@ export default function AIPoweredAssessmentPage() {
   const [feedbackLevel, setFeedbackLevel] = useState(80);
   
   // State for assessment results
-  const [results, setResults] = useState<AssessmentResult[]>([]);
+  const [results, setResults] = useState<AssessmentResult>([]);
   
   // State for concept mastery
-  const [conceptMastery, setConceptMastery] = useState<ConceptMastery[]>([
+  const [conceptMastery, setConceptMastery] = useState<ConceptMastery>([
     {
       concept: "Algebraic Expressions",
       mastery: 85,
@@ -154,7 +166,7 @@ export default function AIPoweredAssessmentPage() {
   ]);
   
   // Sample assessment questions
-  const [questions, setQuestions] = useState<AssessmentQuestion[]>([
+  const [questions, setQuestions] = useState<AssessmentQuestion>([
     {
       id: "q1",
       type: "multiple-choice",
@@ -236,14 +248,14 @@ export default function AIPoweredAssessmentPage() {
         correct: [],
         incorrect: ["q3"]
       }
-    }
+    };
   ]);
   
   // Get current question
   const currentQuestion = questions[currentQuestionIndex];
   
   // Handle starting assessment
-  const handleStartAssessment = () => {
+  const handleStartAssessment = () => {;
     setAssessmentInProgress(true);
     setAssessmentCompleted(false);
     setCurrentQuestionIndex(0);
@@ -253,7 +265,7 @@ export default function AIPoweredAssessmentPage() {
   };
   
   // Handle submitting answer
-  const handleSubmitAnswer = () => {
+  const handleSubmitAnswer = () => {;
     if (!currentQuestion) return;
     
     setIsProcessing(true);
@@ -265,7 +277,7 @@ export default function AIPoweredAssessmentPage() {
       let feedback = '';
       
       // Check if answer is correct based on question type
-      if (currentQuestion.type === 'multiple-choice' && selectedAnswer) {
+      if (currentQuestion.type = == 'multiple-choice' && selectedAnswer) {;
         isCorrect = selectedAnswer === currentQuestion.correctAnswer;
         score = isCorrect ? 100 : 0;
         
@@ -274,12 +286,12 @@ export default function AIPoweredAssessmentPage() {
         } else {
           feedback = `Incorrect. The correct answer is ${currentQuestion.correctAnswer}. Remember that when solving linear equations, you need to isolate the variable.`;
         }
-      } else if ((currentQuestion.type === 'short-answer' || currentQuestion.type === 'essay') && textAnswer) {
+      } else if ((currentQuestion.type = == 'short-answer' || currentQuestion.type === 'essay') && textAnswer) {
         // Simulate AI evaluation for text answers
-        if (currentQuestion.type === 'short-answer') {
-          const possibleAnswers = currentQuestion.correctAnswer as string: any[];
-          isCorrect = possibleAnswers.some(answer => 
-            textAnswer.toLowerCase().includes(answer.toLowerCase())
+        if (currentQuestion.type === 'short-answer') {;
+          const possibleAnswers = currentQuestion.correctAnswer as string: any;,
+ isCorrect = possibleAnswers.some(answer => 
+            textAnswer.toLowerCase().includes(answer.toLowerCase());
           );
           score = isCorrect ? 100 : 30; // Partial credit possible
           
@@ -291,7 +303,7 @@ export default function AIPoweredAssessmentPage() {
         } else {
           // Essay scoring simulation
           const lengthScore = Math.min(100, textAnswer.length / 5);
-          const keywordScore = textAnswer.toLowerCase().includes('substitution') && 
+          const keywordScore = textAnswer.toLowerCase().includes('substitution') && ;
                               textAnswer.toLowerCase().includes('equation') ? 100 : 50;
           score = Math.round((lengthScore + keywordScore) / 2);
           isCorrect = score >= 70;
@@ -313,7 +325,7 @@ export default function AIPoweredAssessmentPage() {
         score,
         response: currentQuestion.type === 'multiple-choice' ? selectedAnswer || '' : textAnswer,
         feedback,
-        conceptsAssessed: currentQuestion.conceptTags.map(concept => {
+        conceptsAssessed: currentQuestion.conceptTags.map(concept => {;
           const masteryChange = isCorrect ? Math.random() * 10 : -Math.random() * 5;
           return {
             concept,
@@ -327,8 +339,8 @@ export default function AIPoweredAssessmentPage() {
       setResults(prev => [...prev, result]);
       
       // Update concept mastery based on results
-      setConceptMastery(prev => 
-        prev.map(concept => {
+      setConceptMastery(prev = > 
+        prev.map(concept => {;
           const assessed = currentQuestion.conceptTags.includes(concept.concept);
           if (!assessed) return concept;
           
@@ -339,8 +351,9 @@ export default function AIPoweredAssessmentPage() {
             ...concept,
             mastery: newMastery,
             lastAssessed: new Date().toISOString().split('T')[0],
-            trend: newMastery > concept.mastery ? 'improving' : 
-                  newMastery < concept.mastery ? 'declining' : 'stable'
+            trend: newMastery > concept.mastery ? 'improving' : ,
+
+            newMastery < concept.mastery ? 'declining' : 'stable'
           };
         })
       );
@@ -362,7 +375,7 @@ export default function AIPoweredAssessmentPage() {
   // Get trend icon
   const getTrendIcon = (trend: string) => {
     switch(trend) {
-      case 'improving':
+      case 'improving':;
         return <ArrowRight className="h-4 w-4 text-green-500 transform rotate-45" />;
       case 'declining':
         return <ArrowRight className="h-4 w-4 text-red-500 transform -rotate-45" />;
@@ -372,14 +385,14 @@ export default function AIPoweredAssessmentPage() {
   };
   
   // Get mastery colour
-  const getMasteryColor = (mastery: number) => {
+  const getMasteryColor = (mastery: number) => {;
     if (mastery >= 80) return "text-green-500";
     if (mastery >= 60) return "text-amber-500";
     return "text-red-500";
   };
 
   return (
-    <div className="container mx-auto py-12 px-4">
+    <div className = "container mx-auto py-12 px-4">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -522,7 +535,7 @@ export default function AIPoweredAssessmentPage() {
                         <Button 
                           variant="outline" 
                           className="w-full"
-                          onClick={() => {
+                          onClick={() => {;
                             setAssessmentInProgress(false);
                             setAssessmentCompleted(false);
                           }}
@@ -532,7 +545,7 @@ export default function AIPoweredAssessmentPage() {
                       </div>
                     </div>
                   ) : (
-                    <div className="space-y-4">
+                    <div className = "space-y-4">
                       <div className="text-centre mb-6">
                         <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-centre justify-centre mx-auto mb-3">
                           <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />
@@ -602,11 +615,11 @@ export default function AIPoweredAssessmentPage() {
                         <Button 
                           variant="outline" 
                           className="w-full"
-                          onClick={() => {
+                          onClick={() => {;
                             setActiveTab('mastery');
                           }}
                         >
-                          <Brain className="mr-2 h-4 w-4" />
+                          <Brain className = "mr-2 h-4 w-4" />
                           View Detailed Results
                         </Button>
                       </div>
@@ -1350,6 +1363,6 @@ export default function AIPoweredAssessmentPage() {
           </Card>
         </div>
       </motion.div>
-    </div>
+    </div>;
   );
 }

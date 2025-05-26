@@ -526,6 +526,10 @@ export interface QuestionBank {
     keyStage?: UKKeyStage;
     subject?: UKSubject;
     topics?: string[];
+    types?: QuestionType[];
+    difficultyLevel?: DifficultyLevel;
+    cognitiveDomain?: CognitiveDomain;
+    tags?: string[];
   }) => Promise<number>;
 }
 
@@ -571,8 +575,8 @@ export interface AssessmentEngine {
   }) => Promise<{
     assessmentsCompleted: number;
     averageScore: number;
-    strengths[];
-    areasForImprovement[];
+    strengths: string[];
+    areasForImprovement: string[];
     progressOverTime: Array<{
       date: Date;
       score: number;
@@ -585,17 +589,17 @@ export interface AssessmentEngine {
  * Evidence-based feedback generator
  */
 export interface FeedbackGenerator {
-  generateQuestionFeedback: (question: Question, response, correct: boolean) => string;
+  generateQuestionFeedback: (question: Question, response: any, correct: boolean) => string;
   generateAssessmentFeedback: (result: AssessmentResult) => {
     overall: string;
     byTopic: Record<string, string>;
-    nextSteps[];
+    nextSteps: string[];
   };
   generateProgressFeedback: (studentId: string, subject: UKSubject, timeframe: 'week' | 'month' | 'term' | 'year') => Promise<{
     summary: string;
-    strengths[];
-    areasForImprovement[];
-    recommendations[];
+    strengths: string[];
+    areasForImprovement: string[];
+    recommendations: string[];
   }>;
 }
 
