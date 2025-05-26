@@ -73,7 +73,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
         
         // In a real implementation, this would fetch from the API
         // For now, we'll use mock data
-        const mockVideos[] = [
+        const mockVideos: AvatarVideoMetadata[] = [
           {
             id: 'video1',
             title: 'Introduction to Fractions',
@@ -141,7 +141,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
           }
         ];
         
-        const mockScripts[] = [
+        const mockScripts: AvatarVideoScript[] = [
           {
             id: 'script1',
             title: 'Introduction to Fractions',

@@ -246,7 +246,7 @@ export class AIGuidanceService {
     learnerProfile: LearnerProfile,
     dominantLearningStyle: LearningStyle,
     interests: any[],
-    areasForImprovement[],
+    areasForImprovement: SubjectArea[],
     currentLearningPath?: LearningPath,
     count: number = 3
   ): Promise<ContentSuggestion[]> {
@@ -420,7 +420,7 @@ export class AIGuidanceService {
   public async monitorProgress(
     learnerProfile: LearnerProfile,
     recentActivities: any[],
-    currentLearningPaths[]
+    currentLearningPaths: LearningPath[]
   ): Promise<InterventionAlert[]> {
     // Analyse recent activities and learning paths to identify potential issues
     const performanceIssues = this.identifyPerformanceIssues(learnerProfile, recentActivities);

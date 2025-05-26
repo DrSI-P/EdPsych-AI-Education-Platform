@@ -22,7 +22,7 @@ export enum DatabaseErrorType {
 // Custom database error class
 export class DatabaseError extends Error {
   type: DatabaseErrorType;
-  details?;
+  details?: any;
 
   constructor(message: string, type: DatabaseErrorType, details?) {
     super(message);
@@ -171,7 +171,7 @@ export interface BulkOperationResult {
  * @param validator Optional validation function
  * @returns Bulk operation result
  */
-export async function bulkCreate(model: string, data[], validator?: (item: any) => any
+export async function bulkCreate(model: string, data: any[], validator?: (item: any) => any
 ): Promise<BulkOperationResult> {
   const result: BulkOperationResult = {
     success: 0,
@@ -252,7 +252,7 @@ export async function bulkUpdate(
  * @param ids Array of record IDs to delete
  * @returns Bulk operation result
  */
-export async function bulkDelete(model: string, ids[]): Promise<BulkOperationResult> {
+export async function bulkDelete(model: string, ids: string[]): Promise<BulkOperationResult> {
   const result: BulkOperationResult = {
     success: 0,
     failed: 0,
