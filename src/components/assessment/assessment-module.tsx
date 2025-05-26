@@ -310,7 +310,7 @@ export function AssessmentModule({
       
       newQuestions[index] = { 
         ...newQuestions[index], 
-        type: value as any,
+        type: value as 'multiple_choice' | 'short_answer' | 'essay' | 'matching' | 'true_false',
         options,
         correctAnswer
       };
