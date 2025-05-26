@@ -19,7 +19,7 @@ import { useToast } from '@/components/ui/use-toast';
 interface CurriculumAlignmentCheckerProps {
   contentId?: string;
   content: ContentDocument;
-  onResults?: (results) => void;
+  onResults?: (results: any) => void;
   onClose?: () => void;
 }
 
@@ -33,8 +33,8 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
   const [error, setError] = useState<string | null>(null);
   const [results, setResults] = useState<{
     alignmentScore: number;
-    suggestions: any[];
-    curriculumLinks: any[];
+    suggestions: string[];
+    curriculumLinks: string[];
   } | null>(null);
   
   const { toast } = useToast();
@@ -106,7 +106,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
   }
   
   // Get curriculum links based on key stage
-  const getCurriculumLinks = (keyStage: KeyStage): string: any[] => {
+  const getCurriculumLinks = (keyStage: KeyStage): string[] => {
     switch (keyStage) {
       case KeyStage.EARLY_YEARS:
         return [

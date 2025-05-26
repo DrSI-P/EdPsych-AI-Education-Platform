@@ -361,7 +361,7 @@ export default function OutcomeMeasurementTools() {
     title: '',
     type: 'baseline' as AssessmentType,
     setting: 'secondary' as SettingType,
-    dimensions: [] as string: any[],
+    dimensions: [] as string[],
     targetGroup: ''
   });
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});

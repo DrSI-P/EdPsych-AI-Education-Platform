@@ -193,7 +193,7 @@ export const AdventureQuestSagaIntegrated = (): JSX.Element => {
   };
   
   // Handle parameter change
-  const handleParamChange = (param: string, value): void => {
+  const handleParamChange = (param: string, value: any): void => {
     setGenerationParams({
       ...generationParams,
       [param]: value

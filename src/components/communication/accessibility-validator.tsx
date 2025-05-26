@@ -49,7 +49,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
     // Simulate validation process
     setTimeout(() => {
       // This would be replaced with actual validation logic in a real implementation
-      const mockIssues[] = [];
+      const mockIssues: AccessibilityIssue[] = [];
       
       // Check for common accessibility issues based on component name
       if (componentName.toLowerCase().includes('message') || componentName.toLowerCase().includes('chat')) {

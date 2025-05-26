@@ -9,14 +9,14 @@ import { createHash } from 'crypto';
 
 // Cache storage
 const memoryCache: Record<string, {
-  value;
+  value: any;
   expiry: number | null;
 }> = {};
 
 /**
  * Generate a cache key from input parameters
  */
-export function generateCacheKey(prefix: string, params): string {
+export function generateCacheKey(prefix: string, params: any): string {
   const paramsString = JSON.stringify(params);
   const hash = createHash('md5').update(paramsString).digest('hex');
   return `${prefix}:${hash}`;
@@ -27,7 +27,7 @@ export function generateCacheKey(prefix: string, params): string {
  */
 export function setCacheValue(
   key: string, 
-  value, 
+  value: any, 
   ttlSeconds: number | null = 3600
 ): void {
   memoryCache[key] = {
@@ -93,7 +93,7 @@ export async function getCachedValue<T>(
 /**
  * Cache decorator for async functions
  */
-export function withCache<T extends (...args[]) => Promise<any>>(
+export function withCache<T extends (...args: any[]) => Promise<any>>(
   fn: T,
   keyPrefix: string,
   ttlSeconds: number | null = 3600

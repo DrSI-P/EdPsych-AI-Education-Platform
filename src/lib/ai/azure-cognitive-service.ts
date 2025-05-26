@@ -370,7 +370,7 @@ export class AzureCognitiveService {
     wordsPerSentence: number,
     syllablesPerWord: number
   ): string[] {
-    const recommendations[] = [];
+    const recommendations: string[] = [];
     const targetGradeLevel = targetAge - 5;
     
     if (Math.abs(gradeLevel - targetGradeLevel) > 2) {
