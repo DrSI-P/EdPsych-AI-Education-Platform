@@ -72,6 +72,29 @@ const nextConfig = {
       '@/lib/ai/ai-service': path.join(__dirname, 'src/lib/ai/ai-service')
     };
     
+    // Handle browser globals in Node.js environment
+    if (isServer) {
+      // Provide fallbacks for browser globals when running in Node.js
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        // Provide empty objects for browser globals
+        'self': false,
+        'window': false,
+        'document': false,
+        'localStorage': false,
+        'sessionStorage': false,
+      };
+      
+      // Add plugin to define global variables for server-side rendering
+      const { DefinePlugin } = require('webpack');
+      config.plugins.push(
+        new DefinePlugin({
+          'self': 'global',
+          'global.self': 'global',
+        })
+      );
+    }
+    
     return config;
   },
   
