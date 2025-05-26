@@ -40,14 +40,14 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({
       if (updatedDeviceInfo) {
         setOrientation(updatedDeviceInfo.orientation);
       }
-    };
+    }
     
     window.addEventListener('orientationchange', handleOrientationChange);
     
     // Clean up event listener
     return () => {
       window.removeEventListener('orientationchange', handleOrientationChange);
-    };
+    }
   }, []);
   
   // Generate class names based on device type and orientation
@@ -60,7 +60,7 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({
       {children}
     </div>
   );
-};
+}
 
 /**
  * MobileContainer Component
@@ -92,7 +92,7 @@ export const MobileContainer: React.FC<ResponsiveLayoutProps> = ({
       {children}
     </div>
   );
-};
+}
 
 /**
  * TabletLayout Component
@@ -126,14 +126,14 @@ export const TabletLayout: React.FC<ResponsiveLayoutProps> = ({
       if (updatedDeviceInfo) {
         setOrientation(updatedDeviceInfo.orientation);
       }
-    };
+    }
     
     window.addEventListener('orientationchange', handleOrientationChange);
     
     // Clean up event listener
     return () => {
       window.removeEventListener('orientationchange', handleOrientationChange);
-    };
+    }
   }, []);
   
   // If not on a tablet, render with standard container
@@ -148,7 +148,7 @@ export const TabletLayout: React.FC<ResponsiveLayoutProps> = ({
       {children}
     </div>
   );
-};
+}
 
 /**
  * TouchOptimizedButton Component
@@ -186,12 +186,12 @@ export const TouchOptimizedButton: React.FC<TouchOptimizedButtonProps> = ({
     if (!disabled) {
       setIsTouching(true);
     }
-  };
+  }
   
   // Handle touch end
   const handleTouchEnd = () => {
     setIsTouching(false);
-  };
+  }
   
   // Generate class names
   const variantClass = `btn-${variant}`;
@@ -214,7 +214,7 @@ export const TouchOptimizedButton: React.FC<TouchOptimizedButtonProps> = ({
       {icon && iconPosition === 'right' && <span className="button-icon right">{icon}</span>}
     </button>
   );
-};
+}
 
 /**
  * SwipeableContainer Component
@@ -246,7 +246,7 @@ export const SwipeableContainer: React.FC<SwipeableContainerProps> = ({
   const handleTouchStart = (e: React.TouchEvent) => {
     const touch = e.touches[0];
     setTouchStart({ x: touch.clientX, y: touch.clientY });
-  };
+  }
   
   // Handle touch end
   const handleTouchEnd = (e: React.TouchEvent) => {
@@ -274,7 +274,7 @@ export const SwipeableContainer: React.FC<SwipeableContainerProps> = ({
     }
     
     setTouchStart(null);
-  };
+  }
   
   return (
     <div
@@ -285,7 +285,7 @@ export const SwipeableContainer: React.FC<SwipeableContainerProps> = ({
       {children}
     </div>
   );
-};
+}
 
 /**
  * MobileNavigation Component
@@ -301,7 +301,7 @@ interface NavigationItem {
 }
 
 interface MobileNavigationProps {
-  items[];
+  items: any[];
   className?: string;
 }
 
@@ -338,7 +338,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
       </ul>
     </nav>
   );
-};
+}
 
 /**
  * MobileHeader Component
@@ -385,7 +385,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
       {actions && <div className="header-actions">{actions}</div>}
     </header>
   );
-};
+}
 
 /**
  * MobileDrawer Component
@@ -411,12 +411,12 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
   // Handle backdrop click
   const handleBackdropClick = () => {
     onClose();
-  };
+  }
   
   // Handle drawer click (prevent propagation)
   const handleDrawerClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-  };
+  }
   
   return (
     <div className={`mobile-drawer-container ${isOpen ? 'open' : ''} ${className}`}>
@@ -434,7 +434,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
       </div>
     </div>
   );
-};
+}
 
 /**
  * MobileTabView Component
@@ -449,7 +449,7 @@ interface TabItem {
 }
 
 interface MobileTabViewProps {
-  tabs[];
+  tabs: any[];
   initialTab?: number;
   className?: string;
 }
@@ -466,14 +466,14 @@ export const MobileTabView: React.FC<MobileTabViewProps> = ({
     if (activeTab < tabs.length - 1) {
       setActiveTab(activeTab + 1);
     }
-  };
+  }
   
   // Handle swipe right (previous tab)
   const handleSwipeRight = () => {
     if (activeTab > 0) {
       setActiveTab(activeTab - 1);
     }
-  };
+  }
   
   return (
     <div className={`mobile-tab-view ${className}`}>
@@ -498,7 +498,7 @@ export const MobileTabView: React.FC<MobileTabViewProps> = ({
       </SwipeableContainer>
     </div>
   );
-};
+}
 
 /**
  * MobileFAB Component
@@ -548,7 +548,7 @@ export const MobileFAB: React.FC<MobileFABProps> = ({
       {label && <span className="fab-label">{label}</span>}
     </button>
   );
-};
+}
 
 /**
  * MobileList Component
@@ -566,7 +566,7 @@ interface ListItem {
 }
 
 interface MobileListProps {
-  items[];
+  items: any[];
   className?: string;
 }
 
@@ -592,7 +592,7 @@ export const MobileList: React.FC<MobileListProps> = ({
       ))}
     </ul>
   );
-};
+}
 
 /**
  * MobileCard Component
@@ -619,7 +619,7 @@ export const MobileCard: React.FC<MobileCardProps> = ({
       {children}
     </div>
   );
-};
+}
 
 /**
  * MobileSearchBar Component
@@ -645,7 +645,7 @@ export const MobileSearchBar: React.FC<MobileSearchBarProps> = ({
   // Handle input change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
-  };
+  }
   
   // Handle form submit
   const handleSubmit = (e: React.FormEvent) => {
@@ -653,7 +653,7 @@ export const MobileSearchBar: React.FC<MobileSearchBarProps> = ({
     if (onSubmit) {
       onSubmit();
     }
-  };
+  }
   
   return (
     <form className={`mobile-search-bar ${className}`} onSubmit={handleSubmit}>
@@ -669,7 +669,7 @@ export const MobileSearchBar: React.FC<MobileSearchBarProps> = ({
       </button>
     </form>
   );
-};
+}
 
 /**
  * MobileBottomSheet Component
@@ -682,7 +682,7 @@ interface MobileBottomSheetProps {
   isOpen: boolean;
   onClose: () => void;
   className?: string;
-  snapPoints?: string[]; // CSS height values for snap points
+  snapPoints?: string: any[]; // CSS height values for snap points
 }
 
 export const MobileBottomSheet: React.FC<MobileBottomSheetProps> = ({
@@ -700,17 +700,17 @@ export const MobileBottomSheet: React.FC<MobileBottomSheetProps> = ({
   // Handle backdrop click
   const handleBackdropClick = () => {
     onClose();
-  };
+  }
   
   // Handle sheet click (prevent propagation)
   const handleSheetClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-  };
+  }
   
   // Handle touch start
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.touches[0].clientY);
-  };
+  }
   
   // Handle touch move
   const handleTouchMove = (e: React.TouchEvent) => {
@@ -724,7 +724,7 @@ export const MobileBottomSheet: React.FC<MobileBottomSheetProps> = ({
     
     // Apply the transform
     sheetRef.current.style.transform = `translateY(${diff}px)`;
-  };
+  }
   
   // Handle touch end
   const handleTouchEnd = (e: React.TouchEvent) => {
@@ -748,7 +748,7 @@ export const MobileBottomSheet: React.FC<MobileBottomSheetProps> = ({
     // Reset transform
     sheetRef.current.style.transform = '';
     setTouchStart(null);
-  };
+  }
   
   // Measure sheet height on mount and when snap point changes
   useEffect(() => {
@@ -776,7 +776,7 @@ export const MobileBottomSheet: React.FC<MobileBottomSheetProps> = ({
       </div>
     </div>
   );
-};
+}
 
 /**
  * MobilePullToRefresh Component
@@ -810,7 +810,7 @@ export const MobilePullToRefresh: React.FC<MobilePullToRefreshProps> = ({
     if (containerRef.current && containerRef.current.scrollTop === 0) {
       setTouchStart(e.touches[0].clientY);
     }
-  };
+  }
   
   // Handle touch move
   const handleTouchMove = (e: React.TouchEvent) => {
@@ -829,7 +829,7 @@ export const MobilePullToRefresh: React.FC<MobilePullToRefreshProps> = ({
       // Prevent default scrolling behaviour
       e.preventDefault();
     }
-  };
+  }
   
   // Handle touch end
   const handleTouchEnd = async () => {
@@ -849,7 +849,7 @@ export const MobilePullToRefresh: React.FC<MobilePullToRefreshProps> = ({
     setIsPulling(false);
     setPullDistance(0);
     setTouchStart(null);
-  };
+  }
   
   return (
     <div
@@ -882,7 +882,7 @@ export const MobilePullToRefresh: React.FC<MobilePullToRefreshProps> = ({
       </div>
     </div>
   );
-};
+}
 
 /**
  * MobileGesture Component
@@ -914,7 +914,7 @@ export const MobileGesture: React.FC<MobileGestureProps> = ({
   const [touchStart, setTouchStart] = useState<{ x: number; y: number; time: number } | null>(null);
   const [lastTap, setLastTap] = useState<{ x: number; y: number; time: number } | null>(null);
   const longPressTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
-  const initialTouchesRef = React.useRef<Touch[]>([]);
+  const initialTouchesRef = React.useRef<Touch: any[]>([]);
   
   // Constants
   const DOUBLE_TAP_DELAY = 300; // ms
@@ -949,7 +949,7 @@ export const MobileGesture: React.FC<MobileGestureProps> = ({
         }
       }, LONG_PRESS_DELAY);
     }
-  };
+  }
   
   // Handle touch move
   const handleTouchMove = (e: React.TouchEvent) => {
@@ -998,7 +998,7 @@ export const MobileGesture: React.FC<MobileGestureProps> = ({
       const angle = currentAngle - initialAngle;
       onRotate(angle);
     }
-  };
+  }
   
   // Handle touch end
   const handleTouchEnd = (e: React.TouchEvent) => {
@@ -1028,7 +1028,7 @@ export const MobileGesture: React.FC<MobileGestureProps> = ({
     }
     // Handle tap and double tap
     else if (Math.abs(deltaX) < 10 && Math.abs(deltaY) < 10) {
-      const tapPosition = { x: touch.clientX, y: touch.clientY };
+      const tapPosition = { x: touch.clientX, y: touch.clientY }
       
       // Check for double tap
       if (onDoubleTap && lastTap && now - lastTap.time < DOUBLE_TAP_DELAY) {
@@ -1051,17 +1051,17 @@ export const MobileGesture: React.FC<MobileGestureProps> = ({
     
     setTouchStart(null);
     initialTouchesRef.current = [];
-  };
+  }
   
   // Calculate distance between two points
   const getDistance = (x1: number, y1: number, x2: number, y2: number): number => {
     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-  };
+  }
   
   // Calculate angle between two points
   const getAngle = (x1: number, y1: number, x2: number, y2: number): number => {
     return Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
-  };
+  }
   
   return (
     <div
@@ -1074,6 +1074,6 @@ export const MobileGesture: React.FC<MobileGestureProps> = ({
       {children}
     </div>
   );
-};
+}
 
 export default ResponsiveLayout;
