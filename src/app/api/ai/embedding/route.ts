@@ -12,7 +12,7 @@ type AIProvider = 'openai' | 'anthropic' | 'gemini' | 'grok' | 'openrouter';
 export interface AIEmbeddingRequest {
   provider: AIProvider;
   model: string;
-  text: string | string: any[];
+  text: string | string[];
 }
 
 // Handle AI embedding requests
