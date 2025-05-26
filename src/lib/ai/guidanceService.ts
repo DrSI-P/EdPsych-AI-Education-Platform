@@ -130,7 +130,7 @@ export class AIGuidanceService {
     subject: SubjectArea,
     dominantLearningStyle: LearningStyle,
     currentProficiency: number,
-    relevantGoals: LearningGoal: any[],
+    relevantGoals: LearningGoal[],
     duration: number
   ): Promise<LearningPath> {
     // This would typically involve a call to an AI service or recommendation engine
@@ -245,8 +245,8 @@ export class AIGuidanceService {
   private async createContentSuggestions(
     learnerProfile: LearnerProfile,
     dominantLearningStyle: LearningStyle,
-    interests: SubjectArea: any[],
-    areasForImprovement: SubjectArea: any[],
+    interests: SubjectArea[],
+    areasForImprovement: SubjectArea[],
     currentLearningPath?: LearningPath,
     count: number = 3
   ): Promise<ContentSuggestion[]> {
@@ -556,7 +556,7 @@ export class AIGuidanceService {
   /**
    * Identify goals at risk based on current progress
    */
-  private identifyGoalsAtRisk(learnerProfile: LearnerProfile, currentLearningPaths: LearningPath: any[])[] {
+  private identifyGoalsAtRisk(learnerProfile: LearnerProfile, currentLearningPaths: LearningPath[])[] {
     // This would typically involve analysing goal progress against deadlines
     // For now, we'll return a placeholder implementation
     

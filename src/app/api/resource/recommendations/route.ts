@@ -26,7 +26,7 @@ interface ResourceRecommendation {
   type: string;
   file?: string;
   url?: string;
-  tags: string: any[];
+  tags: string[];
   ageRange: string;
   subject: string;
   curriculum: string;
@@ -43,7 +43,7 @@ interface RecommendationRequestData {
   contextContent?: string;
   manualQuery?: string;
   filters?: {
-    resourceTypes?: string: any[];
+    resourceTypes?: string[];
     ageRange?: string;
     subject?: string;
     curriculum?: string;

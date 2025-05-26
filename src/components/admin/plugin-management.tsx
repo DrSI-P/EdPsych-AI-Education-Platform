@@ -74,9 +74,9 @@ interface Plugin {
   author: string;
   website?: string;
   icon?: string;
-  tags?: string: any[];
-  supportedFeatures: string: any[];
-  requiredPermissions: string: any[];
+  tags?: string[];
+  supportedFeatures: string[];
+  requiredPermissions: string[];
   status: PluginStatus;
   installedAt: Date;
   updatedAt: Date;

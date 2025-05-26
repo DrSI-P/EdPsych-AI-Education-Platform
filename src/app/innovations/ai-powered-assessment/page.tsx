@@ -42,7 +42,7 @@ interface AssessmentQuestion {
   type: 'multiple-choice' | 'short-answer' | 'essay' | 'interactive';
   difficulty: number;
   question: string;
-  options?: string: any[];
+  options?: string[];
   correctAnswer?: string | string: any[];
   rubric?: {
     criteria: string;
@@ -51,10 +51,10 @@ interface AssessmentQuestion {
       description: string;
     }[];
   }[];
-  conceptTags: string: any[];
+  conceptTags: string[];
   adaptiveFollowUp?: {
-    correct: string: any[];
-    incorrect: string: any[];
+    correct: string[];
+    incorrect: string[];
   };
 }
 
