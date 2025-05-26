@@ -50,7 +50,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
     // Simulate validation process
     setTimeout(() => {
       // This would be replaced with actual validation logic in a real implementation
-      const mockIssues[] = [];
+      const mockIssues: AccessibilityIssue[] = [];
       
       // Check for missing alt text in charts
       dashboard.widgets.forEach(widget => {
