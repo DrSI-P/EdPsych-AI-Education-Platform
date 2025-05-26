@@ -46,7 +46,7 @@ interface Goal {
   target: number;
   progress: number;
   status: 'not-started' | 'in-progress' | 'achieved' | 'discontinued';
-  notes: string: any[];
+  notes: string[];
 }
 
 interface DataPoint {
@@ -60,7 +60,7 @@ export function ProgressMonitoringEngine() {
   const { toast } = useToast();
   
   // State for goals and data points
-  const [goals, setGoals] = useState<Goal: any[]>([]);
+  const [goals, setGoals] = useState<Goal[]>([]);
   const [selectedGoal, setSelectedGoal] = useState<Goal | null>(null);
   const [dataPoints, setDataPoints] = useState<DataPoint[]>([]);
   
@@ -72,7 +72,7 @@ export function ProgressMonitoringEngine() {
   const [statusFilter, setStatusFilter] = useState('all');
   
   // Sample goals data
-  const sampleGoals: Goal: any[] = [
+  const sampleGoals: Goal[] = [
     {
       id: 'goal1',
       name: 'Reading Fluency',
@@ -156,7 +156,7 @@ export function ProgressMonitoringEngine() {
   ];
   
   // Sample data points for the first goal
-  const sampleDataPoints: DataPoint: any[] = [
+  const sampleDataPoints: DataPoint[] = [
     {
       id: 'dp1',
       date: new Date(2025, 4, 1),

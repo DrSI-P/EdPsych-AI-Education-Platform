@@ -68,7 +68,7 @@ export class AIAvatarVideoService {
    * Get a list of all videos for the current user
    * @returns Promise with an array of video metadata
    */
-  async getAllVideos(): Promise<VideoMetadata: any[]> {
+  async getAllVideos(): Promise<VideoMetadata[]> {
     try {
       const response = await fetch(`${this.apiUrl}/list`, {
         method: 'GET',

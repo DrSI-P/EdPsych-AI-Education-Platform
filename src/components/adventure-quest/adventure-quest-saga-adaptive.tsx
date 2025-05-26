@@ -93,14 +93,14 @@ interface Quest {
   difficulty: string;
   duration: number;
   xpReward: number;
-  objectives: string: any[];
+  objectives: string[];
   challenges: Array<{
     id: string;
     title: string;
     description: string;
     content: string;
     type: string;
-    options?: string: any[];
+    options?: string[];
     correctAnswer?: string;
     minScore?: number;
   }>;
@@ -115,7 +115,7 @@ interface GenerationParams {
 
 interface CompletedQuest extends Quest {
   completedAt: string;
-  results?;
+  results?: any;
 }
 
 // Custom hook for feature credit usage
@@ -139,7 +139,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
   // State for quests
   const [quests, setQuests] = useState<Quest[]>([]);
   const [activeQuest, setActiveQuest] = useState<Quest | null>(null);
-  const [completedQuests, setCompletedQuests] = useState<CompletedQuest: any[]>([]);
+  const [completedQuests, setCompletedQuests] = useState<CompletedQuest[]>([]);
   
   // State for UI
   const [view, setView] = useState<'creation' | 'hub' | 'quest' | 'history' | 'generate'>('hub');
@@ -201,11 +201,11 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
   
   // Create adaptive quest based on user data
   const createAdaptiveQuest = (
-    userProfile, 
-    learningHistory: any: any[], 
-    assessmentResults: any: any[], 
+    userProfile: any, 
+    learningHistory: any[], 
+    assessmentResults: any[], 
     params: GenerationParams,
-    curriculumContext
+    curriculumContext: any
   ): Quest => {
     // In a real implementation, this would use AI to generate a quest
     // For now, return a mock quest
@@ -257,7 +257,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
   };
   
   // Handle quest completion
-  const handleCompleteQuest = (quest: Quest, results): void => {
+  const handleCompleteQuest = (quest: Quest, results: any): void => {
     // Add quest to completed quests
     setCompletedQuests([...completedQuests, {
       ...quest,
@@ -306,7 +306,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
   };
   
   // Handle parameter change
-  const handleParamChange = (param: string, value): void => {
+  const handleParamChange = (param: string, value: any): void => {
     setGenerationParams({
       ...generationParams,
       [param]: value
@@ -321,7 +321,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
     }
     
     // Initialize quests
-    setQuests(mockQuests as Quest: any: any[]);
+    setQuests(mockQuests as Quest[]);
     
     // Initialize completed quests
     setCompletedQuests([
@@ -506,32 +506,52 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
                           <CardDescription>{quest.description}</CardDescription>
                         </CardHeader>
                         <CardContent className="p-4 pt-0">
-                          <div className="flex flex-wrap gap-2 mb-2">
-                            <Badge variant="outline">{quest.subject}</Badge>
-                            <Badge variant="outline">{quest.keyStage}</Badge>
-                            <Badge variant="outline">{quest.duration} mins</Badge>
-                          </div>
-                          <div className="flex justify-between items-center mt-4">
+                          <div className="flex justify-between text-sm">
                             <div className="flex items-center">
-                              <Trophy className="h-4 w-4 mr-1 text-yellow-500" />
-                              <span className="text-sm">{quest.xpReward} XP</span>
+                              <BookOpen className="mr-1 h-4 w-4" />
+                              <span>{quest.subject}</span>
                             </div>
-                            <Button size="sm" onClick={() => handleSelectQuest(quest)}>
-                              Start Quest
-                            </Button>
+                            <div className="flex items-center">
+                              <Hourglass className="mr-1 h-4 w-4" />
+                              <span>{quest.duration} min</span>
+                            </div>
+                            <div className="flex items-center">
+                              <Star className="mr-1 h-4 w-4" />
+                              <span>{quest.xpReward} XP</span>
+                            </div>
                           </div>
                         </CardContent>
+                        <CardFooter className="p-4 pt-0">
+                          <Button 
+                            onClick={() => handleSelectQuest(quest)}
+                            variant="outline"
+                            className="w-full"
+                          >
+                            Begin Quest
+                          </Button>
+                        </CardFooter>
                       </Card>
                     ))}
                   </div>
                 )}
               </CardContent>
               <CardFooter className="flex justify-between">
-                <Button variant="outline" onClick={() => setView('generate')} disabled={generating}>
-                  {generating ? 'Generating...' : 'Generate New Quest'}
-                </Button>
                 <Button variant="outline" onClick={() => setView('history')}>
+                  <Trophy className="mr-2 h-4 w-4" />
                   Quest History
+                </Button>
+                <Button onClick={() => setView('generate')} disabled={generating}>
+                  {generating ? (
+                    <>
+                      <Sparkles className="mr-2 h-4 w-4 animate-spin" />
+                      Generating...
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="mr-2 h-4 w-4" />
+                      Generate New Quest
+                    </>
+                  )}
                 </Button>
               </CardFooter>
             </Card>
@@ -541,7 +561,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
             <Card>
               <CardHeader>
                 <CardTitle className="text-xl flex items-center">
-                  <Sword className="mr-2" /> Character Profile
+                  <Users className="mr-2" /> Character Profile
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -549,85 +569,140 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
                   <div className="space-y-4">
                     <div className="flex items-center space-x-4">
                       <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center">
-                        <Sword className="h-8 w-8 text-primary" />
+                        <Users className="h-8 w-8 text-primary" />
                       </div>
                       <div>
                         <h3 className="font-bold text-lg">{character.name}</h3>
-                        <p className="text-sm text-muted-foreground">Level {character.level} Adventurer</p>
+                        <p className="text-sm text-muted-foreground">Level {character.level} Explorer</p>
                       </div>
                     </div>
                     
                     <div>
                       <div className="flex justify-between text-sm mb-1">
-                        <span>XP Progress</span>
+                        <span>Experience</span>
                         <span>{character.xp} / {character.xpToNextLevel}</span>
                       </div>
-                      <Progress value={character.xp / character.xpToNextLevel * 100} className="h-2" />
+                      <Progress value={(character.xp / character.xpToNextLevel) * 100} className="h-2" />
                     </div>
                     
                     <Separator />
                     
-                    <div className="space-y-3">
-                      <h4 className="font-semibold">Attributes</h4>
-                      
-                      <div>
-                        <div className="flex justify-between text-sm mb-1">
-                          <span>Intelligence</span>
-                          <span>{character.attributes.intelligence}/10</span>
+                    <div>
+                      <h4 className="font-medium mb-2">Attributes</h4>
+                      <div className="space-y-2">
+                        <div>
+                          <div className="flex justify-between text-sm mb-1">
+                            <span>Intelligence</span>
+                            <span>{character.attributes.intelligence}/10</span>
+                          </div>
+                          <Progress value={character.attributes.intelligence * 10} className="h-1" />
                         </div>
-                        <Progress value={character.attributes.intelligence * 10} className="h-2" />
-                      </div>
-                      
-                      <div>
-                        <div className="flex justify-between text-sm mb-1">
-                          <span>Creativity</span>
-                          <span>{character.attributes.creativity}/10</span>
+                        <div>
+                          <div className="flex justify-between text-sm mb-1">
+                            <span>Creativity</span>
+                            <span>{character.attributes.creativity}/10</span>
+                          </div>
+                          <Progress value={character.attributes.creativity * 10} className="h-1" />
                         </div>
-                        <Progress value={character.attributes.creativity * 10} className="h-2" />
-                      </div>
-                      
-                      <div>
-                        <div className="flex justify-between text-sm mb-1">
-                          <span>Persistence</span>
-                          <span>{character.attributes.persistence}/10</span>
+                        <div>
+                          <div className="flex justify-between text-sm mb-1">
+                            <span>Persistence</span>
+                            <span>{character.attributes.persistence}/10</span>
+                          </div>
+                          <Progress value={character.attributes.persistence * 10} className="h-1" />
                         </div>
-                        <Progress value={character.attributes.persistence * 10} className="h-2" />
-                      </div>
-                      
-                      <div>
-                        <div className="flex justify-between text-sm mb-1">
-                          <span>Curiosity</span>
-                          <span>{character.attributes.curiosity}/10</span>
+                        <div>
+                          <div className="flex justify-between text-sm mb-1">
+                            <span>Curiosity</span>
+                            <span>{character.attributes.curiosity}/10</span>
+                          </div>
+                          <Progress value={character.attributes.curiosity * 10} className="h-1" />
                         </div>
-                        <Progress value={character.attributes.curiosity * 10} className="h-2" />
                       </div>
                     </div>
                     
                     <Separator />
                     
                     <div>
-                      <h4 className="font-semibold mb-2">Inventory</h4>
-                      {character.inventory && character.inventory.length > 0 ? (
-                        <div className="space-y-2">
-                          {character.inventory.map((item) => (
-                            <div key={item.id} className="flex justify-between items-center text-sm">
-                              <span>{item.name}</span>
-                              <Badge variant="outline">x{item.quantity}</Badge>
-                            </div>
-                          ))}
+                      <h4 className="font-medium mb-2">Stats</h4>
+                      <div className="grid grid-cols-2 gap-2 text-sm">
+                        <div className="flex items-center">
+                          <Trophy className="mr-1 h-4 w-4 text-yellow-500" />
+                          <span>Quests: {completedQuests.length}</span>
                         </div>
-                      ) : (
-                        <p className="text-sm text-muted-foreground">No items in inventory</p>
-                      )}
+                        <div className="flex items-center">
+                          <Award className="mr-1 h-4 w-4 text-purple-500" />
+                          <span>Achievements: {character.achievements.length}</span>
+                        </div>
+                        <div className="flex items-center">
+                          <Star className="mr-1 h-4 w-4 text-amber-500" />
+                          <span>Total XP: {character.xp}</span>
+                        </div>
+                        <div className="flex items-center">
+                          <Backpack className="mr-1 h-4 w-4 text-emerald-500" />
+                          <span>Items: {character.inventory.length}</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}
               </CardContent>
               <CardFooter>
-                <Button variant="outline" className="w-full" onClick={() => setView('character')}>
+                <Button variant="outline" className="w-full">
+                  <Scroll className="mr-2 h-4 w-4" />
                   View Full Profile
                 </Button>
               </CardFooter>
+            </Card>
+            
+            <Card className="mt-6">
+              <CardHeader>
+                <CardTitle className="text-xl flex items-center">
+                  <Activity className="mr-2" /> Learning Progress
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-medium mb-2 text-sm">Subject Mastery</h4>
+                    <div className="space-y-2">
+                      <div>
+                        <div className="flex justify-between text-sm mb-1">
+                          <span>Mathematics</span>
+                          <span>65%</span>
+                        </div>
+                        <Progress value={65} className="h-1" />
+                      </div>
+                      <div>
+                        <div className="flex justify-between text-sm mb-1">
+                          <span>English</span>
+                          <span>78%</span>
+                        </div>
+                        <Progress value={78} className="h-1" />
+                      </div>
+                      <div>
+                        <div className="flex justify-between text-sm mb-1">
+                          <span>Science</span>
+                          <span>82%</span>
+                        </div>
+                        <Progress value={82} className="h-1" />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-medium mb-2 text-sm">Recent Activity</h4>
+                    <div className="space-y-2">
+                      {completedQuests.slice(0, 3).map((quest) => (
+                        <div key={quest.id} className="flex justify-between items-center text-sm">
+                          <span className="truncate">{quest.title}</span>
+                          <Badge variant="outline">{quest.xpReward} XP</Badge>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
             </Card>
           </div>
         </div>
@@ -641,42 +716,53 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
     
     return (
       <div className="adventure-quest-detail">
-        <Card className="w-full max-w-4xl mx-auto">
+        <Card>
           <CardHeader>
             <div className="flex justify-between items-start">
               <div>
-                <CardTitle className="text-2xl flex items-center">
-                  <Scroll className="mr-2" /> {activeQuest.title}
-                </CardTitle>
+                <CardTitle className="text-2xl">{activeQuest.title}</CardTitle>
                 <CardDescription>{activeQuest.description}</CardDescription>
               </div>
-              <Badge variant={
-                activeQuest.difficulty === 'beginner' ? 'outline' : 
-                activeQuest.difficulty === 'intermediate' ? 'secondary' : 
-                'destructive'
-              }>
-                {activeQuest.difficulty}
-              </Badge>
+              <Button variant="outline" onClick={() => { setActiveQuest(null); setView('hub'); }}>
+                Back to Hub
+              </Button>
             </div>
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
-              <div className="flex flex-wrap gap-2">
-                <Badge variant="outline">{activeQuest.subject}</Badge>
-                <Badge variant="outline">{activeQuest.keyStage}</Badge>
-                <Badge variant="outline">{activeQuest.duration} mins</Badge>
+              <div className="flex flex-wrap gap-4">
                 <Badge variant="outline" className="flex items-center">
-                  <Trophy className="h-3 w-3 mr-1 text-yellow-500" />
+                  <BookOpen className="mr-1 h-4 w-4" />
+                  {activeQuest.subject}
+                </Badge>
+                <Badge variant="outline" className="flex items-center">
+                  <Users className="mr-1 h-4 w-4" />
+                  {activeQuest.keyStage}
+                </Badge>
+                <Badge variant={
+                  activeQuest.difficulty === 'beginner' ? 'outline' : 
+                  activeQuest.difficulty === 'intermediate' ? 'secondary' : 
+                  'destructive'
+                } className="flex items-center">
+                  <Zap className="mr-1 h-4 w-4" />
+                  {activeQuest.difficulty}
+                </Badge>
+                <Badge variant="outline" className="flex items-center">
+                  <Hourglass className="mr-1 h-4 w-4" />
+                  {activeQuest.duration} minutes
+                </Badge>
+                <Badge variant="outline" className="flex items-center">
+                  <Star className="mr-1 h-4 w-4" />
                   {activeQuest.xpReward} XP
                 </Badge>
               </div>
               
               <div>
-                <h3 className="font-semibold mb-2">Objectives</h3>
+                <h3 className="text-lg font-medium mb-2">Objectives</h3>
                 <ul className="space-y-1">
                   {activeQuest.objectives.map((objective, index) => (
-                    <li key={`objective-${index}`} className="flex items-start">
-                      <Star className="h-4 w-4 mr-2 text-yellow-500 mt-0.5" />
+                    <li key={index} className="flex items-start">
+                      <div className="mr-2 mt-1 h-1.5 w-1.5 rounded-full bg-primary" />
                       <span>{objective}</span>
                     </li>
                   ))}
@@ -686,7 +772,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
               <Separator />
               
               <div>
-                <h3 className="font-semibold mb-3">Challenges</h3>
+                <h3 className="text-lg font-medium mb-4">Challenges</h3>
                 <div className="space-y-4">
                   {activeQuest.challenges.map((challenge) => (
                     <Card key={challenge.id}>
@@ -695,36 +781,21 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
                         <CardDescription>{challenge.description}</CardDescription>
                       </CardHeader>
                       <CardContent className="p-4 pt-0">
-                        <p>{challenge.content}</p>
+                        <p className="text-sm">{challenge.content}</p>
                         
                         {challenge.type === 'multiple-choice' && challenge.options && (
                           <div className="mt-4 space-y-2">
                             {challenge.options.map((option, index) => (
-                              <div key={`option-${index}`} className="flex items-center space-x-2">
+                              <div key={index} className="flex items-center space-x-2">
                                 <input 
                                   type="radio" 
                                   id={`option-${index}`} 
                                   name={`challenge-${challenge.id}`} 
-                                  className="h-4 w-4" 
+                                  className="h-4 w-4"
                                 />
                                 <Label htmlFor={`option-${index}`}>{option}</Label>
                               </div>
                             ))}
-                          </div>
-                        )}
-                        
-                        {challenge.type === 'text-input' && (
-                          <div className="mt-4">
-                            <Input placeholder="Enter your answer" />
-                          </div>
-                        )}
-                        
-                        {challenge.type === 'free-text' && (
-                          <div className="mt-4">
-                            <textarea 
-                              className="w-full min-h-[100px] p-2 border rounded-md" 
-                              placeholder="Enter your response"
-                            ></textarea>
                           </div>
                         )}
                       </CardContent>
@@ -735,17 +806,10 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Button variant="outline" onClick={() => {
-              setActiveQuest(null);
-              setView('hub');
-            }}>
-              Back to Hub
+            <Button variant="outline" onClick={() => { setActiveQuest(null); setView('hub'); }}>
+              Cancel Quest
             </Button>
-            <Button onClick={() => handleCompleteQuest(activeQuest, {
-              score: 85,
-              timeSpent: '15 minutes',
-              completedChallenges: activeQuest.challenges.length
-            })}>
+            <Button onClick={() => handleCompleteQuest(activeQuest, { score: 85, completed: true })}>
               Complete Quest
             </Button>
           </CardFooter>
@@ -758,51 +822,54 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
   const renderQuestHistory = (): JSX.Element => {
     return (
       <div className="adventure-quest-history">
-        <Card className="w-full max-w-4xl mx-auto">
+        <Card>
           <CardHeader>
-            <CardTitle className="text-2xl flex items-center">
-              <BookOpen className="mr-2" /> Quest History
-            </CardTitle>
-            <CardDescription>
-              Review your completed quests and achievements
-            </CardDescription>
+            <div className="flex justify-between items-start">
+              <div>
+                <CardTitle className="text-2xl flex items-center">
+                  <Trophy className="mr-2" /> Quest History
+                </CardTitle>
+                <CardDescription>
+                  Review your completed quests and achievements
+                </CardDescription>
+              </div>
+              <Button variant="outline" onClick={() => setView('hub')}>
+                Back to Hub
+              </Button>
+            </div>
           </CardHeader>
           <CardContent>
             {completedQuests.length === 0 ? (
               <div className="text-center p-6 border rounded-lg bg-muted/50">
-                <p className="text-muted-foreground">No completed quests yet. Start a quest to begin your adventure!</p>
+                <p className="text-muted-foreground">You haven't completed any quests yet.</p>
               </div>
             ) : (
               <div className="space-y-4">
                 {completedQuests.map((quest) => (
-                  <Card key={quest.id} className="bg-muted/20">
+                  <Card key={quest.id}>
                     <CardHeader className="p-4">
                       <div className="flex justify-between items-start">
-                        <div>
-                          <CardTitle className="text-lg flex items-center">
-                            <Trophy className="h-4 w-4 mr-2 text-yellow-500" />
-                            {quest.title}
-                          </CardTitle>
-                          <CardDescription>
-                            Completed on {new Date(quest.completedAt).toLocaleDateString()}
-                          </CardDescription>
-                        </div>
-                        <Badge variant="outline">{quest.subject}</Badge>
+                        <CardTitle className="text-lg">{quest.title}</CardTitle>
+                        <Badge variant="outline">{quest.xpReward} XP</Badge>
                       </div>
+                      <CardDescription>
+                        Completed on {new Date(quest.completedAt).toLocaleDateString()}
+                      </CardDescription>
                     </CardHeader>
                     <CardContent className="p-4 pt-0">
-                      <div className="flex items-center justify-between">
+                      <div className="flex flex-wrap gap-2">
+                        <Badge variant="outline" className="flex items-center">
+                          <BookOpen className="mr-1 h-4 w-4" />
+                          {quest.subject}
+                        </Badge>
                         <Badge variant={
                           quest.difficulty === 'beginner' ? 'outline' : 
                           quest.difficulty === 'intermediate' ? 'secondary' : 
                           'destructive'
-                        }>
+                        } className="flex items-center">
+                          <Zap className="mr-1 h-4 w-4" />
                           {quest.difficulty}
                         </Badge>
-                        <div className="flex items-center">
-                          <Star className="h-4 w-4 mr-1 text-yellow-500" />
-                          <span className="text-sm">{quest.xpReward} XP earned</span>
-                        </div>
                       </div>
                     </CardContent>
                   </Card>
@@ -810,11 +877,6 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
               </div>
             )}
           </CardContent>
-          <CardFooter>
-            <Button variant="outline" onClick={() => setView('hub')} className="w-full">
-              Back to Hub
-            </Button>
-          </CardFooter>
         </Card>
       </div>
     );
@@ -824,85 +886,95 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
   const renderQuestGeneration = (): JSX.Element => {
     return (
       <div className="adventure-quest-generation">
-        <Card className="w-full max-w-4xl mx-auto">
+        <Card>
           <CardHeader>
-            <CardTitle className="text-2xl flex items-center">
-              <Sparkles className="mr-2" /> Generate Adaptive Quest
-            </CardTitle>
-            <CardDescription>
-              Customize parameters to generate a quest tailored to your learning needs
-            </CardDescription>
+            <div className="flex justify-between items-start">
+              <div>
+                <CardTitle className="text-2xl flex items-center">
+                  <Sparkles className="mr-2" /> Generate Adaptive Quest
+                </CardTitle>
+                <CardDescription>
+                  Create a personalized learning quest tailored to your needs
+                </CardDescription>
+              </div>
+              <Button variant="outline" onClick={() => setView('hub')}>
+                Back to Hub
+              </Button>
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div>
                 <Label htmlFor="subject">Subject</Label>
-                <select 
-                  id="subject"
-                  className="w-full p-2 border rounded-md"
-                  value={generationParams.subject}
-                  onChange={(e) => handleParamChange('subject', e.target.value)}
+                <Select 
+                  value={generationParams.subject} 
+                  onValueChange={(value) => handleParamChange('subject', value)}
                 >
-                  <option value="Mathematics">Mathematics</option>
-                  <option value="English">English</option>
-                  <option value="Science">Science</option>
-                  <option value="History">History</option>
-                  <option value="Geography">Geography</option>
-                </select>
+                  <SelectTrigger id="subject">
+                    <SelectValue placeholder="Select subject" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Mathematics">Mathematics</SelectItem>
+                    <SelectItem value="English">English</SelectItem>
+                    <SelectItem value="Science">Science</SelectItem>
+                    <SelectItem value="History">History</SelectItem>
+                    <SelectItem value="Geography">Geography</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               
               <div>
                 <Label htmlFor="difficulty">Difficulty</Label>
-                <div className="grid grid-cols-3 gap-4 mt-2">
-                  {['beginner', 'intermediate', 'advanced'].map((difficulty) => (
-                    <div 
-                      key={difficulty}
-                      className={`p-3 border rounded-md cursor-pointer text-center ${
-                        generationParams.difficulty === difficulty ? 'bg-primary text-primary-foreground' : ''
-                      }`}
-                      onClick={() => handleParamChange('difficulty', difficulty)}
-                    >
-                      {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
-                    </div>
-                  ))}
-                </div>
+                <Select 
+                  value={generationParams.difficulty} 
+                  onValueChange={(value) => handleParamChange('difficulty', value)}
+                >
+                  <SelectTrigger id="difficulty">
+                    <SelectValue placeholder="Select difficulty" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="beginner">Beginner</SelectItem>
+                    <SelectItem value="intermediate">Intermediate</SelectItem>
+                    <SelectItem value="advanced">Advanced</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               
               <div>
                 <Label htmlFor="duration">Duration (minutes)</Label>
-                <div className="grid grid-cols-4 gap-4 mt-2">
-                  {[10, 20, 30, 45].map((duration) => (
-                    <div 
-                      key={duration}
-                      className={`p-3 border rounded-md cursor-pointer text-center ${
-                        generationParams.duration === duration ? 'bg-primary text-primary-foreground' : ''
-                      }`}
-                      onClick={() => handleParamChange('duration', duration)}
-                    >
-                      {duration} mins
-                    </div>
-                  ))}
-                </div>
+                <Select 
+                  value={generationParams.duration.toString()} 
+                  onValueChange={(value) => handleParamChange('duration', parseInt(value))}
+                >
+                  <SelectTrigger id="duration">
+                    <SelectValue placeholder="Select duration" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="10">10 minutes</SelectItem>
+                    <SelectItem value="20">20 minutes</SelectItem>
+                    <SelectItem value="30">30 minutes</SelectItem>
+                    <SelectItem value="45">45 minutes</SelectItem>
+                    <SelectItem value="60">60 minutes</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               
               <div>
-                <Label>Learning Style</Label>
-                <div className="grid grid-cols-2 gap-4 mt-2">
-                  {learningStyles.map((style) => (
-                    <div 
-                      key={style.id}
-                      className={`p-3 border rounded-md cursor-pointer ${
-                        generationParams.learningStyle === style.id ? 'bg-primary text-primary-foreground' : ''
-                      }`}
-                      onClick={() => handleParamChange('learningStyle', style.id)}
-                    >
-                      <h4 className="font-semibold">{style.name}</h4>
-                      <p className={`text-sm ${generationParams.learningStyle === style.id ? 'text-primary-foreground/80' : 'text-muted-foreground'}`}>
-                        {style.description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+                <Label htmlFor="learning-style">Learning Style</Label>
+                <Select 
+                  value={generationParams.learningStyle} 
+                  onValueChange={(value) => handleParamChange('learningStyle', value)}
+                >
+                  <SelectTrigger id="learning-style">
+                    <SelectValue placeholder="Select learning style" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="visual">Visual</SelectItem>
+                    <SelectItem value="auditory">Auditory</SelectItem>
+                    <SelectItem value="reading">Reading/Writing</SelectItem>
+                    <SelectItem value="kinesthetic">Kinesthetic</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
           </CardContent>
@@ -913,7 +985,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
             <Button onClick={generateAdaptiveQuest} disabled={generating}>
               {generating ? (
                 <>
-                  <Hourglass className="mr-2 h-4 w-4 animate-spin" />
+                  <Sparkles className="mr-2 h-4 w-4 animate-spin" />
                   Generating...
                 </>
               ) : (
@@ -929,25 +1001,38 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
     );
   };
   
-  // Render main component
+  // Render the appropriate view
+  const renderView = (): JSX.Element => {
+    switch (view) {
+      case 'creation':
+        return renderCharacterCreation();
+      case 'hub':
+        return renderQuestHub();
+      case 'quest':
+        return renderQuestDetail();
+      case 'history':
+        return renderQuestHistory();
+      case 'generate':
+        return renderQuestGeneration();
+      default:
+        return renderQuestHub();
+    }
+  };
+  
   return (
-    <div className="adventure-quest-saga p-4">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold flex items-center">
-            <Sword className="mr-2" /> Adventure Quest Saga
-          </h1>
-          <p className="text-muted-foreground">
-            Embark on personalized learning quests tailored to your learning style and curriculum needs
+    <div className="adventure-quest-saga container mx-auto py-8">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+        <div>
+          <h1 className="text-4xl font-bold tracking-tight">Adventure Quest Saga</h1>
+          <p className="text-xl text-muted-foreground mt-2">
+            Learn through adaptive, personalized quests
           </p>
         </div>
-        
-        {!character && renderCharacterCreation()}
-        {character && view === 'hub' && renderQuestHub()}
-        {character && view === 'quest' && renderQuestDetail()}
-        {character && view === 'history' && renderQuestHistory()}
-        {character && view === 'generate' && renderQuestGeneration()}
       </div>
+      
+      {renderView()}
     </div>
   );
 };
+
+export default AdventureQuestSagaAdaptive;

@@ -44,9 +44,9 @@ export default function AlignAssessmentPage() {
   const [error, setError] = useState('');
   const [standard, setStandard] = useState<CurriculumStandard | null>(null);
   const [assessments, setAssessments] = useState<Assessment[]>([]);
-  const [filteredAssessments, setFilteredAssessments] = useState<Assessment: any[]>([]);
+  const [filteredAssessments, setFilteredAssessments] = useState<Assessment[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedAssessments, setSelectedAssessments] = useState<string: any[]>([]);
+  const [selectedAssessments, setSelectedAssessments] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {

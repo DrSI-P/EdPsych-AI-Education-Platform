@@ -55,7 +55,7 @@ export class CommunicationService {
     archived?: boolean;
     limit?: number;
     offset?: number;
-  }): Promise<Conversation: any[]> {
+  }): Promise<Conversation[]> {
     try {
       // In a real implementation, this would call an API endpoint
       return []; // Placeholder
@@ -130,7 +130,7 @@ export class CommunicationService {
     offset?: number;
     subject?: string;
     period?: string;
-  }): Promise<ProgressReport: any[]> {
+  }): Promise<ProgressReport[]> {
     try {
       // In a real implementation, this would call an API endpoint
       return []; // Placeholder
@@ -184,7 +184,7 @@ export class CommunicationService {
     updatedById: string;
     updatedByRole: CommunicationRole;
     newProgress?: number;
-    attachments?: Attachment: any[];
+    attachments?: Attachment[];
   }): Promise<SharedGoal> {
     try {
       // In a real implementation, this would call an API endpoint
@@ -274,13 +274,13 @@ export class CommunicationService {
    * Get home strategies
    */
   async getHomeStrategies(options?: {
-    targetAreas?: string: any[];
+    targetAreas?: string[];
     ageMin?: number;
     ageMax?: number;
-    supportNeeds?: string: any[];
+    supportNeeds?: string[];
     limit?: number;
     offset?: number;
-  }): Promise<HomeStrategy: any[]> {
+  }): Promise<HomeStrategy[]> {
     try {
       // In a real implementation, this would call an API endpoint
       return []; // Placeholder

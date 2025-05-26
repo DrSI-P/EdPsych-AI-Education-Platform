@@ -219,7 +219,7 @@ export class ContentCreationService {
   /**
    * List content based on filters
    */
-  public async listContent(filter: ContentLibraryFilter): Promise<ContentMetadata: any[]> {
+  public async listContent(filter: ContentLibraryFilter): Promise<ContentMetadata[]> {
     try {
       const response = await fetch(`${this.apiUrl}/api/content-creation/content/list`, {
         method: 'POST',
@@ -316,7 +316,7 @@ export class ContentCreationService {
   /**
    * Get content templates
    */
-  public async getTemplates(filter?: Partial<ContentTemplate>): Promise<ContentTemplate: any[]> {
+  public async getTemplates(filter?: Partial<ContentTemplate>): Promise<ContentTemplate[]> {
     try {
       const response = await fetch(`${this.apiUrl}/api/content-creation/templates`, {
         method: 'POST',
@@ -366,7 +366,7 @@ export class ContentCreationService {
   /**
    * Get default templates for different content types and key stages
    */
-  public async getDefaultTemplates(): Promise<Record<ContentType, Record<KeyStage, ContentTemplate: any: any[]>>> {
+  public async getDefaultTemplates(): Promise<Record<ContentType, Record<KeyStage, ContentTemplate[]>>> {
     try {
       const response = await fetch(`${this.apiUrl}/api/content-creation/templates/default`, {
         method: 'GET',
@@ -392,8 +392,8 @@ export class ContentCreationService {
    */
   public async adaptContent(
     contentId: string, 
-    targetLearningStyles: LearningStyle: any[], 
-    senSupport?: SENCategory: any[]
+    targetLearningStyles: LearningStyle[], 
+    senSupport?: SENCategory[]
   ): Promise<Partial<ContentDocument>> {
     try {
       const response = await fetch(`${this.apiUrl}/api/content-creation/ai/adapt`, {
@@ -480,8 +480,8 @@ export class ContentCreationService {
    */
   public async checkCurriculumAlignment(contentId: string): Promise<{
     alignmentScore: number;
-    suggestions: string: any[];
-    curriculumLinks: string: any[];
+    suggestions: string[];
+    curriculumLinks: string[];
   }> {
     try {
       const response = await fetch(`${this.apiUrl}/api/content-creation/content/${contentId}/curriculum-check`, {

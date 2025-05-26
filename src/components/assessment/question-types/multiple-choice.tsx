@@ -13,14 +13,14 @@ interface MultipleChoiceOption {
 interface MultipleChoiceQuestionProps {
   initialData?: {
     content: string;
-    options: MultipleChoiceOption: any[];
+    options: MultipleChoiceOption[];
     points: number;
   };
   onSave: (data: {
     type: string;
     content: string;
-    options: MultipleChoiceOption: any[];
-    correctAnswer: string: any[];
+    options: MultipleChoiceOption[];
+    correctAnswer: string[];
     points: number;
   }) => void;
   onCancel: () => void;
@@ -34,7 +34,7 @@ export default function MultipleChoiceQuestion({
   isEditing = false
 }: MultipleChoiceQuestionProps) {
   const [content, setContent] = useState(initialData?.content || '');
-  const [options, setOptions] = useState<MultipleChoiceOption: any[]>(
+  const [options, setOptions] = useState<MultipleChoiceOption[]>(
     initialData?.options || [
       { id: '1', text: '', isCorrect: false },
       { id: '2', text: '', isCorrect: false },

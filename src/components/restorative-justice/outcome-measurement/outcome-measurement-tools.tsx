@@ -81,7 +81,7 @@ interface Assessment {
   title: string;
   type: AssessmentType;
   setting: SettingType;
-  dimensions: DimensionType: any[];
+  dimensions: DimensionType[];
   createdAt: string;
   completedAt?: string;
   status: 'draft' | 'in-progress' | 'completed';
@@ -94,7 +94,7 @@ interface Dimension {
   name: string;
   description: string;
   icon: React.ReactNode;
-  tools: Tool: any[];
+  tools: Tool[];
 }
 
 interface Tool {
@@ -102,12 +102,12 @@ interface Tool {
   name: string;
   description: string;
   type: 'survey' | 'observation' | 'data-analysis' | 'qualitative';
-  targetAudience: string: any[];
+  targetAudience: string[];
   timeRequired: string;
 }
 
 // Mock data for dimensions
-const dimensions: Dimension: any[] = [
+const dimensions: Dimension[] = [
   {
     id: 'connectedness',
     name: 'School Connectedness & Community',
@@ -303,7 +303,7 @@ const dimensions: Dimension: any[] = [
 ];
 
 // Mock data for assessments
-const mockAssessments: Assessment: any[] = [
+const mockAssessments: Assessment[] = [
   {
     id: '1',
     title: 'Baseline Assessment - Oakwood Secondary',
@@ -354,14 +354,14 @@ export default function OutcomeMeasurementTools() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   
   const [activeTab, setActiveTab] = useState(0);
-  const [assessments, setAssessments] = useState<Assessment: any[]>(mockAssessments);
-  const [selectedDimensions, setSelectedDimensions] = useState<string: any[]>([]);
+  const [assessments, setAssessments] = useState<Assessment[]>(mockAssessments);
+  const [selectedDimensions, setSelectedDimensions] = useState<string[]>([]);
   const [selectedAssessment, setSelectedAssessment] = useState<Assessment | null>(null);
   const [newAssessment, setNewAssessment] = useState({
     title: '',
     type: 'baseline' as AssessmentType,
     setting: 'secondary' as SettingType,
-    dimensions: [] as string: any: any[],
+    dimensions: [] as string[],
     targetGroup: ''
   });
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});

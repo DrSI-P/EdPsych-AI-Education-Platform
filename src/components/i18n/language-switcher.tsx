@@ -27,7 +27,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
   showLabel = true,
   className = ''
 }) => {
-  const [languages, setLanguages] = useState<LanguageMetadata: any[]>([]);
+  const [languages, setLanguages] = useState<LanguageMetadata[]>([]);
   const [currentLanguage, setCurrentLanguage] = useState<SupportedLanguage>(SupportedLanguage.ENGLISH_UK);
   const [isLoading, setIsLoading] = useState(true);
   

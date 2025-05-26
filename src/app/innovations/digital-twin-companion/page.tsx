@@ -30,13 +30,13 @@ import {
 // This component demonstrates the concept of a persistent AI companion that evolves with the learner
 
 interface LearningProfile {
-  strengths: string: any[];
-  challenges: string: any[];
-  interests: string: any[];
+  strengths: string[];
+  challenges: string[];
+  interests: string[];
   learningStyle: 'visual' | 'auditory' | 'reading/writing' | 'kinesthetic' | 'multimodal';
   pacePreference: 'accelerated' | 'standard' | 'deliberate';
-  motivationFactors: string: any[];
-  recentTopics: string: any[];
+  motivationFactors: string[];
+  recentTopics: string[];
   skillLevels: Record<string, number>;
 }
 

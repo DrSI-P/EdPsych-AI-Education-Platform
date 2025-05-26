@@ -80,15 +80,15 @@ export interface AssessmentToolPlugin extends BasePlugin {
 
 // Content provider plugin interface
 export interface ContentProviderPlugin extends BasePlugin {
-  searchContent: (query: string, filters?) => Promise<any: any[]>;
+  searchContent: (query: string, filters?) => Promise<any[]>;
   getContent: (contentId: string) => Promise<any>;
-  listCategories: () => Promise<string: any[]>;
+  listCategories: () => Promise<string[]>;
 }
 
 // Accessibility tool plugin interface
 export interface AccessibilityToolPlugin extends BasePlugin {
   enhanceContent: (content) => Promise<any>;
-  getAccessibilityFeatures: () => Promise<string: any[]>;
+  getAccessibilityFeatures: () => Promise<string[]>;
   checkAccessibility: (content) => Promise<any>;
 }
 
@@ -106,7 +106,7 @@ export interface PluginRegistry {
   registerPlugin: (plugin: BasePlugin) => Promise<boolean>;
   unregisterPlugin: (pluginId: string) => Promise<boolean>;
   getPlugin: (pluginId: string) => BasePlugin | null;
-  listPlugins: (status?: PluginStatus) => PluginInstance: any: any[];
+  listPlugins: (status?: PluginStatus) => PluginInstance[];
   enablePlugin: (pluginId: string) => Promise<boolean>;
   disablePlugin: (pluginId: string) => Promise<boolean>;
   updatePluginSettings: (pluginId: string, settings: Record<string, any>) => Promise<boolean>;

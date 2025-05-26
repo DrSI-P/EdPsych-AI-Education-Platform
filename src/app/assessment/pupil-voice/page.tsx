@@ -15,8 +15,8 @@ export default function PupilVoicePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('surveys');
-  const [surveys, setSurveys] = useState<PupilVoiceSurvey: any[]>([]);
-  const [filteredSurveys, setFilteredSurveys] = useState<PupilVoiceSurvey: any[]>([]);
+  const [surveys, setSurveys] = useState<PupilVoiceSurvey[]>([]);
+  const [filteredSurveys, setFilteredSurveys] = useState<PupilVoiceSurvey[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('all');
 

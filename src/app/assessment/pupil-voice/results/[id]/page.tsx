@@ -16,7 +16,7 @@ export default function PupilVoiceResultsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [survey, setSurvey] = useState<any>(null);
-  const [responses, setResponses] = useState<any: any[]>([]);
+  const [responses, setResponses] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState('overview');
   
   useEffect(() => {

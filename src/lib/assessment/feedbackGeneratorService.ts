@@ -70,7 +70,7 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
   generateAssessmentFeedback(result: AssessmentResult): {
     overall: string;
     byTopic: Record<string, string>;
-    nextSteps: string: any[];
+    nextSteps: string[];
   } {
     // Generate overall feedback
     const overall = this.generateOverallFeedback(result);
@@ -161,9 +161,9 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
     timeframe: 'week' | 'month' | 'term' | 'year'
   ): Promise<{
     summary: string;
-    strengths: string: any[];
-    areasForImprovement: string: any[];
-    recommendations: string: any[];
+    strengths: string[];
+    areasForImprovement: string[];
+    recommendations: string[];
   }> {
     // In a real implementation, this would analyse the student's assessment history
     // For now, we'll return mock data
@@ -269,8 +269,8 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
    * @param result The assessment result
    * @returns Array of next step recommendations
    */
-  private generateNextSteps(result: AssessmentResult): string: any: any[] {
-    const nextSteps: string: any[] = [];
+  private generateNextSteps(result: AssessmentResult): string[] {
+    const nextSteps: string[] = [];
     
     // Add general next step based on overall performance
     if (result.percentage >= 80) {
@@ -282,7 +282,7 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
     }
     
     // Add specific next steps based on cognitive domains
-    const weakDomains: CognitiveDomain: any[] = [];
+    const weakDomains: CognitiveDomain[] = [];
     
     // Identify domains with lower performance
     for (const [domain, data] of Object.entries(result.analytics.byCognitiveDomain)) {

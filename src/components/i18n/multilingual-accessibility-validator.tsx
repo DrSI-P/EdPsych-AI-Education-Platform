@@ -80,8 +80,8 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
 }) => {
   const { t, currentLanguage } = useI18n();
   const [isValidating, setIsValidating] = useState(false);
-  const [accessibilityResults, setAccessibilityResults] = useState<AccessibilityValidationResult: any[]>([]);
-  const [coverageResults, setCoverageResults] = useState<LanguageCoverageResult: any[]>([]);
+  const [accessibilityResults, setAccessibilityResults] = useState<AccessibilityValidationResult[]>([]);
+  const [coverageResults, setCoverageResults] = useState<LanguageCoverageResult[]>([]);
   const [selectedTab, setSelectedTab] = useState<string>('accessibility');
   const [overallAccessibilityScore, setOverallAccessibilityScore] = useState<number>(0);
   const [overallCoverageScore, setOverallCoverageScore] = useState<number>(0);
@@ -113,7 +113,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
   // Validate accessibility
   const validateAccessibility = async () => {
     // Mock accessibility validation results
-    const results: AccessibilityValidationResult: any[] = [
+    const results: AccessibilityValidationResult[] = [
       {
         category: 'Text Direction',
         criteria: 'RTL language support',
@@ -219,7 +219,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
   // Validate language coverage
   const validateLanguageCoverage = async () => {
     // Mock language coverage results
-    const results: LanguageCoverageResult: any[] = [
+    const results: LanguageCoverageResult[] = [
       {
         language: SupportedLanguage.WELSH,
         namespaces: [

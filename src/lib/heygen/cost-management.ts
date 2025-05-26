@@ -297,7 +297,7 @@ export async function getVideoForUser(params: VideoGenerationParams): Promise<Vi
  * Pre-generate common navigation videos for the free tier
  * This should be run as a scheduled job to build up the library of free videos
  */
-export async function preGenerateCommonVideos(navigationScripts: NavigationScript: any[]): Promise<void> {
+export async function preGenerateCommonVideos(navigationScripts: NavigationScript[]): Promise<void> {
   for (const script of navigationScripts) {
     const cacheKey = generateVideoCacheKey({
       text: script.text,
@@ -358,7 +358,7 @@ export async function preGenerateCommonVideos(navigationScripts: NavigationScrip
  * Get a list of pre-generated videos for a specific category
  * Used to populate the UI with available free videos
  */
-export async function getPreGeneratedVideosByCategory(category: string): Promise<PreGeneratedVideo: any[]> {
+export async function getPreGeneratedVideosByCategory(category: string): Promise<PreGeneratedVideo[]> {
   const videos = await db.preGeneratedVideo.findMany({
     where: { category },
     select: {

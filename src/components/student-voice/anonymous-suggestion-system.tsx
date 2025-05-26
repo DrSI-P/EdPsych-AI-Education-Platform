@@ -57,8 +57,8 @@ export default function AnonymousSuggestionSystem() {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('submit');
   const [isLoading, setIsLoading] = useState(false);
-  const [suggestions, setSuggestions] = useState<Suggestion: any[]>([]);
-  const [filteredSuggestions, setFilteredSuggestions] = useState<Suggestion: any[]>([]);
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const [filteredSuggestions, setFilteredSuggestions] = useState<Suggestion[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [selectedVisibility, setSelectedVisibility] = useState('all');
@@ -82,7 +82,7 @@ export default function AnonymousSuggestionSystem() {
   // Load mock data on component mount
   React.useEffect(() => {
     // Mock suggestions
-    const mockSuggestions: Suggestion: any[] = [
+    const mockSuggestions: Suggestion[] = [
       {
         id: '1',
         category: 'environment',

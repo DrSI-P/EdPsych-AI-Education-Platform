@@ -11,7 +11,7 @@ import { DashboardConfig } from '@/lib/analytics/types';
 
 interface AccessibilityValidatorProps {
   dashboard: DashboardConfig;
-  onFixIssues?: (issues: AccessibilityIssue: any[]) => void;
+  onFixIssues?: (issues: AccessibilityIssue[]) => void;
 }
 
 export interface AccessibilityIssue {
@@ -30,7 +30,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
   const [isValidating, setIsValidating] = useState(false);
   const [validationComplete, setValidationComplete] = useState(false);
   const [accessibilityScore, setAccessibilityScore] = useState(0);
-  const [issues, setIssues] = useState<AccessibilityIssue: any[]>([]);
+  const [issues, setIssues] = useState<AccessibilityIssue[]>([]);
   const [validationResults, setValidationResults] = useState<{
     perceivable: number;
     operable: number;
@@ -50,7 +50,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
     // Simulate validation process
     setTimeout(() => {
       // This would be replaced with actual validation logic in a real implementation
-      const mockIssues: AccessibilityIssue: any[] = [];
+      const mockIssues: AccessibilityIssue[] = [];
       
       // Check for missing alt text in charts
       dashboard.widgets.forEach(widget => {

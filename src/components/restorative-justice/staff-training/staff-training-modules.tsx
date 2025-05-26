@@ -77,8 +77,8 @@ interface Module {
   description: string;
   duration: string;
   level: 'Beginner' | 'Intermediate' | 'Advanced';
-  sections: Section: any[];
-  resources: Resource: any[];
+  sections: Section[];
+  resources: Resource[];
   completed: boolean;
   progress: number;
 }
@@ -104,21 +104,21 @@ interface Quiz {
   id: string;
   moduleId: string;
   title: string;
-  questions: Question: any[];
+  questions: Question[];
   passingScore: number;
 }
 
 interface Question {
   id: string;
   text: string;
-  options: string: any[];
+  options: string[];
   correctAnswer: number;
 }
 
 interface UserProgress {
   userId: string;
   moduleId: string;
-  completedSections: string: any[];
+  completedSections: string[];
   quizScores: Record<string, number>;
   certificateIssued: boolean;
   lastAccessed: string;
@@ -131,8 +131,8 @@ const StaffTrainingModules: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   
   const [activeTab, setActiveTab] = useState(0);
-  const [modules, setModules] = useState<Module: any[]>([]);
-  const [userProgress, setUserProgress] = useState<UserProgress: any[]>([]);
+  const [modules, setModules] = useState<Module[]>([]);
+  const [userProgress, setUserProgress] = useState<UserProgress[]>([]);
   const [currentModule, setCurrentModule] = useState<Module | null>(null);
   const [currentSection, setCurrentSection] = useState<Section | null>(null);
   const [currentQuiz, setCurrentQuiz] = useState<Quiz | null>(null);

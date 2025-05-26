@@ -49,7 +49,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
   initialDashboardId
 }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [dashboards, setDashboards] = useState<DashboardConfig: any[]>([]);
+  const [dashboards, setDashboards] = useState<DashboardConfig[]>([]);
   const [currentDashboard, setCurrentDashboard] = useState<DashboardConfig | null>(null);
   const [filter, setFilter] = useState<AnalyticsFilter>({
     timePeriod: TimePeriod.MONTH,

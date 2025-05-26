@@ -13,14 +13,14 @@ interface MatchingItem {
 interface MatchingQuestionProps {
   initialData?: {
     content: string;
-    items: MatchingItem: any[];
+    items: MatchingItem[];
     points: number;
     shuffleOptions: boolean;
   };
   onSave: (data: {
     type: string;
     content: string;
-    items: MatchingItem: any[];
+    items: MatchingItem[];
     points: number;
     shuffleOptions: boolean;
   }) => void;
@@ -35,7 +35,7 @@ export default function MatchingQuestion({
   isEditing = false
 }: MatchingQuestionProps) {
   const [content, setContent] = useState(initialData?.content || '');
-  const [items, setItems] = useState<MatchingItem: any[]>(
+  const [items, setItems] = useState<MatchingItem[]>(
     initialData?.items || [
       { id: '1', left: '', right: '' },
       { id: '2', left: '', right: '' },

@@ -46,13 +46,13 @@ interface LearnerProfile {
   name: string;
   age: number;
   educationLevel: string;
-  interests: string: any[];
-  strengths: string: any[];
-  areasForGrowth: string: any[];
+  interests: string[];
+  strengths: string[];
+  areasForGrowth: string[];
   learningStyle: LearningStyle;
   priorKnowledge: Record<string, number>;
-  learningGoals: string: any[];
-  accessibilityNeeds: string: any[];
+  learningGoals: string[];
+  accessibilityNeeds: string[];
 }
 
 interface LearningModule {
@@ -62,9 +62,9 @@ interface LearningModule {
   subject: string;
   difficulty: number;
   estimatedTime: number;
-  prerequisites: string: any[];
-  learningOutcomes: string: any[];
-  format: string: any[];
+  prerequisites: string[];
+  learningOutcomes: string[];
+  format: string[];
   engagementLevel: number;
   completionStatus: number;
 }
@@ -104,7 +104,7 @@ export default function PersonalizedLearningPathwaysPage() {
   });
   
   // State for learning modules
-  const [learningModules, setLearningModules] = useState<LearningModule: any[]>([
+  const [learningModules, setLearningModules] = useState<LearningModule[]>([
     {
       id: "math-001",
       title: "Algebraic Expressions and Equations",
@@ -193,7 +193,7 @@ export default function PersonalizedLearningPathwaysPage() {
   ]);
   
   // State for recommended pathway
-  const [recommendedPathway, setRecommendedPathway] = useState<string: any[]>(["sci-042", "math-001", "hist-019", "rob-007", "eng-023"]);
+  const [recommendedPathway, setRecommendedPathway] = useState<string[]>(["sci-042", "math-001", "hist-019", "rob-007", "eng-023"]);
   
   // State for active tab
   const [activeTab, setActiveTab] = useState('profile');

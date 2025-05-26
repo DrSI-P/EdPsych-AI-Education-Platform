@@ -74,9 +74,9 @@ interface Plugin {
   author: string;
   website?: string;
   icon?: string;
-  tags?: string: any[];
-  supportedFeatures: string: any[];
-  requiredPermissions: string: any[];
+  tags?: string[];
+  supportedFeatures: string[];
+  requiredPermissions: string[];
   status: PluginStatus;
   installedAt: Date;
   updatedAt: Date;
@@ -85,7 +85,7 @@ interface Plugin {
 }
 
 // Mock data for demonstration purposes
-const mockPlugins: Plugin: any[] = [
+const mockPlugins: Plugin[] = [
   {
     id: 'google-drive-integration',
     name: 'Google Drive Integration',
@@ -168,8 +168,8 @@ const StatusBadge = ({ status }: { status: PluginStatus }) => {
 };
 
 export default function PluginManagement() {
-  const [plugins, setPlugins] = useState<Plugin: any[]>(mockPlugins);
-  const [filteredPlugins, setFilteredPlugins] = useState<Plugin: any[]>(mockPlugins);
+  const [plugins, setPlugins] = useState<Plugin[]>(mockPlugins);
+  const [filteredPlugins, setFilteredPlugins] = useState<Plugin[]>(mockPlugins);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');

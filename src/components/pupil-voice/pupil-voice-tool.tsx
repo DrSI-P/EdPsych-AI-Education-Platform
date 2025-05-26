@@ -22,12 +22,12 @@ interface PupilVoiceEntry {
     answer: string;
   }[];
   sentiment: 'positive' | 'neutral' | 'negative';
-  tags: string: any[];
+  tags: string[];
   notes: string;
 }
 
 interface PupilVoiceToolProps {
-  initialEntries?: PupilVoiceEntry: any[];
+  initialEntries?: PupilVoiceEntry[];
   onEntrySelect?: (entry: PupilVoiceEntry) => void;
   className?: string;
 }
@@ -38,7 +38,7 @@ export function PupilVoiceTool({
   className = ''
 }: PupilVoiceToolProps) {
   const { showToast } = useToast();
-  const [entries, setEntries] = useState<PupilVoiceEntry: any[]>(initialEntries);
+  const [entries, setEntries] = useState<PupilVoiceEntry[]>(initialEntries);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   
@@ -59,7 +59,7 @@ export function PupilVoiceTool({
         }
         
         // Mock data for demonstration
-        const mockEntries: PupilVoiceEntry: any[] = [
+        const mockEntries: PupilVoiceEntry[] = [
           {
             id: '1',
             pupilName: 'Alex Thompson',
@@ -256,7 +256,7 @@ export function PupilVoiceTool({
   };
   
   // Determine sentiment based on answers
-  const determineSentiment = (answers: string: any[]): 'positive' | 'neutral' | 'negative' => {
+  const determineSentiment = (answers: string[]): 'positive' | 'neutral' | 'negative' => {
     // This is a simplified sentiment analysis
     // In a real application, this would use more sophisticated NLP
     const positiveWords = ['like', 'love', 'enjoy', 'happy', 'good', 'great', 'excellent', 'wonderful', 'fantastic'];

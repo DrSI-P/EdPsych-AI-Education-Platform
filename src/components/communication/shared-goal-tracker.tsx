@@ -57,7 +57,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
   userId,
   userRole
 }) => {
-  const [goals, setGoals] = useState<SharedGoal: any[]>([]);
+  const [goals, setGoals] = useState<SharedGoal[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isCreatingGoal, setIsCreatingGoal] = useState(false);
   const [selectedGoal, setSelectedGoal] = useState<SharedGoal | null>(null);
@@ -73,7 +73,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
       try {
         // In a real implementation, this would fetch goals from the API
         // For now, we'll use mock data
-        const mockGoals: SharedGoal: any[] = [
+        const mockGoals: SharedGoal[] = [
           {
             id: 'goal1',
             studentId,

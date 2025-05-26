@@ -26,7 +26,7 @@ interface RoleOption {
 }
 
 export default function AdminUserManagement() {
-  const [users, setUsers] = useState<User: any[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -54,7 +54,7 @@ export default function AdminUserManagement() {
     fetchUsers();
   }, [currentPage, activeTab, searchQuery]);
   
-  const roleOptions: RoleOption: any[] = [
+  const roleOptions: RoleOption[] = [
     { value: 'STUDENT', label: 'Student' },
     { value: 'EDUCATOR', label: 'Educator' },
     { value: 'ADMIN', label: 'Administrator' },

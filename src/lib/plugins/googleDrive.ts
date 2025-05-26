@@ -51,7 +51,7 @@ export interface GoogleDriveDocument {
   shared: boolean;
   starred: boolean;
   trashed: boolean;
-  parents: string: any[];
+  parents: string[];
 }
 
 /**
@@ -201,7 +201,7 @@ export class GoogleDriveClient {
   /**
    * List files in Google Drive
    */
-  async listFiles(query?: string, pageSize = 100): Promise<GoogleDriveDocument: any[]> {
+  async listFiles(query?: string, pageSize = 100): Promise<GoogleDriveDocument[]> {
     const accessToken = await this.ensureAccessToken();
     
     const params = new URLSearchParams({
@@ -690,7 +690,7 @@ export class GoogleDrivePlugin implements BasePlugin, DataIntegrationPlugin {
   /**
    * Sync platform content to Google Drive
    */
-  private async syncPlatformToDrive(): Promise<any: any[]> {
+  private async syncPlatformToDrive(): Promise<any[]> {
     // Implementation would depend on platform's content structure
     // This is a placeholder for the actual implementation
     return [];
@@ -699,7 +699,7 @@ export class GoogleDrivePlugin implements BasePlugin, DataIntegrationPlugin {
   /**
    * Sync Google Drive content to platform
    */
-  private async syncDriveToPlatform(): Promise<any: any[]> {
+  private async syncDriveToPlatform(): Promise<any[]> {
     // Implementation would depend on platform's content structure
     // This is a placeholder for the actual implementation
     return [];

@@ -28,7 +28,7 @@ interface DocumentationTemplate {
   }[];
 }
 
-const documentationTemplates: DocumentationTemplate: any[] = [
+const documentationTemplates: DocumentationTemplate[] = [
   {
     id: 'classroom-observation',
     name: 'Classroom Observation',
@@ -278,7 +278,7 @@ export default function AutomatedDocumentation() {
   
   // Reference for MediaRecorder
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const audioChunksRef = useRef<Blob: any[]>([]);
+  const audioChunksRef = useRef<Blob[]>([]);
   
   // Initialize saved documents from localStorage
   useEffect(() => {

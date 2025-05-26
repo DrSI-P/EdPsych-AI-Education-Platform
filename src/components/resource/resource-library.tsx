@@ -16,7 +16,7 @@ interface Resource {
   type: 'document' | 'video' | 'audio' | 'link' | 'worksheet';
   url?: string;
   file?: string;
-  tags: string: any[];
+  tags: string[];
   ageRange: string;
   subject: string;
   curriculum: string;
@@ -25,7 +25,7 @@ interface Resource {
 }
 
 interface ResourceLibraryProps {
-  initialResources?: Resource: any[];
+  initialResources?: Resource[];
   onResourceSelect?: (resource: Resource) => void;
   className?: string;
 }
@@ -36,7 +36,7 @@ export function ResourceLibrary({
   className = ''
 }: ResourceLibraryProps) {
   const { showToast } = useToast();
-  const [resources, setResources] = useState<Resource: any[]>(initialResources);
+  const [resources, setResources] = useState<Resource[]>(initialResources);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   
@@ -58,7 +58,7 @@ export function ResourceLibrary({
         }
         
         // Mock data for demonstration
-        const mockResources: Resource: any[] = [
+        const mockResources: Resource[] = [
           {
             id: '1',
             title: 'Mathematics: Algebra Fundamentals',

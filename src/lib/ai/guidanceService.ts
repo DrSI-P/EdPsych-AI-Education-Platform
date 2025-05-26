@@ -115,7 +115,7 @@ export class AIGuidanceService {
   /**
    * Get relevant learning goals for a subject
    */
-  private getRelevantLearningGoals(learnerProfile: LearnerProfile, subject: SubjectArea): LearningGoal: any: any[] {
+  private getRelevantLearningGoals(learnerProfile: LearnerProfile, subject: SubjectArea): LearningGoal[] {
     return learnerProfile.learningGoals.filter(goal => 
       goal.subject === subject && 
       (goal.status === 'not_started' || goal.status === 'in_progress')
@@ -130,7 +130,7 @@ export class AIGuidanceService {
     subject: SubjectArea,
     dominantLearningStyle: LearningStyle,
     currentProficiency: number,
-    relevantGoals: LearningGoal: any[],
+    relevantGoals: LearningGoal[],
     duration: number
   ): Promise<LearningPath> {
     // This would typically involve a call to an AI service or recommendation engine
@@ -186,7 +186,7 @@ export class AIGuidanceService {
     learnerProfile: LearnerProfile,
     currentLearningPath?: LearningPath,
     count: number = 3
-  ): Promise<ContentSuggestion: any[]> {
+  ): Promise<ContentSuggestion[]> {
     // Analyse learner profile to determine appropriate content
     const dominantLearningStyle = this.determineDominantLearningStyle(learnerProfile);
     const interests = this.identifyTopInterests(learnerProfile);
@@ -208,7 +208,7 @@ export class AIGuidanceService {
   /**
    * Identify top interests from learner profile
    */
-  private identifyTopInterests(learnerProfile: LearnerProfile): SubjectArea: any: any[] {
+  private identifyTopInterests(learnerProfile: LearnerProfile): SubjectArea[] {
     const interests = learnerProfile.subjectInterests;
     
     if (!interests || Object.keys(interests).length === 0) {
@@ -225,7 +225,7 @@ export class AIGuidanceService {
   /**
    * Identify areas for improvement from learner profile
    */
-  private identifyAreasForImprovement(learnerProfile: LearnerProfile): SubjectArea: any: any[] {
+  private identifyAreasForImprovement(learnerProfile: LearnerProfile): SubjectArea[] {
     const strengths = learnerProfile.subjectStrengths;
     
     if (!strengths || Object.keys(strengths).length === 0) {
@@ -245,15 +245,15 @@ export class AIGuidanceService {
   private async createContentSuggestions(
     learnerProfile: LearnerProfile,
     dominantLearningStyle: LearningStyle,
-    interests: SubjectArea: any[],
-    areasForImprovement: SubjectArea: any[],
+    interests: SubjectArea[],
+    areasForImprovement: SubjectArea[],
     currentLearningPath?: LearningPath,
     count: number = 3
-  ): Promise<ContentSuggestion: any[]> {
+  ): Promise<ContentSuggestion[]> {
     // This would typically involve a call to a content recommendation service
     // For now, we'll simulate this with a placeholder implementation
     
-    const suggestions: ContentSuggestion: any[] = [];
+    const suggestions: ContentSuggestion[] = [];
     
     // Add suggestions based on learning style
     suggestions.push({
@@ -419,16 +419,16 @@ export class AIGuidanceService {
    */
   public async monitorProgress(
     learnerProfile: LearnerProfile,
-    recentActivities: any: any[],
-    currentLearningPaths: LearningPath: any[]
-  ): Promise<InterventionAlert: any[]> {
+    recentActivities: any[],
+    currentLearningPaths: LearningPath[]
+  ): Promise<InterventionAlert[]> {
     // Analyse recent activities and learning paths to identify potential issues
     const performanceIssues = this.identifyPerformanceIssues(learnerProfile, recentActivities);
     const engagementIssues = this.identifyEngagementIssues(learnerProfile, recentActivities);
     const goalIssues = this.identifyGoalsAtRisk(learnerProfile, currentLearningPaths);
     
     // Generate intervention alerts based on identified issues
-    const alerts: InterventionAlert: any[] = [];
+    const alerts: InterventionAlert[] = [];
     
     // Add performance alerts
     performanceIssues.forEach(issue => {
@@ -452,11 +452,12 @@ export class AIGuidanceService {
           },
           {
             actionType: 'practise',
-            description: `Complete additional practise exercises in ${this.getSubjectName(issue.subject)}.`
+            description: `Complete additional practise exercises in ${this.getSubjectName(issue.subject)}.`,
+            resources: []
           }
         ],
         createdAt: new Date(),
-        acknowledged: false
+        status: 'open'
       });
     });
     
@@ -465,27 +466,28 @@ export class AIGuidanceService {
       alerts.push({
         id: `alert-engagement-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
         learnerId: learnerProfile.id,
-        alertType: 'engagement_drop',
+        alertType: 'low_engagement',
         severity: issue.severity,
-        title: `Engagement Alert`,
-        description: `There has been a ${issue.severity} drop in engagement with the platform.`,
+        title: `Engagement Alert: ${issue.subject || 'General'}`,
+        description: issue.subject 
+          ? `Engagement in ${this.getSubjectName(issue.subject)} has been low for ${issue.daysSinceLastActivity} days.`
+          : `Overall platform engagement has been low for ${issue.daysSinceLastActivity} days.`,
         metrics: {
-          previousEngagement: issue.previousEngagement,
-          currentEngagement: issue.currentEngagement,
-          dropPercentage: issue.dropPercentage
+          daysSinceLastActivity: issue.daysSinceLastActivity,
+          averageSessionDuration: issue.averageSessionDuration,
+          completionRate: issue.completionRate
         },
         suggestedActions: [
           {
-            actionType: 'content_change',
-            description: `Try different types of content that may be more engaging.`
-          },
-          {
-            actionType: 'goal_review',
-            description: `Review and possibly adjust learning goals to increase motivation.`
+            actionType: 'explore',
+            description: issue.subject 
+              ? `Explore these engaging ${this.getSubjectName(issue.subject)} resources.`
+              : `Explore these recommended resources based on your interests.`,
+            resources: []
           }
         ],
         createdAt: new Date(),
-        acknowledged: false
+        status: 'open'
       });
     });
     
@@ -496,25 +498,22 @@ export class AIGuidanceService {
         learnerId: learnerProfile.id,
         alertType: 'goal_at_risk',
         severity: issue.severity,
-        title: `Goal Alert: ${issue.goal.title}`,
-        description: `The goal "${issue.goal.title}" is at risk of not being completed by the target date.`,
+        title: `Goal Alert: ${issue.goalTitle}`,
+        description: `Your goal "${issue.goalTitle}" is at risk of not being completed by the target date.`,
         metrics: {
-          currentProgress: issue.goal.progress,
           daysRemaining: issue.daysRemaining,
+          completionPercentage: issue.completionPercentage,
           requiredDailyProgress: issue.requiredDailyProgress
         },
         suggestedActions: [
           {
-            actionType: 'schedule_adjustment',
-            description: `Allocate more time to activities related to this goal.`
-          },
-          {
-            actionType: 'goal_adjustment',
-            description: `Consider adjusting the target date or scope of the goal.`
+            actionType: 'focus',
+            description: `Focus on these activities to get back on track with your goal.`,
+            resources: issue.suggestedResources
           }
         ],
         createdAt: new Date(),
-        acknowledged: false
+        status: 'open'
       });
     });
     
@@ -522,111 +521,148 @@ export class AIGuidanceService {
   }
   
   /**
-   * Identify performance issues based on recent activities
+   * Identify performance issues from recent activities
    */
-  private identifyPerformanceIssues(learnerProfile: LearnerProfile, recentActivities: any: any[])[] {
-    // This would typically involve analysing assessment results over time
-    // For now, we'll return a placeholder implementation
+  private identifyPerformanceIssues(learnerProfile: LearnerProfile, recentActivities: any[]): any[] {
+    // This would typically involve complex analysis of performance trends
+    // For now, we'll simulate this with a placeholder implementation
     
-    // In a real implementation, this would:
-    // 1. Compare recent assessment scores with historical performance
-    // 2. Identify significant drops in performance
-    // 3. Determine the severity of the issues
+    const issues: any[] = [];
     
     // Placeholder implementation
-    return [];
+    if (recentActivities.length > 0) {
+      // Simulate finding a performance issue in mathematics
+      issues.push({
+        subject: SubjectArea.MATHEMATICS,
+        severity: 'moderate',
+        previousScore: 75,
+        currentScore: 60,
+        dropPercentage: 20,
+        conceptsToReview: ['Fractions', 'Decimals', 'Percentages']
+      });
+    }
+    
+    return issues;
   }
   
   /**
-   * Identify engagement issues based on recent activities
+   * Identify engagement issues from recent activities
    */
-  private identifyEngagementIssues(learnerProfile: LearnerProfile, recentActivities: any: any[])[] {
-    // This would typically involve analysing platform usage patterns
-    // For now, we'll return a placeholder implementation
+  private identifyEngagementIssues(learnerProfile: LearnerProfile, recentActivities: any[]): any[] {
+    // This would typically involve analysis of engagement patterns
+    // For now, we'll simulate this with a placeholder implementation
     
-    // In a real implementation, this would:
-    // 1. Compare recent engagement metrics with historical patterns
-    // 2. Identify significant drops in engagement
-    // 3. Determine the severity of the issues
+    const issues: any[] = [];
     
     // Placeholder implementation
-    return [];
+    if (recentActivities.length === 0) {
+      // Simulate finding a general engagement issue
+      issues.push({
+        subject: null,
+        severity: 'high',
+        daysSinceLastActivity: 7,
+        averageSessionDuration: 0,
+        completionRate: 0
+      });
+    } else if (recentActivities.length < 3) {
+      // Simulate finding a subject-specific engagement issue
+      issues.push({
+        subject: SubjectArea.SCIENCE,
+        severity: 'moderate',
+        daysSinceLastActivity: 5,
+        averageSessionDuration: 10,
+        completionRate: 30
+      });
+    }
+    
+    return issues;
   }
   
   /**
-   * Identify goals at risk based on current progress
+   * Identify goals at risk of not being completed
    */
-  private identifyGoalsAtRisk(learnerProfile: LearnerProfile, currentLearningPaths: LearningPath: any[])[] {
-    // This would typically involve analysing goal progress against deadlines
-    // For now, we'll return a placeholder implementation
+  private identifyGoalsAtRisk(learnerProfile: LearnerProfile, currentLearningPaths: LearningPath[]): any[] {
+    // This would typically involve analysis of goal progress against deadlines
+    // For now, we'll simulate this with a placeholder implementation
     
-    // In a real implementation, this would:
-    // 1. Calculate required progress rate to meet goal deadlines
-    // 2. Compare with actual progress rate
-    // 3. Identify goals that are unlikely to be met on time
+    const issues: any[] = [];
     
     // Placeholder implementation
-    return [];
+    const activeGoals = learnerProfile.learningGoals.filter(goal => goal.status === 'in_progress');
+    
+    if (activeGoals.length > 0) {
+      // Simulate finding a goal at risk
+      issues.push({
+        goalTitle: activeGoals[0].description,
+        severity: 'moderate',
+        daysRemaining: 14,
+        completionPercentage: 30,
+        requiredDailyProgress: 5,
+        suggestedResources: ['Resource 1', 'Resource 2', 'Resource 3']
+      });
+    }
+    
+    return issues;
   }
   
   /**
-   * Generate a progress report for a learner
+   * Generate a progress report for a learner over a specified period
    */
   public async generateProgressReport(
     learnerProfile: LearnerProfile,
     period: { start: Date; end: Date }
   ): Promise<ProgressReport> {
-    // This would typically involve analysing all learning activities within the period
-    // For now, we'll return a placeholder implementation
-    
-    // In a real implementation, this would:
-    // 1. Calculate overall progress across all subjects
-    // 2. Determine progress in each subject
-    // 3. Identify strengths and areas for improvement
-    // 4. Suggest next steps
+    // This would typically involve analysis of learning activities and assessments
+    // For now, we'll simulate this with a placeholder implementation
     
     // Placeholder implementation
     const progressReport: ProgressReport = {
-      id: `report-${Date.now()}`,
       learnerId: learnerProfile.id,
-      period: period,
-      overallProgress: 65, // Placeholder value
+      period: {
+        start: period.start,
+        end: period.end
+      },
+      overallProgress: 65,
       subjectProgress: {
         [SubjectArea.ENGLISH]: 70,
         [SubjectArea.MATHEMATICS]: 60,
         [SubjectArea.SCIENCE]: 75
       },
-      goalsAchieved: 2, // Placeholder value
-      goalsInProgress: 3, // Placeholder value
-      timeSpent: 15, // Placeholder value (hours)
+      completedActivities: 24,
+      timeSpent: 840, // minutes
       strengths: [
         {
           subject: SubjectArea.SCIENCE,
-          conceptsStrong: ['Scientific Method', 'Classification'],
-          evidence: 'Consistently high scores in science assessments'
+          concepts: ['Scientific Method', 'Plant Biology', 'Simple Machines']
+        },
+        {
+          subject: SubjectArea.ENGLISH,
+          concepts: ['Reading Comprehension', 'Vocabulary']
         }
       ],
       areasForImprovement: [
         {
           subject: SubjectArea.MATHEMATICS,
-          conceptsToImprove: ['Fractions', 'Algebra'],
-          suggestedActivities: ['Fraction Practise', 'Algebra Basics']
+          concepts: ['Fractions', 'Word Problems']
         }
       ],
       nextSteps: [
-        'Focus on improving mathematics skills, particularly fractions and algebra',
+        'Focus on mathematics concepts, particularly fractions',
         'Continue building on strengths in science',
-        'Set specific goals for English improvement'
+        'Explore more challenging reading materials'
       ],
-      generatedAt: new Date()
+      achievements: [
+        {
+          title: 'Science Explorer',
+          description: 'Completed all science activities with high scores',
+          dateEarned: new Date()
+        }
+      ]
     };
     
     return progressReport;
   }
   
-  /**
-   * Update guidance system configuration
-   */
   public updateConfig(newConfig: Partial<GuidanceSystemConfig>): void {
     this.config = {
       ...this.config,
@@ -634,47 +670,7 @@ export class AIGuidanceService {
     };
   }
   
-  /**
-   * Get current guidance system configuration
-   */
   public getConfig(): GuidanceSystemConfig {
     return { ...this.config };
   }
-}
-
-// Default configuration
-export const defaultGuidanceConfig: GuidanceSystemConfig = {
-  adaptivityLevel: 'medium',
-  interventionThreshold: 70,
-  contentFilterLevel: 'medium',
-  maxSuggestionsPerDay: 5,
-  enabledFeatures: {
-    learningPathRecommendations: true,
-    contentSuggestions: true,
-    interventionAlerts: true,
-    progressReports: true,
-    achievementCelebrations: true
-  },
-  userPreferences: {
-    notificationFrequency: 'medium',
-    dataUsageConsent: true,
-    shareProgressWithTeachers: true,
-    shareProgressWithParents: true
-  }
-};
-
-// Export singleton instance
-let aiGuidanceService: AIGuidanceService | null = null;
-
-export function getAIGuidanceService(config?: Partial<GuidanceSystemConfig>): AIGuidanceService {
-  if (!aiGuidanceService) {
-    aiGuidanceService = new AIGuidanceService({
-      ...defaultGuidanceConfig,
-      ...config
-    });
-  } else if (config) {
-    aiGuidanceService.updateConfig(config);
-  }
-  
-  return aiGuidanceService;
 }

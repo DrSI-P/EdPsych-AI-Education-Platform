@@ -73,7 +73,7 @@ export interface PaginationParams {
  */
 export interface SearchParams {
   query?: string;
-  fields?: string: any[];
+  fields?: string[];
   filters?: Record<string, any>;
 }
 
@@ -81,7 +81,7 @@ export interface SearchParams {
  * Paginated result interface
  */
 export interface PaginatedResult<T> {
-  data: T: any[];
+  data: T[];
   pagination: {
     total: number;
     page: number;
@@ -144,7 +144,7 @@ export async function getPaginatedResults<T>(
   const hasMore = page < pageCount;
   
   return {
-    data: data as T: any: any[],
+    data: data as T[],
     pagination: {
       total,
       page,
@@ -161,7 +161,7 @@ export async function getPaginatedResults<T>(
 export interface BulkOperationResult {
   success: number;
   failed: number;
-  errors: any: any[];
+  errors: any[];
 }
 
 /**
@@ -171,7 +171,7 @@ export interface BulkOperationResult {
  * @param validator Optional validation function
  * @returns Bulk operation result
  */
-export async function bulkCreate(model: string, data: any: any[], validator?: (item) => any
+export async function bulkCreate(model: string, data: any[], validator?: (item: any) => any
 ): Promise<BulkOperationResult> {
   const result: BulkOperationResult = {
     success: 0,
@@ -212,8 +212,8 @@ export async function bulkCreate(model: string, data: any: any[], validator?: (i
  */
 export async function bulkUpdate(
   model: string,
-  data: { id: string; data }[],
-  validator?: (item) => any
+  data: { id: string; data: any }[],
+  validator?: (item: any) => any
 ): Promise<BulkOperationResult> {
   const result: BulkOperationResult = {
     success: 0,
@@ -252,7 +252,7 @@ export async function bulkUpdate(
  * @param ids Array of record IDs to delete
  * @returns Bulk operation result
  */
-export async function bulkDelete(model: string, ids: string: any[]): Promise<BulkOperationResult> {
+export async function bulkDelete(model: string, ids: string[]): Promise<BulkOperationResult> {
   const result: BulkOperationResult = {
     success: 0,
     failed: 0,
@@ -420,406 +420,4 @@ export async function getStudentLearningProfile(studentId: string) {
       communications
     };
   });
-}
-
-/**
- * Get teacher dashboard data
- * @param teacherId Teacher ID
- * @returns Teacher dashboard data
- */
-export async function getTeacherDashboardData(teacherId: string) {
-  return safeDbOperation(async () => {
-    const teacher = await prisma.user.findUnique({
-      where: { id: teacherId, role: 'TEACHER' },
-      include: {
-        profile: true
-      }
-    });
-    
-    if (!teacher) {
-      throw new DatabaseError('Teacher not found', DatabaseErrorType.NOT_FOUND);
-    }
-    
-    // Get teacher's assessments
-    const assessments = await prisma.assessment.findMany({
-      where: { createdBy: { id: teacherId } },
-      include: {
-        _count: {
-          select: { results: true }
-        }
-      },
-      take: 5,
-      orderBy: { createdAt: 'desc' }
-    });
-    
-    // Get teacher's resources
-    const resources = await prisma.resource.findMany({
-      where: { createdBy: { id: teacherId } },
-      take: 5,
-      orderBy: { createdAt: 'desc' }
-    });
-    
-    // Get teacher's curriculum plans
-    const curriculumPlans = await prisma.curriculumPlan.findMany({
-      where: { createdBy: { id: teacherId } },
-      take: 5,
-      orderBy: { createdAt: 'desc' }
-    });
-    
-    // Get recent communications
-    const communications = await prisma.parentTeacherCommunication.findMany({
-      where: { teacher: { id: teacherId } },
-      include: {
-        parent: {
-          select: {
-            id: true,
-            name: true,
-            profile: {
-              select: {
-                title: true,
-                firstName: true,
-                lastName: true
-              }
-            }
-          }
-        },
-        student: {
-          select: {
-            id: true,
-            name: true,
-            profile: {
-              select: {
-                firstName: true,
-                lastName: true,
-                yearGroup: true
-              }
-            }
-          }
-        }
-      },
-      take: 5,
-      orderBy: { date: 'desc' }
-    });
-    
-    // Remove sensitive data
-    const { password, ...userWithoutPassword } = teacher;
-    
-    // Return dashboard data
-    return {
-      teacher: userWithoutPassword,
-      recentActivity: {
-        assessments,
-        resources,
-        curriculumPlans,
-        communications
-      }
-    };
-  });
-}
-
-/**
- * Get educational psychologist dashboard data
- * @param edPsychId Educational Psychologist ID
- * @returns Educational Psychologist dashboard data
- */
-export async function getEdPsychDashboardData(edPsychId: string) {
-  return safeDbOperation(async () => {
-    const edPsych = await prisma.user.findUnique({
-      where: { id: edPsychId, role: 'EDUCATIONAL_PSYCHOLOGIST' },
-      include: {
-        profile: true
-      }
-    });
-    
-    if (!edPsych) {
-      throw new DatabaseError('Educational Psychologist not found', DatabaseErrorType.NOT_FOUND);
-    }
-    
-    // Get recent SEMH assessments
-    const semhAssessments = await prisma.semhAssessment.findMany({
-      where: { assessor: { id: edPsychId } },
-      include: {
-        student: {
-          select: {
-            id: true,
-            name: true,
-            profile: {
-              select: {
-                firstName: true,
-                lastName: true,
-                yearGroup: true,
-                school: true
-              }
-            }
-          }
-        }
-      },
-      take: 5,
-      orderBy: { dateCompleted: 'desc' }
-    });
-    
-    // Get recent biofeedback sessions
-    const biofeedbackSessions = await prisma.biofeedbackSession.findMany({
-      where: { facilitator: { id: edPsychId } },
-      include: {
-        student: {
-          select: {
-            id: true,
-            name: true,
-            profile: {
-              select: {
-                firstName: true,
-                lastName: true,
-                yearGroup: true,
-                school: true
-              }
-            }
-          }
-        }
-      },
-      take: 5,
-      orderBy: { date: 'desc' }
-    });
-    
-    // Get upcoming follow-ups
-    const upcomingFollowUps = await prisma.semhAssessment.findMany({
-      where: { 
-        assessor: { id: edPsychId },
-        followUpDate: {
-          gte: new Date()
-        }
-      },
-      include: {
-        student: {
-          select: {
-            id: true,
-            name: true,
-            profile: {
-              select: {
-                firstName: true,
-                lastName: true,
-                yearGroup: true,
-                school: true
-              }
-            }
-          }
-        }
-      },
-      take: 5,
-      orderBy: { followUpDate: 'asc' }
-    });
-    
-    // Remove sensitive data
-    const { password, ...userWithoutPassword } = edPsych;
-    
-    // Return dashboard data
-    return {
-      edPsych: userWithoutPassword,
-      recentActivity: {
-        semhAssessments,
-        biofeedbackSessions,
-        upcomingFollowUps
-      }
-    };
-  });
-}
-
-/**
- * Get parent dashboard data
- * @param parentId Parent ID
- * @returns Parent dashboard data
- */
-export async function getParentDashboardData(parentId: string) {
-  return safeDbOperation(async () => {
-    const parent = await prisma.user.findUnique({
-      where: { id: parentId, role: 'PARENT' },
-      include: {
-        profile: true,
-        children: {
-          include: {
-            profile: true
-          }
-        }
-      }
-    });
-    
-    if (!parent) {
-      throw new DatabaseError('Parent not found', DatabaseErrorType.NOT_FOUND);
-    }
-    
-    // Get children IDs
-    const childrenIds = parent.children.map(child => child.id);
-    
-    // Get recent assessment results
-    const assessmentResults = await prisma.assessmentResult.findMany({
-      where: { 
-        student: { 
-          id: { in: childrenIds } 
-        } 
-      },
-      include: {
-        assessment: true,
-        student: {
-          select: {
-            id: true,
-            name: true,
-            profile: {
-              select: {
-                firstName: true,
-                lastName: true,
-                yearGroup: true,
-                school: true
-              }
-            }
-          }
-        }
-      },
-      take: 10,
-      orderBy: { completedAt: 'desc' }
-    });
-    
-    // Get recent communications
-    const communications = await prisma.parentTeacherCommunication.findMany({
-      where: { 
-        parent: { id: parentId } 
-      },
-      include: {
-        teacher: {
-          select: {
-            id: true,
-            name: true,
-            profile: {
-              select: {
-                title: true,
-                firstName: true,
-                lastName: true
-              }
-            }
-          }
-        },
-        student: {
-          select: {
-            id: true,
-            name: true,
-            profile: {
-              select: {
-                firstName: true,
-                lastName: true,
-                yearGroup: true,
-                school: true
-              }
-            }
-          }
-        }
-      },
-      take: 5,
-      orderBy: { date: 'desc' }
-    });
-    
-    // Remove sensitive data
-    const { password, ...userWithoutPassword } = parent;
-    const children = parent.children.map(child => {
-      const { password, ...childWithoutPassword } = child;
-      return childWithoutPassword;
-    });
-    
-    // Return dashboard data
-    return {
-      parent: {
-        ...userWithoutPassword,
-        children
-      },
-      recentActivity: {
-        assessmentResults,
-        communications
-      }
-    };
-  });
-}
-
-// Database health check
-export async function checkDatabaseConnection() {
-  try {
-    // Simple query to check if database is accessible
-    await prisma.$queryRaw`SELECT 1`;
-    return true;
-  } catch (error) {
-    console.error('Database connection error:', error);
-    return false;
-  }
-}
-
-// Middleware for database error handling
-export function withDatabaseErrorHandling(
-  handler: (req: NextRequest) => Promise<NextResponse>
-) {
-  return async (req: NextRequest) => {
-    try {
-      return await handler(req);
-    } catch (error) {
-      console.error('Database operation error:', error);
-      
-      // Handle DatabaseError instances
-      if (error instanceof DatabaseError) {
-        switch (error.type) {
-          case DatabaseErrorType.NOT_FOUND:
-            return NextResponse.json(
-              { error: 'Record not found', details: error.message },
-              { status: 404 }
-            );
-          case DatabaseErrorType.DUPLICATE:
-            return NextResponse.json(
-              { error: 'Duplicate record', details: error.message },
-              { status: 409 }
-            );
-          case DatabaseErrorType.VALIDATION:
-            return NextResponse.json(
-              { error: 'Validation error', details: error.message },
-              { status: 400 }
-            );
-          case DatabaseErrorType.PERMISSION:
-            return NextResponse.json(
-              { error: 'Permission denied', details: error.message },
-              { status: 403 }
-            );
-          case DatabaseErrorType.CONNECTION:
-            return NextResponse.json(
-              { error: 'Database connection error', details: error.message },
-              { status: 503 }
-            );
-          default:
-            return NextResponse.json(
-              { error: 'Database operation failed', details: error.message },
-              { status: 500 }
-            );
-        }
-      }
-      
-      // Handle Prisma errors
-      if (error.code) {
-        if (error.code === 'P2025') {
-          return NextResponse.json(
-            { error: 'Record not found' },
-            { status: 404 }
-          );
-        } else if (error.code === 'P2002') {
-          return NextResponse.json(
-            { error: 'A record with this information already exists' },
-            { status: 409 }
-          );
-        } else if (error.code === 'P2000') {
-          return NextResponse.json(
-            { error: 'Input value too long' },
-            { status: 400 }
-          );
-        }
-      }
-      
-      // Generic error
-      return NextResponse.json(
-        { error: 'Database operation failed' },
-        { status: 500 }
-      );
-    }
-  };
 }
