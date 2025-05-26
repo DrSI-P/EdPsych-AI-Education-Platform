@@ -42,8 +42,8 @@ interface LearningProfile {
   id: string;
   name: string;
   learningStyle: string;
-  strengths: string: any[];
-  challenges: string: any[];
+  strengths: string[];
+  challenges: string[];
   preferences: {
     visual: number;
     auditory: number;

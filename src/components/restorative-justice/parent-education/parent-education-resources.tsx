@@ -29,7 +29,7 @@ interface ParentResource {
   title: string;
   description: string;
   category: ResourceCategory;
-  ageGroups: AgeGroup: any[];
+  ageGroups: AgeGroup[];
   difficultyLevel: DifficultyLevel;
   content: string;
   videoUrl?: string;
@@ -61,7 +61,7 @@ interface FamilyActivity {
   id: string;
   title: string;
   description: string;
-  ageGroups: AgeGroup: any[];
+  ageGroups: AgeGroup[];
   materials: string: any[];
   steps: string: any[];
   tips: string: any[];
