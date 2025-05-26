@@ -256,7 +256,7 @@ export interface AssessmentToolPluginParams {
     max: number;
   };
   subject: string;
-  topics: string[];
+  topics[];
   difficultyLevel: string;
   questionCount: number;
   timeLimit?: number;
@@ -333,7 +333,7 @@ export function convertToPluginFormat(assessment: Assessment): AssessmentToolPlu
  * @param responses The plugin responses
  * @returns The platform question responses
  */
-export function convertToQuestionResponses(responses: AssessmentToolPluginResponse[]): QuestionResponse[] {
+export function convertToQuestionResponses(responses: any[]): QuestionResponse[] {
   return responses.map(response => ({
     questionId: response.questionId,
     responseData: response.responseData,

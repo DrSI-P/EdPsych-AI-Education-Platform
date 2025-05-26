@@ -47,7 +47,7 @@ interface Response {
   startedAt: string;
   completedAt: string;
   user: User;
-  answers: Answer[];
+  answers[];
 }
 
 interface Assessment {
@@ -63,7 +63,7 @@ interface Assessment {
   randomizeQuestions: boolean;
   allowRetakes: boolean;
   status: string;
-  questions: Question[];
+  questions[];
   createdById: string;
   createdAt: string;
   updatedAt: string;

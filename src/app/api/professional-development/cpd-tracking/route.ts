@@ -56,8 +56,8 @@ interface CPDActivityData {
   date: string;
   duration: number;
   points: number;
-  categories: number[];
-  standards: number[];
+  categories[];
+  standards[];
   status: 'Planned' | 'In Progress' | 'Completed';
   evidence?: string;
   reflection?: string;
@@ -68,8 +68,8 @@ interface CPDGoalData {
   title: string;
   description?: string;
   targetPoints: number;
-  categories: number[];
-  standards: number[];
+  categories[];
+  standards[];
   deadline: string;
 }
 

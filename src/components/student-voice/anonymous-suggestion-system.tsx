@@ -82,7 +82,7 @@ export default function AnonymousSuggestionSystem() {
   // Load mock data on component mount
   React.useEffect(() => {
     // Mock suggestions
-    const mockSuggestions: Suggestion[] = [
+    const mockSuggestions[] = [
       {
         id: '1',
         category: 'environment',

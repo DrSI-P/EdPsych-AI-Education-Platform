@@ -38,7 +38,7 @@ interface WebinarCreateData {
   date: string;
   duration: number;
   capacity: number;
-  topics: string[];
+  topics[];
   level: 'Beginner' | 'Intermediate' | 'Advanced' | 'All Levels';
   recordingEnabled: boolean;
 }

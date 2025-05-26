@@ -22,7 +22,7 @@ type LearningStyle = {
   name: string;
   score: number;
   description: string;
-  strategies: string[];
+  strategies[];
 };
 
 export default function LearningStyleAssessment() {
@@ -34,12 +34,12 @@ export default function LearningStyleAssessment() {
   const [results, setResults] = useState<{
     primaryStyle: LearningStyle;
     secondaryStyle: LearningStyle;
-    allStyles: LearningStyle[];
-    personalizedRecommendations: string[];
+    allStyles[];
+    personalizedRecommendations[];
   } | null>(null);
 
   // Sample questions - in production, these would be more comprehensive
-  const questions: Question[] = [
+  const questions[] = [
     {
       id: 'q1',
       text: 'When learning something new, I prefer to:',

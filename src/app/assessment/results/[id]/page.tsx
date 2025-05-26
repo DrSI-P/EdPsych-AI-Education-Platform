@@ -43,7 +43,7 @@ interface Response {
   startedAt: string;
   completedAt: string;
   user: User;
-  answers: Answer[];
+  answers[];
 }
 
 interface Assessment {
@@ -54,8 +54,8 @@ interface Assessment {
   subject: string;
   keyStage: string;
   passingScore: number;
-  questions: Question[];
-  responses: Response[];
+  questions[];
+  responses[];
 }
 
 export default function AssessmentResultsPage() {

@@ -130,7 +130,7 @@ export class AIGuidanceService {
     subject: SubjectArea,
     dominantLearningStyle: LearningStyle,
     currentProficiency: number,
-    relevantGoals: LearningGoal[],
+    relevantGoals[],
     duration: number
   ): Promise<LearningPath> {
     // This would typically involve a call to an AI service or recommendation engine
@@ -245,15 +245,15 @@ export class AIGuidanceService {
   private async createContentSuggestions(
     learnerProfile: LearnerProfile,
     dominantLearningStyle: LearningStyle,
-    interests: SubjectArea[],
-    areasForImprovement: SubjectArea[],
+    interests[],
+    areasForImprovement[],
     currentLearningPath?: LearningPath,
     count: number = 3
   ): Promise<ContentSuggestion[]> {
     // This would typically involve a call to a content recommendation service
     // For now, we'll simulate this with a placeholder implementation
     
-    const suggestions: ContentSuggestion[] = [];
+    const suggestions[] = [];
     
     // Add suggestions based on learning style
     suggestions.push({
@@ -420,7 +420,7 @@ export class AIGuidanceService {
   public async monitorProgress(
     learnerProfile: LearnerProfile,
     recentActivities[],
-    currentLearningPaths: LearningPath[]
+    currentLearningPaths[]
   ): Promise<InterventionAlert[]> {
     // Analyse recent activities and learning paths to identify potential issues
     const performanceIssues = this.identifyPerformanceIssues(learnerProfile, recentActivities);
@@ -428,7 +428,7 @@ export class AIGuidanceService {
     const goalIssues = this.identifyGoalsAtRisk(learnerProfile, currentLearningPaths);
     
     // Generate intervention alerts based on identified issues
-    const alerts: InterventionAlert[] = [];
+    const alerts[] = [];
     
     // Add performance alerts
     performanceIssues.forEach(issue => {
@@ -581,7 +581,7 @@ export class AIGuidanceService {
   /**
    * Identify goals at risk of not being completed
    */
-  private identifyGoalsAtRisk(learnerProfile: LearnerProfile, currentLearningPaths: LearningPath[]): any[] {
+  private identifyGoalsAtRisk(learnerProfile: LearnerProfile, currentLearningPaths[]): any[] {
     // This would typically involve analysis of goal progress against deadlines
     // For now, we'll simulate this with a placeholder implementation
     

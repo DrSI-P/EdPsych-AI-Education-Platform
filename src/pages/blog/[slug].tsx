@@ -11,7 +11,7 @@ import { prisma } from '@/lib/db';
 
 interface BlogPostPageProps {
   post: any;
-  relatedPosts: any[];
+  relatedPosts[];
 }
 
 export default function BlogPostPage({ post, relatedPosts }: BlogPostPageProps) {

@@ -46,13 +46,13 @@ interface LearnerProfile {
   name: string;
   age: number;
   educationLevel: string;
-  interests: string[];
-  strengths: string[];
-  areasForGrowth: string[];
+  interests[];
+  strengths[];
+  areasForGrowth[];
   learningStyle: LearningStyle;
   priorKnowledge: Record<string, number>;
-  learningGoals: string[];
-  accessibilityNeeds: string[];
+  learningGoals[];
+  accessibilityNeeds[];
 }
 
 interface LearningModule {
@@ -62,9 +62,9 @@ interface LearningModule {
   subject: string;
   difficulty: number;
   estimatedTime: number;
-  prerequisites: string[];
-  learningOutcomes: string[];
-  format: string[];
+  prerequisites[];
+  learningOutcomes[];
+  format[];
   engagementLevel: number;
   completionStatus: number;
 }

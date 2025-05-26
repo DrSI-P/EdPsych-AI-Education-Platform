@@ -30,7 +30,7 @@ interface KeyboardNavigationEngineProps {
 interface OptimizationResults {
   elementsProcessed: number;
   elementsEnhanced: number;
-  warnings: string[];
+  warnings[];
 }
 
 export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> = ({ 

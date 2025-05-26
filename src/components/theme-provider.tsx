@@ -47,7 +47,7 @@ const initialState: ThemeProviderState = {
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 // Helper function to merge class names
-export function cn(...inputs: ClassValue[]) {
+export function cn(...inputs: any[]) {
   return twMerge(clsx(inputs));
 }
 

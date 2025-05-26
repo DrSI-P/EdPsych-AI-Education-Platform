@@ -63,7 +63,7 @@ export function AssessmentModule({
         }
         
         // Mock data for demonstration
-        const mockAssessments: Assessment[] = [
+        const mockAssessments[] = [
           {
             id: '1',
             title: 'Year 8 Algebra Assessment',

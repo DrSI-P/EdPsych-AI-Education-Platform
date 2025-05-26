@@ -29,13 +29,13 @@ interface ParentResource {
   title: string;
   description: string;
   category: ResourceCategory;
-  ageGroups: AgeGroup[];
+  ageGroups[];
   difficultyLevel: DifficultyLevel;
   content: string;
   videoUrl?: string;
   downloadUrl?: string;
   estimatedTime?: string;
-  tags: string[];
+  tags[];
   isFavorite: boolean;
 }
 
@@ -43,7 +43,7 @@ interface Module {
   id: string;
   title: string;
   description: string;
-  lessons: Lesson[];
+  lessons[];
   completed: boolean;
   progress: number;
 }
@@ -61,16 +61,16 @@ interface FamilyActivity {
   id: string;
   title: string;
   description: string;
-  ageGroups: AgeGroup[];
-  materials: string[];
-  steps: string[];
-  tips: string[];
+  ageGroups[];
+  materials[];
+  steps[];
+  tips[];
   estimatedTime: string;
   isFavorite: boolean;
 }
 
 // Mock data for parent resources
-const mockResources: ParentResource[] = [
+const mockResources[] = [
   {
     id: '1',
     title: 'Introduction to Restorative Approaches at Home',
@@ -212,7 +212,7 @@ const mockResources: ParentResource[] = [
 ];
 
 // Mock data for learning modules
-const mockModules: Module[] = [
+const mockModules[] = [
   {
     id: '1',
     title: 'Foundations of Restorative Parenting',
@@ -282,7 +282,7 @@ const mockModules: Module[] = [
 ];
 
 // Mock data for family activities
-const mockActivities: FamilyActivity[] = [
+const mockActivities[] = [
   {
     id: '1',
     title: 'Family Circle Check-In',
