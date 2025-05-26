@@ -28,7 +28,7 @@ export function FAQDetail({
 }: FAQDetailProps) {
   const router = useRouter();
   const [question, setQuestion] = useState<any>(null);
-  const [relatedQuestions, setRelatedQuestions] = useState<any: any[]>([]);
+  const [relatedQuestions, setRelatedQuestions] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
