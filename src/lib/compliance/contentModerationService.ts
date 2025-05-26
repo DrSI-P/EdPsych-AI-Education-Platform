@@ -386,7 +386,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
    */
   private initializeInappropriatePatterns(): void {
     // English (UK) patterns
-    const enGBPatterns: RegExp[] = [
+    const enGBPatterns[] = [
       // High severity patterns
       /\b(hate|violent|explicit|obscene)\b/i,
       

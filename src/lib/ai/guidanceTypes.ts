@@ -243,7 +243,7 @@ export interface AdaptivityRule {
   action: {
     type: 'change_difficulty' | 'provide_support' | 'skip_content' | 'recommend_review' | 'celebrate_achievement';
     parameters: {
-      [key: string];
+      [key: string]: any;
     };
   };
   priority: number; // Higher number = higher priority
@@ -311,15 +311,15 @@ export interface ProgressReport {
   timeSpent: number; // In hours
   strengths: {
     subject: SubjectArea;
-    conceptsStrong: string[];
+    conceptsStrong[];
     evidence: string;
   }[];
   areasForImprovement: {
     subject: SubjectArea;
-    conceptsToImprove: string[];
-    suggestedActivities: string[];
+    conceptsToImprove[];
+    suggestedActivities[];
   }[];
-  nextSteps: string[];
+  nextSteps[];
   generatedAt: Date;
 }
 

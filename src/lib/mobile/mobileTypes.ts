@@ -143,7 +143,7 @@ export interface PushNotification {
   clicked: boolean;
   clickedAt?: Date;
   priority: 'high' | 'normal' | 'low';
-  channels: string[]; // e.g., 'assessment', 'collaboration', 'system'
+  channels[]; // e.g., 'assessment', 'collaboration', 'system'
   userId: string;
   deviceId?: string; // If targeted to a specific device
 }
@@ -191,7 +191,7 @@ export interface MobileSettings {
     enabled: boolean;
     maxStorageSize: number; // in MB
     autoDownloadContent: boolean;
-    contentTypes: string[]; // Types of content to cache
+    contentTypes[]; // Types of content to cache
     syncOnWifiOnly: boolean;
   };
   dataUsage: {
@@ -223,7 +223,7 @@ export interface NavigationHistoryItem {
 export interface NavigationHistory {
   userId: string;
   deviceId: string;
-  items: NavigationHistoryItem[];
+  items[];
   currentIndex: number;
   lastUpdated: Date;
 }

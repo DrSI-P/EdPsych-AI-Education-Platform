@@ -113,7 +113,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
   // Validate accessibility
   const validateAccessibility = async () => {
     // Mock accessibility validation results
-    const results[] = [
+    const results: any[] = [
       {
         category: 'Text Direction',
         criteria: 'RTL language support',
@@ -219,7 +219,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
   // Validate language coverage
   const validateLanguageCoverage = async () => {
     // Mock language coverage results
-    const results[] = [
+    const results: any[] = [
       {
         language: SupportedLanguage.WELSH,
         namespaces: [

@@ -62,7 +62,7 @@ interface ReflectionPrompt {
   ageGroup: string;
   category: string;
   promptText: string;
-  supportingQuestions: string[];
+  supportingQuestions[];
   visualSupports: boolean;
   simplifiedLanguage: boolean;
   visualAids?: string[];
@@ -104,7 +104,7 @@ const AgeAppropriateReflectionPrompts = () => {
   const [filterCategory, setFilterCategory] = useState("all");
 
   // Predefined reflection prompts based on restorative justice research and developmental psychology
-  const predefinedPrompts: ReflectionPrompt[] = [
+  const predefinedPrompts[] = [
     // Early Years (3-5)
     {
       id: "early-1",
@@ -410,7 +410,7 @@ const AgeAppropriateReflectionPrompts = () => {
   };
 
   // Handle custom prompt changes
-  const handleCustomPromptChange = (field: keyof ReflectionPrompt, value: string | boolean | string[]) => {
+  const handleCustomPromptChange = (field: keyof ReflectionPrompt, value: string | boolean | string: any[]) => {
     setCustomPrompt(prev => ({
       ...prev,
       [field]: value

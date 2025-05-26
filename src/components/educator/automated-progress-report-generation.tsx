@@ -345,7 +345,7 @@ export default function AutomatedProgressReportGeneration() {
   };
   
   // Generate overall comments based on subject reports
-  const generateOverallComments = (student: any, subjectReports[], style: string) => {
+  const generateOverallComments = (student: any, subjectReports: any[], style: string) => {
     // Calculate average scores and progress
     const averageCurrentScore = Math.round(
       subjectReports.reduce((sum, report) => sum + report.currentScore, 0) / subjectReports.length
@@ -399,7 +399,7 @@ export default function AutomatedProgressReportGeneration() {
   };
   
   // Generate next steps based on subject reports
-  const generateNextSteps = (subjectReports[]) => {
+  const generateNextSteps = (subjectReports: any[]) => {
     const nextSteps = [];
     
     // Find lowest performing subject

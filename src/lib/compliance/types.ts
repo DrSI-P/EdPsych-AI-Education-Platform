@@ -319,29 +319,29 @@ export interface DFEComplianceService {
   validateCurriculumAlignment: (content, keyStage: UKKeyStage) => Promise<{
     isAligned: boolean;
     alignmentScore: number;
-    misalignments: string[];
-    recommendations: string[];
+    misalignments[];
+    recommendations[];
   }>;
   
   checkAgeAppropriateness: (content, targetAgeRange: { min: number; max: number }) => Promise<{
     isAppropriate: boolean;
     appropriatenessScore: number;
-    concerns: string[];
+    concerns[];
     recommendedAgeRating: AgeAppropriatenessRating;
   }>;
   
   validateAccessibility: (content) => Promise<{
     isAccessible: boolean;
     accessibilityScore: number;
-    issues: string[];
-    recommendations: string[];
+    issues[];
+    recommendations[];
   }>;
   
   checkInclusivity: (content) => Promise<{
     isInclusive: boolean;
     inclusivityScore: number;
-    issues: string[];
-    recommendations: string[];
+    issues[];
+    recommendations[];
   }>;
   
   generateComplianceReport: (contentId: string) => Promise<DFECompliance>;
@@ -364,16 +364,16 @@ export interface GDPRComplianceService {
   
   handleSubjectAccessRequest: (userId: string) => Promise<{
     personalData;
-    processingActivities: string[];
-    processingPurposes: string[];
+    processingActivities[];
+    processingPurposes[];
     retentionPeriods: Record<string, string>;
-    recipients: string[];
+    recipients[];
   }>;
   
   handleRightToErasure: (userId: string, dataCategories?: DataProtectionCategory[]) => Promise<{
     success: boolean;
-    erasedCategories: DataProtectionCategory[];
-    retainedCategories: DataProtectionCategory[];
+    erasedCategories[];
+    retainedCategories[];
     retentionReasons: Record<string, string>;
   }>;
   
@@ -388,9 +388,9 @@ export interface GDPRComplianceService {
   logDataBreach: (details: {
     description: string;
     affectedUsers: string[];
-    affectedDataCategories: DataProtectionCategory[];
+    affectedDataCategories[];
     detectionDate: Date;
-    containmentActions: string[];
+    containmentActions[];
     severity: 'low' | 'medium' | 'high' | 'critical';
   }) => Promise<string>;
 }
@@ -427,7 +427,7 @@ export interface SafeguardingService {
       severity: 'low' | 'medium' | 'high';
       detectionDate: Date;
     }>;
-    recommendedActions: string[];
+    recommendedActions[];
   }>;
   
   getSafeguardingReports: (filters?: {
@@ -516,15 +516,15 @@ export interface AgeVerificationService {
  */
 export interface DataProtectionService {
   classifyData: (data) => Promise<{
-    categories: DataProtectionCategory[];
+    categories[];
     sensitivityLevel: 'low' | 'medium' | 'high';
-    personalDataFields: string[];
-    specialCategoryFields: string[];
+    personalDataFields[];
+    specialCategoryFields[];
   }>;
   
   applyDataMinimization: (data, purpose: string) => Promise<{
     minimizedData;
-    removedFields: string[];
+    removedFields[];
   }>;
   
   applyPseudonymization: (data, fields: string[]) => Promise<{
@@ -548,7 +548,7 @@ export interface DataProtectionService {
   applyRetentionPolicy: (dataCategory: DataProtectionCategory) => Promise<{
     retentionPeriod: DataRetentionPeriod;
     retentionJustification: string;
-    archivingRequirements: string[];
+    archivingRequirements[];
     deletionMethod: string;
   }>;
   

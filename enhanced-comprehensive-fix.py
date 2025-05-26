@@ -1,78 +1,126 @@
 #!/usr/bin/env python3
+"""
+Enhanced Comprehensive TypeScript Fix Script
+
+This script fixes invalid array property declarations in TypeScript files.
+It targets patterns like:
+- `property[];` -> `property: any[];`
+- `private textQueue[] = [];` -> `private textQueue: any[] = [];`
+
+The script only modifies files in the src directory and avoids node_modules.
+"""
 
 import os
 import re
 import sys
+from pathlib import Path
 
-# Define the patterns to search for and replace
-patterns = [
-    # Pattern 1: Type: any[] -> Type[]
-    (r'([a-zA-Z0-9_\[\]\.]+): any\[\]', r'\1[]'),
+# Patterns to fix
+PATTERNS = [
+    # Match property[]; -> property: any[];
+    (r'(\s*)(\w+)\[\];', r'\1\2: any[];'),
     
-    # Pattern 2: Type?: Type: any[] -> Type?: Type[]
-    (r'([a-zA-Z0-9_\[\]\.]+)\?: ([a-zA-Z0-9_\[\]\.]+): any\[\]', r'\1?: \2[]'),
+    # Match private property[] = []; -> private property: any[] = [];
+    (r'(\s*)(private|protected|public)?\s+(\w+)\[\]\s*=', r'\1\2 \3: any[] ='),
     
-    # Pattern 3: Record<Type, Type: any[]> -> Record<Type, Type[]>
-    (r'Record<([a-zA-Z0-9_\[\]\.]+), ([a-zA-Z0-9_\[\]\.]+): any\[\]>', r'Record<\1, \2[]>'),
-    
-    # Pattern 4: Map<Type, Type: any[]> -> Map<Type, Type[]>
-    (r'Map<([a-zA-Z0-9_\[\]\.]+), ([a-zA-Z0-9_\[\]\.]+): any\[\]>', r'Map<\1, \2[]>'),
-    
-    # Pattern 5: Promise<Type: any[]> -> Promise<Type[]>
-    (r'Promise<([a-zA-Z0-9_\[\]\.]+): any\[\]>', r'Promise<\1[]>'),
-    
-    # Pattern 6: Array<Type: any[]> -> Array<Type[]>
-    (r'Array<([a-zA-Z0-9_\[\]\.]+): any\[\]>', r'Array<\1[]>'),
+    # Match function(param[]) -> function(param: any[])
+    (r'(\()([^)]*?)(\w+)\[\]([^)]*?\))', r'\1\2\3: any[]\4'),
 ]
 
-# Define directories to search
-src_dir = 'src'
-
-# Counter for modified files
-modified_files = []
+# Files to skip (if any)
+SKIP_FILES = [
+    "node_modules",
+    ".git",
+    "dist",
+    "build",
+]
 
 def fix_file(file_path):
-    """Fix type annotations in the specified file."""
-    with open(file_path, 'r', encoding='utf-8') as f:
-        content = f.read()
+    """Fix TypeScript syntax issues in a file."""
+    with open(file_path, 'r', encoding='utf-8') as file:
+        content = file.read()
     
-    # Check if the file contains any of the problematic patterns
-    needs_fix = False
-    for pattern, _ in patterns:
-        if re.search(pattern, content):
-            needs_fix = True
-            break
+    original_content = content
+    modified = False
     
-    if needs_fix:
-        # Apply all the fixes
-        new_content = content
-        for pattern, replacement in patterns:
-            new_content = re.sub(pattern, replacement, new_content)
-        
-        # Write the fixed content back to the file
-        with open(file_path, 'w', encoding='utf-8') as f:
-            f.write(new_content)
-        
-        modified_files.append(file_path)
+    for pattern, replacement in PATTERNS:
+        new_content = re.sub(pattern, replacement, content)
+        if new_content != content:
+            content = new_content
+            modified = True
+    
+    if modified:
+        with open(file_path, 'w', encoding='utf-8') as file:
+            file.write(content)
         print(f"Fixed: {file_path}")
         return True
     
     return False
 
 def scan_directory(directory):
-    """Recursively scan directory for TypeScript files and fix them."""
-    for root, _, files in os.walk(directory):
+    """Scan directory for TypeScript files and fix them."""
+    fixed_files = []
+    
+    for root, dirs, files in os.walk(directory):
+        # Skip directories in SKIP_FILES
+        dirs[:] = [d for d in dirs if d not in SKIP_FILES]
+        
         for file in files:
-            if file.endswith('.ts') or file.endswith('.tsx'):
+            if file.endswith(('.ts', '.tsx')):
                 file_path = os.path.join(root, file)
-                fix_file(file_path)
+                if fix_file(file_path):
+                    fixed_files.append(file_path)
+    
+    return fixed_files
 
-# Main execution
-print(f"Scanning {src_dir} directory for TypeScript files...")
-scan_directory(src_dir)
+def validate_fixes(directory):
+    """Validate that no invalid patterns remain."""
+    warnings = []
+    
+    for root, dirs, files in os.walk(directory):
+        # Skip directories in SKIP_FILES
+        dirs[:] = [d for d in dirs if d not in SKIP_FILES]
+        
+        for file in files:
+            if file.endswith(('.ts', '.tsx')):
+                file_path = os.path.join(root, file)
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                    
+                    # Check for remaining invalid patterns
+                    for pattern, _ in PATTERNS:
+                        matches = re.findall(pattern, content)
+                        if matches:
+                            for match in matches:
+                                if isinstance(match, tuple):
+                                    match_str = ''.join(match)
+                                else:
+                                    match_str = match
+                                warnings.append(f"Warning: {file_path} still contains invalid pattern: {match_str}")
+    
+    return warnings
 
-print(f"\nTotal files fixed: {len(modified_files)}")
-for file in modified_files:
-    print(f"  - {file}")
+def main():
+    """Main function."""
+    if len(sys.argv) > 1:
+        directory = sys.argv[1]
+    else:
+        directory = os.path.join(os.getcwd(), 'src')
+    
+    print(f"Scanning directory: {directory}")
+    fixed_files = scan_directory(directory)
+    
+    print(f"\nFixed {len(fixed_files)} files:")
+    for file in fixed_files:
+        print(f"  - {file}")
+    
+    warnings = validate_fixes(directory)
+    if warnings:
+        print("\nWarnings:")
+        for warning in warnings:
+            print(f"  - {warning}")
+    else:
+        print("\nNo warnings found. All patterns have been fixed.")
 
-print("\nEnhanced comprehensive fix script completed.")
+if __name__ == "__main__":
+    main()

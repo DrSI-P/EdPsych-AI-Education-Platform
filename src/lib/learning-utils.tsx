@@ -100,14 +100,14 @@ export interface LearningProfile {
   secondaryLearningStyle?: LearningStyle;
   learningPace: LearningPace;
   preferredDifficulty: DifficultyLevel;
-  interests: InterestCategory[];
+  interests[];
   goals: {
     type: LearningGoalType;
     description: string;
     targetDate?: Date;
   }[];
-  strengths: string[];
-  areasForImprovement: string[];
+  strengths[];
+  areasForImprovement[];
   adaptations?: {
     dyslexia?: boolean;
     adhd?: boolean;
@@ -116,7 +116,7 @@ export interface LearningProfile {
     motorSkillChallenges?: boolean;
     other?: string[];
   };
-  preferredActivities: LearningActivityType[];
+  preferredActivities[];
   lastUpdated: Date;
 }
 
@@ -129,11 +129,11 @@ export interface LearningModule {
   description: string;
   difficulty: DifficultyLevel;
   estimatedDuration: number; // in minutes
-  prerequisites: string[];
-  learningOutcomes: string[];
-  keywords: string[];
-  categories: string[];
-  relatedInterests: InterestCategory[];
+  prerequisites[];
+  learningOutcomes[];
+  keywords[];
+  categories[];
+  relatedInterests[];
   activities: {
     id: string;
     type: LearningActivityType;
@@ -149,10 +149,10 @@ export interface LearningModule {
     passingScore: number;
   }[];
   adaptiveContent: {
-    visual: string[];
-    auditory: string[];
-    readingWriting: string[];
-    kinesthetic: string[];
+    visual[];
+    auditory[];
+    readingWriting[];
+    kinesthetic[];
   };
 }
 
@@ -164,7 +164,7 @@ export interface ModuleProgress {
   moduleId: string;
   startDate: Date;
   lastAccessDate: Date;
-  completedActivities: string[];
+  completedActivities[];
   assessmentResults: {
     assessmentId: string;
     attempts: number;
@@ -209,8 +209,8 @@ export interface LearningRecommendation {
   reasonForRecommendation: string;
   difficulty: DifficultyLevel;
   estimatedDuration: number; // in minutes
-  matchesInterests: InterestCategory[];
-  matchesGoals: LearningGoalType[];
+  matchesInterests[];
+  matchesGoals[];
   prerequisites: {
     moduleId: string;
     title: string;
@@ -244,7 +244,7 @@ export interface LearningStyleResult {
 }
 
 // Sample learning style assessment questions
-const LEARNING_STYLE_QUESTIONS: LearningStyleQuestion[] = [
+const LEARNING_STYLE_QUESTIONS[] = [
   {
     id: 'q1',
     question: 'When learning a new skill, I prefer to:',
@@ -382,7 +382,7 @@ export const assessLearningStyle = (answers: Record<string, LearningStyle>): Lea
 /**
  * Get learning style assessment questions
  */
-export const getLearningStyleQuestions = (): LearningStyleQuestion[] => {
+export const getLearningStyleQuestions = (): LearningStyleQuestion: any[] => {
   return LEARNING_STYLE_QUESTIONS;
 };
 
@@ -468,7 +468,7 @@ export const getLearningRecommendations = (
   // For now, we'll simulate with a delay and return mock data
   return new Promise(resolve => {
     setTimeout(() => {
-      const recommendations: LearningRecommendation[] = [
+      const recommendations[] = [
         {
           moduleId: 'module1',
           title: 'Introduction to Educational Psychology',
@@ -532,7 +532,7 @@ export const getUserAchievements = (userId: string): Promise<Achievement[]> => {
   // For now, we'll simulate with a delay and return mock data
   return new Promise(resolve => {
     setTimeout(() => {
-      const achievements: Achievement[] = [
+      const achievements[] = [
         {
           id: 'achievement1',
           title: 'First Steps',
@@ -741,7 +741,7 @@ export const getAdaptedContent = (
  * React hook for learning style assessment
  */
 export const useLearningStyleAssessment = (): {
-  questions: LearningStyleQuestion[];
+  questions[];
   answers: Record<string, LearningStyle>;
   setAnswer: (questionId: string, style: LearningStyle) => void;
   result: LearningStyleResult | null;
@@ -866,7 +866,7 @@ export const useLearningRecommendations = (
   userId: string,
   count: number = 3
 ): {
-  recommendations: LearningRecommendation[];
+  recommendations[];
   loading: boolean;
   error: string | null;
   refresh: () => Promise<void>;
@@ -907,7 +907,7 @@ export const useLearningRecommendations = (
 export const useAchievements = (
   userId: string
 ): {
-  achievements: Achievement[];
+  achievements[];
   loading: boolean;
   error: string | null;
   refresh: () => Promise<void>;

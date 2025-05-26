@@ -13,7 +13,7 @@ interface MatchingItem {
 interface MatchingQuestionProps {
   initialData?: {
     content: string;
-    items[];
+    items: any[];
     points: number;
     shuffleOptions: boolean;
   };

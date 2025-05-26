@@ -97,7 +97,7 @@ export class OpenAIService {
   /**
    * Generate personalized feedback for student work
    */
-  async generatePersonalizedFeedback(studentWork: string, learningObjectives: string[], studentProfile: {
+  async generatePersonalizedFeedback(studentWork: string, learningObjectives[], studentProfile: {
     learningStyle?: string;
     strengths?: string[];
     areasForImprovement?: string[];
@@ -146,7 +146,7 @@ export class OpenAIService {
   /**
    * Generate differentiated learning materials for diverse needs
    */
-  async generateDifferentiatedMaterials(topic: string, learningObjectives: string[], differentiationLevels: {
+  async generateDifferentiatedMaterials(topic: string, learningObjectives[], differentiationLevels: {
     level: 'foundation' | 'core' | 'extension';
     description: string;
   }[]) {
@@ -180,7 +180,7 @@ export class OpenAIService {
   /**
    * Analyse student work to identify strengths and areas for improvement
    */
-  async analyzeStudentWork(studentWork: string, learningObjectives: string[], rubric?: {
+  async analyzeStudentWork(studentWork: string, learningObjectives[], rubric?: {
     criteria: string;
     levels: { level: string; description: string }[];
   }[]) {

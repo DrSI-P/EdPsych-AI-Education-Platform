@@ -135,7 +135,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
     // Create particles based on active environment
     const createParticles = () => {
       particles = [];
-      let colorScheme[] = [];
+      let colorScheme: any[] = [];
       
       switch(activeTab) {
         case 'rainforest':

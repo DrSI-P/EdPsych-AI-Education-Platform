@@ -276,7 +276,7 @@ const BlogPostCard = ({ post }: { post: any }) => {
 };
 
 // Category List Component
-const CategoryList = ({ categories }: { categories[] }) => {
+const CategoryList = ({ categories }: { categories: any[] }) => {
   return (
     <div className="space-y-1">
       {categories.map((category) => (
@@ -293,7 +293,7 @@ const CategoryList = ({ categories }: { categories[] }) => {
 };
 
 // Tag Cloud Component
-const TagCloud = ({ tags }: { tags[] }) => {
+const TagCloud = ({ tags }: { tags: any[] }) => {
   return (
     <div className="flex flex-wrap gap-2">
       {tags.map((tag) => (

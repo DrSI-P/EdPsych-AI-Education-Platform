@@ -1,164 +1,706 @@
-diff --git a/package-lock.json b/package-lock.json
-index b726525..785026a 100644
---- a/package-lock.json
-+++ b/package-lock.json
-@@ -73,7 +73,7 @@
-         "react-hook-form": "^7.56.4",
-         "react-icons": "^5.5.0",
-         "react-markdown": "^10.1.0",
--        "recharts": "^2.15.3",
-+        "recharts": "^2.12.0",
-         "sonner": "^2.0.3",
-         "stream-browserify": "^3.0.0",
-         "stream-http": "^3.2.0",
-@@ -17674,16 +17674,16 @@
-       }
-     },
-     "node_modules/recharts": {
--      "version": "2.15.3",
--      "resolved": "https://registry.npmjs.org/recharts/-/recharts-2.15.3.tgz",
--      "integrity": "sha512-EdOPzTwcFSuqtvkDoaM5ws/Km1+WTAO2eizL7rqiG0V2UVhTnz0m7J2i0CjVPUCdEkZImaWvXLbZDS2H5t6GFQ==",
-+      "version": "2.12.0",
-+      "resolved": "https://registry.npmjs.org/recharts/-/recharts-2.12.0.tgz",
-+      "integrity": "sha512-rVNcdNQ5b7+40Ue7mcEKZJyEv+3SUk2bDEVvOyXPDXXVE7TU3lrvnJUgAvO36hSzhRP2DnAamKXvHLFIFOU0Ww==",
-       "license": "MIT",
-       "dependencies": {
-         "clsx": "^2.0.0",
-         "eventemitter3": "^4.0.1",
--        "lodash": "^4.17.21",
--        "react-is": "^18.3.1",
--        "react-smooth": "^4.0.4",
-+        "lodash": "^4.17.19",
-+        "react-is": "^16.10.2",
-+        "react-smooth": "^4.0.0",
-         "recharts-scale": "^0.4.4",
-         "tiny-invariant": "^1.3.1",
-         "victory-vendor": "^36.6.8"
-@@ -17692,8 +17692,8 @@
-         "node": ">=14"
-       },
-       "peerDependencies": {
--        "react": "^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
--        "react-dom": "^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
-+        "react": "^16.0.0 || ^17.0.0 || ^18.0.0",
-+        "react-dom": "^16.0.0 || ^17.0.0 || ^18.0.0"
-       }
-     },
-     "node_modules/recharts-scale": {
-@@ -17705,12 +17705,6 @@
-         "decimal.js-light": "^2.4.1"
-       }
-     },
--    "node_modules/recharts/node_modules/react-is": {
--      "version": "18.3.1",
--      "resolved": "https://registry.npmjs.org/react-is/-/react-is-18.3.1.tgz",
--      "integrity": "sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==",
--      "license": "MIT"
--    },
-     "node_modules/redent": {
-       "version": "3.0.0",
-       "resolved": "https://registry.npmjs.org/redent/-/redent-3.0.0.tgz",
-diff --git a/package.json b/package.json
-index f8529ce..437f206 100644
---- a/package.json
-+++ b/package.json
-@@ -76,7 +76,7 @@
-     "react-hook-form": "^7.56.4",
-     "react-icons": "^5.5.0",
-     "react-markdown": "^10.1.0",
--    "recharts": "^2.15.3",
-+    "recharts": "^2.12.0",
-     "sonner": "^2.0.3",
-     "stream-browserify": "^3.0.0",
-     "stream-http": "^3.2.0",
-diff --git a/src/app/api/special-needs/emotional-regulation/pattern-recognition/route.ts b/src/app/api/special-needs/emotional-regulation/pattern-recognition/route.ts
-index 499f6cd..a8f3dd6 100644
---- a/src/app/api/special-needs/emotional-regulation/pattern-recognition/route.ts
-+++ b/src/app/api/special-needs/emotional-regulation/pattern-recognition/route.ts
-@@ -97,7 +97,7 @@ export async function GET(req: Request) {
- }
- 
- // Function to generate pattern analysis from emotion data
--function generatePatternAnalysis(emotionRecords: any[], emotionJournals: any[], analysisType: string = 'all') {
-+function generatePatternAnalysis(emotionRecords[], emotionJournals[], analysisType: string = 'all') {
-   // Initialize analysis object
-   const analysis = {
-     insights: [] as Array<{
-@@ -150,7 +150,7 @@ function generatePatternAnalysis(emotionRecords: any[], emotionJournals: any[],
- }
- 
- // Helper function to generate insights
--function generateInsights(emotionRecords: any[]) {
-+function generateInsights(emotionRecords[]) {
-   const insights = [];
+diff --git a/src/app/admin/users/page.tsx b/src/app/admin/users/page.tsx
+index 104a793..57cca9f 100644
+--- a/src/app/admin/users/page.tsx
++++ b/src/app/admin/users/page.tsx
+@@ -54,7 +54,7 @@ export default function AdminUserManagement() {
+     fetchUsers();
+   }, [currentPage, activeTab, searchQuery]);
    
-   // Most common emotion
-@@ -314,7 +314,7 @@ function generateInsights(emotionRecords: any[]) {
+-  const roleOptions: RoleOption[] = [
++  const roleOptions[] = [
+     { value: 'STUDENT', label: 'Student' },
+     { value: 'EDUCATOR', label: 'Educator' },
+     { value: 'ADMIN', label: 'Administrator' },
+diff --git a/src/app/api/ai/adaptive-complexity/route.ts b/src/app/api/ai/adaptive-complexity/route.ts
+index 01eef52..c9a955d 100644
+--- a/src/app/api/ai/adaptive-complexity/route.ts
++++ b/src/app/api/ai/adaptive-complexity/route.ts
+@@ -29,7 +29,7 @@ interface PerformanceMetrics {
+   readingLevel: number;
+   comprehensionRate: number;
+   engagementScore: number;
+-  learningPreferences: string[];
++  learningPreferences[];
  }
  
- // Helper function to generate trigger patterns
--function generateTriggerPatterns(emotionRecords: any[]) {
-+function generateTriggerPatterns(emotionRecords[]) {
-   // Group emotions by triggers
-   const triggerEmotions: Record<string, Record<string, number>> = {};
-   
-@@ -348,7 +348,7 @@ function generateTriggerPatterns(emotionRecords: any[]) {
+ export async function POST(req: NextRequest) {
+diff --git a/src/app/api/ai/curriculum-differentiation/route.ts b/src/app/api/ai/curriculum-differentiation/route.ts
+index 2fdcc23..4641e11 100644
+--- a/src/app/api/ai/curriculum-differentiation/route.ts
++++ b/src/app/api/ai/curriculum-differentiation/route.ts
+@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
+     
+         // Get curriculum plan if ID is provided
+     let planContent = curriculumContent;
+-    let planObjectives: string[] = objectives || [];
++    let planObjectives[] = objectives || [];
+     let planSubject = subject;
+     let planKeyStage = keyStage;
+     let planYear = year; year;
+diff --git a/src/app/api/blog/auto-generate/route.ts b/src/app/api/blog/auto-generate/route.ts
+index dfe61a5..950fa46 100644
+--- a/src/app/api/blog/auto-generate/route.ts
++++ b/src/app/api/blog/auto-generate/route.ts
+@@ -28,7 +28,7 @@ const BLOG_AUDIENCES = [
+ 
+ interface BlogGenerationParams {
+   topic: string;
+-  audience: string[];
++  audience[];
+   category: string;
+   keyPoints?: string[];
+   tone?: string;
+@@ -40,8 +40,8 @@ interface BlogPostData {
+   content: string;
+   summary: string;
+   category: string;
+-  tags: string[];
+-  targetAudience: string[];
++  tags[];
++  targetAudience[];
+   status: string;
+   authorId: string;
+   aiGenerationPrompt: string;
+@@ -52,7 +52,7 @@ interface BlogPostData {
+ interface BlogPostIdea {
+   title: string;
+   description: string;
+-  targetAudience: string[];
++  targetAudience[];
+   estimatedReadTime: number;
  }
  
- // Helper function to generate time patterns
--function generateTimePatterns(emotionRecords: any[]) {
-+function generateTimePatterns(emotionRecords[]) {
-   // Group by hour of day
-   const hourCounts = Array(24).fill(0).map((_, i) => ({ hour: i, count: 0 }));
-   
-@@ -376,7 +376,7 @@ function generateTimePatterns(emotionRecords: any[]) {
+@@ -80,12 +80,12 @@ async function saveBlogPost(postData: BlogPostData) {
  }
  
- // Helper function to generate emotion trends
--function generateEmotionTrends(emotionRecords: any[]) {
-+function generateEmotionTrends(emotionRecords[]) {
-   // Group by date
-   const dateEmotions: Record<string, Record<string, number>> = {};
+ // Mock function for generating blog post ideas
+-async function generateBlogPostIdeas(count: number, topics?: string[]): Promise<BlogPostIdea[]> {
++async function generateBlogPostIdeas(count: number, topics?: string: any[]): Promise<BlogPostIdea[]> {
+   // In a real implementation, this would call an AI service
+   // For now, we'll return mock ideas
+   await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API delay
    
-@@ -402,7 +402,7 @@ function generateEmotionTrends(emotionRecords: any[]) {
+-  const ideas: BlogPostIdea[] = [];
++  const ideas[] = [];
+   
+   for (let i = 0; i < count; i++) {
+     ideas.push({
+diff --git a/src/app/api/professional-development/cpd-tracking/route.ts b/src/app/api/professional-development/cpd-tracking/route.ts
+index 8de5eec..ae7c756 100644
+--- a/src/app/api/professional-development/cpd-tracking/route.ts
++++ b/src/app/api/professional-development/cpd-tracking/route.ts
+@@ -56,8 +56,8 @@ interface CPDActivityData {
+   date: string;
+   duration: number;
+   points: number;
+-  categories: number[];
+-  standards: number[];
++  categories[];
++  standards[];
+   status: 'Planned' | 'In Progress' | 'Completed';
+   evidence?: string;
+   reflection?: string;
+@@ -68,8 +68,8 @@ interface CPDGoalData {
+   title: string;
+   description?: string;
+   targetPoints: number;
+-  categories: number[];
+-  standards: number[];
++  categories[];
++  standards[];
+   deadline: string;
  }
  
- // Helper function to generate emotion correlations
--function generateEmotionCorrelations(emotionRecords: any[]) {
-+function generateEmotionCorrelations(emotionRecords[]) {
-   // Find emotions that often occur together or in sequence
-   const emotionPairs: Record<string, { source: string; target: string; count: number; strength: number }> = {};
+diff --git a/src/app/api/professional-development/learning-communities/route.ts b/src/app/api/professional-development/learning-communities/route.ts
+index 7d81240..beb46f2 100644
+--- a/src/app/api/professional-development/learning-communities/route.ts
++++ b/src/app/api/professional-development/learning-communities/route.ts
+@@ -6,7 +6,7 @@ export interface Community {
+   id: string;
+   name: string;
+   description: string;
+-  categories: string[];
++  categories[];
+   privacy: "open" | "restricted";
+   schools?: string[];
+   createdAt?: string;
+@@ -25,7 +25,7 @@ export interface Resource {
+   title: string;
+   description: string;
+   type: string;
+-  tags: string[];
++  tags[];
+   fileUrl?: string;
+   fileType?: string;
+   fileSize?: number;
+@@ -96,7 +96,7 @@ export interface Collaboration {
+   title: string;
+   description: string;
+   type: string;
+-  schools: string[];
++  schools[];
+   members?: string[];
+   memberCount?: number;
+   status: "Planning" | "In Progress" | "Completed";
+@@ -264,13 +264,13 @@ const MembershipSchema = z.object({
+ // Mock data storage (would be replaced with database in production)
+ // Using the exported interfaces defined above
+ 
+-const communities: Community[] = [];
+-let resources: Resource[] = [];
+-let discussions: Discussion[] = [];
+-let events: Event[] = [];
+-let collaborations: Collaboration[] = [];
+-let memberships: Membership[] = [];
+-let privacySettings: PrivacySetting[] = [];
++const communities[] = [];
++let resources[] = [];
++let discussions[] = [];
++let events[] = [];
++let collaborations[] = [];
++let memberships[] = [];
++let privacySettings[] = [];
+ 
+ // Integration with other professional development modules
+ const integrateCPDActivity = async (userId: string, activityType: string, details): Promise<{success: boolean, points?: number, error?: string}> => {
+@@ -295,7 +295,7 @@ const integratePortfolio = async (userId: string, portfolioItem): Promise<{succe
+   }
+ };
+ 
+-const integrateMentorMatching = async (userId: string, expertise: string[]): Promise<{success: boolean, error?: string}> => {
++const integrateMentorMatching = async (userId: string, expertise[]): Promise<{success: boolean, error?: string}> => {
+   try {
+     // In a real implementation, this would call the Mentor Matching API
+     console.log(`Updating expertise for user ${userId}: ${expertise.join(', ')}`);
+diff --git a/src/app/api/professional-development/webinar/route.ts b/src/app/api/professional-development/webinar/route.ts
+index 0ae4f7c..d737d5d 100644
+--- a/src/app/api/professional-development/webinar/route.ts
++++ b/src/app/api/professional-development/webinar/route.ts
+@@ -38,7 +38,7 @@ interface WebinarCreateData {
+   date: string;
+   duration: number;
+   capacity: number;
+-  topics: string[];
++  topics[];
+   level: 'Beginner' | 'Intermediate' | 'Advanced' | 'All Levels';
+   recordingEnabled: boolean;
+ }
+diff --git a/src/app/api/resource/recommendations/route.ts b/src/app/api/resource/recommendations/route.ts
+index 65ef9b4..910570f 100644
+--- a/src/app/api/resource/recommendations/route.ts
++++ b/src/app/api/resource/recommendations/route.ts
+@@ -26,7 +26,7 @@ interface ResourceRecommendation {
+   type: string;
+   file?: string;
+   url?: string;
+-  tags: string[];
++  tags[];
+   ageRange: string;
+   subject: string;
+   curriculum: string;
+@@ -81,7 +81,7 @@ function generateMockRecommendations(data: RecommendationRequestData): ResourceR
+   const { contextSource, contextContent, manualQuery } = data;
    
+   // Base set of resources
+-  const resources: ResourceRecommendation[] = [
++  const resources[] = [
+     {
+       id: 'rec-1',
+       title: 'Fractions Visual Models Collection',
+diff --git a/src/app/api/restorative-justice/staff-training/certificate/route.ts b/src/app/api/restorative-justice/staff-training/certificate/route.ts
+index f0b93b5..b6ea6d8 100644
+--- a/src/app/api/restorative-justice/staff-training/certificate/route.ts
++++ b/src/app/api/restorative-justice/staff-training/certificate/route.ts
+@@ -16,7 +16,7 @@ interface TrainingProgress {
+   id: string;
+   userId: string;
+   moduleId: string;
+-  completedSections: string[];
++  completedSections[];
+   certificateIssued?: boolean;
+ }
+ 
+diff --git a/src/app/api/restorative-justice/staff-training/modules/route.ts b/src/app/api/restorative-justice/staff-training/modules/route.ts
+index dc48478..b126fdd 100644
+--- a/src/app/api/restorative-justice/staff-training/modules/route.ts
++++ b/src/app/api/restorative-justice/staff-training/modules/route.ts
+@@ -58,8 +58,8 @@ interface TrainingModule {
+   duration: string;
+   level: string;
+   order: number;
+-  sections: TrainingModuleSection[];
+-  resources: TrainingModuleResource[];
++  sections[];
++  resources[];
+ }
+ 
+ // GET handler for retrieving modules
+diff --git a/src/app/api/restorative-justice/staff-training/progress/route.ts b/src/app/api/restorative-justice/staff-training/progress/route.ts
+index 6ed2e28..ac3b507 100644
+--- a/src/app/api/restorative-justice/staff-training/progress/route.ts
++++ b/src/app/api/restorative-justice/staff-training/progress/route.ts
+@@ -20,7 +20,7 @@ interface TrainingProgress {
+   userId: string;
+   moduleId: string;
+   lastAccessedAt: Date;
+-  completedSections: string[];
++  completedSections[];
+   certificateIssued?: boolean;
+ }
+ 
 diff --git a/src/app/api/special-needs/emotional-regulation/strategy-recommendations/route.ts b/src/app/api/special-needs/emotional-regulation/strategy-recommendations/route.ts
-index e2e3257..b641668 100644
+index e2e3257..7be56f5 100644
 --- a/src/app/api/special-needs/emotional-regulation/strategy-recommendations/route.ts
 +++ b/src/app/api/special-needs/emotional-regulation/strategy-recommendations/route.ts
-@@ -234,7 +234,7 @@ export async function POST(req: Request) {
+@@ -358,7 +358,7 @@ function generatePersonalizedRecommendations(emotionRecords: any[], strategyHist
+     id: string;
+     title: string;
+     description: string;
+-    steps: string[];
++    steps[];
+     category: string;
+     suitability: number;
+     timeRequired: string;
+diff --git a/src/app/api/special-needs/parent-teacher-communication/route.ts b/src/app/api/special-needs/parent-teacher-communication/route.ts
+index 00e5ab7..aba5842 100644
+--- a/src/app/api/special-needs/parent-teacher-communication/route.ts
++++ b/src/app/api/special-needs/parent-teacher-communication/route.ts
+@@ -79,7 +79,7 @@ export async function GET(request: Request) {
+       title: string;
+       date: string;
+       duration: string;
+-      participants: string[];
++      participants[];
+       location: string;
+       agenda?: string;
+       emotionalFocus: string;
+diff --git a/src/app/assessment/grade/[id]/page.tsx b/src/app/assessment/grade/[id]/page.tsx
+index 16de36b..8e864d0 100644
+--- a/src/app/assessment/grade/[id]/page.tsx
++++ b/src/app/assessment/grade/[id]/page.tsx
+@@ -47,7 +47,7 @@ interface Response {
+   startedAt: string;
+   completedAt: string;
+   user: User;
+-  answers: Answer[];
++  answers[];
  }
  
- // Helper function to generate personalized recommendations
--function generatePersonalizedRecommendations(emotionRecords: any[], strategyHistory: any[], userSettings: any, params: any) {
-+function generatePersonalizedRecommendations(emotionRecords[], strategyHistory[], userSettings: any, params: any) {
-   // This would be replaced with actual recommendation logic in production
-   // For now, we'll return a placeholder response
+ interface Assessment {
+@@ -63,7 +63,7 @@ interface Assessment {
+   randomizeQuestions: boolean;
+   allowRetakes: boolean;
+   status: string;
+-  questions: Question[];
++  questions[];
+   createdById: string;
+   createdAt: string;
+   updatedAt: string;
+diff --git a/src/app/assessment/preview/[id]/page.tsx b/src/app/assessment/preview/[id]/page.tsx
+index 346f8b8..b136496 100644
+--- a/src/app/assessment/preview/[id]/page.tsx
++++ b/src/app/assessment/preview/[id]/page.tsx
+@@ -33,7 +33,7 @@ interface Assessment {
+   randomizeQuestions: boolean;
+   allowRetakes: boolean;
+   status: string;
+-  questions: Question[];
++  questions[];
+   createdById: string;
+   createdAt: string;
+   updatedAt: string;
+diff --git a/src/app/assessment/pupil-voice/create/page.tsx b/src/app/assessment/pupil-voice/create/page.tsx
+index 44674fc..9804dfd 100644
+--- a/src/app/assessment/pupil-voice/create/page.tsx
++++ b/src/app/assessment/pupil-voice/create/page.tsx
+@@ -14,7 +14,7 @@ interface QuestionType {
+   text: string;
+   type: 'multiple_choice' | 'likert_scale' | 'open_ended' | 'emoji_scale' | 'yes_no';
+   required: boolean;
+-  options: string[];
++  options[];
+   order: number;
+ }
+ 
+diff --git a/src/app/assessment/results/[id]/page.tsx b/src/app/assessment/results/[id]/page.tsx
+index 53ed92f..c69d4c7 100644
+--- a/src/app/assessment/results/[id]/page.tsx
++++ b/src/app/assessment/results/[id]/page.tsx
+@@ -43,7 +43,7 @@ interface Response {
+   startedAt: string;
+   completedAt: string;
+   user: User;
+-  answers: Answer[];
++  answers[];
+ }
+ 
+ interface Assessment {
+@@ -54,8 +54,8 @@ interface Assessment {
+   subject: string;
+   keyStage: string;
+   passingScore: number;
+-  questions: Question[];
+-  responses: Response[];
++  questions[];
++  responses[];
+ }
+ 
+ export default function AssessmentResultsPage() {
+diff --git a/src/app/assessment/take/[id]/page.tsx b/src/app/assessment/take/[id]/page.tsx
+index 6d9f31b..82cae19 100644
+--- a/src/app/assessment/take/[id]/page.tsx
++++ b/src/app/assessment/take/[id]/page.tsx
+@@ -34,7 +34,7 @@ interface Assessment {
+   randomizeQuestions: boolean;
+   allowRetakes: boolean;
+   status: string;
+-  questions: Question[];
++  questions[];
+   createdById: string;
+   createdAt: string;
+   updatedAt: string;
+diff --git a/src/app/assessment/templates/page.tsx b/src/app/assessment/templates/page.tsx
+index 3dd90b7..f65b21d 100644
+--- a/src/app/assessment/templates/page.tsx
++++ b/src/app/assessment/templates/page.tsx
+@@ -23,7 +23,7 @@ interface Template {
+   };
+   createdAt: string;
+   isPublic: boolean;
+-  tags: string[];
++  tags[];
+   previewImage?: string;
+ }
+ 
+diff --git a/src/app/curriculum/collaboration/page.tsx b/src/app/curriculum/collaboration/page.tsx
+index 94af669..851a8c3 100644
+--- a/src/app/curriculum/collaboration/page.tsx
++++ b/src/app/curriculum/collaboration/page.tsx
+@@ -50,7 +50,7 @@ interface Plan {
+   id: string;
+   title: string;
+   description: string;
+-  tasks: Task[];
++  tasks[];
+ }
+ 
+ interface CollaborationData {
+@@ -60,8 +60,8 @@ interface CollaborationData {
+   createdAt: string;
+   updatedAt: string;
+   createdBy: User;
+-  collaborators: Collaborator[];
+-  comments: Comment[];
++  collaborators[];
++  comments[];
+   plan: Plan;
+ }
+ 
+diff --git a/src/app/immersive-learning/page.tsx b/src/app/immersive-learning/page.tsx
+index 57e06a5..081acea 100644
+--- a/src/app/immersive-learning/page.tsx
++++ b/src/app/immersive-learning/page.tsx
+@@ -73,7 +73,7 @@ export default function ImmersiveLearningPage() {
+   const [isVRMode, setIsVRMode] = React.useState(false);
    
-diff --git a/src/components/adventure-quest/adventure-quest-saga-adaptive.tsx b/src/components/adventure-quest/adventure-quest-saga-adaptive.tsx
-index 8ca918f..b2a4a2b 100644
---- a/src/components/adventure-quest/adventure-quest-saga-adaptive.tsx
-+++ b/src/components/adventure-quest/adventure-quest-saga-adaptive.tsx
-@@ -202,8 +202,8 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
-   // Create adaptive quest based on user data
-   const createAdaptiveQuest = (
-     userProfile: any, 
--    learningHistory: any[], 
--    assessmentResults: any[], 
-+    learningHistory[], 
-+    assessmentResults[], 
-     params: GenerationParams,
-     curriculumContext: any
-   ): Quest => {
+   // Mock data for immersive experiences
+-  const experiences: ImmersiveExperience[] = [
++  const experiences[] = [
+     {
+       id: '1',
+       title: 'Solar System Explorer',
+diff --git a/src/app/innovations/ai-powered-assessment/page.tsx b/src/app/innovations/ai-powered-assessment/page.tsx
+index e2ce90a..9f80f17 100644
+--- a/src/app/innovations/ai-powered-assessment/page.tsx
++++ b/src/app/innovations/ai-powered-assessment/page.tsx
+@@ -51,10 +51,10 @@ interface AssessmentQuestion {
+       description: string;
+     }[];
+   }[];
+-  conceptTags: string[];
++  conceptTags[];
+   adaptiveFollowUp?: {
+-    correct: string[];
+-    incorrect: string[];
++    correct[];
++    incorrect[];
+   };
+ }
+ 
+diff --git a/src/app/innovations/digital-twin-companion/page.tsx b/src/app/innovations/digital-twin-companion/page.tsx
+index 77e4fdb..46e35a9 100644
+--- a/src/app/innovations/digital-twin-companion/page.tsx
++++ b/src/app/innovations/digital-twin-companion/page.tsx
+@@ -30,13 +30,13 @@ import {
+ // This component demonstrates the concept of a persistent AI companion that evolves with the learner
+ 
+ interface LearningProfile {
+-  strengths: string[];
+-  challenges: string[];
+-  interests: string[];
++  strengths[];
++  challenges[];
++  interests[];
+   learningStyle: 'visual' | 'auditory' | 'reading/writing' | 'kinesthetic' | 'multimodal';
+   pacePreference: 'accelerated' | 'standard' | 'deliberate';
+-  motivationFactors: string[];
+-  recentTopics: string[];
++  motivationFactors[];
++  recentTopics[];
+   skillLevels: Record<string, number>;
+ }
+ 
+diff --git a/src/app/innovations/immersive-learning-environments/page.tsx b/src/app/innovations/immersive-learning-environments/page.tsx
+index d4687e3..2d8367a 100644
+--- a/src/app/innovations/immersive-learning-environments/page.tsx
++++ b/src/app/innovations/immersive-learning-environments/page.tsx
+@@ -135,7 +135,7 @@ export default function ImmersiveLearningEnvironmentsPage() {
+     // Create particles based on active environment
+     const createParticles = () => {
+       particles = [];
+-      let colorScheme: string[] = [];
++      let colorScheme[] = [];
+       
+       switch(activeTab) {
+         case 'rainforest':
+diff --git a/src/app/innovations/multilingual-support/page.tsx b/src/app/innovations/multilingual-support/page.tsx
+index fb77298..b9e5c69 100644
+--- a/src/app/innovations/multilingual-support/page.tsx
++++ b/src/app/innovations/multilingual-support/page.tsx
+@@ -40,7 +40,7 @@ interface LanguageOption {
+   nativeName: string;
+   flag: string;
+   supportLevel: 'full' | 'partial' | 'machine';
+-  availableFeatures: string[];
++  availableFeatures[];
+ }
+ 
+ interface TranslationExample {
+@@ -79,7 +79,7 @@ export default function MultilingualSupportPage() {
+   const [culturalSensitivityEnabled, setCulturalSensitivityEnabled] = useState(true);
+   
+   // Available languages
+-  const languages: LanguageOption[] = [
++  const languages[] = [
+     {
+       code: 'en-GB',
+       name: 'English (UK)',
+@@ -179,7 +179,7 @@ export default function MultilingualSupportPage() {
+   ];
+   
+   // Translation examples
+-  const translationExamples: TranslationExample[] = [
++  const translationExamples[] = [
+     {
+       original: "Today we're going to learn about fractions and how they relate to everyday life.",
+       translated: "Aujourd'hui, nous allons apprendre les fractions et comment elles se rapportent à la vie quotidienne.",
+diff --git a/src/app/innovations/personalized-learning-pathways/page.tsx b/src/app/innovations/personalized-learning-pathways/page.tsx
+index 612195a..1ea652a 100644
+--- a/src/app/innovations/personalized-learning-pathways/page.tsx
++++ b/src/app/innovations/personalized-learning-pathways/page.tsx
+@@ -46,13 +46,13 @@ interface LearnerProfile {
+   name: string;
+   age: number;
+   educationLevel: string;
+-  interests: string[];
+-  strengths: string[];
+-  areasForGrowth: string[];
++  interests[];
++  strengths[];
++  areasForGrowth[];
+   learningStyle: LearningStyle;
+   priorKnowledge: Record<string, number>;
+-  learningGoals: string[];
+-  accessibilityNeeds: string[];
++  learningGoals[];
++  accessibilityNeeds[];
+ }
+ 
+ interface LearningModule {
+@@ -62,9 +62,9 @@ interface LearningModule {
+   subject: string;
+   difficulty: number;
+   estimatedTime: number;
+-  prerequisites: string[];
+-  learningOutcomes: string[];
+-  format: string[];
++  prerequisites[];
++  learningOutcomes[];
++  format[];
+   engagementLevel: number;
+   completionStatus: number;
+ }
+diff --git a/src/components/about/TeamMember.tsx b/src/components/about/TeamMember.tsx
+index 98b6387..7013674 100644
+--- a/src/components/about/TeamMember.tsx
++++ b/src/components/about/TeamMember.tsx
+@@ -21,7 +21,7 @@ interface TeamMemberProps {
+   bio: string;
+   imageSrc: string;
+   socialLinks: SocialLinks;
+-  specialties: string[];
++  specialties[];
+ }
+ 
+ export function TeamMember({
+diff --git a/src/components/admin/plugin-management.tsx b/src/components/admin/plugin-management.tsx
+index b0df5b4..1b819cc 100644
+--- a/src/components/admin/plugin-management.tsx
++++ b/src/components/admin/plugin-management.tsx
+@@ -75,8 +75,8 @@ interface Plugin {
+   website?: string;
+   icon?: string;
+   tags?: string[];
+-  supportedFeatures: string[];
+-  requiredPermissions: string[];
++  supportedFeatures[];
++  requiredPermissions[];
+   status: PluginStatus;
+   installedAt: Date;
+   updatedAt: Date;
+@@ -85,7 +85,7 @@ interface Plugin {
+ }
+ 
+ // Mock data for demonstration purposes
+-const mockPlugins: Plugin[] = [
++const mockPlugins[] = [
+   {
+     id: 'google-drive-integration',
+     name: 'Google Drive Integration',
+diff --git a/src/components/ai-avatar/ai-avatar-video-service.ts b/src/components/ai-avatar/ai-avatar-video-service.ts
+index 0599f7d..b027824 100644
+--- a/src/components/ai-avatar/ai-avatar-video-service.ts
++++ b/src/components/ai-avatar/ai-avatar-video-service.ts
+@@ -8,7 +8,7 @@ import { AIAvatarVideo, AIAvatarVideoCategory, AIAvatarVideoAudience } from './t
+  */
+ export class AIAvatarVideoService {
+   private static instance: AIAvatarVideoService;
+-  private videos: AIAvatarVideo[] = [];
++  private videos[] = [];
+   private initialized: boolean = false;
+ 
+   private constructor() {}
+diff --git a/src/components/ai/accessibility/keyboard-navigation-engine.tsx b/src/components/ai/accessibility/keyboard-navigation-engine.tsx
+index 8e5670c..b0c36a1 100644
+--- a/src/components/ai/accessibility/keyboard-navigation-engine.tsx
++++ b/src/components/ai/accessibility/keyboard-navigation-engine.tsx
+@@ -30,7 +30,7 @@ interface KeyboardNavigationEngineProps {
+ interface OptimizationResults {
+   elementsProcessed: number;
+   elementsEnhanced: number;
+-  warnings: string[];
++  warnings[];
+ }
+ 
+ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> = ({ 
+diff --git a/src/components/ai/ai-prompt.tsx b/src/components/ai/ai-prompt.tsx
+index 3afa1f4..8b68dca 100644
+--- a/src/components/ai/ai-prompt.tsx
++++ b/src/components/ai/ai-prompt.tsx
+@@ -65,7 +65,7 @@ export function AIPrompt({
+   // Mock these values since they don't exist in the actual service
+   const defaultProvider = 'openai';
+   const defaultModel = 'gpt-4';
+-  const allModels: AIModel[] = [
++  const allModels[] = [
+     { id: 'gpt-4', name: 'GPT-4', provider: 'openai' },
+     { id: 'gpt-3.5-turbo', name: 'GPT-3.5 Turbo', provider: 'openai' },
+     { id: 'claude-3', name: 'Claude 3', provider: 'anthropic' }
+diff --git a/src/components/ai/emotional-wellbeing/emotional-checkin.tsx b/src/components/ai/emotional-wellbeing/emotional-checkin.tsx
+index 9e6f102..d09041c 100644
+--- a/src/components/ai/emotional-wellbeing/emotional-checkin.tsx
++++ b/src/components/ai/emotional-wellbeing/emotional-checkin.tsx
+@@ -20,8 +20,8 @@ type CheckinData = {
+   mood: string;
+   intensity: number;
+   notes: string;
+-  triggers: string[];
+-  strategies: string[];
++  triggers[];
++  strategies[];
+ };
+ 
+ // Export both as default and named export to fix build warnings
+@@ -45,7 +45,7 @@ export function EmotionalCheckin() {
+   const [isRecording, setIsRecording] = useState(false);
+ 
+   // Sample emotions with descriptions
+-  const emotions: Emotion[] = [
++  const emotions[] = [
+     { name: 'Happy', color: 'bg-green-500', description: 'Feeling joyful, content, or pleased' },
+     { name: 'Calm', color: 'bg-blue-400', description: 'Feeling peaceful, relaxed, or at ease' },
+     { name: 'Excited', color: 'bg-yellow-400', description: 'Feeling enthusiastic, eager, or energetic' },
+@@ -105,7 +105,7 @@ export function EmotionalCheckin() {
+     setStep(2);
+   };
+ 
+-  const handleIntensityChange = (value: number[]) => {
++  const handleIntensityChange = (value[]) => {
+     setCheckinData(prev => ({
+       ...prev,
+       intensity: value[0]
+@@ -207,7 +207,7 @@ export function EmotionalCheckin() {
+     }
+   };
+ 
+-  const saveSelectedStrategies = (strategies: string[]) => {
++  const saveSelectedStrategies = (strategies[]) => {
+     setCheckinData(prev => ({
+       ...prev,
+       strategies
+diff --git a/src/components/ai/learning-style/learning-style-assessment.tsx b/src/components/ai/learning-style/learning-style-assessment.tsx
+index 120c52a..1a74774 100644
+--- a/src/components/ai/learning-style/learning-style-assessment.tsx
++++ b/src/components/ai/learning-style/learning-style-assessment.tsx
+@@ -22,7 +22,7 @@ type LearningStyle = {
+   name: string;
+   score: number;
+   description: string;
+-  strategies: string[];
++  strategies[];
+ };
+ 
+ export default function LearningStyleAssessment() {
+@@ -34,12 +34,12 @@ export default function LearningStyleAssessment() {
+   const [results, setResults] = useState<{
+     primaryStyle: LearningStyle;
+     secondaryStyle: LearningStyle;
+-    allStyles: LearningStyle[];
+-    personalizedRecommendations: string[];
++    allStyles[];
++    personalizedRecommendations[];
+   } | null>(null);
+ 
+   // Sample questions - in production, these would be more comprehensive
+-  const questions: Question[] = [
++  const questions[] = [
+     {
+       id: 'q1',
+       text: 'When learning something new, I prefer to:',
+diff --git a/src/components/ai/progress-monitoring-alerts.tsx b/src/components/ai/progress-monitoring-alerts.tsx
+index 8605ae8..c4c5e0d 100644
+--- a/src/components/ai/progress-monitoring-alerts.tsx
++++ b/src/components/ai/progress-monitoring-alerts.tsx
+@@ -78,7 +78,7 @@ const mockLearnerProfile: LearnerProfile = {
+ };
+ 
+ // Mock learning paths for demonstration
+-const mockLearningPaths: LearningPath[] = [
++const mockLearningPaths[] = [
+   {
+     id: 'path-1',
+     learnerId: 'learner-1',
+@@ -155,7 +155,7 @@ const mockRecentActivities = [
+ ];
+ 
+ // Mock intervention alerts for demonstration
+-const mockInterventionAlerts: InterventionAlert[] = [
++const mockInterventionAlerts[] = [
+   {
+     id: 'alert-1',
+     learnerId: 'learner-1',
 diff --git a/src/components/analytics/custom-report-builder.tsx b/src/components/analytics/custom-report-builder.tsx
-index cf36766..93fd1d2 100644
+index cd6df41..f627716 100644
 --- a/src/components/analytics/custom-report-builder.tsx
 +++ b/src/components/analytics/custom-report-builder.tsx
 @@ -182,8 +182,8 @@ const DraggableComponent = ({ component }: { component: any }): React.ReactNode
@@ -172,8 +714,154 @@ index cf36766..93fd1d2 100644
    onEditItem: (id: string) => void;
    onRemoveItem: (id: string) => void;
    onMoveItem: (fromIndex: number, toIndex: number) => void;
+@@ -400,7 +400,7 @@ const TablePreview = ({ dataType }: { dataType: string }): React.ReactNode => {
+           </tr>
+         </thead>
+         <tbody>
+-          {data.rows.slice(0, 3).map((row: string[], rowIndex: number) => (
++          {data.rows.slice(0, 3).map((row[], rowIndex: number) => (
+             <tr key={`row-${rowIndex}`} className={rowIndex % 2 === 0 ? "bg-white" : "bg-muted/50"}>
+               {row.map((cell: string, cellIndex: number) => (
+                 <td key={`cell-${rowIndex}-${cellIndex}`} className="border px-4 py-2 text-sm">
+diff --git a/src/components/assessment/assessment-module.tsx b/src/components/assessment/assessment-module.tsx
+index 34ba9ce..bc48e3b 100644
+--- a/src/components/assessment/assessment-module.tsx
++++ b/src/components/assessment/assessment-module.tsx
+@@ -63,7 +63,7 @@ export function AssessmentModule({
+         }
+         
+         // Mock data for demonstration
+-        const mockAssessments: Assessment[] = [
++        const mockAssessments[] = [
+           {
+             id: '1',
+             title: 'Year 8 Algebra Assessment',
+diff --git a/src/components/assessment/question-types/file-upload.tsx b/src/components/assessment/question-types/file-upload.tsx
+index 52604d8..db1d4c1 100644
+--- a/src/components/assessment/question-types/file-upload.tsx
++++ b/src/components/assessment/question-types/file-upload.tsx
+@@ -8,13 +8,13 @@ interface FileUploadQuestionProps {
+   initialData?: {
+     content: string;
+     points: number;
+-    allowedFileTypes: string[];
++    allowedFileTypes[];
+     maxFileSize: number;
+   };
+   onSave: (data: {
+     type: string;
+     content: string;
+-    allowedFileTypes: string[];
++    allowedFileTypes[];
+     maxFileSize: number;
+     points: number;
+   }) => void;
+diff --git a/src/components/assessment/question-types/matching.tsx b/src/components/assessment/question-types/matching.tsx
+index c8d9124..3ab0385 100644
+--- a/src/components/assessment/question-types/matching.tsx
++++ b/src/components/assessment/question-types/matching.tsx
+@@ -13,14 +13,14 @@ interface MatchingItem {
+ interface MatchingQuestionProps {
+   initialData?: {
+     content: string;
+-    items: MatchingItem[];
++    items[];
+     points: number;
+     shuffleOptions: boolean;
+   };
+   onSave: (data: {
+     type: string;
+     content: string;
+-    items: MatchingItem[];
++    items[];
+     points: number;
+     shuffleOptions: boolean;
+   }) => void;
+diff --git a/src/components/assessment/question-types/multiple-choice.tsx b/src/components/assessment/question-types/multiple-choice.tsx
+index e434653..b2e27e1 100644
+--- a/src/components/assessment/question-types/multiple-choice.tsx
++++ b/src/components/assessment/question-types/multiple-choice.tsx
+@@ -13,14 +13,14 @@ interface MultipleChoiceOption {
+ interface MultipleChoiceQuestionProps {
+   initialData?: {
+     content: string;
+-    options: MultipleChoiceOption[];
++    options[];
+     points: number;
+   };
+   onSave: (data: {
+     type: string;
+     content: string;
+-    options: MultipleChoiceOption[];
+-    correctAnswer: string[];
++    options[];
++    correctAnswer[];
+     points: number;
+   }) => void;
+   onCancel: () => void;
+diff --git a/src/components/blog/BlogCard.tsx b/src/components/blog/BlogCard.tsx
+index 27cf132..7d4ed7e 100644
+--- a/src/components/blog/BlogCard.tsx
++++ b/src/components/blog/BlogCard.tsx
+@@ -15,7 +15,7 @@ interface BlogCardProps {
+     publishedAt: string | Date | null;
+     keyStage?: string | null;
+     curriculumArea?: string | null;
+-    tags: string[];
++    tags[];
+     readingTime?: number | null;
+     readingLevel?: string | null;
+     author: {
+diff --git a/src/components/blog/BlogCommentList.tsx b/src/components/blog/BlogCommentList.tsx
+index 59c85f4..0a11a24 100644
+--- a/src/components/blog/BlogCommentList.tsx
++++ b/src/components/blog/BlogCommentList.tsx
+@@ -18,7 +18,7 @@ interface Comment {
+     name: string | null;
+     image: string | null;
+   };
+-  replies: Comment[];
++  replies[];
+ }
+ 
+ interface BlogCommentListProps {
+diff --git a/src/components/blog/BlogList.tsx b/src/components/blog/BlogList.tsx
+index c2f7c87..ea4f13e 100644
+--- a/src/components/blog/BlogList.tsx
++++ b/src/components/blog/BlogList.tsx
+@@ -13,7 +13,7 @@ interface BlogPost {
+   publishedAt: string | Date | null;
+   keyStage?: string | null;
+   curriculumArea?: string | null;
+-  tags: string[];
++  tags[];
+   readingTime?: number | null;
+   readingLevel?: string | null;
+   author: {
+@@ -26,7 +26,7 @@ interface BlogPost {
+ }
+ 
+ interface BlogListProps {
+-  posts: BlogPost[];
++  posts[];
+   isLoading?: boolean;
+   error?: string;
+   pagination?: {
+diff --git a/src/components/blog/BlogRelatedPosts.tsx b/src/components/blog/BlogRelatedPosts.tsx
+index 32fadc9..d7074f7 100644
+--- a/src/components/blog/BlogRelatedPosts.tsx
++++ b/src/components/blog/BlogRelatedPosts.tsx
+@@ -11,7 +11,7 @@ interface BlogRelatedPostsProps {
+     publishedAt: string | Date | null;
+     keyStage?: string | null;
+     curriculumArea?: string | null;
+-    tags: string[];
++    tags[];
+     readingTime?: number | null;
+     readingLevel?: string | null;
+     author: {
 diff --git a/src/components/blog/educational-ai-blog.tsx b/src/components/blog/educational-ai-blog.tsx
-index 0623d1b..2185011 100644
+index 878bbf3..7597161 100644
 --- a/src/components/blog/educational-ai-blog.tsx
 +++ b/src/components/blog/educational-ai-blog.tsx
 @@ -276,7 +276,7 @@ const BlogPostCard = ({ post }: { post: any }) => {
@@ -194,162 +882,1581 @@ index 0623d1b..2185011 100644
    return (
      <div className="flex flex-wrap gap-2">
        {tags.map((tag) => (
-diff --git a/src/components/educator/automated-progress-report-generation.tsx b/src/components/educator/automated-progress-report-generation.tsx
-index 4862b41..bb48a03 100644
---- a/src/components/educator/automated-progress-report-generation.tsx
-+++ b/src/components/educator/automated-progress-report-generation.tsx
-@@ -345,7 +345,7 @@ export default function AutomatedProgressReportGeneration() {
+diff --git a/src/components/curriculum/curriculum-planner.tsx b/src/components/curriculum/curriculum-planner.tsx
+index af717a6..9245182 100644
+--- a/src/components/curriculum/curriculum-planner.tsx
++++ b/src/components/curriculum/curriculum-planner.tsx
+@@ -18,9 +18,9 @@ interface CurriculumPlan {
+   ageRange: string;
+   curriculum: string;
+   duration: string;
+-  objectives: string[];
+-  resources: string[];
+-  assessments: string[];
++  objectives[];
++  resources[];
++  assessments[];
+   createdAt: string;
+   updatedAt: string;
+ }
+@@ -58,7 +58,7 @@ export function CurriculumPlanner({
+         }
+         
+         // Mock data for demonstration
+-        const mockPlans: CurriculumPlan[] = [
++        const mockPlans[] = [
+           {
+             id: '1',
+             title: 'Algebraic Expressions and Equations',
+diff --git a/src/components/educator/automated-documentation.tsx b/src/components/educator/automated-documentation.tsx
+index 6ee38c1..72e24c9 100644
+--- a/src/components/educator/automated-documentation.tsx
++++ b/src/components/educator/automated-documentation.tsx
+@@ -28,7 +28,7 @@ interface DocumentationTemplate {
+   }[];
+ }
+ 
+-const documentationTemplates: DocumentationTemplate[] = [
++const documentationTemplates[] = [
+   {
+     id: 'classroom-observation',
+     name: 'Classroom Observation',
+diff --git a/src/components/educator/smart-lesson-planning.tsx b/src/components/educator/smart-lesson-planning.tsx
+index f54bce0..642bde5 100644
+--- a/src/components/educator/smart-lesson-planning.tsx
++++ b/src/components/educator/smart-lesson-planning.tsx
+@@ -24,7 +24,7 @@ interface LessonPlanTemplate {
+   content: string;
+ }
+ 
+-const lessonPlanTemplates: LessonPlanTemplate[] = [
++const lessonPlanTemplates[] = [
+   {
+     id: "1",
+     name: "Literacy Hour",
+diff --git a/src/components/heygen/heygen-video-library.tsx b/src/components/heygen/heygen-video-library.tsx
+index 728e9f3..8f81d28 100644
+--- a/src/components/heygen/heygen-video-library.tsx
++++ b/src/components/heygen/heygen-video-library.tsx
+@@ -22,7 +22,7 @@ export interface HeygenVideo {
+ }
+ 
+ // Mock data for testing
+-const mockVideos: HeygenVideo[] = [
++const mockVideos[] = [
+   {
+     id: 'v1',
+     title: 'Welcome to EdPsych Connect',
+diff --git a/src/components/i18n/multilingual-accessibility-validator.tsx b/src/components/i18n/multilingual-accessibility-validator.tsx
+index 80063b6..d7072c3 100644
+--- a/src/components/i18n/multilingual-accessibility-validator.tsx
++++ b/src/components/i18n/multilingual-accessibility-validator.tsx
+@@ -113,7 +113,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
+   // Validate accessibility
+   const validateAccessibility = async () => {
+     // Mock accessibility validation results
+-    const results: AccessibilityValidationResult[] = [
++    const results[] = [
+       {
+         category: 'Text Direction',
+         criteria: 'RTL language support',
+@@ -219,7 +219,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
+   // Validate language coverage
+   const validateLanguageCoverage = async () => {
+     // Mock language coverage results
+-    const results: LanguageCoverageResult[] = [
++    const results[] = [
+       {
+         language: SupportedLanguage.WELSH,
+         namespaces: [
+diff --git a/src/components/immersive/immersive-learning.tsx b/src/components/immersive/immersive-learning.tsx
+index bf11332..9333262 100644
+--- a/src/components/immersive/immersive-learning.tsx
++++ b/src/components/immersive/immersive-learning.tsx
+@@ -18,7 +18,7 @@ interface ImmersiveEnvironment {
+   subject: string;
+   ageRange: string;
+   curriculum: string;
+-  objectives: string[];
++  objectives[];
+   scenarioUrl: string;
+   previewImage?: string;
+   createdAt: string;
+@@ -59,7 +59,7 @@ export function ImmersiveLearning({
+         }
+         
+         // Mock data for demonstration
+-        const mockEnvironments: ImmersiveEnvironment[] = [
++        const mockEnvironments[] = [
+           {
+             id: '1',
+             title: 'Solar System Explorer',
+diff --git a/src/components/mobile/mobile-validator.tsx b/src/components/mobile/mobile-validator.tsx
+index f779d30..fad1cf3 100644
+--- a/src/components/mobile/mobile-validator.tsx
++++ b/src/components/mobile/mobile-validator.tsx
+@@ -18,7 +18,7 @@ export interface AccessibilityValidationResults {
+   colorIndependence: 'pass' | 'fail' | 'warning';
+   motionReduction: 'pass' | 'fail' | 'warning';
+   overallScore: number; // 0-100
+-  issues: AccessibilityIssue[];
++  issues[];
+ }
+ 
+ export interface AccessibilityIssue {
+@@ -122,7 +122,7 @@ export interface UserExperienceValidationResults {
+   offlineSupport: 'excellent' | 'good' | 'average' | 'poor';
+   touchResponsiveness: 'excellent' | 'good' | 'average' | 'poor';
+   overallScore: number; // 0-100
+-  issues: UserExperienceIssue[];
++  issues[];
+ }
+ 
+ export interface UserExperienceIssue {
+@@ -403,14 +403,14 @@ export interface DeviceCompatibilityResults {
+     edge: 'compatible' | 'partially_compatible' | 'not_compatible';
+   };
+   overallScore: number; // 0-100
+-  issues: DeviceCompatibilityIssue[];
++  issues[];
+ }
+ 
+ export interface DeviceCompatibilityIssue {
+   type: string;
+   description: string;
+   severity: 'critical' | 'serious' | 'moderate' | 'minor';
+-  affectedDevices: string[];
++  affectedDevices[];
+   recommendation: string;
+ }
+ 
+diff --git a/src/components/mobile/offline-manager.tsx b/src/components/mobile/offline-manager.tsx
+index 023e7f1..8860035 100644
+--- a/src/components/mobile/offline-manager.tsx
++++ b/src/components/mobile/offline-manager.tsx
+@@ -236,7 +236,7 @@ export function OfflineAware<T>({
+ }
+ 
+ interface OfflineCacheProps {
+-  urls: string[];
++  urls[];
+   children: React.ReactNode;
+ }
+ 
+@@ -265,7 +265,7 @@ export const OfflineCache: React.FC<OfflineCacheProps> = ({
+       
+       try {
+         const cache = await caches.open('edpsych-offline-cache');
+-        const newlyCachedUrls: string[] = [];
++        const newlyCachedUrls[] = [];
+         
+         for (const url of urls) {
+           try {
+diff --git a/src/components/navigation/avatar-navigation.tsx b/src/components/navigation/avatar-navigation.tsx
+index 3f111e5..ea80dcc 100644
+--- a/src/components/navigation/avatar-navigation.tsx
++++ b/src/components/navigation/avatar-navigation.tsx
+@@ -66,7 +66,7 @@ interface NavigationVideo {
+ }
+ 
+ interface NavigationVideoResponse {
+-  videos: NavigationVideo[];
++  videos[];
+ }
+ 
+ export default function AvatarNavigation({
+diff --git a/src/components/pupil-voice/pupil-voice-tool.tsx b/src/components/pupil-voice/pupil-voice-tool.tsx
+index c54d85d..4089b7d 100644
+--- a/src/components/pupil-voice/pupil-voice-tool.tsx
++++ b/src/components/pupil-voice/pupil-voice-tool.tsx
+@@ -22,7 +22,7 @@ interface PupilVoiceEntry {
+     answer: string;
+   }[];
+   sentiment: 'positive' | 'neutral' | 'negative';
+-  tags: string[];
++  tags[];
+   notes: string;
+ }
+ 
+@@ -59,7 +59,7 @@ export function PupilVoiceTool({
+         }
+         
+         // Mock data for demonstration
+-        const mockEntries: PupilVoiceEntry[] = [
++        const mockEntries[] = [
+           {
+             id: '1',
+             pupilName: 'Alex Thompson',
+@@ -256,7 +256,7 @@ export function PupilVoiceTool({
    };
    
-   // Generate overall comments based on subject reports
--  const generateOverallComments = (student: any, subjectReports: any[], style: string) => {
-+  const generateOverallComments = (student: any, subjectReports[], style: string) => {
-     // Calculate average scores and progress
-     const averageCurrentScore = Math.round(
-       subjectReports.reduce((sum, report) => sum + report.currentScore, 0) / subjectReports.length
-@@ -399,7 +399,7 @@ export default function AutomatedProgressReportGeneration() {
+   // Determine sentiment based on answers
+-  const determineSentiment = (answers: string[]): 'positive' | 'neutral' | 'negative' => {
++  const determineSentiment = (answers[]): 'positive' | 'neutral' | 'negative' => {
+     // This is a simplified sentiment analysis
+     // In a real application, this would use more sophisticated NLP
+     const positiveWords = ['like', 'love', 'enjoy', 'happy', 'good', 'great', 'excellent', 'wonderful', 'fantastic'];
+diff --git a/src/components/resource/contextual-resource-recommendation.tsx b/src/components/resource/contextual-resource-recommendation.tsx
+index 2a33d59..5c6e725 100644
+--- a/src/components/resource/contextual-resource-recommendation.tsx
++++ b/src/components/resource/contextual-resource-recommendation.tsx
+@@ -34,7 +34,7 @@ interface Resource {
+   type: 'document' | 'video' | 'audio' | 'link' | 'worksheet';
+   url?: string;
+   file?: string;
+-  tags: string[];
++  tags[];
+   ageRange: string;
+   subject: string;
+   curriculum: string;
+@@ -99,7 +99,7 @@ export function ContextualResourceRecommendation({
+       await new Promise(resolve => setTimeout(resolve, 1500));
+       
+       // Generate mock recommendations based on context
+-      let mockRecommendations: Resource[] = [];
++      let mockRecommendations[] = [];
+       
+       if (contextSource === 'lesson-plan') {
+         mockRecommendations = generateLessonPlanRecommendations();
+diff --git a/src/components/resource/resource-library.tsx b/src/components/resource/resource-library.tsx
+index 84fa0e9..6d5d8ab 100644
+--- a/src/components/resource/resource-library.tsx
++++ b/src/components/resource/resource-library.tsx
+@@ -16,7 +16,7 @@ interface Resource {
+   type: 'document' | 'video' | 'audio' | 'link' | 'worksheet';
+   url?: string;
+   file?: string;
+-  tags: string[];
++  tags[];
+   ageRange: string;
+   subject: string;
+   curriculum: string;
+@@ -58,7 +58,7 @@ export function ResourceLibrary({
+         }
+         
+         // Mock data for demonstration
+-        const mockResources: Resource[] = [
++        const mockResources[] = [
+           {
+             id: '1',
+             title: 'Mathematics: Algebra Fundamentals',
+diff --git a/src/components/restorative-justice/outcome-measurement/outcome-measurement-tools.tsx b/src/components/restorative-justice/outcome-measurement/outcome-measurement-tools.tsx
+index 26fe9bb..064f597 100644
+--- a/src/components/restorative-justice/outcome-measurement/outcome-measurement-tools.tsx
++++ b/src/components/restorative-justice/outcome-measurement/outcome-measurement-tools.tsx
+@@ -81,7 +81,7 @@ interface Assessment {
+   title: string;
+   type: AssessmentType;
+   setting: SettingType;
+-  dimensions: DimensionType[];
++  dimensions[];
+   createdAt: string;
+   completedAt?: string;
+   status: 'draft' | 'in-progress' | 'completed';
+@@ -94,7 +94,7 @@ interface Dimension {
+   name: string;
+   description: string;
+   icon: React.ReactNode;
+-  tools: Tool[];
++  tools[];
+ }
+ 
+ interface Tool {
+@@ -102,12 +102,12 @@ interface Tool {
+   name: string;
+   description: string;
+   type: 'survey' | 'observation' | 'data-analysis' | 'qualitative';
+-  targetAudience: string[];
++  targetAudience[];
+   timeRequired: string;
+ }
+ 
+ // Mock data for dimensions
+-const dimensions: Dimension[] = [
++const dimensions[] = [
+   {
+     id: 'connectedness',
+     name: 'School Connectedness & Community',
+@@ -303,7 +303,7 @@ const dimensions: Dimension[] = [
+ ];
+ 
+ // Mock data for assessments
+-const mockAssessments: Assessment[] = [
++const mockAssessments[] = [
+   {
+     id: '1',
+     title: 'Baseline Assessment - Oakwood Secondary',
+diff --git a/src/components/restorative-justice/parent-education/parent-education-resources.tsx b/src/components/restorative-justice/parent-education/parent-education-resources.tsx
+index 732b521..d414bf5 100644
+--- a/src/components/restorative-justice/parent-education/parent-education-resources.tsx
++++ b/src/components/restorative-justice/parent-education/parent-education-resources.tsx
+@@ -29,13 +29,13 @@ interface ParentResource {
+   title: string;
+   description: string;
+   category: ResourceCategory;
+-  ageGroups: AgeGroup[];
++  ageGroups[];
+   difficultyLevel: DifficultyLevel;
+   content: string;
+   videoUrl?: string;
+   downloadUrl?: string;
+   estimatedTime?: string;
+-  tags: string[];
++  tags[];
+   isFavorite: boolean;
+ }
+ 
+@@ -43,7 +43,7 @@ interface Module {
+   id: string;
+   title: string;
+   description: string;
+-  lessons: Lesson[];
++  lessons[];
+   completed: boolean;
+   progress: number;
+ }
+@@ -61,16 +61,16 @@ interface FamilyActivity {
+   id: string;
+   title: string;
+   description: string;
+-  ageGroups: AgeGroup[];
+-  materials: string[];
+-  steps: string[];
+-  tips: string[];
++  ageGroups[];
++  materials[];
++  steps[];
++  tips[];
+   estimatedTime: string;
+   isFavorite: boolean;
+ }
+ 
+ // Mock data for parent resources
+-const mockResources: ParentResource[] = [
++const mockResources[] = [
+   {
+     id: '1',
+     title: 'Introduction to Restorative Approaches at Home',
+@@ -212,7 +212,7 @@ const mockResources: ParentResource[] = [
+ ];
+ 
+ // Mock data for learning modules
+-const mockModules: Module[] = [
++const mockModules[] = [
+   {
+     id: '1',
+     title: 'Foundations of Restorative Parenting',
+@@ -282,7 +282,7 @@ const mockModules: Module[] = [
+ ];
+ 
+ // Mock data for family activities
+-const mockActivities: FamilyActivity[] = [
++const mockActivities[] = [
+   {
+     id: '1',
+     title: 'Family Circle Check-In',
+diff --git a/src/components/special-needs/executive-dysfunction/task-organizer.tsx b/src/components/special-needs/executive-dysfunction/task-organizer.tsx
+index 7439ba1..d41aa2c 100644
+--- a/src/components/special-needs/executive-dysfunction/task-organizer.tsx
++++ b/src/components/special-needs/executive-dysfunction/task-organizer.tsx
+@@ -41,10 +41,10 @@ interface Task {
+   dueDate: string;
+   priority: 'low' | 'medium' | 'high';
+   status: 'todo' | 'in-progress' | 'done';
+-  steps: TaskStep[];
++  steps[];
+   timeEstimate: number; // in minutes
+   visualReminder?: string;
+-  tags: string[];
++  tags[];
+   isExpanded: boolean;
+ }
+ 
+@@ -57,7 +57,7 @@ interface TaskStep {
+ interface TaskOrganizerProps {
+   userId?: string;
+   initialTasks?: Task[];
+-  onTasksChange?: (tasks: Task[]) => void;
++  onTasksChange?: (tasks[]) => void;
+   className?: string;
+ }
+ 
+@@ -119,7 +119,7 @@ export default function TaskOrganizer({
+     }
    };
    
-   // Generate next steps based on subject reports
--  const generateNextSteps = (subjectReports: any[]) => {
-+  const generateNextSteps = (subjectReports[]) => {
-     const nextSteps = [];
+-  const saveTasks = async (updatedTasks: Task[]) => {
++  const saveTasks = async (updatedTasks[]) => {
+     if (!userId) return;
      
-     // Find lowest performing subject
+     try {
+diff --git a/src/components/special-needs/personalized-interventions/personalized-interventions-engine.tsx b/src/components/special-needs/personalized-interventions/personalized-interventions-engine.tsx
+index eabc93c..f0bcd81 100644
+--- a/src/components/special-needs/personalized-interventions/personalized-interventions-engine.tsx
++++ b/src/components/special-needs/personalized-interventions/personalized-interventions-engine.tsx
+@@ -42,15 +42,15 @@ interface LearningProfile {
+   id: string;
+   name: string;
+   learningStyle: string;
+-  strengths: string[];
+-  challenges: string[];
++  strengths[];
++  challenges[];
+   preferences: {
+     visual: number;
+     auditory: number;
+     kinesthetic: number;
+     reading: number;
+   };
+-  accommodations: string[];
++  accommodations[];
+ }
+ 
+ interface Intervention {
+@@ -58,8 +58,8 @@ interface Intervention {
+   name: string;
+   description: string;
+   targetArea: string;
+-  strategies: string[];
+-  resources: string[];
++  strategies[];
++  resources[];
+   duration: string;
+   frequency: string;
+   progress: number;
+@@ -95,7 +95,7 @@ export function PersonalizedInterventionsEngine() {
+   const [activeTab, setActiveTab] = useState('profiles');
+   
+   // Sample learning profiles
+-  const learningProfiles: LearningProfile[] = [
++  const learningProfiles[] = [
+     {
+       id: 'profile1',
+       name: 'Visual Learner Profile',
+@@ -156,7 +156,7 @@ export function PersonalizedInterventionsEngine() {
+   ];
+   
+   // Sample interventions
+-  const sampleInterventions: Intervention[] = [
++  const sampleInterventions[] = [
+     {
+       id: 'int1',
+       name: 'Reading Comprehension Enhancement',
+diff --git a/src/components/special-needs/progress-monitoring/progress-monitoring-engine.tsx b/src/components/special-needs/progress-monitoring/progress-monitoring-engine.tsx
+index d5a13b5..55b2e56 100644
+--- a/src/components/special-needs/progress-monitoring/progress-monitoring-engine.tsx
++++ b/src/components/special-needs/progress-monitoring/progress-monitoring-engine.tsx
+@@ -46,7 +46,7 @@ interface Goal {
+   target: number;
+   progress: number;
+   status: 'not-started' | 'in-progress' | 'achieved' | 'discontinued';
+-  notes: string[];
++  notes[];
+ }
+ 
+ interface DataPoint {
+@@ -72,7 +72,7 @@ export function ProgressMonitoringEngine() {
+   const [statusFilter, setStatusFilter] = useState('all');
+   
+   // Sample goals data
+-  const sampleGoals: Goal[] = [
++  const sampleGoals[] = [
+     {
+       id: 'goal1',
+       name: 'Reading Fluency',
+@@ -156,7 +156,7 @@ export function ProgressMonitoringEngine() {
+   ];
+   
+   // Sample data points for the first goal
+-  const sampleDataPoints: DataPoint[] = [
++  const sampleDataPoints[] = [
+     {
+       id: 'dp1',
+       date: new Date(2025, 4, 1),
+diff --git a/src/components/special-needs/sensory-regulation/sensory-regulation-engine.tsx b/src/components/special-needs/sensory-regulation/sensory-regulation-engine.tsx
+index 5228985..2eaab21 100644
+--- a/src/components/special-needs/sensory-regulation/sensory-regulation-engine.tsx
++++ b/src/components/special-needs/sensory-regulation/sensory-regulation-engine.tsx
+@@ -46,11 +46,11 @@ interface SensoryActivity {
+   category: string;
+   duration: string;
+   intensity: number;
+-  suitableFor: string[];
+-  materials: string[];
+-  steps: string[];
+-  benefits: string[];
+-  cautions: string[];
++  suitableFor[];
++  materials[];
++  steps[];
++  benefits[];
++  cautions[];
+   imageUrl?: string;
+ }
+ 
+@@ -83,7 +83,7 @@ export function SensoryRegulationEngine() {
+   const [intensityFilter, setIntensityFilter] = useState('all');
+   
+   // Sample sensory activities
+-  const sampleActivities: SensoryActivity[] = [
++  const sampleActivities[] = [
+     {
+       id: 'act1',
+       name: 'Deep Pressure Squeeze',
+diff --git a/src/components/student-voice/anonymous-suggestion-system.tsx b/src/components/student-voice/anonymous-suggestion-system.tsx
+index 8a9d55b..a118277 100644
+--- a/src/components/student-voice/anonymous-suggestion-system.tsx
++++ b/src/components/student-voice/anonymous-suggestion-system.tsx
+@@ -82,7 +82,7 @@ export default function AnonymousSuggestionSystem() {
+   // Load mock data on component mount
+   React.useEffect(() => {
+     // Mock suggestions
+-    const mockSuggestions: Suggestion[] = [
++    const mockSuggestions[] = [
+       {
+         id: '1',
+         category: 'environment',
+diff --git a/src/components/student-voice/multi-modal-feedback-collection.tsx b/src/components/student-voice/multi-modal-feedback-collection.tsx
+index 825d6ef..864b427 100644
+--- a/src/components/student-voice/multi-modal-feedback-collection.tsx
++++ b/src/components/student-voice/multi-modal-feedback-collection.tsx
+@@ -146,7 +146,7 @@ export default function MultiModalFeedbackCollection() {
+   // Load mock data on component mount
+   useEffect(() => {
+     // Mock feedback entries
+-    const mockFeedbackEntries: FeedbackEntry[] = [
++    const mockFeedbackEntries[] = [
+       {
+         id: '1',
+         studentName: 'Anonymous',
+@@ -201,7 +201,7 @@ export default function MultiModalFeedbackCollection() {
+     ];
+     
+     // Mock transcription history
+-    const mockTranscriptionHistory: TranscriptionEntry[] = [
++    const mockTranscriptionHistory[] = [
+       {
+         id: '1',
+         originalText: 'Today we will learn about photosynthesis and how plants convert sunlight into energy.',
+diff --git a/src/components/student-voice/transcription-translation-system.tsx b/src/components/student-voice/transcription-translation-system.tsx
+index d5de285..cb50b60 100644
+--- a/src/components/student-voice/transcription-translation-system.tsx
++++ b/src/components/student-voice/transcription-translation-system.tsx
+@@ -104,7 +104,7 @@ export default function TranscriptionTranslationSystem() {
+   // Load mock data on component mount
+   useEffect(() => {
+     // Mock transcription history
+-    const mockTranscriptionHistory: TranscriptionEntry[] = [
++    const mockTranscriptionHistory[] = [
+       {
+         id: '1',
+         originalText: 'Today we will learn about photosynthesis and how plants convert sunlight into energy.',
+@@ -138,7 +138,7 @@ export default function TranscriptionTranslationSystem() {
+     ];
+     
+     // Mock vocabulary list
+-    const mockVocabularyList: VocabularyItem[] = [
++    const mockVocabularyList[] = [
+       {
+         id: '1',
+         term: 'Photosynthesis',
+diff --git a/src/components/theme-provider.tsx b/src/components/theme-provider.tsx
+index 16c7e0e..d3d296c 100644
+--- a/src/components/theme-provider.tsx
++++ b/src/components/theme-provider.tsx
+@@ -47,7 +47,7 @@ const initialState: ThemeProviderState = {
+ const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
+ 
+ // Helper function to merge class names
+-export function cn(...inputs: ClassValue[]) {
++export function cn(...inputs: any[]) {
+   return twMerge(clsx(inputs));
+ }
+ 
+diff --git a/src/components/ui/accordion.tsx b/src/components/ui/accordion.tsx
+index fecd830..e5e7de8 100644
+--- a/src/components/ui/accordion.tsx
++++ b/src/components/ui/accordion.tsx
+@@ -10,7 +10,7 @@ interface AccordionProps {
+ }
+ 
+ interface AccordionContextType {
+-  expandedItems: string[];
++  expandedItems[];
+   toggleItem: (id: string) => void;
+   allowMultiple: boolean;
+ }
+diff --git a/src/env.mjs b/src/env.mjs
+new file mode 100644
+index 0000000..9e36d19
+--- /dev/null
++++ b/src/env.mjs
+@@ -0,0 +1,67 @@
++import { createEnv } from "@t3-oss/env-nextjs";
++import { z } from "zod";
++
++export const env = createEnv({
++  /**
++   * Server-side environment variables schema
++   */
++  server: {
++    DATABASE_URL: z.string().url(),
++    NODE_ENV: z.enum(["development", "test", "production"]),
++    NEXTAUTH_SECRET: z.string().min(1),
++    NEXTAUTH_URL: z.string().url(),
++    AZURE_COGNITIVE_KEY: z.string().min(1),
++    AZURE_COGNITIVE_ENDPOINT: z.string().url(),
++    AZURE_COGNITIVE_REGION: z.string().min(1),
++    OPENAI_API_KEY: z.string().min(1),
++    ANTHROPIC_API_KEY: z.string().optional(),
++    GOOGLE_AI_API_KEY: z.string().optional(),
++    STRIPE_SECRET_KEY: z.string().optional(),
++    STRIPE_WEBHOOK_SECRET: z.string().optional(),
++    SMTP_HOST: z.string().optional(),
++    SMTP_PORT: z.string().optional(),
++    SMTP_USER: z.string().optional(),
++    SMTP_PASSWORD: z.string().optional(),
++    SMTP_FROM: z.string().optional(),
++  },
++
++  /**
++   * Client-side environment variables schema
++   */
++  client: {
++    NEXT_PUBLIC_APP_URL: z.string().url(),
++    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().optional(),
++    NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: z.string().optional(),
++  },
++
++  /**
++   * You can't destruct `process.env` as a regular object in the Next.js edge runtime
++   * So we need to destruct manually
++   */
++  runtimeEnv: {
++    DATABASE_URL: process.env.DATABASE_URL,
++    NODE_ENV: process.env.NODE_ENV,
++    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
++    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
++    AZURE_COGNITIVE_KEY: process.env.AZURE_COGNITIVE_KEY || "your-azure-cognitive-key",
++    AZURE_COGNITIVE_ENDPOINT: process.env.AZURE_COGNITIVE_ENDPOINT || "https://your-azure-cognitive-endpoint.cognitiveservices.azure.com/",
++    AZURE_COGNITIVE_REGION: process.env.AZURE_COGNITIVE_REGION || "westeurope",
++    OPENAI_API_KEY: process.env.OPENAI_API_KEY || "your-openai-api-key",
++    ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY,
++    GOOGLE_AI_API_KEY: process.env.GOOGLE_AI_API_KEY,
++    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
++    STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
++    SMTP_HOST: process.env.SMTP_HOST,
++    SMTP_PORT: process.env.SMTP_PORT,
++    SMTP_USER: process.env.SMTP_USER,
++    SMTP_PASSWORD: process.env.SMTP_PASSWORD,
++    SMTP_FROM: process.env.SMTP_FROM,
++    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
++    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
++    NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID,
++  },
++  /**
++   * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
++   */
++  skipValidation: !!process.env.SKIP_ENV_VALIDATION,
++});
+diff --git a/src/lib/adaptive-complexity/adaptive-complexity-service.ts b/src/lib/adaptive-complexity/adaptive-complexity-service.ts
+index 4035c0f..930b84b 100644
+--- a/src/lib/adaptive-complexity/adaptive-complexity-service.ts
++++ b/src/lib/adaptive-complexity/adaptive-complexity-service.ts
+@@ -319,7 +319,7 @@ export class AdaptiveComplexityService {
+    * Calculate a performance score based on multiple metrics
+    */
+   private calculatePerformanceScore(
+-    performanceHistory: PerformanceMetric[],
++    performanceHistory[],
+     learningRate: number,
+     challengePreference: number
+   ): number {
+@@ -384,7 +384,7 @@ export class AdaptiveComplexityService {
+     );
+     
+     // Calculate score improvement over time
+-    const improvements: number[] = [];
++    const improvements[] = [];
+     for (let i = 1; i < sortedPerformance.length; i++) {
+       const timeDiff = (sortedPerformance[i].timestamp.getTime() - sortedPerformance[i-1].timestamp.getTime()) / (1000 * 60 * 60); // hours
+       const scoreDiff = sortedPerformance[i].score - sortedPerformance[i-1].score;
+@@ -437,8 +437,8 @@ export class AdaptiveComplexityService {
+       contentPerformance[perf.contentId].push(perf);
+     });
+     
+-    const strengths: string[] = [];
+-    const weaknesses: string[] = [];
++    const strengths[] = [];
++    const weaknesses[] = [];
+     
+     // Analyse each content area
+     Object.entries(contentPerformance).forEach(([contentId, perfs]) => {
+@@ -522,7 +522,7 @@ export class AdaptiveComplexityService {
+     previousLevel: ComplexityLevel,
+     newLevel: ComplexityLevel
+   ): string[] {
+-    const recommendations: string[] = [];
++    const recommendations[] = [];
+     
+     // Direction of change
+     const isIncrease = ComplexityLevelValue[newLevel] > ComplexityLevelValue[previousLevel];
 diff --git a/src/lib/ai/guidanceService.ts b/src/lib/ai/guidanceService.ts
-index b7e559e..b1af5aa 100644
+index b1af5aa..4c33eac 100644
 --- a/src/lib/ai/guidanceService.ts
 +++ b/src/lib/ai/guidanceService.ts
-@@ -419,7 +419,7 @@ export class AIGuidanceService {
-    */
+@@ -130,7 +130,7 @@ export class AIGuidanceService {
+     subject: SubjectArea,
+     dominantLearningStyle: LearningStyle,
+     currentProficiency: number,
+-    relevantGoals: LearningGoal[],
++    relevantGoals[],
+     duration: number
+   ): Promise<LearningPath> {
+     // This would typically involve a call to an AI service or recommendation engine
+@@ -245,15 +245,15 @@ export class AIGuidanceService {
+   private async createContentSuggestions(
+     learnerProfile: LearnerProfile,
+     dominantLearningStyle: LearningStyle,
+-    interests: SubjectArea[],
+-    areasForImprovement: SubjectArea[],
++    interests[],
++    areasForImprovement[],
+     currentLearningPath?: LearningPath,
+     count: number = 3
+   ): Promise<ContentSuggestion[]> {
+     // This would typically involve a call to a content recommendation service
+     // For now, we'll simulate this with a placeholder implementation
+     
+-    const suggestions: ContentSuggestion[] = [];
++    const suggestions[] = [];
+     
+     // Add suggestions based on learning style
+     suggestions.push({
+@@ -420,7 +420,7 @@ export class AIGuidanceService {
    public async monitorProgress(
      learnerProfile: LearnerProfile,
--    recentActivities: any[],
-+    recentActivities[],
-     currentLearningPaths: LearningPath[]
+     recentActivities[],
+-    currentLearningPaths: LearningPath[]
++    currentLearningPaths[]
    ): Promise<InterventionAlert[]> {
      // Analyse recent activities and learning paths to identify potential issues
-@@ -523,11 +523,11 @@ export class AIGuidanceService {
+     const performanceIssues = this.identifyPerformanceIssues(learnerProfile, recentActivities);
+@@ -428,7 +428,7 @@ export class AIGuidanceService {
+     const goalIssues = this.identifyGoalsAtRisk(learnerProfile, currentLearningPaths);
+     
+     // Generate intervention alerts based on identified issues
+-    const alerts: InterventionAlert[] = [];
++    const alerts[] = [];
+     
+     // Add performance alerts
+     performanceIssues.forEach(issue => {
+@@ -581,7 +581,7 @@ export class AIGuidanceService {
    /**
-    * Identify performance issues from recent activities
+    * Identify goals at risk of not being completed
     */
--  private identifyPerformanceIssues(learnerProfile: LearnerProfile, recentActivities: any[]): any[] {
-+  private identifyPerformanceIssues(learnerProfile: LearnerProfile, recentActivities[]): any[] {
-     // This would typically involve complex analysis of performance trends
-     // For now, we'll simulate this with a placeholder implementation
-     
--    const issues: any[] = [];
-+    const issues[] = [];
-     
-     // Placeholder implementation
-     if (recentActivities.length > 0) {
-@@ -548,11 +548,11 @@ export class AIGuidanceService {
-   /**
-    * Identify engagement issues from recent activities
-    */
--  private identifyEngagementIssues(learnerProfile: LearnerProfile, recentActivities: any[]): any[] {
-+  private identifyEngagementIssues(learnerProfile: LearnerProfile, recentActivities[]): any[] {
-     // This would typically involve analysis of engagement patterns
-     // For now, we'll simulate this with a placeholder implementation
-     
--    const issues: any[] = [];
-+    const issues[] = [];
-     
-     // Placeholder implementation
-     if (recentActivities.length === 0) {
-@@ -585,7 +585,7 @@ export class AIGuidanceService {
+-  private identifyGoalsAtRisk(learnerProfile: LearnerProfile, currentLearningPaths: LearningPath[]): any[] {
++  private identifyGoalsAtRisk(learnerProfile: LearnerProfile, currentLearningPaths[]): any[] {
      // This would typically involve analysis of goal progress against deadlines
      // For now, we'll simulate this with a placeholder implementation
      
--    const issues: any[] = [];
-+    const issues[] = [];
-     
-     // Placeholder implementation
-     const activeGoals = learnerProfile.learningGoals.filter(goal => goal.status === 'in_progress');
+diff --git a/src/lib/analytics-utils.tsx b/src/lib/analytics-utils.tsx
+index fd9fe1d..02ceebf 100644
+--- a/src/lib/analytics-utils.tsx
++++ b/src/lib/analytics-utils.tsx
+@@ -60,7 +60,7 @@ export interface AnalyticsConfig {
+   trackErrors: boolean;
+   trackPerformance: boolean;
+   samplingRate: number; // 0-1 value
+-  excludePaths: string[];
++  excludePaths[];
+   consentRequired: boolean;
+ }
+ 
+@@ -77,7 +77,7 @@ const defaultConfig: AnalyticsConfig = {
+ 
+ // Session storage
+ let currentSession: SessionInfo | null = null;
+-let analyticsQueue: AnalyticsEvent[] = [];
++let analyticsQueue[] = [];
+ let analyticsConfig: AnalyticsConfig = defaultConfig;
+ let consentGiven = false;
+ 
+@@ -313,7 +313,7 @@ export const trackFeatureUsage = (featureName: string, details?: Record<string,
+ export const trackLearningProgress = (
+   moduleId: string, 
+   progress: number, 
+-  completedActivities: string[],
++  completedActivities[],
+   timeSpent: number
+ ): void => {
+   trackEvent({
+@@ -565,7 +565,7 @@ export const useAnalyticsConsent = (): [boolean, (consent: boolean) => void] =>
+ export const getAnalyticsReport = async (
+   startDate: Date,
+   endDate: Date,
+-  metrics: string[],
++  metrics[],
+   filters?: Record<string, any>
+ ): Promise<Record<string, any>> => {
+   // In a real implementation, this would fetch from a backend API
+@@ -649,7 +649,7 @@ export const getAnalyticsReport = async (
+ export const AnalyticsDashboard: React.FC<{
+   startDate: Date;
+   endDate: Date;
+-  metrics: string[];
++  metrics[];
+   filters?: Record<string, any>;
+ }> = ({ startDate, endDate, metrics, filters }) => {
+   const [data, setData] = useState<Record<string, any> | null>(null);
 diff --git a/src/lib/analytics/analyticsService.ts b/src/lib/analytics/analyticsService.ts
-index b728b13..5bef482 100644
+index 5bef482..ac2249f 100644
 --- a/src/lib/analytics/analyticsService.ts
 +++ b/src/lib/analytics/analyticsService.ts
-@@ -272,7 +272,7 @@ export class AnalyticsService {
+@@ -309,7 +309,7 @@ export class AnalyticsService {
    /**
-    * Transform raw data into chart datasets
+    * Generate colour palette for datasets
     */
--  transformDataToDatasets(data: any[], labelField: string, valueField: string, categoryField?: string): Dataset[] {
-+  transformDataToDatasets(data[], labelField: string, valueField: string, categoryField?: string): Dataset[] {
-     if (!data || data.length === 0) {
-       return [];
+-  generateColorPalette(datasets: Dataset[]): Dataset[] {
++  generateColorPalette(datasets[]): Dataset[] {
+     const baseColors = [
+       '#4361ee', '#3a0ca3', '#7209b7', '#f72585', '#4cc9f0',
+       '#4895ef', '#560bad', '#b5179e', '#f15bb5', '#00bbf9'
+@@ -325,7 +325,7 @@ export class AnalyticsService {
+   /**
+    * Create accessible chart configuration
+    */
+-  createAccessibleChartConfig(title: string, datasets: Dataset[], type, options = {}): ChartConfig {
++  createAccessibleChartConfig(title: string, datasets[], type, options = {}): ChartConfig {
+     // Generate a summary of the data for screen readers
+     const dataPoints = datasets.reduce((sum, dataset) => sum + dataset.datasets?.length || 0, 0);
+     const keyFindings = this.generateKeyFindings(datasets);
+@@ -366,8 +366,8 @@ export class AnalyticsService {
+   /**
+    * Generate key findings from datasets
+    */
+-  private generateKeyFindings(datasets: Dataset[]): string[] {
+-    const findings: string[] = [];
++  private generateKeyFindings(datasets[]): string[] {
++    const findings[] = [];
+     
+     // This is a simplified version - in a real implementation, this would use
+     // statistical analysis to identify trends, outliers, etc.
+diff --git a/src/lib/assessment/adaptiveDifficultyService.ts b/src/lib/assessment/adaptiveDifficultyService.ts
+index 2053751..8156f29 100644
+--- a/src/lib/assessment/adaptiveDifficultyService.ts
++++ b/src/lib/assessment/adaptiveDifficultyService.ts
+@@ -46,7 +46,7 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
+    * @returns The recommended difficulty level for the next question
+    */
+   calculateNextQuestionDifficulty(
+-    previousResponses: QuestionResponse[],
++    previousResponses[],
+     currentDifficulty: DifficultyLevel
+   ): DifficultyLevel {
+     // If no previous responses, return the current difficulty
+@@ -81,7 +81,7 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
+    * @param responses The student's responses
+    * @returns The estimated ability level (theta in IRT)
+    */
+-  estimateStudentAbility(responses: QuestionResponse[]): number {
++  estimateStudentAbility(responses[]): number {
+     // If no responses, return a default ability estimate
+     if (responses.length === 0) {
+       return 0.0; // Default ability (average)
+@@ -130,7 +130,7 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
+    * @param studentAbility The student's estimated ability level
+    * @returns The selected question
+    */
+-  selectOptimalQuestion(questionBank: Question[], studentAbility: number): Question {
++  selectOptimalQuestion(questionBank[], studentAbility: number): Question {
+     // If no questions available, throw an error
+     if (questionBank.length === 0) {
+       throw new Error('No questions available for selection');
+@@ -162,7 +162,7 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
+    * 
+    * @param responses The responses to analyse
+    */
+-  async updateDifficultyModel(responses: QuestionResponse[]): Promise<void> {
++  async updateDifficultyModel(responses[]): Promise<void> {
+     // In a real implementation, this would update the IRT parameters
+     // based on accumulated response data
+     console.log(`Updating difficulty model with ${responses.length} responses`);
+@@ -202,7 +202,7 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
+    * @param responses The responses to analyse
+    * @returns The success rate (0-1)
+    */
+-  private calculateSuccessRate(responses: QuestionResponse[]): number {
++  private calculateSuccessRate(responses[]): number {
+     if (responses.length === 0) {
+       return 0.5; // Default to 50% if no responses
      }
+diff --git a/src/lib/assessment/assessmentEngineService.ts b/src/lib/assessment/assessmentEngineService.ts
+index ff346de..e36228e 100644
+--- a/src/lib/assessment/assessmentEngineService.ts
++++ b/src/lib/assessment/assessmentEngineService.ts
+@@ -265,7 +265,7 @@ export class AssessmentEngineService implements AssessmentEngine {
+     };
+     
+     // Generate questions based on template distribution
+-    const questions: Question[] = await this.generateQuestionsFromTemplate(template);
++    const questions[] = await this.generateQuestionsFromTemplate(template);
+     
+     // Create the assessment
+     const assessment: Assessment = {
+@@ -296,7 +296,7 @@ export class AssessmentEngineService implements AssessmentEngine {
+    * @param previousResponses The student's previous responses
+    * @returns The next question to present
+    */
+-  async generateAdaptiveQuestion(attemptId: string, previousResponses: QuestionResponse[]): Promise<Question> {
++  async generateAdaptiveQuestion(attemptId: string, previousResponses[]): Promise<Question> {
+     console.log(`Generating adaptive question for attempt ${attemptId}`);
+     
+     // Get the attempt
+@@ -379,8 +379,8 @@ export class AssessmentEngineService implements AssessmentEngine {
+   }): Promise<{
+     assessmentsCompleted: number;
+     averageScore: number;
+-    strengths: string[];
+-    areasForImprovement: string[];
++    strengths[];
++    areasForImprovement[];
+     progressOverTime: Array<{
+       date: Date;
+       score: number;
+@@ -515,8 +515,8 @@ export class AssessmentEngineService implements AssessmentEngine {
+     const passed = percentage >= (assessment.settings.passingScore || 60);
+     
+     // Generate strengths and areas for improvement
+-    const strengths: string[] = [];
+-    const areasForImprovement: string[] = [];
++    const strengths[] = [];
++    const areasForImprovement[] = [];
+     
+     // Identify strengths (domains with high performance)
+     Object.entries(byCognitiveDomain).forEach(([domain, data]) => {
+@@ -625,7 +625,7 @@ export class AssessmentEngineService implements AssessmentEngine {
+    * @returns Array of questions
+    */
+   private async generateQuestionsFromTemplate(template: AssessmentTemplate): Promise<Question[]> {
+-    const questions: Question[] = [];
++    const questions[] = [];
+     
+     // Calculate how many questions of each type to generate
+     const typeDistribution = new Map<QuestionType, number>();
+diff --git a/src/lib/auth/session.ts b/src/lib/auth/session.ts
+index cc917af..6433ab5 100644
+--- a/src/lib/auth/session.ts
++++ b/src/lib/auth/session.ts
+@@ -27,7 +27,7 @@ export async function isAuthenticated(): Promise<boolean> {
+ }
+ 
+ // Check if the user has the required role
+-export async function hasRole(requiredRoles: string | string[]): Promise<boolean> {
++export async function hasRole(requiredRoles: string | string: any[]): Promise<boolean> {
+   const session = await getSession();
+   
+   if (!session) {
+@@ -51,7 +51,7 @@ export async function authMiddleware(request: NextRequest) {
+ }
+ 
+ // Middleware to protect routes by role
+-export async function roleMiddleware(request: NextRequest, requiredRoles: string[]) {
++export async function roleMiddleware(request: NextRequest, requiredRoles: any[]) {
+   const session = await auth();
+   
+   // If the user is not authenticated, redirect to the login page
+diff --git a/src/lib/blog/blog-service.ts b/src/lib/blog/blog-service.ts
+index 86674bc..9e7f39c 100644
+--- a/src/lib/blog/blog-service.ts
++++ b/src/lib/blog/blog-service.ts
+@@ -55,8 +55,8 @@ export interface BlogPost {
+   content: string;
+   featuredImage?: string;
+   category: string;
+-  tags: string[];
+-  targetAudience: string[];
++  tags[];
++  targetAudience[];
+   status: BlogPostStatus;
+   authorId: string;
+   reviewerId?: string;
+@@ -92,7 +92,7 @@ export interface BlogPostWithRelations extends BlogPost {
+ // Blog post generation parameters
+ export interface BlogPostGenerationParams {
+   topic: string;
+-  audience: string[];
++  audience[];
+   category: string;
+   keyPoints?: string[];
+   tone?: 'professional' | 'conversational' | 'academic';
+@@ -104,7 +104,7 @@ export interface BlogPostGenerationResult {
+   title: string;
+   content: string;
+   summary: string;
+-  tags: string[];
++  tags[];
+   seoTitle: string;
+   seoDescription: string;
+ }
+@@ -115,8 +115,8 @@ export interface BlogPostSaveParams {
+   content: string;
+   summary: string;
+   category: string;
+-  tags: string[];
+-  targetAudience: string[];
++  tags[];
++  targetAudience[];
+   status?: BlogPostStatus;
+   publishDate?: Date;
+   authorId: string;
+@@ -138,7 +138,7 @@ export interface BlogPostFilterParams {
+ 
+ // Blog post filter result
+ export interface BlogPostFilterResult {
+-  posts: BlogPostWithRelations[];
++  posts[];
+   total: number;
+   pages: number;
+ }
+@@ -147,8 +147,8 @@ export interface BlogPostFilterResult {
+ export interface SeoRecommendationsResult {
+   title: string;
+   description: string;
+-  keywords: string[];
+-  suggestions: string[];
++  keywords[];
++  suggestions[];
+ }
+ 
+ // Blog analytics result
+@@ -166,8 +166,8 @@ export interface BlogPostIdea {
+   title: string;
+   summary: string;
+   category: string;
+-  targetAudience: string[];
+-  keyPoints: string[];
++  targetAudience[];
++  keyPoints[];
+ }
+ 
+ /**
+@@ -473,7 +473,7 @@ export async function deleteBlogPost(id: string): Promise<void> {
+ /**
+  * Generate blog post ideas based on user interests and curriculum topics
+  */
+-export async function generateBlogPostIdeas(count: number = 5, topics?: string[]): Promise<BlogPostIdea[]> {
++export async function generateBlogPostIdeas(count: number = 5, topics?: string: any[]): Promise<BlogPostIdea[]> {
+   const topicsStr = topics ? topics.join(', ') : 'educational psychology, learning strategies, special needs education, curriculum development';
+   
+   const prompt = `
 diff --git a/src/lib/cache.ts b/src/lib/cache.ts
-index aeece30..fda25ac 100644
+index fda25ac..aeece30 100644
 --- a/src/lib/cache.ts
 +++ b/src/lib/cache.ts
 @@ -93,7 +93,7 @@ export async function getCachedValue<T>(
  /**
   * Cache decorator for async functions
   */
--export function withCache<T extends (...args: any[]) => Promise<any>>(
-+export function withCache<T extends (...args[]) => Promise<any>>(
+-export function withCache<T extends (...args[]) => Promise<any>>(
++export function withCache<T extends (...args: any[]) => Promise<any>>(
    fn: T,
    keyPrefix: string,
    ttlSeconds: number | null = 3600
-diff --git a/src/lib/collaboration/collaborationService.ts b/src/lib/collaboration/collaborationService.ts
-index 43aff8a..1fc2222 100644
---- a/src/lib/collaboration/collaborationService.ts
-+++ b/src/lib/collaboration/collaborationService.ts
-@@ -359,7 +359,7 @@ export class CollaborationService {
-   /**
-    * Update whiteboard
-    */
--  public updateWhiteboard(whiteboardId: string, elements: any[], version: number): void {
-+  public updateWhiteboard(whiteboardId: string, elements[], version: number): void {
-     if (!this.socket || !this.userId || !this.sessionId) return;
-     
-     this.sendMessage({
-diff --git a/src/lib/db-utils.ts b/src/lib/db-utils.ts
-index 2b6dd40..75d1d2a 100644
---- a/src/lib/db-utils.ts
-+++ b/src/lib/db-utils.ts
-@@ -161,7 +161,7 @@ export async function getPaginatedResults<T>(
- export interface BulkOperationResult {
-   success: number;
-   failed: number;
--  errors: any[];
-+  errors[];
+diff --git a/src/lib/compliance/compliance-validator.ts b/src/lib/compliance/compliance-validator.ts
+index 03c5fd3..80ea585 100644
+--- a/src/lib/compliance/compliance-validator.ts
++++ b/src/lib/compliance/compliance-validator.ts
+@@ -20,15 +20,15 @@ export interface ComplianceValidationResult {
+ export interface ValidationSummary {
+   gdpr: {
+     passed: boolean;
+-    results: ComplianceValidationResult[];
++    results[];
+   };
+   blockchain: {
+     passed: boolean;
+-    results: ComplianceValidationResult[];
++    results[];
+   };
+   copyright: {
+     passed: boolean;
+-    results: ComplianceValidationResult[];
++    results[];
+   };
  }
  
- /**
+@@ -40,7 +40,7 @@ export class ComplianceValidator {
+    * Validate GDPR compliance across the platform
+    */
+   static async validateGDPRCompliance(): Promise<ComplianceValidationResult[]> {
+-    const results: ComplianceValidationResult[] = [];
++    const results[] = [];
+     
+     // Check consent mechanisms
+     const consentResult = await this.validateConsentMechanisms();
+@@ -77,7 +77,7 @@ export class ComplianceValidator {
+    * Validate blockchain integrity and validation mechanisms
+    */
+   static async validateBlockchainIntegrity(): Promise<ComplianceValidationResult[]> {
+-    const results: ComplianceValidationResult[] = [];
++    const results[] = [];
+     
+     // Check blockchain validation mechanisms
+     const validationResult = await this.validateBlockchainValidationMechanisms();
+@@ -98,7 +98,7 @@ export class ComplianceValidator {
+    * Validate copyright protection mechanisms
+    */
+   static async validateCopyrightProtection(): Promise<ComplianceValidationResult[]> {
+-    const results: ComplianceValidationResult[] = [];
++    const results[] = [];
+     
+     // Check content attribution
+     const attributionResult = await this.validateContentAttribution();
+diff --git a/src/lib/compliance/dfeComplianceService.ts b/src/lib/compliance/dfeComplianceService.ts
+index f32681c..1612969 100644
+--- a/src/lib/compliance/dfeComplianceService.ts
++++ b/src/lib/compliance/dfeComplianceService.ts
+@@ -27,10 +27,10 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
+   private ageAppropriatenessGuidelines: Map<AgeAppropriatenessRating, string[]> = new Map();
+   
+   // Accessibility requirements
+-  private accessibilityRequirements: string[] = [];
++  private accessibilityRequirements[] = [];
+   
+   // Inclusivity guidelines
+-  private inclusivityGuidelines: string[] = [];
++  private inclusivityGuidelines[] = [];
+   
+   /**
+    * Constructor for the DFE Compliance Service
+@@ -52,8 +52,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
+   async validateCurriculumAlignment(content, keyStage: UKKeyStage): Promise<{
+     isAligned: boolean;
+     alignmentScore: number;
+-    misalignments: string[];
+-    recommendations: string[];
++    misalignments[];
++    recommendations[];
+   }> {
+     console.log(`Validating curriculum alignment for key stage: ${keyStage}`);
+     
+@@ -96,7 +96,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
+   async checkAgeAppropriateness(content, targetAgeRange: { min: number; max: number }): Promise<{
+     isAppropriate: boolean;
+     appropriatenessScore: number;
+-    concerns: string[];
++    concerns[];
+     recommendedAgeRating: AgeAppropriatenessRating;
+   }> {
+     console.log(`Checking age appropriateness for age range: ${targetAgeRange.min}-${targetAgeRange.max}`);
+@@ -136,8 +136,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
+   async validateAccessibility(content): Promise<{
+     isAccessible: boolean;
+     accessibilityScore: number;
+-    issues: string[];
+-    recommendations: string[];
++    issues[];
++    recommendations[];
+   }> {
+     console.log('Validating accessibility');
+     
+@@ -178,8 +178,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
+   async checkInclusivity(content): Promise<{
+     isInclusive: boolean;
+     inclusivityScore: number;
+-    issues: string[];
+-    recommendations: string[];
++    issues[];
++    recommendations[];
+   }> {
+     console.log('Checking inclusivity');
+     
+diff --git a/src/lib/compliance/gdprComplianceService.ts b/src/lib/compliance/gdprComplianceService.ts
+index 5023d89..b2075ae 100644
+--- a/src/lib/compliance/gdprComplianceService.ts
++++ b/src/lib/compliance/gdprComplianceService.ts
+@@ -50,11 +50,11 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
+   private dataBreachLog: Array<{
+     id: string;
+     description: string;
+-    affectedUsers: string[];
+-    affectedDataCategories: DataProtectionCategory[];
++    affectedUsers[];
++    affectedDataCategories[];
+     detectionDate: Date;
+     reportDate: Date;
+-    containmentActions: string[];
++    containmentActions[];
+     severity: 'low' | 'medium' | 'high' | 'critical';
+     status: 'detected' | 'contained' | 'reported' | 'resolved';
+     resolution: string;
+@@ -141,10 +141,10 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
+    */
+   async handleSubjectAccessRequest(userId: string): Promise<{
+     personalData;
+-    processingActivities: string[];
+-    processingPurposes: string[];
++    processingActivities[];
++    processingPurposes[];
+     retentionPeriods: Record<string, string>;
+-    recipients: string[];
++    recipients[];
+   }> {
+     console.log(`Handling subject access request for user: ${userId}`);
+     
+@@ -155,8 +155,8 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
+     const userConsentMap = this.userConsent.get(userId);
+     
+     // Get the processing activities for which the user has given consent
+-    const consentedActivities: string[] = [];
+-    const processingPurposes: string[] = [];
++    const consentedActivities[] = [];
++    const processingPurposes[] = [];
+     const retentionPeriods: Record<string, string> = {};
+     
+     if (userConsentMap) {
+@@ -226,8 +226,8 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
+    */
+   async handleRightToErasure(userId: string, dataCategories?: DataProtectionCategory[]): Promise<{
+     success: boolean;
+-    erasedCategories: DataProtectionCategory[];
+-    retainedCategories: DataProtectionCategory[];
++    erasedCategories[];
++    retainedCategories[];
+     retentionReasons: Record<string, string>;
+   }> {
+     console.log(`Handling right to erasure request for user: ${userId}`);
+@@ -236,14 +236,14 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
+     // from various systems and databases
+     
+     // Mock implementation
+-    const erasedCategories: DataProtectionCategory[] = [
++    const erasedCategories[] = [
+       DataProtectionCategory.PERSONAL,
+       DataProtectionCategory.BEHAVIORAL_DATA,
+       DataProtectionCategory.COMMUNICATION_DATA
+     ];
+     
+     // Some data categories might be retained due to legal obligations
+-    const retainedCategories: DataProtectionCategory[] = [
++    const retainedCategories[] = [
+       DataProtectionCategory.EDUCATIONAL_RECORD,
+       DataProtectionCategory.ASSESSMENT_DATA
+     ];
+@@ -408,10 +408,10 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
+    */
+   async logDataBreach(details: {
+     description: string;
+-    affectedUsers: string[];
+-    affectedDataCategories: DataProtectionCategory[];
++    affectedUsers[];
++    affectedDataCategories[];
+     detectionDate: Date;
+-    containmentActions: string[];
++    containmentActions[];
+     severity: 'low' | 'medium' | 'high' | 'critical';
+   }): Promise<string> {
+     console.log(`Logging data breach: ${details.description}`);
+diff --git a/src/lib/content-creation/contentCreationService.ts b/src/lib/content-creation/contentCreationService.ts
+index ef98ee4..f85eb39 100644
+--- a/src/lib/content-creation/contentCreationService.ts
++++ b/src/lib/content-creation/contentCreationService.ts
+@@ -392,7 +392,7 @@ export class ContentCreationService {
+    */
+   public async adaptContent(
+     contentId: string, 
+-    targetLearningStyles: LearningStyle[], 
++    targetLearningStyles[], 
+     senSupport?: SENCategory[]
+   ): Promise<Partial<ContentDocument>> {
+     try {
+@@ -480,8 +480,8 @@ export class ContentCreationService {
+    */
+   public async checkCurriculumAlignment(contentId: string): Promise<{
+     alignmentScore: number;
+-    suggestions: string[];
+-    curriculumLinks: string[];
++    suggestions[];
++    curriculumLinks[];
+   }> {
+     try {
+       const response = await fetch(`${this.apiUrl}/api/content-creation/content/${contentId}/curriculum-check`, {
+diff --git a/src/lib/db-maintenance.ts b/src/lib/db-maintenance.ts
+index 8843345..39ed1a9 100644
+--- a/src/lib/db-maintenance.ts
++++ b/src/lib/db-maintenance.ts
+@@ -52,7 +52,7 @@ export async function checkDatabaseHealth(): Promise<DatabaseHealthCheckResult>
+   try {
+     const startTime = Date.now();
+     const issues: Array<{type: string; severity; message: string; details?}> = [];
+-    const recommendations: string[] = [];
++    const recommendations[] = [];
+     
+     // Check basic connectivity
+     let connectionStatus = false;
+@@ -368,7 +368,7 @@ export interface DatabaseSchemaValidationResult {
+   extraModels?: string[];
+   modelIssues?: Array<{
+     model: string;
+-    issues: string[];
++    issues[];
+   }>;
+   error?: string;
+ }
+@@ -395,10 +395,10 @@ export async function validateDatabaseSchema(): Promise<DatabaseSchemaValidation
+     const extraModels = actualModels.filter(model => !expectedModels.includes(model));
+     
+     // Check for model issues
+-    const modelIssues: Array<{model: string; issues: string[]}> = [];
++    const modelIssues: Array<{model: string; issues[]}> = [];
+     
+     for (const model of introspection.models) {
+-      const issues: string[] = [];
++      const issues[] = [];
+       
+       // Check for required fields
+       if (model.name === 'User' && !model.fields.some(field => field.name === 'email')) {
+@@ -781,7 +781,7 @@ export async function collectDatabaseUsageStatistics(
+     const operations = { reads: 0, writes: 0, deletes: 0 };
+     const models: Record<string, { reads: number; writes: number; deletes: number }> = {};
+     const users: Record<string, { operations: number; lastActive: string }> = {};
+-    const queryTimes: number[] = [];
++    const queryTimes[] = [];
+     let slowestQueryTimeMs = 0;
+     let slowestQueryModel = '';
+     
+@@ -891,23 +891,23 @@ export async function collectDatabaseUsageStatistics(
+ export interface DatabaseMaintenanceSchedule {
+   daily: {
+     time: string;
+-    tasks: string[];
++    tasks[];
+   };
+   weekly: {
+     day: string;
+     time: string;
+-    tasks: string[];
++    tasks[];
+   };
+   monthly: {
+     day: number;
+     time: string;
+-    tasks: string[];
++    tasks[];
+   };
+   quarterly: {
+-    months: number[];
++    months[];
+     day: number;
+     time: string;
+-    tasks: string[];
++    tasks[];
+   };
+ }
+ 
+diff --git a/src/lib/db-utils.ts b/src/lib/db-utils.ts
+index 75d1d2a..9da6470 100644
+--- a/src/lib/db-utils.ts
++++ b/src/lib/db-utils.ts
+@@ -81,7 +81,7 @@ export interface SearchParams {
+  * Paginated result interface
+  */
+ export interface PaginatedResult<T> {
+-  data: T[];
++  data[];
+   pagination: {
+     total: number;
+     page: number;
 @@ -171,7 +171,7 @@ export interface BulkOperationResult {
   * @param validator Optional validation function
   * @returns Bulk operation result
   */
--export async function bulkCreate(model: string, data: any[], validator?: (item: any) => any
-+export async function bulkCreate(model: string, data[], validator?: (item: any) => any
+-export async function bulkCreate(model: string, data[], validator?: (item: any) => any
++export async function bulkCreate(model: string, data: any[], validator?: (item: any) => any
  ): Promise<BulkOperationResult> {
    const result: BulkOperationResult = {
      success: 0,
+@@ -252,7 +252,7 @@ export async function bulkUpdate(
+  * @param ids Array of record IDs to delete
+  * @returns Bulk operation result
+  */
+-export async function bulkDelete(model: string, ids: string[]): Promise<BulkOperationResult> {
++export async function bulkDelete(model: string, ids: any[]): Promise<BulkOperationResult> {
+   const result: BulkOperationResult = {
+     success: 0,
+     failed: 0,
+diff --git a/src/lib/heygen/cost-management.ts b/src/lib/heygen/cost-management.ts
+index e32b4ec..f451a6a 100644
+--- a/src/lib/heygen/cost-management.ts
++++ b/src/lib/heygen/cost-management.ts
+@@ -297,7 +297,7 @@ export async function getVideoForUser(params: VideoGenerationParams): Promise<Vi
+  * Pre-generate common navigation videos for the free tier
+  * This should be run as a scheduled job to build up the library of free videos
+  */
+-export async function preGenerateCommonVideos(navigationScripts: NavigationScript[]): Promise<void> {
++export async function preGenerateCommonVideos(navigationScripts: any[]): Promise<void> {
+   for (const script of navigationScripts) {
+     const cacheKey = generateVideoCacheKey({
+       text: script.text,
+diff --git a/src/lib/mobile/mobileService.ts b/src/lib/mobile/mobileService.ts
+index b98a66c..4543806 100644
+--- a/src/lib/mobile/mobileService.ts
++++ b/src/lib/mobile/mobileService.ts
+@@ -448,7 +448,7 @@ export class DeviceDetectionService {
+ export class OfflineStorageService {
+   private static instance: OfflineStorageService;
+   private db: IDBDatabase | null = null;
+-  private syncQueue: SyncQueueItem[] = [];
++  private syncQueue[] = [];
+   private isSyncing: boolean = false;
+   private syncInterval: number = 30000; // 30 seconds
+   private syncIntervalId: number | null = null;
+diff --git a/src/lib/monitoring/alerting.ts b/src/lib/monitoring/alerting.ts
+index 5a6b4e1..bdf02ce 100644
+--- a/src/lib/monitoring/alerting.ts
++++ b/src/lib/monitoring/alerting.ts
+@@ -20,7 +20,7 @@ export interface AlertConfig {
+   level: AlertLevel;
+   threshold: number;
+   cooldown: number; // in milliseconds
+-  channels: AlertChannel[];
++  channels[];
+   enabled: boolean;
+ }
+ 
+diff --git a/src/lib/plugins/templates/assessmentToolPlugin.ts b/src/lib/plugins/templates/assessmentToolPlugin.ts
+index ae6afbc..d2faa80 100644
+--- a/src/lib/plugins/templates/assessmentToolPlugin.ts
++++ b/src/lib/plugins/templates/assessmentToolPlugin.ts
+@@ -256,7 +256,7 @@ export interface AssessmentToolPluginParams {
+     max: number;
+   };
+   subject: string;
+-  topics: string[];
++  topics[];
+   difficultyLevel: string;
+   questionCount: number;
+   timeLimit?: number;
+@@ -333,7 +333,7 @@ export function convertToPluginFormat(assessment: Assessment): AssessmentToolPlu
+  * @param responses The plugin responses
+  * @returns The platform question responses
+  */
+-export function convertToQuestionResponses(responses: AssessmentToolPluginResponse[]): QuestionResponse[] {
++export function convertToQuestionResponses(responses: any[]): QuestionResponse[] {
+   return responses.map(response => ({
+     questionId: response.questionId,
+     responseData: response.responseData,
+diff --git a/src/lib/security-utils.ts b/src/lib/security-utils.ts
+index 846d481..7249d68 100644
+--- a/src/lib/security-utils.ts
++++ b/src/lib/security-utils.ts
+@@ -264,7 +264,7 @@ export const getSecureHeaders = () => {
+  */
+ export const validateSecureFileUpload = (
+   file: File,
+-  allowedTypes: string[],
++  allowedTypes[],
+   maxSize: number
+ ): boolean => {
+   // Check file type
+diff --git a/src/lib/testing/testingService.ts b/src/lib/testing/testingService.ts
+index a45bb8b..2c444d7 100644
+--- a/src/lib/testing/testingService.ts
++++ b/src/lib/testing/testingService.ts
+@@ -22,7 +22,7 @@ import {
+  */
+ export class TestingService {
+   private config: TestConfig;
+-  private reporters: TestReporter[] = [];
++  private reporters[] = [];
+   private currentRun: TestRun | null = null;
+   
+   constructor(config: TestConfig) {
 diff --git a/src/lib/utils.ts b/src/lib/utils.ts
-index c7ff1e5..719c029 100644
+index c7ff1e5..e54cfc4 100644
 --- a/src/lib/utils.ts
 +++ b/src/lib/utils.ts
-@@ -78,7 +78,7 @@ export function truncateText(text: string, maxLength: number): string {
-  * @param delay - Delay in milliseconds
-  * @returns Debounced function
+@@ -6,7 +6,7 @@ import { twMerge } from "tailwind-merge";
+  * @param inputs - Class values to be combined
+  * @returns Merged class string
   */
--export function debounce<T extends (...args: any[]) => any>(
-+export function debounce<T extends (...args[]) => any>(
-   fn: T,
-   delay: number
- ): (...args: Parameters<T>) => void {
+-export function cn(...inputs: ClassValue[]): string {
++export function cn(...inputs: any[]): string {
+   return twMerge(clsx(inputs));
+ }
+ 
+diff --git a/src/lib/voice/textToSpeech.ts b/src/lib/voice/textToSpeech.ts
+index 42ec40e..b56c2bd 100644
+--- a/src/lib/voice/textToSpeech.ts
++++ b/src/lib/voice/textToSpeech.ts
+@@ -26,7 +26,7 @@ export interface TextToSpeechState {
+   currentPosition: number;
+   currentSentence: string;
+   progress: number;
+-  availableVoices: SpeechSynthesisVoice[];
++  availableVoices[];
+ }
+ 
+ // Text-to-speech service class
+@@ -35,7 +35,7 @@ export class TextToSpeechService {
+   private utterance: SpeechSynthesisUtterance | null = null;
+   private options: TextToSpeechOptions;
+   private state: TextToSpeechState;
+-  private textQueue: string[] = [];
++  private textQueue[] = [];
+   private highlightCallback: ((text: string, start: number, end: number) => void) | null = null;
+   private onEndCallback: (() => void) | null = null;
+   
 diff --git a/src/pages/blog/[slug].tsx b/src/pages/blog/[slug].tsx
-index 446aa77..52d0fce 100644
+index 70c5571..5c64147 100644
 --- a/src/pages/blog/[slug].tsx
 +++ b/src/pages/blog/[slug].tsx
 @@ -11,7 +11,7 @@ import { prisma } from '@/lib/db';
  
  interface BlogPostPageProps {
-   post;
+   post: any;
 -  relatedPosts: any[];
 +  relatedPosts[];
  }
  
  export default function BlogPostPage({ post, relatedPosts }: BlogPostPageProps) {
+diff --git a/src/pages/blog/categories.tsx b/src/pages/blog/categories.tsx
+index 75b85e9..3d22874 100644
+--- a/src/pages/blog/categories.tsx
++++ b/src/pages/blog/categories.tsx
+@@ -20,7 +20,7 @@ interface Category {
+ }
+ 
+ interface BlogCategoriesPageProps {
+-  categories: Category[];
++  categories[];
+ }
+ 
+ export default function BlogCategoriesPage({ categories }: BlogCategoriesPageProps) {
+diff --git a/src/pages/blog/new.tsx b/src/pages/blog/new.tsx
+index 9a30344..e2d07e3 100644
+--- a/src/pages/blog/new.tsx
++++ b/src/pages/blog/new.tsx
+@@ -15,7 +15,7 @@ interface Category {
+ }
+ 
+ interface NewBlogPostPageProps {
+-  categories: Category[];
++  categories[];
+ }
+ 
+ export default function NewBlogPostPage({ categories }: NewBlogPostPageProps) {
+diff --git a/src/tests/lib/monitoring/monitoring.test.ts b/src/tests/lib/monitoring/monitoring.test.ts
+index 4d2c1fa..6a5f7b6 100644
+--- a/src/tests/lib/monitoring/monitoring.test.ts
++++ b/src/tests/lib/monitoring/monitoring.test.ts
+@@ -10,7 +10,7 @@ interface AlertConfig {
+   level: string;
+   threshold: number;
+   cooldown: number;
+-  channels: string[];
++  channels[];
+   enabled: boolean;
+ }
+ 

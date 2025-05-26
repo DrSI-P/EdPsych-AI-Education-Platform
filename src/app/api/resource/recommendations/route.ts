@@ -26,7 +26,7 @@ interface ResourceRecommendation {
   type: string;
   file?: string;
   url?: string;
-  tags[];
+  tags: any[];
   ageRange: string;
   subject: string;
   curriculum: string;
@@ -81,7 +81,7 @@ function generateMockRecommendations(data: RecommendationRequestData): ResourceR
   const { contextSource, contextContent, manualQuery } = data;
   
   // Base set of resources
-  const resources[] = [
+  const resources: any[] = [
     {
       id: 'rec-1',
       title: 'Fractions Visual Models Collection',

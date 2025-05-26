@@ -46,11 +46,11 @@ interface SensoryActivity {
   category: string;
   duration: string;
   intensity: number;
-  suitableFor[];
-  materials[];
-  steps[];
-  benefits[];
-  cautions[];
+  suitableFor: any[];
+  materials: any[];
+  steps: any[];
+  benefits: any[];
+  cautions: any[];
   imageUrl?: string;
 }
 
@@ -83,7 +83,7 @@ export function SensoryRegulationEngine() {
   const [intensityFilter, setIntensityFilter] = useState('all');
   
   // Sample sensory activities
-  const sampleActivities[] = [
+  const sampleActivities: any[] = [
     {
       id: 'act1',
       name: 'Deep Pressure Squeeze',

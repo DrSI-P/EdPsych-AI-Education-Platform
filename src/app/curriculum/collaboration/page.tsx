@@ -50,7 +50,7 @@ interface Plan {
   id: string;
   title: string;
   description: string;
-  tasks[];
+  tasks: any[];
 }
 
 interface CollaborationData {
@@ -60,8 +60,8 @@ interface CollaborationData {
   createdAt: string;
   updatedAt: string;
   createdBy: User;
-  collaborators[];
-  comments[];
+  collaborators: any[];
+  comments: any[];
   plan: Plan;
 }
 

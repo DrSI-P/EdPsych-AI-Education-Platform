@@ -55,8 +55,8 @@ export interface BlogPost {
   content: string;
   featuredImage?: string;
   category: string;
-  tags[];
-  targetAudience[];
+  tags: any[];
+  targetAudience: any[];
   status: BlogPostStatus;
   authorId: string;
   reviewerId?: string;
@@ -92,7 +92,7 @@ export interface BlogPostWithRelations extends BlogPost {
 // Blog post generation parameters
 export interface BlogPostGenerationParams {
   topic: string;
-  audience[];
+  audience: any[];
   category: string;
   keyPoints?: string[];
   tone?: 'professional' | 'conversational' | 'academic';
@@ -104,7 +104,7 @@ export interface BlogPostGenerationResult {
   title: string;
   content: string;
   summary: string;
-  tags[];
+  tags: any[];
   seoTitle: string;
   seoDescription: string;
 }
@@ -115,8 +115,8 @@ export interface BlogPostSaveParams {
   content: string;
   summary: string;
   category: string;
-  tags[];
-  targetAudience[];
+  tags: any[];
+  targetAudience: any[];
   status?: BlogPostStatus;
   publishDate?: Date;
   authorId: string;
@@ -128,7 +128,7 @@ export interface BlogPostSaveParams {
 
 // Blog post filter parameters
 export interface BlogPostFilterParams {
-  status?: BlogPostStatus | BlogPostStatus[];
+  status?: BlogPostStatus | BlogPostStatus: any[];
   category?: string;
   audience?: string;
   page?: number;
@@ -138,7 +138,7 @@ export interface BlogPostFilterParams {
 
 // Blog post filter result
 export interface BlogPostFilterResult {
-  posts[];
+  posts: any[];
   total: number;
   pages: number;
 }
@@ -147,8 +147,8 @@ export interface BlogPostFilterResult {
 export interface SeoRecommendationsResult {
   title: string;
   description: string;
-  keywords[];
-  suggestions[];
+  keywords: any[];
+  suggestions: any[];
 }
 
 // Blog analytics result
@@ -166,8 +166,8 @@ export interface BlogPostIdea {
   title: string;
   summary: string;
   category: string;
-  targetAudience[];
-  keyPoints[];
+  targetAudience: any[];
+  keyPoints: any[];
 }
 
 /**
@@ -473,7 +473,7 @@ export async function deleteBlogPost(id: string): Promise<void> {
 /**
  * Generate blog post ideas based on user interests and curriculum topics
  */
-export async function generateBlogPostIdeas(count: number = 5, topics?: string: any[]): Promise<BlogPostIdea[]> {
+export async function generateBlogPostIdeas(count: number = 5, topics?: string[]): Promise<BlogPostIdea[]> {
   const topicsStr = topics ? topics.join(', ') : 'educational psychology, learning strategies, special needs education, curriculum development';
   
   const prompt = `

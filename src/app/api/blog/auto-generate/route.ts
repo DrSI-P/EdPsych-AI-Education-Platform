@@ -28,7 +28,7 @@ const BLOG_AUDIENCES = [
 
 interface BlogGenerationParams {
   topic: string;
-  audience[];
+  audience: any[];
   category: string;
   keyPoints?: string[];
   tone?: string;
@@ -40,8 +40,8 @@ interface BlogPostData {
   content: string;
   summary: string;
   category: string;
-  tags[];
-  targetAudience[];
+  tags: any[];
+  targetAudience: any[];
   status: string;
   authorId: string;
   aiGenerationPrompt: string;
@@ -52,7 +52,7 @@ interface BlogPostData {
 interface BlogPostIdea {
   title: string;
   description: string;
-  targetAudience[];
+  targetAudience: any[];
   estimatedReadTime: number;
 }
 
@@ -80,12 +80,12 @@ async function saveBlogPost(postData: BlogPostData) {
 }
 
 // Mock function for generating blog post ideas
-async function generateBlogPostIdeas(count: number, topics?: string: any[]): Promise<BlogPostIdea[]> {
+async function generateBlogPostIdeas(count: number, topics?: string[]): Promise<BlogPostIdea[]> {
   // In a real implementation, this would call an AI service
   // For now, we'll return mock ideas
   await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API delay
   
-  const ideas[] = [];
+  const ideas: any[] = [];
   
   for (let i = 0; i < count; i++) {
     ideas.push({

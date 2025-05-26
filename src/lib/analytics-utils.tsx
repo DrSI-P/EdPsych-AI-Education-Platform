@@ -60,7 +60,7 @@ export interface AnalyticsConfig {
   trackErrors: boolean;
   trackPerformance: boolean;
   samplingRate: number; // 0-1 value
-  excludePaths[];
+  excludePaths: any[];
   consentRequired: boolean;
 }
 
@@ -77,7 +77,7 @@ const defaultConfig: AnalyticsConfig = {
 
 // Session storage
 let currentSession: SessionInfo | null = null;
-let analyticsQueue[] = [];
+let analyticsQueue: any[] = [];
 let analyticsConfig: AnalyticsConfig = defaultConfig;
 let consentGiven = false;
 
@@ -313,7 +313,7 @@ export const trackFeatureUsage = (featureName: string, details?: Record<string, 
 export const trackLearningProgress = (
   moduleId: string, 
   progress: number, 
-  completedActivities[],
+  completedActivities: any[],
   timeSpent: number
 ): void => {
   trackEvent({
@@ -565,7 +565,7 @@ export const useAnalyticsConsent = (): [boolean, (consent: boolean) => void] => 
 export const getAnalyticsReport = async (
   startDate: Date,
   endDate: Date,
-  metrics[],
+  metrics: any[],
   filters?: Record<string, any>
 ): Promise<Record<string, any>> => {
   // In a real implementation, this would fetch from a backend API
@@ -649,7 +649,7 @@ export const getAnalyticsReport = async (
 export const AnalyticsDashboard: React.FC<{
   startDate: Date;
   endDate: Date;
-  metrics[];
+  metrics: any[];
   filters?: Record<string, any>;
 }> = ({ startDate, endDate, metrics, filters }) => {
   const [data, setData] = useState<Record<string, any> | null>(null);

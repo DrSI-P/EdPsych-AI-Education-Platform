@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     
         // Get curriculum plan if ID is provided
     let planContent = curriculumContent;
-    let planObjectives[] = objectives || [];
+    let planObjectives: any[] = objectives || [];
     let planSubject = subject;
     let planKeyStage = keyStage;
     let planYear = year; year;

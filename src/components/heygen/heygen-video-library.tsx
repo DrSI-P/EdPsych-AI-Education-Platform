@@ -22,7 +22,7 @@ export interface HeygenVideo {
 }
 
 // Mock data for testing
-const mockVideos[] = [
+const mockVideos: any[] = [
   {
     id: 'v1',
     title: 'Welcome to EdPsych Connect',
