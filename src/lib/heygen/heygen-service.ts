@@ -8,7 +8,7 @@
 import { HeygenAPI, HeygenVideo, HeygenAvatar, VideoGenerationRequest } from './heygen-api';
 import { db } from '../db';
 
-// Use 'export type' for re-exporting types when isolatedModules is enabled
+// Re-export the HeygenVideo type
 export type { HeygenVideo };
 
 export class HeygenService {
