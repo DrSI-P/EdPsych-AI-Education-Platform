@@ -144,7 +144,7 @@ export const AdventureQuestSagaIntegrated = (): JSX.Element => {
   };
   
   // Handle quest completion
-  const handleCompleteQuest = (quest: Quest, results): void => {
+  const handleCompleteQuest = (quest: Quest, results: any): void => {
     // Add quest to completed quests
     setCompletedQuests([...completedQuests, {
       ...quest,
