@@ -228,7 +228,7 @@ export default function MeetingNoteTranscription() {
   const [liveTranscript, setLiveTranscript] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [currentMeeting, setCurrentMeeting] = useState<any>(null);
-  const [savedMeetings, setSavedMeetings] = useState<any: any[]>(sampleMeetings);
+  const [savedMeetings, setSavedMeetings] = useState<any[]>(sampleMeetings);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredMeetings, setFilteredMeetings] = useState<any: any[]>(sampleMeetings);
   const [editingKeyPoints, setEditingKeyPoints] = useState(false);

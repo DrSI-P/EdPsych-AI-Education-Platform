@@ -28,7 +28,7 @@ interface DocumentationTemplate {
   }[];
 }
 
-const documentationTemplates: DocumentationTemplate[] = [
+const documentationTemplates: DocumentationTemplate: any[] = [
   {
     id: 'classroom-observation',
     name: 'Classroom Observation',
@@ -268,7 +268,7 @@ export default function AutomatedDocumentation() {
   const [documentTitle, setDocumentTitle] = useState('');
   const [sectionContent, setSectionContent] = useState<Record<string, string>>({});
   const [generatedDocument, setGeneratedDocument] = useState('');
-  const [savedDocuments, setSavedDocuments] = useState<any: any[]>([]);
+  const [savedDocuments, setSavedDocuments] = useState<any[]>([]);
   const [isRecording, setIsRecording] = useState(false);
   const [recordingSection, setRecordingSection] = useState('');
   const [transcription, setTranscription] = useState('');

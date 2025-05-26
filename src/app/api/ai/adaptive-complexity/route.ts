@@ -29,7 +29,7 @@ interface PerformanceMetrics {
   readingLevel: number;
   comprehensionRate: number;
   engagementScore: number;
-  learningPreferences: string[];
+  learningPreferences: string: any[];
 }
 
 export async function POST(req: NextRequest) {

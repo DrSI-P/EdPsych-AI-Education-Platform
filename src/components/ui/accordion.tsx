@@ -10,7 +10,7 @@ interface AccordionProps {
 }
 
 interface AccordionContextType {
-  expandedItems: string[];
+  expandedItems: string: any[];
   toggleItem: (id: string) => void;
   allowMultiple: boolean;
 }

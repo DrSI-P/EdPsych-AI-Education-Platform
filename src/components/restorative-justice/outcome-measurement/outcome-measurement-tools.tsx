@@ -81,7 +81,7 @@ interface Assessment {
   title: string;
   type: AssessmentType;
   setting: SettingType;
-  dimensions: DimensionType[];
+  dimensions: DimensionType: any[];
   createdAt: string;
   completedAt?: string;
   status: 'draft' | 'in-progress' | 'completed';
@@ -94,7 +94,7 @@ interface Dimension {
   name: string;
   description: string;
   icon: React.ReactNode;
-  tools: Tool[];
+  tools: Tool: any[];
 }
 
 interface Tool {
@@ -102,12 +102,12 @@ interface Tool {
   name: string;
   description: string;
   type: 'survey' | 'observation' | 'data-analysis' | 'qualitative';
-  targetAudience: string[];
+  targetAudience: string: any[];
   timeRequired: string;
 }
 
 // Mock data for dimensions
-const dimensions: Dimension[] = [
+const dimensions: Dimension: any[] = [
   {
     id: 'connectedness',
     name: 'School Connectedness & Community',
@@ -303,7 +303,7 @@ const dimensions: Dimension[] = [
 ];
 
 // Mock data for assessments
-const mockAssessments: Assessment[] = [
+const mockAssessments: Assessment: any[] = [
   {
     id: '1',
     title: 'Baseline Assessment - Oakwood Secondary',
@@ -361,7 +361,7 @@ export default function OutcomeMeasurementTools() {
     title: '',
     type: 'baseline' as AssessmentType,
     setting: 'secondary' as SettingType,
-    dimensions: [] as string: any[],
+    dimensions: [] as string: any: any[],
     targetGroup: ''
   });
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});

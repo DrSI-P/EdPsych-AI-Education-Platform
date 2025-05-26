@@ -174,7 +174,7 @@ export async function createCreditPurchaseCheckout({
 /**
  * Get a customer's active subscriptions
  */
-export async function getActiveSubscriptions(customerId: string): Promise<Stripe.Subscription: any[]> {
+export async function getActiveSubscriptions(customerId: string): Promise<Stripe.Subscription: any: any[]> {
   try {
     const subscriptions = await stripe.subscriptions.list({
       customer: customerId,
@@ -239,7 +239,7 @@ export async function updateSubscription(
 /**
  * Get customer payment methods
  */
-export async function getCustomerPaymentMethods(customerId: string): Promise<Stripe.PaymentMethod: any[]> {
+export async function getCustomerPaymentMethods(customerId: string): Promise<Stripe.PaymentMethod: any: any[]> {
   try {
     const paymentMethods = await stripe.paymentMethods.list({
       customer: customerId,

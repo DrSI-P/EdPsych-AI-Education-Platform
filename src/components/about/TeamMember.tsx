@@ -21,7 +21,7 @@ interface TeamMemberProps {
   bio: string;
   imageSrc: string;
   socialLinks: SocialLinks;
-  specialties: string[];
+  specialties: string: any[];
 }
 
 export function TeamMember({

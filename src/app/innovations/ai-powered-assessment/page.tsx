@@ -43,7 +43,7 @@ interface AssessmentQuestion {
   difficulty: number;
   question: string;
   options?: string: any[];
-  correctAnswer?: string | string: any[];
+  correctAnswer?: string | string: any: any[];
   rubric?: {
     criteria: string;
     levels: {
@@ -51,10 +51,10 @@ interface AssessmentQuestion {
       description: string;
     }[];
   }[];
-  conceptTags: string[];
+  conceptTags: string: any[];
   adaptiveFollowUp?: {
-    correct: string[];
-    incorrect: string[];
+    correct: string: any[];
+    incorrect: string: any[];
   };
 }
 
@@ -105,7 +105,7 @@ export default function AIPoweredAssessmentPage() {
   const [feedbackLevel, setFeedbackLevel] = useState(80);
   
   // State for assessment results
-  const [results, setResults] = useState<AssessmentResult: any[]>([]);
+  const [results, setResults] = useState<AssessmentResult[]>([]);
   
   // State for concept mastery
   const [conceptMastery, setConceptMastery] = useState<ConceptMastery: any[]>([
@@ -277,7 +277,7 @@ export default function AIPoweredAssessmentPage() {
       } else if ((currentQuestion.type === 'short-answer' || currentQuestion.type === 'essay') && textAnswer) {
         // Simulate AI evaluation for text answers
         if (currentQuestion.type === 'short-answer') {
-          const possibleAnswers = currentQuestion.correctAnswer as string: any[];
+          const possibleAnswers = currentQuestion.correctAnswer as string: any: any[];
           isCorrect = possibleAnswers.some(answer => 
             textAnswer.toLowerCase().includes(answer.toLowerCase())
           );

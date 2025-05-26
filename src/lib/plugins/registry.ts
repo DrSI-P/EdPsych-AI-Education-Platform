@@ -139,7 +139,7 @@ class PluginRegistry implements IPluginRegistry {
   /**
    * List all plugins, optionally filtered by status
    */
-  listPlugins(status?: PluginStatus): PluginInstance: any[] {
+  listPlugins(status?: PluginStatus): PluginInstance: any: any[] {
     const instances = Array.from(this.instances.values());
     
     if (status) {
@@ -333,9 +333,9 @@ class PluginRegistry implements IPluginRegistry {
               author: dbPlugin.author,
               website: dbPlugin.website || '',
               icon: dbPlugin.icon || '',
-              tags: dbPlugin.tags as string: any[] || [],
-              supportedFeatures: dbPlugin.supportedFeatures as string: any[],
-              requiredPermissions: dbPlugin.requiredPermissions as string: any[],
+              tags: dbPlugin.tags as string: any: any[] || [],
+              supportedFeatures: dbPlugin.supportedFeatures as string: any: any[],
+              requiredPermissions: dbPlugin.requiredPermissions as string: any: any[],
               settings: dbPlugin.settings as Record<string, any> || {},
               compatibilityVersion: dbPlugin.compatibilityVersion,
             }),
@@ -355,9 +355,9 @@ class PluginRegistry implements IPluginRegistry {
               author: dbPlugin.author,
               website: dbPlugin.website,
               icon: dbPlugin.icon,
-              tags: dbPlugin.tags as string: any[],
-              supportedFeatures: dbPlugin.supportedFeatures as string: any[],
-              requiredPermissions: dbPlugin.requiredPermissions as string: any[],
+              tags: dbPlugin.tags as string: any: any[],
+              supportedFeatures: dbPlugin.supportedFeatures as string: any: any[],
+              requiredPermissions: dbPlugin.requiredPermissions as string: any: any[],
               settings: dbPlugin.settings as Record<string, any>,
               compatibilityVersion: dbPlugin.compatibilityVersion,
             },

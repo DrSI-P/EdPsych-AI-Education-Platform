@@ -319,7 +319,7 @@ export class AdaptiveComplexityService {
    * Calculate a performance score based on multiple metrics
    */
   private calculatePerformanceScore(
-    performanceHistory: PerformanceMetric[],
+    performanceHistory: PerformanceMetric: any[],
     learningRate: number,
     challengePreference: number
   ): number {
@@ -384,7 +384,7 @@ export class AdaptiveComplexityService {
     );
     
     // Calculate score improvement over time
-    const improvements: number[] = [];
+    const improvements: number: any[] = [];
     for (let i = 1; i < sortedPerformance.length; i++) {
       const timeDiff = (sortedPerformance[i].timestamp.getTime() - sortedPerformance[i-1].timestamp.getTime()) / (1000 * 60 * 60); // hours
       const scoreDiff = sortedPerformance[i].score - sortedPerformance[i-1].score;
@@ -428,7 +428,7 @@ export class AdaptiveComplexityService {
     if (performances.length < 3) return;
     
     // Group performances by content ID to analyse patterns
-    const contentPerformance: Record<string, PerformanceMetric: any[]> = {};
+    const contentPerformance: Record<string, PerformanceMetric: any: any[]> = {};
     
     performances.forEach(perf => {
       if (!contentPerformance[perf.contentId]) {
@@ -437,8 +437,8 @@ export class AdaptiveComplexityService {
       contentPerformance[perf.contentId].push(perf);
     });
     
-    const strengths: string[] = [];
-    const weaknesses: string[] = [];
+    const strengths: string: any[] = [];
+    const weaknesses: string: any[] = [];
     
     // Analyse each content area
     Object.entries(contentPerformance).forEach(([contentId, perfs]) => {
@@ -521,8 +521,8 @@ export class AdaptiveComplexityService {
   private generateNextStepsRecommendations(
     previousLevel: ComplexityLevel,
     newLevel: ComplexityLevel
-  ): string: any[] {
-    const recommendations: string[] = [];
+  ): string: any: any[] {
+    const recommendations: string: any[] = [];
     
     // Direction of change
     const isIncrease = ComplexityLevelValue[newLevel] > ComplexityLevelValue[previousLevel];

@@ -52,7 +52,7 @@ export async function checkDatabaseHealth(): Promise<DatabaseHealthCheckResult> 
   try {
     const startTime = Date.now();
     const issues: Array<{type: string; severity; message: string; details?}> = [];
-    const recommendations: string[] = [];
+    const recommendations: string: any[] = [];
     
     // Check basic connectivity
     let connectionStatus = false;
@@ -368,7 +368,7 @@ export interface DatabaseSchemaValidationResult {
   extraModels?: string: any[];
   modelIssues?: Array<{
     model: string;
-    issues: string[];
+    issues: string: any[];
   }>;
   error?: string;
 }
@@ -395,10 +395,10 @@ export async function validateDatabaseSchema(): Promise<DatabaseSchemaValidation
     const extraModels = actualModels.filter(model => !expectedModels.includes(model));
     
     // Check for model issues
-    const modelIssues: Array<{model: string; issues: string[]}> = [];
+    const modelIssues: Array<{model: string; issues: string: any[]}> = [];
     
     for (const model of introspection.models) {
-      const issues: string[] = [];
+      const issues: string: any[] = [];
       
       // Check for required fields
       if (model.name === 'User' && !model.fields.some(field => field.name === 'email')) {
@@ -781,7 +781,7 @@ export async function collectDatabaseUsageStatistics(
     const operations = { reads: 0, writes: 0, deletes: 0 };
     const models: Record<string, { reads: number; writes: number; deletes: number }> = {};
     const users: Record<string, { operations: number; lastActive: string }> = {};
-    const queryTimes: number[] = [];
+    const queryTimes: number: any[] = [];
     let slowestQueryTimeMs = 0;
     let slowestQueryModel = '';
     
@@ -891,23 +891,23 @@ export async function collectDatabaseUsageStatistics(
 export interface DatabaseMaintenanceSchedule {
   daily: {
     time: string;
-    tasks: string[];
+    tasks: string: any[];
   };
   weekly: {
     day: string;
     time: string;
-    tasks: string[];
+    tasks: string: any[];
   };
   monthly: {
     day: number;
     time: string;
-    tasks: string[];
+    tasks: string: any[];
   };
   quarterly: {
-    months: number[];
+    months: number: any[];
     day: number;
     time: string;
-    tasks: string[];
+    tasks: string: any[];
   };
 }
 

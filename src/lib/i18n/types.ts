@@ -107,7 +107,7 @@ export interface TranslationEntry {
  */
 export interface TranslationNamespaceData {
   namespace: TranslationNamespace;
-  translations: TranslationEntry[];
+  translations: TranslationEntry: any[];
   // Added for expansion
   completionPercentage?: number; // Percentage of completed translations
   lastUpdated?: Date; // When this namespace was last updated
@@ -118,7 +118,7 @@ export interface TranslationNamespaceData {
  */
 export interface LanguagePack {
   language: SupportedLanguage;
-  namespaces: TranslationNamespaceData[];
+  namespaces: TranslationNamespaceData: any[];
   // Added for expansion
   version?: string; // Version of the language pack
   contributors?: string: any[]; // People who contributed to translations
@@ -132,7 +132,7 @@ export interface LanguagePack {
 export interface UserLanguagePreferences {
   userId: string;
   primaryLanguage: SupportedLanguage;
-  secondaryLanguages: SupportedLanguage[];
+  secondaryLanguages: SupportedLanguage: any[];
   autoDetect: boolean;
   translateContent: boolean;
   translateUserContent: boolean;
@@ -228,7 +228,7 @@ export interface ContentLocalizationMetadata {
   contentId: string;
   contentType: 'lesson' | 'assessment' | 'feedback' | 'resource' | 'communication';
   originalLanguage: SupportedLanguage;
-  availableTranslations: SupportedLanguage[];
+  availableTranslations: SupportedLanguage: any[];
   lastUpdated: Date;
   translationStatus: {
     [key in SupportedLanguage]?: 'complete' | 'partial' | 'machine-translated' | 'needs-review';
@@ -317,7 +317,7 @@ export interface DocumentTranslationStatus {
 export interface BatchTranslationRequest {
   batchId: string;
   userId: string;
-  documentIds: string[];
+  documentIds: string: any[];
   sourceLanguage: SupportedLanguage;
   targetLanguage: SupportedLanguage;
   priority: 'high' | 'normal' | 'low';

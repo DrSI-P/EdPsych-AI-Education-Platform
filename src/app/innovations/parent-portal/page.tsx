@@ -118,7 +118,7 @@ export default function ParentPortalPage() {
   const [selectedThreadId, setSelectedThreadId] = useState<string | null>(null);
   
   // Children profiles
-  const [children, setChildren] = useState<ChildProfile: any[]>([
+  const [children, setChildren] = useState<ChildProfile[]>([
     {
       id: 'child1',
       name: 'Emily Johnson',

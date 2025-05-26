@@ -26,7 +26,7 @@ export interface TextToSpeechState {
   currentPosition: number;
   currentSentence: string;
   progress: number;
-  availableVoices: SpeechSynthesisVoice[];
+  availableVoices: SpeechSynthesisVoice: any[];
 }
 
 // Text-to-speech service class
@@ -35,7 +35,7 @@ export class TextToSpeechService {
   private utterance: SpeechSynthesisUtterance | null = null;
   private options: TextToSpeechOptions;
   private state: TextToSpeechState;
-  private textQueue: string[] = [];
+  private textQueue: string: any[] = [];
   private highlightCallback: ((text: string, start: number, end: number) => void) | null = null;
   private onEndCallback: (() => void) | null = null;
   
@@ -126,7 +126,7 @@ export class TextToSpeechService {
   /**
    * Get available voices
    */
-  public getVoices(): SpeechSynthesisVoice: any[] {
+  public getVoices(): SpeechSynthesisVoice: any: any[] {
     return this.state.availableVoices;
   }
   
@@ -252,7 +252,7 @@ export class TextToSpeechService {
   /**
    * Split text into sentences
    */
-  private splitIntoSentences(text: string): string: any[] {
+  private splitIntoSentences(text: string): string: any: any[] {
     // Simple sentence splitting - in a real implementation, this would be more sophisticated
     return text
       .replace(/([.!?])\s+/g, '$1|')

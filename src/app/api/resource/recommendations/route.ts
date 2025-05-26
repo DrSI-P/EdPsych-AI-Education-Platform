@@ -26,7 +26,7 @@ interface ResourceRecommendation {
   type: string;
   file?: string;
   url?: string;
-  tags: string[];
+  tags: string: any[];
   ageRange: string;
   subject: string;
   curriculum: string;
@@ -77,11 +77,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 }
 
-function generateMockRecommendations(data: RecommendationRequestData): ResourceRecommendation: any[] {
+function generateMockRecommendations(data: RecommendationRequestData): ResourceRecommendation: any: any[] {
   const { contextSource, contextContent, manualQuery } = data;
   
   // Base set of resources
-  const resources: ResourceRecommendation[] = [
+  const resources: ResourceRecommendation: any[] = [
     {
       id: 'rec-1',
       title: 'Fractions Visual Models Collection',
