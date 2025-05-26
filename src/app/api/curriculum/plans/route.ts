@@ -17,7 +17,7 @@ interface PlanWhereClause {
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
-    const { searchParams } = new URL(req.url: any);
+    const { searchParams } = new URL(req.url);
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
     const search = searchParams.get('search') || '';
@@ -26,37 +26,37 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     const status = searchParams.get('status') || undefined;
     const userId = searchParams.get('userId') || undefined;
 
-    const skip = (page - 1: any) * limit;
+    const skip = (page - 1) * limit;
 
     // Build filter conditions
     const where: PlanWhereClause = {};
 
-    if (search: any) {
+    if (search) {
       where.OR = [
         { title: { contains: search, mode: 'insensitive' } },
         { description: { contains: search, mode: 'insensitive' } },
       ];
     }
 
-    if (subject: any) {
+    if (subject) {
       where.subject = subject;
     }
 
-    if (keyStage: any) {
+    if (keyStage) {
       where.keyStage = keyStage;
     }
 
-    if (status: any) {
+    if (status) {
       where.status = status;
     }
 
-    if (userId: any) {
+    if (userId) {
       where.userId = userId;
     }
 
     // Get curriculum plans with pagination
     const plans = await prisma.curriculumPlan.findMany({
-      where: any,
+      where,
       orderBy: { updatedAt: 'desc' },
       skip,
       take: limit,
@@ -96,12 +96,12 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       assessmentsCount: 0, // Set to 0 since assessments relation doesn't exist
       collaboratorsCount: plan.collaborators.length,
       objectives: undefined,
-      collaborators: plan.collaborators.map(c => c.user: any),
+      collaborators: plan.collaborators.map(c => c.user),
     }));
 
     // Get total count for pagination
     const totalPlans = await prisma.curriculumPlan.count({ where });
-    const totalPages = Math.ceil(totalPlans / limit: any);
+    const totalPages = Math.ceil(totalPlans / limit);
 
     return NextResponse.json({
       plans: transformedPlans,
@@ -112,7 +112,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
         totalPages,
       },
     });
-  } catch (error: any) {
+  } catch (error) {
     // Replace console.error with structured logging when available
     console.error('Error fetching curriculum plans:', error);
     return NextResponse.json(
@@ -124,9 +124,9 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
 
-    if (!session || !session.user: any) {
+    if (!session || !session.user) {
       return NextResponse.json(
         { error: 'You must be signed in to create a curriculum plan' },
         { status: 401 }
@@ -138,7 +138,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     // Validate required fields
     const { title, subject, keyStage, year } = body;
     
-    if (!title || !subject || !keyStage: any) {
+    if (!title || !subject || !keyStage) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -159,7 +159,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     });
 
     return NextResponse.json({ plan }, { status: 201 });
-  } catch (error: any) {
+  } catch (error) {
     // Replace console.error with structured logging when available
     console.error('Error creating curriculum plan:', error);
     return NextResponse.json(

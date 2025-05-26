@@ -19,13 +19,13 @@ const ReportSchema = z.object({
 
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url: any);
+    const { searchParams } = new URL(request.url);
     const postId = searchParams.get('postId');
     const status = searchParams.get('status') || 'pending';
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '20');
     
-    if (!postId: any) {
+    if (!postId) {
       return NextResponse.json({ error: 'Post ID is required' }, { status: 400 });
     }
     
@@ -87,12 +87,12 @@ export async function GET(request: NextRequest) {
     ];
     
     // Filter by status
-    const filteredComments = mockComments.filter(c => c.status === status && c.postId === postId: any);
+    const filteredComments = mockComments.filter(c => c.status === status && c.postId === postId);
     
     // Pagination
-    const startIndex = (page - 1: any) * limit;
+    const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
-    const paginatedComments = filteredComments.slice(startIndex: any, endIndex);
+    const paginatedComments = filteredComments.slice(startIndex, endIndex);
     
     return NextResponse.json({
       comments: paginatedComments,
@@ -100,10 +100,10 @@ export async function GET(request: NextRequest) {
         total: filteredComments.length,
         page,
         limit,
-        pages: Math.ceil(filteredComments.length / limit: any)
+        pages: Math.ceil(filteredComments.length / limit)
       }
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching comments for moderation:', error);
     return NextResponse.json({ error: 'Failed to fetch comments' }, { status: 500 });
   }
@@ -114,9 +114,9 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     
     // Handle comment reporting
-    if (body.isReport: any) {
+    if (body.isReport) {
       try {
-        const validatedData = ReportSchema.parse(body: any);
+        const validatedData = ReportSchema.parse(body);
         
         // Mock report creation response
         return NextResponse.json({
@@ -128,8 +128,8 @@ export async function POST(request: NextRequest) {
             status: 'pending' as 'pending' | 'approved' | 'rejected'
           }
         });
-      } catch (error: any) {
-        if (error instanceof z.ZodError: any) {
+      } catch (error) {
+        if (error instanceof z.ZodError) {
           return NextResponse.json({ error: error.errors }, { status: 400 });
         }
         throw error;
@@ -138,7 +138,7 @@ export async function POST(request: NextRequest) {
     
     // Handle moderation action
     try {
-      const validatedData = ModerationActionSchema.parse(body: any);
+      const validatedData = ModerationActionSchema.parse(body);
       
       // Mock moderation action response
       return NextResponse.json({
@@ -149,13 +149,13 @@ export async function POST(request: NextRequest) {
           actionedAt: new Date().toISOString()
         }
       });
-    } catch (error: any) {
-      if (error instanceof z.ZodError: any) {
+    } catch (error) {
+      if (error instanceof z.ZodError) {
         return NextResponse.json({ error: error.errors }, { status: 400 });
       }
       throw error;
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error processing moderation action:', error);
     return NextResponse.json({ error: 'Failed to process moderation action' }, { status: 500 });
   }
