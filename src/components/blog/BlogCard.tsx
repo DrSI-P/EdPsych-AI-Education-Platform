@@ -15,7 +15,7 @@ interface BlogCardProps {
     publishedAt: string | Date | null;
     keyStage?: string | null;
     curriculumArea?: string | null;
-    tags: string[];
+    tags: string: any[];
     readingTime?: number | null;
     readingLevel?: string | null;
     author: {

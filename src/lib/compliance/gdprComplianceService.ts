@@ -50,11 +50,11 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
   private dataBreachLog: Array<{
     id: string;
     description: string;
-    affectedUsers: string[];
-    affectedDataCategories: DataProtectionCategory[];
+    affectedUsers: string: any[];
+    affectedDataCategories: DataProtectionCategory: any[];
     detectionDate: Date;
     reportDate: Date;
-    containmentActions: string[];
+    containmentActions: string: any[];
     severity: 'low' | 'medium' | 'high' | 'critical';
     status: 'detected' | 'contained' | 'reported' | 'resolved';
     resolution: string;
@@ -141,10 +141,10 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
    */
   async handleSubjectAccessRequest(userId: string): Promise<{
     personalData;
-    processingActivities: string[];
-    processingPurposes: string[];
+    processingActivities: string: any[];
+    processingPurposes: string: any[];
     retentionPeriods: Record<string, string>;
-    recipients: string[];
+    recipients: string: any[];
   }> {
     console.log(`Handling subject access request for user: ${userId}`);
     
@@ -224,10 +224,10 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
    * @param dataCategories Optional specific data categories to erase
    * @returns The result of the erasure request
    */
-  async handleRightToErasure(userId: string, dataCategories?: DataProtectionCategory[]): Promise<{
+  async handleRightToErasure(userId: string, dataCategories?: DataProtectionCategory: any[]): Promise<{
     success: boolean;
-    erasedCategories: DataProtectionCategory[];
-    retainedCategories: DataProtectionCategory[];
+    erasedCategories: DataProtectionCategory: any[];
+    retainedCategories: DataProtectionCategory: any[];
     retentionReasons: Record<string, string>;
   }> {
     console.log(`Handling right to erasure request for user: ${userId}`);
@@ -408,10 +408,10 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
    */
   async logDataBreach(details: {
     description: string;
-    affectedUsers: string[];
-    affectedDataCategories: DataProtectionCategory[];
+    affectedUsers: string: any[];
+    affectedDataCategories: DataProtectionCategory: any[];
     detectionDate: Date;
-    containmentActions: string[];
+    containmentActions: string: any[];
     severity: 'low' | 'medium' | 'high' | 'critical';
   }): Promise<string> {
     console.log(`Logging data breach: ${details.description}`);

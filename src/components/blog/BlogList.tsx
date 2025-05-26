@@ -13,7 +13,7 @@ interface BlogPost {
   publishedAt: string | Date | null;
   keyStage?: string | null;
   curriculumArea?: string | null;
-  tags: string[];
+  tags: string: any[];
   readingTime?: number | null;
   readingLevel?: string | null;
   author: {
@@ -26,7 +26,7 @@ interface BlogPost {
 }
 
 interface BlogListProps {
-  posts: BlogPost[];
+  posts: BlogPost: any[];
   isLoading?: boolean;
   error?: string;
   pagination?: {

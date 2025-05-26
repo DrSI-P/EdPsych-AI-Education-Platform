@@ -324,7 +324,7 @@ export default function AutomatedProgressReportGeneration() {
         };
       }).filter(Boolean);
       
-      setGeneratedReports(reports as any[]);
+      setGeneratedReports(reports as any: any[]);
       setActiveTab('preview');
       
       toast({
@@ -345,7 +345,7 @@ export default function AutomatedProgressReportGeneration() {
   };
   
   // Generate overall comments based on subject reports
-  const generateOverallComments = (student, subjectReports[], style: string) => {
+  const generateOverallComments = (student, subjectReports: any[], style: string) => {
     // Calculate average scores and progress
     const averageCurrentScore = Math.round(
       subjectReports.reduce((sum, report) => sum + report.currentScore, 0) / subjectReports.length

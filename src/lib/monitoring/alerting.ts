@@ -20,7 +20,7 @@ export interface AlertConfig {
   level: AlertLevel;
   threshold: number;
   cooldown: number; // in milliseconds
-  channels: AlertChannel[];
+  channels: AlertChannel: any[];
   enabled: boolean;
 }
 

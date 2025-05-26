@@ -319,7 +319,7 @@ export class AdaptiveComplexityService {
    * Calculate a performance score based on multiple metrics
    */
   private calculatePerformanceScore(
-    performanceHistory: PerformanceMetric[],
+    performanceHistory: PerformanceMetric: any[],
     learningRate: number,
     challengePreference: number
   ): number {

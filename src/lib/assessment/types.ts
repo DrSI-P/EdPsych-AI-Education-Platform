@@ -516,16 +516,16 @@ export interface QuestionBank {
   searchQuestions: (params: {
     keyStage?: UKKeyStage;
     subject?: UKSubject;
-    topics?: string[];
-    types?: QuestionType[];
+    topics?: string: any[];
+    types?: QuestionType: any[];
     difficultyLevel?: DifficultyLevel;
     cognitiveDomain?: CognitiveDomain;
-    tags?: string[];
+    tags?: string: any[];
   }) => Promise<Question[]>;
   getQuestionCount: (params?: {
     keyStage?: UKKeyStage;
     subject?: UKSubject;
-    topics?: string[];
+    topics?: string: any[];
   }) => Promise<number>;
 }
 
@@ -550,7 +550,7 @@ export interface AssessmentEngine {
   getStudentAttempts: (studentId: string, assessmentId?: string) => Promise<AssessmentAttempt[]>;
   
   generateAssessment: (template: AssessmentTemplate) => Promise<Assessment>;
-  generateAdaptiveQuestion: (attemptId: string, previousResponses: QuestionResponse[]) => Promise<Question>;
+  generateAdaptiveQuestion: (attemptId: string, previousResponses: QuestionResponse: any[]) => Promise<Question>;
   
   analyzeResults: (assessmentId: string) => Promise<{
     attemptCount: number;
@@ -571,8 +571,8 @@ export interface AssessmentEngine {
   }) => Promise<{
     assessmentsCompleted: number;
     averageScore: number;
-    strengths: string[];
-    areasForImprovement: string[];
+    strengths: string: any[];
+    areasForImprovement: string: any[];
     progressOverTime: Array<{
       date: Date;
       score: number;
@@ -589,13 +589,13 @@ export interface FeedbackGenerator {
   generateAssessmentFeedback: (result: AssessmentResult) => {
     overall: string;
     byTopic: Record<string, string>;
-    nextSteps: string[];
+    nextSteps: string: any[];
   };
   generateProgressFeedback: (studentId: string, subject: UKSubject, timeframe: 'week' | 'month' | 'term' | 'year') => Promise<{
     summary: string;
-    strengths: string[];
-    areasForImprovement: string[];
-    recommendations: string[];
+    strengths: string: any[];
+    areasForImprovement: string: any[];
+    recommendations: string: any[];
   }>;
 }
 
@@ -603,8 +603,8 @@ export interface FeedbackGenerator {
  * Adaptive difficulty engine
  */
 export interface AdaptiveDifficultyEngine {
-  calculateNextQuestionDifficulty: (previousResponses: QuestionResponse[], currentDifficulty: DifficultyLevel) => DifficultyLevel;
-  estimateStudentAbility: (responses: QuestionResponse[]) => number; // IRT-based ability estimate
-  selectOptimalQuestion: (questionBank: Question[], studentAbility: number) => Question;
-  updateDifficultyModel: (responses: QuestionResponse[]) => Promise<void>;
+  calculateNextQuestionDifficulty: (previousResponses: QuestionResponse: any[], currentDifficulty: DifficultyLevel) => DifficultyLevel;
+  estimateStudentAbility: (responses: QuestionResponse: any[]) => number; // IRT-based ability estimate
+  selectOptimalQuestion: (questionBank: Question: any[], studentAbility: number) => Question;
+  updateDifficultyModel: (responses: QuestionResponse: any[]) => Promise<void>;
 }

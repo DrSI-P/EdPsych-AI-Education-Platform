@@ -107,10 +107,10 @@ export interface DataPoint {
 export interface Dataset {
   id: string;
   label: string;
-  data: DataPoint[];
+  data: DataPoint: any[];
   colour?: string;
-  backgroundColor?: string | string[];
-  borderColor?: string | string[];
+  backgroundColor?: string | string: any[];
+  borderColor?: string | string: any[];
   borderWidth?: number;
   hidden?: boolean;
   metadata?: Record<string, any>;
@@ -124,11 +124,11 @@ export interface ChartConfig {
   type: ChartType;
   title: string;
   description?: string;
-  datasets: Dataset[];
+  datasets: Dataset: any[];
   options?: Record<string, any>; // Chart.js options
   accessibility?: {
     textDescription: string;
-    keyFindings: string[];
+    keyFindings: string: any[];
     alternativeFormats?: boolean;
   };
 }
@@ -173,7 +173,7 @@ export interface WidgetConfig {
   customConfig?: Record<string, any>;
   refreshInterval?: number; // in seconds
   isInteractive?: boolean;
-  permissions?: UserRole[];
+  permissions?: UserRole: any[];
 }
 
 /**
@@ -183,12 +183,12 @@ export interface DashboardConfig {
   id: string;
   title: string;
   description?: string;
-  widgets: WidgetConfig[];
+  widgets: WidgetConfig: any[];
   layout?: 'grid' | 'free' | 'fixed';
   theme?: 'light' | 'dark' | 'system' | 'high-contrast';
   defaultTimePeriod?: TimePeriod;
   defaultGranularity?: DataGranularity;
-  permissions?: UserRole[];
+  permissions?: UserRole: any[];
   filters?: Record<string, any>;
   createdAt?: Date;
   updatedAt?: Date;
@@ -216,10 +216,10 @@ export interface StudentPerformanceData {
   }[];
   averageScore?: number;
   progressTrend?: number;
-  strengths?: string[];
-  areasForImprovement?: string[];
+  strengths?: string: any[];
+  areasForImprovement?: string: any[];
   learningStyle?: string;
-  accommodations?: string[];
+  accommodations?: string: any[];
 }
 
 /**
@@ -236,7 +236,7 @@ export interface CurriculumCoverageData {
     status: 'not_started' | 'in_progress' | 'completed' | 'mastered';
   }[];
   overallCoverage: number;
-  gapsIdentified?: string[];
+  gapsIdentified?: string: any[];
 }
 
 /**
@@ -266,7 +266,7 @@ export interface EngagementData {
  */
 export interface SpecialNeedsData {
   category: 'dyslexia' | 'dyspraxia' | 'asd' | 'adhd' | 'anxiety' | 'other';
-  accommodationsUsed: string[];
+  accommodationsUsed: string: any[];
   effectivenessRating?: number;
   engagementMetrics: {
     withAccommodation: number;
@@ -276,7 +276,7 @@ export interface SpecialNeedsData {
     withAccommodation: number;
     withoutAccommodation: number;
   };
-  recommendations?: string[];
+  recommendations?: string: any[];
 }
 
 /**
@@ -287,13 +287,13 @@ export interface AnalyticsFilter {
   startDate?: Date;
   endDate?: Date;
   granularity?: DataGranularity;
-  students?: string[];
-  classes?: string[];
-  yearGroups?: string[];
-  subjects?: string[];
-  keyStages?: string[];
-  specialNeeds?: string[];
-  learningStyles?: string[];
+  students?: string: any[];
+  classes?: string: any[];
+  yearGroups?: string: any[];
+  subjects?: string: any[];
+  keyStages?: string: any[];
+  specialNeeds?: string: any[];
+  learningStyles?: string: any[];
 }
 
 /**
@@ -329,7 +329,7 @@ export enum ExportFormat {
  */
 export interface ExportConfig {
   format: ExportFormat;
-  widgets?: string[]; // Widget IDs to export, empty means all
+  widgets?: string: any[]; // Widget IDs to export, empty means all
   includeFilters?: boolean;
   includeSummary?: boolean;
   orientation?: 'portrait' | 'landscape';
@@ -361,8 +361,8 @@ export interface DashboardPreferences {
   theme?: 'light' | 'dark' | 'system' | 'high-contrast';
   defaultTimePeriod?: TimePeriod;
   defaultGranularity?: DataGranularity;
-  favoriteWidgets?: string[];
-  hiddenWidgets?: string[];
+  favoriteWidgets?: string: any[];
+  hiddenWidgets?: string: any[];
   widgetLayout?: Record<string, { x: number; y: number; width: number; height: number }>;
   accessibilitySettings?: {
     highContrast?: boolean;

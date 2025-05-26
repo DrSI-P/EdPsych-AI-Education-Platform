@@ -58,8 +58,8 @@ interface TrainingModule {
   duration: string;
   level: string;
   order: number;
-  sections: TrainingModuleSection[];
-  resources: TrainingModuleResource[];
+  sections: TrainingModuleSection: any[];
+  resources: TrainingModuleResource: any[];
 }
 
 // GET handler for retrieving modules

@@ -339,7 +339,7 @@ export class CulturalContextService {
     accessibilityOptions?: MultilingualAccessibilityOptions
   ): Promise<{
     adaptedContent: string,
-    culturalNotes: string[],
+    culturalNotes: string: any[],
     adaptationsMade: string[]
   }> {
     try {
