@@ -56,14 +56,14 @@ interface Activity {
   title: string;
   description: string;
   category: ActivityCategory;
-  ageGroups: AgeGroup: any[];
+  ageGroups: AgeGroup: any: any: any[];
   timeRequired: TimeRequired;
   groupSize: GroupSize;
-  materials: string: any[];
-  steps: string: any[];
-  variations: string: any[];
-  objectives: string: any[];
-  facilitation_tips: string: any[];
+  materials: string: any: any: any[];
+  steps: string: any: any: any[];
+  variations: string: any: any: any[];
+  objectives: string: any: any: any[];
+  facilitation_tips: string: any: any: any[];
   evidence_base: string;
   rating: number;
   favorites: number;
@@ -398,7 +398,7 @@ const CommunityBuildingActivities = () => {
   };
 
   // Format age groups for display
-  const formatAgeGroups = (ages: AgeGroup[]) => {
+  const formatAgeGroups = (ages: AgeGroup: any[]) => {
     const ageMap: Record<AgeGroup, string> = {
       'early-years': 'Early Years (3-5)',
       'primary': 'Primary (5-11)',

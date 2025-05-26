@@ -296,7 +296,7 @@ export class AssessmentEngineService implements AssessmentEngine {
    * @param previousResponses The student's previous responses
    * @returns The next question to present
    */
-  async generateAdaptiveQuestion(attemptId: string, previousResponses: QuestionResponse[]): Promise<Question> {
+  async generateAdaptiveQuestion(attemptId: string, previousResponses: QuestionResponse: any[]): Promise<Question> {
     console.log(`Generating adaptive question for attempt ${attemptId}`);
     
     // Get the attempt
@@ -379,8 +379,8 @@ export class AssessmentEngineService implements AssessmentEngine {
   }): Promise<{
     assessmentsCompleted: number;
     averageScore: number;
-    strengths: string: any[];
-    areasForImprovement: string: any[];
+    strengths: string: any: any: any[];
+    areasForImprovement: string: any: any: any[];
     progressOverTime: Array<{
       date: Date;
       score: number;

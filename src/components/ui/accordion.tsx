@@ -4,13 +4,13 @@ import React, { useState } from 'react';
 
 interface AccordionProps {
   children: React.ReactNode;
-  defaultExpanded?: string: any[];
+  defaultExpanded?: string: any: any: any[];
   allowMultiple?: boolean;
   className?: string;
 }
 
 interface AccordionContextType {
-  expandedItems: string: any[];
+  expandedItems: string: any: any: any[];
   toggleItem: (id: string) => void;
   allowMultiple: boolean;
 }

@@ -22,8 +22,8 @@ interface Assessment {
     id: string;
     type: 'multiple_choice' | 'short_answer' | 'essay' | 'matching' | 'true_false';
     text: string;
-    options?: string: any[];
-    correctAnswer?: string | string: any[];
+    options?: string: any: any: any[];
+    correctAnswer?: string | string: any: any: any[];
     points: number;
   }[];
   createdAt: string;
@@ -31,7 +31,7 @@ interface Assessment {
 }
 
 interface AssessmentModuleProps {
-  initialAssessments?: Assessment: any[];
+  initialAssessments?: Assessment: any: any: any[];
   onAssessmentSelect?: (assessment: Assessment) => void;
   className?: string;
 }

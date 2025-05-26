@@ -42,15 +42,15 @@ interface LearningProfile {
   id: string;
   name: string;
   learningStyle: string;
-  strengths: string: any[];
-  challenges: string: any[];
+  strengths: string: any: any: any[];
+  challenges: string: any: any: any[];
   preferences: {
     visual: number;
     auditory: number;
     kinesthetic: number;
     reading: number;
   };
-  accommodations: string: any[];
+  accommodations: string: any: any: any[];
 }
 
 interface Intervention {
@@ -58,8 +58,8 @@ interface Intervention {
   name: string;
   description: string;
   targetArea: string;
-  strategies: string: any[];
-  resources: string: any[];
+  strategies: string: any: any: any[];
+  resources: string: any: any: any[];
   duration: string;
   frequency: string;
   progress: number;

@@ -37,14 +37,14 @@ interface Quest {
   difficulty: string;
   duration: number;
   xpReward: number;
-  objectives: string: any[];
+  objectives: string: any: any: any[];
   challenges: Array<{
     id: string;
     title: string;
     description: string;
     content: string;
     type: string;
-    options?: string: any[];
+    options?: string: any: any: any[];
     correctAnswer?: string;
     minScore?: number;
   }>;
@@ -61,7 +61,7 @@ interface QuestDetailProps {
 }
 
 interface QuestHubProps {
-  quests: Quest: any[];
+  quests: Quest: any: any: any[];
   character: Character | null;
   onSelectQuest: (quest: Quest) => void;
   onGenerateQuest: () => void;
@@ -69,7 +69,7 @@ interface QuestHubProps {
 
 interface CharacterDashboardProps {
   character: Character | null;
-  completedQuests: Quest: any[];
+  completedQuests: Quest: any: any: any[];
   onBack: () => void;
 }
 

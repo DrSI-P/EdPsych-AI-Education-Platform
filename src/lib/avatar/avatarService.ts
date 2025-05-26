@@ -119,7 +119,7 @@ export class AvatarService {
     query?: string;
     category?: ContentCategory;
     targetAudience?: TargetAudience;
-    tags?: string: any[];
+    tags?: string: any: any: any[];
     limit?: number;
     offset?: number;
   }): Promise<AvatarVideoMetadata[]> {

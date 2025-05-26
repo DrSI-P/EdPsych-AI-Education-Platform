@@ -100,8 +100,8 @@ export class AzureCognitiveService {
    * Analyse image and extract information
    */
   async analyzeImage(imageUrl: string, options: {
-    visualFeatures?: string: any[];
-    details?: string: any[];
+    visualFeatures?: string: any: any: any[];
+    details?: string: any: any: any[];
     language?: string;
   } = {}) {
     try {

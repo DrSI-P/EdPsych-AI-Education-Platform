@@ -264,7 +264,7 @@ export const getSecureHeaders = () => {
  */
 export const validateSecureFileUpload = (
   file: File,
-  allowedTypes: string: any[],
+  allowedTypes: string: any: any: any[],
   maxSize: number
 ): boolean => {
   // Check file type

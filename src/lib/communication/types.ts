@@ -47,17 +47,17 @@ export interface Message {
   conversationId: string;
   senderId: string;
   senderRole: CommunicationRole;
-  recipientIds: string: any[];
+  recipientIds: string: any: any: any[];
   subject: string;
   content: string;
-  attachments?: Attachment: any[];
+  attachments?: Attachment: any: any: any[];
   priority: MessagePriority;
   status: MessageStatus;
   createdAt: Date;
   updatedAt: Date;
   readAt?: Date;
   isPrivate: boolean;
-  tags?: string: any[];
+  tags?: string: any: any: any[];
 }
 
 /**
@@ -79,9 +79,9 @@ export interface Attachment {
 export interface Conversation {
   id: string;
   title: string;
-  participantIds: string: any[];
+  participantIds: string: any: any: any[];
   participantRoles: Record<string, CommunicationRole>;
-  messages: Message: any[];
+  messages: Message: any: any: any[];
   createdAt: Date;
   updatedAt: Date;
   isArchived: boolean;
@@ -104,15 +104,15 @@ export interface ProgressReport {
   createdAt: Date;
   publishedAt?: Date;
   lastViewedByParent?: Date;
-  academicProgress: AcademicProgressEntry: any[];
+  academicProgress: AcademicProgressEntry: any: any: any[];
   behaviouralNotes?: string;
-  strengths: string: any[];
-  areasForImprovement: string: any[];
-  recommendations: string: any[];
-  nextSteps: string: any[];
+  strengths: string: any: any: any[];
+  areasForImprovement: string: any: any: any[];
+  recommendations: string: any: any: any[];
+  nextSteps: string: any: any: any[];
   parentFeedbackRequested: boolean;
   parentFeedback?: string;
-  attachments?: Attachment: any[];
+  attachments?: Attachment: any: any: any[];
 }
 
 /**
@@ -144,9 +144,9 @@ export interface SharedGoal {
   targetDate?: Date;
   status: 'not_started' | 'in_progress' | 'completed' | 'revised';
   progress: number; // 0-100
-  homeActions: string: any[];
-  schoolActions: string: any[];
-  updates: GoalUpdate: any[];
+  homeActions: string: any: any: any[];
+  schoolActions: string: any: any: any[];
+  updates: GoalUpdate: any: any: any[];
   isArchived: boolean;
 }
 
@@ -161,7 +161,7 @@ export interface GoalUpdate {
   updatedByRole: CommunicationRole;
   updatedAt: Date;
   newProgress?: number;
-  attachments?: Attachment: any[];
+  attachments?: Attachment: any: any: any[];
 }
 
 /**
@@ -177,15 +177,15 @@ export interface Meeting {
   virtualMeetingUrl?: string;
   organizerId: string;
   organizerRole: CommunicationRole;
-  attendeeIds: string: any[];
+  attendeeIds: string: any: any: any[];
   attendeeRoles: Record<string, CommunicationRole>;
-  relatedStudentIds?: string: any[];
-  agenda?: string: any[];
+  relatedStudentIds?: string: any: any: any[];
+  agenda?: string: any: any: any[];
   notes?: string;
   status: 'scheduled' | 'cancelled' | 'completed' | 'rescheduled';
   reminderSent: boolean;
   followUpSent: boolean;
-  attachments?: Attachment: any[];
+  attachments?: Attachment: any: any: any[];
 }
 
 /**
@@ -204,8 +204,8 @@ export interface Celebration {
   category: 'academic' | 'extracurricular' | 'character' | 'effort' | 'other';
   isPublic: boolean;
   kudos: number;
-  comments: CelebrationComment: any[];
-  attachments?: Attachment: any[];
+  comments: CelebrationComment: any: any: any[];
+  attachments?: Attachment: any: any: any[];
 }
 
 /**
@@ -248,20 +248,20 @@ export interface HomeStrategy {
   id: string;
   title: string;
   description: string;
-  targetAreas: string: any[];
-  suggestedActivities: string: any[];
-  resources: string: any[];
+  targetAreas: string: any: any: any[];
+  suggestedActivities: string: any: any: any[];
+  resources: string: any: any: any[];
   timeCommitment: string;
   ageRange: {
     min: number;
     max: number;
   };
-  supportNeeds: string: any[];
+  supportNeeds: string: any: any: any[];
   creatorId: string;
   createdByRole: CommunicationRole;
   createdAt: Date;
   updatedAt: Date;
   effectiveness: number; // 0-5 rating
   feedbackCount: number;
-  attachments?: Attachment: any[];
+  attachments?: Attachment: any: any: any[];
 }

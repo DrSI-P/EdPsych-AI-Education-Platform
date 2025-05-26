@@ -100,23 +100,23 @@ export interface LearningProfile {
   secondaryLearningStyle?: LearningStyle;
   learningPace: LearningPace;
   preferredDifficulty: DifficultyLevel;
-  interests: InterestCategory: any[];
+  interests: InterestCategory: any: any: any[];
   goals: {
     type: LearningGoalType;
     description: string;
     targetDate?: Date;
   }[];
-  strengths: string: any[];
-  areasForImprovement: string: any[];
+  strengths: string: any: any: any[];
+  areasForImprovement: string: any: any: any[];
   adaptations?: {
     dyslexia?: boolean;
     adhd?: boolean;
     visualImpairment?: boolean;
     hearingImpairment?: boolean;
     motorSkillChallenges?: boolean;
-    other?: string: any[];
+    other?: string: any: any: any[];
   };
-  preferredActivities: LearningActivityType: any[];
+  preferredActivities: LearningActivityType: any: any: any[];
   lastUpdated: Date;
 }
 
@@ -129,11 +129,11 @@ export interface LearningModule {
   description: string;
   difficulty: DifficultyLevel;
   estimatedDuration: number; // in minutes
-  prerequisites: string: any[];
-  learningOutcomes: string: any[];
-  keywords: string: any[];
-  categories: string: any[];
-  relatedInterests: InterestCategory: any[];
+  prerequisites: string: any: any: any[];
+  learningOutcomes: string: any: any: any[];
+  keywords: string: any: any: any[];
+  categories: string: any: any: any[];
+  relatedInterests: InterestCategory: any: any: any[];
   activities: {
     id: string;
     type: LearningActivityType;
@@ -149,10 +149,10 @@ export interface LearningModule {
     passingScore: number;
   }[];
   adaptiveContent: {
-    visual: string: any[];
-    auditory: string: any[];
-    readingWriting: string: any[];
-    kinesthetic: string: any[];
+    visual: string: any: any: any[];
+    auditory: string: any: any: any[];
+    readingWriting: string: any: any: any[];
+    kinesthetic: string: any: any: any[];
   };
 }
 
@@ -164,7 +164,7 @@ export interface ModuleProgress {
   moduleId: string;
   startDate: Date;
   lastAccessDate: Date;
-  completedActivities: string: any[];
+  completedActivities: string: any: any: any[];
   assessmentResults: {
     assessmentId: string;
     attempts: number;
@@ -209,8 +209,8 @@ export interface LearningRecommendation {
   reasonForRecommendation: string;
   difficulty: DifficultyLevel;
   estimatedDuration: number; // in minutes
-  matchesInterests: InterestCategory: any[];
-  matchesGoals: LearningGoalType: any[];
+  matchesInterests: InterestCategory: any: any: any[];
+  matchesGoals: LearningGoalType: any: any: any[];
   prerequisites: {
     moduleId: string;
     title: string;
@@ -741,7 +741,7 @@ export const getAdaptedContent = (
  * React hook for learning style assessment
  */
 export const useLearningStyleAssessment = (): {
-  questions: LearningStyleQuestion: any[];
+  questions: LearningStyleQuestion: any: any: any[];
   answers: Record<string, LearningStyle>;
   setAnswer: (questionId: string, style: LearningStyle) => void;
   result: LearningStyleResult | null;
@@ -866,7 +866,7 @@ export const useLearningRecommendations = (
   userId: string,
   count: number = 3
 ): {
-  recommendations: LearningRecommendation: any[];
+  recommendations: LearningRecommendation: any: any: any[];
   loading: boolean;
   error: string | null;
   refresh: () => Promise<void>;
@@ -907,7 +907,7 @@ export const useLearningRecommendations = (
 export const useAchievements = (
   userId: string
 ): {
-  achievements: Achievement: any[];
+  achievements: Achievement: any: any: any[];
   loading: boolean;
   error: string | null;
   refresh: () => Promise<void>;

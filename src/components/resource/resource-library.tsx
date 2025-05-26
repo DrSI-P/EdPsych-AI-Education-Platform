@@ -16,7 +16,7 @@ interface Resource {
   type: 'document' | 'video' | 'audio' | 'link' | 'worksheet';
   url?: string;
   file?: string;
-  tags: string: any[];
+  tags: string: any: any: any[];
   ageRange: string;
   subject: string;
   curriculum: string;
@@ -25,7 +25,7 @@ interface Resource {
 }
 
 interface ResourceLibraryProps {
-  initialResources?: Resource: any[];
+  initialResources?: Resource: any: any: any[];
   onResourceSelect?: (resource: Resource) => void;
   className?: string;
 }

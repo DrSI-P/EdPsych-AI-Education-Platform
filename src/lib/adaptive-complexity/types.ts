@@ -64,7 +64,7 @@ export interface SubjectPreference {
   currentComplexityLevel: ComplexityLevel;
   recommendedComplexityLevel: ComplexityLevel;
   confidenceScore: number; // How confident the system is in this recommendation (0-1)
-  performanceHistory: PerformanceMetric: any[];
+  performanceHistory: PerformanceMetric: any: any: any[];
   skillAreas: Record<string, SkillAreaProfile>;
 }
 
@@ -76,9 +76,9 @@ export interface SkillAreaProfile {
   currentComplexityLevel: ComplexityLevel;
   recommendedComplexityLevel: ComplexityLevel;
   confidenceScore: number;
-  performanceHistory: PerformanceMetric: any[];
-  strengths: string: any[]; // Specific strengths identified within this skill area
-  areasForImprovement: string: any[]; // Specific areas needing improvement
+  performanceHistory: PerformanceMetric: any: any: any[];
+  strengths: string: any: any: any[]; // Specific strengths identified within this skill area
+  areasForImprovement: string: any: any: any[]; // Specific areas needing improvement
 }
 
 /**
@@ -89,12 +89,12 @@ export interface AdaptiveContent {
   title: string;
   description: string;
   subjectArea: string;
-  skillAreas: string: any[];
+  skillAreas: string: any: any: any[];
   complexityLevel: ComplexityLevel;
-  prerequisites: string: any[]; // IDs of content that should be completed first
-  learningObjectives: string: any[];
+  prerequisites: string: any: any: any[]; // IDs of content that should be completed first
+  learningObjectives: string: any: any: any[];
   estimatedTimeMinutes: number;
-  adaptiveElements: AdaptiveElement: any[];
+  adaptiveElements: AdaptiveElement: any: any: any[];
 }
 
 /**
@@ -104,7 +104,7 @@ export interface AdaptiveElement {
   id: string;
   elementType: 'text' | 'question' | 'activity' | 'resource' | 'assessment';
   complexityVariants: Record<ComplexityLevel, string>; // Content variant for each complexity level
-  adaptationRules?: AdaptationRule: any[]; // Optional rules for adapting this element
+  adaptationRules?: AdaptationRule: any: any: any[]; // Optional rules for adapting this element
 }
 
 /**
@@ -135,7 +135,7 @@ export interface ComplexityAdjustmentResult {
   adjustmentReason: string;
   confidenceScore: number;
   timestamp: Date;
-  recommendedNextSteps?: string: any[];
+  recommendedNextSteps?: string: any: any: any[];
 }
 
 /**

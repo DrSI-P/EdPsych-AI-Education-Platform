@@ -55,8 +55,8 @@ export interface BlogPost {
   content: string;
   featuredImage?: string;
   category: string;
-  tags: string: any[];
-  targetAudience: string: any[];
+  tags: string: any: any: any[];
+  targetAudience: string: any: any: any[];
   status: BlogPostStatus;
   authorId: string;
   reviewerId?: string;
@@ -92,9 +92,9 @@ export interface BlogPostWithRelations extends BlogPost {
 // Blog post generation parameters
 export interface BlogPostGenerationParams {
   topic: string;
-  audience: string: any[];
+  audience: string: any: any: any[];
   category: string;
-  keyPoints?: string: any[];
+  keyPoints?: string: any: any: any[];
   tone?: 'professional' | 'conversational' | 'academic';
   wordCount?: number;
 }
@@ -104,7 +104,7 @@ export interface BlogPostGenerationResult {
   title: string;
   content: string;
   summary: string;
-  tags: string: any[];
+  tags: string: any: any: any[];
   seoTitle: string;
   seoDescription: string;
 }
@@ -115,8 +115,8 @@ export interface BlogPostSaveParams {
   content: string;
   summary: string;
   category: string;
-  tags: string: any[];
-  targetAudience: string: any[];
+  tags: string: any: any: any[];
+  targetAudience: string: any: any: any[];
   status?: BlogPostStatus;
   publishDate?: Date;
   authorId: string;
@@ -128,7 +128,7 @@ export interface BlogPostSaveParams {
 
 // Blog post filter parameters
 export interface BlogPostFilterParams {
-  status?: BlogPostStatus | BlogPostStatus: any[];
+  status?: BlogPostStatus | BlogPostStatus: any: any: any[];
   category?: string;
   audience?: string;
   page?: number;
@@ -138,7 +138,7 @@ export interface BlogPostFilterParams {
 
 // Blog post filter result
 export interface BlogPostFilterResult {
-  posts: BlogPostWithRelations: any[];
+  posts: BlogPostWithRelations: any: any: any[];
   total: number;
   pages: number;
 }
@@ -147,8 +147,8 @@ export interface BlogPostFilterResult {
 export interface SeoRecommendationsResult {
   title: string;
   description: string;
-  keywords: string: any[];
-  suggestions: string: any[];
+  keywords: string: any: any: any[];
+  suggestions: string: any: any: any[];
 }
 
 // Blog analytics result
@@ -166,8 +166,8 @@ export interface BlogPostIdea {
   title: string;
   summary: string;
   category: string;
-  targetAudience: string: any[];
-  keyPoints: string: any[];
+  targetAudience: string: any: any: any[];
+  keyPoints: string: any: any: any[];
 }
 
 /**
@@ -401,7 +401,7 @@ export async function getBlogPosts({
   });
   
   return {
-    posts: posts as unknown as BlogPostWithRelations: any[],
+    posts: posts as unknown as BlogPostWithRelations: any: any: any[],
     total,
     pages: Math.ceil(total / limit)
   };
@@ -473,7 +473,7 @@ export async function deleteBlogPost(id: string): Promise<void> {
 /**
  * Generate blog post ideas based on user interests and curriculum topics
  */
-export async function generateBlogPostIdeas(count: number = 5, topics?: string[]): Promise<BlogPostIdea[]> {
+export async function generateBlogPostIdeas(count: number = 5, topics?: string: any[]): Promise<BlogPostIdea[]> {
   const topicsStr = topics ? topics.join(', ') : 'educational psychology, learning strategies, special needs education, curriculum development';
   
   const prompt = `

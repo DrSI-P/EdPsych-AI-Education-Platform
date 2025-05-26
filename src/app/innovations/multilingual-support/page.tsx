@@ -40,7 +40,7 @@ interface LanguageOption {
   nativeName: string;
   flag: string;
   supportLevel: 'full' | 'partial' | 'machine';
-  availableFeatures: string: any[];
+  availableFeatures: string: any: any: any[];
 }
 
 interface TranslationExample {

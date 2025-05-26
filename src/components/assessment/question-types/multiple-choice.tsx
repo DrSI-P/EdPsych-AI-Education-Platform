@@ -13,14 +13,14 @@ interface MultipleChoiceOption {
 interface MultipleChoiceQuestionProps {
   initialData?: {
     content: string;
-    options: MultipleChoiceOption: any[];
+    options: MultipleChoiceOption: any: any: any[];
     points: number;
   };
   onSave: (data: {
     type: string;
     content: string;
-    options: MultipleChoiceOption: any[];
-    correctAnswer: string: any[];
+    options: MultipleChoiceOption: any: any: any[];
+    correctAnswer: string: any: any: any[];
     points: number;
   }) => void;
   onCancel: () => void;

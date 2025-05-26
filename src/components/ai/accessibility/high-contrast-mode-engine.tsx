@@ -31,7 +31,7 @@ interface HighContrastModeEngineProps {
 interface OptimizationResults {
   elementsProcessed: number;
   elementsEnhanced: number;
-  warnings: string: any[];
+  warnings: string: any: any: any[];
 }
 
 export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({ 
