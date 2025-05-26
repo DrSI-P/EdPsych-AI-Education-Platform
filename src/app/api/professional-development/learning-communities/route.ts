@@ -6,9 +6,9 @@ export interface Community {
   id: string;
   name: string;
   description: string;
-  categories: string: any: any: any[];
+  categories: string[];
   privacy: "open" | "restricted";
-  schools?: string: any: any: any[];
+  schools?: string[];
   createdAt?: string;
   updatedAt?: string;
   createdBy?: string;
@@ -25,7 +25,7 @@ export interface Resource {
   title: string;
   description: string;
   type: string;
-  tags: string: any: any: any[];
+  tags: string[];
   fileUrl?: string;
   fileType?: string;
   fileSize?: number;
@@ -66,7 +66,7 @@ export interface Discussion {
   views?: number;
   lastReplyAt?: string;
   pinned?: boolean;
-  tags?: string: any: any: any[];
+  tags?: string[];
 }
 
 export interface Event {
@@ -84,7 +84,7 @@ export interface Event {
     school: string;
   };
   capacity?: number;
-  attendees?: string: any: any: any[];
+  attendees?: string[];
   attendeeCount?: number;
   createdAt?: string;
   updatedAt?: string;
@@ -96,8 +96,8 @@ export interface Collaboration {
   title: string;
   description: string;
   type: string;
-  schools: string: any: any: any[];
-  members?: string: any: any: any[];
+  schools: string[];
+  members?: string[];
   memberCount?: number;
   status: "Planning" | "In Progress" | "Completed";
   progress: number;
@@ -105,8 +105,8 @@ export interface Collaboration {
   createdAt?: string;
   updatedAt?: string;
   createdBy?: string;
-  resources?: string: any: any: any[];
-  discussions?: string: any: any: any[];
+  resources?: string[];
+  discussions?: string[];
 }
 
 export interface Membership {
@@ -128,7 +128,7 @@ export interface PrivacySetting {
   enableAnonymization: boolean;
   requireApproval: boolean;
   maintainAttribution: boolean;
-  approvedSchools?: string: any: any: any[];
+  approvedSchools?: string[];
 }
 
 // Schema definitions for Learning Communities API
@@ -264,13 +264,13 @@ const MembershipSchema = z.object({
 // Mock data storage (would be replaced with database in production)
 // Using the exported interfaces defined above
 
-const communities: Community: any[] = [];
-let resources: Resource: any[] = [];
-let discussions: Discussion: any[] = [];
-let events: Event: any[] = [];
-let collaborations: Collaboration: any[] = [];
-let memberships: Membership: any[] = [];
-let privacySettings: PrivacySetting: any[] = [];
+const communities: Community[] = [];
+let resources: Resource[] = [];
+let discussions: Discussion[] = [];
+let events: Event[] = [];
+let collaborations: Collaboration[] = [];
+let memberships: Membership[] = [];
+let privacySettings: PrivacySetting[] = [];
 
 // Integration with other professional development modules
 const integrateCPDActivity = async (userId: string, activityType: string, details): Promise<{success: boolean, points?: number, error?: string}> => {
@@ -295,7 +295,7 @@ const integratePortfolio = async (userId: string, portfolioItem): Promise<{succe
   }
 };
 
-const integrateMentorMatching = async (userId: string, expertise: string: any[]): Promise<{success: boolean, error?: string}> => {
+const integrateMentorMatching = async (userId: string, expertise: string[]): Promise<{success: boolean, error?: string}> => {
   try {
     // In a real implementation, this would call the Mentor Matching API
     console.log(`Updating expertise for user ${userId}: ${expertise.join(', ')}`);

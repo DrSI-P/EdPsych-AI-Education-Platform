@@ -31,7 +31,7 @@ export interface CollaborationSession {
   createdAt: Date;
   updatedAt: Date;
   ownerId: string;
-  participants: CollaborationParticipant: any: any: any[];
+  participants: CollaborationParticipant[];
   status: 'active' | 'scheduled' | 'completed' | 'archived';
   settings: CollaborationSettings;
   content: {
@@ -44,8 +44,8 @@ export interface CollaborationSession {
   metadata: {
     subject?: string;
     keyStage?: string;
-    tags?: string: any: any: any[];
-    educationalObjectives?: string: any: any: any[];
+    tags?: string[];
+    educationalObjectives?: string[];
     [key: string];
   };
 }
@@ -111,10 +111,10 @@ export interface CollaborativeDocument {
   updatedAt: Date;
   createdBy: string;
   lastEditedBy: string;
-  contributors: string: any: any: any[];
-  comments: DocumentComment: any: any: any[];
-  versionHistory: DocumentVersion: any: any: any[];
-  currentEditors: string: any: any: any[];
+  contributors: string[];
+  comments: DocumentComment[];
+  versionHistory: DocumentVersion[];
+  currentEditors: string[];
   status: 'draft' | 'in_review' | 'final';
   metadata: {
     wordCount: number;
@@ -139,8 +139,8 @@ export interface DocumentComment {
   resolved: boolean;
   resolvedBy?: string;
   resolvedAt?: Date;
-  replies: DocumentComment: any: any: any[];
-  mentions: string: any: any: any[]; // user IDs
+  replies: DocumentComment[];
+  mentions: string[]; // user IDs
 }
 
 // Document version interface
@@ -171,15 +171,15 @@ export interface CollaborativeWhiteboard {
   title: string;
   width: number;
   height: number;
-  elements: WhiteboardElement: any: any: any[];
+  elements: WhiteboardElement[];
   background: string;
   version: number;
   createdAt: Date;
   updatedAt: Date;
   createdBy: string;
   lastEditedBy: string;
-  contributors: string: any: any: any[];
-  currentEditors: string: any: any: any[];
+  contributors: string[];
+  currentEditors: string[];
   status: 'active' | 'archived';
 }
 
@@ -226,19 +226,19 @@ export interface CollaborativeProject {
   sessionId: string;
   title: string;
   description: string;
-  objectives: string: any: any: any[];
-  tasks: ProjectTask: any: any: any[];
-  resources: ProjectResource: any: any: any[];
+  objectives: string[];
+  tasks: ProjectTask[];
+  resources: ProjectResource[];
   timeline: {
     startDate: Date;
     endDate: Date;
-    milestones: ProjectMilestone: any: any: any[];
+    milestones: ProjectMilestone[];
   };
   members: {
     userId: string;
     name: string;
     role: string;
-    responsibilities: string: any: any: any[];
+    responsibilities: string[];
   }[];
   status: 'planning' | 'in_progress' | 'review' | 'completed';
   createdAt: Date;
@@ -252,13 +252,13 @@ export interface ProjectTask {
   id: string;
   title: string;
   description: string;
-  assignedTo: string: any: any: any[];
+  assignedTo: string[];
   status: 'not_started' | 'in_progress' | 'completed' | 'blocked';
   priority: 'low' | 'medium' | 'high';
   dueDate?: Date;
   startDate?: Date;
   completedDate?: Date;
-  dependencies: string: any: any: any[]; // IDs of tasks that must be completed first
+  dependencies: string[]; // IDs of tasks that must be completed first
   comments: {
     userId: string;
     userName: string;
@@ -293,7 +293,7 @@ export interface ProjectResource {
   description: string;
   addedBy: string;
   addedAt: Date;
-  tags: string: any: any: any[];
+  tags: string[];
 }
 
 // Project milestone interface
@@ -303,8 +303,8 @@ export interface ProjectMilestone {
   description: string;
   dueDate: Date;
   status: 'not_started' | 'in_progress' | 'completed' | 'overdue';
-  associatedTasks: string: any: any: any[]; // IDs of tasks associated with this milestone
-  deliverables: string: any: any: any[];
+  associatedTasks: string[]; // IDs of tasks associated with this milestone
+  deliverables: string[];
   completedAt?: Date;
 }
 
@@ -318,11 +318,11 @@ export interface DiscussionThread {
   createdBy: string;
   updatedAt: Date;
   category: string;
-  tags: string: any: any: any[];
+  tags: string[];
   status: 'active' | 'resolved' | 'archived';
   pinned: boolean;
-  messages: DiscussionMessage: any: any: any[];
-  participants: string: any: any: any[];
+  messages: DiscussionMessage[];
+  participants: string[];
   views: number;
   lastActivity: Date;
 }
@@ -345,9 +345,9 @@ export interface DiscussionMessage {
   reactions: {
     type: string;
     count: number;
-    users: string: any: any: any[];
+    users: string[];
   }[];
-  mentions: string: any: any: any[];
+  mentions: string[];
   parentId?: string; // For replies
   edited: boolean;
   pinned: boolean;
@@ -405,7 +405,7 @@ export interface VideoConference {
   breakoutRooms?: {
     id: string;
     name: string;
-    participants: string: any: any: any[];
+    participants: string[];
     createdAt: Date;
     endedAt?: Date;
   }[];

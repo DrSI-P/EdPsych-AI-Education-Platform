@@ -236,7 +236,7 @@ export function OfflineAware<T>({
 }
 
 interface OfflineCacheProps {
-  urls: string: any: any: any[];
+  urls: string[];
   children: React.ReactNode;
 }
 
@@ -265,7 +265,7 @@ export const OfflineCache: React.FC<OfflineCacheProps> = ({
       
       try {
         const cache = await caches.open('edpsych-offline-cache');
-        const newlyCachedUrls: string: any[] = [];
+        const newlyCachedUrls: string[] = [];
         
         for (const url of urls) {
           try {

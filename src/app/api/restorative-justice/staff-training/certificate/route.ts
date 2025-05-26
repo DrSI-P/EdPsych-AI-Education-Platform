@@ -16,7 +16,7 @@ interface TrainingProgress {
   id: string;
   userId: string;
   moduleId: string;
-  completedSections: string: any: any: any[];
+  completedSections: string[];
   certificateIssued?: boolean;
 }
 

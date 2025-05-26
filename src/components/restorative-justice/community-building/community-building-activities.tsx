@@ -56,21 +56,21 @@ interface Activity {
   title: string;
   description: string;
   category: ActivityCategory;
-  ageGroups: AgeGroup: any: any: any[];
+  ageGroups: AgeGroup[];
   timeRequired: TimeRequired;
   groupSize: GroupSize;
-  materials: string: any: any: any[];
-  steps: string: any: any: any[];
-  variations: string: any: any: any[];
-  objectives: string: any: any: any[];
-  facilitation_tips: string: any: any: any[];
+  materials: string[];
+  steps: string[];
+  variations: string[];
+  objectives: string[];
+  facilitation_tips: string[];
   evidence_base: string;
   rating: number;
   favorites: number;
 }
 
 // Sample activities data
-const sampleActivities: Activity: any[] = [
+const sampleActivities: Activity[] = [
   {
     id: '1',
     title: 'Community Circle: Hopes and Dreams',
@@ -398,7 +398,7 @@ const CommunityBuildingActivities = () => {
   };
 
   // Format age groups for display
-  const formatAgeGroups = (ages: AgeGroup: any[]) => {
+  const formatAgeGroups = (ages: AgeGroup[]) => {
     const ageMap: Record<AgeGroup, string> = {
       'early-years': 'Early Years (3-5)',
       'primary': 'Primary (5-11)',

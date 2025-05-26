@@ -319,7 +319,7 @@ export class AdaptiveComplexityService {
    * Calculate a performance score based on multiple metrics
    */
   private calculatePerformanceScore(
-    performanceHistory: PerformanceMetric: any: any: any[],
+    performanceHistory: PerformanceMetric[],
     learningRate: number,
     challengePreference: number
   ): number {
@@ -384,7 +384,7 @@ export class AdaptiveComplexityService {
     );
     
     // Calculate score improvement over time
-    const improvements: number: any[] = [];
+    const improvements: number[] = [];
     for (let i = 1; i < sortedPerformance.length; i++) {
       const timeDiff = (sortedPerformance[i].timestamp.getTime() - sortedPerformance[i-1].timestamp.getTime()) / (1000 * 60 * 60); // hours
       const scoreDiff = sortedPerformance[i].score - sortedPerformance[i-1].score;
@@ -437,8 +437,8 @@ export class AdaptiveComplexityService {
       contentPerformance[perf.contentId].push(perf);
     });
     
-    const strengths: string: any[] = [];
-    const weaknesses: string: any[] = [];
+    const strengths: string[] = [];
+    const weaknesses: string[] = [];
     
     // Analyse each content area
     Object.entries(contentPerformance).forEach(([contentId, perfs]) => {
@@ -521,8 +521,8 @@ export class AdaptiveComplexityService {
   private generateNextStepsRecommendations(
     previousLevel: ComplexityLevel,
     newLevel: ComplexityLevel
-  ): string: any[] {
-    const recommendations: string: any[] = [];
+  ): string[] {
+    const recommendations: string[] = [];
     
     // Direction of change
     const isIncrease = ComplexityLevelValue[newLevel] > ComplexityLevelValue[previousLevel];

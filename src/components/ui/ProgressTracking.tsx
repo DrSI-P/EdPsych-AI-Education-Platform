@@ -26,9 +26,9 @@ interface Milestone {
 
 interface ProgressData {
   overall: number;
-  modules: ProgressModule: any: any: any[];
-  recentAchievements: Achievement: any: any: any[];
-  nextMilestones: Milestone: any: any: any[];
+  modules: ProgressModule[];
+  recentAchievements: Achievement[];
+  nextMilestones: Milestone[];
 }
 
 interface ProgressTrackingProps {

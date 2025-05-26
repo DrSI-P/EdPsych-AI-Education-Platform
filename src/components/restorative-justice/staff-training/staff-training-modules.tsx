@@ -77,8 +77,8 @@ interface Module {
   description: string;
   duration: string;
   level: 'Beginner' | 'Intermediate' | 'Advanced';
-  sections: Section: any: any: any[];
-  resources: Resource: any: any: any[];
+  sections: Section[];
+  resources: Resource[];
   completed: boolean;
   progress: number;
 }
@@ -104,21 +104,21 @@ interface Quiz {
   id: string;
   moduleId: string;
   title: string;
-  questions: Question: any: any: any[];
+  questions: Question[];
   passingScore: number;
 }
 
 interface Question {
   id: string;
   text: string;
-  options: string: any: any: any[];
+  options: string[];
   correctAnswer: number;
 }
 
 interface UserProgress {
   userId: string;
   moduleId: string;
-  completedSections: string: any: any: any[];
+  completedSections: string[];
   quizScores: Record<string, number>;
   certificateIssued: boolean;
   lastAccessed: string;

@@ -107,7 +107,7 @@ export interface TranslationEntry {
  */
 export interface TranslationNamespaceData {
   namespace: TranslationNamespace;
-  translations: TranslationEntry: any: any: any[];
+  translations: TranslationEntry[];
   // Added for expansion
   completionPercentage?: number; // Percentage of completed translations
   lastUpdated?: Date; // When this namespace was last updated
@@ -118,10 +118,10 @@ export interface TranslationNamespaceData {
  */
 export interface LanguagePack {
   language: SupportedLanguage;
-  namespaces: TranslationNamespaceData: any: any: any[];
+  namespaces: TranslationNamespaceData[];
   // Added for expansion
   version?: string; // Version of the language pack
-  contributors?: string: any: any: any[]; // People who contributed to translations
+  contributors?: string[]; // People who contributed to translations
   lastUpdated?: Date; // When this pack was last updated
   completionStatus?: 'complete' | 'partial' | 'in-progress'; // Overall completion status
 }
@@ -132,7 +132,7 @@ export interface LanguagePack {
 export interface UserLanguagePreferences {
   userId: string;
   primaryLanguage: SupportedLanguage;
-  secondaryLanguages: SupportedLanguage: any: any: any[];
+  secondaryLanguages: SupportedLanguage[];
   autoDetect: boolean;
   translateContent: boolean;
   translateUserContent: boolean;
@@ -142,7 +142,7 @@ export interface UserLanguagePreferences {
   preferHumanTranslation: boolean; // Preference for human vs machine translation
   showOriginalText: boolean; // Whether to show original text alongside translation
   translationQualityFeedback: boolean; // Whether to collect feedback on translations
-  specializedVocabulary?: string: any: any: any[]; // User-specific vocabulary to maintain
+  specializedVocabulary?: string[]; // User-specific vocabulary to maintain
 }
 
 /**
@@ -160,7 +160,7 @@ export interface TranslationMemoryEntry {
   domain?: string; // Educational domain (math, science, etc.)
   qualityRating?: number; // Rating of translation quality (1-5)
   isVerified?: boolean; // Whether this translation has been verified
-  alternatives?: string: any: any: any[]; // Alternative translations
+  alternatives?: string[]; // Alternative translations
   notes?: string; // Notes about this translation
 }
 
@@ -194,15 +194,15 @@ export interface TranslationResponse {
   sourceLanguage: SupportedLanguage;
   targetLanguage: SupportedLanguage;
   confidence?: number;
-  alternatives?: string: any: any: any[];
+  alternatives?: string[];
   // Added for expansion
   engine?: string; // Translation engine used
   processingTime?: number; // Time taken to translate in ms
   characterCount?: number; // Number of characters translated
-  glossaryTermsUsed?: string: any: any: any[]; // Glossary terms used in translation
+  glossaryTermsUsed?: string[]; // Glossary terms used in translation
   qualityEstimate?: number; // Estimated quality score (0-1)
   needsReview?: boolean; // Whether this translation needs human review
-  culturalNotes?: string: any: any: any[]; // Cultural context notes
+  culturalNotes?: string[]; // Cultural context notes
 }
 
 /**
@@ -228,16 +228,16 @@ export interface ContentLocalizationMetadata {
   contentId: string;
   contentType: 'lesson' | 'assessment' | 'feedback' | 'resource' | 'communication';
   originalLanguage: SupportedLanguage;
-  availableTranslations: SupportedLanguage: any: any: any[];
+  availableTranslations: SupportedLanguage[];
   lastUpdated: Date;
   translationStatus: {
     [key in SupportedLanguage]?: 'complete' | 'partial' | 'machine-translated' | 'needs-review';
   };
   // Added for expansion
   priority?: 'high' | 'medium' | 'low'; // Translation priority
-  audience?: string: any: any: any[]; // Target audience for this content
-  keywords?: string: any: any: any[]; // Keywords for this content
-  curriculumLinks?: string: any: any: any[]; // Links to curriculum standards
+  audience?: string[]; // Target audience for this content
+  keywords?: string[]; // Keywords for this content
+  curriculumLinks?: string[]; // Links to curriculum standards
   accessibilityNotes?: string; // Notes about accessibility considerations
   translationNotes?: string; // Notes for translators
 }
@@ -317,7 +317,7 @@ export interface DocumentTranslationStatus {
 export interface BatchTranslationRequest {
   batchId: string;
   userId: string;
-  documentIds: string: any: any: any[];
+  documentIds: string[];
   sourceLanguage: SupportedLanguage;
   targetLanguage: SupportedLanguage;
   priority: 'high' | 'normal' | 'low';
@@ -357,7 +357,7 @@ export interface TranslationGlossary {
     definition?: string;
     context?: string;
     domain?: string;
-    examples?: string: any: any: any[];
+    examples?: string[];
   }>;
   lastUpdated: Date;
   createdBy: string;
@@ -373,7 +373,7 @@ export interface CulturalContextInfo {
     title: string;
     description: string;
     relevance: 'high' | 'medium' | 'low';
-    examples?: string: any: any: any[];
+    examples?: string[];
   }>;
   educationalSystemNotes: string;
   curriculumDifferences?: string;

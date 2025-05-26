@@ -26,7 +26,7 @@ interface ResourceRecommendation {
   type: string;
   file?: string;
   url?: string;
-  tags: string: any: any: any[];
+  tags: string[];
   ageRange: string;
   subject: string;
   curriculum: string;
@@ -43,7 +43,7 @@ interface RecommendationRequestData {
   contextContent?: string;
   manualQuery?: string;
   filters?: {
-    resourceTypes?: string: any: any: any[];
+    resourceTypes?: string[];
     ageRange?: string;
     subject?: string;
     curriculum?: string;
@@ -77,11 +77,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 }
 
-function generateMockRecommendations(data: RecommendationRequestData): ResourceRecommendation: any[] {
+function generateMockRecommendations(data: RecommendationRequestData): ResourceRecommendation[] {
   const { contextSource, contextContent, manualQuery } = data;
   
   // Base set of resources
-  const resources: ResourceRecommendation: any[] = [
+  const resources: ResourceRecommendation[] = [
     {
       id: 'rec-1',
       title: 'Fractions Visual Models Collection',

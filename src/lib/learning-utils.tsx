@@ -100,23 +100,23 @@ export interface LearningProfile {
   secondaryLearningStyle?: LearningStyle;
   learningPace: LearningPace;
   preferredDifficulty: DifficultyLevel;
-  interests: InterestCategory: any: any: any[];
+  interests: InterestCategory[];
   goals: {
     type: LearningGoalType;
     description: string;
     targetDate?: Date;
   }[];
-  strengths: string: any: any: any[];
-  areasForImprovement: string: any: any: any[];
+  strengths: string[];
+  areasForImprovement: string[];
   adaptations?: {
     dyslexia?: boolean;
     adhd?: boolean;
     visualImpairment?: boolean;
     hearingImpairment?: boolean;
     motorSkillChallenges?: boolean;
-    other?: string: any: any: any[];
+    other?: string[];
   };
-  preferredActivities: LearningActivityType: any: any: any[];
+  preferredActivities: LearningActivityType[];
   lastUpdated: Date;
 }
 
@@ -129,11 +129,11 @@ export interface LearningModule {
   description: string;
   difficulty: DifficultyLevel;
   estimatedDuration: number; // in minutes
-  prerequisites: string: any: any: any[];
-  learningOutcomes: string: any: any: any[];
-  keywords: string: any: any: any[];
-  categories: string: any: any: any[];
-  relatedInterests: InterestCategory: any: any: any[];
+  prerequisites: string[];
+  learningOutcomes: string[];
+  keywords: string[];
+  categories: string[];
+  relatedInterests: InterestCategory[];
   activities: {
     id: string;
     type: LearningActivityType;
@@ -149,10 +149,10 @@ export interface LearningModule {
     passingScore: number;
   }[];
   adaptiveContent: {
-    visual: string: any: any: any[];
-    auditory: string: any: any: any[];
-    readingWriting: string: any: any: any[];
-    kinesthetic: string: any: any: any[];
+    visual: string[];
+    auditory: string[];
+    readingWriting: string[];
+    kinesthetic: string[];
   };
 }
 
@@ -164,7 +164,7 @@ export interface ModuleProgress {
   moduleId: string;
   startDate: Date;
   lastAccessDate: Date;
-  completedActivities: string: any: any: any[];
+  completedActivities: string[];
   assessmentResults: {
     assessmentId: string;
     attempts: number;
@@ -209,8 +209,8 @@ export interface LearningRecommendation {
   reasonForRecommendation: string;
   difficulty: DifficultyLevel;
   estimatedDuration: number; // in minutes
-  matchesInterests: InterestCategory: any: any: any[];
-  matchesGoals: LearningGoalType: any: any: any[];
+  matchesInterests: InterestCategory[];
+  matchesGoals: LearningGoalType[];
   prerequisites: {
     moduleId: string;
     title: string;
@@ -244,7 +244,7 @@ export interface LearningStyleResult {
 }
 
 // Sample learning style assessment questions
-const LEARNING_STYLE_QUESTIONS: LearningStyleQuestion: any[] = [
+const LEARNING_STYLE_QUESTIONS: LearningStyleQuestion[] = [
   {
     id: 'q1',
     question: 'When learning a new skill, I prefer to:',
@@ -382,7 +382,7 @@ export const assessLearningStyle = (answers: Record<string, LearningStyle>): Lea
 /**
  * Get learning style assessment questions
  */
-export const getLearningStyleQuestions = (): LearningStyleQuestion: any[] => {
+export const getLearningStyleQuestions = (): LearningStyleQuestion[] => {
   return LEARNING_STYLE_QUESTIONS;
 };
 
@@ -468,7 +468,7 @@ export const getLearningRecommendations = (
   // For now, we'll simulate with a delay and return mock data
   return new Promise(resolve => {
     setTimeout(() => {
-      const recommendations: LearningRecommendation: any[] = [
+      const recommendations: LearningRecommendation[] = [
         {
           moduleId: 'module1',
           title: 'Introduction to Educational Psychology',
@@ -532,7 +532,7 @@ export const getUserAchievements = (userId: string): Promise<Achievement[]> => {
   // For now, we'll simulate with a delay and return mock data
   return new Promise(resolve => {
     setTimeout(() => {
-      const achievements: Achievement: any[] = [
+      const achievements: Achievement[] = [
         {
           id: 'achievement1',
           title: 'First Steps',
@@ -741,7 +741,7 @@ export const getAdaptedContent = (
  * React hook for learning style assessment
  */
 export const useLearningStyleAssessment = (): {
-  questions: LearningStyleQuestion: any: any: any[];
+  questions: LearningStyleQuestion[];
   answers: Record<string, LearningStyle>;
   setAnswer: (questionId: string, style: LearningStyle) => void;
   result: LearningStyleResult | null;
@@ -866,7 +866,7 @@ export const useLearningRecommendations = (
   userId: string,
   count: number = 3
 ): {
-  recommendations: LearningRecommendation: any: any: any[];
+  recommendations: LearningRecommendation[];
   loading: boolean;
   error: string | null;
   refresh: () => Promise<void>;
@@ -907,7 +907,7 @@ export const useLearningRecommendations = (
 export const useAchievements = (
   userId: string
 ): {
-  achievements: Achievement: any: any: any[];
+  achievements: Achievement[];
   loading: boolean;
   error: string | null;
   refresh: () => Promise<void>;

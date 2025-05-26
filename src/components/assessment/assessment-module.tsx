@@ -22,8 +22,8 @@ interface Assessment {
     id: string;
     type: 'multiple_choice' | 'short_answer' | 'essay' | 'matching' | 'true_false';
     text: string;
-    options?: string: any: any: any[];
-    correctAnswer?: string | string: any: any: any[];
+    options?: string[];
+    correctAnswer?: string | string[];
     points: number;
   }[];
   createdAt: string;
@@ -31,7 +31,7 @@ interface Assessment {
 }
 
 interface AssessmentModuleProps {
-  initialAssessments?: Assessment: any: any: any[];
+  initialAssessments?: Assessment[];
   onAssessmentSelect?: (assessment: Assessment) => void;
   className?: string;
 }
@@ -63,7 +63,7 @@ export function AssessmentModule({
         }
         
         // Mock data for demonstration
-        const mockAssessments: Assessment: any[] = [
+        const mockAssessments: Assessment[] = [
           {
             id: '1',
             title: 'Year 8 Algebra Assessment',

@@ -82,14 +82,14 @@ interface Quest {
   difficulty: string;
   duration: number;
   xpReward: number;
-  objectives: string: any: any: any[];
+  objectives: string[];
   challenges: Array<{
     id: string;
     title: string;
     description: string;
     content: string;
     type: string;
-    options?: string: any: any: any[];
+    options?: string[];
     correctAnswer?: string;
     minScore?: number;
   }>;
@@ -179,7 +179,7 @@ export const AdventureQuestSaga = (): JSX.Element => {
     }
     
     // Initialize quests
-    setQuests(mockQuests as Quest: any[]);
+    setQuests(mockQuests as Quest[]);
     
     // Initialize completed quests
     setCompletedQuests([

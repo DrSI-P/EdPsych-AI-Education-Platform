@@ -27,10 +27,10 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
   private ageAppropriatenessGuidelines: Map<AgeAppropriatenessRating, string[]> = new Map();
   
   // Accessibility requirements
-  private accessibilityRequirements: string: any[] = [];
+  private accessibilityRequirements: string[] = [];
   
   // Inclusivity guidelines
-  private inclusivityGuidelines: string: any[] = [];
+  private inclusivityGuidelines: string[] = [];
   
   /**
    * Constructor for the DFE Compliance Service
@@ -52,8 +52,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
   async validateCurriculumAlignment(content, keyStage: UKKeyStage): Promise<{
     isAligned: boolean;
     alignmentScore: number;
-    misalignments: string: any: any: any[];
-    recommendations: string: any: any: any[];
+    misalignments: string[];
+    recommendations: string[];
   }> {
     console.log(`Validating curriculum alignment for key stage: ${keyStage}`);
     
@@ -96,7 +96,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
   async checkAgeAppropriateness(content, targetAgeRange: { min: number; max: number }): Promise<{
     isAppropriate: boolean;
     appropriatenessScore: number;
-    concerns: string: any: any: any[];
+    concerns: string[];
     recommendedAgeRating: AgeAppropriatenessRating;
   }> {
     console.log(`Checking age appropriateness for age range: ${targetAgeRange.min}-${targetAgeRange.max}`);
@@ -136,8 +136,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
   async validateAccessibility(content): Promise<{
     isAccessible: boolean;
     accessibilityScore: number;
-    issues: string: any: any: any[];
-    recommendations: string: any: any: any[];
+    issues: string[];
+    recommendations: string[];
   }> {
     console.log('Validating accessibility');
     
@@ -178,8 +178,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
   async checkInclusivity(content): Promise<{
     isInclusive: boolean;
     inclusivityScore: number;
-    issues: string: any: any: any[];
-    recommendations: string: any: any: any[];
+    issues: string[];
+    recommendations: string[];
   }> {
     console.log('Checking inclusivity');
     

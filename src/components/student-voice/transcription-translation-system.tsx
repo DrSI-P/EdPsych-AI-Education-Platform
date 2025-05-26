@@ -104,7 +104,7 @@ export default function TranscriptionTranslationSystem() {
   // Load mock data on component mount
   useEffect(() => {
     // Mock transcription history
-    const mockTranscriptionHistory: TranscriptionEntry: any[] = [
+    const mockTranscriptionHistory: TranscriptionEntry[] = [
       {
         id: '1',
         originalText: 'Today we will learn about photosynthesis and how plants convert sunlight into energy.',
@@ -138,7 +138,7 @@ export default function TranscriptionTranslationSystem() {
     ];
     
     // Mock vocabulary list
-    const mockVocabularyList: VocabularyItem: any[] = [
+    const mockVocabularyList: VocabularyItem[] = [
       {
         id: '1',
         term: 'Photosynthesis',

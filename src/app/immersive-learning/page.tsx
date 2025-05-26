@@ -73,7 +73,7 @@ export default function ImmersiveLearningPage() {
   const [isVRMode, setIsVRMode] = React.useState(false);
   
   // Mock data for immersive experiences
-  const experiences: ImmersiveExperience: any[] = [
+  const experiences: ImmersiveExperience[] = [
     {
       id: '1',
       title: 'Solar System Explorer',

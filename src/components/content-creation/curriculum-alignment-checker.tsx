@@ -33,8 +33,8 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
   const [error, setError] = useState<string | null>(null);
   const [results, setResults] = useState<{
     alignmentScore: number;
-    suggestions: string: any: any: any[];
-    curriculumLinks: string: any: any: any[];
+    suggestions: string[];
+    curriculumLinks: string[];
   } | null>(null);
   
   const { toast } = useToast();
@@ -106,7 +106,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
   };
   
   // Get curriculum links based on key stage
-  const getCurriculumLinks = (keyStage: KeyStage): string: any[] => {
+  const getCurriculumLinks = (keyStage: KeyStage): string[] => {
     switch (keyStage) {
       case KeyStage.EARLY_YEARS:
         return [

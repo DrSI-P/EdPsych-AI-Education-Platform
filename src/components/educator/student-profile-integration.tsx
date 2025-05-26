@@ -10,10 +10,10 @@ interface StudentProfileIntegrationProps {
   studentProfile?: {
     name: string;
     yearGroup: number;
-    specialNeeds?: string: any: any: any[];
-    interests?: string: any: any: any[];
-    strengths?: string: any: any: any[];
-    areasForDevelopment?: string: any: any: any[];
+    specialNeeds?: string[];
+    interests?: string[];
+    strengths?: string[];
+    areasForDevelopment?: string[];
   };
   className?: string;
 }

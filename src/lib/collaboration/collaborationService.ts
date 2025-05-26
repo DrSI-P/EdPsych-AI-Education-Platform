@@ -277,7 +277,7 @@ export class CollaborationService {
   /**
    * Get all participants in the session
    */
-  public getParticipants(): CollaborationParticipant: any[] {
+  public getParticipants(): CollaborationParticipant[] {
     return Array.from(this.participants.values());
   }
   
@@ -359,7 +359,7 @@ export class CollaborationService {
   /**
    * Update whiteboard
    */
-  public updateWhiteboard(whiteboardId: string, elements: any: any: any[], version: number): void {
+  public updateWhiteboard(whiteboardId: string, elements[], version: number): void {
     if (!this.socket || !this.userId || !this.sessionId) return;
     
     this.sendMessage({
