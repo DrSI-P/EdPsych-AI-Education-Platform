@@ -319,29 +319,29 @@ export interface DFEComplianceService {
   validateCurriculumAlignment: (content, keyStage: UKKeyStage) => Promise<{
     isAligned: boolean;
     alignmentScore: number;
-    misalignments: string[];
-    recommendations: string[];
+    misalignments: string: any[];
+    recommendations: string: any[];
   }>;
   
   checkAgeAppropriateness: (content, targetAgeRange: { min: number; max: number }) => Promise<{
     isAppropriate: boolean;
     appropriatenessScore: number;
-    concerns: string[];
+    concerns: string: any[];
     recommendedAgeRating: AgeAppropriatenessRating;
   }>;
   
   validateAccessibility: (content) => Promise<{
     isAccessible: boolean;
     accessibilityScore: number;
-    issues: string[];
-    recommendations: string[];
+    issues: string: any[];
+    recommendations: string: any[];
   }>;
   
   checkInclusivity: (content) => Promise<{
     isInclusive: boolean;
     inclusivityScore: number;
-    issues: string[];
-    recommendations: string[];
+    issues: string: any[];
+    recommendations: string: any[];
   }>;
   
   generateComplianceReport: (contentId: string) => Promise<DFECompliance>;
@@ -364,16 +364,16 @@ export interface GDPRComplianceService {
   
   handleSubjectAccessRequest: (userId: string) => Promise<{
     personalData;
-    processingActivities: string[];
-    processingPurposes: string[];
+    processingActivities: string: any[];
+    processingPurposes: string: any[];
     retentionPeriods: Record<string, string>;
-    recipients: string[];
+    recipients: string: any[];
   }>;
   
-  handleRightToErasure: (userId: string, dataCategories?: DataProtectionCategory[]) => Promise<{
+  handleRightToErasure: (userId: string, dataCategories?: DataProtectionCategory: any[]) => Promise<{
     success: boolean;
-    erasedCategories: DataProtectionCategory[];
-    retainedCategories: DataProtectionCategory[];
+    erasedCategories: DataProtectionCategory: any[];
+    retainedCategories: DataProtectionCategory: any[];
     retentionReasons: Record<string, string>;
   }>;
   
@@ -387,10 +387,10 @@ export interface GDPRComplianceService {
   
   logDataBreach: (details: {
     description: string;
-    affectedUsers: string[];
-    affectedDataCategories: DataProtectionCategory[];
+    affectedUsers: string: any[];
+    affectedDataCategories: DataProtectionCategory: any[];
     detectionDate: Date;
-    containmentActions: string[];
+    containmentActions: string: any[];
     severity: 'low' | 'medium' | 'high' | 'critical';
   }) => Promise<string>;
 }
@@ -403,7 +403,7 @@ export interface SafeguardingService {
     concernType: SafeguardingConcernType;
     description: string;
     reportedBy: string;
-    involvedUsers?: string[];
+    involvedUsers?: string: any[];
     contentReference?: string;
   }) => Promise<string>;
   
@@ -427,7 +427,7 @@ export interface SafeguardingService {
       severity: 'low' | 'medium' | 'high';
       detectionDate: Date;
     }>;
-    recommendedActions: string[];
+    recommendedActions: string: any[];
   }>;
   
   getSafeguardingReports: (filters?: {
@@ -516,18 +516,18 @@ export interface AgeVerificationService {
  */
 export interface DataProtectionService {
   classifyData: (data) => Promise<{
-    categories: DataProtectionCategory[];
+    categories: DataProtectionCategory: any[];
     sensitivityLevel: 'low' | 'medium' | 'high';
-    personalDataFields: string[];
-    specialCategoryFields: string[];
+    personalDataFields: string: any[];
+    specialCategoryFields: string: any[];
   }>;
   
   applyDataMinimization: (data, purpose: string) => Promise<{
     minimizedData;
-    removedFields: string[];
+    removedFields: string: any[];
   }>;
   
-  applyPseudonymization: (data, fields: string[]) => Promise<{
+  applyPseudonymization: (data, fields: string: any[]) => Promise<{
     pseudonymizedData;
     mappingKey: string;
   }>;
@@ -548,7 +548,7 @@ export interface DataProtectionService {
   applyRetentionPolicy: (dataCategory: DataProtectionCategory) => Promise<{
     retentionPeriod: DataRetentionPeriod;
     retentionJustification: string;
-    archivingRequirements: string[];
+    archivingRequirements: string: any[];
     deletionMethod: string;
   }>;
   

@@ -42,8 +42,8 @@ interface AssessmentQuestion {
   type: 'multiple-choice' | 'short-answer' | 'essay' | 'interactive';
   difficulty: number;
   question: string;
-  options?: string[];
-  correctAnswer?: string | string: any[];
+  options?: string: any[];
+  correctAnswer?: string | string: any: any[];
   rubric?: {
     criteria: string;
     levels: {
@@ -51,10 +51,10 @@ interface AssessmentQuestion {
       description: string;
     }[];
   }[];
-  conceptTags: string[];
+  conceptTags: string: any[];
   adaptiveFollowUp?: {
-    correct: string[];
-    incorrect: string[];
+    correct: string: any[];
+    incorrect: string: any[];
   };
 }
 

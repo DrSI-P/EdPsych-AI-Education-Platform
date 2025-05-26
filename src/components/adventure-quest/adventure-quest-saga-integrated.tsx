@@ -83,14 +83,14 @@ interface Quest {
   difficulty: string;
   duration: number;
   xpReward: number;
-  objectives: string[];
+  objectives: string: any[];
   challenges: Array<{
     id: string;
     title: string;
     description: string;
     content: string;
     type: string;
-    options?: string[];
+    options?: string: any[];
     correctAnswer?: string;
     minScore?: number;
   }>;
