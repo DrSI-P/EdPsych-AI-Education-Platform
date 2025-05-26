@@ -272,7 +272,7 @@ export class AnalyticsService {
   /**
    * Transform raw data into chart datasets
    */
-  transformDataToDatasets(data: any[], labelField: string, valueField: string, categoryField?: string): Dataset[] {
+  transformDataToDatasets(data[], labelField: string, valueField: string, categoryField?: string): Dataset[] {
     if (!data || data.length === 0) {
       return [];
     }

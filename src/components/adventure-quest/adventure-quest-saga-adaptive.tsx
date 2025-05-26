@@ -202,8 +202,8 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
   // Create adaptive quest based on user data
   const createAdaptiveQuest = (
     userProfile: any, 
-    learningHistory: any[], 
-    assessmentResults: any[], 
+    learningHistory[], 
+    assessmentResults[], 
     params: GenerationParams,
     curriculumContext: any
   ): Quest => {

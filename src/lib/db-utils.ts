@@ -161,7 +161,7 @@ export async function getPaginatedResults<T>(
 export interface BulkOperationResult {
   success: number;
   failed: number;
-  errors: any[];
+  errors[];
 }
 
 /**
@@ -171,7 +171,7 @@ export interface BulkOperationResult {
  * @param validator Optional validation function
  * @returns Bulk operation result
  */
-export async function bulkCreate(model: string, data: any[], validator?: (item: any) => any
+export async function bulkCreate(model: string, data[], validator?: (item: any) => any
 ): Promise<BulkOperationResult> {
   const result: BulkOperationResult = {
     success: 0,

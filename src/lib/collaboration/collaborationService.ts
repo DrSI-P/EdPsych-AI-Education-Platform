@@ -359,7 +359,7 @@ export class CollaborationService {
   /**
    * Update whiteboard
    */
-  public updateWhiteboard(whiteboardId: string, elements: any[], version: number): void {
+  public updateWhiteboard(whiteboardId: string, elements[], version: number): void {
     if (!this.socket || !this.userId || !this.sessionId) return;
     
     this.sendMessage({

@@ -419,7 +419,7 @@ export class AIGuidanceService {
    */
   public async monitorProgress(
     learnerProfile: LearnerProfile,
-    recentActivities: any[],
+    recentActivities[],
     currentLearningPaths: LearningPath[]
   ): Promise<InterventionAlert[]> {
     // Analyse recent activities and learning paths to identify potential issues
@@ -523,11 +523,11 @@ export class AIGuidanceService {
   /**
    * Identify performance issues from recent activities
    */
-  private identifyPerformanceIssues(learnerProfile: LearnerProfile, recentActivities: any[]): any[] {
+  private identifyPerformanceIssues(learnerProfile: LearnerProfile, recentActivities[]): any[] {
     // This would typically involve complex analysis of performance trends
     // For now, we'll simulate this with a placeholder implementation
     
-    const issues: any[] = [];
+    const issues[] = [];
     
     // Placeholder implementation
     if (recentActivities.length > 0) {
@@ -548,11 +548,11 @@ export class AIGuidanceService {
   /**
    * Identify engagement issues from recent activities
    */
-  private identifyEngagementIssues(learnerProfile: LearnerProfile, recentActivities: any[]): any[] {
+  private identifyEngagementIssues(learnerProfile: LearnerProfile, recentActivities[]): any[] {
     // This would typically involve analysis of engagement patterns
     // For now, we'll simulate this with a placeholder implementation
     
-    const issues: any[] = [];
+    const issues[] = [];
     
     // Placeholder implementation
     if (recentActivities.length === 0) {
@@ -585,7 +585,7 @@ export class AIGuidanceService {
     // This would typically involve analysis of goal progress against deadlines
     // For now, we'll simulate this with a placeholder implementation
     
-    const issues: any[] = [];
+    const issues[] = [];
     
     // Placeholder implementation
     const activeGoals = learnerProfile.learningGoals.filter(goal => goal.status === 'in_progress');

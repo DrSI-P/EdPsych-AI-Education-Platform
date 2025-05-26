@@ -182,8 +182,8 @@ const DraggableComponent = ({ component }: { component: any }): React.ReactNode 
 
 // Droppable report canvas
 const ReportCanvas = ({ items, setItems, onEditItem, onRemoveItem, onMoveItem, onDuplicateItem }: {
-  items: any[];
-  setItems: (items: any[]) => void;
+  items[];
+  setItems: (items[]) => void;
   onEditItem: (id: string) => void;
   onRemoveItem: (id: string) => void;
   onMoveItem: (fromIndex: number, toIndex: number) => void;
