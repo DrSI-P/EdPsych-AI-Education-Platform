@@ -83,7 +83,7 @@ interface Quest {
   difficulty: string;
   duration: number;
   xpReward: number;
-  objectives[];
+  objectives: string[];
   challenges: Array<{
     id: string;
     title: string;
