@@ -93,7 +93,7 @@ interface Quest {
   difficulty: string;
   duration: number;
   xpReward: number;
-  objectives: string: any[];
+  objectives: string[];
   challenges: Array<{
     id: string;
     title: string;
@@ -202,8 +202,8 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
   // Create adaptive quest based on user data
   const createAdaptiveQuest = (
     userProfile, 
-    learningHistory: any: any[], 
-    assessmentResults: any: any[], 
+    learningHistory: any[], 
+    assessmentResults: any[], 
     params: GenerationParams,
     curriculumContext
   ): Quest => {

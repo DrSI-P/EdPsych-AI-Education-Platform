@@ -97,7 +97,7 @@ export async function GET(req: Request) {
 }
 
 // Function to generate pattern analysis from emotion data
-function generatePatternAnalysis(emotionRecords: any: any[], emotionJournals: any: any[], analysisType: string = 'all') {
+function generatePatternAnalysis(emotionRecords: any[], emotionJournals: any[], analysisType: string = 'all') {
   // Initialize analysis object
   const analysis = {
     insights: [] as Array<{
@@ -150,7 +150,7 @@ function generatePatternAnalysis(emotionRecords: any: any[], emotionJournals: an
 }
 
 // Helper function to generate insights
-function generateInsights(emotionRecords: any: any[]) {
+function generateInsights(emotionRecords: any[]) {
   const insights = [];
   
   // Most common emotion
@@ -314,7 +314,7 @@ function generateInsights(emotionRecords: any: any[]) {
 }
 
 // Helper function to generate trigger patterns
-function generateTriggerPatterns(emotionRecords: any: any[]) {
+function generateTriggerPatterns(emotionRecords: any[]) {
   // Group emotions by triggers
   const triggerEmotions: Record<string, Record<string, number>> = {};
   
@@ -348,7 +348,7 @@ function generateTriggerPatterns(emotionRecords: any: any[]) {
 }
 
 // Helper function to generate time patterns
-function generateTimePatterns(emotionRecords: any: any[]) {
+function generateTimePatterns(emotionRecords: any[]) {
   // Group by hour of day
   const hourCounts = Array(24).fill(0).map((_, i) => ({ hour: i, count: 0 }));
   
@@ -376,7 +376,7 @@ function generateTimePatterns(emotionRecords: any: any[]) {
 }
 
 // Helper function to generate emotion trends
-function generateEmotionTrends(emotionRecords: any: any[]) {
+function generateEmotionTrends(emotionRecords: any[]) {
   // Group by date
   const dateEmotions: Record<string, Record<string, number>> = {};
   
@@ -402,7 +402,7 @@ function generateEmotionTrends(emotionRecords: any: any[]) {
 }
 
 // Helper function to generate emotion correlations
-function generateEmotionCorrelations(emotionRecords: any: any[]) {
+function generateEmotionCorrelations(emotionRecords: any[]) {
   // Find emotions that often occur together or in sequence
   const emotionPairs: Record<string, { source: string; target: string; count: number; strength: number }> = {};
   

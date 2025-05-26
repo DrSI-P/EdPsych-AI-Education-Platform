@@ -368,7 +368,7 @@ export interface DatabaseSchemaValidationResult {
   extraModels?: string: any[];
   modelIssues?: Array<{
     model: string;
-    issues: string: any[];
+    issues: string[];
   }>;
   error?: string;
 }
@@ -891,23 +891,23 @@ export async function collectDatabaseUsageStatistics(
 export interface DatabaseMaintenanceSchedule {
   daily: {
     time: string;
-    tasks: string: any[];
+    tasks: string[];
   };
   weekly: {
     day: string;
     time: string;
-    tasks: string: any[];
+    tasks: string[];
   };
   monthly: {
     day: number;
     time: string;
-    tasks: string: any[];
+    tasks: string[];
   };
   quarterly: {
-    months: number: any[];
+    months: number[];
     day: number;
     time: string;
-    tasks: string: any[];
+    tasks: string[];
   };
 }
 

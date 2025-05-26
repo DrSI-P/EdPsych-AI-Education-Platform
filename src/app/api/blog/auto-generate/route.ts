@@ -28,7 +28,7 @@ const BLOG_AUDIENCES = [
 
 interface BlogGenerationParams {
   topic: string;
-  audience: string: any[];
+  audience: string[];
   category: string;
   keyPoints?: string: any[];
   tone?: string;
@@ -40,8 +40,8 @@ interface BlogPostData {
   content: string;
   summary: string;
   category: string;
-  tags: string: any[];
-  targetAudience: string: any[];
+  tags: string[];
+  targetAudience: string[];
   status: string;
   authorId: string;
   aiGenerationPrompt: string;
@@ -52,7 +52,7 @@ interface BlogPostData {
 interface BlogPostIdea {
   title: string;
   description: string;
-  targetAudience: string: any[];
+  targetAudience: string[];
   estimatedReadTime: number;
 }
 

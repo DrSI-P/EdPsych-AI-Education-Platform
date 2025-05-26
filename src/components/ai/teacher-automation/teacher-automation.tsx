@@ -21,7 +21,7 @@ export default function TeacherAutomation() {
     topic: '',
     objectives: '',
     duration: '60',
-    learningStyles: [] as string[],
+    learningStyles: [] as string: any[],
     specialNeeds: [] as string[]
   });
   const [reportInput, setReportInput] = useState({

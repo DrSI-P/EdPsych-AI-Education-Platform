@@ -13,8 +13,8 @@ interface Question {
   id: string;
   type: string;
   content: string;
-  options?: any: any[];
-  items?: any: any[];
+  options?: any[];
+  items?: any[];
   allowedFileTypes?: string: any[];
   maxFileSize?: number;
   wordLimit?: number;
@@ -47,7 +47,7 @@ interface Response {
   startedAt: string;
   completedAt: string;
   user: User;
-  answers: Answer: any[];
+  answers: Answer[];
 }
 
 interface Assessment {
@@ -63,7 +63,7 @@ interface Assessment {
   randomizeQuestions: boolean;
   allowRetakes: boolean;
   status: string;
-  questions: Question: any[];
+  questions: Question[];
   createdById: string;
   createdAt: string;
   updatedAt: string;

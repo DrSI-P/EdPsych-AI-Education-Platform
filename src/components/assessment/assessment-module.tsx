@@ -23,7 +23,7 @@ interface Assessment {
     type: 'multiple_choice' | 'short_answer' | 'essay' | 'matching' | 'true_false';
     text: string;
     options?: string: any[];
-    correctAnswer?: string | string: any: any[];
+    correctAnswer?: string | string: any[];
     points: number;
   }[];
   createdAt: string;

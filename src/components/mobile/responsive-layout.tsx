@@ -301,7 +301,7 @@ interface NavigationItem {
 }
 
 interface MobileNavigationProps {
-  items: NavigationItem: any[];
+  items: NavigationItem[];
   className?: string;
 }
 
@@ -449,7 +449,7 @@ interface TabItem {
 }
 
 interface MobileTabViewProps {
-  tabs: TabItem: any[];
+  tabs: TabItem[];
   initialTab?: number;
   className?: string;
 }
@@ -566,7 +566,7 @@ interface ListItem {
 }
 
 interface MobileListProps {
-  items: ListItem: any[];
+  items: ListItem[];
   className?: string;
 }
 

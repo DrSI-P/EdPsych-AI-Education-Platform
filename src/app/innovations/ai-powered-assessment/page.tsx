@@ -43,7 +43,7 @@ interface AssessmentQuestion {
   difficulty: number;
   question: string;
   options?: string: any[];
-  correctAnswer?: string | string: any: any[];
+  correctAnswer?: string | string: any[];
   rubric?: {
     criteria: string;
     levels: {
@@ -51,10 +51,10 @@ interface AssessmentQuestion {
       description: string;
     }[];
   }[];
-  conceptTags: string: any[];
+  conceptTags: string[];
   adaptiveFollowUp?: {
-    correct: string: any[];
-    incorrect: string: any[];
+    correct: string[];
+    incorrect: string[];
   };
 }
 
