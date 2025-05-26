@@ -254,7 +254,7 @@ export default function AIPoweredAssessmentPage() {
   const currentQuestion = questions[currentQuestionIndex];
   
   // Handle starting assessment
-  const handleStartAssessment = () => {;
+  const handleStartAssessment = () => {
     setAssessmentInProgress(true);
     setAssessmentCompleted(false);
     setCurrentQuestionIndex(0);
@@ -264,7 +264,7 @@ export default function AIPoweredAssessmentPage() {
   };
   
   // Handle submitting answer
-  const handleSubmitAnswer = () => {;
+  const handleSubmitAnswer = () => {
     if (!currentQuestion) return;
     
     setIsProcessing(true);
@@ -276,7 +276,7 @@ export default function AIPoweredAssessmentPage() {
       let feedback = '';
       
       // Check if answer is correct based on question type
-      if (currentQuestion.type === 'multiple-choice' && selectedAnswer) {;
+      if (currentQuestion.type === 'multiple-choice' && selectedAnswer) {
         isCorrect = selectedAnswer === currentQuestion.correctAnswer;
         score = isCorrect ? 100 : 0;
         
@@ -287,7 +287,7 @@ export default function AIPoweredAssessmentPage() {
         }
       } else if ((currentQuestion.type === 'short-answer' || currentQuestion.type === 'essay') && textAnswer) {
         // Simulate AI evaluation for text answers
-        if (currentQuestion.type === 'short-answer') {;
+        if (currentQuestion.type === 'short-answer') {
           const possibleAnswers = currentQuestion.correctAnswer as string[];
           isCorrect = possibleAnswers.some(answer => 
             textAnswer.toLowerCase().includes(answer.toLowerCase())
@@ -318,13 +318,13 @@ export default function AIPoweredAssessmentPage() {
       }
       
       // Create result object
-      const result: AssessmentResult =  {
+      const result: AssessmentResult = {
         questionId: currentQuestion.id,
         correct: isCorrect,
         score,
         response: currentQuestion.type === 'multiple-choice' ? selectedAnswer || '' : textAnswer,
         feedback,
-        conceptsAssessed: currentQuestion.conceptTags.map(concept => {;
+        conceptsAssessed: currentQuestion.conceptTags.map(concept => {
           const masteryChange = isCorrect ? Math.random() * 10 : -Math.random() * 5;
           return {
             concept,
@@ -339,7 +339,7 @@ export default function AIPoweredAssessmentPage() {
       
       // Update concept mastery based on results
       setConceptMastery(prev => 
-        prev.map(concept => {;
+        prev.map(concept => {
           const assessed = currentQuestion.conceptTags.includes(concept.concept);
           if (!assessed) return concept;
           
@@ -372,7 +372,7 @@ export default function AIPoweredAssessmentPage() {
   // Get trend icon
   const getTrendIcon = (trend: string) => {
     switch(trend) {
-      case 'improving':;
+      case 'improving':
         return <ArrowRight className="h-4 w-4 text-green-500 transform rotate-45" />;
       case 'declining':
         return <ArrowRight className="h-4 w-4 text-red-500 transform -rotate-45" />;
@@ -382,7 +382,7 @@ export default function AIPoweredAssessmentPage() {
   };
   
   // Get mastery colour
-  const getMasteryColor = (mastery: number) => {;
+  const getMasteryColor = (mastery: number) => {
     if (mastery >= 80) return "text-green-500";
     if (mastery >= 60) return "text-amber-500";
     return "text-red-500";
@@ -1356,10 +1356,9 @@ export default function AIPoweredAssessmentPage() {
                   </div>
                 </li>
               </ul>
-            </CardContent>
-          </Card>
+            </CardContent>          </Card>
         </div>
       </motion.div>
-    </div>;
+    </div>
   );
 }
