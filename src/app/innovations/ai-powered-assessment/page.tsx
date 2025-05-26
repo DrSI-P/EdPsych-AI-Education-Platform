@@ -44,7 +44,7 @@ interface AssessmentQuestion {
   difficulty: number;
 
   question: string;
-  options?: string;
+  options?: string[];
   correctAnswer?: string | string[];
  rubric?: {
     criteria: string;
