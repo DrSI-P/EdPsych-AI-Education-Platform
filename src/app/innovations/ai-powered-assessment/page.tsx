@@ -55,12 +55,11 @@ interface AssessmentQuestion {
       description: string;
     }[];
   }[];
-  conceptTags: any;
+  conceptTags: string[];
 
   adaptiveFollowUp?: {
-    correct: any;
-
-    incorrect: any;
+    correct: string[];
+    incorrect: string[];
   };
 }
 
@@ -289,8 +288,8 @@ export default function AIPoweredAssessmentPage() {
       } else if ((currentQuestion.type === 'short-answer' || currentQuestion.type === 'essay') && textAnswer) {
         // Simulate AI evaluation for text answers
         if (currentQuestion.type === 'short-answer') {;
-          const possibleAnswers = currentQuestion.correctAnswer as string: any;
- isCorrect = possibleAnswers.some(answer => 
+          const possibleAnswers = currentQuestion.correctAnswer as string[];
+          isCorrect = possibleAnswers.some(answer => 
             textAnswer.toLowerCase().includes(answer.toLowerCase())
           );
           score = isCorrect ? 100 : 30; // Partial credit possible
@@ -303,7 +302,7 @@ export default function AIPoweredAssessmentPage() {
         } else {
           // Essay scoring simulation
           const lengthScore = Math.min(100, textAnswer.length / 5);
-          const keywordScore = textAnswer.toLowerCase().includes(\'substitution\') && 
+          const keywordScore = textAnswer.toLowerCase().includes('substitution') && 
                               textAnswer.toLowerCase().includes('equation') ? 100 : 50;
           score = Math.round((lengthScore + keywordScore) / 2);
           isCorrect = score >= 70;
