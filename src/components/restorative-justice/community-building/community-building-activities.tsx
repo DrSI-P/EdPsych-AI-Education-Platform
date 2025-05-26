@@ -56,21 +56,21 @@ interface Activity {
   title: string;
   description: string;
   category: ActivityCategory;
-  ageGroups[];
+  ageGroups: string[];
   timeRequired: TimeRequired;
   groupSize: GroupSize;
-  materials[];
-  steps[];
-  variations[];
-  objectives[];
-  facilitation_tips[];
+  materials: string[];
+  steps: string[];
+  variations: string[];
+  objectives: string[];
+  facilitation_tips: string[];
   evidence_base: string;
   rating: number;
   favorites: number;
 }
 
 // Sample activities data
-const sampleActivities[] = [
+const sampleActivities: Activity[] = [
   {
     id: '1',
     title: 'Community Circle: Hopes and Dreams',
