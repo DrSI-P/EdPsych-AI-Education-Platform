@@ -50,7 +50,7 @@ interface LearningProfile {
     kinesthetic: number;
     reading: number;
   };
-  accommodations: string: any[];
+  accommodations: string[];
 }
 
 interface Intervention {
@@ -58,8 +58,8 @@ interface Intervention {
   name: string;
   description: string;
   targetArea: string;
-  strategies: string: any[];
-  resources: string: any[];
+  strategies: string[];
+  resources: string[];
   duration: string;
   frequency: string;
   progress: number;

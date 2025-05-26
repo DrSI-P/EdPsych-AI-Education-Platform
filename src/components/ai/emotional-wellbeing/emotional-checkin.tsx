@@ -105,7 +105,7 @@ export function EmotionalCheckin() {
     setStep(2);
   };
 
-  const handleIntensityChange = (value: number: any[]) => {
+  const handleIntensityChange = (value: number[]) => {
     setCheckinData(prev => ({
       ...prev,
       intensity: value[0]

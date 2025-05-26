@@ -35,7 +35,7 @@ interface ParentResource {
   videoUrl?: string;
   downloadUrl?: string;
   estimatedTime?: string;
-  tags: string: any[];
+  tags: string[];
   isFavorite: boolean;
 }
 
@@ -43,7 +43,7 @@ interface Module {
   id: string;
   title: string;
   description: string;
-  lessons: Lesson: any[];
+  lessons: Lesson[];
   completed: boolean;
   progress: number;
 }
@@ -62,9 +62,9 @@ interface FamilyActivity {
   title: string;
   description: string;
   ageGroups: AgeGroup[];
-  materials: string: any[];
-  steps: string: any[];
-  tips: string: any[];
+  materials: string[];
+  steps: string[];
+  tips: string[];
   estimatedTime: string;
   isFavorite: boolean;
 }
