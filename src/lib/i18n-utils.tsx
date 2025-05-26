@@ -64,7 +64,7 @@ export interface TranslationOptions {
   context?: EducationalContext;
   interpolation?: Record<string, string | number>;
   fallbackLanguage?: SupportedLanguage;
-  formatters?: Record<string, (value) => string>;
+  formatters?: Record<string, (value: any) => string>;
 }
 
 // Language metadata for all supported languages
@@ -330,7 +330,7 @@ export const getLanguageDirection = (language: SupportedLanguage): LanguageDirec
 /**
  * Get all available languages
  */
-export const getAvailableLanguages = (): LanguageInfo: any[] => {
+export const getAvailableLanguages = (): LanguageInfo[] => {
   return Object.values(LANGUAGE_INFO);
 };
 

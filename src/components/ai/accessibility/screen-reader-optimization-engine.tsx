@@ -31,7 +31,7 @@ interface ScreenReaderOptimizationEngineProps {
 interface OptimizationResults {
   elementsProcessed: number;
   elementsEnhanced: number;
-  warnings[];
+  warnings: string[];
 }
 
 export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEngineProps> = ({ 
