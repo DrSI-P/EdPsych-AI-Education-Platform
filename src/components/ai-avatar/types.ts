@@ -13,29 +13,29 @@ export interface AIAvatarVideo {
   videoPath?: string;
   thumbnailPath?: string;
   featured: boolean;
-  tags: any;
+  tags: string[];
   createdAt: Date;
   updatedAt: Date;
 }
 
 export enum AIAvatarVideoCategory {
-  CORE_PLATFORM = 'core_platform',;
-  USER_ONBOARDING = 'user_onboarding',;
-  FEATURE_DEMONSTRATION = 'feature_demonstration',;
-  ADMINISTRATIVE = 'administrative',;
+  CORE_PLATFORM = \'CORE_PLATFORM\',
+  USER_ONBOARDING = \'USER_ONBOARDING\',
+  FEATURE_DEMONSTRATION = \'FEATURE_DEMONSTRATION\',
+  ADMINISTRATIVE = \'ADMINISTRATIVE\',
   INSPIRATIONAL = 'inspirational';
 }
 
 export enum AIAvatarVideoAudience {
-  ALL = 'all',;
-  EDUCATORS = 'educators',;
-  PARENTS = 'parents',;
-  STUDENTS_EARLY_YEARS = 'students_early_years',;
-  STUDENTS_KS1 = 'students_ks1',;
-  STUDENTS_KS2 = 'students_ks2',;
-  STUDENTS_KS3 = 'students_ks3',;
-  STUDENTS_KS4 = 'students_ks4',;
-  PROFESSIONALS = 'professionals',;
+  ALL = \'ALL\',
+  EDUCATORS = \'EDUCATORS\',
+  PARENTS = \'PARENTS\',
+  STUDENTS_EARLY_YEARS = \'STUDENTS_EARLY_YEARS\',
+  STUDENTS_KS1 = \'STUDENTS_KS1\',
+  STUDENTS_KS2 = \'STUDENTS_KS2\',
+  STUDENTS_KS3 = \'STUDENTS_KS3\',
+  STUDENTS_KS4 = \'STUDENTS_KS4\',
+  PROFESSIONALS = \'PROFESSIONALS\',
   ADMINISTRATORS = 'administrators';
 }
 
@@ -49,16 +49,16 @@ export interface AIAvatarVideoPlayer {
 }
 
 export interface AIAvatarVideoLibrary {
-  videos: any;
-  categories: any;
-  audiences: any;
-  featuredVideos: any;
+  videos: AIAvatarVideo[];
+  categories: AIAvatarVideoCategory[];
+  audiences: AIAvatarVideoAudience[];
+  featuredVideos: AIAvatarVideo[];
 }
 
 export interface AIAvatarVideoService {
-  getVideo: (id: string) => Promise<AIAvatarVideo>;
-  getVideosByCategory: (category: AIAvatarVideoCategory) => Promise<AIAvatarVideo>;
-  getVideosByAudience: (audience: AIAvatarVideoAudience) => Promise<AIAvatarVideo>;
-  getFeaturedVideos: () => Promise<AIAvatarVideo>;
-  searchVideos: (query: string) => Promise<AIAvatarVideo>;
+  getVideo: (id: string) => Promise<AIAvatarVideo[]>;
+  getVideosByCategory: (category: AIAvatarVideoCategory) => Promise<AIAvatarVideo[]>;
+  getVideosByAudience: (audience: AIAvatarVideoAudience) => Promise<AIAvatarVideo[]>;
+  getFeaturedVideos: () => Promise<AIAvatarVideo[]>;
+  searchVideos: (query: string) => Promise<AIAvatarVideo[]>;
 }
