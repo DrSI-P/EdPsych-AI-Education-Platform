@@ -7,8 +7,14 @@
  */
 
 import { db } from '@/lib/db';
-import { cache } from '@/lib/cache';
+import cacheModule from '@/lib/cache';
 import HeygenAPI from './heygen-api';
+
+// Create an alias for the cache module with the methods we need
+const cache = {
+  get: cacheModule.getCacheValue,
+  set: cacheModule.setCacheValue
+};
 
 // Initialize the HEYGEN API
 const heygenApi = HeygenAPI.getInstance();
