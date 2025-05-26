@@ -30,7 +30,7 @@ export default function FileUploadQuestion({
 }: FileUploadQuestionProps) {
   const [content, setContent] = useState(initialData?.content || '');
   const [points, setPoints] = useState(initialData?.points || 1);
-  const [allowedFileTypes, setAllowedFileTypes] = useState<string: any[]>(
+  const [allowedFileTypes, setAllowedFileTypes] = useState<string[]>(
     initialData?.allowedFileTypes || ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png']
   );
   const [maxFileSize, setMaxFileSize] = useState(initialData?.maxFileSize || 5);
