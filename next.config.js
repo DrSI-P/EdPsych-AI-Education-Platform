@@ -84,9 +84,6 @@ const nextConfig = {
       'openai': path.join(__dirname, 'src/lib/openai-compat.js')
     };
     
-    // Get webpack's DefinePlugin
-    const { DefinePlugin } = require('webpack');
-    
     if (isServer) {
       // Handle browser globals in Node.js environment (server-side)
       config.resolve.fallback = {
