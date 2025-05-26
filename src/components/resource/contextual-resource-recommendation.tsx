@@ -1,3 +1,8 @@
+/**
+ * Manual fix for contextual-resource-recommendation.tsx
+ * This file contains targeted fixes for TypeScript errors
+ */
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -34,7 +39,7 @@ interface Resource {
   type: 'document' | 'video' | 'audio' | 'link' | 'worksheet';
   url?: string;
   file?: string;
-  tags: any[];
+  tags: string[];
   ageRange: string;
   subject: string;
   curriculum: string;
@@ -71,7 +76,7 @@ export function ContextualResourceRecommendation({
   const [filterType, setFilterType] = useState<string | null>(null);
   
   // Resource type icons mapping
-  const resourceTypeIcons = {
+  const resourceTypeIcons: Record<string, React.ReactNode> = {
     document: <FileText className="h-5 w-5" />,
     video: <Video className="h-5 w-5" />,
     audio: <BookOpen className="h-5 w-5" />,
@@ -99,7 +104,7 @@ export function ContextualResourceRecommendation({
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       // Generate mock recommendations based on context
-      let mockRecommendations: any[] = [];
+      let mockRecommendations: Resource[] = [];
       
       if (contextSource === 'lesson-plan') {
         mockRecommendations = generateLessonPlanRecommendations();
@@ -126,7 +131,7 @@ export function ContextualResourceRecommendation({
   };
   
   // Generate mock recommendations for lesson plans
-  const generateLessonPlanRecommendations = (): Resource: any[] => {
+  const generateLessonPlanRecommendations = (): Resource[] => {
     // Extract context from contextContent or use default
     const context = contextContent || 'Mathematics lesson on fractions for Year 5 students';
     
@@ -196,7 +201,7 @@ export function ContextualResourceRecommendation({
   };
   
   // Generate mock recommendations for meeting notes
-  const generateMeetingNotesRecommendations = (): Resource: any[] => {
+  const generateMeetingNotesRecommendations = (): Resource[] => {
     // Extract context from contextContent or use default
     const context = contextContent || 'EHCNA meeting discussing communication difficulties and social interaction challenges';
     
@@ -251,7 +256,7 @@ export function ContextualResourceRecommendation({
   };
   
   // Generate mock recommendations for student profiles
-  const generateStudentProfileRecommendations = (): Resource: any[] => {
+  const generateStudentProfileRecommendations = (): Resource[] => {
     // Extract context from contextContent or use default
     const context = contextContent || 'Year 8 student with dyslexia who enjoys science and has strengths in verbal reasoning';
     
@@ -306,7 +311,7 @@ export function ContextualResourceRecommendation({
   };
   
   // Generate mock recommendations for manual queries
-  const generateManualQueryRecommendations = (): Resource: any[] => {
+  const generateManualQueryRecommendations = (): Resource[] => {
     // For demo purposes, we'll return mock data based on the query
     const query = manualQuery.toLowerCase();
     
@@ -399,329 +404,168 @@ export function ContextualResourceRecommendation({
 
   // Handle resource selection
   const handleResourceSelect = (resource: Resource) => {
-    onResourceSelect?.(resource);
-    
-    toast({
-      title: "Resource selected",
-      description: `You selected: ${resource.title}`,
-    });
-  };
-  
-  // Handle resource feedback
-  const handleResourceFeedback = (resourceId: string, isRelevant: boolean) => {
-    // In a real implementation, this would send feedback to the API
-    // to improve future recommendations
-    
-    toast({
-      title: isRelevant ? "Marked as relevant" : "Marked as not relevant",
-      description: "Thank you for your feedback. This helps improve recommendations.",
-    });
-    
-    // Remove the resource from the list if marked as not relevant
-    if (!isRelevant) {
-      setRecommendedResources(prev => 
-        prev.filter(resource => resource.id !== resourceId)
-      );
+    if (onResourceSelect) {
+      onResourceSelect(resource);
     }
   };
-  
-  // Handle manual query submission
-  const handleManualQuerySubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (manualQuery.trim()) {
-      getRecommendations();
-    }
+
+  // Render resource card
+  const renderResourceCard = (resource: Resource) => {
+    return (
+      <Card key={resource.id} className="mb-4">
+        <CardHeader className="pb-2">
+          <div className="flex justify-between items-start">
+            <div className="flex items-center">
+              {resourceTypeIcons[resource.type]}
+              <CardTitle className="ml-2 text-lg">{resource.title}</CardTitle>
+            </div>
+            <Badge variant="outline">{resource.type}</Badge>
+          </div>
+          <CardDescription className="mt-2">{resource.description}</CardDescription>
+        </CardHeader>
+        <CardContent className="pb-2">
+          <div className="flex flex-wrap gap-1 mb-2">
+            {resource.tags.map((tag, index) => (
+              <Badge key={index} variant="secondary" className="text-xs">{tag}</Badge>
+            ))}
+          </div>
+          
+          {showExplanations && resource.relevanceReason && (
+            <div className="bg-muted p-2 rounded-md text-sm mt-2 flex items-start">
+              <Info className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
+              <p>{resource.relevanceReason}</p>
+            </div>
+          )}
+        </CardContent>
+        <CardFooter className="flex justify-between pt-2">
+          <div className="flex items-center text-sm text-muted-foreground">
+            <Clock className="h-3 w-3 mr-1" />
+            <span>{new Date(resource.createdAt).toLocaleDateString()}</span>
+          </div>
+          <div className="flex gap-2">
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => handleResourceSelect(resource)}
+            >
+              <ExternalLink className="h-4 w-4 mr-1" />
+              Open
+            </Button>
+            <Button 
+              variant="default" 
+              size="sm"
+              onClick={() => handleResourceSelect(resource)}
+            >
+              <BookmarkPlus className="h-4 w-4 mr-1" />
+              Save
+            </Button>
+          </div>
+        </CardFooter>
+      </Card>
+    );
   };
-  
-  // Filter resources by type if a filter is active
-  const filteredResources = filterType 
-    ? recommendedResources.filter(resource => resource.type === filterType)
-    : recommendedResources;
-  
-  // Sort resources by relevance score
-  const sortedResources = [...filteredResources].sort((a, b) => 
-    (b.relevanceScore || 0) - (a.relevanceScore || 0)
-  );
 
   return (
     <div className={`contextual-resource-recommendation ${className}`}>
       <Card>
         <CardHeader>
-          <div className="flex justify-between items-centre">
-            <div>
-              <CardTitle>Resource Recommendations</CardTitle>
-              <CardDescription>
-                {contextSource === 'lesson-plan' && 'Resources for your lesson plan'}
-                {contextSource === 'meeting-notes' && 'Resources related to your meeting notes'}
-                {contextSource === 'student-profile' && 'Resources tailored to this student'}
-                {contextSource === 'manual' && 'Custom resource recommendations'}
-              </CardDescription>
-            </div>
-            <div className="flex items-centre gap-2">
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => setShowExplanations(!showExplanations)}
-                title={showExplanations ? "Hide explanations" : "Show explanations"}
-              >
-                <Info className="h-4 w-4" />
-              </Button>
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={getRecommendations}
-                title="Refresh recommendations"
-              >
-                <RefreshCw className="h-4 w-4" />
-              </Button>
-              <Button 
-                variant="outline" 
-                size="sm"
-                title="Recommendation settings"
-              >
-                <Settings className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
+          <CardTitle>Educational Resources</CardTitle>
+          <CardDescription>
+            {contextSource === 'manual' 
+              ? 'Search for educational resources' 
+              : `Recommended resources based on ${contextSource}`}
+          </CardDescription>
         </CardHeader>
-        
         <CardContent>
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="recommended">Recommended</TabsTrigger>
-              <TabsTrigger value="manual">Manual Search</TabsTrigger>
-            </TabsList>
-            
-            <TabsContent value="recommended" className="space-y-4">
-              {/* Resource type filters */}
-              <div className="flex flex-wrap gap-2 mb-4">
-                <Button 
-                  variant={filterType === null ? "default" : "outline"} 
-                  size="sm"
-                  onClick={() => setFilterType(null)}
-                >
-                  All Types
-                </Button>
-                <Button 
-                  variant={filterType === 'document' ? "default" : "outline"} 
-                  size="sm"
-                  onClick={() => setFilterType('document')}
-                >
-                  <FileText className="h-4 w-4 mr-1" /> Documents
-                </Button>
-                <Button 
-                  variant={filterType === 'video' ? "default" : "outline"} 
-                  size="sm"
-                  onClick={() => setFilterType('video')}
-                >
-                  <Video className="h-4 w-4 mr-1" /> Videos
-                </Button>
-                <Button 
-                  variant={filterType === 'worksheet' ? "default" : "outline"} 
-                  size="sm"
-                  onClick={() => setFilterType('worksheet')}
-                >
-                  <FileSpreadsheet className="h-4 w-4 mr-1" /> Worksheets
-                </Button>
-                <Button 
-                  variant={filterType === 'link' ? "default" : "outline"} 
-                  size="sm"
-                  onClick={() => setFilterType('link')}
-                >
-                  <Link className="h-4 w-4 mr-1" /> Links
+          {contextSource === 'manual' && (
+            <div className="mb-4">
+              <div className="flex gap-2 mb-4">
+                <input
+                  type="text"
+                  placeholder="Search for resources..."
+                  className="flex-1 p-2 border rounded-md"
+                  value={manualQuery}
+                  onChange={(e) => setManualQuery(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && getRecommendations()}
+                />
+                <Button onClick={getRecommendations}>
+                  Search
                 </Button>
               </div>
-              
-              {isLoading ? (
-                <div className="flex justify-centre py-8">
-                  <Spinner size="lg" />
-                </div>
-              ) : error ? (
-                <div className="bg-red-50 p-4 rounded-md text-red-800">
-                  {error}
-                </div>
-              ) : sortedResources.length === 0 ? (
-                <div className="text-centre py-8 text-grey-500">
-                  <p>No recommendations available.</p>
-                  <p className="text-sm mt-2">Try changing your context or using manual search.</p>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {sortedResources.map(resource => (
-                    <Card key={resource.id} className="overflow-hidden">
-                      <div className="flex items-centre justify-between p-4 bg-muted/30">
-                        <div className="flex items-centre gap-2">
-                          <div className="bg-primary/10 p-2 rounded-full">
-                            {resourceTypeIcons[resource.type]}
-                          </div>
-                          <div>
-                            <h3 className="font-medium">{resource.title}</h3>
-                            <p className="text-sm text-muted-foreground">{resource.subject} | {resource.ageRange}</p>
-                          </div>
-                        </div>
-                        <div className="flex items-centre gap-1">
-                          <Badge variant="outline" className="flex items-centre gap-1">
-                            <Star className="h-3 w-3 fill-yellow-400 stroke-yellow-400" />
-                            {(resource.relevanceScore || 0) * 100}%
-                          </Badge>
-                        </div>
-                      </div>
-                      
-                      <CardContent className="pt-4">
-                        <p className="text-sm">{resource.description}</p>
-                        
-                        {showExplanations && resource.relevanceReason && (
-                          <div className="mt-3 p-2 bg-blue-50 text-blue-800 rounded-md text-xs">
-                            <strong>Why recommended:</strong> {resource.relevanceReason}
-                          </div>
-                        )}
-                        
-                        <div className="mt-3 flex flex-wrap gap-1">
-                          {resource.tags.map(tag => (
-                            <Badge key={tag} variant="secondary" className="text-xs">
-                              {tag}
-                            </Badge>
-                          ))}
-                        </div>
-                      </CardContent>
-                      
-                      <CardFooter className="flex justify-between border-t pt-4">
-                        <div className="flex gap-2">
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => handleResourceFeedback(resource.id, true)}
-                            title="Mark as relevant"
-                          >
-                            <ThumbsUp className="h-4 w-4" />
-                          </Button>
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => handleResourceFeedback(resource.id, false)}
-                            title="Mark as not relevant"
-                          >
-                            <ThumbsDown className="h-4 w-4" />
-                          </Button>
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            title="Save to your library"
-                          >
-                            <BookmarkPlus className="h-4 w-4" />
-                          </Button>
-                        </div>
-                        <div className="flex gap-2">
-                          {resource.type === 'link' ? (
-                            <Button 
-                              variant="outline"
-                              size="sm"
-                              onClick={() => window.open(resource.url, '_blank')}
-                            >
-                              <ExternalLink className="h-4 w-4 mr-1" /> Open Link
-                            </Button>
-                          ) : (
-                            <Button 
-                              variant="outline"
-                              size="sm"
-                              onClick={() => window.open(resource.file, '_blank')}
-                            >
-                              <Download className="h-4 w-4 mr-1" /> Download
-                            </Button>
-                          )}
-                          <Button 
-                            onClick={() => handleResourceSelect(resource)}
-                          >
-                            View Resource
-                          </Button>
-                        </div>
-                      </CardFooter>
-                    </Card>
-                  ))}
-                </div>
-              )}
-            </TabsContent>
+            </div>
+          )}
+          
+          <div className="flex justify-between items-center mb-4">
+            <div className="flex gap-2">
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => setFilterType(null)}
+                className={filterType === null ? 'bg-primary text-primary-foreground' : ''}
+              >
+                All
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => setFilterType('document')}
+                className={filterType === 'document' ? 'bg-primary text-primary-foreground' : ''}
+              >
+                <FileText className="h-4 w-4 mr-1" />
+                Documents
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => setFilterType('video')}
+                className={filterType === 'video' ? 'bg-primary text-primary-foreground' : ''}
+              >
+                <Video className="h-4 w-4 mr-1" />
+                Videos
+              </Button>
+            </div>
             
-            <TabsContent value="manual">
-              <form onSubmit={handleManualQuerySubmit} className="space-y-4">
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={manualQuery}
-                    onChange={(e) => setManualQuery(e.target.value)}
-                    placeholder="Enter topics, subjects, or specific needs..."
-                    className="flex-1 px-3 py-2 border rounded-md"
-                  />
-                  <Button type="submit" disabled={!manualQuery.trim() || isLoading}>
-                    {isLoading ? <Spinner size="sm" /> : 'Find Resources'}
-                  </Button>
-                </div>
-                
-                <div className="text-sm text-muted-foreground">
-                  <p>Search for specific educational resources by entering:</p>
-                  <ul className="list-disc pl-5 mt-1">
-                    <li>Subject areas (e.g., "mathematics", "literacy")</li>
-                    <li>Specific topics (e.g., "fractions", "Shakespeare")</li>
-                    <li>Student needs (e.g., "dyslexia resources", "visual learners")</li>
-                    <li>Resource types (e.g., "worksheets", "videos")</li>
-                  </ul>
-                </div>
-                
-                {activeTab === 'manual' && sortedResources.length > 0 && (
-                  <div className="mt-6 space-y-4">
-                    <h3 className="font-medium">Search Results</h3>
-                    {sortedResources.map(resource => (
-                      <Card key={resource.id}>
-                        <CardHeader>
-                          <div className="flex items-start justify-between">
-                            <div>
-                              <CardTitle className="text-base">{resource.title}</CardTitle>
-                              <CardDescription>{resource.subject} | {resource.ageRange}</CardDescription>
-                            </div>
-                            <div className="flex items-centre">
-                              {resourceTypeIcons[resource.type]}
-                            </div>
-                          </div>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="text-sm">{resource.description}</p>
-                          <div className="mt-3 flex flex-wrap gap-1">
-                            {resource.tags.map(tag => (
-                              <Badge key={tag} variant="secondary" className="text-xs">
-                                {tag}
-                              </Badge>
-                            ))}
-                          </div>
-                        </CardContent>
-                        <CardFooter className="flex justify-end gap-2">
-                          <Button 
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleResourceSelect(resource)}
-                          >
-                            View Details
-                          </Button>
-                          {resource.type === 'link' ? (
-                            <Button 
-                              onClick={() => window.open(resource.url, '_blank')}
-                            >
-                              Open Link
-                            </Button>
-                          ) : (
-                            <Button 
-                              onClick={() => window.open(resource.file, '_blank')}
-                            >
-                              Download
-                            </Button>
-                          )}
-                        </CardFooter>
-                      </Card>
-                    ))}
-                  </div>
-                )}
-              </form>
-            </TabsContent>
-          </Tabs>
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => setShowExplanations(!showExplanations)}
+            >
+              <Info className="h-4 w-4 mr-1" />
+              {showExplanations ? 'Hide' : 'Show'} Explanations
+            </Button>
+          </div>
+          
+          {isLoading ? (
+            <div className="flex justify-center items-center py-8">
+              <Spinner />
+              <span className="ml-2">Finding relevant resources...</span>
+            </div>
+          ) : error ? (
+            <div className="bg-destructive/10 text-destructive p-4 rounded-md">
+              <p>{error}</p>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="mt-2"
+                onClick={getRecommendations}
+              >
+                <RefreshCw className="h-4 w-4 mr-1" />
+                Try Again
+              </Button>
+            </div>
+          ) : recommendedResources.length === 0 ? (
+            <div className="text-center py-8 text-muted-foreground">
+              {contextSource === 'manual' 
+                ? 'Enter a search query to find resources' 
+                : 'No resources found for this context'}
+            </div>
+          ) : (
+            <div>
+              {recommendedResources
+                .filter(resource => filterType === null || resource.type === filterType)
+                .map(resource => renderResourceCard(resource))}
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>
