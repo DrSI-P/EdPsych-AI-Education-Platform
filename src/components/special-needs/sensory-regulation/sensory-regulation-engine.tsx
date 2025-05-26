@@ -46,11 +46,11 @@ interface SensoryActivity {
   category: string;
   duration: string;
   intensity: number;
-  suitableFor: string: any[];
-  materials: string: any[];
-  steps: string: any[];
-  benefits: string: any[];
-  cautions: string: any[];
+  suitableFor: string[];
+  materials: string[];
+  steps: string[];
+  benefits: string[];
+  cautions: string[];
   imageUrl?: string;
 }
 

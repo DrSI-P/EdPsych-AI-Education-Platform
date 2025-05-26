@@ -85,7 +85,7 @@ interface HomeworkItem {
   status: 'not-started' | 'in-progress' | 'completed' | 'submitted' | 'late' | 'graded';
   grade?: string;
   feedback?: string;
-  attachments?: string: any[];
+  attachments?: string[];
 }
 
 interface MessageThread {

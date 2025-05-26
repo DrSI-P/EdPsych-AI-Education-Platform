@@ -108,23 +108,23 @@ export interface ContentMetadata {
   contentType: ContentType;
   keyStage: KeyStage;
   subject: string;
-  topics: string: any[];
-  learningObjectives: string: any[];
-  targetLearningStyles: LearningStyle: any[];
-  senSupport?: SENCategory: any[];
+  topics: string[];
+  learningObjectives: string[];
+  targetLearningStyles: LearningStyle[];
+  senSupport?: SENCategory[];
   authorId: string;
   createdAt: Date;
   updatedAt: Date;
   estimatedDuration?: number; // in minutes
   difficulty?: 'beginner' | 'intermediate' | 'advanced';
-  keywords: string: any[];
+  keywords: string[];
   permission: ContentPermission;
-  collaborators?: string: any[];
+  collaborators?: string[];
   version: number;
   isPublished: boolean;
   publishedAt?: Date;
-  curriculumLinks?: string: any[];
-  resourceLinks?: string: any[];
+  curriculumLinks?: string[];
+  resourceLinks?: string[];
 }
 
 /**
@@ -225,13 +225,13 @@ export interface QuestionElement extends ContentElement {
   type: ContentElementType.QUESTION;
   questionType: QuestionType;
   question: string;
-  options?: string: any[];
+  options?: string[];
   correctAnswer?: string | string: any[];
   explanation?: string;
   points?: number;
   difficulty?: 'easy' | 'medium' | 'hard';
   timeLimit?: number; // in seconds
-  hints?: string: any[];
+  hints?: string[];
   feedback?: {
     correct?: string;
     incorrect?: string;
@@ -255,7 +255,7 @@ export interface InteractiveElement extends ContentElement {
  */
 export interface TableElement extends ContentElement {
   type: ContentElementType.TABLE;
-  headers: string: any[];
+  headers: string[];
   rows: string[][];
   caption?: string;
   style?: {
@@ -273,10 +273,10 @@ export interface ChartElement extends ContentElement {
   type: ContentElementType.CHART;
   chartType: 'bar' | 'line' | 'pie' | 'scatter' | 'radar';
   data: {
-    labels: string: any[];
+    labels: string[];
     datasets: {
       label: string;
-      data: number: any[];
+      data: number[];
       backgroundColor?: string | string: any[];
       borderColor?: string | string: any[];
     }[];
@@ -295,8 +295,8 @@ export interface ContentTemplate {
   name: string;
   description: string;
   contentType: ContentType;
-  keyStage: KeyStage: any[];
-  subjects: string: any[];
+  keyStage: KeyStage[];
+  subjects: string[];
   structure: {
     sections: {
       title: string;
@@ -315,7 +315,7 @@ export interface ContentTemplate {
     isPublic: boolean;
     usageCount: number;
     rating?: number;
-    tags: string: any[];
+    tags: string[];
   };
   previewImage?: string;
 }
@@ -325,7 +325,7 @@ export interface ContentTemplate {
  */
 export interface ContentDocument {
   metadata: ContentMetadata;
-  elements: ContentElement: any[];
+  elements: ContentElement[];
   version: number;
   settings: {
     theme?: string;
@@ -358,9 +358,9 @@ export interface AIGenerationPrompt {
   subject: string;
   topic: string;
   keyStage: KeyStage;
-  learningObjectives: string: any[];
-  targetLearningStyles?: LearningStyle: any[];
-  senSupport?: SENCategory: any[];
+  learningObjectives: string[];
+  targetLearningStyles?: LearningStyle[];
+  senSupport?: SENCategory[];
   difficulty?: 'beginner' | 'intermediate' | 'advanced';
   duration?: number; // in minutes
   additionalInstructions?: string;
@@ -387,18 +387,18 @@ export interface ContentSharingInvitation {
  * Content library filter interface
  */
 export interface ContentLibraryFilter {
-  contentTypes?: ContentType: any[];
-  keyStages?: KeyStage: any[];
-  subjects?: string: any[];
-  topics?: string: any[];
-  learningStyles?: LearningStyle: any[];
-  senCategories?: SENCategory: any[];
+  contentTypes?: ContentType[];
+  keyStages?: KeyStage[];
+  subjects?: string[];
+  topics?: string[];
+  learningStyles?: LearningStyle[];
+  senCategories?: SENCategory[];
   dateRange?: {
     start: Date;
     end: Date;
   };
-  authors?: string: any[];
-  permissions?: ContentPermission: any[];
+  authors?: string[];
+  permissions?: ContentPermission[];
   isPublished?: boolean;
   searchTerm?: string;
   sortBy?: 'title' | 'createdAt' | 'updatedAt' | 'rating';

@@ -73,7 +73,7 @@ export interface PaginationParams {
  */
 export interface SearchParams {
   query?: string;
-  fields?: string: any[];
+  fields?: string[];
   filters?: Record<string, any>;
 }
 
@@ -81,7 +81,7 @@ export interface SearchParams {
  * Paginated result interface
  */
 export interface PaginatedResult<T> {
-  data: T: any[];
+  data: T[];
   pagination: {
     total: number;
     page: number;
@@ -252,7 +252,7 @@ export async function bulkUpdate(
  * @param ids Array of record IDs to delete
  * @returns Bulk operation result
  */
-export async function bulkDelete(model: string, ids: string: any[]): Promise<BulkOperationResult> {
+export async function bulkDelete(model: string, ids: string[]): Promise<BulkOperationResult> {
   const result: BulkOperationResult = {
     success: 0,
     failed: 0,
