@@ -108,16 +108,16 @@ export interface ContentMetadata {
   contentType: ContentType;
   keyStage: KeyStage;
   subject: string;
-  topics[];
-  learningObjectives[];
-  targetLearningStyles[];
+  topics: string[];
+  learningObjectives: string[];
+  targetLearningStyles: LearningStyle[];
   senSupport?: SENCategory[];
   authorId: string;
   createdAt: Date;
   updatedAt: Date;
   estimatedDuration?: number; // in minutes
   difficulty?: 'beginner' | 'intermediate' | 'advanced';
-  keywords[];
+  keywords: string[];
   permission: ContentPermission;
   collaborators?: string[];
   version: number;
@@ -226,7 +226,7 @@ export interface QuestionElement extends ContentElement {
   questionType: QuestionType;
   question: string;
   options?: string[];
-  correctAnswer?: string | string: any[];
+  correctAnswer?: string | string[];
   explanation?: string;
   points?: number;
   difficulty?: 'easy' | 'medium' | 'hard';
@@ -255,7 +255,7 @@ export interface InteractiveElement extends ContentElement {
  */
 export interface TableElement extends ContentElement {
   type: ContentElementType.TABLE;
-  headers[];
+  headers: string[];
   rows: string[][];
   caption?: string;
   style?: {
@@ -273,12 +273,12 @@ export interface ChartElement extends ContentElement {
   type: ContentElementType.CHART;
   chartType: 'bar' | 'line' | 'pie' | 'scatter' | 'radar';
   data: {
-    labels[];
+    labels: string[];
     datasets: {
       label: string;
-      data[];
-      backgroundColor?: string | string: any[];
-      borderColor?: string | string: any[];
+      data: number[];
+      backgroundColor?: string | string[];
+      borderColor?: string | string[];
     }[];
   };
   options?: Record<string, any>;
@@ -295,8 +295,8 @@ export interface ContentTemplate {
   name: string;
   description: string;
   contentType: ContentType;
-  keyStage[];
-  subjects[];
+  keyStage: KeyStage[];
+  subjects: string[];
   structure: {
     sections: {
       title: string;
@@ -315,7 +315,7 @@ export interface ContentTemplate {
     isPublic: boolean;
     usageCount: number;
     rating?: number;
-    tags[];
+    tags: string[];
   };
   previewImage?: string;
 }
@@ -325,7 +325,7 @@ export interface ContentTemplate {
  */
 export interface ContentDocument {
   metadata: ContentMetadata;
-  elements[];
+  elements: ContentElement[];
   version: number;
   settings: {
     theme?: string;
@@ -358,7 +358,7 @@ export interface AIGenerationPrompt {
   subject: string;
   topic: string;
   keyStage: KeyStage;
-  learningObjectives[];
+  learningObjectives: string[];
   targetLearningStyles?: LearningStyle[];
   senSupport?: SENCategory[];
   difficulty?: 'beginner' | 'intermediate' | 'advanced';

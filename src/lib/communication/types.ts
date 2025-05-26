@@ -47,7 +47,7 @@ export interface Message {
   conversationId: string;
   senderId: string;
   senderRole: CommunicationRole;
-  recipientIds[];
+  recipientIds: string[];
   subject: string;
   content: string;
   attachments?: Attachment[];
@@ -79,9 +79,9 @@ export interface Attachment {
 export interface Conversation {
   id: string;
   title: string;
-  participantIds[];
+  participantIds: string[];
   participantRoles: Record<string, CommunicationRole>;
-  messages[];
+  messages: Message[];
   createdAt: Date;
   updatedAt: Date;
   isArchived: boolean;
@@ -104,12 +104,12 @@ export interface ProgressReport {
   createdAt: Date;
   publishedAt?: Date;
   lastViewedByParent?: Date;
-  academicProgress[];
+  academicProgress: AcademicProgressEntry[];
   behaviouralNotes?: string;
-  strengths[];
-  areasForImprovement[];
-  recommendations[];
-  nextSteps[];
+  strengths: string[];
+  areasForImprovement: string[];
+  recommendations: string[];
+  nextSteps: string[];
   parentFeedbackRequested: boolean;
   parentFeedback?: string;
   attachments?: Attachment[];
@@ -144,9 +144,9 @@ export interface SharedGoal {
   targetDate?: Date;
   status: 'not_started' | 'in_progress' | 'completed' | 'revised';
   progress: number; // 0-100
-  homeActions[];
-  schoolActions[];
-  updates[];
+  homeActions: string[];
+  schoolActions: string[];
+  updates: GoalUpdate[];
   isArchived: boolean;
 }
 
@@ -177,7 +177,7 @@ export interface Meeting {
   virtualMeetingUrl?: string;
   organizerId: string;
   organizerRole: CommunicationRole;
-  attendeeIds[];
+  attendeeIds: string[];
   attendeeRoles: Record<string, CommunicationRole>;
   relatedStudentIds?: string[];
   agenda?: string[];
@@ -204,7 +204,7 @@ export interface Celebration {
   category: 'academic' | 'extracurricular' | 'character' | 'effort' | 'other';
   isPublic: boolean;
   kudos: number;
-  comments[];
+  comments: CelebrationComment[];
   attachments?: Attachment[];
 }
 
@@ -248,15 +248,15 @@ export interface HomeStrategy {
   id: string;
   title: string;
   description: string;
-  targetAreas[];
-  suggestedActivities[];
-  resources[];
+  targetAreas: string[];
+  suggestedActivities: string[];
+  resources: string[];
   timeCommitment: string;
   ageRange: {
     min: number;
     max: number;
   };
-  supportNeeds[];
+  supportNeeds: string[];
   creatorId: string;
   createdByRole: CommunicationRole;
   createdAt: Date;

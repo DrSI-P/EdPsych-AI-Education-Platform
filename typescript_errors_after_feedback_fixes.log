@@ -1,0 +1,497 @@
+npm warn using --force Recommended protections disabled.
+src/app/api/ai/embedding/route.ts(15,24): error TS1005: ';' expected.
+src/app/api/ai/embedding/route.ts(15,26): error TS1131: Property or signature expected.
+src/app/api/ai/embedding/route.ts(15,30): error TS1011: An element access expression should take an argument.
+src/app/api/ai/embedding/route.ts(16,1): error TS1128: Declaration or statement expected.
+src/app/api/assessment/[id]/submit/route.ts(111,66): error TS1005: ',' expected.
+src/app/api/assessment/[id]/submit/route.ts(111,71): error TS1005: ',' expected.
+src/app/api/assessment/response/[id]/grade/route.ts(129,40): error TS1005: ')' expected.
+src/app/api/assessment/response/[id]/grade/route.ts(129,46): error TS1011: An element access expression should take an argument.
+src/app/api/assessment/response/[id]/grade/route.ts(129,47): error TS1005: ';' expected.
+src/app/api/resources/route.ts(136,51): error TS1005: ',' expected.
+src/app/api/resources/route.ts(136,56): error TS1005: ',' expected.
+src/app/api/special-needs/emotional-regulation/pattern-recognition/route.ts(100,48): error TS1005: ',' expected.
+src/app/api/special-needs/emotional-regulation/pattern-recognition/route.ts(153,41): error TS1005: ',' expected.
+src/app/api/special-needs/emotional-regulation/pattern-recognition/route.ts(317,48): error TS1005: ',' expected.
+src/app/api/special-needs/emotional-regulation/pattern-recognition/route.ts(351,45): error TS1005: ',' expected.
+src/app/api/special-needs/emotional-regulation/pattern-recognition/route.ts(379,46): error TS1005: ',' expected.
+src/app/api/special-needs/emotional-regulation/pattern-recognition/route.ts(405,52): error TS1005: ',' expected.
+src/app/api/special-needs/emotional-regulation/strategy-recommendations/route.ts(237,60): error TS1005: ',' expected.
+src/app/innovations/ai-powered-assessment/page.tsx(46,34): error TS1005: ';' expected.
+src/app/innovations/ai-powered-assessment/page.tsx(46,36): error TS1131: Property or signature expected.
+src/app/innovations/ai-powered-assessment/page.tsx(46,40): error TS1011: An element access expression should take an argument.
+src/app/innovations/ai-powered-assessment/page.tsx(47,10): error TS1109: Expression expected.
+src/app/innovations/ai-powered-assessment/page.tsx(48,21): error TS1005: ',' expected.
+src/app/innovations/ai-powered-assessment/page.tsx(50,20): error TS1005: ',' expected.
+src/app/innovations/ai-powered-assessment/page.tsx(51,26): error TS1005: ',' expected.
+src/app/innovations/ai-powered-assessment/page.tsx(52,7): error TS1011: An element access expression should take an argument.
+src/app/innovations/ai-powered-assessment/page.tsx(52,8): error TS1005: ',' expected.
+src/app/innovations/ai-powered-assessment/page.tsx(53,5): error TS1011: An element access expression should take an argument.
+src/app/innovations/ai-powered-assessment/page.tsx(54,20): error TS1011: An element access expression should take an argument.
+src/app/innovations/ai-powered-assessment/page.tsx(55,20): error TS1109: Expression expected.
+src/app/innovations/ai-powered-assessment/page.tsx(56,18): error TS1011: An element access expression should take an argument.
+src/app/innovations/ai-powered-assessment/page.tsx(56,19): error TS1005: ',' expected.
+src/app/innovations/ai-powered-assessment/page.tsx(57,20): error TS1011: An element access expression should take an argument.
+src/app/innovations/ai-powered-assessment/page.tsx(57,21): error TS1005: ',' expected.
+src/app/innovations/ai-powered-assessment/page.tsx(59,1): error TS1128: Declaration or statement expected.
+src/app/innovations/ai-powered-assessment/page.tsx(280,74): error TS1005: ',' expected.
+src/app/innovations/ai-powered-assessment/page.tsx(280,79): error TS1005: ',' expected.
+src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(96,3): error TS1131: Property or signature expected.
+src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(96,14): error TS1011: An element access expression should take an argument.
+src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(107,1): error TS1128: Declaration or statement expected.
+src/components/adventure-quest/adventure-quest-saga-adaptive.tsx(206,22): error TS1005: ',' expected.
+src/components/adventure-quest/adventure-quest-saga-integrated.tsx(86,3): error TS1131: Property or signature expected.
+src/components/adventure-quest/adventure-quest-saga-integrated.tsx(86,14): error TS1011: An element access expression should take an argument.
+src/components/adventure-quest/adventure-quest-saga-integrated.tsx(97,1): error TS1128: Declaration or statement expected.
+src/components/adventure-quest/adventure-quest-saga.tsx(85,3): error TS1131: Property or signature expected.
+src/components/adventure-quest/adventure-quest-saga.tsx(85,14): error TS1011: An element access expression should take an argument.
+src/components/adventure-quest/adventure-quest-saga.tsx(96,1): error TS1128: Declaration or statement expected.
+src/components/adventure-quest/character-creation.tsx(40,3): error TS1131: Property or signature expected.
+src/components/adventure-quest/character-creation.tsx(40,14): error TS1011: An element access expression should take an argument.
+src/components/adventure-quest/character-creation.tsx(51,1): error TS1128: Declaration or statement expected.
+src/components/adventure-quest/character-creation.tsx(64,3): error TS1131: Property or signature expected.
+src/components/adventure-quest/character-creation.tsx(64,10): error TS1011: An element access expression should take an argument.
+src/components/adventure-quest/character-creation.tsx(66,40): error TS1109: Expression expected.
+src/components/adventure-quest/character-creation.tsx(67,30): error TS1109: Expression expected.
+src/components/adventure-quest/character-creation.tsx(68,1): error TS1128: Declaration or statement expected.
+src/components/adventure-quest/character-creation.tsx(72,3): error TS1131: Property or signature expected.
+src/components/adventure-quest/character-creation.tsx(72,19): error TS1011: An element access expression should take an argument.
+src/components/adventure-quest/character-creation.tsx(73,21): error TS1109: Expression expected.
+src/components/adventure-quest/character-creation.tsx(74,1): error TS1128: Declaration or statement expected.
+src/components/ai-avatar/types.ts(16,3): error TS1131: Property or signature expected.
+src/components/ai-avatar/types.ts(16,8): error TS1011: An element access expression should take an argument.
+src/components/ai-avatar/types.ts(19,1): error TS1128: Declaration or statement expected.
+src/components/ai-avatar/types.ts(52,3): error TS1131: Property or signature expected.
+src/components/ai-avatar/types.ts(52,10): error TS1011: An element access expression should take an argument.
+src/components/ai-avatar/types.ts(53,14): error TS1011: An element access expression should take an argument.
+src/components/ai-avatar/types.ts(54,13): error TS1011: An element access expression should take an argument.
+src/components/ai-avatar/types.ts(55,18): error TS1011: An element access expression should take an argument.
+src/components/ai-avatar/types.ts(56,1): error TS1128: Declaration or statement expected.
+src/components/ai/accessibility/high-contrast-mode-engine.tsx(34,3): error TS1131: Property or signature expected.
+src/components/ai/accessibility/high-contrast-mode-engine.tsx(34,12): error TS1011: An element access expression should take an argument.
+src/components/ai/accessibility/high-contrast-mode-engine.tsx(35,1): error TS1128: Declaration or statement expected.
+src/components/ai/accessibility/reduced-motion-mode-engine.tsx(30,3): error TS1131: Property or signature expected.
+src/components/ai/accessibility/reduced-motion-mode-engine.tsx(30,12): error TS1011: An element access expression should take an argument.
+src/components/ai/accessibility/reduced-motion-mode-engine.tsx(31,1): error TS1128: Declaration or statement expected.
+src/components/ai/accessibility/screen-reader-optimization-engine.tsx(34,3): error TS1131: Property or signature expected.
+src/components/ai/accessibility/screen-reader-optimization-engine.tsx(34,12): error TS1011: An element access expression should take an argument.
+src/components/ai/accessibility/screen-reader-optimization-engine.tsx(35,1): error TS1128: Declaration or statement expected.
+src/components/ai/teacher-automation/teacher-automation.tsx(24,33): error TS1005: ',' expected.
+src/components/ai/teacher-automation/teacher-automation.tsx(24,38): error TS1005: ',' expected.
+src/components/ai/teacher-automation/teacher-automation.tsx(24,39): error TS1109: Expression expected.
+src/components/ai/teacher-automation/teacher-automation.tsx(24,40): error TS1005: ':' expected.
+src/components/analytics/accessibility-validator.tsx(53,23): error TS1005: ',' expected.
+src/components/analytics/curriculum-alignment-validator.tsx(53,23): error TS1005: ',' expected.
+src/components/analytics/custom-report-builder.tsx(184,97): error TS1005: ')' expected.
+src/components/analytics/custom-report-builder.tsx(185,8): error TS1005: ',' expected.
+src/components/analytics/custom-report-builder.tsx(185,9): error TS1109: Expression expected.
+src/components/analytics/custom-report-builder.tsx(185,10): error TS1005: ':' expected.
+src/components/analytics/custom-report-builder.tsx(186,20): error TS1011: An element access expression should take an argument.
+src/components/analytics/custom-report-builder.tsx(186,23): error TS1005: ';' expected.
+src/components/analytics/custom-report-builder.tsx(186,30): error TS1109: Expression expected.
+src/components/analytics/custom-report-builder.tsx(187,35): error TS1109: Expression expected.
+src/components/analytics/custom-report-builder.tsx(188,37): error TS1109: Expression expected.
+src/components/analytics/custom-report-builder.tsx(189,59): error TS1109: Expression expected.
+src/components/analytics/custom-report-builder.tsx(190,40): error TS1109: Expression expected.
+src/components/analytics/custom-report-builder.tsx(191,1): error TS1128: Declaration or statement expected.
+src/components/analytics/custom-report-builder.tsx(191,2): error TS1128: Declaration or statement expected.
+src/components/analytics/custom-report-builder.tsx(191,3): error TS1128: Declaration or statement expected.
+src/components/analytics/custom-report-builder.tsx(191,21): error TS1005: ';' expected.
+src/components/assessment/assessment-module.tsx(26,36): error TS1005: ';' expected.
+src/components/assessment/assessment-module.tsx(26,38): error TS1131: Property or signature expected.
+src/components/assessment/assessment-module.tsx(26,42): error TS1011: An element access expression should take an argument.
+src/components/assessment/assessment-module.tsx(28,3): error TS1128: Declaration or statement expected.
+src/components/assessment/assessment-module.tsx(31,1): error TS1128: Declaration or statement expected.
+src/components/assessment/question-types/file-upload.tsx(17,5): error TS1131: Property or signature expected.
+src/components/assessment/question-types/file-upload.tsx(17,21): error TS1005: ',' expected.
+src/components/assessment/question-types/file-upload.tsx(17,23): error TS1005: ',' expected.
+src/components/assessment/question-types/file-upload.tsx(18,24): error TS1005: ',' expected.
+src/components/assessment/question-types/file-upload.tsx(19,19): error TS1005: ',' expected.
+src/components/assessment/question-types/file-upload.tsx(20,3): error TS1138: Parameter declaration expected.
+src/components/assessment/question-types/file-upload.tsx(20,4): error TS1128: Declaration or statement expected.
+src/components/assessment/question-types/file-upload.tsx(20,6): error TS1128: Declaration or statement expected.
+src/components/assessment/question-types/file-upload.tsx(20,13): error TS1109: Expression expected.
+src/components/assessment/question-types/file-upload.tsx(21,23): error TS1109: Expression expected.
+src/components/assessment/question-types/file-upload.tsx(22,13): error TS1109: Expression expected.
+src/components/assessment/question-types/file-upload.tsx(23,1): error TS1128: Declaration or statement expected.
+src/components/assessment/question-types/matching.tsx(23,5): error TS1131: Property or signature expected.
+src/components/assessment/question-types/matching.tsx(23,10): error TS1005: ',' expected.
+src/components/assessment/question-types/matching.tsx(23,12): error TS1005: ',' expected.
+src/components/assessment/question-types/matching.tsx(24,19): error TS1005: ',' expected.
+src/components/assessment/question-types/matching.tsx(25,28): error TS1005: ',' expected.
+src/components/assessment/question-types/matching.tsx(26,3): error TS1138: Parameter declaration expected.
+src/components/assessment/question-types/matching.tsx(26,4): error TS1128: Declaration or statement expected.
+src/components/assessment/question-types/matching.tsx(26,6): error TS1128: Declaration or statement expected.
+src/components/assessment/question-types/matching.tsx(26,13): error TS1109: Expression expected.
+src/components/assessment/question-types/matching.tsx(27,23): error TS1109: Expression expected.
+src/components/assessment/question-types/matching.tsx(28,13): error TS1109: Expression expected.
+src/components/assessment/question-types/matching.tsx(29,1): error TS1128: Declaration or statement expected.
+src/components/assessment/question-types/multiple-choice.tsx(22,5): error TS1131: Property or signature expected.
+src/components/assessment/question-types/multiple-choice.tsx(22,12): error TS1005: ',' expected.
+src/components/assessment/question-types/multiple-choice.tsx(22,14): error TS1005: ',' expected.
+src/components/assessment/question-types/multiple-choice.tsx(23,25): error TS1005: ',' expected.
+src/components/assessment/question-types/multiple-choice.tsx(24,19): error TS1005: ',' expected.
+src/components/assessment/question-types/multiple-choice.tsx(25,3): error TS1138: Parameter declaration expected.
+src/components/assessment/question-types/multiple-choice.tsx(25,4): error TS1128: Declaration or statement expected.
+src/components/assessment/question-types/multiple-choice.tsx(25,6): error TS1128: Declaration or statement expected.
+src/components/assessment/question-types/multiple-choice.tsx(25,13): error TS1109: Expression expected.
+src/components/assessment/question-types/multiple-choice.tsx(26,23): error TS1109: Expression expected.
+src/components/assessment/question-types/multiple-choice.tsx(27,13): error TS1109: Expression expected.
+src/components/assessment/question-types/multiple-choice.tsx(28,1): error TS1128: Declaration or statement expected.
+src/components/avatar/video-library.tsx(76,25): error TS1005: ',' expected.
+src/components/avatar/video-library.tsx(144,26): error TS1005: ',' expected.
+src/components/communication/accessibility-validator.tsx(52,23): error TS1005: ',' expected.
+src/components/communication/shared-goal-tracker.tsx(76,24): error TS1005: ',' expected.
+src/components/content-creation/curriculum-alignment-checker.tsx(35,27): error TS1005: ',' expected.
+src/components/content-creation/curriculum-alignment-checker.tsx(36,16): error TS1005: ',' expected.
+src/components/content-creation/curriculum-alignment-checker.tsx(36,17): error TS1109: Expression expected.
+src/components/content-creation/curriculum-alignment-checker.tsx(36,18): error TS1005: ':' expected.
+src/components/content-creation/curriculum-alignment-checker.tsx(37,20): error TS1005: ',' expected.
+src/components/content-creation/curriculum-alignment-checker.tsx(37,21): error TS1109: Expression expected.
+src/components/content-creation/curriculum-alignment-checker.tsx(37,22): error TS1005: ':' expected.
+src/components/content-creation/curriculum-alignment-checker.tsx(109,58): error TS1005: '=>' expected.
+src/components/content-creation/curriculum-alignment-checker.tsx(109,63): error TS1005: ',' expected.
+src/components/content-creation/curriculum-alignment-checker.tsx(109,66): error TS1005: ';' expected.
+src/components/content-creation/curriculum-alignment-checker.tsx(356,1): error TS1128: Declaration or statement expected.
+src/components/heygen/heygen-avatar-creation.tsx(81,19): error TS1005: ',' expected.
+src/components/i18n/multilingual-curriculum-validator.tsx(61,3): error TS1131: Property or signature expected.
+src/components/i18n/multilingual-curriculum-validator.tsx(61,10): error TS1011: An element access expression should take an argument.
+src/components/i18n/multilingual-curriculum-validator.tsx(62,16): error TS1011: An element access expression should take an argument.
+src/components/i18n/multilingual-curriculum-validator.tsx(63,1): error TS1128: Declaration or statement expected.
+src/components/i18n/multilingual-curriculum-validator.tsx(109,30): error TS1005: ',' expected.
+src/components/i18n/multilingual-curriculum-validator.tsx(147,17): error TS1005: ',' expected.
+src/components/mobile/responsive-layout.tsx(304,3): error TS1131: Property or signature expected.
+src/components/mobile/responsive-layout.tsx(304,9): error TS1011: An element access expression should take an argument.
+src/components/mobile/responsive-layout.tsx(305,13): error TS1109: Expression expected.
+src/components/mobile/responsive-layout.tsx(306,1): error TS1128: Declaration or statement expected.
+src/components/mobile/responsive-layout.tsx(452,3): error TS1131: Property or signature expected.
+src/components/mobile/responsive-layout.tsx(452,8): error TS1011: An element access expression should take an argument.
+src/components/mobile/responsive-layout.tsx(453,14): error TS1109: Expression expected.
+src/components/mobile/responsive-layout.tsx(454,13): error TS1109: Expression expected.
+src/components/mobile/responsive-layout.tsx(455,1): error TS1128: Declaration or statement expected.
+src/components/mobile/responsive-layout.tsx(569,3): error TS1131: Property or signature expected.
+src/components/mobile/responsive-layout.tsx(569,9): error TS1011: An element access expression should take an argument.
+src/components/mobile/responsive-layout.tsx(570,13): error TS1109: Expression expected.
+src/components/mobile/responsive-layout.tsx(571,1): error TS1128: Declaration or statement expected.
+src/components/resource/contextual-resource-recommendation.tsx(129,57): error TS1005: '=>' expected.
+src/components/resource/contextual-resource-recommendation.tsx(129,62): error TS1005: ',' expected.
+src/components/resource/contextual-resource-recommendation.tsx(129,65): error TS1005: ';' expected.
+src/components/resource/contextual-resource-recommendation.tsx(199,59): error TS1005: '=>' expected.
+src/components/resource/contextual-resource-recommendation.tsx(199,64): error TS1005: ',' expected.
+src/components/resource/contextual-resource-recommendation.tsx(199,67): error TS1005: ';' expected.
+src/components/resource/contextual-resource-recommendation.tsx(254,61): error TS1005: '=>' expected.
+src/components/resource/contextual-resource-recommendation.tsx(254,66): error TS1005: ',' expected.
+src/components/resource/contextual-resource-recommendation.tsx(254,69): error TS1005: ';' expected.
+src/components/resource/contextual-resource-recommendation.tsx(309,58): error TS1005: '=>' expected.
+src/components/resource/contextual-resource-recommendation.tsx(309,63): error TS1005: ',' expected.
+src/components/resource/contextual-resource-recommendation.tsx(309,66): error TS1005: ';' expected.
+src/components/restorative-justice/community-building/community-building-activities.tsx(59,3): error TS1131: Property or signature expected.
+src/components/restorative-justice/community-building/community-building-activities.tsx(59,13): error TS1011: An element access expression should take an argument.
+src/components/restorative-justice/community-building/community-building-activities.tsx(62,13): error TS1011: An element access expression should take an argument.
+src/components/restorative-justice/community-building/community-building-activities.tsx(63,9): error TS1011: An element access expression should take an argument.
+src/components/restorative-justice/community-building/community-building-activities.tsx(64,14): error TS1011: An element access expression should take an argument.
+src/components/restorative-justice/community-building/community-building-activities.tsx(65,14): error TS1011: An element access expression should take an argument.
+src/components/restorative-justice/community-building/community-building-activities.tsx(66,21): error TS1011: An element access expression should take an argument.
+src/components/restorative-justice/community-building/community-building-activities.tsx(70,1): error TS1128: Declaration or statement expected.
+src/components/restorative-justice/community-building/community-building-activities.tsx(73,23): error TS1005: ',' expected.
+src/components/restorative-justice/outcome-measurement/outcome-measurement-tools.tsx(364,29): error TS1005: ',' expected.
+src/components/restorative-justice/outcome-measurement/outcome-measurement-tools.tsx(364,34): error TS1005: ',' expected.
+src/components/restorative-justice/outcome-measurement/outcome-measurement-tools.tsx(364,35): error TS1109: Expression expected.
+src/components/restorative-justice/outcome-measurement/outcome-measurement-tools.tsx(364,36): error TS1005: ':' expected.
+src/components/restorative-justice/reflection-prompts/age-appropriate-reflection-prompts.tsx(65,3): error TS1131: Property or signature expected.
+src/components/restorative-justice/reflection-prompts/age-appropriate-reflection-prompts.tsx(65,23): error TS1011: An element access expression should take an argument.
+src/components/restorative-justice/reflection-prompts/age-appropriate-reflection-prompts.tsx(68,14): error TS1109: Expression expected.
+src/components/restorative-justice/reflection-prompts/age-appropriate-reflection-prompts.tsx(68,23): error TS1011: An element access expression should take an argument.
+src/components/restorative-justice/reflection-prompts/age-appropriate-reflection-prompts.tsx(69,1): error TS1128: Declaration or statement expected.
+src/components/restorative-justice/reflection-prompts/age-appropriate-reflection-prompts.tsx(107,26): error TS1005: ',' expected.
+src/components/restorative-justice/reflection-prompts/age-appropriate-reflection-prompts.tsx(413,100): error TS1005: ',' expected.
+src/components/restorative-justice/reflection-prompts/age-appropriate-reflection-prompts.tsx(413,105): error TS1005: ',' expected.
+src/components/restorative-justice/staff-training/staff-training-modules.tsx(80,3): error TS1131: Property or signature expected.
+src/components/restorative-justice/staff-training/staff-training-modules.tsx(80,12): error TS1011: An element access expression should take an argument.
+src/components/restorative-justice/staff-training/staff-training-modules.tsx(81,13): error TS1011: An element access expression should take an argument.
+src/components/restorative-justice/staff-training/staff-training-modules.tsx(84,1): error TS1128: Declaration or statement expected.
+src/components/restorative-justice/staff-training/staff-training-modules.tsx(107,3): error TS1131: Property or signature expected.
+src/components/restorative-justice/staff-training/staff-training-modules.tsx(107,13): error TS1011: An element access expression should take an argument.
+src/components/restorative-justice/staff-training/staff-training-modules.tsx(109,1): error TS1128: Declaration or statement expected.
+src/components/restorative-justice/staff-training/staff-training-modules.tsx(114,3): error TS1131: Property or signature expected.
+src/components/restorative-justice/staff-training/staff-training-modules.tsx(114,11): error TS1011: An element access expression should take an argument.
+src/components/restorative-justice/staff-training/staff-training-modules.tsx(116,1): error TS1128: Declaration or statement expected.
+src/components/restorative-justice/staff-training/staff-training-modules.tsx(121,3): error TS1131: Property or signature expected.
+src/components/restorative-justice/staff-training/staff-training-modules.tsx(121,21): error TS1011: An element access expression should take an argument.
+src/components/restorative-justice/staff-training/staff-training-modules.tsx(125,1): error TS1128: Declaration or statement expected.
+src/components/theme-provider.tsx(50,29): error TS1005: ',' expected.
+src/components/ui/AchievementCard.tsx(293,3): error TS1131: Property or signature expected.
+src/components/ui/AchievementCard.tsx(293,16): error TS1011: An element access expression should take an argument.
+src/components/ui/AchievementCard.tsx(294,13): error TS1109: Expression expected.
+src/components/ui/AchievementCard.tsx(295,1): error TS1128: Declaration or statement expected.
+src/components/ui/AchievementCard.tsx(295,2): error TS1109: Expression expected.
+src/components/ui/AchievementCard.tsx(295,4): error TS1109: Expression expected.
+src/components/ui/InteractiveGuidance.tsx(12,3): error TS1131: Property or signature expected.
+src/components/ui/InteractiveGuidance.tsx(12,9): error TS1011: An element access expression should take an argument.
+src/components/ui/InteractiveGuidance.tsx(13,14): error TS1109: Expression expected.
+src/components/ui/InteractiveGuidance.tsx(13,26): error TS1109: Expression expected.
+src/components/ui/InteractiveGuidance.tsx(14,15): error TS1109: Expression expected.
+src/components/ui/InteractiveGuidance.tsx(15,16): error TS1109: Expression expected.
+src/components/ui/InteractiveGuidance.tsx(16,13): error TS1109: Expression expected.
+src/components/ui/InteractiveGuidance.tsx(17,18): error TS1109: Expression expected.
+src/components/ui/InteractiveGuidance.tsx(18,1): error TS1128: Declaration or statement expected.
+src/components/ui/ProgressTracking.tsx(29,3): error TS1131: Property or signature expected.
+src/components/ui/ProgressTracking.tsx(29,11): error TS1011: An element access expression should take an argument.
+src/components/ui/ProgressTracking.tsx(30,22): error TS1011: An element access expression should take an argument.
+src/components/ui/ProgressTracking.tsx(31,18): error TS1011: An element access expression should take an argument.
+src/components/ui/ProgressTracking.tsx(32,1): error TS1128: Declaration or statement expected.
+src/lib/adaptive-complexity/types.ts(67,3): error TS1131: Property or signature expected.
+src/lib/adaptive-complexity/types.ts(67,22): error TS1011: An element access expression should take an argument.
+src/lib/adaptive-complexity/types.ts(69,1): error TS1128: Declaration or statement expected.
+src/lib/adaptive-complexity/types.ts(79,3): error TS1131: Property or signature expected.
+src/lib/adaptive-complexity/types.ts(79,22): error TS1011: An element access expression should take an argument.
+src/lib/adaptive-complexity/types.ts(80,13): error TS1011: An element access expression should take an argument.
+src/lib/adaptive-complexity/types.ts(81,23): error TS1011: An element access expression should take an argument.
+src/lib/adaptive-complexity/types.ts(82,1): error TS1128: Declaration or statement expected.
+src/lib/adaptive-complexity/types.ts(92,3): error TS1131: Property or signature expected.
+src/lib/adaptive-complexity/types.ts(92,14): error TS1011: An element access expression should take an argument.
+src/lib/adaptive-complexity/types.ts(94,17): error TS1011: An element access expression should take an argument.
+src/lib/adaptive-complexity/types.ts(95,22): error TS1011: An element access expression should take an argument.
+src/lib/adaptive-complexity/types.ts(97,20): error TS1011: An element access expression should take an argument.
+src/lib/adaptive-complexity/types.ts(98,1): error TS1128: Declaration or statement expected.
+src/lib/ai/azure-cognitive-service.ts(373,26): error TS1005: ',' expected.
+src/lib/ai/guidanceService.ts(249,24): error TS1005: ',' expected.
+src/lib/ai/guidanceService.ts(423,25): error TS1005: ',' expected.
+src/lib/ai/guidanceTypes.ts(314,5): error TS1131: Property or signature expected.
+src/lib/ai/guidanceTypes.ts(314,20): error TS1011: An element access expression should take an argument.
+src/lib/ai/guidanceTypes.ts(316,3): error TS1128: Declaration or statement expected.
+src/lib/ai/guidanceTypes.ts(319,23): error TS1011: An element access expression should take an argument.
+src/lib/ai/guidanceTypes.ts(320,25): error TS1011: An element access expression should take an argument.
+src/lib/ai/guidanceTypes.ts(322,13): error TS1011: An element access expression should take an argument.
+src/lib/ai/guidanceTypes.ts(324,1): error TS1128: Declaration or statement expected.
+src/lib/ai/openai-service.ts(100,77): error TS1005: ',' expected.
+src/lib/ai/openai-service.ts(149,74): error TS1005: ',' expected.
+src/lib/ai/openai-service.ts(183,67): error TS1005: ',' expected.
+src/lib/assessment/types.ts(540,66): error TS1005: ';' expected.
+src/lib/assessment/types.ts(540,67): error TS1109: Expression expected.
+src/lib/assessment/types.ts(541,62): error TS1109: Expression expected.
+src/lib/assessment/types.ts(542,80): error TS1109: Expression expected.
+src/lib/assessment/types.ts(543,56): error TS1109: Expression expected.
+src/lib/assessment/types.ts(548,37): error TS1011: An element access expression should take an argument.
+src/lib/assessment/types.ts(548,40): error TS1109: Expression expected.
+src/lib/assessment/types.ts(550,80): error TS1109: Expression expected.
+src/lib/assessment/types.ts(551,89): error TS1109: Expression expected.
+src/lib/assessment/types.ts(552,71): error TS1109: Expression expected.
+src/lib/assessment/types.ts(553,73): error TS1109: Expression expected.
+src/lib/assessment/types.ts(554,96): error TS1011: An element access expression should take an argument.
+src/lib/assessment/types.ts(554,99): error TS1109: Expression expected.
+src/lib/assessment/types.ts(556,79): error TS1109: Expression expected.
+src/lib/assessment/types.ts(557,111): error TS1109: Expression expected.
+src/lib/assessment/types.ts(559,54): error TS1109: Expression expected.
+src/lib/assessment/types.ts(559,55): error TS1005: ';' expected.
+src/lib/assessment/types.ts(569,4): error TS1109: Expression expected.
+src/lib/assessment/types.ts(569,5): error TS1109: Expression expected.
+src/lib/assessment/types.ts(575,18): error TS1109: Expression expected.
+src/lib/assessment/types.ts(575,19): error TS1005: ';' expected.
+src/lib/assessment/types.ts(578,25): error TS1011: An element access expression should take an argument.
+src/lib/assessment/types.ts(579,35): error TS1011: An element access expression should take an argument.
+src/lib/assessment/types.ts(585,4): error TS1109: Expression expected.
+src/lib/assessment/types.ts(585,5): error TS1109: Expression expected.
+src/lib/assessment/types.ts(586,1): error TS1128: Declaration or statement expected.
+src/lib/assessment/types.ts(592,88): error TS1005: ';' expected.
+src/lib/assessment/types.ts(596,19): error TS1005: ';' expected.
+src/lib/assessment/types.ts(596,21): error TS1131: Property or signature expected.
+src/lib/assessment/types.ts(596,25): error TS1011: An element access expression should take an argument.
+src/lib/assessment/types.ts(597,3): error TS1128: Declaration or statement expected.
+src/lib/assessment/types.ts(598,128): error TS1109: Expression expected.
+src/lib/assessment/types.ts(598,129): error TS1005: ';' expected.
+src/lib/assessment/types.ts(600,25): error TS1011: An element access expression should take an argument.
+src/lib/assessment/types.ts(601,35): error TS1011: An element access expression should take an argument.
+src/lib/assessment/types.ts(602,31): error TS1011: An element access expression should take an argument.
+src/lib/assessment/types.ts(603,4): error TS1109: Expression expected.
+src/lib/assessment/types.ts(603,5): error TS1109: Expression expected.
+src/lib/assessment/types.ts(604,1): error TS1128: Declaration or statement expected.
+src/lib/assessment/types.ts(610,131): error TS1005: ';' expected.
+src/lib/assessment/types.ts(611,69): error TS1005: ';' expected.
+src/lib/assessment/types.ts(612,89): error TS1005: ';' expected.
+src/lib/assessment/types.ts(613,76): error TS1005: ';' expected.
+src/lib/assessment/types.ts(613,77): error TS1109: Expression expected.
+src/lib/assessment/types.ts(614,1): error TS1128: Declaration or statement expected.
+src/lib/auth/session.ts(54,73): error TS1005: ',' expected.
+src/lib/avatar/types.ts(109,3): error TS1131: Property or signature expected.
+src/lib/avatar/types.ts(109,18): error TS1011: An element access expression should take an argument.
+src/lib/avatar/types.ts(110,19): error TS1109: Expression expected.
+src/lib/avatar/types.ts(110,28): error TS1011: An element access expression should take an argument.
+src/lib/avatar/types.ts(111,8): error TS1011: An element access expression should take an argument.
+src/lib/avatar/types.ts(112,17): error TS1109: Expression expected.
+src/lib/avatar/types.ts(113,15): error TS1109: Expression expected.
+src/lib/avatar/types.ts(123,1): error TS1128: Declaration or statement expected.
+src/lib/avatar/types.ts(162,3): error TS1131: Property or signature expected.
+src/lib/avatar/types.ts(162,18): error TS1011: An element access expression should take an argument.
+src/lib/avatar/types.ts(164,1): error TS1128: Declaration or statement expected.
+src/lib/avatar/types.ts(283,3): error TS1131: Property or signature expected.
+src/lib/avatar/types.ts(283,21): error TS1011: An element access expression should take an argument.
+src/lib/avatar/types.ts(284,27): error TS1011: An element access expression should take an argument.
+src/lib/avatar/types.ts(285,24): error TS1011: An element access expression should take an argument.
+src/lib/avatar/types.ts(286,22): error TS1011: An element access expression should take an argument.
+src/lib/avatar/types.ts(289,8): error TS1011: An element access expression should take an argument.
+src/lib/avatar/types.ts(290,1): error TS1128: Declaration or statement expected.
+src/lib/blog/blog-service.ts(131,43): error TS1005: ';' expected.
+src/lib/blog/blog-service.ts(131,45): error TS1131: Property or signature expected.
+src/lib/blog/blog-service.ts(131,49): error TS1011: An element access expression should take an argument.
+src/lib/blog/blog-service.ts(132,12): error TS1109: Expression expected.
+src/lib/blog/blog-service.ts(133,12): error TS1109: Expression expected.
+src/lib/blog/blog-service.ts(134,8): error TS1109: Expression expected.
+src/lib/blog/blog-service.ts(135,9): error TS1109: Expression expected.
+src/lib/blog/blog-service.ts(136,12): error TS1109: Expression expected.
+src/lib/blog/blog-service.ts(137,1): error TS1128: Declaration or statement expected.
+src/lib/cache.ts(96,45): error TS1005: ',' expected.
+src/lib/communication/types.ts(53,27): error TS1005: ';' expected.
+src/lib/communication/types.ts(53,29): error TS1131: Property or signature expected.
+src/lib/communication/types.ts(53,33): error TS1011: An element access expression should take an argument.
+src/lib/communication/types.ts(58,10): error TS1109: Expression expected.
+src/lib/communication/types.ts(60,8): error TS1109: Expression expected.
+src/lib/communication/types.ts(60,16): error TS1005: ';' expected.
+src/lib/communication/types.ts(60,22): error TS1011: An element access expression should take an argument.
+src/lib/communication/types.ts(61,1): error TS1128: Declaration or statement expected.
+src/lib/communication/types.ts(115,27): error TS1005: ';' expected.
+src/lib/communication/types.ts(115,29): error TS1131: Property or signature expected.
+src/lib/communication/types.ts(115,33): error TS1011: An element access expression should take an argument.
+src/lib/communication/types.ts(116,1): error TS1128: Declaration or statement expected.
+src/lib/communication/types.ts(164,27): error TS1005: ';' expected.
+src/lib/communication/types.ts(164,29): error TS1131: Property or signature expected.
+src/lib/communication/types.ts(164,33): error TS1011: An element access expression should take an argument.
+src/lib/communication/types.ts(165,1): error TS1128: Declaration or statement expected.
+src/lib/communication/types.ts(182,29): error TS1005: ';' expected.
+src/lib/communication/types.ts(182,31): error TS1131: Property or signature expected.
+src/lib/communication/types.ts(182,35): error TS1011: An element access expression should take an argument.
+src/lib/communication/types.ts(183,10): error TS1109: Expression expected.
+src/lib/communication/types.ts(183,18): error TS1005: ';' expected.
+src/lib/communication/types.ts(183,24): error TS1011: An element access expression should take an argument.
+src/lib/communication/types.ts(184,9): error TS1109: Expression expected.
+src/lib/communication/types.ts(188,15): error TS1109: Expression expected.
+src/lib/communication/types.ts(188,27): error TS1005: ';' expected.
+src/lib/communication/types.ts(188,33): error TS1011: An element access expression should take an argument.
+src/lib/communication/types.ts(189,1): error TS1128: Declaration or statement expected.
+src/lib/communication/types.ts(208,27): error TS1005: ';' expected.
+src/lib/communication/types.ts(208,29): error TS1131: Property or signature expected.
+src/lib/communication/types.ts(208,33): error TS1011: An element access expression should take an argument.
+src/lib/communication/types.ts(209,1): error TS1128: Declaration or statement expected.
+src/lib/communication/types.ts(266,27): error TS1005: ';' expected.
+src/lib/communication/types.ts(266,29): error TS1131: Property or signature expected.
+src/lib/communication/types.ts(266,33): error TS1011: An element access expression should take an argument.
+src/lib/communication/types.ts(267,1): error TS1128: Declaration or statement expected.
+src/lib/compliance/contentModerationService.ts(389,23): error TS1005: ',' expected.
+src/lib/compliance/types.ts(390,26): error TS1005: ';' expected.
+src/lib/compliance/types.ts(390,28): error TS1131: Property or signature expected.
+src/lib/compliance/types.ts(390,31): error TS1005: ',' expected.
+src/lib/compliance/types.ts(390,33): error TS1005: ',' expected.
+src/lib/compliance/types.ts(391,34): error TS1005: ',' expected.
+src/lib/compliance/types.ts(392,24): error TS1005: ',' expected.
+src/lib/compliance/types.ts(393,30): error TS1005: ',' expected.
+src/lib/compliance/types.ts(394,53): error TS1005: ',' expected.
+src/lib/compliance/types.ts(395,3): error TS1138: Parameter declaration expected.
+src/lib/compliance/types.ts(395,4): error TS1128: Declaration or statement expected.
+src/lib/compliance/types.ts(395,6): error TS1128: Declaration or statement expected.
+src/lib/compliance/types.ts(396,1): error TS1128: Declaration or statement expected.
+src/lib/compliance/types.ts(406,27): error TS1005: ';' expected.
+src/lib/compliance/types.ts(406,29): error TS1131: Property or signature expected.
+src/lib/compliance/types.ts(406,32): error TS1005: ',' expected.
+src/lib/compliance/types.ts(406,34): error TS1005: ',' expected.
+src/lib/compliance/types.ts(407,30): error TS1005: ',' expected.
+src/lib/compliance/types.ts(408,3): error TS1138: Parameter declaration expected.
+src/lib/compliance/types.ts(408,4): error TS1128: Declaration or statement expected.
+src/lib/compliance/types.ts(408,6): error TS1128: Declaration or statement expected.
+src/lib/compliance/types.ts(447,1): error TS1128: Declaration or statement expected.
+src/lib/db-maintenance.ts(398,46): error TS1131: Property or signature expected.
+src/lib/db-maintenance.ts(398,52): error TS1005: ',' expected.
+src/lib/db-maintenance.ts(398,55): error TS1472: 'catch' or 'finally' expected.
+src/lib/db-maintenance.ts(398,57): error TS1109: Expression expected.
+src/lib/db-maintenance.ts(444,5): error TS1005: 'try' expected.
+src/lib/db-maintenance.ts(453,1): error TS1128: Declaration or statement expected.
+src/lib/db-utils.ts(174,53): error TS1005: ',' expected.
+src/lib/db-utils.ts(255,52): error TS1005: ',' expected.
+src/lib/heygen/cost-management.ts(300,64): error TS1005: ',' expected.
+src/lib/i18n-utils.tsx(333,54): error TS1005: '=>' expected.
+src/lib/i18n-utils.tsx(333,59): error TS1005: ',' expected.
+src/lib/i18n-utils.tsx(333,62): error TS1005: ';' expected.
+src/lib/i18n/culturalContextService.ts(349,26): error TS1005: ',' expected.
+src/lib/i18n/culturalContextService.ts(350,28): error TS1005: ',' expected.
+src/lib/learning-utils.tsx(247,31): error TS1005: ',' expected.
+src/lib/learning-utils.tsx(385,67): error TS1005: '=>' expected.
+src/lib/learning-utils.tsx(385,72): error TS1005: ',' expected.
+src/lib/learning-utils.tsx(385,75): error TS1005: ';' expected.
+src/lib/learning-utils.tsx(402,27): error TS1005: '=>' expected.
+src/lib/learning-utils.tsx(402,29): error TS1109: Expression expected.
+src/lib/learning-utils.tsx(422,10): error TS1005: ',' expected.
+src/lib/learning-utils.tsx(471,28): error TS1005: ',' expected.
+src/lib/learning-utils.tsx(535,25): error TS1005: ',' expected.
+src/lib/learning-utils.tsx(580,19): error TS1005: '=>' expected.
+src/lib/learning-utils.tsx(580,21): error TS1109: Expression expected.
+src/lib/learning-utils.tsx(743,52): error TS1005: '=>' expected.
+src/lib/learning-utils.tsx(744,23): error TS1011: An element access expression should take an argument.
+src/lib/learning-utils.tsx(746,65): error TS1005: ';' expected.
+src/lib/learning-utils.tsx(748,31): error TS1005: ';' expected.
+src/lib/learning-utils.tsx(750,3): error TS1005: ';' expected.
+src/lib/learning-utils.tsx(785,9): error TS1005: '=>' expected.
+src/lib/learning-utils.tsx(789,77): error TS1109: Expression expected.
+src/lib/learning-utils.tsx(790,94): error TS1109: Expression expected.
+src/lib/learning-utils.tsx(791,3): error TS1005: ';' expected.
+src/lib/learning-utils.tsx(868,9): error TS1005: '=>' expected.
+src/lib/learning-utils.tsx(869,29): error TS1011: An element access expression should take an argument.
+src/lib/learning-utils.tsx(872,34): error TS1109: Expression expected.
+src/lib/learning-utils.tsx(873,3): error TS1005: ';' expected.
+src/lib/learning-utils.tsx(909,9): error TS1005: '=>' expected.
+src/lib/learning-utils.tsx(910,26): error TS1011: An element access expression should take an argument.
+src/lib/learning-utils.tsx(913,34): error TS1109: Expression expected.
+src/lib/learning-utils.tsx(914,3): error TS1005: ';' expected.
+src/lib/learning-utils.tsx(952,9): error TS1005: '=>' expected.
+src/lib/learning-utils.tsx(956,47): error TS1005: ';' expected.
+src/lib/learning-utils.tsx(957,3): error TS1005: ';' expected.
+src/lib/learning-utils.tsx(1090,13): error TS1382: Unexpected token. Did you mean `{'>'}` or `&gt;`?
+src/lib/learning-utils.tsx(1120,17): error TS1382: Unexpected token. Did you mean `{'>'}` or `&gt;`?
+src/lib/learning-utils.tsx(1121,16): error TS1382: Unexpected token. Did you mean `{'>'}` or `&gt;`?
+src/lib/mobile/mobileTypes.ts(146,3): error TS1131: Property or signature expected.
+src/lib/mobile/mobileTypes.ts(146,12): error TS1011: An element access expression should take an argument.
+src/lib/mobile/mobileTypes.ts(148,12): error TS1109: Expression expected.
+src/lib/mobile/mobileTypes.ts(149,1): error TS1128: Declaration or statement expected.
+src/lib/mobile/mobileTypes.ts(194,5): error TS1131: Property or signature expected.
+src/lib/mobile/mobileTypes.ts(194,18): error TS1011: An element access expression should take an argument.
+src/lib/mobile/mobileTypes.ts(196,3): error TS1128: Declaration or statement expected.
+src/lib/mobile/mobileTypes.ts(211,1): error TS1128: Declaration or statement expected.
+src/lib/mobile/mobileTypes.ts(226,3): error TS1131: Property or signature expected.
+src/lib/mobile/mobileTypes.ts(226,9): error TS1011: An element access expression should take an argument.
+src/lib/mobile/mobileTypes.ts(229,1): error TS1128: Declaration or statement expected.
+src/lib/plugins/googleDrive.ts(54,3): error TS1131: Property or signature expected.
+src/lib/plugins/googleDrive.ts(54,11): error TS1011: An element access expression should take an argument.
+src/lib/plugins/googleDrive.ts(55,1): error TS1128: Declaration or statement expected.
+src/lib/plugins/implementations/cognifitAssessmentPlugin.ts(164,16): error TS1005: ',' expected.
+src/lib/plugins/implementations/cognifitAssessmentPlugin.ts(235,22): error TS1005: ',' expected.
+src/lib/plugins/implementations/cognifitAssessmentPlugin.ts(616,19): error TS1005: ',' expected.
+src/lib/plugins/registry.ts(336,44): error TS1005: ',' expected.
+src/lib/plugins/registry.ts(336,49): error TS1005: ',' expected.
+src/lib/plugins/registry.ts(336,50): error TS1109: Expression expected.
+src/lib/plugins/registry.ts(336,52): error TS1005: ':' expected.
+src/lib/plugins/templates/assessmentToolPlugin.ts(336,53): error TS1005: ',' expected.
+src/lib/plugins/types.ts(109,57): error TS1005: ';' expected.
+src/lib/plugins/types.ts(109,59): error TS1131: Property or signature expected.
+src/lib/plugins/types.ts(109,63): error TS1011: An element access expression should take an argument.
+src/lib/plugins/types.ts(113,1): error TS1128: Declaration or statement expected.
+src/lib/testing/types.ts(67,3): error TS1131: Property or signature expected.
+src/lib/testing/types.ts(67,9): error TS1011: An element access expression should take an argument.
+src/lib/testing/types.ts(69,11): error TS1109: Expression expected.
+src/lib/testing/types.ts(74,1): error TS1128: Declaration or statement expected.
+src/lib/testing/types.ts(83,3): error TS1131: Property or signature expected.
+src/lib/testing/types.ts(83,10): error TS1011: An element access expression should take an argument.
+src/lib/testing/types.ts(85,11): error TS1109: Expression expected.
+src/lib/testing/types.ts(93,1): error TS1128: Declaration or statement expected.
+src/lib/testing/types.ts(131,3): error TS1131: Property or signature expected.
+src/lib/testing/types.ts(131,13): error TS1011: An element access expression should take an argument.
+src/lib/testing/types.ts(132,13): error TS1011: An element access expression should take an argument.
+src/lib/testing/types.ts(133,14): error TS1011: An element access expression should take an argument.
+src/lib/testing/types.ts(134,14): error TS1011: An element access expression should take an argument.
+src/lib/testing/types.ts(135,17): error TS1011: An element access expression should take an argument.
+src/lib/testing/types.ts(137,1): error TS1128: Declaration or statement expected.
+src/lib/utils.ts(9,29): error TS1005: ',' expected.
+src/lib/utils.ts(81,44): error TS1005: ',' expected.
+src/pages/blog/[slug].tsx(14,3): error TS1131: Property or signature expected.
+src/pages/blog/[slug].tsx(14,16): error TS1011: An element access expression should take an argument.
+src/pages/blog/[slug].tsx(15,1): error TS1128: Declaration or statement expected.
+src/pages/blog/categories.tsx(23,3): error TS1131: Property or signature expected.
+src/pages/blog/categories.tsx(23,14): error TS1011: An element access expression should take an argument.
+src/pages/blog/categories.tsx(24,1): error TS1128: Declaration or statement expected.

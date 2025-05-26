@@ -316,32 +316,32 @@ export type DataProtectionImpactAssessment = z.infer<typeof DataProtectionImpact
  * DFE compliance service interface
  */
 export interface DFEComplianceService {
-  validateCurriculumAlignment: (content, keyStage: UKKeyStage) => Promise<{
+  validateCurriculumAlignment: (content: any, keyStage: UKKeyStage) => Promise<{
     isAligned: boolean;
     alignmentScore: number;
-    misalignments[];
-    recommendations[];
+    misalignments: string[];
+    recommendations: string[];
   }>;
   
-  checkAgeAppropriateness: (content, targetAgeRange: { min: number; max: number }) => Promise<{
+  checkAgeAppropriateness: (content: any, targetAgeRange: { min: number; max: number }) => Promise<{
     isAppropriate: boolean;
     appropriatenessScore: number;
-    concerns[];
+    concerns: string[];
     recommendedAgeRating: AgeAppropriatenessRating;
   }>;
   
-  validateAccessibility: (content) => Promise<{
+  validateAccessibility: (content: any) => Promise<{
     isAccessible: boolean;
     accessibilityScore: number;
-    issues[];
-    recommendations[];
+    issues: string[];
+    recommendations: string[];
   }>;
   
-  checkInclusivity: (content) => Promise<{
+  checkInclusivity: (content: any) => Promise<{
     isInclusive: boolean;
     inclusivityScore: number;
-    issues[];
-    recommendations[];
+    issues: string[];
+    recommendations: string[];
   }>;
   
   generateComplianceReport: (contentId: string) => Promise<DFECompliance>;
@@ -363,17 +363,17 @@ export interface GDPRComplianceService {
   recordDataSubjectConsent: (userId: string, purposeId: string, consentGiven: boolean) => Promise<boolean>;
   
   handleSubjectAccessRequest: (userId: string) => Promise<{
-    personalData;
-    processingActivities[];
-    processingPurposes[];
+    personalData: any;
+    processingActivities: string[];
+    processingPurposes: string[];
     retentionPeriods: Record<string, string>;
-    recipients[];
+    recipients: string[];
   }>;
   
   handleRightToErasure: (userId: string, dataCategories?: DataProtectionCategory[]) => Promise<{
     success: boolean;
-    erasedCategories[];
-    retainedCategories[];
+    erasedCategories: string[];
+    retainedCategories: string[];
     retentionReasons: Record<string, string>;
   }>;
   
@@ -388,9 +388,9 @@ export interface GDPRComplianceService {
   logDataBreach: (details: {
     description: string;
     affectedUsers: string[];
-    affectedDataCategories[];
+    affectedDataCategories: DataProtectionCategory[];
     detectionDate: Date;
-    containmentActions[];
+    containmentActions: string[];
     severity: 'low' | 'medium' | 'high' | 'critical';
   }) => Promise<string>;
 }
@@ -427,7 +427,7 @@ export interface SafeguardingService {
       severity: 'low' | 'medium' | 'high';
       detectionDate: Date;
     }>;
-    recommendedActions[];
+    recommendedActions: string[];
   }>;
   
   getSafeguardingReports: (filters?: {
@@ -443,7 +443,7 @@ export interface SafeguardingService {
     version: string;
     effectiveDate: Date;
     documentUrl: string;
-  }>>;
+  }>;
 }
 
 /**
@@ -515,16 +515,16 @@ export interface AgeVerificationService {
  * Data protection service interface
  */
 export interface DataProtectionService {
-  classifyData: (data) => Promise<{
-    categories[];
+  classifyData: (data: any) => Promise<{
+    categories: string[];
     sensitivityLevel: 'low' | 'medium' | 'high';
-    personalDataFields[];
-    specialCategoryFields[];
+    personalDataFields: string[];
+    specialCategoryFields: string[];
   }>;
   
   applyDataMinimization: (data, purpose: string) => Promise<{
     minimizedData;
-    removedFields[];
+    removedFields: any[];
   }>;
   
   applyPseudonymization: (data, fields: string[]) => Promise<{
@@ -548,7 +548,7 @@ export interface DataProtectionService {
   applyRetentionPolicy: (dataCategory: DataProtectionCategory) => Promise<{
     retentionPeriod: DataRetentionPeriod;
     retentionJustification: string;
-    archivingRequirements[];
+    archivingRequirements: any[];
     deletionMethod: string;
   }>;
   

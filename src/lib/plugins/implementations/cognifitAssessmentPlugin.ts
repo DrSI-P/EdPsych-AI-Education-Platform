@@ -34,7 +34,7 @@ interface CognifitAssessmentParams {
     max: number;
   };
   domain: string;
-  subdomains[];
+  subdomains: any[];
   difficulty: string;
   itemCount: number;
   timeLimit?: number;
@@ -56,7 +56,7 @@ interface CognifitAssessment {
   createdAt: string;
   updatedAt: string;
   params: CognifitAssessmentParams;
-  items[];
+  items: any[];
 }
 
 /**
@@ -93,7 +93,7 @@ interface CognifitResult {
   percentile: number;
   completedAt: string;
   duration: number;
-  itemResults[];
+  itemResults: any[];
   domainScores: {
     [domain: string]: {
       score: number;
@@ -106,7 +106,7 @@ interface CognifitResult {
     byDomain: {
       [domain: string]: string;
     };
-    activities[];
+    activities: any[];
   };
 }
 

@@ -180,7 +180,7 @@ export class SafeguardingServiceImpl implements SafeguardingService {
       severity: 'low' | 'medium' | 'high';
       detectionDate: Date;
     }>;
-    recommendedActions[];
+    recommendedActions: string[];
   }> {
     console.log(`Monitoring user activity for: ${userId}`);
     
@@ -336,7 +336,7 @@ export class SafeguardingServiceImpl implements SafeguardingService {
       severityCounts[indicator.severity]++;
     }
     
-    const recommendedActions[] = [];
+    const recommendedActions: string[] = [];
     
     // Generate recommendations based on severity counts
     if (severityCounts.high > 0) {
