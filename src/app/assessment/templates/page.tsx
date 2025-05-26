@@ -31,8 +31,8 @@ export default function AssessmentTemplatesPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [templates, setTemplates] = useState<Template[]>([]);
-  const [filteredTemplates, setFilteredTemplates] = useState<Template[]>([]);
+  const [templates, setTemplates] = useState<Template: any[]>([]);
+  const [filteredTemplates, setFilteredTemplates] = useState<Template: any[]>([]);
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('');

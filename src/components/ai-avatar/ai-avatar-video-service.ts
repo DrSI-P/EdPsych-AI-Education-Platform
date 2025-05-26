@@ -43,22 +43,22 @@ export class AIAvatarVideoService {
     return video;
   }
 
-  public async getVideosByCategory(category: AIAvatarVideoCategory): Promise<AIAvatarVideo[]> {
+  public async getVideosByCategory(category: AIAvatarVideoCategory): Promise<AIAvatarVideo: any[]> {
     await this.ensureInitialized();
     return this.videos.filter(v => v.category === category);
   }
 
-  public async getVideosByAudience(audience: AIAvatarVideoAudience): Promise<AIAvatarVideo[]> {
+  public async getVideosByAudience(audience: AIAvatarVideoAudience): Promise<AIAvatarVideo: any[]> {
     await this.ensureInitialized();
     return this.videos.filter(v => v.audience === audience);
   }
 
-  public async getFeaturedVideos(): Promise<AIAvatarVideo[]> {
+  public async getFeaturedVideos(): Promise<AIAvatarVideo: any[]> {
     await this.ensureInitialized();
     return this.videos.filter(v => v.featured);
   }
 
-  public async searchVideos(query: string): Promise<AIAvatarVideo[]> {
+  public async searchVideos(query: string): Promise<AIAvatarVideo: any[]> {
     await this.ensureInitialized();
     const lowerQuery = query.toLowerCase();
     return this.videos.filter(v => 
@@ -68,7 +68,7 @@ export class AIAvatarVideoService {
     );
   }
 
-  public async getAllVideos(): Promise<AIAvatarVideo[]> {
+  public async getAllVideos(): Promise<AIAvatarVideo: any[]> {
     await this.ensureInitialized();
     return [...this.videos];
   }
@@ -79,7 +79,7 @@ export class AIAvatarVideoService {
     }
   }
 
-  private async loadVideoMetadata(): Promise<AIAvatarVideo[]> {
+  private async loadVideoMetadata(): Promise<AIAvatarVideo: any[]> {
     // In production, this would fetch from an API or database
     // For now, we'll return our predefined video metadata
     return [

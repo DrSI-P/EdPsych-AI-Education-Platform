@@ -75,7 +75,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
 }) => {
   const { t, currentLanguage } = useI18n();
   const [isValidating, setIsValidating] = useState(false);
-  const [results, setResults] = useState<CurriculumValidationResult[]>([]);
+  const [results, setResults] = useState<CurriculumValidationResult: any[]>([]);
   const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage>(currentLanguage);
   const [overallScore, setOverallScore] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);

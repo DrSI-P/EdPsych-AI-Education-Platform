@@ -285,11 +285,11 @@ enum LearningStyle {
 export default function ProgressMonitoringAlerts() {
   const [activeTab, setActiveTab] = useState<string>('alerts');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [interventionAlerts, setInterventionAlerts] = useState<InterventionAlert[]>(mockInterventionAlerts);
+  const [interventionAlerts, setInterventionAlerts] = useState<InterventionAlert: any[]>(mockInterventionAlerts);
   const [progressReport, setProgressReport] = useState<ProgressReport | null>(mockProgressReport);
   const [learnerProfile, setLearnerProfile] = useState<LearnerProfile>(mockLearnerProfile);
-  const [learningPaths, setLearningPaths] = useState<LearningPath[]>(mockLearningPaths);
-  const [recentActivities, setRecentActivities] = useState<any[]>(mockRecentActivities);
+  const [learningPaths, setLearningPaths] = useState<LearningPath: any[]>(mockLearningPaths);
+  const [recentActivities, setRecentActivities] = useState<any: any[]>(mockRecentActivities);
   
   // Monitor progress and generate alerts
   const monitorProgress = async () => {

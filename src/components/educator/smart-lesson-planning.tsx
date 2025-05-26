@@ -76,8 +76,8 @@ export function SmartLessonPlanning() {
   const [plenary, setPlenary] = useState("");
   const [assessment, setAssessment] = useState("");
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
-  const [selectedStandards, setSelectedStandards] = useState<string[]>([]);
-  const [selectedDifferentiation, setSelectedDifferentiation] = useState<string[]>([]);
+  const [selectedStandards, setSelectedStandards] = useState<string: any[]>([]);
+  const [selectedDifferentiation, setSelectedDifferentiation] = useState<string: any[]>([]);
   const [generatedPlan, setGeneratedPlan] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   

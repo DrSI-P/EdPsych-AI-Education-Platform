@@ -21,10 +21,10 @@ import {
  */
 export class DFEComplianceServiceImpl implements DFEComplianceService {
   // UK Curriculum standards by key stage
-  private curriculumStandards: Map<UKKeyStage, string[]> = new Map();
+  private curriculumStandards: Map<UKKeyStage, string: any[]> = new Map();
   
   // Age appropriateness guidelines
-  private ageAppropriatenessGuidelines: Map<AgeAppropriatenessRating, string[]> = new Map();
+  private ageAppropriatenessGuidelines: Map<AgeAppropriatenessRating, string: any[]> = new Map();
   
   // Accessibility requirements
   private accessibilityRequirements: string[] = [];

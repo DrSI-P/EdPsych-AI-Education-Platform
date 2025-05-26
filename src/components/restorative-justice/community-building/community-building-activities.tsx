@@ -205,15 +205,15 @@ const sampleActivities: Activity[] = [
 // Main component
 const CommunityBuildingActivities = () => {
   // State management
-  const [activities, setActivities] = useState<Activity[]>(sampleActivities);
-  const [filteredActivities, setFilteredActivities] = useState<Activity[]>(sampleActivities);
+  const [activities, setActivities] = useState<Activity: any[]>(sampleActivities);
+  const [filteredActivities, setFilteredActivities] = useState<Activity: any[]>(sampleActivities);
   const [selectedActivity, setSelectedActivity] = useState<Activity | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<ActivityCategory | 'all'>('all');
   const [ageFilter, setAgeFilter] = useState<AgeGroup | 'all'>('all');
   const [timeFilter, setTimeFilter] = useState<TimeRequired | 'all'>('all');
   const [sizeFilter, setSizeFilter] = useState<GroupSize | 'all'>('all');
-  const [favorites, setFavorites] = useState<string[]>([]);
+  const [favorites, setFavorites] = useState<string: any[]>([]);
 
   // Filter activities based on search and filters
   useEffect(() => {

@@ -55,7 +55,7 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
   script,
   onVideoGenerated
 }) => {
-  const [avatarModels, setAvatarModels] = useState<AvatarModel[]>([]);
+  const [avatarModels, setAvatarModels] = useState<AvatarModel: any[]>([]);
   const [selectedAvatarId, setSelectedAvatarId] = useState<string>('');
   const [emotion, setEmotion] = useState<AvatarEmotion>(AvatarEmotion.PROFESSIONAL);
   const [speakingStyle, setSpeakingStyle] = useState<AvatarSpeakingStyle>(AvatarSpeakingStyle.EDUCATIONAL);

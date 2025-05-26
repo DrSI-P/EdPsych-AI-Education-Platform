@@ -21,13 +21,13 @@ export const HeyGenAvatarCreation: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [avatarName, setAvatarName] = useState('Dr. Scott Avatar');
-  const [selectedImages, setSelectedImages] = useState<File[]>([]);
+  const [selectedImages, setSelectedImages] = useState<File: any[]>([]);
   const [selectedVoiceSample, setSelectedVoiceSample] = useState<File | null>(null);
-  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+  const [previewUrls, setPreviewUrls] = useState<string: any[]>([]);
   const [voicePreviewUrl, setVoicePreviewUrl] = useState<string | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const [audioRecorder, setAudioRecorder] = useState<MediaRecorder | null>(null);
-  const [audioChunks, setAudioChunks] = useState<Blob[]>([]);
+  const [audioChunks, setAudioChunks] = useState<Blob: any[]>([]);
   
   // Initialize HeyGen service
   const heygenService = HeyGenService.getInstance({

@@ -82,8 +82,8 @@ export interface LearnerProfile {
   };
   specialEducationalNeeds?: {
     categories: SENCategory[];
-    specificDifficulties?: SpecificLearningDifficulty[];
-    accommodations?: string[];
+    specificDifficulties?: SpecificLearningDifficulty: any[];
+    accommodations?: string: any[];
   };
   previousAssessments: Assessment[];
   learningGoals: LearningGoal[];
@@ -183,7 +183,7 @@ export interface LearningActivity {
     url?: string;
     text?: string;
     interactiveId?: string;
-    attachments?: string[];
+    attachments?: string: any[];
   };
   duration: number; // In minutes
   learningStyleAlignment: {
@@ -224,8 +224,8 @@ export interface AssessmentQuestion {
   id: string;
   questionText: string;
   questionType: 'multiple_choice' | 'true_false' | 'short_answer' | 'essay' | 'matching' | 'fill_in_blank';
-  options?: string[];
-  correctAnswer: string | string[];
+  options?: string: any[];
+  correctAnswer: string | string: any[];
   explanation: string;
   difficulty: number; // 1-5 scale
   conceptTested: string;
@@ -286,7 +286,7 @@ export interface InterventionAlert {
   suggestedActions: {
     actionType: string;
     description: string;
-    resources?: string[];
+    resources?: string: any[];
   }[];
   createdAt: Date;
   acknowledged: boolean;

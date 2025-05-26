@@ -511,7 +511,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
   userId,
   onNotificationClick
 }) => {
-  const [notifications, setNotifications] = useState<any[]>([]);
+  const [notifications, setNotifications] = useState<any: any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'all' | 'unread'>('all');
 

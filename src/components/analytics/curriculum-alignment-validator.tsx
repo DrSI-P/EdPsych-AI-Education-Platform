@@ -30,7 +30,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
   const [isValidating, setIsValidating] = useState(false);
   const [validationComplete, setValidationComplete] = useState(false);
   const [alignmentScore, setAlignmentScore] = useState(0);
-  const [issues, setIssues] = useState<CurriculumAlignmentIssue[]>([]);
+  const [issues, setIssues] = useState<CurriculumAlignmentIssue: any[]>([]);
   const [validationResults, setValidationResults] = useState<{
     keyStageAlignment: number;
     subjectCoverage: number;

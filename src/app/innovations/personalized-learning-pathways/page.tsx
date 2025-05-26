@@ -104,7 +104,7 @@ export default function PersonalizedLearningPathwaysPage() {
   });
   
   // State for learning modules
-  const [learningModules, setLearningModules] = useState<LearningModule[]>([
+  const [learningModules, setLearningModules] = useState<LearningModule: any[]>([
     {
       id: "math-001",
       title: "Algebraic Expressions and Equations",
@@ -193,7 +193,7 @@ export default function PersonalizedLearningPathwaysPage() {
   ]);
   
   // State for recommended pathway
-  const [recommendedPathway, setRecommendedPathway] = useState<string[]>(["sci-042", "math-001", "hist-019", "rob-007", "eng-023"]);
+  const [recommendedPathway, setRecommendedPathway] = useState<string: any[]>(["sci-042", "math-001", "hist-019", "rob-007", "eng-023"]);
   
   // State for active tab
   const [activeTab, setActiveTab] = useState('profile');

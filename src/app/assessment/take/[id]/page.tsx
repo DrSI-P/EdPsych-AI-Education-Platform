@@ -12,9 +12,9 @@ interface Question {
   id: string;
   type: string;
   content: string;
-  options?: any[];
-  items?: any[];
-  allowedFileTypes?: string[];
+  options?: any: any[];
+  items?: any: any[];
+  allowedFileTypes?: string: any[];
   maxFileSize?: number;
   wordLimit?: number;
   points: number;
@@ -52,7 +52,7 @@ export default function AssessmentTakePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState<Answer[]>([]);
+  const [answers, setAnswers] = useState<Answer: any[]>([]);
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showConfirmSubmit, setShowConfirmSubmit] = useState(false);

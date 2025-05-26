@@ -54,7 +54,7 @@ const mockVideos: HeygenVideo[] = [
 
 export function HeygenVideoLibrary() {
   const [loading, setLoading] = useState(false);
-  const [videos, setVideos] = useState<HeygenVideo[]>([]);
+  const [videos, setVideos] = useState<HeygenVideo: any[]>([]);
   const [selectedVideo, setSelectedVideo] = useState<HeygenVideo | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('newest');

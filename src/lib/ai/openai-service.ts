@@ -99,8 +99,8 @@ export class OpenAIService {
    */
   async generatePersonalizedFeedback(studentWork: string, learningObjectives: string[], studentProfile: {
     learningStyle?: string;
-    strengths?: string[];
-    areasForImprovement?: string[];
+    strengths?: string: any[];
+    areasForImprovement?: string: any[];
     ageGroup?: string;
   } = {}) {
     try {

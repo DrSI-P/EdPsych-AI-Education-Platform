@@ -224,7 +224,7 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
    * @param dataCategories Optional specific data categories to erase
    * @returns The result of the erasure request
    */
-  async handleRightToErasure(userId: string, dataCategories?: DataProtectionCategory[]): Promise<{
+  async handleRightToErasure(userId: string, dataCategories?: DataProtectionCategory: any[]): Promise<{
     success: boolean;
     erasedCategories: DataProtectionCategory[];
     retainedCategories: DataProtectionCategory[];

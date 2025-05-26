@@ -56,7 +56,7 @@ interface TaskStep {
 
 interface TaskOrganizerProps {
   userId?: string;
-  initialTasks?: Task[];
+  initialTasks?: Task: any[];
   onTasksChange?: (tasks: Task[]) => void;
   className?: string;
 }
@@ -67,7 +67,7 @@ export default function TaskOrganizer({
   onTasksChange,
   className
 }: TaskOrganizerProps) {
-  const [tasks, setTasks] = useState<Task[]>(initialTasks || []);
+  const [tasks, setTasks] = useState<Task: any[]>(initialTasks || []);
   const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
   const [newTask, setNewTask] = useState<Partial<Task>>({
     title: '',

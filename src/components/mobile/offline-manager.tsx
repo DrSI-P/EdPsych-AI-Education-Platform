@@ -251,7 +251,7 @@ export const OfflineCache: React.FC<OfflineCacheProps> = ({
   children
 }) => {
   const [isCaching, setIsCaching] = useState(false);
-  const [cachedUrls, setCachedUrls] = useState<string[]>([]);
+  const [cachedUrls, setCachedUrls] = useState<string: any[]>([]);
 
   // Cache URLs when component mounts
   useEffect(() => {

@@ -26,7 +26,7 @@ interface CurriculumPlan {
 }
 
 interface CurriculumPlannerProps {
-  initialPlans?: CurriculumPlan[];
+  initialPlans?: CurriculumPlan: any[];
   onPlanSelect?: (plan: CurriculumPlan) => void;
   className?: string;
 }
@@ -37,7 +37,7 @@ export function CurriculumPlanner({
   className = ''
 }: CurriculumPlannerProps) {
   const { showToast } = useToast();
-  const [plans, setPlans] = useState<CurriculumPlan[]>(initialPlans);
+  const [plans, setPlans] = useState<CurriculumPlan: any[]>(initialPlans);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   

@@ -111,7 +111,7 @@ export interface ContentMetadata {
   topics: string[];
   learningObjectives: string[];
   targetLearningStyles: LearningStyle[];
-  senSupport?: SENCategory[];
+  senSupport?: SENCategory: any[];
   authorId: string;
   createdAt: Date;
   updatedAt: Date;
@@ -119,12 +119,12 @@ export interface ContentMetadata {
   difficulty?: 'beginner' | 'intermediate' | 'advanced';
   keywords: string[];
   permission: ContentPermission;
-  collaborators?: string[];
+  collaborators?: string: any[];
   version: number;
   isPublished: boolean;
   publishedAt?: Date;
-  curriculumLinks?: string[];
-  resourceLinks?: string[];
+  curriculumLinks?: string: any[];
+  resourceLinks?: string: any[];
 }
 
 /**
@@ -225,13 +225,13 @@ export interface QuestionElement extends ContentElement {
   type: ContentElementType.QUESTION;
   questionType: QuestionType;
   question: string;
-  options?: string[];
-  correctAnswer?: string | string[];
+  options?: string: any[];
+  correctAnswer?: string | string: any[];
   explanation?: string;
   points?: number;
   difficulty?: 'easy' | 'medium' | 'hard';
   timeLimit?: number; // in seconds
-  hints?: string[];
+  hints?: string: any[];
   feedback?: {
     correct?: string;
     incorrect?: string;
@@ -277,8 +277,8 @@ export interface ChartElement extends ContentElement {
     datasets: {
       label: string;
       data: number[];
-      backgroundColor?: string | string[];
-      borderColor?: string | string[];
+      backgroundColor?: string | string: any[];
+      borderColor?: string | string: any[];
     }[];
   };
   options?: Record<string, any>;
@@ -359,8 +359,8 @@ export interface AIGenerationPrompt {
   topic: string;
   keyStage: KeyStage;
   learningObjectives: string[];
-  targetLearningStyles?: LearningStyle[];
-  senSupport?: SENCategory[];
+  targetLearningStyles?: LearningStyle: any[];
+  senSupport?: SENCategory: any[];
   difficulty?: 'beginner' | 'intermediate' | 'advanced';
   duration?: number; // in minutes
   additionalInstructions?: string;
@@ -387,18 +387,18 @@ export interface ContentSharingInvitation {
  * Content library filter interface
  */
 export interface ContentLibraryFilter {
-  contentTypes?: ContentType[];
-  keyStages?: KeyStage[];
-  subjects?: string[];
-  topics?: string[];
-  learningStyles?: LearningStyle[];
-  senCategories?: SENCategory[];
+  contentTypes?: ContentType: any[];
+  keyStages?: KeyStage: any[];
+  subjects?: string: any[];
+  topics?: string: any[];
+  learningStyles?: LearningStyle: any[];
+  senCategories?: SENCategory: any[];
   dateRange?: {
     start: Date;
     end: Date;
   };
-  authors?: string[];
-  permissions?: ContentPermission[];
+  authors?: string: any[];
+  permissions?: ContentPermission: any[];
   isPublished?: boolean;
   searchTerm?: string;
   sortBy?: 'title' | 'createdAt' | 'updatedAt' | 'rating';
@@ -439,10 +439,10 @@ export interface ContentCreationService {
   deleteContent(id: string): Promise<void>;
   publishContent(id: string): Promise<void>;
   unpublishContent(id: string): Promise<void>;
-  listContent(filter: ContentLibraryFilter): Promise<ContentMetadata[]>;
+  listContent(filter: ContentLibraryFilter): Promise<ContentMetadata: any[]>;
   shareContent(invitation: ContentSharingInvitation): Promise<void>;
   exportContent(id: string, options: ContentExportOptions): Promise<string>;
   generateWithAI(prompt: AIGenerationPrompt): Promise<Partial<ContentDocument>>;
-  getTemplates(filter?: Partial<ContentTemplate>): Promise<ContentTemplate[]>;
+  getTemplates(filter?: Partial<ContentTemplate>): Promise<ContentTemplate: any[]>;
   createTemplate(template: Omit<ContentTemplate, 'id'>): Promise<string>;
 }

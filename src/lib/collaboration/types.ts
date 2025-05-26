@@ -44,8 +44,8 @@ export interface CollaborationSession {
   metadata: {
     subject?: string;
     keyStage?: string;
-    tags?: string[];
-    educationalObjectives?: string[];
+    tags?: string: any[];
+    educationalObjectives?: string: any[];
     [key: string];
   };
 }

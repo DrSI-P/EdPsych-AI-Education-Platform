@@ -127,7 +127,7 @@ export class AssessmentEngineService implements AssessmentEngine {
     keyStage?: UKKeyStage;
     subject?: UKSubject;
     assessmentType?: AssessmentType;
-  }): Promise<AssessmentMetadata[]> {
+  }): Promise<AssessmentMetadata: any[]> {
     // In a real implementation, this would query a database with filters
     console.log('Listing assessments with filters:', params);
     
@@ -229,7 +229,7 @@ export class AssessmentEngineService implements AssessmentEngine {
    * @param assessmentId Optional assessment ID to filter by
    * @returns Array of assessment attempts
    */
-  async getStudentAttempts(studentId: string, assessmentId?: string): Promise<AssessmentAttempt[]> {
+  async getStudentAttempts(studentId: string, assessmentId?: string): Promise<AssessmentAttempt: any[]> {
     // In a real implementation, this would query a database with filters
     console.log(`Fetching attempts for student ${studentId}${assessmentId ? ` on assessment ${assessmentId}` : ''}`);
     
@@ -624,7 +624,7 @@ export class AssessmentEngineService implements AssessmentEngine {
    * @param template The assessment template
    * @returns Array of questions
    */
-  private async generateQuestionsFromTemplate(template: AssessmentTemplate): Promise<Question[]> {
+  private async generateQuestionsFromTemplate(template: AssessmentTemplate): Promise<Question: any[]> {
     const questions: Question[] = [];
     
     // Calculate how many questions of each type to generate

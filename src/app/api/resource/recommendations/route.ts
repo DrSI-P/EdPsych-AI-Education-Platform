@@ -43,7 +43,7 @@ interface RecommendationRequestData {
   contextContent?: string;
   manualQuery?: string;
   filters?: {
-    resourceTypes?: string[];
+    resourceTypes?: string: any[];
     ageRange?: string;
     subject?: string;
     curriculum?: string;
@@ -77,7 +77,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 }
 
-function generateMockRecommendations(data: RecommendationRequestData): ResourceRecommendation[] {
+function generateMockRecommendations(data: RecommendationRequestData): ResourceRecommendation: any[] {
   const { contextSource, contextContent, manualQuery } = data;
   
   // Base set of resources

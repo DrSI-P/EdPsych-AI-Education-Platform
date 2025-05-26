@@ -370,7 +370,7 @@ export interface GDPRComplianceService {
     recipients: string[];
   }>;
   
-  handleRightToErasure: (userId: string, dataCategories?: DataProtectionCategory[]) => Promise<{
+  handleRightToErasure: (userId: string, dataCategories?: DataProtectionCategory: any[]) => Promise<{
     success: boolean;
     erasedCategories: DataProtectionCategory[];
     retainedCategories: DataProtectionCategory[];
@@ -403,7 +403,7 @@ export interface SafeguardingService {
     concernType: SafeguardingConcernType;
     description: string;
     reportedBy: string;
-    involvedUsers?: string[];
+    involvedUsers?: string: any[];
     contentReference?: string;
   }) => Promise<string>;
   
@@ -435,7 +435,7 @@ export interface SafeguardingService {
     concernType?: SafeguardingConcernType;
     concernLevel?: SafeguardingConcernLevel;
     dateRange?: { start: Date; end: Date };
-  }) => Promise<SafeguardingReport[]>;
+  }) => Promise<SafeguardingReport: any[]>;
   
   getSafeguardingPolicies: () => Promise<Array<{
     id: string;

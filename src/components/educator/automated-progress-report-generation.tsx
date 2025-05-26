@@ -159,8 +159,8 @@ export default function AutomatedProgressReportGeneration() {
   const aiService = useAIService();
   const [activeTab, setActiveTab] = useState('create');
   const [selectedTemplate, setSelectedTemplate] = useState('');
-  const [selectedStudents, setSelectedStudents] = useState<number[]>([]);
-  const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
+  const [selectedStudents, setSelectedStudents] = useState<number: any[]>([]);
+  const [selectedSubjects, setSelectedSubjects] = useState<string: any[]>([]);
   const [reportPeriod, setReportPeriod] = useState('current-term');
   const [includeAttendance, setIncludeAttendance] = useState(true);
   const [includeBehavior, setIncludeBehavior] = useState(true);
@@ -168,8 +168,8 @@ export default function AutomatedProgressReportGeneration() {
   const [includeNextSteps, setIncludeNextSteps] = useState(true);
   const [commentStyle, setCommentStyle] = useState('balanced');
   const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedReports, setGeneratedReports] = useState<any[]>([]);
-  const [savedReports, setSavedReports] = useState<any[]>([]);
+  const [generatedReports, setGeneratedReports] = useState<any: any[]>([]);
+  const [savedReports, setSavedReports] = useState<any: any[]>([]);
   const [currentReport, setCurrentReport] = useState<any>(null);
   const [editingReport, setEditingReport] = useState(false);
   const [editedComments, setEditedComments] = useState<Record<string, string>>({});
@@ -324,7 +324,7 @@ export default function AutomatedProgressReportGeneration() {
         };
       }).filter(Boolean);
       
-      setGeneratedReports(reports as any[]);
+      setGeneratedReports(reports as any: any[]);
       setActiveTab('preview');
       
       toast({
@@ -345,7 +345,7 @@ export default function AutomatedProgressReportGeneration() {
   };
   
   // Generate overall comments based on subject reports
-  const generateOverallComments = (student, subjectReports[], style: string) => {
+  const generateOverallComments = (student, subjectReports: any[], style: string) => {
     // Calculate average scores and progress
     const averageCurrentScore = Math.round(
       subjectReports.reduce((sum, report) => sum + report.currentScore, 0) / subjectReports.length
@@ -400,7 +400,7 @@ export default function AutomatedProgressReportGeneration() {
   };
   
   // Generate next steps based on subject reports
-  const generateNextSteps = (subjectReports[]) => {
+  const generateNextSteps = (subjectReports: any[]) => {
     // Find subjects with lowest scores for targeted improvement
     const lowestSubjects = [...subjectReports].sort((a, b) => a.currentScore - b.currentScore).slice(0, 2);
     

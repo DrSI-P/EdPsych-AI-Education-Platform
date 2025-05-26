@@ -94,7 +94,7 @@ export interface BlogPostGenerationParams {
   topic: string;
   audience: string[];
   category: string;
-  keyPoints?: string[];
+  keyPoints?: string: any[];
   tone?: 'professional' | 'conversational' | 'academic';
   wordCount?: number;
 }
@@ -128,7 +128,7 @@ export interface BlogPostSaveParams {
 
 // Blog post filter parameters
 export interface BlogPostFilterParams {
-  status?: BlogPostStatus | BlogPostStatus[];
+  status?: BlogPostStatus | BlogPostStatus: any[];
   category?: string;
   audience?: string;
   page?: number;
@@ -401,7 +401,7 @@ export async function getBlogPosts({
   });
   
   return {
-    posts: posts as unknown as BlogPostWithRelations[],
+    posts: posts as unknown as BlogPostWithRelations: any[],
     total,
     pages: Math.ceil(total / limit)
   };
@@ -473,7 +473,7 @@ export async function deleteBlogPost(id: string): Promise<void> {
 /**
  * Generate blog post ideas based on user interests and curriculum topics
  */
-export async function generateBlogPostIdeas(count: number = 5, topics?: string[]): Promise<BlogPostIdea[]> {
+export async function generateBlogPostIdeas(count: number = 5, topics?: string: any[]): Promise<BlogPostIdea: any[]> {
   const topicsStr = topics ? topics.join(', ') : 'educational psychology, learning strategies, special needs education, curriculum development';
   
   const prompt = `

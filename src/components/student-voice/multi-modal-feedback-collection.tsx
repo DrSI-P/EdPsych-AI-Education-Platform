@@ -114,13 +114,13 @@ export default function MultiModalFeedbackCollection() {
   const [selectedLanguage, setSelectedLanguage] = useState('en');
   const [translatedText, setTranslatedText] = useState('');
   const [isTranslating, setIsTranslating] = useState(false);
-  const [feedbackEntries, setFeedbackEntries] = useState<FeedbackEntry[]>([]);
-  const [transcriptionHistory, setTranscriptionHistory] = useState<TranscriptionEntry[]>([]);
+  const [feedbackEntries, setFeedbackEntries] = useState<FeedbackEntry: any[]>([]);
+  const [transcriptionHistory, setTranscriptionHistory] = useState<TranscriptionEntry: any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showTranslation, setShowTranslation] = useState(false);
   
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const audioChunksRef = useRef<Blob[]>([]);
+  const audioChunksRef = useRef<Blob: any[]>([]);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   
   // Feedback form state

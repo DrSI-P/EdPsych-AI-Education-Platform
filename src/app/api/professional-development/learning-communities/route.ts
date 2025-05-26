@@ -8,7 +8,7 @@ export interface Community {
   description: string;
   categories: string[];
   privacy: "open" | "restricted";
-  schools?: string[];
+  schools?: string: any[];
   createdAt?: string;
   updatedAt?: string;
   createdBy?: string;
@@ -66,7 +66,7 @@ export interface Discussion {
   views?: number;
   lastReplyAt?: string;
   pinned?: boolean;
-  tags?: string[];
+  tags?: string: any[];
 }
 
 export interface Event {
@@ -84,7 +84,7 @@ export interface Event {
     school: string;
   };
   capacity?: number;
-  attendees?: string[];
+  attendees?: string: any[];
   attendeeCount?: number;
   createdAt?: string;
   updatedAt?: string;
@@ -97,7 +97,7 @@ export interface Collaboration {
   description: string;
   type: string;
   schools: string[];
-  members?: string[];
+  members?: string: any[];
   memberCount?: number;
   status: "Planning" | "In Progress" | "Completed";
   progress: number;
@@ -105,8 +105,8 @@ export interface Collaboration {
   createdAt?: string;
   updatedAt?: string;
   createdBy?: string;
-  resources?: string[];
-  discussions?: string[];
+  resources?: string: any[];
+  discussions?: string: any[];
 }
 
 export interface Membership {
@@ -128,7 +128,7 @@ export interface PrivacySetting {
   enableAnonymization: boolean;
   requireApproval: boolean;
   maintainAttribution: boolean;
-  approvedSchools?: string[];
+  approvedSchools?: string: any[];
 }
 
 // Schema definitions for Learning Communities API

@@ -131,12 +131,12 @@ const StaffTrainingModules: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   
   const [activeTab, setActiveTab] = useState(0);
-  const [modules, setModules] = useState<Module[]>([]);
-  const [userProgress, setUserProgress] = useState<UserProgress[]>([]);
+  const [modules, setModules] = useState<Module: any[]>([]);
+  const [userProgress, setUserProgress] = useState<UserProgress: any[]>([]);
   const [currentModule, setCurrentModule] = useState<Module | null>(null);
   const [currentSection, setCurrentSection] = useState<Section | null>(null);
   const [currentQuiz, setCurrentQuiz] = useState<Quiz | null>(null);
-  const [quizAnswers, setQuizAnswers] = useState<number[]>([]);
+  const [quizAnswers, setQuizAnswers] = useState<number: any[]>([]);
   const [quizSubmitted, setQuizSubmitted] = useState(false);
   const [quizScore, setQuizScore] = useState(0);
   const [isLoading, setIsLoading] = useState(true);

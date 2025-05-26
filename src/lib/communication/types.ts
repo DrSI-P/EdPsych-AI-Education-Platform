@@ -50,14 +50,14 @@ export interface Message {
   recipientIds: string[];
   subject: string;
   content: string;
-  attachments?: Attachment[];
+  attachments?: Attachment: any[];
   priority: MessagePriority;
   status: MessageStatus;
   createdAt: Date;
   updatedAt: Date;
   readAt?: Date;
   isPrivate: boolean;
-  tags?: string[];
+  tags?: string: any[];
 }
 
 /**
@@ -112,7 +112,7 @@ export interface ProgressReport {
   nextSteps: string[];
   parentFeedbackRequested: boolean;
   parentFeedback?: string;
-  attachments?: Attachment[];
+  attachments?: Attachment: any[];
 }
 
 /**
@@ -161,7 +161,7 @@ export interface GoalUpdate {
   updatedByRole: CommunicationRole;
   updatedAt: Date;
   newProgress?: number;
-  attachments?: Attachment[];
+  attachments?: Attachment: any[];
 }
 
 /**
@@ -179,13 +179,13 @@ export interface Meeting {
   organizerRole: CommunicationRole;
   attendeeIds: string[];
   attendeeRoles: Record<string, CommunicationRole>;
-  relatedStudentIds?: string[];
-  agenda?: string[];
+  relatedStudentIds?: string: any[];
+  agenda?: string: any[];
   notes?: string;
   status: 'scheduled' | 'cancelled' | 'completed' | 'rescheduled';
   reminderSent: boolean;
   followUpSent: boolean;
-  attachments?: Attachment[];
+  attachments?: Attachment: any[];
 }
 
 /**
@@ -205,7 +205,7 @@ export interface Celebration {
   isPublic: boolean;
   kudos: number;
   comments: CelebrationComment[];
-  attachments?: Attachment[];
+  attachments?: Attachment: any[];
 }
 
 /**
@@ -263,5 +263,5 @@ export interface HomeStrategy {
   updatedAt: Date;
   effectiveness: number; // 0-5 rating
   feedbackCount: number;
-  attachments?: Attachment[];
+  attachments?: Attachment: any[];
 }

@@ -19,8 +19,8 @@ import { Skeleton } from '../ui/skeleton';
  */
 export const AIAvatarVideoLibrary: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const [videos, setVideos] = useState<AIAvatarVideo[]>([]);
-  const [filteredVideos, setFilteredVideos] = useState<AIAvatarVideo[]>([]);
+  const [videos, setVideos] = useState<AIAvatarVideo: any[]>([]);
+  const [filteredVideos, setFilteredVideos] = useState<AIAvatarVideo: any[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<AIAvatarVideoCategory | 'all'>('all');
   const [selectedAudience, setSelectedAudience] = useState<AIAvatarVideoAudience | 'all'>('all');

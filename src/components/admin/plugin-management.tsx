@@ -74,7 +74,7 @@ interface Plugin {
   author: string;
   website?: string;
   icon?: string;
-  tags?: string[];
+  tags?: string: any[];
   supportedFeatures: string[];
   requiredPermissions: string[];
   status: PluginStatus;
@@ -168,8 +168,8 @@ const StatusBadge = ({ status }: { status: PluginStatus }) => {
 };
 
 export default function PluginManagement() {
-  const [plugins, setPlugins] = useState<Plugin[]>(mockPlugins);
-  const [filteredPlugins, setFilteredPlugins] = useState<Plugin[]>(mockPlugins);
+  const [plugins, setPlugins] = useState<Plugin: any[]>(mockPlugins);
+  const [filteredPlugins, setFilteredPlugins] = useState<Plugin: any[]>(mockPlugins);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');

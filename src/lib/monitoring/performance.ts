@@ -9,7 +9,7 @@ import { NextWebVitalsMetric } from 'next/app';
 import { logInfo } from './logger';
 
 // Store performance metrics
-const performanceMetrics: Record<string, any[]> = {
+const performanceMetrics: Record<string, any: any[]> = {
   webVitals: [],
   apiCalls: [],
   pageLoads: [],

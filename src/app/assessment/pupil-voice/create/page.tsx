@@ -28,7 +28,7 @@ export default function CreatePupilVoiceSurveyPage() {
   const [error, setError] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [questions, setQuestions] = useState<QuestionType[]>([]);
+  const [questions, setQuestions] = useState<QuestionType: any[]>([]);
   const [activeQuestionIndex, setActiveQuestionIndex] = useState<number | null>(null);
   const [currentStep, setCurrentStep] = useState(1);
 

@@ -358,7 +358,7 @@ export async function preGenerateCommonVideos(navigationScripts: NavigationScrip
  * Get a list of pre-generated videos for a specific category
  * Used to populate the UI with available free videos
  */
-export async function getPreGeneratedVideosByCategory(category: string): Promise<PreGeneratedVideo[]> {
+export async function getPreGeneratedVideosByCategory(category: string): Promise<PreGeneratedVideo: any[]> {
   const videos = await db.preGeneratedVideo.findMany({
     where: { category },
     select: {

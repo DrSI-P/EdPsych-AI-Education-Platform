@@ -45,7 +45,7 @@ export class AnalyticsService {
   /**
    * Fetch student performance data
    */
-  async getStudentPerformance(filter: AnalyticsFilter): Promise<AnalyticsResponse<StudentPerformanceData[]>> {
+  async getStudentPerformance(filter: AnalyticsFilter): Promise<AnalyticsResponse<StudentPerformanceData: any[]>> {
     try {
       const response = await fetch(`${this.apiBaseUrl}/student-performance?${this.buildQueryString(filter)}`);
       
@@ -63,7 +63,7 @@ export class AnalyticsService {
   /**
    * Fetch curriculum coverage data
    */
-  async getCurriculumCoverage(filter: AnalyticsFilter): Promise<AnalyticsResponse<CurriculumCoverageData[]>> {
+  async getCurriculumCoverage(filter: AnalyticsFilter): Promise<AnalyticsResponse<CurriculumCoverageData: any[]>> {
     try {
       const response = await fetch(`${this.apiBaseUrl}/curriculum-coverage?${this.buildQueryString(filter)}`);
       
@@ -81,7 +81,7 @@ export class AnalyticsService {
   /**
    * Fetch engagement data
    */
-  async getEngagementData(filter: AnalyticsFilter): Promise<AnalyticsResponse<EngagementData[]>> {
+  async getEngagementData(filter: AnalyticsFilter): Promise<AnalyticsResponse<EngagementData: any[]>> {
     try {
       const response = await fetch(`${this.apiBaseUrl}/engagement?${this.buildQueryString(filter)}`);
       
@@ -99,7 +99,7 @@ export class AnalyticsService {
   /**
    * Fetch special needs data
    */
-  async getSpecialNeedsData(filter: AnalyticsFilter): Promise<AnalyticsResponse<SpecialNeedsData[]>> {
+  async getSpecialNeedsData(filter: AnalyticsFilter): Promise<AnalyticsResponse<SpecialNeedsData: any[]>> {
     try {
       const response = await fetch(`${this.apiBaseUrl}/special-needs?${this.buildQueryString(filter)}`);
       
@@ -159,7 +159,7 @@ export class AnalyticsService {
   /**
    * Get available dashboards for current user
    */
-  async getAvailableDashboards(): Promise<DashboardConfig[]> {
+  async getAvailableDashboards(): Promise<DashboardConfig: any[]> {
     try {
       const response = await fetch(`${this.apiBaseUrl}/dashboards`);
       
@@ -212,7 +212,7 @@ export class AnalyticsService {
   /**
    * Get alert thresholds
    */
-  async getAlertThresholds(): Promise<AlertThreshold[]> {
+  async getAlertThresholds(): Promise<AlertThreshold: any[]> {
     try {
       const response = await fetch(`${this.apiBaseUrl}/alerts/thresholds`);
       
@@ -254,7 +254,7 @@ export class AnalyticsService {
   /**
    * Get active alerts
    */
-  async getActiveAlerts(): Promise<any[]> {
+  async getActiveAlerts(): Promise<any: any[]> {
     try {
       const response = await fetch(`${this.apiBaseUrl}/alerts/active`);
       
@@ -272,7 +272,7 @@ export class AnalyticsService {
   /**
    * Transform raw data into chart datasets
    */
-  transformDataToDatasets(data[], labelField: string, valueField: string, categoryField?: string): Dataset[] {
+  transformDataToDatasets(data: any[], labelField: string, valueField: string, categoryField?: string): Dataset: any[] {
     if (!data || data.length === 0) {
       return [];
     }
@@ -309,7 +309,7 @@ export class AnalyticsService {
   /**
    * Generate colour palette for datasets
    */
-  generateColorPalette(datasets: Dataset[]): Dataset[] {
+  generateColorPalette(datasets: Dataset[]): Dataset: any[] {
     const baseColors = [
       '#4361ee', '#3a0ca3', '#7209b7', '#f72585', '#4cc9f0',
       '#4895ef', '#560bad', '#b5179e', '#f15bb5', '#00bbf9'
@@ -366,7 +366,7 @@ export class AnalyticsService {
   /**
    * Generate key findings from datasets
    */
-  private generateKeyFindings(datasets: Dataset[]): string[] {
+  private generateKeyFindings(datasets: Dataset[]): string: any[] {
     const findings: string[] = [];
     
     // This is a simplified version - in a real implementation, this would use

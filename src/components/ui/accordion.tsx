@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 interface AccordionProps {
   children: React.ReactNode;
-  defaultExpanded?: string[];
+  defaultExpanded?: string: any[];
   allowMultiple?: boolean;
   className?: string;
 }
@@ -23,7 +23,7 @@ export function Accordion({
   allowMultiple = false,
   className = '',
 }: AccordionProps) {
-  const [expandedItems, setExpandedItems] = useState<string[]>(defaultExpanded);
+  const [expandedItems, setExpandedItems] = useState<string: any[]>(defaultExpanded);
 
   const toggleItem = (id: string) => {
     if (expandedItems.includes(id)) {

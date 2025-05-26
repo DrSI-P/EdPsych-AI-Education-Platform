@@ -428,7 +428,7 @@ export class AdaptiveComplexityService {
     if (performances.length < 3) return;
     
     // Group performances by content ID to analyse patterns
-    const contentPerformance: Record<string, PerformanceMetric[]> = {};
+    const contentPerformance: Record<string, PerformanceMetric: any[]> = {};
     
     performances.forEach(perf => {
       if (!contentPerformance[perf.contentId]) {
@@ -521,7 +521,7 @@ export class AdaptiveComplexityService {
   private generateNextStepsRecommendations(
     previousLevel: ComplexityLevel,
     newLevel: ComplexityLevel
-  ): string[] {
+  ): string: any[] {
     const recommendations: string[] = [];
     
     // Direction of change

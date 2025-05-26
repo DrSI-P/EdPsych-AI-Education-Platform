@@ -269,7 +269,7 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
    * @param result The assessment result
    * @returns Array of next step recommendations
    */
-  private generateNextSteps(result: AssessmentResult): string[] {
+  private generateNextSteps(result: AssessmentResult): string: any[] {
     const nextSteps: string[] = [];
     
     // Add general next step based on overall performance

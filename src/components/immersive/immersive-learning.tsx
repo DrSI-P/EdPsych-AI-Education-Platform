@@ -26,7 +26,7 @@ interface ImmersiveEnvironment {
 }
 
 interface ImmersiveLearningProps {
-  initialEnvironments?: ImmersiveEnvironment[];
+  initialEnvironments?: ImmersiveEnvironment: any[];
   onEnvironmentSelect?: (environment: ImmersiveEnvironment) => void;
   className?: string;
 }
@@ -37,7 +37,7 @@ export function ImmersiveLearning({
   className = ''
 }: ImmersiveLearningProps) {
   const { showToast } = useToast();
-  const [environments, setEnvironments] = useState<ImmersiveEnvironment[]>(initialEnvironments);
+  const [environments, setEnvironments] = useState<ImmersiveEnvironment: any[]>(initialEnvironments);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   

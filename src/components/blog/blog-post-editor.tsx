@@ -152,9 +152,9 @@ const BlogPostEditor = () => {
   const [isGeneratingWithAI, setIsGeneratingWithAI] = useState(false);
   const [showAIDialog, setShowAIDialog] = useState(false);
   const [aiPrompt, setAiPrompt] = useState("");
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [selectedCurriculumAreas, setSelectedCurriculumAreas] = useState<string[]>([]);
-  const [selectedAgeRanges, setSelectedAgeRanges] = useState<string[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string: any[]>([]);
+  const [selectedCurriculumAreas, setSelectedCurriculumAreas] = useState<string: any[]>([]);
+  const [selectedAgeRanges, setSelectedAgeRanges] = useState<string: any[]>([]);
   
   // Form state
   const [postData, setPostData] = useState({

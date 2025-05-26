@@ -100,7 +100,7 @@ interface Quest {
     description: string;
     content: string;
     type: string;
-    options?: string[];
+    options?: string: any[];
     correctAnswer?: string;
     minScore?: number;
   }>;
@@ -137,9 +137,9 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
   const [character, setCharacter] = useState<Character | null>(null);
   
   // State for quests
-  const [quests, setQuests] = useState<Quest[]>([]);
+  const [quests, setQuests] = useState<Quest: any[]>([]);
   const [activeQuest, setActiveQuest] = useState<Quest | null>(null);
-  const [completedQuests, setCompletedQuests] = useState<CompletedQuest[]>([]);
+  const [completedQuests, setCompletedQuests] = useState<CompletedQuest: any[]>([]);
   
   // State for UI
   const [view, setView] = useState<'creation' | 'hub' | 'quest' | 'history' | 'generate'>('hub');
@@ -202,8 +202,8 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
   // Create adaptive quest based on user data
   const createAdaptiveQuest = (
     userProfile, 
-    learningHistory[], 
-    assessmentResults[], 
+    learningHistory: any[], 
+    assessmentResults: any[], 
     params: GenerationParams,
     curriculumContext
   ): Quest => {
@@ -321,7 +321,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
     }
     
     // Initialize quests
-    setQuests(mockQuests as Quest[]);
+    setQuests(mockQuests as Quest: any[]);
     
     // Initialize completed quests
     setCompletedQuests([

@@ -27,7 +27,7 @@ interface PupilVoiceEntry {
 }
 
 interface PupilVoiceToolProps {
-  initialEntries?: PupilVoiceEntry[];
+  initialEntries?: PupilVoiceEntry: any[];
   onEntrySelect?: (entry: PupilVoiceEntry) => void;
   className?: string;
 }
@@ -38,7 +38,7 @@ export function PupilVoiceTool({
   className = ''
 }: PupilVoiceToolProps) {
   const { showToast } = useToast();
-  const [entries, setEntries] = useState<PupilVoiceEntry[]>(initialEntries);
+  const [entries, setEntries] = useState<PupilVoiceEntry: any[]>(initialEntries);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   

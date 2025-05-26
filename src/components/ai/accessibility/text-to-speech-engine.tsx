@@ -50,7 +50,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
   const [isSpeaking, setIsSpeaking] = useState<boolean>(false);
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const [text, setText] = useState<string>('');
-  const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoiceType[]>([]);
+  const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoiceType: any[]>([]);
   const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoiceType | null>(null);
   const [speechSupported, setSpeechSupported] = useState<boolean>(true);
   

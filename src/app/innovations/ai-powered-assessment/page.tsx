@@ -42,8 +42,8 @@ interface AssessmentQuestion {
   type: 'multiple-choice' | 'short-answer' | 'essay' | 'interactive';
   difficulty: number;
   question: string;
-  options?: string[];
-  correctAnswer?: string | string[];
+  options?: string: any[];
+  correctAnswer?: string | string: any[];
   rubric?: {
     criteria: string;
     levels: {
@@ -105,10 +105,10 @@ export default function AIPoweredAssessmentPage() {
   const [feedbackLevel, setFeedbackLevel] = useState(80);
   
   // State for assessment results
-  const [results, setResults] = useState<AssessmentResult[]>([]);
+  const [results, setResults] = useState<AssessmentResult: any[]>([]);
   
   // State for concept mastery
-  const [conceptMastery, setConceptMastery] = useState<ConceptMastery[]>([
+  const [conceptMastery, setConceptMastery] = useState<ConceptMastery: any[]>([
     {
       concept: "Algebraic Expressions",
       mastery: 85,
@@ -154,7 +154,7 @@ export default function AIPoweredAssessmentPage() {
   ]);
   
   // Sample assessment questions
-  const [questions, setQuestions] = useState<AssessmentQuestion[]>([
+  const [questions, setQuestions] = useState<AssessmentQuestion: any[]>([
     {
       id: "q1",
       type: "multiple-choice",
@@ -277,7 +277,7 @@ export default function AIPoweredAssessmentPage() {
       } else if ((currentQuestion.type === 'short-answer' || currentQuestion.type === 'essay') && textAnswer) {
         // Simulate AI evaluation for text answers
         if (currentQuestion.type === 'short-answer') {
-          const possibleAnswers = currentQuestion.correctAnswer as string[];
+          const possibleAnswers = currentQuestion.correctAnswer as string: any[];
           isCorrect = possibleAnswers.some(answer => 
             textAnswer.toLowerCase().includes(answer.toLowerCase())
           );

@@ -352,12 +352,12 @@ export default function CollaborativeWorkspace() {
   const [activeTab, setActiveTab] = useState<string>('document');
   const [session, setSession] = useState<CollaborationSession>(mockSession);
   const [document, setDocument] = useState<CollaborativeDocument>(mockDocument);
-  const [chatMessages, setChatMessages] = useState<any[]>(mockChatMessages);
+  const [chatMessages, setChatMessages] = useState<any: any[]>(mockChatMessages);
   const [newMessage, setNewMessage] = useState<string>('');
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [documentContent, setDocumentContent] = useState<string>(mockDocument.content);
-  const [participants, setParticipants] = useState<CollaborationParticipant[]>(mockSession.participants);
+  const [participants, setParticipants] = useState<CollaborationParticipant: any[]>(mockSession.participants);
   
   const chatEndRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<HTMLTextAreaElement>(null);

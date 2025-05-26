@@ -126,7 +126,7 @@ export class TextToSpeechService {
   /**
    * Get available voices
    */
-  public getVoices(): SpeechSynthesisVoice[] {
+  public getVoices(): SpeechSynthesisVoice: any[] {
     return this.state.availableVoices;
   }
   
@@ -252,7 +252,7 @@ export class TextToSpeechService {
   /**
    * Split text into sentences
    */
-  private splitIntoSentences(text: string): string[] {
+  private splitIntoSentences(text: string): string: any[] {
     // Simple sentence splitting - in a real implementation, this would be more sophisticated
     return text
       .replace(/([.!?])\s+/g, '$1|')

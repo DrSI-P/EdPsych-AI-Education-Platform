@@ -27,7 +27,7 @@ export async function isAuthenticated(): Promise<boolean> {
 }
 
 // Check if the user has the required role
-export async function hasRole(requiredRoles: string | string[]): Promise<boolean> {
+export async function hasRole(requiredRoles: string | string: any[]): Promise<boolean> {
   const session = await getSession();
   
   if (!session) {

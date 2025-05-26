@@ -25,7 +25,7 @@ interface Resource {
 }
 
 interface ResourceLibraryProps {
-  initialResources?: Resource[];
+  initialResources?: Resource: any[];
   onResourceSelect?: (resource: Resource) => void;
   className?: string;
 }
@@ -36,7 +36,7 @@ export function ResourceLibrary({
   className = ''
 }: ResourceLibraryProps) {
   const { showToast } = useToast();
-  const [resources, setResources] = useState<Resource[]>(initialResources);
+  const [resources, setResources] = useState<Resource: any[]>(initialResources);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   

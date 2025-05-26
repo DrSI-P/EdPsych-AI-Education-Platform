@@ -115,7 +115,7 @@ export class AIGuidanceService {
   /**
    * Get relevant learning goals for a subject
    */
-  private getRelevantLearningGoals(learnerProfile: LearnerProfile, subject: SubjectArea): LearningGoal[] {
+  private getRelevantLearningGoals(learnerProfile: LearnerProfile, subject: SubjectArea): LearningGoal: any[] {
     return learnerProfile.learningGoals.filter(goal => 
       goal.subject === subject && 
       (goal.status === 'not_started' || goal.status === 'in_progress')
@@ -186,7 +186,7 @@ export class AIGuidanceService {
     learnerProfile: LearnerProfile,
     currentLearningPath?: LearningPath,
     count: number = 3
-  ): Promise<ContentSuggestion[]> {
+  ): Promise<ContentSuggestion: any[]> {
     // Analyse learner profile to determine appropriate content
     const dominantLearningStyle = this.determineDominantLearningStyle(learnerProfile);
     const interests = this.identifyTopInterests(learnerProfile);
@@ -208,7 +208,7 @@ export class AIGuidanceService {
   /**
    * Identify top interests from learner profile
    */
-  private identifyTopInterests(learnerProfile: LearnerProfile): SubjectArea[] {
+  private identifyTopInterests(learnerProfile: LearnerProfile): SubjectArea: any[] {
     const interests = learnerProfile.subjectInterests;
     
     if (!interests || Object.keys(interests).length === 0) {
@@ -225,7 +225,7 @@ export class AIGuidanceService {
   /**
    * Identify areas for improvement from learner profile
    */
-  private identifyAreasForImprovement(learnerProfile: LearnerProfile): SubjectArea[] {
+  private identifyAreasForImprovement(learnerProfile: LearnerProfile): SubjectArea: any[] {
     const strengths = learnerProfile.subjectStrengths;
     
     if (!strengths || Object.keys(strengths).length === 0) {
@@ -249,7 +249,7 @@ export class AIGuidanceService {
     areasForImprovement: SubjectArea[],
     currentLearningPath?: LearningPath,
     count: number = 3
-  ): Promise<ContentSuggestion[]> {
+  ): Promise<ContentSuggestion: any[]> {
     // This would typically involve a call to a content recommendation service
     // For now, we'll simulate this with a placeholder implementation
     
@@ -419,9 +419,9 @@ export class AIGuidanceService {
    */
   public async monitorProgress(
     learnerProfile: LearnerProfile,
-    recentActivities[],
+    recentActivities: any[],
     currentLearningPaths: LearningPath[]
-  ): Promise<InterventionAlert[]> {
+  ): Promise<InterventionAlert: any[]> {
     // Analyse recent activities and learning paths to identify potential issues
     const performanceIssues = this.identifyPerformanceIssues(learnerProfile, recentActivities);
     const engagementIssues = this.identifyEngagementIssues(learnerProfile, recentActivities);
@@ -524,7 +524,7 @@ export class AIGuidanceService {
   /**
    * Identify performance issues based on recent activities
    */
-  private identifyPerformanceIssues(learnerProfile: LearnerProfile, recentActivities[])[] {
+  private identifyPerformanceIssues(learnerProfile: LearnerProfile, recentActivities: any[])[] {
     // This would typically involve analysing assessment results over time
     // For now, we'll return a placeholder implementation
     
@@ -540,7 +540,7 @@ export class AIGuidanceService {
   /**
    * Identify engagement issues based on recent activities
    */
-  private identifyEngagementIssues(learnerProfile: LearnerProfile, recentActivities[])[] {
+  private identifyEngagementIssues(learnerProfile: LearnerProfile, recentActivities: any[])[] {
     // This would typically involve analysing platform usage patterns
     // For now, we'll return a placeholder implementation
     
