@@ -106,9 +106,9 @@ export interface AvatarVideoMetadata {
   createdAt: Date;
   updatedAt: Date;
   category: ContentCategory;
-  targetAudience: any: any[];
-  curriculumLinks?: string: any: any[];
-  tags: any: any[];
+  targetAudience: string[];
+  curriculumLinks?: string[];
+  tags: string[];
   transcriptUrl?: string;
   captionsUrl?: string;
   thumbnailUrl: string;
@@ -150,16 +150,16 @@ export interface AvatarVideoScript {
   title: string;
   content: string;
   notes?: string;
-  visualCues?: VisualCue: any: any[];
-  emotionMarkers?: EmotionMarker: any: any[];
-  pauseMarkers?: PauseMarker: any: any[];
-  emphasisMarkers?: EmphasisMarker: any: any[];
+  visualCues?: VisualCue[];
+  emotionMarkers?: EmotionMarker[];
+  pauseMarkers?: PauseMarker[];
+  emphasisMarkers?: EmphasisMarker[];
   createdAt: Date;
   updatedAt: Date;
   authorId: string;
   status: 'draft' | 'reviewed' | 'approved' | 'generated';
   category: ContentCategory;
-  targetAudience: any: any[];
+  targetAudience: string[];
   estimatedDurationSeconds: number;
 }
 
@@ -262,11 +262,11 @@ export interface AvatarIntegrationPoint {
   scriptTemplate?: string;
   dynamicVariables?: Record<string, string>;
   conditions?: {
-    userRole?: string: any: any[];
+    userRole?: string[];
     userProgress?: number;
     assessmentScore?: number;
     timeOfDay?: string;
-    deviceType?: string: any: any[];
+    deviceType?: string[];
   };
   fallbackText?: string;
 }
@@ -280,13 +280,13 @@ export interface AvatarModel {
   description: string;
   previewImageUrl: string;
   previewVideoUrl: string;
-  supportedEmotions: any: any[];
-  supportedSpeakingStyles: any: any[];
-  supportedBackgrounds: any: any[];
-  supportedLanguages: any: any[];
+  supportedEmotions: AvatarEmotion[];
+  supportedSpeakingStyles: AvatarSpeakingStyle[];
+  supportedBackgrounds: AvatarBackgroundType[];
+  supportedLanguages: string[];
   isDefault: boolean;
   category: 'teacher' | 'mentor' | 'guide' | 'specialist' | 'character';
-  tags: any: any[];
+  tags: string[];
 }
 
 /**
