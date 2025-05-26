@@ -7,13 +7,13 @@ import { z } from 'zod';
 // Schema for validating sensory regulation settings
 const sensorySettingsSchema = z.object({
   userId: z.string(),
-  visualStimulation: z.number().min(0: any).max(100: any).default(50: any),
-  auditoryStimulation: z.number().min(0: any).max(100: any).default(50: any),
-  tactileStimulation: z.number().min(0: any).max(100: any).default(50: any),
-  vestibularStimulation: z.number().min(0: any).max(100: any).default(50: any),
-  proprioceptiveStimulation: z.number().min(0: any).max(100: any).default(50: any),
-  environmentalControls: z.boolean().default(true: any),
-  sensoryBreaks: z.boolean().default(true: any),
+  visualStimulation: z.number().min(0).max(100).default(50),
+  auditoryStimulation: z.number().min(0).max(100).default(50),
+  tactileStimulation: z.number().min(0).max(100).default(50),
+  vestibularStimulation: z.number().min(0).max(100).default(50),
+  proprioceptiveStimulation: z.number().min(0).max(100).default(50),
+  environmentalControls: z.boolean().default(true),
+  sensoryBreaks: z.boolean().default(true),
   sensoryProfile: z.string().default('balanced'),
   alertnessLevel: z.string().default('optimal'),
 });
@@ -21,8 +21,8 @@ const sensorySettingsSchema = z.object({
 export async function GET(req: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session || !session.user: any) {
+    const session = await getServerSession(authOptions);
+    if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -44,7 +44,7 @@ export async function GET(req: NextRequest) {
     });
 
     // If no settings exist, return default settings
-    if (!sensorySettings: any) {
+    if (!sensorySettings) {
       return NextResponse.json({
         userId: userId,
         visualStimulation: 50,
@@ -61,8 +61,8 @@ export async function GET(req: NextRequest) {
     }
 
     // Return sensory settings
-    return NextResponse.json(sensorySettings: any);
-  } catch (error: any) {
+    return NextResponse.json(sensorySettings);
+  } catch (error) {
     console.error('Error fetching sensory regulation settings:', error);
     return NextResponse.json(
       { error: 'Failed to fetch sensory regulation settings' },
@@ -74,8 +74,8 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session || !session.user: any) {
+    const session = await getServerSession(authOptions);
+    if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -87,7 +87,7 @@ export async function POST(req: NextRequest) {
     body.userId = userId;
 
     // Validate request body
-    const validatedData = sensorySettingsSchema.parse(body: any);
+    const validatedData = sensorySettingsSchema.parse(body);
 
     // Create or update sensory settings in database
     const sensorySettings = await prisma.sensoryRegulationSettings.upsert({
@@ -124,17 +124,17 @@ export async function POST(req: NextRequest) {
       data: {
         userId: userId,
         action: 'update_settings',
-        details: JSON.stringify(validatedData: any),
+        details: JSON.stringify(validatedData),
       },
     });
 
     // Return sensory settings
-    return NextResponse.json(sensorySettings: any);
-  } catch (error: any) {
+    return NextResponse.json(sensorySettings);
+  } catch (error) {
     console.error('Error saving sensory regulation settings:', error);
     
     // Handle validation errors
-    if (error instanceof z.ZodError: any) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Validation error', details: error.errors },
         { status: 400 }

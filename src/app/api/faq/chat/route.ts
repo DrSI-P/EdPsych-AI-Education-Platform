@@ -155,7 +155,7 @@ async function findRelevantFAQs(query: string) {
 }
 
 // Helper function to generate chat response using AI
-async function generateChatResponse(systemMessage: any, userMessage: string) {
+async function generateChatResponse(systemMessage, userMessage: string) {
   // This is a placeholder for the actual AI integration
   // In a real implementation, this would call an AI service like OpenAI
   return `Based on our FAQ information, I can help with that. ${userMessage.includes('?') ? '' : 'Could you provide more specific details about what you need to know?'}`;

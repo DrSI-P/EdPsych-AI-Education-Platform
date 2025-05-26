@@ -62,7 +62,7 @@ export async function GET(req: NextRequest) {
         parentTeacherUpdates: interventionSettings.parentTeacherUpdates
       }
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Personalized interventions API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve personalized intervention settings' },
@@ -143,7 +143,7 @@ export async function POST(req: NextRequest) {
         targetAreas: JSON.parse(validatedSettings.targetAreas as string)
       }
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Personalized interventions API error:', error);
     return NextResponse.json(
       { error: 'Failed to save personalized intervention settings' },

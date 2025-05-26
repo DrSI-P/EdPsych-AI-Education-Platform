@@ -128,7 +128,7 @@ export async function GET(request: Request) {
       reports: type === 'all' || type === 'reports' ? reports : []
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching communication data:', error);
     return NextResponse.json(
       { error: "Failed to fetch communication data" },
@@ -235,7 +235,7 @@ export async function POST(request: Request) {
       { status: 400 }
     );
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error creating communication item:', error);
     
     if (error instanceof z.ZodError) {
@@ -337,7 +337,7 @@ export async function PATCH(request: Request) {
       { status: 400 }
     );
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error updating communication item:', error);
     
     if (error instanceof z.ZodError) {
@@ -419,7 +419,7 @@ export async function DELETE(request: Request) {
       { status: 400 }
     );
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error deleting communication item:', error);
     return NextResponse.json(
       { error: "Failed to delete communication item" },

@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
     }
     
     return NextResponse.json(embedding);
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error processing AI embedding request:', error);
     return NextResponse.json(
       { error: 'Failed to process AI embedding request' },
@@ -80,11 +80,11 @@ async function handleOpenAIEmbedding(requestData: AIEmbeddingRequest) {
     });
     
     return {
-      embeddings: response.data.map((item: any) => item.embedding),
+      embeddings: response.data.map((item) => item.embedding),
       provider: 'openai',
       model: requestData.model
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error generating OpenAI embeddings:', error);
     throw error;
   }
@@ -106,7 +106,7 @@ async function handleAnthropicEmbedding(requestData: AIEmbeddingRequest) {
       provider: 'openai',
       model: 'text-embedding-3-small'
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error generating Anthropic embeddings:', error);
     throw error;
   }
@@ -139,7 +139,7 @@ async function handleGeminiEmbedding(requestData: AIEmbeddingRequest) {
       provider: 'gemini',
       model: 'embedding-001'
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error generating Gemini embeddings:', error);
     // Fallback to OpenAI
     console.log('Falling back to OpenAI for embeddings');
@@ -175,11 +175,11 @@ async function handleGrokEmbedding(requestData: AIEmbeddingRequest) {
     }, { headers });
     
     return {
-      embeddings: response.data.data.map((item: any) => item.embedding),
+      embeddings: response.data.data.map((item) => item.embedding),
       provider: 'grok',
       model: requestData.model || 'grok-embedding-1'
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error generating Grok embeddings:', error);
     // Fallback to OpenAI
     console.log('Falling back to OpenAI for embeddings');
@@ -219,11 +219,11 @@ async function handleOpenRouterEmbedding(requestData: AIEmbeddingRequest) {
     const data = await response.json();
     
     return {
-      embeddings: data.data.map((item: any) => item.embedding),
+      embeddings: data.data.map((item) => item.embedding),
       provider: 'openrouter',
       model: data.model || requestData.model,
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error generating OpenRouter embeddings:', error);
     // Fallback to OpenAI
     console.log('Falling back to OpenAI for embeddings');

@@ -3,17 +3,17 @@ import { z } from 'zod';
 
 // Define schema for goal request
 const goalSchema = z.object({
-  title: z.string().min(3: any, "Title must be at least 3 characters"),
-  description: z.string().min(10: any, "Description must be at least 10 characters"),
+  title: z.string().min(3, "Title must be at least 3 characters"),
+  description: z.string().min(10, "Description must be at least 10 characters"),
   category: z.enum(["academic", "social", "behavioural", "personal"]),
   dueDate: z.string().datetime(),
   studentId: z.string(),
   milestones: z.array(
     z.object({
-      title: z.string().min(3: any, "Milestone title must be at least 3 characters"),
+      title: z.string().min(3, "Milestone title must be at least 3 characters"),
       description: z.string().optional(),
     })
-  ).min(1: any, "At least one milestone is required"),
+  ).min(1, "At least one milestone is required"),
   collaborators: z.array(
     z.object({
       userId: z.string(),
@@ -32,7 +32,7 @@ const milestoneUpdateSchema = z.object({
 
 // Define schema for goal reflection request
 const goalReflectionSchema = z.object({
-  content: z.string().min(1: any, "Reflection content cannot be empty"),
+  content: z.string().min(1, "Reflection content cannot be empty"),
   goalId: z.string(),
   createdBy: z.string(),
 });
@@ -174,17 +174,17 @@ export async function GET(request: NextRequest) {
   const category = searchParams.get('category');
   
   // Return goal by ID
-  if (id: any) {
-    const goal = mockGoals.find(g => g.id === id: any);
-    if (!goal: any) {
+  if (id) {
+    const goal = mockGoals.find(g => g.id === id);
+    if (!goal) {
       return NextResponse.json({ error: "Goal not found" }, { status: 404 });
     }
     
     // Get reflections for this goal
-    const goalReflections = mockReflections.filter(r => r.goalId === id: any);
+    const goalReflections = mockReflections.filter(r => r.goalId === id);
     
     return NextResponse.json({ 
-      goal: any,
+      goal,
       reflections: goalReflections
     });
   }
@@ -192,16 +192,16 @@ export async function GET(request: NextRequest) {
   // Filter goals based on query parameters
   let filteredGoals = [...mockGoals];
   
-  if (studentId: any) {
-    filteredGoals = filteredGoals.filter(g => g.studentId === studentId: any);
+  if (studentId) {
+    filteredGoals = filteredGoals.filter(g => g.studentId === studentId);
   }
   
-  if (status: any) {
-    filteredGoals = filteredGoals.filter(g => g.status === status: any);
+  if (status) {
+    filteredGoals = filteredGoals.filter(g => g.status === status);
   }
   
-  if (category: any) {
-    filteredGoals = filteredGoals.filter(g => g.category === category: any);
+  if (category) {
+    filteredGoals = filteredGoals.filter(g => g.category === category);
   }
   
   return NextResponse.json({ goals: filteredGoals });
@@ -213,12 +213,12 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const type = body.type;
     
-    switch (type: any) {
+    switch (type) {
       case 'goal':
-        const goalData = goalSchema.parse(body: any);
+        const goalData = goalSchema.parse(body);
         
         // Create milestones with IDs
-        const milestones = goalData.milestones.map((milestone: any, index) => ({
+        const milestones = goalData.milestones.map((milestone, index) => ({
           id: `new-${index + 1}`,
           title: milestone.title,
           description: milestone.description || null,
@@ -226,7 +226,7 @@ export async function POST(request: NextRequest) {
           completedAt: null
         }));
         
-        // Calculate initial progress (0% as no milestones completed yet: any)
+        // Calculate initial progress (0% as no milestones completed yet)
         const progress = 0;
         
         const newGoal = {
@@ -246,7 +246,7 @@ export async function POST(request: NextRequest) {
         });
         
       case 'milestone-update':
-        const milestoneData = milestoneUpdateSchema.parse(body: any);
+        const milestoneData = milestoneUpdateSchema.parse(body);
         
         // In a real implementation, this would update the database
         // For now, we'll just return a success response
@@ -260,7 +260,7 @@ export async function POST(request: NextRequest) {
         });
         
       case 'reflection':
-        const reflectionData = goalReflectionSchema.parse(body: any);
+        const reflectionData = goalReflectionSchema.parse(body);
         
         // In a real implementation, we would look up user details
         // For now, we'll use mock data
@@ -292,8 +292,8 @@ export async function POST(request: NextRequest) {
           message: "Invalid type parameter" 
         }, { status: 400 });
     }
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json({ 
         success: false, 
         message: "Validation error", 
@@ -314,16 +314,16 @@ export async function PUT(request: NextRequest) {
     const body = await request.json();
     const { id, type } = body;
     
-    if (!id: any) {
+    if (!id) {
       return NextResponse.json({ 
         success: false, 
         message: "ID is required for updates" 
       }, { status: 400 });
     }
     
-    switch (type: any) {
+    switch (type) {
       case 'goal':
-        const goalData = goalSchema.parse(body: any);
+        const goalData = goalSchema.parse(body);
         
         // In a real implementation, this would update the database
         // For now, we'll just return a success response
@@ -341,7 +341,7 @@ export async function PUT(request: NextRequest) {
         
       case 'goal-status':
         const { status } = body;
-        if (!status || !['active', 'achieved', 'abandoned'].includes(status: any)) {
+        if (!status || !['active', 'achieved', 'abandoned'].includes(status)) {
           return NextResponse.json({ 
             success: false, 
             message: "Invalid status value" 
@@ -368,8 +368,8 @@ export async function PUT(request: NextRequest) {
           message: "Invalid type parameter" 
         }, { status: 400 });
     }
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json({ 
         success: false, 
         message: "Validation error", 

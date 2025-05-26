@@ -171,7 +171,7 @@ async function GET(req: NextRequest) {
         totalPages
       }
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching meetings:', error);
     return NextResponse.json(
       { error: 'Failed to fetch meetings' },
@@ -234,7 +234,7 @@ async function POST(req: NextRequest) {
       message: 'Meeting scheduled successfully',
       data: newMeeting
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error scheduling meeting:', error);
     
     if (error instanceof z.ZodError) {
@@ -277,7 +277,7 @@ async function PATCH(req: NextRequest) {
         attendees: validatedData.attendees
       }
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error updating meeting:', error);
     
     if (error instanceof z.ZodError) {
@@ -317,7 +317,7 @@ async function PUT(req: NextRequest) {
         followUpDate: validatedData.followUpDate
       }
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error adding meeting notes:', error);
     
     if (error instanceof z.ZodError) {

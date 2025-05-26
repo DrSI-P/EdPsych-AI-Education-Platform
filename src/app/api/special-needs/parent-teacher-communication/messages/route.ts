@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
     const studentId = searchParams.get('studentId');
     
     // Build query
-    const query: any = {
+    const query = {
       where: {
         OR: [
           { senderId: userId },
@@ -75,7 +75,7 @@ export async function GET(req: NextRequest) {
       success: true,
       messages
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching messages:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to fetch messages' },
@@ -118,7 +118,7 @@ export async function POST(req: NextRequest) {
         urgent: message.urgent || false,
         read: false,
         attachments: {
-          create: message.attachments?.map((attachment: any) => ({
+          create: message.attachments?.map((attachment) => ({
             name: attachment.name,
             type: attachment.type,
             size: attachment.size,
@@ -192,7 +192,7 @@ export async function POST(req: NextRequest) {
       success: true,
       message: newMessage
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error sending message:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to send message' },

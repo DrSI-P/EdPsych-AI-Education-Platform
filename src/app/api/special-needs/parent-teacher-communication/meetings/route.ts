@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
     const status = searchParams.get('status') || 'upcoming';
     
     // Build query
-    const query: any = {
+    const query = {
       where: {
         OR: [
           { organizerId: userId },
@@ -74,7 +74,7 @@ export async function GET(req: NextRequest) {
       success: true,
       meetings
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching meetings:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to fetch meetings' },
@@ -175,7 +175,7 @@ export async function POST(req: NextRequest) {
       success: true,
       meeting: newMeeting
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error scheduling meeting:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to schedule meeting' },

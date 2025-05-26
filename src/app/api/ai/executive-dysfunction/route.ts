@@ -53,7 +53,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
           settings: user.executiveFunctionProfile?.settings || null
         });
     }
-  } catch (error: any) {
+  } catch (error) {
     // Replace console.error with structured logging when available
     console.error('Error in executive dysfunction API:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -121,7 +121,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       default:
         return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     }
-  } catch (error: any) {
+  } catch (error) {
     // Replace console.error with structured logging when available
     console.error('Error in executive dysfunction API:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -158,7 +158,7 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
       default:
         return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     }
-  } catch (error: any) {
+  } catch (error) {
     // Replace console.error with structured logging when available
     console.error('Error in executive dysfunction API:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

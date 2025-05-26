@@ -51,7 +51,7 @@ export async function GET(req: NextRequest) {
     }
     
     // Build where clause for filtering
-    const where: any = {
+    const where = {
       isPublished: true,
     };
     

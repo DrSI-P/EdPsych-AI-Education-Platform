@@ -59,7 +59,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }
     
     return NextResponse.json(imageGeneration);
-  } catch (error: any) {
+  } catch (error) {
     // Replace console.error with structured logging when available
     console.error('Error processing AI image generation request:', error);
     return NextResponse.json(
@@ -96,7 +96,7 @@ async function handleOpenAIImageGeneration(requestData: AIImageGenerationRequest
       provider: 'openai',
       model: requestData.model
     };
-  } catch (error: any) {
+  } catch (error) {
     // Replace console.error with structured logging when available
     console.error('Error generating OpenAI images:', error);
     throw error;
@@ -157,7 +157,7 @@ async function handleAnthropicImageGeneration(requestData: AIImageGenerationRequ
       model: 'dall-e-3',
       prompt: imageDescription
     });
-  } catch (error: any) {
+  } catch (error) {
     // Replace console.error with structured logging when available
     console.error('Error with Anthropic image generation:', error);
     // Fallback to OpenAI
@@ -197,7 +197,7 @@ async function handleGeminiImageGeneration(requestData: AIImageGenerationRequest
       model: 'dall-e-3',
       prompt: imageDescription
     });
-  } catch (error: any) {
+  } catch (error) {
     // Replace console.error with structured logging when available
     console.error('Error with Gemini image generation:', error);
     // Fallback to OpenAI
@@ -256,7 +256,7 @@ async function handleGrokImageGeneration(requestData: AIImageGenerationRequest):
       model: 'dall-e-3',
       prompt: imageDescription
     });
-  } catch (error: any) {
+  } catch (error) {
     // Replace console.error with structured logging when available
     console.error('Error with Grok image generation:', error);
     // Fallback to OpenAI
@@ -320,7 +320,7 @@ async function handleOpenRouterImageGeneration(requestData: AIImageGenerationReq
       model: 'dall-e-3',
       prompt: imageDescription
     });
-  } catch (error: any) {
+  } catch (error) {
     // Replace console.error with structured logging when available
     console.error('Error with OpenRouter image generation:', error);
     // Fallback to OpenAI

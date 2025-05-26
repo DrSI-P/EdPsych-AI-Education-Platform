@@ -70,7 +70,7 @@ export async function GET(req: Request) {
     const searchQuery = searchParams.get('search');
     
     // Build base query with user filter
-    const baseQuery: any = {
+    const baseQuery = {
       where: {
         userId: session.user.id,
       },
@@ -104,7 +104,7 @@ export async function GET(req: Request) {
     }
     
     // Determine what data to fetch based on type parameter
-    let responseData: any = {};
+    let responseData = {};
     
     switch (type) {
       case 'journal':
@@ -306,7 +306,7 @@ export async function GET(req: Request) {
     
     return NextResponse.json(responseData);
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in digital expression API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -528,7 +528,7 @@ export async function POST(req: Request) {
         );
     }
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in digital expression API:', error);
     
     if (error instanceof z.ZodError) {

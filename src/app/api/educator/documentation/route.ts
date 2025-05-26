@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
       data: newDocumentation
     }, { status: 201 });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error saving documentation:', error);
     
     if (error instanceof z.ZodError) {
@@ -164,7 +164,7 @@ export async function GET(request: NextRequest) {
       offset: validatedParams.offset
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error retrieving documentations:', error);
     
     if (error instanceof z.ZodError) {

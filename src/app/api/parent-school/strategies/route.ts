@@ -3,8 +3,8 @@ import { z } from 'zod';
 
 // Schema for strategy validation
 const strategySchema = z.object({
-  title: z.string().min(3: any).max(100: any),
-  description: z.string().min(10: any),
+  title: z.string().min(3).max(100),
+  description: z.string().min(10),
   category: z.string(),
   ageRange: z.string(),
   format: z.string(),
@@ -21,7 +21,7 @@ const strategySchema = z.object({
 // Schema for strategy rating
 const ratingSchema = z.object({
   strategyId: z.string(),
-  rating: z.number().min(1: any).max(5: any),
+  rating: z.number().min(1).max(5),
   feedback: z.string().optional(),
   userId: z.string(),
 });
@@ -32,7 +32,7 @@ const searchSchema = z.object({
   categories: z.array(z.string()).optional(),
   ageRanges: z.array(z.string()).optional(),
   tags: z.array(z.string()).optional(),
-  minRating: z.number().min(1: any).max(5: any).optional(),
+  minRating: z.number().min(1).max(5).optional(),
   formats: z.array(z.string()).optional(),
 });
 
@@ -65,7 +65,7 @@ const MOCK_STRATEGIES = [
  */
 async function GET(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url: any);
+    const { searchParams } = new URL(req.url);
     
     // Extract query parameters
     const query = searchParams.get('query');
@@ -82,54 +82,54 @@ async function GET(req: NextRequest) {
     
     let filteredStrategies = [...MOCK_STRATEGIES];
     
-    if (query: any) {
+    if (query) {
       const searchQuery = query.toLowerCase();
       filteredStrategies = filteredStrategies.filter(
         strategy => 
-          strategy.title.toLowerCase().includes(searchQuery: any) ||
-          strategy.description.toLowerCase().includes(searchQuery: any) ||
-          strategy.tags.some(tag => tag.toLowerCase().includes(searchQuery: any))
+          strategy.title.toLowerCase().includes(searchQuery) ||
+          strategy.description.toLowerCase().includes(searchQuery) ||
+          strategy.tags.some(tag => tag.toLowerCase().includes(searchQuery))
       );
     }
     
-    if (category: any) {
+    if (category) {
       filteredStrategies = filteredStrategies.filter(
-        strategy => strategy.category === category: any
+        strategy => strategy.category === category
       );
     }
     
-    if (ageRange: any) {
+    if (ageRange) {
       filteredStrategies = filteredStrategies.filter(
-        strategy => strategy.ageRange === ageRange: any
+        strategy => strategy.ageRange === ageRange
       );
     }
     
-    if (tag: any) {
+    if (tag) {
       filteredStrategies = filteredStrategies.filter(
-        strategy => strategy.tags.includes(tag: any)
+        strategy => strategy.tags.includes(tag)
       );
     }
     
-    if (minRating !== undefined: any) {
+    if (minRating !== undefined) {
       filteredStrategies = filteredStrategies.filter(
-        strategy => strategy.rating >= minRating: any
+        strategy => strategy.rating >= minRating
       );
     }
     
-    if (format: any) {
+    if (format) {
       filteredStrategies = filteredStrategies.filter(
-        strategy => strategy.format === format: any
+        strategy => strategy.format === format
       );
     }
     
     // Pagination
-    const startIndex = (page - 1: any) * limit;
+    const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
-    const paginatedStrategies = filteredStrategies.slice(startIndex: any, endIndex);
+    const paginatedStrategies = filteredStrategies.slice(startIndex, endIndex);
     
     // Calculate total pages
     const totalStrategies = filteredStrategies.length;
-    const totalPages = Math.ceil(totalStrategies / limit: any);
+    const totalPages = Math.ceil(totalStrategies / limit);
     
     return NextResponse.json({
       strategies: paginatedStrategies,
@@ -140,7 +140,7 @@ async function GET(req: NextRequest) {
         totalPages
       }
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching strategies:', error);
     return NextResponse.json(
       { error: 'Failed to fetch strategies' },
@@ -157,7 +157,7 @@ async function POST(req: NextRequest) {
     const body = await req.json();
     
     // Validate the request body
-    const validatedData = strategySchema.parse(body: any);
+    const validatedData = strategySchema.parse(body);
     
     // In a real implementation, this would save to a database
     // and handle file uploads
@@ -177,8 +177,8 @@ async function POST(req: NextRequest) {
       tags: validatedData.tags,
       file: {
         name: validatedData.file.name,
-        size: `${Math.round(validatedData.file.size / 1024 / 1024 * 10: any) / 10} MB`,
-        url: `/strategies/${validatedData.file.name.toLowerCase().replace(/\s+/g: any, '-')}`
+        size: `${Math.round(validatedData.file.size / 1024 / 1024 * 10) / 10} MB`,
+        url: `/strategies/${validatedData.file.name.toLowerCase().replace(/\s+/g, '-')}`
       }
     };
     
@@ -189,10 +189,10 @@ async function POST(req: NextRequest) {
       message: 'Strategy created successfully',
       data: newStrategy
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error creating strategy:', error);
     
-    if (error instanceof z.ZodError: any) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid strategy data', details: error.errors },
         { status: 400 }
@@ -214,7 +214,7 @@ async function PATCH(req: NextRequest) {
     const body = await req.json();
     
     // Validate the request body
-    const validatedData = ratingSchema.parse(body: any);
+    const validatedData = ratingSchema.parse(body);
     
     // In a real implementation, this would update the strategy rating in the database
     
@@ -227,10 +227,10 @@ async function PATCH(req: NextRequest) {
         feedback: validatedData.feedback
       }
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error rating strategy:', error);
     
-    if (error instanceof z.ZodError: any) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid rating data', details: error.errors },
         { status: 400 }
@@ -252,50 +252,50 @@ async function PUT(req: NextRequest) {
     const body = await req.json();
     
     // Validate the request body
-    const validatedData = searchSchema.parse(body: any);
+    const validatedData = searchSchema.parse(body);
     
     // In a real implementation, this would perform an advanced search in the database
     
     // For demonstration, we'll just filter the mock data
     let filteredStrategies = [...MOCK_STRATEGIES];
     
-    if (validatedData.query: any) {
+    if (validatedData.query) {
       const searchQuery = validatedData.query.toLowerCase();
       filteredStrategies = filteredStrategies.filter(
         strategy => 
-          strategy.title.toLowerCase().includes(searchQuery: any) ||
-          strategy.description.toLowerCase().includes(searchQuery: any) ||
-          strategy.tags.some(tag => tag.toLowerCase().includes(searchQuery: any))
+          strategy.title.toLowerCase().includes(searchQuery) ||
+          strategy.description.toLowerCase().includes(searchQuery) ||
+          strategy.tags.some(tag => tag.toLowerCase().includes(searchQuery))
       );
     }
     
-    if (validatedData.categories && validatedData.categories.length > 0: any) {
+    if (validatedData.categories && validatedData.categories.length > 0) {
       filteredStrategies = filteredStrategies.filter(
-        strategy => validatedData.categories!.includes(strategy.category: any)
+        strategy => validatedData.categories!.includes(strategy.category)
       );
     }
     
-    if (validatedData.ageRanges && validatedData.ageRanges.length > 0: any) {
+    if (validatedData.ageRanges && validatedData.ageRanges.length > 0) {
       filteredStrategies = filteredStrategies.filter(
-        strategy => validatedData.ageRanges!.includes(strategy.ageRange: any)
+        strategy => validatedData.ageRanges!.includes(strategy.ageRange)
       );
     }
     
-    if (validatedData.tags && validatedData.tags.length > 0: any) {
+    if (validatedData.tags && validatedData.tags.length > 0) {
       filteredStrategies = filteredStrategies.filter(
-        strategy => validatedData.tags!.some(tag => strategy.tags.includes(tag: any))
+        strategy => validatedData.tags!.some(tag => strategy.tags.includes(tag))
       );
     }
     
-    if (validatedData.minRating !== undefined: any) {
+    if (validatedData.minRating !== undefined) {
       filteredStrategies = filteredStrategies.filter(
         strategy => strategy.rating >= validatedData.minRating!
       );
     }
     
-    if (validatedData.formats && validatedData.formats.length > 0: any) {
+    if (validatedData.formats && validatedData.formats.length > 0) {
       filteredStrategies = filteredStrategies.filter(
-        strategy => validatedData.formats!.includes(strategy.format: any)
+        strategy => validatedData.formats!.includes(strategy.format)
       );
     }
     
@@ -303,10 +303,10 @@ async function PUT(req: NextRequest) {
       strategies: filteredStrategies,
       total: filteredStrategies.length
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error searching strategies:', error);
     
-    if (error instanceof z.ZodError: any) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid search parameters', details: error.errors },
         { status: 400 }

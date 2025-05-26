@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
     });
     
     return NextResponse.json(rewards);
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching rewards:', error);
     return NextResponse.json({ error: 'Failed to fetch rewards' }, { status: 500 });
   }
@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
     });
     
     return NextResponse.json(reward);
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error creating reward:', error);
     return NextResponse.json({ error: 'Failed to create reward' }, { status: 500 });
   }

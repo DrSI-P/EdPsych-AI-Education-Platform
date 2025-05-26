@@ -293,7 +293,7 @@ export async function POST(request: NextRequest) {
           message: "Invalid type parameter" 
         }, { status: 400 });
     }
-  } catch (error: any) {
+  } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ 
         success: false, 
@@ -399,7 +399,7 @@ export async function PUT(request: NextRequest) {
           message: "Invalid type parameter" 
         }, { status: 400 });
     }
-  } catch (error: any) {
+  } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ 
         success: false, 

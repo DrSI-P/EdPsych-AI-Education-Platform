@@ -8,25 +8,25 @@ import { prisma } from '@/lib/prisma';
 
 // Schema for framework creation/update
 const frameworkSchema = z.object({
-  title: z.string().min(1: any, "Title is required"),
-  description: z.string().min(1: any, "Description is required"),
+  title: z.string().min(1, "Title is required"),
+  description: z.string().min(1, "Description is required"),
   ageGroup: z.enum(["all", "primary", "secondary"]),
-  scenario: z.string().min(1: any, "Scenario is required"),
+  scenario: z.string().min(1, "Scenario is required"),
   steps: z.array(z.object({
-    title: z.string().min(1: any, "Step title is required"),
-    description: z.string().min(1: any, "Step description is required"),
+    title: z.string().min(1, "Step title is required"),
+    description: z.string().min(1, "Step description is required"),
     questions: z.array(z.string())
-  })).min(1: any, "At least one step is required")
+  })).min(1, "At least one step is required")
 });
 
 // Schema for conversation record creation
 const conversationRecordSchema = z.object({
-  frameworkId: z.string().min(1: any, "Framework ID is required"),
-  title: z.string().min(1: any, "Title is required"),
+  frameworkId: z.string().min(1, "Framework ID is required"),
+  title: z.string().min(1, "Title is required"),
   participants: z.array(z.object({
-    name: z.string().min(1: any, "Participant name is required"),
-    role: z.string().min(1: any, "Participant role is required")
-  })).min(1: any, "At least one participant is required"),
+    name: z.string().min(1, "Participant name is required"),
+    role: z.string().min(1, "Participant role is required")
+  })).min(1, "At least one participant is required"),
   keyPoints: z.string().optional(),
   agreements: z.string().optional(),
   followUpPlan: z.string().optional(),
@@ -36,9 +36,9 @@ const conversationRecordSchema = z.object({
 // GET handler for retrieving frameworks and conversation records
 export async function GET(request: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 401 }
@@ -46,7 +46,7 @@ export async function GET(request: Request): Promise<NextResponse> {
     }
     
     // Get query parameters
-    const { searchParams } = new URL(request.url: any);
+    const { searchParams } = new URL(request.url);
     const type = searchParams.get('type') || 'frameworks';
     const id = searchParams.get('id');
     
@@ -59,7 +59,7 @@ export async function GET(request: Request): Promise<NextResponse> {
     // Determine which data to fetch based on type
     if (type === 'frameworks') {
       // If specific ID is provided, return that framework
-      if (id: any) {
+      if (id) {
         // In a real implementation, this would fetch from the database
         // const framework = await prisma.restorativeFramework.findUnique({
         //   where: { id }
@@ -132,7 +132,7 @@ export async function GET(request: Request): Promise<NextResponse> {
     
     if (type === 'conversations') {
       // If specific ID is provided, return that conversation record
-      if (id: any) {
+      if (id) {
         // In a real implementation, this would fetch from the database
         // const conversation = await prisma.restorativeConversation.findUnique({
         //   where: { id }
@@ -198,9 +198,9 @@ export async function GET(request: Request): Promise<NextResponse> {
       { status: 400 }
     );
     
-  } catch (error: any) {
+  } catch (error) {
     // Using a type guard instead of console.error
-    if (error instanceof Error: any) {
+    if (error instanceof Error) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }
@@ -214,9 +214,9 @@ export async function GET(request: Request): Promise<NextResponse> {
 // POST handler for creating new frameworks and conversation records
 export async function POST(request: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 401 }
@@ -228,7 +228,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     
     // Validate and process based on type
     if (type === 'framework') {
-      const validatedData = frameworkSchema.parse(body.data: any);
+      const validatedData = frameworkSchema.parse(body.data);
       
       // In a real implementation, this would create a record in the database
       // const framework = await prisma.restorativeFramework.create({
@@ -249,7 +249,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     }
     
     if (type === 'conversation') {
-      const validatedData = conversationRecordSchema.parse(body.data: any);
+      const validatedData = conversationRecordSchema.parse(body.data);
       
       // In a real implementation, this would create a record in the database
       // const conversation = await prisma.restorativeConversation.create({
@@ -275,14 +275,14 @@ export async function POST(request: Request): Promise<NextResponse> {
       { status: 400 }
     );
     
-  } catch (error: any) {
+  } catch (error) {
     // Using a type guard instead of console.error
-    if (error instanceof Error: any) {
+    if (error instanceof Error) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }
     
-    if (error instanceof z.ZodError: any) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "Validation error", details: error.errors },
         { status: 400 }
@@ -299,9 +299,9 @@ export async function POST(request: Request): Promise<NextResponse> {
 // PATCH handler for updating frameworks and conversation records
 export async function PATCH(request: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 401 }
@@ -311,7 +311,7 @@ export async function PATCH(request: Request): Promise<NextResponse> {
     const body = await request.json();
     const { type, id } = body;
     
-    if (!id: any) {
+    if (!id) {
       return NextResponse.json(
         { error: "ID is required" },
         { status: 400 }
@@ -320,7 +320,7 @@ export async function PATCH(request: Request): Promise<NextResponse> {
     
     // Validate and process based on type
     if (type === 'framework') {
-      const validatedData = frameworkSchema.partial().parse(body.data: any);
+      const validatedData = frameworkSchema.partial().parse(body.data);
       
       // In a real implementation, this would update a record in the database
       // const framework = await prisma.restorativeFramework.update({
@@ -339,7 +339,7 @@ export async function PATCH(request: Request): Promise<NextResponse> {
     }
     
     if (type === 'conversation') {
-      const validatedData = conversationRecordSchema.partial().parse(body.data: any);
+      const validatedData = conversationRecordSchema.partial().parse(body.data);
       
       // In a real implementation, this would update a record in the database
       // const conversation = await prisma.restorativeConversation.update({
@@ -363,14 +363,14 @@ export async function PATCH(request: Request): Promise<NextResponse> {
       { status: 400 }
     );
     
-  } catch (error: any) {
+  } catch (error) {
     // Using a type guard instead of console.error
-    if (error instanceof Error: any) {
+    if (error instanceof Error) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }
     
-    if (error instanceof z.ZodError: any) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "Validation error", details: error.errors },
         { status: 400 }
@@ -387,20 +387,20 @@ export async function PATCH(request: Request): Promise<NextResponse> {
 // DELETE handler for removing frameworks and conversation records
 export async function DELETE(request: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 401 }
       );
     }
     
-    const { searchParams } = new URL(request.url: any);
+    const { searchParams } = new URL(request.url);
     const type = searchParams.get('type');
     const id = searchParams.get('id');
     
-    if (!type || !id: any) {
+    if (!type || !id) {
       return NextResponse.json(
         { error: "Type and ID are required" },
         { status: 400 }
@@ -437,9 +437,9 @@ export async function DELETE(request: Request): Promise<NextResponse> {
       { status: 400 }
     );
     
-  } catch (error: any) {
+  } catch (error) {
     // Using a type guard instead of console.error
-    if (error instanceof Error: any) {
+    if (error instanceof Error) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }

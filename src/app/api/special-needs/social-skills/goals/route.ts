@@ -5,9 +5,9 @@ import { authOptions } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session || !session.user: any) {
+    if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
     
@@ -28,9 +28,9 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session || !session.user: any) {
+    if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
     
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     const data = await request.json();
     
     // Validate required fields
-    if (!data.title || !data.skillArea || !data.measurableOutcome || !data.strategies: any) {
+    if (!data.title || !data.skillArea || !data.measurableOutcome || !data.strategies) {
       return NextResponse.json({ 
         error: 'Title, skill area, measurable outcome, and strategies are required' 
       }, { status: 400 });

@@ -12,8 +12,8 @@ import { prisma } from '@/lib/db';
 export async function GET(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session: any) {
+    const session = await getServerSession(authOptions);
+    if (!session) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
     });
 
     // If no settings exist yet, return default settings
-    if (!monitoringSettings: any) {
+    if (!monitoringSettings) {
       return NextResponse.json({
         success: true,
         settings: {
@@ -54,7 +54,7 @@ export async function GET(req: NextRequest) {
         interventionId: monitoringSettings.interventionId
       }
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Progress monitoring API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve progress monitoring settings' },
@@ -66,8 +66,8 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session: any) {
+    const session = await getServerSession(authOptions);
+    if (!session) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { settings } = body;
 
-    if (!settings: any) {
+    if (!settings) {
       return NextResponse.json(
         { error: 'Settings object is required' },
         { status: 400 }
@@ -87,26 +87,26 @@ export async function POST(req: NextRequest) {
 
     // Validate settings
     const validatedSettings = {
-      enabled: Boolean(settings.enabled: any),
-      monitoringFrequency: ['daily', 'weekly', 'biweekly', 'monthly'].includes(settings.monitoringFrequency: any)
+      enabled: Boolean(settings.enabled),
+      monitoringFrequency: ['daily', 'weekly', 'biweekly', 'monthly'].includes(settings.monitoringFrequency)
         ? settings.monitoringFrequency
         : 'weekly',
       automaticReminders: settings.automaticReminders !== undefined 
-        ? Boolean(settings.automaticReminders: any) 
+        ? Boolean(settings.automaticReminders) 
         : true,
       dataVisualization: settings.dataVisualization !== undefined 
-        ? Boolean(settings.dataVisualization: any) 
+        ? Boolean(settings.dataVisualization) 
         : true,
       progressReports: settings.progressReports !== undefined 
-        ? Boolean(settings.progressReports: any) 
+        ? Boolean(settings.progressReports) 
         : true,
       goalTracking: settings.goalTracking !== undefined 
-        ? Boolean(settings.goalTracking: any) 
+        ? Boolean(settings.goalTracking) 
         : true,
       interventionId: settings.interventionId || null
     };
 
-    // Save settings to database (upsert to create or update: any)
+    // Save settings to database (upsert to create or update)
     const updatedSettings = await prisma.progressMonitoring.upsert({
       where: {
         userId: session.user.id
@@ -123,7 +123,7 @@ export async function POST(req: NextRequest) {
       data: {
         userId: session.user.id,
         action: 'settings_update',
-        details: JSON.stringify(validatedSettings: any),
+        details: JSON.stringify(validatedSettings),
       }
     });
 
@@ -131,7 +131,7 @@ export async function POST(req: NextRequest) {
       success: true,
       settings: updatedSettings
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Progress monitoring API error:', error);
     return NextResponse.json(
       { error: 'Failed to save progress monitoring settings' },

@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
     const skip = (page - 1) * limit;
     
     // Build where clause based on query parameters
-    const where: any = {};
+    const where = {};
     
     if (id) {
       where.id = id;

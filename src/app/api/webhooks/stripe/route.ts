@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     // Get the Stripe signature from the headers
     const signature = req.headers.get('stripe-signature');
     
-    if (!signature: any) {
+    if (!signature) {
       return NextResponse.json(
         { error: 'Missing Stripe signature' },
         { status: 400 }
@@ -25,11 +25,11 @@ export async function POST(req: NextRequest) {
     
     // Process the webhook event
     const { received, event } = await handleWebhookEvent(
-      Buffer.from(payload: any),
+      Buffer.from(payload),
       signature
     );
     
-    if (received: any) {
+    if (received) {
       return NextResponse.json({ received: true });
     } else {
       return NextResponse.json(
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error handling Stripe webhook:', error);
     
     return NextResponse.json(

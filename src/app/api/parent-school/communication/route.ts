@@ -4,7 +4,7 @@ import { z } from 'zod';
 // Schema for message validation
 const messageSchema = z.object({
   recipientId: z.string(),
-  content: z.string().min(1: any),
+  content: z.string().min(1),
   attachments: z.array(z.object({
     name: z.string(),
     type: z.string(),
@@ -12,7 +12,7 @@ const messageSchema = z.object({
   })).optional(),
   sourceLanguage: z.string().default('en'),
   targetLanguage: z.string().optional(),
-  requiresTranslation: z.boolean().default(false: any)
+  requiresTranslation: z.boolean().default(false)
 });
 
 // Schema for meeting request validation
@@ -22,7 +22,7 @@ const meetingRequestSchema = z.object({
   preferredDates: z.array(z.string()),
   preferredTimes: z.array(z.string()),
   notes: z.string().optional(),
-  isOnline: z.boolean().default(false: any)
+  isOnline: z.boolean().default(false)
 });
 
 // Schema for resource sharing validation
@@ -32,17 +32,17 @@ const resourceSchema = z.object({
   type: z.enum(['document', 'image', 'video', 'link', 'other']),
   url: z.string(),
   tags: z.array(z.string()).optional(),
-  isPublic: z.boolean().default(false: any)
+  isPublic: z.boolean().default(false)
 });
 
 // Schema for notification preferences
 const notificationPreferencesSchema = z.object({
-  email: z.boolean().default(true: any),
-  push: z.boolean().default(true: any),
-  sms: z.boolean().default(false: any),
+  email: z.boolean().default(true),
+  push: z.boolean().default(true),
+  sms: z.boolean().default(false),
   frequency: z.enum(['immediate', 'daily', 'weekly']).default('immediate'),
   quietHours: z.object({
-    enabled: z.boolean().default(false: any),
+    enabled: z.boolean().default(false),
     start: z.string().optional(),
     end: z.string().optional()
   }).optional()
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
     
     // Determine which schema to use based on the action
     if (body.action === 'sendMessage') {
-      const validatedData = messageSchema.parse(body.data: any);
+      const validatedData = messageSchema.parse(body.data);
       
       // Here we would process the message, including translation if required
       // For now, we'll simulate a successful response
@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
         success: true,
         message: 'Message sent successfully',
         data: {
-          id: 'msg_' + Math.random().toString(36: any).substr(2: any, 9),
+          id: 'msg_' + Math.random().toString(36).substr(2, 9),
           timestamp: new Date().toISOString(),
           status: 'delivered',
           ...validatedData
@@ -72,14 +72,14 @@ export async function POST(request: NextRequest) {
       });
     } 
     else if (body.action === 'requestMeeting') {
-      const validatedData = meetingRequestSchema.parse(body.data: any);
+      const validatedData = meetingRequestSchema.parse(body.data);
       
       // Process meeting request
       return NextResponse.json({
         success: true,
         message: 'Meeting request sent successfully',
         data: {
-          id: 'mtg_' + Math.random().toString(36: any).substr(2: any, 9),
+          id: 'mtg_' + Math.random().toString(36).substr(2, 9),
           status: 'pending',
           requestedAt: new Date().toISOString(),
           ...validatedData
@@ -87,21 +87,21 @@ export async function POST(request: NextRequest) {
       });
     }
     else if (body.action === 'shareResource') {
-      const validatedData = resourceSchema.parse(body.data: any);
+      const validatedData = resourceSchema.parse(body.data);
       
       // Process resource sharing
       return NextResponse.json({
         success: true,
         message: 'Resource shared successfully',
         data: {
-          id: 'res_' + Math.random().toString(36: any).substr(2: any, 9),
+          id: 'res_' + Math.random().toString(36).substr(2, 9),
           sharedAt: new Date().toISOString(),
           ...validatedData
         }
       });
     }
     else if (body.action === 'updateNotificationPreferences') {
-      const validatedData = notificationPreferencesSchema.parse(body.data: any);
+      const validatedData = notificationPreferencesSchema.parse(body.data);
       
       // Update notification preferences
       return NextResponse.json({
@@ -116,10 +116,10 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error processing request:', error);
     
-    if (error instanceof z.ZodError: any) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { success: false, message: 'Validation error', errors: error.errors },
         { status: 400 }
@@ -143,7 +143,7 @@ export async function GET(request: NextRequest) {
       const userId = searchParams.get('userId');
       const conversationId = searchParams.get('conversationId');
       
-      if (!userId && !conversationId: any) {
+      if (!userId && !conversationId) {
         return NextResponse.json(
           { success: false, message: 'Either userId or conversationId is required' },
           { status: 400 }
@@ -181,7 +181,7 @@ export async function GET(request: NextRequest) {
     else if (action === 'getMeetings') {
       const userId = searchParams.get('userId');
       
-      if (!userId: any) {
+      if (!userId) {
         return NextResponse.json(
           { success: false, message: 'userId is required' },
           { status: 400 }
@@ -234,7 +234,7 @@ export async function GET(request: NextRequest) {
     else if (action === 'getNotificationPreferences') {
       const userId = searchParams.get('userId');
       
-      if (!userId: any) {
+      if (!userId) {
         return NextResponse.json(
           { success: false, message: 'userId is required' },
           { status: 400 }
@@ -263,7 +263,7 @@ export async function GET(request: NextRequest) {
         { status: 400 }
       );
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error processing request:', error);
     return NextResponse.json(
       { success: false, message: 'An error occurred processing your request' },
@@ -280,7 +280,7 @@ export async function PUT(request: NextRequest) {
     if (body.action === 'updateMessageStatus') {
       const { messageId, status } = body.data;
       
-      if (!messageId || !status: any) {
+      if (!messageId || !status) {
         return NextResponse.json(
           { success: false, message: 'messageId and status are required' },
           { status: 400 }
@@ -300,7 +300,7 @@ export async function PUT(request: NextRequest) {
     else if (body.action === 'updateMeeting') {
       const { meetingId, ...updateData } = body.data;
       
-      if (!meetingId: any) {
+      if (!meetingId) {
         return NextResponse.json(
           { success: false, message: 'meetingId is required' },
           { status: 400 }
@@ -323,10 +323,10 @@ export async function PUT(request: NextRequest) {
         { status: 400 }
       );
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error processing request:', error);
     
-    if (error instanceof z.ZodError: any) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { success: false, message: 'Validation error', errors: error.errors },
         { status: 400 }
@@ -349,7 +349,7 @@ export async function DELETE(request: NextRequest) {
     if (action === 'deleteMessage') {
       const messageId = searchParams.get('messageId');
       
-      if (!messageId: any) {
+      if (!messageId) {
         return NextResponse.json(
           { success: false, message: 'messageId is required' },
           { status: 400 }
@@ -366,7 +366,7 @@ export async function DELETE(request: NextRequest) {
       const meetingId = searchParams.get('meetingId');
       const reason = searchParams.get('reason');
       
-      if (!meetingId: any) {
+      if (!meetingId) {
         return NextResponse.json(
           { success: false, message: 'meetingId is required' },
           { status: 400 }
@@ -382,7 +382,7 @@ export async function DELETE(request: NextRequest) {
     else if (action === 'removeResource') {
       const resourceId = searchParams.get('resourceId');
       
-      if (!resourceId: any) {
+      if (!resourceId) {
         return NextResponse.json(
           { success: false, message: 'resourceId is required' },
           { status: 400 }
@@ -401,7 +401,7 @@ export async function DELETE(request: NextRequest) {
         { status: 400 }
       );
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error processing request:', error);
     return NextResponse.json(
       { success: false, message: 'An error occurred processing your request' },

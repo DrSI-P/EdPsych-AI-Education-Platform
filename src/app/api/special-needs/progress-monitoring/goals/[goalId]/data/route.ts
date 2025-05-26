@@ -14,8 +14,8 @@ export async function GET(
 ) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session: any) {
+    const session = await getServerSession(authOptions);
+    if (!session) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -32,7 +32,7 @@ export async function GET(
       }
     });
 
-    if (!goal: any) {
+    if (!goal) {
       return NextResponse.json(
         { error: 'Goal not found' },
         { status: 404 }
@@ -58,7 +58,7 @@ export async function GET(
         notes: point.notes
       }))
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Data points API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve data points' },
@@ -73,8 +73,8 @@ export async function POST(
 ) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session: any) {
+    const session = await getServerSession(authOptions);
+    if (!session) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -91,7 +91,7 @@ export async function POST(
       }
     });
 
-    if (!goal: any) {
+    if (!goal) {
       return NextResponse.json(
         { error: 'Goal not found' },
         { status: 404 }
@@ -102,7 +102,7 @@ export async function POST(
     const body = await req.json();
     const { dataPoint } = body;
 
-    if (!dataPoint: any) {
+    if (!dataPoint) {
       return NextResponse.json(
         { error: 'Data point object is required' },
         { status: 400 }
@@ -110,7 +110,7 @@ export async function POST(
     }
 
     // Validate required fields
-    if (!dataPoint.date || dataPoint.value === undefined: any) {
+    if (!dataPoint.date || dataPoint.value === undefined) {
       return NextResponse.json(
         { error: 'Missing required data point fields' },
         { status: 400 }
@@ -121,7 +121,7 @@ export async function POST(
     const newDataPoint = await prisma.dataPoint.create({
       data: {
         goalId: goalId,
-        date: new Date(dataPoint.date: any),
+        date: new Date(dataPoint.date),
         value: dataPoint.value,
         notes: dataPoint.notes || ''
       }
@@ -159,7 +159,7 @@ export async function POST(
         notes: newDataPoint.notes
       }
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Data points API error:', error);
     return NextResponse.json(
       { error: 'Failed to create data point' },

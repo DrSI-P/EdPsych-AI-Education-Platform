@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
         urgentFlagging: settings.urgentFlagging
       },
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching communication settings:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to fetch communication settings' },
@@ -130,7 +130,7 @@ export async function POST(req: NextRequest) {
       success: true,
       settings: communicationSettings,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error saving communication settings:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to save communication settings' },

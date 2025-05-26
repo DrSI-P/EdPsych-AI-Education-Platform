@@ -119,7 +119,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
           { status: 400 }
         );
     }
-  } catch (error: any) {
+  } catch (error) {
     // Replace console.error with structured logging when available
     console.error("Error in data visualisation API:", error);
     return NextResponse.json(
@@ -232,7 +232,7 @@ async function handleGetData(body: RequestBody, session: UserSession): Promise<N
         aggregation: aggregation || "week",
       }
     });
-  } catch (error: any) {
+  } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "Validation error", details: error.errors },
@@ -268,7 +268,7 @@ async function handleSaveDashboardConfig(body: RequestBody, session: UserSession
         createdBy: session.user.id,
       },
     });
-  } catch (error: any) {
+  } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "Validation error", details: error.errors },
@@ -450,7 +450,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     const configId = url.searchParams.get("configId") || undefined;
     
     return handleGetDashboardConfig({ configId, action: "get_dashboard_config" }, session as UserSession);
-  } catch (error: any) {
+  } catch (error) {
     // Replace console.error with structured logging when available
     console.error("Error in data visualisation API:", error);
     return NextResponse.json(

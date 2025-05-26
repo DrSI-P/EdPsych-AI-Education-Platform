@@ -5,9 +5,9 @@ import { authOptions } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session || !session.user: any) {
+    if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
     
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     });
     
     return NextResponse.json({ stories });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching social stories:', error);
     return NextResponse.json({ error: 'Failed to fetch stories' }, { status: 500 });
   }
@@ -28,9 +28,9 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session || !session.user: any) {
+    if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
     
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     const data = await request.json();
     
     // Validate required fields
-    if (!data.title || !data.targetSkill || !data.content || !data.ageRange: any) {
+    if (!data.title || !data.targetSkill || !data.content || !data.ageRange) {
       return NextResponse.json({ 
         error: 'Title, target skill, content, and age range are required' 
       }, { status: 400 });
@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
       message: 'Social story created successfully',
       story 
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error creating social story:', error);
     return NextResponse.json({ error: 'Failed to create social story' }, { status: 500 });
   }

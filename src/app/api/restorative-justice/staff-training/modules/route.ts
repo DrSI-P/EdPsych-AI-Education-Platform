@@ -109,7 +109,7 @@ export async function GET(): Promise<NextResponse> {
     }));
     
     return NextResponse.json(formattedModules);
-  } catch (error: any) {
+  } catch (error) {
     // Using a type guard instead of console.error
     if (error instanceof Error) {
       // Log error in a production-safe way
@@ -178,13 +178,13 @@ export async function POST(req: Request): Promise<NextResponse> {
       }) as TrainingModule;
       
       return NextResponse.json(createdModule, { status: 201 });
-    } catch (validationError: any) {
+    } catch (validationError) {
       if (validationError instanceof z.ZodError) {
         return NextResponse.json({ error: validationError.errors }, { status: 400 });
       }
       throw validationError;
     }
-  } catch (error: any) {
+  } catch (error) {
     // Using a type guard instead of console.error
     if (error instanceof Error) {
       // Log error in a production-safe way
@@ -261,13 +261,13 @@ export async function PUT(req: Request): Promise<NextResponse> {
       }) as TrainingModule;
       
       return NextResponse.json(updatedModule);
-    } catch (validationError: any) {
+    } catch (validationError) {
       if (validationError instanceof z.ZodError) {
         return NextResponse.json({ error: validationError.errors }, { status: 400 });
       }
       throw validationError;
     }
-  } catch (error: any) {
+  } catch (error) {
     // Using a type guard instead of console.error
     if (error instanceof Error) {
       // Log error in a production-safe way
@@ -311,7 +311,7 @@ export async function DELETE(req: Request): Promise<NextResponse> {
     });
     
     return NextResponse.json({ success: true });
-  } catch (error: any) {
+  } catch (error) {
     // Using a type guard instead of console.error
     if (error instanceof Error) {
       // Log error in a production-safe way

@@ -15,16 +15,16 @@ const PatternAnalysisRequestSchema = z.object({
 // GET handler for retrieving emotion history and patterns
 export async function GET(req: Request) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
       );
     }
     
-    const { searchParams } = new URL(req.url: any);
+    const { searchParams } = new URL(req.url);
     const startDate = searchParams.get('startDate');
     const endDate = searchParams.get('endDate');
     const emotions = searchParams.get('emotions')?.split(',');
@@ -38,7 +38,7 @@ export async function GET(req: Request) {
       analysisType
     });
     
-    if (!validationResult.success: any) {
+    if (!validationResult.success) {
       return NextResponse.json(
         { error: 'Invalid parameters', details: validationResult.error.format() },
         { status: 400 }
@@ -48,12 +48,12 @@ export async function GET(req: Request) {
     const params = validationResult.data;
     
     // Fetch emotion records from database
-    const emotionRecords = await (prisma as any: any).emotionRecord.findMany({
+    const emotionRecords = await (prisma as any).emotionRecord.findMany({
       where: {
         userId: session.user.id,
         timestamp: {
-          gte: new Date(params.startDate: any),
-          lte: new Date(params.endDate: any)
+          gte: new Date(params.startDate),
+          lte: new Date(params.endDate)
         },
         ...(params.emotions && params.emotions.length > 0 && !params.emotions.includes('all')
           ? { emotion: { in: params.emotions } }
@@ -65,12 +65,12 @@ export async function GET(req: Request) {
     });
     
     // Fetch emotion journals for the same period
-    const emotionJournals = await (prisma as any: any).emotionJournal.findMany({
+    const emotionJournals = await (prisma as any).emotionJournal.findMany({
       where: {
         userId: session.user.id,
         timestamp: {
-          gte: new Date(params.startDate: any),
-          lte: new Date(params.endDate: any)
+          gte: new Date(params.startDate),
+          lte: new Date(params.endDate)
         }
       },
       orderBy: {
@@ -79,15 +79,15 @@ export async function GET(req: Request) {
     });
     
     // Generate pattern analysis based on the data
-    const patternAnalysis = generatePatternAnalysis(emotionRecords: any, emotionJournals, params.analysisType || 'all');
+    const patternAnalysis = generatePatternAnalysis(emotionRecords, emotionJournals, params.analysisType || 'all');
     
     return NextResponse.json({
-      emotionRecords: any,
+      emotionRecords,
       emotionJournals,
       patternAnalysis
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in pattern recognition API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -98,8 +98,8 @@ export async function GET(req: Request) {
 
 // Function to generate pattern analysis from emotion data
 function generatePatternAnalysis(
-  emotionRecords: any[],
-  emotionJournals: any[],
+  emotionRecords[],
+  emotionJournals[],
   analysisType: string = 'all'
 ) {
   // Initialize analysis object
@@ -109,64 +109,64 @@ function generatePatternAnalysis(
       type: string;
       title: string;
       description: string;
-      [key: string]: any;
+      [key: string];
     }>,
     triggerPatterns: [] as Array<{
       trigger: string;
       total: number;
-      [key: string]: any;
+      [key: string];
     }>,
     timePatterns: { hourly: [] as Array<{hour: number, count: number}>, daily: [] as Array<{day: number, name: string, count: number}> },
-    emotionTrends: [] as Array<{date: string, [key: string]: any}>,
+    emotionTrends: [] as Array<{date: string, [key: string]}>,
     emotionCorrelations: [] as Array<{source: string, target: string, count: number, strength: number}>
   };
   
-  if (emotionRecords.length === 0: any) {
+  if (emotionRecords.length === 0) {
     return analysis;
   }
   
   // Generate insights
   if (analysisType === 'all' || analysisType === 'insights') {
-    analysis.insights = generateInsights(emotionRecords: any);
+    analysis.insights = generateInsights(emotionRecords);
   }
   
   // Generate trigger patterns
   if (analysisType === 'all' || analysisType === 'triggers') {
-    analysis.triggerPatterns = generateTriggerPatterns(emotionRecords: any);
+    analysis.triggerPatterns = generateTriggerPatterns(emotionRecords);
   }
   
   // Generate time patterns
   if (analysisType === 'all' || analysisType === 'time') {
-    analysis.timePatterns = generateTimePatterns(emotionRecords: any);
+    analysis.timePatterns = generateTimePatterns(emotionRecords);
   }
   
   // Generate emotion trends
   if (analysisType === 'all' || analysisType === 'trends') {
-    analysis.emotionTrends = generateEmotionTrends(emotionRecords: any);
+    analysis.emotionTrends = generateEmotionTrends(emotionRecords);
   }
   
   // Generate emotion correlations
   if (analysisType === 'all' || analysisType === 'correlations') {
-    analysis.emotionCorrelations = generateEmotionCorrelations(emotionRecords: any);
+    analysis.emotionCorrelations = generateEmotionCorrelations(emotionRecords);
   }
   
   return analysis;
 }
 
 // Helper function to generate insights
-function generateInsights(emotionRecords: any[]) {
+function generateInsights(emotionRecords[]) {
   const insights = [];
   
   // Most common emotion
   const emotionCounts: Record<string, number> = {};
   emotionRecords.forEach(record => {
-    emotionCounts[record.emotion] = (emotionCounts[record.emotion] || 0: any) + 1;
+    emotionCounts[record.emotion] = (emotionCounts[record.emotion] || 0) + 1;
   });
   
-  const mostCommonEmotion = Object.entries(emotionCounts: any)
-    .sort((a: any, b: any) => b[1] - a[1])[0];
+  const mostCommonEmotion = Object.entries(emotionCounts)
+    .sort((a, b) => b[1] - a[1])[0];
   
-  if (mostCommonEmotion: any) {
+  if (mostCommonEmotion) {
     insights.push({
       id: "most-common-emotion",
       type: "frequency",
@@ -183,18 +183,18 @@ function generateInsights(emotionRecords: any[]) {
     if (!emotionIntensities[record.emotion]) {
       emotionIntensities[record.emotion] = [];
     }
-    emotionIntensities[record.emotion].push(record.intensity: any);
+    emotionIntensities[record.emotion].push(record.intensity);
   });
   
-  const averageIntensities = Object.entries(emotionIntensities: any).map(([emotion: any, intensities]) => {
-    const average = intensities.reduce((sum: any, val: any) => sum + val, 0) / intensities.length;
+  const averageIntensities = Object.entries(emotionIntensities).map(([emotion, intensities]) => {
+    const average = intensities.reduce((sum, val) => sum + val, 0) / intensities.length;
     return { emotion, average };
   });
   
   const highestIntensityEmotion = averageIntensities
-    .sort((a: any, b: any) => b.average - a.average)[0];
+    .sort((a, b) => b.average - a.average)[0];
   
-  if (highestIntensityEmotion: any) {
+  if (highestIntensityEmotion) {
     insights.push({
       id: "highest-intensity-emotion",
       type: "intensity",
@@ -214,17 +214,17 @@ function generateInsights(emotionRecords: any[]) {
   };
   
   emotionRecords.forEach(record => {
-    const hour = new Date(record.timestamp: any).getHours();
-    if (hour >= 5 && hour < 12: any) timeOfDayCounts.morning++;
-    else if (hour >= 12 && hour < 17: any) timeOfDayCounts.afternoon++;
-    else if (hour >= 17 && hour < 22: any) timeOfDayCounts.evening++;
+    const hour = new Date(record.timestamp).getHours();
+    if (hour >= 5 && hour < 12) timeOfDayCounts.morning++;
+    else if (hour >= 12 && hour < 17) timeOfDayCounts.afternoon++;
+    else if (hour >= 17 && hour < 22) timeOfDayCounts.evening++;
     else timeOfDayCounts.night++;
   });
   
-  const mostCommonTimeOfDay = Object.entries(timeOfDayCounts: any)
-    .sort((a: any, b: any) => b[1] - a[1])[0];
+  const mostCommonTimeOfDay = Object.entries(timeOfDayCounts)
+    .sort((a, b) => b[1] - a[1])[0];
   
-  if (mostCommonTimeOfDay && mostCommonTimeOfDay[1] > 0: any) {
+  if (mostCommonTimeOfDay && mostCommonTimeOfDay[1] > 0) {
     insights.push({
       id: "common-time-of-day",
       type: "time",
@@ -247,14 +247,14 @@ function generateInsights(emotionRecords: any[]) {
   };
   
   emotionRecords.forEach(record => {
-    const day = new Date(record.timestamp: any).toLocaleString('en-US', { weekday: 'long' });
+    const day = new Date(record.timestamp).toLocaleString('en-US', { weekday: 'long' });
     dayOfWeekCounts[day]++;
   });
   
-  const mostCommonDayOfWeek = Object.entries(dayOfWeekCounts: any)
-    .sort((a: any, b: any) => b[1] - a[1])[0];
+  const mostCommonDayOfWeek = Object.entries(dayOfWeekCounts)
+    .sort((a, b) => b[1] - a[1])[0];
   
-  if (mostCommonDayOfWeek && mostCommonDayOfWeek[1] > 0: any) {
+  if (mostCommonDayOfWeek && mostCommonDayOfWeek[1] > 0) {
     insights.push({
       id: "common-day-of-week",
       type: "day",
@@ -268,19 +268,19 @@ function generateInsights(emotionRecords: any[]) {
   // Common triggers
   const triggerCounts: Record<string, number> = {};
   emotionRecords.forEach(record => {
-    if (record.triggers: any) {
+    if (record.triggers) {
       const triggers = typeof record.triggers === 'string' 
         ? record.triggers 
-        : JSON.stringify(record.triggers: any);
+        : JSON.stringify(record.triggers);
       
-      triggerCounts[triggers] = (triggerCounts[triggers] || 0: any) + 1;
+      triggerCounts[triggers] = (triggerCounts[triggers] || 0) + 1;
     }
   });
   
-  const mostCommonTrigger = Object.entries(triggerCounts: any)
-    .sort((a: any, b: any) => b[1] - a[1])[0];
+  const mostCommonTrigger = Object.entries(triggerCounts)
+    .sort((a, b) => b[1] - a[1])[0];
   
-  if (mostCommonTrigger && mostCommonTrigger[1] > 1: any) {
+  if (mostCommonTrigger && mostCommonTrigger[1] > 1) {
     insights.push({
       id: "common-trigger",
       type: "trigger",
@@ -318,58 +318,58 @@ function generateInsights(emotionRecords: any[]) {
 }
 
 // Helper function to generate trigger patterns
-function generateTriggerPatterns(emotionRecords: any[]) {
+function generateTriggerPatterns(emotionRecords[]) {
   // Group emotions by triggers
   const triggerEmotions: Record<string, Record<string, number>> = {};
   
   emotionRecords.forEach(record => {
-    if (record.triggers: any) {
+    if (record.triggers) {
       const triggers = typeof record.triggers === 'string' 
         ? record.triggers 
-        : JSON.stringify(record.triggers: any);
+        : JSON.stringify(record.triggers);
       
       if (!triggerEmotions[triggers]) {
         triggerEmotions[triggers] = {};
       }
       
-      triggerEmotions[triggers][record.emotion] = (triggerEmotions[triggers][record.emotion] || 0: any) + 1;
+      triggerEmotions[triggers][record.emotion] = (triggerEmotions[triggers][record.emotion] || 0) + 1;
     }
   });
   
   // Convert to format for visualisation
-  const triggerPatternData = Object.entries(triggerEmotions: any).map(([trigger: any, emotions]) => {
+  const triggerPatternData = Object.entries(triggerEmotions).map(([trigger, emotions]) => {
     return {
       trigger,
       ...emotions,
-      total: Object.values(emotions: any).reduce((sum: any, count: any) => sum + count, 0)
+      total: Object.values(emotions).reduce((sum, count) => sum + count, 0)
     };
   });
   
   // Sort by total occurrences
-  triggerPatternData.sort((a: any, b: any) => b.total - a.total);
+  triggerPatternData.sort((a, b) => b.total - a.total);
   
-  return triggerPatternData.slice(0: any, 5); // Top 5 triggers
+  return triggerPatternData.slice(0, 5); // Top 5 triggers
 }
 
 // Helper function to generate time patterns
-function generateTimePatterns(emotionRecords: any[]) {
+function generateTimePatterns(emotionRecords[]) {
   // Group by hour of day
-  const hourCounts = Array(24: any).fill(0: any).map((_: any, i) => ({ hour: i, count: 0 }));
+  const hourCounts = Array(24).fill(0).map((_, i) => ({ hour: i, count: 0 }));
   
   emotionRecords.forEach(record => {
-    const hour = new Date(record.timestamp: any).getHours();
+    const hour = new Date(record.timestamp).getHours();
     hourCounts[hour].count++;
   });
   
-  // Group by day of week (0 = Sunday: any, 6 = Saturday)
-  const dayOfWeekCounts = Array(7: any).fill(0: any).map((_: any, i) => ({ 
+  // Group by day of week (0 = Sunday, 6 = Saturday)
+  const dayOfWeekCounts = Array(7).fill(0).map((_, i) => ({ 
     day: i, 
     name: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][i],
     count: 0 
   }));
   
   emotionRecords.forEach(record => {
-    const day = new Date(record.timestamp: any).getDay();
+    const day = new Date(record.timestamp).getDay();
     dayOfWeekCounts[day].count++;
   });
   
@@ -380,43 +380,43 @@ function generateTimePatterns(emotionRecords: any[]) {
 }
 
 // Helper function to generate emotion trends
-function generateEmotionTrends(emotionRecords: any[]) {
+function generateEmotionTrends(emotionRecords[]) {
   // Group by date
   const dateEmotions: Record<string, Record<string, number>> = {};
   
   emotionRecords.forEach(record => {
-    const date = new Date(record.timestamp: any).toISOString().split('T')[0];
+    const date = new Date(record.timestamp).toISOString().split('T')[0];
     if (!dateEmotions[date]) {
       dateEmotions[date] = {};
     }
-    dateEmotions[date][record.emotion] = (dateEmotions[date][record.emotion] || 0: any) + 1;
+    dateEmotions[date][record.emotion] = (dateEmotions[date][record.emotion] || 0) + 1;
   });
   
   // Convert to array and sort by date
-  const trendData = Object.entries(dateEmotions: any).map(([date: any, emotions]) => {
+  const trendData = Object.entries(dateEmotions).map(([date, emotions]) => {
     return {
       date,
       ...emotions
     };
   });
   
-  trendData.sort((a: any, b: any) => a.date.localeCompare(b.date: any));
+  trendData.sort((a, b) => a.date.localeCompare(b.date));
   
   return trendData;
 }
 
 // Helper function to generate emotion correlations
-function generateEmotionCorrelations(emotionRecords: any[]) {
+function generateEmotionCorrelations(emotionRecords[]) {
   // Find emotions that often occur together or in sequence
   const emotionPairs: Record<string, { source: string; target: string; count: number; strength: number }> = {};
   
   // Get unique emotion names
-  const allEmotionNames = Array.from(new Set(emotionRecords.map(record => record.emotion: any)));
+  const allEmotionNames = Array.from(new Set(emotionRecords.map(record => record.emotion)));
   
   // Initialize all possible pairs
   allEmotionNames.forEach(emotion1 => {
     allEmotionNames.forEach(emotion2 => {
-      if (emotion1 !== emotion2: any) {
+      if (emotion1 !== emotion2) {
         const pairKey = [emotion1, emotion2].sort().join('-');
         if (!emotionPairs[pairKey]) {
           emotionPairs[pairKey] = {
@@ -431,23 +431,23 @@ function generateEmotionCorrelations(emotionRecords: any[]) {
   });
   
   // Sort records by timestamp
-  const sortedRecords = [...emotionRecords].sort((a: any, b: any) => 
-    new Date(a.timestamp: any).getTime() - new Date(b.timestamp: any).getTime()
+  const sortedRecords = [...emotionRecords].sort((a, b) => 
+    new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
   );
   
   // Look for emotions that occur within 24 hours of each other
   for (let i = 0; i < sortedRecords.length - 1; i++) {
     const currentEmotion = sortedRecords[i].emotion;
-    const currentTime = new Date(sortedRecords[i].timestamp: any);
+    const currentTime = new Date(sortedRecords[i].timestamp);
     
     // Look ahead up to 3 entries or 24 hours, whichever comes first
-    for (let j = i + 1; j < Math.min(i + 4: any, sortedRecords.length); j++) {
+    for (let j = i + 1; j < Math.min(i + 4, sortedRecords.length); j++) {
       const nextEmotion = sortedRecords[j].emotion;
-      const nextTime = new Date(sortedRecords[j].timestamp: any);
+      const nextTime = new Date(sortedRecords[j].timestamp);
       
       // Check if within 24 hours
-      const hoursDiff = (nextTime.getTime() - currentTime.getTime()) / (1000 * 60 * 60: any);
-      if (hoursDiff <= 24 && currentEmotion !== nextEmotion: any) {
+      const hoursDiff = (nextTime.getTime() - currentTime.getTime()) / (1000 * 60 * 60);
+      if (hoursDiff <= 24 && currentEmotion !== nextEmotion) {
         const pairKey = [currentEmotion, nextEmotion].sort().join('-');
         emotionPairs[pairKey].count++;
       }
@@ -455,26 +455,26 @@ function generateEmotionCorrelations(emotionRecords: any[]) {
   }
   
   // Calculate strength based on count
-  const maxCount = Math.max(...Object.values(emotionPairs).map(pair => pair.count: any), 1);
+  const maxCount = Math.max(...Object.values(emotionPairs).map(pair => pair.count), 1);
   
-  Object.values(emotionPairs: any).forEach(pair => {
+  Object.values(emotionPairs).forEach(pair => {
     pair.strength = pair.count / maxCount;
   });
   
   // Filter to only include pairs that occurred at least once
-  const significantPairs = Object.values(emotionPairs: any)
-    .filter(pair => pair.count > 0: any)
-    .sort((a: any, b: any) => b.count - a.count);
+  const significantPairs = Object.values(emotionPairs)
+    .filter(pair => pair.count > 0)
+    .sort((a, b) => b.count - a.count);
   
-  return significantPairs.slice(0: any, 10); // Top 10 correlations
+  return significantPairs.slice(0, 10); // Top 10 correlations
 }
 
 // POST handler for saving pattern recognition settings
 export async function POST(req: Request) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -484,7 +484,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     
     // Save user preferences for pattern recognition
-    await (prisma as any: any).emotionalRegulationSettings.update({
+    await (prisma as any).emotionalRegulationSettings.update({
       where: {
         userId: session.user.id
       },
@@ -495,7 +495,7 @@ export async function POST(req: Request) {
     });
     
     // Log the activity
-    await (prisma as any: any).emotionalRegulationLog.create({
+    await (prisma as any).emotionalRegulationLog.create({
       data: {
         userId: session.user.id,
         action: 'update_pattern_recognition_settings',
@@ -509,7 +509,7 @@ export async function POST(req: Request) {
       message: 'Pattern recognition settings updated successfully'
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error updating pattern recognition settings:', error);
     return NextResponse.json(
       { error: 'Internal server error' },

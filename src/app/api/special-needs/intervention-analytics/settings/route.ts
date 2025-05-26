@@ -5,9 +5,9 @@ import prisma from '@/lib/prisma';
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json(
         { success: false, error: 'Authentication required' },
         { status: 401 }
@@ -18,13 +18,13 @@ export async function GET(req: NextRequest) {
     const userId = session.user.id;
     
     // Fetch user's intervention analytics settings
-    const analyticsSettings = await (prisma as any: any).interventionAnalyticsSettings.findUnique({
+    const analyticsSettings = await (prisma as any).interventionAnalyticsSettings.findUnique({
       where: {
         userId: userId,
       },
     });
     
-    if (!analyticsSettings: any) {
+    if (!analyticsSettings) {
       // Return default settings if none exist
       return NextResponse.json({
         success: true,
@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
         selectedInterventions: analyticsSettings.selectedInterventions,
       },
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching intervention analytics settings:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to fetch analytics settings' },
@@ -66,9 +66,9 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json(
         { success: false, error: 'Authentication required' },
         { status: 401 }
@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
     // Get settings from request body
     const { settings } = await req.json();
     
-    if (!settings: any) {
+    if (!settings) {
       return NextResponse.json(
         { success: false, error: 'Settings data is required' },
         { status: 400 }
@@ -97,7 +97,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Create or update user's intervention analytics settings
-    const analyticsSettings = await (prisma as any: any).interventionAnalyticsSettings.upsert({
+    const analyticsSettings = await (prisma as any).interventionAnalyticsSettings.upsert({
       where: {
         userId: userId,
       },
@@ -126,11 +126,11 @@ export async function POST(req: NextRequest) {
     });
     
     // Log the settings change
-    await (prisma as any: any).analyticsLog.create({
+    await (prisma as any).analyticsLog.create({
       data: {
         userId: userId,
         action: 'settings_update',
-        details: JSON.stringify(settings: any),
+        details: JSON.stringify(settings),
       },
     });
     
@@ -138,7 +138,7 @@ export async function POST(req: NextRequest) {
       success: true,
       settings: analyticsSettings,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error saving intervention analytics settings:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to save analytics settings' },
