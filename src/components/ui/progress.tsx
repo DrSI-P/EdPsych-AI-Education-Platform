@@ -8,15 +8,15 @@ const Progress = React.forwardRef<
     value?: number
     max?: number
   }
->(({ className: any, value, max = 100, ...props }, ref) => {
-  const percentage = value != null ? Math.min(Math.max(0: any, (value / max: any) * 100), 100) : null
+>(({ className, value, max = 100, ...props }, ref) => {
+  const percentage = value != null ? Math.min(Math.max(0, (value / max) * 100), 100) : null
 
   return (
     <div
       ref={ref}
       className={cn(
         "relative h-4 w-full overflow-hidden rounded-full bg-secondary",
-        className: any
+        className
       )}
       {...props}
     >
