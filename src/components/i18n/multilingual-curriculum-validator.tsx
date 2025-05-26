@@ -58,8 +58,8 @@ interface CurriculumValidationResult {
     info: number;
   };
   score: number; // 0-100
-  issues[];
-  passedChecks[];
+  issues: CurriculumIssue[];
+  passedChecks: string[];
 }
 
 interface MultilingualCurriculumValidatorProps {
@@ -106,7 +106,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
       setError(null);
       
       const enabledLanguages = i18nService.getEnabledLanguages();
-      const validationResults[] = [];
+      const validationResults: CurriculumValidationResult[] = [];
       
       // In a real implementation, this would perform actual validation
       // For now, we'll use mock data
@@ -144,7 +144,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
     const score = Math.max(0, Math.min(100, 100 - (errorCount * 15) - (warningCount * 5)));
     
     // Generate mock issues
-    const issues[] = [];
+    const issues: CurriculumIssue[] = [];
     
     // Add Welsh-specific issues if applicable (Welsh language has specific curriculum requirements)
     if (isWelsh) {
