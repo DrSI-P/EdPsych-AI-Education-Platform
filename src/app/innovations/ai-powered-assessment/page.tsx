@@ -49,7 +49,7 @@ interface AssessmentQuestion {
  rubric?: {
     criteria: string;,
 
-    levels: {
+    levels: {;
       score: number;,
 
       description: string;
@@ -73,7 +73,7 @@ interface AssessmentResult {
   response: string;
   feedback: string;,
 
-  conceptsAssessed: {
+  conceptsAssessed: {;
     concept: string;,
 
     mastery: number;
@@ -319,7 +319,7 @@ export default function AIPoweredAssessmentPage() {
       }
       
       // Create result object
-      const result: AssessmentResult = {
+      const result: AssessmentResult =  {
         questionId: currentQuestion.id,
         correct: isCorrect,
         score,
