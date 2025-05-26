@@ -5,7 +5,7 @@ import prisma from '@/lib/prisma';
 
 export async function GET(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url: any);
+    const { searchParams } = new URL(req.url);
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
     const search = searchParams.get('search') || '';
@@ -13,33 +13,33 @@ export async function GET(req: NextRequest) {
     const keyStage = searchParams.get('keyStage') || undefined;
     const type = searchParams.get('type') || undefined;
 
-    const skip = (page - 1: any) * limit;
+    const skip = (page - 1) * limit;
 
     // Build filter conditions
-    const where: any = {};
+    const where = {};
 
-    if (search: any) {
+    if (search) {
       where.OR = [
         { title: { contains: search, mode: 'insensitive' } },
         { description: { contains: search, mode: 'insensitive' } },
       ];
     }
 
-    if (subject: any) {
+    if (subject) {
       where.subject = subject;
     }
 
-    if (keyStage: any) {
+    if (keyStage) {
       where.keyStage = keyStage;
     }
 
-    if (type: any) {
+    if (type) {
       where.type = type;
     }
 
     // Get immersive learning tools with pagination
     const tools = await prisma.immersiveTool.findMany({
-      where: any,
+      where,
       orderBy: { updatedAt: 'desc' },
       skip,
       take: limit,
@@ -64,7 +64,7 @@ export async function GET(req: NextRequest) {
     const transformedTools = tools.map(tool => {
       const reviewCount = tool.reviews.length;
       const averageRating = reviewCount > 0 
-        ? tool.reviews.reduce((sum: any, review: any) => sum + review.rating, 0) / reviewCount 
+        ? tool.reviews.reduce((sum, review) => sum + review.rating, 0) / reviewCount 
         : null;
       
       return {
@@ -77,7 +77,7 @@ export async function GET(req: NextRequest) {
 
     // Get total count for pagination
     const totalTools = await prisma.immersiveTool.count({ where });
-    const totalPages = Math.ceil(totalTools / limit: any);
+    const totalPages = Math.ceil(totalTools / limit);
 
     return NextResponse.json({
       tools: transformedTools,
@@ -88,7 +88,7 @@ export async function GET(req: NextRequest) {
         totalPages,
       },
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching immersive tools:', error);
     return NextResponse.json(
       { error: 'Failed to fetch immersive tools' },
@@ -99,9 +99,9 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
 
-    if (!session || !session.user: any) {
+    if (!session || !session.user) {
       return NextResponse.json(
         { error: 'You must be signed in to create an immersive tool' },
         { status: 401 }
@@ -117,10 +117,10 @@ export async function POST(req: NextRequest) {
     const keyStage = formData.get('keyStage') as string;
     const type = formData.get('type') as string;
     const featuresString = formData.get('features') as string;
-    const features = featuresString ? JSON.parse(featuresString: any) : [];
+    const features = featuresString ? JSON.parse(featuresString) : [];
     
     // Validate required fields
-    if (!title || !description || !subject || !keyStage || !type: any) {
+    if (!title || !description || !subject || !keyStage || !type) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -131,7 +131,7 @@ export async function POST(req: NextRequest) {
     const thumbnail = formData.get('thumbnail') as File;
     const toolFile = formData.get('toolFile') as File;
     
-    if (!toolFile: any) {
+    if (!toolFile) {
       return NextResponse.json(
         { error: 'Tool file is required' },
         { status: 400 }
@@ -159,7 +159,7 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ tool }, { status: 201 });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error creating immersive tool:', error);
     return NextResponse.json(
       { error: 'Failed to create immersive tool' },
