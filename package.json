@@ -1,12 +1,13 @@
 {
   "scripts": {
     "dev": "next dev",
-    "build": "npx prisma migrate deploy && next build",
+    "build": "node fix-failed-migration.js && npx prisma migrate deploy && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:i18n": "vitest run src/tests/i18n.test.js"
+    "test:i18n": "vitest run src/tests/i18n.test.js",
+    "fix-migrations": "node fix-failed-migration.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.52.0",
