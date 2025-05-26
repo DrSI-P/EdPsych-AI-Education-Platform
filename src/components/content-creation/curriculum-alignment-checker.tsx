@@ -106,7 +106,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
   };
   
   // Get curriculum links based on key stage
-  const getCurriculumLinks = (keyStage: KeyStage): string[] => {
+  const getCurriculumLinks = (keyStage: KeyStage): string: any[] => {
     switch (keyStage) {
       case KeyStage.EARLY_YEARS:
         return [

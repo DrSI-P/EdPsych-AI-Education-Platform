@@ -74,13 +74,13 @@ export default function TranscriptionTranslationSystem() {
   const [transcribedText, setTranscribedText] = useState("");
   const [isTranscribing, setIsTranscribing] = useState(false);
   const [isTranslating, setIsTranslating] = useState(false);
-  const [transcriptionHistory, setTranscriptionHistory] = useState<TranscriptionEntry[]>([]);
-  const [vocabularyList, setVocabularyList] = useState<VocabularyItem[]>([]);
+  const [transcriptionHistory, setTranscriptionHistory] = useState<TranscriptionEntry: any[]>([]);
+  const [vocabularyList, setVocabularyList] = useState<VocabularyItem: any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLiveTranscribing, setIsLiveTranscribing] = useState(false);
   const [liveTranscription, setLiveTranscription] = useState("");
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const audioChunksRef = useRef<Blob[]>([]);
+  const audioChunksRef = useRef<Blob: any[]>([]);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const liveTranscriptionRef = useRef<NodeJS.Timeout | null>(null);
   

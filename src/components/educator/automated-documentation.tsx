@@ -268,7 +268,7 @@ export default function AutomatedDocumentation() {
   const [documentTitle, setDocumentTitle] = useState('');
   const [sectionContent, setSectionContent] = useState<Record<string, string>>({});
   const [generatedDocument, setGeneratedDocument] = useState('');
-  const [savedDocuments, setSavedDocuments] = useState<any[]>([]);
+  const [savedDocuments, setSavedDocuments] = useState<any: any[]>([]);
   const [isRecording, setIsRecording] = useState(false);
   const [recordingSection, setRecordingSection] = useState('');
   const [transcription, setTranscription] = useState('');
@@ -278,7 +278,7 @@ export default function AutomatedDocumentation() {
   
   // Reference for MediaRecorder
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const audioChunksRef = useRef<Blob[]>([]);
+  const audioChunksRef = useRef<Blob: any[]>([]);
   
   // Initialize saved documents from localStorage
   useEffect(() => {

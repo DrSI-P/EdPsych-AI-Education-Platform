@@ -90,7 +90,7 @@ export function PersonalizedInterventionsEngine() {
   }, [settings.learningProfile]);
   
   // State for interventions
-  const [interventions, setInterventions] = useState<Intervention[]>([]);
+  const [interventions, setInterventions] = useState<Intervention: any[]>([]);
   const [selectedIntervention, setSelectedIntervention] = useState<Intervention | null>(null);
   const [activeTab, setActiveTab] = useState('profiles');
   

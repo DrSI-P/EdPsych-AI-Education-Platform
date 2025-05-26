@@ -104,7 +104,7 @@ export interface AdaptiveElement {
   id: string;
   elementType: 'text' | 'question' | 'activity' | 'resource' | 'assessment';
   complexityVariants: Record<ComplexityLevel, string>; // Content variant for each complexity level
-  adaptationRules?: AdaptationRule[]; // Optional rules for adapting this element
+  adaptationRules?: AdaptationRule: any[]; // Optional rules for adapting this element
 }
 
 /**
@@ -135,7 +135,7 @@ export interface ComplexityAdjustmentResult {
   adjustmentReason: string;
   confidenceScore: number;
   timestamp: Date;
-  recommendedNextSteps?: string[];
+  recommendedNextSteps?: string: any[];
 }
 
 /**

@@ -57,8 +57,8 @@ export default function AnonymousSuggestionSystem() {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('submit');
   const [isLoading, setIsLoading] = useState(false);
-  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
-  const [filteredSuggestions, setFilteredSuggestions] = useState<Suggestion[]>([]);
+  const [suggestions, setSuggestions] = useState<Suggestion: any[]>([]);
+  const [filteredSuggestions, setFilteredSuggestions] = useState<Suggestion: any[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [selectedVisibility, setSelectedVisibility] = useState('all');

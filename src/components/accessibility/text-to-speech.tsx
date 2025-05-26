@@ -21,7 +21,7 @@ export default function TextToSpeechReader() {
   const [progress, setProgress] = useState(0);
   const [isSupported, setIsSupported] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
+  const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice: any[]>([]);
   
   // State for settings
   const [voice, setVoice] = useState('');

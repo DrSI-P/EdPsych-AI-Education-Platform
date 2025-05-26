@@ -57,7 +57,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
   userId,
   userRole
 }) => {
-  const [goals, setGoals] = useState<SharedGoal[]>([]);
+  const [goals, setGoals] = useState<SharedGoal: any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isCreatingGoal, setIsCreatingGoal] = useState(false);
   const [selectedGoal, setSelectedGoal] = useState<SharedGoal | null>(null);

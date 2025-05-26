@@ -29,7 +29,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
   const [isValidating, setIsValidating] = useState(false);
   const [validationComplete, setValidationComplete] = useState(false);
   const [accessibilityScore, setAccessibilityScore] = useState(0);
-  const [issues, setIssues] = useState<AccessibilityIssue[]>([]);
+  const [issues, setIssues] = useState<AccessibilityIssue: any[]>([]);
   const [validationResults, setValidationResults] = useState<{
     perceivable: number;
     operable: number;

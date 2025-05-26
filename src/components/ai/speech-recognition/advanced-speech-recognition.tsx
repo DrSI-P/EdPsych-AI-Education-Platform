@@ -62,7 +62,7 @@ export default function AdvancedSpeechRecognition({
   const [isCalibrating, setIsCalibrating] = useState(false);
   const [calibrationStep, setCalibrationStep] = useState(0);
   const [calibrationProgress, setCalibrationProgress] = useState(0);
-  const [calibrationSamples, setCalibrationSamples] = useState<number[]>([]);
+  const [calibrationSamples, setCalibrationSamples] = useState<number: any[]>([]);
   
   // References
   const recognitionRef = useRef<any>(null);

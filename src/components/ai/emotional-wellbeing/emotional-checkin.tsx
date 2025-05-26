@@ -37,8 +37,8 @@ export function EmotionalCheckin() {
     triggers: [],
     strategies: []
   });
-  const [suggestedStrategies, setSuggestedStrategies] = useState<string[]>([]);
-  const [selectedTriggers, setSelectedTriggers] = useState<string[]>([]);
+  const [suggestedStrategies, setSuggestedStrategies] = useState<string: any[]>([]);
+  const [selectedTriggers, setSelectedTriggers] = useState<string: any[]>([]);
   const [customTrigger, setCustomTrigger] = useState('');
   const [historicalPatterns, setHistoricalPatterns] = useState<Record<string, any> | null>(null);
   const [voiceInput, setVoiceInput] = useState(false);

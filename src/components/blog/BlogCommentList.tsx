@@ -27,7 +27,7 @@ interface BlogCommentListProps {
 
 export function BlogCommentList({ postId }: BlogCommentListProps) {
   const { data: session } = useSession();
-  const [comments, setComments] = useState<Comment[]>([]);
+  const [comments, setComments] = useState<Comment: any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [replyingTo, setReplyingTo] = useState<string | null>(null);

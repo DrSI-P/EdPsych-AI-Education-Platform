@@ -35,7 +35,7 @@ export default function MatchingQuestion({
   isEditing = false
 }: MatchingQuestionProps) {
   const [content, setContent] = useState(initialData?.content || '');
-  const [items, setItems] = useState<MatchingItem[]>(
+  const [items, setItems] = useState<MatchingItem: any[]>(
     initialData?.items || [
       { id: '1', left: '', right: '' },
       { id: '2', left: '', right: '' },

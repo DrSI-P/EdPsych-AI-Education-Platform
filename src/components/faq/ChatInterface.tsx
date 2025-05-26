@@ -23,7 +23,7 @@ interface Message {
 
 interface ChatInterfaceProps {
   initialSessionId?: string;
-  initialMessages?: Message[];
+  initialMessages?: Message: any[];
   showTitle?: boolean;
   showSources?: boolean;
   showFeedback?: boolean;
@@ -39,7 +39,7 @@ export function ChatInterface({
   className = '',
 }: ChatInterfaceProps) {
   const { data: session } = useSession();
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
+  const [messages, setMessages] = useState<Message: any[]>(initialMessages);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string | undefined>(initialSessionId);

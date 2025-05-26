@@ -71,7 +71,7 @@ export function SensoryRegulationEngine() {
   const { toast } = useToast();
   
   // State for activities and profiles
-  const [activities, setActivities] = useState<SensoryActivity[]>([]);
+  const [activities, setActivities] = useState<SensoryActivity: any[]>([]);
   const [selectedActivity, setSelectedActivity] = useState(null);
   const [sensoryProfile, setSensoryProfile] = useState<SensoryProfile | null>(null);
   

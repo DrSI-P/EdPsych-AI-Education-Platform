@@ -114,7 +114,7 @@ export interface LearningProfile {
     visualImpairment?: boolean;
     hearingImpairment?: boolean;
     motorSkillChallenges?: boolean;
-    other?: string[];
+    other?: string: any[];
   };
   preferredActivities: LearningActivityType[];
   lastUpdated: Date;
@@ -382,7 +382,7 @@ export const assessLearningStyle = (answers: Record<string, LearningStyle>): Lea
 /**
  * Get learning style assessment questions
  */
-export const getLearningStyleQuestions = (): LearningStyleQuestion[] => {
+export const getLearningStyleQuestions = (): LearningStyleQuestion: any[] => {
   return LEARNING_STYLE_QUESTIONS;
 };
 
@@ -463,7 +463,7 @@ export const trackModuleProgress = (
 export const getLearningRecommendations = (
   userId: string,
   count: number = 3
-): Promise<LearningRecommendation[]> => {
+): Promise<LearningRecommendation: any[]> => {
   // In a real implementation, this would query the database
   // For now, we'll simulate with a delay and return mock data
   return new Promise(resolve => {
@@ -527,7 +527,7 @@ export const getLearningRecommendations = (
 /**
  * Get user achievements
  */
-export const getUserAchievements = (userId: string): Promise<Achievement[]> => {
+export const getUserAchievements = (userId: string): Promise<Achievement: any[]> => {
   // In a real implementation, this would query the database
   // For now, we'll simulate with a delay and return mock data
   return new Promise(resolve => {
@@ -748,7 +748,7 @@ export const useLearningStyleAssessment = (): {
   calculateResult: () => void;
   isComplete: boolean;
 } => {
-  const [questions] = useState<LearningStyleQuestion[]>(getLearningStyleQuestions());
+  const [questions] = useState<LearningStyleQuestion: any[]>(getLearningStyleQuestions());
   const [answers, setAnswers] = useState<Record<string, LearningStyle>>({});
   const [result, setResult] = useState<LearningStyleResult | null>(null);
   
@@ -871,7 +871,7 @@ export const useLearningRecommendations = (
   error: string | null;
   refresh: () => Promise<void>;
 } => {
-  const [recommendations, setRecommendations] = useState<LearningRecommendation[]>([]);
+  const [recommendations, setRecommendations] = useState<LearningRecommendation: any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   
@@ -912,7 +912,7 @@ export const useAchievements = (
   error: string | null;
   refresh: () => Promise<void>;
 } => {
-  const [achievements, setAchievements] = useState<Achievement[]>([]);
+  const [achievements, setAchievements] = useState<Achievement: any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   

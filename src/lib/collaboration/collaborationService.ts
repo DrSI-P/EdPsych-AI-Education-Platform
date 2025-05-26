@@ -29,7 +29,7 @@ export class CollaborationService {
   private sessionId: string | null = null;
   private userId: string | null = null;
   private participants: Map<string, CollaborationParticipant> = new Map();
-  private eventListeners: Map<string, Function[]> = new Map();
+  private eventListeners: Map<string, Function: any[]> = new Map();
   private reconnectAttempts: number = 0;
   private maxReconnectAttempts: number = 5;
   private reconnectDelay: number = 1000; // ms
@@ -277,7 +277,7 @@ export class CollaborationService {
   /**
    * Get all participants in the session
    */
-  public getParticipants(): CollaborationParticipant[] {
+  public getParticipants(): CollaborationParticipant: any[] {
     return Array.from(this.participants.values());
   }
   
@@ -359,7 +359,7 @@ export class CollaborationService {
   /**
    * Update whiteboard
    */
-  public updateWhiteboard(whiteboardId: string, elements[], version: number): void {
+  public updateWhiteboard(whiteboardId: string, elements: any[], version: number): void {
     if (!this.socket || !this.userId || !this.sessionId) return;
     
     this.sendMessage({

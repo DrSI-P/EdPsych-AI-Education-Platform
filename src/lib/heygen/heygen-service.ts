@@ -52,7 +52,7 @@ export class HeygenService {
   /**
    * Get all available avatars
    */
-  public async getAvatars(): Promise<HeygenAvatar[]> {
+  public async getAvatars(): Promise<HeygenAvatar: any[]> {
     this.checkInitialized();
     return this.heygenApi.getAvatars();
   }
@@ -60,7 +60,7 @@ export class HeygenService {
   /**
    * Get all videos
    */
-  public async getAllVideos(): Promise<HeyGenVideo[]> {
+  public async getAllVideos(): Promise<HeyGenVideo: any[]> {
     this.checkInitialized();
     return this.heygenApi.getVideos();
   }
@@ -69,7 +69,7 @@ export class HeygenService {
    * Get videos for a specific user
    * @param userId User ID
    */
-  public async getUserVideos(userId: string): Promise<HeyGenVideo[]> {
+  public async getUserVideos(userId: string): Promise<HeyGenVideo: any[]> {
     this.checkInitialized();
     
     try {
@@ -189,7 +189,7 @@ export class HeygenService {
   /**
    * Get available voices
    */
-  public async getVoices(): Promise<any[]> {
+  public async getVoices(): Promise<any: any[]> {
     this.checkInitialized();
     return this.heygenApi.getVoices();
   }

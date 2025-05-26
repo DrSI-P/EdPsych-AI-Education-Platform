@@ -330,7 +330,7 @@ export const getLanguageDirection = (language: SupportedLanguage): LanguageDirec
 /**
  * Get all available languages
  */
-export const getAvailableLanguages = (): LanguageInfo[] => {
+export const getAvailableLanguages = (): LanguageInfo: any[] => {
   return Object.values(LANGUAGE_INFO);
 };
 

@@ -32,9 +32,9 @@ interface Video {
 }
 
 export default function HeygenVideoCreator() {
-  const [avatars, setAvatars] = useState<Avatar[]>([]);
-  const [voices, setVoices] = useState<Voice[]>([]);
-  const [videos, setVideos] = useState<Video[]>([]);
+  const [avatars, setAvatars] = useState<Avatar: any[]>([]);
+  const [voices, setVoices] = useState<Voice: any[]>([]);
+  const [videos, setVideos] = useState<Video: any[]>([]);
   const [loading, setLoading] = useState(false);
   const [creating, setCreating] = useState(false);
   const [selectedAvatar, setSelectedAvatar] = useState('');

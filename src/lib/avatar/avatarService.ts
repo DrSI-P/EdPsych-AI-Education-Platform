@@ -119,10 +119,10 @@ export class AvatarService {
     query?: string;
     category?: ContentCategory;
     targetAudience?: TargetAudience;
-    tags?: string[];
+    tags?: string: any[];
     limit?: number;
     offset?: number;
-  }): Promise<AvatarVideoMetadata[]> {
+  }): Promise<AvatarVideoMetadata: any[]> {
     try {
       // In a real implementation, this would call an API endpoint
       return []; // Placeholder
@@ -166,7 +166,7 @@ export class AvatarService {
   /**
    * Get available avatar models
    */
-  async getAvatarModels(): Promise<AvatarModel[]> {
+  async getAvatarModels(): Promise<AvatarModel: any[]> {
     try {
       // In a real implementation, this would call an API endpoint
       return [

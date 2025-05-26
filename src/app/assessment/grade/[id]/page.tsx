@@ -13,9 +13,9 @@ interface Question {
   id: string;
   type: string;
   content: string;
-  options?: any[];
-  items?: any[];
-  allowedFileTypes?: string[];
+  options?: any: any[];
+  items?: any: any[];
+  allowedFileTypes?: string: any[];
   maxFileSize?: number;
   wordLimit?: number;
   points: number;

@@ -80,8 +80,8 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
 }) => {
   const { t, currentLanguage } = useI18n();
   const [isValidating, setIsValidating] = useState(false);
-  const [accessibilityResults, setAccessibilityResults] = useState<AccessibilityValidationResult[]>([]);
-  const [coverageResults, setCoverageResults] = useState<LanguageCoverageResult[]>([]);
+  const [accessibilityResults, setAccessibilityResults] = useState<AccessibilityValidationResult: any[]>([]);
+  const [coverageResults, setCoverageResults] = useState<LanguageCoverageResult: any[]>([]);
   const [selectedTab, setSelectedTab] = useState<string>('accessibility');
   const [overallAccessibilityScore, setOverallAccessibilityScore] = useState<number>(0);
   const [overallCoverageScore, setOverallCoverageScore] = useState<number>(0);

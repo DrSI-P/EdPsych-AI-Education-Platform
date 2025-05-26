@@ -114,7 +114,7 @@ export class HeygenAPI {
   /**
    * Get all available avatars
    */
-  public async getAvatars(): Promise<HeygenAvatar[]> {
+  public async getAvatars(): Promise<HeygenAvatar: any[]> {
     this.checkInitialized();
     try {
       const response = await this.axiosInstance.get('/v1/avatars');
@@ -128,7 +128,7 @@ export class HeygenAPI {
   /**
    * Get all videos for the account
    */
-  public async getVideos(): Promise<HeygenVideo[]> {
+  public async getVideos(): Promise<HeygenVideo: any[]> {
     this.checkInitialized();
     try {
       const response = await this.axiosInstance.get('/v1/videos');
@@ -191,7 +191,7 @@ export class HeygenAPI {
   /**
    * Get available voices
    */
-  public async getVoices(): Promise<HeygenVoice[]> {
+  public async getVoices(): Promise<HeygenVoice: any[]> {
     this.checkInitialized();
     try {
       const response = await this.axiosInstance.get('/v1/voices');

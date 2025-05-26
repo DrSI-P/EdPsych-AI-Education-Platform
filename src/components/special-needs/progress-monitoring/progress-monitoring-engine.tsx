@@ -60,9 +60,9 @@ export function ProgressMonitoringEngine() {
   const { toast } = useToast();
   
   // State for goals and data points
-  const [goals, setGoals] = useState<Goal[]>([]);
+  const [goals, setGoals] = useState<Goal: any[]>([]);
   const [selectedGoal, setSelectedGoal] = useState<Goal | null>(null);
-  const [dataPoints, setDataPoints] = useState<DataPoint[]>([]);
+  const [dataPoints, setDataPoints] = useState<DataPoint: any[]>([]);
   
   // State for UI
   const [activeTab, setActiveTab] = useState('goals');

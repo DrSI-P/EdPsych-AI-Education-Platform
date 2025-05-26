@@ -57,8 +57,8 @@ export interface AIAvatarVideoLibrary {
 
 export interface AIAvatarVideoService {
   getVideo: (id: string) => Promise<AIAvatarVideo>;
-  getVideosByCategory: (category: AIAvatarVideoCategory) => Promise<AIAvatarVideo[]>;
-  getVideosByAudience: (audience: AIAvatarVideoAudience) => Promise<AIAvatarVideo[]>;
-  getFeaturedVideos: () => Promise<AIAvatarVideo[]>;
-  searchVideos: (query: string) => Promise<AIAvatarVideo[]>;
+  getVideosByCategory: (category: AIAvatarVideoCategory) => Promise<AIAvatarVideo: any[]>;
+  getVideosByAudience: (audience: AIAvatarVideoAudience) => Promise<AIAvatarVideo: any[]>;
+  getFeaturedVideos: () => Promise<AIAvatarVideo: any[]>;
+  searchVideos: (query: string) => Promise<AIAvatarVideo: any[]>;
 }

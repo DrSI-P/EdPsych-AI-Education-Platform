@@ -33,8 +33,8 @@ interface FAQQuestion {
 }
 
 interface FAQBrowserProps {
-  initialCategories?: FAQCategory[];
-  initialQuestions?: FAQQuestion[];
+  initialCategories?: FAQCategory: any[];
+  initialQuestions?: FAQQuestion: any[];
   onQuestionSelect?: (questionId: string) => void;
   showSearch?: boolean;
   showTabs?: boolean;
@@ -50,8 +50,8 @@ export function FAQBrowser({
   className = '',
 }: FAQBrowserProps) {
   const router = useRouter();
-  const [categories, setCategories] = useState<FAQCategory[]>(initialCategories);
-  const [questions, setQuestions] = useState<FAQQuestion[]>(initialQuestions);
+  const [categories, setCategories] = useState<FAQCategory: any[]>(initialCategories);
+  const [questions, setQuestions] = useState<FAQQuestion: any[]>(initialQuestions);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');

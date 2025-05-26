@@ -15,7 +15,7 @@ type Question = {
   id: string;
   text: string;
   type: 'multiple-choice' | 'open-ended';
-  options?: string[];
+  options?: string: any[];
 };
 
 type LearningStyle = {

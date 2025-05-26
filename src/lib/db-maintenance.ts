@@ -40,7 +40,7 @@ export interface DatabaseHealthCheckResult {
     message: string;
     details?;
   }>;
-  recommendations?: string[];
+  recommendations?: string: any[];
   error?: string;
 }
 
@@ -364,8 +364,8 @@ export interface DatabaseSchemaValidationResult {
   status: 'valid' | 'error' | 'warning';
   message: string;
   timestamp: string;
-  missingModels?: string[];
-  extraModels?: string[];
+  missingModels?: string: any[];
+  extraModels?: string: any[];
   modelIssues?: Array<{
     model: string;
     issues: string[];

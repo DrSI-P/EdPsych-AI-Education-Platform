@@ -354,14 +354,14 @@ export default function OutcomeMeasurementTools() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   
   const [activeTab, setActiveTab] = useState(0);
-  const [assessments, setAssessments] = useState<Assessment[]>(mockAssessments);
-  const [selectedDimensions, setSelectedDimensions] = useState<string[]>([]);
+  const [assessments, setAssessments] = useState<Assessment: any[]>(mockAssessments);
+  const [selectedDimensions, setSelectedDimensions] = useState<string: any[]>([]);
   const [selectedAssessment, setSelectedAssessment] = useState<Assessment | null>(null);
   const [newAssessment, setNewAssessment] = useState({
     title: '',
     type: 'baseline' as AssessmentType,
     setting: 'secondary' as SettingType,
-    dimensions: [] as string[],
+    dimensions: [] as string: any[],
     targetGroup: ''
   });
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});

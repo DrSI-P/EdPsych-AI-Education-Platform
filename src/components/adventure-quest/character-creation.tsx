@@ -44,7 +44,7 @@ interface Quest {
     description: string;
     content: string;
     type: string;
-    options?: string[];
+    options?: string: any[];
     correctAnswer?: string;
     minScore?: number;
   }>;

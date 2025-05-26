@@ -101,7 +101,7 @@ const mockLearningPath: LearningPath = {
 export default function AdaptiveContentSuggestions() {
   const [activeTab, setActiveTab] = useState<string>('for-you');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [contentSuggestions, setContentSuggestions] = useState<ContentSuggestion[]>([]);
+  const [contentSuggestions, setContentSuggestions] = useState<ContentSuggestion: any[]>([]);
   const [learnerProfile, setLearnerProfile] = useState<LearnerProfile>(mockLearnerProfile);
   const [currentLearningPath, setCurrentLearningPath] = useState<LearningPath | null>(mockLearningPath);
   

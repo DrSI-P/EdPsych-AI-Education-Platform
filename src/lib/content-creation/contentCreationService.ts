@@ -219,7 +219,7 @@ export class ContentCreationService {
   /**
    * List content based on filters
    */
-  public async listContent(filter: ContentLibraryFilter): Promise<ContentMetadata[]> {
+  public async listContent(filter: ContentLibraryFilter): Promise<ContentMetadata: any[]> {
     try {
       const response = await fetch(`${this.apiUrl}/api/content-creation/content/list`, {
         method: 'POST',
@@ -316,7 +316,7 @@ export class ContentCreationService {
   /**
    * Get content templates
    */
-  public async getTemplates(filter?: Partial<ContentTemplate>): Promise<ContentTemplate[]> {
+  public async getTemplates(filter?: Partial<ContentTemplate>): Promise<ContentTemplate: any[]> {
     try {
       const response = await fetch(`${this.apiUrl}/api/content-creation/templates`, {
         method: 'POST',
@@ -366,7 +366,7 @@ export class ContentCreationService {
   /**
    * Get default templates for different content types and key stages
    */
-  public async getDefaultTemplates(): Promise<Record<ContentType, Record<KeyStage, ContentTemplate[]>>> {
+  public async getDefaultTemplates(): Promise<Record<ContentType, Record<KeyStage, ContentTemplate: any[]>>> {
     try {
       const response = await fetch(`${this.apiUrl}/api/content-creation/templates/default`, {
         method: 'GET',
@@ -393,7 +393,7 @@ export class ContentCreationService {
   public async adaptContent(
     contentId: string, 
     targetLearningStyles: LearningStyle[], 
-    senSupport?: SENCategory[]
+    senSupport?: SENCategory: any[]
   ): Promise<Partial<ContentDocument>> {
     try {
       const response = await fetch(`${this.apiUrl}/api/content-creation/ai/adapt`, {

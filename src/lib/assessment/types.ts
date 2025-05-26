@@ -516,16 +516,16 @@ export interface QuestionBank {
   searchQuestions: (params: {
     keyStage?: UKKeyStage;
     subject?: UKSubject;
-    topics?: string[];
-    types?: QuestionType[];
+    topics?: string: any[];
+    types?: QuestionType: any[];
     difficultyLevel?: DifficultyLevel;
     cognitiveDomain?: CognitiveDomain;
-    tags?: string[];
-  }) => Promise<Question[]>;
+    tags?: string: any[];
+  }) => Promise<Question: any[]>;
   getQuestionCount: (params?: {
     keyStage?: UKKeyStage;
     subject?: UKSubject;
-    topics?: string[];
+    topics?: string: any[];
   }) => Promise<number>;
 }
 
@@ -541,13 +541,13 @@ export interface AssessmentEngine {
     keyStage?: UKKeyStage;
     subject?: UKSubject;
     assessmentType?: AssessmentType;
-  }) => Promise<AssessmentMetadata[]>;
+  }) => Promise<AssessmentMetadata: any[]>;
   
   startAttempt: (assessmentId: string, studentId: string) => Promise<string>;
   submitResponse: (attemptId: string, response: QuestionResponse) => Promise<boolean>;
   completeAttempt: (attemptId: string) => Promise<AssessmentResult>;
   getAttempt: (attemptId: string) => Promise<AssessmentAttempt | null>;
-  getStudentAttempts: (studentId: string, assessmentId?: string) => Promise<AssessmentAttempt[]>;
+  getStudentAttempts: (studentId: string, assessmentId?: string) => Promise<AssessmentAttempt: any[]>;
   
   generateAssessment: (template: AssessmentTemplate) => Promise<Assessment>;
   generateAdaptiveQuestion: (attemptId: string, previousResponses: QuestionResponse[]) => Promise<Question>;

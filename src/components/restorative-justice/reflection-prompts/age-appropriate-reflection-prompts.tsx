@@ -65,7 +65,7 @@ interface ReflectionPrompt {
   supportingQuestions: string[];
   visualSupports: boolean;
   simplifiedLanguage: boolean;
-  visualAids?: string[];
+  visualAids?: string: any[];
 }
 
 /**
@@ -97,7 +97,7 @@ const AgeAppropriateReflectionPrompts = () => {
     visualSupports: false,
     simplifiedLanguage: false
   });
-  const [savedPrompts, setSavedPrompts] = useState<ReflectionPrompt[]>([]);
+  const [savedPrompts, setSavedPrompts] = useState<ReflectionPrompt: any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterAgeGroup, setFilterAgeGroup] = useState("all");
@@ -410,7 +410,7 @@ const AgeAppropriateReflectionPrompts = () => {
   };
 
   // Handle custom prompt changes
-  const handleCustomPromptChange = (field: keyof ReflectionPrompt, value: string | boolean | string[]) => {
+  const handleCustomPromptChange = (field: keyof ReflectionPrompt, value: string | boolean | string: any[]) => {
     setCustomPrompt(prev => ({
       ...prev,
       [field]: value

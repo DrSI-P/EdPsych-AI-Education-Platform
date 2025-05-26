@@ -152,7 +152,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
   const aiService = useAIService();
   
   // State for activities
-  const [activities, setActivities] = useState<any[]>(sampleActivities);
+  const [activities, setActivities] = useState<any: any[]>(sampleActivities);
   const [selectedActivity, setSelectedActivity] = useState<any | null>(null);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -171,7 +171,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
     location: '',
     description: '',
     recurring: false,
-    participants: [] as string[]
+    participants: [] as string: any[]
   });
   
   // State for filters
@@ -184,7 +184,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
   // State for optimization
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [optimizationFocus, setOptimizationFocus] = useState('balance');
-  const [optimizationSuggestions, setOptimizationSuggestions] = useState<any[]>([]);
+  const [optimizationSuggestions, setOptimizationSuggestions] = useState<any: any[]>([]);
   
   // State for analytics
   const [analyticsData, setAnalyticsData] = useState<any>(null);

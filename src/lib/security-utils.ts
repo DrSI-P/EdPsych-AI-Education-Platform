@@ -124,7 +124,7 @@ export const sanitizeUrl = (url: string): string | null => {
  * @returns {Function} - Rate limiting function
  */
 export const createRateLimiter = (maxRequests: number, timeWindow: number) => {
-  const requests = new Map<string, number[]>();
+  const requests = new Map<string, number: any[]>();
 
   return (identifier: string): boolean => {
     const now = Date.now();

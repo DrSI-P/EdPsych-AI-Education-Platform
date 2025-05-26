@@ -334,9 +334,9 @@ const mockActivities: FamilyActivity[] = [
 ];
 
 export default function ParentEducationResources() {
-  const [resources, setResources] = useState<ParentResource[]>(mockResources);
-  const [modules, setModules] = useState<Module[]>(mockModules);
-  const [activities, setActivities] = useState<FamilyActivity[]>(mockActivities);
+  const [resources, setResources] = useState<ParentResource: any[]>(mockResources);
+  const [modules, setModules] = useState<Module: any[]>(mockModules);
+  const [activities, setActivities] = useState<FamilyActivity: any[]>(mockActivities);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedAgeGroup, setSelectedAgeGroup] = useState<string>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');

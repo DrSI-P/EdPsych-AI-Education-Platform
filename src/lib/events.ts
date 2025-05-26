@@ -31,7 +31,7 @@ export interface Event {
 
 // Event emitter
 class EventEmitter {
-  private listeners: Record<string, Function[]> = {};
+  private listeners: Record<string, Function: any[]> = {};
 
   on(eventType: string, callback: Function) {
     if (!this.listeners[eventType]) {

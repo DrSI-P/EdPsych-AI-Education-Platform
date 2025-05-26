@@ -39,7 +39,7 @@ export class ComplianceValidator {
   /**
    * Validate GDPR compliance across the platform
    */
-  static async validateGDPRCompliance(): Promise<ComplianceValidationResult[]> {
+  static async validateGDPRCompliance(): Promise<ComplianceValidationResult: any[]> {
     const results: ComplianceValidationResult[] = [];
     
     // Check consent mechanisms
@@ -76,7 +76,7 @@ export class ComplianceValidator {
   /**
    * Validate blockchain integrity and validation mechanisms
    */
-  static async validateBlockchainIntegrity(): Promise<ComplianceValidationResult[]> {
+  static async validateBlockchainIntegrity(): Promise<ComplianceValidationResult: any[]> {
     const results: ComplianceValidationResult[] = [];
     
     // Check blockchain validation mechanisms
@@ -97,7 +97,7 @@ export class ComplianceValidator {
   /**
    * Validate copyright protection mechanisms
    */
-  static async validateCopyrightProtection(): Promise<ComplianceValidationResult[]> {
+  static async validateCopyrightProtection(): Promise<ComplianceValidationResult: any[]> {
     const results: ComplianceValidationResult[] = [];
     
     // Check content attribution

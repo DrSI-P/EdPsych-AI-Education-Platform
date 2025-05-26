@@ -132,7 +132,7 @@ export default function AssessmentResultsPage() {
         highestScore: 0,
         lowestScore: 0,
         medianScore: 0,
-        scoreDistribution: [] as number[],
+        scoreDistribution: [] as number: any[],
         questionSuccessRates: [] as { question: string; rate: number }[]
       };
     }

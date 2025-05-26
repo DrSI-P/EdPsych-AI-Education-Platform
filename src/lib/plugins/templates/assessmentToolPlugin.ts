@@ -298,7 +298,7 @@ export interface AssessmentToolPluginResult {
   feedback: {
     overall: string;
     byTopic?: Record<string, string>;
-    nextSteps?: string[];
+    nextSteps?: string: any[];
   };
 }
 
@@ -333,7 +333,7 @@ export function convertToPluginFormat(assessment: Assessment): AssessmentToolPlu
  * @param responses The plugin responses
  * @returns The platform question responses
  */
-export function convertToQuestionResponses(responses: AssessmentToolPluginResponse[]): QuestionResponse[] {
+export function convertToQuestionResponses(responses: AssessmentToolPluginResponse[]): QuestionResponse: any[] {
   return responses.map(response => ({
     questionId: response.questionId,
     responseData: response.responseData,

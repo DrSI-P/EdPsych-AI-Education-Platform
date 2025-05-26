@@ -26,7 +26,7 @@ import {
 interface CurriculumDifferentiationEngineProps {
   curriculumPlanId?: string;
   curriculumContent?: string;
-  objectives?: string[];
+  objectives?: string: any[];
   subject?: string;
   keyStage?: string;
   year?: string;
@@ -46,7 +46,7 @@ export default function CurriculumDifferentiationEngine({
 }: CurriculumDifferentiationEngineProps) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [differentiatedContent, setDifferentiatedContent] = useState<any>(null);
-  const [learningProfiles, setLearningProfiles] = useState<any[]>([]);
+  const [learningProfiles, setLearningProfiles] = useState<any: any[]>([]);
   const [selectedProfile, setSelectedProfile] = useState<string>('');
   const [settings, setSettings] = useState({
     adaptToLearningStyle: true,

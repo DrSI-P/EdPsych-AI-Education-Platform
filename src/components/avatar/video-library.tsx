@@ -52,8 +52,8 @@ interface VideoLibraryProps {
 export const VideoLibrary: React.FC<VideoLibraryProps> = ({
   onSelectVideo
 }) => {
-  const [videos, setVideos] = useState<AvatarVideoMetadata[]>([]);
-  const [scripts, setScripts] = useState<AvatarVideoScript[]>([]);
+  const [videos, setVideos] = useState<AvatarVideoMetadata: any[]>([]);
+  const [scripts, setScripts] = useState<AvatarVideoScript: any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('videos');
   const [searchQuery, setSearchQuery] = useState('');

@@ -52,7 +52,7 @@ export default function ExecutiveDysfunctionSupport({
   const [activeTab, setActiveTab] = useState('task-management');
   const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState<any>(null);
-  const [tasks, setTasks] = useState<any[]>([]);
+  const [tasks, setTasks] = useState<any: any[]>([]);
   const [newTask, setNewTask] = useState({
     title: '',
     description: '',

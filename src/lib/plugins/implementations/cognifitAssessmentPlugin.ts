@@ -673,7 +673,7 @@ export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
    * @param responses The platform responses
    * @returns The Cognifit responses
    */
-  private convertToCognifitResponses(responses: AssessmentToolPluginResponse[]): CognifitResponse[] {
+  private convertToCognifitResponses(responses: AssessmentToolPluginResponse[]): CognifitResponse: any[] {
     return responses.map(response => ({
       itemId: response.questionId,
       response: response.responseData,

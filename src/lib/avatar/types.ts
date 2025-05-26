@@ -107,7 +107,7 @@ export interface AvatarVideoMetadata {
   updatedAt: Date;
   category: ContentCategory;
   targetAudience: TargetAudience[];
-  curriculumLinks?: string[];
+  curriculumLinks?: string: any[];
   tags: string[];
   transcriptUrl?: string;
   captionsUrl?: string;
@@ -150,10 +150,10 @@ export interface AvatarVideoScript {
   title: string;
   content: string;
   notes?: string;
-  visualCues?: VisualCue[];
-  emotionMarkers?: EmotionMarker[];
-  pauseMarkers?: PauseMarker[];
-  emphasisMarkers?: EmphasisMarker[];
+  visualCues?: VisualCue: any[];
+  emotionMarkers?: EmotionMarker: any[];
+  pauseMarkers?: PauseMarker: any[];
+  emphasisMarkers?: EmphasisMarker: any[];
   createdAt: Date;
   updatedAt: Date;
   authorId: string;
@@ -262,11 +262,11 @@ export interface AvatarIntegrationPoint {
   scriptTemplate?: string;
   dynamicVariables?: Record<string, string>;
   conditions?: {
-    userRole?: string[];
+    userRole?: string: any[];
     userProgress?: number;
     assessmentScore?: number;
     timeOfDay?: string;
-    deviceType?: string[];
+    deviceType?: string: any[];
   };
   fallbackText?: string;
 }
