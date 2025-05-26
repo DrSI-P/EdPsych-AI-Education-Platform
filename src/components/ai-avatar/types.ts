@@ -13,30 +13,30 @@ export interface AIAvatarVideo {
   videoPath?: string;
   thumbnailPath?: string;
   featured: boolean;
-  tags[];
+  tags: any;
   createdAt: Date;
   updatedAt: Date;
 }
 
 export enum AIAvatarVideoCategory {
-  CORE_PLATFORM = 'core_platform',
-  USER_ONBOARDING = 'user_onboarding',
-  FEATURE_DEMONSTRATION = 'feature_demonstration',
-  ADMINISTRATIVE = 'administrative',
-  INSPIRATIONAL = 'inspirational'
+  CORE_PLATFORM = 'core_platform',;
+  USER_ONBOARDING = 'user_onboarding',;
+  FEATURE_DEMONSTRATION = 'feature_demonstration',;
+  ADMINISTRATIVE = 'administrative',;
+  INSPIRATIONAL = 'inspirational';
 }
 
 export enum AIAvatarVideoAudience {
-  ALL = 'all',
-  EDUCATORS = 'educators',
-  PARENTS = 'parents',
-  STUDENTS_EARLY_YEARS = 'students_early_years',
-  STUDENTS_KS1 = 'students_ks1',
-  STUDENTS_KS2 = 'students_ks2',
-  STUDENTS_KS3 = 'students_ks3',
-  STUDENTS_KS4 = 'students_ks4',
-  PROFESSIONALS = 'professionals',
-  ADMINISTRATORS = 'administrators'
+  ALL = 'all',;
+  EDUCATORS = 'educators',;
+  PARENTS = 'parents',;
+  STUDENTS_EARLY_YEARS = 'students_early_years',;
+  STUDENTS_KS1 = 'students_ks1',;
+  STUDENTS_KS2 = 'students_ks2',;
+  STUDENTS_KS3 = 'students_ks3',;
+  STUDENTS_KS4 = 'students_ks4',;
+  PROFESSIONALS = 'professionals',;
+  ADMINISTRATORS = 'administrators';
 }
 
 export interface AIAvatarVideoPlayer {
@@ -49,16 +49,16 @@ export interface AIAvatarVideoPlayer {
 }
 
 export interface AIAvatarVideoLibrary {
-  videos[];
-  categories[];
-  audiences[];
-  featuredVideos[];
+  videos: any;
+  categories: any;
+  audiences: any;
+  featuredVideos: any;
 }
 
 export interface AIAvatarVideoService {
   getVideo: (id: string) => Promise<AIAvatarVideo>;
-  getVideosByCategory: (category: AIAvatarVideoCategory) => Promise<AIAvatarVideo[]>;
-  getVideosByAudience: (audience: AIAvatarVideoAudience) => Promise<AIAvatarVideo[]>;
-  getFeaturedVideos: () => Promise<AIAvatarVideo[]>;
-  searchVideos: (query: string) => Promise<AIAvatarVideo[]>;
+  getVideosByCategory: (category: AIAvatarVideoCategory) => Promise<AIAvatarVideo>;
+  getVideosByAudience: (audience: AIAvatarVideoAudience) => Promise<AIAvatarVideo>;
+  getFeaturedVideos: () => Promise<AIAvatarVideo>;
+  searchVideos: (query: string) => Promise<AIAvatarVideo>;
 }
