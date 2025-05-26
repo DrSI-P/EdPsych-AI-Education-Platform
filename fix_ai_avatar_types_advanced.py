@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
-Advanced targeted fix script for ai-avatar/types.ts
-This script applies more precise fixes to the remaining issues in the file
+Advanced batch fix script for ai-avatar/types.ts TypeScript errors
+This script uses a more targeted approach to fix the specific syntax errors in the AI avatar types file
 """
 
 import re
 import sys
+import os
 
 def fix_ai_avatar_types_advanced(file_path):
     with open(file_path, 'r') as file:
@@ -14,66 +15,47 @@ def fix_ai_avatar_types_advanced(file_path):
     # Store the original content for comparison
     original_content = content
     
-    # Fix interface and type declarations with a more targeted approach
-    interface_pattern = r'(interface|type)\s+(\w+)\s*\{([^}]*)\}'
+    # Read the file line by line to apply more targeted fixes
+    lines = content.split('\n')
+    modified_lines = []
     
-    def fix_interface(match):
-        interface_type = match.group(1)
-        name = match.group(2)
-        body = match.group(3)
+    for line in lines:
+        # Fix invalid array declarations with double colons
+        if re.search(r'(\w+): string: any\[\]', line):
+            line = re.sub(r'(\w+): string: any\[\]', r'\1: string[]', line)
         
-        # Fix property declarations with array syntax
-        body = re.sub(r'(\s+)(\w+)\[\];', r'\1\2: any[];', body)
+        # Fix other property declarations with double colons
+        if re.search(r'(\w+): (\w+): any\[\]', line):
+            line = re.sub(r'(\w+): (\w+): any\[\]', r'\1: \2[]', line)
         
-        # Fix invalid type declarations with double colons
-        body = re.sub(r'(\w+):\s+(\w+):\s+(\w+)\[\]', r'\1: \3[];', body)
+        # Fix interface property declarations
+        if re.search(r'(\w+)\[\];', line):
+            line = re.sub(r'(\w+)\[\];', r'\1: any[];', line)
         
-        # Fix interface property declarations with double colons
-        body = re.sub(r'(\s+)(\w+):\s+(\w+):\s+(\w+);', r'\1\2: \4;', body)
+        # Fix function parameter syntax
+        if re.search(r'function\s+(\w+)\(([^)]*)\[\]\)', line):
+            line = re.sub(r'function\s+(\w+)\(([^)]*)\[\]\)', r'function \1(\2: any[])', line)
         
-        # Fix missing semicolons in interface properties
-        body = re.sub(r'(\s+)(\w+):\s+([^;\n]+)(?!\s*[;{])\s*\n', r'\1\2: \3;\n', body)
+        # Fix specific patterns found in ai-avatar/types.ts
+        if re.search(r'voiceOptions\[\]', line):
+            line = re.sub(r'voiceOptions\[\]', r'voiceOptions: any[]', line)
         
-        return f"{interface_type} {name} {{{body}}}"
-    
-    content = re.sub(interface_pattern, fix_interface, content, flags=re.DOTALL)
-    
-    # Fix function declarations and return types
-    function_pattern = r'(function|const)\s+(\w+)(?:\s*=\s*(?:async\s*)?\([^)]*\))?\s*(?::\s*([^{]+))?\s*{'
-    
-    def fix_function(match):
-        func_type = match.group(1)
-        name = match.group(2)
-        return_type = match.group(3)
+        if re.search(r'animationOptions\[\]', line):
+            line = re.sub(r'animationOptions\[\]', r'animationOptions: any[]', line)
         
-        if return_type:
-            # Fix return types with extra angle brackets
-            return_type = re.sub(r'Promise<([^>]+)>>', r'Promise<\1>', return_type)
-            # Fix return types with extra parentheses
-            return_type = re.sub(r'\(\s*Promise<([^>]+)>\s*\)', r'Promise<\1>', return_type)
-            return f"{func_type} {name}: {return_type} {{"
-        else:
-            return match.group(0)
+        if re.search(r'customizationOptions\[\]', line):
+            line = re.sub(r'customizationOptions\[\]', r'customizationOptions: any[]', line)
+        
+        modified_lines.append(line)
     
-    content = re.sub(function_pattern, fix_function, content)
-    
-    # Fix variable declarations with array syntax
-    content = re.sub(r'(const|let|var)\s+(\w+)\[\]\s+=\s+\[', r'\1 \2: any[] = [', content)
-    
-    # Fix property declarations with array syntax outside interfaces
-    content = re.sub(r'(\w+)\[\]\s*=\s*([^;]+);', r'\1: any[] = \2;', content)
-    
-    # Fix function parameter types
-    content = re.sub(r'(\w+):\s*\(([^)]+)\[\]\)', r'\1: (\2: any[])', content)
-    
-    # Fix missing type annotations in function parameters
-    content = re.sub(r'(\w+)\s*\(\s*(\w+)\[\]', r'\1(\2: any[]', content)
+    # Join the modified lines back into content
+    modified_content = '\n'.join(modified_lines)
     
     # Only write if changes were made
-    if content != original_content:
+    if modified_content != original_content:
         with open(file_path, 'w') as file:
-            file.write(content)
-        print(f"Fixed TypeScript syntax in {file_path} with advanced targeted approach")
+            file.write(modified_content)
+        print(f"Fixed TypeScript syntax in {file_path}")
     else:
         print(f"No changes needed for {file_path}")
 

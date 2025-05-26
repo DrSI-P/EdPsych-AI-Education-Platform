@@ -106,9 +106,9 @@ export interface AvatarVideoMetadata {
   createdAt: Date;
   updatedAt: Date;
   category: ContentCategory;
-  targetAudience: any[];
-  curriculumLinks?: string: any[];
-  tags: any[];
+  targetAudience: any: any[];
+  curriculumLinks?: string: any: any[];
+  tags: any: any[];
   transcriptUrl?: string;
   captionsUrl?: string;
   thumbnailUrl: string;
@@ -150,16 +150,16 @@ export interface AvatarVideoScript {
   title: string;
   content: string;
   notes?: string;
-  visualCues?: VisualCue: any[];
-  emotionMarkers?: EmotionMarker: any[];
-  pauseMarkers?: PauseMarker: any[];
-  emphasisMarkers?: EmphasisMarker: any[];
+  visualCues?: VisualCue: any: any[];
+  emotionMarkers?: EmotionMarker: any: any[];
+  pauseMarkers?: PauseMarker: any: any[];
+  emphasisMarkers?: EmphasisMarker: any: any[];
   createdAt: Date;
   updatedAt: Date;
   authorId: string;
   status: 'draft' | 'reviewed' | 'approved' | 'generated';
   category: ContentCategory;
-  targetAudience: any[];
+  targetAudience: any: any[];
   estimatedDurationSeconds: number;
 }
 
@@ -262,11 +262,11 @@ export interface AvatarIntegrationPoint {
   scriptTemplate?: string;
   dynamicVariables?: Record<string, string>;
   conditions?: {
-    userRole?: string: any[];
+    userRole?: string: any: any[];
     userProgress?: number;
     assessmentScore?: number;
     timeOfDay?: string;
-    deviceType?: string: any[];
+    deviceType?: string: any: any[];
   };
   fallbackText?: string;
 }
@@ -280,13 +280,13 @@ export interface AvatarModel {
   description: string;
   previewImageUrl: string;
   previewVideoUrl: string;
-  supportedEmotions: any[];
-  supportedSpeakingStyles: any[];
-  supportedBackgrounds: any[];
-  supportedLanguages: any[];
+  supportedEmotions: any: any[];
+  supportedSpeakingStyles: any: any[];
+  supportedBackgrounds: any: any[];
+  supportedLanguages: any: any[];
   isDefault: boolean;
   category: 'teacher' | 'mentor' | 'guide' | 'specialist' | 'character';
-  tags: any[];
+  tags: any: any[];
 }
 
 /**
