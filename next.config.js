@@ -36,6 +36,19 @@ const nextConfig = {
   
   // Configure webpack for better performance
   webpack: (config, { dev, isServer }) => {
+    // Add polyfill for browser globals
+    const originalEntry = config.entry;
+    config.entry = async () => {
+      const entries = await originalEntry();
+      
+      // Add the polyfill to the main entry points
+      if (entries['main.js'] && !entries['main.js'].includes('./src/polyfills.js')) {
+        entries['main.js'].unshift('./src/polyfills.js');
+      }
+      
+      return entries;
+    };
+    
     // Add optimization for production builds
     if (!dev) {
       config.optimization.splitChunks = {
@@ -69,7 +82,9 @@ const nextConfig = {
       // Add explicit aliases for problematic paths using plain string paths
       '@/lib/auth/auth-options': path.join(__dirname, 'src/lib/auth/auth-options'),
       '@/lib/db/prisma': path.join(__dirname, 'src/lib/db/prisma'),
-      '@/lib/ai/ai-service': path.join(__dirname, 'src/lib/ai/ai-service')
+      '@/lib/ai/ai-service': path.join(__dirname, 'src/lib/ai/ai-service'),
+      // Add alias for OpenAI compatibility layer
+      'openai': path.join(__dirname, 'src/lib/openai-compat.js')
     };
     
     // Get webpack's DefinePlugin
