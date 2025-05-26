@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * AI Avatar Video Service
  * 
@@ -103,14 +105,14 @@ export class AvatarService {
       };
       
       // If using a provider that requires registration of the avatar
-      if (profile.provider !== 'custom' && profile.imageUrl: any) {
+      if (profile.provider !== 'custom' && profile.imageUrl) {
         // Register avatar with the provider if needed
         // This is a placeholder for actual implementation
         console.log(`Registering avatar with ${profile.provider}`);
       }
       
       return newProfile;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error creating avatar profile:', error);
       throw new Error('Failed to create avatar profile');
     }
@@ -122,28 +124,28 @@ export class AvatarService {
   async generateVideo(options: VideoGenerationOptions): Promise<VideoGenerationResult> {
     try {
       // Get the avatar profile
-      const avatarProfile = await this.getAvatarProfile(options.avatarProfileId: any);
+      const avatarProfile = await this.getAvatarProfile(options.avatarProfileId);
       
-      if (!avatarProfile: any) {
+      if (!avatarProfile) {
         throw new Error(`Avatar profile not found: ${options.avatarProfileId}`);
       }
       
       // Generate video based on the provider
-      switch (avatarProfile.provider: any) {
+      switch (avatarProfile.provider) {
         case 'simli':
-          return this.generateSimliVideo(avatarProfile: any, options);
+          return this.generateSimliVideo(avatarProfile, options);
         case 'veed':
-          return this.generateVeedVideo(avatarProfile: any, options);
+          return this.generateVeedVideo(avatarProfile, options);
         case 'elevenlabs':
-          return this.generateElevenLabsVideo(avatarProfile: any, options);
+          return this.generateElevenLabsVideo(avatarProfile, options);
         case 'heygen':
-          return this.generateHeygenVideo(avatarProfile: any, options);
+          return this.generateHeygenVideo(avatarProfile, options);
         case 'custom':
-          return this.generateCustomVideo(avatarProfile: any, options);
+          return this.generateCustomVideo(avatarProfile, options);
         default:
           throw new Error(`Unsupported avatar provider: ${avatarProfile.provider}`);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error generating video:', error);
       return {
         id: `video_error_${Date.now()}`,
@@ -169,7 +171,7 @@ export class AvatarService {
         duration: Math.floor(Math.random() * 120) + 30, // 30-150 seconds
         createdAt: new Date()
       };
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error checking video status:', error);
       throw new Error('Failed to check video status');
     }
@@ -201,7 +203,7 @@ export class AvatarService {
     profile: AvatarProfile, 
     options: VideoGenerationOptions
   ): Promise<VideoGenerationResult> {
-    if (!this.config.simliApiKey: any) {
+    if (!this.config.simliApiKey) {
       throw new Error('Simli API key not configured');
     }
     
@@ -215,7 +217,7 @@ export class AvatarService {
         status: 'processing',
         createdAt: new Date()
       };
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error with Simli API:', error);
       throw new Error('Failed to generate video with Simli');
     }
@@ -228,7 +230,7 @@ export class AvatarService {
     profile: AvatarProfile, 
     options: VideoGenerationOptions
   ): Promise<VideoGenerationResult> {
-    if (!this.config.veedApiKey: any) {
+    if (!this.config.veedApiKey) {
       throw new Error('VEED API key not configured');
     }
     
@@ -242,7 +244,7 @@ export class AvatarService {
         status: 'processing',
         createdAt: new Date()
       };
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error with VEED API:', error);
       throw new Error('Failed to generate video with VEED');
     }
@@ -255,7 +257,7 @@ export class AvatarService {
     profile: AvatarProfile, 
     options: VideoGenerationOptions
   ): Promise<VideoGenerationResult> {
-    if (!this.config.elevenLabsApiKey: any) {
+    if (!this.config.elevenLabsApiKey) {
       throw new Error('ElevenLabs API key not configured');
     }
     
@@ -269,7 +271,7 @@ export class AvatarService {
         status: 'processing',
         createdAt: new Date()
       };
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error with ElevenLabs API:', error);
       throw new Error('Failed to generate video with ElevenLabs');
     }
@@ -282,7 +284,7 @@ export class AvatarService {
     profile: AvatarProfile, 
     options: VideoGenerationOptions
   ): Promise<VideoGenerationResult> {
-    if (!this.config.heygenApiKey: any) {
+    if (!this.config.heygenApiKey) {
       throw new Error('HeyGen API key not configured');
     }
     
@@ -296,7 +298,7 @@ export class AvatarService {
         status: 'processing',
         createdAt: new Date()
       };
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error with HeyGen API:', error);
       throw new Error('Failed to generate video with HeyGen');
     }
@@ -319,7 +321,7 @@ export class AvatarService {
         status: 'processing',
         createdAt: new Date()
       };
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error with custom video generation:', error);
       throw new Error('Failed to generate video with custom implementation');
     }
@@ -331,15 +333,15 @@ export class AvatarService {
   adaptScriptForAgeGroup(script: string, ageGroup: AvatarProfile['ageGroup']): string {
     // In a real implementation, this would use NLP or AI to adapt the language
     // For now, we'll just return the original script
-    switch (ageGroup: any) {
+    switch (ageGroup) {
       case 'nursery':
-        return this.simplifyForNursery(script: any);
+        return this.simplifyForNursery(script);
       case 'early-primary':
-        return this.adaptForEarlyPrimary(script: any);
+        return this.adaptForEarlyPrimary(script);
       case 'late-primary':
-        return this.adaptForLatePrimary(script: any);
+        return this.adaptForLatePrimary(script);
       case 'secondary':
-        return this.adaptForSecondary(script: any);
+        return this.adaptForSecondary(script);
       case 'professional':
       default:
         return script;
@@ -353,9 +355,9 @@ export class AvatarService {
     // Very simple sentences, concrete concepts, repetition
     // This would be more sophisticated in a real implementation
     return script
-      .replace(/\b(\w{10: any,})\b/g, 'big word') // Replace long words
-      .replace(/\. /g: any, '! ') // More exclamations
-      .split('.').map(s => s.trim()).filter(s => s.length > 0: any).join('. '); // Shorter sentences
+      .replace(/\b(\w{10,})\b/g, 'big word') // Replace long words
+      .replace(/\. /g, '! ') // More exclamations
+      .split('.').map(s => s.trim()).filter(s => s.length > 0).join('. '); // Shorter sentences
   }
 
   /**
