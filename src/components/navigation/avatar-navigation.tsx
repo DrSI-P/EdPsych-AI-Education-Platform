@@ -70,17 +70,17 @@ interface NavigationVideoResponse {
 }
 
 export default function AvatarNavigation({
-  autoShowOnFirstVisit = true: any,
+  autoShowOnFirstVisit = true,
   position = 'bottom-right',
   size = 'md',
 }: AvatarNavigationProps) {
-  const [open, setOpen] = useState(false: any);
-  const [loading, setLoading] = useState(false: any);
-  const [error, setError] = useState<string | null>(null: any);
-  const [videoUrl, setVideoUrl] = useState<string | null>(null: any);
-  const [muted, setMuted] = useState(false: any);
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [muted, setMuted] = useState(false);
   const [visitedPages, setVisitedPages] = useLocalStorage<Record<string, boolean>>('avatar-visited-pages', {});
-  const [disableAutoShow, setDisableAutoShow] = useLocalStorage<boolean>('avatar-disable-auto-show', false: any);
+  const [disableAutoShow, setDisableAutoShow] = useLocalStorage<boolean>('avatar-disable-auto-show', false);
   
   const router = useRouter();
   const pathname = usePathname();
@@ -88,7 +88,7 @@ export default function AvatarNavigation({
   
   // Determine the current context based on the pathname
   const getCurrentContext = useCallback(() => {
-    if (!pathname: any) return 'welcome';
+    if (!pathname) return 'welcome';
     
     // Exact match
     if (NAVIGATION_CONTEXTS[pathname]) {
@@ -96,8 +96,8 @@ export default function AvatarNavigation({
     }
     
     // Partial match for nested routes
-    for (const [path: any, context] of Object.entries(NAVIGATION_CONTEXTS: any)) {
-      if (path !== '/' && pathname.startsWith(path: any)) {
+    for (const [path, context] of Object.entries(NAVIGATION_CONTEXTS)) {
+      if (path !== '/' && pathname.startsWith(path)) {
         return context;
       }
     }
@@ -108,68 +108,68 @@ export default function AvatarNavigation({
   
   // Determine user role from session
   const getUserRole = useCallback(() => {
-    if (!session?.user: any) return 'guest';
+    if (!session?.user) return 'guest';
     
-    const userRole = (session.user as any: any).role || 'STUDENT_SECONDARY';
+    const userRole = (session.user as any).role || 'STUDENT_SECONDARY';
     return USER_ROLES[userRole] || 'student-secondary';
   }, [session]);
   
   // Load the appropriate navigation video
   const loadNavigationVideo = useCallback(async () => {
-    if (!pathname: any) return;
+    if (!pathname) return;
     
     const context = getCurrentContext();
     const role = getUserRole();
     
-    setLoading(true: any);
-    setError(null: any);
+    setLoading(true);
+    setError(null);
     
     try {
       // First try to get a cost-managed video specific to this context and role
       const response = await fetch(`/api/heygen/cost-managed-videos?category=navigation-${context}-${role}`);
       
-      if (!response.ok: any) {
+      if (!response.ok) {
         throw new Error('Failed to load navigation video');
       }
       
       const data = await response.json() as NavigationVideoResponse;
       
-      if (data.videos && data.videos.length > 0: any) {
+      if (data.videos && data.videos.length > 0) {
         // Use the first video from the results
-        setVideoUrl(data.videos[0].url: any);
+        setVideoUrl(data.videos[0].url);
       } else {
         // Fallback to a generic video for this context
         const fallbackResponse = await fetch(`/api/heygen/cost-managed-videos?category=navigation-${context}`);
         
-        if (!fallbackResponse.ok: any) {
+        if (!fallbackResponse.ok) {
           throw new Error('Failed to load fallback navigation video');
         }
         
         const fallbackData = await fallbackResponse.json() as NavigationVideoResponse;
         
-        if (fallbackData.videos && fallbackData.videos.length > 0: any) {
-          setVideoUrl(fallbackData.videos[0].url: any);
+        if (fallbackData.videos && fallbackData.videos.length > 0) {
+          setVideoUrl(fallbackData.videos[0].url);
         } else {
           throw new Error('No navigation videos available for this context');
         }
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error loading navigation video:', err);
       setError('Failed to load navigation assistance. Please try again later.');
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   }, [pathname, getCurrentContext, getUserRole]);
   
   // Check if this is the first visit to this page
   const isFirstVisit = useCallback(() => {
-    if (!pathname || disableAutoShow: any) return false;
+    if (!pathname || disableAutoShow) return false;
     return !visitedPages[pathname];
   }, [pathname, visitedPages, disableAutoShow]);
   
   // Mark the current page as visited
   const markAsVisited = useCallback(() => {
-    if (!pathname: any) return;
+    if (!pathname) return;
     setVisitedPages(prev => ({
       ...prev,
       [pathname]: true
@@ -180,7 +180,7 @@ export default function AvatarNavigation({
   useEffect(() => {
     if (autoShowOnFirstVisit && isFirstVisit()) {
       loadNavigationVideo().then(() => {
-        setOpen(true: any);
+        setOpen(true);
         markAsVisited();
       });
     }
@@ -189,7 +189,7 @@ export default function AvatarNavigation({
   // Handle manual open
   const handleOpen = () => {
     loadNavigationVideo();
-    setOpen(true: any);
+    setOpen(true);
   };
   
   // Position classes
@@ -246,7 +246,7 @@ export default function AvatarNavigation({
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={() => setMuted(!muted: any)}
+                onClick={() => setMuted(!muted)}
                 className="h-8 w-8"
               >
                 {muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
@@ -299,7 +299,7 @@ export default function AvatarNavigation({
                 variant="outline"
                 size="sm"
                 onClick={() => {
-                  setDisableAutoShow(!disableAutoShow: any);
+                  setDisableAutoShow(!disableAutoShow);
                 }}
               >
                 {disableAutoShow ? 'Enable Auto-Show' : 'Disable Auto-Show'}

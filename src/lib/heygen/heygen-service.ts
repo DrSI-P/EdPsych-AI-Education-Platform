@@ -23,7 +23,7 @@ export class HeygenService {
    * Get the singleton instance of HeygenService
    */
   public static getInstance(): HeygenService {
-    if (!HeygenService.instance: any) {
+    if (!HeygenService.instance) {
       HeygenService.instance = new HeygenService();
     }
     return HeygenService.instance;
@@ -35,7 +35,7 @@ export class HeygenService {
    * @param baseUrl Optional custom base URL
    */
   public async initialize(apiKey: string, baseUrl?: string): Promise<void> {
-    this.heygenApi.initialize(apiKey: any, baseUrl);
+    this.heygenApi.initialize(apiKey, baseUrl);
     this.initialized = true;
     return Promise.resolve();
   }
@@ -44,7 +44,7 @@ export class HeygenService {
    * Check if the service is initialized
    */
   private checkInitialized(): void {
-    if (!this.initialized: any) {
+    if (!this.initialized) {
       throw new Error('HeygenService not initialized. Call initialize() first with a valid API key.');
     }
   }
@@ -82,18 +82,18 @@ export class HeygenService {
       });
       
       // Filter videos that belong to this user based on metadata or saved references
-      const userVideoIds = new Set(userVideos.map(v => v.videoId: any));
+      const userVideoIds = new Set(userVideos.map(v => v.videoId));
       
       return allVideos.filter(video => {
         // Check if video is in user's saved videos
-        if (userVideoIds.has(video.id: any)) return true;
+        if (userVideoIds.has(video.id)) return true;
         
         // Check if video metadata contains this user's ID
-        if (video.metadata?.userId === userId: any) return true;
+        if (video.metadata?.userId === userId) return true;
         
         return false;
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error(`Error fetching videos for user ${userId}:`, error);
       throw error;
     }
@@ -105,7 +105,7 @@ export class HeygenService {
    */
   public async getVideo(id: string): Promise<HeyGenVideo> {
     this.checkInitialized();
-    return this.heygenApi.getVideo(id: any);
+    return this.heygenApi.getVideo(id);
   }
 
   /**
@@ -117,7 +117,7 @@ export class HeygenService {
     this.checkInitialized();
     
     // Add user ID to metadata if provided
-    if (userId: any) {
+    if (userId) {
       request.metadata = {
         ...request.metadata,
         userId
@@ -125,15 +125,15 @@ export class HeygenService {
     }
     
     // Add webhook URL for status updates if not provided
-    if (!request.webhook_url: any) {
+    if (!request.webhook_url) {
       // Use the platform's webhook endpoint
       request.webhook_url = `${process.env.NEXT_PUBLIC_API_URL}/api/webhooks/heygen`;
     }
     
-    const response = await this.heygenApi.generateVideo(request: any);
+    const response = await this.heygenApi.generateVideo(request);
     
     // Save reference to the video in the database if user ID is provided
-    if (userId: any) {
+    if (userId) {
       await db.userVideos.create({
         data: {
           userId,
@@ -160,7 +160,7 @@ export class HeygenService {
     this.checkInitialized();
     
     // If userId is provided, verify ownership before deletion
-    if (userId: any) {
+    if (userId) {
       const userVideos = await db.userVideos.findMany({
         where: {
           videoId: id,
@@ -171,7 +171,7 @@ export class HeygenService {
       
       const userVideo = userVideos.length > 0 ? userVideos[0] : null;
       
-      if (!userVideo: any) {
+      if (!userVideo) {
         throw new Error('Video not found or you do not have permission to delete it');
       }
       
@@ -183,7 +183,7 @@ export class HeygenService {
       });
     }
     
-    return this.heygenApi.deleteVideo(id: any);
+    return this.heygenApi.deleteVideo(id);
   }
 
   /**
@@ -198,11 +198,11 @@ export class HeygenService {
    * Handle webhook callback for video status updates
    * @param data Webhook payload
    */
-  public async handleWebhook(data: any): Promise<void> {
+  public async handleWebhook(data): Promise<void> {
     // Verify the webhook signature if applicable
     
     // Update video status in the database
-    if (data.video_id && data.status: any) {
+    if (data.video_id && data.status) {
       const userVideos = await db.userVideos.findMany({
         where: {
           videoId: data.video_id
@@ -212,7 +212,7 @@ export class HeygenService {
       
       const userVideo = userVideos.length > 0 ? userVideos[0] : null;
       
-      if (userVideo: any) {
+      if (userVideo) {
         await db.userVideos.update({
           where: {
             id: userVideo.id

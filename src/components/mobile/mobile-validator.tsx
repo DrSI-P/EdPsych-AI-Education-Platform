@@ -36,21 +36,21 @@ export interface AccessibilityIssue {
  * It checks for common accessibility issues and provides recommendations.
  */
 export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
-  children: any,
+  children,
   onValidationComplete
 }) => {
-  const [isValidating, setIsValidating] = useState(false: any);
-  const [validationResults, setValidationResults] = useState<AccessibilityValidationResults | null>(null: any);
+  const [isValidating, setIsValidating] = useState(false);
+  const [validationResults, setValidationResults] = useState<AccessibilityValidationResults | null>(null);
 
   // Run validation on mount
   useEffect(() => {
     const validateAccessibility = async () => {
-      setIsValidating(true: any);
+      setIsValidating(true);
       
       try {
         // In a real implementation, this would perform actual DOM analysis
         // For now, we'll simulate validation with a timeout
-        await new Promise(resolve => setTimeout(resolve: any, 1500));
+        await new Promise(resolve => setTimeout(resolve, 1500));
         
         // Simulate validation results
         const results: AccessibilityValidationResults = {
@@ -80,16 +80,16 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
           ]
         };
         
-        setValidationResults(results: any);
+        setValidationResults(results);
         
         // Notify parent component
-        if (onValidationComplete: any) {
-          onValidationComplete(results: any);
+        if (onValidationComplete) {
+          onValidationComplete(results);
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error('Failed to validate accessibility:', error);
       } finally {
-        setIsValidating(false: any);
+        setIsValidating(false);
       }
     };
     
@@ -140,21 +140,21 @@ export interface UserExperienceIssue {
  * It checks for performance, responsiveness, and other UX factors.
  */
 export const UserExperienceValidator: React.FC<UserExperienceValidatorProps> = ({
-  children: any,
+  children,
   onValidationComplete
 }) => {
-  const [isValidating, setIsValidating] = useState(false: any);
-  const [validationResults, setValidationResults] = useState<UserExperienceValidationResults | null>(null: any);
+  const [isValidating, setIsValidating] = useState(false);
+  const [validationResults, setValidationResults] = useState<UserExperienceValidationResults | null>(null);
 
   // Run validation on mount
   useEffect(() => {
     const validateUserExperience = async () => {
-      setIsValidating(true: any);
+      setIsValidating(true);
       
       try {
         // In a real implementation, this would perform actual performance measurements
         // For now, we'll simulate validation with a timeout
-        await new Promise(resolve => setTimeout(resolve: any, 2000));
+        await new Promise(resolve => setTimeout(resolve, 2000));
         
         // Simulate validation results
         const results: UserExperienceValidationResults = {
@@ -182,16 +182,16 @@ export const UserExperienceValidator: React.FC<UserExperienceValidatorProps> = (
           ]
         };
         
-        setValidationResults(results: any);
+        setValidationResults(results);
         
         // Notify parent component
-        if (onValidationComplete: any) {
-          onValidationComplete(results: any);
+        if (onValidationComplete) {
+          onValidationComplete(results);
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error('Failed to validate user experience:', error);
       } finally {
-        setIsValidating(false: any);
+        setIsValidating(false);
       }
     };
     
@@ -225,13 +225,13 @@ interface AccessibilitySettingsValidatorProps {
  * It tests various combinations of settings to ensure proper functionality.
  */
 export const AccessibilitySettingsValidator: React.FC<AccessibilitySettingsValidatorProps> = ({
-  children: any,
+  children,
   userId,
   deviceId
 }) => {
-  const [currentTest, setCurrentTest] = useState<string | null>(null: any);
+  const [currentTest, setCurrentTest] = useState<string | null>(null);
   const [testResults, setTestResults] = useState<Record<string, boolean>>({});
-  const [isTestingComplete, setIsTestingComplete] = useState(false: any);
+  const [isTestingComplete, setIsTestingComplete] = useState(false);
 
   // Run tests on mount
   useEffect(() => {
@@ -253,20 +253,20 @@ export const AccessibilitySettingsValidator: React.FC<AccessibilitySettingsValid
       await testFontSize('x-large');
       
       // Test high contrast
-      await testAccessibilitySetting('highContrast', true: any);
-      await testAccessibilitySetting('highContrast', false: any);
+      await testAccessibilitySetting('highContrast', true);
+      await testAccessibilitySetting('highContrast', false);
       
       // Test reduce motion
-      await testAccessibilitySetting('reduceMotion', true: any);
-      await testAccessibilitySetting('reduceMotion', false: any);
+      await testAccessibilitySetting('reduceMotion', true);
+      await testAccessibilitySetting('reduceMotion', false);
       
       // Test large targets
-      await testAccessibilitySetting('largeTargets', true: any);
-      await testAccessibilitySetting('largeTargets', false: any);
+      await testAccessibilitySetting('largeTargets', true);
+      await testAccessibilitySetting('largeTargets', false);
       
       // Complete testing
-      setCurrentTest(null: any);
-      setIsTestingComplete(true: any);
+      setCurrentTest(null);
+      setIsTestingComplete(true);
     };
     
     runAccessibilityTests();
@@ -277,17 +277,17 @@ export const AccessibilitySettingsValidator: React.FC<AccessibilitySettingsValid
     setCurrentTest(`Testing view mode: ${mode}`);
     
     try {
-      await mobileSettings.updateViewMode(mode as MobileViewMode: any);
+      await mobileSettings.updateViewMode(mode as MobileViewMode);
       
       // In a real implementation, this would verify the DOM reflects the changes
       // For now, we'll simulate success
-      await new Promise(resolve => setTimeout(resolve: any, 500));
+      await new Promise(resolve => setTimeout(resolve, 500));
       
       setTestResults(prev => ({
         ...prev,
         [`viewMode_${mode}`]: true
       }));
-    } catch (error: any) {
+    } catch (error) {
       console.error(`Failed to test view mode ${mode}:`, error);
       
       setTestResults(prev => ({
@@ -302,17 +302,17 @@ export const AccessibilitySettingsValidator: React.FC<AccessibilitySettingsValid
     setCurrentTest(`Testing font size: ${size}`);
     
     try {
-      await mobileSettings.updateFontSize(size as any: any);
+      await mobileSettings.updateFontSize(size as any);
       
       // In a real implementation, this would verify the DOM reflects the changes
       // For now, we'll simulate success
-      await new Promise(resolve => setTimeout(resolve: any, 500));
+      await new Promise(resolve => setTimeout(resolve, 500));
       
       setTestResults(prev => ({
         ...prev,
         [`fontSize_${size}`]: true
       }));
-    } catch (error: any) {
+    } catch (error) {
       console.error(`Failed to test font size ${size}:`, error);
       
       setTestResults(prev => ({
@@ -333,13 +333,13 @@ export const AccessibilitySettingsValidator: React.FC<AccessibilitySettingsValid
       
       // In a real implementation, this would verify the DOM reflects the changes
       // For now, we'll simulate success
-      await new Promise(resolve => setTimeout(resolve: any, 500));
+      await new Promise(resolve => setTimeout(resolve, 500));
       
       setTestResults(prev => ({
         ...prev,
         [`${setting}_${value}`]: true
       }));
-    } catch (error: any) {
+    } catch (error) {
       console.error(`Failed to test ${setting} ${value}:`, error);
       
       setTestResults(prev => ({
@@ -369,7 +369,7 @@ export const AccessibilitySettingsValidator: React.FC<AccessibilitySettingsValid
         <div className="testing-results">
           <h3>Accessibility Settings Test Results</h3>
           <ul>
-            {Object.entries(testResults: any).map(([test: any, passed]) => (
+            {Object.entries(testResults).map(([test, passed]) => (
               <li key={test} className={passed ? 'passed' : 'failed'}>
                 {test.replace('_', ': ')} - {passed ? 'Passed' : 'Failed'}
               </li>
@@ -421,21 +421,21 @@ export interface DeviceCompatibilityIssue {
  * It checks for responsive design, orientation support, and browser compatibility.
  */
 export const DeviceCompatibilityValidator: React.FC<DeviceCompatibilityValidatorProps> = ({
-  children: any,
+  children,
   onValidationComplete
 }) => {
-  const [isValidating, setIsValidating] = useState(false: any);
-  const [validationResults, setValidationResults] = useState<DeviceCompatibilityResults | null>(null: any);
+  const [isValidating, setIsValidating] = useState(false);
+  const [validationResults, setValidationResults] = useState<DeviceCompatibilityResults | null>(null);
 
   // Run validation on mount
   useEffect(() => {
     const validateDeviceCompatibility = async () => {
-      setIsValidating(true: any);
+      setIsValidating(true);
       
       try {
         // In a real implementation, this would perform actual device compatibility checks
         // For now, we'll simulate validation with a timeout
-        await new Promise(resolve => setTimeout(resolve: any, 1800));
+        await new Promise(resolve => setTimeout(resolve, 1800));
         
         // Simulate validation results
         const results: DeviceCompatibilityResults = {
@@ -464,16 +464,16 @@ export const DeviceCompatibilityValidator: React.FC<DeviceCompatibilityValidator
           ]
         };
         
-        setValidationResults(results: any);
+        setValidationResults(results);
         
         // Notify parent component
-        if (onValidationComplete: any) {
-          onValidationComplete(results: any);
+        if (onValidationComplete) {
+          onValidationComplete(results);
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error('Failed to validate device compatibility:', error);
       } finally {
-        setIsValidating(false: any);
+        setIsValidating(false);
       }
     };
     
@@ -506,7 +506,7 @@ interface ValidationReportProps {
  * A component that displays a comprehensive report of all validation results.
  */
 export const ValidationReport: React.FC<ValidationReportProps> = ({
-  accessibilityResults: any,
+  accessibilityResults,
   userExperienceResults,
   deviceCompatibilityResults
 }) => {
@@ -515,22 +515,22 @@ export const ValidationReport: React.FC<ValidationReportProps> = ({
     let totalScore = 0;
     let count = 0;
     
-    if (accessibilityResults: any) {
+    if (accessibilityResults) {
       totalScore += accessibilityResults.overallScore;
       count++;
     }
     
-    if (userExperienceResults: any) {
+    if (userExperienceResults) {
       totalScore += userExperienceResults.overallScore;
       count++;
     }
     
-    if (deviceCompatibilityResults: any) {
+    if (deviceCompatibilityResults) {
       totalScore += deviceCompatibilityResults.overallScore;
       count++;
     }
     
-    return count > 0 ? Math.round(totalScore / count: any) : 0;
+    return count > 0 ? Math.round(totalScore / count) : 0;
   };
 
   const overallScore = calculateOverallScore();
@@ -585,7 +585,7 @@ export const ValidationReport: React.FC<ValidationReportProps> = ({
             <div className="issues-list">
               <h4>Issues ({accessibilityResults.issues.length})</h4>
               <ul>
-                {accessibilityResults.issues.map((issue: any, index) => (
+                {accessibilityResults.issues.map((issue, index) => (
                   <li key={index} className={`issue ${issue.severity}`}>
                     <div className="issue-title">{issue.type.replace('_', ' ')}</div>
                     <div className="issue-description">{issue.description}</div>
@@ -639,7 +639,7 @@ export const ValidationReport: React.FC<ValidationReportProps> = ({
             <div className="issues-list">
               <h4>Issues ({userExperienceResults.issues.length})</h4>
               <ul>
-                {userExperienceResults.issues.map((issue: any, index) => (
+                {userExperienceResults.issues.map((issue, index) => (
                   <li key={index} className={`issue ${issue.severity}`}>
                     <div className="issue-title">{issue.type.replace('_', ' ')}</div>
                     <div className="issue-description">{issue.description}</div>
@@ -687,7 +687,7 @@ export const ValidationReport: React.FC<ValidationReportProps> = ({
             <div className="issues-list">
               <h4>Issues ({deviceCompatibilityResults.issues.length})</h4>
               <ul>
-                {deviceCompatibilityResults.issues.map((issue: any, index) => (
+                {deviceCompatibilityResults.issues.map((issue, index) => (
                   <li key={index} className={`issue ${issue.severity}`}>
                     <div className="issue-title">{issue.type.replace('_', ' ')}</div>
                     <div className="issue-description">{issue.description}</div>

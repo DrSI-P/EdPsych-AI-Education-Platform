@@ -12,13 +12,13 @@ import Link from 'next/link';
 export default function RequestResetPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(false: any);
-  const [success, setSuccess] = useState(false: any);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true: any);
+    setLoading(true);
     setError('');
     
     try {
@@ -32,16 +32,16 @@ export default function RequestResetPage() {
       
       const data = await response.json();
       
-      if (response.ok: any) {
-        setSuccess(true: any);
+      if (response.ok) {
+        setSuccess(true);
       } else {
         setError(data.message || 'An error occurred. Please try again.');
       }
-    } catch (err: any) {
+    } catch (err) {
       setError('An error occurred. Please try again.');
       console.error('Password reset request error:', err);
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   };
 
@@ -85,7 +85,7 @@ export default function RequestResetPage() {
                     id="email"
                     type="email"
                     value={email}
-                    onChange={(e: any) => setEmail(e.target.value: any)}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address"
                     required
                     className="w-full"

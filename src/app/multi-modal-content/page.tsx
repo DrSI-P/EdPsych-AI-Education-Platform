@@ -11,7 +11,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 export default function MultiModalContentPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [content, setContent] = useState<any>(null: any);
+  const [content, setContent] = useState<any>(null);
   const contentId = searchParams.get('contentId');
 
   return (

@@ -15,12 +15,12 @@ interface BlogPostViewProps {
     featuredImage?: string;
     likeCount?: number;
   };
-  relatedPosts?: any[];
+  relatedPosts?[];
   onLike?: () => void;
   isLikeLoading?: boolean;
 }
 
-export function BlogPostView({ post: any, relatedPosts = [], onLike, isLikeLoading = false }: BlogPostViewProps) {
+export function BlogPostView({ post, relatedPosts = [], onLike, isLikeLoading = false }: BlogPostViewProps) {
   return (
     <div className="max-w-4xl mx-auto">
       {post.featuredImage && (
@@ -47,8 +47,8 @@ export function BlogPostView({ post: any, relatedPosts = [], onLike, isLikeLoadi
           <p>By {post.author?.name || 'Unknown'}</p>
           <p className="text-sm">
             {post.publishedAt 
-              ? `Published on ${new Date(post.publishedAt: any).toLocaleDateString('en-GB')}`
-              : `Created on ${new Date(post.createdAt: any).toLocaleDateString('en-GB')}`
+              ? `Published on ${new Date(post.publishedAt).toLocaleDateString('en-GB')}`
+              : `Created on ${new Date(post.createdAt).toLocaleDateString('en-GB')}`
             }
           </p>
         </div>
@@ -95,7 +95,7 @@ export function BlogPostView({ post: any, relatedPosts = [], onLike, isLikeLoadi
                   <h3 className="font-bold mb-2">{relatedPost.title}</h3>
                   <p className="text-sm text-gray-600 mb-3">
                     By {relatedPost.author?.name || 'Unknown'} on {' '}
-                    {new Date(relatedPost.publishedAt || relatedPost.createdAt: any).toLocaleDateString('en-GB')}
+                    {new Date(relatedPost.publishedAt || relatedPost.createdAt).toLocaleDateString('en-GB')}
                   </p>
                   <a 
                     href={`/blog/${relatedPost.slug}`} 

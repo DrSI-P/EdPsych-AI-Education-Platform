@@ -18,7 +18,7 @@ import { motion } from 'framer-motion';
 export const VoiceInputIntegration: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  const [showControls, setShowControls] = React.useState(false: any);
+  const [showControls, setShowControls] = React.useState(false);
   
   return (
     <VoiceInputProvider>
@@ -35,7 +35,7 @@ export const VoiceInputIntegration: React.FC<{
               variant="outline"
               size="icon"
               className="h-10 w-10 rounded-full bg-white shadow-md border-grey-200"
-              onClick={() => setShowControls(!showControls: any)}
+              onClick={() => setShowControls(!showControls)}
             >
               <Mic className="h-5 w-5 text-blue-600" />
             </Button>
@@ -48,7 +48,7 @@ export const VoiceInputIntegration: React.FC<{
               exit={{ y: 20, opacity: 0 }}
               className="absolute bottom-12 right-0 mb-2 w-80"
             >
-              <VoiceControlPanel onClose={() => setShowControls(false: any)} />
+              <VoiceControlPanel onClose={() => setShowControls(false)} />
             </motion.div>
           )}
         </div>

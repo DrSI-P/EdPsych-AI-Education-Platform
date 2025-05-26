@@ -43,9 +43,9 @@ export const spacing = {
 // Define typography scale
 export const typography = {
   fontFamily: {
-    sans: 'var(--font-sans: any, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Colour Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Colour Emoji")',
-    serif: 'var(--font-serif: any, ui-serif, Georgia, Cambria, "Times New Roman", Times, serif)',
-    mono: 'var(--font-mono: any, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace)',
+    sans: 'var(--font-sans, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Colour Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Colour Emoji")',
+    serif: 'var(--font-serif, ui-serif, Georgia, Cambria, "Times New Roman", Times, serif)',
+    mono: 'var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace)',
   },
   fontWeight: {
     thin: '100',
@@ -305,7 +305,7 @@ interface TypographyProps {
 
 export function Typography({ 
   variant = 'body', 
-  children: any, 
+  children, 
   className = '' 
 }: TypographyProps) {
   const style = 
@@ -326,7 +326,7 @@ export function Typography({
     variant === 'tiny' ? 'span' : 'p';
   
   return React.createElement(
-    Element: any,
+    Element,
     { className: `${style} ${className}` },
     children
   );

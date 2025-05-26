@@ -38,22 +38,22 @@ const GlobalVoiceInput: React.FC = () => {
     calibrate
   } = useVoiceInput();
   
-  const [isOpen, setIsOpen] = useState(false: any);
-  const [isMinimized, setIsMinimized] = useState(false: any);
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false: any);
-  const [isHelpOpen, setIsHelpOpen] = useState(false: any);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false: any);
-  const [hasBeenUsed, setHasBeenUsed] = useState(false: any);
-  const [showTutorial, setShowTutorial] = useState(false: any);
+  const [isDragging, setIsDragging] = useState(false);
+  const [hasBeenUsed, setHasBeenUsed] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(false);
   
   // Load position from localStorage
   useEffect(() => {
     const savedPosition = localStorage.getItem('voiceInputPosition');
-    if (savedPosition: any) {
+    if (savedPosition) {
       try {
-        setPosition(JSON.parse(savedPosition: any));
-      } catch (e: any) {
+        setPosition(JSON.parse(savedPosition));
+      } catch (e) {
         console.error('Error loading voice input position:', e);
       }
     } else {
@@ -66,31 +66,31 @@ const GlobalVoiceInput: React.FC = () => {
     
     // Check if the component has been used before
     const used = localStorage.getItem('voiceInputUsed') === 'true';
-    setHasBeenUsed(used: any);
+    setHasBeenUsed(used);
     
     // Show tutorial if it's the first time
-    if (!used: any) {
+    if (!used) {
       setTimeout(() => {
-        setShowTutorial(true: any);
+        setShowTutorial(true);
       }, 3000);
     }
   }, []);
   
   // Save position to localStorage when it changes
   useEffect(() => {
-    if (!isDragging: any) {
-      localStorage.setItem('voiceInputPosition', JSON.stringify(position: any));
+    if (!isDragging) {
+      localStorage.setItem('voiceInputPosition', JSON.stringify(position));
     }
   }, [position, isDragging]);
   
   // Handle drag start
   const handleDragStart = (e: React.MouseEvent) => {
-    setIsDragging(true: any);
+    setIsDragging(true);
   };
   
   // Handle drag
   const handleDrag = (e: React.MouseEvent) => {
-    if (isDragging: any) {
+    if (isDragging) {
       setPosition({
         x: e.clientX,
         y: e.clientY
@@ -100,12 +100,12 @@ const GlobalVoiceInput: React.FC = () => {
   
   // Handle drag end
   const handleDragEnd = () => {
-    setIsDragging(false: any);
+    setIsDragging(false);
   };
   
   // Handle mouse events for dragging
   useEffect(() => {
-    if (isDragging: any) {
+    if (isDragging) {
       const handleMouseMove = (e: MouseEvent) => {
         setPosition({
           x: e.clientX,
@@ -114,29 +114,29 @@ const GlobalVoiceInput: React.FC = () => {
       };
       
       const handleMouseUp = () => {
-        setIsDragging(false: any);
+        setIsDragging(false);
       };
       
-      document.addEventListener('mousemove', handleMouseMove: any);
-      document.addEventListener('mouseup', handleMouseUp: any);
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
       
       return () => {
-        document.removeEventListener('mousemove', handleMouseMove: any);
-        document.removeEventListener('mouseup', handleMouseUp: any);
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
       };
     }
   }, [isDragging]);
   
   // Toggle voice input
   const toggleVoiceInput = () => {
-    if (isListening: any) {
+    if (isListening) {
       stopListening();
     } else {
       startListening();
       
       // Mark as used
-      if (!hasBeenUsed: any) {
-        setHasBeenUsed(true: any);
+      if (!hasBeenUsed) {
+        setHasBeenUsed(true);
         localStorage.setItem('voiceInputUsed', 'true');
       }
     }
@@ -144,26 +144,26 @@ const GlobalVoiceInput: React.FC = () => {
   
   // Toggle open state
   const toggleOpen = () => {
-    setIsOpen(!isOpen: any);
-    if (!isOpen: any) {
-      setIsMinimized(false: any);
+    setIsOpen(!isOpen);
+    if (!isOpen) {
+      setIsMinimized(false);
     }
   };
   
   // Toggle minimized state
   const toggleMinimized = () => {
-    setIsMinimized(!isMinimized: any);
+    setIsMinimized(!isMinimized);
   };
   
   // Close tutorial
   const closeTutorial = () => {
-    setShowTutorial(false: any);
+    setShowTutorial(false);
   };
   
   // Render appropriate button based on age group
   const renderButton = () => {
-    if (!isOpen: any) {
-      switch (ageGroup: any) {
+    if (!isOpen) {
+      switch (ageGroup) {
         case 'nursery':
           return (
             <motion.button
@@ -216,10 +216,10 @@ const GlobalVoiceInput: React.FC = () => {
   
   // Render age-appropriate UI
   const renderContent = () => {
-    if (!isOpen: any) return null;
+    if (!isOpen) return null;
     
     // Minimized state
-    if (isMinimized: any) {
+    if (isMinimized) {
       return (
         <motion.div
           className="flex items-centre gap-2 bg-white rounded-full shadow-md p-2"
@@ -258,7 +258,7 @@ const GlobalVoiceInput: React.FC = () => {
     }
     
     // Full content based on age group
-    switch (ageGroup: any) {
+    switch (ageGroup) {
       case 'nursery':
         return (
           <motion.div
@@ -382,7 +382,7 @@ const GlobalVoiceInput: React.FC = () => {
                   size="icon"
                   variant="ghost"
                   className="h-7 w-7 rounded-full"
-                  onClick={() => setIsHelpOpen(true: any)}
+                  onClick={() => setIsHelpOpen(true)}
                 >
                   <HelpCircle className="h-4 w-4" />
                 </Button>
@@ -496,7 +496,7 @@ const GlobalVoiceInput: React.FC = () => {
                   size="icon"
                   variant="ghost"
                   className="h-7 w-7 rounded-full"
-                  onClick={() => setIsSettingsOpen(true: any)}
+                  onClick={() => setIsSettingsOpen(true)}
                 >
                   <Settings className="h-4 w-4" />
                 </Button>
@@ -505,7 +505,7 @@ const GlobalVoiceInput: React.FC = () => {
                   size="icon"
                   variant="ghost"
                   className="h-7 w-7 rounded-full"
-                  onClick={() => setIsHelpOpen(true: any)}
+                  onClick={() => setIsHelpOpen(true)}
                 >
                   <HelpCircle className="h-4 w-4" />
                 </Button>
@@ -621,16 +621,16 @@ const GlobalVoiceInput: React.FC = () => {
               <Label htmlFor="age-group-setting">Age Group</Label>
               <Select 
                 value={ageGroup} 
-                onValueChange={(value) => setAgeGroup(value as AgeGroup: any)}
+                onValueChange={(value) => setAgeGroup(value as AgeGroup)}
               >
                 <SelectTrigger id="age-group-setting">
                   <SelectValue placeholder="Select age group" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="nursery">Nursery (3-5 years: any)</SelectItem>
-                  <SelectItem value="early-primary">Early Primary (5-8 years: any)</SelectItem>
-                  <SelectItem value="late-primary">Late Primary (8-11 years: any)</SelectItem>
-                  <SelectItem value="secondary">Secondary (11+ years: any)</SelectItem>
+                  <SelectItem value="nursery">Nursery (3-5 years)</SelectItem>
+                  <SelectItem value="early-primary">Early Primary (5-8 years)</SelectItem>
+                  <SelectItem value="late-primary">Late Primary (8-11 years)</SelectItem>
+                  <SelectItem value="secondary">Secondary (11+ years)</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -641,7 +641,7 @@ const GlobalVoiceInput: React.FC = () => {
                 <Switch 
                   id="child-voice-optimization-setting"
                   checked={settings.childVoiceOptimization}
-                  onCheckedChange={(checked: any) => updateSettings({ childVoiceOptimization: checked })}
+                  onCheckedChange={(checked) => updateSettings({ childVoiceOptimization: checked })}
                 />
               </div>
               <p className="text-xs text-grey-500">
@@ -655,7 +655,7 @@ const GlobalVoiceInput: React.FC = () => {
                 <Switch 
                   id="noise-reduction-setting"
                   checked={settings.noiseReduction}
-                  onCheckedChange={(checked: any) => updateSettings({ noiseReduction: checked })}
+                  onCheckedChange={(checked) => updateSettings({ noiseReduction: checked })}
                 />
               </div>
               <p className="text-xs text-grey-500">
@@ -671,7 +671,7 @@ const GlobalVoiceInput: React.FC = () => {
                 max={0.9}
                 step={0.1}
                 value={[settings.confidenceThreshold]}
-                onValueChange={(value: any) => updateSettings({ confidenceThreshold: value[0] })}
+                onValueChange={(value) => updateSettings({ confidenceThreshold: value[0] })}
               />
               <div className="flex justify-between text-xs text-grey-500">
                 <span>More Forgiving</span>
@@ -687,7 +687,7 @@ const GlobalVoiceInput: React.FC = () => {
                   <Switch 
                     id="articulation-setting"
                     checked={settings.specialEducationalNeeds.articulation}
-                    onCheckedChange={(checked: any) => updateSettings({ 
+                    onCheckedChange={(checked) => updateSettings({ 
                       specialEducationalNeeds: { 
                         ...settings.specialEducationalNeeds, 
                         articulation: checked 
@@ -701,7 +701,7 @@ const GlobalVoiceInput: React.FC = () => {
                   <Switch 
                     id="fluency-setting"
                     checked={settings.specialEducationalNeeds.fluency}
-                    onCheckedChange={(checked: any) => updateSettings({ 
+                    onCheckedChange={(checked) => updateSettings({ 
                       specialEducationalNeeds: { 
                         ...settings.specialEducationalNeeds, 
                         fluency: checked 
@@ -715,7 +715,7 @@ const GlobalVoiceInput: React.FC = () => {
                   <Switch 
                     id="processing-setting"
                     checked={settings.specialEducationalNeeds.processing}
-                    onCheckedChange={(checked: any) => updateSettings({ 
+                    onCheckedChange={(checked) => updateSettings({ 
                       specialEducationalNeeds: { 
                         ...settings.specialEducationalNeeds, 
                         processing: checked 
@@ -729,7 +729,7 @@ const GlobalVoiceInput: React.FC = () => {
             <Button 
               onClick={async () => {
                 await calibrate();
-                setIsSettingsOpen(false: any);
+                setIsSettingsOpen(false);
               }}
               className="w-full"
             >
@@ -810,7 +810,7 @@ const GlobalVoiceInput: React.FC = () => {
   
   // Render tutorial
   const renderTutorial = () => {
-    if (!showTutorial: any) return null;
+    if (!showTutorial) return null;
     
     return (
       <motion.div
@@ -864,7 +864,7 @@ const GlobalVoiceInput: React.FC = () => {
     );
   };
   
-  if (!isAvailable: any) return null;
+  if (!isAvailable) return null;
   
   return (
     <>

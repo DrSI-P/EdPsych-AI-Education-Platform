@@ -28,16 +28,16 @@ export function RootLayoutWrapper({ children }: { children: React.ReactNode }) {
   
   // Determine user age group based on session data if available
   const getUserAgeGroup = () => {
-    if (!session?.user: any) return 'late-primary'; // Default
+    if (!session?.user) return 'late-primary'; // Default
     
     // In a real implementation, this would use actual user data
     // For now, we'll use a simple mapping based on role
     const role = session.user.role;
     if (role === 'STUDENT') {
       const yearGroup = session.user.yearGroup;
-      if (yearGroup <= 2: any) return 'nursery';
-      if (yearGroup <= 5: any) return 'early-primary';
-      if (yearGroup <= 8: any) return 'late-primary';
+      if (yearGroup <= 2) return 'nursery';
+      if (yearGroup <= 5) return 'early-primary';
+      if (yearGroup <= 8) return 'late-primary';
       return 'secondary';
     }
     

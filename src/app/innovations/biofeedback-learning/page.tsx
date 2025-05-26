@@ -61,34 +61,34 @@ export default function BiofeedbackLearningPage() {
     optimalChallengeZone: 72
   });
   
-  const [simulationRunning, setSimulationRunning] = useState(false: any);
-  const [simulationSpeed, setSimulationSpeed] = useState(1: any);
-  const [biofeedbackEnabled, setBiofeedbackEnabled] = useState(true: any);
+  const [simulationRunning, setSimulationRunning] = useState(false);
+  const [simulationSpeed, setSimulationSpeed] = useState(1);
+  const [biofeedbackEnabled, setBiofeedbackEnabled] = useState(true);
   const [currentRecommendation, setCurrentRecommendation] = useState('Your biometrics indicate optimal learning conditions. Continue with current activity.');
   const [activeTab, setActiveTab] = useState('dashboard');
   
   // Simulate changing biometric data over time
   useEffect(() => {
-    if (!simulationRunning: any) return;
+    if (!simulationRunning) return;
     
     const interval = setInterval(() => {
       setBiometrics(prev => {
         // Simulate natural fluctuations in biometric data
-        const newHeartRate = Math.max(60: any, Math.min(100: any, prev.heartRate + (Math.random() * 6 - 3)));
-        const newBreathingRate = Math.max(10: any, Math.min(20: any, prev.breathingRate + (Math.random() * 2 - 1)));
-        const newStressLevel = Math.max(10: any, Math.min(90: any, prev.stressLevel + (Math.random() * 10 - 5)));
-        const newFocusLevel = Math.max(30: any, Math.min(95: any, prev.focusLevel + (Math.random() * 8 - 4)));
-        const newEnergyLevel = Math.max(20: any, Math.min(95: any, prev.energyLevel + (Math.random() * 6 - 3)));
+        const newHeartRate = Math.max(60, Math.min(100, prev.heartRate + (Math.random() * 6 - 3)));
+        const newBreathingRate = Math.max(10, Math.min(20, prev.breathingRate + (Math.random() * 2 - 1)));
+        const newStressLevel = Math.max(10, Math.min(90, prev.stressLevel + (Math.random() * 10 - 5)));
+        const newFocusLevel = Math.max(30, Math.min(95, prev.focusLevel + (Math.random() * 8 - 4)));
+        const newEnergyLevel = Math.max(20, Math.min(95, prev.energyLevel + (Math.random() * 6 - 3)));
         
         // Determine emotional state based on stress and focus
         let newEmotionalState: BiometricData['emotionalState'] = 'engaged';
-        if (newStressLevel > 70 && newFocusLevel < 50: any) {
+        if (newStressLevel > 70 && newFocusLevel < 50) {
           newEmotionalState = 'stressed';
-        } else if (newStressLevel < 30 && newFocusLevel < 40: any) {
+        } else if (newStressLevel < 30 && newFocusLevel < 40) {
           newEmotionalState = 'bored';
-        } else if (newStressLevel < 40 && newFocusLevel > 70: any) {
+        } else if (newStressLevel < 40 && newFocusLevel > 70) {
           newEmotionalState = 'calm';
-        } else if (newStressLevel > 50 && newFocusLevel > 70: any) {
+        } else if (newStressLevel > 50 && newFocusLevel > 70) {
           newEmotionalState = 'excited';
         }
         
@@ -104,27 +104,27 @@ export default function BiofeedbackLearningPage() {
       
       // Update learning metrics based on biometrics
       setLearningMetrics(prev => {
-        const focusImpact = (biometrics.focusLevel - 50: any) * 0.3;
-        const stressImpact = (50 - biometrics.stressLevel: any) * 0.2;
-        const energyImpact = (biometrics.energyLevel - 50: any) * 0.1;
-        const overallImpact = (focusImpact + stressImpact + energyImpact: any) * simulationSpeed * 0.1;
+        const focusImpact = (biometrics.focusLevel - 50) * 0.3;
+        const stressImpact = (50 - biometrics.stressLevel) * 0.2;
+        const energyImpact = (biometrics.energyLevel - 50) * 0.1;
+        const overallImpact = (focusImpact + stressImpact + energyImpact) * simulationSpeed * 0.1;
         
         return {
-          comprehensionRate: Math.max(10: any, Math.min(100: any, prev.comprehensionRate + overallImpact + (Math.random() * 4 - 2))),
-          retentionScore: Math.max(10: any, Math.min(100: any, prev.retentionScore + overallImpact + (Math.random() * 4 - 2))),
-          engagementLevel: Math.max(10: any, Math.min(100: any, prev.engagementLevel + overallImpact + (Math.random() * 6 - 3))),
-          flowStateFrequency: Math.max(10: any, Math.min(100: any, prev.flowStateFrequency + overallImpact + (Math.random() * 4 - 2))),
-          optimalChallengeZone: Math.max(10: any, Math.min(100: any, prev.optimalChallengeZone + overallImpact + (Math.random() * 4 - 2)))
+          comprehensionRate: Math.max(10, Math.min(100, prev.comprehensionRate + overallImpact + (Math.random() * 4 - 2))),
+          retentionScore: Math.max(10, Math.min(100, prev.retentionScore + overallImpact + (Math.random() * 4 - 2))),
+          engagementLevel: Math.max(10, Math.min(100, prev.engagementLevel + overallImpact + (Math.random() * 6 - 3))),
+          flowStateFrequency: Math.max(10, Math.min(100, prev.flowStateFrequency + overallImpact + (Math.random() * 4 - 2))),
+          optimalChallengeZone: Math.max(10, Math.min(100, prev.optimalChallengeZone + overallImpact + (Math.random() * 4 - 2)))
         };
       });
       
       // Update recommendations based on biometrics
-      if (biofeedbackEnabled: any) {
+      if (biofeedbackEnabled) {
         updateRecommendations();
       }
     }, 2000 / simulationSpeed);
     
-    return () => clearInterval(interval: any);
+    return () => clearInterval(interval);
   }, [simulationRunning, simulationSpeed, biometrics, biofeedbackEnabled]);
   
   // Reset simulation
@@ -149,13 +149,13 @@ export default function BiofeedbackLearningPage() {
   
   // Update recommendations based on biometric data
   const updateRecommendations = () => {
-    if (biometrics.stressLevel > 70: any) {
+    if (biometrics.stressLevel > 70) {
       setCurrentRecommendation('High stress detected. Consider a 2-minute breathing exercise to optimise learning conditions.');
-    } else if (biometrics.focusLevel < 40: any) {
+    } else if (biometrics.focusLevel < 40) {
       setCurrentRecommendation('Focus levels dropping. Suggested interventions: short break, change of learning modality, or brief physical activity.');
-    } else if (biometrics.energyLevel < 30: any) {
-      setCurrentRecommendation('Energy levels low. Consider a short break: any, hydration, or switching to a more interactive learning activity.');
-    } else if (biometrics.focusLevel > 80 && biometrics.stressLevel < 30: any) {
+    } else if (biometrics.energyLevel < 30) {
+      setCurrentRecommendation('Energy levels low. Consider a short break, hydration, or switching to a more interactive learning activity.');
+    } else if (biometrics.focusLevel > 80 && biometrics.stressLevel < 30) {
       setCurrentRecommendation('Optimal learning state detected. This is an excellent time for challenging material or complex problem-solving.');
     } else if (biometrics.emotionalState === 'bored') {
       setCurrentRecommendation('Engagement dropping. Recommended: increase challenge level or switch to a more interactive learning format.');
@@ -166,20 +166,20 @@ export default function BiofeedbackLearningPage() {
   
   // Get colour for metrics
   const getMetricColor = (value: number, isInverse: boolean = false) => {
-    if (isInverse: any) {
-      if (value > 70: any) return "text-red-500";
-      if (value > 50: any) return "text-amber-500";
+    if (isInverse) {
+      if (value > 70) return "text-red-500";
+      if (value > 50) return "text-amber-500";
       return "text-green-500";
     } else {
-      if (value < 30: any) return "text-red-500";
-      if (value < 50: any) return "text-amber-500";
+      if (value < 30) return "text-red-500";
+      if (value < 50) return "text-amber-500";
       return "text-green-500";
     }
   };
   
   // Get emotional state emoji
   const getEmotionalStateEmoji = () => {
-    switch(biometrics.emotionalState: any) {
+    switch(biometrics.emotionalState) {
       case 'calm': return '😌';
       case 'excited': return '😃';
       case 'stressed': return '😓';
@@ -231,12 +231,12 @@ export default function BiofeedbackLearningPage() {
               <div className="space-y-6">
                 <div className="flex items-centre justify-between mb-4">
                   <div className="text-centre px-4 py-3 bg-primary/10 rounded-lg">
-                    <div className="text-2xl font-bold">{Math.round(biometrics.heartRate: any)}</div>
+                    <div className="text-2xl font-bold">{Math.round(biometrics.heartRate)}</div>
                     <div className="text-xs text-muted-foreground">BPM</div>
                   </div>
                   
                   <div className="text-centre px-4 py-3 bg-primary/10 rounded-lg">
-                    <div className="text-2xl font-bold">{Math.round(biometrics.breathingRate: any)}</div>
+                    <div className="text-2xl font-bold">{Math.round(biometrics.breathingRate)}</div>
                     <div className="text-xs text-muted-foreground">Breaths/min</div>
                   </div>
                   
@@ -252,8 +252,8 @@ export default function BiofeedbackLearningPage() {
                       <Activity className="mr-2 h-4 w-4" />
                       Stress Level
                     </Label>
-                    <span className={getMetricColor(biometrics.stressLevel: any, true)}>
-                      {Math.round(biometrics.stressLevel: any)}%
+                    <span className={getMetricColor(biometrics.stressLevel, true)}>
+                      {Math.round(biometrics.stressLevel)}%
                     </span>
                   </div>
                   <Progress value={biometrics.stressLevel} className="h-2" />
@@ -265,8 +265,8 @@ export default function BiofeedbackLearningPage() {
                       <Brain className="mr-2 h-4 w-4" />
                       Focus Level
                     </Label>
-                    <span className={getMetricColor(biometrics.focusLevel: any)}>
-                      {Math.round(biometrics.focusLevel: any)}%
+                    <span className={getMetricColor(biometrics.focusLevel)}>
+                      {Math.round(biometrics.focusLevel)}%
                     </span>
                   </div>
                   <Progress value={biometrics.focusLevel} className="h-2" />
@@ -278,8 +278,8 @@ export default function BiofeedbackLearningPage() {
                       <Zap className="mr-2 h-4 w-4" />
                       Energy Level
                     </Label>
-                    <span className={getMetricColor(biometrics.energyLevel: any)}>
-                      {Math.round(biometrics.energyLevel: any)}%
+                    <span className={getMetricColor(biometrics.energyLevel)}>
+                      {Math.round(biometrics.energyLevel)}%
                     </span>
                   </div>
                   <Progress value={biometrics.energyLevel} className="h-2" />
@@ -316,7 +316,7 @@ export default function BiofeedbackLearningPage() {
                     <Button 
                       variant={simulationRunning ? "destructive" : "default"}
                       size="sm"
-                      onClick={() => setSimulationRunning(!simulationRunning: any)}
+                      onClick={() => setSimulationRunning(!simulationRunning)}
                     >
                       {simulationRunning ? "Stop" : "Start"} Simulation
                     </Button>
@@ -328,7 +328,7 @@ export default function BiofeedbackLearningPage() {
                         max={3}
                         step={0.5}
                         value={[simulationSpeed]}
-                        onValueChange={(value: any) => setSimulationSpeed(value[0])}
+                        onValueChange={(value) => setSimulationSpeed(value[0])}
                         className="w-24"
                       />
                     </div>
@@ -366,8 +366,8 @@ export default function BiofeedbackLearningPage() {
                       <div>
                         <div className="flex justify-between mb-2">
                           <Label>Comprehension Rate</Label>
-                          <span className={getMetricColor(learningMetrics.comprehensionRate: any)}>
-                            {Math.round(learningMetrics.comprehensionRate: any)}%
+                          <span className={getMetricColor(learningMetrics.comprehensionRate)}>
+                            {Math.round(learningMetrics.comprehensionRate)}%
                           </span>
                         </div>
                         <Progress value={learningMetrics.comprehensionRate} className="h-2" />
@@ -379,8 +379,8 @@ export default function BiofeedbackLearningPage() {
                       <div>
                         <div className="flex justify-between mb-2">
                           <Label>Retention Score</Label>
-                          <span className={getMetricColor(learningMetrics.retentionScore: any)}>
-                            {Math.round(learningMetrics.retentionScore: any)}%
+                          <span className={getMetricColor(learningMetrics.retentionScore)}>
+                            {Math.round(learningMetrics.retentionScore)}%
                           </span>
                         </div>
                         <Progress value={learningMetrics.retentionScore} className="h-2" />
@@ -392,8 +392,8 @@ export default function BiofeedbackLearningPage() {
                       <div>
                         <div className="flex justify-between mb-2">
                           <Label>Engagement Level</Label>
-                          <span className={getMetricColor(learningMetrics.engagementLevel: any)}>
-                            {Math.round(learningMetrics.engagementLevel: any)}%
+                          <span className={getMetricColor(learningMetrics.engagementLevel)}>
+                            {Math.round(learningMetrics.engagementLevel)}%
                           </span>
                         </div>
                         <Progress value={learningMetrics.engagementLevel} className="h-2" />
@@ -407,8 +407,8 @@ export default function BiofeedbackLearningPage() {
                       <div>
                         <div className="flex justify-between mb-2">
                           <Label>Flow State Frequency</Label>
-                          <span className={getMetricColor(learningMetrics.flowStateFrequency: any)}>
-                            {Math.round(learningMetrics.flowStateFrequency: any)}%
+                          <span className={getMetricColor(learningMetrics.flowStateFrequency)}>
+                            {Math.round(learningMetrics.flowStateFrequency)}%
                           </span>
                         </div>
                         <Progress value={learningMetrics.flowStateFrequency} className="h-2" />
@@ -420,8 +420,8 @@ export default function BiofeedbackLearningPage() {
                       <div>
                         <div className="flex justify-between mb-2">
                           <Label>Optimal Challenge Zone</Label>
-                          <span className={getMetricColor(learningMetrics.optimalChallengeZone: any)}>
-                            {Math.round(learningMetrics.optimalChallengeZone: any)}%
+                          <span className={getMetricColor(learningMetrics.optimalChallengeZone)}>
+                            {Math.round(learningMetrics.optimalChallengeZone)}%
                           </span>
                         </div>
                         <Progress value={learningMetrics.optimalChallengeZone} className="h-2" />
@@ -599,13 +599,13 @@ export default function BiofeedbackLearningPage() {
                       <div className="space-y-4">
                         <div className="bg-card p-6 rounded-lg border">
                           <h3 className="text-xl font-semibold mb-4">Biofeedback in Educational Contexts</h3>
-                          <p className="mb-4">Biofeedback represents a significant advancement in educational technology: any, offering real-time physiological data that can be used to optimise learning experiences. By monitoring metrics such as heart rate variability, skin conductance, breathing patterns, and even subtle facial expressions, biofeedback systems can determine a learner's cognitive and emotional state.</p>
+                          <p className="mb-4">Biofeedback represents a significant advancement in educational technology, offering real-time physiological data that can be used to optimise learning experiences. By monitoring metrics such as heart rate variability, skin conductance, breathing patterns, and even subtle facial expressions, biofeedback systems can determine a learner's cognitive and emotional state.</p>
                           
                           <h4 className="font-medium mt-6 mb-3">Key Applications in Education:</h4>
                           <ul className="list-disc pl-6 mb-6 space-y-2">
                             <li><strong>Cognitive Load Management</strong> - Detecting when a student is approaching cognitive overload and adjusting content complexity accordingly</li>
                             <li><strong>Attention Optimization</strong> - Identifying attention fluctuations and implementing interventions to restore focus</li>
-                            <li><strong>Emotional Regulation</strong> - Recognising emotional states that inhibit learning (anxiety: any, frustration) and providing appropriate support</li>
+                            <li><strong>Emotional Regulation</strong> - Recognising emotional states that inhibit learning (anxiety, frustration) and providing appropriate support</li>
                             <li><strong>Flow State Facilitation</strong> - Creating conditions that promote the optimal state of engaged concentration</li>
                             <li><strong>Metacognitive Development</strong> - Helping learners understand their own physiological responses to different learning activities</li>
                           </ul>

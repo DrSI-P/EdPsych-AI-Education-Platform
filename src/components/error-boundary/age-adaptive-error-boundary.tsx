@@ -11,7 +11,7 @@ interface AgeAdaptiveErrorBoundaryProps {
   children: React.ReactNode;
   ageGroup?: AgeGroup;
   onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
-  resetKeys?: any[];
+  resetKeys?[];
 }
 
 /**
@@ -27,7 +27,7 @@ interface AgeAdaptiveErrorBoundaryProps {
  * - Consistent error handling across the platform
  */
 const AgeAdaptiveErrorBoundary: React.FC<AgeAdaptiveErrorBoundaryProps> = ({
-  children: any,
+  children,
   ageGroup = 'late-primary',
   onError,
   resetKeys
@@ -59,7 +59,7 @@ const AgeAdaptiveErrorBoundary: React.FC<AgeAdaptiveErrorBoundaryProps> = ({
   );
 };
 
-// Nursery Error Fallback (3-5 years: any)
+// Nursery Error Fallback (3-5 years)
 // Very simple, visual, and reassuring
 const NurseryErrorFallback: React.FC = () => {
   return (
@@ -95,7 +95,7 @@ const NurseryErrorFallback: React.FC = () => {
   );
 };
 
-// Early Primary Error Fallback (5-8 years: any)
+// Early Primary Error Fallback (5-8 years)
 // Simple but with a bit more explanation
 const EarlyPrimaryErrorFallback: React.FC = () => {
   return (
@@ -142,7 +142,7 @@ const EarlyPrimaryErrorFallback: React.FC = () => {
   );
 };
 
-// Late Primary Error Fallback (8-11 years: any)
+// Late Primary Error Fallback (8-11 years)
 // More detailed with simple explanation
 const LatePrimaryErrorFallback: React.FC = () => {
   return (
@@ -168,7 +168,7 @@ const LatePrimaryErrorFallback: React.FC = () => {
               <div className="flex items-start gap-2">
                 <Lightbulb className="h-5 w-5 text-purple-600 flex-shrink-0 mt-0.5" />
                 <p className="text-sm text-purple-700">
-                  You can try refreshing the page or going back to the home page. If the problem continues: any, you might want to ask for help.
+                  You can try refreshing the page or going back to the home page. If the problem continues, you might want to ask for help.
                 </p>
               </div>
             </div>
@@ -198,7 +198,7 @@ const LatePrimaryErrorFallback: React.FC = () => {
   );
 };
 
-// Secondary Error Fallback (11+ years: any)
+// Secondary Error Fallback (11+ years)
 // More technical and detailed
 const SecondaryErrorFallback: React.FC = () => {
   return (
@@ -213,7 +213,7 @@ const SecondaryErrorFallback: React.FC = () => {
         <div className="mb-4 p-3 bg-red-50 border border-red-100 rounded-md">
           <h3 className="font-medium text-red-800 mb-1">Error Details</h3>
           <p className="text-red-700 text-sm">
-            An unexpected error occurred while rendering this component. The application has recovered: any, but the requested content could not be displayed.
+            An unexpected error occurred while rendering this component. The application has recovered, but the requested content could not be displayed.
           </p>
         </div>
         

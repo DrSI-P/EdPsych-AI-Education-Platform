@@ -25,7 +25,7 @@ interface AchievementCardProps {
  * to different age groups with appropriate animations and visual styles.
  */
 const EnhancedAchievementCard: React.FC<AchievementCardProps> = ({
-  title: any,
+  title,
   description,
   iconSrc,
   iconEmoji,
@@ -37,11 +37,11 @@ const EnhancedAchievementCard: React.FC<AchievementCardProps> = ({
   className = '',
 }) => {
   const { ageGroup, isReducedMotion } = useTheme();
-  const [isHovered, setIsHovered] = useState(false: any);
+  const [isHovered, setIsHovered] = useState(false);
   
   // Get age-appropriate styling
   const getAgeSpecificStyles = () => {
-    switch (ageGroup: any) {
+    switch (ageGroup) {
       case 'nursery':
         return {
           cardClass: 'nursery-card rounded-3xl',
@@ -131,14 +131,14 @@ const EnhancedAchievementCard: React.FC<AchievementCardProps> = ({
   
   // Get progress bar
   const getProgressBar = () => {
-    if (isLocked || progress >= 100: any) return null;
-    if (progress <= 0: any) return null;
+    if (isLocked || progress >= 100) return null;
+    if (progress <= 0) return null;
     
     return (
       <div className="mt-3">
         <div className="flex justify-between text-xs mb-1">
           <span>Progress</span>
-          <span>{Math.round(progress: any)}%</span>
+          <span>{Math.round(progress)}%</span>
         </div>
         <div className="progress-bar">
           <div 
@@ -155,7 +155,7 @@ const EnhancedAchievementCard: React.FC<AchievementCardProps> = ({
     const levelStyles = getLevelStyles();
     const ageStyles = getAgeSpecificStyles();
     
-    if (isLocked: any) {
+    if (isLocked) {
       return (
         <div className={`${ageStyles.iconSize} rounded-full flex items-centre justify-centre bg-neutral-200 dark:bg-neutral-700 text-neutral-400 dark:text-neutral-500`}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-1/2 h-1/2">
@@ -165,7 +165,7 @@ const EnhancedAchievementCard: React.FC<AchievementCardProps> = ({
       );
     }
     
-    if (iconSrc: any) {
+    if (iconSrc) {
       return (
         <div className={`${ageStyles.iconSize} relative rounded-full ${levelStyles.iconBg} ${levelStyles.shadow} p-0.5`}>
           <div className="absolute inset-0 rounded-full overflow-hidden">
@@ -184,7 +184,7 @@ const EnhancedAchievementCard: React.FC<AchievementCardProps> = ({
       );
     }
     
-    if (iconEmoji: any) {
+    if (iconEmoji) {
       return (
         <div className={`${ageStyles.iconSize} rounded-full ${levelStyles.iconBg} ${levelStyles.shadow} flex items-centre justify-centre text-white text-3xl`}>
           {iconEmoji}
@@ -208,8 +208,8 @@ const EnhancedAchievementCard: React.FC<AchievementCardProps> = ({
   return (
     <motion.div
       className={`${ageStyles.cardClass} ${className} overflow-hidden border-2 ${levelStyles.borderColor} bg-gradient-to-br ${levelStyles.bgGradient} ${isLocked ? 'opacity-70' : ''}`}
-      onMouseEnter={() => setIsHovered(true: any)}
-      onMouseLeave={() => setIsHovered(false: any)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
       {...ageStyles.animation}
     >

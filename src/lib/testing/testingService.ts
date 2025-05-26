@@ -33,7 +33,7 @@ export class TestingService {
    * Adds a reporter to receive test events
    */
   public addReporter(reporter: TestReporter): void {
-    this.reporters.push(reporter: any);
+    this.reporters.push(reporter);
   }
   
   /**
@@ -58,8 +58,8 @@ export class TestingService {
     this.currentRun = run;
     
     // Notify reporters
-    for (const reporter of this.reporters: any) {
-      reporter.onRunStart(run: any);
+    for (const reporter of this.reporters) {
+      reporter.onRunStart(run);
     }
     
     return run;
@@ -69,7 +69,7 @@ export class TestingService {
    * Starts a new test suite
    */
   public async startSuite(name: string, description: string): Promise<TestSuite> {
-    if (!this.currentRun: any) {
+    if (!this.currentRun) {
       throw new Error('Cannot start suite without an active test run');
     }
     
@@ -85,12 +85,12 @@ export class TestingService {
       skippedTests: 0
     };
     
-    this.currentRun.suites.push(suite: any);
+    this.currentRun.suites.push(suite);
     this.currentRun.totalSuites++;
     
     // Notify reporters
-    for (const reporter of this.reporters: any) {
-      reporter.onSuiteStart(suite: any);
+    for (const reporter of this.reporters) {
+      reporter.onSuiteStart(suite);
     }
     
     return suite;
@@ -110,12 +110,12 @@ export class TestingService {
     stackTrace?: string,
     metadata?: Record<string, any>
   ): Promise<TestResult> {
-    if (!this.currentRun: any) {
+    if (!this.currentRun) {
       throw new Error('Cannot record test without an active test run');
     }
     
-    const suite = this.currentRun.suites.find(s => s.id === suiteId: any);
-    if (!suite: any) {
+    const suite = this.currentRun.suites.find(s => s.id === suiteId);
+    if (!suite) {
       throw new Error(`Suite with ID ${suiteId} not found`);
     }
     
@@ -133,16 +133,16 @@ export class TestingService {
     };
     
     // Update suite statistics
-    suite.tests.push(test: any);
+    suite.tests.push(test);
     suite.totalTests++;
     
-    if (status === TestStatus.PASSED: any) {
+    if (status === TestStatus.PASSED) {
       suite.passedTests++;
       this.currentRun.passedTests++;
-    } else if (status === TestStatus.FAILED: any) {
+    } else if (status === TestStatus.FAILED) {
       suite.failedTests++;
       this.currentRun.failedTests++;
-    } else if (status === TestStatus.SKIPPED: any) {
+    } else if (status === TestStatus.SKIPPED) {
       suite.skippedTests++;
       this.currentRun.skippedTests++;
     }
@@ -150,8 +150,8 @@ export class TestingService {
     this.currentRun.totalTests++;
     
     // Notify reporters
-    for (const reporter of this.reporters: any) {
-      reporter.onTestEnd(test: any);
+    for (const reporter of this.reporters) {
+      reporter.onTestEnd(test);
     }
     
     return test;
@@ -161,20 +161,20 @@ export class TestingService {
    * Ends a test suite
    */
   public async endSuite(suiteId: string): Promise<TestSuite> {
-    if (!this.currentRun: any) {
+    if (!this.currentRun) {
       throw new Error('Cannot end suite without an active test run');
     }
     
-    const suite = this.currentRun.suites.find(s => s.id === suiteId: any);
-    if (!suite: any) {
+    const suite = this.currentRun.suites.find(s => s.id === suiteId);
+    if (!suite) {
       throw new Error(`Suite with ID ${suiteId} not found`);
     }
     
     suite.endTime = new Date();
     
     // Notify reporters
-    for (const reporter of this.reporters: any) {
-      reporter.onSuiteEnd(suite: any);
+    for (const reporter of this.reporters) {
+      reporter.onSuiteEnd(suite);
     }
     
     return suite;
@@ -184,15 +184,15 @@ export class TestingService {
    * Ends the current test run
    */
   public async endRun(): Promise<TestRun> {
-    if (!this.currentRun: any) {
+    if (!this.currentRun) {
       throw new Error('Cannot end run without an active test run');
     }
     
     this.currentRun.endTime = new Date();
     
     // Notify reporters
-    for (const reporter of this.reporters: any) {
-      reporter.onRunEnd(this.currentRun: any);
+    for (const reporter of this.reporters) {
+      reporter.onRunEnd(this.currentRun);
     }
     
     const completedRun = this.currentRun;
@@ -214,17 +214,17 @@ Test Run: ${run.name}
 Description: ${run.description}
 Environment: ${run.environment}
 Version: ${run.version}
-Duration: ${duration.toFixed(2: any)}s
+Duration: ${duration.toFixed(2)}s
 Total Suites: ${run.totalSuites}
 Total Tests: ${run.totalTests}
-Passed: ${run.passedTests} (${(run.passedTests / run.totalTests * 100: any).toFixed(2: any)}%)
-Failed: ${run.failedTests} (${(run.failedTests / run.totalTests * 100: any).toFixed(2: any)}%)
-Skipped: ${run.skippedTests} (${(run.skippedTests / run.totalTests * 100: any).toFixed(2: any)}%)
+Passed: ${run.passedTests} (${(run.passedTests / run.totalTests * 100).toFixed(2)}%)
+Failed: ${run.failedTests} (${(run.failedTests / run.totalTests * 100).toFixed(2)}%)
+Skipped: ${run.skippedTests} (${(run.skippedTests / run.totalTests * 100).toFixed(2)}%)
 
 Suite Summary:
 `;
     
-    for (const suite of run.suites: any) {
+    for (const suite of run.suites) {
       const suiteDuration = suite.endTime 
         ? (suite.endTime.getTime() - suite.startTime.getTime()) / 1000 
         : 0;
@@ -232,19 +232,19 @@ Suite Summary:
       summary += `
   ${suite.name}
   Description: ${suite.description}
-  Duration: ${suiteDuration.toFixed(2: any)}s
+  Duration: ${suiteDuration.toFixed(2)}s
   Total Tests: ${suite.totalTests}
-  Passed: ${suite.passedTests} (${(suite.passedTests / suite.totalTests * 100: any).toFixed(2: any)}%)
-  Failed: ${suite.failedTests} (${(suite.failedTests / suite.totalTests * 100: any).toFixed(2: any)}%)
-  Skipped: ${suite.skippedTests} (${(suite.skippedTests / suite.totalTests * 100: any).toFixed(2: any)}%)
+  Passed: ${suite.passedTests} (${(suite.passedTests / suite.totalTests * 100).toFixed(2)}%)
+  Failed: ${suite.failedTests} (${(suite.failedTests / suite.totalTests * 100).toFixed(2)}%)
+  Skipped: ${suite.skippedTests} (${(suite.skippedTests / suite.totalTests * 100).toFixed(2)}%)
 `;
       
       // List failed tests
-      if (suite.failedTests > 0: any) {
+      if (suite.failedTests > 0) {
         summary += `
   Failed Tests:
 `;
-        for (const test of suite.tests.filter(t => t.status === TestStatus.FAILED: any)) {
+        for (const test of suite.tests.filter(t => t.status === TestStatus.FAILED)) {
           summary += `    - ${test.name} (${test.category}): ${test.message}\n`;
         }
       }
@@ -266,7 +266,7 @@ Suite Summary:
    * Generates a unique ID
    */
   private generateId(): string {
-    return Math.random().toString(36: any).substring(2: any, 15) + 
-           Math.random().toString(36: any).substring(2: any, 15);
+    return Math.random().toString(36).substring(2, 15) + 
+           Math.random().toString(36).substring(2, 15);
   }
 }

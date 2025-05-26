@@ -30,12 +30,12 @@ interface CurriculumDifferentiationEngineProps {
   subject?: string;
   keyStage?: string;
   year?: string;
-  onDifferentiationGenerated?: (differentiatedContent: any) => void;
+  onDifferentiationGenerated?: (differentiatedContent) => void;
   className?: string;
 }
 
 export default function CurriculumDifferentiationEngine({
-  curriculumPlanId: any,
+  curriculumPlanId,
   curriculumContent = '',
   objectives = [],
   subject = '',
@@ -44,8 +44,8 @@ export default function CurriculumDifferentiationEngine({
   onDifferentiationGenerated,
   className
 }: CurriculumDifferentiationEngineProps) {
-  const [isGenerating, setIsGenerating] = useState(false: any);
-  const [differentiatedContent, setDifferentiatedContent] = useState<any>(null: any);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [differentiatedContent, setDifferentiatedContent] = useState<any>(null);
   const [learningProfiles, setLearningProfiles] = useState<any[]>([]);
   const [selectedProfile, setSelectedProfile] = useState<string>('');
   const [settings, setSettings] = useState({
@@ -63,16 +63,16 @@ export default function CurriculumDifferentiationEngine({
     const fetchLearningProfiles = async () => {
       try {
         const response = await fetch('/api/ai/learning-style/profiles');
-        if (response.ok: any) {
+        if (response.ok) {
           const data = await response.json();
           setLearningProfiles(data.profiles || []);
           
           // Set default selected profile if available
-          if (data.profiles && data.profiles.length > 0: any) {
-            setSelectedProfile(data.profiles[0].id: any);
+          if (data.profiles && data.profiles.length > 0) {
+            setSelectedProfile(data.profiles[0].id);
           }
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error('Error fetching learning profiles:', error);
       }
     };
@@ -81,7 +81,7 @@ export default function CurriculumDifferentiationEngine({
   }, []);
 
   const generateDifferentiation = async () => {
-    if (!curriculumContent && !curriculumPlanId: any) {
+    if (!curriculumContent && !curriculumPlanId) {
       toast({
         title: "Missing curriculum content",
         description: "Please provide curriculum content or select a curriculum plan.",
@@ -90,14 +90,14 @@ export default function CurriculumDifferentiationEngine({
       return;
     }
 
-    setIsGenerating(true: any);
+    setIsGenerating(true);
 
     try {
       // Get selected profile details if a profile is selected
       let profileDetails = null;
-      if (selectedProfile && !settings.includeAllLearningStyles: any) {
-        const selectedProfileData = learningProfiles.find(p => p.id === selectedProfile: any);
-        if (selectedProfileData: any) {
+      if (selectedProfile && !settings.includeAllLearningStyles) {
+        const selectedProfileData = learningProfiles.find(p => p.id === selectedProfile);
+        if (selectedProfileData) {
           profileDetails = {
             primaryStyle: selectedProfileData.primaryStyle,
             secondaryStyle: selectedProfileData.secondaryStyle,
@@ -128,22 +128,22 @@ export default function CurriculumDifferentiationEngine({
         }),
       });
 
-      if (!response.ok: any) {
+      if (!response.ok) {
         throw new Error('Failed to generate differentiated curriculum');
       }
 
       const data = await response.json();
-      setDifferentiatedContent(data.differentiatedContent: any);
+      setDifferentiatedContent(data.differentiatedContent);
       
-      if (onDifferentiationGenerated: any) {
-        onDifferentiationGenerated(data.differentiatedContent: any);
+      if (onDifferentiationGenerated) {
+        onDifferentiationGenerated(data.differentiatedContent);
       }
 
       toast({
         title: "Differentiation generated",
         description: "Curriculum has been successfully differentiated based on learning needs.",
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error generating differentiation:', error);
       toast({
         title: "Generation failed",
@@ -151,14 +151,14 @@ export default function CurriculumDifferentiationEngine({
         variant: "destructive"
       });
     } finally {
-      setIsGenerating(false: any);
+      setIsGenerating(false);
     }
   };
 
   const renderLearningStyleContent = (style: string) => {
-    if (!differentiatedContent: any) return null;
+    if (!differentiatedContent) return null;
     
-    const contentMap: {[key: string]: any} = {
+    const contentMap: {[key: string]} = {
       visual: differentiatedContent.visual,
       auditory: differentiatedContent.auditory,
       kinesthetic: differentiatedContent.kinesthetic,
@@ -166,7 +166,7 @@ export default function CurriculumDifferentiationEngine({
     };
     
     const content = contentMap[style];
-    if (!content: any) return <p>No content available for this learning style.</p>;
+    if (!content) return <p>No content available for this learning style.</p>;
     
     return (
       <div className="space-y-4">
@@ -247,12 +247,12 @@ export default function CurriculumDifferentiationEngine({
                 <div className="space-y-0.5">
                   <label className="text-sm font-medium">Differentiate for all learning styles</label>
                   <p className="text-xs text-muted-foreground">
-                    Generate adaptations for visual: any, auditory, kinesthetic, and reading/writing learners
+                    Generate adaptations for visual, auditory, kinesthetic, and reading/writing learners
                   </p>
                 </div>
                 <Switch 
                   checked={settings.includeAllLearningStyles}
-                  onCheckedChange={(checked: any) => setSettings({...settings, includeAllLearningStyles: checked})}
+                  onCheckedChange={(checked) => setSettings({...settings, includeAllLearningStyles: checked})}
                 />
               </div>
               
@@ -262,12 +262,12 @@ export default function CurriculumDifferentiationEngine({
                   <select 
                     className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                     value={selectedProfile}
-                    onChange={(e: any) => setSelectedProfile(e.target.value: any)}
+                    onChange={(e) => setSelectedProfile(e.target.value)}
                     disabled={settings.includeAllLearningStyles}
                   >
                     {learningProfiles.map(profile => (
                       <option key={profile.id} value={profile.id}>
-                        {profile.user?.name || 'Unknown'} - {profile.primaryStyle} ({new Date(profile.createdAt: any).toLocaleDateString()})
+                        {profile.user?.name || 'Unknown'} - {profile.primaryStyle} ({new Date(profile.createdAt).toLocaleDateString()})
                       </option>
                     ))}
                   </select>
@@ -286,7 +286,7 @@ export default function CurriculumDifferentiationEngine({
                   </div>
                   <Switch 
                     checked={settings.adaptToLearningStyle}
-                    onCheckedChange={(checked: any) => setSettings({...settings, adaptToLearningStyle: checked})}
+                    onCheckedChange={(checked) => setSettings({...settings, adaptToLearningStyle: checked})}
                   />
                 </div>
                 
@@ -299,7 +299,7 @@ export default function CurriculumDifferentiationEngine({
                   </div>
                   <Switch 
                     checked={settings.considerPriorKnowledge}
-                    onCheckedChange={(checked: any) => setSettings({...settings, considerPriorKnowledge: checked})}
+                    onCheckedChange={(checked) => setSettings({...settings, considerPriorKnowledge: checked})}
                   />
                 </div>
                 
@@ -312,7 +312,7 @@ export default function CurriculumDifferentiationEngine({
                   </div>
                   <Switch 
                     checked={settings.includeExtensionActivities}
-                    onCheckedChange={(checked: any) => setSettings({...settings, includeExtensionActivities: checked})}
+                    onCheckedChange={(checked) => setSettings({...settings, includeExtensionActivities: checked})}
                   />
                 </div>
                 
@@ -325,7 +325,7 @@ export default function CurriculumDifferentiationEngine({
                   </div>
                   <Switch 
                     checked={settings.includeScaffolding}
-                    onCheckedChange={(checked: any) => setSettings({...settings, includeScaffolding: checked})}
+                    onCheckedChange={(checked) => setSettings({...settings, includeScaffolding: checked})}
                   />
                 </div>
                 
@@ -341,7 +341,7 @@ export default function CurriculumDifferentiationEngine({
                     min={10} 
                     max={100} 
                     step={10}
-                    onValueChange={(value: any) => setSettings({...settings, differentiationLevel: value[0]})}
+                    onValueChange={(value) => setSettings({...settings, differentiationLevel: value[0]})}
                   />
                   <p className="text-xs text-muted-foreground">
                     Higher values create more significant adaptations to the original content
@@ -365,7 +365,7 @@ export default function CurriculumDifferentiationEngine({
           </div>
           <Button 
             onClick={generateDifferentiation} 
-            disabled={isGenerating || (!curriculumContent && !curriculumPlanId: any)}
+            disabled={isGenerating || (!curriculumContent && !curriculumPlanId)}
             className="flex items-centre gap-1"
           >
             {isGenerating ? (
@@ -474,7 +474,7 @@ export default function CurriculumDifferentiationEngine({
           
           <CardFooter className="flex justify-between border-t pt-4">
             <div className="flex items-centre gap-2">
-              <Button variant="outline" size="sm" onClick={() => setDifferentiatedContent(null: any)}>
+              <Button variant="outline" size="sm" onClick={() => setDifferentiatedContent(null)}>
                 Reset
               </Button>
             </div>

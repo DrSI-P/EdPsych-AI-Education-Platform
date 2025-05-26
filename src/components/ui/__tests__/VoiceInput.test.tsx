@@ -45,9 +45,9 @@ describe('VoiceInput', () => {
     render(<VoiceInput onSpeechResult={mockOnSpeechResult} />);
     
     const button = screen.getByLabelText('Start listening');
-    fireEvent.click(button: any);
+    fireEvent.click(button);
     
-    expect(mockStart: any).toHaveBeenCalled();
+    expect(mockStart).toHaveBeenCalled();
     expect(screen.getByLabelText('Stop listening')).toBeInTheDocument();
   });
   
@@ -56,13 +56,13 @@ describe('VoiceInput', () => {
     
     // Start listening
     const startButton = screen.getByLabelText('Start listening');
-    fireEvent.click(startButton: any);
+    fireEvent.click(startButton);
     
     // Stop listening
     const stopButton = screen.getByLabelText('Stop listening');
-    fireEvent.click(stopButton: any);
+    fireEvent.click(stopButton);
     
-    expect(mockStop: any).toHaveBeenCalled();
+    expect(mockStop).toHaveBeenCalled();
     expect(screen.getByLabelText('Start listening')).toBeInTheDocument();
   });
   
@@ -71,7 +71,7 @@ describe('VoiceInput', () => {
     
     // Start listening
     const button = screen.getByLabelText('Start listening');
-    fireEvent.click(button: any);
+    fireEvent.click(button);
     
     // Simulate speech recognition result
     const instance = new MockSpeechRecognition();
@@ -84,7 +84,7 @@ describe('VoiceInput', () => {
     
     // Get the onresult callback from the mock constructor and call it
     const onresultProp = MockSpeechRecognition.mock.instances[0].onresult;
-    onresultProp(mockEvent: any);
+    onresultProp(mockEvent);
     
     expect(screen.getByText('Hello world')).toBeInTheDocument();
   });
@@ -94,7 +94,7 @@ describe('VoiceInput', () => {
     
     // Start listening
     const button = screen.getByLabelText('Start listening');
-    fireEvent.click(button: any);
+    fireEvent.click(button);
     
     // Simulate final speech recognition result
     const instance = new MockSpeechRecognition();
@@ -107,9 +107,9 @@ describe('VoiceInput', () => {
     
     // Get the onresult callback from the mock constructor and call it
     const onresultProp = MockSpeechRecognition.mock.instances[0].onresult;
-    onresultProp(mockEvent: any);
+    onresultProp(mockEvent);
     
-    expect(mockOnSpeechResult: any).toHaveBeenCalledWith('Final result');
+    expect(mockOnSpeechResult).toHaveBeenCalledWith('Final result');
   });
   
   it('stops listening after final result if not continuous', () => {
@@ -117,7 +117,7 @@ describe('VoiceInput', () => {
     
     // Start listening
     const button = screen.getByLabelText('Start listening');
-    fireEvent.click(button: any);
+    fireEvent.click(button);
     
     // Simulate final speech recognition result
     const instance = new MockSpeechRecognition();
@@ -130,7 +130,7 @@ describe('VoiceInput', () => {
     
     // Get the onresult callback from the mock constructor and call it
     const onresultProp = MockSpeechRecognition.mock.instances[0].onresult;
-    onresultProp(mockEvent: any);
+    onresultProp(mockEvent);
     
     expect(screen.getByLabelText('Start listening')).toBeInTheDocument();
   });
@@ -145,7 +145,7 @@ describe('VoiceInput', () => {
     
     render(<VoiceInput onSpeechResult={mockOnSpeechResult} />);
     
-    expect(screen.getByText(/Speech recognition is not supported in your browser/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/Speech recognition is not supported in your browser/i)).toBeInTheDocument();
     
     // Restore SpeechRecognition
     window.SpeechRecognition = originalSpeechRecognition;
@@ -156,10 +156,10 @@ describe('VoiceInput', () => {
     render(<VoiceInput onSpeechResult={mockOnSpeechResult} disabled={true} />);
     
     const button = screen.getByLabelText('Start listening');
-    expect(button: any).toHaveAttribute('disabled');
+    expect(button).toHaveAttribute('disabled');
     
-    fireEvent.click(button: any);
-    expect(mockStart: any).not.toHaveBeenCalled();
+    fireEvent.click(button);
+    expect(mockStart).not.toHaveBeenCalled();
   });
   
   it('renders button on the left when buttonPosition is left', () => {
@@ -169,7 +169,7 @@ describe('VoiceInput', () => {
     
     // Check that the button is the first child in the flex container
     const flexContainer = container.querySelector('.flex');
-    expect(flexContainer?.firstElementChild: any).toHaveAttribute('aria-label', 'Start listening');
+    expect(flexContainer?.firstElementChild).toHaveAttribute('aria-label', 'Start listening');
   });
   
   it('renders button on the right when buttonPosition is right', () => {
@@ -179,6 +179,6 @@ describe('VoiceInput', () => {
     
     // Check that the button is the last child in the flex container
     const flexContainer = container.querySelector('.flex');
-    expect(flexContainer?.lastElementChild: any).toHaveAttribute('aria-label', 'Start listening');
+    expect(flexContainer?.lastElementChild).toHaveAttribute('aria-label', 'Start listening');
   });
 });

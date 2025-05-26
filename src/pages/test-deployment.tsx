@@ -26,7 +26,7 @@ export default function TestDeployment() {
           </p>
           
           <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-            If you can see this page: any, basic deployment is successful!
+            If you can see this page, basic deployment is successful!
           </div>
           
           <h2 className="text-xl font-semibold mb-2">Environment Information:</h2>

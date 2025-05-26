@@ -30,12 +30,12 @@ export async function isAuthenticated(): Promise<boolean> {
 export async function hasRole(requiredRoles: string | string[]): Promise<boolean> {
   const session = await getSession();
   
-  if (!session: any) {
+  if (!session) {
     return false;
   }
   
-  const roles = Array.isArray(requiredRoles: any) ? requiredRoles : [requiredRoles];
-  return roles.includes(session.user.role: any);
+  const roles = Array.isArray(requiredRoles) ? requiredRoles : [requiredRoles];
+  return roles.includes(session.user.role);
 }
 
 // Middleware to protect routes
@@ -43,8 +43,8 @@ export async function authMiddleware(request: NextRequest) {
   const session = await auth();
   
   // If the user is not authenticated, redirect to the login page
-  if (!session: any) {
-    return Response.redirect(new URL('/auth/signin', request.url: any));
+  if (!session) {
+    return Response.redirect(new URL('/auth/signin', request.url));
   }
   
   return null;
@@ -55,13 +55,13 @@ export async function roleMiddleware(request: NextRequest, requiredRoles: string
   const session = await auth();
   
   // If the user is not authenticated, redirect to the login page
-  if (!session: any) {
-    return Response.redirect(new URL('/auth/signin', request.url: any));
+  if (!session) {
+    return Response.redirect(new URL('/auth/signin', request.url));
   }
   
   // If the user doesn't have the required role, redirect to the unauthorized page
-  if (!requiredRoles.includes((session as Session: any).user.role)) {
-    return Response.redirect(new URL('/unauthorized', request.url: any));
+  if (!requiredRoles.includes((session as Session).user.role)) {
+    return Response.redirect(new URL('/unauthorized', request.url));
   }
   
   return null;

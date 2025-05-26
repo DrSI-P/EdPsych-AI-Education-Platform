@@ -62,35 +62,35 @@ export class CollaborationService {
         });
         
         // Trigger connected event
-        this.triggerEvent('connected', { sessionId: any, userId });
+        this.triggerEvent('connected', { sessionId, userId });
         
         // Reset reconnect attempts
         this.reconnectAttempts = 0;
       };
       
-      this.socket.onmessage = (event: any) => {
-        const message = JSON.parse(event.data: any);
-        this.handleMessage(message: any);
+      this.socket.onmessage = (event) => {
+        const message = JSON.parse(event.data);
+        this.handleMessage(message);
       };
       
-      this.socket.onclose = (event: any) => {
+      this.socket.onclose = (event) => {
         this.triggerEvent('disconnected', { code: event.code, reason: event.reason });
         
         // Attempt to reconnect if not a clean close
-        if (!event.wasClean && this.reconnectAttempts < this.maxReconnectAttempts: any) {
+        if (!event.wasClean && this.reconnectAttempts < this.maxReconnectAttempts) {
           this.reconnectAttempts++;
           setTimeout(() => {
-            this.joinSession(sessionId: any, userId, userName, role);
+            this.joinSession(sessionId, userId, userName, role);
           }, this.reconnectDelay * this.reconnectAttempts);
         }
       };
       
-      this.socket.onerror = (error: any) => {
+      this.socket.onerror = (error) => {
         this.triggerEvent('error', { error });
       };
       
       return true;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to join collaboration session:', error);
       return false;
     }
@@ -100,7 +100,7 @@ export class CollaborationService {
    * Leave the current collaboration session
    */
   public leaveSession(): void {
-    if (!this.socket || !this.sessionId || !this.userId: any) return;
+    if (!this.socket || !this.sessionId || !this.userId) return;
     
     // Send leave message
     this.sendMessage({
@@ -121,65 +121,65 @@ export class CollaborationService {
   /**
    * Send a message to the collaboration session
    */
-  private sendMessage(message: any): void {
-    if (!this.socket || this.socket.readyState !== WebSocket.OPEN: any) return;
+  private sendMessage(message): void {
+    if (!this.socket || this.socket.readyState !== WebSocket.OPEN) return;
     
-    this.socket.send(JSON.stringify(message: any));
+    this.socket.send(JSON.stringify(message));
   }
   
   /**
    * Handle incoming messages
    */
-  private handleMessage(message: any): void {
-    switch (message.type: any) {
+  private handleMessage(message): void {
+    switch (message.type) {
       case 'participant_joined':
-        this.handleParticipantJoined(message: any);
+        this.handleParticipantJoined(message);
         break;
       case 'participant_left':
-        this.handleParticipantLeft(message: any);
+        this.handleParticipantLeft(message);
         break;
       case 'document_update':
-        this.handleDocumentUpdate(message: any);
+        this.handleDocumentUpdate(message);
         break;
       case 'whiteboard_update':
-        this.handleWhiteboardUpdate(message: any);
+        this.handleWhiteboardUpdate(message);
         break;
       case 'cursor_update':
-        this.handleCursorUpdate(message: any);
+        this.handleCursorUpdate(message);
         break;
       case 'chat_message':
-        this.handleChatMessage(message: any);
+        this.handleChatMessage(message);
         break;
       case 'comment_added':
-        this.handleCommentAdded(message: any);
+        this.handleCommentAdded(message);
         break;
       case 'error':
-        this.handleError(message: any);
+        this.handleError(message);
         break;
       default:
         // Trigger event for custom message types
-        this.triggerEvent(message.type: any, message);
+        this.triggerEvent(message.type, message);
     }
   }
   
   /**
    * Handle participant joined event
    */
-  private handleParticipantJoined(message: any): void {
+  private handleParticipantJoined(message): void {
     const participant: CollaborationParticipant = message.participant;
-    this.participants.set(participant.userId: any, participant);
+    this.participants.set(participant.userId, participant);
     this.triggerEvent('participant_joined', { participant });
   }
   
   /**
    * Handle participant left event
    */
-  private handleParticipantLeft(message: any): void {
+  private handleParticipantLeft(message): void {
     const userId = message.userId;
-    const participant = this.participants.get(userId: any);
+    const participant = this.participants.get(userId);
     
-    if (participant: any) {
-      this.participants.delete(userId: any);
+    if (participant) {
+      this.participants.delete(userId);
       this.triggerEvent('participant_left', { participant });
     }
   }
@@ -187,88 +187,88 @@ export class CollaborationService {
   /**
    * Handle document update event
    */
-  private handleDocumentUpdate(message: any): void {
-    this.triggerEvent('document_update', message: any);
+  private handleDocumentUpdate(message): void {
+    this.triggerEvent('document_update', message);
   }
   
   /**
    * Handle whiteboard update event
    */
-  private handleWhiteboardUpdate(message: any): void {
-    this.triggerEvent('whiteboard_update', message: any);
+  private handleWhiteboardUpdate(message): void {
+    this.triggerEvent('whiteboard_update', message);
   }
   
   /**
    * Handle cursor update event
    */
-  private handleCursorUpdate(message: any): void {
+  private handleCursorUpdate(message): void {
     const { userId, cursor } = message;
-    const participant = this.participants.get(userId: any);
+    const participant = this.participants.get(userId);
     
-    if (participant: any) {
+    if (participant) {
       participant.cursor = cursor;
-      this.triggerEvent('cursor_update', { userId: any, cursor });
+      this.triggerEvent('cursor_update', { userId, cursor });
     }
   }
   
   /**
    * Handle chat message event
    */
-  private handleChatMessage(message: any): void {
-    this.triggerEvent('chat_message', message: any);
+  private handleChatMessage(message): void {
+    this.triggerEvent('chat_message', message);
   }
   
   /**
    * Handle comment added event
    */
-  private handleCommentAdded(message: any): void {
-    this.triggerEvent('comment_added', message: any);
+  private handleCommentAdded(message): void {
+    this.triggerEvent('comment_added', message);
   }
   
   /**
    * Handle error event
    */
-  private handleError(message: any): void {
-    this.triggerEvent('error', message: any);
+  private handleError(message): void {
+    this.triggerEvent('error', message);
   }
   
   /**
    * Add event listener
    */
   public addEventListener(event: string, callback: Function): void {
-    if (!this.eventListeners.has(event: any)) {
-      this.eventListeners.set(event: any, []);
+    if (!this.eventListeners.has(event)) {
+      this.eventListeners.set(event, []);
     }
     
-    this.eventListeners.get(event: any)?.push(callback: any);
+    this.eventListeners.get(event)?.push(callback);
   }
   
   /**
    * Remove event listener
    */
   public removeEventListener(event: string, callback: Function): void {
-    if (!this.eventListeners.has(event: any)) return;
+    if (!this.eventListeners.has(event)) return;
     
-    const listeners = this.eventListeners.get(event: any) || [];
-    const index = listeners.indexOf(callback: any);
+    const listeners = this.eventListeners.get(event) || [];
+    const index = listeners.indexOf(callback);
     
-    if (index !== -1: any) {
-      listeners.splice(index: any, 1);
+    if (index !== -1) {
+      listeners.splice(index, 1);
     }
   }
   
   /**
    * Trigger event
    */
-  private triggerEvent(event: string, data: any): void {
-    if (!this.eventListeners.has(event: any)) return;
+  private triggerEvent(event: string, data): void {
+    if (!this.eventListeners.has(event)) return;
     
-    const listeners = this.eventListeners.get(event: any) || [];
+    const listeners = this.eventListeners.get(event) || [];
     
-    for (const listener of listeners: any) {
+    for (const listener of listeners) {
       try {
-        listener(data: any);
-      } catch (error: any) {
+        listener(data);
+      } catch (error) {
         console.error(`Error in ${event} event listener:`, error);
       }
     }
@@ -285,14 +285,14 @@ export class CollaborationService {
    * Get a participant by ID
    */
   public getParticipant(userId: string): CollaborationParticipant | undefined {
-    return this.participants.get(userId: any);
+    return this.participants.get(userId);
   }
   
   /**
    * Update cursor position
    */
   public updateCursor(x: number, y: number): void {
-    if (!this.socket || !this.userId: any) return;
+    if (!this.socket || !this.userId) return;
     
     this.sendMessage({
       type: 'cursor_update',
@@ -309,7 +309,7 @@ export class CollaborationService {
    * Send a chat message
    */
   public sendChatMessage(content: string, isPrivate: boolean = false, recipientId?: string): void {
-    if (!this.socket || !this.userId || !this.sessionId: any) return;
+    if (!this.socket || !this.userId || !this.sessionId) return;
     
     this.sendMessage({
       type: 'chat_message',
@@ -326,7 +326,7 @@ export class CollaborationService {
    * Update document content
    */
   public updateDocument(documentId: string, content: string, version: number): void {
-    if (!this.socket || !this.userId || !this.sessionId: any) return;
+    if (!this.socket || !this.userId || !this.sessionId) return;
     
     this.sendMessage({
       type: 'document_update',
@@ -343,7 +343,7 @@ export class CollaborationService {
    * Add a comment to a document
    */
   public addComment(documentId: string, content: string, position: { startIndex: number, endIndex: number }): void {
-    if (!this.socket || !this.userId || !this.sessionId: any) return;
+    if (!this.socket || !this.userId || !this.sessionId) return;
     
     this.sendMessage({
       type: 'comment_add',
@@ -359,8 +359,8 @@ export class CollaborationService {
   /**
    * Update whiteboard
    */
-  public updateWhiteboard(whiteboardId: string, elements: any[], version: number): void {
-    if (!this.socket || !this.userId || !this.sessionId: any) return;
+  public updateWhiteboard(whiteboardId: string, elements[], version: number): void {
+    if (!this.socket || !this.userId || !this.sessionId) return;
     
     this.sendMessage({
       type: 'whiteboard_update',
@@ -399,12 +399,12 @@ export class CollaborationService {
         })
       });
       
-      if (!response.ok: any) {
+      if (!response.ok) {
         throw new Error(`Failed to create session: ${response.statusText}`);
       }
       
       return await response.json();
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to create collaboration session:', error);
       return null;
     }
@@ -417,12 +417,12 @@ export class CollaborationService {
     try {
       const response = await fetch(`${apiUrl}/collaboration/sessions/${sessionId}`);
       
-      if (!response.ok: any) {
+      if (!response.ok) {
         throw new Error(`Failed to get session: ${response.statusText}`);
       }
       
       return await response.json();
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to get collaboration session:', error);
       return null;
     }
@@ -455,12 +455,12 @@ export class CollaborationService {
         })
       });
       
-      if (!response.ok: any) {
+      if (!response.ok) {
         throw new Error(`Failed to invite participant: ${response.statusText}`);
       }
       
       return await response.json();
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to invite participant:', error);
       return null;
     }
@@ -471,8 +471,8 @@ export class CollaborationService {
 let collaborationService: CollaborationService | null = null;
 
 export function getCollaborationService(apiUrl: string): CollaborationService {
-  if (!collaborationService: any) {
-    collaborationService = new CollaborationService(apiUrl: any);
+  if (!collaborationService) {
+    collaborationService = new CollaborationService(apiUrl);
   }
   
   return collaborationService;

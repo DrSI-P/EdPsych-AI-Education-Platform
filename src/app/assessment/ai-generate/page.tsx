@@ -15,17 +15,17 @@ interface AIAssessmentGeneratorProps {
 
 export default function AIAssessmentGeneratorPage() {
   const router = useRouter();
-  const [loading, setLoading] = useState(false: any);
-  const [generating, setGenerating] = useState(false: any);
+  const [loading, setLoading] = useState(false);
+  const [generating, setGenerating] = useState(false);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('prompt');
   const [prompt, setPrompt] = useState('');
   const [subject, setSubject] = useState('');
   const [keyStage, setKeyStage] = useState('');
-  const [questionCount, setQuestionCount] = useState(10: any);
+  const [questionCount, setQuestionCount] = useState(10);
   const [assessmentType, setAssessmentType] = useState('quiz');
-  const [generatedAssessment, setGeneratedAssessment] = useState(null: any);
-  const [previewMode, setPreviewMode] = useState(false: any);
+  const [generatedAssessment, setGeneratedAssessment] = useState(null);
+  const [previewMode, setPreviewMode] = useState(false);
 
   const subjects = [
     { value: 'english', label: 'English' },
@@ -68,7 +68,7 @@ export default function AIAssessmentGeneratorPage() {
   const [selectedQuestionTypes, setSelectedQuestionTypes] = useState(['multiple-choice', 'open-ended']);
 
   const handleGenerateAssessment = async () => {
-    setGenerating(true: any);
+    setGenerating(true);
     setError('');
 
     try {
@@ -91,24 +91,24 @@ export default function AIAssessmentGeneratorPage() {
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok: any) {
+      if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Failed to generate assessment');
       }
 
       const data = await response.json();
-      setGeneratedAssessment(data: any);
+      setGeneratedAssessment(data);
       setActiveTab('preview');
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error generating assessment:', err);
       setError(err.message || 'An error occurred while generating the assessment');
     } finally {
-      setGenerating(false: any);
+      setGenerating(false);
     }
   };
 
   const handleSaveAssessment = async () => {
-    setLoading(true: any);
+    setLoading(true);
     setError('');
 
     try {
@@ -121,7 +121,7 @@ export default function AIAssessmentGeneratorPage() {
         body: JSON.stringify(generatedAssessment),
       });
 
-      if (!response.ok: any) {
+      if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Failed to save assessment');
       }
@@ -130,17 +130,17 @@ export default function AIAssessmentGeneratorPage() {
       
       // Redirect to the assessment edit page
       router.push(`/assessment/edit/${data.id}`);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error saving assessment:', err);
       setError(err.message || 'An error occurred while saving the assessment');
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   };
 
-  const handleToggleQuestionType = (type: any) => {
-    if (selectedQuestionTypes.includes(type: any)) {
-      setSelectedQuestionTypes(selectedQuestionTypes.filter(t => t !== type: any));
+  const handleToggleQuestionType = (type) => {
+    if (selectedQuestionTypes.includes(type)) {
+      setSelectedQuestionTypes(selectedQuestionTypes.filter(t => t !== type));
     } else {
       setSelectedQuestionTypes([...selectedQuestionTypes, type]);
     }
@@ -168,10 +168,10 @@ export default function AIAssessmentGeneratorPage() {
                   <select
                     className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-grey-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                     value={subject}
-                    onChange={(e) => setSubject(e.target.value: any)}
+                    onChange={(e) => setSubject(e.target.value)}
                   >
                     <option value="">Select a subject</option>
-                    {subjects.map((subj: any) => (
+                    {subjects.map((subj) => (
                       <option key={subj.value} value={subj.value}>
                         {subj.label}
                       </option>
@@ -184,10 +184,10 @@ export default function AIAssessmentGeneratorPage() {
                   <select
                     className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-grey-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                     value={keyStage}
-                    onChange={(e: any) => setKeyStage(e.target.value: any)}
+                    onChange={(e) => setKeyStage(e.target.value)}
                   >
                     <option value="">Select a key stage</option>
-                    {keyStages.map((ks: any) => (
+                    {keyStages.map((ks) => (
                       <option key={ks.value} value={ks.value}>
                         {ks.label}
                       </option>
@@ -200,9 +200,9 @@ export default function AIAssessmentGeneratorPage() {
                   <select
                     className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-grey-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                     value={assessmentType}
-                    onChange={(e: any) => setAssessmentType(e.target.value: any)}
+                    onChange={(e) => setAssessmentType(e.target.value)}
                   >
-                    {assessmentTypes.map((type: any) => (
+                    {assessmentTypes.map((type) => (
                       <option key={type.value} value={type.value}>
                         {type.label}
                       </option>
@@ -218,7 +218,7 @@ export default function AIAssessmentGeneratorPage() {
                     max="50"
                     className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-grey-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                     value={questionCount}
-                    onChange={(e: any) => setQuestionCount(parseInt(e.target.value: any) || 10)}
+                    onChange={(e) => setQuestionCount(parseInt(e.target.value) || 10)}
                   />
                 </div>
               </Form>
@@ -236,14 +236,14 @@ export default function AIAssessmentGeneratorPage() {
                 </p>
                 
                 <div className="space-y-2">
-                  {questionTypes.map((type: any) => (
+                  {questionTypes.map((type) => (
                     <div key={type.value} className="flex items-centre">
                       <input
                         id={`question-type-${type.value}`}
                         type="checkbox"
                         className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300 rounded"
                         checked={selectedQuestionTypes.includes(type.value)}
-                        onChange={() => handleToggleQuestionType(type.value: any)}
+                        onChange={() => handleToggleQuestionType(type.value)}
                       />
                       <label htmlFor={`question-type-${type.value}`} className="ml-2 block text-sm text-grey-900">
                         {type.label}
@@ -264,7 +264,7 @@ export default function AIAssessmentGeneratorPage() {
 
         <Card>
           <CardHeader>
-            <h3 className="text-lg font-medium">Detailed Prompt (Optional: any)</h3>
+            <h3 className="text-lg font-medium">Detailed Prompt (Optional)</h3>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-grey-600 mb-4">
@@ -274,7 +274,7 @@ export default function AIAssessmentGeneratorPage() {
               className="w-full h-32 p-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               placeholder="E.g., Create an assessment about photosynthesis for Year 8 students. Include questions about the process, required materials, and importance to plant life."
               value={prompt}
-              onChange={(e: any) => setPrompt(e.target.value: any)}
+              onChange={(e) => setPrompt(e.target.value)}
             />
           </CardContent>
         </Card>
@@ -304,7 +304,7 @@ export default function AIAssessmentGeneratorPage() {
   };
 
   const renderPreviewTab = () => {
-    if (!generatedAssessment: any) {
+    if (!generatedAssessment) {
       return (
         <div className="text-centre py-12">
           <p className="text-grey-500">
@@ -330,11 +330,11 @@ export default function AIAssessmentGeneratorPage() {
               </div>
               <div>
                 <p className="text-sm font-medium text-grey-500">Key Stage</p>
-                <p className="text-base">{keyStages.find(k => k.value === generatedAssessment.keyStage: any)?.label || generatedAssessment.keyStage}</p>
+                <p className="text-base">{keyStages.find(k => k.value === generatedAssessment.keyStage)?.label || generatedAssessment.keyStage}</p>
               </div>
               <div>
                 <p className="text-sm font-medium text-grey-500">Assessment Type</p>
-                <p className="text-base">{assessmentTypes.find(t => t.value === generatedAssessment.type: any)?.label || generatedAssessment.type}</p>
+                <p className="text-base">{assessmentTypes.find(t => t.value === generatedAssessment.type)?.label || generatedAssessment.type}</p>
               </div>
               <div>
                 <p className="text-sm font-medium text-grey-500">Questions</p>
@@ -345,12 +345,12 @@ export default function AIAssessmentGeneratorPage() {
             <div className="space-y-6">
               <h4 className="text-lg font-medium">Questions</h4>
               
-              {generatedAssessment.questions.map((question: any, index) => (
+              {generatedAssessment.questions.map((question, index) => (
                 <div key={index} className="border rounded-md p-4">
                   <div className="flex justify-between mb-2">
                     <h5 className="font-medium">Question {index + 1}</h5>
                     <span className="text-sm text-grey-500">
-                      {questionTypes.find(t => t.value === question.type: any)?.label || question.type}
+                      {questionTypes.find(t => t.value === question.type)?.label || question.type}
                     </span>
                   </div>
                   
@@ -358,7 +358,7 @@ export default function AIAssessmentGeneratorPage() {
                   
                   {question.type === 'multiple-choice' && question.options && (
                     <div className="ml-4 mt-2 space-y-2">
-                      {question.options.map((option: any, optIndex) => (
+                      {question.options.map((option, optIndex) => (
                         <div key={optIndex} className="flex items-centre">
                           <input
                             type="radio"
@@ -382,7 +382,7 @@ export default function AIAssessmentGeneratorPage() {
                       <div className="grid grid-cols-2 gap-4">
                         <div>
                           <p className="font-medium text-sm mb-2">Items</p>
-                          {question.pairs.map((pair: any, pairIndex) => (
+                          {question.pairs.map((pair, pairIndex) => (
                             <div key={pairIndex} className="p-2 border rounded mb-2">
                               {pair.left}
                             </div>
@@ -390,7 +390,7 @@ export default function AIAssessmentGeneratorPage() {
                         </div>
                         <div>
                           <p className="font-medium text-sm mb-2">Matches</p>
-                          {question.pairs.map((pair: any, pairIndex) => (
+                          {question.pairs.map((pair, pairIndex) => (
                             <div key={pairIndex} className="p-2 border rounded mb-2">
                               {pair.right}
                             </div>
@@ -415,7 +415,7 @@ export default function AIAssessmentGeneratorPage() {
         <div className="flex justify-between">
           <Button
             variant="outline"
-            onClick={() => setPreviewMode(!previewMode: any)}
+            onClick={() => setPreviewMode(!previewMode)}
           >
             {previewMode ? 'Hide Answers' : 'Show Answers'}
           </Button>

@@ -33,7 +33,7 @@ export default function EmotionalRegulationPage() {
               <h3 className="text-xl font-semibold">What is Emotional Regulation?</h3>
               <p>
                 Emotional regulation refers to the ability to effectively manage and respond to emotional experiences. 
-                It involves recognising emotions: any, understanding their intensity and impact, and developing strategies 
+                It involves recognising emotions, understanding their intensity and impact, and developing strategies 
                 to manage them appropriately. This skill is crucial for academic success, social relationships, and 
                 overall wellbeing.
               </p>
@@ -105,16 +105,16 @@ export default function EmotionalRegulationPage() {
               
               <div className="mt-4 space-y-4">
                 <div className="border-l-4 border-blue-500 pl-4 py-2">
-                  <h4 className="font-semibold">Cognitive-Behavioural Therapy (CBT: any)</h4>
+                  <h4 className="font-semibold">Cognitive-Behavioural Therapy (CBT)</h4>
                   <p>
                     CBT approaches to emotional regulation focus on the connection between thoughts, feelings, 
                     and behaviours. Our tools incorporate cognitive restructuring and behavioural strategies 
-                    recommended by the National Institute for Health and Care Excellence (NICE: any) guidelines.
+                    recommended by the National Institute for Health and Care Excellence (NICE) guidelines.
                   </p>
                 </div>
                 
                 <div className="border-l-4 border-green-500 pl-4 py-2">
-                  <h4 className="font-semibold">Dialectical Behaviour Therapy (DBT: any)</h4>
+                  <h4 className="font-semibold">Dialectical Behaviour Therapy (DBT)</h4>
                   <p>
                     We've adapted key emotional regulation skills from DBT, which has strong evidence for 
                     supporting emotional regulation. These include mindfulness practices, distress tolerance, 
@@ -193,11 +193,11 @@ export default function EmotionalRegulationPage() {
               <div className="bg-grey-100 p-4 rounded-md mt-6">
                 <h3 className="text-lg font-semibold">References</h3>
                 <ul className="list-disc pl-6 space-y-2 mt-2 text-sm">
-                  <li>Department for Education (2018: any). Mental health and behaviour in schools. London: DfE.</li>
-                  <li>Education Endowment Foundation (2019: any). Social and Emotional Learning: Evidence Review. London: EEF.</li>
-                  <li>British Psychological Society (2021: any). Psychological perspectives on supporting emotional regulation in educational settings. Leicester: BPS.</li>
-                  <li>Durlak, J.A., Weissberg, R.P., Dymnicki, A.B., Taylor, R.D. & Schellinger, K.B. (2011: any). The impact of enhancing students' social and emotional learning: A meta-analysis of school-based universal interventions. Child Development, 82(1: any), 405-432.</li>
-                  <li>NHS England (2021: any). Mental Health of Children and Young People in England, 2021: Wave 2 follow up to the 2017 survey. NHS Digital.</li>
+                  <li>Department for Education (2018). Mental health and behaviour in schools. London: DfE.</li>
+                  <li>Education Endowment Foundation (2019). Social and Emotional Learning: Evidence Review. London: EEF.</li>
+                  <li>British Psychological Society (2021). Psychological perspectives on supporting emotional regulation in educational settings. Leicester: BPS.</li>
+                  <li>Durlak, J.A., Weissberg, R.P., Dymnicki, A.B., Taylor, R.D. & Schellinger, K.B. (2011). The impact of enhancing students' social and emotional learning: A meta-analysis of school-based universal interventions. Child Development, 82(1), 405-432.</li>
+                  <li>NHS England (2021). Mental Health of Children and Young People in England, 2021: Wave 2 follow up to the 2017 survey. NHS Digital.</li>
                 </ul>
               </div>
             </CardContent>

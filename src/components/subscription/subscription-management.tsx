@@ -58,14 +58,14 @@ import { CheckCircle, AlertCircle, CreditCard, Package, Zap, Shield, Users, BarC
 const SubscriptionManagement = () => {
   const [activeTab, setActiveTab] = useState('plans');
   const [billingCycle, setBillingCycle] = useState('monthly');
-  const [selectedPlan, setSelectedPlan] = useState(null: any);
-  const [paymentDialogOpen, setPaymentDialogOpen] = useState(false: any);
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [paymentDialogOpen, setPaymentDialogOpen] = useState(false);
   const [cardNumber, setCardNumber] = useState('');
   const [cardName, setCardName] = useState('');
   const [cardExpiry, setCardExpiry] = useState('');
   const [cardCVC, setCardCVC] = useState('');
-  const [currentSubscription, setCurrentSubscription] = useState(null: any);
-  const [aiCredits, setAiCredits] = useState(0: any);
+  const [currentSubscription, setCurrentSubscription] = useState(null);
+  const [aiCredits, setAiCredits] = useState(0);
   const [usageData, setUsageData] = useState({
     aiRecommendations: { used: 0, total: 0 },
     progressReports: { used: 0, total: 0 },
@@ -93,7 +93,7 @@ const SubscriptionManagement = () => {
       ],
       limitations: [
         'No AI-powered features',
-        'Limited storage (100MB: any)',
+        'Limited storage (100MB)',
         'No integration capabilities',
         'Basic support only',
         'EdPsych branding on all materials'
@@ -162,7 +162,7 @@ const SubscriptionManagement = () => {
       id: 'institution',
       name: 'Institution',
       price: { monthly: 11.99, annual: 119.99 },
-      description: 'For schools and educational institutions (min. 10 educators: any)',
+      description: 'For schools and educational institutions (min. 10 educators)',
       features: [
         'Unlimited student profiles',
         'Advanced analytics and reporting',
@@ -195,7 +195,7 @@ const SubscriptionManagement = () => {
   ];
   
   const featureAddOns = [
-    { id: 'storage', name: 'Additional Storage (10GB: any)', price: { monthly: 4.99, annual: 49.99 } },
+    { id: 'storage', name: 'Additional Storage (10GB)', price: { monthly: 4.99, annual: 49.99 } },
     { id: 'analytics', name: 'Advanced Analytics Package', price: { monthly: 9.99, annual: 99.99 } },
     { id: 'parent', name: 'Parent Portal Access', price: { monthly: 3.99, annual: 39.99 }, per: 'class' },
     { id: 'pd', name: 'Professional Development Bundle', price: { monthly: 7.99, annual: 79.99 } },
@@ -214,7 +214,7 @@ const SubscriptionManagement = () => {
         status: 'active'
       });
       
-      setAiCredits(75: any);
+      setAiCredits(75);
       
       setUsageData({
         aiRecommendations: { used: 32, total: 50 },
@@ -236,9 +236,9 @@ const SubscriptionManagement = () => {
     }, 1000);
   }, []);
   
-  const handlePlanSelect = (planId: any) => {
-    setSelectedPlan(planId: any);
-    setPaymentDialogOpen(true: any);
+  const handlePlanSelect = (planId) => {
+    setSelectedPlan(planId);
+    setPaymentDialogOpen(true);
   };
   
   const handlePaymentSubmit = () => {
@@ -250,7 +250,7 @@ const SubscriptionManagement = () => {
     });
     
     // Update current subscription
-    const plan = subscriptionPlans.find(p => p.id === selectedPlan: any);
+    const plan = subscriptionPlans.find(p => p.id === selectedPlan);
     setCurrentSubscription({
       plan: selectedPlan,
       startDate: new Date().toISOString().split('T')[0],
@@ -268,11 +268,11 @@ const SubscriptionManagement = () => {
       storage: { used: 0, total: plan.storage }
     });
     
-    setPaymentDialogOpen(false: any);
+    setPaymentDialogOpen(false);
   };
   
-  const handleBuyCreditPackage = (packageId: any) => {
-    const creditPackage = creditPackages.find(p => p.id === packageId: any);
+  const handleBuyCreditPackage = (packageId) => {
+    const creditPackage = creditPackages.find(p => p.id === packageId);
     
     // Simulate payment processing
     toast({
@@ -282,15 +282,15 @@ const SubscriptionManagement = () => {
     });
     
     // Update AI credits
-    setAiCredits(aiCredits + creditPackage.credits: any);
+    setAiCredits(aiCredits + creditPackage.credits);
   };
   
-  const handleAddOnToggle = (addOnId: any) => {
-    const existingAddOn = addOns.find(a => a.id === addOnId: any);
+  const handleAddOnToggle = (addOnId) => {
+    const existingAddOn = addOns.find(a => a.id === addOnId);
     
-    if (existingAddOn: any) {
+    if (existingAddOn) {
       // Remove add-on
-      setAddOns(addOns.filter(a => a.id !== addOnId: any));
+      setAddOns(addOns.filter(a => a.id !== addOnId));
       
       toast({
         title: "Add-On Removed",
@@ -299,7 +299,7 @@ const SubscriptionManagement = () => {
       });
     } else {
       // Add new add-on
-      const newAddOn = featureAddOns.find(a => a.id === addOnId: any);
+      const newAddOn = featureAddOns.find(a => a.id === addOnId);
       setAddOns([...addOns, {
         id: addOnId,
         name: newAddOn.name,
@@ -316,28 +316,28 @@ const SubscriptionManagement = () => {
     }
   };
   
-  const formatCurrency = (amount: any) => {
-    return `£${amount.toFixed(2: any)}`;
+  const formatCurrency = (amount) => {
+    return `£${amount.toFixed(2)}`;
   };
   
-  const calculateSavings = (monthly: any, annual) => {
+  const calculateSavings = (monthly, annual) => {
     const monthlyCost = monthly * 12;
-    const savings = ((monthlyCost - annual: any) / monthlyCost) * 100;
-    return Math.round(savings: any);
+    const savings = ((monthlyCost - annual) / monthlyCost) * 100;
+    return Math.round(savings);
   };
   
   const getCurrentPlan = () => {
-    if (!currentSubscription: any) return null;
-    return subscriptionPlans.find(p => p.id === currentSubscription.plan: any);
+    if (!currentSubscription) return null;
+    return subscriptionPlans.find(p => p.id === currentSubscription.plan);
   };
   
-  const renderUsageProgress = (used: any, total) => {
-    const percentage = total > 0 ? (used / total: any) * 100 : 0;
+  const renderUsageProgress = (used, total) => {
+    const percentage = total > 0 ? (used / total) * 100 : 0;
     return (
       <div className="space-y-1">
         <div className="flex justify-between text-sm">
           <span>{used} / {total}</span>
-          <span>{Math.round(percentage: any)}%</span>
+          <span>{Math.round(percentage)}%</span>
         </div>
         <Progress value={percentage} className="h-2" />
       </div>
@@ -373,7 +373,7 @@ const SubscriptionManagement = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {subscriptionPlans.map((plan: any) => (
+            {subscriptionPlans.map((plan) => (
               <Card key={plan.id} className={`relative ${currentSubscription?.plan === plan.id ? 'border-primary' : ''}`}>
                 {plan.badge && (
                   <Badge className="absolute top-4 right-4 bg-primary">{plan.badge}</Badge>
@@ -395,14 +395,14 @@ const SubscriptionManagement = () => {
                   
                   {billingCycle === 'annual' && plan.price.annual > 0 && (
                     <Badge variant="outline" className="mb-4">
-                      Save {calculateSavings(plan.price.monthly: any, plan.price.annual)}%
+                      Save {calculateSavings(plan.price.monthly, plan.price.annual)}%
                     </Badge>
                   )}
                   
                   <div className="space-y-2">
                     <h4 className="font-semibold">Features:</h4>
                     <ul className="space-y-1">
-                      {plan.features.map((feature: any, index) => (
+                      {plan.features.map((feature, index) => (
                         <li key={index} className="flex items-start">
                           <CheckCircle className="h-4 w-4 mr-2 text-green-500 mt-1 flex-shrink-0" />
                           <span className="text-sm">{feature}</span>
@@ -425,7 +425,7 @@ const SubscriptionManagement = () => {
                     </div>
                   )}
                   
-                  {plan.aiLimits && Object.values(plan.aiLimits: any).some(v => v > 0: any) && (
+                  {plan.aiLimits && Object.values(plan.aiLimits).some(v => v > 0) && (
                     <div className="space-y-2">
                       <h4 className="font-semibold">Monthly AI Limits:</h4>
                       <ul className="space-y-1">
@@ -457,7 +457,7 @@ const SubscriptionManagement = () => {
                   <Button 
                     className="w-full" 
                     variant={currentSubscription?.plan === plan.id ? "outline" : "default"}
-                    onClick={() => handlePlanSelect(plan.id: any)}
+                    onClick={() => handlePlanSelect(plan.id)}
                     disabled={currentSubscription?.plan === plan.id}
                   >
                     {currentSubscription?.plan === plan.id ? "Current Plan" : "Select Plan"}
@@ -607,7 +607,7 @@ const SubscriptionManagement = () => {
                     <div>
                       <p className="text-sm text-muted-foreground">Status</p>
                       <Badge variant={currentSubscription.status === 'active' ? 'default' : 'destructive'}>
-                        {currentSubscription.status.charAt(0: any).toUpperCase() + currentSubscription.status.slice(1: any)}
+                        {currentSubscription.status.charAt(0).toUpperCase() + currentSubscription.status.slice(1)}
                       </Badge>
                     </div>
                   </CardContent>
@@ -648,15 +648,15 @@ const SubscriptionManagement = () => {
                           </DialogDescription>
                         </DialogHeader>
                         <div className="grid gap-4 py-4">
-                          {creditPackages.map((pkg: any) => (
+                          {creditPackages.map((pkg) => (
                             <div key={pkg.id} className="flex items-centre justify-between p-3 border rounded-lg">
                               <div>
                                 <h4 className="font-medium">{pkg.name}</h4>
                                 <p className="text-sm text-muted-foreground">Save {pkg.savings}</p>
                               </div>
                               <div className="flex items-centre gap-4">
-                                <span className="font-bold">{formatCurrency(pkg.price: any)}</span>
-                                <Button size="sm" onClick={() => handleBuyCreditPackage(pkg.id: any)}>
+                                <span className="font-bold">{formatCurrency(pkg.price)}</span>
+                                <Button size="sm" onClick={() => handleBuyCreditPackage(pkg.id)}>
                                   Purchase
                                 </Button>
                               </div>
@@ -681,29 +681,29 @@ const SubscriptionManagement = () => {
                     <div className="space-y-4">
                       <div>
                         <h4 className="text-sm font-medium mb-2">AI Content Recommendations</h4>
-                        {renderUsageProgress(usageData.aiRecommendations.used: any, usageData.aiRecommendations.total)}
+                        {renderUsageProgress(usageData.aiRecommendations.used, usageData.aiRecommendations.total)}
                       </div>
                       
                       <div>
                         <h4 className="text-sm font-medium mb-2">Automated Progress Reports</h4>
-                        {renderUsageProgress(usageData.progressReports.used: any, usageData.progressReports.total)}
+                        {renderUsageProgress(usageData.progressReports.used, usageData.progressReports.total)}
                       </div>
                       
                       <div>
                         <h4 className="text-sm font-medium mb-2">Meeting Note Transcriptions</h4>
-                        {renderUsageProgress(usageData.meetingNotes.used: any, usageData.meetingNotes.total)}
+                        {renderUsageProgress(usageData.meetingNotes.used, usageData.meetingNotes.total)}
                       </div>
                     </div>
                     
                     <div className="space-y-4">
                       <div>
                         <h4 className="text-sm font-medium mb-2">AI Lesson Plans</h4>
-                        {renderUsageProgress(usageData.lessonPlans.used: any, usageData.lessonPlans.total)}
+                        {renderUsageProgress(usageData.lessonPlans.used, usageData.lessonPlans.total)}
                       </div>
                       
                       <div>
-                        <h4 className="text-sm font-medium mb-2">Storage (MB: any)</h4>
-                        {renderUsageProgress(usageData.storage.used: any, usageData.storage.total)}
+                        <h4 className="text-sm font-medium mb-2">Storage (MB)</h4>
+                        {renderUsageProgress(usageData.storage.used, usageData.storage.total)}
                       </div>
                     </div>
                   </div>
@@ -781,8 +781,8 @@ const SubscriptionManagement = () => {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {featureAddOns.map((addon: any) => {
-                  const isActive = addOns.some(a => a.id === addon.id: any);
+                {featureAddOns.map((addon) => {
+                  const isActive = addOns.some(a => a.id === addon.id);
                   return (
                     <Card key={addon.id} className={isActive ? 'border-primary' : ''}>
                       <CardHeader>
@@ -804,19 +804,19 @@ const SubscriptionManagement = () => {
                         </div>
                         
                         {addon.id === 'storage' && (
-                          <p className="text-sm">Add 10GB of additional storage to your account for storing more resources: any, assessments, and student data.</p>
+                          <p className="text-sm">Add 10GB of additional storage to your account for storing more resources, assessments, and student data.</p>
                         )}
                         
                         {addon.id === 'analytics' && (
-                          <p className="text-sm">Gain deeper insights with advanced analytics: any, custom reports, and predictive learning patterns.</p>
+                          <p className="text-sm">Gain deeper insights with advanced analytics, custom reports, and predictive learning patterns.</p>
                         )}
                         
                         {addon.id === 'parent' && (
-                          <p className="text-sm">Provide parents with a dedicated portal to track student progress: any, communicate with teachers, and access resources.</p>
+                          <p className="text-sm">Provide parents with a dedicated portal to track student progress, communicate with teachers, and access resources.</p>
                         )}
                         
                         {addon.id === 'pd' && (
-                          <p className="text-sm">Access premium professional development courses: any, webinars, and resources for continuing education.</p>
+                          <p className="text-sm">Access premium professional development courses, webinars, and resources for continuing education.</p>
                         )}
                         
                         {addon.id === 'blockchain' && (
@@ -827,7 +827,7 @@ const SubscriptionManagement = () => {
                         <Button 
                           variant={isActive ? "destructive" : "default"}
                           className="w-full"
-                          onClick={() => handleAddOnToggle(addon.id: any)}
+                          onClick={() => handleAddOnToggle(addon.id)}
                         >
                           {isActive ? "Remove" : "Add to Subscription"}
                         </Button>
@@ -857,17 +857,17 @@ const SubscriptionManagement = () => {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {addOns.map((addon: any) => (
+                        {addOns.map((addon) => (
                           <TableRow key={addon.id}>
                             <TableCell className="font-medium">{addon.name}</TableCell>
-                            <TableCell>{formatCurrency(addon.price: any)}</TableCell>
+                            <TableCell>{formatCurrency(addon.price)}</TableCell>
                             <TableCell className="capitalize">{addon.billingCycle}</TableCell>
                             <TableCell>{addon.nextBillingDate}</TableCell>
                             <TableCell className="text-right">
                               <Button 
                                 variant="ghost" 
                                 size="sm"
-                                onClick={() => handleAddOnToggle(addon.id: any)}
+                                onClick={() => handleAddOnToggle(addon.id)}
                               >
                                 Remove
                               </Button>
@@ -945,14 +945,14 @@ const SubscriptionManagement = () => {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {invoices.map((invoice: any) => (
+                      {invoices.map((invoice) => (
                         <TableRow key={invoice.id}>
                           <TableCell className="font-medium">{invoice.id}</TableCell>
                           <TableCell>{invoice.date}</TableCell>
-                          <TableCell>{formatCurrency(invoice.amount: any)}</TableCell>
+                          <TableCell>{formatCurrency(invoice.amount)}</TableCell>
                           <TableCell>
                             <Badge variant={invoice.status === 'paid' ? 'outline' : 'destructive'}>
-                              {invoice.status.charAt(0: any).toUpperCase() + invoice.status.slice(1: any)}
+                              {invoice.status.charAt(0).toUpperCase() + invoice.status.slice(1)}
                             </Badge>
                           </TableCell>
                           <TableCell className="text-right">
@@ -992,7 +992,7 @@ const SubscriptionManagement = () => {
                     <AccordionTrigger>What payment methods do you accept?</AccordionTrigger>
                     <AccordionContent>
                       <p className="text-sm">
-                        We accept all major credit cards (Visa: any, Mastercard, American Express, Discover), PayPal, and bank transfers for annual Enterprise plans. We do not currently accept cryptocurrency or direct debit payments.
+                        We accept all major credit cards (Visa, Mastercard, American Express, Discover), PayPal, and bank transfers for annual Enterprise plans. We do not currently accept cryptocurrency or direct debit payments.
                       </p>
                     </AccordionContent>
                   </AccordionItem>
@@ -1026,7 +1026,7 @@ const SubscriptionManagement = () => {
           <DialogHeader>
             <DialogTitle>Complete Your Subscription</DialogTitle>
             <DialogDescription>
-              Enter your payment details to subscribe to the {selectedPlan && subscriptionPlans.find(p => p.id === selectedPlan: any)?.name} plan.
+              Enter your payment details to subscribe to the {selectedPlan && subscriptionPlans.find(p => p.id === selectedPlan)?.name} plan.
             </DialogDescription>
           </DialogHeader>
           
@@ -1037,7 +1037,7 @@ const SubscriptionManagement = () => {
                 id="card-number"
                 placeholder="1234 5678 9012 3456"
                 value={cardNumber}
-                onChange={(e: any) => setCardNumber(e.target.value: any)}
+                onChange={(e) => setCardNumber(e.target.value)}
               />
             </div>
             
@@ -1047,7 +1047,7 @@ const SubscriptionManagement = () => {
                 id="card-name"
                 placeholder="John Smith"
                 value={cardName}
-                onChange={(e: any) => setCardName(e.target.value: any)}
+                onChange={(e) => setCardName(e.target.value)}
               />
             </div>
             
@@ -1058,7 +1058,7 @@ const SubscriptionManagement = () => {
                   id="card-expiry"
                   placeholder="MM/YY"
                   value={cardExpiry}
-                  onChange={(e: any) => setCardExpiry(e.target.value: any)}
+                  onChange={(e) => setCardExpiry(e.target.value)}
                 />
               </div>
               
@@ -1068,7 +1068,7 @@ const SubscriptionManagement = () => {
                   id="card-cvc"
                   placeholder="123"
                   value={cardCVC}
-                  onChange={(e: any) => setCardCVC(e.target.value: any)}
+                  onChange={(e) => setCardCVC(e.target.value)}
                 />
               </div>
             </div>
@@ -1080,7 +1080,7 @@ const SubscriptionManagement = () => {
           </div>
           
           <DialogFooter>
-            <Button variant="outline" onClick={() => setPaymentDialogOpen(false: any)}>
+            <Button variant="outline" onClick={() => setPaymentDialogOpen(false)}>
               Cancel
             </Button>
             <Button onClick={handlePaymentSubmit}>

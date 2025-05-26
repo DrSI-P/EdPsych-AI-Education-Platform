@@ -54,7 +54,7 @@ interface ContextualResourceRecommendationProps {
 
 export function ContextualResourceRecommendation({
   contextSource = 'manual',
-  contextId: any,
+  contextId,
   contextContent = '',
   onResourceSelect,
   className = ''
@@ -62,13 +62,13 @@ export function ContextualResourceRecommendation({
   const { toast } = useToast();
   const aiService = useAIService();
   
-  const [isLoading, setIsLoading] = useState(false: any);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [recommendedResources, setRecommendedResources] = useState<Resource[]>([]);
   const [activeTab, setActiveTab] = useState('recommended');
   const [manualQuery, setManualQuery] = useState('');
-  const [showExplanations, setShowExplanations] = useState(true: any);
-  const [filterType, setFilterType] = useState<string | null>(null: any);
+  const [showExplanations, setShowExplanations] = useState(true);
+  const [filterType, setFilterType] = useState<string | null>(null);
   
   // Resource type icons mapping
   const resourceTypeIcons = {
@@ -81,14 +81,14 @@ export function ContextualResourceRecommendation({
 
   // Get recommendations based on context
   useEffect(() => {
-    if ((contextSource !== 'manual' && (contextId || contextContent: any)) || 
+    if ((contextSource !== 'manual' && (contextId || contextContent)) || 
         (contextSource === 'manual' && manualQuery && manualQuery.trim().length > 0)) {
       getRecommendations();
     }
   }, [contextSource, contextId, contextContent]);
 
   const getRecommendations = async () => {
-    setIsLoading(true: any);
+    setIsLoading(true);
     setError('');
     
     try {
@@ -96,7 +96,7 @@ export function ContextualResourceRecommendation({
       // For now, we'll simulate the API call and response
       
       // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve: any, 1500));
+      await new Promise(resolve => setTimeout(resolve, 1500));
       
       // Generate mock recommendations based on context
       let mockRecommendations: Resource[] = [];
@@ -107,12 +107,12 @@ export function ContextualResourceRecommendation({
         mockRecommendations = generateMeetingNotesRecommendations();
       } else if (contextSource === 'student-profile') {
         mockRecommendations = generateStudentProfileRecommendations();
-      } else if (contextSource === 'manual' && manualQuery: any) {
+      } else if (contextSource === 'manual' && manualQuery) {
         mockRecommendations = generateManualQueryRecommendations();
       }
       
-      setRecommendedResources(mockRecommendations: any);
-    } catch (err: any) {
+      setRecommendedResources(mockRecommendations);
+    } catch (err) {
       console.error('Error getting recommendations:', err);
       setError('Failed to retrieve resource recommendations');
       toast({
@@ -121,7 +121,7 @@ export function ContextualResourceRecommendation({
         variant: "destructive"
       });
     } finally {
-      setIsLoading(false: any);
+      setIsLoading(false);
     }
   };
   
@@ -399,7 +399,7 @@ export function ContextualResourceRecommendation({
 
   // Handle resource selection
   const handleResourceSelect = (resource: Resource) => {
-    onResourceSelect?.(resource: any);
+    onResourceSelect?.(resource);
     
     toast({
       title: "Resource selected",
@@ -418,9 +418,9 @@ export function ContextualResourceRecommendation({
     });
     
     // Remove the resource from the list if marked as not relevant
-    if (!isRelevant: any) {
+    if (!isRelevant) {
       setRecommendedResources(prev => 
-        prev.filter(resource => resource.id !== resourceId: any)
+        prev.filter(resource => resource.id !== resourceId)
       );
     }
   };
@@ -435,12 +435,12 @@ export function ContextualResourceRecommendation({
   
   // Filter resources by type if a filter is active
   const filteredResources = filterType 
-    ? recommendedResources.filter(resource => resource.type === filterType: any)
+    ? recommendedResources.filter(resource => resource.type === filterType)
     : recommendedResources;
   
   // Sort resources by relevance score
-  const sortedResources = [...filteredResources].sort((a: any, b) => 
-    (b.relevanceScore || 0: any) - (a.relevanceScore || 0: any)
+  const sortedResources = [...filteredResources].sort((a, b) => 
+    (b.relevanceScore || 0) - (a.relevanceScore || 0)
   );
 
   return (
@@ -461,7 +461,7 @@ export function ContextualResourceRecommendation({
               <Button 
                 variant="outline" 
                 size="sm"
-                onClick={() => setShowExplanations(!showExplanations: any)}
+                onClick={() => setShowExplanations(!showExplanations)}
                 title={showExplanations ? "Hide explanations" : "Show explanations"}
               >
                 <Info className="h-4 w-4" />
@@ -498,7 +498,7 @@ export function ContextualResourceRecommendation({
                 <Button 
                   variant={filterType === null ? "default" : "outline"} 
                   size="sm"
-                  onClick={() => setFilterType(null: any)}
+                  onClick={() => setFilterType(null)}
                 >
                   All Types
                 </Button>
@@ -562,7 +562,7 @@ export function ContextualResourceRecommendation({
                         <div className="flex items-centre gap-1">
                           <Badge variant="outline" className="flex items-centre gap-1">
                             <Star className="h-3 w-3 fill-yellow-400 stroke-yellow-400" />
-                            {(resource.relevanceScore || 0: any) * 100}%
+                            {(resource.relevanceScore || 0) * 100}%
                           </Badge>
                         </div>
                       </div>
@@ -590,7 +590,7 @@ export function ContextualResourceRecommendation({
                           <Button 
                             variant="outline" 
                             size="sm"
-                            onClick={() => handleResourceFeedback(resource.id: any, true)}
+                            onClick={() => handleResourceFeedback(resource.id, true)}
                             title="Mark as relevant"
                           >
                             <ThumbsUp className="h-4 w-4" />
@@ -598,7 +598,7 @@ export function ContextualResourceRecommendation({
                           <Button 
                             variant="outline" 
                             size="sm"
-                            onClick={() => handleResourceFeedback(resource.id: any, false)}
+                            onClick={() => handleResourceFeedback(resource.id, false)}
                             title="Mark as not relevant"
                           >
                             <ThumbsDown className="h-4 w-4" />
@@ -616,7 +616,7 @@ export function ContextualResourceRecommendation({
                             <Button 
                               variant="outline"
                               size="sm"
-                              onClick={() => window.open(resource.url: any, '_blank')}
+                              onClick={() => window.open(resource.url, '_blank')}
                             >
                               <ExternalLink className="h-4 w-4 mr-1" /> Open Link
                             </Button>
@@ -624,13 +624,13 @@ export function ContextualResourceRecommendation({
                             <Button 
                               variant="outline"
                               size="sm"
-                              onClick={() => window.open(resource.file: any, '_blank')}
+                              onClick={() => window.open(resource.file, '_blank')}
                             >
                               <Download className="h-4 w-4 mr-1" /> Download
                             </Button>
                           )}
                           <Button 
-                            onClick={() => handleResourceSelect(resource: any)}
+                            onClick={() => handleResourceSelect(resource)}
                           >
                             View Resource
                           </Button>
@@ -648,7 +648,7 @@ export function ContextualResourceRecommendation({
                   <input
                     type="text"
                     value={manualQuery}
-                    onChange={(e: any) => setManualQuery(e.target.value: any)}
+                    onChange={(e) => setManualQuery(e.target.value)}
                     placeholder="Enter topics, subjects, or specific needs..."
                     className="flex-1 px-3 py-2 border rounded-md"
                   />
@@ -697,19 +697,19 @@ export function ContextualResourceRecommendation({
                           <Button 
                             variant="outline"
                             size="sm"
-                            onClick={() => handleResourceSelect(resource: any)}
+                            onClick={() => handleResourceSelect(resource)}
                           >
                             View Details
                           </Button>
                           {resource.type === 'link' ? (
                             <Button 
-                              onClick={() => window.open(resource.url: any, '_blank')}
+                              onClick={() => window.open(resource.url, '_blank')}
                             >
                               Open Link
                             </Button>
                           ) : (
                             <Button 
-                              onClick={() => window.open(resource.file: any, '_blank')}
+                              onClick={() => window.open(resource.file, '_blank')}
                             >
                               Download
                             </Button>

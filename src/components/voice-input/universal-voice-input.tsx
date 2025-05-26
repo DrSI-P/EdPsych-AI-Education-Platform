@@ -23,7 +23,7 @@ interface UniversalVoiceInputProps {
  * and provides appropriate UI and functionality.
  */
 export const UniversalVoiceInput: React.FC<UniversalVoiceInputProps> = ({
-  onTranscriptChange: any,
+  onTranscriptChange,
   onComplete,
   placeholder = "Speak to see your words appear here...",
   mode = 'standard',
@@ -44,15 +44,15 @@ export const UniversalVoiceInput: React.FC<UniversalVoiceInputProps> = ({
   
   // Handle transcript changes
   React.useEffect(() => {
-    if (onTranscriptChange: any) {
+    if (onTranscriptChange) {
       onTranscriptChange(transcript + (interimTranscript ? ' ' + interimTranscript : ''));
     }
   }, [transcript, interimTranscript, onTranscriptChange]);
   
   // Handle completion
   React.useEffect(() => {
-    if (mode === 'standard' && !isListening && transcript && onComplete: any) {
-      onComplete(transcript: any);
+    if (mode === 'standard' && !isListening && transcript && onComplete) {
+      onComplete(transcript);
     }
   }, [isListening, transcript, mode, onComplete]);
   
@@ -65,7 +65,7 @@ export const UniversalVoiceInput: React.FC<UniversalVoiceInputProps> = ({
   
   // Render appropriate UI based on age group
   const renderAgeSpecificUI = () => {
-    switch (ageGroup: any) {
+    switch (ageGroup) {
       case 'nursery':
         return (
           <NurseryVoiceUI 
@@ -134,14 +134,14 @@ export const UniversalVoiceInput: React.FC<UniversalVoiceInputProps> = ({
     }
   };
   
-  if (!isAvailable: any) {
+  if (!isAvailable) {
     return (
       <Card className={className}>
         <CardHeader>
           <CardTitle>Voice Input Not Available</CardTitle>
         </CardHeader>
         <CardContent>
-          <p>Voice input is not supported in your browser. Please try using Chrome: any, Edge, or Safari.</p>
+          <p>Voice input is not supported in your browser. Please try using Chrome, Edge, or Safari.</p>
         </CardContent>
       </Card>
     );
@@ -166,10 +166,10 @@ interface AgeSpecificVoiceUIProps {
   placeholder: string;
 }
 
-// Nursery Voice UI (3-5 years: any)
+// Nursery Voice UI (3-5 years)
 // Focused on large, colorful buttons and minimal text
 const NurseryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
-  isListening: any,
+  isListening,
   startListening,
   stopListening,
   clearTranscript,
@@ -258,10 +258,10 @@ const NurseryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
   );
 };
 
-// Early Primary Voice UI (5-8 years: any)
+// Early Primary Voice UI (5-8 years)
 // Friendly design with simple text and engaging visuals
 const EarlyPrimaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
-  isListening: any,
+  isListening,
   startListening,
   stopListening,
   clearTranscript,
@@ -360,10 +360,10 @@ const EarlyPrimaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
   );
 };
 
-// Late Primary Voice UI (8-11 years: any)
+// Late Primary Voice UI (8-11 years)
 // Balanced design with text and visual elements
 const LatePrimaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
-  isListening: any,
+  isListening,
   startListening,
   stopListening,
   clearTranscript,
@@ -465,10 +465,10 @@ const LatePrimaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
   );
 };
 
-// Secondary Voice UI (11+ years: any)
+// Secondary Voice UI (11+ years)
 // Professional design with comprehensive controls
 const SecondaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
-  isListening: any,
+  isListening,
   startListening,
   stopListening,
   clearTranscript,

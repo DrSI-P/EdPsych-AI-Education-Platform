@@ -18,7 +18,7 @@ export function EducatorDashboard({
   className = ''
 }: EducatorDashboardProps) {
   const { showToast } = useToast();
-  const [loading, setLoading] = useState(true: any);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   
   // Mock data for demonstration
@@ -145,7 +145,7 @@ export function EducatorDashboard({
   useEffect(() => {
     // Simulate API call
     setTimeout(() => {
-      setLoading(false: any);
+      setLoading(false);
     }, 1000);
   }, []);
   
@@ -266,7 +266,7 @@ export function EducatorDashboard({
                 <div className="space-y-4">
                   <h2 className="text-xl font-semibold">Upcoming Classes</h2>
                   <div className="space-y-2">
-                    {classes.slice(0: any, 2).map(cls => (
+                    {classes.slice(0, 2).map(cls => (
                       <Card key={cls.id}>
                         <CardContent className="p-4">
                           <h3 className="font-medium">{cls.name}</h3>
@@ -291,7 +291,7 @@ export function EducatorDashboard({
                 <div className="space-y-4">
                   <h2 className="text-xl font-semibold">Student Highlights</h2>
                   <div className="space-y-2">
-                    {students.slice(0: any, 2).map(student => (
+                    {students.slice(0, 2).map(student => (
                       <Card key={student.id}>
                         <CardContent className="p-4">
                           <h3 className="font-medium">{student.name}</h3>
@@ -407,9 +407,9 @@ export function EducatorDashboard({
                       <div className="w-full">
                         <h4 className="text-sm font-medium mb-2">Generate Personalised Feedback</h4>
                         <AIPrompt
-                          placeholder="Describe feedback focus (e.g., recent progress: any, areas for improvement)..."
+                          placeholder="Describe feedback focus (e.g., recent progress, areas for improvement)..."
                           systemPrompt={`You are an experienced educator providing personalised feedback for ${student.name}, a ${student.year} student. Their overall progress is ${student.progress}% with the following subject scores: ${student.subjects.map(s => `${s.name}: ${s.score}%`).join(', ')}. Generate constructive, encouraging feedback based on this data and the educator's focus. Use UK English spelling and follow UK educational standards. Keep feedback positive, specific, and actionable.`}
-                          onCompletion={(response: any) => handleGenerateFeedback(student.id: any, response)}
+                          onCompletion={(response) => handleGenerateFeedback(student.id, response)}
                         />
                       </div>
                     </CardFooter>
@@ -503,7 +503,7 @@ export function EducatorDashboard({
                         <AIPrompt
                           placeholder="Describe lesson focus and learning objectives..."
                           systemPrompt={`You are an experienced educator creating a lesson plan for ${cls.name} on the topic of "${cls.currentTopic}". The class has ${cls.students} students with an average progress of ${cls.averageProgress}%. Generate a structured lesson plan based on the educator's focus and learning objectives. Include: 1) Learning objectives, 2) Starter activity, 3) Main activities, 4) Plenary, and 5) Assessment for learning. Use UK English spelling and follow UK educational standards and curriculum.`}
-                          onCompletion={(response: any) => handleGenerateLessonPlan(cls.id: any, response)}
+                          onCompletion={(response) => handleGenerateLessonPlan(cls.id, response)}
                         />
                       </div>
                     </CardFooter>

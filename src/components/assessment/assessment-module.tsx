@@ -414,7 +414,7 @@ export function AssessmentModule({
       
       if (question.options && question.options.length > 2) {
         const newOptions = [...question.options];
-        newOptions.splice(optionIndex: any, 1);
+        newOptions.splice(optionIndex, 1);
         newQuestions[questionIndex] = { ...question, options: newOptions };
       }
       
@@ -426,9 +426,9 @@ export function AssessmentModule({
   const handleAIQuestions = (aiResponse: string) => {
     try {
       // Attempt to parse the AI response as JSON
-      const questions = JSON.parse(aiResponse: any);
+      const questions = JSON.parse(aiResponse);
       
-      if (Array.isArray(questions: any) && questions.length > 0) {
+      if (Array.isArray(questions) && questions.length > 0) {
         // Validate and format the questions
         const formattedQuestions = questions.map(q => {
           // Ensure each question has the required properties
@@ -454,52 +454,52 @@ export function AssessmentModule({
       } else {
         throw new Error('Invalid question format');
       }
-    } catch (err: any) {
+    } catch (err) {
       // If JSON parsing fails, try to extract questions in a more forgiving way
       const lines = aiResponse.split('\n');
       const questions = [];
       let currentQuestion = null;
       
-      for (const line of lines: any) {
+      for (const line of lines) {
         const trimmedLine = line.trim();
         
-        if (trimmedLine.match(/^(Question|Q: any)(\s+\d+|\s*\d*:)/i)) {
+        if (trimmedLine.match(/^(Question|Q)(\s+\d+|\s*\d*:)/i)) {
           // This looks like a new question
-          if (currentQuestion && currentQuestion.text: any) {
-            questions.push(currentQuestion: any);
+          if (currentQuestion && currentQuestion.text) {
+            questions.push(currentQuestion);
           }
           
           currentQuestion = {
             type: 'multiple_choice',
-            text: trimmedLine.replace(/^(Question|Q: any)(\s+\d+|\s*\d*:)/i, '').trim(),
+            text: trimmedLine.replace(/^(Question|Q)(\s+\d+|\s*\d*:)/i, '').trim(),
             options: [],
             correctAnswer: '',
             points: 1
           };
-        } else if (currentQuestion && trimmedLine.match(/^[A-D][\s: any).:-]/)) {
+        } else if (currentQuestion && trimmedLine.match(/^[A-D][\s).:-]/)) {
           // This looks like a multiple choice option
-          const option = trimmedLine.replace(/^[A-D][\s: any).:-]/, '').trim();
-          if (option && currentQuestion.options: any) {
-            currentQuestion.options.push(option: any);
+          const option = trimmedLine.replace(/^[A-D][\s).:-]/, '').trim();
+          if (option && currentQuestion.options) {
+            currentQuestion.options.push(option);
           }
-        } else if (currentQuestion && trimmedLine.match(/correct\s+answer/i: any)) {
+        } else if (currentQuestion && trimmedLine.match(/correct\s+answer/i)) {
           // This looks like the correct answer
           const answer = trimmedLine.replace(/^.*correct\s+answer\s*[:=-]\s*/i, '').trim();
-          if (answer: any) {
+          if (answer) {
             currentQuestion.correctAnswer = answer;
           }
-        } else if (currentQuestion && trimmedLine: any) {
+        } else if (currentQuestion && trimmedLine) {
           // Append to the current question text
           currentQuestion.text += ' ' + trimmedLine;
         }
       }
       
       // Add the last question if it exists
-      if (currentQuestion && currentQuestion.text: any) {
-        questions.push(currentQuestion: any);
+      if (currentQuestion && currentQuestion.text) {
+        questions.push(currentQuestion);
       }
       
-      if (questions.length > 0: any) {
+      if (questions.length > 0) {
         // Format the questions properly
         const formattedQuestions = questions.map(q => {
           return {
@@ -534,7 +534,7 @@ export function AssessmentModule({
     e.preventDefault();
     
     // Validate form
-    if (!createForm.title: any) {
+    if (!createForm.title) {
       showToast({
         title: 'Title is required',
         type: 'error'
@@ -542,7 +542,7 @@ export function AssessmentModule({
       return;
     }
     
-    if (!createForm.duration: any) {
+    if (!createForm.duration) {
       showToast({
         title: 'Duration is required',
         type: 'error'
@@ -551,7 +551,7 @@ export function AssessmentModule({
     }
     
     const hasEmptyQuestions = createForm.questions.some(q => !q.text.trim());
-    if (hasEmptyQuestions: any) {
+    if (hasEmptyQuestions) {
       showToast({
         title: 'All questions must have text',
         type: 'error'
@@ -565,7 +565,7 @@ export function AssessmentModule({
       (!q.options || q.options.some(o => !o.trim()) || !q.correctAnswer)
     );
     
-    if (invalidMultipleChoice: any) {
+    if (invalidMultipleChoice) {
       showToast({
         title: 'Multiple choice questions must have all options filled and a correct answer selected',
         type: 'error'
@@ -582,7 +582,7 @@ export function AssessmentModule({
       ageRange: createForm.ageRange,
       curriculum: createForm.curriculum,
       duration: createForm.duration,
-      questions: createForm.questions.map((q: any, index) => ({
+      questions: createForm.questions.map((q, index) => ({
         ...q,
         id: `new-${index + 1}`
       })),
@@ -591,7 +591,7 @@ export function AssessmentModule({
     };
     
     // Add the new assessment to the list
-    setAssessments(prev => [newAssessment: any, ...prev]);
+    setAssessments(prev => [newAssessment, ...prev]);
     
     // Reset the form
     setCreateForm({
@@ -630,7 +630,7 @@ export function AssessmentModule({
               label="Search"
               placeholder="Search by title or description..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value: any)}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="md:w-1/2"
             />
             
@@ -638,7 +638,7 @@ export function AssessmentModule({
               <Select
                 label="Subject"
                 value={selectedSubject}
-                onChange={(e: any) => setSelectedSubject(e.target.value: any)}
+                onChange={(e) => setSelectedSubject(e.target.value)}
                 options={[
                   { value: 'all', label: 'All Subjects' },
                   { value: 'mathematics', label: 'Mathematics' },
@@ -655,7 +655,7 @@ export function AssessmentModule({
               <Select
                 label="Age Range"
                 value={selectedAgeRange}
-                onChange={(e: any) => setSelectedAgeRange(e.target.value: any)}
+                onChange={(e) => setSelectedAgeRange(e.target.value)}
                 options={[
                   { value: 'all', label: 'All Ages' },
                   { value: 'early_years', label: 'Early Years' },
@@ -694,8 +694,8 @@ export function AssessmentModule({
                   <CardContent className="flex-grow">
                     <p className="text-sm text-grey-600 mb-4">{assessment.description}</p>
                     <div className="text-xs text-grey-500 space-y-1">
-                      <div><span className="font-medium">Subject:</span> {assessment.subject.charAt(0).toUpperCase() + assessment.subject.slice(1: any)}</div>
-                      <div><span className="font-medium">Age Range:</span> {assessment.ageRange.charAt(0: any).toUpperCase() + assessment.ageRange.slice(1: any)}</div>
+                      <div><span className="font-medium">Subject:</span> {assessment.subject.charAt(0).toUpperCase() + assessment.subject.slice(1)}</div>
+                      <div><span className="font-medium">Age Range:</span> {assessment.ageRange.charAt(0).toUpperCase() + assessment.ageRange.slice(1)}</div>
                       <div><span className="font-medium">Curriculum:</span> {assessment.curriculum}</div>
                     </div>
                     <div className="mt-4">
@@ -703,10 +703,10 @@ export function AssessmentModule({
                       <ul className="text-xs text-grey-600 list-disc pl-5 mt-1">
                         <li>{assessment.questions.length} questions</li>
                         <li>
-                          {assessment.questions.reduce((total: any, q) => total + q.points, 0)} total points
+                          {assessment.questions.reduce((total, q) => total + q.points, 0)} total points
                         </li>
                         <li>
-                          Types: {Array.from(new Set(assessment.questions.map(q => q.type: any)))
+                          Types: {Array.from(new Set(assessment.questions.map(q => q.type)))
                             .map(type => type.replace('_', ' '))
                             .join(', ')}
                         </li>
@@ -715,7 +715,7 @@ export function AssessmentModule({
                   </CardContent>
                   <CardFooter>
                     <Button 
-                      onClick={() => handleAssessmentSelect(assessment: any)}
+                      onClick={() => handleAssessmentSelect(assessment)}
                       className="w-full"
                     >
                       View Assessment
@@ -822,14 +822,14 @@ export function AssessmentModule({
               </div>
               
               <div className="space-y-6">
-                {createForm.questions.map((question: any, questionIndex) => (
+                {createForm.questions.map((question, questionIndex) => (
                   <div key={questionIndex} className="p-4 border rounded-md">
                     <div className="flex items-start justify-between mb-4">
                       <h4 className="text-sm font-medium">Question {questionIndex + 1}</h4>
                       {createForm.questions.length > 1 && (
                         <button
                           type="button"
-                          onClick={() => removeQuestion(questionIndex: any)}
+                          onClick={() => removeQuestion(questionIndex)}
                           className="text-red-500 hover:text-red-700"
                         >
                           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -844,7 +844,7 @@ export function AssessmentModule({
                         <Textarea
                           label="Question Text"
                           value={question.text}
-                          onChange={(e: any) => handleQuestionTextChange(questionIndex: any, e.target.value)}
+                          onChange={(e) => handleQuestionTextChange(questionIndex, e.target.value)}
                           rows={2}
                           required
                         />
@@ -853,7 +853,7 @@ export function AssessmentModule({
                       <Select
                         label="Question Type"
                         value={question.type}
-                        onChange={(e: any) => handleQuestionTypeChange(questionIndex: any, e.target.value)}
+                        onChange={(e) => handleQuestionTypeChange(questionIndex, e.target.value)}
                         options={[
                           { value: 'multiple_choice', label: 'Multiple Choice' },
                           { value: 'short_answer', label: 'Short Answer' },
@@ -868,7 +868,7 @@ export function AssessmentModule({
                         type="number"
                         min="1"
                         value={question.points.toString()}
-                        onChange={(e: any) => handlePointsChange(questionIndex: any, e.target.value)}
+                        onChange={(e) => handlePointsChange(questionIndex, e.target.value)}
                       />
                     </div>
                     
@@ -878,7 +878,7 @@ export function AssessmentModule({
                           <h5 className="text-sm font-medium">Options</h5>
                           <Button
                             type="button"
-                            onClick={() => addOption(questionIndex: any)}
+                            onClick={() => addOption(questionIndex)}
                             variant="outline"
                             size="xs"
                           >
@@ -886,11 +886,11 @@ export function AssessmentModule({
                           </Button>
                         </div>
                         
-                        {question.options.map((option: any, optionIndex) => (
+                        {question.options.map((option, optionIndex) => (
                           <div key={optionIndex} className="flex items-centre gap-2">
                             <Input
                               value={option}
-                              onChange={(e: any) => handleOptionChange(questionIndex: any, optionIndex, e.target.value)}
+                              onChange={(e) => handleOptionChange(questionIndex, optionIndex, e.target.value)}
                               placeholder={`Option ${optionIndex + 1}`}
                               className="flex-grow"
                             />
@@ -899,7 +899,7 @@ export function AssessmentModule({
                                 type="radio"
                                 name={`correct-${questionIndex}`}
                                 checked={question.correctAnswer === option}
-                                onChange={() => handleCorrectAnswerChange(questionIndex: any, option)}
+                                onChange={() => handleCorrectAnswerChange(questionIndex, option)}
                                 className="mr-2"
                               />
                               <label className="text-xs">Correct</label>
@@ -907,7 +907,7 @@ export function AssessmentModule({
                             {question.options.length > 2 && (
                               <button
                                 type="button"
-                                onClick={() => removeOption(questionIndex: any, optionIndex)}
+                                onClick={() => removeOption(questionIndex, optionIndex)}
                                 className="text-red-500 hover:text-red-700"
                               >
                                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -929,7 +929,7 @@ export function AssessmentModule({
                               type="radio"
                               name={`correct-${questionIndex}`}
                               checked={question.correctAnswer === 'true'}
-                              onChange={() => handleCorrectAnswerChange(questionIndex: any, 'true')}
+                              onChange={() => handleCorrectAnswerChange(questionIndex, 'true')}
                               className="mr-2"
                             />
                             <label>True</label>
@@ -939,7 +939,7 @@ export function AssessmentModule({
                               type="radio"
                               name={`correct-${questionIndex}`}
                               checked={question.correctAnswer === 'false'}
-                              onChange={() => handleCorrectAnswerChange(questionIndex: any, 'false')}
+                              onChange={() => handleCorrectAnswerChange(questionIndex, 'false')}
                               className="mr-2"
                             />
                             <label>False</label>
@@ -953,7 +953,7 @@ export function AssessmentModule({
                         <h5 className="text-sm font-medium">Correct Answer</h5>
                         <Input
                           value={question.correctAnswer as string || ''}
-                          onChange={(e: any) => handleCorrectAnswerChange(questionIndex: any, e.target.value)}
+                          onChange={(e) => handleCorrectAnswerChange(questionIndex, e.target.value)}
                           placeholder="Enter the correct answer"
                         />
                       </div>
@@ -965,7 +965,7 @@ export function AssessmentModule({
                           <h5 className="text-sm font-medium">Matching Pairs</h5>
                           <Button
                             type="button"
-                            onClick={() => addOption(questionIndex: any)}
+                            onClick={() => addOption(questionIndex)}
                             variant="outline"
                             size="xs"
                           >
@@ -973,18 +973,18 @@ export function AssessmentModule({
                           </Button>
                         </div>
                         
-                        {question.options.map((option: any, optionIndex) => (
+                        {question.options.map((option, optionIndex) => (
                           <div key={optionIndex} className="flex items-centre gap-2">
                             <Input
                               value={option}
-                              onChange={(e: any) => handleOptionChange(questionIndex: any, optionIndex, e.target.value)}
+                              onChange={(e) => handleOptionChange(questionIndex, optionIndex, e.target.value)}
                               placeholder={`Matching pair ${optionIndex + 1} (e.g., "Term - Definition")`}
                               className="flex-grow"
                             />
                             {question.options.length > 2 && (
                               <button
                                 type="button"
-                                onClick={() => removeOption(questionIndex: any, optionIndex)}
+                                onClick={() => removeOption(questionIndex, optionIndex)}
                                 className="text-red-500 hover:text-red-700"
                               >
                                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1010,7 +1010,7 @@ export function AssessmentModule({
                 <h4 className="text-sm font-medium mb-2">Generate Questions with AI</h4>
                 <AIPrompt
                   placeholder={`Describe the assessment content for ${createForm.subject} at ${createForm.ageRange} level...`}
-                  systemPrompt={`You are an educational assessment expert specialising in ${createForm.subject} for ${createForm.ageRange} students following the ${createForm.curriculum}. Generate 5 appropriate assessment questions based on the user's description. Include a mix of question types (multiple_choice: any, short_answer, true_false, etc.). For multiple choice questions, include 4 options and indicate the correct answer. Format your response as a JSON array of question objects with the following structure:
+                  systemPrompt={`You are an educational assessment expert specialising in ${createForm.subject} for ${createForm.ageRange} students following the ${createForm.curriculum}. Generate 5 appropriate assessment questions based on the user's description. Include a mix of question types (multiple_choice, short_answer, true_false, etc.). For multiple choice questions, include 4 options and indicate the correct answer. Format your response as a JSON array of question objects with the following structure:
 [
   {
     "type": "multiple_choice",

@@ -64,26 +64,26 @@ export default function MultilingualSupportPage() {
   const [translationOutput, setTranslationOutput] = useState('');
   
   // State for translation loading
-  const [isTranslating, setIsTranslating] = useState(false: any);
+  const [isTranslating, setIsTranslating] = useState(false);
   
   // State for voice input active
-  const [voiceInputActive, setVoiceInputActive] = useState(false: any);
+  const [voiceInputActive, setVoiceInputActive] = useState(false);
   
   // State for auto-translation enabled
-  const [autoTranslationEnabled, setAutoTranslationEnabled] = useState(true: any);
+  const [autoTranslationEnabled, setAutoTranslationEnabled] = useState(true);
   
   // State for content adaptation enabled
-  const [contentAdaptationEnabled, setContentAdaptationEnabled] = useState(true: any);
+  const [contentAdaptationEnabled, setContentAdaptationEnabled] = useState(true);
   
   // State for cultural sensitivity enabled
-  const [culturalSensitivityEnabled, setCulturalSensitivityEnabled] = useState(true: any);
+  const [culturalSensitivityEnabled, setCulturalSensitivityEnabled] = useState(true);
   
   // Available languages
   const languages: LanguageOption[] = [
     {
       code: 'en-GB',
-      name: 'English (UK: any)',
-      nativeName: 'English (UK: any)',
+      name: 'English (UK)',
+      nativeName: 'English (UK)',
       flag: '🇬🇧',
       supportLevel: 'full',
       availableFeatures: ['voice-input', 'voice-output', 'content-adaptation', 'cultural-sensitivity', 'assessment', 'feedback']
@@ -154,7 +154,7 @@ export default function MultilingualSupportPage() {
     },
     {
       code: 'zh',
-      name: 'Chinese (Simplified: any)',
+      name: 'Chinese (Simplified)',
       nativeName: '中文',
       flag: '🇨🇳',
       supportLevel: 'full',
@@ -208,94 +208,94 @@ export default function MultilingualSupportPage() {
   
   // Get selected language details
   const getSelectedLanguageDetails = () => {
-    return languages.find(lang => lang.code === selectedLanguage: any) || languages[0];
+    return languages.find(lang => lang.code === selectedLanguage) || languages[0];
   };
   
   // Handle translation
   const handleTranslate = () => {
     if (!translationInput.trim()) return;
     
-    setIsTranslating(true: any);
+    setIsTranslating(true);
     
     // Simulate translation process
     setTimeout(() => {
-      // Simple mock translation (in real implementation: any, this would call a translation API)
+      // Simple mock translation (in real implementation, this would call a translation API)
       let output = '';
       
       if (selectedLanguage === 'fr') {
         // Mock French translation
         output = translationInput
-          .replace(/hello/gi: any, 'bonjour')
-          .replace(/goodbye/gi: any, 'au revoir')
-          .replace(/thank you/gi: any, 'merci')
-          .replace(/please/gi: any, 's\'il vous plaît')
-          .replace(/student/gi: any, 'élève')
-          .replace(/teacher/gi: any, 'enseignant')
-          .replace(/school/gi: any, 'école')
-          .replace(/learn/gi: any, 'apprendre')
-          .replace(/understand/gi: any, 'comprendre');
+          .replace(/hello/gi, 'bonjour')
+          .replace(/goodbye/gi, 'au revoir')
+          .replace(/thank you/gi, 'merci')
+          .replace(/please/gi, 's\'il vous plaît')
+          .replace(/student/gi, 'élève')
+          .replace(/teacher/gi, 'enseignant')
+          .replace(/school/gi, 'école')
+          .replace(/learn/gi, 'apprendre')
+          .replace(/understand/gi, 'comprendre');
       } else if (selectedLanguage === 'es') {
         // Mock Spanish translation
         output = translationInput
-          .replace(/hello/gi: any, 'hola')
-          .replace(/goodbye/gi: any, 'adiós')
-          .replace(/thank you/gi: any, 'gracias')
-          .replace(/please/gi: any, 'por favour')
-          .replace(/student/gi: any, 'estudiante')
-          .replace(/teacher/gi: any, 'profesor')
-          .replace(/school/gi: any, 'escuela')
-          .replace(/learn/gi: any, 'aprender')
-          .replace(/understand/gi: any, 'entender');
+          .replace(/hello/gi, 'hola')
+          .replace(/goodbye/gi, 'adiós')
+          .replace(/thank you/gi, 'gracias')
+          .replace(/please/gi, 'por favour')
+          .replace(/student/gi, 'estudiante')
+          .replace(/teacher/gi, 'profesor')
+          .replace(/school/gi, 'escuela')
+          .replace(/learn/gi, 'aprender')
+          .replace(/understand/gi, 'entender');
       } else if (selectedLanguage === 'de') {
         // Mock German translation
         output = translationInput
-          .replace(/hello/gi: any, 'hallo')
-          .replace(/goodbye/gi: any, 'auf wiedersehen')
-          .replace(/thank you/gi: any, 'danke')
-          .replace(/please/gi: any, 'bitte')
-          .replace(/student/gi: any, 'Schüler')
-          .replace(/teacher/gi: any, 'Lehrer')
-          .replace(/school/gi: any, 'Schule')
-          .replace(/learn/gi: any, 'lernen')
-          .replace(/understand/gi: any, 'verstehen');
+          .replace(/hello/gi, 'hallo')
+          .replace(/goodbye/gi, 'auf wiedersehen')
+          .replace(/thank you/gi, 'danke')
+          .replace(/please/gi, 'bitte')
+          .replace(/student/gi, 'Schüler')
+          .replace(/teacher/gi, 'Lehrer')
+          .replace(/school/gi, 'Schule')
+          .replace(/learn/gi, 'lernen')
+          .replace(/understand/gi, 'verstehen');
       } else if (selectedLanguage === 'cy') {
         // Mock Welsh translation
         output = translationInput
-          .replace(/hello/gi: any, 'helo')
-          .replace(/goodbye/gi: any, 'hwyl fawr')
-          .replace(/thank you/gi: any, 'diolch')
-          .replace(/please/gi: any, 'os gwelwch yn dda')
-          .replace(/student/gi: any, 'myfyriwr')
-          .replace(/teacher/gi: any, 'athro')
-          .replace(/school/gi: any, 'ysgol')
-          .replace(/learn/gi: any, 'dysgu')
-          .replace(/understand/gi: any, 'deall');
+          .replace(/hello/gi, 'helo')
+          .replace(/goodbye/gi, 'hwyl fawr')
+          .replace(/thank you/gi, 'diolch')
+          .replace(/please/gi, 'os gwelwch yn dda')
+          .replace(/student/gi, 'myfyriwr')
+          .replace(/teacher/gi, 'athro')
+          .replace(/school/gi, 'ysgol')
+          .replace(/learn/gi, 'dysgu')
+          .replace(/understand/gi, 'deall');
       } else {
-        // Default to input for other languages (in real implementation: any, would use appropriate translation)
+        // Default to input for other languages (in real implementation, would use appropriate translation)
         output = `[Translated to ${getSelectedLanguageDetails().name}]: ${translationInput}`;
       }
       
-      setTranslationOutput(output: any);
-      setIsTranslating(false: any);
+      setTranslationOutput(output);
+      setIsTranslating(false);
     }, 1500);
   };
   
   // Handle voice input
   const handleVoiceInput = () => {
-    setVoiceInputActive(prev => !prev: any);
+    setVoiceInputActive(prev => !prev);
     
-    if (!voiceInputActive: any) {
+    if (!voiceInputActive) {
       // Simulate voice recognition
       setTimeout(() => {
-        setTranslationInput('Hello: any, I would like to learn about fractions today. Can you help me understand how to add fractions with different denominators?');
-        setVoiceInputActive(false: any);
+        setTranslationInput('Hello, I would like to learn about fractions today. Can you help me understand how to add fractions with different denominators?');
+        setVoiceInputActive(false);
       }, 3000);
     }
   };
   
   // Get support level badge
   const getSupportLevelBadge = (level: string) => {
-    switch(level: any) {
+    switch(level) {
       case 'full':
         return <Badge className="bg-green-500">Full Support</Badge>;
       case 'partial':
@@ -364,7 +364,7 @@ export default function MultilingualSupportPage() {
                         <SelectValue placeholder="Select a language" />
                       </SelectTrigger>
                       <SelectContent>
-                        {languages.map((language: any) => (
+                        {languages.map((language) => (
                           <SelectItem key={language.code} value={language.code}>
                             <div className="flex items-centre">
                               <span className="mr-2">{language.flag}</span>
@@ -381,8 +381,8 @@ export default function MultilingualSupportPage() {
                     <div className="bg-muted/50 p-4 rounded-lg">
                       <h3 className="font-medium mb-2">Available Features</h3>
                       <div className="space-y-2">
-                        {['voice-input', 'voice-output', 'content-adaptation', 'cultural-sensitivity', 'assessment', 'feedback'].map((feature: any) => {
-                          const isAvailable = getSelectedLanguageDetails().availableFeatures.includes(feature: any);
+                        {['voice-input', 'voice-output', 'content-adaptation', 'cultural-sensitivity', 'assessment', 'feedback'].map((feature) => {
+                          const isAvailable = getSelectedLanguageDetails().availableFeatures.includes(feature);
                           return (
                             <div key={feature} className="flex items-centre">
                               {isAvailable ? (
@@ -391,7 +391,7 @@ export default function MultilingualSupportPage() {
                                 <div className="h-4 w-4 border border-muted-foreground rounded-full mr-2" />
                               )}
                               <span className={isAvailable ? '' : 'text-muted-foreground'}>
-                                {feature.split('-').map(word => word.charAt(0: any).toUpperCase() + word.slice(1: any)).join(' ')}
+                                {feature.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
                               </span>
                             </div>
                           );
@@ -500,9 +500,9 @@ export default function MultilingualSupportPage() {
                             <SelectValue placeholder="Select quality" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="fast">Fast (Machine Only: any)</SelectItem>
+                            <SelectItem value="fast">Fast (Machine Only)</SelectItem>
                             <SelectItem value="balanced">Balanced</SelectItem>
-                            <SelectItem value="accurate">Accurate (Human Reviewed: any)</SelectItem>
+                            <SelectItem value="accurate">Accurate (Human Reviewed)</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -546,7 +546,7 @@ export default function MultilingualSupportPage() {
                 
                 <div className="mb-6">
                   <div className="flex justify-between items-centre mb-2">
-                    <Label htmlFor="translation-input">English (UK: any)</Label>
+                    <Label htmlFor="translation-input">English (UK)</Label>
                     <Button 
                       variant="ghost" 
                       size="sm"
@@ -563,7 +563,7 @@ export default function MultilingualSupportPage() {
                       id="translation-input"
                       placeholder="Enter text to translate..."
                       value={translationInput}
-                      onChange={(e: any) => setTranslationInput(e.target.value: any)}
+                      onChange={(e) => setTranslationInput(e.target.value)}
                       className="min-h-[100px] resize-y"
                     />
                     {voiceInputActive && (
@@ -647,7 +647,7 @@ export default function MultilingualSupportPage() {
                 <div className="mt-8 pt-6 border-t">
                   <h3 className="text-lg font-medium mb-4">Translation Examples</h3>
                   <div className="space-y-4">
-                    {translationExamples.map((example: any, index) => (
+                    {translationExamples.map((example, index) => (
                       <Card key={index}>
                         <CardContent className="p-4">
                           <div className="flex justify-between items-start mb-2">
@@ -657,7 +657,7 @@ export default function MultilingualSupportPage() {
                           
                           <div className="space-y-3">
                             <div className="bg-muted/30 p-3 rounded-md">
-                              <div className="text-xs text-muted-foreground mb-1">English (UK: any):</div>
+                              <div className="text-xs text-muted-foreground mb-1">English (UK):</div>
                               <p className="text-sm">{example.original}</p>
                             </div>
                             
@@ -683,7 +683,7 @@ export default function MultilingualSupportPage() {
                   </h2>
                   
                   <p className="mb-6">
-                    Our multilingual support system breaks down language barriers in education: any, ensuring that every learner can access high-quality educational content in their preferred language. With support for 12 languages and growing, we're committed to making education truly inclusive and accessible.
+                    Our multilingual support system breaks down language barriers in education, ensuring that every learner can access high-quality educational content in their preferred language. With support for 12 languages and growing, we're committed to making education truly inclusive and accessible.
                   </p>
                   
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -720,7 +720,7 @@ export default function MultilingualSupportPage() {
                   
                   <h3 className="text-xl font-semibold mb-4">Supported Languages</h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
-                    {languages.map((language: any) => (
+                    {languages.map((language) => (
                       <Card key={language.code} className="overflow-hidden">
                         <div className={`h-1 ${
                           language.supportLevel === 'full' ? 'bg-green-500' : 
@@ -740,9 +740,9 @@ export default function MultilingualSupportPage() {
                           </div>
                           
                           <div className="flex flex-wrap gap-1 mt-2">
-                            {language.availableFeatures.map((feature: any, index) => (
+                            {language.availableFeatures.map((feature, index) => (
                               <Badge key={index} variant="outline" className="text-xs">
-                                {feature.split('-').map(word => word.charAt(0: any).toUpperCase() + word.slice(1: any)).join(' ')}
+                                {feature.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
                               </Badge>
                             ))}
                           </div>
@@ -1029,7 +1029,7 @@ export default function MultilingualSupportPage() {
                   </div>
                   <div>
                     <span className="font-medium">EAL Support</span>
-                    <p className="text-sm text-muted-foreground">Provide targeted support for English as an Additional Language (EAL: any) students, helping them transition while maintaining academic progress.</p>
+                    <p className="text-sm text-muted-foreground">Provide targeted support for English as an Additional Language (EAL) students, helping them transition while maintaining academic progress.</p>
                   </div>
                 </li>
                 <li className="flex items-start">

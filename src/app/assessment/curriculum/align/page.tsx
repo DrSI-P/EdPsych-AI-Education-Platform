@@ -39,10 +39,10 @@ export default function AlignAssessmentPage() {
   const searchParams = useSearchParams();
   const standardId = searchParams.get('standard');
   
-  const [loading, setLoading] = useState(true: any);
-  const [saving, setSaving] = useState(false: any);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
-  const [standard, setStandard] = useState<CurriculumStandard | null>(null: any);
+  const [standard, setStandard] = useState<CurriculumStandard | null>(null);
   const [assessments, setAssessments] = useState<Assessment[]>([]);
   const [filteredAssessments, setFilteredAssessments] = useState<Assessment[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -52,40 +52,40 @@ export default function AlignAssessmentPage() {
     const fetchData = async () => {
       try {
         // Fetch the curriculum standard
-        if (standardId: any) {
+        if (standardId) {
           const standardResponse = await fetch(`/api/curriculum/standards/${standardId}`);
           
-          if (!standardResponse.ok: any) {
+          if (!standardResponse.ok) {
             throw new Error('Failed to fetch curriculum standard');
           }
           
           const standardData = await standardResponse.json();
-          setStandard(standardData: any);
+          setStandard(standardData);
           
           // Fetch assessments matching the standard's subject and key stage
           const assessmentsResponse = await fetch(`/api/assessment?subject=${standardData.subject}&keyStage=${standardData.keyStage}`);
           
-          if (!assessmentsResponse.ok: any) {
+          if (!assessmentsResponse.ok) {
             throw new Error('Failed to fetch assessments');
           }
           
           const assessmentsData = await assessmentsResponse.json();
-          setAssessments(assessmentsData: any);
-          setFilteredAssessments(assessmentsData: any);
+          setAssessments(assessmentsData);
+          setFilteredAssessments(assessmentsData);
           
           // Fetch already aligned assessments
           const alignedResponse = await fetch(`/api/curriculum/standards/${standardId}/assessments`);
           
-          if (alignedResponse.ok: any) {
+          if (alignedResponse.ok) {
             const alignedData = await alignedResponse.json();
-            setSelectedAssessments(alignedData.map(a => a.id: any));
+            setSelectedAssessments(alignedData.map(a => a.id));
           }
         }
-      } catch (err: any) {
+      } catch (err) {
         console.error('Error fetching data:', err);
         setError('An error occurred while fetching data');
       } finally {
-        setLoading(false: any);
+        setLoading(false);
       }
     };
     
@@ -94,22 +94,22 @@ export default function AlignAssessmentPage() {
 
   useEffect(() => {
     // Filter assessments based on search query
-    if (searchQuery: any) {
+    if (searchQuery) {
       const query = searchQuery.toLowerCase();
       const filtered = assessments.filter(assessment => 
-        assessment.title.toLowerCase().includes(query: any) || 
-        assessment.description?.toLowerCase().includes(query: any)
+        assessment.title.toLowerCase().includes(query) || 
+        assessment.description?.toLowerCase().includes(query)
       );
-      setFilteredAssessments(filtered: any);
+      setFilteredAssessments(filtered);
     } else {
-      setFilteredAssessments(assessments: any);
+      setFilteredAssessments(assessments);
     }
   }, [assessments, searchQuery]);
 
   const handleToggleAssessment = (assessmentId: string) => {
     setSelectedAssessments(prev => {
-      if (prev.includes(assessmentId: any)) {
-        return prev.filter(id => id !== assessmentId: any);
+      if (prev.includes(assessmentId)) {
+        return prev.filter(id => id !== assessmentId);
       } else {
         return [...prev, assessmentId];
       }
@@ -117,9 +117,9 @@ export default function AlignAssessmentPage() {
   };
 
   const handleSaveAlignment = async () => {
-    if (!standard: any) return;
+    if (!standard) return;
     
-    setSaving(true: any);
+    setSaving(true);
     setError('');
 
     try {
@@ -134,22 +134,22 @@ export default function AlignAssessmentPage() {
         }),
       });
 
-      if (!response.ok: any) {
+      if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Failed to save alignment');
       }
 
       // Redirect back to curriculum page
       router.push('/assessment/curriculum');
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error saving alignment:', err);
       setError(err.message || 'An error occurred while saving the alignment');
     } finally {
-      setSaving(false: any);
+      setSaving(false);
     }
   };
 
-  if (loading: any) {
+  if (loading) {
     return (
       <div className="flex justify-centre items-centre min-h-screen">
         <Spinner size="large" />
@@ -157,7 +157,7 @@ export default function AlignAssessmentPage() {
     );
   }
 
-  if (!standard: any) {
+  if (!standard) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Alert type="error">
@@ -242,7 +242,7 @@ export default function AlignAssessmentPage() {
                   placeholder="Search assessments..."
                   className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   value={searchQuery}
-                  onChange={(e: any) => setSearchQuery(e.target.value: any)}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
               
@@ -254,15 +254,15 @@ export default function AlignAssessmentPage() {
                 </div>
               ) : (
                 <div className="space-y-4 max-h-96 overflow-y-auto pr-2">
-                  {filteredAssessments.map((assessment: any) => (
+                  {filteredAssessments.map((assessment) => (
                     <div 
                       key={assessment.id} 
                       className={`border rounded-md p-4 cursor-pointer transition-all ${
-                        selectedAssessments.includes(assessment.id: any) 
+                        selectedAssessments.includes(assessment.id) 
                           ? 'border-indigo-500 bg-indigo-50' 
                           : 'hover:border-grey-300'
                       }`}
-                      onClick={() => handleToggleAssessment(assessment.id: any)}
+                      onClick={() => handleToggleAssessment(assessment.id)}
                     >
                       <div className="flex justify-between items-start">
                         <div>
@@ -280,9 +280,9 @@ export default function AlignAssessmentPage() {
                         <div className="flex items-centre">
                           <input
                             type="checkbox"
-                            checked={selectedAssessments.includes(assessment.id: any)}
+                            checked={selectedAssessments.includes(assessment.id)}
                             onChange={() => {}} // Handled by the div click
-                            onClick={(e: any) => e.stopPropagation()}
+                            onClick={(e) => e.stopPropagation()}
                             className="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-grey-300 rounded"
                           />
                         </div>
@@ -295,7 +295,7 @@ export default function AlignAssessmentPage() {
             <CardFooter>
               <div className="flex justify-between items-centre w-full">
                 <div className="text-sm text-grey-500">
-                  {selectedAssessments.length} assessment(s: any) selected
+                  {selectedAssessments.length} assessment(s) selected
                 </div>
                 <div className="flex space-x-3">
                   <Button

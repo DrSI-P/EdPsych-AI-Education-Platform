@@ -10,7 +10,7 @@ export default function BareMinimum() {
   return (
     <div>
       <h1>Bare Minimum Test</h1>
-      <p>If you can see this page: any, basic Vercel deployment is working.</p>
+      <p>If you can see this page, basic Vercel deployment is working.</p>
     </div>
   );
 }

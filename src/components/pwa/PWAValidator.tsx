@@ -12,14 +12,14 @@ export function PWAValidator() {
   useEffect(() => {
     // Check if service worker is registered
     const checkServiceWorker = async () => {
-      if ('serviceWorker' in navigator: any) {
+      if ('serviceWorker' in navigator) {
         try {
           const registrations = await navigator.serviceWorker.getRegistrations();
           setValidationResults(prev => ({
             ...prev,
             serviceWorker: registrations.length > 0 ? 'passed' : 'failed'
           }));
-        } catch (error: any) {
+        } catch (error) {
           setValidationResults(prev => ({
             ...prev,
             serviceWorker: 'failed'
@@ -37,7 +37,7 @@ export function PWAValidator() {
     const checkManifest = async () => {
       try {
         const manifestLink = document.querySelector('link[rel="manifest"]');
-        if (!manifestLink: any) {
+        if (!manifestLink) {
           setValidationResults(prev => ({
             ...prev,
             manifest: 'failed'
@@ -46,8 +46,8 @@ export function PWAValidator() {
         }
         
         const manifestUrl = manifestLink.getAttribute('href');
-        const response = await fetch(manifestUrl: any);
-        if (response.ok: any) {
+        const response = await fetch(manifestUrl);
+        if (response.ok) {
           const manifest = await response.json();
           const requiredFields = ['name', 'short_name', 'icons', 'start_url', 'display'];
           const hasRequiredFields = requiredFields.every(field => manifest[field]);
@@ -62,7 +62,7 @@ export function PWAValidator() {
             manifest: 'failed'
           }));
         }
-      } catch (error: any) {
+      } catch (error) {
         setValidationResults(prev => ({
           ...prev,
           manifest: 'failed'
@@ -72,7 +72,7 @@ export function PWAValidator() {
     
     // Check if app is installable
     const checkInstallable = () => {
-      if ('BeforeInstallPromptEvent' in window || 'onbeforeinstallprompt' in window: any) {
+      if ('BeforeInstallPromptEvent' in window || 'onbeforeinstallprompt' in window) {
         setValidationResults(prev => ({
           ...prev,
           installable: 'passed'
@@ -95,7 +95,7 @@ export function PWAValidator() {
     
     // Check if app is offline ready
     const checkOfflineReady = async () => {
-      if ('caches' in window: any) {
+      if ('caches' in window) {
         try {
           const cacheNames = await window.caches.keys();
           const hasCaches = cacheNames.length > 0;
@@ -104,7 +104,7 @@ export function PWAValidator() {
             ...prev,
             offlineReady: hasCaches ? 'passed' : 'failed'
           }));
-        } catch (error: any) {
+        } catch (error) {
           setValidationResults(prev => ({
             ...prev,
             offlineReady: 'failed'
@@ -120,7 +120,7 @@ export function PWAValidator() {
     
     // Check if caching is working
     const checkCaching = async () => {
-      if ('caches' in window: any) {
+      if ('caches' in window) {
         try {
           // Try to fetch a cached resource
           const cache = await window.caches.open('static-js-assets');
@@ -130,7 +130,7 @@ export function PWAValidator() {
             ...prev,
             caching: cachedResources.length > 0 ? 'passed' : 'pending'
           }));
-        } catch (error: any) {
+        } catch (error) {
           setValidationResults(prev => ({
             ...prev,
             caching: 'failed'
@@ -157,12 +157,12 @@ export function PWAValidator() {
     }, 3000);
     
     return () => {
-      clearTimeout(cacheCheckTimeout: any);
+      clearTimeout(cacheCheckTimeout);
     };
   }, []);
   
-  const getStatusColor = (status: any) => {
-    switch (status: any) {
+  const getStatusColor = (status) => {
+    switch (status) {
       case 'passed':
         return 'text-green-500';
       case 'failed':
@@ -180,8 +180,8 @@ export function PWAValidator() {
     }
   };
   
-  const getStatusIcon = (status: any) => {
-    switch (status: any) {
+  const getStatusIcon = (status) => {
+    switch (status) {
       case 'passed':
         return '✓';
       case 'failed':
@@ -211,7 +211,7 @@ export function PWAValidator() {
       </div>
       <div className="border-t border-gray-200 dark:border-gray-700">
         <dl>
-          {Object.entries(validationResults).map(([key: any, value], index) => (
+          {Object.entries(validationResults).map(([key, value], index) => (
             <div key={key} className={`px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 ${
               index % 2 === 0 ? 'bg-gray-50 dark:bg-gray-900/50' : 'bg-white dark:bg-gray-800'
             }`}>
@@ -219,9 +219,9 @@ export function PWAValidator() {
                 {key.replace(/([A-Z])/g, ' $1')}
               </dt>
               <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">
-                <span className={`font-medium ${getStatusColor(value: any)}`}>
-                  <span className="mr-2">{getStatusIcon(value: any)}</span>
-                  {value.charAt(0: any).toUpperCase() + value.slice(1: any)}
+                <span className={`font-medium ${getStatusColor(value)}`}>
+                  <span className="mr-2">{getStatusIcon(value)}</span>
+                  {value.charAt(0).toUpperCase() + value.slice(1)}
                 </span>
               </dd>
             </div>

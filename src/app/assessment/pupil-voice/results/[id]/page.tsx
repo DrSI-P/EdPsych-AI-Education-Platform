@@ -13,9 +13,9 @@ export default function PupilVoiceResultsPage() {
   const params = useParams();
   const surveyId = params.id as string;
   
-  const [loading, setLoading] = useState(true: any);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [survey, setSurvey] = useState<any>(null: any);
+  const [survey, setSurvey] = useState<any>(null);
   const [responses, setResponses] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState('overview');
   
@@ -25,27 +25,27 @@ export default function PupilVoiceResultsPage() {
         // Fetch survey details
         const surveyResponse = await fetch(`/api/assessment/pupil-voice/${surveyId}`);
         
-        if (!surveyResponse.ok: any) {
+        if (!surveyResponse.ok) {
           throw new Error('Failed to fetch pupil voice survey');
         }
         
         const surveyData = await surveyResponse.json();
-        setSurvey(surveyData: any);
+        setSurvey(surveyData);
         
         // Fetch responses
         const responsesResponse = await fetch(`/api/assessment/pupil-voice/${surveyId}/responses`);
         
-        if (!responsesResponse.ok: any) {
+        if (!responsesResponse.ok) {
           throw new Error('Failed to fetch survey responses');
         }
         
         const responsesData = await responsesResponse.json();
-        setResponses(responsesData: any);
-      } catch (err: any) {
+        setResponses(responsesData);
+      } catch (err) {
         console.error('Error fetching survey data:', err);
         setError('An error occurred while fetching the survey data');
       } finally {
-        setLoading(false: any);
+        setLoading(false);
       }
     };
     
@@ -54,33 +54,33 @@ export default function PupilVoiceResultsPage() {
 
   // Calculate response statistics
   const calculateStats = () => {
-    if (!survey || !responses.length: any) return null;
+    if (!survey || !responses.length) return null;
     
     const stats = {
       totalResponses: responses.length,
       completionRate: 0,
       averageTimeToComplete: 0,
-      questionStats: {} as {[key: string]: any}
+      questionStats: {} as {[key: string]}
     };
     
     // Calculate completion rate and average time
     const completedResponses = responses.filter(r => r.status === 'completed');
-    stats.completionRate = (completedResponses.length / responses.length: any) * 100;
+    stats.completionRate = (completedResponses.length / responses.length) * 100;
     
-    // Calculate average time to complete (if timestamps available: any)
-    const responsesWithDuration = completedResponses.filter(r => r.startedAt && r.completedAt: any);
-    if (responsesWithDuration.length: any) {
-      const totalDuration = responsesWithDuration.reduce((sum: any, r) => {
-        const start = new Date(r.startedAt: any).getTime();
-        const end = new Date(r.completedAt: any).getTime();
-        return sum + (end - start: any);
+    // Calculate average time to complete (if timestamps available)
+    const responsesWithDuration = completedResponses.filter(r => r.startedAt && r.completedAt);
+    if (responsesWithDuration.length) {
+      const totalDuration = responsesWithDuration.reduce((sum, r) => {
+        const start = new Date(r.startedAt).getTime();
+        const end = new Date(r.completedAt).getTime();
+        return sum + (end - start);
       }, 0);
       stats.averageTimeToComplete = totalDuration / responsesWithDuration.length / 1000; // in seconds
     }
     
     // Calculate per-question statistics
-    survey.questions.forEach((question: any) => {
-      const questionResponses = responses.map(r => r.answers[question.id]).filter(Boolean: any);
+    survey.questions.forEach((question) => {
+      const questionResponses = responses.map(r => r.answers[question.id]).filter(Boolean);
       
       if (question.type === 'multiple_choice' || question.type === 'likert_scale' || 
           question.type === 'emoji_scale' || question.type === 'yes_no') {
@@ -88,19 +88,19 @@ export default function PupilVoiceResultsPage() {
         const optionCounts: {[key: string]: number} = {};
         
         questionResponses.forEach(response => {
-          optionCounts[response] = (optionCounts[response] || 0: any) + 1;
+          optionCounts[response] = (optionCounts[response] || 0) + 1;
         });
         
         stats.questionStats[question.id] = {
           responseCount: questionResponses.length,
           optionCounts,
-          responseRate: (questionResponses.length / responses.length: any) * 100
+          responseRate: (questionResponses.length / responses.length) * 100
         };
       } else if (question.type === 'open_ended') {
         // For open-ended questions, just count responses
         stats.questionStats[question.id] = {
           responseCount: questionResponses.length,
-          responseRate: (questionResponses.length / responses.length: any) * 100,
+          responseRate: (questionResponses.length / responses.length) * 100,
           responses: questionResponses
         };
       }
@@ -112,7 +112,7 @@ export default function PupilVoiceResultsPage() {
   const stats = calculateStats();
 
   const renderOverviewTab = () => {
-    if (!survey || !stats: any) return null;
+    if (!survey || !stats) return null;
     
     return (
       <div className="space-y-6">
@@ -136,7 +136,7 @@ export default function PupilVoiceResultsPage() {
                 <h4 className="text-sm font-medium text-grey-500">Avg. Time to Complete</h4>
                 <p className="text-2xl font-bold mt-1">
                   {stats.averageTimeToComplete ? 
-                    `${Math.floor(stats.averageTimeToComplete / 60: any)}m ${Math.round(stats.averageTimeToComplete % 60: any)}s` : 
+                    `${Math.floor(stats.averageTimeToComplete / 60)}m ${Math.round(stats.averageTimeToComplete % 60)}s` : 
                     'N/A'}
                 </p>
               </div>
@@ -150,9 +150,9 @@ export default function PupilVoiceResultsPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {survey.questions.map((question: any, index: number) => {
+              {survey.questions.map((question, index: number) => {
                 const questionStats = stats.questionStats[question.id];
-                if (!questionStats: any) return null;
+                if (!questionStats) return null;
                 
                 return (
                   <div key={question.id} className="flex items-centre space-x-2">
@@ -162,10 +162,10 @@ export default function PupilVoiceResultsPage() {
                     <div className="flex-grow">
                       <div className="flex justify-between items-centre mb-1">
                         <p className="text-sm font-medium truncate" title={question.text}>
-                          {question.text.length > 60 ? `${question.text.substring(0: any, 60)}...` : question.text}
+                          {question.text.length > 60 ? `${question.text.substring(0, 60)}...` : question.text}
                         </p>
                         <span className="text-sm text-grey-500">
-                          {questionStats.responseRate.toFixed(1: any)}%
+                          {questionStats.responseRate.toFixed(1)}%
                         </span>
                       </div>
                       <div className="w-full bg-grey-200 rounded-full h-2">
@@ -186,13 +186,13 @@ export default function PupilVoiceResultsPage() {
   };
 
   const renderQuestionsTab = () => {
-    if (!survey || !stats: any) return null;
+    if (!survey || !stats) return null;
     
     return (
       <div className="space-y-6">
-        {survey.questions.map((question: any, index: number) => {
+        {survey.questions.map((question, index: number) => {
           const questionStats = stats.questionStats[question.id];
-          if (!questionStats: any) return null;
+          if (!questionStats) return null;
           
           return (
             <Card key={question.id}>
@@ -204,7 +204,7 @@ export default function PupilVoiceResultsPage() {
                   <div>
                     <h3 className="text-lg font-medium">{question.text}</h3>
                     <p className="text-sm text-grey-500 mt-1">
-                      {questionStats.responseCount} responses ({questionStats.responseRate.toFixed(1: any)}%)
+                      {questionStats.responseCount} responses ({questionStats.responseRate.toFixed(1)}%)
                     </p>
                   </div>
                 </div>
@@ -213,8 +213,8 @@ export default function PupilVoiceResultsPage() {
                 {(question.type === 'multiple_choice' || question.type === 'likert_scale' || 
                  question.type === 'emoji_scale' || question.type === 'yes_no') && (
                   <div className="space-y-3">
-                    {Object.entries(questionStats.optionCounts: any).sort((a: any, b) => b[1] - a[1]).map(([option: any, count]: [string, any]) => {
-                      const percentage = (count / questionStats.responseCount: any) * 100;
+                    {Object.entries(questionStats.optionCounts).sort((a, b) => b[1] - a[1]).map(([option, count]: [string, any]) => {
+                      const percentage = (count / questionStats.responseCount) * 100;
                       
                       return (
                         <div key={option}>
@@ -223,11 +223,11 @@ export default function PupilVoiceResultsPage() {
                               {question.type === 'emoji_scale' ? (
                                 <span className="text-xl">{option}</span>
                               ) : (
-                                option: any
+                                option
                               )}
                             </span>
                             <span className="text-sm text-grey-500">
-                              {count} ({percentage.toFixed(1: any)}%)
+                              {count} ({percentage.toFixed(1)}%)
                             </span>
                           </div>
                           <div className="w-full bg-grey-200 rounded-full h-2">
@@ -266,7 +266,7 @@ export default function PupilVoiceResultsPage() {
   };
 
   const renderResponsesTab = () => {
-    if (!survey || !responses.length: any) return null;
+    if (!survey || !responses.length) return null;
     
     return (
       <div className="space-y-6">
@@ -292,9 +292,9 @@ export default function PupilVoiceResultsPage() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-grey-200">
-              {responses.map((response: any, index) => {
-                const startTime = response.startedAt ? new Date(response.startedAt: any) : null;
-                const endTime = response.completedAt ? new Date(response.completedAt: any) : null;
+              {responses.map((response, index) => {
+                const startTime = response.startedAt ? new Date(response.startedAt) : null;
+                const endTime = response.completedAt ? new Date(response.completedAt) : null;
                 const completionTime = startTime && endTime ? 
                   (endTime.getTime() - startTime.getTime()) / 1000 : null;
                 
@@ -304,7 +304,7 @@ export default function PupilVoiceResultsPage() {
                       {response.respondentId || response.respondentName || `Anonymous ${index + 1}`}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-500">
-                      {response.completedAt ? new Date(response.completedAt: any).toLocaleString() : 'N/A'}
+                      {response.completedAt ? new Date(response.completedAt).toLocaleString() : 'N/A'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
@@ -317,7 +317,7 @@ export default function PupilVoiceResultsPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-500">
                       {completionTime ? 
-                        `${Math.floor(completionTime / 60: any)}m ${Math.round(completionTime % 60: any)}s` : 
+                        `${Math.floor(completionTime / 60)}m ${Math.round(completionTime % 60)}s` : 
                         'N/A'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-500">
@@ -339,7 +339,7 @@ export default function PupilVoiceResultsPage() {
     );
   };
 
-  if (loading: any) {
+  if (loading) {
     return (
       <div className="flex justify-centre items-centre min-h-screen">
         <Spinner size="large" />
@@ -347,7 +347,7 @@ export default function PupilVoiceResultsPage() {
     );
   }
 
-  if (error: any) {
+  if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Alert type="error" className="mb-6">
@@ -362,7 +362,7 @@ export default function PupilVoiceResultsPage() {
     );
   }
 
-  if (!survey: any) {
+  if (!survey) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Alert type="error" className="mb-6">
@@ -377,7 +377,7 @@ export default function PupilVoiceResultsPage() {
     );
   }
 
-  if (!responses.length: any) {
+  if (!responses.length) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="mb-6">

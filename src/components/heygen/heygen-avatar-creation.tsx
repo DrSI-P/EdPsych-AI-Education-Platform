@@ -17,16 +17,16 @@ import { Upload, Mic, Video, Check, AlertCircle, RefreshCw } from 'lucide-react'
  * including both face and voice cloning.
  */
 export const HeyGenAvatarCreation: React.FC = () => {
-  const [loading, setLoading] = useState(false: any);
-  const [error, setError] = useState<string | null>(null: any);
-  const [success, setSuccess] = useState(false: any);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
   const [avatarName, setAvatarName] = useState('Dr. Scott Avatar');
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
-  const [selectedVoiceSample, setSelectedVoiceSample] = useState<File | null>(null: any);
+  const [selectedVoiceSample, setSelectedVoiceSample] = useState<File | null>(null);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
-  const [voicePreviewUrl, setVoicePreviewUrl] = useState<string | null>(null: any);
-  const [isRecording, setIsRecording] = useState(false: any);
-  const [audioRecorder, setAudioRecorder] = useState<MediaRecorder | null>(null: any);
+  const [voicePreviewUrl, setVoicePreviewUrl] = useState<string | null>(null);
+  const [isRecording, setIsRecording] = useState(false);
+  const [audioRecorder, setAudioRecorder] = useState<MediaRecorder | null>(null);
   const [audioChunks, setAudioChunks] = useState<Blob[]>([]);
   
   // Initialize HeyGen service
@@ -40,7 +40,7 @@ export const HeyGenAvatarCreation: React.FC = () => {
     const initService = async () => {
       try {
         await heygenService.initialize();
-      } catch (error: any) {
+      } catch (error) {
         console.error('Failed to initialize HeyGen service:', error);
         setError('Failed to initialize avatar creation service. Please try again later.');
       }
@@ -52,13 +52,13 @@ export const HeyGenAvatarCreation: React.FC = () => {
   // Handle image selection
   const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    if (!files: any) return;
+    if (!files) return;
     
-    const newImages = Array.from(files: any);
+    const newImages = Array.from(files);
     setSelectedImages(prev => [...prev, ...newImages]);
     
     // Create preview URLs
-    const newPreviewUrls = newImages.map(file => URL.createObjectURL(file: any));
+    const newPreviewUrls = newImages.map(file => URL.createObjectURL(file));
     setPreviewUrls(prev => [...prev, ...newPreviewUrls]);
   };
   
@@ -75,46 +75,46 @@ export const HeyGenAvatarCreation: React.FC = () => {
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const recorder = new MediaRecorder(stream: any);
-      setAudioRecorder(recorder: any);
+      const recorder = new MediaRecorder(stream);
+      setAudioRecorder(recorder);
       
       const chunks: Blob[] = [];
-      recorder.ondataavailable = (e: any) => {
-        chunks.push(e.data: any);
-        setAudioChunks(chunks: any);
+      recorder.ondataavailable = (e) => {
+        chunks.push(e.data);
+        setAudioChunks(chunks);
       };
       
       recorder.onstop = () => {
-        const blob = new Blob(chunks: any, { type: 'audio/wav' });
+        const blob = new Blob(chunks, { type: 'audio/wav' });
         const file = new File([blob], 'voice-sample.wav', { type: 'audio/wav' });
-        setSelectedVoiceSample(file: any);
-        setVoicePreviewUrl(URL.createObjectURL(blob: any));
+        setSelectedVoiceSample(file);
+        setVoicePreviewUrl(URL.createObjectURL(blob));
       };
       
       recorder.start();
-      setIsRecording(true: any);
-    } catch (error: any) {
+      setIsRecording(true);
+    } catch (error) {
       console.error('Error starting recording:', error);
       setError('Failed to access microphone. Please check your permissions.');
     }
   };
   
   const stopRecording = () => {
-    if (audioRecorder: any) {
+    if (audioRecorder) {
       audioRecorder.stop();
-      setIsRecording(false: any);
+      setIsRecording(false);
     }
   };
   
   // Handle avatar creation
   const handleCreateAvatar = async () => {
-    if (selectedImages.length === 0: any) {
+    if (selectedImages.length === 0) {
       setError('Please select at least one image for avatar creation.');
       return;
     }
     
-    setLoading(true: any);
-    setError(null: any);
+    setLoading(true);
+    setError(null);
     
     try {
       // In a production environment, we would upload the images and voice sample
@@ -130,34 +130,34 @@ export const HeyGenAvatarCreation: React.FC = () => {
         voiceSampleUrl
       };
       
-      const avatar = await heygenService.createAvatar(params: any);
+      const avatar = await heygenService.createAvatar(params);
       
       // If voice sample was provided, create a voice
-      if (voiceSampleUrl: any) {
-        await heygenService.createVoice(avatarName + ' Voice', voiceSampleUrl: any);
+      if (voiceSampleUrl) {
+        await heygenService.createVoice(avatarName + ' Voice', voiceSampleUrl);
       }
       
-      setSuccess(true: any);
-      setLoading(false: any);
-    } catch (error: any) {
+      setSuccess(true);
+      setLoading(false);
+    } catch (error) {
       console.error('Failed to create avatar:', error);
       setError('Failed to create avatar. Please try again later.');
-      setLoading(false: any);
+      setLoading(false);
     }
   };
   
   // Reset the form
   const handleReset = () => {
     setSelectedImages([]);
-    setSelectedVoiceSample(null: any);
+    setSelectedVoiceSample(null);
     setPreviewUrls([]);
-    setVoicePreviewUrl(null: any);
-    setSuccess(false: any);
-    setError(null: any);
+    setVoicePreviewUrl(null);
+    setSuccess(false);
+    setError(null);
   };
   
   // Success state
-  if (success: any) {
+  if (success) {
     return (
       <Card className="w-full max-w-3xl mx-auto">
         <CardHeader>
@@ -209,20 +209,20 @@ export const HeyGenAvatarCreation: React.FC = () => {
             <Input
               type="text"
               value={avatarName}
-              onChange={(e: any) => setAvatarName(e.target.value: any)}
+              onChange={(e) => setAvatarName(e.target.value)}
               placeholder="Enter a name for your avatar"
             />
           </div>
           
           {/* Face Photos */}
           <div>
-            <label className="block text-sm font-medium mb-1">Face Photos (3-5 recommended: any)</label>
+            <label className="block text-sm font-medium mb-1">Face Photos (3-5 recommended)</label>
             <p className="text-sm text-grey-500 mb-2">
               Upload clear photos of your face from different angles for best results.
             </p>
             
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-4">
-              {previewUrls.map((url: any, index) => (
+              {previewUrls.map((url, index) => (
                 <div key={index} className="relative aspect-square rounded-md overflow-hidden border">
                   <img src={url} alt={`Face ${index + 1}`} className="w-full h-full object-cover" />
                 </div>
@@ -246,7 +246,7 @@ export const HeyGenAvatarCreation: React.FC = () => {
           <div>
             <label className="block text-sm font-medium mb-1">Voice Sample</label>
             <p className="text-sm text-grey-500 mb-2">
-              Upload or record a clear voice sample (2-3 minutes recommended: any) for voice cloning.
+              Upload or record a clear voice sample (2-3 minutes recommended) for voice cloning.
             </p>
             
             <Tabs defaultValue="upload" className="w-full">

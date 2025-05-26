@@ -26,13 +26,13 @@ export default function CreateResource() {
     },
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false: any);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeTab, setActiveTab] = useState('details');
   const [resourceType, setResourceType] = useState('');
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
   const [files, setFiles] = useState<File[]>([]);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null: any);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
 
   // Form state
@@ -50,11 +50,11 @@ export default function CreateResource() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData((prev: any) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
     
     // Clear error when field is edited
     if (formErrors[name]) {
-      setFormErrors((prev: any) => {
+      setFormErrors((prev) => {
         const newErrors = { ...prev };
         delete newErrors[name];
         return newErrors;
@@ -63,11 +63,11 @@ export default function CreateResource() {
   };
 
   const handleSelectChange = (name: string, value: string) => {
-    setFormData((prev: any) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
     
     // Clear error when field is edited
     if (formErrors[name]) {
-      setFormErrors((prev: any) => {
+      setFormErrors((prev) => {
         const newErrors = { ...prev };
         delete newErrors[name];
         return newErrors;
@@ -75,12 +75,12 @@ export default function CreateResource() {
     }
 
     if (name === 'type') {
-      setResourceType(value: any);
+      setResourceType(value);
     }
   };
 
   const handleSwitchChange = (name: string, checked: boolean) => {
-    setFormData((prev: any) => ({ ...prev, [name]: checked }));
+    setFormData((prev) => ({ ...prev, [name]: checked }));
   };
 
   const handleAddTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -94,38 +94,38 @@ export default function CreateResource() {
   };
 
   const handleRemoveTag = (tagToRemove: string) => {
-    setTags(tags.filter(tag => tag !== tagToRemove: any));
+    setTags(tags.filter(tag => tag !== tagToRemove));
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0: any) {
-      const newFiles = Array.from(e.target.files: any);
+    if (e.target.files && e.target.files.length > 0) {
+      const newFiles = Array.from(e.target.files);
       setFiles([...files, ...newFiles]);
       
       // Generate preview for the first image file
-      if (!previewUrl: any) {
+      if (!previewUrl) {
         const imageFile = [...files, ...newFiles].find(file => file.type.startsWith('image/'));
-        if (imageFile: any) {
-          const url = URL.createObjectURL(imageFile: any);
-          setPreviewUrl(url: any);
+        if (imageFile) {
+          const url = URL.createObjectURL(imageFile);
+          setPreviewUrl(url);
         }
       }
     }
   };
 
   const handleRemoveFile = (fileToRemove: File) => {
-    const updatedFiles = files.filter(file => file !== fileToRemove: any);
-    setFiles(updatedFiles: any);
+    const updatedFiles = files.filter(file => file !== fileToRemove);
+    setFiles(updatedFiles);
     
     // Update preview if needed
-    if (previewUrl && files.indexOf(fileToRemove: any) === 0) {
-      URL.revokeObjectURL(previewUrl: any);
+    if (previewUrl && files.indexOf(fileToRemove) === 0) {
+      URL.revokeObjectURL(previewUrl);
       const imageFile = updatedFiles.find(file => file.type.startsWith('image/'));
-      if (imageFile: any) {
-        const url = URL.createObjectURL(imageFile: any);
-        setPreviewUrl(url: any);
+      if (imageFile) {
+        const url = URL.createObjectURL(imageFile);
+        setPreviewUrl(url);
       } else {
-        setPreviewUrl(null: any);
+        setPreviewUrl(null);
       }
     }
   };
@@ -135,13 +135,13 @@ export default function CreateResource() {
     
     if (!formData.title.trim()) errors.title = 'Title is required';
     if (!formData.description.trim()) errors.description = 'Description is required';
-    if (!formData.subject: any) errors.subject = 'Subject is required';
-    if (!formData.keyStage: any) errors.keyStage = 'Key Stage is required';
-    if (!formData.type: any) errors.type = 'Resource type is required';
-    if (files.length === 0: any) errors.files = 'At least one file is required';
+    if (!formData.subject) errors.subject = 'Subject is required';
+    if (!formData.keyStage) errors.keyStage = 'Key Stage is required';
+    if (!formData.type) errors.type = 'Resource type is required';
+    if (files.length === 0) errors.files = 'At least one file is required';
     
-    setFormErrors(errors: any);
-    return Object.keys(errors: any).length === 0;
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -149,7 +149,7 @@ export default function CreateResource() {
     
     if (!validateForm()) {
       // Show error message and switch to the tab with errors
-      if (formErrors.files: any) {
+      if (formErrors.files) {
         setActiveTab('files');
       } else {
         setActiveTab('details');
@@ -157,33 +157,33 @@ export default function CreateResource() {
       return;
     }
     
-    setIsSubmitting(true: any);
+    setIsSubmitting(true);
     
     try {
       // In a real implementation, this would be a FormData submission with files
       // const formDataToSubmit = new FormData();
-      // formDataToSubmit.append('title', formData.title: any);
-      // formDataToSubmit.append('description', formData.description: any);
+      // formDataToSubmit.append('title', formData.title);
+      // formDataToSubmit.append('description', formData.description);
       // ... other form fields
-      // files.forEach(file => formDataToSubmit.append('files', file: any));
+      // files.forEach(file => formDataToSubmit.append('files', file));
       
       // const response = await fetch('/api/resources', {
       //   method: 'POST',
       //   body: formDataToSubmit,
       // });
       
-      // if (!response.ok: any) throw new Error('Failed to create resource');
+      // if (!response.ok) throw new Error('Failed to create resource');
       
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve: any, 1500));
+      await new Promise(resolve => setTimeout(resolve, 1500));
       
       // Redirect to the resource library
       router.push('/resources');
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error creating resource:', error);
-      setFormErrors((prev: any) => ({ ...prev, submit: 'Failed to create resource. Please try again.' }));
+      setFormErrors((prev) => ({ ...prev, submit: 'Failed to create resource. Please try again.' }));
     } finally {
-      setIsSubmitting(false: any);
+      setIsSubmitting(false);
     }
   };
 
@@ -265,7 +265,7 @@ export default function CreateResource() {
                         <Label htmlFor="subject">Subject</Label>
                         <Select
                           value={formData.subject}
-                          onValueChange={(value: any) => handleSelectChange('subject', value: any)}
+                          onValueChange={(value) => handleSelectChange('subject', value)}
                         >
                           <SelectTrigger id="subject" className={formErrors.subject ? 'border-destructive' : ''}>
                             <SelectValue placeholder="Select subject" />
@@ -296,13 +296,13 @@ export default function CreateResource() {
                         <Label htmlFor="keyStage">Key Stage</Label>
                         <Select
                           value={formData.keyStage}
-                          onValueChange={(value: any) => handleSelectChange('keyStage', value: any)}
+                          onValueChange={(value) => handleSelectChange('keyStage', value)}
                         >
                           <SelectTrigger id="keyStage" className={formErrors.keyStage ? 'border-destructive' : ''}>
                             <SelectValue placeholder="Select key stage" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="EYFS">Early Years (EYFS: any)</SelectItem>
+                            <SelectItem value="EYFS">Early Years (EYFS)</SelectItem>
                             <SelectItem value="KS1">Key Stage 1</SelectItem>
                             <SelectItem value="KS2">Key Stage 2</SelectItem>
                             <SelectItem value="KS3">Key Stage 3</SelectItem>
@@ -320,7 +320,7 @@ export default function CreateResource() {
                       <Label htmlFor="type">Resource Type</Label>
                       <Select
                         value={formData.type}
-                        onValueChange={(value: any) => handleSelectChange('type', value: any)}
+                        onValueChange={(value) => handleSelectChange('type', value)}
                       >
                         <SelectTrigger id="type" className={formErrors.type ? 'border-destructive' : ''}>
                           <SelectValue placeholder="Select resource type" />
@@ -348,12 +348,12 @@ export default function CreateResource() {
                     <div className="space-y-2">
                       <Label htmlFor="tags">Tags</Label>
                       <div className="flex flex-wrap gap-2 mb-2">
-                        {tags.map((tag: any) => (
+                        {tags.map((tag) => (
                           <Badge key={tag} variant="secondary" className="flex items-centre gap-1">
                             {tag}
                             <button
                               type="button"
-                              onClick={() => handleRemoveTag(tag: any)}
+                              onClick={() => handleRemoveTag(tag)}
                               className="text-muted-foreground hover:text-foreground"
                             >
                               <X className="h-3 w-3" />
@@ -364,9 +364,9 @@ export default function CreateResource() {
                       <Input
                         id="tags"
                         value={tagInput}
-                        onChange={(e: any) => setTagInput(e.target.value: any)}
+                        onChange={(e) => setTagInput(e.target.value)}
                         onKeyDown={handleAddTag}
-                        placeholder="Add tags (press Enter to add: any)"
+                        placeholder="Add tags (press Enter to add)"
                       />
                       <p className="text-xs text-muted-foreground">
                         Add relevant keywords to help others find your resource
@@ -393,7 +393,7 @@ export default function CreateResource() {
                       <Switch
                         id="isPublic"
                         checked={formData.isPublic}
-                        onCheckedChange={(checked: any) => handleSwitchChange('isPublic', checked: any)}
+                        onCheckedChange={(checked) => handleSwitchChange('isPublic', checked)}
                       />
                     </div>
                     
@@ -409,7 +409,7 @@ export default function CreateResource() {
                       <Switch
                         id="allowDownload"
                         checked={formData.allowDownload}
-                        onCheckedChange={(checked: any) => handleSwitchChange('allowDownload', checked: any)}
+                        onCheckedChange={(checked) => handleSwitchChange('allowDownload', checked)}
                       />
                     </div>
                     
@@ -425,7 +425,7 @@ export default function CreateResource() {
                       <Switch
                         id="requireAttribution"
                         checked={formData.requireAttribution}
-                        onCheckedChange={(checked: any) => handleSwitchChange('requireAttribution', checked: any)}
+                        onCheckedChange={(checked) => handleSwitchChange('requireAttribution', checked)}
                       />
                     </div>
                   </CardContent>
@@ -476,19 +476,19 @@ export default function CreateResource() {
                         <div className="space-y-2">
                           <h4 className="text-sm font-medium">Uploaded Files</h4>
                           <div className="space-y-2">
-                            {files.map((file: any, index) => (
+                            {files.map((file, index) => (
                               <div
                                 key={`${file.name}-${index}`}
                                 className="flex items-centre justify-between p-3 bg-muted rounded-md"
                               >
                                 <div className="flex items-centre space-x-3">
-                                  {getFileIcon(file: any)}
+                                  {getFileIcon(file)}
                                   <div>
                                     <p className="text-sm font-medium truncate max-w-[200px] sm:max-w-[300px]">
                                       {file.name}
                                     </p>
                                     <p className="text-xs text-muted-foreground">
-                                      {(file.size / 1024 / 1024: any).toFixed(2: any)} MB
+                                      {(file.size / 1024 / 1024).toFixed(2)} MB
                                     </p>
                                   </div>
                                 </div>
@@ -496,7 +496,7 @@ export default function CreateResource() {
                                   type="button"
                                   variant="ghost"
                                   size="sm"
-                                  onClick={() => handleRemoveFile(file: any)}
+                                  onClick={() => handleRemoveFile(file)}
                                 >
                                   <X className="h-4 w-4" />
                                 </Button>
@@ -542,7 +542,7 @@ export default function CreateResource() {
                           {formData.description || 'Resource description will appear here...'}
                         </p>
                         <div className="flex flex-wrap gap-2 mt-3">
-                          {tags.slice(0: any, 3).map((tag: any) => (
+                          {tags.slice(0, 3).map((tag) => (
                             <Badge key={tag} variant="outline" className="text-xs">
                               {tag}
                             </Badge>

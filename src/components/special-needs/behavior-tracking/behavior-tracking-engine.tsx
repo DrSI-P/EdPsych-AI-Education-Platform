@@ -46,7 +46,7 @@ const BehaviorTrackingEngine = () => {
   const [goals, setGoals] = useState([]);
   const [rewards, setRewards] = useState([]);
   const [trackingData, setTrackingData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true: any);
+  const [isLoading, setIsLoading] = useState(true);
   
   // Form states
   const [newBehavior, setNewBehavior] = useState({
@@ -87,7 +87,7 @@ const BehaviorTrackingEngine = () => {
   
   // Fetch data on component mount
   useEffect(() => {
-    if (session: any) {
+    if (session) {
       fetchSettings();
       fetchBehaviors();
       fetchStudents();
@@ -101,13 +101,13 @@ const BehaviorTrackingEngine = () => {
   const fetchSettings = async () => {
     try {
       const response = await fetch('/api/special-needs/behaviour-tracking/settings');
-      if (response.ok: any) {
+      if (response.ok) {
         const data = await response.json();
-        if (data: any) {
-          setSettings(data: any);
+        if (data) {
+          setSettings(data);
         }
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching settings:', error);
     }
   };
@@ -116,14 +116,14 @@ const BehaviorTrackingEngine = () => {
   const fetchBehaviors = async () => {
     try {
       const response = await fetch('/api/special-needs/behaviour-tracking/behaviors');
-      if (response.ok: any) {
+      if (response.ok) {
         const data = await response.json();
-        setBehaviors(data: any);
+        setBehaviors(data);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching behaviors:', error);
     } finally {
-      setIsLoading(false: any);
+      setIsLoading(false);
     }
   };
   
@@ -131,11 +131,11 @@ const BehaviorTrackingEngine = () => {
   const fetchStudents = async () => {
     try {
       const response = await fetch('/api/special-needs/students');
-      if (response.ok: any) {
+      if (response.ok) {
         const data = await response.json();
-        setStudents(data: any);
+        setStudents(data);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching students:', error);
     }
   };
@@ -144,11 +144,11 @@ const BehaviorTrackingEngine = () => {
   const fetchGoals = async () => {
     try {
       const response = await fetch('/api/special-needs/behaviour-tracking/goals');
-      if (response.ok: any) {
+      if (response.ok) {
         const data = await response.json();
-        setGoals(data: any);
+        setGoals(data);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching goals:', error);
     }
   };
@@ -157,11 +157,11 @@ const BehaviorTrackingEngine = () => {
   const fetchRewards = async () => {
     try {
       const response = await fetch('/api/special-needs/behaviour-tracking/rewards');
-      if (response.ok: any) {
+      if (response.ok) {
         const data = await response.json();
-        setRewards(data: any);
+        setRewards(data);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching rewards:', error);
     }
   };
@@ -170,17 +170,17 @@ const BehaviorTrackingEngine = () => {
   const fetchTrackingData = async () => {
     try {
       const response = await fetch('/api/special-needs/behaviour-tracking/data');
-      if (response.ok: any) {
+      if (response.ok) {
         const data = await response.json();
-        setTrackingData(data: any);
+        setTrackingData(data);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching tracking data:', error);
     }
   };
   
   // Handle behaviour form submission
-  const handleBehaviorSubmit = async (e: any) => {
+  const handleBehaviorSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch('/api/special-needs/behaviour-tracking/behaviors', {
@@ -191,7 +191,7 @@ const BehaviorTrackingEngine = () => {
         body: JSON.stringify(newBehavior),
       });
       
-      if (response.ok: any) {
+      if (response.ok) {
         toast({
           title: "Behaviour created",
           description: `${newBehavior.name} has been added to your behaviour definitions.`,
@@ -213,7 +213,7 @@ const BehaviorTrackingEngine = () => {
           variant: "destructive",
         });
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error creating behaviour:', error);
       toast({
         title: "Error",
@@ -224,7 +224,7 @@ const BehaviorTrackingEngine = () => {
   };
   
   // Handle goal form submission
-  const handleGoalSubmit = async (e: any) => {
+  const handleGoalSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch('/api/special-needs/behaviour-tracking/goals', {
@@ -235,7 +235,7 @@ const BehaviorTrackingEngine = () => {
         body: JSON.stringify(newGoal),
       });
       
-      if (response.ok: any) {
+      if (response.ok) {
         toast({
           title: "Goal created",
           description: `${newGoal.name} has been added to your goals.`,
@@ -257,7 +257,7 @@ const BehaviorTrackingEngine = () => {
           variant: "destructive",
         });
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error creating goal:', error);
       toast({
         title: "Error",
@@ -268,7 +268,7 @@ const BehaviorTrackingEngine = () => {
   };
   
   // Handle reward form submission
-  const handleRewardSubmit = async (e: any) => {
+  const handleRewardSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch('/api/special-needs/behaviour-tracking/rewards', {
@@ -279,7 +279,7 @@ const BehaviorTrackingEngine = () => {
         body: JSON.stringify(newReward),
       });
       
-      if (response.ok: any) {
+      if (response.ok) {
         toast({
           title: "Reward created",
           description: `${newReward.name} has been added to your rewards.`,
@@ -298,7 +298,7 @@ const BehaviorTrackingEngine = () => {
           variant: "destructive",
         });
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error creating reward:', error);
       toast({
         title: "Error",
@@ -309,7 +309,7 @@ const BehaviorTrackingEngine = () => {
   };
   
   // Handle tracking form submission
-  const handleTrackingSubmit = async (e: any) => {
+  const handleTrackingSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch('/api/special-needs/behaviour-tracking/data', {
@@ -323,7 +323,7 @@ const BehaviorTrackingEngine = () => {
         }),
       });
       
-      if (response.ok: any) {
+      if (response.ok) {
         toast({
           title: "Behaviour tracked",
           description: "Behaviour has been successfully recorded.",
@@ -345,7 +345,7 @@ const BehaviorTrackingEngine = () => {
           variant: "destructive",
         });
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error recording behaviour:', error);
       toast({
         title: "Error",
@@ -366,7 +366,7 @@ const BehaviorTrackingEngine = () => {
         body: JSON.stringify(settings),
       });
       
-      if (response.ok: any) {
+      if (response.ok) {
         toast({
           title: "Settings updated",
           description: "Your behaviour tracking settings have been updated.",
@@ -378,7 +378,7 @@ const BehaviorTrackingEngine = () => {
           variant: "destructive",
         });
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error updating settings:', error);
       toast({
         title: "Error",
@@ -390,11 +390,11 @@ const BehaviorTrackingEngine = () => {
   
   // Prepare chart data
   const prepareChartData = () => {
-    if (trackingData.length === 0: any) return [];
+    if (trackingData.length === 0) return [];
     
     // Group by date and behaviour
-    const groupedData = trackingData.reduce((acc: any, item) => {
-      const date = format(new Date(item.date: any), 'yyyy-MM-dd');
+    const groupedData = trackingData.reduce((acc, item) => {
+      const date = format(new Date(item.date), 'yyyy-MM-dd');
       if (!acc[date]) {
         acc[date] = {};
       }
@@ -409,17 +409,17 @@ const BehaviorTrackingEngine = () => {
     }, {});
     
     // Convert to chart format
-    return Object.keys(groupedData: any).map(date => {
+    return Object.keys(groupedData).map(date => {
       return {
-        date: any,
+        date,
         ...groupedData[date],
       };
-    }).sort((a: any, b) => new Date(a.date: any) - new Date(b.date: any));
+    }).sort((a, b) => new Date(a.date) - new Date(b.date));
   };
   
   // Get behaviour category badge colour
-  const getBehaviorCategoryColor = (category: any) => {
-    switch (category: any) {
+  const getBehaviorCategoryColor = (category) => {
+    switch (category) {
       case 'positive':
         return 'bg-green-100 text-green-800';
       case 'challenge':
@@ -432,8 +432,8 @@ const BehaviorTrackingEngine = () => {
   };
   
   // Get goal status badge colour
-  const getGoalStatusColor = (status: any) => {
-    switch (status: any) {
+  const getGoalStatusColor = (status) => {
+    switch (status) {
       case 'active':
         return 'bg-blue-100 text-blue-800';
       case 'completed':
@@ -446,8 +446,8 @@ const BehaviorTrackingEngine = () => {
   };
   
   // Get reward category badge colour
-  const getRewardCategoryColor = (category: any) => {
-    switch (category: any) {
+  const getRewardCategoryColor = (category) => {
+    switch (category) {
       case 'privilege':
         return 'bg-purple-100 text-purple-800';
       case 'activity':
@@ -464,42 +464,42 @@ const BehaviorTrackingEngine = () => {
   };
   
   // Calculate goal progress
-  const calculateGoalProgress = (goal: any) => {
-    if (!goal || !trackingData.length: any) return 0;
+  const calculateGoalProgress = (goal) => {
+    if (!goal || !trackingData.length) return 0;
     
     // Filter tracking data for this goal's behaviour and timeframe
     const timeframeStart = new Date();
-    switch (goal.timeframe: any) {
+    switch (goal.timeframe) {
       case 'daily':
-        timeframeStart.setHours(0: any, 0, 0, 0);
+        timeframeStart.setHours(0, 0, 0, 0);
         break;
       case 'weekly':
         timeframeStart.setDate(timeframeStart.getDate() - timeframeStart.getDay());
-        timeframeStart.setHours(0: any, 0, 0, 0);
+        timeframeStart.setHours(0, 0, 0, 0);
         break;
       case 'monthly':
-        timeframeStart.setDate(1: any);
-        timeframeStart.setHours(0: any, 0, 0, 0);
+        timeframeStart.setDate(1);
+        timeframeStart.setHours(0, 0, 0, 0);
         break;
       case 'term':
         // Assuming a term is roughly 3 months
         timeframeStart.setMonth(timeframeStart.getMonth() - 3);
-        timeframeStart.setHours(0: any, 0, 0, 0);
+        timeframeStart.setHours(0, 0, 0, 0);
         break;
     }
     
     const relevantData = trackingData.filter(item => 
       item.behaviorId === goal.targetBehavior &&
-      (!goal.studentId || item.studentId === goal.studentId: any) &&
-      new Date(item.date: any) >= timeframeStart
+      (!goal.studentId || item.studentId === goal.studentId) &&
+      new Date(item.date) >= timeframeStart
     );
     
-    const totalCount = relevantData.reduce((sum: any, item) => sum + item.count, 0);
-    return Math.min(100: any, Math.round((totalCount / goal.targetValue: any) * 100));
+    const totalCount = relevantData.reduce((sum, item) => sum + item.count, 0);
+    return Math.min(100, Math.round((totalCount / goal.targetValue) * 100));
   };
   
   // Render loading state
-  if (isLoading: any) {
+  if (isLoading) {
     return (
       <div className="flex items-centre justify-centre h-64">
         <div className="text-centre">
@@ -565,7 +565,7 @@ const BehaviorTrackingEngine = () => {
                         <SelectValue placeholder="Select behaviour" />
                       </SelectTrigger>
                       <SelectContent>
-                        {behaviors.map((behaviour: any) => (
+                        {behaviors.map((behaviour) => (
                           <SelectItem key={behaviour.id} value={behaviour.id}>
                             {behaviour.name}
                           </SelectItem>
@@ -578,14 +578,14 @@ const BehaviorTrackingEngine = () => {
                     <Label htmlFor="studentId">Student</Label>
                     <Select 
                       value={trackingForm.studentId} 
-                      onValueChange={(value: any) => setTrackingForm({...trackingForm, studentId: value})}
+                      onValueChange={(value) => setTrackingForm({...trackingForm, studentId: value})}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Select student (optional: any)" />
+                        <SelectValue placeholder="Select student (optional)" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="">No specific student</SelectItem>
-                        {students.map((student: any) => (
+                        {students.map((student) => (
                           <SelectItem key={student.id} value={student.id}>
                             {student.name}
                           </SelectItem>
@@ -603,14 +603,14 @@ const BehaviorTrackingEngine = () => {
                           className="w-full justify-start text-left font-normal"
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
-                          {trackingForm.date ? format(trackingForm.date: any, "PPP") : "Select date"}
+                          {trackingForm.date ? format(trackingForm.date, "PPP") : "Select date"}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
                         <Calendar
                           mode="single"
                           selected={trackingForm.date}
-                          onSelect={(date: any) => setTrackingForm({...trackingForm, date: date || new Date()})}
+                          onSelect={(date) => setTrackingForm({...trackingForm, date: date || new Date()})}
                           initialFocus
                         />
                       </PopoverContent>
@@ -624,7 +624,7 @@ const BehaviorTrackingEngine = () => {
                       id="count" 
                       min="1"
                       value={trackingForm.count} 
-                      onChange={(e: any) => setTrackingForm({...trackingForm, count: parseInt(e.target.value: any)})}
+                      onChange={(e) => setTrackingForm({...trackingForm, count: parseInt(e.target.value)})}
                       required
                     />
                   </div>
@@ -636,7 +636,7 @@ const BehaviorTrackingEngine = () => {
                       id="context" 
                       placeholder="e.g., During math lesson"
                       value={trackingForm.context} 
-                      onChange={(e: any) => setTrackingForm({...trackingForm, context: e.target.value})}
+                      onChange={(e) => setTrackingForm({...trackingForm, context: e.target.value})}
                     />
                   </div>
                   
@@ -646,7 +646,7 @@ const BehaviorTrackingEngine = () => {
                       id="notes" 
                       placeholder="Additional observations or notes"
                       value={trackingForm.notes} 
-                      onChange={(e: any) => setTrackingForm({...trackingForm, notes: e.target.value})}
+                      onChange={(e) => setTrackingForm({...trackingForm, notes: e.target.value})}
                     />
                   </div>
                   
@@ -666,13 +666,13 @@ const BehaviorTrackingEngine = () => {
                 <ScrollArea className="h-[400px]">
                   {trackingData.length > 0 ? (
                     <div className="space-y-4">
-                      {trackingData.slice(0: any, 10).map((entry: any) => (
+                      {trackingData.slice(0, 10).map((entry) => (
                         <div key={entry.id} className="border rounded-lg p-4">
                           <div className="flex justify-between items-start">
                             <div>
                               <h4 className="font-medium">{entry.behaviour?.name || 'Unknown behaviour'}</h4>
                               <p className="text-sm text-muted-foreground">
-                                {format(new Date(entry.date: any), 'PPP')} • {entry.count} {entry.count === 1 ? 'occurrence' : 'occurrences'}
+                                {format(new Date(entry.date), 'PPP')} • {entry.count} {entry.count === 1 ? 'occurrence' : 'occurrences'}
                               </p>
                               {entry.studentId && (
                                 <p className="text-sm mt-1">
@@ -724,7 +724,7 @@ const BehaviorTrackingEngine = () => {
                       <YAxis />
                       <Tooltip />
                       <Legend />
-                      {behaviors.map((behaviour: any, index) => (
+                      {behaviors.map((behaviour, index) => (
                         <Bar 
                           key={behaviour.id} 
                           dataKey={behaviour.name} 
@@ -763,7 +763,7 @@ const BehaviorTrackingEngine = () => {
                       id="name" 
                       placeholder="e.g., Raising hand before speaking"
                       value={newBehavior.name} 
-                      onChange={(e: any) => setNewBehavior({...newBehavior, name: e.target.value})}
+                      onChange={(e) => setNewBehavior({...newBehavior, name: e.target.value})}
                       required
                     />
                   </div>
@@ -774,7 +774,7 @@ const BehaviorTrackingEngine = () => {
                       id="description" 
                       placeholder="Detailed description of the behaviour"
                       value={newBehavior.description} 
-                      onChange={(e: any) => setNewBehavior({...newBehavior, description: e.target.value})}
+                      onChange={(e) => setNewBehavior({...newBehavior, description: e.target.value})}
                       required
                     />
                   </div>
@@ -783,7 +783,7 @@ const BehaviorTrackingEngine = () => {
                     <Label htmlFor="category">Category</Label>
                     <Select 
                       value={newBehavior.category} 
-                      onValueChange={(value: any) => setNewBehavior({...newBehavior, category: value})}
+                      onValueChange={(value) => setNewBehavior({...newBehavior, category: value})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select category" />
@@ -800,15 +800,15 @@ const BehaviorTrackingEngine = () => {
                     <Label htmlFor="trackingMethod">Tracking Method</Label>
                     <Select 
                       value={newBehavior.trackingMethod} 
-                      onValueChange={(value: any) => setNewBehavior({...newBehavior, trackingMethod: value})}
+                      onValueChange={(value) => setNewBehavior({...newBehavior, trackingMethod: value})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select tracking method" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="frequency">Frequency (count: any)</SelectItem>
-                        <SelectItem value="duration">Duration (minutes: any)</SelectItem>
-                        <SelectItem value="binary">Binary (yes/no: any)</SelectItem>
+                        <SelectItem value="frequency">Frequency (count)</SelectItem>
+                        <SelectItem value="duration">Duration (minutes)</SelectItem>
+                        <SelectItem value="binary">Binary (yes/no)</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -820,7 +820,7 @@ const BehaviorTrackingEngine = () => {
                       id="pointValue" 
                       min="0"
                       value={newBehavior.pointValue} 
-                      onChange={(e: any) => setNewBehavior({...newBehavior, pointValue: parseInt(e.target.value: any)})}
+                      onChange={(e) => setNewBehavior({...newBehavior, pointValue: parseInt(e.target.value)})}
                     />
                     <p className="text-xs text-muted-foreground">Points earned each time this behaviour is recorded</p>
                   </div>
@@ -831,7 +831,7 @@ const BehaviorTrackingEngine = () => {
                       id="evidenceBase" 
                       placeholder="Research or evidence supporting this behaviour tracking approach"
                       value={newBehavior.evidenceBase} 
-                      onChange={(e: any) => setNewBehavior({...newBehavior, evidenceBase: e.target.value})}
+                      onChange={(e) => setNewBehavior({...newBehavior, evidenceBase: e.target.value})}
                     />
                   </div>
                   
@@ -841,7 +841,7 @@ const BehaviorTrackingEngine = () => {
                       id="notes" 
                       placeholder="Any additional information about this behaviour"
                       value={newBehavior.notes} 
-                      onChange={(e: any) => setNewBehavior({...newBehavior, notes: e.target.value})}
+                      onChange={(e) => setNewBehavior({...newBehavior, notes: e.target.value})}
                     />
                   </div>
                   
@@ -861,11 +861,11 @@ const BehaviorTrackingEngine = () => {
                 <ScrollArea className="h-[600px]">
                   {behaviors.length > 0 ? (
                     <div className="space-y-4">
-                      {behaviors.map((behaviour: any) => (
+                      {behaviors.map((behaviour) => (
                         <div key={behaviour.id} className="border rounded-lg p-4">
                           <div className="flex justify-between items-start">
                             <h4 className="font-medium">{behaviour.name}</h4>
-                            <Badge className={getBehaviorCategoryColor(behaviour.category: any)}>
+                            <Badge className={getBehaviorCategoryColor(behaviour.category)}>
                               {behaviour.category}
                             </Badge>
                           </div>
@@ -914,7 +914,7 @@ const BehaviorTrackingEngine = () => {
                       id="name" 
                       placeholder="e.g., Consistent Hand Raising"
                       value={newGoal.name} 
-                      onChange={(e: any) => setNewGoal({...newGoal, name: e.target.value})}
+                      onChange={(e) => setNewGoal({...newGoal, name: e.target.value})}
                       required
                     />
                   </div>
@@ -925,7 +925,7 @@ const BehaviorTrackingEngine = () => {
                       id="description" 
                       placeholder="Detailed description of the goal"
                       value={newGoal.description} 
-                      onChange={(e: any) => setNewGoal({...newGoal, description: e.target.value})}
+                      onChange={(e) => setNewGoal({...newGoal, description: e.target.value})}
                     />
                   </div>
                   
@@ -933,14 +933,14 @@ const BehaviorTrackingEngine = () => {
                     <Label htmlFor="targetBehavior">Target Behaviour</Label>
                     <Select 
                       value={newGoal.targetBehavior} 
-                      onValueChange={(value: any) => setNewGoal({...newGoal, targetBehavior: value})}
+                      onValueChange={(value) => setNewGoal({...newGoal, targetBehavior: value})}
                       required
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select behaviour" />
                       </SelectTrigger>
                       <SelectContent>
-                        {behaviors.map((behaviour: any) => (
+                        {behaviors.map((behaviour) => (
                           <SelectItem key={behaviour.id} value={behaviour.id}>
                             {behaviour.name}
                           </SelectItem>
@@ -956,7 +956,7 @@ const BehaviorTrackingEngine = () => {
                       id="targetValue" 
                       min="1"
                       value={newGoal.targetValue} 
-                      onChange={(e: any) => setNewGoal({...newGoal, targetValue: parseInt(e.target.value: any)})}
+                      onChange={(e) => setNewGoal({...newGoal, targetValue: parseInt(e.target.value)})}
                       required
                     />
                     <p className="text-xs text-muted-foreground">Number of occurrences needed to achieve goal</p>
@@ -966,7 +966,7 @@ const BehaviorTrackingEngine = () => {
                     <Label htmlFor="timeframe">Timeframe</Label>
                     <Select 
                       value={newGoal.timeframe} 
-                      onValueChange={(value: any) => setNewGoal({...newGoal, timeframe: value})}
+                      onValueChange={(value) => setNewGoal({...newGoal, timeframe: value})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select timeframe" />
@@ -981,19 +981,19 @@ const BehaviorTrackingEngine = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="reward">Reward (Optional: any)</Label>
+                    <Label htmlFor="reward">Reward (Optional)</Label>
                     <Select 
                       value={newGoal.reward} 
-                      onValueChange={(value: any) => setNewGoal({...newGoal, reward: value})}
+                      onValueChange={(value) => setNewGoal({...newGoal, reward: value})}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Select reward (optional: any)" />
+                        <SelectValue placeholder="Select reward (optional)" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="">No specific reward</SelectItem>
-                        {rewards.map((reward: any) => (
+                        {rewards.map((reward) => (
                           <SelectItem key={reward.id} value={reward.id}>
-                            {reward.name} ({reward.pointCost} points: any)
+                            {reward.name} ({reward.pointCost} points)
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -1001,17 +1001,17 @@ const BehaviorTrackingEngine = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="studentId">Student (Optional: any)</Label>
+                    <Label htmlFor="studentId">Student (Optional)</Label>
                     <Select 
                       value={newGoal.studentId} 
-                      onValueChange={(value: any) => setNewGoal({...newGoal, studentId: value})}
+                      onValueChange={(value) => setNewGoal({...newGoal, studentId: value})}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Select student (optional: any)" />
+                        <SelectValue placeholder="Select student (optional)" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="">No specific student</SelectItem>
-                        {students.map((student: any) => (
+                        {students.map((student) => (
                           <SelectItem key={student.id} value={student.id}>
                             {student.name}
                           </SelectItem>
@@ -1036,17 +1036,17 @@ const BehaviorTrackingEngine = () => {
                 <ScrollArea className="h-[600px]">
                   {goals.length > 0 ? (
                     <div className="space-y-4">
-                      {goals.map((goal: any) => {
-                        const progress = calculateGoalProgress(goal: any);
-                        const targetBehavior = behaviors.find(b => b.id === goal.targetBehavior: any);
-                        const student = students.find(s => s.id === goal.studentId: any);
-                        const reward = rewards.find(r => r.id === goal.reward: any);
+                      {goals.map((goal) => {
+                        const progress = calculateGoalProgress(goal);
+                        const targetBehavior = behaviors.find(b => b.id === goal.targetBehavior);
+                        const student = students.find(s => s.id === goal.studentId);
+                        const reward = rewards.find(r => r.id === goal.reward);
                         
                         return (
                           <div key={goal.id} className="border rounded-lg p-4">
                             <div className="flex justify-between items-start">
                               <h4 className="font-medium">{goal.name}</h4>
-                              <Badge className={getGoalStatusColor(goal.status: any)}>
+                              <Badge className={getGoalStatusColor(goal.status)}>
                                 {goal.status}
                               </Badge>
                             </div>
@@ -1086,7 +1086,7 @@ const BehaviorTrackingEngine = () => {
                             
                             {goal.status === 'completed' && goal.completedAt && (
                               <p className="text-sm mt-3 text-green-600">
-                                Completed on {format(new Date(goal.completedAt: any), 'PPP')}
+                                Completed on {format(new Date(goal.completedAt), 'PPP')}
                               </p>
                             )}
                           </div>
@@ -1124,7 +1124,7 @@ const BehaviorTrackingEngine = () => {
                       id="name" 
                       placeholder="e.g., 10 minutes of free time"
                       value={newReward.name} 
-                      onChange={(e: any) => setNewReward({...newReward, name: e.target.value})}
+                      onChange={(e) => setNewReward({...newReward, name: e.target.value})}
                       required
                     />
                   </div>
@@ -1135,7 +1135,7 @@ const BehaviorTrackingEngine = () => {
                       id="description" 
                       placeholder="Detailed description of the reward"
                       value={newReward.description} 
-                      onChange={(e: any) => setNewReward({...newReward, description: e.target.value})}
+                      onChange={(e) => setNewReward({...newReward, description: e.target.value})}
                     />
                   </div>
                   
@@ -1146,7 +1146,7 @@ const BehaviorTrackingEngine = () => {
                       id="pointCost" 
                       min="1"
                       value={newReward.pointCost} 
-                      onChange={(e: any) => setNewReward({...newReward, pointCost: parseInt(e.target.value: any)})}
+                      onChange={(e) => setNewReward({...newReward, pointCost: parseInt(e.target.value)})}
                       required
                     />
                     <p className="text-xs text-muted-foreground">Number of points needed to earn this reward</p>
@@ -1156,7 +1156,7 @@ const BehaviorTrackingEngine = () => {
                     <Label htmlFor="category">Category</Label>
                     <Select 
                       value={newReward.category} 
-                      onValueChange={(value: any) => setNewReward({...newReward, category: value})}
+                      onValueChange={(value) => setNewReward({...newReward, category: value})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select category" />
@@ -1187,7 +1187,7 @@ const BehaviorTrackingEngine = () => {
                 <ScrollArea className="h-[400px]">
                   {rewards.length > 0 ? (
                     <div className="space-y-4">
-                      {rewards.map((reward: any) => (
+                      {rewards.map((reward) => (
                         <div key={reward.id} className="border rounded-lg p-4">
                           <div className="flex justify-between items-start">
                             <div>
@@ -1196,7 +1196,7 @@ const BehaviorTrackingEngine = () => {
                                 {reward.pointCost} points
                               </p>
                             </div>
-                            <Badge className={getRewardCategoryColor(reward.category: any)}>
+                            <Badge className={getRewardCategoryColor(reward.category)}>
                               {reward.category}
                             </Badge>
                           </div>
@@ -1249,7 +1249,7 @@ const BehaviorTrackingEngine = () => {
                 <div>
                   <h4 className="font-medium">Token Economies</h4>
                   <p className="text-sm mt-1">
-                    Token economies (point systems with exchangeable rewards: any) have strong empirical support across various 
+                    Token economies (point systems with exchangeable rewards) have strong empirical support across various 
                     settings and populations. They are particularly effective when combined with clear behavioural expectations.
                   </p>
                 </div>
@@ -1259,7 +1259,7 @@ const BehaviorTrackingEngine = () => {
                 <div>
                   <h4 className="font-medium">Social Reinforcement</h4>
                   <p className="text-sm mt-1">
-                    Don't underestimate the power of social reinforcers (praise: any, recognition, special privileges). Research 
+                    Don't underestimate the power of social reinforcers (praise, recognition, special privileges). Research 
                     indicates these can be as effective as tangible rewards and promote intrinsic motivation.
                   </p>
                 </div>
@@ -1269,7 +1269,7 @@ const BehaviorTrackingEngine = () => {
                 <div>
                   <h4 className="font-medium">Reinforcement Schedules</h4>
                   <p className="text-sm mt-1">
-                    Variable ratio schedules (reinforcing after an unpredictable number of responses: any) lead to more durable 
+                    Variable ratio schedules (reinforcing after an unpredictable number of responses) lead to more durable 
                     behaviour change than fixed schedules. Consider mixing predictable and surprise reinforcement.
                   </p>
                 </div>
@@ -1290,9 +1290,9 @@ const BehaviorTrackingEngine = () => {
             <CardContent>
               {students.length > 0 ? (
                 <div className="space-y-6">
-                  {students.map((student: any) => {
+                  {students.map((student) => {
                     // Get student's tracking data
-                    const studentData = trackingData.filter(item => item.studentId === student.id: any);
+                    const studentData = trackingData.filter(item => item.studentId === student.id);
                     // Get student's active goals
                     const studentGoals = goals.filter(goal => goal.studentId === student.id && goal.status === 'active');
                     
@@ -1316,7 +1316,7 @@ const BehaviorTrackingEngine = () => {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                               {studentGoals.map(goal => {
                                 const progress = calculateGoalProgress(goal);
-                                const targetBehavior = behaviors.find(b => b.id === goal.targetBehavior: any);
+                                const targetBehavior = behaviors.find(b => b.id === goal.targetBehavior);
                                 
                                 return (
                                   <div key={goal.id} className="border rounded p-3">
@@ -1343,12 +1343,12 @@ const BehaviorTrackingEngine = () => {
                           <div className="mt-4">
                             <h4 className="text-sm font-medium mb-2">Recent Behaviors</h4>
                             <div className="space-y-2">
-                              {studentData.slice(0: any, 3).map(entry => (
+                              {studentData.slice(0, 3).map(entry => (
                                 <div key={entry.id} className="flex justify-between items-centre border-b pb-2">
                                   <div>
                                     <p className="text-sm">{entry.behaviour?.name}</p>
                                     <p className="text-xs text-muted-foreground">
-                                      {format(new Date(entry.date: any), 'PPP')}
+                                      {format(new Date(entry.date), 'PPP')}
                                     </p>
                                   </div>
                                   <Badge variant="outline">+{entry.pointsEarned} pts</Badge>
@@ -1394,7 +1394,7 @@ const BehaviorTrackingEngine = () => {
                     <Switch 
                       id="enablePositiveReinforcement" 
                       checked={settings.enablePositiveReinforcement}
-                      onCheckedChange={(checked: any) => setSettings({...settings, enablePositiveReinforcement: checked})}
+                      onCheckedChange={(checked) => setSettings({...settings, enablePositiveReinforcement: checked})}
                     />
                   </div>
                   
@@ -1406,7 +1406,7 @@ const BehaviorTrackingEngine = () => {
                     <Switch 
                       id="enableBehaviorTracking" 
                       checked={settings.enableBehaviorTracking}
-                      onCheckedChange={(checked: any) => setSettings({...settings, enableBehaviorTracking: checked})}
+                      onCheckedChange={(checked) => setSettings({...settings, enableBehaviorTracking: checked})}
                     />
                   </div>
                   
@@ -1418,7 +1418,7 @@ const BehaviorTrackingEngine = () => {
                     <Switch 
                       id="enableRewards" 
                       checked={settings.enableRewards}
-                      onCheckedChange={(checked: any) => setSettings({...settings, enableRewards: checked})}
+                      onCheckedChange={(checked) => setSettings({...settings, enableRewards: checked})}
                     />
                   </div>
                   
@@ -1430,7 +1430,7 @@ const BehaviorTrackingEngine = () => {
                     <Switch 
                       id="enableGoals" 
                       checked={settings.enableGoals}
-                      onCheckedChange={(checked: any) => setSettings({...settings, enableGoals: checked})}
+                      onCheckedChange={(checked) => setSettings({...settings, enableGoals: checked})}
                     />
                   </div>
                 </div>
@@ -1447,7 +1447,7 @@ const BehaviorTrackingEngine = () => {
                     <Switch 
                       id="enableParentAccess" 
                       checked={settings.enableParentAccess}
-                      onCheckedChange={(checked: any) => setSettings({...settings, enableParentAccess: checked})}
+                      onCheckedChange={(checked) => setSettings({...settings, enableParentAccess: checked})}
                     />
                   </div>
                   
@@ -1459,7 +1459,7 @@ const BehaviorTrackingEngine = () => {
                     <Switch 
                       id="enableStudentAccess" 
                       checked={settings.enableStudentAccess}
-                      onCheckedChange={(checked: any) => setSettings({...settings, enableStudentAccess: checked})}
+                      onCheckedChange={(checked) => setSettings({...settings, enableStudentAccess: checked})}
                     />
                   </div>
                   
@@ -1471,7 +1471,7 @@ const BehaviorTrackingEngine = () => {
                     <Switch 
                       id="notifyParentsOnAchievements" 
                       checked={settings.notifyParentsOnAchievements}
-                      onCheckedChange={(checked: any) => setSettings({...settings, notifyParentsOnAchievements: checked})}
+                      onCheckedChange={(checked) => setSettings({...settings, notifyParentsOnAchievements: checked})}
                     />
                   </div>
                   
@@ -1483,7 +1483,7 @@ const BehaviorTrackingEngine = () => {
                     <Switch 
                       id="notifyParentsOnChallenges" 
                       checked={settings.notifyParentsOnChallenges}
-                      onCheckedChange={(checked: any) => setSettings({...settings, notifyParentsOnChallenges: checked})}
+                      onCheckedChange={(checked) => setSettings({...settings, notifyParentsOnChallenges: checked})}
                     />
                   </div>
                 </div>
@@ -1496,7 +1496,7 @@ const BehaviorTrackingEngine = () => {
                     <Label htmlFor="defaultTrackingFrequency">Default Tracking Frequency</Label>
                     <Select 
                       value={settings.defaultTrackingFrequency} 
-                      onValueChange={(value: any) => setSettings({...settings, defaultTrackingFrequency: value})}
+                      onValueChange={(value) => setSettings({...settings, defaultTrackingFrequency: value})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select frequency" />
@@ -1513,7 +1513,7 @@ const BehaviorTrackingEngine = () => {
                     <Label htmlFor="defaultRewardSystem">Default Reward System</Label>
                     <Select 
                       value={settings.defaultRewardSystem} 
-                      onValueChange={(value: any) => setSettings({...settings, defaultRewardSystem: value})}
+                      onValueChange={(value) => setSettings({...settings, defaultRewardSystem: value})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select reward system" />
@@ -1530,7 +1530,7 @@ const BehaviorTrackingEngine = () => {
                     <Label htmlFor="defaultGoalFrequency">Default Goal Frequency</Label>
                     <Select 
                       value={settings.defaultGoalFrequency} 
-                      onValueChange={(value: any) => setSettings({...settings, defaultGoalFrequency: value})}
+                      onValueChange={(value) => setSettings({...settings, defaultGoalFrequency: value})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select goal frequency" />
@@ -1552,7 +1552,7 @@ const BehaviorTrackingEngine = () => {
                     <Switch 
                       id="customizableRewards" 
                       checked={settings.customizableRewards}
-                      onCheckedChange={(checked: any) => setSettings({...settings, customizableRewards: checked})}
+                      onCheckedChange={(checked) => setSettings({...settings, customizableRewards: checked})}
                     />
                   </div>
                 </div>
@@ -1572,7 +1572,7 @@ const BehaviorTrackingEngine = () => {
             <CardContent>
               <div className="space-y-4">
                 <div>
-                  <h4 className="font-medium">Positive Behavioural Interventions and Supports (PBIS: any)</h4>
+                  <h4 className="font-medium">Positive Behavioural Interventions and Supports (PBIS)</h4>
                   <p className="text-sm mt-1">
                     This system is aligned with PBIS framework principles, which have been shown to improve social, 
                     emotional, and academic outcomes for all students, including those with disabilities.
@@ -1582,7 +1582,7 @@ const BehaviorTrackingEngine = () => {
                 <Separator />
                 
                 <div>
-                  <h4 className="font-medium">Applied Behaviour Analysis (ABA: any)</h4>
+                  <h4 className="font-medium">Applied Behaviour Analysis (ABA)</h4>
                   <p className="text-sm mt-1">
                     The tracking and reinforcement systems incorporate principles from ABA, which has extensive 
                     empirical support for improving behaviors across various settings and populations.
@@ -1595,7 +1595,7 @@ const BehaviorTrackingEngine = () => {
                   <h4 className="font-medium">Goal Setting Theory</h4>
                   <p className="text-sm mt-1">
                     The goal-setting features are based on research showing that specific, measurable, achievable, 
-                    relevant, and time-bound (SMART: any) goals lead to better outcomes than vague intentions.
+                    relevant, and time-bound (SMART) goals lead to better outcomes than vague intentions.
                   </p>
                 </div>
                 

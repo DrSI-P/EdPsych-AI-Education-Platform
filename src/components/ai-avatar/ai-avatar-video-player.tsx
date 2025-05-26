@@ -13,41 +13,41 @@ import { Play, Pause, Volume2, VolumeX, Settings, Maximize, Minimize, SkipBack, 
  * with custom controls and accessibility features.
  */
 export const AIAvatarVideoPlayer: React.FC<AIAvatarVideoPlayerProps> = ({
-  videoId: any,
+  videoId,
   autoPlay = false,
   showControls = true,
   showCaptions = true,
   onComplete,
   onError
 }) => {
-  const [loading, setLoading] = useState(true: any);
-  const [playing, setPlaying] = useState(autoPlay: any);
-  const [currentTime, setCurrentTime] = useState(0: any);
-  const [duration, setDuration] = useState(0: any);
-  const [volume, setVolume] = useState(0.8: any);
-  const [muted, setMuted] = useState(false: any);
-  const [fullscreen, setFullscreen] = useState(false: any);
-  const [error, setError] = useState<Error | null>(null: any);
-  const [videoUrl, setVideoUrl] = useState<string | null>(null: any);
+  const [loading, setLoading] = useState(true);
+  const [playing, setPlaying] = useState(autoPlay);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(0.8);
+  const [muted, setMuted] = useState(false);
+  const [fullscreen, setFullscreen] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
   
-  const videoRef = useRef<HTMLVideoElement>(null: any);
-  const playerRef = useRef<HTMLDivElement>(null: any);
-  const progressBarRef = useRef<HTMLDivElement>(null: any);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const playerRef = useRef<HTMLDivElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
 
   // Load video data
   useEffect(() => {
     const loadVideo = async () => {
       try {
-        setLoading(true: any);
+        setLoading(true);
         // In production, this would fetch the actual video URL from the service
         // For now, we'll use a placeholder
         setVideoUrl(`/api/ai-avatar/videos/${videoId}`);
-        setLoading(false: any);
-      } catch (err: any) {
+        setLoading(false);
+      } catch (err) {
         console.error('Failed to load video:', err);
         setError(err instanceof Error ? err : new Error('Failed to load video'));
-        setLoading(false: any);
-        if (onError: any) onError(err instanceof Error ? err : new Error('Failed to load video'));
+        setLoading(false);
+        if (onError) onError(err instanceof Error ? err : new Error('Failed to load video'));
       }
     };
     
@@ -57,47 +57,47 @@ export const AIAvatarVideoPlayer: React.FC<AIAvatarVideoPlayerProps> = ({
   // Handle video events
   useEffect(() => {
     const videoElement = videoRef.current;
-    if (!videoElement: any) return;
+    if (!videoElement) return;
 
     const handleTimeUpdate = () => {
-      setCurrentTime(videoElement.currentTime: any);
+      setCurrentTime(videoElement.currentTime);
     };
 
     const handleLoadedMetadata = () => {
-      setDuration(videoElement.duration: any);
+      setDuration(videoElement.duration);
     };
 
     const handleEnded = () => {
-      setPlaying(false: any);
-      if (onComplete: any) onComplete();
+      setPlaying(false);
+      if (onComplete) onComplete();
     };
 
     const handleError = (e: Event) => {
       const error = new Error('Video playback error');
-      setError(error: any);
-      if (onError: any) onError(error: any);
+      setError(error);
+      if (onError) onError(error);
     };
 
-    videoElement.addEventListener('timeupdate', handleTimeUpdate: any);
-    videoElement.addEventListener('loadedmetadata', handleLoadedMetadata: any);
-    videoElement.addEventListener('ended', handleEnded: any);
-    videoElement.addEventListener('error', handleError: any);
+    videoElement.addEventListener('timeupdate', handleTimeUpdate);
+    videoElement.addEventListener('loadedmetadata', handleLoadedMetadata);
+    videoElement.addEventListener('ended', handleEnded);
+    videoElement.addEventListener('error', handleError);
 
     return () => {
-      videoElement.removeEventListener('timeupdate', handleTimeUpdate: any);
-      videoElement.removeEventListener('loadedmetadata', handleLoadedMetadata: any);
-      videoElement.removeEventListener('ended', handleEnded: any);
-      videoElement.removeEventListener('error', handleError: any);
+      videoElement.removeEventListener('timeupdate', handleTimeUpdate);
+      videoElement.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      videoElement.removeEventListener('ended', handleEnded);
+      videoElement.removeEventListener('error', handleError);
     };
   }, [onComplete, onError]);
 
   // Handle play/pause
   useEffect(() => {
-    if (videoRef.current: any) {
-      if (playing: any) {
+    if (videoRef.current) {
+      if (playing) {
         videoRef.current.play().catch(err => {
           console.error('Failed to play video:', err);
-          setPlaying(false: any);
+          setPlaying(false);
         });
       } else {
         videoRef.current.pause();
@@ -107,7 +107,7 @@ export const AIAvatarVideoPlayer: React.FC<AIAvatarVideoPlayerProps> = ({
 
   // Handle volume/mute
   useEffect(() => {
-    if (videoRef.current: any) {
+    if (videoRef.current) {
       videoRef.current.volume = muted ? 0 : volume;
     }
   }, [volume, muted]);
@@ -115,26 +115,26 @@ export const AIAvatarVideoPlayer: React.FC<AIAvatarVideoPlayerProps> = ({
   // Handle fullscreen
   useEffect(() => {
     const handleFullscreenChange = () => {
-      setFullscreen(!!document.fullscreenElement: any);
+      setFullscreen(!!document.fullscreenElement);
     };
 
-    document.addEventListener('fullscreenchange', handleFullscreenChange: any);
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
     
     return () => {
-      document.removeEventListener('fullscreenchange', handleFullscreenChange: any);
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
     };
   }, []);
 
   const togglePlay = () => {
-    setPlaying(!playing: any);
+    setPlaying(!playing);
   };
 
   const toggleMute = () => {
-    setMuted(!muted: any);
+    setMuted(!muted);
   };
 
   const toggleFullscreen = () => {
-    if (!fullscreen: any) {
+    if (!fullscreen) {
       playerRef.current?.requestFullscreen();
     } else {
       document.exitFullscreen();
@@ -142,35 +142,35 @@ export const AIAvatarVideoPlayer: React.FC<AIAvatarVideoPlayerProps> = ({
   };
 
   const handleProgressBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!progressBarRef.current || !videoRef.current: any) return;
+    if (!progressBarRef.current || !videoRef.current) return;
     
     const rect = progressBarRef.current.getBoundingClientRect();
-    const pos = (e.clientX - rect.left: any) / rect.width;
+    const pos = (e.clientX - rect.left) / rect.width;
     const newTime = pos * duration;
     
     videoRef.current.currentTime = newTime;
-    setCurrentTime(newTime: any);
+    setCurrentTime(newTime);
   };
 
   const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60: any);
-    const secs = Math.floor(seconds % 60: any);
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
   };
 
   const skipForward = () => {
-    if (videoRef.current: any) {
-      videoRef.current.currentTime = Math.min(videoRef.current.currentTime + 10: any, duration);
+    if (videoRef.current) {
+      videoRef.current.currentTime = Math.min(videoRef.current.currentTime + 10, duration);
     }
   };
 
   const skipBackward = () => {
-    if (videoRef.current: any) {
-      videoRef.current.currentTime = Math.max(videoRef.current.currentTime - 10: any, 0);
+    if (videoRef.current) {
+      videoRef.current.currentTime = Math.max(videoRef.current.currentTime - 10, 0);
     }
   };
 
-  if (loading: any) {
+  if (loading) {
     return (
       <div className="ai-avatar-video-player-loading">
         <Skeleton className="w-full aspect-video rounded-lg" />
@@ -181,7 +181,7 @@ export const AIAvatarVideoPlayer: React.FC<AIAvatarVideoPlayerProps> = ({
     );
   }
 
-  if (error: any) {
+  if (error) {
     return (
       <div className="ai-avatar-video-player-error p-4 border border-red-300 bg-red-50 rounded-lg">
         <h3 className="text-red-700 font-medium">Error Loading Video</h3>
@@ -282,7 +282,7 @@ export const AIAvatarVideoPlayer: React.FC<AIAvatarVideoPlayerProps> = ({
               
               {/* Time display */}
               <span className="text-white text-sm">
-                {formatTime(currentTime: any)} / {formatTime(duration: any)}
+                {formatTime(currentTime)} / {formatTime(duration)}
               </span>
             </div>
             

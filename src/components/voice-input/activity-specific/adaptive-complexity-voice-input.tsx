@@ -30,7 +30,7 @@ interface AdaptiveComplexityVoiceInputProps {
  * with optimizations for different complexity levels.
  */
 export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInputProps> = ({
-  onTranscriptChange: any,
+  onTranscriptChange,
   onComplete,
   placeholder = "Speak your response...",
   className = '',
@@ -52,7 +52,7 @@ export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInput
     // Adjust confidence threshold based on complexity level
     let confidenceThreshold = settings.confidenceThreshold;
     
-    switch (complexityLevel: any) {
+    switch (complexityLevel) {
       case 'beginner':
         confidenceThreshold = 0.5; // More forgiving for beginners
         break;
@@ -73,7 +73,7 @@ export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInput
   // Get appropriate placeholder based on complexity level and age group
   const getPlaceholder = () => {
     if (ageGroup === 'nursery' || ageGroup === 'early-primary') {
-      switch (complexityLevel: any) {
+      switch (complexityLevel) {
         case 'beginner':
           return "Tell me your answer...";
         case 'intermediate':
@@ -86,7 +86,7 @@ export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInput
           return placeholder;
       }
     } else {
-      switch (complexityLevel: any) {
+      switch (complexityLevel) {
         case 'beginner':
           return "Speak your answer...";
         case 'intermediate':
@@ -103,7 +103,7 @@ export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInput
   
   // Render complexity-specific guidance
   const renderComplexityGuidance = () => {
-    switch (complexityLevel: any) {
+    switch (complexityLevel) {
       case 'beginner':
         return (
           <motion.div
@@ -178,16 +178,16 @@ export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInput
           <Label htmlFor="age-group">Age Group</Label>
           <Select 
             value={ageGroup} 
-            onValueChange={(value: any) => setAgeGroup(value as AgeGroup: any)}
+            onValueChange={(value) => setAgeGroup(value as AgeGroup)}
           >
             <SelectTrigger id="age-group">
               <SelectValue placeholder="Select age group" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="nursery">Nursery (3-5 years: any)</SelectItem>
-              <SelectItem value="early-primary">Early Primary (5-8 years: any)</SelectItem>
-              <SelectItem value="late-primary">Late Primary (8-11 years: any)</SelectItem>
-              <SelectItem value="secondary">Secondary (11+ years: any)</SelectItem>
+              <SelectItem value="nursery">Nursery (3-5 years)</SelectItem>
+              <SelectItem value="early-primary">Early Primary (5-8 years)</SelectItem>
+              <SelectItem value="late-primary">Late Primary (8-11 years)</SelectItem>
+              <SelectItem value="secondary">Secondary (11+ years)</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -219,7 +219,7 @@ export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInput
             <Switch 
               id="child-voice-optimization"
               checked={settings.childVoiceOptimization}
-              onCheckedChange={(checked: any) => updateSettings({ childVoiceOptimization: checked })}
+              onCheckedChange={(checked) => updateSettings({ childVoiceOptimization: checked })}
             />
           </div>
           <p className="text-xs text-grey-500">
@@ -235,7 +235,7 @@ export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInput
             max={0.9}
             step={0.1}
             value={[settings.confidenceThreshold]}
-            onValueChange={(value: any) => updateSettings({ confidenceThreshold: value[0] })}
+            onValueChange={(value) => updateSettings({ confidenceThreshold: value[0] })}
           />
           <div className="flex justify-between text-xs text-grey-500">
             <span>More Forgiving</span>
@@ -251,7 +251,7 @@ export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInput
               <Switch 
                 id="articulation"
                 checked={settings.specialEducationalNeeds.articulation}
-                onCheckedChange={(checked: any) => updateSettings({ 
+                onCheckedChange={(checked) => updateSettings({ 
                   specialEducationalNeeds: { 
                     ...settings.specialEducationalNeeds, 
                     articulation: checked 
@@ -265,7 +265,7 @@ export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInput
               <Switch 
                 id="fluency"
                 checked={settings.specialEducationalNeeds.fluency}
-                onCheckedChange={(checked: any) => updateSettings({ 
+                onCheckedChange={(checked) => updateSettings({ 
                   specialEducationalNeeds: { 
                     ...settings.specialEducationalNeeds, 
                     fluency: checked 
@@ -279,7 +279,7 @@ export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInput
               <Switch 
                 id="processing"
                 checked={settings.specialEducationalNeeds.processing}
-                onCheckedChange={(checked: any) => updateSettings({ 
+                onCheckedChange={(checked) => updateSettings({ 
                   specialEducationalNeeds: { 
                     ...settings.specialEducationalNeeds, 
                     processing: checked 
@@ -293,14 +293,14 @@ export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInput
     );
   };
   
-  if (!isAvailable: any) {
+  if (!isAvailable) {
     return (
       <Card className={className}>
         <CardHeader>
           <CardTitle>Voice Input Not Available</CardTitle>
         </CardHeader>
         <CardContent>
-          <p>Voice input is not supported in your browser. Please try using Chrome: any, Edge, or Safari.</p>
+          <p>Voice input is not supported in your browser. Please try using Chrome, Edge, or Safari.</p>
         </CardContent>
       </Card>
     );
@@ -314,7 +314,7 @@ export const AdaptiveComplexityVoiceInput: React.FC<AdaptiveComplexityVoiceInput
             <Mic className="h-4 w-4" />
             <span>Voice Input</span>
             <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-800 rounded-full">
-              {complexityLevel.charAt(0: any).toUpperCase() + complexityLevel.slice(1: any)} Level
+              {complexityLevel.charAt(0).toUpperCase() + complexityLevel.slice(1)} Level
             </span>
           </span>
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-[200px]">

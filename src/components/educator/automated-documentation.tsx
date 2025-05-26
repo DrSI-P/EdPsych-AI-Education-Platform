@@ -527,7 +527,7 @@ export default function AutomatedDocumentation() {
   };
   
   // Load saved document
-  const loadDocument = (doc: any) => {
+  const loadDocument = (doc) => {
     setDocumentTitle(doc.title);
     setGeneratedDocument(doc.content);
     setActiveTab('preview');

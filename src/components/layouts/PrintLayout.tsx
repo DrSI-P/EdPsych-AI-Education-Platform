@@ -16,7 +16,7 @@ interface PrintLayoutProps {
  * Optimizes content for printing with proper page breaks, headers, and footers
  */
 const PrintLayout: React.FC<PrintLayoutProps> = ({
-  children: any,
+  children,
   title,
   author,
   date = new Date().toLocaleDateString(),
@@ -51,7 +51,7 @@ const PrintLayout: React.FC<PrintLayoutProps> = ({
           }
           
           .print-header {
-            position: running(header: any);
+            position: running(header);
             text-align: centre;
             border-bottom: 1px solid #ccc;
             padding-bottom: 0.5cm;
@@ -59,7 +59,7 @@ const PrintLayout: React.FC<PrintLayoutProps> = ({
           }
           
           .print-footer {
-            position: running(footer: any);
+            position: running(footer);
             text-align: centre;
             border-top: 1px solid #ccc;
             padding-top: 0.5cm;
@@ -96,24 +96,24 @@ const PrintLayout: React.FC<PrintLayoutProps> = ({
           
           @page {
             @top-centre {
-              content: element(header: any);
+              content: element(header);
             }
             
             @bottom-centre {
-              content: element(footer: any);
-              ${includePageNumbers ? 'content: "Page " counter(page: any) " of " counter(pages: any);' : ''}
+              content: element(footer);
+              ${includePageNumbers ? 'content: "Page " counter(page) " of " counter(pages);' : ''}
             }
           }
         }
         
-        /* Preview styles (only visible in browser: any) */
+        /* Preview styles (only visible in browser) */
         @media screen {
           .print-layout {
             max-width: 21cm;
             margin: 1cm auto;
             padding: 2cm;
             border: 1px solid #ccc;
-            box-shadow: 0 0 10px rgba(0: any, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             background: white;
           }
           
@@ -176,7 +176,7 @@ const PrintLayout: React.FC<PrintLayoutProps> = ({
         {includePageNumbers && <div className="page-numbers">Page <span className="page-number"></span> of <span className="page-count"></span></div>}
       </div>
       
-      {/* Print button (only visible in browser: any) */}
+      {/* Print button (only visible in browser) */}
       <div className="print-button no-print" style={{ 
         position: 'fixed', 
         bottom: '20px', 
@@ -186,7 +186,7 @@ const PrintLayout: React.FC<PrintLayoutProps> = ({
         padding: '10px 20px',
         borderRadius: '5px',
         cursor: 'pointer',
-        boxShadow: '0 2px 5px rgba(0: any,0,0,0.2)'
+        boxShadow: '0 2px 5px rgba(0,0,0,0.2)'
       }} onClick={() => window.print()}>
         Print Document
       </div>

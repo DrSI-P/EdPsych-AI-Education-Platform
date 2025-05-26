@@ -34,7 +34,7 @@ interface MultiModalPresentationEngineProps {
   subject?: string;
   keyStage?: string;
   contentId?: string;
-  onContentGenerated?: (content: any) => void;
+  onContentGenerated?: (content) => void;
   className?: string;
 }
 
@@ -43,15 +43,15 @@ export default function MultiModalPresentationEngine({
   title = '',
   subject = '',
   keyStage = '',
-  contentId: any,
+  contentId,
   onContentGenerated,
   className
 }: MultiModalPresentationEngineProps) {
-  const [isGenerating, setIsGenerating] = useState(false: any);
-  const [multiModalContent, setMultiModalContent] = useState<any>(null: any);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [multiModalContent, setMultiModalContent] = useState<any>(null);
   const [activeTab, setActiveTab] = useState('combined');
-  const [isPlaying, setIsPlaying] = useState(false: any);
-  const [currentSlide, setCurrentSlide] = useState(0: any);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
   const [settings, setSettings] = useState({
     includeVisual: true,
     includeAudio: true,
@@ -63,26 +63,26 @@ export default function MultiModalPresentationEngine({
     autoAdvance: false
   });
   
-  const audioRef = useRef<HTMLAudioElement | null>(null: any);
-  const slideIntervalRef = useRef<NodeJS.Timeout | null>(null: any);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const slideIntervalRef = useRef<NodeJS.Timeout | null>(null);
   
   // Clean up interval on unmount
   useEffect(() => {
     return () => {
-      if (slideIntervalRef.current: any) {
-        clearInterval(slideIntervalRef.current: any);
+      if (slideIntervalRef.current) {
+        clearInterval(slideIntervalRef.current);
       }
     };
   }, []);
   
   // Handle auto-advance slides
   useEffect(() => {
-    if (slideIntervalRef.current: any) {
-      clearInterval(slideIntervalRef.current: any);
+    if (slideIntervalRef.current) {
+      clearInterval(slideIntervalRef.current);
       slideIntervalRef.current = null;
     }
     
-    if (isPlaying && settings.autoAdvance && multiModalContent?.slides: any) {
+    if (isPlaying && settings.autoAdvance && multiModalContent?.slides) {
       const speedMap: {[key: string]: number} = {
         slow: 15000,
         medium: 10000,
@@ -90,24 +90,24 @@ export default function MultiModalPresentationEngine({
       };
       
       slideIntervalRef.current = setInterval(() => {
-        setCurrentSlide(prev => (prev + 1: any) % multiModalContent.slides.length);
+        setCurrentSlide(prev => (prev + 1) % multiModalContent.slides.length);
       }, speedMap[settings.presentationSpeed]);
     }
     
     return () => {
-      if (slideIntervalRef.current: any) {
-        clearInterval(slideIntervalRef.current: any);
+      if (slideIntervalRef.current) {
+        clearInterval(slideIntervalRef.current);
       }
     };
   }, [isPlaying, settings.autoAdvance, settings.presentationSpeed, multiModalContent]);
   
   // Handle audio playback
   useEffect(() => {
-    if (audioRef.current: any) {
-      if (isPlaying: any) {
+    if (audioRef.current) {
+      if (isPlaying) {
         audioRef.current.play().catch(error => {
           console.error('Error playing audio:', error);
-          setIsPlaying(false: any);
+          setIsPlaying(false);
         });
       } else {
         audioRef.current.pause();
@@ -116,7 +116,7 @@ export default function MultiModalPresentationEngine({
   }, [isPlaying, currentSlide]);
   
   const generateMultiModalContent = async () => {
-    if (!content && !contentId && !title: any) {
+    if (!content && !contentId && !title) {
       toast({
         title: "Missing content",
         description: "Please provide content, a title, or select existing content.",
@@ -125,7 +125,7 @@ export default function MultiModalPresentationEngine({
       return;
     }
 
-    setIsGenerating(true: any);
+    setIsGenerating(true);
 
     try {
       const response = await fetch('/api/ai/multi-modal-content', {
@@ -143,15 +143,15 @@ export default function MultiModalPresentationEngine({
         }),
       });
 
-      if (!response.ok: any) {
+      if (!response.ok) {
         throw new Error('Failed to generate multi-modal content');
       }
 
       const data = await response.json();
-      setMultiModalContent(data.multiModalContent: any);
+      setMultiModalContent(data.multiModalContent);
       
-      if (onContentGenerated: any) {
-        onContentGenerated(data.multiModalContent: any);
+      if (onContentGenerated) {
+        onContentGenerated(data.multiModalContent);
       }
 
       toast({
@@ -160,8 +160,8 @@ export default function MultiModalPresentationEngine({
       });
       
       // Reset to first slide
-      setCurrentSlide(0: any);
-    } catch (error: any) {
+      setCurrentSlide(0);
+    } catch (error) {
       console.error('Error generating multi-modal content:', error);
       toast({
         title: "Generation failed",
@@ -169,28 +169,28 @@ export default function MultiModalPresentationEngine({
         variant: "destructive"
       });
     } finally {
-      setIsGenerating(false: any);
+      setIsGenerating(false);
     }
   };
   
   const handlePlayPause = () => {
-    setIsPlaying(!isPlaying: any);
+    setIsPlaying(!isPlaying);
   };
   
   const handlePrevSlide = () => {
-    if (multiModalContent?.slides: any) {
-      setCurrentSlide(prev => (prev - 1 + multiModalContent.slides.length: any) % multiModalContent.slides.length);
+    if (multiModalContent?.slides) {
+      setCurrentSlide(prev => (prev - 1 + multiModalContent.slides.length) % multiModalContent.slides.length);
     }
   };
   
   const handleNextSlide = () => {
-    if (multiModalContent?.slides: any) {
-      setCurrentSlide(prev => (prev + 1: any) % multiModalContent.slides.length);
+    if (multiModalContent?.slides) {
+      setCurrentSlide(prev => (prev + 1) % multiModalContent.slides.length);
     }
   };
   
   const getCurrentSlide = () => {
-    if (!multiModalContent?.slides || multiModalContent.slides.length === 0: any) {
+    if (!multiModalContent?.slides || multiModalContent.slides.length === 0) {
       return null;
     }
     
@@ -199,7 +199,7 @@ export default function MultiModalPresentationEngine({
   
   const renderCombinedView = () => {
     const currentSlide = getCurrentSlide();
-    if (!currentSlide: any) return null;
+    if (!currentSlide) return null;
     
     return (
       <div className="space-y-6">
@@ -303,15 +303,15 @@ export default function MultiModalPresentationEngine({
   };
   
   const renderVisualView = () => {
-    if (!multiModalContent?.slides: any) return null;
+    if (!multiModalContent?.slides) return null;
     
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {multiModalContent.slides.map((slide: any, index: number) => (
+        {multiModalContent.slides.map((slide, index: number) => (
           <Card 
             key={index} 
             className={`overflow-hidden ${currentSlide === index ? 'ring-2 ring-primary' : ''}`}
-            onClick={() => setCurrentSlide(index: any)}
+            onClick={() => setCurrentSlide(index)}
           >
             <div className="aspect-video bg-slate-100 dark:bg-slate-800 relative">
               {slide.visualContent ? (
@@ -336,15 +336,15 @@ export default function MultiModalPresentationEngine({
   };
   
   const renderAudioView = () => {
-    if (!multiModalContent?.slides: any) return null;
+    if (!multiModalContent?.slides) return null;
     
     return (
       <div className="space-y-4">
-        {multiModalContent.slides.map((slide: any, index: number) => (
+        {multiModalContent.slides.map((slide, index: number) => (
           <Card 
             key={index} 
             className={`${currentSlide === index ? 'ring-2 ring-primary' : ''}`}
-            onClick={() => setCurrentSlide(index: any)}
+            onClick={() => setCurrentSlide(index)}
           >
             <CardHeader className="py-3">
               <CardTitle className="text-base">{slide.title || `Slide ${index + 1}`}</CardTitle>
@@ -370,15 +370,15 @@ export default function MultiModalPresentationEngine({
   };
   
   const renderTextView = () => {
-    if (!multiModalContent?.slides: any) return null;
+    if (!multiModalContent?.slides) return null;
     
     return (
       <div className="space-y-4">
-        {multiModalContent.slides.map((slide: any, index: number) => (
+        {multiModalContent.slides.map((slide, index: number) => (
           <Card 
             key={index} 
             className={`${currentSlide === index ? 'ring-2 ring-primary' : ''}`}
-            onClick={() => setCurrentSlide(index: any)}
+            onClick={() => setCurrentSlide(index)}
           >
             <CardHeader className="py-3">
               <CardTitle className="text-base">{slide.title || `Slide ${index + 1}`}</CardTitle>
@@ -402,15 +402,15 @@ export default function MultiModalPresentationEngine({
   };
   
   const renderInteractiveView = () => {
-    if (!multiModalContent?.slides: any) return null;
+    if (!multiModalContent?.slides) return null;
     
     return (
       <div className="space-y-4">
-        {multiModalContent.slides.map((slide: any, index: number) => (
+        {multiModalContent.slides.map((slide, index: number) => (
           <Card 
             key={index} 
             className={`${currentSlide === index ? 'ring-2 ring-primary' : ''}`}
-            onClick={() => setCurrentSlide(index: any)}
+            onClick={() => setCurrentSlide(index)}
           >
             <CardHeader className="py-3">
               <CardTitle className="text-base">{slide.title || `Slide ${index + 1}`}</CardTitle>
@@ -466,12 +466,12 @@ export default function MultiModalPresentationEngine({
                 <div className="space-y-0.5">
                   <label className="text-sm font-medium">Include Visual Content</label>
                   <p className="text-xs text-muted-foreground">
-                    Images: any, diagrams, and visual representations
+                    Images, diagrams, and visual representations
                   </p>
                 </div>
                 <Switch 
                   checked={settings.includeVisual}
-                  onCheckedChange={(checked: any) => setSettings({...settings, includeVisual: checked})}
+                  onCheckedChange={(checked) => setSettings({...settings, includeVisual: checked})}
                 />
               </div>
               
@@ -484,7 +484,7 @@ export default function MultiModalPresentationEngine({
                 </div>
                 <Switch 
                   checked={settings.includeAudio}
-                  onCheckedChange={(checked: any) => setSettings({...settings, includeAudio: checked})}
+                  onCheckedChange={(checked) => setSettings({...settings, includeAudio: checked})}
                 />
               </div>
               
@@ -497,7 +497,7 @@ export default function MultiModalPresentationEngine({
                 </div>
                 <Switch 
                   checked={settings.includeText}
-                  onCheckedChange={(checked: any) => setSettings({...settings, includeText: checked})}
+                  onCheckedChange={(checked) => setSettings({...settings, includeText: checked})}
                 />
               </div>
               
@@ -510,7 +510,7 @@ export default function MultiModalPresentationEngine({
                 </div>
                 <Switch 
                   checked={settings.includeInteractive}
-                  onCheckedChange={(checked: any) => setSettings({...settings, includeInteractive: checked})}
+                  onCheckedChange={(checked) => setSettings({...settings, includeInteractive: checked})}
                 />
               </div>
               
@@ -526,7 +526,7 @@ export default function MultiModalPresentationEngine({
                   min={10} 
                   max={100} 
                   step={10}
-                  onValueChange={(value: any) => setSettings({...settings, contentComplexity: value[0]})}
+                  onValueChange={(value) => setSettings({...settings, contentComplexity: value[0]})}
                 />
                 <p className="text-xs text-muted-foreground">
                   Higher values create more detailed and complex content
@@ -540,11 +540,11 @@ export default function MultiModalPresentationEngine({
                 <select 
                   className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                   value={settings.accessibilityLevel}
-                  onChange={(e: any) => setSettings({...settings, accessibilityLevel: e.target.value})}
+                  onChange={(e) => setSettings({...settings, accessibilityLevel: e.target.value})}
                 >
                   <option value="standard">Standard</option>
-                  <option value="high">High (Additional accessibility features: any)</option>
-                  <option value="maximum">Maximum (Comprehensive accessibility support: any)</option>
+                  <option value="high">High (Additional accessibility features)</option>
+                  <option value="maximum">Maximum (Comprehensive accessibility support)</option>
                 </select>
                 <p className="text-xs text-muted-foreground">
                   Higher levels add more accessibility features for diverse needs
@@ -556,11 +556,11 @@ export default function MultiModalPresentationEngine({
                 <select 
                   className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                   value={settings.presentationSpeed}
-                  onChange={(e: any) => setSettings({...settings, presentationSpeed: e.target.value as 'slow' | 'medium' | 'fast'})}
+                  onChange={(e) => setSettings({...settings, presentationSpeed: e.target.value as 'slow' | 'medium' | 'fast'})}
                 >
-                  <option value="slow">Slow (15 seconds per slide: any)</option>
-                  <option value="medium">Medium (10 seconds per slide: any)</option>
-                  <option value="fast">Fast (5 seconds per slide: any)</option>
+                  <option value="slow">Slow (15 seconds per slide)</option>
+                  <option value="medium">Medium (10 seconds per slide)</option>
+                  <option value="fast">Fast (5 seconds per slide)</option>
                 </select>
               </div>
               
@@ -573,7 +573,7 @@ export default function MultiModalPresentationEngine({
                 </div>
                 <Switch 
                   checked={settings.autoAdvance}
-                  onCheckedChange={(checked: any) => setSettings({...settings, autoAdvance: checked})}
+                  onCheckedChange={(checked) => setSettings({...settings, autoAdvance: checked})}
                 />
               </div>
             </TabsContent>
@@ -668,7 +668,7 @@ export default function MultiModalPresentationEngine({
             <Button 
               variant="outline" 
               size="sm" 
-              onClick={() => setMultiModalContent(null: any)}
+              onClick={() => setMultiModalContent(null)}
               className="flex items-centre gap-1"
             >
               Reset

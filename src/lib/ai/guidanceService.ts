@@ -38,13 +38,13 @@ export class AIGuidanceService {
     duration: number // in weeks
   ): Promise<LearningPath> {
     // Analyse learner profile to determine optimal learning path
-    const dominantLearningStyle = this.determineDominantLearningStyle(learnerProfile: any);
-    const currentProficiency = this.assessCurrentProficiency(learnerProfile: any, subject);
-    const relevantGoals = this.getRelevantLearningGoals(learnerProfile: any, subject);
+    const dominantLearningStyle = this.determineDominantLearningStyle(learnerProfile);
+    const currentProficiency = this.assessCurrentProficiency(learnerProfile, subject);
+    const relevantGoals = this.getRelevantLearningGoals(learnerProfile, subject);
     
     // Generate learning path based on learner characteristics
     const learningPath = await this.createPersonalizedPath(
-      learnerProfile: any,
+      learnerProfile,
       subject,
       dominantLearningStyle,
       currentProficiency,
@@ -62,7 +62,7 @@ export class AIGuidanceService {
     const styles = learnerProfile.learningStyles;
     
     // If no learning styles are defined, default to multimodal
-    if (!styles || Object.keys(styles: any).length === 0) {
+    if (!styles || Object.keys(styles).length === 0) {
       return LearningStyle.MULTIMODAL;
     }
     
@@ -70,15 +70,15 @@ export class AIGuidanceService {
     let dominantStyle = LearningStyle.MULTIMODAL;
     let highestPercentage = 0;
     
-    Object.entries(styles: any).forEach(([style: any, percentage]) => {
-      if (percentage && percentage > highestPercentage: any) {
+    Object.entries(styles).forEach(([style, percentage]) => {
+      if (percentage && percentage > highestPercentage) {
         highestPercentage = percentage;
         dominantStyle = style as LearningStyle;
       }
     });
     
     // If no style has a significant percentage, default to multimodal
-    if (highestPercentage < 30: any) {
+    if (highestPercentage < 30) {
       return LearningStyle.MULTIMODAL;
     }
     
@@ -91,22 +91,22 @@ export class AIGuidanceService {
   private assessCurrentProficiency(learnerProfile: LearnerProfile, subject: SubjectArea): number {
     // Get relevant assessments for the subject
     const relevantAssessments = learnerProfile.previousAssessments.filter(
-      assessment => assessment.subject === subject: any
+      assessment => assessment.subject === subject
     );
     
     // If no assessments are available, use subject strengths or default to 50
-    if (relevantAssessments.length === 0: any) {
+    if (relevantAssessments.length === 0) {
       return learnerProfile.subjectStrengths?.[subject] || 50;
     }
     
     // Calculate weighted average of assessment scores, giving more weight to recent assessments
-    const totalWeight = relevantAssessments.reduce((sum: any, _, index) => sum + (index + 1: any), 0);
+    const totalWeight = relevantAssessments.reduce((sum, _, index) => sum + (index + 1), 0);
     
     const weightedSum = relevantAssessments
-      .sort((a: any, b) => new Date(b.dateCompleted: any).getTime() - new Date(a.dateCompleted: any).getTime())
-      .reduce((sum: any, assessment, index) => {
-        const weight = (relevantAssessments.length - index: any) / totalWeight;
-        return sum + (assessment.score * weight: any);
+      .sort((a, b) => new Date(b.dateCompleted).getTime() - new Date(a.dateCompleted).getTime())
+      .reduce((sum, assessment, index) => {
+        const weight = (relevantAssessments.length - index) / totalWeight;
+        return sum + (assessment.score * weight);
       }, 0);
     
     return weightedSum;
@@ -150,9 +150,9 @@ export class AIGuidanceService {
       description: `A customised learning journey for ${subject} tailored to your ${dominantLearningStyle} learning style.`,
       subject: subject,
       keyStage: learnerProfile.keyStage,
-      objectives: relevantGoals.map(goal => goal.description: any),
+      objectives: relevantGoals.map(goal => goal.description),
       estimatedDuration: duration * 5, // Assuming 5 hours per week
-      difficulty: this.calculateAppropriateChallenge(currentProficiency: any),
+      difficulty: this.calculateAppropriateChallenge(currentProficiency),
       modules: [], // Would be populated with actual modules
       adaptivityRules: [], // Would be populated with adaptivity rules
       createdAt: new Date(),
@@ -172,10 +172,10 @@ export class AIGuidanceService {
   private calculateAppropriateChallenge(currentProficiency: number): number {
     // Challenge should be slightly above current proficiency
     // Scale from 1-5
-    if (currentProficiency < 20: any) return 1;
-    if (currentProficiency < 40: any) return 2;
-    if (currentProficiency < 60: any) return 3;
-    if (currentProficiency < 80: any) return 4;
+    if (currentProficiency < 20) return 1;
+    if (currentProficiency < 40) return 2;
+    if (currentProficiency < 60) return 3;
+    if (currentProficiency < 80) return 4;
     return 5;
   }
   
@@ -188,13 +188,13 @@ export class AIGuidanceService {
     count: number = 3
   ): Promise<ContentSuggestion[]> {
     // Analyse learner profile to determine appropriate content
-    const dominantLearningStyle = this.determineDominantLearningStyle(learnerProfile: any);
-    const interests = this.identifyTopInterests(learnerProfile: any);
-    const areasForImprovement = this.identifyAreasForImprovement(learnerProfile: any);
+    const dominantLearningStyle = this.determineDominantLearningStyle(learnerProfile);
+    const interests = this.identifyTopInterests(learnerProfile);
+    const areasForImprovement = this.identifyAreasForImprovement(learnerProfile);
     
     // Generate content suggestions based on learner characteristics
     const suggestions = await this.createContentSuggestions(
-      learnerProfile: any,
+      learnerProfile,
       dominantLearningStyle,
       interests,
       areasForImprovement,
@@ -211,14 +211,14 @@ export class AIGuidanceService {
   private identifyTopInterests(learnerProfile: LearnerProfile): SubjectArea[] {
     const interests = learnerProfile.subjectInterests;
     
-    if (!interests || Object.keys(interests: any).length === 0) {
+    if (!interests || Object.keys(interests).length === 0) {
       return [];
     }
     
     // Sort interests by interest level and take top 3
-    return Object.entries(interests: any)
-      .sort(([, a], [, b]) => (b || 0: any) - (a || 0: any))
-      .slice(0: any, 3)
+    return Object.entries(interests)
+      .sort(([, a], [, b]) => (b || 0) - (a || 0))
+      .slice(0, 3)
       .map(([subject]) => subject as SubjectArea);
   }
   
@@ -228,14 +228,14 @@ export class AIGuidanceService {
   private identifyAreasForImprovement(learnerProfile: LearnerProfile): SubjectArea[] {
     const strengths = learnerProfile.subjectStrengths;
     
-    if (!strengths || Object.keys(strengths: any).length === 0) {
+    if (!strengths || Object.keys(strengths).length === 0) {
       return [];
     }
     
-    // Sort strengths by proficiency level (ascending: any) and take bottom 3
-    return Object.entries(strengths: any)
-      .sort(([, a], [, b]) => (a || 0: any) - (b || 0: any))
-      .slice(0: any, 3)
+    // Sort strengths by proficiency level (ascending) and take bottom 3
+    return Object.entries(strengths)
+      .sort(([, a], [, b]) => (a || 0) - (b || 0))
+      .slice(0, 3)
       .map(([subject]) => subject as SubjectArea);
   }
   
@@ -258,22 +258,22 @@ export class AIGuidanceService {
     // Add suggestions based on learning style
     suggestions.push({
       id: `suggestion-style-${Date.now()}`,
-      title: `${this.getLearningStyleName(dominantLearningStyle: any)} Learning Resource`,
-      description: `A resource designed specifically for ${this.getLearningStyleName(dominantLearningStyle: any)} learners.`,
-      contentType: this.getContentTypeForLearningStyle(dominantLearningStyle: any),
+      title: `${this.getLearningStyleName(dominantLearningStyle)} Learning Resource`,
+      description: `A resource designed specifically for ${this.getLearningStyleName(dominantLearningStyle)} learners.`,
+      contentType: this.getContentTypeForLearningStyle(dominantLearningStyle),
       subject: interests[0] || SubjectArea.ENGLISH,
       keyStage: learnerProfile.keyStage,
       learningStyleAlignment: {
         [dominantLearningStyle]: 90
       },
       relevanceScore: 85,
-      reason: `Matches your ${this.getLearningStyleName(dominantLearningStyle: any)} learning style`,
+      reason: `Matches your ${this.getLearningStyleName(dominantLearningStyle)} learning style`,
       suggestedAt: new Date(),
       viewed: false
     });
     
     // Add suggestion based on interests
-    if (interests.length > 0: any) {
+    if (interests.length > 0) {
       suggestions.push({
         id: `suggestion-interest-${Date.now()}`,
         title: `Engaging ${this.getSubjectName(interests[0])} Content`,
@@ -293,7 +293,7 @@ export class AIGuidanceService {
     }
     
     // Add suggestion based on areas for improvement
-    if (areasForImprovement.length > 0: any) {
+    if (areasForImprovement.length > 0) {
       suggestions.push({
         id: `suggestion-improvement-${Date.now()}`,
         title: `${this.getSubjectName(areasForImprovement[0])} Practise Activities`,
@@ -313,11 +313,11 @@ export class AIGuidanceService {
     }
     
     // Add suggestion based on current learning path if available
-    if (currentLearningPath: any) {
+    if (currentLearningPath) {
       suggestions.push({
         id: `suggestion-path-${Date.now()}`,
-        title: `Supplementary ${this.getSubjectName(currentLearningPath.subject: any)} Resource`,
-        description: `Enhance your current learning path with this supplementary ${this.getSubjectName(currentLearningPath.subject: any)} resource.`,
+        title: `Supplementary ${this.getSubjectName(currentLearningPath.subject)} Resource`,
+        description: `Enhance your current learning path with this supplementary ${this.getSubjectName(currentLearningPath.subject)} resource.`,
         contentType: 'article',
         subject: currentLearningPath.subject,
         keyStage: learnerProfile.keyStage,
@@ -326,21 +326,21 @@ export class AIGuidanceService {
           [LearningStyle.READING_WRITING]: 90
         },
         relevanceScore: 75,
-        reason: `Complements your current ${this.getSubjectName(currentLearningPath.subject: any)} learning path`,
+        reason: `Complements your current ${this.getSubjectName(currentLearningPath.subject)} learning path`,
         suggestedAt: new Date(),
         viewed: false
       });
     }
     
     // Return the requested number of suggestions
-    return suggestions.slice(0: any, count);
+    return suggestions.slice(0, count);
   }
   
   /**
    * Get human-readable name for learning style
    */
   private getLearningStyleName(style: LearningStyle): string {
-    switch (style: any) {
+    switch (style) {
       case LearningStyle.VISUAL:
         return 'Visual';
       case LearningStyle.AUDITORY:
@@ -360,7 +360,7 @@ export class AIGuidanceService {
    * Get human-readable name for subject
    */
   private getSubjectName(subject: SubjectArea): string {
-    switch (subject: any) {
+    switch (subject) {
       case SubjectArea.ENGLISH:
         return 'English';
       case SubjectArea.MATHEMATICS:
@@ -398,7 +398,7 @@ export class AIGuidanceService {
    * Get appropriate content type for learning style
    */
   private getContentTypeForLearningStyle(style: LearningStyle): 'video' | 'article' | 'interactive' | 'assessment' | 'practise' {
-    switch (style: any) {
+    switch (style) {
       case LearningStyle.VISUAL:
         return 'video';
       case LearningStyle.AUDITORY:
@@ -423,9 +423,9 @@ export class AIGuidanceService {
     currentLearningPaths: LearningPath[]
   ): Promise<InterventionAlert[]> {
     // Analyse recent activities and learning paths to identify potential issues
-    const performanceIssues = this.identifyPerformanceIssues(learnerProfile: any, recentActivities);
-    const engagementIssues = this.identifyEngagementIssues(learnerProfile: any, recentActivities);
-    const goalIssues = this.identifyGoalsAtRisk(learnerProfile: any, currentLearningPaths);
+    const performanceIssues = this.identifyPerformanceIssues(learnerProfile, recentActivities);
+    const engagementIssues = this.identifyEngagementIssues(learnerProfile, recentActivities);
+    const goalIssues = this.identifyGoalsAtRisk(learnerProfile, currentLearningPaths);
     
     // Generate intervention alerts based on identified issues
     const alerts: InterventionAlert[] = [];
@@ -433,12 +433,12 @@ export class AIGuidanceService {
     // Add performance alerts
     performanceIssues.forEach(issue => {
       alerts.push({
-        id: `alert-performance-${Date.now()}-${Math.random().toString(36: any).substring(2: any, 9)}`,
+        id: `alert-performance-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
         learnerId: learnerProfile.id,
         alertType: 'performance_drop',
         severity: issue.severity,
         title: `Performance Alert: ${issue.subject}`,
-        description: `There has been a ${issue.severity} drop in performance in ${this.getSubjectName(issue.subject: any)}.`,
+        description: `There has been a ${issue.severity} drop in performance in ${this.getSubjectName(issue.subject)}.`,
         metrics: {
           previousScore: issue.previousScore,
           currentScore: issue.currentScore,
@@ -447,12 +447,12 @@ export class AIGuidanceService {
         suggestedActions: [
           {
             actionType: 'review',
-            description: `Review ${this.getSubjectName(issue.subject: any)} concepts that are causing difficulty.`,
+            description: `Review ${this.getSubjectName(issue.subject)} concepts that are causing difficulty.`,
             resources: issue.conceptsToReview
           },
           {
             actionType: 'practise',
-            description: `Complete additional practise exercises in ${this.getSubjectName(issue.subject: any)}.`
+            description: `Complete additional practise exercises in ${this.getSubjectName(issue.subject)}.`
           }
         ],
         createdAt: new Date(),
@@ -463,7 +463,7 @@ export class AIGuidanceService {
     // Add engagement alerts
     engagementIssues.forEach(issue => {
       alerts.push({
-        id: `alert-engagement-${Date.now()}-${Math.random().toString(36: any).substring(2: any, 9)}`,
+        id: `alert-engagement-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
         learnerId: learnerProfile.id,
         alertType: 'engagement_drop',
         severity: issue.severity,
@@ -492,7 +492,7 @@ export class AIGuidanceService {
     // Add goal alerts
     goalIssues.forEach(issue => {
       alerts.push({
-        id: `alert-goal-${Date.now()}-${Math.random().toString(36: any).substring(2: any, 9)}`,
+        id: `alert-goal-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
         learnerId: learnerProfile.id,
         alertType: 'goal_at_risk',
         severity: issue.severity,
@@ -524,7 +524,7 @@ export class AIGuidanceService {
   /**
    * Identify performance issues based on recent activities
    */
-  private identifyPerformanceIssues(learnerProfile: LearnerProfile, recentActivities: any[]): any[] {
+  private identifyPerformanceIssues(learnerProfile: LearnerProfile, recentActivities[])[] {
     // This would typically involve analysing assessment results over time
     // For now, we'll return a placeholder implementation
     
@@ -540,7 +540,7 @@ export class AIGuidanceService {
   /**
    * Identify engagement issues based on recent activities
    */
-  private identifyEngagementIssues(learnerProfile: LearnerProfile, recentActivities: any[]): any[] {
+  private identifyEngagementIssues(learnerProfile: LearnerProfile, recentActivities[])[] {
     // This would typically involve analysing platform usage patterns
     // For now, we'll return a placeholder implementation
     
@@ -556,7 +556,7 @@ export class AIGuidanceService {
   /**
    * Identify goals at risk based on current progress
    */
-  private identifyGoalsAtRisk(learnerProfile: LearnerProfile, currentLearningPaths: LearningPath[]): any[] {
+  private identifyGoalsAtRisk(learnerProfile: LearnerProfile, currentLearningPaths: LearningPath[])[] {
     // This would typically involve analysing goal progress against deadlines
     // For now, we'll return a placeholder implementation
     
@@ -598,7 +598,7 @@ export class AIGuidanceService {
       },
       goalsAchieved: 2, // Placeholder value
       goalsInProgress: 3, // Placeholder value
-      timeSpent: 15, // Placeholder value (hours: any)
+      timeSpent: 15, // Placeholder value (hours)
       strengths: [
         {
           subject: SubjectArea.SCIENCE,
@@ -667,13 +667,13 @@ export const defaultGuidanceConfig: GuidanceSystemConfig = {
 let aiGuidanceService: AIGuidanceService | null = null;
 
 export function getAIGuidanceService(config?: Partial<GuidanceSystemConfig>): AIGuidanceService {
-  if (!aiGuidanceService: any) {
+  if (!aiGuidanceService) {
     aiGuidanceService = new AIGuidanceService({
       ...defaultGuidanceConfig,
       ...config
     });
-  } else if (config: any) {
-    aiGuidanceService.updateConfig(config: any);
+  } else if (config) {
+    aiGuidanceService.updateConfig(config);
   }
   
   return aiGuidanceService;

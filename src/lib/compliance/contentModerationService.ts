@@ -57,7 +57,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
     const id = `moderation-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     
     // Get inappropriate patterns for the specified language
-    const patterns = this.inappropriatePatterns.get(context.language: any) || 
+    const patterns = this.inappropriatePatterns.get(context.language) || 
                      this.inappropriatePatterns.get('en-GB') || 
                      [];
     
@@ -68,19 +68,19 @@ export class ContentModerationServiceImpl implements ContentModerationService {
     let modifiedContent: string | undefined;
     
     // Check each pattern
-    for (const pattern of patterns: any) {
-      if (pattern.test(text: any)) {
+    for (const pattern of patterns) {
+      if (pattern.test(text)) {
         // Determine the action based on the severity and context
-        if (this.isHighSeverity(pattern: any)) {
+        if (this.isHighSeverity(pattern)) {
           moderationAction = ContentModerationAction.REJECT;
           moderationReason = ContentModerationReason.HARMFUL_CONTENT;
           confidenceScore = 0.95;
           break;
-        } else if (this.isMediumSeverity(pattern: any)) {
+        } else if (this.isMediumSeverity(pattern)) {
           moderationAction = ContentModerationAction.MODIFY;
           moderationReason = ContentModerationReason.INAPPROPRIATE_LANGUAGE;
           confidenceScore = 0.85;
-          modifiedContent = this.redactInappropriateContent(text: any, pattern);
+          modifiedContent = this.redactInappropriateContent(text, pattern);
         } else {
           moderationAction = ContentModerationAction.FLAG_FOR_REVIEW;
           moderationReason = ContentModerationReason.INAPPROPRIATE_LANGUAGE;
@@ -90,9 +90,9 @@ export class ContentModerationServiceImpl implements ContentModerationService {
     }
     
     // Check age appropriateness
-    if (moderationAction === ContentModerationAction.APPROVE: any) {
-      const ageAppropriate = this.checkAgeAppropriateness(text: any, context.targetAudience);
-      if (!ageAppropriate: any) {
+    if (moderationAction === ContentModerationAction.APPROVE) {
+      const ageAppropriate = this.checkAgeAppropriateness(text, context.targetAudience);
+      if (!ageAppropriate) {
         moderationAction = ContentModerationAction.FLAG_FOR_REVIEW;
         moderationReason = ContentModerationReason.AGE_INAPPROPRIATE;
         confidenceScore = 0.8;
@@ -104,7 +104,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
       id,
       contentId: `content-${Date.now()}`,
       contentType: context.contentType,
-      contentHash: this.generateContentHash(text: any),
+      contentHash: this.generateContentHash(text),
       moderationAction,
       moderationReason,
       confidenceScore,
@@ -115,7 +115,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
     };
     
     // Store the result
-    this.moderationResults.set(id: any, result);
+    this.moderationResults.set(id, result);
     
     return result;
   }
@@ -149,7 +149,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
       id,
       contentId: `content-${Date.now()}`,
       contentType: context.contentType,
-      contentHash: this.generateContentHash(imageUrl: any),
+      contentHash: this.generateContentHash(imageUrl),
       moderationAction,
       confidenceScore,
       moderatedBy: 'automated',
@@ -158,7 +158,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
     };
     
     // Store the result
-    this.moderationResults.set(id: any, result);
+    this.moderationResults.set(id, result);
     
     return result;
   }
@@ -193,7 +193,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
       id,
       contentId: `content-${Date.now()}`,
       contentType: context.contentType,
-      contentHash: this.generateContentHash(documentUrl: any),
+      contentHash: this.generateContentHash(documentUrl),
       moderationAction,
       confidenceScore,
       moderatedBy: 'automated',
@@ -202,7 +202,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
     };
     
     // Store the result
-    this.moderationResults.set(id: any, result);
+    this.moderationResults.set(id, result);
     
     return result;
   }
@@ -232,12 +232,12 @@ export class ContentModerationServiceImpl implements ContentModerationService {
     }> = [];
     
     // Apply custom keyword filters
-    if (filteringSettings.customKeywordFilters: any) {
-      for (const keyword of filteringSettings.customKeywordFilters: any) {
-        const regex = new RegExp(`\\b${this.escapeRegExp(keyword: any)}\\b`, 'gi');
-        if (regex.test(filteredContent: any)) {
-          const replacement = '*'.repeat(keyword.length: any);
-          filteredContent = filteredContent.replace(regex: any, replacement);
+    if (filteringSettings.customKeywordFilters) {
+      for (const keyword of filteringSettings.customKeywordFilters) {
+        const regex = new RegExp(`\\b${this.escapeRegExp(keyword)}\\b`, 'gi');
+        if (regex.test(filteredContent)) {
+          const replacement = '*'.repeat(keyword.length);
+          filteredContent = filteredContent.replace(regex, replacement);
           
           filteringActions.push({
             originalText: keyword,
@@ -249,14 +249,14 @@ export class ContentModerationServiceImpl implements ContentModerationService {
     }
     
     // Apply standard filters based on filtering level
-    const patterns = this.getFilterPatternsForLevel(filteringSettings.filteringLevel: any);
+    const patterns = this.getFilterPatternsForLevel(filteringSettings.filteringLevel);
     
-    for (const pattern of patterns: any) {
-      const matches = filteredContent.match(pattern: any);
-      if (matches: any) {
-        for (const match of matches: any) {
-          const replacement = '*'.repeat(match.length: any);
-          filteredContent = filteredContent.replace(match: any, replacement);
+    for (const pattern of patterns) {
+      const matches = filteredContent.match(pattern);
+      if (matches) {
+        for (const match of matches) {
+          const replacement = '*'.repeat(match.length);
+          filteredContent = filteredContent.replace(match, replacement);
           
           filteringActions.push({
             originalText: match,
@@ -283,7 +283,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
     console.log(`Getting content filtering settings for user: ${userId}`);
     
     // Get the user's settings or create default settings
-    if (!this.userFilteringSettings.has(userId: any)) {
+    if (!this.userFilteringSettings.has(userId)) {
       const defaultSettings: ContentFilteringSettings = {
         userId,
         filteringLevel: 'moderate',
@@ -296,10 +296,10 @@ export class ContentModerationServiceImpl implements ContentModerationService {
         lastUpdatedAt: new Date()
       };
       
-      this.userFilteringSettings.set(userId: any, defaultSettings);
+      this.userFilteringSettings.set(userId, defaultSettings);
     }
     
-    return this.userFilteringSettings.get(userId: any)!;
+    return this.userFilteringSettings.get(userId)!;
   }
   
   /**
@@ -313,7 +313,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
     console.log(`Updating content filtering settings for user: ${userId}`);
     
     // Get the user's current settings
-    const currentSettings = await this.getUserContentFilteringSettings(userId: any);
+    const currentSettings = await this.getUserContentFilteringSettings(userId);
     
     // Update the settings
     const updatedSettings: ContentFilteringSettings = {
@@ -323,7 +323,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
     };
     
     // Store the updated settings
-    this.userFilteringSettings.set(userId: any, updatedSettings);
+    this.userFilteringSettings.set(userId, updatedSettings);
     
     return true;
   }
@@ -343,9 +343,9 @@ export class ContentModerationServiceImpl implements ContentModerationService {
     console.log(`Reviewing moderation decision: ${moderationResultId}`);
     
     // Get the moderation result
-    const result = this.moderationResults.get(moderationResultId: any);
+    const result = this.moderationResults.get(moderationResultId);
     
-    if (!result: any) {
+    if (!result) {
       console.error(`Moderation result not found: ${moderationResultId}`);
       return false;
     }
@@ -364,7 +364,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
       };
       
       // Store the updated result
-      this.moderationResults.set(moderationResultId: any, updatedResult);
+      this.moderationResults.set(moderationResultId, updatedResult);
     } else {
       // Uphold the decision, just update the reviewer
       const updatedResult: ContentModerationResult = {
@@ -375,7 +375,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
       };
       
       // Store the updated result
-      this.moderationResults.set(moderationResultId: any, updatedResult);
+      this.moderationResults.set(moderationResultId, updatedResult);
     }
     
     return true;
@@ -385,19 +385,19 @@ export class ContentModerationServiceImpl implements ContentModerationService {
    * Initialize inappropriate content patterns
    */
   private initializeInappropriatePatterns(): void {
-    // English (UK: any) patterns
+    // English (UK) patterns
     const enGBPatterns: RegExp[] = [
       // High severity patterns
-      /\b(hate|violent|explicit|obscene: any)\b/i,
+      /\b(hate|violent|explicit|obscene)\b/i,
       
       // Medium severity patterns
-      /\b(stupid|idiot|dumb: any)\b/i,
+      /\b(stupid|idiot|dumb)\b/i,
       
       // Low severity patterns
-      /\b(silly|weird|strange: any)\b/i
+      /\b(silly|weird|strange)\b/i
     ];
     
-    this.inappropriatePatterns.set('en-GB', enGBPatterns: any);
+    this.inappropriatePatterns.set('en-GB', enGBPatterns);
     
     // Add patterns for other languages
     // This would be expanded for each supported language
@@ -445,10 +445,10 @@ export class ContentModerationServiceImpl implements ContentModerationService {
    */
   private redactInappropriateContent(text: string, pattern: RegExp): string {
     // Create a copy of the pattern with global flag
-    const globalPattern = new RegExp(pattern.source: any, 'g');
+    const globalPattern = new RegExp(pattern.source, 'g');
     
     // Replace matches with asterisks
-    return text.replace(globalPattern: any, match => '*'.repeat(match.length: any));
+    return text.replace(globalPattern, match => '*'.repeat(match.length));
   }
   
   /**
@@ -464,16 +464,16 @@ export class ContentModerationServiceImpl implements ContentModerationService {
     
     // Mock implementation
     if (targetAudience === AgeAppropriatenessRating.EARLY_YEARS || 
-        targetAudience === AgeAppropriatenessRating.PRIMARY_LOWER: any) {
+        targetAudience === AgeAppropriatenessRating.PRIMARY_LOWER) {
       // More strict for younger audiences
-      return !/(complex|difficult|scary|frightening: any)/i.test(content: any);
+      return !/(complex|difficult|scary|frightening)/i.test(content);
     } else if (targetAudience === AgeAppropriatenessRating.PRIMARY_UPPER || 
-               targetAudience === AgeAppropriatenessRating.SECONDARY_LOWER: any) {
+               targetAudience === AgeAppropriatenessRating.SECONDARY_LOWER) {
       // Moderate for middle audiences
-      return !/(explicit|violent|disturbing: any)/i.test(content: any);
+      return !/(explicit|violent|disturbing)/i.test(content);
     } else {
       // Less strict for older audiences
-      return !/(explicit|graphic: any)/i.test(content: any);
+      return !/(explicit|graphic)/i.test(content);
     }
   }
   
@@ -489,11 +489,11 @@ export class ContentModerationServiceImpl implements ContentModerationService {
     // Mock implementation
     let hash = 0;
     for (let i = 0; i < content.length; i++) {
-      const char = content.charCodeAt(i: any);
-      hash = ((hash << 5: any) - hash) + char;
+      const char = content.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
       hash = hash & hash; // Convert to 32bit integer
     }
-    return hash.toString(16: any);
+    return hash.toString(16);
   }
   
   /**
@@ -513,32 +513,32 @@ export class ContentModerationServiceImpl implements ContentModerationService {
    * @returns Array of patterns to filter
    */
   private getFilterPatternsForLevel(level: string): RegExp[] {
-    switch (level: any) {
+    switch (level) {
       case 'minimal':
         return [
-          /\b(explicit|obscene: any)\b/i
+          /\b(explicit|obscene)\b/i
         ];
       case 'moderate':
         return [
-          /\b(explicit|obscene|violent|hate: any)\b/i,
-          /\b(stupid|idiot|dumb: any)\b/i
+          /\b(explicit|obscene|violent|hate)\b/i,
+          /\b(stupid|idiot|dumb)\b/i
         ];
       case 'strict':
         return [
-          /\b(explicit|obscene|violent|hate: any)\b/i,
-          /\b(stupid|idiot|dumb: any)\b/i,
-          /\b(silly|weird|strange: any)\b/i
+          /\b(explicit|obscene|violent|hate)\b/i,
+          /\b(stupid|idiot|dumb)\b/i,
+          /\b(silly|weird|strange)\b/i
         ];
       case 'very_strict':
         return [
-          /\b(explicit|obscene|violent|hate: any)\b/i,
-          /\b(stupid|idiot|dumb: any)\b/i,
-          /\b(silly|weird|strange: any)\b/i,
-          /\b(difficult|challenging|hard: any)\b/i
+          /\b(explicit|obscene|violent|hate)\b/i,
+          /\b(stupid|idiot|dumb)\b/i,
+          /\b(silly|weird|strange)\b/i,
+          /\b(difficult|challenging|hard)\b/i
         ];
       default:
         return [
-          /\b(explicit|obscene|violent|hate: any)\b/i
+          /\b(explicit|obscene|violent|hate)\b/i
         ];
     }
   }

@@ -14,7 +14,7 @@ export default function NewFAQPage({ categories }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   
-  const handleSubmit = async (data: any) => {
+  const handleSubmit = async (data) => {
     setIsSubmitting(true);
     
     try {

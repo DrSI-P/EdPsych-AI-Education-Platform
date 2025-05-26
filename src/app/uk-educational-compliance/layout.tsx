@@ -6,7 +6,7 @@ export const metadata = {
 };
 
 export default function UKEducationalComplianceLayout({
-  children: any,
+  children,
 }: {
   children: React.ReactNode;
 }) {

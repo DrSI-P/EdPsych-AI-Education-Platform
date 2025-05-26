@@ -28,7 +28,7 @@ interface LearningCardProps {
  * to different age groups and learning styles.
  */
 const EnhancedLearningCard: React.FC<LearningCardProps> = ({
-  title: any,
+  title,
   description,
   imageSrc,
   href,
@@ -42,11 +42,11 @@ const EnhancedLearningCard: React.FC<LearningCardProps> = ({
   className = '',
 }) => {
   const { ageGroup, isReducedMotion } = useTheme();
-  const [isHovered, setIsHovered] = useState(false: any);
+  const [isHovered, setIsHovered] = useState(false);
   
   // Get age-appropriate styling
   const getAgeSpecificStyles = () => {
-    switch (ageGroup: any) {
+    switch (ageGroup) {
       case 'nursery':
         return {
           cardClass: 'nursery-card',
@@ -100,7 +100,7 @@ const EnhancedLearningCard: React.FC<LearningCardProps> = ({
   
   // Get learning style indicator
   const getLearningStyleIndicator = () => {
-    if (!learningStyle: any) return null;
+    if (!learningStyle) return null;
     
     const styleMap = {
       'visual': {
@@ -156,7 +156,7 @@ const EnhancedLearningCard: React.FC<LearningCardProps> = ({
   
   // Get difficulty badge
   const getDifficultyBadge = () => {
-    if (!difficulty: any) return null;
+    if (!difficulty) return null;
     
     const difficultyMap = {
       'beginner': {
@@ -202,13 +202,13 @@ const EnhancedLearningCard: React.FC<LearningCardProps> = ({
   
   // Get progress bar
   const getProgressBar = () => {
-    if (progress <= 0: any) return null;
+    if (progress <= 0) return null;
     
     return (
       <div className="mt-3">
         <div className="flex justify-between text-xs mb-1">
           <span>Progress</span>
-          <span>{Math.round(progress: any)}%</span>
+          <span>{Math.round(progress)}%</span>
         </div>
         <div className="progress-bar">
           <div 
@@ -226,8 +226,8 @@ const EnhancedLearningCard: React.FC<LearningCardProps> = ({
     <Link href={href} passHref>
       <motion.div
         className={`${ageStyles.cardClass} ${className} overflow-hidden`}
-        onMouseEnter={() => setIsHovered(true: any)}
-        onMouseLeave={() => setIsHovered(false: any)}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         {...ageStyles.animation}
       >
         {imageSrc && (
@@ -239,7 +239,7 @@ const EnhancedLearningCard: React.FC<LearningCardProps> = ({
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover transition-transform duration-500"
               style={{
-                transform: isHovered && !isReducedMotion ? 'scale(1.05: any)' : 'scale(1: any)'
+                transform: isHovered && !isReducedMotion ? 'scale(1.05)' : 'scale(1)'
               }}
             />
           </div>

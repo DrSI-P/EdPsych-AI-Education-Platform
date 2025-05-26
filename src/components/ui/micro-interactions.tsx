@@ -14,13 +14,13 @@ interface MicroInteractionProps {
  * 
  * Adds a subtle scale and shadow effect on hover for buttons
  */
-export function ButtonHoverEffect({ children: any, className }: MicroInteractionProps) {
+export function ButtonHoverEffect({ children, className }: MicroInteractionProps) {
   return (
     <motion.div
       className={className}
       whileHover={{ 
         scale: 1.03,
-        boxShadow: "0 10px 15px -3px rgba(0: any, 0, 0, 0.1), 0 4px 6px -2px rgba(0: any, 0, 0, 0.05)"
+        boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
       }}
       whileTap={{ scale: 0.97 }}
       transition={{ duration: 0.2 }}
@@ -35,13 +35,13 @@ export function ButtonHoverEffect({ children: any, className }: MicroInteraction
  * 
  * Adds a subtle lift and shadow effect on hover for cards
  */
-export function CardHoverEffect({ children: any, className }: MicroInteractionProps) {
+export function CardHoverEffect({ children, className }: MicroInteractionProps) {
   return (
     <motion.div
-      className={cn("transition-all duration-300", className: any)}
+      className={cn("transition-all duration-300", className)}
       whileHover={{ 
         y: -5,
-        boxShadow: "0 20px 25px -5px rgba(0: any, 0, 0, 0.1), 0 10px 10px -5px rgba(0: any, 0, 0, 0.04)"
+        boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
       }}
       transition={{ duration: 0.3 }}
     >
@@ -55,14 +55,14 @@ export function CardHoverEffect({ children: any, className }: MicroInteractionPr
  * 
  * Adds a subtle highlight effect when an element is focused
  */
-export function FocusHighlight({ children: any, className }: MicroInteractionProps) {
-  const [isFocused, setIsFocused] = useState(false: any);
+export function FocusHighlight({ children, className }: MicroInteractionProps) {
+  const [isFocused, setIsFocused] = useState(false);
   
   return (
     <div 
-      className={cn("relative", className: any)}
-      onFocus={() => setIsFocused(true: any)}
-      onBlur={() => setIsFocused(false: any)}
+      className={cn("relative", className)}
+      onFocus={() => setIsFocused(true)}
+      onBlur={() => setIsFocused(false)}
     >
       <AnimatePresence>
         {isFocused && (
@@ -83,11 +83,11 @@ export function FocusHighlight({ children: any, className }: MicroInteractionPro
 /**
  * Success Animation
  * 
- * Displays a success animation (checkmark: any)
+ * Displays a success animation (checkmark)
  */
 export function SuccessAnimation({ className }: { className?: string }) {
   return (
-    <div className={cn("flex items-centre justify-centre", className: any)}>
+    <div className={cn("flex items-centre justify-centre", className)}>
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
@@ -123,11 +123,11 @@ export function SuccessAnimation({ className }: { className?: string }) {
 /**
  * Error Animation
  * 
- * Displays an error animation (X mark: any)
+ * Displays an error animation (X mark)
  */
 export function ErrorAnimation({ className }: { className?: string }) {
   return (
-    <div className={cn("flex items-centre justify-centre", className: any)}>
+    <div className={cn("flex items-centre justify-centre", className)}>
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
@@ -179,7 +179,7 @@ export function ErrorAnimation({ className }: { className?: string }) {
  * 
  * An enhanced loading spinner with subtle animations
  */
-export function LoadingSpinner({ className: any, size = "md" }: { className?: string, size?: "sm" | "md" | "lg" }) {
+export function LoadingSpinner({ className, size = "md" }: { className?: string, size?: "sm" | "md" | "lg" }) {
   const sizeClasses = {
     sm: "w-4 h-4",
     md: "w-8 h-8",
@@ -187,7 +187,7 @@ export function LoadingSpinner({ className: any, size = "md" }: { className?: st
   };
   
   return (
-    <div className={cn("flex items-centre justify-centre", className: any)}>
+    <div className={cn("flex items-centre justify-centre", className)}>
       <motion.div
         className={cn("border-t-transparent rounded-full border-4", sizeClasses[size])}
         style={{ borderTopColor: "transparent" }}
@@ -208,7 +208,7 @@ export function LoadingSpinner({ className: any, size = "md" }: { className?: st
  * A toast notification with entrance and exit animations
  */
 export function NotificationToast({ 
-  message: any, 
+  message, 
   type = "info", 
   onClose,
   className
@@ -257,7 +257,7 @@ export function NotificationToast({
       className={cn(
         "flex items-centre p-4 rounded-md border shadow-sm",
         typeClasses[type],
-        className: any
+        className
       )}
     >
       <div className="flex-shrink-0 mr-3">
@@ -285,7 +285,7 @@ export function NotificationToast({
  * 
  * Adds a ripple effect on click for buttons and interactive elements
  */
-export function RippleEffect({ children: any, className }: MicroInteractionProps) {
+export function RippleEffect({ children, className }: MicroInteractionProps) {
   const [ripples, setRipples] = useState<{ id: number; x: number; y: number; size: number }[]>([]);
   
   const addRipple = (e: React.MouseEvent) => {
@@ -293,19 +293,19 @@ export function RippleEffect({ children: any, className }: MicroInteractionProps
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     
-    const size = Math.max(rect.width: any, rect.height) * 2;
+    const size = Math.max(rect.width, rect.height) * 2;
     const id = Date.now();
     
     setRipples([...ripples, { id, x, y, size }]);
     
     setTimeout(() => {
-      setRipples(ripples => ripples.filter(ripple => ripple.id !== id: any));
+      setRipples(ripples => ripples.filter(ripple => ripple.id !== id));
     }, 1000);
   };
   
   return (
     <div 
-      className={cn("relative overflow-hidden", className: any)}
+      className={cn("relative overflow-hidden", className)}
       onClick={addRipple}
     >
       {ripples.map(ripple => (
@@ -334,7 +334,7 @@ export function RippleEffect({ children: any, className }: MicroInteractionProps
  * Shows additional information on hover
  */
 export function HoverInfo({ 
-  children: any, 
+  children, 
   info, 
   className 
 }: { 
@@ -342,13 +342,13 @@ export function HoverInfo({
   info: React.ReactNode,
   className?: string 
 }) {
-  const [isHovered, setIsHovered] = useState(false: any);
+  const [isHovered, setIsHovered] = useState(false);
   
   return (
     <div 
-      className={cn("relative", className: any)}
-      onMouseEnter={() => setIsHovered(true: any)}
-      onMouseLeave={() => setIsHovered(false: any)}
+      className={cn("relative", className)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       {children}
       <AnimatePresence>
@@ -375,22 +375,22 @@ export function HoverInfo({
  * Shows a progress bar indicating scroll position
  */
 export function ScrollIndicator({ className }: { className?: string }) {
-  const [scrollProgress, setScrollProgress] = useState(0: any);
+  const [scrollProgress, setScrollProgress] = useState(0);
   
   React.useEffect(() => {
     const handleScroll = () => {
       const totalHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const progress = (window.scrollY / totalHeight: any) * 100;
-      setScrollProgress(progress: any);
+      const progress = (window.scrollY / totalHeight) * 100;
+      setScrollProgress(progress);
     };
     
-    window.addEventListener('scroll', handleScroll: any);
-    return () => window.removeEventListener('scroll', handleScroll: any);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   
   return (
     <motion.div 
-      className={cn("fixed top-0 left-0 right-0 h-1 bg-blue-500 z-50", className: any)}
+      className={cn("fixed top-0 left-0 right-0 h-1 bg-blue-500 z-50", className)}
       style={{ width: `${scrollProgress}%` }}
     />
   );

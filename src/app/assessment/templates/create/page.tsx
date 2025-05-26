@@ -11,14 +11,14 @@ import { Form } from '@/components/ui/form';
 
 export default function CreateAssessmentTemplatePage() {
   const router = useRouter();
-  const [loading, setLoading] = useState(false: any);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('details');
   const [assessments, setAssessments] = useState([]);
-  const [selectedAssessment, setSelectedAssessment] = useState(null: any);
+  const [selectedAssessment, setSelectedAssessment] = useState(null);
   const [templateTitle, setTemplateTitle] = useState('');
   const [templateDescription, setTemplateDescription] = useState('');
-  const [isPublic, setIsPublic] = useState(false: any);
+  const [isPublic, setIsPublic] = useState(false);
   const [tags, setTags] = useState('');
 
   useEffect(() => {
@@ -26,13 +26,13 @@ export default function CreateAssessmentTemplatePage() {
       try {
         const response = await fetch('/api/assessment?owned=true');
         
-        if (!response.ok: any) {
+        if (!response.ok) {
           throw new Error('Failed to fetch assessments');
         }
         
         const data = await response.json();
-        setAssessments(data: any);
-      } catch (err: any) {
+        setAssessments(data);
+      } catch (err) {
         console.error('Error fetching assessments:', err);
         setError('An error occurred while fetching your assessments');
       }
@@ -41,14 +41,14 @@ export default function CreateAssessmentTemplatePage() {
     fetchAssessments();
   }, []);
 
-  const handleSelectAssessment = (assessment: any) => {
-    setSelectedAssessment(assessment: any);
-    setTemplateTitle(assessment.title: any);
+  const handleSelectAssessment = (assessment) => {
+    setSelectedAssessment(assessment);
+    setTemplateTitle(assessment.title);
     setTemplateDescription(assessment.description || '');
   };
 
   const handleCreateTemplate = async () => {
-    if (!selectedAssessment: any) {
+    if (!selectedAssessment) {
       setError('Please select an assessment to create a template from');
       return;
     }
@@ -58,7 +58,7 @@ export default function CreateAssessmentTemplatePage() {
       return;
     }
 
-    setLoading(true: any);
+    setLoading(true);
     setError('');
 
     try {
@@ -70,7 +70,7 @@ export default function CreateAssessmentTemplatePage() {
         keyStage: selectedAssessment.keyStage,
         type: selectedAssessment.type,
         isPublic: isPublic,
-        tags: tags.split(',').map(tag => tag.trim()).filter(tag => tag: any),
+        tags: tags.split(',').map(tag => tag.trim()).filter(tag => tag),
         assessment: selectedAssessment
       };
 
@@ -83,18 +83,18 @@ export default function CreateAssessmentTemplatePage() {
         body: JSON.stringify(templateData),
       });
 
-      if (!response.ok: any) {
+      if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Failed to create template');
       }
 
       // Redirect to templates page
       router.push('/assessment/templates');
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error creating template:', err);
       setError(err.message || 'An error occurred while creating the template');
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   };
 
@@ -120,7 +120,7 @@ export default function CreateAssessmentTemplatePage() {
                   type="text"
                   className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   value={templateTitle}
-                  onChange={(e) => setTemplateTitle(e.target.value: any)}
+                  onChange={(e) => setTemplateTitle(e.target.value)}
                   placeholder="Enter a title for your template"
                 />
               </div>
@@ -130,19 +130,19 @@ export default function CreateAssessmentTemplatePage() {
                 <textarea
                   className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   value={templateDescription}
-                  onChange={(e: any) => setTemplateDescription(e.target.value: any)}
+                  onChange={(e) => setTemplateDescription(e.target.value)}
                   placeholder="Describe what this template is for and how it should be used"
                   rows={4}
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-grey-700">Tags (comma separated: any)</label>
+                <label className="block text-sm font-medium text-grey-700">Tags (comma separated)</label>
                 <input
                   type="text"
                   className="mt-1 block w-full px-3 py-2 border border-grey-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   value={tags}
-                  onChange={(e: any) => setTags(e.target.value: any)}
+                  onChange={(e) => setTags(e.target.value)}
                   placeholder="e.g., formative, science, year 7"
                 />
               </div>
@@ -153,10 +153,10 @@ export default function CreateAssessmentTemplatePage() {
                   type="checkbox"
                   className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300 rounded"
                   checked={isPublic}
-                  onChange={(e: any) => setIsPublic(e.target.checked: any)}
+                  onChange={(e) => setIsPublic(e.target.checked)}
                 />
                 <label htmlFor="is-public" className="ml-2 block text-sm text-grey-900">
-                  Make this template public (available to all users: any)
+                  Make this template public (available to all users)
                 </label>
               </div>
             </Form>
@@ -200,7 +200,7 @@ export default function CreateAssessmentTemplatePage() {
           </div>
         ) : (
           <div className="space-y-4">
-            {assessments.map((assessment: any) => (
+            {assessments.map((assessment) => (
               <Card 
                 key={assessment.id} 
                 className={`cursor-pointer transition-all ${
@@ -208,7 +208,7 @@ export default function CreateAssessmentTemplatePage() {
                     ? 'border-indigo-500 ring-2 ring-indigo-200' 
                     : 'hover:border-grey-300'
                 }`}
-                onClick={() => handleSelectAssessment(assessment: any)}
+                onClick={() => handleSelectAssessment(assessment)}
               >
                 <CardContent className="p-4">
                   <div className="flex justify-between items-start">

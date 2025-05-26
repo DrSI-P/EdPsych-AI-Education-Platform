@@ -32,7 +32,7 @@ export interface SpeechRecognitionResult {
 
 // Speech recognition service class
 export class SpeechRecognitionService {
-  private recognition: any;
+  private recognition;
   private isListening: boolean = false;
   private options: SpeechRecognitionOptions;
   private childVoiceModel: boolean = false;
@@ -72,7 +72,7 @@ export class SpeechRecognitionService {
     this.recognition.maxAlternatives = this.options.maxAlternatives;
     
     // Load child voice model if available and requested
-    if (this.options.childVoiceOptimization: any) {
+    if (this.options.childVoiceOptimization) {
       this.loadChildVoiceModel();
     }
   }
@@ -81,7 +81,7 @@ export class SpeechRecognitionService {
    * Check if browser supports speech recognition
    */
   public isBrowserSupported(): boolean {
-    return !!(window.SpeechRecognition || window.webkitSpeechRecognition: any);
+    return !!(window.SpeechRecognition || window.webkitSpeechRecognition);
   }
   
   /**
@@ -94,11 +94,11 @@ export class SpeechRecognitionService {
       console.log('Loading child voice optimization model...');
       
       // Simulate model loading delay
-      await new Promise(resolve => setTimeout(resolve: any, 1000));
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
       this.childVoiceModel = true;
       console.log('Child voice optimization model loaded');
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to load child voice model:', error);
       this.childVoiceModel = false;
     }
@@ -107,24 +107,24 @@ export class SpeechRecognitionService {
   /**
    * Start listening for speech
    */
-  public start(onResult: (result: SpeechRecognitionResult) => void, onError?: (error: any) => void): void {
-    if (!this.recognition: any) {
-      if (onError: any) onError(new Error('Speech recognition not initialized'));
+  public start(onResult: (result: SpeechRecognitionResult) => void, onError?: (error) => void): void {
+    if (!this.recognition) {
+      if (onError) onError(new Error('Speech recognition not initialized'));
       return;
     }
     
-    if (this.isListening: any) {
+    if (this.isListening) {
       this.stop();
     }
     
     // Set up result handler
-    this.recognition.onresult = (event: any) => {
+    this.recognition.onresult = (event) => {
       const result = event.results[event.results.length - 1];
       const mainResult = result[0];
       
       // Process result with child voice optimization if enabled
       const processedText = this.options.childVoiceOptimization && this.childVoiceModel
-        ? this.processChildSpeech(mainResult.transcript: any)
+        ? this.processChildSpeech(mainResult.transcript)
         : mainResult.transcript;
       
       // Create alternatives array
@@ -146,16 +146,16 @@ export class SpeechRecognitionService {
     };
     
     // Set up error handler
-    this.recognition.onerror = (event: any) => {
-      if (onError: any) onError(event.error: any);
+    this.recognition.onerror = (event) => {
+      if (onError) onError(event.error);
     };
     
     // Start recognition
     try {
       this.recognition.start();
       this.isListening = true;
-    } catch (error: any) {
-      if (onError: any) onError(error: any);
+    } catch (error) {
+      if (onError) onError(error);
     }
   }
   
@@ -163,7 +163,7 @@ export class SpeechRecognitionService {
    * Stop listening for speech
    */
   public stop(): void {
-    if (this.recognition && this.isListening: any) {
+    if (this.recognition && this.isListening) {
       this.recognition.stop();
       this.isListening = false;
     }
@@ -178,39 +178,39 @@ export class SpeechRecognitionService {
     
     // Common child speech patterns and corrections
     const corrections: [RegExp, string][] = [
-      [/(\b: any)fing(\b: any)/g, '$1thing$2'],
-      [/(\b: any)free(\b: any)/g, '$1three$2'],
-      [/(\b: any)fo(\b: any)/g, '$1four$2'],
-      [/(\b: any)wabbit(\b: any)/g, '$1rabbit$2'],
-      [/(\b: any)lellow(\b: any)/g, '$1yellow$2'],
-      [/(\b: any)wed(\b: any)/g, '$1red$2'],
-      [/(\b: any)dat(\b: any)/g, '$1that$2'],
-      [/(\b: any)dis(\b: any)/g, '$1this$2'],
-      [/(\b: any)nana(\b: any)/g, '$1banana$2'],
-      [/(\b: any)pasghetti(\b: any)/g, '$1spaghetti$2'],
-      [/(\b: any)aminal(\b: any)/g, '$1animal$2'],
-      [/(\b: any)hostipal(\b: any)/g, '$1hospital$2'],
-      [/(\b: any)libary(\b: any)/g, '$1library$2'],
-      [/(\b: any)brefast(\b: any)/g, '$1breakfast$2'],
-      [/(\b: any)puter(\b: any)/g, '$1computer$2']
+      [/(\b)fing(\b)/g, '$1thing$2'],
+      [/(\b)free(\b)/g, '$1three$2'],
+      [/(\b)fo(\b)/g, '$1four$2'],
+      [/(\b)wabbit(\b)/g, '$1rabbit$2'],
+      [/(\b)lellow(\b)/g, '$1yellow$2'],
+      [/(\b)wed(\b)/g, '$1red$2'],
+      [/(\b)dat(\b)/g, '$1that$2'],
+      [/(\b)dis(\b)/g, '$1this$2'],
+      [/(\b)nana(\b)/g, '$1banana$2'],
+      [/(\b)pasghetti(\b)/g, '$1spaghetti$2'],
+      [/(\b)aminal(\b)/g, '$1animal$2'],
+      [/(\b)hostipal(\b)/g, '$1hospital$2'],
+      [/(\b)libary(\b)/g, '$1library$2'],
+      [/(\b)brefast(\b)/g, '$1breakfast$2'],
+      [/(\b)puter(\b)/g, '$1computer$2']
     ];
     
     // Apply corrections
     let processedText = text;
-    for (const [pattern: any, replacement] of corrections) {
-      processedText = processedText.replace(pattern: any, replacement);
+    for (const [pattern, replacement] of corrections) {
+      processedText = processedText.replace(pattern, replacement);
     }
     
     // Handle special educational needs if configured
-    if (this.options.specialEducationalNeeds: any) {
-      if (this.options.specialEducationalNeeds.articulation: any) {
+    if (this.options.specialEducationalNeeds) {
+      if (this.options.specialEducationalNeeds.articulation) {
         // Additional processing for articulation difficulties
-        processedText = this.processArticulationDifficulties(processedText: any);
+        processedText = this.processArticulationDifficulties(processedText);
       }
       
-      if (this.options.specialEducationalNeeds.fluency: any) {
+      if (this.options.specialEducationalNeeds.fluency) {
         // Additional processing for fluency difficulties
-        processedText = this.processFluencyDifficulties(processedText: any);
+        processedText = this.processFluencyDifficulties(processedText);
       }
     }
     
@@ -223,22 +223,22 @@ export class SpeechRecognitionService {
   private processArticulationDifficulties(text: string): string {
     // Additional corrections for common articulation difficulties
     const corrections: [RegExp, string][] = [
-      [/(\b: any)tup(\b: any)/g, '$1cup$2'],
-      [/(\b: any)tar(\b: any)/g, '$1car$2'],
-      [/(\b: any)doat(\b: any)/g, '$1goat$2'],
-      [/(\b: any)wion(\b: any)/g, '$1lion$2'],
-      [/(\b: any)yeg(\b: any)/g, '$1leg$2'],
-      [/(\b: any)wun(\b: any)/g, '$1run$2'],
-      [/(\b: any)tee(\b: any)/g, '$1key$2'],
-      [/(\b: any)tate(\b: any)/g, '$1cake$2'],
-      [/(\b: any)pish(\b: any)/g, '$1fish$2'],
-      [/(\b: any)pork(\b: any)/g, '$1fork$2']
+      [/(\b)tup(\b)/g, '$1cup$2'],
+      [/(\b)tar(\b)/g, '$1car$2'],
+      [/(\b)doat(\b)/g, '$1goat$2'],
+      [/(\b)wion(\b)/g, '$1lion$2'],
+      [/(\b)yeg(\b)/g, '$1leg$2'],
+      [/(\b)wun(\b)/g, '$1run$2'],
+      [/(\b)tee(\b)/g, '$1key$2'],
+      [/(\b)tate(\b)/g, '$1cake$2'],
+      [/(\b)pish(\b)/g, '$1fish$2'],
+      [/(\b)pork(\b)/g, '$1fork$2']
     ];
     
     // Apply corrections
     let processedText = text;
-    for (const [pattern: any, replacement] of corrections) {
-      processedText = processedText.replace(pattern: any, replacement);
+    for (const [pattern, replacement] of corrections) {
+      processedText = processedText.replace(pattern, replacement);
     }
     
     return processedText;
@@ -248,11 +248,11 @@ export class SpeechRecognitionService {
    * Process speech with fluency difficulty optimizations
    */
   private processFluencyDifficulties(text: string): string {
-    // Remove repeated syllables and words (common in stuttering: any)
+    // Remove repeated syllables and words (common in stuttering)
     return text
-      .replace(/(\b\w+\b: any)-(\b\w+\b: any)/g, '$2') // Remove word repetitions with hyphen
-      .replace(/(\b\w+\b: any) \1(\b: any)/g, '$1$2')  // Remove repeated words
-      .replace(/(\w{1: any,2})-\1/g, '$1');       // Remove repeated syllables
+      .replace(/(\b\w+\b)-(\b\w+\b)/g, '$2') // Remove word repetitions with hyphen
+      .replace(/(\b\w+\b) \1(\b)/g, '$1$2')  // Remove repeated words
+      .replace(/(\w{1,2})-\1/g, '$1');       // Remove repeated syllables
   }
   
   /**
@@ -261,7 +261,7 @@ export class SpeechRecognitionService {
   public updateOptions(options: Partial<SpeechRecognitionOptions>): void {
     const wasListening = this.isListening;
     
-    if (wasListening: any) {
+    if (wasListening) {
       this.stop();
     }
     
@@ -272,7 +272,7 @@ export class SpeechRecognitionService {
     
     this.initRecognition();
     
-    if (wasListening: any) {
+    if (wasListening) {
       this.start(() => {});
     }
   }
@@ -288,8 +288,8 @@ export class SpeechRecognitionService {
 // Browser compatibility types
 declare global {
   interface Window {
-    SpeechRecognition: any;
-    webkitSpeechRecognition: any;
+    SpeechRecognition;
+    webkitSpeechRecognition;
   }
 }
 
@@ -297,10 +297,10 @@ declare global {
 let speechRecognitionService: SpeechRecognitionService | null = null;
 
 export function getSpeechRecognitionService(options?: SpeechRecognitionOptions): SpeechRecognitionService {
-  if (!speechRecognitionService: any) {
-    speechRecognitionService = new SpeechRecognitionService(options: any);
-  } else if (options: any) {
-    speechRecognitionService.updateOptions(options: any);
+  if (!speechRecognitionService) {
+    speechRecognitionService = new SpeechRecognitionService(options);
+  } else if (options) {
+    speechRecognitionService.updateOptions(options);
   }
   
   return speechRecognitionService;

@@ -29,7 +29,7 @@ describe('MobileLayout Component', () => {
     );
     
     // Check that the content is rendered
-    expect(screen.getByText(/Test Content/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/Test Content/i)).toBeInTheDocument();
     
     // Check that the mobile container is present
     expect(screen.getByTestId('mobile-container')).toBeInTheDocument();
@@ -47,12 +47,12 @@ describe('MobileLayout Component', () => {
     
     // Check for touch-friendly elements
     const touchButtons = screen.getAllByRole('button');
-    expect(touchButtons.length: any).toBeGreaterThan(0: any);
+    expect(touchButtons.length).toBeGreaterThan(0);
     
     // Check that buttons have appropriate size for touch
     const firstButton = touchButtons[0];
-    const styles = window.getComputedStyle(firstButton: any);
-    expect(parseInt(styles.minHeight || '0')).toBeGreaterThanOrEqual(44: any); // Minimum touch target size
+    const styles = window.getComputedStyle(firstButton);
+    expect(parseInt(styles.minHeight || '0')).toBeGreaterThanOrEqual(44); // Minimum touch target size
   });
 
   it('handles swipe gestures correctly', async () => {
@@ -65,19 +65,19 @@ describe('MobileLayout Component', () => {
     const container = screen.getByTestId('mobile-container');
     
     // Simulate touch start
-    fireEvent.touchStart(container: any, { 
+    fireEvent.touchStart(container, { 
       touches: [{ clientX: 250, clientY: 300 }] 
     });
     
-    // Simulate touch move (swipe right: any)
-    fireEvent.touchMove(container: any, { 
+    // Simulate touch move (swipe right)
+    fireEvent.touchMove(container, { 
       touches: [{ clientX: 400, clientY: 300 }] 
     });
     
     // Simulate touch end
-    fireEvent.touchEnd(container: any);
+    fireEvent.touchEnd(container);
     
-    // Check that swipe was detected (this would depend on implementation details: any)
+    // Check that swipe was detected (this would depend on implementation details)
     await waitFor(() => {
       expect(screen.getByTestId('swipe-indicator')).toHaveTextContent('right');
     });
@@ -86,7 +86,7 @@ describe('MobileLayout Component', () => {
   it('adapts to orientation changes', async () => {
     // Import and mock in a way that avoids require()
     const useMediaQueryMock = vi.fn();
-    useMediaQueryMock.mockReturnValue(true: any); // Initial portrait mode
+    useMediaQueryMock.mockReturnValue(true); // Initial portrait mode
     
     // Override the mock implementation
     vi.mocked(vi.importActual('@/hooks/useMediaQuery')).useMediaQuery = useMediaQueryMock;
@@ -97,14 +97,14 @@ describe('MobileLayout Component', () => {
       </MobileLayout>
     );
     
-    // Check initial orientation (portrait: any)
+    // Check initial orientation (portrait)
     expect(screen.getByTestId('mobile-container')).toHaveClass('portrait');
     
     // Change orientation to landscape
-    useMediaQueryMock.mockReturnValue(false: any);
+    useMediaQueryMock.mockReturnValue(false);
     
     // Trigger orientation change
-    fireEvent(window: any, new Event('orientationchange'));
+    fireEvent(window, new Event('orientationchange'));
     
     // Check that orientation class is updated
     await waitFor(() => {
@@ -124,7 +124,7 @@ describe('MobileLayout Component', () => {
     
     // Check for navigation items
     const navItems = screen.getAllByTestId('nav-item');
-    expect(navItems.length: any).toBeGreaterThan(0: any);
+    expect(navItems.length).toBeGreaterThan(0);
   });
 
   it('handles pull-to-refresh gesture', async () => {
@@ -139,18 +139,18 @@ describe('MobileLayout Component', () => {
     const container = screen.getByTestId('mobile-container');
     
     // Simulate pull-to-refresh gesture
-    fireEvent.touchStart(container: any, { 
+    fireEvent.touchStart(container, { 
       touches: [{ clientX: 250, clientY: 50 }] 
     });
     
-    fireEvent.touchMove(container: any, { 
+    fireEvent.touchMove(container, { 
       touches: [{ clientX: 250, clientY: 150 }] 
     });
     
-    fireEvent.touchEnd(container: any);
+    fireEvent.touchEnd(container);
     
     // Check that refresh function was called
-    expect(mockRefresh: any).toHaveBeenCalled();
+    expect(mockRefresh).toHaveBeenCalled();
     
     // Check for loading indicator
     await waitFor(() => {
@@ -177,7 +177,7 @@ describe('MobileLayout Component', () => {
   it('handles offline status correctly', async () => {
     // Mock navigator.onLine
     const originalOnline = navigator.onLine;
-    Object.defineProperty(navigator: any, 'onLine', { value: false, writable: true });
+    Object.defineProperty(navigator, 'onLine', { value: false, writable: true });
     
     render(
       <MobileLayout>
@@ -189,8 +189,8 @@ describe('MobileLayout Component', () => {
     expect(screen.getByTestId('offline-indicator')).toBeInTheDocument();
     
     // Change to online
-    Object.defineProperty(navigator: any, 'onLine', { value: true });
-    fireEvent(window: any, new Event('online'));
+    Object.defineProperty(navigator, 'onLine', { value: true });
+    fireEvent(window, new Event('online'));
     
     // Check that offline indicator is removed
     await waitFor(() => {
@@ -198,6 +198,6 @@ describe('MobileLayout Component', () => {
     });
     
     // Restore original value
-    Object.defineProperty(navigator: any, 'onLine', { value: originalOnline });
+    Object.defineProperty(navigator, 'onLine', { value: originalOnline });
   });
 });

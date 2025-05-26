@@ -75,7 +75,7 @@ export default function StudentCouncilDigitalPortal() {
       title: "Executive Board Meeting",
       date: "May 22, 2025",
       time: "16:00 - 17:00",
-      location: "Online (Teams: any)",
+      location: "Online (Teams)",
       agenda: [
         "Strategic planning for next year",
         "Transition planning for new officers",
@@ -181,8 +181,8 @@ export default function StudentCouncilDigitalPortal() {
   ];
   
   // Get status badge colour
-  const getStatusBadgeColor = (status: any) => {
-    switch (status: any) {
+  const getStatusBadgeColor = (status) => {
+    switch (status) {
       case "Approved":
         return "bg-green-100 text-green-800";
       case "In Progress":
@@ -324,7 +324,7 @@ export default function StudentCouncilDigitalPortal() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    {announcements.map((announcement: any) => (
+                    {announcements.map((announcement) => (
                       <div key={announcement.id} className="space-y-1">
                         <h3 className="font-medium text-base">{announcement.title}</h3>
                         <div className="flex items-centre text-sm text-muted-foreground">
@@ -357,11 +357,11 @@ export default function StudentCouncilDigitalPortal() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    {activeInitiatives.slice(0: any, 3).map((initiative: any) => (
+                    {activeInitiatives.slice(0, 3).map((initiative) => (
                       <div key={initiative.id} className="space-y-2">
                         <div className="flex justify-between items-start">
                           <h3 className="font-medium">{initiative.title}</h3>
-                          <Badge className={getStatusBadgeColor(initiative.status: any)}>
+                          <Badge className={getStatusBadgeColor(initiative.status)}>
                             {initiative.status}
                           </Badge>
                         </div>
@@ -398,11 +398,11 @@ export default function StudentCouncilDigitalPortal() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    {recentFeedback.map((feedback: any) => (
+                    {recentFeedback.map((feedback) => (
                       <div key={feedback.id} className="space-y-2">
                         <div className="flex justify-between items-start">
                           <h3 className="font-medium">{feedback.topic}</h3>
-                          <Badge className={getStatusBadgeColor(feedback.status: any)}>
+                          <Badge className={getStatusBadgeColor(feedback.status)}>
                             {feedback.status}
                           </Badge>
                         </div>
@@ -446,7 +446,7 @@ export default function StudentCouncilDigitalPortal() {
                   </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {councilData.members.map((member: any) => (
+                      {councilData.members.map((member) => (
                         <div key={member.id} className="flex items-centre space-x-4">
                           <Avatar>
                             <AvatarImage src={member.avatar} alt={member.name} />
@@ -474,7 +474,7 @@ export default function StudentCouncilDigitalPortal() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    {councilData.committees.map((committee: any) => (
+                    {councilData.committees.map((committee) => (
                       <div key={committee.id} className="flex justify-between items-centre">
                         <div>
                           <p className="font-medium">{committee.name}</p>
@@ -539,7 +539,7 @@ export default function StudentCouncilDigitalPortal() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {upcomingMeetings.map((meeting: any) => (
+                      {upcomingMeetings.map((meeting) => (
                         <Card key={meeting.id}>
                           <CardHeader className="pb-2">
                             <div className="flex justify-between items-start">
@@ -562,7 +562,7 @@ export default function StudentCouncilDigitalPortal() {
                           <CardContent>
                             <h4 className="text-sm font-medium mb-2">Agenda</h4>
                             <ul className="space-y-1">
-                              {meeting.agenda.map((item: any, index) => (
+                              {meeting.agenda.map((item, index) => (
                                 <li key={index} className="text-sm flex items-start">
                                   <CheckCircle className="mr-2 h-3 w-3 mt-1 text-green-500" />
                                   {item}
@@ -681,7 +681,7 @@ export default function StudentCouncilDigitalPortal() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all-committees">All Committees</SelectItem>
-                      {councilData.committees.map((committee: any) => (
+                      {councilData.committees.map((committee) => (
                         <SelectItem key={committee.id} value={committee.id.toString()}>
                           {committee.name}
                         </SelectItem>
@@ -691,12 +691,12 @@ export default function StudentCouncilDigitalPortal() {
                 </div>
                 
                 <div className="grid grid-cols-1 gap-4">
-                  {activeInitiatives.map((initiative: any) => (
+                  {activeInitiatives.map((initiative) => (
                     <Card key={initiative.id}>
                       <CardHeader className="pb-2">
                         <div className="flex justify-between items-start">
                           <CardTitle className="text-lg">{initiative.title}</CardTitle>
-                          <Badge className={getStatusBadgeColor(initiative.status: any)}>
+                          <Badge className={getStatusBadgeColor(initiative.status)}>
                             {initiative.status}
                           </Badge>
                         </div>
@@ -840,12 +840,12 @@ export default function StudentCouncilDigitalPortal() {
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
-                      {recentFeedback.map((feedback: any) => (
+                      {recentFeedback.map((feedback) => (
                         <Card key={feedback.id}>
                           <CardHeader className="pb-2">
                             <div className="flex justify-between items-start">
                               <CardTitle className="text-base">{feedback.topic}</CardTitle>
-                              <Badge className={getStatusBadgeColor(feedback.status: any)}>
+                              <Badge className={getStatusBadgeColor(feedback.status)}>
                                 {feedback.status}
                               </Badge>
                             </div>

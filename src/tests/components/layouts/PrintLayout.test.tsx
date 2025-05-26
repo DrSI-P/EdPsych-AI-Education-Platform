@@ -21,10 +21,10 @@ describe('PrintLayout Component', () => {
     );
     
     // Check that the content is rendered
-    expect(screen.getByText(/Test Content/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/Test Content/i)).toBeInTheDocument();
     
     // Check that the title is rendered
-    expect(screen.getByText(/Test Report/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/Test Report/i)).toBeInTheDocument();
     
     // Check that the print container is present
     expect(screen.getByTestId('print-container')).toBeInTheDocument();
@@ -39,8 +39,8 @@ describe('PrintLayout Component', () => {
     
     // Check header elements
     expect(screen.getByTestId('print-header')).toBeInTheDocument();
-    expect(screen.getByAltText(/EdPsych Connect Logo/i: any)).toBeInTheDocument();
-    expect(screen.getByText(/Test Report/i: any)).toBeInTheDocument();
+    expect(screen.getByAltText(/EdPsych Connect Logo/i)).toBeInTheDocument();
+    expect(screen.getByText(/Test Report/i)).toBeInTheDocument();
   });
 
   it('renders print footer with page information', () => {
@@ -52,7 +52,7 @@ describe('PrintLayout Component', () => {
     
     // Check footer elements
     expect(screen.getByTestId('print-footer')).toBeInTheDocument();
-    expect(screen.getByText(/Page/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/Page/i)).toBeInTheDocument();
   });
 
   it('renders print button that triggers print dialogue', () => {
@@ -68,10 +68,10 @@ describe('PrintLayout Component', () => {
     
     // Find and click print button
     const printButton = screen.getByRole('button', { name: /Print/i });
-    fireEvent.click(printButton: any);
+    fireEvent.click(printButton);
     
     // Check that print was called
-    expect(window.print: any).toHaveBeenCalled();
+    expect(window.print).toHaveBeenCalled();
     
     // Restore original print function
     window.print = originalPrint;
@@ -108,7 +108,7 @@ describe('PrintLayout Component', () => {
     );
     
     // Check that page indicators are present
-    expect(screen.getByText(/Page 1 of 3/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/Page 1 of 3/i)).toBeInTheDocument();
   });
 
   it('applies print-specific styles', () => {
@@ -120,7 +120,7 @@ describe('PrintLayout Component', () => {
     
     // Check that print-specific container has appropriate classes
     const printContainer = screen.getByTestId('print-container');
-    expect(printContainer: any).toHaveClass('print-layout');
+    expect(printContainer).toHaveClass('print-layout');
   });
 
   it('includes metadata in document head', async () => {
@@ -136,7 +136,7 @@ describe('PrintLayout Component', () => {
     
     // Check if document title was updated
     await waitFor(() => {
-      expect(document.title: any).toContain('Test Report');
+      expect(document.title).toContain('Test Report');
     });
     
     // Restore original title

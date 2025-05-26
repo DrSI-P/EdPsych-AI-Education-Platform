@@ -14,7 +14,7 @@ export const Certificate = ({
   colour?: string;
   strokeWidth?: number;
   className?: string;
-  [key: string]: any;
+  [key: string];
 }) => {
   return (
     <svg

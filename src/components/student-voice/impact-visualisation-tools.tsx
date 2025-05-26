@@ -45,7 +45,7 @@ import {
 } from 'recharts';
 
 // Real chart components using Recharts
-const BarChartComponent = ({ data: any, title, dataKeys = ['value'], colors = ['#4f46e5'] }) => (
+const BarChartComponent = ({ data, title, dataKeys = ['value'], colors = ['#4f46e5'] }) => (
   <div className="h-64 w-full">
     <ResponsiveContainer width="100%" height="100%">
       <BarChart
@@ -56,16 +56,16 @@ const BarChartComponent = ({ data: any, title, dataKeys = ['value'], colors = ['
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip 
-          formatter={(value: any, name) => [value, name]}
-          labelFormatter={(label: any) => `${label}`}
+          formatter={(value, name) => [value, name]}
+          labelFormatter={(label) => `${label}`}
         />
         <Legend />
-        {dataKeys.map((key: any, index) => (
+        {dataKeys.map((key, index) => (
           <Bar 
             key={key} 
             dataKey={key} 
             fill={colors[index % colors.length]} 
-            name={key.charAt(0: any).toUpperCase() + key.slice(1: any)}
+            name={key.charAt(0).toUpperCase() + key.slice(1)}
             radius={[4, 4, 0, 0]}
           />
         ))}
@@ -74,7 +74,7 @@ const BarChartComponent = ({ data: any, title, dataKeys = ['value'], colors = ['
   </div>
 );
 
-const LineChartComponent = ({ data: any, title, dataKeys = ['value'], colors = ['#4f46e5'] }) => (
+const LineChartComponent = ({ data, title, dataKeys = ['value'], colors = ['#4f46e5'] }) => (
   <div className="h-64 w-full">
     <ResponsiveContainer width="100%" height="100%">
       <LineChart
@@ -85,17 +85,17 @@ const LineChartComponent = ({ data: any, title, dataKeys = ['value'], colors = [
         <XAxis dataKey="month" />
         <YAxis />
         <Tooltip 
-          formatter={(value: any, name) => [value, name]}
-          labelFormatter={(label: any) => `${label}`}
+          formatter={(value, name) => [value, name]}
+          labelFormatter={(label) => `${label}`}
         />
         <Legend />
-        {dataKeys.map((key: any, index) => (
+        {dataKeys.map((key, index) => (
           <Line 
             key={key} 
             type="monotone" 
             dataKey={key} 
             stroke={colors[index % colors.length]} 
-            name={key.charAt(0: any).toUpperCase() + key.slice(1: any)}
+            name={key.charAt(0).toUpperCase() + key.slice(1)}
             activeDot={{ r: 8 }}
           />
         ))}
@@ -104,7 +104,7 @@ const LineChartComponent = ({ data: any, title, dataKeys = ['value'], colors = [
   </div>
 );
 
-const PieChartComponent = ({ data: any, title, dataKey = 'value', nameKey = 'name' }) => {
+const PieChartComponent = ({ data, title, dataKey = 'value', nameKey = 'name' }) => {
   const COLORS = ['#4f46e5', '#0ea5e9', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
   
   return (
@@ -120,14 +120,14 @@ const PieChartComponent = ({ data: any, title, dataKey = 'value', nameKey = 'nam
             fill="#8884d8"
             dataKey={dataKey}
             nameKey={nameKey}
-            label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
+            label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
           >
-            {data.map((entry: any, index) => (
+            {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
           <Tooltip 
-            formatter={(value: any, name, props) => [value, props.payload.name]}
+            formatter={(value, name, props) => [value, props.payload.name]}
           />
           <Legend />
         </PieChart>
@@ -136,7 +136,7 @@ const PieChartComponent = ({ data: any, title, dataKey = 'value', nameKey = 'nam
   );
 };
 
-const AreaChartComponent = ({ data: any, title, dataKeys = ['value'], colors = ['#4f46e5'] }) => (
+const AreaChartComponent = ({ data, title, dataKeys = ['value'], colors = ['#4f46e5'] }) => (
   <div className="h-64 w-full">
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart
@@ -147,11 +147,11 @@ const AreaChartComponent = ({ data: any, title, dataKeys = ['value'], colors = [
         <XAxis dataKey="month" />
         <YAxis />
         <Tooltip 
-          formatter={(value: any, name) => [value, name]}
-          labelFormatter={(label: any) => `${label}`}
+          formatter={(value, name) => [value, name]}
+          labelFormatter={(label) => `${label}`}
         />
         <Legend />
-        {dataKeys.map((key: any, index) => (
+        {dataKeys.map((key, index) => (
           <Area 
             key={key} 
             type="monotone" 
@@ -159,7 +159,7 @@ const AreaChartComponent = ({ data: any, title, dataKeys = ['value'], colors = [
             stroke={colors[index % colors.length]} 
             fill={colors[index % colors.length]} 
             fillOpacity={0.3}
-            name={key.charAt(0: any).toUpperCase() + key.slice(1: any)}
+            name={key.charAt(0).toUpperCase() + key.slice(1)}
           />
         ))}
       </AreaChart>
@@ -167,7 +167,7 @@ const AreaChartComponent = ({ data: any, title, dataKeys = ['value'], colors = [
   </div>
 );
 
-const RadarChartComponent = ({ data: any, title }) => {
+const RadarChartComponent = ({ data, title }) => {
   const COLORS = ['#4f46e5', '#0ea5e9', '#10b981', '#f59e0b', '#ef4444'];
   
   return (
@@ -176,11 +176,11 @@ const RadarChartComponent = ({ data: any, title }) => {
         <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
           <PolarGrid />
           <PolarAngleAxis dataKey="subject" />
-          <PolarRadiusAxis angle={30} domain={[0: any, 100]} />
-          {Object.keys(data[0]).filter(key => key !== 'subject').map((key: any, index) => (
+          <PolarRadiusAxis angle={30} domain={[0, 100]} />
+          {Object.keys(data[0]).filter(key => key !== 'subject').map((key, index) => (
             <Radar 
               key={key} 
-              name={key.charAt(0: any).toUpperCase() + key.slice(1: any)} 
+              name={key.charAt(0).toUpperCase() + key.slice(1)} 
               dataKey={key} 
               stroke={COLORS[index % COLORS.length]} 
               fill={COLORS[index % COLORS.length]} 
@@ -334,8 +334,8 @@ export default function ImpactVisualisationTools() {
   };
   
   // Get status badge colour
-  const getStatusBadgeColor = (status: any) => {
-    switch (status: any) {
+  const getStatusBadgeColor = (status) => {
+    switch (status) {
       case "Implemented":
         return "bg-green-100 text-green-800";
       case "In Progress":
@@ -348,8 +348,8 @@ export default function ImpactVisualisationTools() {
   };
   
   // Get impact badge colour
-  const getImpactBadgeColor = (impact: any) => {
-    switch (impact: any) {
+  const getImpactBadgeColor = (impact) => {
+    switch (impact) {
       case "High":
         return "bg-purple-100 text-purple-800";
       case "Medium":
@@ -362,7 +362,7 @@ export default function ImpactVisualisationTools() {
   };
 
   // Format data for before/after comparison charts
-  const formatBeforeAfterData = (metrics: any) => {
+  const formatBeforeAfterData = (metrics) => {
     return metrics.map(metric => ({
       name: metric.name,
       Before: metric.before,
@@ -560,7 +560,7 @@ export default function ImpactVisualisationTools() {
               <div>
                 <h3 className="text-xl font-bold mb-4">Recent Initiatives</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {impactData.recentImpacts.slice(0: any, 4).map((impact: any) => (
+                  {impactData.recentImpacts.slice(0, 4).map((impact) => (
                     <Card key={impact.id}>
                       <CardHeader>
                         <div className="flex justify-between items-start">
@@ -569,10 +569,10 @@ export default function ImpactVisualisationTools() {
                             <CardDescription>{impact.category}</CardDescription>
                           </div>
                           <div className="flex space-x-2">
-                            <Badge className={getStatusBadgeColor(impact.status: any)}>
+                            <Badge className={getStatusBadgeColor(impact.status)}>
                               {impact.status}
                             </Badge>
-                            <Badge className={getImpactBadgeColor(impact.impact: any)}>
+                            <Badge className={getImpactBadgeColor(impact.impact)}>
                               {impact.impact} Impact
                             </Badge>
                           </div>
@@ -581,7 +581,7 @@ export default function ImpactVisualisationTools() {
                       <CardContent>
                         <p className="text-sm text-muted-foreground mb-4">{impact.description}</p>
                         <div className="space-y-4">
-                          {impact.metrics.map((metric: any, index) => (
+                          {impact.metrics.map((metric, index) => (
                             <div key={index}>
                               <div className="flex justify-between mb-1">
                                 <span className="text-sm font-medium">{metric.name}</span>
@@ -628,7 +628,7 @@ export default function ImpactVisualisationTools() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">All Categories</SelectItem>
-                      {impactData.categories.map((category: any) => (
+                      {impactData.categories.map((category) => (
                         <SelectItem key={category.id} value={category.id}>{category.name}</SelectItem>
                       ))}
                     </SelectContent>
@@ -641,7 +641,7 @@ export default function ImpactVisualisationTools() {
               </div>
               
               <div className="space-y-6">
-                {impactData.recentImpacts.map((impact: any) => (
+                {impactData.recentImpacts.map((impact) => (
                   <Card key={impact.id}>
                     <CardHeader>
                       <div className="flex justify-between items-start">
@@ -650,10 +650,10 @@ export default function ImpactVisualisationTools() {
                           <CardDescription>{impact.category} • {impact.date}</CardDescription>
                         </div>
                         <div className="flex space-x-2">
-                          <Badge className={getStatusBadgeColor(impact.status: any)}>
+                          <Badge className={getStatusBadgeColor(impact.status)}>
                             {impact.status}
                           </Badge>
-                          <Badge className={getImpactBadgeColor(impact.impact: any)}>
+                          <Badge className={getImpactBadgeColor(impact.impact)}>
                             {impact.impact} Impact
                           </Badge>
                         </div>
@@ -700,7 +700,7 @@ export default function ImpactVisualisationTools() {
                         <div>
                           <h3 className="text-lg font-medium mb-4">Impact Metrics</h3>
                           <div className="space-y-6">
-                            {impact.metrics.map((metric: any, index) => (
+                            {impact.metrics.map((metric, index) => (
                               <div key={index}>
                                 <div className="flex justify-between mb-1">
                                   <span className="font-medium">{metric.name}</span>
@@ -735,7 +735,7 @@ export default function ImpactVisualisationTools() {
                       <div>
                         <h3 className="text-lg font-medium mb-4">Comparative Analysis</h3>
                         <BarChartComponent 
-                          data={formatBeforeAfterData(impact.metrics: any)}
+                          data={formatBeforeAfterData(impact.metrics)}
                           dataKeys={['Before', 'After']}
                           colors={['#6b7280', '#3b82f6']}
                           title="Before vs. After Comparison"
@@ -871,7 +871,7 @@ export default function ImpactVisualisationTools() {
                   </CardContent>
                   <CardFooter>
                     <div className="w-full grid grid-cols-2 gap-2">
-                      {impactData.categories.map((category: any) => (
+                      {impactData.categories.map((category) => (
                         <div key={category.id} className="flex justify-between">
                           <span className="text-sm">{category.name}</span>
                           <span className="text-sm font-medium">{category.count}</span>

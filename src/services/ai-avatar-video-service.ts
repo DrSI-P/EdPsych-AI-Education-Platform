@@ -145,7 +145,7 @@ export class AIAvatarVideoService {
    * @param data Raw video data from API
    * @returns Normalized VideoMetadata object
    */
-  private normalizeVideoData(data: any): VideoMetadata {
+  private normalizeVideoData(data): VideoMetadata {
     return {
       id: data.id,
       title: data.title,

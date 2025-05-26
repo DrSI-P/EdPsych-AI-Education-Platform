@@ -139,27 +139,27 @@ const professionalDevelopmentData = [
 ];
 
 const EducatorAnalytics = () => {
-  const [isLoading, setIsLoading] = useState(true: any);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedEducator, setSelectedEducator] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('all');
   const [selectedDateRange, setSelectedDateRange] = useState({ from: new Date(2024, 8, 1), to: new Date() });
-  const [refreshing, setRefreshing] = useState(false: any);
+  const [refreshing, setRefreshing] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
 
   useEffect(() => {
     // Simulate data loading
     const timer = setTimeout(() => {
-      setIsLoading(false: any);
+      setIsLoading(false);
     }, 1500);
 
-    return () => clearTimeout(timer: any);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleRefresh = () => {
-    setRefreshing(true: any);
+    setRefreshing(true);
     // Simulate data refresh
     setTimeout(() => {
-      setRefreshing(false: any);
+      setRefreshing(false);
       toast({
         title: "Data Refreshed",
         description: "Educator analytics data has been updated to the latest available information.",
@@ -167,7 +167,7 @@ const EducatorAnalytics = () => {
     }, 1200);
   };
 
-  const handleExport = (format: any) => {
+  const handleExport = (format) => {
     toast({
       title: `Exporting Analytics as ${format.toUpperCase()}`,
       description: "Your export is being prepared and will download shortly.",
@@ -194,17 +194,17 @@ const EducatorAnalytics = () => {
   const renderEducatorList = () => (
     <ScrollArea className="h-[400px]">
       <div className="space-y-2">
-        {mockEducators.map((educator: any) => (
+        {mockEducators.map((educator) => (
           <div 
             key={educator.id}
             className={`p-3 rounded-md cursor-pointer flex justify-between items-centre ${
               selectedEducator === educator.id ? 'bg-muted' : 'hover:bg-muted/50'
             }`}
-            onClick={() => setSelectedEducator(educator.id: any)}
+            onClick={() => setSelectedEducator(educator.id)}
           >
             <div className="flex items-centre space-x-3">
               <div className="w-10 h-10 rounded-full bg-primary/10 flex items-centre justify-centre">
-                {educator.name.charAt(0: any)}
+                {educator.name.charAt(0)}
               </div>
               <div>
                 <p className="font-medium">{educator.name}</p>
@@ -242,7 +242,7 @@ const EducatorAnalytics = () => {
   );
 
   const renderEducatorDetail = () => {
-    if (!selectedEducator: any) {
+    if (!selectedEducator) {
       return (
         <div className="h-full flex items-centre justify-centre border border-dashed rounded-md p-8">
           <div className="text-centre">
@@ -253,14 +253,14 @@ const EducatorAnalytics = () => {
       );
     }
 
-    const educator = mockEducators.find(e => e.id === selectedEducator: any);
+    const educator = mockEducators.find(e => e.id === selectedEducator);
 
     return (
       <div className="space-y-6">
         <div className="flex items-centre justify-between">
           <div className="flex items-centre space-x-4">
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-centre justify-centre text-lg font-medium">
-              {educator.name.charAt(0: any)}
+              {educator.name.charAt(0)}
             </div>
             <div>
               <h2 className="text-xl font-bold">{educator.name}</h2>
@@ -359,12 +359,12 @@ const EducatorAnalytics = () => {
                           cx="50%"
                           cy="50%"
                           labelLine={false}
-                          label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
+                          label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                           outerRadius={80}
                           fill="#8884d8"
                           dataKey="value"
                         >
-                          {timeAllocationData.map((entry: any, index) => (
+                          {timeAllocationData.map((entry, index) => (
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                           ))}
                         </Pie>
@@ -709,14 +709,14 @@ const EducatorAnalytics = () => {
                         <Line 
                           type="monotone" 
                           dataKey="before" 
-                          name="Projected (No Intervention: any)" 
+                          name="Projected (No Intervention)" 
                           stroke="#8884d8" 
                           strokeDasharray="5 5"
                         />
                         <Line 
                           type="monotone" 
                           dataKey="after" 
-                          name="Actual (With Intervention: any)" 
+                          name="Actual (With Intervention)" 
                           stroke="#82ca9d" 
                         />
                       </LineChart>
@@ -780,12 +780,12 @@ const EducatorAnalytics = () => {
                           cx="50%"
                           cy="50%"
                           labelLine={false}
-                          label={({ name: any, percent }) => `${name}: ${(percent * 100: any).toFixed(0: any)}%`}
+                          label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                           outerRadius={80}
                           fill="#8884d8"
                           dataKey="value"
                         >
-                          {timeAllocationData.map((entry: any, index) => (
+                          {timeAllocationData.map((entry, index) => (
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                           ))}
                         </Pie>
@@ -878,14 +878,14 @@ const EducatorAnalytics = () => {
                     <BarChart
                       data={professionalDevelopmentData.map(item => ({
                         ...item,
-                        date: new Date(item.date: any).toLocaleDateString('en-GB', { month: 'short', day: 'numeric' })
+                        date: new Date(item.date).toLocaleDateString('en-GB', { month: 'short', day: 'numeric' })
                       }))}
                       margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
                     >
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="date" />
                       <YAxis />
-                      <Tooltip formatter={(value: any, name) => [`${value} hours`, 'Duration']} />
+                      <Tooltip formatter={(value, name) => [`${value} hours`, 'Duration']} />
                       <Legend />
                       <Bar dataKey="hours" name="CPD Hours" fill="#8884d8" />
                     </BarChart>
@@ -905,13 +905,13 @@ const EducatorAnalytics = () => {
                 <CardContent>
                   <ScrollArea className="h-[250px]">
                     <div className="space-y-4">
-                      {professionalDevelopmentData.map((item: any, index) => (
+                      {professionalDevelopmentData.map((item, index) => (
                         <div key={index} className="border rounded-md p-3">
                           <div className="flex justify-between items-start">
                             <div>
                               <h4 className="font-medium">{item.topic}</h4>
                               <p className="text-sm text-muted-foreground">
-                                {new Date(item.date: any).toLocaleDateString('en-GB', { 
+                                {new Date(item.date).toLocaleDateString('en-GB', { 
                                   year: 'numeric', 
                                   month: 'long', 
                                   day: 'numeric' 

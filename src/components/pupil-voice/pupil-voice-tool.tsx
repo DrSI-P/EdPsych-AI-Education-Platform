@@ -34,12 +34,12 @@ interface PupilVoiceToolProps {
 
 export function PupilVoiceTool({
   initialEntries = [],
-  onEntrySelect: any,
+  onEntrySelect,
   className = ''
 }: PupilVoiceToolProps) {
   const { showToast } = useToast();
-  const [entries, setEntries] = useState<PupilVoiceEntry[]>(initialEntries: any);
-  const [loading, setLoading] = useState(true: any);
+  const [entries, setEntries] = useState<PupilVoiceEntry[]>(initialEntries);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   
   const [searchTerm, setSearchTerm] = useState('');
@@ -52,9 +52,9 @@ export function PupilVoiceTool({
       try {
         // In a real application, this would fetch from an API
         // For now, we'll use the initialEntries or mock data
-        if (initialEntries.length > 0: any) {
-          setEntries(initialEntries: any);
-          setLoading(false: any);
+        if (initialEntries.length > 0) {
+          setEntries(initialEntries);
+          setLoading(false);
           return;
         }
         
@@ -137,11 +137,11 @@ export function PupilVoiceTool({
           }
         ];
         
-        setEntries(mockEntries: any);
-        setLoading(false: any);
-      } catch (err: any) {
+        setEntries(mockEntries);
+        setLoading(false);
+      } catch (err) {
         setError('Failed to load pupil voice entries');
-        setLoading(false: any);
+        setLoading(false);
       }
     };
     
@@ -166,7 +166,7 @@ export function PupilVoiceTool({
   
   // Handle entry selection
   const handleEntrySelect = (entry: PupilVoiceEntry) => {
-    onEntrySelect?.(entry: any);
+    onEntrySelect?.(entry);
   };
   
   // Collection form state
@@ -224,7 +224,7 @@ export function PupilVoiceTool({
       const newQuestions = [...prev.questions];
       const newAnswers = [...prev.answers];
       newQuestions.splice(index, 1);
-      newAnswers.splice(index: any, 1);
+      newAnswers.splice(index, 1);
       return { 
         ...prev, 
         questions: newQuestions.length ? newQuestions : [''],
@@ -241,11 +241,11 @@ export function PupilVoiceTool({
       .filter(line => line.trim())
       .map(line => line.replace(/^[•\-*\d.]\s*/, '').trim());
     
-    if (questions.length > 0: any) {
+    if (questions.length > 0) {
       setCollectionForm(prev => ({
         ...prev,
         questions: questions,
-        answers: Array(questions.length: any).fill('')
+        answers: Array(questions.length).fill('')
       }));
       
       showToast({
@@ -269,18 +269,18 @@ export function PupilVoiceTool({
     
     positiveWords.forEach(word => {
       const regex = new RegExp(`\\b${word}\\b`, 'gi');
-      const matches = combinedText.match(regex: any);
-      if (matches: any) positiveCount += matches.length;
+      const matches = combinedText.match(regex);
+      if (matches) positiveCount += matches.length;
     });
     
     negativeWords.forEach(word => {
       const regex = new RegExp(`\\b${word}\\b`, 'gi');
-      const matches = combinedText.match(regex: any);
-      if (matches: any) negativeCount += matches.length;
+      const matches = combinedText.match(regex);
+      if (matches) negativeCount += matches.length;
     });
     
-    if (positiveCount > negativeCount: any) return 'positive';
-    if (negativeCount > positiveCount: any) return 'negative';
+    if (positiveCount > negativeCount) return 'positive';
+    if (negativeCount > positiveCount) return 'negative';
     return 'neutral';
   };
   
@@ -289,7 +289,7 @@ export function PupilVoiceTool({
     e.preventDefault();
     
     // Validate form
-    if (!collectionForm.pupilName: any) {
+    if (!collectionForm.pupilName) {
       showToast({
         title: 'Pupil name is required',
         type: 'error'
@@ -297,7 +297,7 @@ export function PupilVoiceTool({
       return;
     }
     
-    if (!collectionForm.school: any) {
+    if (!collectionForm.school) {
       showToast({
         title: 'School name is required',
         type: 'error'
@@ -305,7 +305,7 @@ export function PupilVoiceTool({
       return;
     }
     
-    if (!collectionForm.topic: any) {
+    if (!collectionForm.topic) {
       showToast({
         title: 'Topic is required',
         type: 'error'
@@ -314,7 +314,7 @@ export function PupilVoiceTool({
     }
     
     const hasEmptyQuestions = collectionForm.questions.some(q => !q.trim());
-    if (hasEmptyQuestions: any) {
+    if (hasEmptyQuestions) {
       showToast({
         title: 'All questions must be filled in',
         type: 'error'
@@ -323,7 +323,7 @@ export function PupilVoiceTool({
     }
     
     const hasEmptyAnswers = collectionForm.answers.some(a => !a.trim());
-    if (hasEmptyAnswers: any) {
+    if (hasEmptyAnswers) {
       showToast({
         title: 'All answers must be filled in',
         type: 'error'
@@ -332,19 +332,19 @@ export function PupilVoiceTool({
     }
     
     // Create responses array
-    const responses = collectionForm.questions.map((question: any, index) => ({
-      question: any,
+    const responses = collectionForm.questions.map((question, index) => ({
+      question,
       answer: collectionForm.answers[index]
     }));
     
     // Determine sentiment
-    const sentiment = determineSentiment(collectionForm.answers: any);
+    const sentiment = determineSentiment(collectionForm.answers);
     
     // Create tags array
     const tags = collectionForm.tags
       .split(',')
       .map(tag => tag.trim())
-      .filter(tag => tag: any);
+      .filter(tag => tag);
     
     // Create a new entry object
     const newEntry: PupilVoiceEntry = {
@@ -361,7 +361,7 @@ export function PupilVoiceTool({
     };
     
     // Add the new entry to the list
-    setEntries(prev => [newEntry: any, ...prev]);
+    setEntries(prev => [newEntry, ...prev]);
     
     // Reset the form
     setCollectionForm({
@@ -397,7 +397,7 @@ export function PupilVoiceTool({
               label="Search"
               placeholder="Search by name, topic, or responses..."
               value={searchTerm}
-              onChange={(e: any) => setSearchTerm(e.target.value: any)}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="md:w-1/2"
             />
             
@@ -405,7 +405,7 @@ export function PupilVoiceTool({
               <Select
                 label="Age Group"
                 value={selectedAgeGroup}
-                onChange={(e: any) => setSelectedAgeGroup(e.target.value: any)}
+                onChange={(e) => setSelectedAgeGroup(e.target.value)}
                 options={[
                   { value: 'all', label: 'All Ages' },
                   { value: 'early_years', label: 'Early Years' },
@@ -418,7 +418,7 @@ export function PupilVoiceTool({
               <Select
                 label="Sentiment"
                 value={selectedSentiment}
-                onChange={(e: any) => setSelectedSentiment(e.target.value: any)}
+                onChange={(e) => setSelectedSentiment(e.target.value)}
                 options={[
                   { value: 'all', label: 'All Sentiments' },
                   { value: 'positive', label: 'Positive' },
@@ -453,7 +453,7 @@ export function PupilVoiceTool({
                         entry.sentiment === 'negative' ? 'bg-red-100 text-red-800' :
                         'bg-grey-100 text-grey-800'
                       }`}>
-                        {entry.sentiment.charAt(0).toUpperCase() + entry.sentiment.slice(1: any)}
+                        {entry.sentiment.charAt(0).toUpperCase() + entry.sentiment.slice(1)}
                       </span>
                     </div>
                     <div className="text-sm text-grey-500">
@@ -466,7 +466,7 @@ export function PupilVoiceTool({
                       <span className="text-sm ml-2">{entry.topic}</span>
                     </div>
                     <div className="space-y-3">
-                      {entry.responses.slice(0: any, 2).map((response: any, index) => (
+                      {entry.responses.slice(0, 2).map((response, index) => (
                         <div key={index}>
                           <p className="text-sm font-medium">{response.question}</p>
                           <p className="text-sm text-grey-600">{response.answer}</p>
@@ -488,7 +488,7 @@ export function PupilVoiceTool({
                   </CardContent>
                   <CardFooter>
                     <Button 
-                      onClick={() => handleEntrySelect(entry: any)}
+                      onClick={() => handleEntrySelect(entry)}
                       className="w-full"
                     >
                       View Details
@@ -561,14 +561,14 @@ export function PupilVoiceTool({
               </div>
               
               <div className="space-y-4">
-                {collectionForm.questions.map((question: any, index) => (
+                {collectionForm.questions.map((question, index) => (
                   <div key={index} className="p-4 border rounded-md">
                     <div className="flex items-start justify-between mb-2">
                       <h4 className="text-sm font-medium">Question {index + 1}</h4>
                       {collectionForm.questions.length > 1 && (
                         <button
                           type="button"
-                          onClick={() => removeQuestionAnswer(index: any)}
+                          onClick={() => removeQuestionAnswer(index)}
                           className="text-red-500 hover:text-red-700"
                         >
                           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -580,7 +580,7 @@ export function PupilVoiceTool({
                     
                     <Input
                       value={question}
-                      onChange={(e: any) => handleQuestionChange(index: any, e.target.value)}
+                      onChange={(e) => handleQuestionChange(index, e.target.value)}
                       placeholder="Enter question"
                       className="mb-2"
                     />
@@ -588,7 +588,7 @@ export function PupilVoiceTool({
                     <Textarea
                       label="Response"
                       value={collectionForm.answers[index]}
-                      onChange={(e: any) => handleAnswerChange(index: any, e.target.value)}
+                      onChange={(e) => handleAnswerChange(index, e.target.value)}
                       placeholder="Record pupil's response"
                       rows={3}
                     />
@@ -607,7 +607,7 @@ export function PupilVoiceTool({
             </div>
             
             <Input
-              label="Tags (comma-separated: any)"
+              label="Tags (comma-separated)"
               name="tags"
               value={collectionForm.tags}
               onChange={handleCollectionFormChange}

@@ -37,7 +37,7 @@ const PersonalizedStrategyRecommendations = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("recommendations");
-  const [isLoading, setIsLoading] = useState(false: any);
+  const [isLoading, setIsLoading] = useState(false);
   const [emotionHistory, setEmotionHistory] = useState([]);
   const [userPreferences, setUserPreferences] = useState({
     preferredStrategyTypes: ["physical", "cognitive", "social"],
@@ -48,7 +48,7 @@ const PersonalizedStrategyRecommendations = () => {
   });
   const [personalizedStrategies, setPersonalizedStrategies] = useState([]);
   const [strategyEffectiveness, setStrategyEffectiveness] = useState({});
-  const [currentMood, setCurrentMood] = useState(null: any);
+  const [currentMood, setCurrentMood] = useState(null);
   const [strategyHistory, setStrategyHistory] = useState([]);
   
   // Basic emotions with UK spelling
@@ -190,7 +190,7 @@ const PersonalizedStrategyRecommendations = () => {
       description: "Identify and challenge unhelpful thoughts that contribute to difficult emotions.",
       steps: [
         "Notice the unhelpful thought",
-        "Identify what type of thinking trap it might be (e.g., catastrophizing: any, mind-reading)",
+        "Identify what type of thinking trap it might be (e.g., catastrophizing, mind-reading)",
         "Look for evidence that supports and doesn't support the thought",
         "Consider a more balanced alternative thought",
         "Practise replacing the unhelpful thought with the balanced one"
@@ -199,7 +199,7 @@ const PersonalizedStrategyRecommendations = () => {
       category: "cognitive",
       complexity: "advanced",
       duration: "long",
-      evidenceBase: "Core technique in Cognitive Behavioural Therapy (CBT: any), recommended by NICE guidelines for anxiety and depression."
+      evidenceBase: "Core technique in Cognitive Behavioural Therapy (CBT), recommended by NICE guidelines for anxiety and depression."
     },
     {
       id: "positive-self-talk",
@@ -241,7 +241,7 @@ const PersonalizedStrategyRecommendations = () => {
       description: "Reach out to someone you trust for support or distraction.",
       steps: [
         "Identify someone you feel comfortable talking to",
-        "Decide what kind of support you need (listening: any, advice, distraction)",
+        "Decide what kind of support you need (listening, advice, distraction)",
         "Reach out via text, call, or in person",
         "Share what you're comfortable with",
         "Engage in the conversation or activity together"
@@ -257,7 +257,7 @@ const PersonalizedStrategyRecommendations = () => {
       name: "Mindful Observation",
       description: "Focus completely on observing one thing with all your attention.",
       steps: [
-        "Choose something to observe (e.g., a flower: any, the sky, your hand)",
+        "Choose something to observe (e.g., a flower, the sky, your hand)",
         "Focus all your attention on it",
         "Notice details you wouldn't normally see",
         "When your mind wanders, gently bring it back",
@@ -276,7 +276,7 @@ const PersonalizedStrategyRecommendations = () => {
       steps: [
         "Pause and check in with yourself",
         "Notice what you're feeling in your body",
-        "Try to name the specific emotion(s: any)",
+        "Try to name the specific emotion(s)",
         "Acknowledge the emotion without judgment",
         "Remind yourself that emotions are temporary"
       ],
@@ -289,7 +289,7 @@ const PersonalizedStrategyRecommendations = () => {
     {
       id: "opposite-action",
       name: "Opposite Action",
-      description: "Do the opposite of what your emotion urges you to do (when the emotion doesn't fit the facts: any).",
+      description: "Do the opposite of what your emotion urges you to do (when the emotion doesn't fit the facts).",
       steps: [
         "Identify the emotion you're feeling",
         "Notice what action the emotion is urging you to take",
@@ -301,7 +301,7 @@ const PersonalizedStrategyRecommendations = () => {
       category: "behavioural",
       complexity: "advanced",
       duration: "medium",
-      evidenceBase: "Core technique from Dialectical Behaviour Therapy (DBT: any), supported by clinical research and NICE guidelines."
+      evidenceBase: "Core technique from Dialectical Behaviour Therapy (DBT), supported by clinical research and NICE guidelines."
     },
     {
       id: "creative-expression",
@@ -341,7 +341,7 @@ const PersonalizedStrategyRecommendations = () => {
   
   // Load user data on component mount
   useEffect(() => {
-    if (session?.user: any) {
+    if (session?.user) {
       fetchUserPreferences();
       fetchEmotionHistory();
       fetchStrategyHistory();
@@ -351,26 +351,26 @@ const PersonalizedStrategyRecommendations = () => {
   
   // Regenerate recommendations when user preferences or emotion history changes
   useEffect(() => {
-    if (emotionHistory.length > 0 && Object.keys(userPreferences: any).length > 0) {
+    if (emotionHistory.length > 0 && Object.keys(userPreferences).length > 0) {
       generatePersonalizedRecommendations();
     }
   }, [userPreferences, emotionHistory]);
   
   const fetchUserPreferences = async () => {
     try {
-      setIsLoading(true: any);
+      setIsLoading(true);
       // This would be replaced with an actual API call
       // const response = await fetch('/api/special-needs/emotional-regulation/strategy-recommendations/preferences');
       // const data = await response.json();
-      // setUserPreferences(data.preferences: any);
+      // setUserPreferences(data.preferences);
       
       // Simulating API response for now
       setTimeout(() => {
-        setIsLoading(false: any);
+        setIsLoading(false);
       }, 500);
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching user preferences:', error);
-      setIsLoading(false: any);
+      setIsLoading(false);
       toast({
         title: "Error",
         description: "Failed to load your preferences. Please try again.",
@@ -384,7 +384,7 @@ const PersonalizedStrategyRecommendations = () => {
       // This would be replaced with an actual API call
       // const response = await fetch('/api/special-needs/emotional-regulation/history');
       // const data = await response.json();
-      // setEmotionHistory(data.history: any);
+      // setEmotionHistory(data.history);
       
       // Simulating API response with mock data
       const mockHistory = [
@@ -434,8 +434,8 @@ const PersonalizedStrategyRecommendations = () => {
           strategiesUsed: ["gratitude-practise"]
         }
       ];
-      setEmotionHistory(mockHistory: any);
-    } catch (error: any) {
+      setEmotionHistory(mockHistory);
+    } catch (error) {
       console.error('Error fetching emotion history:', error);
       toast({
         title: "Error",
@@ -450,7 +450,7 @@ const PersonalizedStrategyRecommendations = () => {
       // This would be replaced with an actual API call
       // const response = await fetch('/api/special-needs/emotional-regulation/strategies/history');
       // const data = await response.json();
-      // setStrategyHistory(data.history: any);
+      // setStrategyHistory(data.history);
       
       // Simulating API response with mock data
       const mockStrategyHistory = [
@@ -496,7 +496,7 @@ const PersonalizedStrategyRecommendations = () => {
         }
       ];
       
-      setStrategyHistory(mockStrategyHistory: any);
+      setStrategyHistory(mockStrategyHistory);
       
       // Calculate strategy effectiveness
       const effectiveness = {};
@@ -514,9 +514,9 @@ const PersonalizedStrategyRecommendations = () => {
           effectiveness[record.strategyId].totalRating / effectiveness[record.strategyId].count;
       });
       
-      setStrategyEffectiveness(effectiveness: any);
+      setStrategyEffectiveness(effectiveness);
       
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching strategy history:', error);
       toast({
         title: "Error",
@@ -530,30 +530,30 @@ const PersonalizedStrategyRecommendations = () => {
     // This would be replaced with an actual API call in production
     // const response = await fetch('/api/special-needs/emotional-regulation/strategy-recommendations');
     // const data = await response.json();
-    // setPersonalizedStrategies(data.recommendations: any);
+    // setPersonalizedStrategies(data.recommendations);
     
     // For now, we'll generate recommendations based on local data
     
     // Step 1: Analyse emotion patterns
     const emotionFrequency = {};
     emotionHistory.forEach(record => {
-      emotionFrequency[record.name] = (emotionFrequency[record.name] || 0: any) + 1;
+      emotionFrequency[record.name] = (emotionFrequency[record.name] || 0) + 1;
     });
     
-    const commonEmotions = Object.entries(emotionFrequency: any)
-      .sort((a: any, b) => b[1] - a[1])
-      .slice(0: any, 3)
+    const commonEmotions = Object.entries(emotionFrequency)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3)
       .map(entry => entry[0]);
     
     // Step 2: Analyse strategy effectiveness
-    const effectiveStrategies = Object.entries(strategyEffectiveness: any)
-      .filter(([_: any, data]) => data.average >= 3.5 && data.count >= 2)
-      .map(([id: any, _]) => id);
+    const effectiveStrategies = Object.entries(strategyEffectiveness)
+      .filter(([_, data]) => data.average >= 3.5 && data.count >= 2)
+      .map(([id, _]) => id);
     
     // Step 3: Filter strategies based on user preferences
     const filteredStrategies = regulationStrategies.filter(strategy => {
       // Match by category preference
-      const categoryMatch = userPreferences.preferredStrategyTypes.includes(strategy.category: any);
+      const categoryMatch = userPreferences.preferredStrategyTypes.includes(strategy.category);
       
       // Match by complexity
       let complexityMatch = true;
@@ -571,8 +571,8 @@ const PersonalizedStrategyRecommendations = () => {
     
     // 4.1: Add strategies that have worked well in the past
     effectiveStrategies.forEach(strategyId => {
-      const strategy = regulationStrategies.find(s => s.id === strategyId: any);
-      if (strategy: any) {
+      const strategy = regulationStrategies.find(s => s.id === strategyId);
+      if (strategy) {
         recommendations.push({
           ...strategy,
           reason: "This has worked well for you in the past",
@@ -585,11 +585,11 @@ const PersonalizedStrategyRecommendations = () => {
     // 4.2: Add strategies suitable for common emotions
     commonEmotions.forEach(emotion => {
       const suitableStrategies = filteredStrategies.filter(
-        strategy => strategy.suitableFor.includes(emotion: any) && 
-        !recommendations.some(r => r.id === strategy.id: any)
+        strategy => strategy.suitableFor.includes(emotion) && 
+        !recommendations.some(r => r.id === strategy.id)
       );
       
-      suitableStrategies.slice(0: any, 2).forEach(strategy => {
+      suitableStrategies.slice(0, 2).forEach(strategy => {
         recommendations.push({
           ...strategy,
           reason: `Good for managing ${emotion.toLowerCase()} feelings`,
@@ -602,12 +602,12 @@ const PersonalizedStrategyRecommendations = () => {
     // 4.3: Add some strategies based on evidence strength
     const evidenceBasedStrategies = filteredStrategies
       .filter(strategy => 
-        !recommendations.some(r => r.id === strategy.id: any) &&
+        !recommendations.some(r => r.id === strategy.id) &&
         strategy.evidenceBase.includes("NICE") || 
         strategy.evidenceBase.includes("NHS") ||
         strategy.evidenceBase.includes("research")
       )
-      .slice(0: any, 2);
+      .slice(0, 2);
     
     evidenceBasedStrategies.forEach(strategy => {
       recommendations.push({
@@ -619,10 +619,10 @@ const PersonalizedStrategyRecommendations = () => {
     });
     
     // 4.4: Add some variety if needed
-    if (recommendations.length < 6: any) {
+    if (recommendations.length < 6) {
       const remainingStrategies = filteredStrategies
-        .filter(strategy => !recommendations.some(r => r.id === strategy.id: any))
-        .slice(0: any, 6 - recommendations.length);
+        .filter(strategy => !recommendations.some(r => r.id === strategy.id))
+        .slice(0, 6 - recommendations.length);
       
       remainingStrategies.forEach(strategy => {
         recommendations.push({
@@ -635,22 +635,22 @@ const PersonalizedStrategyRecommendations = () => {
     }
     
     // Sort by score
-    recommendations.sort((a: any, b) => b.score - a.score);
+    recommendations.sort((a, b) => b.score - a.score);
     
-    setPersonalizedStrategies(recommendations: any);
+    setPersonalizedStrategies(recommendations);
   };
   
-  const handleCurrentMoodSelect = (emotion: any) => {
-    setCurrentMood(emotion: any);
+  const handleCurrentMoodSelect = (emotion) => {
+    setCurrentMood(emotion);
     
     // Filter recommendations based on current mood
-    if (personalizedStrategies.length > 0: any) {
+    if (personalizedStrategies.length > 0) {
       const filteredRecommendations = regulationStrategies
-        .filter(strategy => strategy.suitableFor.includes(emotion.name: any))
+        .filter(strategy => strategy.suitableFor.includes(emotion.name))
         .map(strategy => {
           // Check if this strategy is already in personalized recommendations
-          const existing = personalizedStrategies.find(s => s.id === strategy.id: any);
-          if (existing: any) {
+          const existing = personalizedStrategies.find(s => s.id === strategy.id);
+          if (existing) {
             return {
               ...existing,
               reason: `Good for managing ${emotion.name.toLowerCase()} feelings`,
@@ -666,10 +666,10 @@ const PersonalizedStrategyRecommendations = () => {
             score: 75 + Math.random() * 15 // Random score between 75-90
           };
         })
-        .sort((a: any, b) => b.score - a.score)
-        .slice(0: any, 6);
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 6);
       
-      setPersonalizedStrategies(filteredRecommendations: any);
+      setPersonalizedStrategies(filteredRecommendations);
       
       toast({
         title: "Recommendations Updated",
@@ -680,7 +680,7 @@ const PersonalizedStrategyRecommendations = () => {
   
   const handleSavePreferences = async () => {
     try {
-      setIsLoading(true: any);
+      setIsLoading(true);
       
       // This would be replaced with an actual API call
       // const response = await fetch('/api/special-needs/emotional-regulation/strategy-recommendations/preferences', {
@@ -694,15 +694,15 @@ const PersonalizedStrategyRecommendations = () => {
       
       // Simulating API response
       setTimeout(() => {
-        setIsLoading(false: any);
+        setIsLoading(false);
         toast({
           title: "Success",
           description: "Your preferences have been saved.",
         });
       }, 1000);
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error saving preferences:', error);
-      setIsLoading(false: any);
+      setIsLoading(false);
       toast({
         title: "Error",
         description: "Failed to save your preferences. Please try again.",
@@ -711,9 +711,9 @@ const PersonalizedStrategyRecommendations = () => {
     }
   };
   
-  const handleStrategyFeedback = async (strategyId: any, effectiveness, notes) => {
+  const handleStrategyFeedback = async (strategyId, effectiveness, notes) => {
     try {
-      setIsLoading(true: any);
+      setIsLoading(true);
       
       // This would be replaced with an actual API call
       // const response = await fetch('/api/special-needs/emotional-regulation/strategies/feedback', {
@@ -742,7 +742,7 @@ const PersonalizedStrategyRecommendations = () => {
           notes
         };
         
-        setStrategyHistory([newFeedback: any, ...strategyHistory]);
+        setStrategyHistory([newFeedback, ...strategyHistory]);
         
         // Update effectiveness data
         setStrategyEffectiveness(prev => {
@@ -762,7 +762,7 @@ const PersonalizedStrategyRecommendations = () => {
           return updated;
         });
         
-        setIsLoading(false: any);
+        setIsLoading(false);
         toast({
           title: "Feedback Recorded",
           description: "Thank you for your feedback. This helps us improve your recommendations.",
@@ -772,9 +772,9 @@ const PersonalizedStrategyRecommendations = () => {
         generatePersonalizedRecommendations();
         
       }, 1000);
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error saving strategy feedback:', error);
-      setIsLoading(false: any);
+      setIsLoading(false);
       toast({
         title: "Error",
         description: "Failed to save your feedback. Please try again.",
@@ -783,11 +783,11 @@ const PersonalizedStrategyRecommendations = () => {
     }
   };
   
-  const handleFavoriteStrategy = (strategyId: any) => {
+  const handleFavoriteStrategy = (strategyId) => {
     setUserPreferences(prev => {
       const updated = { ...prev };
       if (updated.favoriteStrategies.includes(strategyId)) {
-        updated.favoriteStrategies = updated.favoriteStrategies.filter(id => id !== strategyId: any);
+        updated.favoriteStrategies = updated.favoriteStrategies.filter(id => id !== strategyId);
       } else {
         updated.favoriteStrategies = [...updated.favoriteStrategies, strategyId];
       }
@@ -802,21 +802,21 @@ const PersonalizedStrategyRecommendations = () => {
     });
   };
   
-  const getEmotionColor = (emotionName: any) => {
+  const getEmotionColor = (emotionName) => {
     const emotion = 
-      basicEmotions.find(e => e.name === emotionName: any) || 
-      advancedEmotions.find(e => e.name === emotionName: any);
+      basicEmotions.find(e => e.name === emotionName) || 
+      advancedEmotions.find(e => e.name === emotionName);
     return emotion ? emotion.colour : "#808080";
   };
   
-  const getEmotionIcon = (emotionName: any) => {
+  const getEmotionIcon = (emotionName) => {
     const emotion = 
-      basicEmotions.find(e => e.name === emotionName: any) || 
-      advancedEmotions.find(e => e.name === emotionName: any);
+      basicEmotions.find(e => e.name === emotionName) || 
+      advancedEmotions.find(e => e.name === emotionName);
     return emotion ? emotion.icon : "😐";
   };
   
-  const formatDate = (dateString: any) => {
+  const formatDate = (dateString) => {
     const options = { 
       year: 'numeric', 
       month: 'short', 
@@ -824,11 +824,11 @@ const PersonalizedStrategyRecommendations = () => {
       hour: '2-digit',
       minute: '2-digit'
     };
-    return new Date(dateString: any).toLocaleDateString('en-GB', options: any);
+    return new Date(dateString).toLocaleDateString('en-GB', options);
   };
   
-  const getReasonIcon = (reasonType: any) => {
-    switch (reasonType: any) {
+  const getReasonIcon = (reasonType) => {
+    switch (reasonType) {
       case 'effectiveness':
         return <ThumbsUp className="h-4 w-4" />;
       case 'emotion':
@@ -869,7 +869,7 @@ const PersonalizedStrategyRecommendations = () => {
                 Select your current emotion to get tailored strategy recommendations
               </p>
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
-                {allEmotions.slice(0, 12).map((emotion: any) => (
+                {allEmotions.slice(0, 12).map((emotion) => (
                   <Button
                     key={emotion.name}
                     variant={currentMood?.name === emotion.name ? "default" : "outline"}
@@ -879,7 +879,7 @@ const PersonalizedStrategyRecommendations = () => {
                       backgroundColor: currentMood?.name === emotion.name ? emotion.colour : "transparent",
                       color: currentMood?.name === emotion.name ? "white" : "inherit"
                     }}
-                    onClick={() => handleCurrentMoodSelect(emotion: any)}
+                    onClick={() => handleCurrentMoodSelect(emotion)}
                   >
                     <span className="text-2xl mb-1">{emotion.icon}</span>
                     <span className="text-xs">{emotion.name}</span>
@@ -898,7 +898,7 @@ const PersonalizedStrategyRecommendations = () => {
                 <TabsContent value="recommendations" className="space-y-6">
                   {personalizedStrategies.length > 0 ? (
                     <div className="space-y-4">
-                      {personalizedStrategies.map((strategy: any) => (
+                      {personalizedStrategies.map((strategy) => (
                         <Card key={strategy.id} className="overflow-hidden">
                           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-4 flex justify-between items-centre">
                             <div className="flex items-centre">
@@ -922,7 +922,7 @@ const PersonalizedStrategyRecommendations = () => {
                                   </Badge>
                                   {strategyEffectiveness[strategy.id] && (
                                     <Badge variant="outline" className="ml-2 bg-green-50">
-                                      {strategyEffectiveness[strategy.id].average.toFixed(1: any)}/5 rating
+                                      {strategyEffectiveness[strategy.id].average.toFixed(1)}/5 rating
                                     </Badge>
                                   )}
                                 </div>
@@ -931,15 +931,15 @@ const PersonalizedStrategyRecommendations = () => {
                             <div className="flex items-centre">
                               <div className="w-16 h-16 rounded-full bg-white shadow-sm flex flex-col items-centre justify-centre mr-4">
                                 <div className="text-lg font-bold text-blue-600">
-                                  {Math.round(strategy.score: any)}%
+                                  {Math.round(strategy.score)}%
                                 </div>
                                 <div className="text-xs text-muted-foreground">match</div>
                               </div>
                               <Button
                                 variant="ghost"
                                 size="icon"
-                                onClick={() => handleFavoriteStrategy(strategy.id: any)}
-                                className={userPreferences.favoriteStrategies.includes(strategy.id: any) ? "text-amber-500" : "text-muted-foreground"}
+                                onClick={() => handleFavoriteStrategy(strategy.id)}
+                                className={userPreferences.favoriteStrategies.includes(strategy.id) ? "text-amber-500" : "text-muted-foreground"}
                               >
                                 <Star className="h-5 w-5" />
                               </Button>
@@ -949,7 +949,7 @@ const PersonalizedStrategyRecommendations = () => {
                           <CardContent className="pt-6">
                             <div className="flex items-centre mb-4">
                               <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100 flex items-centre gap-1">
-                                {getReasonIcon(strategy.reasonType: any)}
+                                {getReasonIcon(strategy.reasonType)}
                                 <span>{strategy.reason}</span>
                               </Badge>
                             </div>
@@ -959,7 +959,7 @@ const PersonalizedStrategyRecommendations = () => {
                             <div className="mb-4">
                               <h4 className="font-medium mb-2">Steps:</h4>
                               <ol className="list-decimal pl-5 space-y-1">
-                                {strategy.steps.map((step: any, index) => (
+                                {strategy.steps.map((step, index) => (
                                   <li key={index}>{step}</li>
                                 ))}
                               </ol>
@@ -968,7 +968,7 @@ const PersonalizedStrategyRecommendations = () => {
                             <div className="mb-4">
                               <h4 className="font-medium mb-2">Good for:</h4>
                               <div className="flex flex-wrap gap-2">
-                                {strategy.suitableFor.map((emotion: any) => (
+                                {strategy.suitableFor.map((emotion) => (
                                   <Badge key={emotion} style={{ backgroundColor: getEmotionColor(emotion) }}>
                                     {emotion}
                                   </Badge>
@@ -988,10 +988,10 @@ const PersonalizedStrategyRecommendations = () => {
                                   variant="outline" 
                                   size="sm"
                                   onClick={() => {
-                                    const feedback = prompt("How did this strategy work for you? Rate from 1-5 (5 being most effective: any)");
-                                    if (feedback && !isNaN(parseInt(feedback: any)) && parseInt(feedback: any) >= 1 && parseInt(feedback: any) <= 5) {
-                                      const notes = prompt("Any notes about your experience? (optional: any)");
-                                      handleStrategyFeedback(strategy.id: any, parseInt(feedback: any), notes || "");
+                                    const feedback = prompt("How did this strategy work for you? Rate from 1-5 (5 being most effective)");
+                                    if (feedback && !isNaN(parseInt(feedback)) && parseInt(feedback) >= 1 && parseInt(feedback) <= 5) {
+                                      const notes = prompt("Any notes about your experience? (optional)");
+                                      handleStrategyFeedback(strategy.id, parseInt(feedback), notes || "");
                                     }
                                   }}
                                 >
@@ -1022,8 +1022,8 @@ const PersonalizedStrategyRecommendations = () => {
                   {userPreferences.favoriteStrategies.length > 0 ? (
                     <div className="space-y-4">
                       {userPreferences.favoriteStrategies.map(strategyId => {
-                        const strategy = regulationStrategies.find(s => s.id === strategyId: any);
-                        if (!strategy: any) return null;
+                        const strategy = regulationStrategies.find(s => s.id === strategyId);
+                        if (!strategy) return null;
                         
                         return (
                           <Card key={strategy.id}>
@@ -1052,7 +1052,7 @@ const PersonalizedStrategyRecommendations = () => {
                               <div className="mb-4">
                                 <h4 className="font-medium mb-2">Good for:</h4>
                                 <div className="flex flex-wrap gap-2">
-                                  {strategy.suitableFor.map((emotion: any) => (
+                                  {strategy.suitableFor.map((emotion) => (
                                     <Badge key={emotion} style={{ backgroundColor: getEmotionColor(emotion) }}>
                                       {emotion}
                                     </Badge>
@@ -1063,7 +1063,7 @@ const PersonalizedStrategyRecommendations = () => {
                             <CardFooter className="flex justify-between">
                               <Button 
                                 variant="outline"
-                                onClick={() => handleFavoriteStrategy(strategy.id: any)}
+                                onClick={() => handleFavoriteStrategy(strategy.id)}
                               >
                                 Remove from Favorites
                               </Button>
@@ -1099,9 +1099,9 @@ const PersonalizedStrategyRecommendations = () => {
                       <ScrollArea className="h-[500px] pr-4">
                         <div className="space-y-6">
                           {strategyHistory.length > 0 ? (
-                            strategyHistory.map((record: any) => {
-                              const strategy = regulationStrategies.find(s => s.id === record.strategyId: any);
-                              if (!strategy: any) return null;
+                            strategyHistory.map((record) => {
+                              const strategy = regulationStrategies.find(s => s.id === record.strategyId);
+                              if (!strategy) return null;
                               
                               return (
                                 <Card key={record.id} className="border-l-4" style={{ 
@@ -1111,12 +1111,12 @@ const PersonalizedStrategyRecommendations = () => {
                                     <div className="flex justify-between items-centre">
                                       <div className="flex items-centre gap-2">
                                         {record.emotion && (
-                                          <span className="text-2xl">{getEmotionIcon(record.emotion: any)}</span>
+                                          <span className="text-2xl">{getEmotionIcon(record.emotion)}</span>
                                         )}
                                         <CardTitle>{strategy.name}</CardTitle>
                                       </div>
                                       <div className="text-sm text-muted-foreground">
-                                        {formatDate(record.timestamp: any)}
+                                        {formatDate(record.timestamp)}
                                       </div>
                                     </div>
                                   </CardHeader>
@@ -1135,7 +1135,7 @@ const PersonalizedStrategyRecommendations = () => {
                                       <div className="flex items-centre">
                                         <span className="mr-2">Effectiveness:</span>
                                         <div className="flex">
-                                          {[1, 2, 3, 4, 5].map((star: any) => (
+                                          {[1, 2, 3, 4, 5].map((star) => (
                                             <Star 
                                               key={star} 
                                               className={`h-4 w-4 ${
@@ -1186,18 +1186,18 @@ const PersonalizedStrategyRecommendations = () => {
                         <div className="space-y-2">
                           <Label htmlFor="strategy-types">Preferred Strategy Types</Label>
                           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                            {["physical", "cognitive", "social", "behavioural", "expressive"].map((type: any) => (
+                            {["physical", "cognitive", "social", "behavioural", "expressive"].map((type) => (
                               <div key={type} className="flex items-centre space-x-2">
                                 <Switch 
                                   id={`type-${type}`} 
-                                  checked={userPreferences.preferredStrategyTypes.includes(type: any)}
-                                  onCheckedChange={(checked: any) => {
+                                  checked={userPreferences.preferredStrategyTypes.includes(type)}
+                                  onCheckedChange={(checked) => {
                                     setUserPreferences(prev => {
                                       const updated = { ...prev };
                                       if (checked) {
                                         updated.preferredStrategyTypes = [...updated.preferredStrategyTypes, type];
                                       } else {
-                                        updated.preferredStrategyTypes = updated.preferredStrategyTypes.filter(t => t !== type: any);
+                                        updated.preferredStrategyTypes = updated.preferredStrategyTypes.filter(t => t !== type);
                                       }
                                       return updated;
                                     });
@@ -1215,7 +1215,7 @@ const PersonalizedStrategyRecommendations = () => {
                           <Label htmlFor="strategy-complexity">Strategy Complexity</Label>
                           <Select 
                             value={userPreferences.strategyComplexity}
-                            onValueChange={(value: any) => {
+                            onValueChange={(value) => {
                               setUserPreferences(prev => ({
                                 ...prev,
                                 strategyComplexity: value
@@ -1242,7 +1242,7 @@ const PersonalizedStrategyRecommendations = () => {
                           <Label htmlFor="reminder-frequency">Reminder Frequency</Label>
                           <Select 
                             value={userPreferences.reminderFrequency}
-                            onValueChange={(value: any) => {
+                            onValueChange={(value) => {
                               setUserPreferences(prev => ({
                                 ...prev,
                                 reminderFrequency: value
@@ -1269,7 +1269,7 @@ const PersonalizedStrategyRecommendations = () => {
                           <Switch 
                             id="auto-suggest" 
                             checked={userPreferences.autoSuggestEnabled}
-                            onCheckedChange={(checked: any) => {
+                            onCheckedChange={(checked) => {
                               setUserPreferences(prev => ({
                                 ...prev,
                                 autoSuggestEnabled: checked

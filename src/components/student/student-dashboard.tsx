@@ -18,7 +18,7 @@ export function StudentDashboard({
   className = ''
 }: StudentDashboardProps) {
   const { showToast } = useToast();
-  const [loading, setLoading] = useState(true: any);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   
   // Mock data for demonstration
@@ -143,7 +143,7 @@ export function StudentDashboard({
   useEffect(() => {
     // Simulate API call
     setTimeout(() => {
-      setLoading(false: any);
+      setLoading(false);
     }, 1000);
   }, []);
   
@@ -248,8 +248,8 @@ export function StudentDashboard({
                     <CardContent className="space-y-2">
                       {studentData.assignments
                         .filter(a => a.status === 'pending')
-                        .sort((a: any, b) => new Date(a.dueDate: any).getTime() - new Date(b.dueDate: any).getTime())
-                        .slice(0: any, 3)
+                        .sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime())
+                        .slice(0, 3)
                         .map(assignment => (
                           <div key={assignment.id} className="flex justify-between items-centre p-2 rounded-md hover:bg-grey-50">
                             <div>
@@ -287,7 +287,7 @@ export function StudentDashboard({
                       <h3 className="text-lg font-semibold">Recent Achievements</h3>
                     </CardHeader>
                     <CardContent className="space-y-2">
-                      {studentData.achievements.slice(0: any, 2).map(achievement => (
+                      {studentData.achievements.slice(0, 2).map(achievement => (
                         <div key={achievement.id} className="flex items-start gap-3 p-2 rounded-md hover:bg-grey-50">
                           <div className="text-2xl">{achievement.icon}</div>
                           <div>
@@ -345,7 +345,7 @@ export function StudentDashboard({
                 </CardHeader>
                 <CardContent>
                   <AIPrompt
-                    placeholder="Describe what you want to focus on (e.g., preparing for upcoming assessments: any, improving in specific subjects)..."
+                    placeholder="Describe what you want to focus on (e.g., preparing for upcoming assessments, improving in specific subjects)..."
                     systemPrompt={`You are an educational AI assistant helping ${studentData.name}, a ${studentData.year} student. Create a personalised study plan based on their current progress and the focus areas they mention. Their subject progress is: ${studentData.subjects.map(s => `${s.name}: ${s.progress}% (Current topic: ${s.currentTopic})`).join(', ')}. They have these upcoming assignments: ${studentData.assignments.filter(a => a.status === 'pending').map(a => `${a.title} (${a.subject}, due ${a.dueDate})`).join(', ')}. Create a structured, actionable study plan with specific activities, resources, and time management suggestions. Use UK English spelling and follow UK educational standards.`}
                     onCompletion={handleGenerateStudyPlan}
                   />
@@ -517,7 +517,7 @@ export function StudentDashboard({
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {studentData.assignments
                     .filter(a => a.status === 'pending')
-                    .sort((a: any, b) => new Date(a.dueDate: any).getTime() - new Date(b.dueDate: any).getTime())
+                    .sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime())
                     .map(assignment => (
                       <Card key={assignment.id} className="h-full flex flex-col">
                         <CardHeader>
@@ -557,7 +557,7 @@ export function StudentDashboard({
                           <Button 
                             className="flex-1"
                             variant="outline"
-                            onClick={() => handleCompleteAssignment(assignment.id: any)}
+                            onClick={() => handleCompleteAssignment(assignment.id)}
                           >
                             Mark as Completed
                           </Button>

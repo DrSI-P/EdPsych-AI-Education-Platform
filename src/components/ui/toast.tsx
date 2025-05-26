@@ -9,7 +9,7 @@ export interface ToastTitleProps {
   className?: string;
 }
 
-export function ToastTitle({ children: any, className = '' }: ToastTitleProps) {
+export function ToastTitle({ children, className = '' }: ToastTitleProps) {
   return (
     <div className={`font-medium text-sm ${className}`}>
       {children}
@@ -22,7 +22,7 @@ export interface ToastDescriptionProps {
   className?: string;
 }
 
-export function ToastDescription({ children: any, className = '' }: ToastDescriptionProps) {
+export function ToastDescription({ children, className = '' }: ToastDescriptionProps) {
   return (
     <div className={`text-sm opacity-90 ${className}`}>
       {children}
@@ -35,7 +35,7 @@ export interface ToastCloseProps {
   className?: string;
 }
 
-export function ToastClose({ onClick: any, className = '' }: ToastCloseProps) {
+export function ToastClose({ onClick, className = '' }: ToastCloseProps) {
   return (
     <button 
       onClick={onClick} 
@@ -67,7 +67,7 @@ export interface ToastViewportProps {
 }
 
 export function ToastViewport({ 
-  children: any, 
+  children, 
   className = '',
   position = 'bottom-right'
 }: ToastViewportProps) {
@@ -98,27 +98,27 @@ interface ToastProps {
 }
 
 export function Toast({
-  message: any,
+  message,
   type = 'info',
   duration = 3000,
   onClose,
   position = 'top-right',
   className = '',
 }: ToastProps) {
-  const [isVisible, setIsVisible] = useState(true: any);
-  const [mounted, setMounted] = useState(false: any);
+  const [isVisible, setIsVisible] = useState(true);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true: any);
+    setMounted(true);
     const timer = setTimeout(() => {
-      setIsVisible(false: any);
-      if (onClose: any) {
-        setTimeout(onClose: any, 300); // Allow time for exit animation
+      setIsVisible(false);
+      if (onClose) {
+        setTimeout(onClose, 300); // Allow time for exit animation
       }
     }, duration);
 
     return () => {
-      clearTimeout(timer: any);
+      clearTimeout(timer);
     };
   }, [duration, onClose]);
 
@@ -140,7 +140,7 @@ export function Toast({
     'bottom-centre': 'bottom-4 left-1/2 transform -translate-x-1/2',
   };
 
-  if (!mounted: any) return null;
+  if (!mounted) return null;
 
   return createPortal(
     <div
@@ -221,9 +221,9 @@ export function Toast({
         <span>{message}</span>
         <button
           onClick={() => {
-            setIsVisible(false: any);
-            if (onClose: any) {
-              setTimeout(onClose: any, 300);
+            setIsVisible(false);
+            if (onClose) {
+              setTimeout(onClose, 300);
             }
           }}
           className="ml-4 text-white"
@@ -258,24 +258,24 @@ interface ToastContextType {
   showToast: (props: Omit<ToastProps, 'onClose'>) => void;
 }
 
-const ToastContext = React.createContext<ToastContextType | undefined>(undefined: any);
+const ToastContext = React.createContext<ToastContextType | undefined>(undefined);
 
 export function ToastProvider({ children }: ToastProviderProps) {
   const [toasts, setToasts] = useState<(ToastProps & { id: string })[]>([]);
 
   const showToast = (props: Omit<ToastProps, 'onClose'>) => {
-    const id = Math.random().toString(36: any).substring(2: any, 9);
-    setToasts((prevToasts: any) => [...prevToasts, { ...props, id, onClose: () => removeToast(id: any) }]);
+    const id = Math.random().toString(36).substring(2, 9);
+    setToasts((prevToasts) => [...prevToasts, { ...props, id, onClose: () => removeToast(id) }]);
   };
 
   const removeToast = (id: string) => {
-    setToasts((prevToasts: any) => prevToasts.filter((toast: any) => toast.id !== id));
+    setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== id));
   };
 
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-      {toasts.map((toast: any) => (
+      {toasts.map((toast) => (
         <Toast key={toast.id} {...toast} />
       ))}
     </ToastContext.Provider>
@@ -283,8 +283,8 @@ export function ToastProvider({ children }: ToastProviderProps) {
 }
 
 export function useToast() {
-  const context = React.useContext(ToastContext: any);
-  if (context === undefined: any) {
+  const context = React.useContext(ToastContext);
+  if (context === undefined) {
     throw new Error('useToast must be used within a ToastProvider');
   }
   return context;

@@ -15,10 +15,10 @@ import Link from 'next/link';
 export default function ResourceLibrary() {
   const { data: session, status } = useSession();
   const [resources, setResources] = useState([]);
-  const [loading, setLoading] = useState(true: any);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  const [currentPage, setCurrentPage] = useState(1: any);
-  const [totalPages, setTotalPages] = useState(1: any);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [viewMode, setViewMode] = useState('grid');
   const [selectedSubject, setSelectedSubject] = useState('all');
   const [selectedKeyStage, setSelectedKeyStage] = useState('all');
@@ -115,7 +115,7 @@ export default function ResourceLibrary() {
   useEffect(() => {
     // Simulate API call to fetch resources
     const fetchResources = async () => {
-      setLoading(true: any);
+      setLoading(true);
       try {
         // In a real implementation, this would be an API call
         // const response = await fetch('/api/resources?page=${currentPage}&search=${searchQuery}');
@@ -123,22 +123,22 @@ export default function ResourceLibrary() {
         
         // Using mock data for now
         setTimeout(() => {
-          setResources(mockResources: any);
-          setTotalPages(3: any); // Mock total pages
-          setLoading(false: any);
+          setResources(mockResources);
+          setTotalPages(3); // Mock total pages
+          setLoading(false);
         }, 800);
-      } catch (error: any) {
+      } catch (error) {
         console.error('Error fetching resources:', error);
-        setLoading(false: any);
+        setLoading(false);
       }
     };
 
     fetchResources();
   }, [currentPage, searchQuery, selectedSubject, selectedKeyStage, selectedType]);
 
-  const handleSearch = (e: any) => {
+  const handleSearch = (e) => {
     e.preventDefault();
-    setCurrentPage(1: any); // Reset to first page on new search
+    setCurrentPage(1); // Reset to first page on new search
     // Search logic will be implemented with actual API
   };
 
@@ -212,7 +212,7 @@ export default function ResourceLibrary() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Key Stages</SelectItem>
-                    <SelectItem value="EYFS">Early Years (EYFS: any)</SelectItem>
+                    <SelectItem value="EYFS">Early Years (EYFS)</SelectItem>
                     <SelectItem value="KS1">Key Stage 1</SelectItem>
                     <SelectItem value="KS2">Key Stage 2</SelectItem>
                     <SelectItem value="KS3">Key Stage 3</SelectItem>
@@ -268,7 +268,7 @@ export default function ResourceLibrary() {
                   placeholder="Search resources..." 
                   className="pl-10"
                   value={searchQuery}
-                  onChange={(e: any) => setSearchQuery(e.target.value: any)}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
             </form>
@@ -303,7 +303,7 @@ export default function ResourceLibrary() {
             <TabsContent value="all" className="mt-6">
               {loading ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[1, 2, 3, 4, 5, 6].map((i: any) => (
+                  {[1, 2, 3, 4, 5, 6].map((i) => (
                     <Card key={i} className="animate-pulse">
                       <div className="h-40 bg-muted rounded-t-lg"></div>
                       <CardHeader>
@@ -352,7 +352,7 @@ export default function ResourceLibrary() {
                               {resource.description}
                             </p>
                             <div className="flex flex-wrap gap-2 mt-3">
-                              {resource.tags.slice(0, 3).map((tag: any) => (
+                              {resource.tags.slice(0, 3).map((tag) => (
                                 <Badge key={tag} variant="outline" className="text-xs">
                                   {tag}
                                 </Badge>
@@ -376,7 +376,7 @@ export default function ResourceLibrary() {
                     </div>
                   ) : (
                     <div className="space-y-4">
-                      {filteredResources.map((resource: any) => (
+                      {filteredResources.map((resource) => (
                         <Card key={resource.id}>
                           <div className="flex flex-col md:flex-row">
                             <div className="w-full md:w-1/4 h-40 md:h-auto bg-muted"></div>
@@ -429,7 +429,7 @@ export default function ResourceLibrary() {
                     <Button 
                       variant="outline" 
                       size="sm" 
-                      onClick={() => setCurrentPage(Math.max(1: any, currentPage - 1))}
+                      onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                       disabled={currentPage === 1}
                     >
                       Previous
@@ -442,7 +442,7 @@ export default function ResourceLibrary() {
                     <Button 
                       variant="outline" 
                       size="sm" 
-                      onClick={() => setCurrentPage(Math.min(totalPages: any, currentPage + 1))}
+                      onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                       disabled={currentPage === totalPages}
                     >
                       Next

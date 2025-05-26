@@ -68,16 +68,16 @@ const ParentTeacherCommunication = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("messages");
-  const [isLoading, setIsLoading] = useState(false: any);
+  const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [messageType, setMessageType] = useState("all");
   const [emotionalFocus, setEmotionalFocus] = useState("all");
   const [messages, setMessages] = useState([]);
   const [meetings, setMeetings] = useState([]);
   const [reports, setReports] = useState([]);
-  const [selectedMessage, setSelectedMessage] = useState(null: any);
-  const [selectedMeeting, setSelectedMeeting] = useState(null: any);
-  const [selectedReport, setSelectedReport] = useState(null: any);
+  const [selectedMessage, setSelectedMessage] = useState(null);
+  const [selectedMeeting, setSelectedMeeting] = useState(null);
+  const [selectedReport, setSelectedReport] = useState(null);
   const [newMessage, setNewMessage] = useState({
     recipient: "",
     subject: "",
@@ -297,7 +297,7 @@ const ParentTeacherCommunication = () => {
       student: "Alex Johnson",
       period: "April-May 2025",
       emotionalFocus: "regulation",
-      content: "## Overview\nThis report summarizes Alex's emotional regulation progress over the past month, highlighting strengths, challenges, and strategies that have been effective.\n\n## Key Observations\n- Significant improvement in using words to express frustration instead of physical reactions\n- Successfully using breathing techniques to self-regulate in 7 out of 10 observed instances\n- Still finding group work emotionally challenging, but duration of dysregulation has decreased\n- Showing pride in emotional regulation achievements\n\n## Effective Strategies\n- Visual emotion thermometer for self-monitoring\n- 5-minute break card (used appropriately: any)\n- Breathing buddy during whole-class activities\n- Positive reinforcement of regulation attempts\n\n## Recommendations\n- Continue consistent use of visual supports\n- Gradually increase duration of group activities\n- Maintain regular check-ins at transition times\n- Celebrate and acknowledge regulation successes\n\n## Next Steps\n- Review progress in parent-teacher meeting on May 20\n- Introduce more complex social scenarios as regulation skills strengthen\n- Begin peer mentoring opportunity in June if progress continues",
+      content: "## Overview\nThis report summarizes Alex's emotional regulation progress over the past month, highlighting strengths, challenges, and strategies that have been effective.\n\n## Key Observations\n- Significant improvement in using words to express frustration instead of physical reactions\n- Successfully using breathing techniques to self-regulate in 7 out of 10 observed instances\n- Still finding group work emotionally challenging, but duration of dysregulation has decreased\n- Showing pride in emotional regulation achievements\n\n## Effective Strategies\n- Visual emotion thermometer for self-monitoring\n- 5-minute break card (used appropriately)\n- Breathing buddy during whole-class activities\n- Positive reinforcement of regulation attempts\n\n## Recommendations\n- Continue consistent use of visual supports\n- Gradually increase duration of group activities\n- Maintain regular check-ins at transition times\n- Celebrate and acknowledge regulation successes\n\n## Next Steps\n- Review progress in parent-teacher meeting on May 20\n- Introduce more complex social scenarios as regulation skills strengthen\n- Begin peer mentoring opportunity in June if progress continues",
       hasAttachments: true,
       attachments: [
         {
@@ -317,7 +317,7 @@ const ParentTeacherCommunication = () => {
       student: "Jamie Smith",
       period: "May-June 2025",
       emotionalFocus: "anxiety",
-      content: "## Background\nJamie has been experiencing test anxiety that impacts performance and emotional wellbeing. This plan outlines specific strategies and accommodations to support Jamie's anxiety management.\n\n## Identified Triggers\n- Timed assessments\n- Unexpected changes to test format\n- Perception of being watched while working\n- Comparison with peers\n\n## Support Strategies\n### Classroom Accommodations\n- Provide test preview 5 minutes before starting\n- Allow for separate seating during assessments\n- Permit use of noise-cancelling headphones\n- Give time warnings in writing rather than verbally\n\n### Coping Techniques\n- 4-7-8 breathing technique before beginning work\n- Positive self-talk scripts (provided in attachment: any)\n- Progressive muscle relaxation during breaks\n- Thought challenging worksheet for anxious thoughts\n\n### Communication Plan\n- Weekly check-in with Ms. Thompson\n- Bi-weekly counseling sessions\n- Monthly parent update\n- Student self-assessment after each test\n\n## Success Measures\n- Reduction in physical anxiety symptoms\n- Improved test completion rates\n- Self-reported anxiety levels (1-10 scale: any)\n- Use of coping strategies without prompting\n\n## Review Timeline\nThis plan will be reviewed after each major assessment and formally updated at the end of June 2025.",
+      content: "## Background\nJamie has been experiencing test anxiety that impacts performance and emotional wellbeing. This plan outlines specific strategies and accommodations to support Jamie's anxiety management.\n\n## Identified Triggers\n- Timed assessments\n- Unexpected changes to test format\n- Perception of being watched while working\n- Comparison with peers\n\n## Support Strategies\n### Classroom Accommodations\n- Provide test preview 5 minutes before starting\n- Allow for separate seating during assessments\n- Permit use of noise-cancelling headphones\n- Give time warnings in writing rather than verbally\n\n### Coping Techniques\n- 4-7-8 breathing technique before beginning work\n- Positive self-talk scripts (provided in attachment)\n- Progressive muscle relaxation during breaks\n- Thought challenging worksheet for anxious thoughts\n\n### Communication Plan\n- Weekly check-in with Ms. Thompson\n- Bi-weekly counseling sessions\n- Monthly parent update\n- Student self-assessment after each test\n\n## Success Measures\n- Reduction in physical anxiety symptoms\n- Improved test completion rates\n- Self-reported anxiety levels (1-10 scale)\n- Use of coping strategies without prompting\n\n## Review Timeline\nThis plan will be reviewed after each major assessment and formally updated at the end of June 2025.",
       hasAttachments: true,
       attachments: [
         {
@@ -342,7 +342,7 @@ const ParentTeacherCommunication = () => {
       student: "All Students",
       period: "Term 3 2025",
       emotionalFocus: "literacy",
-      content: "## Curriculum Focus\nThis document outlines our emotional literacy focus for Term 3, including learning objectives, key activities, and home connection opportunities.\n\n## Learning Objectives\nStudents will be able to:\n- Identify and name at least 15 distinct emotions\n- Recognise emotional cues in facial expressions, body language, and tone of voice\n- Express their own emotions using specific vocabulary\n- Identify emotions in literature and relate to character experiences\n- Understand how emotions influence behaviour and decision-making\n\n## Weekly Focus\n### Week 1: Emotion Vocabulary Expansion\n- Introduction to emotion families (mad: any, sad, glad, scared)\n- Emotion intensity scales\n- Creating personal emotion dictionaries\n\n### Week 2: Emotional Body Awareness\n- Where do we feel emotions in our bodies?\n- Body mapping activities\n- Somatic awareness practices\n\n### Week 3: Emotions in Literature\n- Character emotion analysis\n- Perspective-taking exercises\n- Emotion prediction in stories\n\n### Week 4: Emotional Expression\n- Appropriate ways to express different emotions\n- Creative arts for emotional expression\n- Emotion communication role-plays\n\n## Assessment Approaches\n- Emotion vocabulary assessments\n- Observation of emotional identification in contexts\n- Self-reflection journals\n- Creative projects demonstrating understanding\n\n## Home Connection\nWeekly activities will be sent home to reinforce classroom learning. Parents are encouraged to use specific emotion vocabulary and discuss characters' feelings in books and media.",
+      content: "## Curriculum Focus\nThis document outlines our emotional literacy focus for Term 3, including learning objectives, key activities, and home connection opportunities.\n\n## Learning Objectives\nStudents will be able to:\n- Identify and name at least 15 distinct emotions\n- Recognise emotional cues in facial expressions, body language, and tone of voice\n- Express their own emotions using specific vocabulary\n- Identify emotions in literature and relate to character experiences\n- Understand how emotions influence behaviour and decision-making\n\n## Weekly Focus\n### Week 1: Emotion Vocabulary Expansion\n- Introduction to emotion families (mad, sad, glad, scared)\n- Emotion intensity scales\n- Creating personal emotion dictionaries\n\n### Week 2: Emotional Body Awareness\n- Where do we feel emotions in our bodies?\n- Body mapping activities\n- Somatic awareness practices\n\n### Week 3: Emotions in Literature\n- Character emotion analysis\n- Perspective-taking exercises\n- Emotion prediction in stories\n\n### Week 4: Emotional Expression\n- Appropriate ways to express different emotions\n- Creative arts for emotional expression\n- Emotion communication role-plays\n\n## Assessment Approaches\n- Emotion vocabulary assessments\n- Observation of emotional identification in contexts\n- Self-reflection journals\n- Creative projects demonstrating understanding\n\n## Home Connection\nWeekly activities will be sent home to reinforce classroom learning. Parents are encouraged to use specific emotion vocabulary and discuss characters' feelings in books and media.",
       hasAttachments: true,
       attachments: [
         {
@@ -362,7 +362,7 @@ const ParentTeacherCommunication = () => {
       student: "Taylor Wilson",
       period: "May-September 2025",
       emotionalFocus: "transitions",
-      content: "## Background\nTaylor experiences significant anxiety during transitions and will be moving to a new classroom next term. This plan outlines strategies to support emotional wellbeing during this transition.\n\n## Current Observations\n- Shows distress through withdrawal and reluctance to engage\n- Experiences sleep disruption before anticipated changes\n- Benefits from visual schedules and advance preparation\n- Has strong relationship with current teacher (Ms. Thompson: any)\n\n## Transition Timeline\n### May 2025\n- Introduction to new classroom through photos and virtual tour\n- Social story about classroom change (reviewed weekly: any)\n- Initial meeting with new teacher in familiar environment\n\n### June 2025\n- Weekly 30-minute visits to new classroom with familiar adult\n- Identification of safe space in new environment\n- Creation of transition comfort kit\n\n### July-August 2025 (Summer: any)\n- Maintain predictable routine at home\n- Weekly school visits to maintain familiarity\n- Review social story and classroom photos regularly\n\n### September 2025\n- Arrive early on first day to settle before others\n- Check-in system with trusted adult\n- Gradual increase in new classroom time if needed\n\n## Support Strategies\n- Visual schedule for each day\n- Transition warning system\n- Comfort object permission\n- Calm-down corner access\n- Check-in/check-out routine\n\n## Communication Plan\n- Weekly parent-teacher email updates\n- Daily emotional check-in with Taylor\n- Regular team meetings during transition period\n\n## Success Indicators\n- Reduced anxiety symptoms before/during transitions\n- Increased engagement in new classroom\n- Self-regulation strategy use\n- Positive statements about new environment",
+      content: "## Background\nTaylor experiences significant anxiety during transitions and will be moving to a new classroom next term. This plan outlines strategies to support emotional wellbeing during this transition.\n\n## Current Observations\n- Shows distress through withdrawal and reluctance to engage\n- Experiences sleep disruption before anticipated changes\n- Benefits from visual schedules and advance preparation\n- Has strong relationship with current teacher (Ms. Thompson)\n\n## Transition Timeline\n### May 2025\n- Introduction to new classroom through photos and virtual tour\n- Social story about classroom change (reviewed weekly)\n- Initial meeting with new teacher in familiar environment\n\n### June 2025\n- Weekly 30-minute visits to new classroom with familiar adult\n- Identification of safe space in new environment\n- Creation of transition comfort kit\n\n### July-August 2025 (Summer)\n- Maintain predictable routine at home\n- Weekly school visits to maintain familiarity\n- Review social story and classroom photos regularly\n\n### September 2025\n- Arrive early on first day to settle before others\n- Check-in system with trusted adult\n- Gradual increase in new classroom time if needed\n\n## Support Strategies\n- Visual schedule for each day\n- Transition warning system\n- Comfort object permission\n- Calm-down corner access\n- Check-in/check-out routine\n\n## Communication Plan\n- Weekly parent-teacher email updates\n- Daily emotional check-in with Taylor\n- Regular team meetings during transition period\n\n## Success Indicators\n- Reduced anxiety symptoms before/during transitions\n- Increased engagement in new classroom\n- Self-regulation strategy use\n- Positive statements about new environment",
       hasAttachments: true,
       attachments: [
         {
@@ -387,7 +387,7 @@ const ParentTeacherCommunication = () => {
       student: "All Students",
       period: "Spring 2025",
       emotionalFocus: "general",
-      content: "## Survey Overview\nThis report summarizes the results of our Spring 2025 Emotional Wellbeing Survey, which was completed by 245 students across all year groups.\n\n## Key Findings\n\n### Emotional Awareness\n- 78% of students could identify their emotions using specific vocabulary\n- 65% reported understanding how emotions affect their behaviour\n- 82% could recognise when they need emotional support\n\n### Regulation Strategies\n- Most commonly used strategies: deep breathing, taking a break, talking to someone\n- 70% of students reported having at least 3 effective regulation strategies\n- 58% felt confident in their ability to manage strong emotions\n\n### School Climate\n- 85% of students feel there is an adult at school they can talk to about feelings\n- 73% report feeling emotionally safe in their classroom\n- 62% feel comfortable expressing emotions at school\n\n### Areas for Growth\n- Managing emotions during peer conflicts (only 45% confidence: any)\n- Handling academic disappointment (53% confidence: any)\n- Expressing needs to adults (60% confidence: any)\n\n## Comparison to Previous Survey\n- 12% increase in emotional vocabulary\n- 8% increase in regulation strategy use\n- 15% increase in identifying trusted adults at school\n\n## Recommendations\n1. Continue focus on emotional vocabulary across curriculum\n2. Increase teaching of strategies for peer conflict resolution\n3. Develop additional supports for managing academic disappointment\n4. Enhance opportunities for student-teacher emotional check-ins\n\n## Next Steps\nThese results will inform our emotional wellbeing action plan for the coming term. Grade-level teams will receive specific data for their students to support targeted interventions.",
+      content: "## Survey Overview\nThis report summarizes the results of our Spring 2025 Emotional Wellbeing Survey, which was completed by 245 students across all year groups.\n\n## Key Findings\n\n### Emotional Awareness\n- 78% of students could identify their emotions using specific vocabulary\n- 65% reported understanding how emotions affect their behaviour\n- 82% could recognise when they need emotional support\n\n### Regulation Strategies\n- Most commonly used strategies: deep breathing, taking a break, talking to someone\n- 70% of students reported having at least 3 effective regulation strategies\n- 58% felt confident in their ability to manage strong emotions\n\n### School Climate\n- 85% of students feel there is an adult at school they can talk to about feelings\n- 73% report feeling emotionally safe in their classroom\n- 62% feel comfortable expressing emotions at school\n\n### Areas for Growth\n- Managing emotions during peer conflicts (only 45% confidence)\n- Handling academic disappointment (53% confidence)\n- Expressing needs to adults (60% confidence)\n\n## Comparison to Previous Survey\n- 12% increase in emotional vocabulary\n- 8% increase in regulation strategy use\n- 15% increase in identifying trusted adults at school\n\n## Recommendations\n1. Continue focus on emotional vocabulary across curriculum\n2. Increase teaching of strategies for peer conflict resolution\n3. Develop additional supports for managing academic disappointment\n4. Enhance opportunities for student-teacher emotional check-ins\n\n## Next Steps\nThese results will inform our emotional wellbeing action plan for the coming term. Grade-level teams will receive specific data for their students to support targeted interventions.",
       hasAttachments: true,
       attachments: [
         {
@@ -401,27 +401,27 @@ const ParentTeacherCommunication = () => {
   
   // Load data on component mount
   useEffect(() => {
-    if (session?.user: any) {
+    if (session?.user) {
       fetchData();
     }
   }, [session]);
   
   const fetchData = async () => {
     try {
-      setIsLoading(true: any);
+      setIsLoading(true);
       
       // In a real implementation, we would fetch data from the API
       // For now, we'll simulate loading with a timeout
       setTimeout(() => {
-        setMessages(mockMessages: any);
-        setMeetings(mockMeetings: any);
-        setReports(mockReports: any);
-        setIsLoading(false: any);
+        setMessages(mockMessages);
+        setMeetings(mockMeetings);
+        setReports(mockReports);
+        setIsLoading(false);
       }, 1000);
       
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching data:', error);
-      setIsLoading(false: any);
+      setIsLoading(false);
       toast({
         title: "Error",
         description: "Failed to load data. Please try again.",
@@ -432,7 +432,7 @@ const ParentTeacherCommunication = () => {
   
   const handleCreateMessage = async () => {
     try {
-      setIsLoading(true: any);
+      setIsLoading(true);
       
       // Validate message
       if (!newMessage.recipient.trim()) {
@@ -441,7 +441,7 @@ const ParentTeacherCommunication = () => {
           description: "Please select a recipient for your message.",
           variant: "destructive"
         });
-        setIsLoading(false: any);
+        setIsLoading(false);
         return;
       }
       
@@ -451,7 +451,7 @@ const ParentTeacherCommunication = () => {
           description: "Please provide a subject for your message.",
           variant: "destructive"
         });
-        setIsLoading(false: any);
+        setIsLoading(false);
         return;
       }
       
@@ -461,7 +461,7 @@ const ParentTeacherCommunication = () => {
           description: "Please write the content of your message.",
           variant: "destructive"
         });
-        setIsLoading(false: any);
+        setIsLoading(false);
         return;
       }
       
@@ -494,7 +494,7 @@ const ParentTeacherCommunication = () => {
           attachments: newMessage.attachments
         };
         
-        setMessages([newMessageObj: any, ...messages]);
+        setMessages([newMessageObj, ...messages]);
         
         // Reset form
         setNewMessage({
@@ -506,16 +506,16 @@ const ParentTeacherCommunication = () => {
           attachments: []
         });
         
-        setIsLoading(false: any);
+        setIsLoading(false);
         toast({
           title: "Success",
           description: "Your message has been sent.",
         });
       }, 1000);
       
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error sending message:', error);
-      setIsLoading(false: any);
+      setIsLoading(false);
       toast({
         title: "Error",
         description: "Failed to send message. Please try again.",
@@ -526,7 +526,7 @@ const ParentTeacherCommunication = () => {
   
   const handleCreateMeeting = async () => {
     try {
-      setIsLoading(true: any);
+      setIsLoading(true);
       
       // Validate meeting
       if (!newMeeting.title.trim()) {
@@ -535,17 +535,17 @@ const ParentTeacherCommunication = () => {
           description: "Please provide a title for the meeting.",
           variant: "destructive"
         });
-        setIsLoading(false: any);
+        setIsLoading(false);
         return;
       }
       
-      if (newMeeting.participants.length === 0: any) {
+      if (newMeeting.participants.length === 0) {
         toast({
           title: "Error",
           description: "Please add at least one participant to the meeting.",
           variant: "destructive"
         });
-        setIsLoading(false: any);
+        setIsLoading(false);
         return;
       }
       
@@ -561,9 +561,9 @@ const ParentTeacherCommunication = () => {
       
       // Simulating API response
       setTimeout(() => {
-        const meetingDate = new Date(newMeeting.date: any);
-        const [hours, minutes] = newMeeting.time.split(':').map(Number: any);
-        meetingDate.setHours(hours: any, minutes);
+        const meetingDate = new Date(newMeeting.date);
+        const [hours, minutes] = newMeeting.time.split(':').map(Number);
+        meetingDate.setHours(hours, minutes);
         
         const newMeetingObj = {
           id: `mt${meetings.length + 1}`,
@@ -589,7 +589,7 @@ const ParentTeacherCommunication = () => {
           notes: ""
         };
         
-        setMeetings([newMeetingObj: any, ...meetings]);
+        setMeetings([newMeetingObj, ...meetings]);
         
         // Reset form
         setNewMeeting({
@@ -603,16 +603,16 @@ const ParentTeacherCommunication = () => {
           emotionalFocus: "general"
         });
         
-        setIsLoading(false: any);
+        setIsLoading(false);
         toast({
           title: "Success",
           description: "Your meeting has been scheduled.",
         });
       }, 1000);
       
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error scheduling meeting:', error);
-      setIsLoading(false: any);
+      setIsLoading(false);
       toast({
         title: "Error",
         description: "Failed to schedule meeting. Please try again.",
@@ -631,10 +631,10 @@ const ParentTeacherCommunication = () => {
     }
   };
   
-  const handleRemoveParticipant = (participantToRemove: any) => {
+  const handleRemoveParticipant = (participantToRemove) => {
     setNewMeeting({
       ...newMeeting,
-      participants: newMeeting.participants.filter(p => p !== participantToRemove: any)
+      participants: newMeeting.participants.filter(p => p !== participantToRemove)
     });
   };
   
@@ -642,14 +642,14 @@ const ParentTeacherCommunication = () => {
     let filtered = [...messages];
     
     // Apply search query
-    if (searchQuery: any) {
+    if (searchQuery) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(message => {
         return (
-          message.subject.toLowerCase().includes(query: any) ||
-          message.content.toLowerCase().includes(query: any) ||
-          message.sender.toLowerCase().includes(query: any) ||
-          message.recipient.toLowerCase().includes(query: any)
+          message.subject.toLowerCase().includes(query) ||
+          message.content.toLowerCase().includes(query) ||
+          message.sender.toLowerCase().includes(query) ||
+          message.recipient.toLowerCase().includes(query)
         );
       });
     }
@@ -666,7 +666,7 @@ const ParentTeacherCommunication = () => {
     
     // Apply emotional focus filter
     if (emotionalFocus !== "all") {
-      filtered = filtered.filter(message => message.emotionalFocus === emotionalFocus: any);
+      filtered = filtered.filter(message => message.emotionalFocus === emotionalFocus);
     }
     
     return filtered;
@@ -676,20 +676,20 @@ const ParentTeacherCommunication = () => {
     let filtered = [...meetings];
     
     // Apply search query
-    if (searchQuery: any) {
+    if (searchQuery) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(meeting => {
         return (
-          meeting.title.toLowerCase().includes(query: any) ||
-          meeting.agenda.toLowerCase().includes(query: any) ||
-          meeting.participants.some(p => p.name.toLowerCase().includes(query: any))
+          meeting.title.toLowerCase().includes(query) ||
+          meeting.agenda.toLowerCase().includes(query) ||
+          meeting.participants.some(p => p.name.toLowerCase().includes(query))
         );
       });
     }
     
     // Apply emotional focus filter
     if (emotionalFocus !== "all") {
-      filtered = filtered.filter(meeting => meeting.emotionalFocus === emotionalFocus: any);
+      filtered = filtered.filter(meeting => meeting.emotionalFocus === emotionalFocus);
     }
     
     return filtered;
@@ -699,28 +699,28 @@ const ParentTeacherCommunication = () => {
     let filtered = [...reports];
     
     // Apply search query
-    if (searchQuery: any) {
+    if (searchQuery) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(report => {
         return (
-          report.title.toLowerCase().includes(query: any) ||
-          report.content.toLowerCase().includes(query: any) ||
-          report.student.toLowerCase().includes(query: any) ||
-          report.author.toLowerCase().includes(query: any)
+          report.title.toLowerCase().includes(query) ||
+          report.content.toLowerCase().includes(query) ||
+          report.student.toLowerCase().includes(query) ||
+          report.author.toLowerCase().includes(query)
         );
       });
     }
     
     // Apply emotional focus filter
     if (emotionalFocus !== "all") {
-      filtered = filtered.filter(report => report.emotionalFocus === emotionalFocus: any);
+      filtered = filtered.filter(report => report.emotionalFocus === emotionalFocus);
     }
     
     return filtered;
   };
   
-  const getPriorityBadge = (priority: any) => {
-    switch (priority: any) {
+  const getPriorityBadge = (priority) => {
+    switch (priority) {
       case "high":
         return (
           <Badge variant="destructive" className="flex items-centre gap-1">
@@ -752,8 +752,8 @@ const ParentTeacherCommunication = () => {
     }
   };
   
-  const getEmotionalFocusBadge = (focus: any) => {
-    switch (focus: any) {
+  const getEmotionalFocusBadge = (focus) => {
+    switch (focus) {
       case "regulation":
         return (
           <Badge variant="outline" className="bg-blue-50 text-blue-700 flex items-centre gap-1">
@@ -793,8 +793,8 @@ const ParentTeacherCommunication = () => {
     }
   };
   
-  const getRoleBadge = (role: any) => {
-    switch (role: any) {
+  const getRoleBadge = (role) => {
+    switch (role) {
       case "teacher":
         return (
           <Badge variant="outline" className="bg-blue-50 text-blue-700">
@@ -834,8 +834,8 @@ const ParentTeacherCommunication = () => {
     }
   };
   
-  const getFormattedDate = (dateString: any) => {
-    const date = new Date(dateString: any);
+  const getFormattedDate = (dateString) => {
+    const date = new Date(dateString);
     return date.toLocaleDateString('en-GB', { 
       year: 'numeric', 
       month: 'short', 
@@ -845,8 +845,8 @@ const ParentTeacherCommunication = () => {
     });
   };
   
-  const getFormattedDateOnly = (dateString: any) => {
-    const date = new Date(dateString: any);
+  const getFormattedDateOnly = (dateString) => {
+    const date = new Date(dateString);
     return date.toLocaleDateString('en-GB', { 
       year: 'numeric', 
       month: 'short', 
@@ -854,16 +854,16 @@ const ParentTeacherCommunication = () => {
     });
   };
   
-  const getFormattedTime = (dateString: any) => {
-    const date = new Date(dateString: any);
+  const getFormattedTime = (dateString) => {
+    const date = new Date(dateString);
     return date.toLocaleTimeString('en-GB', { 
       hour: '2-digit',
       minute: '2-digit'
     });
   };
   
-  const getReportTypeBadge = (type: any) => {
-    switch (type: any) {
+  const getReportTypeBadge = (type) => {
+    switch (type) {
       case "progress":
         return (
           <Badge variant="outline" className="bg-green-50 text-green-700 flex items-centre gap-1">
@@ -908,7 +908,7 @@ const ParentTeacherCommunication = () => {
         <CardHeader>
           <CardTitle>Parent-Teacher-Student Emotional Communication</CardTitle>
           <CardDescription>
-            Collaborate on emotional wellbeing through secure: any, structured communication channels
+            Collaborate on emotional wellbeing through secure, structured communication channels
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -931,7 +931,7 @@ const ParentTeacherCommunication = () => {
                     <CardHeader>
                       <CardTitle>Compose New Message</CardTitle>
                       <CardDescription>
-                        Send a message about emotional wellbeing to parents: any, teachers, or students
+                        Send a message about emotional wellbeing to parents, teachers, or students
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
@@ -940,20 +940,20 @@ const ParentTeacherCommunication = () => {
                           <Label htmlFor="message-recipient">Recipient</Label>
                           <Select 
                             value={newMessage.recipient}
-                            onValueChange={(value: any) => setNewMessage({...newMessage, recipient: value})}
+                            onValueChange={(value) => setNewMessage({...newMessage, recipient: value})}
                           >
                             <SelectTrigger id="message-recipient">
                               <SelectValue placeholder="Select recipient" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="Mr. & Mrs. Johnson">Mr. & Mrs. Johnson (Parent: any)</SelectItem>
-                              <SelectItem value="Mr. & Mrs. Smith">Mr. & Mrs. Smith (Parent: any)</SelectItem>
-                              <SelectItem value="Mr. & Mrs. Wilson">Mr. & Mrs. Wilson (Parent: any)</SelectItem>
-                              <SelectItem value="Ms. Thompson">Ms. Thompson (Teacher: any)</SelectItem>
-                              <SelectItem value="Ms. Williams">Ms. Williams (Teacher: any)</SelectItem>
-                              <SelectItem value="Mr. Davis">Mr. Davis (Teacher: any)</SelectItem>
-                              <SelectItem value="Dr. Martinez">Dr. Martinez (Counselor: any)</SelectItem>
-                              <SelectItem value="Principal Chen">Principal Chen (Administrator: any)</SelectItem>
+                              <SelectItem value="Mr. & Mrs. Johnson">Mr. & Mrs. Johnson (Parent)</SelectItem>
+                              <SelectItem value="Mr. & Mrs. Smith">Mr. & Mrs. Smith (Parent)</SelectItem>
+                              <SelectItem value="Mr. & Mrs. Wilson">Mr. & Mrs. Wilson (Parent)</SelectItem>
+                              <SelectItem value="Ms. Thompson">Ms. Thompson (Teacher)</SelectItem>
+                              <SelectItem value="Ms. Williams">Ms. Williams (Teacher)</SelectItem>
+                              <SelectItem value="Mr. Davis">Mr. Davis (Teacher)</SelectItem>
+                              <SelectItem value="Dr. Martinez">Dr. Martinez (Counselor)</SelectItem>
+                              <SelectItem value="Principal Chen">Principal Chen (Administrator)</SelectItem>
                               <SelectItem value="All Parents">All Parents</SelectItem>
                               <SelectItem value="All Staff">All Staff</SelectItem>
                             </SelectContent>
@@ -964,7 +964,7 @@ const ParentTeacherCommunication = () => {
                           <Label htmlFor="message-emotional-focus">Emotional Focus</Label>
                           <Select 
                             value={newMessage.emotionalFocus}
-                            onValueChange={(value: any) => setNewMessage({...newMessage, emotionalFocus: value})}
+                            onValueChange={(value) => setNewMessage({...newMessage, emotionalFocus: value})}
                           >
                             <SelectTrigger id="message-emotional-focus">
                               <SelectValue placeholder="Select emotional focus" />
@@ -988,7 +988,7 @@ const ParentTeacherCommunication = () => {
                             id="message-subject" 
                             placeholder="Enter message subject"
                             value={newMessage.subject}
-                            onChange={(e: any) => setNewMessage({...newMessage, subject: e.target.value})}
+                            onChange={(e) => setNewMessage({...newMessage, subject: e.target.value})}
                           />
                         </div>
                         
@@ -996,7 +996,7 @@ const ParentTeacherCommunication = () => {
                           <Label htmlFor="message-priority">Priority</Label>
                           <Select 
                             value={newMessage.priority}
-                            onValueChange={(value: any) => setNewMessage({...newMessage, priority: value})}
+                            onValueChange={(value) => setNewMessage({...newMessage, priority: value})}
                           >
                             <SelectTrigger id="message-priority">
                               <SelectValue placeholder="Select priority" />
@@ -1017,7 +1017,7 @@ const ParentTeacherCommunication = () => {
                           placeholder="Write your message here..."
                           className="min-h-[150px]"
                           value={newMessage.content}
-                          onChange={(e: any) => setNewMessage({...newMessage, content: e.target.value})}
+                          onChange={(e) => setNewMessage({...newMessage, content: e.target.value})}
                         />
                       </div>
                       
@@ -1050,7 +1050,7 @@ const ParentTeacherCommunication = () => {
                           placeholder="Search messages..."
                           className="pl-8"
                           value={searchQuery}
-                          onChange={(e: any) => setSearchQuery(e.target.value: any)}
+                          onChange={(e) => setSearchQuery(e.target.value)}
                         />
                       </div>
                     </div>
@@ -1100,17 +1100,17 @@ const ParentTeacherCommunication = () => {
                           <div>
                             <div className="flex items-centre gap-2">
                               <CardTitle>{selectedMessage.subject}</CardTitle>
-                              {getPriorityBadge(selectedMessage.priority: any)}
+                              {getPriorityBadge(selectedMessage.priority)}
                             </div>
                             <CardDescription>
-                              {getFormattedDate(selectedMessage.date: any)}
+                              {getFormattedDate(selectedMessage.date)}
                             </CardDescription>
                           </div>
                           <div className="flex space-x-2">
                             <Button 
                               variant="ghost" 
                               size="icon"
-                              onClick={() => setSelectedMessage(null: any)}
+                              onClick={() => setSelectedMessage(null)}
                             >
                               <ChevronDown className="h-5 w-5" />
                             </Button>
@@ -1121,11 +1121,11 @@ const ParentTeacherCommunication = () => {
                         <div className="space-y-4">
                           <div className="flex justify-between">
                             <div>
-                              <p className="text-sm text-muted-foreground">From: <span className="font-medium text-foreground">{selectedMessage.sender}</span> {getRoleBadge(selectedMessage.senderRole: any)}</p>
-                              <p className="text-sm text-muted-foreground">To: <span className="font-medium text-foreground">{selectedMessage.recipient}</span> {getRoleBadge(selectedMessage.recipientRole: any)}</p>
+                              <p className="text-sm text-muted-foreground">From: <span className="font-medium text-foreground">{selectedMessage.sender}</span> {getRoleBadge(selectedMessage.senderRole)}</p>
+                              <p className="text-sm text-muted-foreground">To: <span className="font-medium text-foreground">{selectedMessage.recipient}</span> {getRoleBadge(selectedMessage.recipientRole)}</p>
                             </div>
                             <div>
-                              {getEmotionalFocusBadge(selectedMessage.emotionalFocus: any)}
+                              {getEmotionalFocusBadge(selectedMessage.emotionalFocus)}
                             </div>
                           </div>
                           
@@ -1139,7 +1139,7 @@ const ParentTeacherCommunication = () => {
                             <div className="mt-6 space-y-2">
                               <h3 className="text-sm font-medium">Attachments</h3>
                               <div className="space-y-2">
-                                {selectedMessage.attachments.map((attachment: any, index) => (
+                                {selectedMessage.attachments.map((attachment, index) => (
                                   <div key={index} className="flex items-centre justify-between rounded-md border p-2">
                                     <div className="flex items-centre gap-2">
                                       <FileText className="h-4 w-4 text-muted-foreground" />
@@ -1174,7 +1174,7 @@ const ParentTeacherCommunication = () => {
                         <Card 
                           key={message.id} 
                           className={`cursor-pointer hover:shadow-md transition-shadow ${!message.isRead ? 'border-l-4 border-l-primary' : ''}`}
-                          onClick={() => setSelectedMessage(message: any)}
+                          onClick={() => setSelectedMessage(message)}
                         >
                           <CardHeader className="pb-2">
                             <div className="flex justify-between items-start">
@@ -1187,7 +1187,7 @@ const ParentTeacherCommunication = () => {
                                 )}
                               </div>
                               <div className="flex items-centre gap-2">
-                                {getPriorityBadge(message.priority: any)}
+                                {getPriorityBadge(message.priority)}
                                 {message.hasAttachments && (
                                   <Badge variant="outline" className="flex items-centre gap-1">
                                     <FileText className="h-3 w-3" />
@@ -1197,7 +1197,7 @@ const ParentTeacherCommunication = () => {
                               </div>
                             </div>
                             <CardDescription>
-                              {getFormattedDate(message.date: any)}
+                              {getFormattedDate(message.date)}
                             </CardDescription>
                           </CardHeader>
                           <CardContent className="pt-0">
@@ -1205,12 +1205,12 @@ const ParentTeacherCommunication = () => {
                               <p className="text-sm">
                                 <span className="text-muted-foreground">From: </span>
                                 <span className="font-medium">{message.sender}</span>
-                                {' '}{getRoleBadge(message.senderRole: any)}
+                                {' '}{getRoleBadge(message.senderRole)}
                               </p>
                               <p className="text-sm">
                                 <span className="text-muted-foreground">To: </span>
                                 <span className="font-medium">{message.recipient}</span>
-                                {' '}{getRoleBadge(message.recipientRole: any)}
+                                {' '}{getRoleBadge(message.recipientRole)}
                               </p>
                             </div>
                             <p className="line-clamp-2">{message.content}</p>
@@ -1218,7 +1218,7 @@ const ParentTeacherCommunication = () => {
                           <CardFooter>
                             <div className="flex items-centre justify-between w-full">
                               <div>
-                                {getEmotionalFocusBadge(message.emotionalFocus: any)}
+                                {getEmotionalFocusBadge(message.emotionalFocus)}
                               </div>
                               <Button variant="ghost" size="sm">
                                 <Eye className="h-4 w-4 mr-1" />
@@ -1256,7 +1256,7 @@ const ParentTeacherCommunication = () => {
                           id="meeting-title" 
                           placeholder="Enter meeting title"
                           value={newMeeting.title}
-                          onChange={(e: any) => setNewMeeting({...newMeeting, title: e.target.value})}
+                          onChange={(e) => setNewMeeting({...newMeeting, title: e.target.value})}
                         />
                       </div>
                       
@@ -1270,14 +1270,14 @@ const ParentTeacherCommunication = () => {
                                 className="w-full justify-start text-left font-normal"
                               >
                                 <CalendarIcon className="mr-2 h-4 w-4" />
-                                {newMeeting.date ? format(newMeeting.date: any, "PPP") : <span>Pick a date</span>}
+                                {newMeeting.date ? format(newMeeting.date, "PPP") : <span>Pick a date</span>}
                               </Button>
                             </PopoverTrigger>
                             <PopoverContent className="w-auto p-0">
                               <Calendar
                                 mode="single"
                                 selected={newMeeting.date}
-                                onSelect={(date: any) => setNewMeeting({...newMeeting, date: date || new Date()})}
+                                onSelect={(date) => setNewMeeting({...newMeeting, date: date || new Date()})}
                                 initialFocus
                               />
                             </PopoverContent>
@@ -1288,7 +1288,7 @@ const ParentTeacherCommunication = () => {
                           <Label htmlFor="meeting-time">Time</Label>
                           <Select 
                             value={newMeeting.time}
-                            onValueChange={(value: any) => setNewMeeting({...newMeeting, time: value})}
+                            onValueChange={(value) => setNewMeeting({...newMeeting, time: value})}
                           >
                             <SelectTrigger id="meeting-time">
                               <SelectValue placeholder="Select time" />
@@ -1322,10 +1322,10 @@ const ParentTeacherCommunication = () => {
                         </div>
                         
                         <div className="space-y-2">
-                          <Label htmlFor="meeting-duration">Duration (minutes: any)</Label>
+                          <Label htmlFor="meeting-duration">Duration (minutes)</Label>
                           <Select 
                             value={newMeeting.duration}
-                            onValueChange={(value: any) => setNewMeeting({...newMeeting, duration: value})}
+                            onValueChange={(value) => setNewMeeting({...newMeeting, duration: value})}
                           >
                             <SelectTrigger id="meeting-duration">
                               <SelectValue placeholder="Select duration" />
@@ -1347,13 +1347,13 @@ const ParentTeacherCommunication = () => {
                           <Label htmlFor="meeting-location">Location</Label>
                           <Select 
                             value={newMeeting.location}
-                            onValueChange={(value: any) => setNewMeeting({...newMeeting, location: value})}
+                            onValueChange={(value) => setNewMeeting({...newMeeting, location: value})}
                           >
                             <SelectTrigger id="meeting-location">
                               <SelectValue placeholder="Select location" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="online">Online (Video Call: any)</SelectItem>
+                              <SelectItem value="online">Online (Video Call)</SelectItem>
                               <SelectItem value="phone">Phone Call</SelectItem>
                               <SelectItem value="Counseling Office">Counseling Office</SelectItem>
                               <SelectItem value="Conference Room">Conference Room</SelectItem>
@@ -1368,7 +1368,7 @@ const ParentTeacherCommunication = () => {
                           <Label htmlFor="meeting-emotional-focus">Emotional Focus</Label>
                           <Select 
                             value={newMeeting.emotionalFocus}
-                            onValueChange={(value: any) => setNewMeeting({...newMeeting, emotionalFocus: value})}
+                            onValueChange={(value) => setNewMeeting({...newMeeting, emotionalFocus: value})}
                           >
                             <SelectTrigger id="meeting-emotional-focus">
                               <SelectValue placeholder="Select emotional focus" />
@@ -1388,14 +1388,14 @@ const ParentTeacherCommunication = () => {
                       <div className="space-y-2">
                         <Label>Participants</Label>
                         <div className="flex flex-wrap gap-2 mb-2">
-                          {newMeeting.participants.map((participant: any, index) => (
+                          {newMeeting.participants.map((participant, index) => (
                             <Badge key={index} variant="secondary" className="flex items-centre gap-1">
                               {participant}
                               <Button 
                                 variant="ghost" 
                                 size="icon" 
                                 className="h-4 w-4 ml-1 hover:bg-secondary"
-                                onClick={() => handleRemoveParticipant(participant: any)}
+                                onClick={() => handleRemoveParticipant(participant)}
                               >
                                 <X className="h-3 w-3" />
                               </Button>
@@ -1404,10 +1404,10 @@ const ParentTeacherCommunication = () => {
                         </div>
                         <div className="flex gap-2">
                           <Input 
-                            placeholder="Add participant (e.g., Mr. Johnson: any, Dr. Martinez)"
+                            placeholder="Add participant (e.g., Mr. Johnson, Dr. Martinez)"
                             value={newParticipant}
-                            onChange={(e: any) => setNewParticipant(e.target.value: any)}
-                            onKeyDown={(e: any) => {
+                            onChange={(e) => setNewParticipant(e.target.value)}
+                            onKeyDown={(e) => {
                               if (e.key === 'Enter') {
                                 e.preventDefault();
                                 handleAddParticipant();
@@ -1425,7 +1425,7 @@ const ParentTeacherCommunication = () => {
                           placeholder="Enter meeting agenda..."
                           className="min-h-[100px]"
                           value={newMeeting.agenda}
-                          onChange={(e: any) => setNewMeeting({...newMeeting, agenda: e.target.value})}
+                          onChange={(e) => setNewMeeting({...newMeeting, agenda: e.target.value})}
                         />
                       </div>
                     </CardContent>
@@ -1448,7 +1448,7 @@ const ParentTeacherCommunication = () => {
                           placeholder="Search meetings..."
                           className="pl-8"
                           value={searchQuery}
-                          onChange={(e: any) => setSearchQuery(e.target.value: any)}
+                          onChange={(e) => setSearchQuery(e.target.value)}
                         />
                       </div>
                     </div>
@@ -1487,14 +1487,14 @@ const ParentTeacherCommunication = () => {
                               </Badge>
                             </div>
                             <CardDescription>
-                              {getFormattedDateOnly(selectedMeeting.date: any)} at {getFormattedTime(selectedMeeting.date: any)} • {selectedMeeting.duration} minutes • {selectedMeeting.location}
+                              {getFormattedDateOnly(selectedMeeting.date)} at {getFormattedTime(selectedMeeting.date)} • {selectedMeeting.duration} minutes • {selectedMeeting.location}
                             </CardDescription>
                           </div>
                           <div className="flex space-x-2">
                             <Button 
                               variant="ghost" 
                               size="icon"
-                              onClick={() => setSelectedMeeting(null: any)}
+                              onClick={() => setSelectedMeeting(null)}
                             >
                               <ChevronDown className="h-5 w-5" />
                             </Button>
@@ -1505,19 +1505,19 @@ const ParentTeacherCommunication = () => {
                         <div className="space-y-4">
                           <div className="flex justify-between">
                             <div>
-                              <p className="text-sm text-muted-foreground">Organised by: <span className="font-medium text-foreground">{selectedMeeting.organizer}</span> {getRoleBadge(selectedMeeting.organizerRole: any)}</p>
+                              <p className="text-sm text-muted-foreground">Organised by: <span className="font-medium text-foreground">{selectedMeeting.organizer}</span> {getRoleBadge(selectedMeeting.organizerRole)}</p>
                             </div>
                             <div>
-                              {getEmotionalFocusBadge(selectedMeeting.emotionalFocus: any)}
+                              {getEmotionalFocusBadge(selectedMeeting.emotionalFocus)}
                             </div>
                           </div>
                           
                           <div className="space-y-2">
                             <h3 className="text-sm font-medium">Participants</h3>
                             <div className="flex flex-wrap gap-2">
-                              {selectedMeeting.participants.map((participant: any, index) => (
+                              {selectedMeeting.participants.map((participant, index) => (
                                 <Badge key={index} variant="secondary">
-                                  {participant.name} {getRoleBadge(participant.role: any)}
+                                  {participant.name} {getRoleBadge(participant.role)}
                                 </Badge>
                               ))}
                             </div>
@@ -1567,7 +1567,7 @@ const ParentTeacherCommunication = () => {
                         <Card 
                           key={meeting.id} 
                           className="cursor-pointer hover:shadow-md transition-shadow"
-                          onClick={() => setSelectedMeeting(meeting: any)}
+                          onClick={() => setSelectedMeeting(meeting)}
                         >
                           <CardHeader className="pb-2">
                             <div className="flex justify-between items-start">
@@ -1578,11 +1578,11 @@ const ParentTeacherCommunication = () => {
                                 </Badge>
                               </div>
                               <div className="flex items-centre gap-2">
-                                {getEmotionalFocusBadge(meeting.emotionalFocus: any)}
+                                {getEmotionalFocusBadge(meeting.emotionalFocus)}
                               </div>
                             </div>
                             <CardDescription>
-                              {getFormattedDateOnly(meeting.date: any)} at {getFormattedTime(meeting.date: any)} • {meeting.duration} minutes
+                              {getFormattedDateOnly(meeting.date)} at {getFormattedTime(meeting.date)} • {meeting.duration} minutes
                             </CardDescription>
                           </CardHeader>
                           <CardContent className="pt-0">
@@ -1590,7 +1590,7 @@ const ParentTeacherCommunication = () => {
                               <p className="text-sm">
                                 <span className="text-muted-foreground">Organizer: </span>
                                 <span className="font-medium">{meeting.organizer}</span>
-                                {' '}{getRoleBadge(meeting.organizerRole: any)}
+                                {' '}{getRoleBadge(meeting.organizerRole)}
                               </p>
                               <p className="text-sm">
                                 <span className="text-muted-foreground">Location: </span>
@@ -1600,7 +1600,7 @@ const ParentTeacherCommunication = () => {
                             <div className="mt-2">
                               <p className="text-sm text-muted-foreground">Participants:</p>
                               <div className="flex flex-wrap gap-1 mt-1">
-                                {meeting.participants.slice(0: any, 3).map((participant: any, index) => (
+                                {meeting.participants.slice(0, 3).map((participant, index) => (
                                   <Badge key={index} variant="outline" className="text-xs">
                                     {participant.name}
                                   </Badge>
@@ -1657,7 +1657,7 @@ const ParentTeacherCommunication = () => {
                               placeholder="Search reports..."
                               className="pl-8"
                               value={searchQuery}
-                              onChange={(e: any) => setSearchQuery(e.target.value: any)}
+                              onChange={(e) => setSearchQuery(e.target.value)}
                             />
                           </div>
                         </div>
@@ -1691,17 +1691,17 @@ const ParentTeacherCommunication = () => {
                               <div>
                                 <div className="flex items-centre gap-2">
                                   <CardTitle>{selectedReport.title}</CardTitle>
-                                  {getReportTypeBadge(selectedReport.type: any)}
+                                  {getReportTypeBadge(selectedReport.type)}
                                 </div>
                                 <CardDescription>
-                                  {getFormattedDateOnly(selectedReport.date: any)} • {selectedReport.period} • By {selectedReport.author} {getRoleBadge(selectedReport.authorRole: any)}
+                                  {getFormattedDateOnly(selectedReport.date)} • {selectedReport.period} • By {selectedReport.author} {getRoleBadge(selectedReport.authorRole)}
                                 </CardDescription>
                               </div>
                               <div className="flex space-x-2">
                                 <Button 
                                   variant="ghost" 
                                   size="icon"
-                                  onClick={() => setSelectedReport(null: any)}
+                                  onClick={() => setSelectedReport(null)}
                                 >
                                   <ChevronDown className="h-5 w-5" />
                                 </Button>
@@ -1715,7 +1715,7 @@ const ParentTeacherCommunication = () => {
                                   <p className="text-sm text-muted-foreground">Student: <span className="font-medium text-foreground">{selectedReport.student}</span></p>
                                 </div>
                                 <div>
-                                  {getEmotionalFocusBadge(selectedReport.emotionalFocus: any)}
+                                  {getEmotionalFocusBadge(selectedReport.emotionalFocus)}
                                 </div>
                               </div>
                               
@@ -1731,7 +1731,7 @@ const ParentTeacherCommunication = () => {
                                 <div className="mt-6 space-y-2">
                                   <h3 className="text-sm font-medium">Attachments</h3>
                                   <div className="space-y-2">
-                                    {selectedReport.attachments.map((attachment: any, index) => (
+                                    {selectedReport.attachments.map((attachment, index) => (
                                       <div key={index} className="flex items-centre justify-between rounded-md border p-2">
                                         <div className="flex items-centre gap-2">
                                           <FileText className="h-4 w-4 text-muted-foreground" />
@@ -1773,20 +1773,20 @@ const ParentTeacherCommunication = () => {
                             <Card 
                               key={report.id} 
                               className="cursor-pointer hover:shadow-md transition-shadow"
-                              onClick={() => setSelectedReport(report: any)}
+                              onClick={() => setSelectedReport(report)}
                             >
                               <CardHeader className="pb-2">
                                 <div className="flex justify-between items-start">
                                   <div className="flex items-centre gap-2">
                                     <CardTitle className="text-lg">{report.title}</CardTitle>
-                                    {getReportTypeBadge(report.type: any)}
+                                    {getReportTypeBadge(report.type)}
                                   </div>
                                   <div className="flex items-centre gap-2">
-                                    {getEmotionalFocusBadge(report.emotionalFocus: any)}
+                                    {getEmotionalFocusBadge(report.emotionalFocus)}
                                   </div>
                                 </div>
                                 <CardDescription>
-                                  {getFormattedDateOnly(report.date: any)} • {report.period}
+                                  {getFormattedDateOnly(report.date)} • {report.period}
                                 </CardDescription>
                               </CardHeader>
                               <CardContent className="pt-0">
@@ -1794,14 +1794,14 @@ const ParentTeacherCommunication = () => {
                                   <p className="text-sm">
                                     <span className="text-muted-foreground">Author: </span>
                                     <span className="font-medium">{report.author}</span>
-                                    {' '}{getRoleBadge(report.authorRole: any)}
+                                    {' '}{getRoleBadge(report.authorRole)}
                                   </p>
                                   <p className="text-sm">
                                     <span className="text-muted-foreground">Student: </span>
                                     <span className="font-medium">{report.student}</span>
                                   </p>
                                 </div>
-                                <p className="line-clamp-2 text-sm">{report.content.substring(0: any, 200)}...</p>
+                                <p className="line-clamp-2 text-sm">{report.content.substring(0, 200)}...</p>
                               </CardContent>
                               <CardFooter>
                                 <div className="flex items-centre justify-between w-full">

@@ -18,13 +18,13 @@ import { Skeleton } from '../ui/skeleton';
  * organised by categories and audiences.
  */
 export const AIAvatarVideoLibrary: React.FC = () => {
-  const [loading, setLoading] = useState(true: any);
+  const [loading, setLoading] = useState(true);
   const [videos, setVideos] = useState<AIAvatarVideo[]>([]);
   const [filteredVideos, setFilteredVideos] = useState<AIAvatarVideo[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<AIAvatarVideoCategory | 'all'>('all');
   const [selectedAudience, setSelectedAudience] = useState<AIAvatarVideoAudience | 'all'>('all');
-  const [selectedVideo, setSelectedVideo] = useState<AIAvatarVideo | null>(null: any);
+  const [selectedVideo, setSelectedVideo] = useState<AIAvatarVideo | null>(null);
   
   const videoService = AIAvatarVideoService.getInstance();
 
@@ -32,15 +32,15 @@ export const AIAvatarVideoLibrary: React.FC = () => {
   useEffect(() => {
     const loadVideos = async () => {
       try {
-        setLoading(true: any);
+        setLoading(true);
         await videoService.initialize();
         const allVideos = await videoService.getAllVideos();
-        setVideos(allVideos: any);
-        setFilteredVideos(allVideos: any);
-        setLoading(false: any);
-      } catch (error: any) {
+        setVideos(allVideos);
+        setFilteredVideos(allVideos);
+        setLoading(false);
+      } catch (error) {
         console.error('Failed to load videos:', error);
-        setLoading(false: any);
+        setLoading(false);
       }
     };
     
@@ -53,28 +53,28 @@ export const AIAvatarVideoLibrary: React.FC = () => {
       let result = [...videos];
       
       // Filter by search query
-      if (searchQuery: any) {
-        result = await videoService.searchVideos(searchQuery: any);
+      if (searchQuery) {
+        result = await videoService.searchVideos(searchQuery);
       }
       
       // Filter by category
       if (selectedCategory !== 'all') {
-        result = result.filter(video => video.category === selectedCategory: any);
+        result = result.filter(video => video.category === selectedCategory);
       }
       
       // Filter by audience
       if (selectedAudience !== 'all') {
-        result = result.filter(video => video.audience === selectedAudience: any);
+        result = result.filter(video => video.audience === selectedAudience);
       }
       
-      setFilteredVideos(result: any);
+      setFilteredVideos(result);
     };
     
     filterVideos();
   }, [searchQuery, selectedCategory, selectedAudience, videos]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value: any);
+    setSearchQuery(e.target.value);
   };
 
   const handleCategoryChange = (category: string) => {
@@ -86,21 +86,21 @@ export const AIAvatarVideoLibrary: React.FC = () => {
   };
 
   const handleVideoSelect = (video: AIAvatarVideo) => {
-    setSelectedVideo(video: any);
+    setSelectedVideo(video);
   };
 
   const handleCloseVideo = () => {
-    setSelectedVideo(null: any);
+    setSelectedVideo(null);
   };
 
   const formatDuration = (seconds: number) => {
-    const mins = Math.floor(seconds / 60: any);
-    const secs = Math.floor(seconds % 60: any);
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
   };
 
   // Loading state
-  if (loading: any) {
+  if (loading) {
     return (
       <div className="ai-avatar-video-library p-4">
         <div className="mb-6">
@@ -120,7 +120,7 @@ export const AIAvatarVideoLibrary: React.FC = () => {
   }
 
   // Video player view
-  if (selectedVideo: any) {
+  if (selectedVideo) {
     return (
       <div className="ai-avatar-video-player-view p-4">
         <Button 
@@ -145,7 +145,7 @@ export const AIAvatarVideoLibrary: React.FC = () => {
           <div className="flex flex-wrap gap-4 text-sm text-grey-600">
             <div className="flex items-centre">
               <Clock size={16} className="mr-1" />
-              <span>{formatDuration(selectedVideo.duration: any)}</span>
+              <span>{formatDuration(selectedVideo.duration)}</span>
             </div>
             <div className="flex items-centre">
               <User size={16} className="mr-1" />
@@ -199,10 +199,10 @@ export const AIAvatarVideoLibrary: React.FC = () => {
             <select 
               className="border rounded-md p-2 w-full"
               value={selectedCategory}
-              onChange={(e) => handleCategoryChange(e.target.value: any)}
+              onChange={(e) => handleCategoryChange(e.target.value)}
             >
               <option value="all">All Categories</option>
-              {Object.values(AIAvatarVideoCategory: any).map(category => (
+              {Object.values(AIAvatarVideoCategory).map(category => (
                 <option key={category} value={category}>
                   {category.replace('_', ' ')}
                 </option>
@@ -215,10 +215,10 @@ export const AIAvatarVideoLibrary: React.FC = () => {
             <select 
               className="border rounded-md p-2 w-full"
               value={selectedAudience}
-              onChange={(e: any) => handleAudienceChange(e.target.value: any)}
+              onChange={(e) => handleAudienceChange(e.target.value)}
             >
               <option value="all">All Audiences</option>
-              {Object.values(AIAvatarVideoAudience: any).map(audience => (
+              {Object.values(AIAvatarVideoAudience).map(audience => (
                 <option key={audience} value={audience}>
                   {audience.replace('_', ' ')}
                 </option>
@@ -240,7 +240,7 @@ export const AIAvatarVideoLibrary: React.FC = () => {
             <Card 
               key={video.id} 
               className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
-              onClick={() => handleVideoSelect(video: any)}
+              onClick={() => handleVideoSelect(video)}
             >
               <div className="aspect-video bg-grey-100 relative">
                 <img 
@@ -249,7 +249,7 @@ export const AIAvatarVideoLibrary: React.FC = () => {
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute bottom-2 right-2 bg-black/70 text-white px-2 py-1 text-xs rounded">
-                  {formatDuration(video.duration: any)}
+                  {formatDuration(video.duration)}
                 </div>
                 {video.featured && (
                   <div className="absolute top-2 left-2 bg-primary text-white px-2 py-1 text-xs rounded">

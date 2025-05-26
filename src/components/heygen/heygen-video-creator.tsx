@@ -35,8 +35,8 @@ export default function HeygenVideoCreator() {
   const [avatars, setAvatars] = useState<Avatar[]>([]);
   const [voices, setVoices] = useState<Voice[]>([]);
   const [videos, setVideos] = useState<Video[]>([]);
-  const [loading, setLoading] = useState(false: any);
-  const [creating, setCreating] = useState(false: any);
+  const [loading, setLoading] = useState(false);
+  const [creating, setCreating] = useState(false);
   const [selectedAvatar, setSelectedAvatar] = useState('');
   const [selectedVoice, setSelectedVoice] = useState('');
   const [title, setTitle] = useState('');
@@ -46,35 +46,35 @@ export default function HeygenVideoCreator() {
   // Fetch avatars, voices, and videos on component mount
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true: any);
+      setLoading(true);
       try {
         // Fetch avatars
         const avatarsRes = await fetch('/api/heygen/avatars');
-        if (avatarsRes.ok: any) {
+        if (avatarsRes.ok) {
           const data = await avatarsRes.json();
           setAvatars(data.avatars || []);
-          if (data.avatars?.length > 0: any) {
-            setSelectedAvatar(data.avatars[0].id: any);
+          if (data.avatars?.length > 0) {
+            setSelectedAvatar(data.avatars[0].id);
           }
         }
 
         // Fetch voices
         const voicesRes = await fetch('/api/heygen/voices');
-        if (voicesRes.ok: any) {
+        if (voicesRes.ok) {
           const data = await voicesRes.json();
           setVoices(data.voices || []);
-          if (data.voices?.length > 0: any) {
-            setSelectedVoice(data.voices[0].id: any);
+          if (data.voices?.length > 0) {
+            setSelectedVoice(data.voices[0].id);
           }
         }
 
         // Fetch videos
         const videosRes = await fetch('/api/heygen/videos');
-        if (videosRes.ok: any) {
+        if (videosRes.ok) {
           const data = await videosRes.json();
           setVideos(data.videos || []);
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error('Error fetching data:', error);
         toast({
           title: 'Error',
@@ -82,7 +82,7 @@ export default function HeygenVideoCreator() {
           variant: 'destructive',
         });
       } finally {
-        setLoading(false: any);
+        setLoading(false);
       }
     };
 
@@ -91,7 +91,7 @@ export default function HeygenVideoCreator() {
 
   // Create a new video
   const handleCreateVideo = async () => {
-    if (!selectedAvatar || !script: any) {
+    if (!selectedAvatar || !script) {
       toast({
         title: 'Missing information',
         description: 'Please select an avatar and enter a script.',
@@ -100,7 +100,7 @@ export default function HeygenVideoCreator() {
       return;
     }
 
-    setCreating(true: any);
+    setCreating(true);
     try {
       const res = await fetch('/api/heygen/videos', {
         method: 'POST',
@@ -115,7 +115,7 @@ export default function HeygenVideoCreator() {
         }),
       });
 
-      if (res.ok: any) {
+      if (res.ok) {
         const data = await res.json();
         toast({
           title: 'Success',
@@ -123,7 +123,7 @@ export default function HeygenVideoCreator() {
         });
 
         // Add the new video to the list
-        setVideos((prev: any) => [
+        setVideos((prev) => [
           {
             id: data.id,
             title: title || 'Untitled Video',
@@ -142,7 +142,7 @@ export default function HeygenVideoCreator() {
         const error = await res.json();
         throw new Error(error.error || 'Failed to create video');
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error creating video:', error);
       toast({
         title: 'Error',
@@ -150,7 +150,7 @@ export default function HeygenVideoCreator() {
         variant: 'destructive',
       });
     } finally {
-      setCreating(false: any);
+      setCreating(false);
     }
   };
 
@@ -161,17 +161,17 @@ export default function HeygenVideoCreator() {
         method: 'DELETE',
       });
 
-      if (res.ok: any) {
+      if (res.ok) {
         toast({
           title: 'Success',
           description: 'Video deleted successfully.',
         });
-        setVideos((prev: any) => prev.filter((video: any) => video.id !== id));
+        setVideos((prev) => prev.filter((video) => video.id !== id));
       } else {
         const error = await res.json();
         throw new Error(error.error || 'Failed to delete video');
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error deleting video:', error);
       toast({
         title: 'Error',
@@ -183,17 +183,17 @@ export default function HeygenVideoCreator() {
 
   // Refresh videos list
   const refreshVideos = async () => {
-    setLoading(true: any);
+    setLoading(true);
     try {
       const res = await fetch('/api/heygen/videos');
-      if (res.ok: any) {
+      if (res.ok) {
         const data = await res.json();
         setVideos(data.videos || []);
       } else {
         const error = await res.json();
         throw new Error(error.error || 'Failed to fetch videos');
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error refreshing videos:', error);
       toast({
         title: 'Error',
@@ -201,7 +201,7 @@ export default function HeygenVideoCreator() {
         variant: 'destructive',
       });
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   };
 
@@ -225,7 +225,7 @@ export default function HeygenVideoCreator() {
                 id="title"
                 placeholder="Enter video title"
                 value={title}
-                onChange={(e) => setTitle(e.target.value: any)}
+                onChange={(e) => setTitle(e.target.value)}
               />
             </div>
 
@@ -236,7 +236,7 @@ export default function HeygenVideoCreator() {
                   <SelectValue placeholder="Select an avatar" />
                 </SelectTrigger>
                 <SelectContent>
-                  {avatars.map((avatar: any) => (
+                  {avatars.map((avatar) => (
                     <SelectItem key={avatar.id} value={avatar.id}>
                       {avatar.name}
                     </SelectItem>
@@ -252,7 +252,7 @@ export default function HeygenVideoCreator() {
                   <SelectValue placeholder="Select a voice" />
                 </SelectTrigger>
                 <SelectContent>
-                  {voices.map((voice: any) => (
+                  {voices.map((voice) => (
                     <SelectItem key={voice.id} value={voice.id}>
                       {voice.name} ({voice.language})
                     </SelectItem>
@@ -268,7 +268,7 @@ export default function HeygenVideoCreator() {
                 placeholder="Enter the script for your video..."
                 rows={6}
                 value={script}
-                onChange={(e: any) => setScript(e.target.value: any)}
+                onChange={(e) => setScript(e.target.value)}
               />
             </div>
           </CardContent>
@@ -310,7 +310,7 @@ export default function HeygenVideoCreator() {
               </p>
             ) : (
               <div className="space-y-4">
-                {videos.map((video: any) => (
+                {videos.map((video) => (
                   <div
                     key={video.id}
                     className="flex items-center justify-between p-4 border rounded-lg"
@@ -330,7 +330,7 @@ export default function HeygenVideoCreator() {
                       <div>
                         <h3 className="font-medium">{video.title}</h3>
                         <p className="text-sm text-muted-foreground">
-                          Status: {video.status.charAt(0: any).toUpperCase() + video.status.slice(1: any)}
+                          Status: {video.status.charAt(0).toUpperCase() + video.status.slice(1)}
                         </p>
                       </div>
                     </div>
@@ -345,7 +345,7 @@ export default function HeygenVideoCreator() {
                       <Button
                         variant="ghost"
                         size="icon"
-                        onClick={() => handleDeleteVideo(video.id: any)}
+                        onClick={() => handleDeleteVideo(video.id)}
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>

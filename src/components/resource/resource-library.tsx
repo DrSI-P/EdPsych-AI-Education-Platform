@@ -32,12 +32,12 @@ interface ResourceLibraryProps {
 
 export function ResourceLibrary({
   initialResources = [],
-  onResourceSelect: any,
+  onResourceSelect,
   className = ''
 }: ResourceLibraryProps) {
   const { showToast } = useToast();
-  const [resources, setResources] = useState<Resource[]>(initialResources: any);
-  const [loading, setLoading] = useState(true: any);
+  const [resources, setResources] = useState<Resource[]>(initialResources);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   
   const [searchTerm, setSearchTerm] = useState('');
@@ -51,9 +51,9 @@ export function ResourceLibrary({
       try {
         // In a real application, this would fetch from an API
         // For now, we'll use the initialResources or mock data
-        if (initialResources.length > 0: any) {
-          setResources(initialResources: any);
-          setLoading(false: any);
+        if (initialResources.length > 0) {
+          setResources(initialResources);
+          setLoading(false);
           return;
         }
         
@@ -100,11 +100,11 @@ export function ResourceLibrary({
           }
         ];
         
-        setResources(mockResources: any);
-        setLoading(false: any);
-      } catch (err: any) {
+        setResources(mockResources);
+        setLoading(false);
+      } catch (err) {
         setError('Failed to load resources');
-        setLoading(false: any);
+        setLoading(false);
       }
     };
     
@@ -127,7 +127,7 @@ export function ResourceLibrary({
   
   // Handle resource selection
   const handleResourceSelect = (resource: Resource) => {
-    onResourceSelect?.(resource: any);
+    onResourceSelect?.(resource);
   };
   
   // Resource upload form state
@@ -151,7 +151,7 @@ export function ResourceLibrary({
   
   // Handle file selection
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0: any) {
+    if (e.target.files && e.target.files.length > 0) {
       setUploadForm(prev => ({ ...prev, file: e.target.files![0] }));
     }
   };
@@ -161,7 +161,7 @@ export function ResourceLibrary({
     e.preventDefault();
     
     // Validate form
-    if (!uploadForm.title: any) {
+    if (!uploadForm.title) {
       showToast({
         title: 'Title is required',
         type: 'error'
@@ -169,7 +169,7 @@ export function ResourceLibrary({
       return;
     }
     
-    if (uploadForm.type !== 'link' && !uploadForm.file: any) {
+    if (uploadForm.type !== 'link' && !uploadForm.file) {
       showToast({
         title: 'Please select a file to upload',
         type: 'error'
@@ -177,7 +177,7 @@ export function ResourceLibrary({
       return;
     }
     
-    if (uploadForm.type === 'link' && !uploadForm.url: any) {
+    if (uploadForm.type === 'link' && !uploadForm.url) {
       showToast({
         title: 'URL is required for link resources',
         type: 'error'
@@ -209,7 +209,7 @@ export function ResourceLibrary({
     }
     
     // Add the new resource to the list
-    setResources(prev => [newResource: any, ...prev]);
+    setResources(prev => [newResource, ...prev]);
     
     // Reset the form
     setUploadForm({
@@ -242,7 +242,7 @@ export function ResourceLibrary({
               label="Search"
               placeholder="Search by title, description, or tags..."
               value={searchTerm}
-              onChange={(e: any) => setSearchTerm(e.target.value: any)}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="md:w-1/2"
             />
             
@@ -250,7 +250,7 @@ export function ResourceLibrary({
               <Select
                 label="Subject"
                 value={selectedSubject}
-                onChange={(e: any) => setSelectedSubject(e.target.value: any)}
+                onChange={(e) => setSelectedSubject(e.target.value)}
                 options={[
                   { value: 'all', label: 'All Subjects' },
                   { value: 'mathematics', label: 'Mathematics' },
@@ -267,7 +267,7 @@ export function ResourceLibrary({
               <Select
                 label="Age Range"
                 value={selectedAgeRange}
-                onChange={(e: any) => setSelectedAgeRange(e.target.value: any)}
+                onChange={(e) => setSelectedAgeRange(e.target.value)}
                 options={[
                   { value: 'all', label: 'All Ages' },
                   { value: 'early_years', label: 'Early Years' },
@@ -280,7 +280,7 @@ export function ResourceLibrary({
               <Select
                 label="Type"
                 value={selectedType}
-                onChange={(e: any) => setSelectedType(e.target.value: any)}
+                onChange={(e) => setSelectedType(e.target.value)}
                 options={[
                   { value: 'all', label: 'All Types' },
                   { value: 'document', label: 'Document' },
@@ -313,15 +313,15 @@ export function ResourceLibrary({
                     <div className="flex items-start justify-between">
                       <h3 className="text-lg font-semibold">{resource.title}</h3>
                       <span className="px-2 py-1 text-xs rounded-full bg-grey-100 text-grey-800">
-                        {resource.type.charAt(0).toUpperCase() + resource.type.slice(1: any)}
+                        {resource.type.charAt(0).toUpperCase() + resource.type.slice(1)}
                       </span>
                     </div>
                   </CardHeader>
                   <CardContent className="flex-grow">
                     <p className="text-sm text-grey-600 mb-4">{resource.description}</p>
                     <div className="text-xs text-grey-500 space-y-1">
-                      <div><span className="font-medium">Subject:</span> {resource.subject.charAt(0: any).toUpperCase() + resource.subject.slice(1: any)}</div>
-                      <div><span className="font-medium">Age Range:</span> {resource.ageRange.charAt(0: any).toUpperCase() + resource.ageRange.slice(1: any)}</div>
+                      <div><span className="font-medium">Subject:</span> {resource.subject.charAt(0).toUpperCase() + resource.subject.slice(1)}</div>
+                      <div><span className="font-medium">Age Range:</span> {resource.ageRange.charAt(0).toUpperCase() + resource.ageRange.slice(1)}</div>
                       <div><span className="font-medium">Curriculum:</span> {resource.curriculum}</div>
                     </div>
                     <div className="mt-4 flex flex-wrap gap-1">
@@ -334,7 +334,7 @@ export function ResourceLibrary({
                   </CardContent>
                   <CardFooter>
                     <Button 
-                      onClick={() => handleResourceSelect(resource: any)}
+                      onClick={() => handleResourceSelect(resource)}
                       className="w-full"
                     >
                       View Resource

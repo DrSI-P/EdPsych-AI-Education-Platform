@@ -247,7 +247,7 @@ const CommentModerationDashboard = () => {
   };
   
   // Handle comment approval
-  const handleApprove = (comment: any) => {
+  const handleApprove = (comment) => {
     setIsProcessing(true);
     // Simulate API call
     setTimeout(() => {
@@ -262,7 +262,7 @@ const CommentModerationDashboard = () => {
   };
   
   // Open rejection dialog
-  const openRejectionDialog = (comment: any) => {
+  const openRejectionDialog = (comment) => {
     setSelectedComment(comment);
     setRejectionReason("");
     setShowRejectionDialog(true);
@@ -287,7 +287,7 @@ const CommentModerationDashboard = () => {
   };
   
   // Handle comment flagging for review
-  const handleFlag = (comment: any) => {
+  const handleFlag = (comment) => {
     setIsProcessing(true);
     // Simulate API call
     setTimeout(() => {
@@ -305,7 +305,7 @@ const CommentModerationDashboard = () => {
   };
   
   // Handle comment deletion
-  const handleDelete = (comment: any) => {
+  const handleDelete = (comment) => {
     setIsProcessing(true);
     // Simulate API call
     setTimeout(() => {
@@ -323,7 +323,7 @@ const CommentModerationDashboard = () => {
   const renderCommentList = () => (
     <div className="space-y-4">
       {filteredComments.length > 0 ? (
-        filteredComments.map((comment: any) => (
+        filteredComments.map((comment) => (
           <Card key={comment.id} className={comment.flags > 0 ? "border-yellow-200 bg-yellow-50" : ""}>
             <CardHeader className="pb-2">
               <div className="flex justify-between items-start">
@@ -369,7 +369,7 @@ const CommentModerationDashboard = () => {
                     Reported Content
                   </h4>
                   <div className="mt-2 space-y-2">
-                    {comment.reports.map((report: any) => (
+                    {comment.reports.map((report) => (
                       <div key={report.id} className="text-xs text-red-700">
                         <p className="font-medium">Reason: {report.reason}</p>
                         {report.details && <p>Details: {report.details}</p>}

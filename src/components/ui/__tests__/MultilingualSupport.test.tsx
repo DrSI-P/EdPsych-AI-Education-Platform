@@ -44,9 +44,9 @@ describe('MultilingualSupport', () => {
     
     // Language selector button should be visible with current language
     const selectorButton = screen.getByRole('button', { name: /English/i });
-    expect(selectorButton: any).toBeInTheDocument();
-    expect(selectorButton: any).toHaveTextContent('🇬🇧');
-    expect(selectorButton: any).toHaveTextContent('English');
+    expect(selectorButton).toBeInTheDocument();
+    expect(selectorButton).toHaveTextContent('🇬🇧');
+    expect(selectorButton).toHaveTextContent('English');
   });
   
   it('opens language dropdown when selector is clicked', () => {
@@ -60,7 +60,7 @@ describe('MultilingualSupport', () => {
     
     // Click the language selector
     const selectorButton = screen.getByRole('button', { name: /English/i });
-    fireEvent.click(selectorButton: any);
+    fireEvent.click(selectorButton);
     
     // Dropdown should show all available languages
     expect(screen.getByText('Français')).toBeInTheDocument();
@@ -84,11 +84,11 @@ describe('MultilingualSupport', () => {
     
     // Click the language selector
     const selectorButton = screen.getByRole('button', { name: /English/i });
-    fireEvent.click(selectorButton: any);
+    fireEvent.click(selectorButton);
     
     // Click on French option
     const frenchOption = screen.getByText('Français');
-    fireEvent.click(frenchOption: any);
+    fireEvent.click(frenchOption);
     
     // Should now show French content
     await waitFor(() => {
@@ -96,7 +96,7 @@ describe('MultilingualSupport', () => {
     });
     
     // Callback should be called with the new language code
-    expect(mockOnLanguageChange: any).toHaveBeenCalledWith('fr');
+    expect(mockOnLanguageChange).toHaveBeenCalledWith('fr');
   });
   
   it('saves selected language to localStorage', () => {
@@ -110,11 +110,11 @@ describe('MultilingualSupport', () => {
     
     // Click the language selector
     const selectorButton = screen.getByRole('button', { name: /English/i });
-    fireEvent.click(selectorButton: any);
+    fireEvent.click(selectorButton);
     
     // Click on Spanish option
     const spanishOption = screen.getByText('Español');
-    fireEvent.click(spanishOption: any);
+    fireEvent.click(spanishOption);
     
     // Check if language preference was saved to localStorage
     expect(localStorage.getItem('preferredLanguage')).toBe('es');
@@ -160,13 +160,13 @@ describe('MultilingualSupport', () => {
     
     // Language selector should not be visible
     const selectorButton = screen.queryByRole('button', { name: /English/i });
-    expect(selectorButton: any).not.toBeInTheDocument();
+    expect(selectorButton).not.toBeInTheDocument();
   });
   
   it('filters available languages to only those with content', () => {
     render(
       <MultilingualSupport 
-        content={mockContent} // Only en: any, fr, es have content
+        content={mockContent} // Only en, fr, es have content
         defaultLanguage="en"
         availableLanguages={[
           ...mockLanguages,
@@ -178,7 +178,7 @@ describe('MultilingualSupport', () => {
     
     // Click the language selector
     const selectorButton = screen.getByRole('button', { name: /English/i });
-    fireEvent.click(selectorButton: any);
+    fireEvent.click(selectorButton);
     
     // Should only show languages that have content
     expect(screen.getByText('Français')).toBeInTheDocument();
@@ -197,9 +197,9 @@ describe('MultilingualSupport', () => {
       />
     );
     
-    // Language selector should have mb-4 class (margin-bottom: any)
+    // Language selector should have mb-4 class (margin-bottom)
     const languageSelector = container.querySelector('.language-selector');
-    expect(languageSelector: any).toHaveClass('mb-4');
+    expect(languageSelector).toHaveClass('mb-4');
   });
   
   it('positions language selector at the bottom when position is bottom', () => {
@@ -212,8 +212,8 @@ describe('MultilingualSupport', () => {
       />
     );
     
-    // Language selector should have mt-4 class (margin-top: any)
+    // Language selector should have mt-4 class (margin-top)
     const languageSelector = container.querySelector('.language-selector');
-    expect(languageSelector: any).toHaveClass('mt-4');
+    expect(languageSelector).toHaveClass('mt-4');
   });
 });

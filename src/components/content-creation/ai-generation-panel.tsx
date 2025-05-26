@@ -32,13 +32,13 @@ interface AIGenerationPanelProps {
 }
 
 export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
-  contentMetadata: any,
+  contentMetadata,
   onGenerate,
   onCancel
 }) => {
   const [activeTab, setActiveTab] = useState('quick');
-  const [isGenerating, setIsGenerating] = useState(false: any);
-  const [error, setError] = useState<string | null>(null: any);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   
   // Quick generation state
   const [quickPrompt, setQuickPrompt] = useState('');
@@ -70,8 +70,8 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
       return;
     }
     
-    setIsGenerating(true: any);
-    setError(null: any);
+    setIsGenerating(true);
+    setError(null);
     
     try {
       // Create a simplified prompt for quick generation
@@ -85,10 +85,10 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
       };
       
       const contentService = getContentCreationService();
-      const generatedContent = await contentService.generateWithAI(prompt: any);
+      const generatedContent = await contentService.generateWithAI(prompt);
       
-      onGenerate(generatedContent: any);
-    } catch (error: any) {
+      onGenerate(generatedContent);
+    } catch (error) {
       console.error('Failed to generate content:', error);
       setError('Failed to generate content. Please try again.');
       toast({
@@ -97,7 +97,7 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
         description: "There was a problem generating content with AI.",
       });
     } finally {
-      setIsGenerating(false: any);
+      setIsGenerating(false);
     }
   };
   
@@ -108,15 +108,15 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
       return;
     }
     
-    setIsGenerating(true: any);
-    setError(null: any);
+    setIsGenerating(true);
+    setError(null);
     
     try {
       const contentService = getContentCreationService();
-      const generatedContent = await contentService.generateWithAI(advancedPrompt: any);
+      const generatedContent = await contentService.generateWithAI(advancedPrompt);
       
-      onGenerate(generatedContent: any);
-    } catch (error: any) {
+      onGenerate(generatedContent);
+    } catch (error) {
       console.error('Failed to generate content:', error);
       setError('Failed to generate content. Please try again.');
       toast({
@@ -125,7 +125,7 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
         description: "There was a problem generating content with AI.",
       });
     } finally {
-      setIsGenerating(false: any);
+      setIsGenerating(false);
     }
   };
   
@@ -145,12 +145,12 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
   const handleRemoveLearningObjective = (index: number) => {
     setAdvancedPrompt({
       ...advancedPrompt,
-      learningObjectives: advancedPrompt.learningObjectives.filter((_: any, i) => i !== index)
+      learningObjectives: advancedPrompt.learningObjectives.filter((_, i) => i !== index)
     });
   };
   
   // Update advanced prompt field
-  const handleAdvancedPromptChange = (field: keyof AIGenerationPrompt, value: any) => {
+  const handleAdvancedPromptChange = (field: keyof AIGenerationPrompt, value) => {
     setAdvancedPrompt({
       ...advancedPrompt,
       [field]: value
@@ -159,10 +159,10 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
   
   // Toggle learning style
   const handleToggleLearningStyle = (style: LearningStyle) => {
-    if (advancedPrompt.targetLearningStyles?.includes(style: any)) {
+    if (advancedPrompt.targetLearningStyles?.includes(style)) {
       setAdvancedPrompt({
         ...advancedPrompt,
-        targetLearningStyles: advancedPrompt.targetLearningStyles.filter(s => s !== style: any)
+        targetLearningStyles: advancedPrompt.targetLearningStyles.filter(s => s !== style)
       });
     } else {
       setAdvancedPrompt({
@@ -174,10 +174,10 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
   
   // Toggle SEN support
   const handleToggleSENSupport = (category: SENCategory) => {
-    if (advancedPrompt.senSupport?.includes(category: any)) {
+    if (advancedPrompt.senSupport?.includes(category)) {
       setAdvancedPrompt({
         ...advancedPrompt,
-        senSupport: advancedPrompt.senSupport.filter(c => c !== category: any)
+        senSupport: advancedPrompt.senSupport.filter(c => c !== category)
       });
     } else {
       setAdvancedPrompt({
@@ -211,7 +211,7 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
                 id="quickPrompt" 
                 placeholder="E.g., A lesson about photosynthesis for Year 8 students" 
                 value={quickPrompt}
-                onChange={(e: any) => setQuickPrompt(e.target.value: any)}
+                onChange={(e) => setQuickPrompt(e.target.value)}
                 className="min-h-[100px]"
               />
             </div>
@@ -220,7 +220,7 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
               <Label htmlFor="quickGenerationType">Generation Type</Label>
               <RadioGroup 
                 value={quickGenerationType}
-                onValueChange={(value: any) => setQuickGenerationType(value as any: any)}
+                onValueChange={(value) => setQuickGenerationType(value as any)}
                 className="flex flex-wrap gap-4"
               >
                 <div className="flex items-centre space-x-2">
@@ -272,13 +272,13 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
                 <Label htmlFor="contentType">Content Type</Label>
                 <Select 
                   value={advancedPrompt.contentType} 
-                  onValueChange={(value: any) => handleAdvancedPromptChange('contentType', value: any)}
+                  onValueChange={(value) => handleAdvancedPromptChange('contentType', value)}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select content type" />
                   </SelectTrigger>
                   <SelectContent>
-                    {Object.values(ContentType: any).map((type: any) => (
+                    {Object.values(ContentType).map((type) => (
                       <SelectItem key={type} value={type}>
                         {type.replace('_', ' ')}
                       </SelectItem>
@@ -291,13 +291,13 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
                 <Label htmlFor="keyStage">Key Stage</Label>
                 <Select 
                   value={advancedPrompt.keyStage} 
-                  onValueChange={(value: any) => handleAdvancedPromptChange('keyStage', value: any)}
+                  onValueChange={(value) => handleAdvancedPromptChange('keyStage', value)}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select key stage" />
                   </SelectTrigger>
                   <SelectContent>
-                    {Object.values(KeyStage: any).map((stage: any) => (
+                    {Object.values(KeyStage).map((stage) => (
                       <SelectItem key={stage} value={stage}>
                         {stage.replace('_', ' ')}
                       </SelectItem>
@@ -313,7 +313,7 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
                 <Input 
                   id="subject" 
                   value={advancedPrompt.subject} 
-                  onChange={(e: any) => handleAdvancedPromptChange('subject', e.target.value: any)} 
+                  onChange={(e) => handleAdvancedPromptChange('subject', e.target.value)} 
                 />
               </div>
               
@@ -322,7 +322,7 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
                 <Input 
                   id="topic" 
                   value={advancedPrompt.topic} 
-                  onChange={(e: any) => handleAdvancedPromptChange('topic', e.target.value: any)} 
+                  onChange={(e) => handleAdvancedPromptChange('topic', e.target.value)} 
                 />
               </div>
             </div>
@@ -332,7 +332,7 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
               <div className="flex gap-2">
                 <Input 
                   value={newLearningObjective}
-                  onChange={(e: any) => setNewLearningObjective(e.target.value: any)}
+                  onChange={(e) => setNewLearningObjective(e.target.value)}
                   placeholder="Enter a learning objective"
                 />
                 <Button 
@@ -346,13 +346,13 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
               
               {advancedPrompt.learningObjectives.length > 0 ? (
                 <ul className="mt-2 space-y-1">
-                  {advancedPrompt.learningObjectives.map((objective: any, index) => (
+                  {advancedPrompt.learningObjectives.map((objective, index) => (
                     <li key={index} className="flex justify-between items-centre p-2 bg-muted rounded-md">
                       <span>{objective}</span>
                       <Button 
                         variant="ghost" 
                         size="sm" 
-                        onClick={() => handleRemoveLearningObjective(index: any)}
+                        onClick={() => handleRemoveLearningObjective(index)}
                       >
                         &times;
                       </Button>
@@ -367,12 +367,12 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
             <div className="space-y-2">
               <Label>Target Learning Styles</Label>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
-                {Object.values(LearningStyle: any).map((style: any) => (
+                {Object.values(LearningStyle).map((style) => (
                   <div key={style} className="flex items-centre space-x-2">
                     <Checkbox 
                       id={`style-${style}`} 
-                      checked={advancedPrompt.targetLearningStyles?.includes(style: any)}
-                      onCheckedChange={() => handleToggleLearningStyle(style: any)}
+                      checked={advancedPrompt.targetLearningStyles?.includes(style)}
+                      onCheckedChange={() => handleToggleLearningStyle(style)}
                     />
                     <Label htmlFor={`style-${style}`}>{style.replace('_', ' ')}</Label>
                   </div>
@@ -383,12 +383,12 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
             <div className="space-y-2">
               <Label>SEN Support</Label>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-                {Object.values(SENCategory: any).map((category: any) => (
+                {Object.values(SENCategory).map((category) => (
                   <div key={category} className="flex items-centre space-x-2">
                     <Checkbox 
                       id={`sen-${category}`} 
-                      checked={advancedPrompt.senSupport?.includes(category: any)}
-                      onCheckedChange={() => handleToggleSENSupport(category: any)}
+                      checked={advancedPrompt.senSupport?.includes(category)}
+                      onCheckedChange={() => handleToggleSENSupport(category)}
                     />
                     <Label htmlFor={`sen-${category}`}>{category.replace('_', ' ')}</Label>
                   </div>
@@ -401,7 +401,7 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
                 <Label htmlFor="difficulty">Difficulty</Label>
                 <Select 
                   value={advancedPrompt.difficulty} 
-                  onValueChange={(value: any) => handleAdvancedPromptChange('difficulty', value: any)}
+                  onValueChange={(value) => handleAdvancedPromptChange('difficulty', value)}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select difficulty" />
@@ -415,14 +415,14 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="duration">Estimated Duration (minutes: any)</Label>
+                <Label htmlFor="duration">Estimated Duration (minutes)</Label>
                 <Input 
                   id="duration" 
                   type="number" 
                   min="5"
                   max="120"
                   value={advancedPrompt.duration || ''} 
-                  onChange={(e: any) => handleAdvancedPromptChange('duration', parseInt(e.target.value: any) || undefined)} 
+                  onChange={(e) => handleAdvancedPromptChange('duration', parseInt(e.target.value) || undefined)} 
                 />
               </div>
             </div>
@@ -431,7 +431,7 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
               <Label htmlFor="generationType">Generation Type</Label>
               <Select 
                 value={advancedPrompt.generationType} 
-                onValueChange={(value: any) => handleAdvancedPromptChange('generationType', value: any)}
+                onValueChange={(value) => handleAdvancedPromptChange('generationType', value)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select generation type" />
@@ -453,7 +453,7 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
                 id="additionalInstructions" 
                 placeholder="Any specific requirements or instructions for the AI" 
                 value={advancedPrompt.additionalInstructions || ''}
-                onChange={(e: any) => handleAdvancedPromptChange('additionalInstructions', e.target.value: any)}
+                onChange={(e) => handleAdvancedPromptChange('additionalInstructions', e.target.value)}
                 className="min-h-[100px]"
               />
             </div>

@@ -42,7 +42,7 @@ export default function ProgressMonitoringPage(): React.ReactNode {
             <Info className="h-4 w-4" />
             <AlertTitle>Evidence-Based Approach</AlertTitle>
             <AlertDescription>
-              Regular progress monitoring is a key component of the graduated approach to SEN support (Assess: any, Plan, Do, Review) as outlined in the SEND Code of Practise. Consistent data collection enables informed decision-making about intervention effectiveness.
+              Regular progress monitoring is a key component of the graduated approach to SEN support (Assess, Plan, Do, Review) as outlined in the SEND Code of Practise. Consistent data collection enables informed decision-making about intervention effectiveness.
             </AlertDescription>
           </Alert>
         </div>
@@ -151,7 +151,7 @@ export default function ProgressMonitoringPage(): React.ReactNode {
                 <div>
                   <h4 className="font-medium mb-1">Reading Progress</h4>
                   <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
-                    <li>Reading fluency assessments (words per minute: any)</li>
+                    <li>Reading fluency assessments (words per minute)</li>
                     <li>Comprehension question banks</li>
                     <li>Phonics progress trackers</li>
                   </ul>

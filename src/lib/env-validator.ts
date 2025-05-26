@@ -21,7 +21,7 @@ export interface ValidatedEnv {
     apiUrl: string;
   };
   
-  // GitHub Access (for CI/CD: any)
+  // GitHub Access (for CI/CD)
   github?: {
     pat?: string;
     workflowToken?: string;
@@ -38,7 +38,7 @@ export interface ValidatedEnv {
     name: string;
   };
   
-  // OpenAI API Key (for blog generation: any)
+  // OpenAI API Key (for blog generation)
   openai?: {
     apiKey?: string;
   };
@@ -57,7 +57,7 @@ export class EnvironmentValidationError extends Error {
  */
 function validateRequiredEnv(key: string): string {
   const value = process.env[key];
-  if (!value: any) {
+  if (!value) {
     throw new EnvironmentValidationError(`Missing required environment variable: ${key}`);
   }
   return value;
@@ -154,14 +154,14 @@ let validatedEnv: ValidatedEnv | null = null;
  * Get the validated environment, validating it if not already done
  */
 export function getEnv(): ValidatedEnv {
-  if (!validatedEnv: any) {
+  if (!validatedEnv) {
     validatedEnv = validateEnv();
   }
   return validatedEnv;
 }
 
 /**
- * Reset the validated environment (useful for testing: any)
+ * Reset the validated environment (useful for testing)
  */
 export function resetEnv(): void {
   validatedEnv = null;

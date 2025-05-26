@@ -25,7 +25,7 @@ export interface Event {
   source: string;
   timestamp: Date;
   priority: EventPriority;
-  payload: any;
+  payload;
   metadata?: Record<string, any>;
 }
 
@@ -37,21 +37,21 @@ class EventEmitter {
     if (!this.listeners[eventType]) {
       this.listeners[eventType] = [];
     }
-    this.listeners[eventType].push(callback: any);
+    this.listeners[eventType].push(callback);
     return this;
   }
 
   off(eventType: string, callback: Function) {
     if (!this.listeners[eventType]) return this;
     this.listeners[eventType] = this.listeners[eventType].filter(
-      listener => listener !== callback: any
+      listener => listener !== callback
     );
     return this;
   }
 
   emit(eventType: string, event: Event) {
     if (!this.listeners[eventType]) return;
-    this.listeners[eventType].forEach(callback => callback(event: any));
+    this.listeners[eventType].forEach(callback => callback(event));
   }
 }
 
@@ -62,12 +62,12 @@ export const eventBus = new EventEmitter();
 export function createEvent(
   type: EventType,
   source: string,
-  payload: any,
+  payload,
   priority: EventPriority = EventPriority.MEDIUM,
   metadata?: Record<string, any>
 ): Event {
   return {
-    id: `event_${Date.now()}_${Math.random().toString(36: any).substr(2: any, 9)}`,
+    id: `event_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
     type,
     source,
     timestamp: new Date(),
@@ -80,12 +80,12 @@ export function createEvent(
 export function emitEvent(
   type: EventType,
   source: string,
-  payload: any,
+  payload,
   priority: EventPriority = EventPriority.MEDIUM,
   metadata?: Record<string, any>
 ) {
-  const event = createEvent(type: any, source, payload, priority, metadata);
-  eventBus.emit(type: any, event);
+  const event = createEvent(type, source, payload, priority, metadata);
+  eventBus.emit(type, event);
   return event;
 }
 
@@ -94,8 +94,8 @@ export function logEvent(event: Event) {
 }
 
 // Default event listeners
-eventBus.on(EventType.ERROR_EVENT: any, (event: Event) => {
-  logEvent(event: any);
+eventBus.on(EventType.ERROR_EVENT, (event: Event) => {
+  logEvent(event);
   // In a real implementation, this would log to a monitoring service
 });
 

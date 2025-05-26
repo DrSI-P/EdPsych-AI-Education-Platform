@@ -7,7 +7,7 @@ interface ContainerProps {
 }
 
 export function Container({
-  children: any,
+  children,
   className = '',
   as: Component = 'div',
 }: ContainerProps) {

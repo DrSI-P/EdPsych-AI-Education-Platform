@@ -56,8 +56,8 @@ describe('ProgressTracking', () => {
     expect(screen.getByText('Completed Objective')).toBeInTheDocument();
     
     // Check descriptions
-    expect(screen.getByText('Understand components: any, props, and state')).toBeInTheDocument();
-    expect(screen.getByText('Learn types: any, interfaces, and generics')).toBeInTheDocument();
+    expect(screen.getByText('Understand components, props, and state')).toBeInTheDocument();
+    expect(screen.getByText('Learn types, interfaces, and generics')).toBeInTheDocument();
     expect(screen.getByText('This one is already done')).toBeInTheDocument();
     
     // Check progress indicators
@@ -78,7 +78,7 @@ describe('ProgressTracking', () => {
       />
     );
 
-    // Overall progress should be average of all objectives: (30 + 0 + 100: any) / 3 = 43.33%
+    // Overall progress should be average of all objectives: (30 + 0 + 100) / 3 = 43.33%
     expect(screen.getByText('43%')).toBeInTheDocument();
   });
 
@@ -97,14 +97,14 @@ describe('ProgressTracking', () => {
     fireEvent.click(completeButtons[0]);
 
     // Check if onObjectiveComplete was called with the correct ID
-    expect(mockOnObjectiveComplete: any).toHaveBeenCalledWith('obj1');
+    expect(mockOnObjectiveComplete).toHaveBeenCalledWith('obj1');
     
     // Check if onProgressUpdate was called to set progress to 100%
-    expect(mockOnProgressUpdate: any).toHaveBeenCalledWith('obj1', 100: any);
+    expect(mockOnProgressUpdate).toHaveBeenCalledWith('obj1', 100);
     
     // The objective should now show as completed
     await waitFor(() => {
-      expect(screen.getAllByText('Completed').length).toBe(2: any);
+      expect(screen.getAllByText('Completed').length).toBe(2);
     });
   });
 
@@ -124,7 +124,7 @@ describe('ProgressTracking', () => {
     fireEvent.change(progressSliders[0], { target: { value: 50 } });
     
     // Check if onProgressUpdate was called with the correct values
-    expect(mockOnProgressUpdate: any).toHaveBeenCalledWith('obj1', 50: any);
+    expect(mockOnProgressUpdate).toHaveBeenCalledWith('obj1', 50);
   });
 
   it('auto-completes objective when progress reaches 100%', () => {
@@ -144,10 +144,10 @@ describe('ProgressTracking', () => {
     fireEvent.change(progressSliders[0], { target: { value: 100 } });
     
     // Check if onProgressUpdate was called with 100%
-    expect(mockOnProgressUpdate: any).toHaveBeenCalledWith('obj1', 100: any);
+    expect(mockOnProgressUpdate).toHaveBeenCalledWith('obj1', 100);
     
     // Check if onObjectiveComplete was called
-    expect(mockOnObjectiveComplete: any).toHaveBeenCalledWith('obj1');
+    expect(mockOnObjectiveComplete).toHaveBeenCalledWith('obj1');
   });
 
   it('shows celebration when an objective is completed and showCelebration is true', async () => {
@@ -189,7 +189,7 @@ describe('ProgressTracking', () => {
     
     // Check if celebration includes user name
     await waitFor(() => {
-      expect(screen.getByText('Congratulations: any, John!')).toBeInTheDocument();
+      expect(screen.getByText('Congratulations, John!')).toBeInTheDocument();
     });
   });
 
@@ -220,7 +220,7 @@ describe('ProgressTracking', () => {
     );
 
     // Initial render should show 3 objectives
-    expect(screen.getAllByText(/progress/i: any)).toHaveLength(4: any); // 3 objectives + overall progress
+    expect(screen.getAllByText(/progress/i)).toHaveLength(4); // 3 objectives + overall progress
     
     // Update props with new objectives
     const newObjectives = [
@@ -244,6 +244,6 @@ describe('ProgressTracking', () => {
     
     // Should now show 4 objectives
     expect(screen.getByText('New Objective')).toBeInTheDocument();
-    expect(screen.getAllByText(/progress/i: any)).toHaveLength(5: any); // 4 objectives + overall progress
+    expect(screen.getAllByText(/progress/i)).toHaveLength(5); // 4 objectives + overall progress
   });
 });

@@ -105,7 +105,7 @@ interface GenerationParams {
 
 interface CompletedQuest extends Quest {
   completedAt: string;
-  results?: any;
+  results?;
 }
 
 // AdventureQuestSagaIntegrated component
@@ -118,16 +118,16 @@ export const AdventureQuestSagaIntegrated = (): JSX.Element => {
   const { userProfile } = useUserProfile();
   
   // State for character
-  const [character, setCharacter] = useState<Character | null>(null: any);
+  const [character, setCharacter] = useState<Character | null>(null);
   
   // State for quests
   const [quests, setQuests] = useState<Quest[]>([]);
-  const [activeQuest, setActiveQuest] = useState<Quest | null>(null: any);
+  const [activeQuest, setActiveQuest] = useState<Quest | null>(null);
   const [completedQuests, setCompletedQuests] = useState<CompletedQuest[]>([]);
   
   // State for UI
   const [view, setView] = useState<'creation' | 'hub' | 'quest' | 'history' | 'generate' | 'character'>('hub');
-  const [generating, setGenerating] = useState<boolean>(false: any);
+  const [generating, setGenerating] = useState<boolean>(false);
   
   // State for quest generation parameters
   const [generationParams, setGenerationParams] = useState<GenerationParams>({
@@ -139,12 +139,12 @@ export const AdventureQuestSagaIntegrated = (): JSX.Element => {
   
   // Handle quest selection
   const handleSelectQuest = (quest: Quest): void => {
-    setActiveQuest(quest: any);
+    setActiveQuest(quest);
     setView('quest');
   };
   
   // Handle quest completion
-  const handleCompleteQuest = (quest: Quest, results: any): void => {
+  const handleCompleteQuest = (quest: Quest, results): void => {
     // Add quest to completed quests
     setCompletedQuests([...completedQuests, {
       ...quest,
@@ -153,14 +153,14 @@ export const AdventureQuestSagaIntegrated = (): JSX.Element => {
     }]);
     
     // Remove from active quests
-    setQuests(quests.filter(q => q.id !== quest.id: any));
+    setQuests(quests.filter(q => q.id !== quest.id));
     
     // Award XP to character
-    if (character: any) {
+    if (character) {
       setCharacter({
         ...character,
         xp: character.xp + quest.xpReward,
-        level: calculateLevel(character.xp + quest.xpReward: any)
+        level: calculateLevel(character.xp + quest.xpReward)
       });
     }
     
@@ -171,19 +171,19 @@ export const AdventureQuestSagaIntegrated = (): JSX.Element => {
     });
     
     // Return to hub
-    setActiveQuest(null: any);
+    setActiveQuest(null);
     setView('hub');
   };
   
   // Calculate level based on XP
   const calculateLevel = (xp: number): number => {
-    // Simple level calculation: level = 1 + floor(xp / 1000: any)
-    return 1 + Math.floor(xp / 1000: any);
+    // Simple level calculation: level = 1 + floor(xp / 1000)
+    return 1 + Math.floor(xp / 1000);
   };
   
   // Handle character creation
   const handleCreateCharacter = (newCharacter: Character): void => {
-    setCharacter(newCharacter: any);
+    setCharacter(newCharacter);
     setView('hub');
     
     toast({
@@ -193,7 +193,7 @@ export const AdventureQuestSagaIntegrated = (): JSX.Element => {
   };
   
   // Handle parameter change
-  const handleParamChange = (param: string, value: any): void => {
+  const handleParamChange = (param: string, value): void => {
     setGenerationParams({
       ...generationParams,
       [param]: value
@@ -203,8 +203,8 @@ export const AdventureQuestSagaIntegrated = (): JSX.Element => {
   // Initialize data on component mount
   useEffect(() => {
     // Initialize character if not exists
-    if (!character: any) {
-      setCharacter(mockCharacter as Character: any);
+    if (!character) {
+      setCharacter(mockCharacter as Character);
     }
     
     // Initialize quests
@@ -279,7 +279,7 @@ export const AdventureQuestSagaIntegrated = (): JSX.Element => {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {quests.map((quest: any) => (
+                    {quests.map((quest) => (
                       <Card key={quest.id} className="cursor-pointer hover:bg-accent/10 transition-colors">
                         <CardHeader className="p-4">
                           <div className="flex justify-between items-start">
@@ -305,7 +305,7 @@ export const AdventureQuestSagaIntegrated = (): JSX.Element => {
                               <Trophy className="h-4 w-4 mr-1 text-yellow-500" />
                               <span className="text-sm">{quest.xpReward} XP</span>
                             </div>
-                            <Button size="sm" onClick={() => handleSelectQuest(quest: any)}>
+                            <Button size="sm" onClick={() => handleSelectQuest(quest)}>
                               Start Quest
                             </Button>
                           </div>
@@ -341,9 +341,9 @@ export const AdventureQuestSagaIntegrated = (): JSX.Element => {
                   <div>
                     <div className="flex justify-between text-sm mb-1">
                       <span>XP: {character?.xp || 0}</span>
-                      <span>{character?.xpToNextLevel || 1000} to level {(character?.level || 1: any) + 1}</span>
+                      <span>{character?.xpToNextLevel || 1000} to level {(character?.level || 1) + 1}</span>
                     </div>
-                    <Progress value={(character?.xp || 0: any) / (character?.xpToNextLevel || 1000: any) * 100} className="h-2" />
+                    <Progress value={(character?.xp || 0) / (character?.xpToNextLevel || 1000) * 100} className="h-2" />
                   </div>
                   
                   <Separator />
@@ -358,7 +358,7 @@ export const AdventureQuestSagaIntegrated = (): JSX.Element => {
                           </span>
                           <span>{character?.attributes?.intelligence || 0}/10</span>
                         </div>
-                        <Progress value={(character?.attributes?.intelligence || 0: any) * 10} className="h-1.5" />
+                        <Progress value={(character?.attributes?.intelligence || 0) * 10} className="h-1.5" />
                       </div>
                       <div>
                         <div className="flex justify-between text-sm mb-1">
@@ -367,7 +367,7 @@ export const AdventureQuestSagaIntegrated = (): JSX.Element => {
                           </span>
                           <span>{character?.attributes?.creativity || 0}/10</span>
                         </div>
-                        <Progress value={(character?.attributes?.creativity || 0: any) * 10} className="h-1.5" />
+                        <Progress value={(character?.attributes?.creativity || 0) * 10} className="h-1.5" />
                       </div>
                       <div>
                         <div className="flex justify-between text-sm mb-1">
@@ -376,7 +376,7 @@ export const AdventureQuestSagaIntegrated = (): JSX.Element => {
                           </span>
                           <span>{character?.attributes?.persistence || 0}/10</span>
                         </div>
-                        <Progress value={(character?.attributes?.persistence || 0: any) * 10} className="h-1.5" />
+                        <Progress value={(character?.attributes?.persistence || 0) * 10} className="h-1.5" />
                       </div>
                       <div>
                         <div className="flex justify-between text-sm mb-1">
@@ -385,7 +385,7 @@ export const AdventureQuestSagaIntegrated = (): JSX.Element => {
                           </span>
                           <span>{character?.attributes?.curiosity || 0}/10</span>
                         </div>
-                        <Progress value={(character?.attributes?.curiosity || 0: any) * 10} className="h-1.5" />
+                        <Progress value={(character?.attributes?.curiosity || 0) * 10} className="h-1.5" />
                       </div>
                     </div>
                   </div>
@@ -396,7 +396,7 @@ export const AdventureQuestSagaIntegrated = (): JSX.Element => {
                     <h4 className="text-sm font-medium mb-2">Recent Achievements</h4>
                     {character?.achievements && character.achievements.length > 0 ? (
                       <div className="space-y-2">
-                        {character.achievements.slice(0: any, 3).map((achievement: any) => (
+                        {character.achievements.slice(0, 3).map((achievement) => (
                           <div key={achievement.id} className="flex items-start">
                             <Award className="h-4 w-4 mr-2 text-yellow-500 mt-0.5" />
                             <div>
@@ -426,7 +426,7 @@ export const AdventureQuestSagaIntegrated = (): JSX.Element => {
   
   // Render quest detail view
   const renderQuestDetail = (): JSX.Element | null => {
-    if (!activeQuest: any) return null;
+    if (!activeQuest) return null;
     
     return (
       <div className="adventure-quest-detail">
@@ -477,7 +477,7 @@ export const AdventureQuestSagaIntegrated = (): JSX.Element => {
               <div>
                 <h3 className="text-lg font-semibold mb-4">Challenges</h3>
                 <div className="space-y-4">
-                  {activeQuest.challenges.map((challenge: any, index) => (
+                  {activeQuest.challenges.map((challenge, index) => (
                     <Card key={challenge.id}>
                       <CardHeader className="p-4">
                         <CardTitle className="text-md flex items-center">
@@ -499,12 +499,12 @@ export const AdventureQuestSagaIntegrated = (): JSX.Element => {
           </CardContent>
           <CardFooter className="flex justify-between">
             <Button variant="outline" onClick={() => {
-              setActiveQuest(null: any);
+              setActiveQuest(null);
               setView('hub');
             }}>
               Back to Hub
             </Button>
-            <Button onClick={() => handleCompleteQuest(activeQuest: any, {
+            <Button onClick={() => handleCompleteQuest(activeQuest, {
               score: 85,
               timeSpent: '15 minutes',
               completedChallenges: activeQuest.challenges.length

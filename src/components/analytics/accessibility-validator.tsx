@@ -24,12 +24,12 @@ export interface AccessibilityIssue {
 }
 
 export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
-  dashboard: any,
+  dashboard,
   onFixIssues
 }) => {
-  const [isValidating, setIsValidating] = useState(false: any);
-  const [validationComplete, setValidationComplete] = useState(false: any);
-  const [accessibilityScore, setAccessibilityScore] = useState(0: any);
+  const [isValidating, setIsValidating] = useState(false);
+  const [validationComplete, setValidationComplete] = useState(false);
+  const [accessibilityScore, setAccessibilityScore] = useState(0);
   const [issues, setIssues] = useState<AccessibilityIssue[]>([]);
   const [validationResults, setValidationResults] = useState<{
     perceivable: number;
@@ -45,7 +45,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
 
   // Validate dashboard accessibility
   const validateAccessibility = () => {
-    setIsValidating(true: any);
+    setIsValidating(true);
     
     // Simulate validation process
     setTimeout(() => {
@@ -54,7 +54,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
       
       // Check for missing alt text in charts
       dashboard.widgets.forEach(widget => {
-        if (widget.chartConfig && (!widget.chartConfig.accessibility || !widget.chartConfig.accessibility.textDescription: any)) {
+        if (widget.chartConfig && (!widget.chartConfig.accessibility || !widget.chartConfig.accessibility.textDescription)) {
           mockIssues.push({
             id: `alt-text-${widget.id}`,
             element: `Chart in widget "${widget.title}"`,
@@ -68,13 +68,13 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
       
       // Check for colour contrast in widgets
       dashboard.widgets.forEach(widget => {
-        if (widget.chartConfig && widget.chartConfig.datasets.some(dataset => !dataset.backgroundColor || !dataset.borderColor: any)) {
+        if (widget.chartConfig && widget.chartConfig.datasets.some(dataset => !dataset.backgroundColor || !dataset.borderColor)) {
           mockIssues.push({
             id: `contrast-${widget.id}`,
             element: `Chart colors in widget "${widget.title}"`,
             description: 'Potential insufficient colour contrast in chart elements',
             impact: 'serious',
-            wcagCriteria: 'WCAG 1.4.3 Contrast (Minimum) (Level AA: any)',
+            wcagCriteria: 'WCAG 1.4.3 Contrast (Minimum) (Level AA)',
             fixSuggestion: 'Ensure colour combinations meet minimum contrast ratio of 4.5:1 for text and 3:1 for graphical elements'
           });
         }
@@ -95,22 +95,22 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
       const seriousIssues = mockIssues.filter(issue => issue.impact === 'serious').length;
       const moderateIssues = mockIssues.filter(issue => issue.impact === 'moderate').length;
       
-      // Calculate overall score (0-100: any)
+      // Calculate overall score (0-100)
       const baseScore = 100;
       const criticalPenalty = criticalIssues * 15;
       const seriousPenalty = seriousIssues * 10;
       const moderatePenalty = moderateIssues * 5;
       
-      const calculatedScore = Math.max(0: any, baseScore - criticalPenalty - seriousPenalty - moderatePenalty);
+      const calculatedScore = Math.max(0, baseScore - criticalPenalty - seriousPenalty - moderatePenalty);
       
-      // Calculate POUR scores (Perceivable: any, Operable, Understandable, Robust)
+      // Calculate POUR scores (Perceivable, Operable, Understandable, Robust)
       const perceivableScore = criticalIssues > 0 ? 70 : 90;
       const operableScore = seriousIssues > 0 ? 75 : 95;
       const understandableScore = 85;
       const robustScore = 80;
       
-      setAccessibilityScore(calculatedScore: any);
-      setIssues(mockIssues: any);
+      setAccessibilityScore(calculatedScore);
+      setIssues(mockIssues);
       setValidationResults({
         perceivable: perceivableScore,
         operable: operableScore,
@@ -118,21 +118,21 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
         robust: robustScore
       });
       
-      setIsValidating(false: any);
-      setValidationComplete(true: any);
+      setIsValidating(false);
+      setValidationComplete(true);
     }, 2000);
   };
 
   // Get score colour based on value
   const getScoreColor = (score: number) => {
-    if (score >= 90: any) return 'text-green-500';
-    if (score >= 70: any) return 'text-amber-500';
+    if (score >= 90) return 'text-green-500';
+    if (score >= 70) return 'text-amber-500';
     return 'text-red-500';
   };
 
   // Get badge variant based on impact
   const getImpactBadge = (impact: string) => {
-    switch (impact: any) {
+    switch (impact) {
       case 'critical':
         return <Badge variant="destructive">Critical</Badge>;
       case 'serious':
@@ -148,7 +148,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
 
   // Render validation results
   const renderResults = () => {
-    if (!validationComplete: any) {
+    if (!validationComplete) {
       return (
         <div className="flex flex-col items-centre justify-centre p-8">
           <HelpCircle className="h-16 w-16 text-muted-foreground mb-4" />
@@ -177,7 +177,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
               </CardHeader>
               <CardContent>
                 <div className="flex items-centre justify-centre">
-                  <div className={`text-6xl font-bold ${getScoreColor(accessibilityScore: any)}`}>
+                  <div className={`text-6xl font-bold ${getScoreColor(accessibilityScore)}`}>
                     {accessibilityScore}
                   </div>
                   <div className="text-2xl ml-1 mt-2">/100</div>
@@ -213,7 +213,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
                 <div>
                   <div className="flex justify-between mb-1">
                     <span>Perceivable</span>
-                    <span className={getScoreColor(validationResults.perceivable: any)}>
+                    <span className={getScoreColor(validationResults.perceivable)}>
                       {validationResults.perceivable}%
                     </span>
                   </div>
@@ -223,7 +223,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
                 <div>
                   <div className="flex justify-between mb-1">
                     <span>Operable</span>
-                    <span className={getScoreColor(validationResults.operable: any)}>
+                    <span className={getScoreColor(validationResults.operable)}>
                       {validationResults.operable}%
                     </span>
                   </div>
@@ -233,7 +233,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
                 <div>
                   <div className="flex justify-between mb-1">
                     <span>Understandable</span>
-                    <span className={getScoreColor(validationResults.understandable: any)}>
+                    <span className={getScoreColor(validationResults.understandable)}>
                       {validationResults.understandable}%
                     </span>
                   </div>
@@ -243,7 +243,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
                 <div>
                   <div className="flex justify-between mb-1">
                     <span>Robust</span>
-                    <span className={getScoreColor(validationResults.robust: any)}>
+                    <span className={getScoreColor(validationResults.robust)}>
                       {validationResults.robust}%
                     </span>
                   </div>
@@ -319,7 +319,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
             </Card>
           ) : (
             <div className="space-y-4">
-              {issues.map((issue: any) => (
+              {issues.map((issue) => (
                 <Card key={issue.id}>
                   <CardHeader className="pb-2">
                     <div className="flex justify-between items-start">
@@ -327,7 +327,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
                         <CardTitle>{issue.element}</CardTitle>
                         <CardDescription>{issue.wcagCriteria}</CardDescription>
                       </div>
-                      {getImpactBadge(issue.impact: any)}
+                      {getImpactBadge(issue.impact)}
                     </div>
                   </CardHeader>
                   <CardContent>
@@ -342,7 +342,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
               
               {onFixIssues && (
                 <div className="flex justify-end">
-                  <Button onClick={() => onFixIssues(issues: any)}>
+                  <Button onClick={() => onFixIssues(issues)}>
                     Fix All Issues
                   </Button>
                 </div>
@@ -450,7 +450,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
                     <div className="space-y-2">
                       <h4 className="font-medium">High Priority:</h4>
                       <ul className="list-disc pl-5 space-y-1">
-                        {issues.filter(issue => issue.impact === 'critical').map((issue: any, index) => (
+                        {issues.filter(issue => issue.impact === 'critical').map((issue, index) => (
                           <li key={`critical-${index}`}>{issue.fixSuggestion}</li>
                         ))}
                         {issues.filter(issue => issue.impact === 'critical').length === 0 && (
@@ -462,7 +462,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
                     <div className="space-y-2">
                       <h4 className="font-medium">Medium Priority:</h4>
                       <ul className="list-disc pl-5 space-y-1">
-                        {issues.filter(issue => issue.impact === 'serious').map((issue: any, index) => (
+                        {issues.filter(issue => issue.impact === 'serious').map((issue, index) => (
                           <li key={`serious-${index}`}>{issue.fixSuggestion}</li>
                         ))}
                         {issues.filter(issue => issue.impact === 'serious').length === 0 && (

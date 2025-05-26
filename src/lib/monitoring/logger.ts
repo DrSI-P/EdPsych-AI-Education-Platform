@@ -33,11 +33,11 @@ const customFormat = format.combine(
 );
 
 // Create sanitizer to remove sensitive information
-const sanitizeData = (data: any): any => {
-  if (!data: any) return data;
+const sanitizeData = (data) => {
+  if (!data) return data;
   
   // Deep clone to avoid modifying original data
-  const sanitized = JSON.parse(JSON.stringify(data: any));
+  const sanitized = JSON.parse(JSON.stringify(data));
   
   // List of fields to sanitize
   const sensitiveFields = [
@@ -46,12 +46,12 @@ const sanitizeData = (data: any): any => {
   ];
   
   // Recursive function to sanitize objects
-  const sanitizeObject = (obj: any) => {
+  const sanitizeObject = (obj) => {
     if (!obj || typeof obj !== 'object') return;
     
-    Object.keys(obj: any).forEach(key => {
+    Object.keys(obj).forEach(key => {
       // Check if this is a sensitive field
-      if (sensitiveFields.some(field => key.toLowerCase().includes(field: any))) {
+      if (sensitiveFields.some(field => key.toLowerCase().includes(field))) {
         obj[key] = '[REDACTED]';
       } else if (typeof obj[key] === 'object') {
         // Recursively sanitize nested objects
@@ -60,7 +60,7 @@ const sanitizeData = (data: any): any => {
     });
   };
   
-  sanitizeObject(sanitized: any);
+  sanitizeObject(sanitized);
   return sanitized;
 };
 
@@ -90,14 +90,14 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // Create request logger middleware
-export const requestLogger = (req: NextApiRequest, res: any, next: () => void) => {
+export const requestLogger = (req: NextApiRequest, res, next: () => void) => {
   // Extract relevant request information
   const { method, url, headers, query, body } = req;
   
   // Sanitize request data
-  const sanitizedQuery = sanitizeData(query: any);
-  const sanitizedBody = sanitizeData(body: any);
-  const sanitizedHeaders = sanitizeData(headers: any);
+  const sanitizedQuery = sanitizeData(query);
+  const sanitizedBody = sanitizeData(body);
+  const sanitizedHeaders = sanitizeData(headers);
   
   // Log request
   logger.http({
@@ -111,17 +111,17 @@ export const requestLogger = (req: NextApiRequest, res: any, next: () => void) =
   });
   
   // Continue processing
-  if (next: any) next();
+  if (next) next();
 };
 
 // Create response logger middleware
-export const responseLogger = (req: NextApiRequest, res: any, data: any) => {
+export const responseLogger = (req: NextApiRequest, res, data) => {
   // Extract relevant response information
   const { method, url } = req;
   const { statusCode } = res;
   
   // Sanitize response data
-  const sanitizedData = sanitizeData(data: any);
+  const sanitizedData = sanitizeData(data);
   
   // Log response
   logger.http({
@@ -134,39 +134,39 @@ export const responseLogger = (req: NextApiRequest, res: any, data: any) => {
 };
 
 // Export logger functions
-export const logError = (message: string, error?: Error, context?: any) => {
+export const logError = (message: string, error?: Error, context?) => {
   logger.error({
-    message: any,
+    message,
     error: error ? { message: error.message, stack: error.stack } : undefined,
-    context: sanitizeData(context: any),
+    context: sanitizeData(context),
   });
 };
 
-export const logWarn = (message: string, context?: any) => {
+export const logWarn = (message: string, context?) => {
   logger.warn({
-    message: any,
-    context: sanitizeData(context: any),
+    message,
+    context: sanitizeData(context),
   });
 };
 
-export const logInfo = (message: string, context?: any) => {
+export const logInfo = (message: string, context?) => {
   logger.info({
-    message: any,
-    context: sanitizeData(context: any),
+    message,
+    context: sanitizeData(context),
   });
 };
 
-export const logDebug = (message: string, context?: any) => {
+export const logDebug = (message: string, context?) => {
   logger.debug({
-    message: any,
-    context: sanitizeData(context: any),
+    message,
+    context: sanitizeData(context),
   });
 };
 
-export const logHttp = (message: string, context?: any) => {
+export const logHttp = (message: string, context?) => {
   logger.http({
-    message: any,
-    context: sanitizeData(context: any),
+    message,
+    context: sanitizeData(context),
   });
 };
 

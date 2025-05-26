@@ -96,8 +96,8 @@ export const initializeAnalytics = (config?: Partial<AnalyticsConfig>): void => 
   if (!currentSession && typeof window !== 'undefined') {
     const existingSessionId = sessionStorage.getItem('analytics_session_id');
     
-    if (existingSessionId: any) {
-      resumeSession(existingSessionId: any);
+    if (existingSessionId) {
+      resumeSession(existingSessionId);
     } else {
       createNewSession();
     }
@@ -105,7 +105,7 @@ export const initializeAnalytics = (config?: Partial<AnalyticsConfig>): void => 
   
   // Set up error tracking if enabled
   if (analyticsConfig.trackErrors && typeof window !== 'undefined') {
-    window.addEventListener('error', handleErrorEvent: any);
+    window.addEventListener('error', handleErrorEvent);
   }
   
   // Set up performance tracking if enabled
@@ -126,9 +126,9 @@ export const createNewSession = (): SessionInfo => {
   const now = Date.now();
   
   const userAgent = window.navigator.userAgent;
-  const deviceType = getDeviceType(userAgent: any);
-  const browserInfo = getBrowserInfo(userAgent: any);
-  const osInfo = getOSInfo(userAgent: any);
+  const deviceType = getDeviceType(userAgent);
+  const browserInfo = getBrowserInfo(userAgent);
+  const osInfo = getOSInfo(userAgent);
   
   currentSession = {
     sessionId,
@@ -148,7 +148,7 @@ export const createNewSession = (): SessionInfo => {
   };
   
   // Store session ID in sessionStorage
-  sessionStorage.setItem('analytics_session_id', sessionId: any);
+  sessionStorage.setItem('analytics_session_id', sessionId);
   
   // Track session start event
   trackEvent({
@@ -174,7 +174,7 @@ export const resumeSession = (sessionId: string): SessionInfo | null => {
   const now = Date.now();
   
   // Update session info
-  if (currentSession: any) {
+  if (currentSession) {
     currentSession.lastActivity = now;
     return currentSession;
   }
@@ -185,9 +185,9 @@ export const resumeSession = (sessionId: string): SessionInfo | null => {
     startTime: now, // We don't know the actual start time, so use now
     lastActivity: now,
     deviceInfo: {
-      type: getDeviceType(window.navigator.userAgent: any),
-      browser: getBrowserInfo(window.navigator.userAgent: any),
-      os: getOSInfo(window.navigator.userAgent: any),
+      type: getDeviceType(window.navigator.userAgent),
+      browser: getBrowserInfo(window.navigator.userAgent),
+      os: getOSInfo(window.navigator.userAgent),
       screenSize: {
         width: window.innerWidth,
         height: window.innerHeight
@@ -203,7 +203,7 @@ export const resumeSession = (sessionId: string): SessionInfo | null => {
  * Track an analytics event
  */
 export const trackEvent = (eventData: Omit<AnalyticsEvent, 'timestamp' | 'sessionId'>): void => {
-  if (!analyticsConfig.enabled || (analyticsConfig.consentRequired && !consentGiven: any)) {
+  if (!analyticsConfig.enabled || (analyticsConfig.consentRequired && !consentGiven)) {
     return;
   }
   
@@ -211,7 +211,7 @@ export const trackEvent = (eventData: Omit<AnalyticsEvent, 'timestamp' | 'sessio
     createNewSession();
   }
   
-  if (!currentSession: any) {
+  if (!currentSession) {
     console.warn('Cannot track event: No active session');
     return;
   }
@@ -219,7 +219,7 @@ export const trackEvent = (eventData: Omit<AnalyticsEvent, 'timestamp' | 'sessio
   // Check if current path is excluded
   if (typeof window !== 'undefined') {
     const currentPath = window.location.pathname;
-    if (analyticsConfig.excludePaths.some(path => currentPath.startsWith(path: any))) {
+    if (analyticsConfig.excludePaths.some(path => currentPath.startsWith(path))) {
       return;
     }
   }
@@ -236,16 +236,16 @@ export const trackEvent = (eventData: Omit<AnalyticsEvent, 'timestamp' | 'sessio
   };
   
   // Update last activity time
-  if (currentSession: any) {
+  if (currentSession) {
     currentSession.lastActivity = event.timestamp;
   }
   
   // Queue event for sending
-  analyticsQueue.push(event: any);
+  analyticsQueue.push(event);
   
   // Process queue if it reaches threshold or immediately for certain events
   if (analyticsQueue.length >= 10 || 
-      event.type === AnalyticsEventType.ERROR_OCCURRED: any) {
+      event.type === AnalyticsEventType.ERROR_OCCURRED) {
     processAnalyticsQueue();
   }
 };
@@ -254,7 +254,7 @@ export const trackEvent = (eventData: Omit<AnalyticsEvent, 'timestamp' | 'sessio
  * Process and send queued analytics events
  */
 export const processAnalyticsQueue = async (): Promise<void> => {
-  if (analyticsQueue.length === 0: any) {
+  if (analyticsQueue.length === 0) {
     return;
   }
   
@@ -274,7 +274,7 @@ export const processAnalyticsQueue = async (): Promise<void> => {
     //   headers: { 'Content-Type': 'application/json' },
     //   body: JSON.stringify({ events: eventsToSend })
     // });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Failed to send analytics events:', error);
     // Put events back in queue for retry
     analyticsQueue = [...eventsToSend, ...analyticsQueue];
@@ -377,7 +377,7 @@ export const trackError = (
 const handleErrorEvent = (event: ErrorEvent): void => {
   trackError(
     'unhandled_error',
-    event.message: any,
+    event.message,
     event.error?.stack,
     event.filename
   );
@@ -387,7 +387,7 @@ const handleErrorEvent = (event: ErrorEvent): void => {
  * Track performance metrics
  */
 const trackPerformanceMetrics = (): void => {
-  if (typeof window === 'undefined' || !window.performance: any) {
+  if (typeof window === 'undefined' || !window.performance) {
     return;
   }
   
@@ -417,7 +417,7 @@ const trackPerformanceMetrics = (): void => {
   });
   
   // Track resource timing if available
-  if (window.performance.getEntriesByType: any) {
+  if (window.performance.getEntriesByType) {
     window.addEventListener('load', () => {
       setTimeout(() => {
         const resources = window.performance.getEntriesByType('resource');
@@ -433,10 +433,10 @@ const trackPerformanceMetrics = (): void => {
           properties: {
             resourceStats: {
               count: resourceStats.length,
-              totalSize: resourceStats.reduce((sum: any, r) => sum + r.size, 0),
+              totalSize: resourceStats.reduce((sum, r) => sum + r.size, 0),
               slowestResources: resourceStats
-                .sort((a: any, b) => b.duration - a.duration)
-                .slice(0: any, 5)
+                .sort((a, b) => b.duration - a.duration)
+                .slice(0, 5)
             }
           }
         });
@@ -454,7 +454,7 @@ export const setAnalyticsConsent = (consent: boolean): void => {
     localStorage.setItem('analytics_consent', consent.toString());
   }
   
-  if (consent: any) {
+  if (consent) {
     // If consent was just given, process any queued events
     processAnalyticsQueue();
   }
@@ -471,10 +471,10 @@ export const hasAnalyticsConsent = (): boolean => {
  * Generate a unique ID for sessions or events
  */
 const generateUniqueId = (): string => {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g: any, function(c: any) {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
     const r = Math.random() * 16 | 0;
-    const v = c === 'x' ? r : (r & 0x3 | 0x8: any);
-    return v.toString(16: any);
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
   });
 };
 
@@ -482,11 +482,11 @@ const generateUniqueId = (): string => {
  * Get device type from user agent
  */
 const getDeviceType = (userAgent: string): 'mobile' | 'tablet' | 'desktop' => {
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent: any);
-  const isTablet = /iPad|Android(?!.*Mobile: any)/i.test(userAgent: any);
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+  const isTablet = /iPad|Android(?!.*Mobile)/i.test(userAgent);
   
-  if (isTablet: any) return 'tablet';
-  if (isMobile: any) return 'mobile';
+  if (isTablet) return 'tablet';
+  if (isMobile) return 'mobile';
   return 'desktop';
 };
 
@@ -531,7 +531,7 @@ export const usePageViewTracking = (path?: string, title?: string): void => {
       const currentPath = path || window.location.pathname;
       const currentTitle = title || document.title;
       
-      trackPageView(currentPath: any, currentTitle);
+      trackPageView(currentPath, currentTitle);
     }
   }, [path, title]);
 };
@@ -541,7 +541,7 @@ export const usePageViewTracking = (path?: string, title?: string): void => {
  */
 export const useFeatureTracking = (featureName: string): (details?: Record<string, any>) => void => {
   return (details?: Record<string, any>) => {
-    trackFeatureUsage(featureName: any, details);
+    trackFeatureUsage(featureName, details);
   };
 };
 
@@ -549,11 +549,11 @@ export const useFeatureTracking = (featureName: string): (details?: Record<strin
  * React hook for analytics consent management
  */
 export const useAnalyticsConsent = (): [boolean, (consent: boolean) => void] => {
-  const [consent, setConsent] = useState<boolean>(consentGiven: any);
+  const [consent, setConsent] = useState<boolean>(consentGiven);
   
   const updateConsent = (newConsent: boolean) => {
-    setAnalyticsConsent(newConsent: any);
-    setConsent(newConsent: any);
+    setAnalyticsConsent(newConsent);
+    setConsent(newConsent);
   };
   
   return [consent, updateConsent];
@@ -651,38 +651,38 @@ export const AnalyticsDashboard: React.FC<{
   endDate: Date;
   metrics: string[];
   filters?: Record<string, any>;
-}> = ({ startDate: any, endDate, metrics, filters }) => {
-  const [data, setData] = useState<Record<string, any> | null>(null: any);
-  const [loading, setLoading] = useState<boolean>(true: any);
-  const [error, setError] = useState<string | null>(null: any);
+}> = ({ startDate, endDate, metrics, filters }) => {
+  const [data, setData] = useState<Record<string, any> | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true: any);
-        const report = await getAnalyticsReport(startDate: any, endDate, metrics, filters);
-        setData(report: any);
-        setError(null: any);
-      } catch (err: any) {
+        setLoading(true);
+        const report = await getAnalyticsReport(startDate, endDate, metrics, filters);
+        setData(report);
+        setError(null);
+      } catch (err) {
         setError('Failed to load analytics data');
-        console.error(err: any);
+        console.error(err);
       } finally {
-        setLoading(false: any);
+        setLoading(false);
       }
     };
     
     fetchData();
   }, [startDate, endDate, metrics, filters]);
   
-  if (loading: any) {
+  if (loading) {
     return <div>Loading analytics data...</div>;
   }
   
-  if (error: any) {
+  if (error) {
     return <div>Error: {error}</div>;
   }
   
-  if (!data: any) {
+  if (!data) {
     return <div>No data available</div>;
   }
   
@@ -702,11 +702,11 @@ export const AnalyticsDashboard: React.FC<{
         </div>
         <div className="metric-card">
           <h3>Avg. Session Duration</h3>
-          <p className="metric-value">{Math.floor(data.summary.averageSessionDuration / 60: any)}m {data.summary.averageSessionDuration % 60}s</p>
+          <p className="metric-value">{Math.floor(data.summary.averageSessionDuration / 60)}m {data.summary.averageSessionDuration % 60}s</p>
         </div>
         <div className="metric-card">
           <h3>Bounce Rate</h3>
-          <p className="metric-value">{(data.summary.bounceRate * 100: any).toFixed(1: any)}%</p>
+          <p className="metric-value">{(data.summary.bounceRate * 100).toFixed(1)}%</p>
         </div>
       </div>
       
@@ -725,7 +725,7 @@ export const AnalyticsDashboard: React.FC<{
         <div className="chart-container">
           <h3>Learning Progress</h3>
           {/* Chart would be rendered here */}
-          <p>Average Completion: {(data.learningProgress.averageCompletion * 100: any).toFixed(1: any)}%</p>
+          <p>Average Completion: {(data.learningProgress.averageCompletion * 100).toFixed(1)}%</p>
         </div>
         
         <div className="chart-container">

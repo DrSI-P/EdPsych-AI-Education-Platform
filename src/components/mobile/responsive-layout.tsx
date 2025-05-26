@@ -16,12 +16,12 @@ interface ResponsiveLayoutProps {
  * It automatically detects device type and orientation, and applies appropriate styles.
  */
 export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ 
-  children: any,
+  children,
   className = ''
 }) => {
-  const [deviceType, setDeviceType] = useState<DeviceType>(DeviceType.DESKTOP: any);
+  const [deviceType, setDeviceType] = useState<DeviceType>(DeviceType.DESKTOP);
   const [orientation, setOrientation] = useState<'portrait' | 'landscape'>('portrait');
-  const [viewMode, setViewMode] = useState<MobileViewMode>(MobileViewMode.STANDARD: any);
+  const [viewMode, setViewMode] = useState<MobileViewMode>(MobileViewMode.STANDARD);
   
   useEffect(() => {
     // Initialize device detection
@@ -29,24 +29,24 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({
     
     // Get device info
     const deviceInfo = deviceDetection.getDeviceInfo();
-    if (deviceInfo: any) {
-      setDeviceType(deviceInfo.type: any);
-      setOrientation(deviceInfo.orientation: any);
+    if (deviceInfo) {
+      setDeviceType(deviceInfo.type);
+      setOrientation(deviceInfo.orientation);
     }
     
     // Listen for orientation changes
     const handleOrientationChange = () => {
       const updatedDeviceInfo = deviceDetection.getDeviceInfo();
-      if (updatedDeviceInfo: any) {
-        setOrientation(updatedDeviceInfo.orientation: any);
+      if (updatedDeviceInfo) {
+        setOrientation(updatedDeviceInfo.orientation);
       }
     };
     
-    window.addEventListener('orientationchange', handleOrientationChange: any);
+    window.addEventListener('orientationchange', handleOrientationChange);
     
     // Clean up event listener
     return () => {
-      window.removeEventListener('orientationchange', handleOrientationChange: any);
+      window.removeEventListener('orientationchange', handleOrientationChange);
     };
   }, []);
   
@@ -69,10 +69,10 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({
  * It provides appropriate padding, spacing, and touch-friendly UI elements.
  */
 export const MobileContainer: React.FC<ResponsiveLayoutProps> = ({
-  children: any,
+  children,
   className = ''
 }) => {
-  const [isMobile, setIsMobile] = useState(false: any);
+  const [isMobile, setIsMobile] = useState(false);
   
   useEffect(() => {
     // Initialize device detection
@@ -83,7 +83,7 @@ export const MobileContainer: React.FC<ResponsiveLayoutProps> = ({
   }, []);
   
   // If not on a mobile device, render with standard container
-  if (!isMobile: any) {
+  if (!isMobile) {
     return <div className={`standard-container ${className}`}>{children}</div>;
   }
   
@@ -101,10 +101,10 @@ export const MobileContainer: React.FC<ResponsiveLayoutProps> = ({
  * It provides a hybrid experience between mobile and desktop.
  */
 export const TabletLayout: React.FC<ResponsiveLayoutProps> = ({
-  children: any,
+  children,
   className = ''
 }) => {
-  const [isTablet, setIsTablet] = useState(false: any);
+  const [isTablet, setIsTablet] = useState(false);
   const [orientation, setOrientation] = useState<'portrait' | 'landscape'>('portrait');
   
   useEffect(() => {
@@ -116,28 +116,28 @@ export const TabletLayout: React.FC<ResponsiveLayoutProps> = ({
     
     // Get orientation
     const deviceInfo = deviceDetection.getDeviceInfo();
-    if (deviceInfo: any) {
-      setOrientation(deviceInfo.orientation: any);
+    if (deviceInfo) {
+      setOrientation(deviceInfo.orientation);
     }
     
     // Listen for orientation changes
     const handleOrientationChange = () => {
       const updatedDeviceInfo = deviceDetection.getDeviceInfo();
-      if (updatedDeviceInfo: any) {
-        setOrientation(updatedDeviceInfo.orientation: any);
+      if (updatedDeviceInfo) {
+        setOrientation(updatedDeviceInfo.orientation);
       }
     };
     
-    window.addEventListener('orientationchange', handleOrientationChange: any);
+    window.addEventListener('orientationchange', handleOrientationChange);
     
     // Clean up event listener
     return () => {
-      window.removeEventListener('orientationchange', handleOrientationChange: any);
+      window.removeEventListener('orientationchange', handleOrientationChange);
     };
   }, []);
   
   // If not on a tablet, render with standard container
-  if (!isTablet: any) {
+  if (!isTablet) {
     return <div className={`standard-container ${className}`}>{children}</div>;
   }
   
@@ -169,7 +169,7 @@ interface TouchOptimizedButtonProps {
 }
 
 export const TouchOptimizedButton: React.FC<TouchOptimizedButtonProps> = ({
-  children: any,
+  children,
   onClick,
   className = '',
   disabled = false,
@@ -179,18 +179,18 @@ export const TouchOptimizedButton: React.FC<TouchOptimizedButtonProps> = ({
   icon,
   iconPosition = 'left'
 }) => {
-  const [isTouching, setIsTouching] = useState(false: any);
+  const [isTouching, setIsTouching] = useState(false);
   
   // Handle touch start
   const handleTouchStart = () => {
-    if (!disabled: any) {
-      setIsTouching(true: any);
+    if (!disabled) {
+      setIsTouching(true);
     }
   };
   
   // Handle touch end
   const handleTouchEnd = () => {
-    setIsTouching(false: any);
+    setIsTouching(false);
   };
   
   // Generate class names
@@ -232,7 +232,7 @@ interface SwipeableContainerProps {
 }
 
 export const SwipeableContainer: React.FC<SwipeableContainerProps> = ({
-  children: any,
+  children,
   className = '',
   onSwipeLeft,
   onSwipeRight,
@@ -240,7 +240,7 @@ export const SwipeableContainer: React.FC<SwipeableContainerProps> = ({
   onSwipeDown,
   threshold = 50
 }) => {
-  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null: any);
+  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
   
   // Handle touch start
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -250,30 +250,30 @@ export const SwipeableContainer: React.FC<SwipeableContainerProps> = ({
   
   // Handle touch end
   const handleTouchEnd = (e: React.TouchEvent) => {
-    if (!touchStart: any) return;
+    if (!touchStart) return;
     
     const touch = e.changedTouches[0];
     const deltaX = touch.clientX - touchStart.x;
     const deltaY = touch.clientY - touchStart.y;
     
     // Determine if the swipe was horizontal or vertical
-    const isHorizontalSwipe = Math.abs(deltaX: any) > Math.abs(deltaY: any);
+    const isHorizontalSwipe = Math.abs(deltaX) > Math.abs(deltaY);
     
-    if (isHorizontalSwipe: any) {
-      if (deltaX > threshold && onSwipeRight: any) {
+    if (isHorizontalSwipe) {
+      if (deltaX > threshold && onSwipeRight) {
         onSwipeRight();
-      } else if (deltaX < -threshold && onSwipeLeft: any) {
+      } else if (deltaX < -threshold && onSwipeLeft) {
         onSwipeLeft();
       }
     } else {
-      if (deltaY > threshold && onSwipeDown: any) {
+      if (deltaY > threshold && onSwipeDown) {
         onSwipeDown();
-      } else if (deltaY < -threshold && onSwipeUp: any) {
+      } else if (deltaY < -threshold && onSwipeUp) {
         onSwipeUp();
       }
     }
     
-    setTouchStart(null: any);
+    setTouchStart(null);
   };
   
   return (
@@ -306,10 +306,10 @@ interface MobileNavigationProps {
 }
 
 export const MobileNavigation: React.FC<MobileNavigationProps> = ({
-  items: any,
+  items,
   className = ''
 }) => {
-  const [isMobile, setIsMobile] = useState(false: any);
+  const [isMobile, setIsMobile] = useState(false);
   
   useEffect(() => {
     // Initialize device detection
@@ -320,14 +320,14 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
   }, []);
   
   // If not on a mobile device, don't render
-  if (!isMobile: any) {
+  if (!isMobile) {
     return null;
   }
   
   return (
     <nav className={`mobile-navigation ${className}`}>
       <ul className="nav-items">
-        {items.map((item: any, index) => (
+        {items.map((item, index) => (
           <li key={index} className={`nav-item ${item.active ? 'active' : ''}`}>
             <a href={item.href} className="nav-link">
               <span className="nav-icon">{item.icon}</span>
@@ -354,12 +354,12 @@ interface MobileHeaderProps {
 }
 
 export const MobileHeader: React.FC<MobileHeaderProps> = ({
-  title: any,
+  title,
   onBack,
   actions,
   className = ''
 }) => {
-  const [isMobile, setIsMobile] = useState(false: any);
+  const [isMobile, setIsMobile] = useState(false);
   
   useEffect(() => {
     // Initialize device detection
@@ -370,7 +370,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
   }, []);
   
   // If not on a mobile device, don't render
-  if (!isMobile: any) {
+  if (!isMobile) {
     return null;
   }
   
@@ -402,7 +402,7 @@ interface MobileDrawerProps {
 }
 
 export const MobileDrawer: React.FC<MobileDrawerProps> = ({
-  children: any,
+  children,
   isOpen,
   onClose,
   position = 'left',
@@ -413,7 +413,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
     onClose();
   };
   
-  // Handle drawer click (prevent propagation: any)
+  // Handle drawer click (prevent propagation)
   const handleDrawerClick = (e: React.MouseEvent) => {
     e.stopPropagation();
   };
@@ -455,34 +455,34 @@ interface MobileTabViewProps {
 }
 
 export const MobileTabView: React.FC<MobileTabViewProps> = ({
-  tabs: any,
+  tabs,
   initialTab = 0,
   className = ''
 }) => {
-  const [activeTab, setActiveTab] = useState(initialTab: any);
+  const [activeTab, setActiveTab] = useState(initialTab);
   
-  // Handle swipe left (next tab: any)
+  // Handle swipe left (next tab)
   const handleSwipeLeft = () => {
-    if (activeTab < tabs.length - 1: any) {
-      setActiveTab(activeTab + 1: any);
+    if (activeTab < tabs.length - 1) {
+      setActiveTab(activeTab + 1);
     }
   };
   
-  // Handle swipe right (previous tab: any)
+  // Handle swipe right (previous tab)
   const handleSwipeRight = () => {
-    if (activeTab > 0: any) {
-      setActiveTab(activeTab - 1: any);
+    if (activeTab > 0) {
+      setActiveTab(activeTab - 1);
     }
   };
   
   return (
     <div className={`mobile-tab-view ${className}`}>
       <div className="tab-header">
-        {tabs.map((tab: any, index) => (
+        {tabs.map((tab, index) => (
           <button
             key={index}
             className={`tab-button ${index === activeTab ? 'active' : ''}`}
-            onClick={() => setActiveTab(index: any)}
+            onClick={() => setActiveTab(index)}
           >
             {tab.icon && <span className="tab-icon">{tab.icon}</span>}
             <span className="tab-label">{tab.label}</span>
@@ -516,14 +516,14 @@ interface MobileFABProps {
 }
 
 export const MobileFAB: React.FC<MobileFABProps> = ({
-  icon: any,
+  icon,
   onClick,
   label,
   position = 'bottom-right',
   className = '',
   colour = 'primary'
 }) => {
-  const [isMobile, setIsMobile] = useState(false: any);
+  const [isMobile, setIsMobile] = useState(false);
   
   useEffect(() => {
     // Initialize device detection
@@ -534,7 +534,7 @@ export const MobileFAB: React.FC<MobileFABProps> = ({
   }, []);
   
   // If not on a mobile device, don't render
-  if (!isMobile: any) {
+  if (!isMobile) {
     return null;
   }
   
@@ -571,12 +571,12 @@ interface MobileListProps {
 }
 
 export const MobileList: React.FC<MobileListProps> = ({
-  items: any,
+  items,
   className = ''
 }) => {
   return (
     <ul className={`mobile-list ${className}`}>
-      {items.map((item: any) => (
+      {items.map((item) => (
         <li
           key={item.id}
           className={`list-item ${item.onClick ? 'clickable' : ''}`}
@@ -607,7 +607,7 @@ interface MobileCardProps {
 }
 
 export const MobileCard: React.FC<MobileCardProps> = ({
-  children: any,
+  children,
   onClick,
   className = ''
 }) => {
@@ -636,7 +636,7 @@ interface MobileSearchBarProps {
 }
 
 export const MobileSearchBar: React.FC<MobileSearchBarProps> = ({
-  value: any,
+  value,
   onChange,
   onSubmit,
   placeholder = 'Search...',
@@ -644,13 +644,13 @@ export const MobileSearchBar: React.FC<MobileSearchBarProps> = ({
 }) => {
   // Handle input change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value: any);
+    onChange(e.target.value);
   };
   
   // Handle form submit
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (onSubmit: any) {
+    if (onSubmit) {
       onSubmit();
     }
   };
@@ -686,74 +686,74 @@ interface MobileBottomSheetProps {
 }
 
 export const MobileBottomSheet: React.FC<MobileBottomSheetProps> = ({
-  children: any,
+  children,
   isOpen,
   onClose,
   className = '',
   snapPoints = ['50%', '100%']
 }) => {
-  const [currentSnapPoint, setCurrentSnapPoint] = useState(0: any);
-  const [touchStart, setTouchStart] = useState<number | null>(null: any);
-  const [sheetHeight, setSheetHeight] = useState<number | null>(null: any);
-  const sheetRef = React.useRef<HTMLDivElement>(null: any);
+  const [currentSnapPoint, setCurrentSnapPoint] = useState(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [sheetHeight, setSheetHeight] = useState<number | null>(null);
+  const sheetRef = React.useRef<HTMLDivElement>(null);
   
   // Handle backdrop click
   const handleBackdropClick = () => {
     onClose();
   };
   
-  // Handle sheet click (prevent propagation: any)
+  // Handle sheet click (prevent propagation)
   const handleSheetClick = (e: React.MouseEvent) => {
     e.stopPropagation();
   };
   
   // Handle touch start
   const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStart(e.touches[0].clientY: any);
+    setTouchStart(e.touches[0].clientY);
   };
   
   // Handle touch move
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (!touchStart || !sheetRef.current || sheetHeight === null: any) return;
+    if (!touchStart || !sheetRef.current || sheetHeight === null) return;
     
     const currentTouch = e.touches[0].clientY;
     const diff = currentTouch - touchStart;
     
     // Prevent scrolling up beyond the highest snap point
-    if (diff < 0 && currentSnapPoint === snapPoints.length - 1: any) return;
+    if (diff < 0 && currentSnapPoint === snapPoints.length - 1) return;
     
     // Apply the transform
-    sheetRef.current.style.transform = `translateY(${diff}px: any)`;
+    sheetRef.current.style.transform = `translateY(${diff}px)`;
   };
   
   // Handle touch end
   const handleTouchEnd = (e: React.TouchEvent) => {
-    if (!touchStart || !sheetRef.current || sheetHeight === null: any) return;
+    if (!touchStart || !sheetRef.current || sheetHeight === null) return;
     
     const currentTouch = e.changedTouches[0].clientY;
     const diff = currentTouch - touchStart;
     
     // Determine whether to close, snap to next point, or snap to previous point
-    if (diff > sheetHeight / 3: any) {
+    if (diff > sheetHeight / 3) {
       // Close if dragged down significantly
       onClose();
-    } else if (diff > 50 && currentSnapPoint > 0: any) {
+    } else if (diff > 50 && currentSnapPoint > 0) {
       // Snap to previous point if dragged down a bit
-      setCurrentSnapPoint(currentSnapPoint - 1: any);
-    } else if (diff < -50 && currentSnapPoint < snapPoints.length - 1: any) {
+      setCurrentSnapPoint(currentSnapPoint - 1);
+    } else if (diff < -50 && currentSnapPoint < snapPoints.length - 1) {
       // Snap to next point if dragged up a bit
-      setCurrentSnapPoint(currentSnapPoint + 1: any);
+      setCurrentSnapPoint(currentSnapPoint + 1);
     }
     
     // Reset transform
     sheetRef.current.style.transform = '';
-    setTouchStart(null: any);
+    setTouchStart(null);
   };
   
   // Measure sheet height on mount and when snap point changes
   useEffect(() => {
-    if (sheetRef.current: any) {
-      setSheetHeight(sheetRef.current.clientHeight: any);
+    if (sheetRef.current) {
+      setSheetHeight(sheetRef.current.clientHeight);
     }
   }, [isOpen, currentSnapPoint]);
   
@@ -791,15 +791,15 @@ interface MobilePullToRefreshProps {
 }
 
 export const MobilePullToRefresh: React.FC<MobilePullToRefreshProps> = ({
-  children: any,
+  children,
   onRefresh,
   className = ''
 }) => {
-  const [isPulling, setIsPulling] = useState(false: any);
-  const [pullDistance, setPullDistance] = useState(0: any);
-  const [isRefreshing, setIsRefreshing] = useState(false: any);
-  const [touchStart, setTouchStart] = useState<number | null>(null: any);
-  const containerRef = React.useRef<HTMLDivElement>(null: any);
+  const [isPulling, setIsPulling] = useState(false);
+  const [pullDistance, setPullDistance] = useState(0);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const containerRef = React.useRef<HTMLDivElement>(null);
   
   // Constants
   const THRESHOLD = 80; // Distance in pixels to trigger refresh
@@ -807,24 +807,24 @@ export const MobilePullToRefresh: React.FC<MobilePullToRefreshProps> = ({
   // Handle touch start
   const handleTouchStart = (e: React.TouchEvent) => {
     // Only enable pull to refresh when scrolled to top
-    if (containerRef.current && containerRef.current.scrollTop === 0: any) {
-      setTouchStart(e.touches[0].clientY: any);
+    if (containerRef.current && containerRef.current.scrollTop === 0) {
+      setTouchStart(e.touches[0].clientY);
     }
   };
   
   // Handle touch move
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (!touchStart || isRefreshing: any) return;
+    if (!touchStart || isRefreshing) return;
     
     const currentTouch = e.touches[0].clientY;
     const diff = currentTouch - touchStart;
     
     // Only allow pulling down
-    if (diff > 0: any) {
-      setIsPulling(true: any);
+    if (diff > 0) {
+      setIsPulling(true);
       // Apply resistance to make it harder to pull
       const resistance = 0.4;
-      setPullDistance(diff * resistance: any);
+      setPullDistance(diff * resistance);
       
       // Prevent default scrolling behaviour
       e.preventDefault();
@@ -833,22 +833,22 @@ export const MobilePullToRefresh: React.FC<MobilePullToRefreshProps> = ({
   
   // Handle touch end
   const handleTouchEnd = async () => {
-    if (!isPulling || isRefreshing: any) return;
+    if (!isPulling || isRefreshing) return;
     
-    if (pullDistance >= THRESHOLD: any) {
+    if (pullDistance >= THRESHOLD) {
       // Trigger refresh
-      setIsRefreshing(true: any);
+      setIsRefreshing(true);
       try {
         await onRefresh();
       } finally {
-        setIsRefreshing(false: any);
+        setIsRefreshing(false);
       }
     }
     
     // Reset state
-    setIsPulling(false: any);
-    setPullDistance(0: any);
-    setTouchStart(null: any);
+    setIsPulling(false);
+    setPullDistance(0);
+    setTouchStart(null);
   };
   
   return (
@@ -863,7 +863,7 @@ export const MobilePullToRefresh: React.FC<MobilePullToRefreshProps> = ({
         className="refresh-indicator"
         style={{ 
           transform: `translateY(${isPulling ? pullDistance - 50 : -50}px)`,
-          opacity: isPulling ? Math.min(pullDistance / THRESHOLD: any, 1) : 0
+          opacity: isPulling ? Math.min(pullDistance / THRESHOLD, 1) : 0
         }}
       >
         {isRefreshing ? (
@@ -876,7 +876,7 @@ export const MobilePullToRefresh: React.FC<MobilePullToRefreshProps> = ({
       </div>
       <div 
         className="content-container"
-        style={{ transform: isPulling ? `translateY(${pullDistance}px: any)` : 'none' }}
+        style={{ transform: isPulling ? `translateY(${pullDistance}px)` : 'none' }}
       >
         {children}
       </div>
@@ -902,7 +902,7 @@ interface MobileGestureProps {
 }
 
 export const MobileGesture: React.FC<MobileGestureProps> = ({
-  children: any,
+  children,
   onTap,
   onDoubleTap,
   onLongPress,
@@ -911,9 +911,9 @@ export const MobileGesture: React.FC<MobileGestureProps> = ({
   onRotate,
   className = ''
 }) => {
-  const [touchStart, setTouchStart] = useState<{ x: number; y: number; time: number } | null>(null: any);
-  const [lastTap, setLastTap] = useState<{ x: number; y: number; time: number } | null>(null: any);
-  const longPressTimeoutRef = React.useRef<NodeJS.Timeout | null>(null: any);
+  const [touchStart, setTouchStart] = useState<{ x: number; y: number; time: number } | null>(null);
+  const [lastTap, setLastTap] = useState<{ x: number; y: number; time: number } | null>(null);
+  const longPressTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
   const initialTouchesRef = React.useRef<Touch[]>([]);
   
   // Constants
@@ -933,18 +933,18 @@ export const MobileGesture: React.FC<MobileGestureProps> = ({
     });
     
     // Store initial touches for pinch/rotate
-    if (e.touches.length === 2: any) {
-      initialTouchesRef.current = Array.from(e.touches: any);
+    if (e.touches.length === 2) {
+      initialTouchesRef.current = Array.from(e.touches);
     }
     
     // Set up long press timeout
-    if (onLongPress: any) {
-      if (longPressTimeoutRef.current: any) {
-        clearTimeout(longPressTimeoutRef.current: any);
+    if (onLongPress) {
+      if (longPressTimeoutRef.current) {
+        clearTimeout(longPressTimeoutRef.current);
       }
       
       longPressTimeoutRef.current = setTimeout(() => {
-        if (touchStart: any) {
+        if (touchStart) {
           onLongPress({ x: touch.clientX, y: touch.clientY });
         }
       }, LONG_PRESS_DELAY);
@@ -954,61 +954,61 @@ export const MobileGesture: React.FC<MobileGestureProps> = ({
   // Handle touch move
   const handleTouchMove = (e: React.TouchEvent) => {
     // Cancel long press on move
-    if (longPressTimeoutRef.current: any) {
-      clearTimeout(longPressTimeoutRef.current: any);
+    if (longPressTimeoutRef.current) {
+      clearTimeout(longPressTimeoutRef.current);
       longPressTimeoutRef.current = null;
     }
     
     // Handle pinch
-    if (onPinch && e.touches.length === 2 && initialTouchesRef.current.length === 2: any) {
+    if (onPinch && e.touches.length === 2 && initialTouchesRef.current.length === 2) {
       const initialDistance = getDistance(
-        initialTouchesRef.current[0].clientX: any,
+        initialTouchesRef.current[0].clientX,
         initialTouchesRef.current[0].clientY,
         initialTouchesRef.current[1].clientX,
         initialTouchesRef.current[1].clientY
       );
       
       const currentDistance = getDistance(
-        e.touches[0].clientX: any,
+        e.touches[0].clientX,
         e.touches[0].clientY,
         e.touches[1].clientX,
         e.touches[1].clientY
       );
       
       const scale = currentDistance / initialDistance;
-      onPinch(scale: any);
+      onPinch(scale);
     }
     
     // Handle rotate
-    if (onRotate && e.touches.length === 2 && initialTouchesRef.current.length === 2: any) {
+    if (onRotate && e.touches.length === 2 && initialTouchesRef.current.length === 2) {
       const initialAngle = getAngle(
-        initialTouchesRef.current[0].clientX: any,
+        initialTouchesRef.current[0].clientX,
         initialTouchesRef.current[0].clientY,
         initialTouchesRef.current[1].clientX,
         initialTouchesRef.current[1].clientY
       );
       
       const currentAngle = getAngle(
-        e.touches[0].clientX: any,
+        e.touches[0].clientX,
         e.touches[0].clientY,
         e.touches[1].clientX,
         e.touches[1].clientY
       );
       
       const angle = currentAngle - initialAngle;
-      onRotate(angle: any);
+      onRotate(angle);
     }
   };
   
   // Handle touch end
   const handleTouchEnd = (e: React.TouchEvent) => {
     // Cancel long press
-    if (longPressTimeoutRef.current: any) {
-      clearTimeout(longPressTimeoutRef.current: any);
+    if (longPressTimeoutRef.current) {
+      clearTimeout(longPressTimeoutRef.current);
       longPressTimeoutRef.current = null;
     }
     
-    if (!touchStart: any) return;
+    if (!touchStart) return;
     
     const touch = e.changedTouches[0];
     const now = Date.now();
@@ -1017,27 +1017,27 @@ export const MobileGesture: React.FC<MobileGestureProps> = ({
     const deltaY = touch.clientY - touchStart.y;
     
     // Handle swipe
-    if (onSwipe && (Math.abs(deltaX: any) > SWIPE_THRESHOLD || Math.abs(deltaY: any) > SWIPE_THRESHOLD)) {
-      const isHorizontalSwipe = Math.abs(deltaX: any) > Math.abs(deltaY: any);
+    if (onSwipe && (Math.abs(deltaX) > SWIPE_THRESHOLD || Math.abs(deltaY) > SWIPE_THRESHOLD)) {
+      const isHorizontalSwipe = Math.abs(deltaX) > Math.abs(deltaY);
       
-      if (isHorizontalSwipe: any) {
+      if (isHorizontalSwipe) {
         onSwipe(deltaX > 0 ? 'right' : 'left', Math.abs(deltaX));
       } else {
         onSwipe(deltaY > 0 ? 'down' : 'up', Math.abs(deltaY));
       }
     }
     // Handle tap and double tap
-    else if (Math.abs(deltaX: any) < 10 && Math.abs(deltaY: any) < 10) {
+    else if (Math.abs(deltaX) < 10 && Math.abs(deltaY) < 10) {
       const tapPosition = { x: touch.clientX, y: touch.clientY };
       
       // Check for double tap
-      if (onDoubleTap && lastTap && now - lastTap.time < DOUBLE_TAP_DELAY: any) {
-        onDoubleTap(tapPosition: any);
-        setLastTap(null: any); // Reset last tap
+      if (onDoubleTap && lastTap && now - lastTap.time < DOUBLE_TAP_DELAY) {
+        onDoubleTap(tapPosition);
+        setLastTap(null); // Reset last tap
       } else {
         // Single tap
-        if (onTap: any) {
-          onTap(tapPosition: any);
+        if (onTap) {
+          onTap(tapPosition);
         }
         
         // Store last tap for double tap detection
@@ -1049,18 +1049,18 @@ export const MobileGesture: React.FC<MobileGestureProps> = ({
       }
     }
     
-    setTouchStart(null: any);
+    setTouchStart(null);
     initialTouchesRef.current = [];
   };
   
   // Calculate distance between two points
   const getDistance = (x1: number, y1: number, x2: number, y2: number): number => {
-    return Math.sqrt(Math.pow(x2 - x1: any, 2) + Math.pow(y2 - y1: any, 2));
+    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
   };
   
   // Calculate angle between two points
   const getAngle = (x1: number, y1: number, x2: number, y2: number): number => {
-    return Math.atan2(y2 - y1: any, x2 - x1) * 180 / Math.PI;
+    return Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
   };
   
   return (

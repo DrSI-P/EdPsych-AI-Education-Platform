@@ -120,7 +120,7 @@ export default function AdvancedSpeechRecognition({
       }
     };
     
-    recognitionRef.current.onresult = (event: any) => {
+    recognitionRef.current.onresult = (event) => {
       let interimText = '';
       let finalText = transcript;
       let maxConfidence = 0;
@@ -176,7 +176,7 @@ export default function AdvancedSpeechRecognition({
       }
     };
     
-    recognitionRef.current.onerror = (event: any) => {
+    recognitionRef.current.onerror = (event) => {
       console.error('Speech recognition error:', event.error);
       setRecognitionError(event.error);
       
@@ -423,7 +423,7 @@ export default function AdvancedSpeechRecognition({
   };
   
   // Update settings
-  const updateSettings = (key: keyof typeof settings, value: any) => {
+  const updateSettings = (key: keyof typeof settings, value) => {
     setSettings(prev => ({
       ...prev,
       [key]: value,

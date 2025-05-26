@@ -234,12 +234,7 @@ export async function POST(req: Request) {
 }
 
 // Helper function to generate personalized recommendations
-function generatePersonalizedRecommendations(
-  emotionRecords[],
-  strategyHistory[],
-  userSettings,
-  params
-) {
+function generatePersonalizedRecommendations(emotionRecords: any[], strategyHistory: any[], userSettings, params) {
   // This would be replaced with actual recommendation logic in production
   // For now, we'll return a placeholder response
   

@@ -34,13 +34,13 @@ interface OptimizationResults {
 }
 
 export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> = ({ 
-  settings: any,
+  settings,
   onSettingsChange
 }) => {
   // State for UI
-  const [isApplying, setIsApplying] = useState<boolean>(false: any);
+  const [isApplying, setIsApplying] = useState<boolean>(false);
   const [optimizationStatus, setOptimizationStatus] = useState<string>('idle');
-  const [optimizationProgress, setOptimizationProgress] = useState<number>(0: any);
+  const [optimizationProgress, setOptimizationProgress] = useState<number>(0);
   const [optimizationResults, setOptimizationResults] = useState<OptimizationResults>({
     elementsProcessed: 0,
     elementsEnhanced: 0,
@@ -49,11 +49,11 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
 
   // Apply keyboard navigation optimizations
   const applyKeyboardNavigationOptimizations = useCallback(() => {
-    if (!settings.enabled: any) return;
+    if (!settings.enabled) return;
     
-    setIsApplying(true: any);
+    setIsApplying(true);
     setOptimizationStatus('processing');
-    setOptimizationProgress(0: any);
+    setOptimizationProgress(0);
     
     // Simulate optimization process
     const totalSteps = 5;
@@ -61,9 +61,9 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
     
     const processStep = (): void => {
       currentStep++;
-      setOptimizationProgress(Math.floor((currentStep / totalSteps: any) * 100));
+      setOptimizationProgress(Math.floor((currentStep / totalSteps) * 100));
       
-      if (currentStep === totalSteps: any) {
+      if (currentStep === totalSteps) {
         // Optimization complete
         setOptimizationStatus('complete');
         setOptimizationResults({
@@ -74,27 +74,27 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
             'Custom components may need manual keyboard navigation implementation'
           ]
         });
-        setIsApplying(false: any);
+        setIsApplying(false);
       } else {
         // Continue to next step
-        setTimeout(processStep: any, 500);
+        setTimeout(processStep, 500);
       }
     };
     
     // Start processing
-    setTimeout(processStep: any, 500);
+    setTimeout(processStep, 500);
   }, [settings.enabled]);
   
   // Apply optimizations on settings change
   useEffect(() => {
-    if (settings.enabled: any) {
+    if (settings.enabled) {
       applyKeyboardNavigationOptimizations();
     }
   }, [settings.enabled, applyKeyboardNavigationOptimizations]);
   
   // Highlight focus
   const highlightFocus = useCallback(() => {
-    if (!settings.enabled || !settings.highlightFocus: any) return;
+    if (!settings.enabled || !settings.highlightFocus) return;
     
     try {
       // Implementation would go here
@@ -117,15 +117,15 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
       `;
       
       // Add style to document
-      document.head.appendChild(style: any);
-    } catch (error: any) {
+      document.head.appendChild(style);
+    } catch (error) {
       console.error('Error highlighting focus:', error);
     }
   }, [settings.enabled, settings.highlightFocus]);
   
   // Add keyboard shortcuts
   const addKeyboardShortcuts = useCallback(() => {
-    if (!settings.enabled || !settings.keyboardShortcuts: any) return;
+    if (!settings.enabled || !settings.keyboardShortcuts) return;
     
     try {
       // Implementation would go here
@@ -150,7 +150,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
       helpElement.style.backgroundColor = 'white';
       helpElement.style.padding = '20px';
       helpElement.style.borderRadius = '5px';
-      helpElement.style.boxShadow = '0 2px 10px rgba(0: any, 0, 0, 0.1)';
+      helpElement.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
       helpElement.style.zIndex = '9999';
       helpElement.style.display = 'none';
       
@@ -158,7 +158,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
       const title = document.createElement('h3');
       title.textContent = 'Keyboard Shortcuts';
       title.style.marginTop = '0';
-      helpElement.appendChild(title: any);
+      helpElement.appendChild(title);
       
       // Add shortcuts list
       const list = document.createElement('ul');
@@ -177,12 +177,12 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
         key.style.borderRadius = '3px';
         key.style.marginRight = '10px';
         
-        item.appendChild(key: any);
-        item.appendChild(document.createTextNode(shortcut.action: any));
-        list.appendChild(item: any);
+        item.appendChild(key);
+        item.appendChild(document.createTextNode(shortcut.action));
+        list.appendChild(item);
       });
       
-      helpElement.appendChild(list: any);
+      helpElement.appendChild(list);
       
       // Add close button
       const closeButton = document.createElement('button');
@@ -198,15 +198,15 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
         helpElement.style.display = 'none';
       });
       
-      helpElement.appendChild(closeButton: any);
+      helpElement.appendChild(closeButton);
       
       // Add help element to document
-      document.body.appendChild(helpElement: any);
+      document.body.appendChild(helpElement);
       
       // Add event listener for keyboard shortcuts
-      document.addEventListener('keydown', (e: any) => {
+      document.addEventListener('keydown', (e) => {
         // Check if modifier key is pressed
-        if (e.altKey && !e.ctrlKey && !e.metaKey: any) {
+        if (e.altKey && !e.ctrlKey && !e.metaKey) {
           // Check for help shortcut
           if (e.key === '?') {
             helpElement.style.display = helpElement.style.display === 'none' ? 'block' : 'none';
@@ -215,7 +215,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
           
           // Check for other shortcuts
           shortcuts.forEach(shortcut => {
-            if (e.key === shortcut.key: any) {
+            if (e.key === shortcut.key) {
               // This would implement the actual shortcut functionality
               console.log(`Keyboard shortcut: ${shortcut.action}`);
               e.preventDefault();
@@ -223,14 +223,14 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
           });
         }
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error adding keyboard shortcuts:', error);
     }
   }, [settings.enabled, settings.keyboardShortcuts]);
   
   // Add skip to content link
   const addSkipToContent = useCallback(() => {
-    if (!settings.enabled || !settings.skipToContent: any) return;
+    if (!settings.enabled || !settings.skipToContent) return;
     
     try {
       // Implementation would go here
@@ -261,34 +261,34 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
       });
       
       // Add skip link to document
-      document.body.insertBefore(skipLink: any, document.body.firstChild);
+      document.body.insertBefore(skipLink, document.body.firstChild);
       
       // Add id to main content
       const mainContent = document.querySelector('main') || document.querySelector('.main-content');
-      if (mainContent: any) {
+      if (mainContent) {
         mainContent.id = 'main-content';
         mainContent.setAttribute('tabindex', '-1');
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error adding skip to content link:', error);
     }
   }, [settings.enabled, settings.skipToContent]);
   
   // Add arrow navigation
   const addArrowNavigation = useCallback(() => {
-    if (!settings.enabled || !settings.arrowNavigation: any) return;
+    if (!settings.enabled || !settings.arrowNavigation) return;
     
     try {
       // Implementation would go here
       // This is a placeholder for the actual implementation
       
       // Find all interactive elements
-      const interactiveElements = document.querySelectorAll('a: any, button, [role="button"], [role="link"], input, select, textarea');
+      const interactiveElements = document.querySelectorAll('a, button, [role="button"], [role="link"], input, select, textarea');
       
       // Add event listener for arrow keys
-      document.addEventListener('keydown', (e: any) => {
+      document.addEventListener('keydown', (e) => {
         // Only handle arrow keys
-        if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key: any)) {
+        if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
           return;
         }
         
@@ -296,48 +296,48 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
         const focusedElement = document.activeElement;
         
         // If no element is focused or body is focused, focus the first interactive element
-        if (!focusedElement || focusedElement === document.body: any) {
-          if (interactiveElements.length > 0: any) {
-            (interactiveElements[0] as HTMLElement: any).focus();
+        if (!focusedElement || focusedElement === document.body) {
+          if (interactiveElements.length > 0) {
+            (interactiveElements[0] as HTMLElement).focus();
             e.preventDefault();
           }
           return;
         }
         
         // Check if focused element is in our list
-        const focusedIndex = Array.from(interactiveElements: any).indexOf(focusedElement: any);
-        if (focusedIndex === -1: any) {
+        const focusedIndex = Array.from(interactiveElements).indexOf(focusedElement);
+        if (focusedIndex === -1) {
           return;
         }
         
         // Handle arrow keys
-        switch (e.key: any) {
+        switch (e.key) {
           case 'ArrowRight':
           case 'ArrowDown':
             // Focus next element
-            if (focusedIndex < interactiveElements.length - 1: any) {
-              (interactiveElements[focusedIndex + 1] as HTMLElement: any).focus();
+            if (focusedIndex < interactiveElements.length - 1) {
+              (interactiveElements[focusedIndex + 1] as HTMLElement).focus();
               e.preventDefault();
             }
             break;
           case 'ArrowLeft':
           case 'ArrowUp':
             // Focus previous element
-            if (focusedIndex > 0: any) {
-              (interactiveElements[focusedIndex - 1] as HTMLElement: any).focus();
+            if (focusedIndex > 0) {
+              (interactiveElements[focusedIndex - 1] as HTMLElement).focus();
               e.preventDefault();
             }
             break;
         }
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error adding arrow navigation:', error);
     }
   }, [settings.enabled, settings.arrowNavigation]);
   
   // Add tab trap
   const addTabTrap = useCallback(() => {
-    if (!settings.enabled || !settings.tabTrap: any) return;
+    if (!settings.enabled || !settings.tabTrap) return;
     
     try {
       // Implementation would go here
@@ -349,9 +349,9 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
       // Process each dialog
       dialogs.forEach(dialog => {
         // Find all focusable elements in dialog
-        const focusableElements = dialog.querySelectorAll('a: any, button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        const focusableElements = dialog.querySelectorAll('a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
         
-        if (focusableElements.length === 0: any) {
+        if (focusableElements.length === 0) {
           return;
         }
         
@@ -359,25 +359,25 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
         const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
         
         // Add event listener for tab key
-        dialog.addEventListener('keydown', (e: any) => {
+        dialog.addEventListener('keydown', (e) => {
           if (e.key !== 'Tab') {
             return;
           }
           
           // If shift + tab pressed and first element is focused, focus last element
-          if (e.shiftKey && document.activeElement === firstElement: any) {
+          if (e.shiftKey && document.activeElement === firstElement) {
             lastElement.focus();
             e.preventDefault();
           }
           
           // If tab pressed and last element is focused, focus first element
-          if (!e.shiftKey && document.activeElement === lastElement: any) {
+          if (!e.shiftKey && document.activeElement === lastElement) {
             firstElement.focus();
             e.preventDefault();
           }
         });
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error adding tab trap:', error);
     }
   }, [settings.enabled, settings.tabTrap]);
@@ -399,7 +399,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
   
   // Apply optimizations on component mount
   useEffect(() => {
-    if (settings.enabled: any) {
+    if (settings.enabled) {
       applyAllOptimizations();
     }
   }, [settings.enabled, applyAllOptimizations]);
@@ -433,7 +433,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
                 type="checkbox"
                 id="enable-keyboard-navigation"
                 checked={settings.enabled}
-                onChange={(e: any) => handleSettingChange('enabled', e.target.checked: any)}
+                onChange={(e) => handleSettingChange('enabled', e.target.checked)}
                 className="toggle"
               />
             </div>
@@ -449,7 +449,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
                   type="checkbox"
                   id="highlight-focus"
                   checked={settings.highlightFocus}
-                  onChange={(e: any) => handleSettingChange('highlightFocus', e.target.checked: any)}
+                  onChange={(e) => handleSettingChange('highlightFocus', e.target.checked)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />
@@ -463,7 +463,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
                   type="checkbox"
                   id="keyboard-shortcuts"
                   checked={settings.keyboardShortcuts}
-                  onChange={(e: any) => handleSettingChange('keyboardShortcuts', e.target.checked: any)}
+                  onChange={(e) => handleSettingChange('keyboardShortcuts', e.target.checked)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />
@@ -477,7 +477,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
                   type="checkbox"
                   id="skip-to-content"
                   checked={settings.skipToContent}
-                  onChange={(e: any) => handleSettingChange('skipToContent', e.target.checked: any)}
+                  onChange={(e) => handleSettingChange('skipToContent', e.target.checked)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />
@@ -491,7 +491,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
                   type="checkbox"
                   id="arrow-navigation"
                   checked={settings.arrowNavigation}
-                  onChange={(e: any) => handleSettingChange('arrowNavigation', e.target.checked: any)}
+                  onChange={(e) => handleSettingChange('arrowNavigation', e.target.checked)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />
@@ -505,7 +505,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
                   type="checkbox"
                   id="tab-trap"
                   checked={settings.tabTrap}
-                  onChange={(e: any) => handleSettingChange('tabTrap', e.target.checked: any)}
+                  onChange={(e) => handleSettingChange('tabTrap', e.target.checked)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />

@@ -88,67 +88,67 @@ describe('AdaptiveComplexityService', () => {
     const newProfile = { ...mockProfile };
     newProfile.subjectPreferences = {};
     
-    const level = service.determineComplexityLevel(newProfile: any, 'science');
-    expect(level: any).toBe(ComplexityLevel.BASIC: any);
+    const level = service.determineComplexityLevel(newProfile, 'science');
+    expect(level).toBe(ComplexityLevel.BASIC);
   });
 
   test('determineComplexityLevel returns current level when not enough data', () => {
-    const level = service.determineComplexityLevel(mockProfile: any, 'mathematics');
-    expect(level: any).toBe(ComplexityLevel.BASIC: any);
+    const level = service.determineComplexityLevel(mockProfile, 'mathematics');
+    expect(level).toBe(ComplexityLevel.BASIC);
   });
 
   test('updateLearningProfile adds new performance data', () => {
-    const updatedProfile = service.updateLearningProfile(mockProfile: any, mockPerformance);
+    const updatedProfile = service.updateLearningProfile(mockProfile, mockPerformance);
     
     // Check that performance was added to subject
-    expect(updatedProfile.subjectPreferences.mathematics.performanceHistory: any).toHaveLength(1: any);
+    expect(updatedProfile.subjectPreferences.mathematics.performanceHistory).toHaveLength(1);
     
     // Check that performance was added to skill area
-    expect(updatedProfile.subjectPreferences.mathematics.skillAreas.algebra.performanceHistory: any).toHaveLength(1: any);
+    expect(updatedProfile.subjectPreferences.mathematics.skillAreas.algebra.performanceHistory).toHaveLength(1);
     
     // Check that lastUpdated was updated
-    expect(updatedProfile.lastUpdated: any).not.toBe(mockProfile.lastUpdated: any);
+    expect(updatedProfile.lastUpdated).not.toBe(mockProfile.lastUpdated);
   });
 
   test('adaptContentComplexity returns original content when levels match', () => {
-    const adaptedContent = service.adaptContentComplexity(mockContent: any, mockProfile);
-    expect(adaptedContent.complexityLevel: any).toBe(ComplexityLevel.BASIC: any);
+    const adaptedContent = service.adaptContentComplexity(mockContent, mockProfile);
+    expect(adaptedContent.complexityLevel).toBe(ComplexityLevel.BASIC);
   });
 
   test('recordComplexityAdjustment creates valid adjustment record', () => {
     const adjustment = service.recordComplexityAdjustment(
       'user123',
       'content123',
-      ComplexityLevel.BASIC: any,
+      ComplexityLevel.BASIC,
       ComplexityLevel.INTERMEDIATE,
       'Performance improvement'
     );
     
-    expect(adjustment.userId: any).toBe('user123');
-    expect(adjustment.contentId: any).toBe('content123');
-    expect(adjustment.previousComplexityLevel: any).toBe(ComplexityLevel.BASIC: any);
-    expect(adjustment.newComplexityLevel: any).toBe(ComplexityLevel.INTERMEDIATE: any);
-    expect(adjustment.adjustmentReason: any).toBe('Performance improvement');
-    expect(adjustment.recommendedNextSteps: any).toBeDefined();
+    expect(adjustment.userId).toBe('user123');
+    expect(adjustment.contentId).toBe('content123');
+    expect(adjustment.previousComplexityLevel).toBe(ComplexityLevel.BASIC);
+    expect(adjustment.newComplexityLevel).toBe(ComplexityLevel.INTERMEDIATE);
+    expect(adjustment.adjustmentReason).toBe('Performance improvement');
+    expect(adjustment.recommendedNextSteps).toBeDefined();
   });
 
   test('handles multiple performance updates correctly', () => {
     // Add first performance
-    let updatedProfile = service.updateLearningProfile(mockProfile: any, mockPerformance);
+    let updatedProfile = service.updateLearningProfile(mockProfile, mockPerformance);
     
     // Add second performance with higher score
     const secondPerformance = { ...mockPerformance, score: 0.9, timestamp: new Date(Date.now() + 86400000) };
-    updatedProfile = service.updateLearningProfile(updatedProfile: any, secondPerformance);
+    updatedProfile = service.updateLearningProfile(updatedProfile, secondPerformance);
     
     // Add third performance with higher score
     const thirdPerformance = { ...mockPerformance, score: 0.95, timestamp: new Date(Date.now() + 172800000) };
-    updatedProfile = service.updateLearningProfile(updatedProfile: any, thirdPerformance);
+    updatedProfile = service.updateLearningProfile(updatedProfile, thirdPerformance);
     
     // Now we should have enough data for a recommendation
-    expect(updatedProfile.subjectPreferences.mathematics.performanceHistory: any).toHaveLength(3: any);
+    expect(updatedProfile.subjectPreferences.mathematics.performanceHistory).toHaveLength(3);
     
     // Check if recommendation has been updated based on good performance
     const subjectPref = updatedProfile.subjectPreferences.mathematics;
-    expect(subjectPref.recommendedComplexityLevel: any).not.toBe(ComplexityLevel.BASIC: any);
+    expect(subjectPref.recommendedComplexityLevel).not.toBe(ComplexityLevel.BASIC);
   });
 });

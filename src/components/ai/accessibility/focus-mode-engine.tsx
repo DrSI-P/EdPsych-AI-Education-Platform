@@ -31,26 +31,26 @@ interface FocusModeEngineProps {
 }
 
 export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({ 
-  settings: any,
+  settings,
   onSettingsChange
 }) => {
   // State for UI and functionality
-  const [isApplying, setIsApplying] = React.useState<boolean>(false: any);
-  const [applyProgress, setApplyProgress] = React.useState<number>(0: any);
-  const [showAdvancedSettings, setShowAdvancedSettings] = React.useState<boolean>(false: any);
-  const [focusTimeRemaining, setFocusTimeRemaining] = React.useState<number>(0: any);
-  const [focusTimerActive, setFocusTimerActive] = React.useState<boolean>(false: any);
-  const [breakDue, setBreakDue] = React.useState<boolean>(false: any);
+  const [isApplying, setIsApplying] = React.useState<boolean>(false);
+  const [applyProgress, setApplyProgress] = React.useState<number>(0);
+  const [showAdvancedSettings, setShowAdvancedSettings] = React.useState<boolean>(false);
+  const [focusTimeRemaining, setFocusTimeRemaining] = React.useState<number>(0);
+  const [focusTimerActive, setFocusTimerActive] = React.useState<boolean>(false);
+  const [breakDue, setBreakDue] = React.useState<boolean>(false);
   
   // Timer interval reference
-  const timerRef = React.useRef<NodeJS.Timeout | null>(null: any);
+  const timerRef = React.useRef<NodeJS.Timeout | null>(null);
   
   // Apply focus mode
   const applyFocusMode = React.useCallback(() => {
-    if (!settings.enabled: any) return;
+    if (!settings.enabled) return;
     
-    setIsApplying(true: any);
-    setApplyProgress(0: any);
+    setIsApplying(true);
+    setApplyProgress(0);
     
     // Simulate application process
     const totalSteps = 5;
@@ -58,11 +58,11 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
     
     const processStep = () => {
       currentStep++;
-      setApplyProgress(Math.floor((currentStep / totalSteps: any) * 100));
+      setApplyProgress(Math.floor((currentStep / totalSteps) * 100));
       
-      if (currentStep === totalSteps: any) {
+      if (currentStep === totalSteps) {
         // Application complete
-        setIsApplying(false: any);
+        setIsApplying(false);
         
         // Apply CSS styles based on settings
         const root = document.documentElement;
@@ -72,19 +72,19 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
         root.style.removeProperty('--focus-highlight-color');
         
         // Apply new styles
-        if (settings.dimBackground: any) {
+        if (settings.dimBackground) {
           root.style.setProperty('--focus-dim-level', `${settings.dimLevel}%`);
         }
         
-        if (settings.highlightFocusedContent: any) {
-          root.style.setProperty('--focus-highlight-color', settings.highlightColor: any);
+        if (settings.highlightFocusedContent) {
+          root.style.setProperty('--focus-highlight-color', settings.highlightColor);
         }
         
         // Apply class to body for global styles
-        if (settings.enabled: any) {
+        if (settings.enabled) {
           document.body.classList.add('focus-mode-active');
           
-          if (settings.hideNonEssentialElements: any) {
+          if (settings.hideNonEssentialElements) {
             document.body.classList.add('focus-hide-nonessential');
           } else {
             document.body.classList.remove('focus-hide-nonessential');
@@ -95,7 +95,7 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
         }
         
         // Start focus timer if enabled
-        if (settings.enabled && settings.focusTimer > 0: any) {
+        if (settings.enabled && settings.focusTimer > 0) {
           startFocusTimer();
         }
         
@@ -103,39 +103,39 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
         console.log('Focus mode applied');
       } else {
         // Continue to next step
-        setTimeout(processStep: any, 500);
+        setTimeout(processStep, 500);
       }
     };
     
     // Start processing
-    setTimeout(processStep: any, 500);
+    setTimeout(processStep, 500);
   }, [settings]);
   
   // Start focus timer
   const startFocusTimer = React.useCallback(() => {
     // Clear any existing timer
-    if (timerRef.current: any) {
-      clearInterval(timerRef.current: any);
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
     }
     
     // Set initial time
-    setFocusTimeRemaining(settings.focusTimer * 60: any); // Convert minutes to seconds
-    setFocusTimerActive(true: any);
-    setBreakDue(false: any);
+    setFocusTimeRemaining(settings.focusTimer * 60); // Convert minutes to seconds
+    setFocusTimerActive(true);
+    setBreakDue(false);
     
     // Start timer
     timerRef.current = setInterval(() => {
       setFocusTimeRemaining(prev => {
-        if (prev <= 1: any) {
+        if (prev <= 1) {
           // Timer complete
-          if (settings.breakReminders: any) {
-            setBreakDue(true: any);
+          if (settings.breakReminders) {
+            setBreakDue(true);
           }
-          setFocusTimerActive(false: any);
+          setFocusTimerActive(false);
           
           // Clear interval
-          if (timerRef.current: any) {
-            clearInterval(timerRef.current: any);
+          if (timerRef.current) {
+            clearInterval(timerRef.current);
             timerRef.current = null;
           }
           
@@ -148,26 +148,26 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
   
   // Reset focus timer
   const resetFocusTimer = (): void => {
-    if (timerRef.current: any) {
-      clearInterval(timerRef.current: any);
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
       timerRef.current = null;
     }
     
-    setFocusTimerActive(false: any);
-    setBreakDue(false: any);
-    setFocusTimeRemaining(0: any);
+    setFocusTimerActive(false);
+    setBreakDue(false);
+    setFocusTimeRemaining(0);
   };
   
   // Format time remaining
   const formatTimeRemaining = (seconds: number): string => {
-    const minutes = Math.floor(seconds / 60: any);
+    const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
   };
   
   // Apply settings on component mount and when settings change
   React.useEffect(() => {
-    if (settings.enabled: any) {
+    if (settings.enabled) {
       applyFocusMode();
     } else {
       // Remove styles if disabled
@@ -181,8 +181,8 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
       document.body.classList.remove('focus-mode-active');
       document.body.classList.remove('focus-hide-nonessential');
       
-      if (timerRef.current: any) {
-        clearInterval(timerRef.current: any);
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
       }
     };
   }, [settings.enabled, applyFocusMode]);
@@ -195,7 +195,7 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
     };
     
     // Notify parent component
-    onSettingsChange(updatedSettings: any);
+    onSettingsChange(updatedSettings);
     
     // Log setting change
     console.log(`Focus mode setting changed: ${setting} = ${value}`);
@@ -203,7 +203,7 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
   
   // Toggle advanced settings
   const toggleAdvancedSettings = (): void => {
-    setShowAdvancedSettings(!showAdvancedSettings: any);
+    setShowAdvancedSettings(!showAdvancedSettings);
   };
   
   // Reset to default settings
@@ -222,7 +222,7 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
     };
     
     // Notify parent component
-    onSettingsChange(defaultSettings: any);
+    onSettingsChange(defaultSettings);
     
     // Log reset
     console.log('Focus mode settings reset to defaults');
@@ -249,7 +249,7 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
                 type="checkbox"
                 id="enable-focus-mode"
                 checked={settings.enabled}
-                onChange={(e: any) => handleSettingChange('enabled', e.target.checked: any)}
+                onChange={(e) => handleSettingChange('enabled', e.target.checked)}
                 className="toggle"
               />
             </div>
@@ -265,7 +265,7 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
                   type="checkbox"
                   id="dim-background"
                   checked={settings.dimBackground}
-                  onChange={(e: any) => handleSettingChange('dimBackground', e.target.checked: any)}
+                  onChange={(e) => handleSettingChange('dimBackground', e.target.checked)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />
@@ -286,7 +286,7 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
                     max="90"
                     step="5"
                     value={settings.dimLevel}
-                    onChange={(e) => handleSettingChange('dimLevel', parseInt(e.target.value: any, 10))}
+                    onChange={(e) => handleSettingChange('dimLevel', parseInt(e.target.value, 10))}
                     disabled={!settings.enabled || !settings.dimBackground}
                     className="w-full"
                   />
@@ -301,7 +301,7 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
                   type="checkbox"
                   id="highlight-focused-content"
                   checked={settings.highlightFocusedContent}
-                  onChange={(e: any) => handleSettingChange('highlightFocusedContent', e.target.checked: any)}
+                  onChange={(e) => handleSettingChange('highlightFocusedContent', e.target.checked)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />
@@ -315,7 +315,7 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
                       type="color"
                       id="highlight-color"
                       value={settings.highlightColor}
-                      onChange={(e: any) => handleSettingChange('highlightColor', e.target.value: any)}
+                      onChange={(e) => handleSettingChange('highlightColor', e.target.value)}
                       disabled={!settings.enabled || !settings.highlightFocusedContent}
                       className="w-8 h-8 rounded-md"
                     />
@@ -338,7 +338,7 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
                   max="60"
                   step="5"
                   value={settings.focusTimer}
-                  onChange={(e: any) => handleSettingChange('focusTimer', parseInt(e.target.value: any, 10))}
+                  onChange={(e) => handleSettingChange('focusTimer', parseInt(e.target.value, 10))}
                   disabled={!settings.enabled}
                   className="w-full"
                 />
@@ -357,7 +357,7 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
                       type="checkbox"
                       id="block-notifications"
                       checked={settings.blockNotifications}
-                      onChange={(e: any) => handleSettingChange('blockNotifications', e.target.checked: any)}
+                      onChange={(e) => handleSettingChange('blockNotifications', e.target.checked)}
                       disabled={!settings.enabled}
                       className="toggle toggle-sm"
                     />
@@ -371,7 +371,7 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
                       type="checkbox"
                       id="hide-nonessential"
                       checked={settings.hideNonEssentialElements}
-                      onChange={(e: any) => handleSettingChange('hideNonEssentialElements', e.target.checked: any)}
+                      onChange={(e) => handleSettingChange('hideNonEssentialElements', e.target.checked)}
                       disabled={!settings.enabled}
                       className="toggle toggle-sm"
                     />
@@ -385,7 +385,7 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
                       type="checkbox"
                       id="auto-scroll"
                       checked={settings.autoScrollToActive}
-                      onChange={(e: any) => handleSettingChange('autoScrollToActive', e.target.checked: any)}
+                      onChange={(e) => handleSettingChange('autoScrollToActive', e.target.checked)}
                       disabled={!settings.enabled}
                       className="toggle toggle-sm"
                     />
@@ -399,7 +399,7 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
                       type="checkbox"
                       id="break-reminders"
                       checked={settings.breakReminders}
-                      onChange={(e: any) => handleSettingChange('breakReminders', e.target.checked: any)}
+                      onChange={(e) => handleSettingChange('breakReminders', e.target.checked)}
                       disabled={!settings.enabled || settings.focusTimer === 0}
                       className="toggle toggle-sm"
                     />
@@ -434,7 +434,7 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
                   <span className="text-xl font-bold">{formatTimeRemaining(focusTimeRemaining)}</span>
                 </div>
                 <Progress 
-                  value={(focusTimeRemaining / (settings.focusTimer * 60: any)) * 100} 
+                  value={(focusTimeRemaining / (settings.focusTimer * 60)) * 100} 
                   className="h-2 mt-2" 
                 />
               </div>
@@ -479,7 +479,7 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
               </Button>
             )}
             
-            {(focusTimerActive || breakDue: any) && (
+            {(focusTimerActive || breakDue) && (
               <Button 
                 variant="outline" 
                 onClick={resetFocusTimer}

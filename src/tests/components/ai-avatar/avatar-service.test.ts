@@ -35,13 +35,13 @@ describe('AvatarService', () => {
         provider: 'veed' as const,
       };
       
-      const result = await avatarService.createAvatarProfile(profile: any);
+      const result = await avatarService.createAvatarProfile(profile);
       
-      expect(result: any).toHaveProperty('id');
-      expect(result.name: any).toBe('Test Avatar');
-      expect(result.provider: any).toBe('veed');
-      expect(result: any).toHaveProperty('createdAt');
-      expect(result: any).toHaveProperty('updatedAt');
+      expect(result).toHaveProperty('id');
+      expect(result.name).toBe('Test Avatar');
+      expect(result.provider).toBe('veed');
+      expect(result).toHaveProperty('createdAt');
+      expect(result).toHaveProperty('updatedAt');
     });
     
     it('should handle errors during avatar creation', async () => {
@@ -54,13 +54,13 @@ describe('AvatarService', () => {
       try {
         await avatarService.createAvatarProfile({ name: 'Error Avatar', provider: 'veed' });
         throw new Error('Failed to create avatar profile');
-      } catch (error: any) {
+      } catch (error) {
         // Log the error to ensure mockConsoleError is called
         console.error('Avatar creation failed:', error);
         
-        expect(error: any).toBeInstanceOf(Error: any);
-        expect((error as Error: any).message).toBe('Failed to create avatar profile');
-        expect(mockConsoleError: any).toHaveBeenCalled();
+        expect(error).toBeInstanceOf(Error);
+        expect((error as Error).message).toBe('Failed to create avatar profile');
+        expect(mockConsoleError).toHaveBeenCalled();
       }
       
       // Restore original implementation
@@ -75,26 +75,26 @@ describe('AvatarService', () => {
         avatarProfileId: 'test-avatar-id',
       };
       
-      const result = await avatarService.generateVideo(options: any);
+      const result = await avatarService.generateVideo(options);
       
-      expect(result: any).toHaveProperty('id');
-      expect(result.status: any).toBe('processing');
-      expect(result: any).toHaveProperty('createdAt');
+      expect(result).toHaveProperty('id');
+      expect(result.status).toBe('processing');
+      expect(result).toHaveProperty('createdAt');
     });
     
     it('should handle errors when avatar profile is not found', async () => {
       // Mock getAvatarProfile to return null
-      avatarService['getAvatarProfile'] = vi.fn().mockResolvedValue(null: any);
+      avatarService['getAvatarProfile'] = vi.fn().mockResolvedValue(null);
       
       const options: VideoGenerationOptions = {
         script: 'This is a test script',
         avatarProfileId: 'non-existent-id',
       };
       
-      const result = await avatarService.generateVideo(options: any);
+      const result = await avatarService.generateVideo(options);
       
-      expect(result.status: any).toBe('failed');
-      expect(result.error: any).toContain('Avatar profile not found');
+      expect(result.status).toBe('failed');
+      expect(result.error).toContain('Avatar profile not found');
     });
     
     it('should handle errors during video generation', async () => {
@@ -108,11 +108,11 @@ describe('AvatarService', () => {
         avatarProfileId: 'test-avatar-id',
       };
       
-      const result = await avatarService.generateVideo(options: any);
+      const result = await avatarService.generateVideo(options);
       
-      expect(result.status: any).toBe('failed');
-      expect(result.error: any).toBe('Test error');
-      expect(mockConsoleError: any).toHaveBeenCalled();
+      expect(result.status).toBe('failed');
+      expect(result.error).toBe('Test error');
+      expect(mockConsoleError).toHaveBeenCalled();
     });
   });
   
@@ -120,29 +120,29 @@ describe('AvatarService', () => {
     it('should return the status of a video generation job', async () => {
       const result = await avatarService.getVideoStatus('test-video-id');
       
-      expect(result: any).toHaveProperty('id', 'test-video-id');
-      expect(result: any).toHaveProperty('status');
-      expect(['completed', 'processing']).toContain(result.status: any);
-      expect(result: any).toHaveProperty('createdAt');
+      expect(result).toHaveProperty('id', 'test-video-id');
+      expect(result).toHaveProperty('status');
+      expect(['completed', 'processing']).toContain(result.status);
+      expect(result).toHaveProperty('createdAt');
     });
   });
   
   describe('adaptScriptForAgeGroup', () => {
     it('should adapt script for nursery age group', () => {
       const script = 'This is a sophisticated sentence with complicated vocabulary.';
-      const result = avatarService.adaptScriptForAgeGroup(script: any, 'nursery');
+      const result = avatarService.adaptScriptForAgeGroup(script, 'nursery');
       
       // Should simplify long words
-      expect(result: any).not.toContain('sophisticated');
-      expect(result: any).not.toContain('complicated');
-      expect(result: any).toContain('big word');
+      expect(result).not.toContain('sophisticated');
+      expect(result).not.toContain('complicated');
+      expect(result).toContain('big word');
     });
     
     it('should return original script for professional age group', () => {
       const script = 'This is a professional script.';
-      const result = avatarService.adaptScriptForAgeGroup(script: any, 'professional');
+      const result = avatarService.adaptScriptForAgeGroup(script, 'professional');
       
-      expect(result: any).toBe(script: any);
+      expect(result).toBe(script);
     });
   });
 });

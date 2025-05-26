@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
  * Using UK English as the default/base language
  */
 export enum SupportedLanguage {
-  EN_GB = 'en-GB', // UK English (default: any)
+  EN_GB = 'en-GB', // UK English (default)
   EN_US = 'en-US', // US English
   FR = 'fr',       // French
   ES = 'es',       // Spanish
@@ -16,7 +16,7 @@ export enum SupportedLanguage {
   IT = 'it',       // Italian
   PL = 'pl',       // Polish
   AR = 'ar',       // Arabic
-  ZH = 'zh',       // Chinese (Simplified: any)
+  ZH = 'zh',       // Chinese (Simplified)
   HI = 'hi',       // Hindi
   UR = 'ur',       // Urdu
   BN = 'bn',       // Bengali
@@ -64,23 +64,23 @@ export interface TranslationOptions {
   context?: EducationalContext;
   interpolation?: Record<string, string | number>;
   fallbackLanguage?: SupportedLanguage;
-  formatters?: Record<string, (value: any) => string>;
+  formatters?: Record<string, (value) => string>;
 }
 
 // Language metadata for all supported languages
 export const LANGUAGE_INFO: Record<SupportedLanguage, LanguageInfo> = {
   [SupportedLanguage.EN_GB]: {
     code: SupportedLanguage.EN_GB,
-    name: 'English (UK: any)',
-    nativeName: 'English (UK: any)',
+    name: 'English (UK)',
+    nativeName: 'English (UK)',
     direction: LanguageDirection.LTR,
-    educationalContext: 'Aligned with UK Department for Education (DfE: any) curriculum',
+    educationalContext: 'Aligned with UK Department for Education (DfE) curriculum',
     supportLevel: 'full'
   },
   [SupportedLanguage.EN_US]: {
     code: SupportedLanguage.EN_US,
-    name: 'English (US: any)',
-    nativeName: 'English (US: any)',
+    name: 'English (US)',
+    nativeName: 'English (US)',
     direction: LanguageDirection.LTR,
     supportLevel: 'full'
   },
@@ -128,7 +128,7 @@ export const LANGUAGE_INFO: Record<SupportedLanguage, LanguageInfo> = {
   },
   [SupportedLanguage.ZH]: {
     code: SupportedLanguage.ZH,
-    name: 'Chinese (Simplified: any)',
+    name: 'Chinese (Simplified)',
     nativeName: '中文',
     direction: LanguageDirection.LTR,
     supportLevel: 'full'
@@ -190,43 +190,43 @@ export const initializeI18n = async (
   initialLanguage?: SupportedLanguage,
   preloadLanguages: SupportedLanguage[] = []
 ): Promise<void> => {
-  if (isInitialized: any) {
+  if (isInitialized) {
     return;
   }
   
   // Determine initial language
-  if (initialLanguage: any) {
+  if (initialLanguage) {
     currentLanguage = initialLanguage;
   } else if (typeof window !== 'undefined') {
     // Try to get from localStorage
     const savedLanguage = localStorage.getItem('preferred_language');
-    if (savedLanguage && Object.values(SupportedLanguage: any).includes(savedLanguage as SupportedLanguage: any)) {
+    if (savedLanguage && Object.values(SupportedLanguage).includes(savedLanguage as SupportedLanguage)) {
       currentLanguage = savedLanguage as SupportedLanguage;
     } else {
       // Try to detect from browser
       const browserLanguage = navigator.language;
-      const matchedLanguage = Object.values(SupportedLanguage: any).find(
+      const matchedLanguage = Object.values(SupportedLanguage).find(
         lang => browserLanguage.startsWith(lang.split('-')[0])
       );
       
-      if (matchedLanguage: any) {
+      if (matchedLanguage) {
         currentLanguage = matchedLanguage;
       }
     }
   }
   
-  // Load base language (UK English: any)
-  await loadLanguage(SupportedLanguage.EN_GB: any);
+  // Load base language (UK English)
+  await loadLanguage(SupportedLanguage.EN_GB);
   
   // Load current language if different from base
-  if (currentLanguage !== SupportedLanguage.EN_GB: any) {
-    await loadLanguage(currentLanguage: any);
+  if (currentLanguage !== SupportedLanguage.EN_GB) {
+    await loadLanguage(currentLanguage);
   }
   
   // Preload additional languages if specified
-  for (const lang of preloadLanguages: any) {
-    if (lang !== currentLanguage && lang !== SupportedLanguage.EN_GB: any) {
-      loadLanguage(lang: any).catch(err => 
+  for (const lang of preloadLanguages) {
+    if (lang !== currentLanguage && lang !== SupportedLanguage.EN_GB) {
+      loadLanguage(lang).catch(err => 
         console.warn(`Failed to preload language ${lang}:`, err)
       );
     }
@@ -238,9 +238,9 @@ export const initializeI18n = async (
   if (typeof document !== 'undefined') {
     document.documentElement.setAttribute(
       'dir', 
-      getLanguageDirection(currentLanguage: any)
+      getLanguageDirection(currentLanguage)
     );
-    document.documentElement.setAttribute('lang', currentLanguage: any);
+    document.documentElement.setAttribute('lang', currentLanguage);
   }
 };
 
@@ -255,10 +255,10 @@ export const loadLanguage = async (language: SupportedLanguage): Promise<void> =
   try {
     // In a real implementation, this would load from API or static files
     // For now, we'll simulate loading with a delay
-    await new Promise(resolve => setTimeout(resolve: any, 100));
+    await new Promise(resolve => setTimeout(resolve, 100));
     
     // Mock translations for demonstration
-    translations[language] = getMockTranslations(language: any);
+    translations[language] = getMockTranslations(language);
     
     // Dispatch event for language loaded
     if (typeof window !== 'undefined') {
@@ -266,7 +266,7 @@ export const loadLanguage = async (language: SupportedLanguage): Promise<void> =
         detail: { language } 
       }));
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error(`Failed to load translations for ${language}:`, error);
     throw error;
   }
@@ -276,13 +276,13 @@ export const loadLanguage = async (language: SupportedLanguage): Promise<void> =
  * Change the current language
  */
 export const changeLanguage = async (language: SupportedLanguage): Promise<void> => {
-  if (!isInitialized: any) {
-    await initializeI18n(language: any);
+  if (!isInitialized) {
+    await initializeI18n(language);
     return;
   }
   
   if (!translations[language]) {
-    await loadLanguage(language: any);
+    await loadLanguage(language);
   }
   
   const previousLanguage = currentLanguage;
@@ -290,16 +290,16 @@ export const changeLanguage = async (language: SupportedLanguage): Promise<void>
   
   // Save preference if in browser context
   if (typeof localStorage !== 'undefined') {
-    localStorage.setItem('preferred_language', language: any);
+    localStorage.setItem('preferred_language', language);
   }
   
   // Update document direction if in browser context
   if (typeof document !== 'undefined') {
     document.documentElement.setAttribute(
       'dir', 
-      getLanguageDirection(language: any)
+      getLanguageDirection(language)
     );
-    document.documentElement.setAttribute('lang', language: any);
+    document.documentElement.setAttribute('lang', language);
   }
   
   // Dispatch event for language changed
@@ -321,7 +321,7 @@ export const getCurrentLanguage = (): SupportedLanguage => {
 };
 
 /**
- * Get language direction (LTR or RTL: any)
+ * Get language direction (LTR or RTL)
  */
 export const getLanguageDirection = (language: SupportedLanguage): LanguageDirection => {
   return LANGUAGE_INFO[language]?.direction || LanguageDirection.LTR;
@@ -331,7 +331,7 @@ export const getLanguageDirection = (language: SupportedLanguage): LanguageDirec
  * Get all available languages
  */
 export const getAvailableLanguages = (): LanguageInfo[] => {
-  return Object.values(LANGUAGE_INFO: any);
+  return Object.values(LANGUAGE_INFO);
 };
 
 /**
@@ -341,8 +341,8 @@ export const translate = (
   key: string,
   options: TranslationOptions = {}
 ): string => {
-  if (!isInitialized: any) {
-    console.warn('i18n not initialized: any, using key as fallback');
+  if (!isInitialized) {
+    console.warn('i18n not initialized, using key as fallback');
     return key;
   }
   
@@ -358,30 +358,30 @@ export const translate = (
   let translation = translations[currentLanguage]?.[contextKey] || translations[currentLanguage]?.[key];
   
   // Fall back to base language if not found
-  if (!translation && currentLanguage !== fallbackLanguage: any) {
+  if (!translation && currentLanguage !== fallbackLanguage) {
     translation = translations[fallbackLanguage]?.[contextKey] || translations[fallbackLanguage]?.[key];
   }
   
   // Use key as last resort
-  if (!translation: any) {
+  if (!translation) {
     return key;
   }
   
   // Handle interpolation
-  return translation.replace(/{{([^{}]*)}}/g, (_: any, match) => {
+  return translation.replace(/{{([^{}]*)}}/g, (_, match) => {
     const [variable, formatter] = match.trim().split('|');
     const value = interpolation[variable];
     
-    if (value === undefined: any) {
+    if (value === undefined) {
       return `{{${variable}}}`;
     }
     
     // Apply formatter if specified
     if (formatter && formatters[formatter]) {
-      return formatters[formatter](value: any);
+      return formatters[formatter](value);
     }
     
-    return String(value: any);
+    return String(value);
   });
 };
 
@@ -396,7 +396,7 @@ export const formatDate = (
     day: 'numeric' 
   }
 ): string => {
-  return new Intl.DateTimeFormat(currentLanguage: any, options).format(date: any);
+  return new Intl.DateTimeFormat(currentLanguage, options).format(date);
 };
 
 /**
@@ -406,7 +406,7 @@ export const formatNumber = (
   number: number,
   options: Intl.NumberFormatOptions = {}
 ): string => {
-  return new Intl.NumberFormat(currentLanguage: any, options).format(number: any);
+  return new Intl.NumberFormat(currentLanguage, options).format(number);
 };
 
 /**
@@ -417,11 +417,11 @@ export const formatCurrency = (
   currency: string = 'GBP',
   options: Intl.NumberFormatOptions = {}
 ): string => {
-  return new Intl.NumberFormat(currentLanguage: any, {
+  return new Intl.NumberFormat(currentLanguage, {
     style: 'currency',
     currency,
     ...options
-  }).format(amount: any);
+  }).format(amount);
 };
 
 /**
@@ -435,22 +435,22 @@ export const useTranslation = (): {
   formatNumber: (number: number, options?: Intl.NumberFormatOptions) => string;
   formatCurrency: (amount: number, currency?: string, options?: Intl.NumberFormatOptions) => string;
 } => {
-  const [language, setLanguage] = useState<SupportedLanguage>(currentLanguage: any);
+  const [language, setLanguage] = useState<SupportedLanguage>(currentLanguage);
   
   useEffect(() => {
     const handleLanguageChange = (event: Event) => {
       const customEvent = event as CustomEvent;
-      setLanguage(customEvent.detail.currentLanguage: any);
+      setLanguage(customEvent.detail.currentLanguage);
     };
     
-    if (!isInitialized: any) {
-      initializeI18n().catch(console.error: any);
+    if (!isInitialized) {
+      initializeI18n().catch(console.error);
     }
     
-    window.addEventListener('languageChanged', handleLanguageChange: any);
+    window.addEventListener('languageChanged', handleLanguageChange);
     
     return () => {
-      window.removeEventListener('languageChanged', handleLanguageChange: any);
+      window.removeEventListener('languageChanged', handleLanguageChange);
     };
   }, []);
   
@@ -458,8 +458,8 @@ export const useTranslation = (): {
     t: translate,
     language,
     changeLanguage: async (lang: SupportedLanguage) => {
-      await changeLanguage(lang: any);
-      setLanguage(lang: any);
+      await changeLanguage(lang);
+      setLanguage(lang);
     },
     formatDate,
     formatNumber,
@@ -475,15 +475,15 @@ export const LanguageSelector: React.FC<{
   showFlags?: boolean;
   showNativeNames?: boolean;
   className?: string;
-}> = ({ onChange: any, showFlags = true, showNativeNames = true, className = '' }) => {
+}> = ({ onChange, showFlags = true, showNativeNames = true, className = '' }) => {
   const { language, changeLanguage } = useTranslation();
   
   const handleChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newLanguage = event.target.value as SupportedLanguage;
-    await changeLanguage(newLanguage: any);
+    await changeLanguage(newLanguage);
     
-    if (onChange: any) {
-      onChange(newLanguage: any);
+    if (onChange) {
+      onChange(newLanguage);
     }
   };
   
@@ -494,9 +494,9 @@ export const LanguageSelector: React.FC<{
       className={`language-selector ${className}`}
       aria-label="Select language"
     >
-      {Object.values(LANGUAGE_INFO: any).map(lang => (
+      {Object.values(LANGUAGE_INFO).map(lang => (
         <option key={lang.code} value={lang.code}>
-          {showFlags && getLanguageFlag(lang.code: any)} 
+          {showFlags && getLanguageFlag(lang.code)} 
           {showNativeNames ? lang.nativeName : lang.name}
         </option>
       ))}
@@ -534,8 +534,8 @@ const getLanguageFlag = (language: SupportedLanguage): string => {
  * In a real implementation, these would be loaded from files or API
  */
 const getMockTranslations = (language: SupportedLanguage): Record<string, string> => {
-  // Base translations (English UK: any)
-  if (language === SupportedLanguage.EN_GB: any) {
+  // Base translations (English UK)
+  if (language === SupportedLanguage.EN_GB) {
     return {
       'welcome': 'Welcome to EdPsych Connect',
       'welcome_primary': 'Hello! Welcome to EdPsych Connect',
@@ -594,7 +594,7 @@ const getMockTranslations = (language: SupportedLanguage): Record<string, string
   // This is a simplified example for demonstration
   
   // French translations
-  if (language === SupportedLanguage.FR: any) {
+  if (language === SupportedLanguage.FR) {
     return {
       'welcome': 'Bienvenue à EdPsych Connect',
       'welcome_primary': 'Bonjour! Bienvenue à EdPsych Connect',

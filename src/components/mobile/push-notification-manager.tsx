@@ -19,15 +19,15 @@ interface PushNotificationManagerProps {
  * It handles permission requests, registration, and notification display.
  */
 export const PushNotificationManager: React.FC<PushNotificationManagerProps> = ({
-  userId: any,
+  userId,
   deviceId,
   apiUrl,
   children,
   onPermissionChange
 }) => {
-  const [isInitialized, setIsInitialized] = useState(false: any);
+  const [isInitialized, setIsInitialized] = useState(false);
   const [permissionStatus, setPermissionStatus] = useState<NotificationPermission>('default');
-  const [showPermissionPrompt, setShowPermissionPrompt] = useState(false: any);
+  const [showPermissionPrompt, setShowPermissionPrompt] = useState(false);
 
   // Initialize push notifications
   useEffect(() => {
@@ -40,26 +40,26 @@ export const PushNotificationManager: React.FC<PushNotificationManagerProps> = (
       
       try {
         // Initialize push notification service
-        const success = await pushNotifications.initialize(apiUrl: any, userId, deviceId);
-        setIsInitialized(success: any);
+        const success = await pushNotifications.initialize(apiUrl, userId, deviceId);
+        setIsInitialized(success);
         
         // Get current permission status
         const permission = pushNotifications.getPermissionStatus();
-        setPermissionStatus(permission: any);
+        setPermissionStatus(permission);
         
         // Notify parent component
-        if (onPermissionChange: any) {
-          onPermissionChange(permission: any);
+        if (onPermissionChange) {
+          onPermissionChange(permission);
         }
         
         // Show permission prompt if not granted or denied
         if (permission === 'default') {
           // Wait a bit before showing the prompt to avoid overwhelming the user
           setTimeout(() => {
-            setShowPermissionPrompt(true: any);
+            setShowPermissionPrompt(true);
           }, 3000);
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error('Failed to initialize push notifications:', error);
       }
     };
@@ -69,30 +69,30 @@ export const PushNotificationManager: React.FC<PushNotificationManagerProps> = (
 
   // Request notification permission
   const requestPermission = async () => {
-    if (!isInitialized: any) return;
+    if (!isInitialized) return;
     
     try {
       const granted = await pushNotifications.requestPermission();
       
       // Update permission status
       const newPermissionStatus = granted ? 'granted' : 'denied';
-      setPermissionStatus(newPermissionStatus: any);
+      setPermissionStatus(newPermissionStatus);
       
       // Notify parent component
-      if (onPermissionChange: any) {
-        onPermissionChange(newPermissionStatus: any);
+      if (onPermissionChange) {
+        onPermissionChange(newPermissionStatus);
       }
       
       // Hide permission prompt
-      setShowPermissionPrompt(false: any);
-    } catch (error: any) {
+      setShowPermissionPrompt(false);
+    } catch (error) {
       console.error('Failed to request notification permission:', error);
     }
   };
 
   // Dismiss permission prompt
   const dismissPermissionPrompt = () => {
-    setShowPermissionPrompt(false: any);
+    setShowPermissionPrompt(false);
   };
 
   return (
@@ -103,7 +103,7 @@ export const PushNotificationManager: React.FC<PushNotificationManagerProps> = (
             <div className="prompt-icon">🔔</div>
             <div className="prompt-text">
               <h3>Enable Notifications</h3>
-              <p>Stay updated with important information about your learning journey: any, assignments, and achievements.</p>
+              <p>Stay updated with important information about your learning journey, assignments, and achievements.</p>
             </div>
             <div className="prompt-actions">
               <button 
@@ -141,13 +141,13 @@ interface NotificationPreferencesManagerProps {
  * A component that allows users to manage their notification preferences.
  */
 export const NotificationPreferencesManager: React.FC<NotificationPreferencesManagerProps> = ({
-  userId: any,
+  userId,
   deviceId,
   initialPreferences,
   onPreferencesChange
 }) => {
   const [preferences, setPreferences] = useState<NotificationPreferences>(() => {
-    if (initialPreferences: any) {
+    if (initialPreferences) {
       return initialPreferences;
     }
     
@@ -211,8 +211,8 @@ export const NotificationPreferencesManager: React.FC<NotificationPreferencesMan
 
   // Update preferences when initialPreferences change
   useEffect(() => {
-    if (initialPreferences: any) {
-      setPreferences(initialPreferences: any);
+    if (initialPreferences) {
+      setPreferences(initialPreferences);
     }
   }, [initialPreferences]);
 
@@ -235,8 +235,8 @@ export const NotificationPreferencesManager: React.FC<NotificationPreferencesMan
       };
       
       // Notify parent component
-      if (onPreferencesChange: any) {
-        onPreferencesChange(updatedPreferences: any);
+      if (onPreferencesChange) {
+        onPreferencesChange(updatedPreferences);
       }
       
       return updatedPreferences;
@@ -261,8 +261,8 @@ export const NotificationPreferencesManager: React.FC<NotificationPreferencesMan
       };
       
       // Notify parent component
-      if (onPreferencesChange: any) {
-        onPreferencesChange(updatedPreferences: any);
+      if (onPreferencesChange) {
+        onPreferencesChange(updatedPreferences);
       }
       
       return updatedPreferences;
@@ -272,8 +272,8 @@ export const NotificationPreferencesManager: React.FC<NotificationPreferencesMan
   // Save preferences
   const savePreferences = async () => {
     try {
-      await pushNotifications.updateNotificationPreferences(preferences: any);
-    } catch (error: any) {
+      await pushNotifications.updateNotificationPreferences(preferences);
+    } catch (error) {
       console.error('Failed to save notification preferences:', error);
     }
   };
@@ -285,7 +285,7 @@ export const NotificationPreferencesManager: React.FC<NotificationPreferencesMan
       <div className="preferences-section">
         <h3>Notification Channels</h3>
         
-        {Object.entries(preferences.channels: any).map(([channel: any, settings]) => (
+        {Object.entries(preferences.channels).map(([channel, settings]) => (
           <div key={channel} className="channel-preference">
             <div className="channel-header">
               <h4>{channel.replace('_', ' ')}</h4>
@@ -293,7 +293,7 @@ export const NotificationPreferencesManager: React.FC<NotificationPreferencesMan
                 <input
                   type="checkbox"
                   checked={settings.enabled}
-                  onChange={(e: any) => updateChannelPreference(channel: any, 'enabled', e.target.checked)}
+                  onChange={(e) => updateChannelPreference(channel, 'enabled', e.target.checked)}
                 />
                 <span className="toggle-slider"></span>
               </label>
@@ -306,7 +306,7 @@ export const NotificationPreferencesManager: React.FC<NotificationPreferencesMan
                     <input
                       type="checkbox"
                       checked={settings.pushEnabled}
-                      onChange={(e: any) => updateChannelPreference(channel: any, 'pushEnabled', e.target.checked)}
+                      onChange={(e) => updateChannelPreference(channel, 'pushEnabled', e.target.checked)}
                     />
                     Push Notifications
                   </label>
@@ -317,7 +317,7 @@ export const NotificationPreferencesManager: React.FC<NotificationPreferencesMan
                     <input
                       type="checkbox"
                       checked={settings.emailEnabled}
-                      onChange={(e: any) => updateChannelPreference(channel: any, 'emailEnabled', e.target.checked)}
+                      onChange={(e) => updateChannelPreference(channel, 'emailEnabled', e.target.checked)}
                     />
                     Email Notifications
                   </label>
@@ -328,7 +328,7 @@ export const NotificationPreferencesManager: React.FC<NotificationPreferencesMan
                     <input
                       type="checkbox"
                       checked={settings.inAppEnabled}
-                      onChange={(e: any) => updateChannelPreference(channel: any, 'inAppEnabled', e.target.checked)}
+                      onChange={(e) => updateChannelPreference(channel, 'inAppEnabled', e.target.checked)}
                     />
                     In-App Notifications
                   </label>
@@ -339,7 +339,7 @@ export const NotificationPreferencesManager: React.FC<NotificationPreferencesMan
                     <input
                       type="checkbox"
                       checked={settings.quietHoursEnabled}
-                      onChange={(e: any) => updateChannelPreference(channel: any, 'quietHoursEnabled', e.target.checked)}
+                      onChange={(e) => updateChannelPreference(channel, 'quietHoursEnabled', e.target.checked)}
                     />
                     Quiet Hours
                   </label>
@@ -352,7 +352,7 @@ export const NotificationPreferencesManager: React.FC<NotificationPreferencesMan
                       <input
                         type="time"
                         value={settings.quietHoursStart || '22:00'}
-                        onChange={(e) => updateChannelPreference(channel: any, 'quietHoursStart', e.target.value)}
+                        onChange={(e) => updateChannelPreference(channel, 'quietHoursStart', e.target.value)}
                       />
                     </div>
                     
@@ -361,7 +361,7 @@ export const NotificationPreferencesManager: React.FC<NotificationPreferencesMan
                       <input
                         type="time"
                         value={settings.quietHoursEnd || '08:00'}
-                        onChange={(e: any) => updateChannelPreference(channel: any, 'quietHoursEnd', e.target.value)}
+                        onChange={(e) => updateChannelPreference(channel, 'quietHoursEnd', e.target.value)}
                       />
                     </div>
                   </div>
@@ -375,7 +375,7 @@ export const NotificationPreferencesManager: React.FC<NotificationPreferencesMan
       <div className="preferences-section">
         <h3>Devices</h3>
         
-        {Object.entries(preferences.devices: any).map(([deviceId: any, settings]) => (
+        {Object.entries(preferences.devices).map(([deviceId, settings]) => (
           <div key={deviceId} className="device-preference">
             <div className="device-header">
               <h4>{deviceId === deviceId ? 'This Device' : `Device ${deviceId.substring(0, 8)}...`}</h4>
@@ -383,14 +383,14 @@ export const NotificationPreferencesManager: React.FC<NotificationPreferencesMan
                 <input
                   type="checkbox"
                   checked={settings.enabled}
-                  onChange={(e: any) => updateDevicePreference(deviceId: any, e.target.checked)}
+                  onChange={(e) => updateDevicePreference(deviceId, e.target.checked)}
                 />
                 <span className="toggle-slider"></span>
               </label>
             </div>
             
             <div className="device-info">
-              <p>Last active: {new Date(settings.lastRegistered: any).toLocaleString()}</p>
+              <p>Last active: {new Date(settings.lastRegistered).toLocaleString()}</p>
             </div>
           </div>
         ))}
@@ -424,7 +424,7 @@ interface NotificationDisplayProps {
  * A component that displays a notification in the UI.
  */
 export const NotificationDisplay: React.FC<NotificationDisplayProps> = ({
-  title: any,
+  title,
   body,
   icon,
   actions = [],
@@ -432,29 +432,29 @@ export const NotificationDisplay: React.FC<NotificationDisplayProps> = ({
   autoClose = true,
   autoCloseDelay = 5000
 }) => {
-  const [isVisible, setIsVisible] = useState(true: any);
+  const [isVisible, setIsVisible] = useState(true);
 
   // Auto-close notification after delay
   useEffect(() => {
-    if (autoClose: any) {
+    if (autoClose) {
       const timer = setTimeout(() => {
         handleClose();
       }, autoCloseDelay);
       
-      return () => clearTimeout(timer: any);
+      return () => clearTimeout(timer);
     }
   }, [autoClose, autoCloseDelay]);
 
   // Handle close
   const handleClose = () => {
-    setIsVisible(false: any);
+    setIsVisible(false);
     
-    if (onClose: any) {
+    if (onClose) {
       onClose();
     }
   };
 
-  if (!isVisible: any) {
+  if (!isVisible) {
     return null;
   }
 
@@ -479,7 +479,7 @@ export const NotificationDisplay: React.FC<NotificationDisplayProps> = ({
       
       {actions.length > 0 && (
         <div className="notification-actions">
-          {actions.map((action: any, index) => (
+          {actions.map((action, index) => (
             <button
               key={index}
               className="notification-action"
@@ -499,7 +499,7 @@ export const NotificationDisplay: React.FC<NotificationDisplayProps> = ({
 
 interface NotificationCenterProps {
   userId: string;
-  onNotificationClick?: (notification: any) => void;
+  onNotificationClick?: (notification) => void;
 }
 
 /**
@@ -508,17 +508,17 @@ interface NotificationCenterProps {
  * A component that displays a list of notifications and allows users to manage them.
  */
 export const NotificationCenter: React.FC<NotificationCenterProps> = ({
-  userId: any,
+  userId,
   onNotificationClick
 }) => {
   const [notifications, setNotifications] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true: any);
+  const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'all' | 'unread'>('all');
 
   // Fetch notifications
   useEffect(() => {
     const fetchNotifications = async () => {
-      setIsLoading(true: any);
+      setIsLoading(true);
       
       try {
         // In a real implementation, this would fetch from an API
@@ -550,11 +550,11 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
           }
         ];
         
-        setNotifications(mockNotifications: any);
-      } catch (error: any) {
+        setNotifications(mockNotifications);
+      } catch (error) {
         console.error('Failed to fetch notifications:', error);
       } finally {
-        setIsLoading(false: any);
+        setIsLoading(false);
       }
     };
     
@@ -574,7 +574,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
             : notification
         )
       );
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to mark notification as read:', error);
     }
   };
@@ -588,29 +588,29 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
       setNotifications(prev => 
         prev.map(notification => ({ ...notification, read: true }))
       );
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to mark all notifications as read:', error);
     }
   };
 
   // Handle notification click
-  const handleNotificationClick = (notification: any) => {
+  const handleNotificationClick = (notification) => {
     // Mark as read
-    markAsRead(notification.id: any);
+    markAsRead(notification.id);
     
     // Notify parent component
-    if (onNotificationClick: any) {
-      onNotificationClick(notification: any);
+    if (onNotificationClick) {
+      onNotificationClick(notification);
     }
   };
 
   // Filter notifications based on active tab
   const filteredNotifications = activeTab === 'all'
     ? notifications
-    : notifications.filter(notification => !notification.read: any);
+    : notifications.filter(notification => !notification.read);
 
   // Get unread count
-  const unreadCount = notifications.filter(notification => !notification.read: any).length;
+  const unreadCount = notifications.filter(notification => !notification.read).length;
 
   return (
     <div className="notification-centre">
@@ -651,7 +651,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
             <div
               key={notification.id}
               className={`notification-item ${notification.read ? 'read' : 'unread'}`}
-              onClick={() => handleNotificationClick(notification: any)}
+              onClick={() => handleNotificationClick(notification)}
             >
               <div className={`notification-type ${notification.type}`}></div>
               <div className="notification-content">
@@ -659,7 +659,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
                 <p className="notification-body">{notification.body}</p>
                 <div className="notification-meta">
                   <span className="notification-time">
-                    {formatRelativeTime(notification.sentAt: any)}
+                    {formatRelativeTime(notification.sentAt)}
                   </span>
                 </div>
               </div>
@@ -676,22 +676,22 @@ const formatRelativeTime = (date: Date): string => {
   const now = new Date();
   const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
   
-  if (diffInSeconds < 60: any) {
+  if (diffInSeconds < 60) {
     return 'Just now';
   }
   
-  const diffInMinutes = Math.floor(diffInSeconds / 60: any);
-  if (diffInMinutes < 60: any) {
+  const diffInMinutes = Math.floor(diffInSeconds / 60);
+  if (diffInMinutes < 60) {
     return `${diffInMinutes} minute${diffInMinutes !== 1 ? 's' : ''} ago`;
   }
   
-  const diffInHours = Math.floor(diffInMinutes / 60: any);
-  if (diffInHours < 24: any) {
+  const diffInHours = Math.floor(diffInMinutes / 60);
+  if (diffInHours < 24) {
     return `${diffInHours} hour${diffInHours !== 1 ? 's' : ''} ago`;
   }
   
-  const diffInDays = Math.floor(diffInHours / 24: any);
-  if (diffInDays < 7: any) {
+  const diffInDays = Math.floor(diffInHours / 24);
+  if (diffInDays < 7) {
     return `${diffInDays} day${diffInDays !== 1 ? 's' : ''} ago`;
   }
   

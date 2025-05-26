@@ -4,17 +4,17 @@ import { hash, compare } from 'bcryptjs';
 import { db } from '../db';
 
 // Export individual functions needed by API routes
-export async function registerUser(userData: any) {
+export async function registerUser(userData) {
   try {
     // Check if user already exists
-    const existingUser = await db.user.findByEmail(userData.email: any);
+    const existingUser = await db.user.findByEmail(userData.email);
     
-    if (existingUser: any) {
+    if (existingUser) {
       return { success: false, message: 'User already exists' };
     }
     
     // Hash password
-    const hashedPassword = await hash(userData.password: any, 10);
+    const hashedPassword = await hash(userData.password, 10);
     
     // Create user with hashed password
     const newUser = await db.user.create({
@@ -31,7 +31,7 @@ export async function registerUser(userData: any) {
         role: newUser.role
       }
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error registering user:', error);
     return { success: false, message: 'Failed to register user' };
   }
@@ -39,9 +39,9 @@ export async function registerUser(userData: any) {
 
 export async function getUserById(userId: string) {
   try {
-    const user = await db.user.findById(userId: any);
+    const user = await db.user.findById(userId);
     
-    if (!user: any) {
+    if (!user) {
       return { success: false, message: 'User not found' };
     }
     
@@ -55,17 +55,17 @@ export async function getUserById(userId: string) {
         // Exclude sensitive information like password
       }
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error getting user by ID:', error);
     return { success: false, message: 'Failed to retrieve user' };
   }
 }
 
-export async function updateUserProfile(userId: string, profileData: any) {
+export async function updateUserProfile(userId: string, profileData) {
   try {
-    const user = await db.user.findById(userId: any);
+    const user = await db.user.findById(userId);
     
-    if (!user: any) {
+    if (!user) {
       return { success: false, message: 'User not found' };
     }
     
@@ -73,7 +73,7 @@ export async function updateUserProfile(userId: string, profileData: any) {
     const { password, ...updateData } = profileData;
     
     // Update user profile
-    const updatedUser = await db.user.update(userId: any, updateData);
+    const updatedUser = await db.user.update(userId, updateData);
     
     return { 
       success: true, 
@@ -84,7 +84,7 @@ export async function updateUserProfile(userId: string, profileData: any) {
         role: updatedUser.role
       }
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error updating user profile:', error);
     return { success: false, message: 'Failed to update profile' };
   }
@@ -109,7 +109,7 @@ export async function getUsersByRole(role: string) {
       success: true, 
       users: safeUsers
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error getting users by role:', error);
     return { success: false, message: 'Failed to retrieve users' };
   }
@@ -117,14 +117,14 @@ export async function getUsersByRole(role: string) {
 
 export async function changeUserRole(userId: string, newRole: string) {
   try {
-    const user = await db.user.findById(userId: any);
+    const user = await db.user.findById(userId);
     
-    if (!user: any) {
+    if (!user) {
       return { success: false, message: 'User not found' };
     }
     
     // Update user role
-    const updatedUser = await db.user.update(userId: any, { role: newRole });
+    const updatedUser = await db.user.update(userId, { role: newRole });
     
     return { 
       success: true, 
@@ -135,7 +135,7 @@ export async function changeUserRole(userId: string, newRole: string) {
         role: updatedUser.role
       }
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error changing user role:', error);
     return { success: false, message: 'Failed to change role' };
   }
@@ -143,17 +143,17 @@ export async function changeUserRole(userId: string, newRole: string) {
 
 export async function verifyPassword(email: string, password: string) {
   try {
-    const user = await db.user.findByEmail(email: any);
+    const user = await db.user.findByEmail(email);
     
-    if (!user: any) {
+    if (!user) {
       return { success: false, message: 'User not found' };
     }
     
     // In a real implementation, this would use bcrypt.compare
     // For now, we'll simulate password verification
-    const isValid = await compare(password: any, user.password);
+    const isValid = await compare(password, user.password);
     
-    if (!isValid: any) {
+    if (!isValid) {
       return { success: false, message: 'Invalid password' };
     }
     
@@ -166,7 +166,7 @@ export async function verifyPassword(email: string, password: string) {
         role: user.role
       }
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error verifying password:', error);
     return { success: false, message: 'Authentication error' };
   }
@@ -183,29 +183,29 @@ export const users = {
   // Update user password
   updatePassword: async (userId: string, currentPassword: string, newPassword: string) => {
     try {
-      const user = await db.user.findById(userId: any);
+      const user = await db.user.findById(userId);
       
-      if (!user: any) {
+      if (!user) {
         return { success: false, message: 'User not found' };
       }
       
       // Verify current password
-      const isValid = await compare(currentPassword: any, user.password);
+      const isValid = await compare(currentPassword, user.password);
       
-      if (!isValid: any) {
+      if (!isValid) {
         return { success: false, message: 'Current password is incorrect' };
       }
       
       // Hash new password
-      const hashedPassword = await hash(newPassword: any, 10);
+      const hashedPassword = await hash(newPassword, 10);
       
       // Update user with new password
-      await db.user.update(userId: any, {
+      await db.user.update(userId, {
         password: hashedPassword
       });
       
       return { success: true, message: 'Password updated successfully' };
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error updating password:', error);
       return { success: false, message: 'Failed to update password' };
     }

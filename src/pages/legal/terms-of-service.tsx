@@ -33,7 +33,7 @@ export default function TermsOfServicePage() {
           <div className="prose prose-slate max-w-none">
             <h2>Introduction</h2>
             <p>
-              Welcome to EdPsych Connect. These Terms of Service ("Terms") govern your access to and use of the EdPsych Connect platform, including our website, mobile applications, and all related services (collectively: any, the "Service"). By accessing or using the Service, you agree to be bound by these Terms and our Privacy Policy.
+              Welcome to EdPsych Connect. These Terms of Service ("Terms") govern your access to and use of the EdPsych Connect platform, including our website, mobile applications, and all related services (collectively, the "Service"). By accessing or using the Service, you agree to be bound by these Terms and our Privacy Policy.
             </p>
             <p>
               Please read these Terms carefully before using our Service. If you do not agree to these Terms, you may not access or use the Service.
@@ -212,7 +212,7 @@ export default function TermsOfServicePage() {
             
             <h2>Indemnification</h2>
             <p>
-              You agree to defend, indemnify, and hold harmless EdPsych Connect, its directors, employees, partners, agents, suppliers, and affiliates from and against any claims, liabilities, damages, judgments, awards, losses, costs, expenses, or fees (including reasonable attorneys' fees: any) arising out of or relating to your violation of these Terms or your use of the Service.
+              You agree to defend, indemnify, and hold harmless EdPsych Connect, its directors, employees, partners, agents, suppliers, and affiliates from and against any claims, liabilities, damages, judgments, awards, losses, costs, expenses, or fees (including reasonable attorneys' fees) arising out of or relating to your violation of these Terms or your use of the Service.
             </p>
             
             <h2>Governing Law</h2>

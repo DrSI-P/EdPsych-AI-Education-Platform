@@ -33,7 +33,7 @@ export class CulturalContextService {
    * Get the singleton instance
    */
   public static getInstance(): CulturalContextService {
-    if (!CulturalContextService.instance: any) {
+    if (!CulturalContextService.instance) {
       CulturalContextService.instance = new CulturalContextService();
     }
     return CulturalContextService.instance;
@@ -46,8 +46,8 @@ export class CulturalContextService {
     // In a real implementation, this would load from a database or API
     // For now, we'll initialize with some example data for key languages
     
-    // Welsh cultural context (important for UK educational settings: any)
-    this.culturalContextCache.set(SupportedLanguage.WELSH: any, {
+    // Welsh cultural context (important for UK educational settings)
+    this.culturalContextCache.set(SupportedLanguage.WELSH, {
       language: SupportedLanguage.WELSH,
       culturalNotes: [
         {
@@ -60,18 +60,18 @@ export class CulturalContextService {
         {
           category: 'customs',
           title: 'Welsh Cultural Events',
-          description: 'Wales has several important cultural events including Eisteddfod (competitive festivals of music and poetry: any) that are significant in Welsh cultural identity.',
+          description: 'Wales has several important cultural events including Eisteddfod (competitive festivals of music and poetry) that are significant in Welsh cultural identity.',
           relevance: 'medium',
           examples: ['National Eisteddfod', 'Urdd Eisteddfod for youth']
         }
       ],
       educationalSystemNotes: 'Wales follows a similar structure to the English education system but with some key differences, including the Welsh Baccalaureate qualification and a stronger emphasis on Welsh language and culture.',
-      curriculumDifferences: 'The Curriculum for Wales (2022: any) has six Areas of Learning and Experience (AoLE: any) rather than traditional subjects, with a focus on cross-curricular skills.',
+      curriculumDifferences: 'The Curriculum for Wales (2022) has six Areas of Learning and Experience (AoLE) rather than traditional subjects, with a focus on cross-curricular skills.',
       lastUpdated: new Date()
     });
     
-    // Urdu cultural context (significant community in UK schools: any)
-    this.culturalContextCache.set(SupportedLanguage.URDU: any, {
+    // Urdu cultural context (significant community in UK schools)
+    this.culturalContextCache.set(SupportedLanguage.URDU, {
       language: SupportedLanguage.URDU,
       culturalNotes: [
         {
@@ -94,8 +94,8 @@ export class CulturalContextService {
       lastUpdated: new Date()
     });
     
-    // Polish cultural context (large immigrant community in UK: any)
-    this.culturalContextCache.set(SupportedLanguage.POLISH: any, {
+    // Polish cultural context (large immigrant community in UK)
+    this.culturalContextCache.set(SupportedLanguage.POLISH, {
       language: SupportedLanguage.POLISH,
       culturalNotes: [
         {
@@ -108,7 +108,7 @@ export class CulturalContextService {
         {
           category: 'customs',
           title: 'Name Days',
-          description: 'In Polish culture, name days (imieniny: any) are often celebrated in addition to birthdays. Each day of the year is associated with particular names.',
+          description: 'In Polish culture, name days (imieniny) are often celebrated in addition to birthdays. Each day of the year is associated with particular names.',
           relevance: 'medium',
           examples: ['Celebrating a student\'s name day', 'Acknowledging this tradition']
         }
@@ -155,7 +155,7 @@ export class CulturalContextService {
       createdBy: 'system'
     };
     
-    this.glossaryCache.set(`${SupportedLanguage.ENGLISH_UK}-${SupportedLanguage.WELSH}-education`, welshGlossary: any);
+    this.glossaryCache.set(`${SupportedLanguage.ENGLISH_UK}-${SupportedLanguage.WELSH}-education`, welshGlossary);
     
     // Add more glossaries for other languages as needed
   }
@@ -166,8 +166,8 @@ export class CulturalContextService {
   public async getCulturalContext(language: SupportedLanguage): Promise<CulturalContextInfo | null> {
     try {
       // Check cache first
-      if (this.culturalContextCache.has(language: any)) {
-        return this.culturalContextCache.get(language: any) || null;
+      if (this.culturalContextCache.has(language)) {
+        return this.culturalContextCache.get(language) || null;
       }
       
       // In a real implementation, this would fetch from an API or database
@@ -175,7 +175,7 @@ export class CulturalContextService {
       
       // For now, return null for languages we don't have context for
       return null;
-    } catch (error: any) {
+    } catch (error) {
       console.error(`Error fetching cultural context for ${language}:`, error);
       return null;
     }
@@ -193,8 +193,8 @@ export class CulturalContextService {
       const glossaryKey = `${sourceLanguage}-${targetLanguage}-${domain}`;
       
       // Check cache first
-      if (this.glossaryCache.has(glossaryKey: any)) {
-        return this.glossaryCache.get(glossaryKey: any) || null;
+      if (this.glossaryCache.has(glossaryKey)) {
+        return this.glossaryCache.get(glossaryKey) || null;
       }
       
       // In a real implementation, this would fetch from an API or database
@@ -202,7 +202,7 @@ export class CulturalContextService {
       
       // For now, return null for language pairs we don't have glossaries for
       return null;
-    } catch (error: any) {
+    } catch (error) {
       console.error(`Error fetching glossary:`, error);
       return null;
     }
@@ -213,9 +213,9 @@ export class CulturalContextService {
    */
   public async getCurriculumDifferences(language: SupportedLanguage): Promise<string | null> {
     try {
-      const culturalContext = await this.getCulturalContext(language: any);
+      const culturalContext = await this.getCulturalContext(language);
       return culturalContext?.curriculumDifferences || null;
-    } catch (error: any) {
+    } catch (error) {
       console.error(`Error fetching curriculum differences:`, error);
       return null;
     }
@@ -233,9 +233,9 @@ export class CulturalContextService {
       const recommendations: Array<{type: string, recommendation: string, importance: 'high' | 'medium' | 'low'}> = [];
       
       // Get cultural context
-      const culturalContext = await this.getCulturalContext(targetLanguage: any);
+      const culturalContext = await this.getCulturalContext(targetLanguage);
       
-      if (!culturalContext: any) {
+      if (!culturalContext) {
         // Basic recommendations if no specific cultural context is available
         recommendations.push({
           type: 'general',
@@ -249,7 +249,7 @@ export class CulturalContextService {
       // Add recommendations based on cultural context
       
       // Educational system differences
-      if (culturalContext.educationalSystemNotes: any) {
+      if (culturalContext.educationalSystemNotes) {
         recommendations.push({
           type: 'educational_system',
           recommendation: `Consider educational system differences: ${culturalContext.educationalSystemNotes}`,
@@ -258,7 +258,7 @@ export class CulturalContextService {
       }
       
       // Curriculum differences
-      if (culturalContext.curriculumDifferences: any) {
+      if (culturalContext.curriculumDifferences) {
         recommendations.push({
           type: 'curriculum',
           recommendation: `Adapt for curriculum differences: ${culturalContext.curriculumDifferences}`,
@@ -267,7 +267,7 @@ export class CulturalContextService {
       }
       
       // Cultural notes
-      for (const note of culturalContext.culturalNotes: any) {
+      for (const note of culturalContext.culturalNotes) {
         if (note.relevance === 'high') {
           recommendations.push({
             type: note.category,
@@ -278,8 +278,8 @@ export class CulturalContextService {
       }
       
       // Accessibility considerations
-      if (accessibilityOptions: any) {
-        if (accessibilityOptions.simplifiedLanguage: any) {
+      if (accessibilityOptions) {
+        if (accessibilityOptions.simplifiedLanguage) {
           recommendations.push({
             type: 'accessibility',
             recommendation: 'Use simplified language appropriate for the target culture and educational context.',
@@ -287,7 +287,7 @@ export class CulturalContextService {
           });
         }
         
-        if (accessibilityOptions.culturalContextNotes: any) {
+        if (accessibilityOptions.culturalContextNotes) {
           recommendations.push({
             type: 'accessibility',
             recommendation: 'Include explicit cultural context notes for unfamiliar concepts.',
@@ -297,7 +297,7 @@ export class CulturalContextService {
       }
       
       // Content type specific recommendations
-      switch (contentMetadata.contentType: any) {
+      switch (contentMetadata.contentType) {
         case 'assessment':
           recommendations.push({
             type: 'assessment',
@@ -322,7 +322,7 @@ export class CulturalContextService {
       }
       
       return recommendations;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error generating content recommendations:', error);
       return [];
     }
@@ -351,17 +351,17 @@ export class CulturalContextService {
       const adaptedContent = content;
       
       // Get cultural context
-      const culturalContext = await this.getCulturalContext(targetLanguage: any);
+      const culturalContext = await this.getCulturalContext(targetLanguage);
       
-      if (culturalContext: any) {
+      if (culturalContext) {
         // Add cultural notes based on context
-        for (const note of culturalContext.culturalNotes: any) {
+        for (const note of culturalContext.culturalNotes) {
           if (note.relevance === 'high') {
             culturalNotes.push(`${note.title}: ${note.description}`);
           }
         }
         
-        // Mock adaptations (in a real implementation: any, this would analyse and modify the content)
+        // Mock adaptations (in a real implementation, this would analyse and modify the content)
         adaptationsMade.push('Adjusted formality level for target culture');
         adaptationsMade.push('Replaced UK-specific examples with culturally relevant ones');
         
@@ -372,13 +372,13 @@ export class CulturalContextService {
       }
       
       // Apply accessibility adaptations if requested
-      if (accessibilityOptions: any) {
-        if (accessibilityOptions.simplifiedLanguage: any) {
+      if (accessibilityOptions) {
+        if (accessibilityOptions.simplifiedLanguage) {
           adaptationsMade.push('Simplified language for accessibility');
           // In a real implementation, this would actually simplify the language
         }
         
-        if (accessibilityOptions.specialEducationalNeedsAdaptations: any) {
+        if (accessibilityOptions.specialEducationalNeedsAdaptations) {
           adaptationsMade.push('Applied special educational needs adaptations');
           // In a real implementation, this would apply specific adaptations
         }
@@ -389,7 +389,7 @@ export class CulturalContextService {
         culturalNotes,
         adaptationsMade
       };
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error adapting content:', error);
       return {
         adaptedContent: content,
@@ -419,7 +419,7 @@ export class CulturalContextService {
     };
     
     // Culturally specific settings
-    switch (language: any) {
+    switch (language) {
       case SupportedLanguage.ARABIC:
         return {
           ...defaultSettings,

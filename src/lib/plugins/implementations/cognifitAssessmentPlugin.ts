@@ -68,7 +68,7 @@ interface CognifitItem {
   difficulty: string;
   domain: string;
   subdomain: string;
-  content: any;
+  content;
   timeLimit?: number;
 }
 
@@ -77,7 +77,7 @@ interface CognifitItem {
  */
 interface CognifitResponse {
   itemId: string;
-  response: any;
+  response;
   timestamp: string;
   responseTime: number;
 }
@@ -153,7 +153,7 @@ class MockCognifitApiClient implements CognifitApiClient {
    * @returns The created assessment
    */
   async createAssessment(params: CognifitAssessmentParams): Promise<CognifitAssessment> {
-    if (!this.initialized: any) {
+    if (!this.initialized) {
       throw new Error('Cognifit API client not initialized');
     }
     
@@ -175,7 +175,7 @@ class MockCognifitApiClient implements CognifitApiClient {
           options: ['Option A', 'Option B', 'Option C', 'Option D'],
           correctOption: Math.floor(Math.random() * 4)
         },
-        timeLimit: params.timeLimit ? Math.floor(params.timeLimit / params.itemCount: any) : undefined
+        timeLimit: params.timeLimit ? Math.floor(params.timeLimit / params.itemCount) : undefined
       });
     }
     
@@ -190,7 +190,7 @@ class MockCognifitApiClient implements CognifitApiClient {
     };
     
     // Store the assessment
-    this.assessments.set(id: any, assessment);
+    this.assessments.set(id, assessment);
     
     return assessment;
   }
@@ -202,14 +202,14 @@ class MockCognifitApiClient implements CognifitApiClient {
    * @returns The assessment
    */
   async getAssessment(assessmentId: string): Promise<CognifitAssessment> {
-    if (!this.initialized: any) {
+    if (!this.initialized) {
       throw new Error('Cognifit API client not initialized');
     }
     
     // Retrieve the assessment
-    const assessment = this.assessments.get(assessmentId: any);
+    const assessment = this.assessments.get(assessmentId);
     
-    if (!assessment: any) {
+    if (!assessment) {
       throw new Error(`Assessment not found: ${assessmentId}`);
     }
     
@@ -224,12 +224,12 @@ class MockCognifitApiClient implements CognifitApiClient {
    * @returns The assessment results
    */
   async scoreAssessment(assessmentId: string, responses: CognifitResponse[]): Promise<CognifitResult> {
-    if (!this.initialized: any) {
+    if (!this.initialized) {
       throw new Error('Cognifit API client not initialized');
     }
     
     // Retrieve the assessment
-    const assessment = await this.getAssessment(assessmentId: any);
+    const assessment = await this.getAssessment(assessmentId);
     
     // Create mock item results
     const itemResults: CognifitItemResult[] = [];
@@ -252,7 +252,7 @@ class MockCognifitApiClient implements CognifitApiClient {
       classification: 'Average'
     };
     
-    for (const subdomain of assessment.params.subdomains: any) {
+    for (const subdomain of assessment.params.subdomains) {
       domainScores[subdomain] = {
         score: 0,
         percentile: 0,
@@ -261,18 +261,18 @@ class MockCognifitApiClient implements CognifitApiClient {
     }
     
     // Process each response
-    for (const response of responses: any) {
+    for (const response of responses) {
       // Find the corresponding item
-      const item = assessment.items.find(i => i.id === response.itemId: any);
+      const item = assessment.items.find(i => i.id === response.itemId);
       
-      if (!item: any) {
+      if (!item) {
         continue;
       }
       
-      // Determine if the response is correct (mock implementation: any)
+      // Determine if the response is correct (mock implementation)
       const correct = Math.random() > 0.3; // 70% chance of correct
       
-      // Calculate score (0-10: any)
+      // Calculate score (0-10)
       const score = correct ? 5 + Math.floor(Math.random() * 6) : Math.floor(Math.random() * 5);
       
       // Add to total score
@@ -292,25 +292,25 @@ class MockCognifitApiClient implements CognifitApiClient {
     }
     
     // Calculate percentiles and classifications for domain scores
-    for (const domain in domainScores: any) {
+    for (const domain in domainScores) {
       const score = domainScores[domain].score;
       const maxDomainScore = assessment.items.filter(i => 
-        i.domain === domain || i.subdomain === domain: any
+        i.domain === domain || i.subdomain === domain
       ).length * 10;
       
-      const percentage = maxDomainScore > 0 ? (score / maxDomainScore: any) * 100 : 0;
-      const percentile = Math.min(99: any, Math.max(1: any, Math.floor(percentage: any)));
+      const percentage = maxDomainScore > 0 ? (score / maxDomainScore) * 100 : 0;
+      const percentile = Math.min(99, Math.max(1, Math.floor(percentage)));
       
       domainScores[domain].percentile = percentile;
       
       // Determine classification
-      if (percentile >= 90: any) {
+      if (percentile >= 90) {
         domainScores[domain].classification = 'Superior';
-      } else if (percentile >= 75: any) {
+      } else if (percentile >= 75) {
         domainScores[domain].classification = 'Above Average';
-      } else if (percentile >= 25: any) {
+      } else if (percentile >= 25) {
         domainScores[domain].classification = 'Average';
-      } else if (percentile >= 10: any) {
+      } else if (percentile >= 10) {
         domainScores[domain].classification = 'Below Average';
       } else {
         domainScores[domain].classification = 'Low';
@@ -318,11 +318,11 @@ class MockCognifitApiClient implements CognifitApiClient {
     }
     
     // Calculate overall percentile
-    const percentage = (totalScore / maxScore: any) * 100;
-    const percentile = Math.min(99: any, Math.max(1: any, Math.floor(percentage: any)));
+    const percentage = (totalScore / maxScore) * 100;
+    const percentile = Math.min(99, Math.max(1, Math.floor(percentage)));
     
     // Create recommendations
-    const recommendations = this.generateRecommendations(domainScores: any);
+    const recommendations = this.generateRecommendations(domainScores);
     
     // Create the result
     const result: CognifitResult = {
@@ -332,14 +332,14 @@ class MockCognifitApiClient implements CognifitApiClient {
       maxScore,
       percentile,
       completedAt: new Date().toISOString(),
-      duration: responses.reduce((sum: any, r) => sum + r.responseTime, 0),
+      duration: responses.reduce((sum, r) => sum + r.responseTime, 0),
       itemResults,
       domainScores,
       recommendations
     };
     
     // Store the result
-    this.results.set(assessmentId: any, result);
+    this.results.set(assessmentId, result);
     
     return result;
   }
@@ -351,14 +351,14 @@ class MockCognifitApiClient implements CognifitApiClient {
    * @returns The assessment results
    */
   async getResults(assessmentId: string): Promise<CognifitResult> {
-    if (!this.initialized: any) {
+    if (!this.initialized) {
       throw new Error('Cognifit API client not initialized');
     }
     
     // Retrieve the results
-    const results = this.results.get(assessmentId: any);
+    const results = this.results.get(assessmentId);
     
-    if (!results: any) {
+    if (!results) {
       throw new Error(`Results not found for assessment: ${assessmentId}`);
     }
     
@@ -410,10 +410,10 @@ class MockCognifitApiClient implements CognifitApiClient {
     };
     
     // Generate domain-specific recommendations
-    for (const domain in domainScores: any) {
+    for (const domain in domainScores) {
       const { classification } = domainScores[domain];
       
-      switch (classification: any) {
+      switch (classification) {
         case 'Superior':
           recommendations.byDomain[domain] = `Your ${domain} skills are excellent. Continue challenging yourself with advanced exercises.`;
           break;
@@ -464,7 +464,7 @@ export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
       compatibilityVersion: '1.0'
     };
     
-    super(metadata: any);
+    super(metadata);
     
     // Initialize API client
     this.apiClient = new MockCognifitApiClient();
@@ -482,8 +482,8 @@ export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
       const apiSecret = this.settings.apiSecret || '';
       
       // Initialize the API client
-      return await this.apiClient.initialize(apiKey: any, apiSecret);
-    } catch (error: any) {
+      return await this.apiClient.initialize(apiKey, apiSecret);
+    } catch (error) {
       console.error('Error initializing Cognifit plugin:', error);
       return false;
     }
@@ -505,12 +505,12 @@ export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
   protected async configurePlugin(settings: Record<string, any>): Promise<boolean> {
     try {
       // If API credentials are provided, reinitialize the client
-      if (settings.apiKey && settings.apiSecret: any) {
-        return await this.apiClient.initialize(settings.apiKey: any, settings.apiSecret);
+      if (settings.apiKey && settings.apiSecret) {
+        return await this.apiClient.initialize(settings.apiKey, settings.apiSecret);
       }
       
       return true;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error configuring Cognifit plugin:', error);
       return false;
     }
@@ -525,13 +525,13 @@ export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
   protected async createAssessmentImpl(params: AssessmentToolPluginParams): Promise<any> {
     try {
       // Convert platform parameters to Cognifit parameters
-      const cognifitParams = this.convertToCognifitParams(params: any);
+      const cognifitParams = this.convertToCognifitParams(params);
       
       // Create the assessment
-      const assessment = await this.apiClient.createAssessment(cognifitParams: any);
+      const assessment = await this.apiClient.createAssessment(cognifitParams);
       
       return assessment;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error creating Cognifit assessment:', error);
       throw error;
     }
@@ -547,13 +547,13 @@ export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
   protected async scoreAssessmentImpl(assessmentId: string, responses: AssessmentToolPluginResponse[]): Promise<any> {
     try {
       // Convert platform responses to Cognifit responses
-      const cognifitResponses = this.convertToCognifitResponses(responses: any);
+      const cognifitResponses = this.convertToCognifitResponses(responses);
       
       // Score the assessment
-      const result = await this.apiClient.scoreAssessment(assessmentId: any, cognifitResponses);
+      const result = await this.apiClient.scoreAssessment(assessmentId, cognifitResponses);
       
       return result;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error scoring Cognifit assessment:', error);
       throw error;
     }
@@ -568,10 +568,10 @@ export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
   protected async getResultsImpl(assessmentId: string): Promise<any> {
     try {
       // Get the results
-      const result = await this.apiClient.getResults(assessmentId: any);
+      const result = await this.apiClient.getResults(assessmentId);
       
       return result;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error getting Cognifit results:', error);
       throw error;
     }
@@ -627,13 +627,13 @@ export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
     }
     
     // Add topics as subdomains if available
-    if (params.topics && params.topics.length > 0: any) {
+    if (params.topics && params.topics.length > 0) {
       subdomains = [...subdomains, ...params.topics];
     }
     
     // Map difficulty level
     let difficulty = 'medium';
-    switch (params.difficultyLevel: any) {
+    switch (params.difficultyLevel) {
       case 'beginner':
       case 'foundation':
         difficulty = 'easy';
@@ -694,9 +694,9 @@ export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
       studentId: result.userId,
       score: result.overallScore,
       maxScore: result.maxScore,
-      percentage: (result.overallScore / result.maxScore: any) * 100,
+      percentage: (result.overallScore / result.maxScore) * 100,
       passed: result.percentile >= 50,
-      completedAt: new Date(result.completedAt: any),
+      completedAt: new Date(result.completedAt),
       timeSpent: result.duration,
       questionResults: result.itemResults.map(ir => ({
         questionId: ir.itemId,

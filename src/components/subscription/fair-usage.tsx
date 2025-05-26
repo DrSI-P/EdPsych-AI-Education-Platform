@@ -19,18 +19,18 @@ import {
 // This hook can be used in any component that needs to check usage limits
 export const useFairUsage = () => {
   const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(false: any);
-  const [showCreditDialog, setShowCreditDialog] = useState(false: any);
-  const [currentFeature, setCurrentFeature] = useState(null: any);
-  const [featureQuantity, setFeatureQuantity] = useState(1: any);
-  const [creditInfo, setCreditInfo] = useState(null: any);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showCreditDialog, setShowCreditDialog] = useState(false);
+  const [currentFeature, setCurrentFeature] = useState(null);
+  const [featureQuantity, setFeatureQuantity] = useState(1);
+  const [creditInfo, setCreditInfo] = useState(null);
   
   // Mock user ID - in production this would come from authentication
   const userId = 'user1';
   
   // Check if a feature can be used
-  const checkFeatureLimit = async (feature: any) => {
-    setIsLoading(true: any);
+  const checkFeatureLimit = async (feature) => {
+    setIsLoading(true);
     
     try {
       const response = await fetch('/api/subscription/fair-usage', {
@@ -47,12 +47,12 @@ export const useFairUsage = () => {
       
       const data = await response.json();
       
-      if (!data.success: any) {
+      if (!data.success) {
         throw new Error(data.error || 'Failed to check usage limits');
       }
       
       return data;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error checking feature limit:', error);
       toast({
         title: "Error",
@@ -61,12 +61,12 @@ export const useFairUsage = () => {
       });
       return { hasReachedLimit: true, error: error.message };
     } finally {
-      setIsLoading(false: any);
+      setIsLoading(false);
     }
   };
   
   // Track usage of a feature
-  const trackFeatureUsage = async (feature: any, quantity = 1) => {
+  const trackFeatureUsage = async (feature, quantity = 1) => {
     try {
       const response = await fetch('/api/subscription/fair-usage', {
         method: 'POST',
@@ -83,12 +83,12 @@ export const useFairUsage = () => {
       
       const data = await response.json();
       
-      if (!data.success: any) {
+      if (!data.success) {
         throw new Error(data.error || 'Failed to track usage');
       }
       
-      // If usage is approaching limit (80% or more: any), show a warning
-      if (data.limit > 0 && data.usage >= data.limit * 0.8 && data.usage < data.limit: any) {
+      // If usage is approaching limit (80% or more), show a warning
+      if (data.limit > 0 && data.usage >= data.limit * 0.8 && data.usage < data.limit) {
         toast({
           title: "Usage Limit Approaching",
           description: `You've used ${data.usage} of ${data.limit} ${feature} this month.`,
@@ -97,7 +97,7 @@ export const useFairUsage = () => {
       }
       
       return data;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error tracking feature usage:', error);
       toast({
         title: "Error",
@@ -109,24 +109,24 @@ export const useFairUsage = () => {
   };
   
   // Use a feature with credit if limit is reached
-  const useFeatureWithCredit = async (feature: any, quantity = 1) => {
-    setIsLoading(true: any);
+  const useFeatureWithCredit = async (feature, quantity = 1) => {
+    setIsLoading(true);
     
     try {
       // First check if limit is reached
-      const limitCheck = await checkFeatureLimit(feature: any);
+      const limitCheck = await checkFeatureLimit(feature);
       
-      if (!limitCheck.hasReachedLimit: any) {
+      if (!limitCheck.hasReachedLimit) {
         // If limit not reached, just track usage normally
-        return await trackFeatureUsage(feature: any, quantity);
+        return await trackFeatureUsage(feature, quantity);
       }
       
       // If limit is reached but credits can be used
-      if (limitCheck.canUseCredits: any) {
+      if (limitCheck.canUseCredits) {
         // Check if user has enough credits
         const creditCost = limitCheck.creditCost * quantity;
         
-        if (limitCheck.availableCredits >= creditCost: any) {
+        if (limitCheck.availableCredits >= creditCost) {
           // Use credits for the feature
           const response = await fetch('/api/subscription/fair-usage', {
             method: 'POST',
@@ -143,7 +143,7 @@ export const useFairUsage = () => {
           
           const data = await response.json();
           
-          if (!data.success: any) {
+          if (!data.success) {
             throw new Error(data.error || 'Failed to use credits');
           }
           
@@ -156,15 +156,15 @@ export const useFairUsage = () => {
           return { ...data, usedCredits: true };
         } else {
           // Not enough credits, show dialogue to purchase more
-          setCurrentFeature(feature: any);
-          setFeatureQuantity(quantity: any);
+          setCurrentFeature(feature);
+          setFeatureQuantity(quantity);
           setCreditInfo({
             required: creditCost,
             available: limitCheck.availableCredits,
             shortfall: creditCost - limitCheck.availableCredits,
             feature
           });
-          setShowCreditDialog(true: any);
+          setShowCreditDialog(true);
           return { success: false, needsCredits: true };
         }
       } else {
@@ -176,7 +176,7 @@ export const useFairUsage = () => {
         });
         return { success: false, limitReached: true };
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error using feature with credit:', error);
       toast({
         title: "Error",
@@ -185,7 +185,7 @@ export const useFairUsage = () => {
       });
       return { success: false, error: error.message };
     } finally {
-      setIsLoading(false: any);
+      setIsLoading(false);
     }
   };
   
@@ -206,24 +206,24 @@ export const useFairUsage = () => {
       
       const data = await response.json();
       
-      if (!data.success: any) {
+      if (!data.success) {
         throw new Error(data.error || 'Failed to get credits');
       }
       
       return data.credits;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error getting credits:', error);
       return 0;
     }
   };
   
-  // Purchase credits (in production this would integrate with payment processing: any)
-  const purchaseCredits = async (amount: any) => {
-    setIsLoading(true: any);
+  // Purchase credits (in production this would integrate with payment processing)
+  const purchaseCredits = async (amount) => {
+    setIsLoading(true);
     
     try {
       // Simulate payment processing
-      await new Promise(resolve => setTimeout(resolve: any, 1000));
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
       // Add credits to account
       const response = await fetch('/api/subscription/fair-usage', {
@@ -241,7 +241,7 @@ export const useFairUsage = () => {
       
       const data = await response.json();
       
-      if (!data.success: any) {
+      if (!data.success) {
         throw new Error(data.error || 'Failed to add credits');
       }
       
@@ -251,17 +251,17 @@ export const useFairUsage = () => {
         variant: "success",
       });
       
-      setShowCreditDialog(false: any);
+      setShowCreditDialog(false);
       
       // If we were trying to use a feature, try again
-      if (currentFeature: any) {
-        await useFeatureWithCredit(currentFeature: any, featureQuantity);
-        setCurrentFeature(null: any);
-        setFeatureQuantity(1: any);
+      if (currentFeature) {
+        await useFeatureWithCredit(currentFeature, featureQuantity);
+        setCurrentFeature(null);
+        setFeatureQuantity(1);
       }
       
       return data;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error purchasing credits:', error);
       toast({
         title: "Error",
@@ -270,7 +270,7 @@ export const useFairUsage = () => {
       });
       return { success: false, error: error.message };
     } finally {
-      setIsLoading(false: any);
+      setIsLoading(false);
     }
   };
   
@@ -281,7 +281,7 @@ export const useFairUsage = () => {
         <DialogHeader>
           <DialogTitle>Additional Credits Required</DialogTitle>
           <DialogDescription>
-            {creditInfo && `You need ${creditInfo.required} credits to use this feature: any, but you only have ${creditInfo.available} available.`}
+            {creditInfo && `You need ${creditInfo.required} credits to use this feature, but you only have ${creditInfo.available} available.`}
           </DialogDescription>
         </DialogHeader>
         
@@ -296,7 +296,7 @@ export const useFairUsage = () => {
         <div className="grid grid-cols-2 gap-4 py-4">
           <div 
             className="flex flex-col items-centre justify-between p-4 border rounded-lg cursor-pointer hover:border-primary"
-            onClick={() => purchaseCredits(100: any)}
+            onClick={() => purchaseCredits(100)}
           >
             <div className="text-centre">
               <h4 className="font-medium">100 Credits</h4>
@@ -309,7 +309,7 @@ export const useFairUsage = () => {
           
           <div 
             className="flex flex-col items-centre justify-between p-4 border rounded-lg cursor-pointer hover:border-primary"
-            onClick={() => purchaseCredits(500: any)}
+            onClick={() => purchaseCredits(500)}
           >
             <div className="text-centre">
               <h4 className="font-medium">500 Credits</h4>
@@ -322,10 +322,10 @@ export const useFairUsage = () => {
         </div>
         
         <DialogFooter className="flex justify-between items-centre">
-          <Button variant="outline" onClick={() => setShowCreditDialog(false: any)}>
+          <Button variant="outline" onClick={() => setShowCreditDialog(false)}>
             Cancel
           </Button>
-          <Button variant="default" onClick={() => setShowCreditDialog(false: any)}>
+          <Button variant="default" onClick={() => setShowCreditDialog(false)}>
             Upgrade Plan Instead
           </Button>
         </DialogFooter>
@@ -355,14 +355,14 @@ const FairUsageExample = () => {
     CreditPurchaseDialog 
   } = useFairUsage();
   
-  const [credits, setCredits] = useState(0: any);
+  const [credits, setCredits] = useState(0);
   const [usageData, setUsageData] = useState({});
   
   useEffect(() => {
     // Get initial credit balance
     const fetchCredits = async () => {
       const creditBalance = await getCredits();
-      setCredits(creditBalance: any);
+      setCredits(creditBalance);
     };
     
     // Get initial usage data for demo
@@ -370,28 +370,28 @@ const FairUsageExample = () => {
       const features = ['aiRecommendations', 'progressReports', 'meetingNotes', 'lessonPlans'];
       const usageInfo = {};
       
-      for (const feature of features: any) {
-        const data = await checkFeatureLimit(feature: any);
+      for (const feature of features) {
+        const data = await checkFeatureLimit(feature);
         usageInfo[feature] = data;
       }
       
-      setUsageData(usageInfo: any);
+      setUsageData(usageInfo);
     };
     
     fetchCredits();
     fetchUsage();
   }, []);
   
-  const handleUseFeature = async (feature: any) => {
-    const result = await useFeatureWithCredit(feature: any);
+  const handleUseFeature = async (feature) => {
+    const result = await useFeatureWithCredit(feature);
     
-    if (result.success: any) {
+    if (result.success) {
       // Refresh usage data and credits
-      const data = await checkFeatureLimit(feature: any);
+      const data = await checkFeatureLimit(feature);
       setUsageData(prev => ({ ...prev, [feature]: data }));
       
       const creditBalance = await getCredits();
-      setCredits(creditBalance: any);
+      setCredits(creditBalance);
     }
   };
   

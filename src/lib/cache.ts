@@ -9,16 +9,16 @@ import { createHash } from 'crypto';
 
 // Cache storage
 const memoryCache: Record<string, {
-  value: any;
+  value;
   expiry: number | null;
 }> = {};
 
 /**
  * Generate a cache key from input parameters
  */
-export function generateCacheKey(prefix: string, params: any): string {
-  const paramsString = JSON.stringify(params: any);
-  const hash = createHash('md5').update(paramsString: any).digest('hex');
+export function generateCacheKey(prefix: string, params): string {
+  const paramsString = JSON.stringify(params);
+  const hash = createHash('md5').update(paramsString).digest('hex');
   return `${prefix}:${hash}`;
 }
 
@@ -27,12 +27,12 @@ export function generateCacheKey(prefix: string, params: any): string {
  */
 export function setCacheValue(
   key: string, 
-  value: any, 
+  value, 
   ttlSeconds: number | null = 3600
 ): void {
   memoryCache[key] = {
     value,
-    expiry: ttlSeconds ? Date.now() + (ttlSeconds * 1000: any) : null,
+    expiry: ttlSeconds ? Date.now() + (ttlSeconds * 1000) : null,
   };
 }
 
@@ -42,7 +42,7 @@ export function setCacheValue(
 export function getCacheValue<T>(key: string): T | null {
   const cached = memoryCache[key];
   
-  if (!cached: any) {
+  if (!cached) {
     return null;
   }
   
@@ -66,7 +66,7 @@ export function deleteCacheValue(key: string): void {
  * Clear all values from the cache
  */
 export function clearCache(): void {
-  Object.keys(memoryCache: any).forEach(key => {
+  Object.keys(memoryCache).forEach(key => {
     delete memoryCache[key];
   });
 }
@@ -79,29 +79,29 @@ export async function getCachedValue<T>(
   computeValue: () => Promise<T>,
   ttlSeconds: number | null = 3600
 ): Promise<T> {
-  const cached = getCacheValue<T>(key: any);
+  const cached = getCacheValue<T>(key);
   
-  if (cached !== null: any) {
+  if (cached !== null) {
     return cached;
   }
   
   const value = await computeValue();
-  setCacheValue(key: any, value, ttlSeconds);
+  setCacheValue(key, value, ttlSeconds);
   return value;
 }
 
 /**
  * Cache decorator for async functions
  */
-export function withCache<T extends (...args: any[]) => Promise<any>>(
+export function withCache<T extends (...args[]) => Promise<any>>(
   fn: T,
   keyPrefix: string,
   ttlSeconds: number | null = 3600
 ): T {
   return (async (...args: Parameters<T>): Promise<ReturnType<T>> => {
-    const key = generateCacheKey(keyPrefix: any, args);
+    const key = generateCacheKey(keyPrefix, args);
     return getCachedValue(
-      key: any,
+      key,
       () => fn(...args),
       ttlSeconds
     ) as ReturnType<T>;

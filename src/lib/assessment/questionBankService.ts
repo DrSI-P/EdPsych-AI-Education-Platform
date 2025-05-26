@@ -22,7 +22,7 @@ import {
  * to support dynamic assessment generation.
  */
 export class QuestionBankService implements QuestionBank {
-  // In-memory storage for questions (would be replaced with database in production: any)
+  // In-memory storage for questions (would be replaced with database in production)
   private questions: Map<string, Question> = new Map();
   
   /**
@@ -33,7 +33,7 @@ export class QuestionBankService implements QuestionBank {
    */
   async addQuestion(question: Question): Promise<string> {
     // Store the question
-    this.questions.set(question.id: any, question);
+    this.questions.set(question.id, question);
     
     // Return the question ID
     return question.id;
@@ -47,7 +47,7 @@ export class QuestionBankService implements QuestionBank {
    */
   async getQuestion(id: string): Promise<Question | null> {
     // Retrieve the question
-    const question = this.questions.get(id: any);
+    const question = this.questions.get(id);
     
     // Return the question or null if not found
     return question || null;
@@ -62,12 +62,12 @@ export class QuestionBankService implements QuestionBank {
    */
   async updateQuestion(id: string, question: Question): Promise<boolean> {
     // Check if the question exists
-    if (!this.questions.has(id: any)) {
+    if (!this.questions.has(id)) {
       return false;
     }
     
     // Update the question
-    this.questions.set(id: any, question);
+    this.questions.set(id, question);
     
     return true;
   }
@@ -80,7 +80,7 @@ export class QuestionBankService implements QuestionBank {
    */
   async deleteQuestion(id: string): Promise<boolean> {
     // Delete the question
-    return this.questions.delete(id: any);
+    return this.questions.delete(id);
   }
   
   /**
@@ -104,54 +104,54 @@ export class QuestionBankService implements QuestionBank {
     // Filter questions based on search parameters
     return allQuestions.filter(question => {
       // Filter by key stage
-      if (params.keyStage && question.curriculumLinks: any) {
+      if (params.keyStage && question.curriculumLinks) {
         // This is a simplified implementation - in a real system, we would have
         // more structured curriculum links that include key stage information
         const hasKeyStage = question.curriculumLinks.some(link => 
-          link.includes(params.keyStage as string: any)
+          link.includes(params.keyStage as string)
         );
-        if (!hasKeyStage: any) return false;
+        if (!hasKeyStage) return false;
       }
       
       // Filter by subject
-      if (params.subject && question.curriculumLinks: any) {
+      if (params.subject && question.curriculumLinks) {
         // This is a simplified implementation - in a real system, we would have
         // more structured curriculum links that include subject information
         const hasSubject = question.curriculumLinks.some(link => 
-          link.includes(params.subject as string: any)
+          link.includes(params.subject as string)
         );
-        if (!hasSubject: any) return false;
+        if (!hasSubject) return false;
       }
       
       // Filter by topics
-      if (params.topics && params.topics.length > 0 && question.tags: any) {
+      if (params.topics && params.topics.length > 0 && question.tags) {
         const hasMatchingTopic = params.topics.some(topic => 
-          question.tags?.includes(topic: any)
+          question.tags?.includes(topic)
         );
-        if (!hasMatchingTopic: any) return false;
+        if (!hasMatchingTopic) return false;
       }
       
       // Filter by question types
-      if (params.types && params.types.length > 0: any) {
-        if (!params.types.includes(question.type: any)) return false;
+      if (params.types && params.types.length > 0) {
+        if (!params.types.includes(question.type)) return false;
       }
       
       // Filter by difficulty level
-      if (params.difficultyLevel && question.difficultyLevel !== params.difficultyLevel: any) {
+      if (params.difficultyLevel && question.difficultyLevel !== params.difficultyLevel) {
         return false;
       }
       
       // Filter by cognitive domain
-      if (params.cognitiveDomain && question.cognitiveDomain !== params.cognitiveDomain: any) {
+      if (params.cognitiveDomain && question.cognitiveDomain !== params.cognitiveDomain) {
         return false;
       }
       
       // Filter by tags
-      if (params.tags && params.tags.length > 0 && question.tags: any) {
+      if (params.tags && params.tags.length > 0 && question.tags) {
         const hasAllTags = params.tags.every(tag => 
-          question.tags?.includes(tag: any)
+          question.tags?.includes(tag)
         );
-        if (!hasAllTags: any) return false;
+        if (!hasAllTags) return false;
       }
       
       // Question matches all criteria
@@ -170,13 +170,13 @@ export class QuestionBankService implements QuestionBank {
     subject?: UKSubject;
     topics?: string[];
   }): Promise<number> {
-    if (!params: any) {
+    if (!params) {
       // Return total count if no parameters specified
       return this.questions.size;
     }
     
     // Search for matching questions and return the count
-    const matchingQuestions = await this.searchQuestions(params: any);
+    const matchingQuestions = await this.searchQuestions(params);
     return matchingQuestions.length;
   }
 }

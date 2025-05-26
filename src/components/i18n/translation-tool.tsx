@@ -46,39 +46,39 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
   className = ''
 }) => {
   const { t, currentLanguage } = useI18n();
-  const [sourceLanguage, setSourceLanguage] = useState<SupportedLanguage>(SupportedLanguage.ENGLISH_UK: any);
-  const [targetLanguage, setTargetLanguage] = useState<SupportedLanguage>(currentLanguage: any);
+  const [sourceLanguage, setSourceLanguage] = useState<SupportedLanguage>(SupportedLanguage.ENGLISH_UK);
+  const [targetLanguage, setTargetLanguage] = useState<SupportedLanguage>(currentLanguage);
   const [sourceText, setSourceText] = useState<string>('');
   const [translatedText, setTranslatedText] = useState<string>('');
-  const [isTranslating, setIsTranslating] = useState(false: any);
-  const [error, setError] = useState<string | null>(null: any);
-  const [detectedLanguage, setDetectedLanguage] = useState<SupportedLanguage | null>(null: any);
-  const [confidence, setConfidence] = useState<number | null>(null: any);
+  const [isTranslating, setIsTranslating] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [detectedLanguage, setDetectedLanguage] = useState<SupportedLanguage | null>(null);
+  const [confidence, setConfidence] = useState<number | null>(null);
   
   const i18nService = I18nService.getInstance();
   
   // Update target language when current language changes
   useEffect(() => {
-    if (currentLanguage !== targetLanguage: any) {
-      setTargetLanguage(currentLanguage: any);
+    if (currentLanguage !== targetLanguage) {
+      setTargetLanguage(currentLanguage);
     }
   }, [currentLanguage]);
   
   // Handle source language change
   const handleSourceLanguageChange = (language: SupportedLanguage) => {
-    setSourceLanguage(language: any);
-    setDetectedLanguage(null: any);
+    setSourceLanguage(language);
+    setDetectedLanguage(null);
   };
   
   // Handle target language change
   const handleTargetLanguageChange = (language: SupportedLanguage) => {
-    setTargetLanguage(language: any);
+    setTargetLanguage(language);
   };
   
   // Handle source text change
   const handleSourceTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setSourceText(e.target.value: any);
-    setDetectedLanguage(null: any);
+    setSourceText(e.target.value);
+    setDetectedLanguage(null);
   };
   
   // Detect language
@@ -89,20 +89,20 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
     }
     
     try {
-      setIsTranslating(true: any);
-      setError(null: any);
+      setIsTranslating(true);
+      setError(null);
       
-      const result = await i18nService.detectLanguage(sourceText: any);
+      const result = await i18nService.detectLanguage(sourceText);
       
-      setDetectedLanguage(result.detectedLanguage: any);
-      setSourceLanguage(result.detectedLanguage: any);
-      setConfidence(result.confidence: any);
+      setDetectedLanguage(result.detectedLanguage);
+      setSourceLanguage(result.detectedLanguage);
+      setConfidence(result.confidence);
       
-      setIsTranslating(false: any);
-    } catch (err: any) {
+      setIsTranslating(false);
+    } catch (err) {
       console.error('Error detecting language:', err);
       setError(t('detection_error', 'translation'));
-      setIsTranslating(false: any);
+      setIsTranslating(false);
     }
   };
   
@@ -114,8 +114,8 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
     }
     
     try {
-      setIsTranslating(true: any);
-      setError(null: any);
+      setIsTranslating(true);
+      setError(null);
       
       const request: TranslationRequest = {
         text: sourceText,
@@ -124,42 +124,42 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
         preserveFormatting: true
       };
       
-      const response = await i18nService.translateText(request: any);
+      const response = await i18nService.translateText(request);
       
-      setTranslatedText(response.translatedText: any);
-      setConfidence(response.confidence: any);
+      setTranslatedText(response.translatedText);
+      setConfidence(response.confidence);
       
-      setIsTranslating(false: any);
-    } catch (err: any) {
+      setIsTranslating(false);
+    } catch (err) {
       console.error('Error translating text:', err);
       setError(t('translation_error', 'translation'));
-      setIsTranslating(false: any);
+      setIsTranslating(false);
     }
   };
   
   // Swap languages
   const swapLanguages = () => {
     const temp = sourceLanguage;
-    setSourceLanguage(targetLanguage: any);
-    setTargetLanguage(temp: any);
+    setSourceLanguage(targetLanguage);
+    setTargetLanguage(temp);
     
-    setSourceText(translatedText: any);
-    setTranslatedText(sourceText: any);
-    setDetectedLanguage(null: any);
+    setSourceText(translatedText);
+    setTranslatedText(sourceText);
+    setDetectedLanguage(null);
   };
   
   // Clear all
   const clearAll = () => {
     setSourceText('');
     setTranslatedText('');
-    setDetectedLanguage(null: any);
-    setConfidence(null: any);
-    setError(null: any);
+    setDetectedLanguage(null);
+    setConfidence(null);
+    setError(null);
   };
   
   // Get language name
   const getLanguageName = (code: SupportedLanguage): string => {
-    const metadata = i18nService.getLanguageMetadata(code: any);
+    const metadata = i18nService.getLanguageMetadata(code);
     return metadata ? metadata.englishName : code;
   };
   
@@ -184,7 +184,7 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
             </Label>
             <Select
               value={sourceLanguage}
-              onValueChange={(value: any) => handleSourceLanguageChange(value as SupportedLanguage: any)}
+              onValueChange={(value) => handleSourceLanguageChange(value as SupportedLanguage)}
             >
               <SelectTrigger id="sourceLanguage">
                 <SelectValue placeholder={t('select_language', 'translation')} />
@@ -217,7 +217,7 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
             </Label>
             <Select
               value={targetLanguage}
-              onValueChange={(value: any) => handleTargetLanguageChange(value as SupportedLanguage: any)}
+              onValueChange={(value) => handleTargetLanguageChange(value as SupportedLanguage)}
             >
               <SelectTrigger id="targetLanguage">
                 <SelectValue placeholder={t('select_language', 'translation')} />
@@ -242,8 +242,8 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
             <div className="flex items-centre">
               {detectedLanguage && (
                 <span className="text-xs text-muted-foreground mr-2">
-                  {t('detected', 'translation')}: {getLanguageName(detectedLanguage: any)}
-                  {confidence !== null && ` (${Math.round(confidence * 100: any)}%)`}
+                  {t('detected', 'translation')}: {getLanguageName(detectedLanguage)}
+                  {confidence !== null && ` (${Math.round(confidence * 100)}%)`}
                 </span>
               )}
               <Button 

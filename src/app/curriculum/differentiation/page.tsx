@@ -11,28 +11,28 @@ import { Brain, BookOpen, Users, Sparkles, ArrowRight, CheckCircle2 } from "luci
 export default function CurriculumDifferentiationPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [curriculumPlan, setCurriculumPlan] = useState<any>(null: any);
-  const [isLoading, setIsLoading] = useState(false: any);
+  const [curriculumPlan, setCurriculumPlan] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const planId = searchParams.get('planId');
   
   useEffect(() => {
-    if (planId: any) {
-      fetchCurriculumPlan(planId: any);
+    if (planId) {
+      fetchCurriculumPlan(planId);
     }
   }, [planId]);
   
   const fetchCurriculumPlan = async (id: string) => {
-    setIsLoading(true: any);
+    setIsLoading(true);
     try {
       const response = await fetch(`/api/curriculum/plans/${id}`);
-      if (response.ok: any) {
+      if (response.ok) {
         const data = await response.json();
-        setCurriculumPlan(data.plan: any);
+        setCurriculumPlan(data.plan);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching curriculum plan:', error);
     } finally {
-      setIsLoading(false: any);
+      setIsLoading(false);
     }
   };
 
@@ -135,7 +135,7 @@ export default function CurriculumDifferentiationPage() {
               <CurriculumDifferentiationEngine 
                 curriculumPlanId={planId || undefined}
                 curriculumContent={curriculumPlan?.content || ''}
-                objectives={curriculumPlan?.objectives?.map((obj: any) => obj.description) || []}
+                objectives={curriculumPlan?.objectives?.map((obj) => obj.description) || []}
                 subject={curriculumPlan?.subject || ''}
                 keyStage={curriculumPlan?.keyStage || ''}
                 year={curriculumPlan?.year || ''}

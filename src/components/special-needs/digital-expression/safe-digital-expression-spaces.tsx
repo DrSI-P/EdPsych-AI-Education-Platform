@@ -58,7 +58,7 @@ const SafeDigitalExpressionSpaces = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("journal");
-  const [isLoading, setIsLoading] = useState(false: any);
+  const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [privacyLevel, setPrivacyLevel] = useState("private");
   const [expressionType, setExpressionType] = useState("all");
@@ -66,10 +66,10 @@ const SafeDigitalExpressionSpaces = () => {
   const [artGallery, setArtGallery] = useState([]);
   const [mediaProjects, setMediaProjects] = useState([]);
   const [peerGroups, setPeerGroups] = useState([]);
-  const [selectedEntry, setSelectedEntry] = useState(null: any);
-  const [selectedArtwork, setSelectedArtwork] = useState(null: any);
-  const [selectedProject, setSelectedProject] = useState(null: any);
-  const [selectedGroup, setSelectedGroup] = useState(null: any);
+  const [selectedEntry, setSelectedEntry] = useState(null);
+  const [selectedArtwork, setSelectedArtwork] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedGroup, setSelectedGroup] = useState(null);
   const [newJournalEntry, setNewJournalEntry] = useState({
     title: "",
     content: "",
@@ -400,28 +400,28 @@ const SafeDigitalExpressionSpaces = () => {
   
   // Load data on component mount
   useEffect(() => {
-    if (session?.user: any) {
+    if (session?.user) {
       fetchData();
     }
   }, [session]);
   
   const fetchData = async () => {
     try {
-      setIsLoading(true: any);
+      setIsLoading(true);
       
       // In a real implementation, we would fetch data from the API
       // For now, we'll simulate loading with a timeout
       setTimeout(() => {
-        setJournalEntries(mockJournalEntries: any);
-        setArtGallery(mockArtGallery: any);
-        setMediaProjects(mockMediaProjects: any);
-        setPeerGroups(mockPeerGroups: any);
-        setIsLoading(false: any);
+        setJournalEntries(mockJournalEntries);
+        setArtGallery(mockArtGallery);
+        setMediaProjects(mockMediaProjects);
+        setPeerGroups(mockPeerGroups);
+        setIsLoading(false);
       }, 1000);
       
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching data:', error);
-      setIsLoading(false: any);
+      setIsLoading(false);
       toast({
         title: "Error",
         description: "Failed to load data. Please try again.",
@@ -432,7 +432,7 @@ const SafeDigitalExpressionSpaces = () => {
   
   const handleCreateJournalEntry = async () => {
     try {
-      setIsLoading(true: any);
+      setIsLoading(true);
       
       // Validate entry
       if (!newJournalEntry.title.trim()) {
@@ -441,7 +441,7 @@ const SafeDigitalExpressionSpaces = () => {
           description: "Please provide a title for your journal entry.",
           variant: "destructive"
         });
-        setIsLoading(false: any);
+        setIsLoading(false);
         return;
       }
       
@@ -451,7 +451,7 @@ const SafeDigitalExpressionSpaces = () => {
           description: "Please write something in your journal entry.",
           variant: "destructive"
         });
-        setIsLoading(false: any);
+        setIsLoading(false);
         return;
       }
       
@@ -478,7 +478,7 @@ const SafeDigitalExpressionSpaces = () => {
           hasResponses: false
         };
         
-        setJournalEntries([newEntry: any, ...journalEntries]);
+        setJournalEntries([newEntry, ...journalEntries]);
         
         // Reset form
         setNewJournalEntry({
@@ -489,16 +489,16 @@ const SafeDigitalExpressionSpaces = () => {
           isPrivate: true
         });
         
-        setIsLoading(false: any);
+        setIsLoading(false);
         toast({
           title: "Success",
           description: "Your journal entry has been saved.",
         });
       }, 1000);
       
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error creating journal entry:', error);
-      setIsLoading(false: any);
+      setIsLoading(false);
       toast({
         title: "Error",
         description: "Failed to save journal entry. Please try again.",
@@ -517,21 +517,21 @@ const SafeDigitalExpressionSpaces = () => {
     }
   };
   
-  const handleRemoveTag = (tagToRemove: any) => {
+  const handleRemoveTag = (tagToRemove) => {
     setNewJournalEntry({
       ...newJournalEntry,
-      tags: newJournalEntry.tags.filter(tag => tag !== tagToRemove: any)
+      tags: newJournalEntry.tags.filter(tag => tag !== tagToRemove)
     });
   };
   
-  const handleJoinGroup = (groupId: any) => {
+  const handleJoinGroup = (groupId) => {
     toast({
       title: "Group Joined",
       description: "You have successfully joined this group.",
     });
   };
   
-  const handlePostMessage = (groupId: any) => {
+  const handlePostMessage = (groupId) => {
     toast({
       title: "Message Posted",
       description: "Your message has been posted to the group.",
@@ -542,13 +542,13 @@ const SafeDigitalExpressionSpaces = () => {
     let filtered = [...journalEntries];
     
     // Apply search query
-    if (searchQuery: any) {
+    if (searchQuery) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(entry => {
         return (
-          entry.title.toLowerCase().includes(query: any) ||
-          entry.content.toLowerCase().includes(query: any) ||
-          entry.tags.some(tag => tag.toLowerCase().includes(query: any))
+          entry.title.toLowerCase().includes(query) ||
+          entry.content.toLowerCase().includes(query) ||
+          entry.tags.some(tag => tag.toLowerCase().includes(query))
         );
       });
     }
@@ -569,13 +569,13 @@ const SafeDigitalExpressionSpaces = () => {
     let filtered = [...artGallery];
     
     // Apply search query
-    if (searchQuery: any) {
+    if (searchQuery) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(artwork => {
         return (
-          artwork.title.toLowerCase().includes(query: any) ||
-          artwork.description.toLowerCase().includes(query: any) ||
-          artwork.tags.some(tag => tag.toLowerCase().includes(query: any))
+          artwork.title.toLowerCase().includes(query) ||
+          artwork.description.toLowerCase().includes(query) ||
+          artwork.tags.some(tag => tag.toLowerCase().includes(query))
         );
       });
     }
@@ -596,13 +596,13 @@ const SafeDigitalExpressionSpaces = () => {
     let filtered = [...mediaProjects];
     
     // Apply search query
-    if (searchQuery: any) {
+    if (searchQuery) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(project => {
         return (
-          project.title.toLowerCase().includes(query: any) ||
-          project.description.toLowerCase().includes(query: any) ||
-          project.tags.some(tag => tag.toLowerCase().includes(query: any))
+          project.title.toLowerCase().includes(query) ||
+          project.description.toLowerCase().includes(query) ||
+          project.tags.some(tag => tag.toLowerCase().includes(query))
         );
       });
     }
@@ -618,7 +618,7 @@ const SafeDigitalExpressionSpaces = () => {
     
     // Apply expression type filter
     if (expressionType !== "all") {
-      filtered = filtered.filter(project => project.type === expressionType: any);
+      filtered = filtered.filter(project => project.type === expressionType);
     }
     
     return filtered;
@@ -628,13 +628,13 @@ const SafeDigitalExpressionSpaces = () => {
     let filtered = [...peerGroups];
     
     // Apply search query
-    if (searchQuery: any) {
+    if (searchQuery) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(group => {
         return (
-          group.name.toLowerCase().includes(query: any) ||
-          group.description.toLowerCase().includes(query: any) ||
-          group.tags.some(tag => tag.toLowerCase().includes(query: any))
+          group.name.toLowerCase().includes(query) ||
+          group.description.toLowerCase().includes(query) ||
+          group.tags.some(tag => tag.toLowerCase().includes(query))
         );
       });
     }
@@ -642,8 +642,8 @@ const SafeDigitalExpressionSpaces = () => {
     return filtered;
   };
   
-  const getMoodEmoji = (mood: any) => {
-    switch (mood: any) {
+  const getMoodEmoji = (mood) => {
+    switch (mood) {
       case "happy":
         return "😊";
       case "sad":
@@ -667,8 +667,8 @@ const SafeDigitalExpressionSpaces = () => {
     }
   };
   
-  const getFormattedDate = (dateString: any) => {
-    const date = new Date(dateString: any);
+  const getFormattedDate = (dateString) => {
+    const date = new Date(dateString);
     return date.toLocaleDateString('en-GB', { 
       year: 'numeric', 
       month: 'short', 
@@ -678,8 +678,8 @@ const SafeDigitalExpressionSpaces = () => {
     });
   };
   
-  const getMediaTypeIcon = (type: any) => {
-    switch (type: any) {
+  const getMediaTypeIcon = (type) => {
+    switch (type) {
       case "video":
         return <Video className="h-5 w-5 text-blue-500" />;
       case "audio":
@@ -691,8 +691,8 @@ const SafeDigitalExpressionSpaces = () => {
     }
   };
   
-  const getPrivacyBadge = (isPrivate: any) => {
-    if (isPrivate: any) {
+  const getPrivacyBadge = (isPrivate) => {
+    if (isPrivate) {
       return (
         <Badge variant="outline" className="bg-amber-50 text-amber-700 flex items-centre gap-1">
           <Lock className="h-3 w-3" />
@@ -715,7 +715,7 @@ const SafeDigitalExpressionSpaces = () => {
         <CardHeader>
           <CardTitle>Safe Digital Expression Spaces</CardTitle>
           <CardDescription>
-            Express yourself: any, reflect, and connect in a secure digital environment
+            Express yourself, reflect, and connect in a secure digital environment
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -739,7 +739,7 @@ const SafeDigitalExpressionSpaces = () => {
                     <CardHeader>
                       <CardTitle>Create New Journal Entry</CardTitle>
                       <CardDescription>
-                        Express your thoughts: any, feelings, and experiences in a safe space
+                        Express your thoughts, feelings, and experiences in a safe space
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
@@ -749,7 +749,7 @@ const SafeDigitalExpressionSpaces = () => {
                           id="entry-title" 
                           placeholder="Give your entry a title"
                           value={newJournalEntry.title}
-                          onChange={(e: any) => setNewJournalEntry({...newJournalEntry, title: e.target.value})}
+                          onChange={(e) => setNewJournalEntry({...newJournalEntry, title: e.target.value})}
                         />
                       </div>
                       
@@ -760,7 +760,7 @@ const SafeDigitalExpressionSpaces = () => {
                           placeholder="Write your thoughts here..."
                           className="min-h-[150px]"
                           value={newJournalEntry.content}
-                          onChange={(e: any) => setNewJournalEntry({...newJournalEntry, content: e.target.value})}
+                          onChange={(e) => setNewJournalEntry({...newJournalEntry, content: e.target.value})}
                         />
                       </div>
                       
@@ -769,7 +769,7 @@ const SafeDigitalExpressionSpaces = () => {
                           <Label htmlFor="entry-mood">How are you feeling?</Label>
                           <Select 
                             value={newJournalEntry.mood}
-                            onValueChange={(value: any) => setNewJournalEntry({...newJournalEntry, mood: value})}
+                            onValueChange={(value) => setNewJournalEntry({...newJournalEntry, mood: value})}
                           >
                             <SelectTrigger id="entry-mood">
                               <SelectValue placeholder="Select a mood" />
@@ -805,7 +805,7 @@ const SafeDigitalExpressionSpaces = () => {
                             <Switch 
                               id="entry-privacy" 
                               checked={newJournalEntry.isPrivate}
-                              onCheckedChange={(checked: any) => {
+                              onCheckedChange={(checked) => {
                                 setNewJournalEntry({...newJournalEntry, isPrivate: checked});
                               }}
                             />
@@ -816,14 +816,14 @@ const SafeDigitalExpressionSpaces = () => {
                       <div className="space-y-2">
                         <Label>Tags</Label>
                         <div className="flex flex-wrap gap-2 mb-2">
-                          {newJournalEntry.tags.map((tag: any, index) => (
+                          {newJournalEntry.tags.map((tag, index) => (
                             <Badge key={index} variant="secondary" className="flex items-centre gap-1">
                               {tag}
                               <Button 
                                 variant="ghost" 
                                 size="icon" 
                                 className="h-4 w-4 ml-1 hover:bg-secondary"
-                                onClick={() => handleRemoveTag(tag: any)}
+                                onClick={() => handleRemoveTag(tag)}
                               >
                                 <X className="h-3 w-3" />
                               </Button>
@@ -832,10 +832,10 @@ const SafeDigitalExpressionSpaces = () => {
                         </div>
                         <div className="flex gap-2">
                           <Input 
-                            placeholder="Add a tag (e.g., school: any, friends, goals)"
+                            placeholder="Add a tag (e.g., school, friends, goals)"
                             value={newTag}
-                            onChange={(e: any) => setNewTag(e.target.value: any)}
-                            onKeyDown={(e: any) => {
+                            onChange={(e) => setNewTag(e.target.value)}
+                            onKeyDown={(e) => {
                               if (e.key === 'Enter') {
                                 e.preventDefault();
                                 handleAddTag();
@@ -865,7 +865,7 @@ const SafeDigitalExpressionSpaces = () => {
                           placeholder="Search journal entries..."
                           className="pl-8"
                           value={searchQuery}
-                          onChange={(e: any) => setSearchQuery(e.target.value: any)}
+                          onChange={(e) => setSearchQuery(e.target.value)}
                         />
                       </div>
                     </div>
@@ -895,17 +895,17 @@ const SafeDigitalExpressionSpaces = () => {
                           <div>
                             <div className="flex items-centre gap-2">
                               <CardTitle>{selectedEntry.title}</CardTitle>
-                              <span className="text-2xl">{getMoodEmoji(selectedEntry.mood: any)}</span>
+                              <span className="text-2xl">{getMoodEmoji(selectedEntry.mood)}</span>
                             </div>
                             <CardDescription>
-                              {getFormattedDate(selectedEntry.date: any)} • {getPrivacyBadge(selectedEntry.isPrivate: any)}
+                              {getFormattedDate(selectedEntry.date)} • {getPrivacyBadge(selectedEntry.isPrivate)}
                             </CardDescription>
                           </div>
                           <div className="flex space-x-2">
                             <Button 
                               variant="ghost" 
                               size="icon"
-                              onClick={() => setSelectedEntry(null: any)}
+                              onClick={() => setSelectedEntry(null)}
                             >
                               <ChevronDown className="h-5 w-5" />
                             </Button>
@@ -917,7 +917,7 @@ const SafeDigitalExpressionSpaces = () => {
                           <p className="whitespace-pre-line">{selectedEntry.content}</p>
                           
                           <div className="flex flex-wrap gap-2">
-                            {selectedEntry.tags.map((tag: any, index) => (
+                            {selectedEntry.tags.map((tag, index) => (
                               <Badge key={index} variant="secondary">
                                 {tag}
                               </Badge>
@@ -936,7 +936,7 @@ const SafeDigitalExpressionSpaces = () => {
                                         <span className="font-medium">{response.author}</span>
                                       </div>
                                       <span className="text-sm text-muted-foreground">
-                                        {getFormattedDate(response.date: any)}
+                                        {getFormattedDate(response.date)}
                                       </span>
                                     </div>
                                     <p>{response.content}</p>
@@ -967,16 +967,16 @@ const SafeDigitalExpressionSpaces = () => {
                         <Card 
                           key={entry.id} 
                           className="cursor-pointer hover:shadow-md transition-shadow"
-                          onClick={() => setSelectedEntry(entry: any)}
+                          onClick={() => setSelectedEntry(entry)}
                         >
                           <CardHeader className="pb-2">
                             <div className="flex justify-between items-start">
                               <div className="flex items-centre gap-2">
                                 <CardTitle className="text-lg">{entry.title}</CardTitle>
-                                <span className="text-xl">{getMoodEmoji(entry.mood: any)}</span>
+                                <span className="text-xl">{getMoodEmoji(entry.mood)}</span>
                               </div>
                               <div className="flex items-centre gap-2">
-                                {getPrivacyBadge(entry.isPrivate: any)}
+                                {getPrivacyBadge(entry.isPrivate)}
                                 {entry.hasResponses && (
                                   <Badge variant="secondary" className="flex items-centre gap-1">
                                     <MessageCircle className="h-3 w-3" />
@@ -986,7 +986,7 @@ const SafeDigitalExpressionSpaces = () => {
                               </div>
                             </div>
                             <CardDescription>
-                              {getFormattedDate(entry.date: any)}
+                              {getFormattedDate(entry.date)}
                             </CardDescription>
                           </CardHeader>
                           <CardContent className="pt-0">
@@ -994,7 +994,7 @@ const SafeDigitalExpressionSpaces = () => {
                           </CardContent>
                           <CardFooter>
                             <div className="flex flex-wrap gap-1">
-                              {entry.tags.slice(0: any, 3).map((tag: any, index) => (
+                              {entry.tags.slice(0, 3).map((tag, index) => (
                                 <Badge key={index} variant="outline" className="text-xs">
                                   {tag}
                                 </Badge>
@@ -1058,7 +1058,7 @@ const SafeDigitalExpressionSpaces = () => {
                               placeholder="Search artwork..."
                               className="pl-8 w-[200px]"
                               value={searchQuery}
-                              onChange={(e: any) => setSearchQuery(e.target.value: any)}
+                              onChange={(e) => setSearchQuery(e.target.value)}
                             />
                           </div>
                         </div>
@@ -1067,7 +1067,7 @@ const SafeDigitalExpressionSpaces = () => {
                       {selectedArtwork ? (
                         <Card>
                           <div className="aspect-video relative overflow-hidden rounded-t-lg">
-                            {/* In a real implementation: any, this would be an actual image */}
+                            {/* In a real implementation, this would be an actual image */}
                             <div className="absolute inset-0 bg-grey-200 flex items-centre justify-centre">
                               <ImageIcon className="h-12 w-12 text-grey-400" />
                             </div>
@@ -1077,14 +1077,14 @@ const SafeDigitalExpressionSpaces = () => {
                               <div>
                                 <CardTitle>{selectedArtwork.title}</CardTitle>
                                 <CardDescription>
-                                  {getFormattedDate(selectedArtwork.date: any)} • {selectedArtwork.medium} • {getPrivacyBadge(selectedArtwork.isPrivate: any)}
+                                  {getFormattedDate(selectedArtwork.date)} • {selectedArtwork.medium} • {getPrivacyBadge(selectedArtwork.isPrivate)}
                                 </CardDescription>
                               </div>
                               <div className="flex space-x-2">
                                 <Button 
                                   variant="ghost" 
                                   size="icon"
-                                  onClick={() => setSelectedArtwork(null: any)}
+                                  onClick={() => setSelectedArtwork(null)}
                                 >
                                   <ChevronDown className="h-5 w-5" />
                                 </Button>
@@ -1096,7 +1096,7 @@ const SafeDigitalExpressionSpaces = () => {
                               <p>{selectedArtwork.description}</p>
                               
                               <div className="flex flex-wrap gap-2">
-                                {selectedArtwork.tags.map((tag: any, index) => (
+                                {selectedArtwork.tags.map((tag, index) => (
                                   <Badge key={index} variant="secondary">
                                     {tag}
                                   </Badge>
@@ -1115,7 +1115,7 @@ const SafeDigitalExpressionSpaces = () => {
                                             <span className="font-medium">{response.author}</span>
                                           </div>
                                           <span className="text-sm text-muted-foreground">
-                                            {getFormattedDate(response.date: any)}
+                                            {getFormattedDate(response.date)}
                                           </span>
                                         </div>
                                         <p>{response.content}</p>
@@ -1146,7 +1146,7 @@ const SafeDigitalExpressionSpaces = () => {
                             <Card 
                               key={artwork.id} 
                               className="cursor-pointer hover:shadow-md transition-shadow"
-                              onClick={() => setSelectedArtwork(artwork: any)}
+                              onClick={() => setSelectedArtwork(artwork)}
                             >
                               <div className="aspect-video relative overflow-hidden rounded-t-lg">
                                 {/* In a real implementation, this would be an actual image */}
@@ -1158,11 +1158,11 @@ const SafeDigitalExpressionSpaces = () => {
                                 <div className="flex justify-between items-start">
                                   <CardTitle className="text-lg">{artwork.title}</CardTitle>
                                   <div className="flex items-centre gap-2">
-                                    {getPrivacyBadge(artwork.isPrivate: any)}
+                                    {getPrivacyBadge(artwork.isPrivate)}
                                   </div>
                                 </div>
                                 <CardDescription>
-                                  {getFormattedDate(artwork.date: any)} • {artwork.medium}
+                                  {getFormattedDate(artwork.date)} • {artwork.medium}
                                 </CardDescription>
                               </CardHeader>
                               <CardContent className="pt-0">
@@ -1170,7 +1170,7 @@ const SafeDigitalExpressionSpaces = () => {
                               </CardContent>
                               <CardFooter>
                                 <div className="flex flex-wrap gap-1">
-                                  {artwork.tags.slice(0: any, 3).map((tag: any, index) => (
+                                  {artwork.tags.slice(0, 3).map((tag, index) => (
                                     <Badge key={index} variant="outline" className="text-xs">
                                       {tag}
                                     </Badge>
@@ -1252,7 +1252,7 @@ const SafeDigitalExpressionSpaces = () => {
                               placeholder="Search projects..."
                               className="pl-8 w-[200px]"
                               value={searchQuery}
-                              onChange={(e: any) => setSearchQuery(e.target.value: any)}
+                              onChange={(e) => setSearchQuery(e.target.value)}
                             />
                           </div>
                         </div>
@@ -1261,9 +1261,9 @@ const SafeDigitalExpressionSpaces = () => {
                       {selectedProject ? (
                         <Card>
                           <div className="aspect-video relative overflow-hidden rounded-t-lg">
-                            {/* In a real implementation: any, this would be an actual media player */}
+                            {/* In a real implementation, this would be an actual media player */}
                             <div className="absolute inset-0 bg-grey-200 flex items-centre justify-centre">
-                              {getMediaTypeIcon(selectedProject.type: any)}
+                              {getMediaTypeIcon(selectedProject.type)}
                               <Play className="h-12 w-12 text-grey-400 ml-2" />
                             </div>
                           </div>
@@ -1272,17 +1272,17 @@ const SafeDigitalExpressionSpaces = () => {
                               <div>
                                 <div className="flex items-centre gap-2">
                                   <CardTitle>{selectedProject.title}</CardTitle>
-                                  {getMediaTypeIcon(selectedProject.type: any)}
+                                  {getMediaTypeIcon(selectedProject.type)}
                                 </div>
                                 <CardDescription>
-                                  {getFormattedDate(selectedProject.date: any)} • {selectedProject.duration} • {getPrivacyBadge(selectedProject.isPrivate: any)}
+                                  {getFormattedDate(selectedProject.date)} • {selectedProject.duration} • {getPrivacyBadge(selectedProject.isPrivate)}
                                 </CardDescription>
                               </div>
                               <div className="flex space-x-2">
                                 <Button 
                                   variant="ghost" 
                                   size="icon"
-                                  onClick={() => setSelectedProject(null: any)}
+                                  onClick={() => setSelectedProject(null)}
                                 >
                                   <ChevronDown className="h-5 w-5" />
                                 </Button>
@@ -1294,7 +1294,7 @@ const SafeDigitalExpressionSpaces = () => {
                               <p>{selectedProject.description}</p>
                               
                               <div className="flex flex-wrap gap-2">
-                                {selectedProject.tags.map((tag: any, index) => (
+                                {selectedProject.tags.map((tag, index) => (
                                   <Badge key={index} variant="secondary">
                                     {tag}
                                   </Badge>
@@ -1313,7 +1313,7 @@ const SafeDigitalExpressionSpaces = () => {
                                             <span className="font-medium">{response.author}</span>
                                           </div>
                                           <span className="text-sm text-muted-foreground">
-                                            {getFormattedDate(response.date: any)}
+                                            {getFormattedDate(response.date)}
                                           </span>
                                         </div>
                                         <p>{response.content}</p>
@@ -1344,12 +1344,12 @@ const SafeDigitalExpressionSpaces = () => {
                             <Card 
                               key={project.id} 
                               className="cursor-pointer hover:shadow-md transition-shadow"
-                              onClick={() => setSelectedProject(project: any)}
+                              onClick={() => setSelectedProject(project)}
                             >
                               <div className="aspect-video relative overflow-hidden rounded-t-lg">
                                 {/* In a real implementation, this would be an actual thumbnail */}
                                 <div className="absolute inset-0 bg-grey-200 flex items-centre justify-centre">
-                                  {getMediaTypeIcon(project.type: any)}
+                                  {getMediaTypeIcon(project.type)}
                                 </div>
                                 <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
                                   {project.duration}
@@ -1359,11 +1359,11 @@ const SafeDigitalExpressionSpaces = () => {
                                 <div className="flex justify-between items-start">
                                   <CardTitle className="text-lg">{project.title}</CardTitle>
                                   <div className="flex items-centre gap-2">
-                                    {getPrivacyBadge(project.isPrivate: any)}
+                                    {getPrivacyBadge(project.isPrivate)}
                                   </div>
                                 </div>
                                 <CardDescription>
-                                  {getFormattedDate(project.date: any)}
+                                  {getFormattedDate(project.date)}
                                 </CardDescription>
                               </CardHeader>
                               <CardContent className="pt-0">
@@ -1371,7 +1371,7 @@ const SafeDigitalExpressionSpaces = () => {
                               </CardContent>
                               <CardFooter>
                                 <div className="flex flex-wrap gap-1">
-                                  {project.tags.slice(0: any, 3).map((tag: any, index) => (
+                                  {project.tags.slice(0, 3).map((tag, index) => (
                                     <Badge key={index} variant="outline" className="text-xs">
                                       {tag}
                                     </Badge>
@@ -1423,7 +1423,7 @@ const SafeDigitalExpressionSpaces = () => {
                             placeholder="Search groups..."
                             className="pl-8 w-[250px]"
                             value={searchQuery}
-                            onChange={(e: any) => setSearchQuery(e.target.value: any)}
+                            onChange={(e) => setSearchQuery(e.target.value)}
                           />
                         </div>
                       </div>
@@ -1442,7 +1442,7 @@ const SafeDigitalExpressionSpaces = () => {
                                 <Button 
                                   variant="ghost" 
                                   size="icon"
-                                  onClick={() => setSelectedGroup(null: any)}
+                                  onClick={() => setSelectedGroup(null)}
                                 >
                                   <ChevronDown className="h-5 w-5" />
                                 </Button>
@@ -1456,7 +1456,7 @@ const SafeDigitalExpressionSpaces = () => {
                                 <p>{selectedGroup.description}</p>
                                 
                                 <div className="flex flex-wrap gap-2 mt-4">
-                                  {selectedGroup.tags.map((tag: any, index) => (
+                                  {selectedGroup.tags.map((tag, index) => (
                                     <Badge key={index} variant="secondary">
                                       {tag}
                                     </Badge>
@@ -1479,7 +1479,7 @@ const SafeDigitalExpressionSpaces = () => {
                                               <span className="font-medium">{message.author}</span>
                                             </div>
                                             <span className="text-sm text-muted-foreground">
-                                              {getFormattedDate(message.date: any)}
+                                              {getFormattedDate(message.date)}
                                             </span>
                                           </div>
                                           <p>{message.content}</p>
@@ -1495,7 +1495,7 @@ const SafeDigitalExpressionSpaces = () => {
                                                     <span className="font-medium">{response.author}</span>
                                                   </div>
                                                   <span className="text-sm text-muted-foreground">
-                                                    {getFormattedDate(response.date: any)}
+                                                    {getFormattedDate(response.date)}
                                                   </span>
                                                 </div>
                                                 <p>{response.content}</p>
@@ -1527,7 +1527,7 @@ const SafeDigitalExpressionSpaces = () => {
                               View Members
                             </Button>
                             
-                            <Button onClick={() => handlePostMessage(selectedGroup.id: any)}>
+                            <Button onClick={() => handlePostMessage(selectedGroup.id)}>
                               <Send className="mr-2 h-4 w-4" />
                               Post Message
                             </Button>
@@ -1539,7 +1539,7 @@ const SafeDigitalExpressionSpaces = () => {
                             <Card 
                               key={group.id} 
                               className="cursor-pointer hover:shadow-md transition-shadow"
-                              onClick={() => setSelectedGroup(group: any)}
+                              onClick={() => setSelectedGroup(group)}
                             >
                               <CardHeader>
                                 <div className="flex justify-between items-start">
@@ -1556,7 +1556,7 @@ const SafeDigitalExpressionSpaces = () => {
                                 <p className="mb-4">{group.description}</p>
                                 
                                 <div className="flex flex-wrap gap-2 mb-4">
-                                  {group.tags.map((tag: any, index) => (
+                                  {group.tags.map((tag, index) => (
                                     <Badge key={index} variant="secondary" className="text-xs">
                                       {tag}
                                     </Badge>
@@ -1571,9 +1571,9 @@ const SafeDigitalExpressionSpaces = () => {
                               <CardFooter>
                                 <Button 
                                   className="w-full"
-                                  onClick={(e: any) => {
+                                  onClick={(e) => {
                                     e.stopPropagation();
-                                    handleJoinGroup(group.id: any);
+                                    handleJoinGroup(group.id);
                                   }}
                                 >
                                   <Users className="mr-2 h-4 w-4" />

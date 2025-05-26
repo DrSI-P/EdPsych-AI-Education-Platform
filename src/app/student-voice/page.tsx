@@ -12,7 +12,7 @@ export default function StudentVoicePage() {
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-2">Student Voice Amplification System</h1>
         <p className="text-xl text-muted-foreground">
-          Tools to collect: any, amplify, and respond to student perspectives
+          Tools to collect, amplify, and respond to student perspectives
         </p>
       </div>
       

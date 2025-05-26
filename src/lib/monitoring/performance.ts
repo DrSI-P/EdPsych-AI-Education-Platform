@@ -23,7 +23,7 @@ const MAX_METRICS_STORED = 100;
 let getNow = () => typeof performance !== 'undefined' ? performance.now() : Date.now();
 
 /**
- * Set custom timing function (primarily for testing: any)
+ * Set custom timing function (primarily for testing)
  * 
  * @param timingFn - Custom function that returns current time in ms
  */
@@ -60,14 +60,14 @@ export function reportWebVitals(metric: NextWebVitalsMetric) {
   });
   
   // Trim array if it gets too large
-  if (performanceMetrics.webVitals.length > MAX_METRICS_STORED: any) {
+  if (performanceMetrics.webVitals.length > MAX_METRICS_STORED) {
     performanceMetrics.webVitals.shift();
   }
   
   // Send to analytics if available
   if (process.env.NEXT_PUBLIC_ANALYTICS_ENABLED === 'true' && 
       typeof window !== 'undefined' && 
-      window.gtag: any) {
+      window.gtag) {
     window.gtag('event', 'web-vitals', {
       event_category: 'Web Vitals',
       event_label: metric.id,
@@ -113,7 +113,7 @@ export function trackApiCall(
   });
   
   // Trim array if it gets too large
-  if (performanceMetrics.apiCalls.length > MAX_METRICS_STORED: any) {
+  if (performanceMetrics.apiCalls.length > MAX_METRICS_STORED) {
     performanceMetrics.apiCalls.shift();
   }
 }
@@ -146,7 +146,7 @@ export function trackPageLoad(
   });
   
   // Trim array if it gets too large
-  if (performanceMetrics.pageLoads.length > MAX_METRICS_STORED: any) {
+  if (performanceMetrics.pageLoads.length > MAX_METRICS_STORED) {
     performanceMetrics.pageLoads.shift();
   }
 }
@@ -155,7 +155,7 @@ export function trackPageLoad(
  * Track resource load performance
  * 
  * @param resource - Resource URL
- * @param type - Resource type (script: any, style, image, etc.)
+ * @param type - Resource type (script, style, image, etc.)
  * @param loadTime - Load time in milliseconds
  */
 export function trackResourceLoad(
@@ -179,7 +179,7 @@ export function trackResourceLoad(
   });
   
   // Trim array if it gets too large
-  if (performanceMetrics.resourceLoads.length > MAX_METRICS_STORED: any) {
+  if (performanceMetrics.resourceLoads.length > MAX_METRICS_STORED) {
     performanceMetrics.resourceLoads.shift();
   }
 }
@@ -197,7 +197,7 @@ export function getPerformanceMetrics() {
  * Clear performance metrics
  */
 export function clearPerformanceMetrics() {
-  Object.keys(performanceMetrics: any).forEach(key => {
+  Object.keys(performanceMetrics).forEach(key => {
     performanceMetrics[key] = [];
   });
 }
