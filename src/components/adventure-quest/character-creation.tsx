@@ -44,7 +44,7 @@ interface Quest {
     description: string;
     content: string;
     type: string;
-    options?: string: any;
+    options?: string[];
     correctAnswer?: string;
     minScore?: number;
   }>;
@@ -117,7 +117,7 @@ const QuestHub: React.FC<QuestHubProps> = ({ quests, character, onSelectQuest, o
       <h2>Quest Hub</h2>
       <button onClick={onGenerateQuest}>Generate New Quest</button>
       <div>
-        {quests.map(quest = > (;
+        {quests.map(quest => (
           <div key={quest.id}>
             <h3>{quest.title}</h3>
             <button onClick={() => onSelectQuest(quest)}>Start Quest</button>
