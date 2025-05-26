@@ -1,6 +1,9 @@
+/// <reference path="../../src/types/lib/validation.d.ts" />
+/// <reference path="../../src/types/lib/db-utils.d.ts" />
+
 import { PrismaClient } from '@prisma/client';
-import fs from 'fs';
-import path from 'path';
+import * as fs from 'fs';
+import * as path from 'path';
 import { validateAndSanitizeUser } from '@/lib/validation';
 import { safeDbOperation, DatabaseError, DatabaseErrorType } from '@/lib/db-utils';
 
@@ -38,7 +41,7 @@ export interface DatabaseHealthCheckResult {
     type: string;
     severity: 'low' | 'medium' | 'high' | 'critical';
     message: string;
-    details?;
+    details?: any;
   }>;
   recommendations?: string[];
   error?: string;
@@ -51,7 +54,7 @@ export interface DatabaseHealthCheckResult {
 export async function checkDatabaseHealth(): Promise<DatabaseHealthCheckResult> {
   try {
     const startTime = Date.now();
-    const issues: Array<{type: string; severity; message: string; details?}> = [];
+    const issues: Array<{type: string; severity: 'low' | 'medium' | 'high' | 'critical'; message: string; details?: any}> = [];
     const recommendations: any[] = [];
     
     // Check basic connectivity
@@ -218,7 +221,7 @@ export async function logDatabaseOperation(
   operation: string,
   model: string,
   userId: string,
-  details
+  details: any
 ): Promise<boolean> {
   try {
     // Create log entry
@@ -284,7 +287,7 @@ export interface DatabaseOptimizationResult {
     reindex?: boolean;
     cleanup?: boolean;
   };
-  details?;
+  details?: any;
   error?: string;
 }
 
@@ -395,7 +398,7 @@ export async function validateDatabaseSchema(): Promise<DatabaseSchemaValidation
     const extraModels = actualModels.filter(model => !expectedModels.includes(model));
     
     // Check for model issues
-    const modelIssues: Array<{model: string; issues[]}> = [];
+    const modelIssues: Array<{model: string; issues: any[]}> = [];
     
     for (const model of introspection.models) {
       const issues: any[] = [];
@@ -465,7 +468,7 @@ export interface DataIntegrityCheckResult {
     inconsistentRelationships: number;
     duplicateRecords: number;
   };
-  details?;
+  details?: any;
   error?: string;
 }
 
@@ -626,18 +629,21 @@ export async function repairDataIntegrity(): Promise<DataIntegrityRepairResult> 
     
     let fixedUsers = 0;
     for (const user of invalidUsers) {
+      // Generate placeholder values for missing data
+      const updates: any = {};
+      
       if (!user.email || user.email === '') {
-        await prisma.user.update({
-          where: { id: user.id },
-          data: { email: `user-${user.id}@example.com` }
-        });
-        fixedUsers++;
+        updates.email = `placeholder_${user.id}@example.com`;
       }
       
       if (!user.name || user.name === '') {
+        updates.name = `User ${user.id}`;
+      }
+      
+      if (Object.keys(updates).length > 0) {
         await prisma.user.update({
           where: { id: user.id },
-          data: { name: `User ${user.id}` }
+          data: updates
         });
         fixedUsers++;
       }
@@ -658,6 +664,7 @@ export async function repairDataIntegrity(): Promise<DataIntegrityRepairResult> 
         });
         
         if (!parentWithChildren?.children.some(child => child.id === student.id)) {
+          // Add missing child relationship
           await prisma.user.update({
             where: { id: parent.id },
             data: {
@@ -672,8 +679,7 @@ export async function repairDataIntegrity(): Promise<DataIntegrityRepairResult> 
     }
     
     // De-duplicate records
-    // This is a simplified example - in a real implementation, you would handle this more carefully
-    let deDuplicatedRecords = 0;
+    // This is a simplified example - in a real implementation, you would implement a more sophisticated de-duplication strategy
     const duplicateEmails = await prisma.$queryRaw`
       SELECT email, array_agg(id) as ids
       FROM "User"
@@ -681,16 +687,18 @@ export async function repairDataIntegrity(): Promise<DataIntegrityRepairResult> 
       HAVING COUNT(*) > 1
     `;
     
+    let deDuplicatedRecords = 0;
     if (Array.isArray(duplicateEmails)) {
-      for (const dupRecord of duplicateEmails) {
+      for (const dup of duplicateEmails) {
         // Keep the first record, delete the rest
-        const ids = dupRecord.ids.slice(1);
-        await prisma.user.deleteMany({
-          where: {
-            id: { in: ids }
-          }
-        });
-        deDuplicatedRecords += ids.length;
+        const idsToDelete = dup.ids.slice(1);
+        
+        for (const id of idsToDelete) {
+          await prisma.user.delete({
+            where: { id }
+          });
+          deDuplicatedRecords++;
+        }
       }
     }
     
@@ -722,6 +730,7 @@ export interface DatabaseUsageStatistics {
   timestamp: string;
   period: 'daily' | 'weekly' | 'monthly';
   operations: {
+    total: number;
     reads: number;
     writes: number;
     deletes: number;
@@ -743,137 +752,138 @@ export interface DatabaseUsageStatistics {
 }
 
 /**
- * Collects and analyzes database usage statistics
+ * Collects database usage statistics
  * @param period Statistics period
  * @returns Database usage statistics
  */
-export async function collectDatabaseUsageStatistics(
-  period: 'daily' | 'weekly' | 'monthly' = 'daily'
-): Promise<DatabaseUsageStatistics> {
+export async function collectDatabaseUsageStatistics(period: 'daily' | 'weekly' | 'monthly'): Promise<DatabaseUsageStatistics> {
   try {
-    // In a real implementation, this would analyse database logs or metrics
-    // For this example, we'll return simulated statistics
-    
-    // Get date range based on period
     const now = new Date();
     let startDate: Date;
     
-    switch (period) {
-      case 'daily':
-        startDate = new Date(now);
-        startDate.setDate(now.getDate() - 1);
-        break;
-      case 'weekly':
-        startDate = new Date(now);
-        startDate.setDate(now.getDate() - 7);
-        break;
-      case 'monthly':
-        startDate = new Date(now);
-        startDate.setMonth(now.getMonth() - 1);
-        break;
+    // Determine start date based on period
+    if (period === 'daily') {
+      startDate = new Date(now);
+      startDate.setDate(startDate.getDate() - 1);
+    } else if (period === 'weekly') {
+      startDate = new Date(now);
+      startDate.setDate(startDate.getDate() - 7);
+    } else {
+      startDate = new Date(now);
+      startDate.setMonth(startDate.getMonth() - 1);
     }
     
-    // Simulate reading logs
+    // Read log files
     const logDir = path.join(process.cwd(), 'logs');
-    const logFiles = fs.existsSync(logDir) ? fs.readdirSync(logDir).filter(file => file.startsWith('db-operations-')) : [];
+    const logFiles = fs.readdirSync(logDir).filter(file => file.startsWith('db-operations-'));
     
     // Initialize statistics
-    const operations = { reads: 0, writes: 0, deletes: 0 };
+    let totalOperations = 0;
+    let reads = 0;
+    let writes = 0;
+    let deletes = 0;
     const models: Record<string, { reads: number; writes: number; deletes: number }> = {};
     const users: Record<string, { operations: number; lastActive: string }> = {};
-    const queryTimes: any[] = [];
+    let totalQueryTime = 0;
+    let queryCount = 0;
     let slowestQueryTimeMs = 0;
     let slowestQueryModel = '';
     
     // Process log files
-    for (const logFile of logFiles) {
-      const filePath = path.join(logDir, logFile);
-      if (fs.existsSync(filePath)) {
-        const fileContent = fs.readFileSync(filePath, 'utf8');
-        const lines = fileContent.split('\n').filter(line => line.trim());
-        
-        for (const line of lines) {
-          try {
-            const entry = JSON.parse(line);
-            const entryDate = new Date(entry.timestamp);
-            
-            // Skip entries outside the period
-            if (entryDate < startDate) continue;
-            
-            // Update operation counts
-            if (entry.operation === 'read' || entry.operation === 'findMany' || entry.operation === 'findUnique') {
-              operations.reads++;
-            } else if (entry.operation === 'create' || entry.operation === 'update' || entry.operation === 'upsert') {
-              operations.writes++;
-            } else if (entry.operation === 'delete' || entry.operation === 'deleteMany') {
-              operations.deletes++;
-            }
-            
-            // Update model statistics
-            if (!models[entry.model]) {
-              models[entry.model] = { reads: 0, writes: 0, deletes: 0 };
-            }
-            
-            if (entry.operation === 'read' || entry.operation === 'findMany' || entry.operation === 'findUnique') {
-              models[entry.model].reads++;
-            } else if (entry.operation === 'create' || entry.operation === 'update' || entry.operation === 'upsert') {
-              models[entry.model].writes++;
-            } else if (entry.operation === 'delete' || entry.operation === 'deleteMany') {
-              models[entry.model].deletes++;
-            }
-            
-            // Update user statistics
-            if (!users[entry.userId]) {
-              users[entry.userId] = { operations: 0, lastActive: entry.timestamp };
-            }
-            
-            users[entry.userId].operations++;
-            if (new Date(entry.timestamp) > new Date(users[entry.userId].lastActive)) {
-              users[entry.userId].lastActive = entry.timestamp;
-            }
-            
-            // Update query performance statistics
-            if (entry.details && entry.details.queryTimeMs) {
-              const queryTime = parseFloat(entry.details.queryTimeMs);
-              queryTimes.push(queryTime);
-              
-              if (queryTime > slowestQueryTimeMs) {
-                slowestQueryTimeMs = queryTime;
-                slowestQueryModel = entry.model;
-              }
-            }
-          } catch (error) {
-            console.error('Error parsing log entry:', error);
+    for (const file of logFiles) {
+      const filePath = path.join(logDir, file);
+      const content = fs.readFileSync(filePath, 'utf8');
+      const lines = content.split('\n').filter(line => line.trim() !== '');
+      
+      for (const line of lines) {
+        try {
+          const entry = JSON.parse(line);
+          const entryDate = new Date(entry.timestamp);
+          
+          // Skip entries outside the period
+          if (entryDate < startDate) {
+            continue;
           }
+          
+          totalOperations++;
+          
+          // Categorize operation
+          if (entry.operation === 'read' || entry.operation === 'findMany' || entry.operation === 'findUnique') {
+            reads++;
+          } else if (entry.operation === 'create' || entry.operation === 'update' || entry.operation === 'upsert') {
+            writes++;
+          } else if (entry.operation === 'delete' || entry.operation === 'deleteMany') {
+            deletes++;
+          }
+          
+          // Track model statistics
+          if (!models[entry.model]) {
+            models[entry.model] = { reads: 0, writes: 0, deletes: 0 };
+          }
+          
+          if (entry.operation === 'read' || entry.operation === 'findMany' || entry.operation === 'findUnique') {
+            models[entry.model].reads++;
+          } else if (entry.operation === 'create' || entry.operation === 'update' || entry.operation === 'upsert') {
+            models[entry.model].writes++;
+          } else if (entry.operation === 'delete' || entry.operation === 'deleteMany') {
+            models[entry.model].deletes++;
+          }
+          
+          // Track user statistics
+          if (!users[entry.userId]) {
+            users[entry.userId] = { operations: 0, lastActive: entry.timestamp };
+          }
+          
+          users[entry.userId].operations++;
+          if (new Date(entry.timestamp) > new Date(users[entry.userId].lastActive)) {
+            users[entry.userId].lastActive = entry.timestamp;
+          }
+          
+          // Track performance statistics
+          if (entry.details && entry.details.queryTimeMs) {
+            const queryTime = parseFloat(entry.details.queryTimeMs);
+            totalQueryTime += queryTime;
+            queryCount++;
+            
+            if (queryTime > slowestQueryTimeMs) {
+              slowestQueryTimeMs = queryTime;
+              slowestQueryModel = entry.model;
+            }
+          }
+        } catch (error) {
+          console.error('Error parsing log entry:', error);
         }
       }
     }
     
-    // Calculate average query time
-    const averageQueryTimeMs = queryTimes.length > 0 
-      ? queryTimes.reduce((sum, time) => sum + time, 0) / queryTimes.length 
-      : 0;
-    
     return {
-      timestamp: new Date().toISOString(),
+      timestamp: now.toISOString(),
       period,
-      operations,
+      operations: {
+        total: totalOperations,
+        reads,
+        writes,
+        deletes
+      },
       models,
       users,
       performance: {
-        averageQueryTimeMs,
+        averageQueryTimeMs: queryCount > 0 ? totalQueryTime / queryCount : 0,
         slowestQueryTimeMs,
         slowestQueryModel
       }
     };
   } catch (error) {
     console.error('Failed to collect database usage statistics:', error);
-    
-    // Return minimal statistics
     return {
       timestamp: new Date().toISOString(),
       period,
-      operations: { reads: 0, writes: 0, deletes: 0 },
+      operations: {
+        total: 0,
+        reads: 0,
+        writes: 0,
+        deletes: 0
+      },
       models: {},
       users: {},
       performance: {
@@ -891,23 +901,23 @@ export async function collectDatabaseUsageStatistics(
 export interface DatabaseMaintenanceSchedule {
   daily: {
     time: string;
-    tasks: any[];
+    tasks: string[];
   };
   weekly: {
     day: string;
     time: string;
-    tasks: any[];
+    tasks: string[];
   };
   monthly: {
     day: number;
     time: string;
-    tasks: any[];
+    tasks: string[];
   };
   quarterly: {
-    months: any[];
+    months: number[];
     day: number;
     time: string;
-    tasks: any[];
+    tasks: string[];
   };
 }
 

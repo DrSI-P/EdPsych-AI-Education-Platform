@@ -741,13 +741,13 @@ export const getAdaptedContent = (
  * React hook for learning style assessment
  */
 export const useLearningStyleAssessment = (): {
-  questions: any[];
+  questions: LearningStyleQuestion[];
   answers: Record<string, LearningStyle>;
   setAnswer: (questionId: string, style: LearningStyle) => void;
   result: LearningStyleResult | null;
   calculateResult: () => void;
   isComplete: boolean;
-const useLearningContent = () => {
+} => {
   const [questions] = useState<LearningStyleQuestion[]>(getLearningStyleQuestions());
   const [answers, setAnswers] = useState<Record<string, LearningStyle>>({});
   const [result, setResult] = useState<LearningStyleResult | null>(null);
