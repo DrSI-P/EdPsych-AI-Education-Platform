@@ -55,8 +55,8 @@ export interface BlogPost {
   content: string;
   featuredImage?: string;
   category: string;
-  tags: string[];
-  targetAudience: string[];
+  tags: string: any[];
+  targetAudience: string: any[];
   status: BlogPostStatus;
   authorId: string;
   reviewerId?: string;
@@ -92,9 +92,9 @@ export interface BlogPostWithRelations extends BlogPost {
 // Blog post generation parameters
 export interface BlogPostGenerationParams {
   topic: string;
-  audience: string[];
+  audience: string: any[];
   category: string;
-  keyPoints?: string[];
+  keyPoints?: string: any[];
   tone?: 'professional' | 'conversational' | 'academic';
   wordCount?: number;
 }
@@ -104,7 +104,7 @@ export interface BlogPostGenerationResult {
   title: string;
   content: string;
   summary: string;
-  tags: string[];
+  tags: string: any[];
   seoTitle: string;
   seoDescription: string;
 }
@@ -115,8 +115,8 @@ export interface BlogPostSaveParams {
   content: string;
   summary: string;
   category: string;
-  tags: string[];
-  targetAudience: string[];
+  tags: string: any[];
+  targetAudience: string: any[];
   status?: BlogPostStatus;
   publishDate?: Date;
   authorId: string;
@@ -128,7 +128,7 @@ export interface BlogPostSaveParams {
 
 // Blog post filter parameters
 export interface BlogPostFilterParams {
-  status?: BlogPostStatus | BlogPostStatus[];
+  status?: BlogPostStatus | BlogPostStatus: any[];
   category?: string;
   audience?: string;
   page?: number;
@@ -138,7 +138,7 @@ export interface BlogPostFilterParams {
 
 // Blog post filter result
 export interface BlogPostFilterResult {
-  posts: BlogPostWithRelations[];
+  posts: BlogPostWithRelations: any[];
   total: number;
   pages: number;
 }
@@ -147,8 +147,8 @@ export interface BlogPostFilterResult {
 export interface SeoRecommendationsResult {
   title: string;
   description: string;
-  keywords: string[];
-  suggestions: string[];
+  keywords: string: any[];
+  suggestions: string: any[];
 }
 
 // Blog analytics result
@@ -166,8 +166,8 @@ export interface BlogPostIdea {
   title: string;
   summary: string;
   category: string;
-  targetAudience: string[];
-  keyPoints: string[];
+  targetAudience: string: any[];
+  keyPoints: string: any[];
 }
 
 /**
@@ -401,7 +401,7 @@ export async function getBlogPosts({
   });
   
   return {
-    posts: posts as unknown as BlogPostWithRelations[],
+    posts: posts as unknown as BlogPostWithRelations: any[],
     total,
     pages: Math.ceil(total / limit)
   };

@@ -11,7 +11,7 @@ interface AgeAdaptiveErrorBoundaryProps {
   children: React.ReactNode;
   ageGroup?: AgeGroup;
   onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
-  resetKeys?[];
+  resetKeys?: any[];
 }
 
 /**

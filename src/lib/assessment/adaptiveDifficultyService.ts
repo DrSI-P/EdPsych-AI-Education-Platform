@@ -46,7 +46,7 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
    * @returns The recommended difficulty level for the next question
    */
   calculateNextQuestionDifficulty(
-    previousResponses: QuestionResponse[],
+    previousResponses: QuestionResponse: any[],
     currentDifficulty: DifficultyLevel
   ): DifficultyLevel {
     // If no previous responses, return the current difficulty
@@ -130,7 +130,7 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
    * @param studentAbility The student's estimated ability level
    * @returns The selected question
    */
-  selectOptimalQuestion(questionBank: Question[], studentAbility: number): Question {
+  selectOptimalQuestion(questionBank: Question: any[], studentAbility: number): Question {
     // If no questions available, throw an error
     if (questionBank.length === 0) {
       throw new Error('No questions available for selection');

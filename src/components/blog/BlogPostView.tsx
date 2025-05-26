@@ -15,7 +15,7 @@ interface BlogPostViewProps {
     featuredImage?: string;
     likeCount?: number;
   };
-  relatedPosts?[];
+  relatedPosts?: any[];
   onLike?: () => void;
   isLikeLoading?: boolean;
 }

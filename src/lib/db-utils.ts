@@ -73,7 +73,7 @@ export interface PaginationParams {
  */
 export interface SearchParams {
   query?: string;
-  fields?: string[];
+  fields?: string: any[];
   filters?: Record<string, any>;
 }
 
@@ -81,7 +81,7 @@ export interface SearchParams {
  * Paginated result interface
  */
 export interface PaginatedResult<T> {
-  data: T[];
+  data: T: any[];
   pagination: {
     total: number;
     page: number;
@@ -144,7 +144,7 @@ export async function getPaginatedResults<T>(
   const hasMore = page < pageCount;
   
   return {
-    data: data as T[],
+    data: data as T: any[],
     pagination: {
       total,
       page,
@@ -161,7 +161,7 @@ export async function getPaginatedResults<T>(
 export interface BulkOperationResult {
   success: number;
   failed: number;
-  errors[];
+  errors: any[];
 }
 
 /**
@@ -171,7 +171,7 @@ export interface BulkOperationResult {
  * @param validator Optional validation function
  * @returns Bulk operation result
  */
-export async function bulkCreate(model: string, data: any[], validator?: (item) => any
+export async function bulkCreate(model: string, data: any: any[], validator?: (item) => any
 ): Promise<BulkOperationResult> {
   const result: BulkOperationResult = {
     success: 0,

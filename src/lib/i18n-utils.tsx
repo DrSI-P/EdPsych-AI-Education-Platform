@@ -188,7 +188,7 @@ let isInitialized = false;
  */
 export const initializeI18n = async (
   initialLanguage?: SupportedLanguage,
-  preloadLanguages: SupportedLanguage[] = []
+  preloadLanguages: SupportedLanguage: any[] = []
 ): Promise<void> => {
   if (isInitialized) {
     return;
@@ -330,7 +330,7 @@ export const getLanguageDirection = (language: SupportedLanguage): LanguageDirec
 /**
  * Get all available languages
  */
-export const getAvailableLanguages = (): LanguageInfo[] => {
+export const getAvailableLanguages = (): LanguageInfo: any[] => {
   return Object.values(LANGUAGE_INFO);
 };
 

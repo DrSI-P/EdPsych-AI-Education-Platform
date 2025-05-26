@@ -265,7 +265,7 @@ export class AssessmentEngineService implements AssessmentEngine {
     };
     
     // Generate questions based on template distribution
-    const questions: Question[] = await this.generateQuestionsFromTemplate(template);
+    const questions: Question: any[] = await this.generateQuestionsFromTemplate(template);
     
     // Create the assessment
     const assessment: Assessment = {
@@ -379,8 +379,8 @@ export class AssessmentEngineService implements AssessmentEngine {
   }): Promise<{
     assessmentsCompleted: number;
     averageScore: number;
-    strengths: string[];
-    areasForImprovement: string[];
+    strengths: string: any[];
+    areasForImprovement: string: any[];
     progressOverTime: Array<{
       date: Date;
       score: number;
@@ -515,8 +515,8 @@ export class AssessmentEngineService implements AssessmentEngine {
     const passed = percentage >= (assessment.settings.passingScore || 60);
     
     // Generate strengths and areas for improvement
-    const strengths: string[] = [];
-    const areasForImprovement: string[] = [];
+    const strengths: string: any[] = [];
+    const areasForImprovement: string: any[] = [];
     
     // Identify strengths (domains with high performance)
     Object.entries(byCognitiveDomain).forEach(([domain, data]) => {
@@ -625,7 +625,7 @@ export class AssessmentEngineService implements AssessmentEngine {
    * @returns Array of questions
    */
   private async generateQuestionsFromTemplate(template: AssessmentTemplate): Promise<Question[]> {
-    const questions: Question[] = [];
+    const questions: Question: any[] = [];
     
     // Calculate how many questions of each type to generate
     const typeDistribution = new Map<QuestionType, number>();

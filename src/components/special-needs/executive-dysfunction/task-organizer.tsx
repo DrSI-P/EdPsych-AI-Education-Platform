@@ -41,10 +41,10 @@ interface Task {
   dueDate: string;
   priority: 'low' | 'medium' | 'high';
   status: 'todo' | 'in-progress' | 'done';
-  steps: TaskStep[];
+  steps: TaskStep: any[];
   timeEstimate: number; // in minutes
   visualReminder?: string;
-  tags: string[];
+  tags: string: any[];
   isExpanded: boolean;
 }
 
@@ -56,7 +56,7 @@ interface TaskStep {
 
 interface TaskOrganizerProps {
   userId?: string;
-  initialTasks?: Task[];
+  initialTasks?: Task: any[];
   onTasksChange?: (tasks: Task[]) => void;
   className?: string;
 }

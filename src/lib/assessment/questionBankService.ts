@@ -92,11 +92,11 @@ export class QuestionBankService implements QuestionBank {
   async searchQuestions(params: {
     keyStage?: UKKeyStage;
     subject?: UKSubject;
-    topics?: string[];
-    types?: QuestionType[];
+    topics?: string: any[];
+    types?: QuestionType: any[];
     difficultyLevel?: DifficultyLevel;
     cognitiveDomain?: CognitiveDomain;
-    tags?: string[];
+    tags?: string: any[];
   }): Promise<Question[]> {
     // Convert the map to an array
     const allQuestions = Array.from(this.questions.values());
@@ -168,7 +168,7 @@ export class QuestionBankService implements QuestionBank {
   async getQuestionCount(params?: {
     keyStage?: UKKeyStage;
     subject?: UKSubject;
-    topics?: string[];
+    topics?: string: any[];
   }): Promise<number> {
     if (!params) {
       // Return total count if no parameters specified

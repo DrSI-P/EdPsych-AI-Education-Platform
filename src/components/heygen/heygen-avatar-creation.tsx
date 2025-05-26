@@ -78,7 +78,7 @@ export const HeyGenAvatarCreation: React.FC = () => {
       const recorder = new MediaRecorder(stream);
       setAudioRecorder(recorder);
       
-      const chunks: Blob[] = [];
+      const chunks: Blob: any[] = [];
       recorder.ondataavailable = (e) => {
         chunks.push(e.data);
         setAudioChunks(chunks);

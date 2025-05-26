@@ -28,7 +28,7 @@ interface DocumentationTemplate {
   }[];
 }
 
-const documentationTemplates: DocumentationTemplate[] = [
+const documentationTemplates: DocumentationTemplate: any[] = [
   {
     id: 'classroom-observation',
     name: 'Classroom Observation',
