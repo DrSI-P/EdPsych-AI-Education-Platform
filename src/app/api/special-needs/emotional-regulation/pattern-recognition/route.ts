@@ -97,7 +97,7 @@ export async function GET(req: Request) {
 }
 
 // Function to generate pattern analysis from emotion data
-function generatePatternAnalysis(emotionRecords[], emotionJournals: any[], analysisType: string = 'all') {
+function generatePatternAnalysis(emotionRecords: any[], emotionJournals: any[], analysisType: string = 'all') {
   // Initialize analysis object
   const analysis = {
     insights: [] as Array<{
@@ -150,7 +150,7 @@ function generatePatternAnalysis(emotionRecords[], emotionJournals: any[], analy
 }
 
 // Helper function to generate insights
-function generateInsights(emotionRecords[]) {
+function generateInsights(emotionRecords: any[]) {
   const insights = [];
   
   // Most common emotion
@@ -314,7 +314,7 @@ function generateInsights(emotionRecords[]) {
 }
 
 // Helper function to generate trigger patterns
-function generateTriggerPatterns(emotionRecords[]) {
+function generateTriggerPatterns(emotionRecords: any[]) {
   // Group emotions by triggers
   const triggerEmotions: Record<string, Record<string, number>> = {};
   
@@ -348,7 +348,7 @@ function generateTriggerPatterns(emotionRecords[]) {
 }
 
 // Helper function to generate time patterns
-function generateTimePatterns(emotionRecords[]) {
+function generateTimePatterns(emotionRecords: any[]) {
   // Group by hour of day
   const hourCounts = Array(24).fill(0).map((_, i) => ({ hour: i, count: 0 }));
   
@@ -376,7 +376,7 @@ function generateTimePatterns(emotionRecords[]) {
 }
 
 // Helper function to generate emotion trends
-function generateEmotionTrends(emotionRecords[]) {
+function generateEmotionTrends(emotionRecords: any[]) {
   // Group by date
   const dateEmotions: Record<string, Record<string, number>> = {};
   
@@ -402,7 +402,7 @@ function generateEmotionTrends(emotionRecords[]) {
 }
 
 // Helper function to generate emotion correlations
-function generateEmotionCorrelations(emotionRecords[]) {
+function generateEmotionCorrelations(emotionRecords: any[]) {
   // Find emotions that often occur together or in sequence
   const emotionPairs: Record<string, { source: string; target: string; count: number; strength: number }> = {};
   
@@ -494,7 +494,7 @@ export async function POST(req: Request) {
     await (prisma as any).emotionalRegulationLog.create({
       data: {
         userId: session.user.id,
-        action: 'update_pattern_recognition_settings',
+        action: 'update_pattern_recognition_settingstings',
         details: JSON.stringify(body)
       }
     });

@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+
+import re
+import sys
+
+def fix_typescript_errors(file_path):
+    with open(file_path, 'r') as file:
+        content = file.read()
+    
+    # Fix 1: Fix array type declarations in function parameters
+    content = re.sub(r'emotionRecords\[\]', r'emotionRecords: any[]', content)
+    
+    # Fix 2: Fix array type declarations in helper functions
+    content = re.sub(r'function generateInsights\(emotionRecords\[\]\)', r'function generateInsights(emotionRecords: any[])', content)
+    content = re.sub(r'function generateTriggerPatterns\(emotionRecords\[\]\)', r'function generateTriggerPatterns(emotionRecords: any[])', content)
+    content = re.sub(r'function generateTimePatterns\(emotionRecords\[\]\)', r'function generateTimePatterns(emotionRecords: any[])', content)
+    content = re.sub(r'function generateEmotionTrends\(emotionRecords\[\]\)', r'function generateEmotionTrends(emotionRecords: any[])', content)
+    content = re.sub(r'function generateEmotionCorrelations\(emotionRecords\[\]\)', r'function generateEmotionCorrelations(emotionRecords: any[])', content)
+    
+    # Fix 3: Fix truncated function at the end
+    if 'update_pattern_recognition_set' in content:
+        content = content.replace('update_pattern_recognition_set', 'update_pattern_recognition_settings')
+    
+    # Write the fixed content back to the file
+    with open(file_path, 'w') as file:
+        file.write(content)
+    
+    print(f"Fixed TypeScript errors in {file_path}")
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        file_path = sys.argv[1]
+    else:
+        file_path = "/home/ubuntu/edpsych-repo/src/app/api/special-needs/emotional-regulation/pattern-recognition/route.ts"
+    
+    fix_typescript_errors(file_path)
