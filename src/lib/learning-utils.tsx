@@ -115,7 +115,7 @@ export interface LearningProfile {
     hearingImpairment?: boolean;
     motorSkillChallenges?: boolean;
     other?: string[];
-  };
+  }
   preferredActivities: LearningActivityType[];
   lastUpdated: Date;
 }
@@ -153,7 +153,7 @@ export interface LearningModule {
     auditory: string[];
     readingWriting: string[];
     kinesthetic: string[];
-  };
+  }
 }
 
 /**
@@ -180,7 +180,7 @@ export interface ModuleProgress {
     contentStyle: LearningStyle;
     paceModifier: number; // 1.0 is standard, <1 is faster, >1 is slower
     difficultyAdjustment: number; // 0 is standard, negative is easier, positive is harder
-  };
+  }
 }
 
 /**
@@ -227,7 +227,7 @@ export interface LearningStyleQuestion {
   options: {
     text: string;
     style: LearningStyle;
-  };[];
+  }[];
 }
 
 /**
@@ -338,7 +338,7 @@ export const assessLearningStyle = (answers: Record<string, LearningStyle>): Lea
     [LearningStyle.READING_WRITING]: 0,
     [LearningStyle.KINESTHETIC]: 0,
     [LearningStyle.MULTIMODAL]: 0
-  };
+  }
   
   // Tally the selected styles
   Object.values(answers).forEach(style => {
@@ -352,7 +352,7 @@ export const assessLearningStyle = (answers: Record<string, LearningStyle>): Lea
     auditory: Math.round((counts[LearningStyle.AUDITORY] / total) * 100),
     readingWriting: Math.round((counts[LearningStyle.READING_WRITING] / total) * 100),
     kinesthetic: Math.round((counts[LearningStyle.KINESTHETIC] / total) * 100)
-  };
+  }
   
   // Determine primary and secondary styles
   const styles = [
@@ -376,15 +376,15 @@ export const assessLearningStyle = (answers: Record<string, LearningStyle>): Lea
     primaryStyle: isMultimodal ? LearningStyle.MULTIMODAL : primaryStyle,
     secondaryStyle: isMultimodal ? primaryStyle : secondaryStyle,
     isMultimodal
-  };
-};
+  }
+}
 
 /**
  * Get learning style assessment questions
  */
 export const getLearningStyleQuestions = (): LearningStyleQuestion[] => {
   return LEARNING_STYLE_QUESTIONS;
-};
+}
 
 /**
  * Track user progress on a module
@@ -420,7 +420,7 @@ export const trackModuleProgress = (
           paceModifier: 1.0,
           difficultyAdjustment: 0
         }
-      };
+      }
       
       // Update with new activity if provided
       if (activityId) {
@@ -455,7 +455,7 @@ export const trackModuleProgress = (
       resolve(progress);
     }, 100);
   });
-};
+}
 
 /**
  * Get learning recommendations based on user profile and progress
@@ -522,7 +522,7 @@ export const getLearningRecommendations = (
       resolve(recommendations.slice(0, count));
     }, 100);
   });
-};
+}
 
 /**
  * Get user achievements
@@ -568,7 +568,7 @@ export const getUserAchievements = (userId: string): Promise<Achievement[]> => {
       resolve(achievements);
     }, 100);
   });
-};
+}
 
 /**
  * Get content adapted to user's learning style
@@ -730,12 +730,12 @@ export const getAdaptedContent = (
             </div>
           </div>
         `
-      };
+      }
       
       resolve(contentByStyle[learningStyle] || contentByStyle[LearningStyle.MULTIMODAL]);
     }, 100);
   });
-};
+}
 
 /**
  * React hook for learning style assessment
@@ -747,7 +747,7 @@ export const useLearningStyleAssessment = (): {
   result: LearningStyleResult | null;
   calculateResult: () => void;
   isComplete: boolean;
-} = {
+const useLearningContent = () => {
   const [questions] = useState<LearningStyleQuestion[]>(getLearningStyleQuestions());
   const [answers, setAnswers] = useState<Record<string, LearningStyle>>({});
   const [result, setResult] = useState<LearningStyleResult | null>(null);
@@ -757,12 +757,12 @@ export const useLearningStyleAssessment = (): {
       ...prev,
       [questionId]: style
     }));
-  };
+  }
   
   const calculateResult = () => {
     const assessmentResult = assessLearningStyle(answers);
     setResult(assessmentResult);
-  };
+  }
   
   const isComplete = Object.keys(answers).length === questions.length;
   
@@ -773,8 +773,8 @@ export const useLearningStyleAssessment = (): {
     result,
     calculateResult,
     isComplete
-  };
-};
+  }
+}
 
 /**
  * React hook for tracking module progress
@@ -788,7 +788,7 @@ export const useModuleProgress = (
   error: string | null;
   trackActivity: (activityId: string, timeSpent: number) => Promise<void>;
   trackAssessment: (assessmentId: string, score: number, passed: boolean) => Promise<void>;
-} = {
+const useLearningContent = () => {
   const [progress, setProgress] = useState<ModuleProgress | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -806,7 +806,7 @@ export const useModuleProgress = (
       } finally {
         setLoading(false);
       }
-    };
+    }
     
     fetchProgress();
   }, [userId, moduleId]);
@@ -829,7 +829,7 @@ export const useModuleProgress = (
     } finally {
       setLoading(false);
     }
-  };
+  }
   
   const trackAssessment = async (assessmentId: string, score: number, passed: boolean) => {
     try {
@@ -848,7 +848,7 @@ export const useModuleProgress = (
     } finally {
       setLoading(false);
     }
-  };
+  }
   
   return {
     progress,
@@ -856,8 +856,8 @@ export const useModuleProgress = (
     error,
     trackActivity,
     trackAssessment
-  };
-};
+  }
+}
 
 /**
  * React hook for learning recommendations
@@ -870,7 +870,7 @@ export const useLearningRecommendations = (
   loading: boolean;
   error: string | null;
   refresh: () => Promise<void>;
-} = {
+const useLearningContent = () => {
   const [recommendations, setRecommendations] = useState<LearningRecommendation[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -887,7 +887,7 @@ export const useLearningRecommendations = (
     } finally {
       setLoading(false);
     }
-  };
+  }
   
   useEffect(() => {
     fetchRecommendations();
@@ -898,8 +898,8 @@ export const useLearningRecommendations = (
     loading,
     error,
     refresh: fetchRecommendations
-  };
-};
+  }
+}
 
 /**
  * React hook for user achievements
@@ -911,7 +911,7 @@ export const useAchievements = (
   loading: boolean;
   error: string | null;
   refresh: () => Promise<void>;
-} = {
+const useLearningContent = () => {
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -928,7 +928,7 @@ export const useAchievements = (
     } finally {
       setLoading(false);
     }
-  };
+  }
   
   useEffect(() => {
     fetchAchievements();
@@ -939,8 +939,8 @@ export const useAchievements = (
     loading,
     error,
     refresh: fetchAchievements
-  };
-};
+  }
+}
 
 /**
  * React hook for adaptive content
@@ -954,8 +954,8 @@ export const useAdaptiveContent = (
   loading: boolean;
   error: string | null;
   changeStyle: (style: LearningStyle) => void
-} = {
-  const [content, setContent] = useState<string>>('');
+const useLearningContent = () => {
+  const [content, setContent] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [currentStyle, setCurrentStyle] = useState<LearningStyle>>(learningStyle);
@@ -972,7 +972,7 @@ export const useAdaptiveContent = (
     } finally {
       setLoading(false);
     }
-  };
+  }
   
   useEffect(() => {
     fetchContent(currentStyle);
@@ -980,15 +980,15 @@ export const useAdaptiveContent = (
   
   const changeStyle = (style: LearningStyle) => {
     setCurrentStyle(style);
-  };
+  }
   
   return {
     content,
     loading,
     error,
     changeStyle
-  };
-};
+  }
+}
 
 /**
  * Learning style adaptive content component
@@ -1012,7 +1012,7 @@ export const LearningStyleAdaptiveContent: React.FC<{
   }
   
   if (error) {
-    return <div className="adaptive-content-error">Error: {error};</div>;
+    return <div className="adaptive-content-error">Error: {error}</div>;
   }
   
   return (
@@ -1040,7 +1040,7 @@ export const LearningStyleAdaptiveContent: React.FC<{
       />
     </div>
   );
-};
+}
 
 /**
  * Progress tracking component
@@ -1077,7 +1077,7 @@ export const ProgressTracking: React.FC<{
   }
   
   if (error) {
-    return <div className="progress-error">Error: {error};</div>;
+    return <div className="progress-error">Error: {error}</div>;
   }
   
   if (!progress) {
@@ -1125,7 +1125,7 @@ export const ProgressTracking: React.FC<{
       )}
     </div>
   );
-};
+}
 
 export default {
   assessLearningStyle,
@@ -1148,4 +1148,4 @@ export default {
   LearningGoalType,
   LearningActivityType,
   ProgressStatus
-};
+}
