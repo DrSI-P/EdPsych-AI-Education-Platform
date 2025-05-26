@@ -59,8 +59,8 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
         // Optimization complete
         setIsApplying(false);
         
-        // Log success
-        console.log('Accessibility settings applied successfully');
+        // Success applied
+        // Remove console.log for production
       } else {
         // Continue to next step
         setTimeout(processStep, 500);
@@ -88,8 +88,8 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
     // Notify parent component
     onSettingsChange(updatedSettings);
     
-    // Log setting change
-    console.log(`Accessibility setting changed: ${setting} = ${value}`);
+    // Setting changed
+    // Remove console.log for production
   };
   
   // Toggle advanced settings
@@ -115,8 +115,8 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
     // Notify parent component
     onSettingsChange(defaultSettings);
     
-    // Log reset
-    console.log('Accessibility settings reset to defaults');
+    // Settings reset
+    // Remove console.log for production
   };
   
   return (
@@ -141,7 +141,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                 id="enable-accessibility"
                 checked={settings.enabled}
                 onChange={(e) => handleSettingChange('enabled', e.target.checked)}
-                className="toggle"
+                className="checkbox"
               />
             </div>
             
@@ -158,7 +158,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                   checked={settings.screenReaderOptimization}
                   onChange={(e) => handleSettingChange('screenReaderOptimization', e.target.checked)}
                   disabled={!settings.enabled}
-                  className="toggle toggle-sm"
+                  className="checkbox checkbox-sm"
                 />
               </div>
               
@@ -172,7 +172,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                   checked={settings.highContrastMode}
                   onChange={(e) => handleSettingChange('highContrastMode', e.target.checked)}
                   disabled={!settings.enabled}
-                  className="toggle toggle-sm"
+                  className="checkbox checkbox-sm"
                 />
               </div>
               
@@ -186,7 +186,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                   checked={settings.textToSpeech}
                   onChange={(e) => handleSettingChange('textToSpeech', e.target.checked)}
                   disabled={!settings.enabled}
-                  className="toggle toggle-sm"
+                  className="checkbox checkbox-sm"
                 />
               </div>
               
@@ -200,7 +200,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                   checked={settings.speechToText}
                   onChange={(e) => handleSettingChange('speechToText', e.target.checked)}
                   disabled={!settings.enabled}
-                  className="toggle toggle-sm"
+                  className="checkbox checkbox-sm"
                 />
               </div>
               
@@ -214,7 +214,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                   checked={settings.keyboardNavigation}
                   onChange={(e) => handleSettingChange('keyboardNavigation', e.target.checked)}
                   disabled={!settings.enabled}
-                  className="toggle toggle-sm"
+                  className="checkbox checkbox-sm"
                 />
               </div>
               
@@ -230,7 +230,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                       checked={settings.reducedMotion}
                       onChange={(e) => handleSettingChange('reducedMotion', e.target.checked)}
                       disabled={!settings.enabled}
-                      className="toggle toggle-sm"
+                      className="checkbox checkbox-sm"
                     />
                   </div>
                   
@@ -244,7 +244,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                       checked={settings.dyslexiaFriendlyMode}
                       onChange={(e) => handleSettingChange('dyslexiaFriendlyMode', e.target.checked)}
                       disabled={!settings.enabled}
-                      className="toggle toggle-sm"
+                      className="checkbox checkbox-sm"
                     />
                   </div>
                   
@@ -258,7 +258,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                       checked={settings.colorBlindnessMode}
                       onChange={(e) => handleSettingChange('colorBlindnessMode', e.target.checked)}
                       disabled={!settings.enabled}
-                      className="toggle toggle-sm"
+                      className="checkbox checkbox-sm"
                     />
                   </div>
                   
@@ -272,7 +272,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
                       checked={settings.focusMode}
                       onChange={(e) => handleSettingChange('focusMode', e.target.checked)}
                       disabled={!settings.enabled}
-                      className="toggle toggle-sm"
+                      className="checkbox checkbox-sm"
                     />
                   </div>
                 </>
@@ -332,13 +332,15 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
         </p>
       </div>
       
-      <Alert className="mt-4">
+      <div className="mt-4">
+        <Alert>
         <AlertTriangle className="h-4 w-4" />
         <AlertTitle>Accessibility Statement</AlertTitle>
         <AlertDescription>
           We are committed to making our platform accessible to all users, regardless of ability or technology. These settings help customize your experience, but we always welcome feedback on how we can improve accessibility further.
         </AlertDescription>
-      </Alert>
+        </Alert>
+      </div>
       
       <div className="mt-4">
         <h3 className="text-lg font-medium mb-2">Keyboard Shortcuts</h3>
