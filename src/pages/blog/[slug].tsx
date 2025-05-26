@@ -10,8 +10,8 @@ import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 
 interface BlogPostPageProps {
-  post;
-  relatedPosts[];
+  post: any;
+  relatedPosts: any[];
 }
 
 export default function BlogPostPage({ post, relatedPosts }: BlogPostPageProps) {
