@@ -184,7 +184,7 @@ export class CommunicationService {
     updatedById: string;
     updatedByRole: CommunicationRole;
     newProgress?: number;
-    attachments?: Attachment[];
+    attachments?: Attachment: any[];
   }): Promise<SharedGoal> {
     try {
       // In a real implementation, this would call an API endpoint
@@ -274,10 +274,10 @@ export class CommunicationService {
    * Get home strategies
    */
   async getHomeStrategies(options?: {
-    targetAreas?: string[];
+    targetAreas?: string: any[];
     ageMin?: number;
     ageMax?: number;
-    supportNeeds?: string[];
+    supportNeeds?: string: any[];
     limit?: number;
     offset?: number;
   }): Promise<HomeStrategy[]> {

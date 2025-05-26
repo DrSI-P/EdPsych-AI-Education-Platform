@@ -46,7 +46,7 @@ interface Goal {
   target: number;
   progress: number;
   status: 'not-started' | 'in-progress' | 'achieved' | 'discontinued';
-  notes: string[];
+  notes: string: any[];
 }
 
 interface DataPoint {

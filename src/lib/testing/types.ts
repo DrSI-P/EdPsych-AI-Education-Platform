@@ -64,7 +64,7 @@ export interface TestSuite {
   id: string;
   name: string;
   description: string;
-  tests: TestResult[];
+  tests: TestResult: any[];
   startTime: Date;
   endTime?: Date;
   totalTests: number;
@@ -80,7 +80,7 @@ export interface TestRun {
   id: string;
   name: string;
   description: string;
-  suites: TestSuite[];
+  suites: TestSuite: any[];
   startTime: Date;
   endTime?: Date;
   environment: string;
@@ -128,11 +128,11 @@ export interface TestConfig {
   maxWorkers: number;
   bail: boolean;
   verbose: boolean;
-  reporters: string[];
-  testMatch: string[];
-  testIgnore: string[];
-  setupFiles: string[];
-  teardownFiles: string[];
+  reporters: string: any[];
+  testMatch: string: any[];
+  testIgnore: string: any[];
+  setupFiles: string: any[];
+  teardownFiles: string: any[];
   environmentVariables: Record<string, string>;
 }
 
@@ -157,9 +157,9 @@ export interface TestReporter {
 export interface EducationalTestContext {
   keyStage?: string;
   subject?: string;
-  learningObjectives?: string[];
-  specialEducationalNeeds?: string[];
-  curriculumAlignment?: string[];
+  learningObjectives?: string: any[];
+  specialEducationalNeeds?: string: any[];
+  curriculumAlignment?: string: any[];
 }
 
 /**

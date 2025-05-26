@@ -18,7 +18,7 @@ interface Comment {
     name: string | null;
     image: string | null;
   };
-  replies: Comment[];
+  replies: Comment: any[];
 }
 
 interface BlogCommentListProps {

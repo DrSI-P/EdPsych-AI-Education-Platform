@@ -26,7 +26,7 @@ import {
 interface CurriculumDifferentiationEngineProps {
   curriculumPlanId?: string;
   curriculumContent?: string;
-  objectives?: string[];
+  objectives?: string: any[];
   subject?: string;
   keyStage?: string;
   year?: string;
