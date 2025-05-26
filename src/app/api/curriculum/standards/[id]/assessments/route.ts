@@ -11,9 +11,9 @@ export async function GET(
 ): Promise<NextResponse> {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -35,19 +35,19 @@ export async function GET(
       },
     });
     
-    if (!standard: any) {
+    if (!standard) {
       return NextResponse.json({ error: 'Curriculum standard not found' }, { status: 404 });
     }
     
     // Extract the assessments
-    const assessments = standard.assessments.map(alignment => alignment.assessment: any);
+    const assessments = standard.assessments.map(alignment => alignment.assessment);
     
-    return NextResponse.json(assessments: any);*/
+    return NextResponse.json(assessments);*/
     
     // Return empty array for now until the Prisma schema is updated
     return NextResponse.json([]);
     
-  } catch (error: any) {
+  } catch (error) {
     // Replace console.error with structured logging when available
     console.error('Error fetching aligned assessments:', error);
     return NextResponse.json(
@@ -64,9 +64,9 @@ export async function POST(
 ): Promise<NextResponse> {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -81,7 +81,7 @@ export async function POST(
       },
     });
     
-    if (!standard: any) {
+    if (!standard) {
       return NextResponse.json({ error: 'Curriculum standard not found' }, { status: 404 });
     }*/
     
@@ -89,7 +89,7 @@ export async function POST(
     const body = await request.json();
     const { assessmentIds } = body;
     
-    if (!Array.isArray(assessmentIds: any)) {
+    if (!Array.isArray(assessmentIds)) {
       return NextResponse.json({ error: 'Invalid assessmentIds' }, { status: 400 });
     }
     
@@ -121,7 +121,7 @@ export async function POST(
     // Return success for now until the Prisma schema is updated
     return NextResponse.json({ success: true, count: 0 });
     
-  } catch (error: any) {
+  } catch (error) {
     // Replace console.error with structured logging when available
     console.error('Error aligning assessments:', error);
     return NextResponse.json(
