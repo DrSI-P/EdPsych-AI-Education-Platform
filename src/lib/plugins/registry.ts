@@ -333,7 +333,7 @@ class PluginRegistry implements IPluginRegistry {
               author: dbPlugin.author,
               website: dbPlugin.website || '',
               icon: dbPlugin.icon || '',
-              tags: dbPlugin.tags as string: any[] || [],
+              tags: dbPlugin.tags as string[] || [],
               supportedFeatures: dbPlugin.supportedFeatures as string[],
               requiredPermissions: dbPlugin.requiredPermissions as string[],
               settings: dbPlugin.settings as Record<string, any> || {},

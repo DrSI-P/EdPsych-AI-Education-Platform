@@ -333,7 +333,7 @@ export function convertToPluginFormat(assessment: Assessment): AssessmentToolPlu
  * @param responses The plugin responses
  * @returns The platform question responses
  */
-export function convertToQuestionResponses(responses[]): QuestionResponse[] {
+export function convertToQuestionResponses(responses: any[]): QuestionResponse[] {
   return responses.map(response => ({
     questionId: response.questionId,
     responseData: response.responseData,

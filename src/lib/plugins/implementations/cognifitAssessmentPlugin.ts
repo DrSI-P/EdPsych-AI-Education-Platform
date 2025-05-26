@@ -161,7 +161,7 @@ class MockCognifitApiClient implements CognifitApiClient {
     const id = `cognifit-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     
     // Create mock items based on parameters
-    const items[] = [];
+    const items: any[] = [];
     for (let i = 0; i < params.itemCount; i++) {
       const subdomain = params.subdomains[i % params.subdomains.length];
       items.push({
@@ -232,7 +232,7 @@ class MockCognifitApiClient implements CognifitApiClient {
     const assessment = await this.getAssessment(assessmentId);
     
     // Create mock item results
-    const itemResults[] = [];
+    const itemResults: any[] = [];
     let totalScore = 0;
     const maxScore = assessment.items.length * 10; // Assuming 10 points per item
     
@@ -613,7 +613,7 @@ export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
     
     // Map subject to domain
     let domain = 'general_cognition';
-    let subdomains[] = ['memory', 'attention', 'reasoning'];
+    let subdomains: string[] = ['memory', 'attention', 'reasoning'];
     
     if (params.subject === 'mathematics') {
       domain = 'mathematical_cognition';
