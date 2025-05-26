@@ -54,7 +54,7 @@ export default function AdminUserManagement() {
     fetchUsers();
   }, [currentPage, activeTab, searchQuery]);
   
-  const roleOptions[] = [
+  const roleOptions: any[] = [
     { value: 'STUDENT', label: 'Student' },
     { value: 'EDUCATOR', label: 'Educator' },
     { value: 'ADMIN', label: 'Administrator' },

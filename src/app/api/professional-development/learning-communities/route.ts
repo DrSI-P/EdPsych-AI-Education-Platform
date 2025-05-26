@@ -6,7 +6,7 @@ export interface Community {
   id: string;
   name: string;
   description: string;
-  categories[];
+  categories: any[];
   privacy: "open" | "restricted";
   schools?: string[];
   createdAt?: string;
@@ -25,7 +25,7 @@ export interface Resource {
   title: string;
   description: string;
   type: string;
-  tags[];
+  tags: any[];
   fileUrl?: string;
   fileType?: string;
   fileSize?: number;
@@ -96,7 +96,7 @@ export interface Collaboration {
   title: string;
   description: string;
   type: string;
-  schools[];
+  schools: any[];
   members?: string[];
   memberCount?: number;
   status: "Planning" | "In Progress" | "Completed";
@@ -264,13 +264,13 @@ const MembershipSchema = z.object({
 // Mock data storage (would be replaced with database in production)
 // Using the exported interfaces defined above
 
-const communities[] = [];
-let resources[] = [];
-let discussions[] = [];
-let events[] = [];
-let collaborations[] = [];
-let memberships[] = [];
-let privacySettings[] = [];
+const communities: any[] = [];
+let resources: any[] = [];
+let discussions: any[] = [];
+let events: any[] = [];
+let collaborations: any[] = [];
+let memberships: any[] = [];
+let privacySettings: any[] = [];
 
 // Integration with other professional development modules
 const integrateCPDActivity = async (userId: string, activityType: string, details): Promise<{success: boolean, points?: number, error?: string}> => {
@@ -295,7 +295,7 @@ const integratePortfolio = async (userId: string, portfolioItem): Promise<{succe
   }
 };
 
-const integrateMentorMatching = async (userId: string, expertise[]): Promise<{success: boolean, error?: string}> => {
+const integrateMentorMatching = async (userId: string, expertise: any[]): Promise<{success: boolean, error?: string}> => {
   try {
     // In a real implementation, this would call the Mentor Matching API
     console.log(`Updating expertise for user ${userId}: ${expertise.join(', ')}`);

@@ -34,7 +34,7 @@ interface CognifitAssessmentParams {
     max: number;
   };
   domain: string;
-  subdomains: string[];
+  subdomains[];
   difficulty: string;
   itemCount: number;
   timeLimit?: number;
@@ -56,7 +56,7 @@ interface CognifitAssessment {
   createdAt: string;
   updatedAt: string;
   params: CognifitAssessmentParams;
-  items: CognifitItem[];
+  items[];
 }
 
 /**
@@ -93,7 +93,7 @@ interface CognifitResult {
   percentile: number;
   completedAt: string;
   duration: number;
-  itemResults: CognifitItemResult[];
+  itemResults[];
   domainScores: {
     [domain: string]: {
       score: number;
@@ -106,7 +106,7 @@ interface CognifitResult {
     byDomain: {
       [domain: string]: string;
     };
-    activities: string[];
+    activities[];
   };
 }
 
@@ -161,7 +161,7 @@ class MockCognifitApiClient implements CognifitApiClient {
     const id = `cognifit-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     
     // Create mock items based on parameters
-    const items: CognifitItem[] = [];
+    const items[] = [];
     for (let i = 0; i < params.itemCount; i++) {
       const subdomain = params.subdomains[i % params.subdomains.length];
       items.push({
@@ -232,7 +232,7 @@ class MockCognifitApiClient implements CognifitApiClient {
     const assessment = await this.getAssessment(assessmentId);
     
     // Create mock item results
-    const itemResults: CognifitItemResult[] = [];
+    const itemResults[] = [];
     let totalScore = 0;
     const maxScore = assessment.items.length * 10; // Assuming 10 points per item
     
@@ -613,7 +613,7 @@ export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
     
     // Map subject to domain
     let domain = 'general_cognition';
-    let subdomains: string[] = ['memory', 'attention', 'reasoning'];
+    let subdomains[] = ['memory', 'attention', 'reasoning'];
     
     if (params.subject === 'mathematics') {
       domain = 'mathematical_cognition';

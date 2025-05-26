@@ -512,7 +512,7 @@ export interface DataCollectionService {
     isValid: boolean;
     reliability: number;
     validity: number;
-    issues: string[];
+    issues: any[];
   }>;
 }
 

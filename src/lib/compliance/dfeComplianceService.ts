@@ -27,10 +27,10 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
   private ageAppropriatenessGuidelines: Map<AgeAppropriatenessRating, string[]> = new Map();
   
   // Accessibility requirements
-  private accessibilityRequirements[] = [];
+  private accessibilityRequirements: any[] = [];
   
   // Inclusivity guidelines
-  private inclusivityGuidelines[] = [];
+  private inclusivityGuidelines: any[] = [];
   
   /**
    * Constructor for the DFE Compliance Service
@@ -52,8 +52,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
   async validateCurriculumAlignment(content, keyStage: UKKeyStage): Promise<{
     isAligned: boolean;
     alignmentScore: number;
-    misalignments[];
-    recommendations[];
+    misalignments: any[];
+    recommendations: any[];
   }> {
     console.log(`Validating curriculum alignment for key stage: ${keyStage}`);
     
@@ -96,7 +96,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
   async checkAgeAppropriateness(content, targetAgeRange: { min: number; max: number }): Promise<{
     isAppropriate: boolean;
     appropriatenessScore: number;
-    concerns[];
+    concerns: any[];
     recommendedAgeRating: AgeAppropriatenessRating;
   }> {
     console.log(`Checking age appropriateness for age range: ${targetAgeRange.min}-${targetAgeRange.max}`);
@@ -136,8 +136,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
   async validateAccessibility(content): Promise<{
     isAccessible: boolean;
     accessibilityScore: number;
-    issues[];
-    recommendations[];
+    issues: any[];
+    recommendations: any[];
   }> {
     console.log('Validating accessibility');
     
@@ -178,8 +178,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
   async checkInclusivity(content): Promise<{
     isInclusive: boolean;
     inclusivityScore: number;
-    issues[];
-    recommendations[];
+    issues: any[];
+    recommendations: any[];
   }> {
     console.log('Checking inclusivity');
     

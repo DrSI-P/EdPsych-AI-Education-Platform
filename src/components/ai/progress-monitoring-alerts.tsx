@@ -78,7 +78,7 @@ const mockLearnerProfile: LearnerProfile = {
 };
 
 // Mock learning paths for demonstration
-const mockLearningPaths[] = [
+const mockLearningPaths: any[] = [
   {
     id: 'path-1',
     learnerId: 'learner-1',
@@ -155,7 +155,7 @@ const mockRecentActivities = [
 ];
 
 // Mock intervention alerts for demonstration
-const mockInterventionAlerts[] = [
+const mockInterventionAlerts: any[] = [
   {
     id: 'alert-1',
     learnerId: 'learner-1',

@@ -297,7 +297,7 @@ export async function getVideoForUser(params: VideoGenerationParams): Promise<Vi
  * Pre-generate common navigation videos for the free tier
  * This should be run as a scheduled job to build up the library of free videos
  */
-export async function preGenerateCommonVideos(navigationScripts: any[]): Promise<void> {
+export async function preGenerateCommonVideos(navigationScripts[]): Promise<void> {
   for (const script of navigationScripts) {
     const cacheKey = generateVideoCacheKey({
       text: script.text,

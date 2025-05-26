@@ -20,8 +20,8 @@ type CheckinData = {
   mood: string;
   intensity: number;
   notes: string;
-  triggers[];
-  strategies[];
+  triggers: any[];
+  strategies: any[];
 };
 
 // Export both as default and named export to fix build warnings
@@ -45,7 +45,7 @@ export function EmotionalCheckin() {
   const [isRecording, setIsRecording] = useState(false);
 
   // Sample emotions with descriptions
-  const emotions[] = [
+  const emotions: any[] = [
     { name: 'Happy', color: 'bg-green-500', description: 'Feeling joyful, content, or pleased' },
     { name: 'Calm', color: 'bg-blue-400', description: 'Feeling peaceful, relaxed, or at ease' },
     { name: 'Excited', color: 'bg-yellow-400', description: 'Feeling enthusiastic, eager, or energetic' },
@@ -105,7 +105,7 @@ export function EmotionalCheckin() {
     setStep(2);
   };
 
-  const handleIntensityChange = (value[]) => {
+  const handleIntensityChange = (value: any[]) => {
     setCheckinData(prev => ({
       ...prev,
       intensity: value[0]
@@ -207,7 +207,7 @@ export function EmotionalCheckin() {
     }
   };
 
-  const saveSelectedStrategies = (strategies[]) => {
+  const saveSelectedStrategies = (strategies: any[]) => {
     setCheckinData(prev => ({
       ...prev,
       strategies

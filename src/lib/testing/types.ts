@@ -64,7 +64,7 @@ export interface TestSuite {
   id: string;
   name: string;
   description: string;
-  tests: TestResult[];
+  tests[];
   startTime: Date;
   endTime?: Date;
   totalTests: number;
@@ -80,7 +80,7 @@ export interface TestRun {
   id: string;
   name: string;
   description: string;
-  suites: TestSuite[];
+  suites[];
   startTime: Date;
   endTime?: Date;
   environment: string;
@@ -128,11 +128,11 @@ export interface TestConfig {
   maxWorkers: number;
   bail: boolean;
   verbose: boolean;
-  reporters: string[];
-  testMatch: string[];
-  testIgnore: string[];
-  setupFiles: string[];
-  teardownFiles: string[];
+  reporters[];
+  testMatch[];
+  testIgnore[];
+  setupFiles[];
+  teardownFiles[];
   environmentVariables: Record<string, string>;
 }
 

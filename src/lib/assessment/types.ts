@@ -571,8 +571,8 @@ export interface AssessmentEngine {
   }) => Promise<{
     assessmentsCompleted: number;
     averageScore: number;
-    strengths: string[];
-    areasForImprovement: string[];
+    strengths[];
+    areasForImprovement[];
     progressOverTime: Array<{
       date: Date;
       score: number;
@@ -589,13 +589,13 @@ export interface FeedbackGenerator {
   generateAssessmentFeedback: (result: AssessmentResult) => {
     overall: string;
     byTopic: Record<string, string>;
-    nextSteps: string[];
+    nextSteps[];
   };
   generateProgressFeedback: (studentId: string, subject: UKSubject, timeframe: 'week' | 'month' | 'term' | 'year') => Promise<{
     summary: string;
-    strengths: string[];
-    areasForImprovement: string[];
-    recommendations: string[];
+    strengths[];
+    areasForImprovement[];
+    recommendations[];
   }>;
 }
 

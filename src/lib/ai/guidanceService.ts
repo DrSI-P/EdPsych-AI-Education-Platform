@@ -130,7 +130,7 @@ export class AIGuidanceService {
     subject: SubjectArea,
     dominantLearningStyle: LearningStyle,
     currentProficiency: number,
-    relevantGoals[],
+    relevantGoals: any[],
     duration: number
   ): Promise<LearningPath> {
     // This would typically involve a call to an AI service or recommendation engine
@@ -245,7 +245,7 @@ export class AIGuidanceService {
   private async createContentSuggestions(
     learnerProfile: LearnerProfile,
     dominantLearningStyle: LearningStyle,
-    interests[],
+    interests: any[],
     areasForImprovement[],
     currentLearningPath?: LearningPath,
     count: number = 3
@@ -253,7 +253,7 @@ export class AIGuidanceService {
     // This would typically involve a call to a content recommendation service
     // For now, we'll simulate this with a placeholder implementation
     
-    const suggestions[] = [];
+    const suggestions: any[] = [];
     
     // Add suggestions based on learning style
     suggestions.push({
@@ -419,7 +419,7 @@ export class AIGuidanceService {
    */
   public async monitorProgress(
     learnerProfile: LearnerProfile,
-    recentActivities[],
+    recentActivities: any[],
     currentLearningPaths[]
   ): Promise<InterventionAlert[]> {
     // Analyse recent activities and learning paths to identify potential issues
@@ -428,7 +428,7 @@ export class AIGuidanceService {
     const goalIssues = this.identifyGoalsAtRisk(learnerProfile, currentLearningPaths);
     
     // Generate intervention alerts based on identified issues
-    const alerts[] = [];
+    const alerts: any[] = [];
     
     // Add performance alerts
     performanceIssues.forEach(issue => {
@@ -523,11 +523,11 @@ export class AIGuidanceService {
   /**
    * Identify performance issues from recent activities
    */
-  private identifyPerformanceIssues(learnerProfile: LearnerProfile, recentActivities[]): any[] {
+  private identifyPerformanceIssues(learnerProfile: LearnerProfile, recentActivities: any[]): any[] {
     // This would typically involve complex analysis of performance trends
     // For now, we'll simulate this with a placeholder implementation
     
-    const issues[] = [];
+    const issues: any[] = [];
     
     // Placeholder implementation
     if (recentActivities.length > 0) {
@@ -548,11 +548,11 @@ export class AIGuidanceService {
   /**
    * Identify engagement issues from recent activities
    */
-  private identifyEngagementIssues(learnerProfile: LearnerProfile, recentActivities[]): any[] {
+  private identifyEngagementIssues(learnerProfile: LearnerProfile, recentActivities: any[]): any[] {
     // This would typically involve analysis of engagement patterns
     // For now, we'll simulate this with a placeholder implementation
     
-    const issues[] = [];
+    const issues: any[] = [];
     
     // Placeholder implementation
     if (recentActivities.length === 0) {
@@ -581,11 +581,11 @@ export class AIGuidanceService {
   /**
    * Identify goals at risk of not being completed
    */
-  private identifyGoalsAtRisk(learnerProfile: LearnerProfile, currentLearningPaths[]): any[] {
+  private identifyGoalsAtRisk(learnerProfile: LearnerProfile, currentLearningPaths: any[]): any[] {
     // This would typically involve analysis of goal progress against deadlines
     // For now, we'll simulate this with a placeholder implementation
     
-    const issues[] = [];
+    const issues: any[] = [];
     
     // Placeholder implementation
     const activeGoals = learnerProfile.learningGoals.filter(goal => goal.status === 'in_progress');

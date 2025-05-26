@@ -23,7 +23,7 @@ interface Template {
   };
   createdAt: string;
   isPublic: boolean;
-  tags[];
+  tags: any[];
   previewImage?: string;
 }
 

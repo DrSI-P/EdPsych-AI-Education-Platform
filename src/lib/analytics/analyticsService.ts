@@ -272,7 +272,7 @@ export class AnalyticsService {
   /**
    * Transform raw data into chart datasets
    */
-  transformDataToDatasets(data[], labelField: string, valueField: string, categoryField?: string): Dataset[] {
+  transformDataToDatasets(data: any[], labelField: string, valueField: string, categoryField?: string): Dataset[] {
     if (!data || data.length === 0) {
       return [];
     }
@@ -309,7 +309,7 @@ export class AnalyticsService {
   /**
    * Generate colour palette for datasets
    */
-  generateColorPalette(datasets[]): Dataset[] {
+  generateColorPalette(datasets: any[]): Dataset[] {
     const baseColors = [
       '#4361ee', '#3a0ca3', '#7209b7', '#f72585', '#4cc9f0',
       '#4895ef', '#560bad', '#b5179e', '#f15bb5', '#00bbf9'
@@ -325,7 +325,7 @@ export class AnalyticsService {
   /**
    * Create accessible chart configuration
    */
-  createAccessibleChartConfig(title: string, datasets[], type, options = {}): ChartConfig {
+  createAccessibleChartConfig(title: string, datasets: any[], type, options = {}): ChartConfig {
     // Generate a summary of the data for screen readers
     const dataPoints = datasets.reduce((sum, dataset) => sum + dataset.datasets?.length || 0, 0);
     const keyFindings = this.generateKeyFindings(datasets);
@@ -366,8 +366,8 @@ export class AnalyticsService {
   /**
    * Generate key findings from datasets
    */
-  private generateKeyFindings(datasets[]): string[] {
-    const findings[] = [];
+  private generateKeyFindings(datasets: any[]): string[] {
+    const findings: any[] = [];
     
     // This is a simplified version - in a real implementation, this would use
     // statistical analysis to identify trends, outliers, etc.

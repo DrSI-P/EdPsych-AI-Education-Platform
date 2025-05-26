@@ -10,7 +10,7 @@ interface AlertConfig {
   level: string;
   threshold: number;
   cooldown: number;
-  channels[];
+  channels: any[];
   enabled: boolean;
 }
 

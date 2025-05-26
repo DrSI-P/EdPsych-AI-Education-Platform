@@ -26,7 +26,7 @@ export interface TextToSpeechState {
   currentPosition: number;
   currentSentence: string;
   progress: number;
-  availableVoices[];
+  availableVoices: any[];
 }
 
 // Text-to-speech service class
@@ -35,7 +35,7 @@ export class TextToSpeechService {
   private utterance: SpeechSynthesisUtterance | null = null;
   private options: TextToSpeechOptions;
   private state: TextToSpeechState;
-  private textQueue[] = [];
+  private textQueue: any[] = [];
   private highlightCallback: ((text: string, start: number, end: number) => void) | null = null;
   private onEndCallback: (() => void) | null = null;
   

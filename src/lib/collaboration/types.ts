@@ -46,7 +46,7 @@ export interface CollaborationSession {
     keyStage?: string;
     tags?: string[];
     educationalObjectives?: string[];
-    [key: string];
+    [key: string]: any;
   };
 }
 
@@ -119,7 +119,7 @@ export interface CollaborativeDocument {
   metadata: {
     wordCount: number;
     readingTime: number; // in minutes
-    [key: string];
+    [key: string]: any;
   };
 }
 
@@ -202,14 +202,14 @@ export interface WhiteboardElement {
     fontSize?: number;
     fontFamily?: string;
     textAlign?: 'left' | 'centre' | 'right';
-    [key: string];
+    [key: string]: any;
   };
   content?: {
     text?: string;
     imageUrl?: string;
     shape?: 'rectangle' | 'circle' | 'triangle' | 'diamond';
     points?: { x: number; y: number }[];
-    [key: string];
+    [key: string]: any;
   };
   createdAt: Date;
   createdBy: string;
@@ -293,7 +293,7 @@ export interface ProjectResource {
   description: string;
   addedBy: string;
   addedAt: Date;
-  tags: string[];
+  tags[];
 }
 
 // Project milestone interface
@@ -303,8 +303,8 @@ export interface ProjectMilestone {
   description: string;
   dueDate: Date;
   status: 'not_started' | 'in_progress' | 'completed' | 'overdue';
-  associatedTasks: string[]; // IDs of tasks associated with this milestone
-  deliverables: string[];
+  associatedTasks[]; // IDs of tasks associated with this milestone
+  deliverables[];
   completedAt?: Date;
 }
 
@@ -318,11 +318,11 @@ export interface DiscussionThread {
   createdBy: string;
   updatedAt: Date;
   category: string;
-  tags: string[];
+  tags[];
   status: 'active' | 'resolved' | 'archived';
   pinned: boolean;
-  messages: DiscussionMessage[];
-  participants: string[];
+  messages[];
+  participants[];
   views: number;
   lastActivity: Date;
 }
@@ -345,9 +345,9 @@ export interface DiscussionMessage {
   reactions: {
     type: string;
     count: number;
-    users: string[];
+    users[];
   }[];
-  mentions: string[];
+  mentions[];
   parentId?: string; // For replies
   edited: boolean;
   pinned: boolean;
@@ -405,7 +405,7 @@ export interface VideoConference {
   breakoutRooms?: {
     id: string;
     name: string;
-    participants: string[];
+    participants[];
     createdAt: Date;
     endedAt?: Date;
   }[];

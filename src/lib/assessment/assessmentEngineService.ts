@@ -265,7 +265,7 @@ export class AssessmentEngineService implements AssessmentEngine {
     };
     
     // Generate questions based on template distribution
-    const questions[] = await this.generateQuestionsFromTemplate(template);
+    const questions: any[] = await this.generateQuestionsFromTemplate(template);
     
     // Create the assessment
     const assessment: Assessment = {
@@ -296,7 +296,7 @@ export class AssessmentEngineService implements AssessmentEngine {
    * @param previousResponses The student's previous responses
    * @returns The next question to present
    */
-  async generateAdaptiveQuestion(attemptId: string, previousResponses[]): Promise<Question> {
+  async generateAdaptiveQuestion(attemptId: string, previousResponses: any[]): Promise<Question> {
     console.log(`Generating adaptive question for attempt ${attemptId}`);
     
     // Get the attempt
@@ -379,8 +379,8 @@ export class AssessmentEngineService implements AssessmentEngine {
   }): Promise<{
     assessmentsCompleted: number;
     averageScore: number;
-    strengths[];
-    areasForImprovement[];
+    strengths: any[];
+    areasForImprovement: any[];
     progressOverTime: Array<{
       date: Date;
       score: number;
@@ -515,8 +515,8 @@ export class AssessmentEngineService implements AssessmentEngine {
     const passed = percentage >= (assessment.settings.passingScore || 60);
     
     // Generate strengths and areas for improvement
-    const strengths[] = [];
-    const areasForImprovement[] = [];
+    const strengths: any[] = [];
+    const areasForImprovement: any[] = [];
     
     // Identify strengths (domains with high performance)
     Object.entries(byCognitiveDomain).forEach(([domain, data]) => {
@@ -625,7 +625,7 @@ export class AssessmentEngineService implements AssessmentEngine {
    * @returns Array of questions
    */
   private async generateQuestionsFromTemplate(template: AssessmentTemplate): Promise<Question[]> {
-    const questions[] = [];
+    const questions: any[] = [];
     
     // Calculate how many questions of each type to generate
     const typeDistribution = new Map<QuestionType, number>();
