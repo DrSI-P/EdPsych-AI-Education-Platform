@@ -10,7 +10,7 @@ interface OpenEndedQuestionProps {
     points: number;
     expectedAnswer?: string;
     wordLimit?: number;
-  };
+  }
   onSave: (data: {
     type: string;
     content: string;
@@ -39,7 +39,7 @@ export default function OpenEndedQuestion({
   const validateForm = () => {
     const newErrors = {
       content: '',
-    };
+    }
 
     if (!content.trim()) {
       newErrors.content = 'Question content is required';
@@ -47,7 +47,7 @@ export default function OpenEndedQuestion({
 
     setErrors(newErrors);
     return !Object.values(newErrors).some(error => error);
-  };
+  }
 
   const handleSubmit = () => {
     if (!validateForm()) {
@@ -61,7 +61,7 @@ export default function OpenEndedQuestion({
       wordLimit: wordLimit || undefined,
       points
     });
-  };
+  }
 
   return (
     <div className="space-y-6 p-4 bg-white rounded-lg border">
