@@ -55,8 +55,8 @@ export interface BlogPost {
   content: string;
   featuredImage?: string;
   category: string;
-  tags: any[];
-  targetAudience: any[];
+  tags: string[];
+  targetAudience: string[];
   status: BlogPostStatus;
   authorId: string;
   reviewerId?: string;
@@ -92,7 +92,7 @@ export interface BlogPostWithRelations extends BlogPost {
 // Blog post generation parameters
 export interface BlogPostGenerationParams {
   topic: string;
-  audience: any[];
+  audience: string[];
   category: string;
   keyPoints?: string[];
   tone?: 'professional' | 'conversational' | 'academic';
@@ -104,7 +104,7 @@ export interface BlogPostGenerationResult {
   title: string;
   content: string;
   summary: string;
-  tags: any[];
+  tags: string[];
   seoTitle: string;
   seoDescription: string;
 }
@@ -115,8 +115,8 @@ export interface BlogPostSaveParams {
   content: string;
   summary: string;
   category: string;
-  tags: any[];
-  targetAudience: any[];
+  tags: string[];
+  targetAudience: string[];
   status?: BlogPostStatus;
   publishDate?: Date;
   authorId: string;
@@ -128,7 +128,7 @@ export interface BlogPostSaveParams {
 
 // Blog post filter parameters
 export interface BlogPostFilterParams {
-  status?: BlogPostStatus | BlogPostStatus: any[];
+  status?: BlogPostStatus | BlogPostStatus[];
   category?: string;
   audience?: string;
   page?: number;
@@ -138,7 +138,7 @@ export interface BlogPostFilterParams {
 
 // Blog post filter result
 export interface BlogPostFilterResult {
-  posts: any[];
+  posts: BlogPostWithRelations[];
   total: number;
   pages: number;
 }
@@ -147,8 +147,8 @@ export interface BlogPostFilterResult {
 export interface SeoRecommendationsResult {
   title: string;
   description: string;
-  keywords: any[];
-  suggestions: any[];
+  keywords: string[];
+  suggestions: string[];
 }
 
 // Blog analytics result
@@ -166,8 +166,8 @@ export interface BlogPostIdea {
   title: string;
   summary: string;
   category: string;
-  targetAudience: any[];
-  keyPoints: any[];
+  targetAudience: string[];
+  keyPoints: string[];
 }
 
 /**
