@@ -290,7 +290,7 @@ const AchievementCard: React.FC<AchievementCardProps> = ({
  * with filtering options.
  */
 export const AchievementGallery: React.FC<{
-  achievements[];
+  achievements: any[];
   className?: string;
 }> = ({ achievements, className }) => {
   const { ageGroup } = useTheme();
