@@ -236,7 +236,7 @@ export function OfflineAware<T>({
 }
 
 interface OfflineCacheProps {
-  urls: string[];
+  urls: string: any[];
   children: React.ReactNode;
 }
 

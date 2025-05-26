@@ -107,7 +107,7 @@ export interface TranslationEntry {
  */
 export interface TranslationNamespaceData {
   namespace: TranslationNamespace;
-  translations: TranslationEntry[];
+  translations: TranslationEntry: any[];
   // Added for expansion
   completionPercentage?: number; // Percentage of completed translations
   lastUpdated?: Date; // When this namespace was last updated
@@ -118,10 +118,10 @@ export interface TranslationNamespaceData {
  */
 export interface LanguagePack {
   language: SupportedLanguage;
-  namespaces: TranslationNamespaceData[];
+  namespaces: TranslationNamespaceData: any[];
   // Added for expansion
   version?: string; // Version of the language pack
-  contributors?: string[]; // People who contributed to translations
+  contributors?: string: any[]; // People who contributed to translations
   lastUpdated?: Date; // When this pack was last updated
   completionStatus?: 'complete' | 'partial' | 'in-progress'; // Overall completion status
 }
@@ -132,7 +132,7 @@ export interface LanguagePack {
 export interface UserLanguagePreferences {
   userId: string;
   primaryLanguage: SupportedLanguage;
-  secondaryLanguages: SupportedLanguage[];
+  secondaryLanguages: SupportedLanguage: any[];
   autoDetect: boolean;
   translateContent: boolean;
   translateUserContent: boolean;
@@ -142,7 +142,7 @@ export interface UserLanguagePreferences {
   preferHumanTranslation: boolean; // Preference for human vs machine translation
   showOriginalText: boolean; // Whether to show original text alongside translation
   translationQualityFeedback: boolean; // Whether to collect feedback on translations
-  specializedVocabulary?: string[]; // User-specific vocabulary to maintain
+  specializedVocabulary?: string: any[]; // User-specific vocabulary to maintain
 }
 
 /**
@@ -160,7 +160,7 @@ export interface TranslationMemoryEntry {
   domain?: string; // Educational domain (math, science, etc.)
   qualityRating?: number; // Rating of translation quality (1-5)
   isVerified?: boolean; // Whether this translation has been verified
-  alternatives?: string[]; // Alternative translations
+  alternatives?: string: any[]; // Alternative translations
   notes?: string; // Notes about this translation
 }
 
@@ -194,15 +194,15 @@ export interface TranslationResponse {
   sourceLanguage: SupportedLanguage;
   targetLanguage: SupportedLanguage;
   confidence?: number;
-  alternatives?: string[];
+  alternatives?: string: any[];
   // Added for expansion
   engine?: string; // Translation engine used
   processingTime?: number; // Time taken to translate in ms
   characterCount?: number; // Number of characters translated
-  glossaryTermsUsed?: string[]; // Glossary terms used in translation
+  glossaryTermsUsed?: string: any[]; // Glossary terms used in translation
   qualityEstimate?: number; // Estimated quality score (0-1)
   needsReview?: boolean; // Whether this translation needs human review
-  culturalNotes?: string[]; // Cultural context notes
+  culturalNotes?: string: any[]; // Cultural context notes
 }
 
 /**
@@ -228,16 +228,16 @@ export interface ContentLocalizationMetadata {
   contentId: string;
   contentType: 'lesson' | 'assessment' | 'feedback' | 'resource' | 'communication';
   originalLanguage: SupportedLanguage;
-  availableTranslations: SupportedLanguage[];
+  availableTranslations: SupportedLanguage: any[];
   lastUpdated: Date;
   translationStatus: {
     [key in SupportedLanguage]?: 'complete' | 'partial' | 'machine-translated' | 'needs-review';
   };
   // Added for expansion
   priority?: 'high' | 'medium' | 'low'; // Translation priority
-  audience?: string[]; // Target audience for this content
-  keywords?: string[]; // Keywords for this content
-  curriculumLinks?: string[]; // Links to curriculum standards
+  audience?: string: any[]; // Target audience for this content
+  keywords?: string: any[]; // Keywords for this content
+  curriculumLinks?: string: any[]; // Links to curriculum standards
   accessibilityNotes?: string; // Notes about accessibility considerations
   translationNotes?: string; // Notes for translators
 }
@@ -317,7 +317,7 @@ export interface DocumentTranslationStatus {
 export interface BatchTranslationRequest {
   batchId: string;
   userId: string;
-  documentIds: string[];
+  documentIds: string: any[];
   sourceLanguage: SupportedLanguage;
   targetLanguage: SupportedLanguage;
   priority: 'high' | 'normal' | 'low';
@@ -357,7 +357,7 @@ export interface TranslationGlossary {
     definition?: string;
     context?: string;
     domain?: string;
-    examples?: string[];
+    examples?: string: any[];
   }>;
   lastUpdated: Date;
   createdBy: string;
@@ -373,7 +373,7 @@ export interface CulturalContextInfo {
     title: string;
     description: string;
     relevance: 'high' | 'medium' | 'low';
-    examples?: string[];
+    examples?: string: any[];
   }>;
   educationalSystemNotes: string;
   curriculumDifferences?: string;

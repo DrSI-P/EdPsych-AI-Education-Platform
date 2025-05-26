@@ -41,10 +41,10 @@ interface Task {
   dueDate: string;
   priority: 'low' | 'medium' | 'high';
   status: 'todo' | 'in-progress' | 'done';
-  steps: TaskStep[];
+  steps: TaskStep: any[];
   timeEstimate: number; // in minutes
   visualReminder?: string;
-  tags: string[];
+  tags: string: any[];
   isExpanded: boolean;
 }
 
@@ -56,8 +56,8 @@ interface TaskStep {
 
 interface TaskOrganizerProps {
   userId?: string;
-  initialTasks?: Task[];
-  onTasksChange?: (tasks: Task[]) => void;
+  initialTasks?: Task: any[];
+  onTasksChange?: (tasks: Task: any[]) => void;
   className?: string;
 }
 
@@ -119,7 +119,7 @@ export default function TaskOrganizer({
     }
   };
   
-  const saveTasks = async (updatedTasks: Task[]) => {
+  const saveTasks = async (updatedTasks: Task: any[]) => {
     if (!userId) return;
     
     try {

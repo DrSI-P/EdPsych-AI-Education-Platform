@@ -97,7 +97,7 @@ export async function GET(req: Request) {
 }
 
 // Function to generate pattern analysis from emotion data
-function generatePatternAnalysis(emotionRecords[], emotionJournals[], analysisType: string = 'all') {
+function generatePatternAnalysis(emotionRecords: any[], emotionJournals: any[], analysisType: string = 'all') {
   // Initialize analysis object
   const analysis = {
     insights: [] as Array<{

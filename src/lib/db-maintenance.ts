@@ -40,7 +40,7 @@ export interface DatabaseHealthCheckResult {
     message: string;
     details?;
   }>;
-  recommendations?: string[];
+  recommendations?: string: any[];
   error?: string;
 }
 
@@ -364,11 +364,11 @@ export interface DatabaseSchemaValidationResult {
   status: 'valid' | 'error' | 'warning';
   message: string;
   timestamp: string;
-  missingModels?: string[];
-  extraModels?: string[];
+  missingModels?: string: any[];
+  extraModels?: string: any[];
   modelIssues?: Array<{
     model: string;
-    issues: string[];
+    issues: string: any[];
   }>;
   error?: string;
 }
@@ -891,23 +891,23 @@ export async function collectDatabaseUsageStatistics(
 export interface DatabaseMaintenanceSchedule {
   daily: {
     time: string;
-    tasks: string[];
+    tasks: string: any[];
   };
   weekly: {
     day: string;
     time: string;
-    tasks: string[];
+    tasks: string: any[];
   };
   monthly: {
     day: number;
     time: string;
-    tasks: string[];
+    tasks: string: any[];
   };
   quarterly: {
-    months: number[];
+    months: number: any[];
     day: number;
     time: string;
-    tasks: string[];
+    tasks: string: any[];
   };
 }
 

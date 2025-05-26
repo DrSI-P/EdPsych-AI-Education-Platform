@@ -22,12 +22,12 @@ interface PupilVoiceEntry {
     answer: string;
   }[];
   sentiment: 'positive' | 'neutral' | 'negative';
-  tags: string[];
+  tags: string: any[];
   notes: string;
 }
 
 interface PupilVoiceToolProps {
-  initialEntries?: PupilVoiceEntry[];
+  initialEntries?: PupilVoiceEntry: any[];
   onEntrySelect?: (entry: PupilVoiceEntry) => void;
   className?: string;
 }
@@ -256,7 +256,7 @@ export function PupilVoiceTool({
   };
   
   // Determine sentiment based on answers
-  const determineSentiment = (answers: string[]): 'positive' | 'neutral' | 'negative' => {
+  const determineSentiment = (answers: string: any[]): 'positive' | 'neutral' | 'negative' => {
     // This is a simplified sentiment analysis
     // In a real application, this would use more sophisticated NLP
     const positiveWords = ['like', 'love', 'enjoy', 'happy', 'good', 'great', 'excellent', 'wonderful', 'fantastic'];

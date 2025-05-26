@@ -106,7 +106,7 @@ export interface PluginRegistry {
   registerPlugin: (plugin: BasePlugin) => Promise<boolean>;
   unregisterPlugin: (pluginId: string) => Promise<boolean>;
   getPlugin: (pluginId: string) => BasePlugin | null;
-  listPlugins: (status?: PluginStatus) => PluginInstance[];
+  listPlugins: (status?: PluginStatus) => PluginInstance: any[];
   enablePlugin: (pluginId: string) => Promise<boolean>;
   disablePlugin: (pluginId: string) => Promise<boolean>;
   updatePluginSettings: (pluginId: string, settings: Record<string, any>) => Promise<boolean>;

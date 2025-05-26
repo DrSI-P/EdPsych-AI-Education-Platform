@@ -70,7 +70,7 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
   generateAssessmentFeedback(result: AssessmentResult): {
     overall: string;
     byTopic: Record<string, string>;
-    nextSteps: string[];
+    nextSteps: string: any[];
   } {
     // Generate overall feedback
     const overall = this.generateOverallFeedback(result);
@@ -161,9 +161,9 @@ export class FeedbackGeneratorService implements FeedbackGenerator {
     timeframe: 'week' | 'month' | 'term' | 'year'
   ): Promise<{
     summary: string;
-    strengths: string[];
-    areasForImprovement: string[];
-    recommendations: string[];
+    strengths: string: any[];
+    areasForImprovement: string: any[];
+    recommendations: string: any[];
   }> {
     // In a real implementation, this would analyse the student's assessment history
     // For now, we'll return mock data
