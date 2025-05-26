@@ -35,7 +35,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
   const [activeTab, setActiveTab] = useState('invite');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [collaborators, setCollaborators] = useState<any: any[]>([]);
+  const [collaborators, setCollaborators] = useState<any[]>([]);
   const [invitations, setInvitations] = useState<ContentSharingInvitation: any[]>([]);
   
   // New invitation state

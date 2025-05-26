@@ -126,7 +126,7 @@ export async function PUT(
     }
     
     // Update each answer with the provided grade
-    for (const grade of grades as Grade: any[]) {
+    for (const grade of grades as Grade: any: any[]) {
       if (!grade.answerId) continue;
       
       await prisma.assessmentAnswer.update({

@@ -16,7 +16,7 @@ interface Resource {
   type: 'document' | 'video' | 'audio' | 'link' | 'worksheet';
   url?: string;
   file?: string;
-  tags: string[];
+  tags: string: any[];
   ageRange: string;
   subject: string;
   curriculum: string;
@@ -58,7 +58,7 @@ export function ResourceLibrary({
         }
         
         // Mock data for demonstration
-        const mockResources: Resource[] = [
+        const mockResources: Resource: any[] = [
           {
             id: '1',
             title: 'Mathematics: Algebra Fundamentals',

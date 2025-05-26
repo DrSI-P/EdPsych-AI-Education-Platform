@@ -93,7 +93,7 @@ interface Quest {
   difficulty: string;
   duration: number;
   xpReward: number;
-  objectives: string[];
+  objectives: string: any[];
   challenges: Array<{
     id: string;
     title: string;
@@ -137,7 +137,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
   const [character, setCharacter] = useState<Character | null>(null);
   
   // State for quests
-  const [quests, setQuests] = useState<Quest: any[]>([]);
+  const [quests, setQuests] = useState<Quest[]>([]);
   const [activeQuest, setActiveQuest] = useState<Quest | null>(null);
   const [completedQuests, setCompletedQuests] = useState<CompletedQuest: any[]>([]);
   
@@ -202,8 +202,8 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
   // Create adaptive quest based on user data
   const createAdaptiveQuest = (
     userProfile, 
-    learningHistory: any[], 
-    assessmentResults: any[], 
+    learningHistory: any: any[], 
+    assessmentResults: any: any[], 
     params: GenerationParams,
     curriculumContext
   ): Quest => {
@@ -321,7 +321,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
     }
     
     // Initialize quests
-    setQuests(mockQuests as Quest: any[]);
+    setQuests(mockQuests as Quest: any: any[]);
     
     // Initialize completed quests
     setCompletedQuests([

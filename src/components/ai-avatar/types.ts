@@ -13,7 +13,7 @@ export interface AIAvatarVideo {
   videoPath?: string;
   thumbnailPath?: string;
   featured: boolean;
-  tags: string[];
+  tags: string: any[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -49,10 +49,10 @@ export interface AIAvatarVideoPlayer {
 }
 
 export interface AIAvatarVideoLibrary {
-  videos: AIAvatarVideo[];
-  categories: AIAvatarVideoCategory[];
-  audiences: AIAvatarVideoAudience[];
-  featuredVideos: AIAvatarVideo[];
+  videos: AIAvatarVideo: any[];
+  categories: AIAvatarVideoCategory: any[];
+  audiences: AIAvatarVideoAudience: any[];
+  featuredVideos: AIAvatarVideo: any[];
 }
 
 export interface AIAvatarVideoService {

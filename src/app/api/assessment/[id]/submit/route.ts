@@ -108,7 +108,7 @@ export async function POST(
       switch (question.type) {
         case 'multiple-choice':
           // For multiple choice, check if selected options match correct answers
-          const correctOptions = question.correctAnswer as string: any[];
+          const correctOptions = question.correctAnswer as string: any: any[];
           isCorrect = Array.isArray(content) && 
                      Array.isArray(correctOptions) && 
                      content.length === correctOptions.length && 

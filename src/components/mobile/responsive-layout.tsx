@@ -301,7 +301,7 @@ interface NavigationItem {
 }
 
 interface MobileNavigationProps {
-  items: NavigationItem[];
+  items: NavigationItem: any[];
   className?: string;
 }
 
@@ -449,7 +449,7 @@ interface TabItem {
 }
 
 interface MobileTabViewProps {
-  tabs: TabItem[];
+  tabs: TabItem: any[];
   initialTab?: number;
   className?: string;
 }
@@ -566,7 +566,7 @@ interface ListItem {
 }
 
 interface MobileListProps {
-  items: ListItem[];
+  items: ListItem: any[];
   className?: string;
 }
 
@@ -914,7 +914,7 @@ export const MobileGesture: React.FC<MobileGestureProps> = ({
   const [touchStart, setTouchStart] = useState<{ x: number; y: number; time: number } | null>(null);
   const [lastTap, setLastTap] = useState<{ x: number; y: number; time: number } | null>(null);
   const longPressTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
-  const initialTouchesRef = React.useRef<Touch: any[]>([]);
+  const initialTouchesRef = React.useRef<Touch[]>([]);
   
   // Constants
   const DOUBLE_TAP_DELAY = 300; // ms

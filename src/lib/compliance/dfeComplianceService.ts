@@ -21,16 +21,16 @@ import {
  */
 export class DFEComplianceServiceImpl implements DFEComplianceService {
   // UK Curriculum standards by key stage
-  private curriculumStandards: Map<UKKeyStage, string: any[]> = new Map();
+  private curriculumStandards: Map<UKKeyStage, string: any: any[]> = new Map();
   
   // Age appropriateness guidelines
-  private ageAppropriatenessGuidelines: Map<AgeAppropriatenessRating, string: any[]> = new Map();
+  private ageAppropriatenessGuidelines: Map<AgeAppropriatenessRating, string: any: any[]> = new Map();
   
   // Accessibility requirements
-  private accessibilityRequirements: string[] = [];
+  private accessibilityRequirements: string: any[] = [];
   
   // Inclusivity guidelines
-  private inclusivityGuidelines: string[] = [];
+  private inclusivityGuidelines: string: any[] = [];
   
   /**
    * Constructor for the DFE Compliance Service
@@ -52,8 +52,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
   async validateCurriculumAlignment(content, keyStage: UKKeyStage): Promise<{
     isAligned: boolean;
     alignmentScore: number;
-    misalignments: string[];
-    recommendations: string[];
+    misalignments: string: any[];
+    recommendations: string: any[];
   }> {
     console.log(`Validating curriculum alignment for key stage: ${keyStage}`);
     
@@ -96,7 +96,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
   async checkAgeAppropriateness(content, targetAgeRange: { min: number; max: number }): Promise<{
     isAppropriate: boolean;
     appropriatenessScore: number;
-    concerns: string[];
+    concerns: string: any[];
     recommendedAgeRating: AgeAppropriatenessRating;
   }> {
     console.log(`Checking age appropriateness for age range: ${targetAgeRange.min}-${targetAgeRange.max}`);
@@ -136,8 +136,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
   async validateAccessibility(content): Promise<{
     isAccessible: boolean;
     accessibilityScore: number;
-    issues: string[];
-    recommendations: string[];
+    issues: string: any[];
+    recommendations: string: any[];
   }> {
     console.log('Validating accessibility');
     
@@ -178,8 +178,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
   async checkInclusivity(content): Promise<{
     isInclusive: boolean;
     inclusivityScore: number;
-    issues: string[];
-    recommendations: string[];
+    issues: string: any[];
+    recommendations: string: any[];
   }> {
     console.log('Checking inclusivity');
     

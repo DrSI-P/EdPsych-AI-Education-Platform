@@ -78,7 +78,7 @@ const mockLearnerProfile: LearnerProfile = {
 };
 
 // Mock learning paths for demonstration
-const mockLearningPaths: LearningPath[] = [
+const mockLearningPaths: LearningPath: any[] = [
   {
     id: 'path-1',
     learnerId: 'learner-1',
@@ -155,7 +155,7 @@ const mockRecentActivities = [
 ];
 
 // Mock intervention alerts for demonstration
-const mockInterventionAlerts: InterventionAlert[] = [
+const mockInterventionAlerts: InterventionAlert: any[] = [
   {
     id: 'alert-1',
     learnerId: 'learner-1',
@@ -288,7 +288,7 @@ export default function ProgressMonitoringAlerts() {
   const [interventionAlerts, setInterventionAlerts] = useState<InterventionAlert: any[]>(mockInterventionAlerts);
   const [progressReport, setProgressReport] = useState<ProgressReport | null>(mockProgressReport);
   const [learnerProfile, setLearnerProfile] = useState<LearnerProfile>(mockLearnerProfile);
-  const [learningPaths, setLearningPaths] = useState<LearningPath: any[]>(mockLearningPaths);
+  const [learningPaths, setLearningPaths] = useState<LearningPath[]>(mockLearningPaths);
   const [recentActivities, setRecentActivities] = useState<any: any[]>(mockRecentActivities);
   
   // Monitor progress and generate alerts

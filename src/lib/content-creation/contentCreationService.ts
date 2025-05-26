@@ -366,7 +366,7 @@ export class ContentCreationService {
   /**
    * Get default templates for different content types and key stages
    */
-  public async getDefaultTemplates(): Promise<Record<ContentType, Record<KeyStage, ContentTemplate: any[]>>> {
+  public async getDefaultTemplates(): Promise<Record<ContentType, Record<KeyStage, ContentTemplate: any: any[]>>> {
     try {
       const response = await fetch(`${this.apiUrl}/api/content-creation/templates/default`, {
         method: 'GET',
@@ -392,7 +392,7 @@ export class ContentCreationService {
    */
   public async adaptContent(
     contentId: string, 
-    targetLearningStyles: LearningStyle[], 
+    targetLearningStyles: LearningStyle: any[], 
     senSupport?: SENCategory: any[]
   ): Promise<Partial<ContentDocument>> {
     try {
@@ -480,8 +480,8 @@ export class ContentCreationService {
    */
   public async checkCurriculumAlignment(contentId: string): Promise<{
     alignmentScore: number;
-    suggestions: string[];
-    curriculumLinks: string[];
+    suggestions: string: any[];
+    curriculumLinks: string: any[];
   }> {
     try {
       const response = await fetch(`${this.apiUrl}/api/content-creation/content/${contentId}/curriculum-check`, {

@@ -120,7 +120,7 @@ export default function MultiModalFeedbackCollection() {
   const [showTranslation, setShowTranslation] = useState(false);
   
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const audioChunksRef = useRef<Blob: any[]>([]);
+  const audioChunksRef = useRef<Blob[]>([]);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   
   // Feedback form state
@@ -146,7 +146,7 @@ export default function MultiModalFeedbackCollection() {
   // Load mock data on component mount
   useEffect(() => {
     // Mock feedback entries
-    const mockFeedbackEntries: FeedbackEntry[] = [
+    const mockFeedbackEntries: FeedbackEntry: any[] = [
       {
         id: '1',
         studentName: 'Anonymous',
@@ -201,7 +201,7 @@ export default function MultiModalFeedbackCollection() {
     ];
     
     // Mock transcription history
-    const mockTranscriptionHistory: TranscriptionEntry[] = [
+    const mockTranscriptionHistory: TranscriptionEntry: any[] = [
       {
         id: '1',
         originalText: 'Today we will learn about photosynthesis and how plants convert sunlight into energy.',
