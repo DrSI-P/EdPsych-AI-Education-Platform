@@ -14,7 +14,7 @@ git add commit-and-push.bat
 git add .env
 
 REM Commit the changes
-git commit -m "Fix build issues: type error in plans route and multiple migration failures"
+git commit -m "Fix build issues: type error in plans route and multiple migration failures including 20250522083600_add_course_progress_and_fix_enrollment"
 
 REM Push to GitHub
 git push origin complete-rebuild

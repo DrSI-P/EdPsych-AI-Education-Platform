@@ -16,7 +16,7 @@ console.log(`Backup created at ${backupDir}`);
 console.log('Fixing migration history...');
 
 // Note: All problematic migrations are already marked as applied in the database
-console.log('Note: All problematic migrations (20250521020000_add_password_reset_model, 20250521030000_add_password_field_to_user, and 20250521040000_add_curriculum_collaboration_models) are already marked as applied in the database');
+console.log('Note: All problematic migrations (20250521020000_add_password_reset_model, 20250521030000_add_password_field_to_user, 20250521040000_add_curriculum_collaboration_models, and 20250522083600_add_course_progress_and_fix_enrollment) are already marked as applied in the database');
 
 // Just deploy any pending migrations
 try {
