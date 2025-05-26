@@ -17,9 +17,9 @@ export async function GET(
 ) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -44,13 +44,13 @@ export async function GET(
       },
     });
     
-    if (!template: any) {
+    if (!template) {
       return NextResponse.json({ error: 'Template not found or access denied' }, { status: 404 });
     }
     
-    return NextResponse.json(template: any);
+    return NextResponse.json(template);
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching assessment template:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching the assessment template' },
@@ -66,9 +66,9 @@ export async function PUT(
 ) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -81,7 +81,7 @@ export async function PUT(
       },
     });
     
-    if (!existingTemplate: any) {
+    if (!existingTemplate) {
       return NextResponse.json({ error: 'Template not found' }, { status: 404 });
     }
     
@@ -89,7 +89,7 @@ export async function PUT(
     const isAdmin = session.user.role === 'admin';
     const isOwner = existingTemplate.creatorId === session.user.id;
     
-    if (!isAdmin && !isOwner: any) {
+    if (!isAdmin && !isOwner) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
     
@@ -118,9 +118,9 @@ export async function PUT(
       },
     });
     
-    return NextResponse.json(updatedTemplate: any);
+    return NextResponse.json(updatedTemplate);
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error updating assessment template:', error);
     return NextResponse.json(
       { error: 'An error occurred while updating the assessment template' },
@@ -136,9 +136,9 @@ export async function DELETE(
 ) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -151,7 +151,7 @@ export async function DELETE(
       },
     });
     
-    if (!existingTemplate: any) {
+    if (!existingTemplate) {
       return NextResponse.json({ error: 'Template not found' }, { status: 404 });
     }
     
@@ -159,7 +159,7 @@ export async function DELETE(
     const isAdmin = session.user.role === 'admin';
     const isOwner = existingTemplate.creatorId === session.user.id;
     
-    if (!isAdmin && !isOwner: any) {
+    if (!isAdmin && !isOwner) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
     
@@ -172,7 +172,7 @@ export async function DELETE(
     
     return NextResponse.json({ success: true });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error deleting assessment template:', error);
     return NextResponse.json(
       { error: 'An error occurred while deleting the assessment template' },

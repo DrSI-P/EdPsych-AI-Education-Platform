@@ -13,7 +13,7 @@ const openai = new OpenAI({
 // Schema for blog content generation validation
 const blogContentGenerationSchema = z.object({
   scheduleId: z.string().optional(),
-  prompt: z.string().min(10: any, 'Prompt must be at least 10 characters'),
+  prompt: z.string().min(10, 'Prompt must be at least 10 characters'),
   topicArea: z.string().optional(),
   keyStage: z.string().optional(),
   targetAudience: z.string().optional(),
@@ -24,8 +24,8 @@ const blogContentGenerationSchema = z.object({
 export async function GET(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session: any) {
+    const session = await getServerSession(authOptions);
+    if (!session) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -33,23 +33,23 @@ export async function GET(req: NextRequest) {
     }
 
     // Only teachers and admins can view generation records
-    if (!['teacher', 'admin'].includes(session.user.role: any)) {
+    if (!['teacher', 'admin'].includes(session.user.role)) {
       return NextResponse.json(
         { error: 'Insufficient permissions' },
         { status: 403 }
       );
     }
 
-    const { searchParams } = new URL(req.url: any);
+    const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
     const scheduleId = searchParams.get('scheduleId');
     const status = searchParams.get('status');
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
-    const skip = (page - 1: any) * limit;
+    const skip = (page - 1) * limit;
     
     // If ID is provided, return a single generation record
-    if (id: any) {
+    if (id) {
       const generation = await prisma.blogContentGeneration.findUnique({
         where: { id },
         include: {
@@ -68,23 +68,23 @@ export async function GET(req: NextRequest) {
         },
       });
 
-      if (!generation: any) {
+      if (!generation) {
         return NextResponse.json({ error: 'Generation record not found' }, { status: 404 });
       }
 
-      return NextResponse.json(generation: any);
+      return NextResponse.json(generation);
     }
 
     // Build query filters
-    const where: any = {};
+    const where = {};
     
-    if (scheduleId: any) where.scheduleId = scheduleId;
-    if (status: any) where.status = status;
+    if (scheduleId) where.scheduleId = scheduleId;
+    if (status) where.status = status;
 
     // Get generation records with pagination
     const [generations, total] = await Promise.all([
       prisma.blogContentGeneration.findMany({
-        where: any,
+        where,
         include: {
           schedule: {
             select: {
@@ -108,15 +108,15 @@ export async function GET(req: NextRequest) {
     ]);
 
     return NextResponse.json({
-      generations: any,
+      generations,
       pagination: {
         total,
         page,
         limit,
-        pages: Math.ceil(total / limit: any),
+        pages: Math.ceil(total / limit),
       },
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching blog content generations:', error);
     return NextResponse.json(
       { error: 'Failed to fetch blog content generations' },
@@ -129,8 +129,8 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session: any) {
+    const session = await getServerSession(authOptions);
+    if (!session) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -138,7 +138,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Only teachers and admins can generate content
-    if (!['teacher', 'admin'].includes(session.user.role: any)) {
+    if (!['teacher', 'admin'].includes(session.user.role)) {
       return NextResponse.json(
         { error: 'Insufficient permissions' },
         { status: 403 }
@@ -146,7 +146,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Check if OpenAI API key is configured
-    if (!process.env.OPENAI_API_KEY: any) {
+    if (!process.env.OPENAI_API_KEY) {
       return NextResponse.json(
         { error: 'OpenAI API key not configured' },
         { status: 500 }
@@ -155,9 +155,9 @@ export async function POST(req: NextRequest) {
 
     // Parse and validate request body
     const body = await req.json();
-    const validationResult = blogContentGenerationSchema.safeParse(body: any);
+    const validationResult = blogContentGenerationSchema.safeParse(body);
     
-    if (!validationResult.success: any) {
+    if (!validationResult.success) {
       return NextResponse.json(
         { error: 'Invalid generation data', details: validationResult.error.format() },
         { status: 400 }
@@ -167,12 +167,12 @@ export async function POST(req: NextRequest) {
     const generationData = validationResult.data;
     
     // If scheduleId is provided, check if it exists
-    if (generationData.scheduleId: any) {
+    if (generationData.scheduleId) {
       const schedule = await prisma.blogContentSchedule.findUnique({
         where: { id: generationData.scheduleId },
       });
 
-      if (!schedule: any) {
+      if (!schedule) {
         return NextResponse.json(
           { error: 'Schedule not found' },
           { status: 404 }
@@ -191,7 +191,7 @@ export async function POST(req: NextRequest) {
     });
 
     // Start the content generation process asynchronously
-    generateBlogContent(generation.id: any, generationData, session.user.id).catch(error => {
+    generateBlogContent(generation.id, generationData, session.user.id).catch(error => {
       console.error('Error in blog content generation:', error);
     });
 
@@ -200,7 +200,7 @@ export async function POST(req: NextRequest) {
       generation,
       message: 'Blog content generation started',
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error creating blog content generation:', error);
     return NextResponse.json(
       { error: 'Failed to start blog content generation' },
@@ -210,7 +210,7 @@ export async function POST(req: NextRequest) {
 }
 
 // Helper function to generate blog content using OpenAI
-async function generateBlogContent(generationId: string, data: any, userId: string) {
+async function generateBlogContent(generationId: string, data, userId: string) {
   try {
     // Prepare the prompt for OpenAI
     const contentLengthMap = {
@@ -226,15 +226,15 @@ async function generateBlogContent(generationId: string, data: any, userId: stri
 Create a blog post that follows UK spelling and educational standards. 
 The content should be evidence-based, engaging, and appropriate for the UK curriculum.`;
 
-    if (data.keyStage: any) {
+    if (data.keyStage) {
       systemPrompt += `\nThe content should be targeted at Key Stage ${data.keyStage} level.`;
     }
 
-    if (data.topicArea: any) {
+    if (data.topicArea) {
       systemPrompt += `\nThe blog post should focus on the subject area: ${data.topicArea}.`;
     }
 
-    if (data.targetAudience: any) {
+    if (data.targetAudience) {
       systemPrompt += `\nThe target audience is: ${data.targetAudience}.`;
     }
 
@@ -255,7 +255,7 @@ The content should be evidence-based, engaging, and appropriate for the UK curri
 
     const generatedContent = completion.choices[0].message.content;
 
-    if (!generatedContent: any) {
+    if (!generatedContent) {
       throw new Error('No content generated');
     }
 
@@ -264,14 +264,14 @@ The content should be evidence-based, engaging, and appropriate for the UK curri
     const title = titleMatch ? titleMatch[1].trim() : 'Generated Blog Post';
 
     // Extract first paragraph for summary
-    const summaryMatch = generatedContent.match(/(?:^|\n\n)([^#\n].{10: any,}?)(?:\n\n|$)/);
+    const summaryMatch = generatedContent.match(/(?:^|\n\n)([^#\n].{10,}?)(?:\n\n|$)/);
     const summary = summaryMatch ? summaryMatch[1].trim() : 'Automatically generated educational content.';
 
     // Generate slug from title
     const slug = title
       .toLowerCase()
-      .replace(/[^\w\s]/gi: any, '')
-      .replace(/\s+/g: any, '-');
+      .replace(/[^\w\s]/gi, '')
+      .replace(/\s+/g, '-');
     
     // Check if slug already exists
     const existingPost = await prisma.blogPost.findUnique({
@@ -280,7 +280,7 @@ The content should be evidence-based, engaging, and appropriate for the UK curri
     
     // If slug exists, append a unique identifier
     const finalSlug = existingPost 
-      ? `${slug}-${Date.now().toString().slice(-6: any)}` 
+      ? `${slug}-${Date.now().toString().slice(-6)}` 
       : slug;
 
     // Create a blog post with the generated content
@@ -297,7 +297,7 @@ The content should be evidence-based, engaging, and appropriate for the UK curri
         aiGenerated: true,
         aiPrompt: data.prompt,
         tags: data.topicArea ? [data.topicArea] : [],
-        readingTime: Math.ceil(wordCount / 200: any), // Estimate reading time based on words
+        readingTime: Math.ceil(wordCount / 200), // Estimate reading time based on words
       },
     });
 
@@ -313,7 +313,7 @@ The content should be evidence-based, engaging, and appropriate for the UK curri
     });
 
     return blogPost;
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error generating blog content:', error);
     
     // Update the generation record with error
