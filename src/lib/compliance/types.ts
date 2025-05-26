@@ -443,7 +443,7 @@ export interface SafeguardingService {
     version: string;
     effectiveDate: Date;
     documentUrl: string;
-  }[]>;
+  }>>;
 }
 
 /**
