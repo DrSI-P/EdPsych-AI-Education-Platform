@@ -55,8 +55,8 @@ export interface BlogPost {
   content: string;
   featuredImage?: string;
   category: string;
-  tags: string[];
-  targetAudience: string[];
+  tags[];
+  targetAudience[];
   status: BlogPostStatus;
   authorId: string;
   reviewerId?: string;
@@ -92,7 +92,7 @@ export interface BlogPostWithRelations extends BlogPost {
 // Blog post generation parameters
 export interface BlogPostGenerationParams {
   topic: string;
-  audience: string[];
+  audience[];
   category: string;
   keyPoints?: string[];
   tone?: 'professional' | 'conversational' | 'academic';
@@ -104,7 +104,7 @@ export interface BlogPostGenerationResult {
   title: string;
   content: string;
   summary: string;
-  tags: string[];
+  tags[];
   seoTitle: string;
   seoDescription: string;
 }
@@ -115,8 +115,8 @@ export interface BlogPostSaveParams {
   content: string;
   summary: string;
   category: string;
-  tags: string[];
-  targetAudience: string[];
+  tags[];
+  targetAudience[];
   status?: BlogPostStatus;
   publishDate?: Date;
   authorId: string;
@@ -138,7 +138,7 @@ export interface BlogPostFilterParams {
 
 // Blog post filter result
 export interface BlogPostFilterResult {
-  posts: BlogPostWithRelations[];
+  posts[];
   total: number;
   pages: number;
 }
@@ -147,8 +147,8 @@ export interface BlogPostFilterResult {
 export interface SeoRecommendationsResult {
   title: string;
   description: string;
-  keywords: string[];
-  suggestions: string[];
+  keywords[];
+  suggestions[];
 }
 
 // Blog analytics result
@@ -166,8 +166,8 @@ export interface BlogPostIdea {
   title: string;
   summary: string;
   category: string;
-  targetAudience: string[];
-  keyPoints: string[];
+  targetAudience[];
+  keyPoints[];
 }
 
 /**
@@ -473,7 +473,7 @@ export async function deleteBlogPost(id: string): Promise<void> {
 /**
  * Generate blog post ideas based on user interests and curriculum topics
  */
-export async function generateBlogPostIdeas(count: number = 5, topics?: string[]): Promise<BlogPostIdea[]> {
+export async function generateBlogPostIdeas(count: number = 5, topics?: string: any[]): Promise<BlogPostIdea[]> {
   const topicsStr = topics ? topics.join(', ') : 'educational psychology, learning strategies, special needs education, curriculum development';
   
   const prompt = `

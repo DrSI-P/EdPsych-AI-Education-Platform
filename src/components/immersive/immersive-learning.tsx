@@ -18,7 +18,7 @@ interface ImmersiveEnvironment {
   subject: string;
   ageRange: string;
   curriculum: string;
-  objectives: string[];
+  objectives[];
   scenarioUrl: string;
   previewImage?: string;
   createdAt: string;
@@ -59,7 +59,7 @@ export function ImmersiveLearning({
         }
         
         // Mock data for demonstration
-        const mockEnvironments: ImmersiveEnvironment[] = [
+        const mockEnvironments[] = [
           {
             id: '1',
             title: 'Solar System Explorer',

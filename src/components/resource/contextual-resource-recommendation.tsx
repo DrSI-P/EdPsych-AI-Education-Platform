@@ -34,7 +34,7 @@ interface Resource {
   type: 'document' | 'video' | 'audio' | 'link' | 'worksheet';
   url?: string;
   file?: string;
-  tags: string[];
+  tags[];
   ageRange: string;
   subject: string;
   curriculum: string;
@@ -99,7 +99,7 @@ export function ContextualResourceRecommendation({
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       // Generate mock recommendations based on context
-      let mockRecommendations: Resource[] = [];
+      let mockRecommendations[] = [];
       
       if (contextSource === 'lesson-plan') {
         mockRecommendations = generateLessonPlanRecommendations();

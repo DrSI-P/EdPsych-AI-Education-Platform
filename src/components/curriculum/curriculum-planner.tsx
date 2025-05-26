@@ -18,9 +18,9 @@ interface CurriculumPlan {
   ageRange: string;
   curriculum: string;
   duration: string;
-  objectives: string[];
-  resources: string[];
-  assessments: string[];
+  objectives[];
+  resources[];
+  assessments[];
   createdAt: string;
   updatedAt: string;
 }
@@ -58,7 +58,7 @@ export function CurriculumPlanner({
         }
         
         // Mock data for demonstration
-        const mockPlans: CurriculumPlan[] = [
+        const mockPlans[] = [
           {
             id: '1',
             title: 'Algebraic Expressions and Equations',

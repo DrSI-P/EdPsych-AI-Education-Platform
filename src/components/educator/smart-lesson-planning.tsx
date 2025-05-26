@@ -24,7 +24,7 @@ interface LessonPlanTemplate {
   content: string;
 }
 
-const lessonPlanTemplates: LessonPlanTemplate[] = [
+const lessonPlanTemplates[] = [
   {
     id: "1",
     name: "Literacy Hour",

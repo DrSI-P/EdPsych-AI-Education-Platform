@@ -146,7 +146,7 @@ export default function MultiModalFeedbackCollection() {
   // Load mock data on component mount
   useEffect(() => {
     // Mock feedback entries
-    const mockFeedbackEntries: FeedbackEntry[] = [
+    const mockFeedbackEntries[] = [
       {
         id: '1',
         studentName: 'Anonymous',
@@ -201,7 +201,7 @@ export default function MultiModalFeedbackCollection() {
     ];
     
     // Mock transcription history
-    const mockTranscriptionHistory: TranscriptionEntry[] = [
+    const mockTranscriptionHistory[] = [
       {
         id: '1',
         originalText: 'Today we will learn about photosynthesis and how plants convert sunlight into energy.',

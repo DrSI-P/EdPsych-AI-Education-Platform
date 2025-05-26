@@ -75,8 +75,8 @@ interface Plugin {
   website?: string;
   icon?: string;
   tags?: string[];
-  supportedFeatures: string[];
-  requiredPermissions: string[];
+  supportedFeatures[];
+  requiredPermissions[];
   status: PluginStatus;
   installedAt: Date;
   updatedAt: Date;
@@ -85,7 +85,7 @@ interface Plugin {
 }
 
 // Mock data for demonstration purposes
-const mockPlugins: Plugin[] = [
+const mockPlugins[] = [
   {
     id: 'google-drive-integration',
     name: 'Google Drive Integration',

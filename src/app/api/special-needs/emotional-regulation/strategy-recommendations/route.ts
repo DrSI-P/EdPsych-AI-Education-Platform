@@ -358,7 +358,7 @@ function generatePersonalizedRecommendations(emotionRecords: any[], strategyHist
     id: string;
     title: string;
     description: string;
-    steps: string[];
+    steps[];
     category: string;
     suitability: number;
     timeRequired: string;

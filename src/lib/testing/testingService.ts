@@ -22,7 +22,7 @@ import {
  */
 export class TestingService {
   private config: TestConfig;
-  private reporters: TestReporter[] = [];
+  private reporters[] = [];
   private currentRun: TestRun | null = null;
   
   constructor(config: TestConfig) {
