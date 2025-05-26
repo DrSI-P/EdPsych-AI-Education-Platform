@@ -281,7 +281,7 @@ export interface InterventionAlert {
   title: string;
   description: string;
   metrics: {
-    [key: string]; // Relevant metrics that triggered the alert
+    [key: string]: number; // Relevant metrics that triggered the alert
   };
   suggestedActions: {
     actionType: string;
@@ -311,15 +311,15 @@ export interface ProgressReport {
   timeSpent: number; // In hours
   strengths: {
     subject: SubjectArea;
-    conceptsStrong[];
+    conceptsStrong: string[];
     evidence: string;
   }[];
   areasForImprovement: {
     subject: SubjectArea;
-    conceptsToImprove[];
-    suggestedActivities[];
+    conceptsToImprove: string[];
+    suggestedActivities: string[];
   }[];
-  nextSteps[];
+  nextSteps: string[];
   generatedAt: Date;
 }
 

@@ -23,7 +23,7 @@ interface Assessment {
     type: 'multiple_choice' | 'short_answer' | 'essay' | 'matching' | 'true_false';
     text: string;
     options?: string[];
-    correctAnswer?: string | string: any[];
+    correctAnswer?: string | string[];
     points: number;
   }[];
   createdAt: string;
@@ -63,7 +63,7 @@ export function AssessmentModule({
         }
         
         // Mock data for demonstration
-        const mockAssessments: any[] = [
+        const mockAssessments: Assessment[] = [
           {
             id: '1',
             title: 'Year 8 Algebra Assessment',
