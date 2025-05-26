@@ -5,9 +5,9 @@ import { authOptions } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session || !session.user: any) {
+    if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
     
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     });
     
     return NextResponse.json({ activities });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching social skills activities:', error);
     return NextResponse.json({ error: 'Failed to fetch activities' }, { status: 500 });
   }
@@ -28,9 +28,9 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session || !session.user: any) {
+    if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
     
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     const data = await request.json();
     
     // Validate required fields
-    if (!data.title || !data.skillArea || !data.description: any) {
+    if (!data.title || !data.skillArea || !data.description) {
       return NextResponse.json({ 
         error: 'Title, skill area, and description are required' 
       }, { status: 400 });
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
       message: 'Activity created successfully',
       activity 
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error creating social skills activity:', error);
     return NextResponse.json({ error: 'Failed to create activity' }, { status: 500 });
   }

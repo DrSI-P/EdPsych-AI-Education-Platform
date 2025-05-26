@@ -60,16 +60,16 @@ interface ActivityHistoryItem {
 // GET handler for retrieving mindfulness activities
 export async function GET(req: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
       );
     }
     
-    const { searchParams } = new URL(req.url: any);
+    const { searchParams } = new URL(req.url);
     const category = searchParams.get('category');
     const ageRange = searchParams.get('ageRange');
     const difficulty = searchParams.get('difficulty');
@@ -128,9 +128,9 @@ export async function GET(req: Request): Promise<NextResponse> {
       favoriteActivities: favoriteActivities?.favoriteActivities || []
     });
     
-  } catch (error: any) {
+  } catch (error) {
     // Using type guard instead of console.error
-    if (error instanceof Error: any) {
+    if (error instanceof Error) {
       // Log error in a production-safe way
       // We could use a proper logging service here
     }
@@ -144,9 +144,9 @@ export async function GET(req: Request): Promise<NextResponse> {
 // POST handler for saving user preferences, activity feedback, and logging completions
 export async function POST(req: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -156,12 +156,12 @@ export async function POST(req: Request): Promise<NextResponse> {
     const body = await req.json();
     const action = body.action;
     
-    switch (action: any) {
+    switch (action) {
       case 'update_preferences': {
         // Validate preferences
-        const validationResult = UserPreferencesSchema.safeParse(body.preferences: any);
+        const validationResult = UserPreferencesSchema.safeParse(body.preferences);
         
-        if (!validationResult.success: any) {
+        if (!validationResult.success) {
           return NextResponse.json(
             { error: 'Invalid preferences', details: validationResult.error.format() },
             { status: 400 }
@@ -194,7 +194,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       case 'toggle_favorite': {
         const activityId = body.activityId;
         
-        if (!activityId: any) {
+        if (!activityId) {
           return NextResponse.json(
             { error: 'Activity ID is required' },
             { status: 400 }
@@ -214,13 +214,13 @@ export async function POST(req: Request): Promise<NextResponse> {
         let favoriteActivities = userSettings?.favoriteActivities || [];
         
         // Toggle favourite status
-        if (Array.isArray(favoriteActivities: any) && favoriteActivities.includes(activityId: any)) {
-          favoriteActivities = favoriteActivities.filter(id => id !== activityId: any);
+        if (Array.isArray(favoriteActivities) && favoriteActivities.includes(activityId)) {
+          favoriteActivities = favoriteActivities.filter(id => id !== activityId);
         } else {
-          if (!Array.isArray(favoriteActivities: any)) {
+          if (!Array.isArray(favoriteActivities)) {
             favoriteActivities = [];
           }
-          favoriteActivities.push(activityId: any);
+          favoriteActivities.push(activityId);
         }
         
         // Update user settings
@@ -247,7 +247,7 @@ export async function POST(req: Request): Promise<NextResponse> {
         return NextResponse.json({
           success: true,
           message: 'Favourite status updated successfully',
-          isFavorite: Array.isArray(userSettings?.favoriteActivities: any) ? !userSettings.favoriteActivities.includes(activityId: any) : false
+          isFavorite: Array.isArray(userSettings?.favoriteActivities) ? !userSettings.favoriteActivities.includes(activityId) : false
         });
       }
       
@@ -255,7 +255,7 @@ export async function POST(req: Request): Promise<NextResponse> {
         const activityId = body.activityId;
         const duration = body.duration;
         
-        if (!activityId || !duration: any) {
+        if (!activityId || !duration) {
           return NextResponse.json(
             { error: 'Activity ID and duration are required' },
             { status: 400 }
@@ -287,7 +287,7 @@ export async function POST(req: Request): Promise<NextResponse> {
         const rating = body.rating;
         const notes = body.notes;
         
-        if (!activityId || !rating || rating < 1 || rating > 5: any) {
+        if (!activityId || !rating || rating < 1 || rating > 5) {
           return NextResponse.json(
             { error: 'Valid activity ID and rating (1-5) are required' },
             { status: 400 }
@@ -323,9 +323,9 @@ export async function POST(req: Request): Promise<NextResponse> {
         );
     }
     
-  } catch (error: any) {
+  } catch (error) {
     // Using type guard instead of console.error
-    if (error instanceof Error: any) {
+    if (error instanceof Error) {
       // Log error in a production-safe way
       // We could use a proper logging service here
     }

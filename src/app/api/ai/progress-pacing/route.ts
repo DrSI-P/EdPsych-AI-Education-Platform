@@ -316,7 +316,7 @@ export async function POST(req: NextRequest) {
       pacingId: savedPacing.id
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in progress-adaptive pacing:', error);
     return NextResponse.json({ error: 'Failed to adjust learning pace' }, { status: 500 });
   }
@@ -352,7 +352,7 @@ export async function GET(req: NextRequest) {
       progressPacings
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching progress pacing data:', error);
     return NextResponse.json({ error: 'Failed to fetch progress pacing data' }, { status: 500 });
   }

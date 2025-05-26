@@ -6,13 +6,13 @@ import { getAIService } from '@/lib/ai/ai-service';
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const { searchParams } = new URL(req.url: any);
+    const { searchParams } = new URL(req.url);
     const userId = searchParams.get('userId') || session.user.id;
     
     // Check if the user has permission to access this data
@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
     }
     
     // Get user's tasks
-    const tasks = await (prisma as any: any).executiveFunctionTask.findMany({
+    const tasks = await (prisma as any).executiveFunctionTask.findMany({
       where: {
         userId: userId
       },
@@ -32,22 +32,22 @@ export async function GET(req: NextRequest) {
     
     return NextResponse.json({
       success: true,
-      tasks: tasks.map((task: any) => ({
+      tasks: tasks.map((task) => ({
         id: task.id,
         title: task.title,
         description: task.description || '',
         dueDate: task.dueDate || '',
         priority: task.priority,
         status: task.status,
-        steps: (task as any: any).steps || [],
-        timeEstimate: (task as any: any).timeEstimate || 0,
-        visualReminder: (task as any: any).visualReminder || '',
-        tags: (task as any: any).tags || [],
+        steps: (task as any).steps || [],
+        timeEstimate: (task as any).timeEstimate || 0,
+        visualReminder: (task as any).visualReminder || '',
+        tags: (task as any).tags || [],
         isExpanded: false
       }))
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching tasks:', error);
     return NextResponse.json({ error: 'Failed to fetch tasks' }, { status: 500 });
   }
@@ -55,9 +55,9 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Delete existing tasks for this user
-    await (prisma as any: any).executiveFunctionTask.deleteMany({
+    await (prisma as any).executiveFunctionTask.deleteMany({
       where: {
         userId: userId
       }
@@ -78,8 +78,8 @@ export async function POST(req: NextRequest) {
     
     // Create new tasks
     const createdTasks = await Promise.all(
-      tasks.map(async (task: any) => {
-        return (prisma as any: any).executiveFunctionTask.create({
+      tasks.map(async (task) => {
+        return (prisma as any).executiveFunctionTask.create({
           data: {
             id: task.id,
             userId: userId,
@@ -102,7 +102,7 @@ export async function POST(req: NextRequest) {
       tasks: createdTasks
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error saving tasks:', error);
     return NextResponse.json({ error: 'Failed to save tasks' }, { status: 500 });
   }
@@ -110,9 +110,9 @@ export async function POST(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -120,13 +120,13 @@ export async function PUT(req: NextRequest) {
     const { taskId, updates } = data;
     
     // Get the task to check ownership
-    const task = await (prisma as any: any).executiveFunctionTask.findUnique({
+    const task = await (prisma as any).executiveFunctionTask.findUnique({
       where: {
         id: taskId
       }
     });
     
-    if (!task: any) {
+    if (!task) {
       return NextResponse.json({ error: 'Task not found' }, { status: 404 });
     }
     
@@ -136,7 +136,7 @@ export async function PUT(req: NextRequest) {
     }
     
     // Update the task
-    const updatedTask = await (prisma as any: any).executiveFunctionTask.update({
+    const updatedTask = await (prisma as any).executiveFunctionTask.update({
       where: {
         id: taskId
       },
@@ -148,7 +148,7 @@ export async function PUT(req: NextRequest) {
       task: updatedTask
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error updating task:', error);
     return NextResponse.json({ error: 'Failed to update task' }, { status: 500 });
   }
@@ -156,27 +156,27 @@ export async function PUT(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const { searchParams } = new URL(req.url: any);
+    const { searchParams } = new URL(req.url);
     const taskId = searchParams.get('taskId');
     
-    if (!taskId: any) {
+    if (!taskId) {
       return NextResponse.json({ error: 'Task ID is required' }, { status: 400 });
     }
     
     // Get the task to check ownership
-    const task = await (prisma as any: any).executiveFunctionTask.findUnique({
+    const task = await (prisma as any).executiveFunctionTask.findUnique({
       where: {
         id: taskId
       }
     });
     
-    if (!task: any) {
+    if (!task) {
       return NextResponse.json({ error: 'Task not found' }, { status: 404 });
     }
     
@@ -186,7 +186,7 @@ export async function DELETE(req: NextRequest) {
     }
     
     // Delete the task
-    await (prisma as any: any).executiveFunctionTask.delete({
+    await (prisma as any).executiveFunctionTask.delete({
       where: {
         id: taskId
       }
@@ -196,7 +196,7 @@ export async function DELETE(req: NextRequest) {
       success: true
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error deleting task:', error);
     return NextResponse.json({ error: 'Failed to delete task' }, { status: 500 });
   }

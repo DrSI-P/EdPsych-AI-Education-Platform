@@ -6,11 +6,11 @@ import { db } from '@/lib/db';
 
 // Schema for reflection prompt validation
 const reflectionPromptSchema = z.object({
-  title: z.string().min(3: any, "Title must be at least 3 characters"),
-  description: z.string().min(10: any, "Description must be at least 10 characters"),
+  title: z.string().min(3, "Title must be at least 3 characters"),
+  description: z.string().min(10, "Description must be at least 10 characters"),
   ageGroup: z.enum(["early-years", "primary", "secondary", "staff"]),
-  category: z.string().min(3: any, "Category must be at least 3 characters"),
-  promptText: z.string().min(10: any, "Prompt text must be at least 10 characters"),
+  category: z.string().min(3, "Category must be at least 3 characters"),
+  promptText: z.string().min(10, "Prompt text must be at least 10 characters"),
   supportingQuestions: z.array(z.string()),
   visualSupports: z.boolean(),
   simplifiedLanguage: z.boolean()
@@ -26,9 +26,9 @@ interface PromptFilters {
 // GET handler for retrieving reflection prompts
 export async function GET(req: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 401 }
@@ -36,7 +36,7 @@ export async function GET(req: Request): Promise<NextResponse> {
     }
     
     // Get query parameters
-    const url = new URL(req.url: any);
+    const url = new URL(req.url);
     const ageGroup = url.searchParams.get('ageGroup');
     const category = url.searchParams.get('category');
     
@@ -61,10 +61,10 @@ export async function GET(req: Request): Promise<NextResponse> {
       }
     });
     
-    return NextResponse.json(prompts: any);
-  } catch (error: any) {
+    return NextResponse.json(prompts);
+  } catch (error) {
     // Using a type guard instead of console.error
-    if (error instanceof Error: any) {
+    if (error instanceof Error) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }
@@ -78,9 +78,9 @@ export async function GET(req: Request): Promise<NextResponse> {
 // POST handler for creating a new reflection prompt
 export async function POST(req: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 401 }
@@ -90,7 +90,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     const body = await req.json();
     
     // Validate request body
-    const validatedData = reflectionPromptSchema.parse(body: any);
+    const validatedData = reflectionPromptSchema.parse(body);
     
     // Create prompt in database
     const prompt = await db.reflectionPrompt.create({
@@ -100,9 +100,9 @@ export async function POST(req: Request): Promise<NextResponse> {
       }
     });
     
-    return NextResponse.json(prompt: any, { status: 201 });
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+    return NextResponse.json(prompt, { status: 201 });
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "Validation error", details: error.errors },
         { status: 400 }
@@ -110,7 +110,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     }
     
     // Using a type guard instead of console.error
-    if (error instanceof Error: any) {
+    if (error instanceof Error) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }
@@ -124,9 +124,9 @@ export async function POST(req: Request): Promise<NextResponse> {
 // PUT handler for updating an existing reflection prompt
 export async function PUT(req: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 401 }
@@ -135,7 +135,7 @@ export async function PUT(req: Request): Promise<NextResponse> {
     
     const body = await req.json();
     
-    if (!body.id: any) {
+    if (!body.id) {
       return NextResponse.json(
         { error: "Prompt ID is required" },
         { status: 400 }
@@ -143,7 +143,7 @@ export async function PUT(req: Request): Promise<NextResponse> {
     }
     
     // Validate request body
-    const validatedData = reflectionPromptSchema.parse(body: any);
+    const validatedData = reflectionPromptSchema.parse(body);
     
     // Check if prompt exists and belongs to user
     const existingPrompt = await db.reflectionPrompt.findUnique({
@@ -152,14 +152,14 @@ export async function PUT(req: Request): Promise<NextResponse> {
       }
     });
     
-    if (!existingPrompt: any) {
+    if (!existingPrompt) {
       return NextResponse.json(
         { error: "Prompt not found" },
         { status: 404 }
       );
     }
     
-    if (existingPrompt.userId !== session.user.id: any) {
+    if (existingPrompt.userId !== session.user.id) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 403 }
@@ -174,9 +174,9 @@ export async function PUT(req: Request): Promise<NextResponse> {
       data: validatedData
     });
     
-    return NextResponse.json(updatedPrompt: any);
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+    return NextResponse.json(updatedPrompt);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "Validation error", details: error.errors },
         { status: 400 }
@@ -184,7 +184,7 @@ export async function PUT(req: Request): Promise<NextResponse> {
     }
     
     // Using a type guard instead of console.error
-    if (error instanceof Error: any) {
+    if (error instanceof Error) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }
@@ -198,19 +198,19 @@ export async function PUT(req: Request): Promise<NextResponse> {
 // DELETE handler for removing a reflection prompt
 export async function DELETE(req: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 401 }
       );
     }
     
-    const url = new URL(req.url: any);
+    const url = new URL(req.url);
     const id = url.searchParams.get('id');
     
-    if (!id: any) {
+    if (!id) {
       return NextResponse.json(
         { error: "Prompt ID is required" },
         { status: 400 }
@@ -224,14 +224,14 @@ export async function DELETE(req: Request): Promise<NextResponse> {
       }
     });
     
-    if (!existingPrompt: any) {
+    if (!existingPrompt) {
       return NextResponse.json(
         { error: "Prompt not found" },
         { status: 404 }
       );
     }
     
-    if (existingPrompt.userId !== session.user.id: any) {
+    if (existingPrompt.userId !== session.user.id) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 403 }
@@ -246,9 +246,9 @@ export async function DELETE(req: Request): Promise<NextResponse> {
     });
     
     return NextResponse.json({ success: true });
-  } catch (error: any) {
+  } catch (error) {
     // Using a type guard instead of console.error
-    if (error instanceof Error: any) {
+    if (error instanceof Error) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }

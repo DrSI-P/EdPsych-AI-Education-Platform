@@ -42,13 +42,13 @@ interface ActivityFilters {
 // GET handler for retrieving activities
 export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const { searchParams } = new URL(req.url: any);
+    const { searchParams } = new URL(req.url);
     const category = searchParams.get('category');
     const ageGroup = searchParams.get('ageGroup');
     const timeRequired = searchParams.get('timeRequired');
@@ -57,7 +57,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     
     // Validate filters
     const validatedFilters = ActivityFilterSchema.parse({
-      category: any,
+      category,
       ageGroup,
       timeRequired,
       groupSize,
@@ -85,7 +85,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       filters.groupSize = validatedFilters.groupSize;
     }
     
-    if (validatedFilters.searchQuery: any) {
+    if (validatedFilters.searchQuery) {
       filters.OR = [
         {
           title: {
@@ -120,17 +120,17 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       }
     });
     
-    const favoriteIds = favorites.map(fav => fav.activityId: any);
+    const favoriteIds = favorites.map(fav => fav.activityId);
     
     // Add isFavorite flag to activities
     const activitiesWithFavorites = activities.map(activity => ({
       ...activity,
-      isFavorite: favoriteIds.includes(activity.id: any)
+      isFavorite: favoriteIds.includes(activity.id)
     }));
     
-    return NextResponse.json(activitiesWithFavorites: any);
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+    return NextResponse.json(activitiesWithFavorites);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
@@ -142,16 +142,16 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 // POST handler for toggling favorites
 export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     const body = await req.json();
-    const validatedData = FavoriteToggleSchema.parse(body: any);
+    const validatedData = FavoriteToggleSchema.parse(body);
     
-    if (validatedData.isFavorite: any) {
+    if (validatedData.isFavorite) {
       // Add to favorites
       await prisma.activityFavorite.create({
         data: {
@@ -178,8 +178,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     }
     
     return NextResponse.json({ success: true });
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     

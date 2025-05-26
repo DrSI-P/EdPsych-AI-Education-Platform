@@ -73,7 +73,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     });
     
     return NextResponse.json(trackingData);
-  } catch (error: any) {
+  } catch (error) {
     // Using type guard instead of console.error
     if (error instanceof Error) {
       // Log error in a production-safe way
@@ -246,7 +246,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     });
     
     return NextResponse.json(tracking);
-  } catch (error: any) {
+  } catch (error) {
     // Using type guard instead of console.error
     if (error instanceof Error) {
       // Log error in a production-safe way

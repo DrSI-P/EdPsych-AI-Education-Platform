@@ -20,14 +20,14 @@ export async function GET(
     }
     
     const { role } = params;
-    const users = await getUsersByRole(role: any);
+    const users = await getUsersByRole(role);
     
     return NextResponse.json({ 
       success: true, 
       users 
     });
     
-  } catch (error: any) {
+  } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
     return NextResponse.json({ 
       success: false, 
@@ -60,11 +60,11 @@ export async function PUT(
       userId: z.string(),
     });
     
-    const { userId } = schema.parse(body: any);
+    const { userId } = schema.parse(body);
     const { role } = params;
     
     // Change user role
-    const updatedUser = await changeUserRole(userId: any, role);
+    const updatedUser = await changeUserRole(userId, role);
     
     return NextResponse.json({ 
       success: true, 
@@ -72,9 +72,9 @@ export async function PUT(
       user: updatedUser 
     });
     
-  } catch (error: any) {
+  } catch (error) {
     // Handle validation errors
-    if (error instanceof z.ZodError: any) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json({ 
         success: false, 
         message: 'Validation error', 

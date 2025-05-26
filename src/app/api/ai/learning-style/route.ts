@@ -169,7 +169,7 @@ export async function GET(_req: NextRequest): Promise<NextResponse> {
     }
     
     // Parse assessment results with proper error handling
-    let results: any = {};
+    let results = {};
     if (learningStyle.assessmentResults) {
       try {
         const parsedResults = JSON.parse(learningStyle.assessmentResults.toString());

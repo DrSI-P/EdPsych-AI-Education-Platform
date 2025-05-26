@@ -14,8 +14,8 @@ export async function GET(
 ) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session: any) {
+    const session = await getServerSession(authOptions);
+    if (!session) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -32,7 +32,7 @@ export async function GET(
       }
     });
 
-    if (!goal: any) {
+    if (!goal) {
       return NextResponse.json(
         { error: 'Goal not found' },
         { status: 404 }
@@ -53,7 +53,7 @@ export async function GET(
         notes: goal.notes
       }
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Progress monitoring goal API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve goal' },
@@ -68,8 +68,8 @@ export async function PUT(
 ) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session: any) {
+    const session = await getServerSession(authOptions);
+    if (!session) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -82,7 +82,7 @@ export async function PUT(
     const body = await req.json();
     const { goal } = body;
 
-    if (!goal: any) {
+    if (!goal) {
       return NextResponse.json(
         { error: 'Goal object is required' },
         { status: 400 }
@@ -97,7 +97,7 @@ export async function PUT(
       }
     });
 
-    if (!existingGoal: any) {
+    if (!existingGoal) {
       return NextResponse.json(
         { error: 'Goal not found' },
         { status: 404 }
@@ -112,7 +112,7 @@ export async function PUT(
       data: {
         title: goal.title || existingGoal.title,
         description: goal.description !== undefined ? goal.description : existingGoal.description,
-        targetDate: goal.targetDate ? new Date(goal.targetDate: any) : existingGoal.targetDate,
+        targetDate: goal.targetDate ? new Date(goal.targetDate) : existingGoal.targetDate,
         baseline: goal.baseline !== undefined ? goal.baseline : existingGoal.baseline,
         target: goal.target !== undefined ? goal.target : existingGoal.target,
         currentValue: goal.currentValue !== undefined ? goal.currentValue : existingGoal.currentValue,
@@ -137,7 +137,7 @@ export async function PUT(
       success: true,
       goal: updatedGoal
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Progress monitoring goal API error:', error);
     return NextResponse.json(
       { error: 'Failed to update goal' },
@@ -152,8 +152,8 @@ export async function DELETE(
 ) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session: any) {
+    const session = await getServerSession(authOptions);
+    if (!session) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -170,7 +170,7 @@ export async function DELETE(
       }
     });
 
-    if (!existingGoal: any) {
+    if (!existingGoal) {
       return NextResponse.json(
         { error: 'Goal not found' },
         { status: 404 }
@@ -207,7 +207,7 @@ export async function DELETE(
       success: true,
       message: 'Goal deleted successfully'
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Progress monitoring goal API error:', error);
     return NextResponse.json(
       { error: 'Failed to delete goal' },

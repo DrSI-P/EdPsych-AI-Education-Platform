@@ -6,8 +6,8 @@ import { db } from '@/lib/db';
 
 // Schema for circle template validation
 const circleTemplateSchema = z.object({
-  title: z.string().min(3: any, "Title must be at least 3 characters"),
-  description: z.string().min(10: any, "Description must be at least 10 characters"),
+  title: z.string().min(3, "Title must be at least 3 characters"),
+  description: z.string().min(10, "Description must be at least 10 characters"),
   ageGroup: z.enum(["all", "primary", "secondary"]),
   purpose: z.enum(["community-building", "problem-solving", "celebration", "conflict-resolution", "academic", "other"]),
   structure: z.object({
@@ -31,9 +31,9 @@ const circleTemplateSchema = z.object({
 // GET handler for retrieving circle templates
 export async function GET(req: Request) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 401 }
@@ -41,12 +41,12 @@ export async function GET(req: Request) {
     }
     
     // Get query parameters
-    const url = new URL(req.url: any);
+    const url = new URL(req.url);
     const ageGroup = url.searchParams.get('ageGroup');
     const purpose = url.searchParams.get('purpose');
     
     // Build query filters
-    const filters: any = {
+    const filters = {
       userId: session.user.id
     };
     
@@ -66,8 +66,8 @@ export async function GET(req: Request) {
       }
     });
     
-    return NextResponse.json(templates: any);
-  } catch (error: any) {
+    return NextResponse.json(templates);
+  } catch (error) {
     console.error('Error fetching circle templates:', error);
     return NextResponse.json(
       { error: "Failed to fetch circle templates" },
@@ -79,9 +79,9 @@ export async function GET(req: Request) {
 // POST handler for creating a new circle template
 export async function POST(req: Request) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 401 }
@@ -91,7 +91,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     
     // Validate request body
-    const validatedData = circleTemplateSchema.parse(body: any);
+    const validatedData = circleTemplateSchema.parse(body);
     
     // Create template in database
     const template = await db.circleTemplate.create({
@@ -101,9 +101,9 @@ export async function POST(req: Request) {
       }
     });
     
-    return NextResponse.json(template: any, { status: 201 });
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+    return NextResponse.json(template, { status: 201 });
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "Validation error", details: error.errors },
         { status: 400 }
@@ -121,9 +121,9 @@ export async function POST(req: Request) {
 // PUT handler for updating an existing circle template
 export async function PUT(req: Request) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 401 }
@@ -132,7 +132,7 @@ export async function PUT(req: Request) {
     
     const body = await req.json();
     
-    if (!body.id: any) {
+    if (!body.id) {
       return NextResponse.json(
         { error: "Template ID is required" },
         { status: 400 }
@@ -140,7 +140,7 @@ export async function PUT(req: Request) {
     }
     
     // Validate request body
-    const validatedData = circleTemplateSchema.parse(body: any);
+    const validatedData = circleTemplateSchema.parse(body);
     
     // Check if template exists and belongs to user
     const existingTemplate = await db.circleTemplate.findUnique({
@@ -149,14 +149,14 @@ export async function PUT(req: Request) {
       }
     });
     
-    if (!existingTemplate: any) {
+    if (!existingTemplate) {
       return NextResponse.json(
         { error: "Template not found" },
         { status: 404 }
       );
     }
     
-    if (existingTemplate.userId !== session.user.id: any) {
+    if (existingTemplate.userId !== session.user.id) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 403 }
@@ -171,9 +171,9 @@ export async function PUT(req: Request) {
       data: validatedData
     });
     
-    return NextResponse.json(updatedTemplate: any);
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+    return NextResponse.json(updatedTemplate);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "Validation error", details: error.errors },
         { status: 400 }
@@ -191,19 +191,19 @@ export async function PUT(req: Request) {
 // DELETE handler for removing a circle template
 export async function DELETE(req: Request) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 401 }
       );
     }
     
-    const url = new URL(req.url: any);
+    const url = new URL(req.url);
     const id = url.searchParams.get('id');
     
-    if (!id: any) {
+    if (!id) {
       return NextResponse.json(
         { error: "Template ID is required" },
         { status: 400 }
@@ -217,14 +217,14 @@ export async function DELETE(req: Request) {
       }
     });
     
-    if (!existingTemplate: any) {
+    if (!existingTemplate) {
       return NextResponse.json(
         { error: "Template not found" },
         { status: 404 }
       );
     }
     
-    if (existingTemplate.userId !== session.user.id: any) {
+    if (existingTemplate.userId !== session.user.id) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 403 }
@@ -239,7 +239,7 @@ export async function DELETE(req: Request) {
     });
     
     return NextResponse.json({ success: true });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error deleting circle template:', error);
     return NextResponse.json(
       { error: "Failed to delete circle template" },

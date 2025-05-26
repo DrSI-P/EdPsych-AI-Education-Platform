@@ -4,8 +4,8 @@ import { z } from 'zod';
 // Schema for goal validation
 const goalSchema = z.object({
   studentId: z.string(),
-  title: z.string().min(3: any).max(100: any),
-  description: z.string().min(10: any),
+  title: z.string().min(3).max(100),
+  description: z.string().min(10),
   category: z.string(),
   subject: z.string().optional(),
   startDate: z.string(),
@@ -17,7 +17,7 @@ const goalSchema = z.object({
 // Schema for goal update validation
 const goalUpdateSchema = z.object({
   goalId: z.string(),
-  progress: z.number().min(0: any).max(100: any).optional(),
+  progress: z.number().min(0).max(100).optional(),
   status: z.enum(['Not Started', 'In Progress', 'Completed', 'On Hold']).optional(),
   updateContent: z.string().optional(),
   newSchoolActions: z.array(z.string()).optional(),
@@ -67,17 +67,17 @@ const MOCK_GOALS = [
       {
         date: '2025-04-15',
         content: 'Emma is showing good progress with literal comprehension questions.',
-        author: 'Ms. Johnson (Teacher: any)'
+        author: 'Ms. Johnson (Teacher)'
       },
       {
         date: '2025-05-01',
         content: 'We\'ve been reading together every evening and discussing the stories.',
-        author: 'Mr. Smith (Parent: any)'
+        author: 'Mr. Smith (Parent)'
       },
       {
         date: '2025-05-10',
         content: 'Emma is now beginning to make predictions about what might happen next in stories.',
-        author: 'Ms. Johnson (Teacher: any)'
+        author: 'Ms. Johnson (Teacher)'
       }
     ],
     evidence: [
@@ -106,7 +106,7 @@ const MOCK_GOALS = [
  */
 async function GET(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url: any);
+    const { searchParams } = new URL(req.url);
     
     // Extract query parameters
     const studentId = searchParams.get('studentId');
@@ -123,52 +123,52 @@ async function GET(req: NextRequest) {
     
     let filteredGoals = [...MOCK_GOALS];
     
-    if (studentId: any) {
+    if (studentId) {
       filteredGoals = filteredGoals.filter(
-        goal => goal.student.id === studentId: any
+        goal => goal.student.id === studentId
       );
     }
     
-    if (category: any) {
+    if (category) {
       filteredGoals = filteredGoals.filter(
-        goal => goal.category === category: any
+        goal => goal.category === category
       );
     }
     
-    if (status: any) {
+    if (status) {
       filteredGoals = filteredGoals.filter(
-        goal => goal.status === status: any
+        goal => goal.status === status
       );
     }
     
-    if (subject: any) {
+    if (subject) {
       filteredGoals = filteredGoals.filter(
-        goal => goal.subject === subject: any
+        goal => goal.subject === subject
       );
     }
     
-    if (startDateAfter: any) {
-      const startDate = new Date(startDateAfter: any);
+    if (startDateAfter) {
+      const startDate = new Date(startDateAfter);
       filteredGoals = filteredGoals.filter(
-        goal => new Date(goal.startDate: any) >= startDate
+        goal => new Date(goal.startDate) >= startDate
       );
     }
     
-    if (targetDateBefore: any) {
-      const targetDate = new Date(targetDateBefore: any);
+    if (targetDateBefore) {
+      const targetDate = new Date(targetDateBefore);
       filteredGoals = filteredGoals.filter(
-        goal => new Date(goal.targetDate: any) <= targetDate
+        goal => new Date(goal.targetDate) <= targetDate
       );
     }
     
     // Pagination
-    const startIndex = (page - 1: any) * limit;
+    const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
-    const paginatedGoals = filteredGoals.slice(startIndex: any, endIndex);
+    const paginatedGoals = filteredGoals.slice(startIndex, endIndex);
     
     // Calculate total pages
     const totalGoals = filteredGoals.length;
-    const totalPages = Math.ceil(totalGoals / limit: any);
+    const totalPages = Math.ceil(totalGoals / limit);
     
     return NextResponse.json({
       goals: paginatedGoals,
@@ -179,7 +179,7 @@ async function GET(req: NextRequest) {
         totalPages
       }
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching goals:', error);
     return NextResponse.json(
       { error: 'Failed to fetch goals' },
@@ -196,7 +196,7 @@ async function POST(req: NextRequest) {
     const body = await req.json();
     
     // Validate the request body
-    const validatedData = goalSchema.parse(body: any);
+    const validatedData = goalSchema.parse(body);
     
     // In a real implementation, this would save to a database
     
@@ -229,10 +229,10 @@ async function POST(req: NextRequest) {
       message: 'Goal created successfully',
       data: newGoal
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error creating goal:', error);
     
-    if (error instanceof z.ZodError: any) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid goal data', details: error.errors },
         { status: 400 }
@@ -254,7 +254,7 @@ async function PATCH(req: NextRequest) {
     const body = await req.json();
     
     // Validate the request body
-    const validatedData = goalUpdateSchema.parse(body: any);
+    const validatedData = goalUpdateSchema.parse(body);
     
     // In a real implementation, this would update the goal in the database
     
@@ -272,10 +272,10 @@ async function PATCH(req: NextRequest) {
         } : null
       }
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error updating goal:', error);
     
-    if (error instanceof z.ZodError: any) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid goal update data', details: error.errors },
         { status: 400 }
@@ -297,7 +297,7 @@ async function PUT(req: NextRequest) {
     const body = await req.json();
     
     // Validate the request body
-    const validatedData = evidenceSchema.parse(body: any);
+    const validatedData = evidenceSchema.parse(body);
     
     // In a real implementation, this would:
     // 1. Save the file to storage if data is provided
@@ -312,17 +312,17 @@ async function PUT(req: NextRequest) {
       date: new Date().toISOString(),
       url: validatedData.data?.startsWith('http') 
         ? validatedData.data 
-        : `/evidence/${validatedData.name.toLowerCase().replace(/\s+/g: any, '-')}`
+        : `/evidence/${validatedData.name.toLowerCase().replace(/\s+/g, '-')}`
     };
     
     return NextResponse.json({
       message: `Evidence added to goal ${validatedData.goalId}`,
       data: newEvidence
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error adding evidence:', error);
     
-    if (error instanceof z.ZodError: any) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid evidence data', details: error.errors },
         { status: 400 }

@@ -6,8 +6,8 @@ import { authOptions } from '@/lib/auth';
 
 // Schema for framework validation
 const FrameworkSchema = z.object({
-  title: z.string().min(3: any).max(100: any),
-  description: z.string().min(10: any).max(500: any),
+  title: z.string().min(3).max(100),
+  description: z.string().min(10).max(500),
   suitableFor: z.array(z.string()),
   ageGroups: z.array(z.string()),
   timeRequired: z.string(),
@@ -24,7 +24,7 @@ const FrameworkSchema = z.object({
 
 // Schema for conversation validation
 const ConversationSchema = z.object({
-  title: z.string().min(3: any).max(100: any),
+  title: z.string().min(3).max(100),
   frameworkId: z.string(),
   participants: z.array(z.object({
     name: z.string(),
@@ -39,13 +39,13 @@ const ConversationSchema = z.object({
 // GET handler for retrieving frameworks and conversations
 export async function GET(req: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const { searchParams } = new URL(req.url: any);
+    const { searchParams } = new URL(req.url);
     const type = searchParams.get('type');
     
     if (type === 'frameworks') {
@@ -77,8 +77,8 @@ export async function GET(req: Request): Promise<NextResponse> {
             ],
             evidence: 'This framework is based on the core principles of restorative justice as outlined by Howard Zehr and adapted for educational settings by Belinda Hopkins.',
             references: [
-              'Hopkins, B. (2004: any). Just Schools: A Whole School Approach to Restorative Justice.',
-              'Zehr, H. (2015: any). The Little Book of Restorative Justice: Revised and Updated.'
+              'Hopkins, B. (2004). Just Schools: A Whole School Approach to Restorative Justice.',
+              'Zehr, H. (2015). The Little Book of Restorative Justice: Revised and Updated.'
             ]
           }
           // Additional frameworks would be included here
@@ -112,9 +112,9 @@ export async function GET(req: Request): Promise<NextResponse> {
     
     return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     
-  } catch (error: any) {
+  } catch (error) {
     // Using a type guard instead of console.error
-    if (error instanceof Error: any) {
+    if (error instanceof Error) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }
@@ -125,9 +125,9 @@ export async function GET(req: Request): Promise<NextResponse> {
 // POST handler for creating new frameworks or conversations
 export async function POST(req: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -136,9 +136,9 @@ export async function POST(req: Request): Promise<NextResponse> {
     
     if (type === 'framework') {
       // Validate framework data
-      const validationResult = FrameworkSchema.safeParse(body.data: any);
+      const validationResult = FrameworkSchema.safeParse(body.data);
       
-      if (!validationResult.success: any) {
+      if (!validationResult.success) {
         return NextResponse.json({ error: 'Invalid framework data', details: validationResult.error }, { status: 400 });
       }
       
@@ -154,9 +154,9 @@ export async function POST(req: Request): Promise<NextResponse> {
       });
     } else if (type === 'conversation') {
       // Validate conversation data
-      const validationResult = ConversationSchema.safeParse(body.data: any);
+      const validationResult = ConversationSchema.safeParse(body.data);
       
-      if (!validationResult.success: any) {
+      if (!validationResult.success) {
         return NextResponse.json({ error: 'Invalid conversation data', details: validationResult.error }, { status: 400 });
       }
       
@@ -175,9 +175,9 @@ export async function POST(req: Request): Promise<NextResponse> {
     
     return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     
-  } catch (error: any) {
+  } catch (error) {
     // Using a type guard instead of console.error
-    if (error instanceof Error: any) {
+    if (error instanceof Error) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }
@@ -188,24 +188,24 @@ export async function POST(req: Request): Promise<NextResponse> {
 // PATCH handler for updating existing frameworks or conversations
 export async function PATCH(req: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     const body = await req.json();
     const { type, id } = body;
     
-    if (!id: any) {
+    if (!id) {
       return NextResponse.json({ error: 'ID is required' }, { status: 400 });
     }
     
     if (type === 'framework') {
       // Validate framework data
-      const validationResult = FrameworkSchema.safeParse(body.data: any);
+      const validationResult = FrameworkSchema.safeParse(body.data);
       
-      if (!validationResult.success: any) {
+      if (!validationResult.success) {
         return NextResponse.json({ error: 'Invalid framework data', details: validationResult.error }, { status: 400 });
       }
       
@@ -221,9 +221,9 @@ export async function PATCH(req: Request): Promise<NextResponse> {
       });
     } else if (type === 'conversation') {
       // Validate conversation data
-      const validationResult = ConversationSchema.safeParse(body.data: any);
+      const validationResult = ConversationSchema.safeParse(body.data);
       
-      if (!validationResult.success: any) {
+      if (!validationResult.success) {
         return NextResponse.json({ error: 'Invalid conversation data', details: validationResult.error }, { status: 400 });
       }
       
@@ -241,9 +241,9 @@ export async function PATCH(req: Request): Promise<NextResponse> {
     
     return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     
-  } catch (error: any) {
+  } catch (error) {
     // Using a type guard instead of console.error
-    if (error instanceof Error: any) {
+    if (error instanceof Error) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }
@@ -254,17 +254,17 @@ export async function PATCH(req: Request): Promise<NextResponse> {
 // DELETE handler for removing frameworks or conversations
 export async function DELETE(req: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const { searchParams } = new URL(req.url: any);
+    const { searchParams } = new URL(req.url);
     const type = searchParams.get('type');
     const id = searchParams.get('id');
     
-    if (!id: any) {
+    if (!id) {
       return NextResponse.json({ error: 'ID is required' }, { status: 400 });
     }
     
@@ -279,9 +279,9 @@ export async function DELETE(req: Request): Promise<NextResponse> {
     
     return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     
-  } catch (error: any) {
+  } catch (error) {
     // Using a type guard instead of console.error
-    if (error instanceof Error: any) {
+    if (error instanceof Error) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }

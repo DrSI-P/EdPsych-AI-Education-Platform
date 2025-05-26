@@ -66,7 +66,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Build query filters
-    const where: any = {
+    const where = {
       postId,
       parentId: null, // Only get top-level comments
     };
@@ -298,7 +298,7 @@ export async function PUT(req: NextRequest) {
     }
 
     // Prepare update data
-    const updateData: any = {};
+    const updateData = {};
 
     // Only allow status update if user has permission
     if (status && canUpdateStatus) {

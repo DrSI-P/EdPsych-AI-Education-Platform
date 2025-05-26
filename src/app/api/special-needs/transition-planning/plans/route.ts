@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
     const studentId = url.searchParams.get('studentId');
     
     // Build query based on parameters
-    const query: any = {};
+    const query = {};
     
     if (userId) {
       query.userId = userId;
@@ -59,7 +59,7 @@ export async function GET(req: NextRequest) {
     });
     
     return NextResponse.json({ plans: transitionPlans }, { status: 200 });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching transition plans:', error);
     return NextResponse.json({ error: 'Failed to fetch transition plans' }, { status: 500 });
   }
@@ -97,7 +97,7 @@ export async function POST(req: NextRequest) {
         
         // Create related records if provided
         goals: data.goals?.length ? {
-          create: data.goals.map((goal: any) => ({
+          create: data.goals.map((goal) => ({
             title: goal.title,
             description: goal.description,
             category: goal.category,
@@ -107,7 +107,7 @@ export async function POST(req: NextRequest) {
         } : undefined,
         
         supportTeam: data.supportTeam?.length ? {
-          create: data.supportTeam.map((member: any) => ({
+          create: data.supportTeam.map((member) => ({
             name: member.name,
             role: member.role,
             contactInfo: member.contactInfo || '',
@@ -116,7 +116,7 @@ export async function POST(req: NextRequest) {
         } : undefined,
         
         resources: data.resources?.length ? {
-          create: data.resources.map((resource: any) => ({
+          create: data.resources.map((resource) => ({
             title: resource.title,
             type: resource.type,
             link: resource.link || '',
@@ -125,7 +125,7 @@ export async function POST(req: NextRequest) {
         } : undefined,
         
         accommodations: data.accommodations?.length ? {
-          create: data.accommodations.map((accommodation: any) => ({
+          create: data.accommodations.map((accommodation) => ({
             title: accommodation.title,
             category: accommodation.category,
             description: accommodation.description,
@@ -142,7 +142,7 @@ export async function POST(req: NextRequest) {
     });
     
     return NextResponse.json({ plan: transitionPlan }, { status: 201 });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error creating transition plan:', error);
     
     if (error instanceof z.ZodError) {

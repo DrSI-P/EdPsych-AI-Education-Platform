@@ -5,9 +5,9 @@ import prisma from '@/lib/prisma';
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json(
         { success: false, error: 'Authentication required' },
         { status: 401 }
@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
     const now = new Date();
     const startDate = new Date();
     
-    switch (timeRange: any) {
+    switch (timeRange) {
       case 'week':
         startDate.setDate(now.getDate() - 7);
         break;
@@ -45,7 +45,7 @@ export async function GET(req: NextRequest) {
     }
     
     // Build report data based on type
-    let reportData: any = {};
+    let reportData = {};
     
     if (reportType === 'communication') {
       // Get message statistics
@@ -113,7 +113,7 @@ export async function GET(req: NextRequest) {
         readMessages,
         responseRate,
         unreadMessages: receivedMessages - readMessages,
-        readRate: receivedMessages > 0 ? (readMessages / receivedMessages * 100: any) : 0
+        readRate: receivedMessages > 0 ? (readMessages / receivedMessages * 100) : 0
       };
     } else if (reportType === 'meeting') {
       // Get meeting statistics
@@ -165,7 +165,7 @@ export async function GET(req: NextRequest) {
         organizedMeetings,
         attendedMeetings,
         upcomingMeetings,
-        attendanceRate: meetingCount > 0 ? (attendedMeetings / meetingCount * 100: any) : 0
+        attendanceRate: meetingCount > 0 ? (attendedMeetings / meetingCount * 100) : 0
       };
     } else if (reportType === 'impact') {
       // This would be a more complex report that correlates communication with student outcomes
@@ -195,7 +195,7 @@ export async function GET(req: NextRequest) {
       },
       data: reportData
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error generating report:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to generate report' },
@@ -206,9 +206,9 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json(
         { success: false, error: 'Authentication required' },
         { status: 401 }
@@ -221,7 +221,7 @@ export async function POST(req: NextRequest) {
     // Get report request data from request body
     const { reportRequest } = await req.json();
     
-    if (!reportRequest || !reportRequest.type: any) {
+    if (!reportRequest || !reportRequest.type) {
       return NextResponse.json(
         { success: false, error: 'Missing required report data' },
         { status: 400 }
@@ -275,7 +275,7 @@ export async function POST(req: NextRequest) {
         resultUrl: `https://example.com/reports/${newReportRequest.id}.${reportRequest.format || 'pdf'}`
       }
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error requesting report:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to request report' },

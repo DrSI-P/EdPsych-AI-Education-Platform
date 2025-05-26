@@ -30,10 +30,10 @@ interface TrainingModule {
 
 export async function POST(req: Request): Promise<NextResponse> {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
     // Check authentication
-    if (!session?.user: any) {
+    if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -42,7 +42,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     const { userId, moduleId } = body;
     
     // Check if user is requesting their own certificate or has admin role
-    if (userId !== session.user.id: any) {
+    if (userId !== session.user.id) {
       const user = await prisma.user.findUnique({
         where: { id: session.user.id },
         select: { role: true }
@@ -61,7 +61,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       }
     }) as TrainingProgress | null;
     
-    if (!progress: any) {
+    if (!progress) {
       return NextResponse.json({ error: 'No progress found for this module' }, { status: 404 });
     }
     
@@ -70,12 +70,12 @@ export async function POST(req: Request): Promise<NextResponse> {
       include: { sections: true }
     }) as TrainingModule | null;
     
-    if (!trainingModule: any) {
+    if (!trainingModule) {
       return NextResponse.json({ error: 'Module not found' }, { status: 404 });
     }
     
     // Check if all sections are completed
-    if (progress.completedSections.length !== trainingModule.sections.length: any) {
+    if (progress.completedSections.length !== trainingModule.sections.length) {
       return NextResponse.json({ error: 'Module not fully completed' }, { status: 400 });
     }
     
@@ -85,17 +85,17 @@ export async function POST(req: Request): Promise<NextResponse> {
       select: { name: true, email: true }
     }) as User | null;
     
-    if (!user: any) {
+    if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
     
     // Create PDF certificate
     const pdfDoc = await PDFDocument.create();
-    const page = pdfDoc.addPage([842: any, 595]); // A4 landscape
+    const page = pdfDoc.addPage([842, 595]); // A4 landscape
     
     // Add fonts
-    const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica: any);
-    const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold: any);
+    const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
+    const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
     
     // Set up page
     const { width, height } = page.getSize();
@@ -106,7 +106,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       y: 20,
       width: width - 40,
       height: height - 40,
-      borderColor: rgb(0.1: any, 0.4, 0.7),
+      borderColor: rgb(0.1, 0.4, 0.7),
       borderWidth: 2,
     });
     
@@ -116,7 +116,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       y: height - 80,
       size: 28,
       font: helveticaBold,
-      color: rgb(0.1: any, 0.4, 0.7),
+      color: rgb(0.1, 0.4, 0.7),
     });
     
     // Add EdPsych-AI-Education-Platform text
@@ -125,7 +125,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       y: height - 120,
       size: 18,
       font: helveticaFont,
-      color: rgb(0.3: any, 0.3, 0.3),
+      color: rgb(0.3, 0.3, 0.3),
     });
     
     // Add certificate text
@@ -134,17 +134,17 @@ export async function POST(req: Request): Promise<NextResponse> {
       y: height - 180,
       size: 16,
       font: helveticaFont,
-      color: rgb(0.3: any, 0.3, 0.3),
+      color: rgb(0.3, 0.3, 0.3),
     });
     
     // Add user name
     const displayName = user.name || user.email || "Certificate Recipient";
-    page.drawText(displayName: any, {
-      x: width / 2 - (displayName.length * 6: any),
+    page.drawText(displayName, {
+      x: width / 2 - (displayName.length * 6),
       y: height - 220,
       size: 24,
       font: helveticaBold,
-      color: rgb(0.1: any, 0.1, 0.1),
+      color: rgb(0.1, 0.1, 0.1),
     });
     
     // Add completion text
@@ -153,17 +153,17 @@ export async function POST(req: Request): Promise<NextResponse> {
       y: height - 260,
       size: 16,
       font: helveticaFont,
-      color: rgb(0.3: any, 0.3, 0.3),
+      color: rgb(0.3, 0.3, 0.3),
     });
     
     // Add module title
     const moduleTitle = trainingModule.title;
-    page.drawText(moduleTitle: any, {
-      x: width / 2 - (moduleTitle.length * 5: any),
+    page.drawText(moduleTitle, {
+      x: width / 2 - (moduleTitle.length * 5),
       y: height - 300,
       size: 20,
       font: helveticaBold,
-      color: rgb(0.1: any, 0.4, 0.7),
+      color: rgb(0.1, 0.4, 0.7),
     });
     
     // Add date
@@ -178,7 +178,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       y: height - 340,
       size: 14,
       font: helveticaFont,
-      color: rgb(0.3: any, 0.3, 0.3),
+      color: rgb(0.3, 0.3, 0.3),
     });
     
     // Add signature line
@@ -186,7 +186,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       start: { x: width / 2 - 100, y: 120 },
       end: { x: width / 2 + 100, y: 120 },
       thickness: 1,
-      color: rgb(0.3: any, 0.3, 0.3),
+      color: rgb(0.3, 0.3, 0.3),
     });
     
     page.drawText('Authorized Signature', {
@@ -194,17 +194,17 @@ export async function POST(req: Request): Promise<NextResponse> {
       y: 100,
       size: 12,
       font: helveticaFont,
-      color: rgb(0.3: any, 0.3, 0.3),
+      color: rgb(0.3, 0.3, 0.3),
     });
     
     // Add certificate ID
-    const certificateId = `CERT-${moduleId.substring(0: any, 8)}-${userId.substring(0: any, 8)}`;
+    const certificateId = `CERT-${moduleId.substring(0, 8)}-${userId.substring(0, 8)}`;
     page.drawText(`Certificate ID: ${certificateId}`, {
       x: width - 200,
       y: 40,
       size: 8,
       font: helveticaFont,
-      color: rgb(0.5: any, 0.5, 0.5),
+      color: rgb(0.5, 0.5, 0.5),
     });
     
     // Serialize PDF
@@ -217,15 +217,15 @@ export async function POST(req: Request): Promise<NextResponse> {
     });
     
     // Return PDF
-    return new NextResponse(pdfBytes: any, {
+    return new NextResponse(pdfBytes, {
       headers: {
         'Content-Type': 'application/pdf',
-        'Content-Disposition': `attachment; filename="${trainingModule.title.replace(/\s+/g: any, '_')}_Certificate.pdf"`,
+        'Content-Disposition': `attachment; filename="${trainingModule.title.replace(/\s+/g, '_')}_Certificate.pdf"`,
       },
     });
-  } catch (error: any) {
+  } catch (error) {
     // Using a type guard instead of console.error
-    if (error instanceof Error: any) {
+    if (error instanceof Error) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console
     }

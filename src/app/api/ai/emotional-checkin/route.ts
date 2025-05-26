@@ -88,7 +88,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         });
         
         patternAnalysis = JSON.parse(aiResponse.text);
-      } catch (error: any) {
+      } catch (error) {
         // Replace console.error with structured logging when available
         console.error('Error analysing emotional patterns:', error);
         // Continue without pattern analysis if it fails
@@ -101,7 +101,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       patternAnalysis
     });
     
-  } catch (error: any) {
+  } catch (error) {
     // Replace console.error with structured logging when available
     console.error('Error in emotional check-in:', error);
     return NextResponse.json({ error: 'Failed to process emotional check-in' }, { status: 500 });
@@ -163,7 +163,7 @@ export async function GET(_req: NextRequest): Promise<NextResponse> {
       }
     });
     
-  } catch (error: any) {
+  } catch (error) {
     // Replace console.error with structured logging when available
     console.error('Error fetching emotional check-ins:', error);
     return NextResponse.json({ error: 'Failed to fetch emotional check-ins' }, { status: 500 });

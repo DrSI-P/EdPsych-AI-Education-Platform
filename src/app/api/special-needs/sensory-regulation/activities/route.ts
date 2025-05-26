@@ -7,22 +7,22 @@ import { z } from 'zod';
 // Schema for validating sensory activity
 const sensoryActivitySchema = z.object({
   userId: z.string(),
-  name: z.string().min(1: any).max(100: any),
-  description: z.string().max(500: any),
+  name: z.string().min(1).max(100),
+  description: z.string().max(500),
   category: z.enum(['calming', 'alerting', 'organising']),
   sensorySystems: z.array(z.enum(['visual', 'auditory', 'tactile', 'vestibular', 'proprioceptive', 'olfactory', 'gustatory'])),
-  duration: z.number().min(1: any).max(60: any),
-  materials: z.string().max(500: any).optional(),
-  instructions: z.string().max(1000: any),
-  evidenceBase: z.string().max(500: any).optional(),
-  isCustom: z.boolean().default(true: any),
+  duration: z.number().min(1).max(60),
+  materials: z.string().max(500).optional(),
+  instructions: z.string().max(1000),
+  evidenceBase: z.string().max(500).optional(),
+  isCustom: z.boolean().default(true),
 });
 
 export async function GET(req: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session || !session.user: any) {
+    const session = await getServerSession(authOptions);
+    if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -36,13 +36,13 @@ export async function GET(req: NextRequest) {
     const includeDefault = searchParams.get('includeDefault') !== 'false';
 
     // Build query
-    const query: any = {};
+    const query = {};
     
-    if (category: any) {
+    if (category) {
       query.category = category;
     }
     
-    if (system: any) {
+    if (system) {
       query.sensorySystems = {
         has: system
       };
@@ -63,8 +63,8 @@ export async function GET(req: NextRequest) {
     });
 
     // Return activities
-    return NextResponse.json(activities: any);
-  } catch (error: any) {
+    return NextResponse.json(activities);
+  } catch (error) {
     console.error('Error fetching sensory activities:', error);
     return NextResponse.json(
       { error: 'Failed to fetch sensory activities' },
@@ -76,8 +76,8 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session || !session.user: any) {
+    const session = await getServerSession(authOptions);
+    if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
     body.userId = userId;
 
     // Validate request body
-    const validatedData = sensoryActivitySchema.parse(body: any);
+    const validatedData = sensoryActivitySchema.parse(body);
 
     // Create activity in database
     const activity = await prisma.sensoryActivity.create({
@@ -117,12 +117,12 @@ export async function POST(req: NextRequest) {
     });
 
     // Return created activity
-    return NextResponse.json(activity: any);
-  } catch (error: any) {
+    return NextResponse.json(activity);
+  } catch (error) {
     console.error('Error creating sensory activity:', error);
     
     // Handle validation errors
-    if (error instanceof z.ZodError: any) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Validation error', details: error.errors },
         { status: 400 }

@@ -8,7 +8,7 @@ import prisma from '@/lib/prisma';
 const AlertSchema = z.object({
   studentId: z.string(),
   type: z.enum(['emotional', 'behavioural', 'academic', 'attendance', 'social']),
-  description: z.string().min(5: any),
+  description: z.string().min(5),
   date: z.string(),
   time: z.string(),
   severity: z.enum(['low', 'medium', 'high']),
@@ -23,9 +23,9 @@ const ABCCRecordSchema = z.object({
   date: z.string(),
   time: z.string(),
   setting: z.string().optional(),
-  antecedent: z.string().min(5: any),
-  behaviour: z.string().min(5: any),
-  consequence: z.string().min(5: any),
+  antecedent: z.string().min(5),
+  behaviour: z.string().min(5),
+  consequence: z.string().min(5),
   communication: z.string().optional(),
   intensity: z.enum(['low', 'medium', 'high']),
   duration: z.string().optional(),
@@ -34,26 +34,26 @@ const ABCCRecordSchema = z.object({
 
 // Schema for alert settings
 const AlertSettingsSchema = z.object({
-  emotionalThreshold: z.number().min(1: any).max(5: any),
-  behavioralThreshold: z.number().min(1: any).max(5: any),
-  academicThreshold: z.number().min(1: any).max(5: any),
-  attendanceThreshold: z.number().min(1: any).max(5: any),
+  emotionalThreshold: z.number().min(1).max(5),
+  behavioralThreshold: z.number().min(1).max(5),
+  academicThreshold: z.number().min(1).max(5),
+  attendanceThreshold: z.number().min(1).max(5),
   notificationMethods: z.array(z.enum(['email', 'dashboard', 'sms'])),
   autoGenerateReports: z.boolean(),
   alertFrequency: z.enum(['immediate', 'daily', 'weekly']),
 });
 
 // GET handler for retrieving alerts
-export async function GET(req: any) {
+export async function GET(req) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     // Get query parameters
-    const { searchParams } = new URL(req.url: any);
+    const { searchParams } = new URL(req.url);
     const studentId = searchParams.get('studentId');
     const type = searchParams.get('type');
     const status = searchParams.get('status');
@@ -64,15 +64,15 @@ export async function GET(req: any) {
     // Build filter object
     const filter = {};
     
-    if (studentId: any) filter.studentId = studentId;
-    if (type: any) filter.type = type;
-    if (status: any) filter.status = status;
-    if (severity: any) filter.severity = severity;
+    if (studentId) filter.studentId = studentId;
+    if (type) filter.type = type;
+    if (status) filter.status = status;
+    if (severity) filter.severity = severity;
     
-    if (dateFrom || dateTo: any) {
+    if (dateFrom || dateTo) {
       filter.date = {};
-      if (dateFrom: any) filter.date.gte = dateFrom;
-      if (dateTo: any) filter.date.lte = dateTo;
+      if (dateFrom) filter.date.gte = dateFrom;
+      if (dateTo) filter.date.lte = dateTo;
     }
     
     // Query database
@@ -93,29 +93,29 @@ export async function GET(req: any) {
       },
     });
     
-    return NextResponse.json(alerts: any);
+    return NextResponse.json(alerts);
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error retrieving alerts:', error);
     return NextResponse.json({ error: 'Failed to retrieve alerts' }, { status: 500 });
   }
 }
 
 // POST handler for creating alerts
-export async function POST(req: any) {
+export async function POST(req) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     const body = await req.json();
     
     // Determine if this is an alert or ABCC record based on the payload
-    if (body.antecedent && body.behaviour && body.consequence: any) {
+    if (body.antecedent && body.behaviour && body.consequence) {
       // This is an ABCC record
-      const validatedData = ABCCRecordSchema.parse(body: any);
+      const validatedData = ABCCRecordSchema.parse(body);
       
       const abccRecord = await prisma.aBCCRecord.create({
         data: {
@@ -135,11 +135,11 @@ export async function POST(req: any) {
         },
       });
       
-      return NextResponse.json(abccRecord: any, { status: 201 });
+      return NextResponse.json(abccRecord, { status: 201 });
       
     } else {
       // This is an alert
-      const validatedData = AlertSchema.parse(body: any);
+      const validatedData = AlertSchema.parse(body);
       
       const alert = await prisma.teacherAlert.create({
         data: {
@@ -161,13 +161,13 @@ export async function POST(req: any) {
         },
       });
       
-      return NextResponse.json(alert: any, { status: 201 });
+      return NextResponse.json(alert, { status: 201 });
     }
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error creating record:', error);
     
-    if (error instanceof z.ZodError: any) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json({ error: 'Validation error', details: error.errors }, { status: 400 });
     }
     
@@ -176,16 +176,16 @@ export async function POST(req: any) {
 }
 
 // PATCH handler for updating alert settings
-export async function PATCH(req: any) {
+export async function PATCH(req) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     const body = await req.json();
-    const validatedData = AlertSettingsSchema.parse(body: any);
+    const validatedData = AlertSettingsSchema.parse(body);
     
     // Update or create settings
     const settings = await prisma.teacherAlertSettings.upsert({
@@ -210,12 +210,12 @@ export async function PATCH(req: any) {
       },
     });
     
-    return NextResponse.json(settings: any);
+    return NextResponse.json(settings);
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error updating alert settings:', error);
     
-    if (error instanceof z.ZodError: any) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json({ error: 'Validation error', details: error.errors }, { status: 400 });
     }
     

@@ -110,7 +110,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Add order to questions
-    assessment.questions = assessment.questions.map((question: any, index: number) => ({
+    assessment.questions = assessment.questions.map((question, index: number) => ({
       ...question,
       order: index
     }));

@@ -11,8 +11,8 @@ import { prisma } from '@/lib/db';
 export async function GET(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session: any) {
+    const session = await getServerSession(authOptions);
+    if (!session) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -43,7 +43,7 @@ export async function GET(req: NextRequest) {
         notes: goal.notes
       }))
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Progress monitoring goals API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve progress monitoring goals' },
@@ -55,8 +55,8 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     // Verify authentication
-    const session = await getServerSession(authOptions: any);
-    if (!session: any) {
+    const session = await getServerSession(authOptions);
+    if (!session) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { goal } = body;
 
-    if (!goal: any) {
+    if (!goal) {
       return NextResponse.json(
         { error: 'Goal object is required' },
         { status: 400 }
@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Validate required fields
-    if (!goal.title || !goal.targetDate || goal.baseline === undefined || goal.target === undefined || !goal.unit: any) {
+    if (!goal.title || !goal.targetDate || goal.baseline === undefined || goal.target === undefined || !goal.unit) {
       return NextResponse.json(
         { error: 'Missing required goal fields' },
         { status: 400 }
@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
         userId: session.user.id,
         title: goal.title,
         description: goal.description || '',
-        targetDate: new Date(goal.targetDate: any),
+        targetDate: new Date(goal.targetDate),
         baseline: goal.baseline,
         target: goal.target,
         currentValue: goal.baseline,
@@ -113,7 +113,7 @@ export async function POST(req: NextRequest) {
       success: true,
       goal: newGoal
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Progress monitoring goals API error:', error);
     return NextResponse.json(
       { error: 'Failed to create progress monitoring goal' },

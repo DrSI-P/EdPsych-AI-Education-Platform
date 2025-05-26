@@ -5,9 +5,9 @@ import { authOptions } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session || !session.user: any) {
+    if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
     
@@ -28,9 +28,9 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session || !session.user: any) {
+    if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
     
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     const data = await request.json();
     
     // Validate required fields
-    if (!data.interactionType || !data.participants || !data.duration || !data.setting || data.successRating === undefined: any) {
+    if (!data.interactionType || !data.participants || !data.duration || !data.setting || data.successRating === undefined) {
       return NextResponse.json({ 
         error: 'Interaction type, participants, duration, setting, and success rating are required' 
       }, { status: 400 });

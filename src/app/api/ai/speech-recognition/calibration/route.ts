@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
       calibrationId: speechCalibration.id
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error saving speech calibration data:', error);
     return NextResponse.json({ error: 'Failed to save calibration data' }, { status: 500 });
   }
@@ -81,7 +81,7 @@ export async function GET(req: NextRequest) {
       createdAt: latestCalibration.createdAt
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error retrieving speech calibration data:', error);
     return NextResponse.json({ error: 'Failed to retrieve calibration data' }, { status: 500 });
   }

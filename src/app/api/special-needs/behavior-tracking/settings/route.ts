@@ -5,21 +5,21 @@ import { authOptions } from '@/lib/auth';
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     // Get behaviour tracking settings for the current user
-    const settings = await (prisma as any: any).behaviorTrackingSettings.findUnique({
+    const settings = await (prisma as any).behaviorTrackingSettings.findUnique({
       where: {
         userId: session.user.id,
       },
     });
     
     // If no settings exist, return default settings
-    if (!settings: any) {
+    if (!settings) {
       return NextResponse.json({
         enablePositiveReinforcement: true,
         enableBehaviorTracking: true,
@@ -36,8 +36,8 @@ export async function GET(req: NextRequest) {
       });
     }
     
-    return NextResponse.json(settings: any);
-  } catch (error: any) {
+    return NextResponse.json(settings);
+  } catch (error) {
     console.error('Error fetching behaviour tracking settings:', error);
     return NextResponse.json({ error: 'Failed to fetch settings' }, { status: 500 });
   }
@@ -45,9 +45,9 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session: any) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
@@ -56,12 +56,12 @@ export async function POST(req: NextRequest) {
     // Validate required fields
     if (data.defaultTrackingFrequency === undefined || 
         data.defaultRewardSystem === undefined || 
-        data.defaultGoalFrequency === undefined: any) {
+        data.defaultGoalFrequency === undefined) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
     
     // Update or create settings
-    const settings = await (prisma as any: any).behaviorTrackingSettings.upsert({
+    const settings = await (prisma as any).behaviorTrackingSettings.upsert({
       where: {
         userId: session.user.id,
       },
@@ -98,16 +98,16 @@ export async function POST(req: NextRequest) {
     });
     
     // Log the settings update
-    await (prisma as any: any).behaviorTrackingLog.create({
+    await (prisma as any).behaviorTrackingLog.create({
       data: {
         userId: session.user.id,
         action: 'SETTINGS_UPDATE',
-        details: JSON.stringify(data: any),
+        details: JSON.stringify(data),
       },
     });
     
-    return NextResponse.json(settings: any);
-  } catch (error: any) {
+    return NextResponse.json(settings);
+  } catch (error) {
     console.error('Error saving behaviour tracking settings:', error);
     return NextResponse.json({ error: 'Failed to save settings' }, { status: 500 });
   }

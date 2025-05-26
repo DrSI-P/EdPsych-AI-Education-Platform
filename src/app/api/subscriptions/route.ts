@@ -18,8 +18,8 @@ import { db } from '@/lib/db';
 export async function POST(req: NextRequest) {
   try {
     // Get the authenticated user
-    const session = await getServerSession(authOptions: any);
-    if (!session?.user: any) {
+    const session = await getServerSession(authOptions);
+    if (!session?.user) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { plan, billingCycle, successUrl, cancelUrl } = body;
     
-    if (!plan || !billingCycle || !successUrl || !cancelUrl: any) {
+    if (!plan || !billingCycle || !successUrl || !cancelUrl) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
       where: { email: session.user.email as string },
     });
     
-    if (!user: any) {
+    if (!user) {
       return NextResponse.json(
         { error: 'User not found' },
         { status: 404 }
@@ -52,10 +52,10 @@ export async function POST(req: NextRequest) {
     // Ensure the user has a Stripe customer ID
     let customerId = user.stripeCustomerId;
     
-    if (!customerId: any) {
+    if (!customerId) {
       // Create a new Stripe customer
       customerId = await createCustomer(
-        user.email: any,
+        user.email,
         user.name || undefined,
         { userId: user.id }
       );
@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
     // Determine the plan ID based on the selected plan and billing cycle
     let planId: string;
     
-    switch (plan: any) {
+    switch (plan) {
       case 'standard':
         planId = billingCycle === 'monthly' 
           ? SUBSCRIPTION_PLANS.STANDARD.MONTHLY 
@@ -95,7 +95,7 @@ export async function POST(req: NextRequest) {
     
     // Create a checkout session
     const checkoutUrl = await createSubscriptionCheckout({
-      customerId: any,
+      customerId,
       planId,
       successUrl,
       cancelUrl,
@@ -107,7 +107,7 @@ export async function POST(req: NextRequest) {
     });
     
     return NextResponse.json({ url: checkoutUrl });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error creating subscription:', error);
     
     return NextResponse.json(
@@ -120,8 +120,8 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   try {
     // Get the authenticated user
-    const session = await getServerSession(authOptions: any);
-    if (!session?.user: any) {
+    const session = await getServerSession(authOptions);
+    if (!session?.user) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -133,7 +133,7 @@ export async function GET(req: NextRequest) {
       where: { email: session.user.email as string },
     });
     
-    if (!user: any) {
+    if (!user) {
       return NextResponse.json(
         { error: 'User not found' },
         { status: 404 }
@@ -141,7 +141,7 @@ export async function GET(req: NextRequest) {
     }
     
     // If the user doesn't have a Stripe customer ID, they don't have any subscriptions
-    if (!user.stripeCustomerId: any) {
+    if (!user.stripeCustomerId) {
       return NextResponse.json({
         subscriptions: [],
         tier: 'free',
@@ -152,16 +152,16 @@ export async function GET(req: NextRequest) {
     }
     
     // Get the user's active subscriptions
-    const subscriptions = await getActiveSubscriptions(user.stripeCustomerId: any);
+    const subscriptions = await getActiveSubscriptions(user.stripeCustomerId);
     
     return NextResponse.json({
-      subscriptions: any,
+      subscriptions,
       tier: user.subscriptionTier || 'free',
       status: user.subscriptionStatus || 'none',
       periodEnd: user.subscriptionPeriodEnd,
       cancelAtPeriodEnd: user.cancelAtPeriodEnd || false,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching subscriptions:', error);
     
     return NextResponse.json(

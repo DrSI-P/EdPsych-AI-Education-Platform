@@ -79,7 +79,7 @@ export async function POST(req: NextRequest) {
       transcript: enhancedTranscript
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in speech recognition:', error);
     return NextResponse.json({ error: 'Failed to process speech recognition' }, { status: 500 });
   }
@@ -109,7 +109,7 @@ export async function GET(req: NextRequest) {
       logs
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching speech recognition logs:', error);
     return NextResponse.json({ error: 'Failed to fetch speech recognition logs' }, { status: 500 });
   }
