@@ -37,14 +37,14 @@ interface Quest {
   difficulty: string;
   duration: number;
   xpReward: number;
-  objectives[];
+  objectives: any;
   challenges: Array<{
     id: string;
     title: string;
     description: string;
     content: string;
     type: string;
-    options?: string[];
+    options?: string: any;
     correctAnswer?: string;
     minScore?: number;
   }>;
@@ -61,7 +61,7 @@ interface QuestDetailProps {
 }
 
 interface QuestHubProps {
-  quests[];
+  quests: any;
   character: Character | null;
   onSelectQuest: (quest: Quest) => void;
   onGenerateQuest: () => void;
@@ -69,7 +69,7 @@ interface QuestHubProps {
 
 interface CharacterDashboardProps {
   character: Character | null;
-  completedQuests[];
+  completedQuests: any;
   onBack: () => void;
 }
 
@@ -117,7 +117,7 @@ const QuestHub: React.FC<QuestHubProps> = ({ quests, character, onSelectQuest, o
       <h2>Quest Hub</h2>
       <button onClick={onGenerateQuest}>Generate New Quest</button>
       <div>
-        {quests.map(quest => (
+        {quests.map(quest = > (;
           <div key={quest.id}>
             <h3>{quest.title}</h3>
             <button onClick={() => onSelectQuest(quest)}>Start Quest</button>
