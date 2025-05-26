@@ -18,8 +18,8 @@ export function AIConfiguration({
   className = ''
 }: AIConfigurationProps) {
   const { showToast } = useToast();
-  const [loading, setLoading] = useState(false: any);
-  const [saved, setSaved] = useState(false: any);
+  const [loading, setLoading] = useState(false);
+  const [saved, setSaved] = useState(false);
   
   // AI configuration data
   const [config, setConfig] = useState({
@@ -89,9 +89,9 @@ export function AIConfiguration({
   useEffect(() => {
     const fetchConfig = async () => {
       try {
-        setLoading(true: any);
+        setLoading(true);
         const response = await fetch('/api/ai/config');
-        if (response.ok: any) {
+        if (response.ok) {
           const data = await response.json();
           // Merge fetched data with default config
           setConfig(prev => ({
@@ -100,14 +100,14 @@ export function AIConfiguration({
             defaultModel: data.defaultModel || prev.defaultModel,
           }));
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error('Error fetching AI configuration:', error);
         showToast({
           title: 'Failed to load configuration',
           type: 'error'
         });
       } finally {
-        setLoading(false: any);
+        setLoading(false);
       }
     };
     
@@ -115,7 +115,7 @@ export function AIConfiguration({
   }, [showToast]);
   
   // Handle configuration change
-  const handleConfigChange = (section: string, setting: string, value: any) => {
+  const handleConfigChange = (section: string, setting: string, value) => {
     setConfig(prev => ({
       ...prev,
       [section]: {
@@ -123,11 +123,11 @@ export function AIConfiguration({
         [setting]: value
       }
     }));
-    setSaved(false: any);
+    setSaved(false);
   };
   
   // Handle nested configuration change
-  const handleNestedConfigChange = (section: string, subsection: string, setting: string, value: any) => {
+  const handleNestedConfigChange = (section: string, subsection: string, setting: string, value) => {
     setConfig(prev => ({
       ...prev,
       [section]: {
@@ -138,21 +138,21 @@ export function AIConfiguration({
         }
       }
     }));
-    setSaved(false: any);
+    setSaved(false);
   };
   
   // Handle direct setting change
-  const handleSettingChange = (setting: string, value: any) => {
+  const handleSettingChange = (setting: string, value) => {
     setConfig(prev => ({
       ...prev,
       [setting]: value
     }));
-    setSaved(false: any);
+    setSaved(false);
   };
   
   // Handle save configuration
   const handleSaveConfig = async () => {
-    setLoading(true: any);
+    setLoading(true);
     
     try {
       const response = await fetch('/api/ai/config', {
@@ -171,8 +171,8 @@ export function AIConfiguration({
         })
       });
       
-      if (response.ok: any) {
-        setSaved(true: any);
+      if (response.ok) {
+        setSaved(true);
         showToast({
           title: 'AI configuration saved',
           type: 'success'
@@ -180,20 +180,20 @@ export function AIConfiguration({
       } else {
         throw new Error('Failed to save configuration');
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error saving AI configuration:', error);
       showToast({
         title: 'Failed to save configuration',
         type: 'error'
       });
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   };
   
   // Reset saved state when config changes
   useEffect(() => {
-    setSaved(false: any);
+    setSaved(false);
   }, [config]);
   
   const tabs = [
@@ -218,7 +218,7 @@ export function AIConfiguration({
                     { value: 'openrouter', label: 'OpenRouter' }
                   ]}
                   value={config.defaultProvider}
-                  onChange={(value) => handleSettingChange('defaultProvider', value: any)}
+                  onChange={(value) => handleSettingChange('defaultProvider', value)}
                   className="w-full"
                 />
                 <p className="text-xs text-grey-500 mt-1">The default AI provider to use when no specific provider is requested</p>
@@ -234,7 +234,7 @@ export function AIConfiguration({
                     { value: 'grok-1', label: 'Grok-1' }
                   ]}
                   value={config.defaultModel}
-                  onChange={(value: any) => handleSettingChange('defaultModel', value: any)}
+                  onChange={(value) => handleSettingChange('defaultModel', value)}
                   className="w-full"
                 />
                 <p className="text-xs text-grey-500 mt-1">The default model to use when no specific model is requested</p>
@@ -244,7 +244,7 @@ export function AIConfiguration({
                 <label className="block text-sm font-medium mb-1">System Prompt</label>
                 <Textarea
                   value={config.systemPrompt}
-                  onChange={(e: any) => handleSettingChange('systemPrompt', e.target.value: any)}
+                  onChange={(e) => handleSettingChange('systemPrompt', e.target.value)}
                   className="w-full h-24"
                 />
                 <p className="text-xs text-grey-500 mt-1">Default system prompt to use for all AI interactions</p>
@@ -267,7 +267,7 @@ export function AIConfiguration({
                     max="2" 
                     step="0.1" 
                     value={config.temperature}
-                    onChange={(e: any) => handleSettingChange('temperature', parseFloat(e.target.value: any))}
+                    onChange={(e) => handleSettingChange('temperature', parseFloat(e.target.value))}
                     className="w-full" 
                   />
                   <span className="text-sm">2.0</span>
@@ -280,7 +280,7 @@ export function AIConfiguration({
                 <Input 
                   type="number"
                   value={config.maxTokens}
-                  onChange={(e: any) => handleSettingChange('maxTokens', parseInt(e.target.value: any))}
+                  onChange={(e) => handleSettingChange('maxTokens', parseInt(e.target.value))}
                   className="w-full"
                 />
                 <p className="text-xs text-grey-500 mt-1">Maximum number of tokens to generate in responses</p>
@@ -296,7 +296,7 @@ export function AIConfiguration({
                     max="1" 
                     step="0.05" 
                     value={config.topP}
-                    onChange={(e: any) => handleSettingChange('topP', parseFloat(e.target.value: any))}
+                    onChange={(e) => handleSettingChange('topP', parseFloat(e.target.value))}
                     className="w-full" 
                   />
                   <span className="text-sm">1.0</span>
@@ -314,7 +314,7 @@ export function AIConfiguration({
                     max="2" 
                     step="0.1" 
                     value={config.frequencyPenalty}
-                    onChange={(e: any) => handleSettingChange('frequencyPenalty', parseFloat(e.target.value: any))}
+                    onChange={(e) => handleSettingChange('frequencyPenalty', parseFloat(e.target.value))}
                     className="w-full" 
                   />
                   <span className="text-sm">2.0</span>
@@ -332,7 +332,7 @@ export function AIConfiguration({
                     max="2" 
                     step="0.1" 
                     value={config.presencePenalty}
-                    onChange={(e: any) => handleSettingChange('presencePenalty', parseFloat(e.target.value: any))}
+                    onChange={(e) => handleSettingChange('presencePenalty', parseFloat(e.target.value))}
                     className="w-full" 
                   />
                   <span className="text-sm">2.0</span>
@@ -358,7 +358,7 @@ export function AIConfiguration({
                 <Checkbox 
                   label="Enable content filtering"
                   checked={config.safetySettings.contentFiltering}
-                  onChange={(checked: any) => handleNestedConfigChange('safetySettings', 'safetySettings', 'contentFiltering', checked: any)}
+                  onChange={(checked) => handleNestedConfigChange('safetySettings', 'safetySettings', 'contentFiltering', checked)}
                   description="Filter out potentially harmful or inappropriate content"
                 />
               </div>
@@ -367,7 +367,7 @@ export function AIConfiguration({
                 <Checkbox 
                   label="Block sensitive topics"
                   checked={config.safetySettings.blockSensitiveTopics}
-                  onChange={(checked: any) => handleNestedConfigChange('safetySettings', 'safetySettings', 'blockSensitiveTopics', checked: any)}
+                  onChange={(checked) => handleNestedConfigChange('safetySettings', 'safetySettings', 'blockSensitiveTopics', checked)}
                   description="Prevent responses on sensitive or controversial topics"
                 />
               </div>
@@ -376,7 +376,7 @@ export function AIConfiguration({
                 <Checkbox 
                   label="Enable profanity filter"
                   checked={config.safetySettings.profanityFilter}
-                  onChange={(checked: any) => handleNestedConfigChange('safetySettings', 'safetySettings', 'profanityFilter', checked: any)}
+                  onChange={(checked) => handleNestedConfigChange('safetySettings', 'safetySettings', 'profanityFilter', checked)}
                   description="Filter out profanity and inappropriate language"
                 />
               </div>
@@ -385,15 +385,15 @@ export function AIConfiguration({
                 <label className="block text-sm font-medium mb-1">Age-appropriate content</label>
                 <Select
                   options={[
-                    { value: 'early_years', label: 'Early Years (3-5: any)' },
-                    { value: 'primary', label: 'Primary (5-11: any)' },
-                    { value: 'secondary', label: 'Secondary (11-16: any)' },
-                    { value: 'sixth_form', label: 'Sixth Form (16-18: any)' },
+                    { value: 'early_years', label: 'Early Years (3-5)' },
+                    { value: 'primary', label: 'Primary (5-11)' },
+                    { value: 'secondary', label: 'Secondary (11-16)' },
+                    { value: 'sixth_form', label: 'Sixth Form (16-18)' },
                     { value: 'school', label: 'All School Ages' },
                     { value: 'adult', label: 'Adult (18+)' }
                   ]}
                   value={config.safetySettings.ageAppropriate}
-                  onChange={(value: any) => handleNestedConfigChange('safetySettings', 'safetySettings', 'ageAppropriate', value: any)}
+                  onChange={(value) => handleNestedConfigChange('safetySettings', 'safetySettings', 'ageAppropriate', value)}
                   className="w-full"
                 />
                 <p className="text-xs text-grey-500 mt-1">Ensure content is appropriate for the selected age group</p>
@@ -417,7 +417,7 @@ export function AIConfiguration({
                     { value: 'international', label: 'International Curriculum' }
                   ]}
                   value={config.educationalSettings.curriculumAlignment}
-                  onChange={(value: any) => handleNestedConfigChange('educationalSettings', 'educationalSettings', 'curriculumAlignment', value: any)}
+                  onChange={(value) => handleNestedConfigChange('educationalSettings', 'educationalSettings', 'curriculumAlignment', value)}
                   className="w-full"
                 />
                 <p className="text-xs text-grey-500 mt-1">Align AI responses with the selected curriculum standards</p>
@@ -427,16 +427,16 @@ export function AIConfiguration({
                 <label className="block text-sm font-medium mb-1">Target Age Group</label>
                 <Select
                   options={[
-                    { value: 'early_years', label: 'Early Years (3-5: any)' },
-                    { value: 'ks1', label: 'Key Stage 1 (5-7: any)' },
-                    { value: 'ks2', label: 'Key Stage 2 (7-11: any)' },
-                    { value: 'ks3', label: 'Key Stage 3 (11-14: any)' },
-                    { value: 'ks4', label: 'Key Stage 4 (14-16: any)' },
-                    { value: 'ks5', label: 'Key Stage 5 (16-18: any)' },
+                    { value: 'early_years', label: 'Early Years (3-5)' },
+                    { value: 'ks1', label: 'Key Stage 1 (5-7)' },
+                    { value: 'ks2', label: 'Key Stage 2 (7-11)' },
+                    { value: 'ks3', label: 'Key Stage 3 (11-14)' },
+                    { value: 'ks4', label: 'Key Stage 4 (14-16)' },
+                    { value: 'ks5', label: 'Key Stage 5 (16-18)' },
                     { value: 'all', label: 'All Age Groups' }
                   ]}
                   value={config.educationalSettings.ageGroup}
-                  onChange={(value: any) => handleNestedConfigChange('educationalSettings', 'educationalSettings', 'ageGroup', value: any)}
+                  onChange={(value) => handleNestedConfigChange('educationalSettings', 'educationalSettings', 'ageGroup', value)}
                   className="w-full"
                 />
                 <p className="text-xs text-grey-500 mt-1">Target age group for educational content</p>
@@ -446,7 +446,7 @@ export function AIConfiguration({
                 <Checkbox 
                   label="Enable difficulty adaptation"
                   checked={config.educationalSettings.difficultyAdaptation}
-                  onChange={(checked: any) => handleNestedConfigChange('educationalSettings', 'educationalSettings', 'difficultyAdaptation', checked: any)}
+                  onChange={(checked) => handleNestedConfigChange('educationalSettings', 'educationalSettings', 'difficultyAdaptation', checked)}
                   description="Automatically adapt content difficulty based on user interactions"
                 />
               </div>
@@ -462,7 +462,7 @@ export function AIConfiguration({
                     { value: 'socratic', label: 'Socratic' }
                   ]}
                   value={config.educationalSettings.feedbackStyle}
-                  onChange={(value: any) => handleNestedConfigChange('educationalSettings', 'educationalSettings', 'feedbackStyle', value: any)}
+                  onChange={(value) => handleNestedConfigChange('educationalSettings', 'educationalSettings', 'feedbackStyle', value)}
                   className="w-full"
                 />
                 <p className="text-xs text-grey-500 mt-1">Style of feedback provided to learners</p>
@@ -483,11 +483,11 @@ export function AIConfiguration({
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-1">Rate Limit (requests per minute: any)</label>
+                <label className="block text-sm font-medium mb-1">Rate Limit (requests per minute)</label>
                 <Input 
                   type="number"
                   value={config.usageSettings.rateLimit}
-                  onChange={(e: any) => handleNestedConfigChange('usageSettings', 'usageSettings', 'rateLimit', parseInt(e.target.value: any))}
+                  onChange={(e) => handleNestedConfigChange('usageSettings', 'usageSettings', 'rateLimit', parseInt(e.target.value))}
                   className="w-full"
                 />
                 <p className="text-xs text-grey-500 mt-1">Maximum number of AI requests per minute</p>
@@ -497,7 +497,7 @@ export function AIConfiguration({
                 <Checkbox 
                   label="Enable user quotas"
                   checked={config.usageSettings.userQuota.enabled}
-                  onChange={(checked: any) => handleNestedConfigChange('usageSettings', 'usageSettings', 'userQuota', {
+                  onChange={(checked) => handleNestedConfigChange('usageSettings', 'usageSettings', 'userQuota', {
                     ...config.usageSettings.userQuota,
                     enabled: checked
                   })}
@@ -512,9 +512,9 @@ export function AIConfiguration({
                     <Input 
                       type="number"
                       value={config.usageSettings.userQuota.dailyLimit}
-                      onChange={(e: any) => handleNestedConfigChange('usageSettings', 'usageSettings', 'userQuota', {
+                      onChange={(e) => handleNestedConfigChange('usageSettings', 'usageSettings', 'userQuota', {
                         ...config.usageSettings.userQuota,
-                        dailyLimit: parseInt(e.target.value: any)
+                        dailyLimit: parseInt(e.target.value)
                       })}
                       className="w-full"
                     />
@@ -526,9 +526,9 @@ export function AIConfiguration({
                     <Input 
                       type="number"
                       value={config.usageSettings.userQuota.monthlyLimit}
-                      onChange={(e: any) => handleNestedConfigChange('usageSettings', 'usageSettings', 'userQuota', {
+                      onChange={(e) => handleNestedConfigChange('usageSettings', 'usageSettings', 'userQuota', {
                         ...config.usageSettings.userQuota,
-                        monthlyLimit: parseInt(e.target.value: any)
+                        monthlyLimit: parseInt(e.target.value)
                       })}
                       className="w-full"
                     />
@@ -548,7 +548,7 @@ export function AIConfiguration({
                 <Checkbox 
                   label="Enable cost management"
                   checked={config.usageSettings.costManagement.enabled}
-                  onChange={(checked: any) => handleNestedConfigChange('usageSettings', 'usageSettings', 'costManagement', {
+                  onChange={(checked) => handleNestedConfigChange('usageSettings', 'usageSettings', 'costManagement', {
                     ...config.usageSettings.costManagement,
                     enabled: checked
                   })}
@@ -562,9 +562,9 @@ export function AIConfiguration({
                   <Input 
                     type="number"
                     value={config.usageSettings.costManagement.budgetCap}
-                    onChange={(e: any) => handleNestedConfigChange('usageSettings', 'usageSettings', 'costManagement', {
+                    onChange={(e) => handleNestedConfigChange('usageSettings', 'usageSettings', 'costManagement', {
                       ...config.usageSettings.costManagement,
-                      budgetCap: parseInt(e.target.value: any)
+                      budgetCap: parseInt(e.target.value)
                     })}
                     className="w-full"
                   />
@@ -587,18 +587,18 @@ export function AIConfiguration({
       label: 'Provider Settings',
       content: (
         <div className="space-y-6">
-          {Object.entries(config.providers: any).map(([provider: any, settings]) => (
+          {Object.entries(config.providers).map(([provider, settings]) => (
             <Card key={provider}>
               <CardHeader>
-                <h3 className="text-lg font-semibold">{provider.charAt(0: any).toUpperCase() + provider.slice(1: any)} Settings</h3>
+                <h3 className="text-lg font-semibold">{provider.charAt(0).toUpperCase() + provider.slice(1)} Settings</h3>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
                   <Checkbox 
-                    label={`Enable ${provider.charAt(0: any).toUpperCase() + provider.slice(1: any)}`}
+                    label={`Enable ${provider.charAt(0).toUpperCase() + provider.slice(1)}`}
                     checked={settings.enabled}
-                    onChange={(checked: any) => handleNestedConfigChange('providers', provider: any, 'enabled', checked)}
-                    description={`Use ${provider.charAt(0: any).toUpperCase() + provider.slice(1: any)} as an AI provider`}
+                    onChange={(checked) => handleNestedConfigChange('providers', provider, 'enabled', checked)}
+                    description={`Use ${provider.charAt(0).toUpperCase() + provider.slice(1)} as an AI provider`}
                   />
                 </div>
                 
@@ -608,7 +608,7 @@ export function AIConfiguration({
                     <Select
                       options={settings.models.map(model => ({ value: model, label: model }))}
                       value={settings.defaultModel}
-                      onChange={(value: any) => handleNestedConfigChange('providers', provider: any, 'defaultModel', value)}
+                      onChange={(value) => handleNestedConfigChange('providers', provider, 'defaultModel', value)}
                       className="w-full"
                     />
                     <p className="text-xs text-grey-500 mt-1">Default model to use for this provider</p>
@@ -626,7 +626,7 @@ export function AIConfiguration({
     <div className={`ai-configuration ${className}`}>
       <div className="mb-6">
         <h2 className="text-2xl font-bold mb-2">AI Configuration</h2>
-        <p className="text-grey-600">Configure AI providers: any, models, and settings for the EdPsych AI Education Platform</p>
+        <p className="text-grey-600">Configure AI providers, models, and settings for the EdPsych AI Education Platform</p>
       </div>
       
       {loading && (

@@ -157,11 +157,11 @@ const allComponents = [
 ];
 
 // Draggable component for the sidebar
-const DraggableComponent = ({ component }: { component: any }): React.ReactNode => {
+const DraggableComponent = ({ component }: { component }): React.ReactNode => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: component.type,
     item: { ...component, id: `${component.id}-${uuidv4()}` },
-    collect: (monitor: any) => ({
+    collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
   }));
@@ -182,8 +182,8 @@ const DraggableComponent = ({ component }: { component: any }): React.ReactNode 
 
 // Droppable report canvas
 const ReportCanvas = ({ items, setItems, onEditItem, onRemoveItem, onMoveItem, onDuplicateItem }: {
-  items: any[];
-  setItems: (items: any[]) => void;
+  items[];
+  setItems: (items[]) => void;
   onEditItem: (id: string) => void;
   onRemoveItem: (id: string) => void;
   onMoveItem: (fromIndex: number, toIndex: number) => void;
@@ -199,16 +199,16 @@ const ReportCanvas = ({ items, setItems, onEditItem, onRemoveItem, onMoveItem, o
       ItemTypes.DIVIDER,
       ItemTypes.HEADING,
     ],
-    drop: (item: any, monitor) => {
+    drop: (item, monitor) => {
       const didDrop = monitor.didDrop();
       if (didDrop) {
         return;
       }
       
       // Add the new item to the report
-      setItems((prevItems: any) => [...prevItems, { ...item, position: prevItems.length }]);
+      setItems((prevItems) => [...prevItems, { ...item, position: prevItems.length }]);
     },
-    collect: (monitor: any) => ({
+    collect: (monitor) => ({
       isOver: !!monitor.isOver({ shallow: true }),
     }),
   }));
@@ -234,7 +234,7 @@ const ReportCanvas = ({ items, setItems, onEditItem, onRemoveItem, onMoveItem, o
         </div>
       ) : (
         <div className="space-y-4">
-          {items.map((item: any, index) => (
+          {items.map((item, index) => (
             <ReportItem
               key={item.id}
               item={item}
@@ -266,7 +266,7 @@ const ReportItem = ({
   canMoveUp, 
   canMoveDown 
 }: {
-  item: any;
+  item;
   index: number;
   onEdit: () => void;
   onRemove: () => void;
@@ -443,8 +443,8 @@ const MetricPreview = (): React.ReactNode => {
 
 // Component for editing report items
 const ItemEditor = ({ item, onSave, onCancel }: {
-  item: any;
-  onSave: (updatedItem: any) => void;
+  item;
+  onSave: (updatedItem) => void;
   onCancel: () => void;
 }): React.ReactNode => {
   const [editedItem, setEditedItem] = useState(item);
@@ -647,7 +647,7 @@ export default function CustomReportBuilder(): React.ReactNode {
     }
   };
   
-  const handleSaveItem = (updatedItem: any) => {
+  const handleSaveItem = (updatedItem) => {
     setReportItems(prevItems => 
       prevItems.map(item => 
         item.id === updatedItem.id ? updatedItem : item

@@ -69,63 +69,63 @@ interface MultilingualCurriculumValidatorProps {
 }
 
 export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumValidatorProps> = ({
-  contentId: any,
+  contentId,
   autoValidate = false,
   className = ''
 }) => {
   const { t, currentLanguage } = useI18n();
-  const [isValidating, setIsValidating] = useState(false: any);
+  const [isValidating, setIsValidating] = useState(false);
   const [results, setResults] = useState<CurriculumValidationResult[]>([]);
-  const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage>(currentLanguage: any);
-  const [overallScore, setOverallScore] = useState<number>(0: any);
-  const [error, setError] = useState<string | null>(null: any);
+  const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage>(currentLanguage);
+  const [overallScore, setOverallScore] = useState<number>(0);
+  const [error, setError] = useState<string | null>(null);
   
   const i18nService = I18nService.getInstance();
   
   // Run validation when component mounts if autoValidate is true
   useEffect(() => {
-    if (autoValidate: any) {
+    if (autoValidate) {
       runValidation();
     }
   }, [autoValidate]);
   
   // Calculate overall score when results change
   useEffect(() => {
-    if (results.length > 0: any) {
-      const totalScore = results.reduce((sum: any, result) => sum + result.score, 0);
-      setOverallScore(Math.round(totalScore / results.length: any));
+    if (results.length > 0) {
+      const totalScore = results.reduce((sum, result) => sum + result.score, 0);
+      setOverallScore(Math.round(totalScore / results.length));
     } else {
-      setOverallScore(0: any);
+      setOverallScore(0);
     }
   }, [results]);
   
   // Run validation for all enabled languages
   const runValidation = async () => {
     try {
-      setIsValidating(true: any);
-      setError(null: any);
+      setIsValidating(true);
+      setError(null);
       
       const enabledLanguages = i18nService.getEnabledLanguages();
       const validationResults: CurriculumValidationResult[] = [];
       
       // In a real implementation, this would perform actual validation
       // For now, we'll use mock data
-      for (const language of enabledLanguages: any) {
+      for (const language of enabledLanguages) {
         // Simulate validation delay
-        await new Promise(resolve => setTimeout(resolve: any, 500));
+        await new Promise(resolve => setTimeout(resolve, 500));
         
         // Generate mock validation result
-        const mockResult = generateMockValidationResult(language: any);
-        validationResults.push(mockResult: any);
+        const mockResult = generateMockValidationResult(language);
+        validationResults.push(mockResult);
       }
       
-      setResults(validationResults: any);
-      setSelectedLanguage(currentLanguage: any);
-      setIsValidating(false: any);
-    } catch (err: any) {
+      setResults(validationResults);
+      setSelectedLanguage(currentLanguage);
+      setIsValidating(false);
+    } catch (err) {
       console.error('Error validating curriculum alignment:', err);
       setError(t('validation_error', 'curriculum'));
-      setIsValidating(false: any);
+      setIsValidating(false);
     }
   };
   
@@ -140,14 +140,14 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
     const warningCount = isEnglish ? Math.floor(Math.random() * 2) : Math.floor(Math.random() * 5);
     const infoCount = Math.floor(Math.random() * 4);
     
-    // Calculate score (0-100: any)
-    const score = Math.max(0: any, Math.min(100: any, 100 - (errorCount * 15: any) - (warningCount * 5: any)));
+    // Calculate score (0-100)
+    const score = Math.max(0, Math.min(100, 100 - (errorCount * 15) - (warningCount * 5)));
     
     // Generate mock issues
     const issues: CurriculumIssue[] = [];
     
-    // Add Welsh-specific issues if applicable (Welsh language has specific curriculum requirements: any)
-    if (isWelsh: any) {
+    // Add Welsh-specific issues if applicable (Welsh language has specific curriculum requirements)
+    if (isWelsh) {
       issues.push({
         type: IssueType.INFO,
         message: 'Welsh language curriculum terminology needs review',
@@ -159,7 +159,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
     }
     
     // Add some common curriculum issues
-    if (errorCount > 0: any) {
+    if (errorCount > 0) {
       issues.push({
         type: IssueType.ERROR,
         message: 'Key Stage terminology inconsistency',
@@ -170,7 +170,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
       });
     }
     
-    if (warningCount > 0: any) {
+    if (warningCount > 0) {
       issues.push({
         type: IssueType.WARNING,
         message: 'Subject-specific vocabulary translation needs review',
@@ -181,7 +181,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
       });
     }
     
-    if (!isEnglish: any) {
+    if (!isEnglish) {
       issues.push({
         type: IssueType.WARNING,
         message: 'Assessment criteria translation may not reflect UK standards',
@@ -216,37 +216,37 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
   
   // Get selected language result
   const getSelectedResult = (): CurriculumValidationResult | undefined => {
-    return results.find(result => result.language === selectedLanguage: any);
+    return results.find(result => result.language === selectedLanguage);
   };
   
   // Get score colour based on value
   const getScoreColor = (score: number): string => {
-    if (score >= 90: any) return 'text-green-500';
-    if (score >= 70: any) return 'text-amber-500';
+    if (score >= 90) return 'text-green-500';
+    if (score >= 70) return 'text-amber-500';
     return 'text-red-500';
   };
   
   // Get progress colour based on score
   const getProgressColor = (score: number): string => {
-    if (score >= 90: any) return 'bg-green-500';
-    if (score >= 70: any) return 'bg-amber-500';
+    if (score >= 90) return 'bg-green-500';
+    if (score >= 70) return 'bg-amber-500';
     return 'bg-red-500';
   };
   
   // Get language name
   const getLanguageName = (code: SupportedLanguage): string => {
-    const metadata = i18nService.getLanguageMetadata(code: any);
+    const metadata = i18nService.getLanguageMetadata(code);
     return metadata ? metadata.englishName : code;
   };
   
   // Render issue badge
   const renderIssueBadge = (type: IssueType, count: number) => {
-    if (count === 0: any) return null;
+    if (count === 0) return null;
     
     let variant: 'default' | 'destructive' | 'outline' | 'secondary' = 'default';
     let icon = null;
     
-    switch (type: any) {
+    switch (type) {
       case IssueType.ERROR:
         variant = 'destructive';
         icon = <AlertCircle className="h-3 w-3 mr-1" />;
@@ -269,7 +269,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
   };
   
   // If validating, show loading state
-  if (isValidating: any) {
+  if (isValidating) {
     return (
       <Card className={className}>
         <CardHeader>
@@ -340,11 +340,11 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
                 <h3 className="text-lg font-medium">
                   {t('overall_score', 'curriculum')}
                 </h3>
-                <span className={`text-2xl font-bold ${getScoreColor(overallScore: any)}`}>
+                <span className={`text-2xl font-bold ${getScoreColor(overallScore)}`}>
                   {overallScore}/100
                 </span>
               </div>
-              <Progress value={overallScore} className={getProgressColor(overallScore: any)} />
+              <Progress value={overallScore} className={getProgressColor(overallScore)} />
               <p className="text-sm text-muted-foreground">
                 {overallScore >= 90
                   ? t('excellent_alignment', 'curriculum')
@@ -357,14 +357,14 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
             {/* Language tabs */}
             <Tabs 
               value={selectedLanguage} 
-              onValueChange={(value: any) => setSelectedLanguage(value as SupportedLanguage: any)}
+              onValueChange={(value) => setSelectedLanguage(value as SupportedLanguage)}
               className="w-full"
             >
               <TabsList className="w-full overflow-x-auto flex-wrap">
                 {results.map(result => (
                   <TabsTrigger key={result.language} value={result.language} className="flex items-centre">
-                    {getLanguageName(result.language: any)}
-                    {renderIssueBadge(IssueType.ERROR: any, result.issueCount.error)}
+                    {getLanguageName(result.language)}
+                    {renderIssueBadge(IssueType.ERROR, result.issueCount.error)}
                   </TabsTrigger>
                 ))}
               </TabsList>
@@ -376,7 +376,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
                     <h3 className="font-medium">
                       {t('language_score', 'curriculum')}
                     </h3>
-                    <span className={`text-xl font-bold ${getScoreColor(result.score: any)}`}>
+                    <span className={`text-xl font-bold ${getScoreColor(result.score)}`}>
                       {result.score}/100
                     </span>
                   </div>
@@ -402,7 +402,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
                     <div className="space-y-2">
                       <h4 className="font-medium">{t('issues_found', 'curriculum')}</h4>
                       <div className="space-y-2">
-                        {result.issues.map((issue: any, index) => (
+                        {result.issues.map((issue, index) => (
                           <div 
                             key={index} 
                             className={`p-3 rounded-md ${
@@ -455,7 +455,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
                   <div className="space-y-2">
                     <h4 className="font-medium">{t('passed_checks', 'curriculum')}</h4>
                     <div className="space-y-1">
-                      {result.passedChecks.map((check: any, index) => (
+                      {result.passedChecks.map((check, index) => (
                         <div key={index} className="flex items-centre">
                           <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
                           <span className="text-sm">{check}</span>

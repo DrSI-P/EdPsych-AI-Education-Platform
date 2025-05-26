@@ -7,7 +7,7 @@ import BiofeedbackLearning from '../../components/ui/BiofeedbackLearning';
 // Mock the WebSocket connection
 vi.mock('@/lib/websocket-service', () => ({
   connectBiofeedbackDevice: vi.fn().mockImplementation(() => ({
-    connect: vi.fn().mockResolvedValue(true: any),
+    connect: vi.fn().mockResolvedValue(true),
     disconnect: vi.fn(),
     onData: vi.fn(),
     onError: vi.fn(),
@@ -31,7 +31,7 @@ describe('BiofeedbackLearning Component', () => {
     render(<BiofeedbackLearning />);
     
     // Check that the component renders with the title
-    expect(screen.getByText(/Biofeedback Learning/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/Biofeedback Learning/i)).toBeInTheDocument();
     
     // Check that the connect button is displayed
     expect(screen.getByRole('button', { name: /Connect Device/i })).toBeInTheDocument();
@@ -40,7 +40,7 @@ describe('BiofeedbackLearning Component', () => {
   it('connects to biofeedback device when connect button is clicked', async () => {
     // Import directly instead of using require
     const websocketService = await import('@/lib/websocket-service');
-    const mockConnect = vi.fn().mockResolvedValue(true: any);
+    const mockConnect = vi.fn().mockResolvedValue(true);
     websocketService.connectBiofeedbackDevice.mockImplementation(() => ({
       connect: mockConnect,
       disconnect: vi.fn(),
@@ -52,17 +52,17 @@ describe('BiofeedbackLearning Component', () => {
     
     // Find and click connect button
     const connectButton = screen.getByRole('button', { name: /Connect Device/i });
-    fireEvent.click(connectButton: any);
+    fireEvent.click(connectButton);
     
     // Check that connect was called
-    expect(mockConnect: any).toHaveBeenCalled();
+    expect(mockConnect).toHaveBeenCalled();
     
     // Check that connecting status is displayed
-    expect(screen.getByText(/Connecting/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/Connecting/i)).toBeInTheDocument();
     
     // Wait for connection to complete
     await waitFor(() => {
-      expect(screen.getByText(/Connected/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/Connected/i)).toBeInTheDocument();
     });
   });
 
@@ -71,9 +71,9 @@ describe('BiofeedbackLearning Component', () => {
     const websocketService = await import('@/lib/websocket-service');
     let dataCallback;
     websocketService.connectBiofeedbackDevice.mockImplementation(() => ({
-      connect: vi.fn().mockResolvedValue(true: any),
+      connect: vi.fn().mockResolvedValue(true),
       disconnect: vi.fn(),
-      onData: (callback: any) => {
+      onData: (callback) => {
         dataCallback = callback;
         return { remove: vi.fn() };
       },
@@ -84,15 +84,15 @@ describe('BiofeedbackLearning Component', () => {
     
     // Connect to device
     const connectButton = screen.getByRole('button', { name: /Connect Device/i });
-    fireEvent.click(connectButton: any);
+    fireEvent.click(connectButton);
     
     // Wait for connection
     await waitFor(() => {
-      expect(screen.getByText(/Connected/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/Connected/i)).toBeInTheDocument();
     });
     
     // Simulate receiving data
-    dataCallback(mockBiofeedbackData: any);
+    dataCallback(mockBiofeedbackData);
     
     // Check that metrics are displayed
     await waitFor(() => {
@@ -108,9 +108,9 @@ describe('BiofeedbackLearning Component', () => {
     const websocketService = await import('@/lib/websocket-service');
     let dataCallback;
     websocketService.connectBiofeedbackDevice.mockImplementation(() => ({
-      connect: vi.fn().mockResolvedValue(true: any),
+      connect: vi.fn().mockResolvedValue(true),
       disconnect: vi.fn(),
-      onData: (callback: any) => {
+      onData: (callback) => {
         dataCallback = callback;
         return { remove: vi.fn() };
       },
@@ -125,11 +125,11 @@ describe('BiofeedbackLearning Component', () => {
     
     // Connect to device
     const connectButton = screen.getByRole('button', { name: /Connect Device/i });
-    fireEvent.click(connectButton: any);
+    fireEvent.click(connectButton);
     
     // Wait for connection
     await waitFor(() => {
-      expect(screen.getByText(/Connected/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/Connected/i)).toBeInTheDocument();
     });
     
     // Simulate low attention data
@@ -141,7 +141,7 @@ describe('BiofeedbackLearning Component', () => {
     // Check that content is adapted for low attention
     await waitFor(() => {
       const content = screen.getByTestId('learning-content');
-      expect(content: any).toHaveClass('low-attention-adaptation');
+      expect(content).toHaveClass('low-attention-adaptation');
     });
     
     // Simulate high attention data
@@ -153,7 +153,7 @@ describe('BiofeedbackLearning Component', () => {
     // Check that content is adapted for high attention
     await waitFor(() => {
       const content = screen.getByTestId('learning-content');
-      expect(content: any).toHaveClass('high-attention-adaptation');
+      expect(content).toHaveClass('high-attention-adaptation');
     });
   });
 
@@ -162,9 +162,9 @@ describe('BiofeedbackLearning Component', () => {
     const websocketService = await import('@/lib/websocket-service');
     let dataCallback;
     websocketService.connectBiofeedbackDevice.mockImplementation(() => ({
-      connect: vi.fn().mockResolvedValue(true: any),
+      connect: vi.fn().mockResolvedValue(true),
       disconnect: vi.fn(),
-      onData: (callback: any) => {
+      onData: (callback) => {
         dataCallback = callback;
         return { remove: vi.fn() };
       },
@@ -175,11 +175,11 @@ describe('BiofeedbackLearning Component', () => {
     
     // Connect to device
     const connectButton = screen.getByRole('button', { name: /Connect Device/i });
-    fireEvent.click(connectButton: any);
+    fireEvent.click(connectButton);
     
     // Wait for connection
     await waitFor(() => {
-      expect(screen.getByText(/Connected/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/Connected/i)).toBeInTheDocument();
     });
     
     // Simulate high stress data
@@ -190,7 +190,7 @@ describe('BiofeedbackLearning Component', () => {
     
     // Check that break suggestion is displayed
     await waitFor(() => {
-      expect(screen.getByText(/Break Recommended/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/Break Recommended/i)).toBeInTheDocument();
       expect(screen.getByRole('button', { name: /Take a Break/i })).toBeInTheDocument();
     });
     
@@ -199,7 +199,7 @@ describe('BiofeedbackLearning Component', () => {
     
     // Check that break activities are displayed
     await waitFor(() => {
-      expect(screen.getByText(/Breathing Exercise/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/Breathing Exercise/i)).toBeInTheDocument();
     });
   });
 
@@ -218,11 +218,11 @@ describe('BiofeedbackLearning Component', () => {
     
     // Find and click connect button
     const connectButton = screen.getByRole('button', { name: /Connect Device/i });
-    fireEvent.click(connectButton: any);
+    fireEvent.click(connectButton);
     
     // Check that error message is displayed
     await waitFor(() => {
-      expect(screen.getByText(/Connection failed/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/Connection failed/i)).toBeInTheDocument();
     });
     
     // Check that retry button is displayed
@@ -234,7 +234,7 @@ describe('BiofeedbackLearning Component', () => {
     const websocketService = await import('@/lib/websocket-service');
     const mockDisconnect = vi.fn();
     websocketService.connectBiofeedbackDevice.mockImplementation(() => ({
-      connect: vi.fn().mockResolvedValue(true: any),
+      connect: vi.fn().mockResolvedValue(true),
       disconnect: mockDisconnect,
       onData: vi.fn(),
       onError: vi.fn(),
@@ -244,18 +244,18 @@ describe('BiofeedbackLearning Component', () => {
     
     // Connect to device
     const connectButton = screen.getByRole('button', { name: /Connect Device/i });
-    fireEvent.click(connectButton: any);
+    fireEvent.click(connectButton);
     
     // Wait for connection
     await waitFor(() => {
-      expect(screen.getByText(/Connected/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/Connected/i)).toBeInTheDocument();
     });
     
     // Unmount component
     unmount();
     
     // Check that disconnect was called
-    expect(mockDisconnect: any).toHaveBeenCalled();
+    expect(mockDisconnect).toHaveBeenCalled();
   });
 
   it('allows calibration of the biofeedback device', async () => {
@@ -263,24 +263,24 @@ describe('BiofeedbackLearning Component', () => {
     
     // Connect to device first
     const connectButton = screen.getByRole('button', { name: /Connect Device/i });
-    fireEvent.click(connectButton: any);
+    fireEvent.click(connectButton);
     
     // Wait for connection
     await waitFor(() => {
-      expect(screen.getByText(/Connected/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/Connected/i)).toBeInTheDocument();
     });
     
     // Find and click calibrate button
     const calibrateButton = screen.getByRole('button', { name: /Calibrate/i });
-    fireEvent.click(calibrateButton: any);
+    fireEvent.click(calibrateButton);
     
     // Check that calibration instructions are displayed
-    expect(screen.getByText(/Calibration/i: any)).toBeInTheDocument();
-    expect(screen.getByText(/Please relax and focus/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/Calibration/i)).toBeInTheDocument();
+    expect(screen.getByText(/Please relax and focus/i)).toBeInTheDocument();
     
     // Find and click start calibration button
     const startButton = screen.getByRole('button', { name: /Start Calibration/i });
-    fireEvent.click(startButton: any);
+    fireEvent.click(startButton);
     
     // Check that calibration progress is displayed
     await waitFor(() => {
@@ -289,7 +289,7 @@ describe('BiofeedbackLearning Component', () => {
     
     // Wait for calibration to complete
     await waitFor(() => {
-      expect(screen.getByText(/Calibration Complete/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/Calibration Complete/i)).toBeInTheDocument();
     }, { timeout: 5000 });
   });
 });

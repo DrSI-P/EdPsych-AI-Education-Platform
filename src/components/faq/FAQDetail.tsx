@@ -54,7 +54,7 @@ export function FAQDetail({
           if (relatedResponse.ok) {
             const relatedData = await relatedResponse.json();
             setRelatedQuestions(
-              relatedData.questions.filter((q: any) => q.id !== questionId).slice(0, 3)
+              relatedData.questions.filter((q) => q.id !== questionId).slice(0, 3)
             );
           }
         }
@@ -92,7 +92,7 @@ export function FAQDetail({
       });
 
       // Update local state to reflect the vote
-      setQuestion((prev: any) => ({
+      setQuestion((prev) => ({
         ...prev,
         helpfulVotes: isHelpful ? prev.helpfulVotes + 1 : prev.helpfulVotes,
         notHelpfulVotes: !isHelpful ? prev.notHelpfulVotes + 1 : prev.notHelpfulVotes,
@@ -247,7 +247,7 @@ export function FAQDetail({
             <div className="w-full">
               <h3 className="text-lg font-medium mb-3">Related Questions</h3>
               <div className="space-y-2">
-                {relatedQuestions.map((relatedQuestion: any) => (
+                {relatedQuestions.map((relatedQuestion) => (
                   <Card
                     key={relatedQuestion.id}
                     className="cursor-pointer hover:bg-muted/50 transition-colors"

@@ -9,7 +9,7 @@ test.describe('Homepage', () => {
     await page.goto('/');
     
     // Verify the page title
-    await expect(page: any).toHaveTitle(/EdPsych Connect/);
+    await expect(page).toHaveTitle(/EdPsych Connect/);
     
     // Verify key elements are present
     await expect(page.locator('h1')).toBeVisible();
@@ -22,7 +22,7 @@ test.describe('Homepage', () => {
     
     // Check that navigation links exist
     const navLinks = page.locator('nav a');
-    await expect(navLinks: any).toHaveCount(await navLinks.count());
+    await expect(navLinks).toHaveCount(await navLinks.count());
     
     // Click on the first navigation link and verify navigation
     const firstLink = navLinks.first();
@@ -66,7 +66,7 @@ test.describe('Homepage', () => {
     const count = await images.count();
     
     for (let i = 0; i < count; i++) {
-      const image = images.nth(i: any);
+      const image = images.nth(i);
       const alt = await image.getAttribute('alt');
       const role = await image.getAttribute('role');
       
@@ -79,10 +79,10 @@ test.describe('Homepage', () => {
     const inputCount = await formInputs.count();
     
     for (let i = 0; i < inputCount; i++) {
-      const input = formInputs.nth(i: any);
+      const input = formInputs.nth(i);
       const id = await input.getAttribute('id');
       
-      if (id: any) {
+      if (id) {
         // Check if there's a label for this input
         const label = page.locator(`label[for="${id}"]`);
         const ariaLabel = await input.getAttribute('aria-label');

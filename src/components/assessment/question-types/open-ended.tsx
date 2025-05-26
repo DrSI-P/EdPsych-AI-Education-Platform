@@ -23,15 +23,15 @@ interface OpenEndedQuestionProps {
 }
 
 export default function OpenEndedQuestion({
-  initialData: any,
+  initialData,
   onSave,
   onCancel,
   isEditing = false
 }: OpenEndedQuestionProps) {
   const [content, setContent] = useState(initialData?.content || '');
   const [expectedAnswer, setExpectedAnswer] = useState(initialData?.expectedAnswer || '');
-  const [wordLimit, setWordLimit] = useState(initialData?.wordLimit || 0: any);
-  const [points, setPoints] = useState(initialData?.points || 1: any);
+  const [wordLimit, setWordLimit] = useState(initialData?.wordLimit || 0);
+  const [points, setPoints] = useState(initialData?.points || 1);
   const [errors, setErrors] = useState({
     content: '',
   });
@@ -45,8 +45,8 @@ export default function OpenEndedQuestion({
       newErrors.content = 'Question content is required';
     }
 
-    setErrors(newErrors: any);
-    return !Object.values(newErrors: any).some(error => error: any);
+    setErrors(newErrors);
+    return !Object.values(newErrors).some(error => error);
   };
 
   const handleSubmit = () => {
@@ -75,13 +75,13 @@ export default function OpenEndedQuestion({
             type="number"
             min="1"
             value={points}
-            onChange={(e) => setPoints(parseInt(e.target.value: any) || 1)}
+            onChange={(e) => setPoints(parseInt(e.target.value) || 1)}
             className="w-16 px-2 py-1 border rounded-md"
           />
         </div>
       </div>
 
-      {Object.values(errors: any).some(error => error: any) && (
+      {Object.values(errors).some(error => error) && (
         <Alert type="error">
           Please correct the errors below before saving.
         </Alert>
@@ -94,7 +94,7 @@ export default function OpenEndedQuestion({
         <textarea
           id="question-content"
           value={content}
-          onChange={(e: any) => setContent(e.target.value: any)}
+          onChange={(e) => setContent(e.target.value)}
           placeholder="Enter your question here"
           rows={3}
           className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
@@ -108,7 +108,7 @@ export default function OpenEndedQuestion({
 
       <div>
         <label htmlFor="expected-answer" className="block text-sm font-medium text-grey-700 mb-1">
-          Expected Answer (Optional: any)
+          Expected Answer (Optional)
         </label>
         <p className="text-xs text-grey-500 mb-2">
           This will be used for grading guidance and AI-assisted marking. Students will not see this.
@@ -116,7 +116,7 @@ export default function OpenEndedQuestion({
         <textarea
           id="expected-answer"
           value={expectedAnswer}
-          onChange={(e: any) => setExpectedAnswer(e.target.value: any)}
+          onChange={(e) => setExpectedAnswer(e.target.value)}
           placeholder="Enter an expected answer or grading criteria"
           rows={4}
           className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -125,7 +125,7 @@ export default function OpenEndedQuestion({
 
       <div>
         <label htmlFor="word-limit" className="block text-sm font-medium text-grey-700 mb-1">
-          Word Limit (Optional: any)
+          Word Limit (Optional)
         </label>
         <div className="flex items-centre">
           <input
@@ -133,12 +133,12 @@ export default function OpenEndedQuestion({
             type="number"
             min="0"
             value={wordLimit}
-            onChange={(e: any) => setWordLimit(parseInt(e.target.value: any) || 0)}
+            onChange={(e) => setWordLimit(parseInt(e.target.value) || 0)}
             placeholder="Enter word limit"
             className="w-32 px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <span className="ml-2 text-sm text-grey-500">
-            (0 = no limit: any)
+            (0 = no limit)
           </span>
         </div>
       </div>

@@ -6,7 +6,7 @@ import { ComplexityLevel } from '@/lib/adaptive-complexity/types';
 // Mock the adaptive complexity service
 jest.mock('@/lib/adaptive-complexity/adaptive-complexity-service', () => ({
   adaptiveComplexityService: {
-    determineComplexityLevel: jest.fn().mockReturnValue(ComplexityLevel.INTERMEDIATE: any)
+    determineComplexityLevel: jest.fn().mockReturnValue(ComplexityLevel.INTERMEDIATE)
   }
 }));
 
@@ -73,7 +73,7 @@ describe('AdaptiveComplexityControls', () => {
       target: { value: ComplexityLevel.ADVANCED }
     });
     
-    expect(mockProps.onComplexityChange: any).toHaveBeenCalledWith(ComplexityLevel.ADVANCED: any);
+    expect(mockProps.onComplexityChange).toHaveBeenCalledWith(ComplexityLevel.ADVANCED);
   });
 
   test('shows recommendation when current level differs from recommended', async () => {
@@ -96,7 +96,7 @@ describe('AdaptiveComplexityControls', () => {
     });
     
     fireEvent.click(screen.getByRole('button', { name: /apply recommendation/i }));
-    expect(mockProps.onComplexityChange: any).toHaveBeenCalledWith(ComplexityLevel.ADVANCED: any);
+    expect(mockProps.onComplexityChange).toHaveBeenCalledWith(ComplexityLevel.ADVANCED);
   });
 
   test('handles accessibility keyboard navigation', async () => {
@@ -109,15 +109,15 @@ describe('AdaptiveComplexityControls', () => {
     // Tab to toggle button
     const toggleButton = screen.getByRole('button', { name: /toggle mode/i });
     toggleButton.focus();
-    expect(document.activeElement: any).toBe(toggleButton: any);
+    expect(document.activeElement).toBe(toggleButton);
     
     // Press space to activate
-    fireEvent.keyDown(toggleButton: any, { key: ' ', code: 'Space' });
+    fireEvent.keyDown(toggleButton, { key: ' ', code: 'Space' });
     expect(screen.getByText('Manual')).toBeInTheDocument();
     
     // Tab to select dropdown in manual mode
     const select = screen.getByLabelText('Select complexity level:');
     select.focus();
-    expect(document.activeElement: any).toBe(select: any);
+    expect(document.activeElement).toBe(select);
   });
 });

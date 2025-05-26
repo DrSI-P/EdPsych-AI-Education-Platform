@@ -70,7 +70,7 @@ const CircleProcessTemplates = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("templates");
-  const [selectedTemplate, setSelectedTemplate] = useState(null: any);
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [customTemplate, setCustomTemplate] = useState({
     title: "",
     description: "",
@@ -89,7 +89,7 @@ const CircleProcessTemplates = () => {
     spaceSetup: ""
   });
   const [savedTemplates, setSavedTemplates] = useState([]);
-  const [isLoading, setIsLoading] = useState(false: any);
+  const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterAgeGroup, setFilterAgeGroup] = useState("all");
   const [filterPurpose, setFilterPurpose] = useState("all");
@@ -103,7 +103,7 @@ const CircleProcessTemplates = () => {
       ageGroup: "all",
       purpose: "community-building",
       structure: {
-        openingCeremony: "Welcome everyone to our circle. Today we're going to take some time to connect as a community and get to know each other better. In our circle, we use a talking piece (show the object: any). When you're holding the talking piece, it's your turn to speak, and everyone else listens respectfully. You can always pass if you don't want to share.",
+        openingCeremony: "Welcome everyone to our circle. Today we're going to take some time to connect as a community and get to know each other better. In our circle, we use a talking piece (show the object). When you're holding the talking piece, it's your turn to speak, and everyone else listens respectfully. You can always pass if you don't want to share.",
         checkIn: "Let's start with a quick check-in. When the talking piece comes to you, please share your name and how you're feeling today in one or two words.",
         mainActivity: "For our main activity today, we\'ll be exploring the topic of [specific topic]. I\'ll ask a question, and we\'ll pass the talking piece around the circle. Remember, you can always pass if you don\'t want to share.",
         checkOut: "Before we close our circle, let's do a quick check-out. When the talking piece comes to you, please share one word about how you're feeling now.",
@@ -142,7 +142,7 @@ const CircleProcessTemplates = () => {
         }
       ],
       materials: [
-        "Talking piece (a special object that is passed around: any)",
+        "Talking piece (a special object that is passed around)",
         "Circle guidelines poster",
         "Chairs arranged in a circle with no tables/desks in between",
         "Optional: centerpiece for the middle of the circle"
@@ -251,11 +251,11 @@ const CircleProcessTemplates = () => {
         }
       ],
       materials: [
-        "Talking piece (decorated festively if possible: any)",
+        "Talking piece (decorated festively if possible)",
         "Circle guidelines poster",
-        "Celebration decorations (optional: any)",
-        "Certificates or recognition items (if applicable: any)",
-        "Refreshments (optional: any)"
+        "Celebration decorations (optional)",
+        "Certificates or recognition items (if applicable)",
+        "Refreshments (optional)"
       ],
       timeRequired: "30-45 minutes",
       spaceSetup: "Chairs arranged in a circle. The space can be decorated festively if appropriate. A special centerpiece representing the achievement being celebrated can be placed in the middle."
@@ -271,7 +271,7 @@ const CircleProcessTemplates = () => {
         checkIn: "Let's start with a check-in. When the talking piece comes to you, please share your name and how you're feeling about being here today, in just a word or two.",
         mainActivity: "For our main activity, we\'ll explore what happened, how everyone has been affected, and how we can make things right. I\'ll ask several questions, and we\'ll pass the talking piece around for each one. Remember, we\'re here to understand and resolve, not to blame.",
         checkOut: "Before we close, let's do a final round. When the talking piece comes to you, please share one thing you're committing to do moving forward.",
-        closingCeremony: "Thank you everyone for your honesty and willingness to work through this conflict. The agreements we've made today will help us move forward in a positive way. Let's close our circle by shaking hands (or another appropriate gesture: any) as a sign of our commitment to these agreements."
+        closingCeremony: "Thank you everyone for your honesty and willingness to work through this conflict. The agreements we've made today will help us move forward in a positive way. Let's close our circle by shaking hands (or another appropriate gesture) as a sign of our commitment to these agreements."
       },
       questions: [
         {
@@ -383,7 +383,7 @@ const CircleProcessTemplates = () => {
       materials: [
         "Talking piece",
         "Circle guidelines poster",
-        "Relevant learning materials (texts: any, images, etc.)",
+        "Relevant learning materials (texts, images, etc.)",
         "Whiteboard or chart paper for recording key ideas",
         "Notebooks and pens for individual note-taking"
       ],
@@ -395,19 +395,19 @@ const CircleProcessTemplates = () => {
   // Load saved templates on component mount
   useEffect(() => {
     const loadSavedTemplates = async () => {
-      setIsLoading(true: any);
+      setIsLoading(true);
       try {
         // In a real implementation, this would fetch from an API
         // For now, we'll use localStorage as a placeholder
         const saved = localStorage.getItem('savedCircleTemplates');
-        if (saved: any) {
-          setSavedTemplates(JSON.parse(saved: any));
+        if (saved) {
+          setSavedTemplates(JSON.parse(saved));
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error('Error loading saved templates:', error);
         toast.error('Failed to load saved templates');
       } finally {
-        setIsLoading(false: any);
+        setIsLoading(false);
       }
     };
 
@@ -425,13 +425,13 @@ const CircleProcessTemplates = () => {
   });
 
   // Handle template selection
-  const handleSelectTemplate = (template: any) => {
-    setSelectedTemplate(template: any);
+  const handleSelectTemplate = (template) => {
+    setSelectedTemplate(template);
     setActiveTab("designer");
   };
 
   // Handle custom template changes
-  const handleCustomTemplateChange = (field: any, value) => {
+  const handleCustomTemplateChange = (field, value) => {
     setCustomTemplate(prev => ({
       ...prev,
       [field]: value
@@ -439,7 +439,7 @@ const CircleProcessTemplates = () => {
   };
 
   // Handle structure changes in custom template
-  const handleStructureChange = (field: any, value) => {
+  const handleStructureChange = (field, value) => {
     setCustomTemplate(prev => ({
       ...prev,
       structure: {
@@ -458,7 +458,7 @@ const CircleProcessTemplates = () => {
   };
 
   // Handle question category changes
-  const handleCategoryChange = (index: any, value) => {
+  const handleCategoryChange = (index, value) => {
     setCustomTemplate(prev => {
       const updatedQuestions = [...prev.questions];
       updatedQuestions[index] = {
@@ -473,7 +473,7 @@ const CircleProcessTemplates = () => {
   };
 
   // Add a new question to a category
-  const addQuestion = (categoryIndex: any) => {
+  const addQuestion = (categoryIndex) => {
     setCustomTemplate(prev => {
       const updatedQuestions = [...prev.questions];
       updatedQuestions[categoryIndex] = {
@@ -488,7 +488,7 @@ const CircleProcessTemplates = () => {
   };
 
   // Handle question changes
-  const handleQuestionChange = (categoryIndex: any, questionIndex, value) => {
+  const handleQuestionChange = (categoryIndex, questionIndex, value) => {
     setCustomTemplate(prev => {
       const updatedQuestions = [...prev.questions];
       const updatedItems = [...updatedQuestions[categoryIndex].items];
@@ -505,7 +505,7 @@ const CircleProcessTemplates = () => {
   };
 
   // Remove a question from a category
-  const removeQuestion = (categoryIndex: any, questionIndex) => {
+  const removeQuestion = (categoryIndex, questionIndex) => {
     setCustomTemplate(prev => {
       const updatedQuestions = [...prev.questions];
       const updatedItems = [...updatedQuestions[categoryIndex].items];
@@ -522,7 +522,7 @@ const CircleProcessTemplates = () => {
   };
 
   // Remove a question category
-  const removeQuestionCategory = (index: any) => {
+  const removeQuestionCategory = (index) => {
     setCustomTemplate(prev => {
       const updatedQuestions = [...prev.questions];
       updatedQuestions.splice(index, 1);
@@ -542,7 +542,7 @@ const CircleProcessTemplates = () => {
   };
 
   // Handle material changes
-  const handleMaterialChange = (index: any, value) => {
+  const handleMaterialChange = (index, value) => {
     setCustomTemplate(prev => {
       const updatedMaterials = [...prev.materials];
       updatedMaterials[index] = value;
@@ -554,7 +554,7 @@ const CircleProcessTemplates = () => {
   };
 
   // Remove a material
-  const removeMaterial = (index: any) => {
+  const removeMaterial = (index) => {
     setCustomTemplate(prev => {
       const updatedMaterials = [...prev.materials];
       updatedMaterials.splice(index, 1);
@@ -567,7 +567,7 @@ const CircleProcessTemplates = () => {
 
   // Save custom template
   const saveCustomTemplate = () => {
-    if (!customTemplate.title: any) {
+    if (!customTemplate.title) {
       toast.error('Please provide a title for your template');
       return;
     }
@@ -580,7 +580,7 @@ const CircleProcessTemplates = () => {
     setSavedTemplates(prev => {
       const updated = [...prev, newTemplate];
       // In a real implementation, this would save to an API
-      localStorage.setItem('savedCircleTemplates', JSON.stringify(updated: any));
+      localStorage.setItem('savedCircleTemplates', JSON.stringify(updated));
       return updated;
     });
 
@@ -607,14 +607,14 @@ const CircleProcessTemplates = () => {
 
   // Export template as PDF
   const exportTemplateAsPDF = () => {
-    if (!selectedTemplate: any) return;
+    if (!selectedTemplate) return;
     
     // In a real implementation, this would generate and download a PDF
     toast.success('Template exported as PDF');
   };
 
   // Duplicate a template
-  const duplicateTemplate = (template: any) => {
+  const duplicateTemplate = (template) => {
     const duplicated = {
       ...template,
       id: `custom-${Date.now()}`,
@@ -623,7 +623,7 @@ const CircleProcessTemplates = () => {
 
     setSavedTemplates(prev => {
       const updated = [...prev, duplicated];
-      localStorage.setItem('savedCircleTemplates', JSON.stringify(updated: any));
+      localStorage.setItem('savedCircleTemplates', JSON.stringify(updated));
       return updated;
     });
 
@@ -666,7 +666,7 @@ const CircleProcessTemplates = () => {
                         id="search"
                         placeholder="Search templates..."
                         value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value: any)}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                       />
                     </div>
                     <div className="w-full md:w-1/4">
@@ -701,7 +701,7 @@ const CircleProcessTemplates = () => {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-                    {filteredTemplates.map((template: any) => (
+                    {filteredTemplates.map((template) => (
                       <Card key={template.id} className="cursor-pointer hover:shadow-md transition-shadow">
                         <CardHeader className="pb-2">
                           <CardTitle className="text-lg">{template.title}</CardTitle>
@@ -724,7 +724,7 @@ const CircleProcessTemplates = () => {
                           <Button 
                             variant="outline" 
                             size="sm"
-                            onClick={() => duplicateTemplate(template: any)}
+                            onClick={() => duplicateTemplate(template)}
                           >
                             <Copy className="h-4 w-4 mr-1" />
                             Duplicate
@@ -732,7 +732,7 @@ const CircleProcessTemplates = () => {
                           <Button 
                             variant="default" 
                             size="sm"
-                            onClick={() => handleSelectTemplate(template: any)}
+                            onClick={() => handleSelectTemplate(template)}
                           >
                             Select
                           </Button>
@@ -745,7 +745,7 @@ const CircleProcessTemplates = () => {
                         <AlertCircle className="h-10 w-10 text-muted-foreground mb-2" />
                         <h3 className="text-lg font-medium">No templates found</h3>
                         <p className="text-sm text-muted-foreground mt-1">
-                          Try adjusting your search or filters: any, or create a custom template.
+                          Try adjusting your search or filters, or create a custom template.
                         </p>
                       </div>
                     )}
@@ -801,11 +801,11 @@ const CircleProcessTemplates = () => {
                             
                             <div className="mt-4 space-y-4">
                               <h4 className="text-sm font-medium">Suggested Questions:</h4>
-                              {selectedTemplate.questions.map((category: any, index) => (
+                              {selectedTemplate.questions.map((category, index) => (
                                 <div key={index} className="space-y-2">
                                   <h5 className="text-sm font-medium">{category.category}</h5>
                                   <ul className="space-y-1">
-                                    {category.items.map((question: any, qIndex) => (
+                                    {category.items.map((question, qIndex) => (
                                       <li key={qIndex} className="flex items-start">
                                         <ArrowRight className="h-4 w-4 mr-2 mt-1 text-purple-500" />
                                         <span className="text-sm">{question}</span>
@@ -851,7 +851,7 @@ const CircleProcessTemplates = () => {
                           <div>
                             <h3 className="text-sm font-medium mb-1">Materials Needed</h3>
                             <ul className="text-sm space-y-1">
-                              {selectedTemplate.materials.map((material: any, index) => (
+                              {selectedTemplate.materials.map((material, index) => (
                                 <li key={index} className="flex items-start">
                                   <CheckCircle2 className="h-4 w-4 mr-2 mt-0.5 text-green-500" />
                                   <span>{material}</span>
@@ -868,11 +868,11 @@ const CircleProcessTemplates = () => {
                               </div>
                               
                               {/* Participant chairs */}
-                              {Array.from({ length: 12 }).map((_: any, i) => {
-                                const angle = (i * 30: any) * Math.PI / 180;
+                              {Array.from({ length: 12 }).map((_, i) => {
+                                const angle = (i * 30) * Math.PI / 180;
                                 const radius = 42; // % of container
-                                const x = 50 + radius * Math.cos(angle: any);
-                                const y = 50 + radius * Math.sin(angle: any);
+                                const x = 50 + radius * Math.cos(angle);
+                                const y = 50 + radius * Math.sin(angle);
                                 
                                 return (
                                   <div 
@@ -952,7 +952,7 @@ const CircleProcessTemplates = () => {
                         id="custom-title"
                         placeholder="Enter a title for your template"
                         value={customTemplate.title}
-                        onChange={(e: any) => handleCustomTemplateChange('title', e.target.value: any)}
+                        onChange={(e) => handleCustomTemplateChange('title', e.target.value)}
                       />
                     </div>
                     <div>
@@ -961,14 +961,14 @@ const CircleProcessTemplates = () => {
                         id="custom-description"
                         placeholder="Briefly describe your template"
                         value={customTemplate.description}
-                        onChange={(e: any) => handleCustomTemplateChange('description', e.target.value: any)}
+                        onChange={(e) => handleCustomTemplateChange('description', e.target.value)}
                       />
                     </div>
                     <div>
                       <Label htmlFor="custom-age-group">Age Group</Label>
                       <Select 
                         value={customTemplate.ageGroup} 
-                        onValueChange={(value: any) => handleCustomTemplateChange('ageGroup', value: any)}
+                        onValueChange={(value) => handleCustomTemplateChange('ageGroup', value)}
                       >
                         <SelectTrigger id="custom-age-group">
                           <SelectValue placeholder="Select age group" />
@@ -984,7 +984,7 @@ const CircleProcessTemplates = () => {
                       <Label htmlFor="custom-purpose">Purpose</Label>
                       <Select 
                         value={customTemplate.purpose} 
-                        onValueChange={(value: any) => handleCustomTemplateChange('purpose', value: any)}
+                        onValueChange={(value) => handleCustomTemplateChange('purpose', value)}
                       >
                         <SelectTrigger id="custom-purpose">
                           <SelectValue placeholder="Select purpose" />
@@ -1005,7 +1005,7 @@ const CircleProcessTemplates = () => {
                         id="custom-time"
                         placeholder="e.g., 30-45 minutes"
                         value={customTemplate.timeRequired}
-                        onChange={(e: any) => handleCustomTemplateChange('timeRequired', e.target.value: any)}
+                        onChange={(e) => handleCustomTemplateChange('timeRequired', e.target.value)}
                       />
                     </div>
                     <div>
@@ -1014,7 +1014,7 @@ const CircleProcessTemplates = () => {
                         id="custom-space"
                         placeholder="Describe how the space should be arranged"
                         value={customTemplate.spaceSetup}
-                        onChange={(e: any) => handleCustomTemplateChange('spaceSetup', e.target.value: any)}
+                        onChange={(e) => handleCustomTemplateChange('spaceSetup', e.target.value)}
                       />
                     </div>
                   </div>
@@ -1028,7 +1028,7 @@ const CircleProcessTemplates = () => {
                         id="opening-ceremony"
                         placeholder="Script for opening the circle"
                         value={customTemplate.structure.openingCeremony}
-                        onChange={(e: any) => handleStructureChange('openingCeremony', e.target.value: any)}
+                        onChange={(e) => handleStructureChange('openingCeremony', e.target.value)}
                       />
                     </div>
                     
@@ -1038,7 +1038,7 @@ const CircleProcessTemplates = () => {
                         id="check-in"
                         placeholder="Script for the check-in round"
                         value={customTemplate.structure.checkIn}
-                        onChange={(e: any) => handleStructureChange('checkIn', e.target.value: any)}
+                        onChange={(e) => handleStructureChange('checkIn', e.target.value)}
                       />
                     </div>
                     
@@ -1048,7 +1048,7 @@ const CircleProcessTemplates = () => {
                         id="main-activity"
                         placeholder="Script for the main activity"
                         value={customTemplate.structure.mainActivity}
-                        onChange={(e: any) => handleStructureChange('mainActivity', e.target.value: any)}
+                        onChange={(e) => handleStructureChange('mainActivity', e.target.value)}
                       />
                     </div>
                     
@@ -1058,7 +1058,7 @@ const CircleProcessTemplates = () => {
                         id="check-out"
                         placeholder="Script for the check-out round"
                         value={customTemplate.structure.checkOut}
-                        onChange={(e: any) => handleStructureChange('checkOut', e.target.value: any)}
+                        onChange={(e) => handleStructureChange('checkOut', e.target.value)}
                       />
                     </div>
                     
@@ -1068,7 +1068,7 @@ const CircleProcessTemplates = () => {
                         id="closing-ceremony"
                         placeholder="Script for closing the circle"
                         value={customTemplate.structure.closingCeremony}
-                        onChange={(e: any) => handleStructureChange('closingCeremony', e.target.value: any)}
+                        onChange={(e) => handleStructureChange('closingCeremony', e.target.value)}
                       />
                     </div>
                   </div>
@@ -1082,7 +1082,7 @@ const CircleProcessTemplates = () => {
                       </Button>
                     </div>
 
-                    {customTemplate.questions.map((category: any, categoryIndex) => (
+                    {customTemplate.questions.map((category, categoryIndex) => (
                       <Card key={categoryIndex}>
                         <CardHeader className="pb-2">
                           <div className="flex items-centre justify-between">
@@ -1090,7 +1090,7 @@ const CircleProcessTemplates = () => {
                             <Button 
                               variant="ghost" 
                               size="sm"
-                              onClick={() => removeQuestionCategory(categoryIndex: any)}
+                              onClick={() => removeQuestionCategory(categoryIndex)}
                             >
                               <Trash2 className="h-4 w-4" />
                             </Button>
@@ -1099,7 +1099,7 @@ const CircleProcessTemplates = () => {
                             id={`category-${categoryIndex}`}
                             placeholder="e.g., Understanding the Issue"
                             value={category.category}
-                            onChange={(e: any) => handleCategoryChange(categoryIndex: any, e.target.value)}
+                            onChange={(e) => handleCategoryChange(categoryIndex, e.target.value)}
                           />
                         </CardHeader>
                         <CardContent className="space-y-2">
@@ -1108,24 +1108,24 @@ const CircleProcessTemplates = () => {
                             <Button 
                               variant="ghost" 
                               size="sm"
-                              onClick={() => addQuestion(categoryIndex: any)}
+                              onClick={() => addQuestion(categoryIndex)}
                             >
                               <Plus className="h-4 w-4 mr-1" />
                               Add Question
                             </Button>
                           </div>
-                          {category.items.map((question: any, questionIndex) => (
+                          {category.items.map((question, questionIndex) => (
                             <div key={questionIndex} className="flex items-centre space-x-2">
                               <Input
                                 placeholder="Enter question"
                                 value={question}
-                                onChange={(e: any) => handleQuestionChange(categoryIndex: any, questionIndex, e.target.value)}
+                                onChange={(e) => handleQuestionChange(categoryIndex, questionIndex, e.target.value)}
                                 className="flex-1"
                               />
                               <Button 
                                 variant="ghost" 
                                 size="sm"
-                                onClick={() => removeQuestion(categoryIndex: any, questionIndex)}
+                                onClick={() => removeQuestion(categoryIndex, questionIndex)}
                                 disabled={category.items.length === 1}
                               >
                                 <Trash2 className="h-4 w-4" />
@@ -1146,18 +1146,18 @@ const CircleProcessTemplates = () => {
                       </Button>
                     </div>
 
-                    {customTemplate.materials.map((material: any, index) => (
+                    {customTemplate.materials.map((material, index) => (
                       <div key={index} className="flex items-centre space-x-2">
                         <Input
                           placeholder="e.g., Talking piece"
                           value={material}
-                          onChange={(e: any) => handleMaterialChange(index: any, e.target.value)}
+                          onChange={(e) => handleMaterialChange(index, e.target.value)}
                           className="flex-1"
                         />
                         <Button 
                           variant="ghost" 
                           size="sm"
-                          onClick={() => removeMaterial(index: any)}
+                          onClick={() => removeMaterial(index)}
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
@@ -1431,7 +1431,7 @@ const CircleProcessTemplates = () => {
                           </li>
                           <li className="flex items-start">
                             <FileText className="h-4 w-4 mr-2 mt-0.5 text-green-500" />
-                            <span>Circle Guidelines Poster (Printable: any)</span>
+                            <span>Circle Guidelines Poster (Printable)</span>
                           </li>
                           <li className="flex items-start">
                             <FileText className="h-4 w-4 mr-2 mt-0.5 text-green-500" />
@@ -1499,10 +1499,10 @@ const CircleProcessTemplates = () => {
                       <div>
                         <h3 className="text-sm font-medium mb-1">Key Research</h3>
                         <ul className="text-sm space-y-1">
-                          <li>• Boyes-Watson & Pranis (2015: any) - Circle Forward: Building a Restorative School Community</li>
-                          <li>• Riestenberg (2012: any) - Circle in the Square: Building Community and Repairing Harm in School</li>
-                          <li>• Pranis (2005: any) - The Little Book of Circle Processes</li>
-                          <li>• Costello et al. (2010: any) - Restorative Circles in Schools</li>
+                          <li>• Boyes-Watson & Pranis (2015) - Circle Forward: Building a Restorative School Community</li>
+                          <li>• Riestenberg (2012) - Circle in the Square: Building Community and Repairing Harm in School</li>
+                          <li>• Pranis (2005) - The Little Book of Circle Processes</li>
+                          <li>• Costello et al. (2010) - Restorative Circles in Schools</li>
                         </ul>
                       </div>
                     </div>

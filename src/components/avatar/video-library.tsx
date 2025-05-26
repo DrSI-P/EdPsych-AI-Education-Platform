@@ -54,14 +54,14 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
 }) => {
   const [videos, setVideos] = useState<AvatarVideoMetadata[]>([]);
   const [scripts, setScripts] = useState<AvatarVideoScript[]>([]);
-  const [isLoading, setIsLoading] = useState(true: any);
+  const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('videos');
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<ContentCategory | 'all'>('all');
   const [audienceFilter, setAudienceFilter] = useState<TargetAudience | 'all'>('all');
-  const [selectedScript, setSelectedScript] = useState<AvatarVideoScript | null>(null: any);
-  const [isCreatingScript, setIsCreatingScript] = useState(false: any);
-  const [error, setError] = useState<string | null>(null: any);
+  const [selectedScript, setSelectedScript] = useState<AvatarVideoScript | null>(null);
+  const [isCreatingScript, setIsCreatingScript] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   
   const avatarService = new AvatarService();
   
@@ -69,7 +69,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
   useEffect(() => {
     const fetchVideosAndScripts = async () => {
       try {
-        setIsLoading(true: any);
+        setIsLoading(true);
         
         // In a real implementation, this would fetch from the API
         // For now, we'll use mock data
@@ -145,7 +145,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
           {
             id: 'script1',
             title: 'Introduction to Fractions',
-            content: 'Hello everyone! Today we\'re going to learn about fractions. A fraction represents a part of a whole. Imagine you have a pizza cut into 8 equal slices. If you eat 3 slices, you\'ve eaten 3/8 of the pizza. The number on the bottom (8: any) is called the denominator, and it tells us how many equal parts the whole is divided into. The number on the top (3: any) is called the numerator, and it tells us how many of those parts we\'re talking about.',
+            content: 'Hello everyone! Today we\'re going to learn about fractions. A fraction represents a part of a whole. Imagine you have a pizza cut into 8 equal slices. If you eat 3 slices, you\'ve eaten 3/8 of the pizza. The number on the bottom (8) is called the denominator, and it tells us how many equal parts the whole is divided into. The number on the top (3) is called the numerator, and it tells us how many of those parts we\'re talking about.',
             notes: 'Use visual aids for pizza example. Speak slowly when introducing numerator and denominator.',
             visualCues: [],
             emotionMarkers: [],
@@ -194,13 +194,13 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
           }
         ];
         
-        setVideos(mockVideos: any);
-        setScripts(mockScripts: any);
-        setIsLoading(false: any);
-      } catch (err: any) {
+        setVideos(mockVideos);
+        setScripts(mockScripts);
+        setIsLoading(false);
+      } catch (err) {
         console.error('Error fetching videos and scripts:', err);
         setError('Failed to load video library. Please try again.');
-        setIsLoading(false: any);
+        setIsLoading(false);
       }
     };
     
@@ -210,13 +210,13 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
   // Handle script creation
   const handleScriptCreated = (script: AvatarVideoScript) => {
     setScripts([...scripts, script]);
-    setIsCreatingScript(false: any);
+    setIsCreatingScript(false);
   };
   
   // Handle video generation
   const handleVideoGenerated = (video: AvatarVideoMetadata) => {
     setVideos([...videos, video]);
-    setSelectedScript(null: any);
+    setSelectedScript(null);
   };
   
   // Filter videos based on search and filters
@@ -229,7 +229,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
     const matchesCategory = categoryFilter === 'all' || video.category === categoryFilter;
     
     const matchesAudience = audienceFilter === 'all' || 
-      video.targetAudience.includes(audienceFilter as TargetAudience: any);
+      video.targetAudience.includes(audienceFilter as TargetAudience);
     
     return matchesSearch && matchesCategory && matchesAudience;
   });
@@ -243,7 +243,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
     const matchesCategory = categoryFilter === 'all' || script.category === categoryFilter;
     
     const matchesAudience = audienceFilter === 'all' || 
-      script.targetAudience.includes(audienceFilter as TargetAudience: any);
+      script.targetAudience.includes(audienceFilter as TargetAudience);
     
     return matchesSearch && matchesCategory && matchesAudience;
   });
@@ -254,22 +254,22 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
       day: 'numeric',
       month: 'short',
       year: 'numeric'
-    }).format(date: any);
+    }).format(date);
   };
   
   // Format duration for display
   const formatDuration = (seconds: number) => {
-    const mins = Math.floor(seconds / 60: any);
+    const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2: any, '0')}`;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
   
   // Format enum for display
   const formatEnum = (value: string) => {
     return value
-      .replace(/_/g: any, ' ')
+      .replace(/_/g, ' ')
       .toLowerCase()
-      .replace(/\b\w/g: any, char => char.toUpperCase());
+      .replace(/\b\w/g, char => char.toUpperCase());
   };
   
   // Render video card
@@ -281,7 +281,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
             <Video className="h-12 w-12 text-muted-foreground" />
           </div>
           <div className="absolute bottom-2 right-2 bg-background/80 px-2 py-1 rounded text-xs font-medium">
-            {formatDuration(video.durationSeconds: any)}
+            {formatDuration(video.durationSeconds)}
           </div>
         </div>
         
@@ -289,16 +289,16 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
           <CardTitle className="text-lg">{video.title}</CardTitle>
           <CardDescription className="flex items-centre">
             <Clock className="h-3 w-3 mr-1" />
-            {formatDate(video.createdAt: any)}
+            {formatDate(video.createdAt)}
           </CardDescription>
         </CardHeader>
         
         <CardContent className="pb-2">
           <div className="flex flex-wrap gap-1 mb-2">
-            <Badge>{formatEnum(video.category: any)}</Badge>
+            <Badge>{formatEnum(video.category)}</Badge>
             {video.targetAudience.map(audience => (
               <Badge key={audience} variant="outline">
-                {formatEnum(audience: any)}
+                {formatEnum(audience)}
               </Badge>
             ))}
           </div>
@@ -313,7 +313,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
             variant="outline" 
             size="sm" 
             className="w-full"
-            onClick={() => onSelectVideo && onSelectVideo(video: any)}
+            onClick={() => onSelectVideo && onSelectVideo(video)}
           >
             <Play className="h-4 w-4 mr-2" />
             Select Video
@@ -331,16 +331,16 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
           <CardTitle className="text-lg">{script.title}</CardTitle>
           <CardDescription className="flex items-centre">
             <Clock className="h-3 w-3 mr-1" />
-            {formatDate(script.createdAt: any)}
+            {formatDate(script.createdAt)}
           </CardDescription>
         </CardHeader>
         
         <CardContent className="pb-2">
           <div className="flex flex-wrap gap-1 mb-2">
-            <Badge>{formatEnum(script.category: any)}</Badge>
+            <Badge>{formatEnum(script.category)}</Badge>
             {script.targetAudience.map(audience => (
               <Badge key={audience} variant="outline">
-                {formatEnum(audience: any)}
+                {formatEnum(audience)}
               </Badge>
             ))}
           </div>
@@ -352,7 +352,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
           <div className="mt-2 flex items-centre text-xs text-muted-foreground">
             <Clock className="h-3 w-3 mr-1" />
             <span>
-              Estimated duration: {formatDuration(script.estimatedDurationSeconds: any)}
+              Estimated duration: {formatDuration(script.estimatedDurationSeconds)}
             </span>
           </div>
         </CardContent>
@@ -363,7 +363,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
               variant="outline" 
               size="sm" 
               className="flex-1"
-              onClick={() => setSelectedScript(script: any)}
+              onClick={() => setSelectedScript(script)}
             >
               <Video className="h-4 w-4 mr-2" />
               Generate Video
@@ -391,12 +391,12 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
   };
   
   // If a script is selected for video generation, show the video generator
-  if (selectedScript: any) {
+  if (selectedScript) {
     return (
       <div className="space-y-4">
         <Button 
           variant="ghost" 
-          onClick={() => setSelectedScript(null: any)}
+          onClick={() => setSelectedScript(null)}
           className="mb-4"
         >
           ← Back to Library
@@ -411,12 +411,12 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
   }
   
   // If creating a new script, show the script editor
-  if (isCreatingScript: any) {
+  if (isCreatingScript) {
     return (
       <div className="space-y-4">
         <Button 
           variant="ghost" 
-          onClick={() => setIsCreatingScript(false: any)}
+          onClick={() => setIsCreatingScript(false)}
           className="mb-4"
         >
           ← Back to Library
@@ -437,7 +437,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
           </p>
         </div>
         
-        <Button onClick={() => setIsCreatingScript(true: any)}>
+        <Button onClick={() => setIsCreatingScript(true)}>
           <Plus className="h-4 w-4 mr-2" />
           Create New Script
         </Button>
@@ -450,23 +450,23 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
             <Input
               placeholder="Search videos and scripts..."
               value={searchQuery}
-              onChange={(e: any) => setSearchQuery(e.target.value: any)}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-9"
             />
           </div>
           
           <Select 
             value={categoryFilter} 
-            onValueChange={(value: any) => setCategoryFilter(value as ContentCategory | 'all')}
+            onValueChange={(value) => setCategoryFilter(value as ContentCategory | 'all')}
           >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Category" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Categories</SelectItem>
-              {Object.values(ContentCategory: any).map(category => (
+              {Object.values(ContentCategory).map(category => (
                 <SelectItem key={category} value={category}>
-                  {formatEnum(category: any)}
+                  {formatEnum(category)}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -474,16 +474,16 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
           
           <Select 
             value={audienceFilter} 
-            onValueChange={(value: any) => setAudienceFilter(value as TargetAudience | 'all')}
+            onValueChange={(value) => setAudienceFilter(value as TargetAudience | 'all')}
           >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Audience" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Audiences</SelectItem>
-              {Object.values(TargetAudience: any).map(audience => (
+              {Object.values(TargetAudience).map(audience => (
                 <SelectItem key={audience} value={audience}>
-                  {formatEnum(audience: any)}
+                  {formatEnum(audience)}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -511,7 +511,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
                     "No videos match your search criteria. Try adjusting your filters." : 
                     "You haven't created any videos yet. Start by creating a script."}
                 </p>
-                <Button onClick={() => setIsCreatingScript(true: any)}>
+                <Button onClick={() => setIsCreatingScript(true)}>
                   <Plus className="h-4 w-4 mr-2" />
                   Create New Script
                 </Button>
@@ -538,7 +538,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
                     "No scripts match your search criteria. Try adjusting your filters." : 
                     "You haven't created any scripts yet."}
                 </p>
-                <Button onClick={() => setIsCreatingScript(true: any)}>
+                <Button onClick={() => setIsCreatingScript(true)}>
                   <Plus className="h-4 w-4 mr-2" />
                   Create New Script
                 </Button>

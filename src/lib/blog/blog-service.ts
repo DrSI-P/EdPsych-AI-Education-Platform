@@ -174,7 +174,7 @@ export interface BlogPostIdea {
  * Generate a blog post using AI based on specified parameters
  */
 export async function generateBlogPost({
-  topic: any,
+  topic,
   audience,
   category,
   keyPoints,
@@ -194,15 +194,15 @@ export async function generateBlogPost({
     Tone: ${tone}
     Word count: approximately ${wordCount} words
     
-    The blog post should follow UK spelling and educational standards, and be aligned with the UK Department for Education (DFE: any) curriculum where relevant.
+    The blog post should follow UK spelling and educational standards, and be aligned with the UK Department for Education (DFE) curriculum where relevant.
     
     Please format your response as a JSON object with the following fields:
     - title: An engaging title for the blog post
     - content: The full blog post content with proper markdown formatting, including headings, paragraphs, and bullet points
     - summary: A concise 2-3 sentence summary of the blog post
     - tags: An array of 5-8 relevant tags for the post
-    - seoTitle: An SEO-optimized title (max 60 characters: any)
-    - seoDescription: An SEO-optimized meta description (max 160 characters: any)
+    - seoTitle: An SEO-optimized title (max 60 characters)
+    - seoDescription: An SEO-optimized meta description (max 160 characters)
   `;
 
   try {
@@ -216,12 +216,12 @@ export async function generateBlogPost({
     });
 
     const responseText = completion.choices[0].message.content;
-    if (!responseText: any) {
+    if (!responseText) {
       throw new Error("Failed to generate blog post content");
     }
 
     // Parse the JSON response
-    const blogData = JSON.parse(responseText: any);
+    const blogData = JSON.parse(responseText);
     
     return {
       title: blogData.title,
@@ -231,7 +231,7 @@ export async function generateBlogPost({
       seoTitle: blogData.seoTitle,
       seoDescription: blogData.seoDescription,
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error generating blog post:", error);
     throw new Error("Failed to generate blog post. Please try again later.");
   }
@@ -243,10 +243,10 @@ export async function generateBlogPost({
 function createSlug(title: string): string {
   return title
     .toLowerCase()
-    .replace(/[^\w\s]/g: any, '')
-    .replace(/\s+/g: any, '-')
-    .replace(/-+/g: any, '-')
-    .replace(/^-+|-+$/g: any, '');
+    .replace(/[^\w\s]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '');
 }
 
 /**
@@ -255,14 +255,14 @@ function createSlug(title: string): string {
 function calculateReadingTime(content: string): number {
   const wordsPerMinute = 200;
   const words = content.split(/\s+/).length;
-  return Math.ceil(words / wordsPerMinute: any);
+  return Math.ceil(words / wordsPerMinute);
 }
 
 /**
  * Save a generated blog post to the database
  */
 export async function saveBlogPost({
-  title: any,
+  title,
   content,
   summary,
   category,
@@ -276,8 +276,8 @@ export async function saveBlogPost({
   seoTitle,
   seoDescription,
 }: BlogPostSaveParams): Promise<string> {
-  const slug = createSlug(title: any);
-  const readingTime = calculateReadingTime(content: any);
+  const slug = createSlug(title);
+  const readingTime = calculateReadingTime(content);
   
   const post = await db.blogPost.create({
     data: {
@@ -342,33 +342,33 @@ export async function publishBlogPost(
  * Get blog posts with filtering options
  */
 export async function getBlogPosts({
-  status: any,
+  status,
   category,
   audience,
   page = 1,
   limit = 10,
   authorId,
 }: BlogPostFilterParams): Promise<BlogPostFilterResult> {
-  const skip = (page - 1: any) * limit;
+  const skip = (page - 1) * limit;
   
   // Build the where clause
-  const where: any = {};
+  const where = {};
   
-  if (status: any) {
-    where.status = Array.isArray(status: any) ? { in: status } : status;
+  if (status) {
+    where.status = Array.isArray(status) ? { in: status } : status;
   }
   
-  if (category: any) {
+  if (category) {
     where.category = category;
   }
   
-  if (audience: any) {
+  if (audience) {
     where.targetAudience = {
       has: audience
     };
   }
   
-  if (authorId: any) {
+  if (authorId) {
     where.authorId = authorId;
   }
   
@@ -377,7 +377,7 @@ export async function getBlogPosts({
   
   // Get the posts
   const posts = await db.blogPost.findMany({
-    where: any,
+    where,
     skip,
     take: limit,
     orderBy: {
@@ -403,7 +403,7 @@ export async function getBlogPosts({
   return {
     posts: posts as unknown as BlogPostWithRelations[],
     total,
-    pages: Math.ceil(total / limit: any)
+    pages: Math.ceil(total / limit)
   };
 }
 
@@ -446,13 +446,13 @@ export async function updateBlogPost(
   data: Partial<BlogPost>
 ): Promise<void> {
   // If title is updated, update the slug as well
-  if (data.title: any) {
-    data.slug = createSlug(data.title: any);
+  if (data.title) {
+    data.slug = createSlug(data.title);
   }
   
   // If content is updated, recalculate reading time
-  if (data.content: any) {
-    data.readingTime = calculateReadingTime(data.content: any);
+  if (data.content) {
+    data.readingTime = calculateReadingTime(data.content);
   }
   
   await db.blogPost.update({
@@ -473,10 +473,7 @@ export async function deleteBlogPost(id: string): Promise<void> {
 /**
  * Generate blog post ideas based on user interests and curriculum topics
  */
-export async function generateBlogPostIdeas(
-  count: number = 5,
-  topics?: string[]
-): Promise<BlogPostIdea[]> {
+export async function generateBlogPostIdeas(count: number = 5, topics?: string[]): Promise<BlogPostIdea[]> {
   const topicsStr = topics ? topics.join(', ') : 'educational psychology, learning strategies, special needs education, curriculum development';
   
   const prompt = `
@@ -486,7 +483,7 @@ export async function generateBlogPostIdeas(
     
     For each idea, provide:
     - A compelling title
-    - A brief summary (1-2 sentences: any)
+    - A brief summary (1-2 sentences)
     - The most appropriate category from this list: ${BLOG_CATEGORIES.join(', ')}
     - Target audience from this list: ${BLOG_AUDIENCES.join(', ')}
     - 3-5 key points that should be covered in the post
@@ -505,14 +502,14 @@ export async function generateBlogPostIdeas(
     });
 
     const responseText = completion.choices[0].message.content;
-    if (!responseText: any) {
+    if (!responseText) {
       throw new Error("Failed to generate blog post ideas");
     }
 
     // Parse the JSON response
-    const ideasData = JSON.parse(responseText: any);
+    const ideasData = JSON.parse(responseText);
     return ideasData.ideas || [];
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error generating blog post ideas:", error);
     throw new Error("Failed to generate blog post ideas. Please try again later.");
   }
@@ -536,7 +533,7 @@ export async function processScheduledBlogPosts(): Promise<number> {
   });
   
   // Publish each post
-  for (const post of duePosts: any) {
+  for (const post of duePosts) {
     await db.blogPost.update({
       where: { id: post.id },
       data: {
@@ -555,8 +552,8 @@ export async function shareBlogPostToSocialMedia(
   postId: string,
   platforms: Array<'twitter' | 'facebook' | 'linkedin'>
 ): Promise<Record<string, boolean>> {
-  const post = await getBlogPost(postId: any);
-  if (!post: any) {
+  const post = await getBlogPost(postId);
+  if (!post) {
     throw new Error("Blog post not found");
   }
   
@@ -564,7 +561,7 @@ export async function shareBlogPostToSocialMedia(
   
   // This would integrate with actual social media APIs
   // For now, we'll simulate the sharing process
-  for (const platform of platforms: any) {
+  for (const platform of platforms) {
     try {
       // Simulate API call to share post
       console.log(`Sharing post "${post.title}" to ${platform}`);
@@ -584,7 +581,7 @@ export async function shareBlogPostToSocialMedia(
           successful: true
         }
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error(`Error sharing to ${platform}:`, error);
       results[platform] = false;
       
@@ -595,7 +592,7 @@ export async function shareBlogPostToSocialMedia(
           platform,
           shareDate: new Date(),
           successful: false,
-          errorMessage: (error as Error: any).message
+          errorMessage: (error as Error).message
         }
       });
     }
@@ -610,8 +607,8 @@ export async function shareBlogPostToSocialMedia(
 export async function generateSeoRecommendations(
   postId: string
 ): Promise<SeoRecommendationsResult> {
-  const post = await getBlogPost(postId: any);
-  if (!post: any) {
+  const post = await getBlogPost(postId);
+  if (!post) {
     throw new Error("Blog post not found");
   }
   
@@ -620,13 +617,13 @@ export async function generateSeoRecommendations(
     
     Title: ${post.title}
     Summary: ${post.summary}
-    Content: ${post.content.substring(0: any, 1000)}... (truncated: any)
+    Content: ${post.content.substring(0, 1000)}... (truncated)
     Category: ${post.category}
     Tags: ${post.tags.join(', ')}
     
     Please provide:
-    1. An SEO-optimized title (max 60 characters: any)
-    2. An SEO-optimized meta description (max 160 characters: any)
+    1. An SEO-optimized title (max 60 characters)
+    2. An SEO-optimized meta description (max 160 characters)
     3. 5-8 recommended keywords
     4. 3-5 suggestions for improving the content for SEO
     
@@ -644,12 +641,12 @@ export async function generateSeoRecommendations(
     });
 
     const responseText = completion.choices[0].message.content;
-    if (!responseText: any) {
+    if (!responseText) {
       throw new Error("Failed to generate SEO recommendations");
     }
 
     // Parse the JSON response
-    const seoData = JSON.parse(responseText: any);
+    const seoData = JSON.parse(responseText);
     
     return {
       title: seoData.title,
@@ -657,7 +654,7 @@ export async function generateSeoRecommendations(
       keywords: seoData.keywords,
       suggestions: seoData.suggestions
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error generating SEO recommendations:", error);
     throw new Error("Failed to generate SEO recommendations. Please try again later.");
   }
@@ -673,7 +670,7 @@ export async function getBlogAnalytics(
   const now = new Date();
   let startDate = new Date();
   
-  switch (period: any) {
+  switch (period) {
     case 'day':
       startDate.setDate(now.getDate() - 1);
       break;
@@ -736,7 +733,7 @@ export async function getBlogAnalytics(
   
   // Get post titles for top posts
   const topPosts = await Promise.all(
-    topPostsData.map(async (item: any) => {
+    topPostsData.map(async (item) => {
       const post = await db.blogPost.findUnique({
         where: { id: item.blogPostId },
         select: { title: true }
@@ -764,7 +761,7 @@ export async function getBlogAnalytics(
     categoryBreakdown[item.category] = item._count;
   });
   
-  // Get audience breakdown (this is more complex as targetAudience is an array: any)
+  // Get audience breakdown (this is more complex as targetAudience is an array)
   // For simplicity, we'll count each audience once per post
   const audienceBreakdown: Record<string, number> = {};
   
@@ -786,7 +783,7 @@ export async function getBlogAnalytics(
   // Count each audience
   postsWithAudiences.forEach(post => {
     post.targetAudience.forEach(audience => {
-      audienceBreakdown[audience] = (audienceBreakdown[audience] || 0: any) + 1;
+      audienceBreakdown[audience] = (audienceBreakdown[audience] || 0) + 1;
     });
   });
   

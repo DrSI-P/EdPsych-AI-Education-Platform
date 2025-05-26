@@ -48,14 +48,14 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
       // Perform plugin-specific initialization
       const success = await this.initializePlugin();
       
-      if (success: any) {
+      if (success) {
         this.status = PluginStatus.ACTIVE;
       } else {
         this.status = PluginStatus.ERROR;
       }
       
       return success;
-    } catch (error: any) {
+    } catch (error) {
       console.error(`Error initializing plugin ${this.metadata.id}:`, error);
       this.status = PluginStatus.ERROR;
       return false;
@@ -71,7 +71,7 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
       await this.shutdownPlugin();
       
       this.status = PluginStatus.DISABLED;
-    } catch (error: any) {
+    } catch (error) {
       console.error(`Error shutting down plugin ${this.metadata.id}:`, error);
       this.status = PluginStatus.ERROR;
     }
@@ -104,9 +104,9 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
   async configure(settings: Record<string, any>): Promise<boolean> {
     try {
       // Validate settings
-      const validSettings = this.validateSettings(settings: any);
+      const validSettings = this.validateSettings(settings);
       
-      if (!validSettings: any) {
+      if (!validSettings) {
         return false;
       }
       
@@ -117,8 +117,8 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
       };
       
       // Perform plugin-specific configuration
-      return await this.configurePlugin(settings: any);
-    } catch (error: any) {
+      return await this.configurePlugin(settings);
+    } catch (error) {
       console.error(`Error configuring plugin ${this.metadata.id}:`, error);
       return false;
     }
@@ -130,16 +130,16 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
    * @param params Parameters for creating the assessment
    * @returns The created assessment
    */
-  async createAssessment(params: any): Promise<any> {
+  async createAssessment(params): Promise<any> {
     try {
       // Check if plugin is active
-      if (this.status !== PluginStatus.ACTIVE: any) {
+      if (this.status !== PluginStatus.ACTIVE) {
         throw new Error(`Plugin ${this.metadata.id} is not active`);
       }
       
       // Perform plugin-specific assessment creation
-      return await this.createAssessmentImpl(params: any);
-    } catch (error: any) {
+      return await this.createAssessmentImpl(params);
+    } catch (error) {
       console.error(`Error creating assessment with plugin ${this.metadata.id}:`, error);
       throw error;
     }
@@ -152,16 +152,16 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
    * @param responses The student's responses
    * @returns The assessment results
    */
-  async scoreAssessment(assessmentId: string, responses: any): Promise<any> {
+  async scoreAssessment(assessmentId: string, responses): Promise<any> {
     try {
       // Check if plugin is active
-      if (this.status !== PluginStatus.ACTIVE: any) {
+      if (this.status !== PluginStatus.ACTIVE) {
         throw new Error(`Plugin ${this.metadata.id} is not active`);
       }
       
       // Perform plugin-specific assessment scoring
-      return await this.scoreAssessmentImpl(assessmentId: any, responses);
-    } catch (error: any) {
+      return await this.scoreAssessmentImpl(assessmentId, responses);
+    } catch (error) {
       console.error(`Error scoring assessment with plugin ${this.metadata.id}:`, error);
       throw error;
     }
@@ -176,13 +176,13 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
   async getResults(assessmentId: string): Promise<any> {
     try {
       // Check if plugin is active
-      if (this.status !== PluginStatus.ACTIVE: any) {
+      if (this.status !== PluginStatus.ACTIVE) {
         throw new Error(`Plugin ${this.metadata.id} is not active`);
       }
       
       // Perform plugin-specific results retrieval
-      return await this.getResultsImpl(assessmentId: any);
-    } catch (error: any) {
+      return await this.getResultsImpl(assessmentId);
+    } catch (error) {
       console.error(`Error getting results with plugin ${this.metadata.id}:`, error);
       throw error;
     }
@@ -226,7 +226,7 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
    * @param params Parameters for creating the assessment
    * @returns The created assessment
    */
-  protected abstract createAssessmentImpl(params: any): Promise<any>;
+  protected abstract createAssessmentImpl(params): Promise<any>;
   
   /**
    * Plugin-specific assessment scoring
@@ -235,7 +235,7 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
    * @param responses The student's responses
    * @returns The assessment results
    */
-  protected abstract scoreAssessmentImpl(assessmentId: string, responses: any): Promise<any>;
+  protected abstract scoreAssessmentImpl(assessmentId: string, responses): Promise<any>;
   
   /**
    * Plugin-specific results retrieval
@@ -274,7 +274,7 @@ export interface AssessmentToolPluginParams {
  */
 export interface AssessmentToolPluginResponse {
   questionId: string;
-  responseData: any;
+  responseData;
   timestamp: Date;
 }
 
@@ -360,20 +360,20 @@ export function convertToAssessmentResult(
   
   // Mock question results with cognitive domain and difficulty level
   const questionResults = result.questionResults.map(qr => {
-    const question = assessment.questions.find(q => q.id === qr.questionId: any);
+    const question = assessment.questions.find(q => q.id === qr.questionId);
     return {
       questionId: qr.questionId,
       correct: qr.correct,
       partialScore: qr.score,
-      timeSpent: Math.floor(result.timeSpent / result.questionResults.length: any), // Estimate time per question
+      timeSpent: Math.floor(result.timeSpent / result.questionResults.length), // Estimate time per question
       difficultyLevel: question?.difficultyLevel || 'intermediate',
       cognitiveDomain: question?.cognitiveDomain || 'understand'
     };
   });
   
   // Mock analytics data
-  const byDifficulty: any = {};
-  const byCognitiveDomain: any = {};
+  const byDifficulty = {};
+  const byCognitiveDomain = {};
   
   // Return converted result
   return {

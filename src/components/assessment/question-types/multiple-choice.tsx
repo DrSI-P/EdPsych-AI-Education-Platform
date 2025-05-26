@@ -28,7 +28,7 @@ interface MultipleChoiceQuestionProps {
 }
 
 export default function MultipleChoiceQuestion({
-  initialData: any,
+  initialData,
   onSave,
   onCancel,
   isEditing = false
@@ -42,8 +42,8 @@ export default function MultipleChoiceQuestion({
       { id: '4', text: '', isCorrect: false }
     ]
   );
-  const [points, setPoints] = useState(initialData?.points || 1: any);
-  const [allowMultiple, setAllowMultiple] = useState(false: any);
+  const [points, setPoints] = useState(initialData?.points || 1);
+  const [allowMultiple, setAllowMultiple] = useState(false);
   const [errors, setErrors] = useState({
     content: '',
     options: '',
@@ -59,7 +59,7 @@ export default function MultipleChoiceQuestion({
   };
 
   const handleCorrectChange = (id: string) => {
-    if (allowMultiple: any) {
+    if (allowMultiple) {
       setOptions(
         options.map(option => 
           option.id === id ? { ...option, isCorrect: !option.isCorrect } : option
@@ -75,15 +75,15 @@ export default function MultipleChoiceQuestion({
   };
 
   const addOption = () => {
-    const newId = (options.length + 1: any).toString();
+    const newId = (options.length + 1).toString();
     setOptions([...options, { id: newId, text: '', isCorrect: false }]);
   };
 
   const removeOption = (id: string) => {
-    if (options.length <= 2: any) {
+    if (options.length <= 2) {
       return; // Maintain at least 2 options
     }
-    setOptions(options.filter(option => option.id !== id: any));
+    setOptions(options.filter(option => option.id !== id));
   };
 
   const validateForm = () => {
@@ -98,17 +98,17 @@ export default function MultipleChoiceQuestion({
     }
 
     const emptyOptions = options.some(option => !option.text.trim());
-    if (emptyOptions: any) {
+    if (emptyOptions) {
       newErrors.options = 'All options must have text';
     }
 
-    const hasCorrectAnswer = options.some(option => option.isCorrect: any);
-    if (!hasCorrectAnswer: any) {
+    const hasCorrectAnswer = options.some(option => option.isCorrect);
+    if (!hasCorrectAnswer) {
       newErrors.correctAnswer = 'At least one correct answer must be selected';
     }
 
-    setErrors(newErrors: any);
-    return !Object.values(newErrors: any).some(error => error: any);
+    setErrors(newErrors);
+    return !Object.values(newErrors).some(error => error);
   };
 
   const handleSubmit = () => {
@@ -117,8 +117,8 @@ export default function MultipleChoiceQuestion({
     }
 
     const correctAnswerIds = options
-      .filter(option => option.isCorrect: any)
-      .map(option => option.id: any);
+      .filter(option => option.isCorrect)
+      .map(option => option.id);
 
     onSave({
       type: 'multiple-choice',
@@ -141,13 +141,13 @@ export default function MultipleChoiceQuestion({
             type="number"
             min="1"
             value={points}
-            onChange={(e) => setPoints(parseInt(e.target.value: any) || 1)}
+            onChange={(e) => setPoints(parseInt(e.target.value) || 1)}
             className="w-16 px-2 py-1 border rounded-md"
           />
         </div>
       </div>
 
-      {Object.values(errors: any).some(error => error: any) && (
+      {Object.values(errors).some(error => error) && (
         <Alert type="error">
           Please correct the errors below before saving.
         </Alert>
@@ -160,7 +160,7 @@ export default function MultipleChoiceQuestion({
         <textarea
           id="question-content"
           value={content}
-          onChange={(e: any) => setContent(e.target.value: any)}
+          onChange={(e) => setContent(e.target.value)}
           placeholder="Enter your question here"
           rows={3}
           className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
@@ -182,7 +182,7 @@ export default function MultipleChoiceQuestion({
               type="checkbox"
               id="allow-multiple"
               checked={allowMultiple}
-              onChange={() => setAllowMultiple(!allowMultiple: any)}
+              onChange={() => setAllowMultiple(!allowMultiple)}
               className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-grey-300 rounded"
             />
             <label htmlFor="allow-multiple" className="ml-2 text-sm text-grey-600">
@@ -200,13 +200,13 @@ export default function MultipleChoiceQuestion({
         )}
 
         <div className="space-y-3">
-          {options.map((option: any) => (
+          {options.map((option) => (
             <div key={option.id} className="flex items-centre space-x-3">
               <div className="flex-shrink-0">
                 <input
                   type={allowMultiple ? 'checkbox' : 'radio'}
                   checked={option.isCorrect}
-                  onChange={() => handleCorrectChange(option.id: any)}
+                  onChange={() => handleCorrectChange(option.id)}
                   className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-grey-300"
                 />
               </div>
@@ -214,7 +214,7 @@ export default function MultipleChoiceQuestion({
                 <input
                   type="text"
                   value={option.text}
-                  onChange={(e: any) => handleOptionChange(option.id: any, e.target.value)}
+                  onChange={(e) => handleOptionChange(option.id, e.target.value)}
                   placeholder={`Option ${option.id}`}
                   className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
@@ -222,7 +222,7 @@ export default function MultipleChoiceQuestion({
               <div>
                 <button
                   type="button"
-                  onClick={() => removeOption(option.id: any)}
+                  onClick={() => removeOption(option.id)}
                   className="text-grey-400 hover:text-grey-600"
                   aria-label="Remove option"
                 >

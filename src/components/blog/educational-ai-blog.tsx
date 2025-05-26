@@ -164,7 +164,7 @@ const popularTags = [
 ];
 
 // Featured Blog Post Component
-const FeaturedPost = ({ post }: { post: any }) => {
+const FeaturedPost = ({ post }: { post }) => {
   return (
     <Card className="overflow-hidden">
       <div className="relative h-[300px] w-full">
@@ -217,7 +217,7 @@ const FeaturedPost = ({ post }: { post: any }) => {
 };
 
 // Blog Post Card Component
-const BlogPostCard = ({ post }: { post: any }) => {
+const BlogPostCard = ({ post }: { post }) => {
   return (
     <Card className="overflow-hidden h-full flex flex-col">
       <div className="relative h-48">
@@ -276,7 +276,7 @@ const BlogPostCard = ({ post }: { post: any }) => {
 };
 
 // Category List Component
-const CategoryList = ({ categories }: { categories: any[] }) => {
+const CategoryList = ({ categories }: { categories[] }) => {
   return (
     <div className="space-y-1">
       {categories.map((category) => (
@@ -293,7 +293,7 @@ const CategoryList = ({ categories }: { categories: any[] }) => {
 };
 
 // Tag Cloud Component
-const TagCloud = ({ tags }: { tags: any[] }) => {
+const TagCloud = ({ tags }: { tags[] }) => {
   return (
     <div className="flex flex-wrap gap-2">
       {tags.map((tag) => (

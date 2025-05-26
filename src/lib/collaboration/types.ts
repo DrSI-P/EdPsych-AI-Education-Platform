@@ -46,7 +46,7 @@ export interface CollaborationSession {
     keyStage?: string;
     tags?: string[];
     educationalObjectives?: string[];
-    [key: string]: any;
+    [key: string];
   };
 }
 
@@ -119,7 +119,7 @@ export interface CollaborativeDocument {
   metadata: {
     wordCount: number;
     readingTime: number; // in minutes
-    [key: string]: any;
+    [key: string];
   };
 }
 
@@ -202,14 +202,14 @@ export interface WhiteboardElement {
     fontSize?: number;
     fontFamily?: string;
     textAlign?: 'left' | 'centre' | 'right';
-    [key: string]: any;
+    [key: string];
   };
   content?: {
     text?: string;
     imageUrl?: string;
     shape?: 'rectangle' | 'circle' | 'triangle' | 'diamond';
     points?: { x: number; y: number }[];
-    [key: string]: any;
+    [key: string];
   };
   createdAt: Date;
   createdBy: string;
@@ -439,9 +439,9 @@ export interface CollaborationActivity {
   details: {
     targetId?: string;
     targetType?: string;
-    before?: any;
-    after?: any;
-    [key: string]: any;
+    before?;
+    after?;
+    [key: string];
   };
 }
 

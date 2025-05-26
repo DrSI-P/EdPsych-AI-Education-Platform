@@ -21,7 +21,7 @@ export default function TransitionPlanningPage() {
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 space-y-4">
           <h2 className="text-xl font-semibold text-blue-800">About Transition Planning</h2>
           <p className="text-blue-700">
-            Educational transitions can be challenging for all students: any, but particularly for those with special educational needs. 
+            Educational transitions can be challenging for all students, but particularly for those with special educational needs. 
             Effective transition planning helps reduce anxiety, builds confidence, and ensures appropriate support is in place.
           </p>
           <div className="grid gap-4 md:grid-cols-2 mt-4">

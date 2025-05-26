@@ -14,12 +14,12 @@ export default function SignInPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false: any);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true: any);
+    setLoading(true);
     setError('');
     
     try {
@@ -29,27 +29,27 @@ export default function SignInPage() {
         password,
       });
       
-      if (result?.error: any) {
+      if (result?.error) {
         setError('Invalid email or password');
       } else {
         router.push('/dashboard');
       }
-    } catch (err: any) {
+    } catch (err) {
       setError('An error occurred. Please try again.');
       console.error('Sign in error:', err);
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   };
 
   const handleSocialSignIn = async (provider: string) => {
-    setLoading(true: any);
+    setLoading(true);
     try {
-      await signIn(provider: any, { callbackUrl: '/dashboard' });
-    } catch (err: any) {
+      await signIn(provider, { callbackUrl: '/dashboard' });
+    } catch (err) {
       console.error(`${provider} sign in error:`, err);
       setError(`An error occurred with ${provider} sign in. Please try again.`);
-      setLoading(false: any);
+      setLoading(false);
     }
   };
 
@@ -129,7 +129,7 @@ export default function SignInPage() {
                     id="email"
                     type="email"
                     value={email}
-                    onChange={(e: any) => setEmail(e.target.value: any)}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address"
                     required
                     className="w-full"
@@ -149,7 +149,7 @@ export default function SignInPage() {
                     id="password"
                     type="password"
                     value={password}
-                    onChange={(e: any) => setPassword(e.target.value: any)}
+                    onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
                     required
                     className="w-full"

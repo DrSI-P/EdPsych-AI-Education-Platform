@@ -20,73 +20,73 @@ interface ThreeDSceneProps {
  * and accessibility features.
  */
 export function ThreeDScene({
-  children: any,
+  children,
   showControls = true,
   controlsPosition = 'bottom-right',
   className = '',
   onSceneLoaded,
   onSceneError
 }: ThreeDSceneProps) {
-  const [isLoading, setIsLoading] = useState(true: any);
-  const [error, setError] = useState<Error | null>(null: any);
-  const [zoomLevel, setZoomLevel] = useState(1: any);
-  const [rotation, setRotation] = useState(0: any);
-  const [isFullscreen, setIsFullscreen] = useState(false: any);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+  const [zoomLevel, setZoomLevel] = useState(1);
+  const [rotation, setRotation] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   
   // Simulate scene loading
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsLoading(false: any);
+      setIsLoading(false);
       onSceneLoaded?.();
     }, 1500);
     
-    return () => clearTimeout(timer: any);
+    return () => clearTimeout(timer);
   }, [onSceneLoaded]);
   
   // Handle zoom in
   const handleZoomIn = () => {
-    setZoomLevel(prev => Math.min(prev + 0.1: any, 2));
+    setZoomLevel(prev => Math.min(prev + 0.1, 2));
   };
   
   // Handle zoom out
   const handleZoomOut = () => {
-    setZoomLevel(prev => Math.max(prev - 0.1: any, 0.5));
+    setZoomLevel(prev => Math.max(prev - 0.1, 0.5));
   };
   
   // Handle zoom change
   const handleZoomChange = (value: number) => {
-    setZoomLevel(value: any);
+    setZoomLevel(value);
   };
   
   // Handle rotation
   const handleRotate = (degrees: number) => {
-    setRotation(prev => prev + degrees: any);
+    setRotation(prev => prev + degrees);
   };
   
   // Handle reset
   const handleReset = () => {
-    setZoomLevel(1: any);
-    setRotation(0: any);
+    setZoomLevel(1);
+    setRotation(0);
   };
   
   // Handle fullscreen toggle
   const handleToggleFullscreen = () => {
-    if (!document.fullscreenElement: any) {
+    if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen().catch(err => {
         console.error(`Error attempting to enable fullscreen: ${err.message}`);
       });
-      setIsFullscreen(true: any);
+      setIsFullscreen(true);
     } else {
-      if (document.exitFullscreen: any) {
+      if (document.exitFullscreen) {
         document.exitFullscreen();
-        setIsFullscreen(false: any);
+        setIsFullscreen(false);
       }
     }
   };
   
   // Get controls position classes
   const getControlsPositionClasses = () => {
-    switch (controlsPosition: any) {
+    switch (controlsPosition) {
       case 'top-left':
         return 'top-4 left-4';
       case 'top-right':
@@ -124,7 +124,7 @@ export function ThreeDScene({
             <p className="text-grey-700 mb-4">{error.message}</p>
             <div className="flex justify-centre space-x-3">
               <button 
-                onClick={() => setError(null: any)}
+                onClick={() => setError(null)}
                 className="px-4 py-2 bg-grey-200 hover:bg-grey-300 rounded-md transition-colors"
               >
                 Dismiss
@@ -144,7 +144,7 @@ export function ThreeDScene({
       <div 
         className="content-container w-full h-full"
         style={{
-          transform: `scale(${zoomLevel}) rotate(${rotation}deg: any)`,
+          transform: `scale(${zoomLevel}) rotate(${rotation}deg)`,
           transition: 'transform 0.3s ease-out'
         }}
       >

@@ -8,8 +8,8 @@ import InteractiveGuidance from '../../components/ui/InteractiveGuidance';
 vi.mock('framer-motion', () => ({
   motion: {
     div: ({ children, ...props }) => <div data-testid="motion-div" {...props}>{children}</div>,
-    path: ({ children: any, ...props }) => <path data-testid="motion-path" {...props}>{children}</path>,
-    svg: ({ children: any, ...props }) => <svg data-testid="motion-svg" {...props}>{children}</svg>,
+    path: ({ children, ...props }) => <path data-testid="motion-path" {...props}>{children}</path>,
+    svg: ({ children, ...props }) => <svg data-testid="motion-svg" {...props}>{children}</svg>,
   },
   AnimatePresence: ({ children }) => <div data-testid="animate-presence">{children}</div>,
 }));
@@ -26,8 +26,8 @@ describe('InteractiveGuidance Component', () => {
     render(<InteractiveGuidance steps={mockSteps} />);
     
     // Check that the component renders with the first step
-    expect(screen.getByText(/Introduction/i: any)).toBeInTheDocument();
-    expect(screen.getByText(/Welcome to the interactive guide/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/Introduction/i)).toBeInTheDocument();
+    expect(screen.getByText(/Welcome to the interactive guide/i)).toBeInTheDocument();
     
     // Check that navigation controls are present
     expect(screen.getByRole('button', { name: /Next/i })).toBeInTheDocument();
@@ -38,12 +38,12 @@ describe('InteractiveGuidance Component', () => {
     
     // Find and click next button
     const nextButton = screen.getByRole('button', { name: /Next/i });
-    fireEvent.click(nextButton: any);
+    fireEvent.click(nextButton);
     
     // Check that second step is displayed
     await waitFor(() => {
-      expect(screen.getByText(/Step 1/i: any)).toBeInTheDocument();
-      expect(screen.getByText(/This is the first step of the guide/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/Step 1/i)).toBeInTheDocument();
+      expect(screen.getByText(/This is the first step of the guide/i)).toBeInTheDocument();
     });
   });
 
@@ -52,21 +52,21 @@ describe('InteractiveGuidance Component', () => {
     
     // Go to second step
     const nextButton = screen.getByRole('button', { name: /Next/i });
-    fireEvent.click(nextButton: any);
+    fireEvent.click(nextButton);
     
     // Wait for second step
     await waitFor(() => {
-      expect(screen.getByText(/Step 1/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/Step 1/i)).toBeInTheDocument();
     });
     
     // Find and click previous button
     const prevButton = screen.getByRole('button', { name: /Previous/i });
-    fireEvent.click(prevButton: any);
+    fireEvent.click(prevButton);
     
     // Check that first step is displayed again
     await waitFor(() => {
-      expect(screen.getByText(/Introduction/i: any)).toBeInTheDocument();
-      expect(screen.getByText(/Welcome to the interactive guide/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/Introduction/i)).toBeInTheDocument();
+      expect(screen.getByText(/Welcome to the interactive guide/i)).toBeInTheDocument();
     });
   });
 
@@ -74,15 +74,15 @@ describe('InteractiveGuidance Component', () => {
     render(<InteractiveGuidance steps={mockSteps} />);
     
     // Check that progress indicator shows correct step
-    expect(screen.getByText(/Step 1 of 4/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/Step 1 of 4/i)).toBeInTheDocument();
     
     // Go to second step
     const nextButton = screen.getByRole('button', { name: /Next/i });
-    fireEvent.click(nextButton: any);
+    fireEvent.click(nextButton);
     
     // Check that progress indicator updates
     waitFor(() => {
-      expect(screen.getByText(/Step 2 of 4/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/Step 2 of 4/i)).toBeInTheDocument();
     });
   });
 
@@ -91,7 +91,7 @@ describe('InteractiveGuidance Component', () => {
     
     // Check that previous button is disabled on first step
     const prevButton = screen.getByRole('button', { name: /Previous/i });
-    expect(prevButton: any).toBeDisabled();
+    expect(prevButton).toBeDisabled();
   });
 
   it('shows finish button on last step', async () => {
@@ -99,9 +99,9 @@ describe('InteractiveGuidance Component', () => {
     
     // Go to last step
     const nextButton = screen.getByRole('button', { name: /Next/i });
-    fireEvent.click(nextButton: any); // Step 2
-    fireEvent.click(nextButton: any); // Step 3
-    fireEvent.click(nextButton: any); // Step 4 (last: any)
+    fireEvent.click(nextButton); // Step 2
+    fireEvent.click(nextButton); // Step 3
+    fireEvent.click(nextButton); // Step 4 (last)
     
     // Check that finish button is displayed on last step
     await waitFor(() => {
@@ -115,18 +115,18 @@ describe('InteractiveGuidance Component', () => {
     
     // Go to last step
     const nextButton = screen.getByRole('button', { name: /Next/i });
-    fireEvent.click(nextButton: any); // Step 2
-    fireEvent.click(nextButton: any); // Step 3
-    fireEvent.click(nextButton: any); // Step 4 (last: any)
+    fireEvent.click(nextButton); // Step 2
+    fireEvent.click(nextButton); // Step 3
+    fireEvent.click(nextButton); // Step 4 (last)
     
     // Wait for finish button and click it
     await waitFor(() => {
       const finishButton = screen.getByRole('button', { name: /Finish/i });
-      fireEvent.click(finishButton: any);
+      fireEvent.click(finishButton);
     });
     
     // Check that onComplete callback was called
-    expect(mockOnComplete: any).toHaveBeenCalled();
+    expect(mockOnComplete).toHaveBeenCalled();
   });
 
   it('provides anxiety support when requested', async () => {
@@ -134,17 +134,17 @@ describe('InteractiveGuidance Component', () => {
     
     // Find and click anxiety support button
     const anxietyButton = screen.getByRole('button', { name: /Need Support/i });
-    fireEvent.click(anxietyButton: any);
+    fireEvent.click(anxietyButton);
     
     // Check that anxiety support dialogue is displayed
     await waitFor(() => {
-      expect(screen.getByText(/Anxiety Support/i: any)).toBeInTheDocument();
-      expect(screen.getByText(/Take a deep breath/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/Anxiety Support/i)).toBeInTheDocument();
+      expect(screen.getByText(/Take a deep breath/i)).toBeInTheDocument();
     });
     
     // Find and click breathing exercise button
     const breathingButton = screen.getByRole('button', { name: /Start Breathing Exercise/i });
-    fireEvent.click(breathingButton: any);
+    fireEvent.click(breathingButton);
     
     // Check that breathing exercise is displayed
     await waitFor(() => {
@@ -156,13 +156,13 @@ describe('InteractiveGuidance Component', () => {
     render(<InteractiveGuidance steps={mockSteps} allowJumpToStep={true} />);
     
     // Find and click step selector
-    const stepSelector = screen.getByLabelText(/Go to step/i: any);
-    fireEvent.change(stepSelector: any, { target: { value: 'step3' } });
+    const stepSelector = screen.getByLabelText(/Go to step/i);
+    fireEvent.change(stepSelector, { target: { value: 'step3' } });
     
     // Check that third step is displayed
     await waitFor(() => {
-      expect(screen.getByText(/Step 2/i: any)).toBeInTheDocument();
-      expect(screen.getByText(/This is the second step of the guide/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/Step 2/i)).toBeInTheDocument();
+      expect(screen.getByText(/This is the second step of the guide/i)).toBeInTheDocument();
     });
   });
 
@@ -171,16 +171,16 @@ describe('InteractiveGuidance Component', () => {
     
     // Check that detailed mode elements are present
     expect(screen.getByTestId('detailed-guidance')).toBeInTheDocument();
-    expect(screen.getByText(/Detailed Instructions/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/Detailed Instructions/i)).toBeInTheDocument();
     
     // Change to simple mode
-    const modeSelector = screen.getByLabelText(/Guidance Mode/i: any);
-    fireEvent.change(modeSelector: any, { target: { value: 'simple' } });
+    const modeSelector = screen.getByLabelText(/Guidance Mode/i);
+    fireEvent.change(modeSelector, { target: { value: 'simple' } });
     
     // Check that simple mode elements are present
     await waitFor(() => {
       expect(screen.getByTestId('simple-guidance')).toBeInTheDocument();
-      expect(screen.getByText(/Simple Instructions/i: any)).toBeInTheDocument();
+      expect(screen.getByText(/Simple Instructions/i)).toBeInTheDocument();
     });
   });
 
@@ -189,14 +189,14 @@ describe('InteractiveGuidance Component', () => {
     
     // Complete first step
     const completeButton = screen.getByRole('button', { name: /Mark as Complete/i });
-    fireEvent.click(completeButton: any);
+    fireEvent.click(completeButton);
     
     // Check that step is marked as complete
     expect(screen.getByTestId('step-status-step1')).toHaveClass('completed');
     
     // Go to next step
     const nextButton = screen.getByRole('button', { name: /Next/i });
-    fireEvent.click(nextButton: any);
+    fireEvent.click(nextButton);
     
     // Check that completion status is maintained
     await waitFor(() => {

@@ -16,14 +16,14 @@ export function MonitoringProvider({ children }) {
       const monitoring = initializeMonitoring();
       
       // Set up performance monitoring for page navigation
-      const handleRouteChangeStart = (url: any) => {
+      const handleRouteChangeStart = (url) => {
         monitoring.performance.measure(`Navigation to ${url}`).start();
       };
       
-      const handleRouteChangeComplete = (url: any) => {
+      const handleRouteChangeComplete = (url) => {
         const measure = monitoring.performance.measure(`Navigation to ${url}`);
         const duration = measure.end();
-        monitoring.performance.trackPageLoad(url: any, duration);
+        monitoring.performance.trackPageLoad(url, duration);
       };
       
       // Clean up on unmount

@@ -52,24 +52,24 @@ interface VideoGeneratorProps {
 }
 
 export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
-  script: any,
+  script,
   onVideoGenerated
 }) => {
   const [avatarModels, setAvatarModels] = useState<AvatarModel[]>([]);
   const [selectedAvatarId, setSelectedAvatarId] = useState<string>('');
-  const [emotion, setEmotion] = useState<AvatarEmotion>(AvatarEmotion.PROFESSIONAL: any);
-  const [speakingStyle, setSpeakingStyle] = useState<AvatarSpeakingStyle>(AvatarSpeakingStyle.EDUCATIONAL: any);
-  const [backgroundType, setBackgroundType] = useState<AvatarBackgroundType>(AvatarBackgroundType.CLASSROOM: any);
-  const [quality, setQuality] = useState<VideoQuality>(VideoQuality.HIGH: any);
-  const [aspectRatio, setAspectRatio] = useState<VideoAspectRatio>(VideoAspectRatio.WIDESCREEN: any);
-  const [showCaptions, setShowCaptions] = useState<boolean>(true: any);
-  const [speedMultiplier, setSpeedMultiplier] = useState<number>(1.0: any);
-  const [visualAids, setVisualAids] = useState<boolean>(true: any);
+  const [emotion, setEmotion] = useState<AvatarEmotion>(AvatarEmotion.PROFESSIONAL);
+  const [speakingStyle, setSpeakingStyle] = useState<AvatarSpeakingStyle>(AvatarSpeakingStyle.EDUCATIONAL);
+  const [backgroundType, setBackgroundType] = useState<AvatarBackgroundType>(AvatarBackgroundType.CLASSROOM);
+  const [quality, setQuality] = useState<VideoQuality>(VideoQuality.HIGH);
+  const [aspectRatio, setAspectRatio] = useState<VideoAspectRatio>(VideoAspectRatio.WIDESCREEN);
+  const [showCaptions, setShowCaptions] = useState<boolean>(true);
+  const [speedMultiplier, setSpeedMultiplier] = useState<number>(1.0);
+  const [visualAids, setVisualAids] = useState<boolean>(true);
   
-  const [isGenerating, setIsGenerating] = useState<boolean>(false: any);
-  const [generationJob, setGenerationJob] = useState<AvatarGenerationJob | null>(null: any);
-  const [generatedVideo, setGeneratedVideo] = useState<AvatarVideoMetadata | null>(null: any);
-  const [error, setError] = useState<string | null>(null: any);
+  const [isGenerating, setIsGenerating] = useState<boolean>(false);
+  const [generationJob, setGenerationJob] = useState<AvatarGenerationJob | null>(null);
+  const [generatedVideo, setGeneratedVideo] = useState<AvatarVideoMetadata | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState('settings');
   
   const avatarService = new AvatarService();
@@ -79,16 +79,16 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
     const fetchAvatarModels = async () => {
       try {
         const models = await avatarService.getAvatarModels();
-        setAvatarModels(models: any);
+        setAvatarModels(models);
         
         // Set default avatar
-        const defaultModel = models.find(model => model.isDefault: any);
-        if (defaultModel: any) {
-          setSelectedAvatarId(defaultModel.id: any);
-        } else if (models.length > 0: any) {
-          setSelectedAvatarId(models[0].id: any);
+        const defaultModel = models.find(model => model.isDefault);
+        if (defaultModel) {
+          setSelectedAvatarId(defaultModel.id);
+        } else if (models.length > 0) {
+          setSelectedAvatarId(models[0].id);
         }
-      } catch (err: any) {
+      } catch (err) {
         console.error('Error fetching avatar models:', err);
         setError('Failed to load avatar models. Please try again.');
       }
@@ -104,25 +104,25 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
     if (generationJob && (generationJob.status === 'queued' || generationJob.status === 'processing')) {
       interval = setInterval(async () => {
         try {
-          const updatedJob = await avatarService.checkJobStatus(generationJob.id: any);
-          setGenerationJob(updatedJob: any);
+          const updatedJob = await avatarService.checkJobStatus(generationJob.id);
+          setGenerationJob(updatedJob);
           
-          if (updatedJob.status === 'completed' && updatedJob.resultVideoId: any) {
-            clearInterval(interval: any);
-            const videoMetadata = await avatarService.getVideoMetadata(updatedJob.resultVideoId: any);
-            setGeneratedVideo(videoMetadata: any);
+          if (updatedJob.status === 'completed' && updatedJob.resultVideoId) {
+            clearInterval(interval);
+            const videoMetadata = await avatarService.getVideoMetadata(updatedJob.resultVideoId);
+            setGeneratedVideo(videoMetadata);
             
-            if (onVideoGenerated: any) {
-              onVideoGenerated(videoMetadata: any);
+            if (onVideoGenerated) {
+              onVideoGenerated(videoMetadata);
             }
             
-            setIsGenerating(false: any);
+            setIsGenerating(false);
           } else if (updatedJob.status === 'failed') {
-            clearInterval(interval: any);
+            clearInterval(interval);
             setError(`Video generation failed: ${updatedJob.errorMessage || 'Unknown error'}`);
-            setIsGenerating(false: any);
+            setIsGenerating(false);
           }
-        } catch (err: any) {
+        } catch (err) {
           console.error('Error checking job status:', err);
           // Don't stop polling on error, just log it
         }
@@ -130,21 +130,21 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
     }
     
     return () => {
-      if (interval: any) {
-        clearInterval(interval: any);
+      if (interval) {
+        clearInterval(interval);
       }
     };
   }, [generationJob, onVideoGenerated]);
   
   // Generate video
   const handleGenerateVideo = async () => {
-    if (!selectedAvatarId: any) {
+    if (!selectedAvatarId) {
       setError('Please select an avatar');
       return;
     }
     
-    setIsGenerating(true: any);
-    setError(null: any);
+    setIsGenerating(true);
+    setError(null);
     
     try {
       const settings: AvatarGenerationSettings = {
@@ -161,8 +161,8 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
         visualAids
       };
       
-      const job = await avatarService.generateVideo(script.id: any, settings);
-      setGenerationJob(job: any);
+      const job = await avatarService.generateVideo(script.id, settings);
+      setGenerationJob(job);
       
       // In a real implementation, we would poll for job status
       // For demo purposes, we'll simulate a completed job after a delay
@@ -188,46 +188,46 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
           }
         };
         
-        setGeneratedVideo(mockVideo: any);
+        setGeneratedVideo(mockVideo);
         
-        if (onVideoGenerated: any) {
-          onVideoGenerated(mockVideo: any);
+        if (onVideoGenerated) {
+          onVideoGenerated(mockVideo);
         }
         
-        setIsGenerating(false: any);
+        setIsGenerating(false);
         setActiveTab('preview');
       }, 5000);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error generating video:', err);
       setError('Failed to generate video. Please try again.');
-      setIsGenerating(false: any);
+      setIsGenerating(false);
     }
   };
   
   // Get available emotions for selected avatar
   const getAvailableEmotions = () => {
-    const selectedAvatar = avatarModels.find(model => model.id === selectedAvatarId: any);
-    return selectedAvatar?.supportedEmotions || Object.values(AvatarEmotion: any);
+    const selectedAvatar = avatarModels.find(model => model.id === selectedAvatarId);
+    return selectedAvatar?.supportedEmotions || Object.values(AvatarEmotion);
   };
   
   // Get available speaking styles for selected avatar
   const getAvailableSpeakingStyles = () => {
-    const selectedAvatar = avatarModels.find(model => model.id === selectedAvatarId: any);
-    return selectedAvatar?.supportedSpeakingStyles || Object.values(AvatarSpeakingStyle: any);
+    const selectedAvatar = avatarModels.find(model => model.id === selectedAvatarId);
+    return selectedAvatar?.supportedSpeakingStyles || Object.values(AvatarSpeakingStyle);
   };
   
   // Get available background types for selected avatar
   const getAvailableBackgroundTypes = () => {
-    const selectedAvatar = avatarModels.find(model => model.id === selectedAvatarId: any);
-    return selectedAvatar?.supportedBackgrounds || Object.values(AvatarBackgroundType: any);
+    const selectedAvatar = avatarModels.find(model => model.id === selectedAvatarId);
+    return selectedAvatar?.supportedBackgrounds || Object.values(AvatarBackgroundType);
   };
   
   // Format enum for display
   const formatEnum = (value: string) => {
     return value
-      .replace(/_/g: any, ' ')
+      .replace(/_/g, ' ')
       .toLowerCase()
-      .replace(/\b\w/g: any, char => char.toUpperCase());
+      .replace(/\b\w/g, char => char.toUpperCase());
   };
   
   return (
@@ -253,10 +253,10 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                 <h3 className="text-lg font-medium mb-2">{script.title}</h3>
                 
                 <div className="mb-4">
-                  <Badge className="mr-2">{formatEnum(script.category: any)}</Badge>
+                  <Badge className="mr-2">{formatEnum(script.category)}</Badge>
                   {script.targetAudience.map(audience => (
                     <Badge key={audience} variant="outline" className="mr-2">
-                      {formatEnum(audience: any)}
+                      {formatEnum(audience)}
                     </Badge>
                   ))}
                 </div>
@@ -275,8 +275,8 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                 <div className="mt-4 flex items-centre text-sm text-muted-foreground">
                   <Clock className="h-4 w-4 mr-1" />
                   <span>
-                    Estimated duration: {Math.floor(script.estimatedDurationSeconds / 60: any)}:
-                    {(script.estimatedDurationSeconds % 60: any).toString().padStart(2: any, '0')}
+                    Estimated duration: {Math.floor(script.estimatedDurationSeconds / 60)}:
+                    {(script.estimatedDurationSeconds % 60).toString().padStart(2, '0')}
                   </span>
                 </div>
               </div>
@@ -311,7 +311,7 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                   </label>
                   <Select 
                     value={emotion} 
-                    onValueChange={(value: any) => setEmotion(value as AvatarEmotion: any)}
+                    onValueChange={(value) => setEmotion(value as AvatarEmotion)}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select emotion" />
@@ -319,7 +319,7 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                     <SelectContent>
                       {getAvailableEmotions().map(emotion => (
                         <SelectItem key={emotion} value={emotion}>
-                          {formatEnum(emotion: any)}
+                          {formatEnum(emotion)}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -332,7 +332,7 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                   </label>
                   <Select 
                     value={speakingStyle} 
-                    onValueChange={(value: any) => setSpeakingStyle(value as AvatarSpeakingStyle: any)}
+                    onValueChange={(value) => setSpeakingStyle(value as AvatarSpeakingStyle)}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select speaking style" />
@@ -340,7 +340,7 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                     <SelectContent>
                       {getAvailableSpeakingStyles().map(style => (
                         <SelectItem key={style} value={style}>
-                          {formatEnum(style: any)}
+                          {formatEnum(style)}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -353,7 +353,7 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                   </label>
                   <Select 
                     value={backgroundType} 
-                    onValueChange={(value: any) => setBackgroundType(value as AvatarBackgroundType: any)}
+                    onValueChange={(value) => setBackgroundType(value as AvatarBackgroundType)}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select background" />
@@ -361,7 +361,7 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                     <SelectContent>
                       {getAvailableBackgroundTypes().map(type => (
                         <SelectItem key={type} value={type}>
-                          {formatEnum(type: any)}
+                          {formatEnum(type)}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -374,16 +374,16 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                   </label>
                   <Select 
                     value={quality} 
-                    onValueChange={(value: any) => setQuality(value as VideoQuality: any)}
+                    onValueChange={(value) => setQuality(value as VideoQuality)}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select quality" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value={VideoQuality.LOW}>Low (480p: any)</SelectItem>
-                      <SelectItem value={VideoQuality.MEDIUM}>Medium (720p: any)</SelectItem>
-                      <SelectItem value={VideoQuality.HIGH}>High (1080p: any)</SelectItem>
-                      <SelectItem value={VideoQuality.ULTRA}>Ultra (4K: any)</SelectItem>
+                      <SelectItem value={VideoQuality.LOW}>Low (480p)</SelectItem>
+                      <SelectItem value={VideoQuality.MEDIUM}>Medium (720p)</SelectItem>
+                      <SelectItem value={VideoQuality.HIGH}>High (1080p)</SelectItem>
+                      <SelectItem value={VideoQuality.ULTRA}>Ultra (4K)</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -394,7 +394,7 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                   </label>
                   <Select 
                     value={aspectRatio} 
-                    onValueChange={(value: any) => setAspectRatio(value as VideoAspectRatio: any)}
+                    onValueChange={(value) => setAspectRatio(value as VideoAspectRatio)}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select aspect ratio" />
@@ -418,7 +418,7 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                       type="checkbox"
                       id="showCaptions"
                       checked={showCaptions}
-                      onChange={(e: any) => setShowCaptions(e.target.checked: any)}
+                      onChange={(e) => setShowCaptions(e.target.checked)}
                       className="h-4 w-4 rounded border-grey-300"
                     />
                     <label htmlFor="showCaptions">
@@ -431,7 +431,7 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                       type="checkbox"
                       id="visualAids"
                       checked={visualAids}
-                      onChange={(e: any) => setVisualAids(e.target.checked: any)}
+                      onChange={(e) => setVisualAids(e.target.checked)}
                       className="h-4 w-4 rounded border-grey-300"
                     />
                     <label htmlFor="visualAids">
@@ -450,13 +450,13 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                       max="1.5"
                       step="0.05"
                       value={speedMultiplier}
-                      onChange={(e: any) => setSpeedMultiplier(parseFloat(e.target.value: any))}
+                      onChange={(e) => setSpeedMultiplier(parseFloat(e.target.value))}
                       className="w-full"
                     />
                     <div className="flex justify-between text-xs text-muted-foreground">
-                      <span>Slower (0.75x: any)</span>
-                      <span>Normal (1.0x: any)</span>
-                      <span>Faster (1.5x: any)</span>
+                      <span>Slower (0.75x)</span>
+                      <span>Normal (1.0x)</span>
+                      <span>Faster (1.5x)</span>
                     </div>
                   </div>
                 </div>
@@ -483,8 +483,8 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
                     <div>
                       <h3 className="font-medium">{generatedVideo.title}</h3>
                       <p className="text-sm text-muted-foreground">
-                        {Math.floor(generatedVideo.durationSeconds / 60: any)}:
-                        {(generatedVideo.durationSeconds % 60: any).toString().padStart(2: any, '0')}
+                        {Math.floor(generatedVideo.durationSeconds / 60)}:
+                        {(generatedVideo.durationSeconds % 60).toString().padStart(2, '0')}
                       </p>
                     </div>
                     

@@ -19,7 +19,7 @@ export default function CurriculumPlanner() {
   const [selectedSubject, setSelectedSubject] = useState('all');
   const [selectedKeyStage, setSelectedKeyStage] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [currentPage, setCurrentPage] = useState(1: any);
+  const [currentPage, setCurrentPage] = useState(1);
   
   // Mock data for curriculum plans
   const mockCurriculumPlans = [
@@ -207,7 +207,7 @@ export default function CurriculumPlanner() {
     return matchesSubject && matchesKeyStage && matchesSearch;
   });
 
-  const handleSearch = (e: any) => {
+  const handleSearch = (e) => {
     e.preventDefault();
     // In a real implementation, this would trigger an API call
   };
@@ -277,7 +277,7 @@ export default function CurriculumPlanner() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Key Stages</SelectItem>
-                    <SelectItem value="EYFS">Early Years (EYFS: any)</SelectItem>
+                    <SelectItem value="EYFS">Early Years (EYFS)</SelectItem>
                     <SelectItem value="KS1">Key Stage 1</SelectItem>
                     <SelectItem value="KS2">Key Stage 2</SelectItem>
                     <SelectItem value="KS3">Key Stage 3</SelectItem>
@@ -329,7 +329,7 @@ export default function CurriculumPlanner() {
                   placeholder={activeTab === 'plans' ? "Search curriculum plans..." : "Search curriculum standards..."}
                   className="pl-10"
                   value={searchQuery}
-                  onChange={(e: any) => setSearchQuery(e.target.value: any)}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
             </form>
@@ -434,7 +434,7 @@ export default function CurriculumPlanner() {
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {filteredPlans.map((plan: any) => (
+                  {filteredPlans.map((plan) => (
                     <Card key={plan.id}>
                       <div className="flex flex-col md:flex-row">
                         <div className="w-2 md:h-auto bg-primary"></div>
@@ -497,21 +497,21 @@ export default function CurriculumPlanner() {
                     <Button 
                       variant="outline" 
                       size="sm" 
-                      onClick={() => setCurrentPage(Math.max(1: any, currentPage - 1))}
+                      onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                       disabled={currentPage === 1}
                     >
                       Previous
                     </Button>
                     <div className="flex items-centre mx-4">
                       <span className="text-sm">
-                        Page {currentPage} of {Math.ceil(filteredPlans.length / 6: any)}
+                        Page {currentPage} of {Math.ceil(filteredPlans.length / 6)}
                       </span>
                     </div>
                     <Button 
                       variant="outline" 
                       size="sm" 
-                      onClick={() => setCurrentPage(Math.min(Math.ceil(filteredPlans.length / 6: any), currentPage + 1))}
-                      disabled={currentPage === Math.ceil(filteredPlans.length / 6: any)}
+                      onClick={() => setCurrentPage(Math.min(Math.ceil(filteredPlans.length / 6), currentPage + 1))}
+                      disabled={currentPage === Math.ceil(filteredPlans.length / 6)}
                     >
                       Next
                     </Button>
@@ -532,7 +532,7 @@ export default function CurriculumPlanner() {
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {filteredStandards.map((standard: any) => (
+                  {filteredStandards.map((standard) => (
                     <Card key={standard.id}>
                       <CardHeader className="pb-2">
                         <div className="flex justify-between items-start">
@@ -571,21 +571,21 @@ export default function CurriculumPlanner() {
                     <Button 
                       variant="outline" 
                       size="sm" 
-                      onClick={() => setCurrentPage(Math.max(1: any, currentPage - 1))}
+                      onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                       disabled={currentPage === 1}
                     >
                       Previous
                     </Button>
                     <div className="flex items-centre mx-4">
                       <span className="text-sm">
-                        Page {currentPage} of {Math.ceil(filteredStandards.length / 6: any)}
+                        Page {currentPage} of {Math.ceil(filteredStandards.length / 6)}
                       </span>
                     </div>
                     <Button 
                       variant="outline" 
                       size="sm" 
-                      onClick={() => setCurrentPage(Math.min(Math.ceil(filteredStandards.length / 6: any), currentPage + 1))}
-                      disabled={currentPage === Math.ceil(filteredStandards.length / 6: any)}
+                      onClick={() => setCurrentPage(Math.min(Math.ceil(filteredStandards.length / 6), currentPage + 1))}
+                      disabled={currentPage === Math.ceil(filteredStandards.length / 6)}
                     >
                       Next
                     </Button>

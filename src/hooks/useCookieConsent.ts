@@ -17,27 +17,27 @@ export function useCookieConsent() {
     educational: false,
   });
   
-  const [showBanner, setShowBanner] = useState<boolean>(false: any);
-  const [isLoaded, setIsLoaded] = useState<boolean>(false: any);
+  const [showBanner, setShowBanner] = useState<boolean>(false);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   
   // Determine if user is likely a child based on user role or explicit setting
-  const [isChild, setIsChild] = useState<boolean>(false: any);
+  const [isChild, setIsChild] = useState<boolean>(false);
   
   useEffect(() => {
     // Check for existing consent in localStorage
-    const storedConsent = localStorage.getItem(COOKIE_CONSENT_KEY: any);
+    const storedConsent = localStorage.getItem(COOKIE_CONSENT_KEY);
     
-    if (storedConsent: any) {
+    if (storedConsent) {
       try {
-        const parsedConsent = JSON.parse(storedConsent: any);
-        setPreferences(parsedConsent: any);
-        setShowBanner(false: any);
-      } catch (e: any) {
-        console.error('Error parsing stored cookie consent', e: any);
-        setShowBanner(true: any);
+        const parsedConsent = JSON.parse(storedConsent);
+        setPreferences(parsedConsent);
+        setShowBanner(false);
+      } catch (e) {
+        console.error('Error parsing stored cookie consent', e);
+        setShowBanner(true);
       }
     } else {
-      setShowBanner(true: any);
+      setShowBanner(true);
     }
     
     // Check if user is a child based on user role or session data
@@ -47,27 +47,27 @@ export function useCookieConsent() {
         // Example: fetch user data or check session
         // const response = await fetch('/api/user/profile');
         // const userData = await response.json();
-        // setIsChild(userData.role === 'student' && userData.age < 13: any);
+        // setIsChild(userData.role === 'student' && userData.age < 13);
         
         // For now, we'll default to false
-        setIsChild(false: any);
-      } catch (e: any) {
-        console.error('Error checking user age', e: any);
-        setIsChild(false: any);
+        setIsChild(false);
+      } catch (e) {
+        console.error('Error checking user age', e);
+        setIsChild(false);
       }
     };
     
     checkUserAge();
-    setIsLoaded(true: any);
+    setIsLoaded(true);
   }, []);
   
   const acceptCookies = (newPreferences: CookiePreferences) => {
-    setPreferences(newPreferences: any);
-    setShowBanner(false: any);
-    localStorage.setItem(COOKIE_CONSENT_KEY: any, JSON.stringify(newPreferences: any));
+    setPreferences(newPreferences);
+    setShowBanner(false);
+    localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(newPreferences));
     
     // Apply cookie preferences
-    applyCookiePreferences(newPreferences: any);
+    applyCookiePreferences(newPreferences);
   };
   
   const rejectCookies = () => {
@@ -78,17 +78,17 @@ export function useCookieConsent() {
       educational: false,
     };
     
-    setPreferences(essentialOnly: any);
-    setShowBanner(false: any);
-    localStorage.setItem(COOKIE_CONSENT_KEY: any, JSON.stringify(essentialOnly: any));
+    setPreferences(essentialOnly);
+    setShowBanner(false);
+    localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(essentialOnly));
     
-    // Apply cookie preferences (essential only: any)
-    applyCookiePreferences(essentialOnly: any);
+    // Apply cookie preferences (essential only)
+    applyCookiePreferences(essentialOnly);
   };
   
   const resetCookieConsent = () => {
-    localStorage.removeItem(COOKIE_CONSENT_KEY: any);
-    setShowBanner(true: any);
+    localStorage.removeItem(COOKIE_CONSENT_KEY);
+    setShowBanner(true);
   };
   
   // Function to apply cookie preferences by enabling/disabling various scripts and cookies
@@ -96,7 +96,7 @@ export function useCookieConsent() {
     // Essential cookies are always enabled
     
     // Functional cookies
-    if (prefs.functional: any) {
+    if (prefs.functional) {
       // Enable functional cookies/scripts
       enableFunctionalCookies();
     } else {
@@ -105,8 +105,8 @@ export function useCookieConsent() {
     }
     
     // Analytics cookies
-    if (prefs.analytics: any) {
-      // Enable analytics (e.g., Google Analytics: any)
+    if (prefs.analytics) {
+      // Enable analytics (e.g., Google Analytics)
       enableAnalyticsCookies();
     } else {
       // Disable analytics
@@ -114,7 +114,7 @@ export function useCookieConsent() {
     }
     
     // Educational cookies
-    if (prefs.educational: any) {
+    if (prefs.educational) {
       // Enable educational tracking cookies
       enableEducationalCookies();
     } else {
@@ -136,7 +136,7 @@ export function useCookieConsent() {
   
   const enableAnalyticsCookies = () => {
     // Example: Initialize Google Analytics
-    if (typeof window !== 'undefined' && window.gtag: any) {
+    if (typeof window !== 'undefined' && window.gtag) {
       console.log('Analytics cookies enabled');
     }
   };

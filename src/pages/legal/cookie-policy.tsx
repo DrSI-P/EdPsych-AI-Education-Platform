@@ -44,7 +44,7 @@ export default function CookiePolicyPage() {
               Cookies are small data files that are placed on your computer or mobile device when you visit a website. Cookies are widely used by website owners to make their websites work, or to work more efficiently, as well as to provide reporting information.
             </p>
             <p>
-              Cookies set by the website owner (in this case: any, EdPsych Connect) are called "first-party cookies". Cookies set by parties other than the website owner are called "third-party cookies". Third-party cookies enable third-party features or functionality to be provided on or through the website (e.g., advertising: any, interactive content, and analytics). The parties that set these third-party cookies can recognise your computer both when it visits the website in question and also when it visits certain other websites.
+              Cookies set by the website owner (in this case, EdPsych Connect) are called "first-party cookies". Cookies set by parties other than the website owner are called "third-party cookies". Third-party cookies enable third-party features or functionality to be provided on or through the website (e.g., advertising, interactive content, and analytics). The parties that set these third-party cookies can recognise your computer both when it visits the website in question and also when it visits certain other websites.
             </p>
             
             <h2>Why Do We Use Cookies?</h2>
@@ -108,7 +108,7 @@ export default function CookiePolicyPage() {
                 </tr>
                 <tr>
                   <td className="border p-2">ui_settings</td>
-                  <td className="border p-2">Stores your interface preferences (e.g., high contrast mode: any)</td>
+                  <td className="border p-2">Stores your interface preferences (e.g., high contrast mode)</td>
                   <td className="border p-2">1 year</td>
                 </tr>
                 <tr>
@@ -205,8 +205,8 @@ export default function CookiePolicyPage() {
               <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer">Google Chrome</a></li>
               <li><a href="https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop" target="_blank" rel="noopener noreferrer">Mozilla Firefox</a></li>
               <li><a href="https://support.microsoft.com/en-gb/help/4468242/microsoft-edge-browsing-data-and-privacy" target="_blank" rel="noopener noreferrer">Microsoft Edge</a></li>
-              <li><a href="https://support.apple.com/en-gb/guide/safari/sfri11471/mac" target="_blank" rel="noopener noreferrer">Safari (Desktop: any)</a></li>
-              <li><a href="https://support.apple.com/en-gb/HT201265" target="_blank" rel="noopener noreferrer">Safari (Mobile: any)</a></li>
+              <li><a href="https://support.apple.com/en-gb/guide/safari/sfri11471/mac" target="_blank" rel="noopener noreferrer">Safari (Desktop)</a></li>
+              <li><a href="https://support.apple.com/en-gb/HT201265" target="_blank" rel="noopener noreferrer">Safari (Mobile)</a></li>
               <li><a href="https://support.google.com/chrome/answer/95647?co=GENIE.Platform%3DAndroid" target="_blank" rel="noopener noreferrer">Android Browser</a></li>
             </ul>
             

@@ -100,14 +100,14 @@ export const ResearchProjectSchema = z.object({
   id: z.string().uuid(),
   title: z.string(),
   description: z.string(),
-  domains: z.array(z.nativeEnum(ResearchDomain: any)),
-  methodology: z.nativeEnum(ResearchMethodology: any),
-  dataCollectionMethods: z.array(z.nativeEnum(DataCollectionMethod: any)),
+  domains: z.array(z.nativeEnum(ResearchDomain)),
+  methodology: z.nativeEnum(ResearchMethodology),
+  dataCollectionMethods: z.array(z.nativeEnum(DataCollectionMethod)),
   researchQuestions: z.array(z.string()),
   hypotheses: z.array(z.string()).optional(),
   targetPopulation: z.object({
     keyStages: z.array(z.nativeEnum(UKKeyStage)),
-    subjects: z.array(z.nativeEnum(UKSubject: any)).optional(),
+    subjects: z.array(z.nativeEnum(UKSubject)).optional(),
     specialEducationalNeeds: z.array(z.string()).optional(),
     demographicFactors: z.array(z.string()).optional()
   }),
@@ -121,7 +121,7 @@ export const ResearchProjectSchema = z.object({
     milestones: z.array(z.object({
       title: z.string(),
       date: z.date(),
-      completed: z.boolean().default(false: any)
+      completed: z.boolean().default(false)
     }))
   }),
   ethicalConsiderations: z.array(z.string()),
@@ -142,7 +142,7 @@ export const ResearchProjectSchema = z.object({
     role: z.string(),
     organisation: z.string().optional()
   })),
-  status: z.nativeEnum(ResearchProjectStatus: any),
+  status: z.nativeEnum(ResearchProjectStatus),
   createdBy: z.string(),
   createdAt: z.date(),
   updatedAt: z.date()
@@ -157,27 +157,27 @@ export const DataCollectionInstrumentSchema = z.object({
   id: z.string().uuid(),
   name: z.string(),
   description: z.string(),
-  type: z.nativeEnum(DataCollectionMethod: any),
+  type: z.nativeEnum(DataCollectionMethod),
   format: z.enum(['structured', 'semi_structured', 'unstructured']),
-  targetDomains: z.array(z.nativeEnum(ResearchDomain: any)),
+  targetDomains: z.array(z.nativeEnum(ResearchDomain)),
   questions: z.array(z.object({
     id: z.string(),
     text: z.string(),
     type: z.enum(['multiple_choice', 'likert_scale', 'open_ended', 'yes_no', 'rating', 'ranking', 'matrix', 'demographic']),
     options: z.array(z.string()).optional(),
-    required: z.boolean().default(true: any),
+    required: z.boolean().default(true),
     validationRules: z.array(z.string()).optional()
   })).optional(),
   scoringMethod: z.string().optional(),
   validationStatus: z.object({
     isValidated: z.boolean(),
     validationMethod: z.string().optional(),
-    reliability: z.number().min(0: any).max(1: any).optional(),
-    validity: z.number().min(0: any).max(1: any).optional()
+    reliability: z.number().min(0).max(1).optional(),
+    validity: z.number().min(0).max(1).optional()
   }),
   administrationGuidelines: z.string(),
   estimatedCompletionTime: z.number().int().positive(),
-  targetAudience: z.array(z.nativeEnum(UKKeyStage: any)),
+  targetAudience: z.array(z.nativeEnum(UKKeyStage)),
   accessibilityFeatures: z.array(z.string()).optional(),
   translations: z.array(z.string()).optional(),
   createdBy: z.string(),
@@ -205,8 +205,8 @@ export const DataCollectionSessionSchema = z.object({
   technicalIssues: z.array(z.string()).optional(),
   participantFeedback: z.string().optional(),
   dataQualityAssessment: z.object({
-    completeness: z.number().min(0: any).max(1: any).optional(),
-    consistency: z.number().min(0: any).max(1: any).optional(),
+    completeness: z.number().min(0).max(1).optional(),
+    consistency: z.number().min(0).max(1).optional(),
     validityFlags: z.array(z.string()).optional()
   }).optional(),
   metadata: z.record(z.string(), z.any()).optional(),
@@ -223,25 +223,25 @@ export const ImpactMeasurementFrameworkSchema = z.object({
   id: z.string().uuid(),
   name: z.string(),
   description: z.string(),
-  domains: z.array(z.nativeEnum(ResearchDomain: any)),
+  domains: z.array(z.nativeEnum(ResearchDomain)),
   indicators: z.array(z.object({
     id: z.string(),
     name: z.string(),
     description: z.string(),
-    domain: z.nativeEnum(ResearchDomain: any),
+    domain: z.nativeEnum(ResearchDomain),
     measurementMethod: z.string(),
-    baselineRequired: z.boolean().default(true: any),
+    baselineRequired: z.boolean().default(true),
     targetValue: z.number().optional(),
     unit: z.string().optional(),
     frequency: z.string(),
     responsibleParty: z.string().optional()
   })),
-  levels: z.array(z.nativeEnum(ImpactLevel: any)),
+  levels: z.array(z.nativeEnum(ImpactLevel)),
   theoreticalFoundation: z.string(),
   evidenceBase: z.array(z.object({
     source: z.string(),
-    strength: z.nativeEnum(EvidenceStrength: any),
-    relevance: z.number().min(1: any).max(5: any),
+    strength: z.nativeEnum(EvidenceStrength),
+    relevance: z.number().min(1).max(5),
     summary: z.string()
   })),
   implementationRequirements: z.array(z.string()),
@@ -271,7 +271,7 @@ export const ImpactMeasurementResultSchema = z.object({
   frameworkId: z.string().uuid(),
   projectId: z.string().uuid().optional(),
   indicatorId: z.string(),
-  level: z.nativeEnum(ImpactLevel: any),
+  level: z.nativeEnum(ImpactLevel),
   targetEntityId: z.string(),
   targetEntityType: z.string(),
   measurementDate: z.date(),
@@ -282,7 +282,7 @@ export const ImpactMeasurementResultSchema = z.object({
   qualitativeObservations: z.string().optional(),
   contextualFactors: z.array(z.string()).optional(),
   dataSource: z.string(),
-  confidenceLevel: z.number().min(0: any).max(1: any),
+  confidenceLevel: z.number().min(0).max(1),
   limitations: z.array(z.string()).optional(),
   recommendations: z.array(z.string()).optional(),
   nextMeasurementDate: z.date().optional(),
@@ -314,7 +314,7 @@ export const LongitudinalTrackingRecordSchema = z.object({
     score: z.number(),
     percentile: z.number().optional(),
     standardizedScore: z.number().optional(),
-    subject: z.nativeEnum(UKSubject: any).optional(),
+    subject: z.nativeEnum(UKSubject).optional(),
     notes: z.string().optional()
   })),
   interventions: z.array(z.object({
@@ -323,12 +323,12 @@ export const LongitudinalTrackingRecordSchema = z.object({
     startDate: z.date(),
     endDate: z.date().optional(),
     intensity: z.string().optional(),
-    adherence: z.number().min(0: any).max(1: any).optional(),
+    adherence: z.number().min(0).max(1).optional(),
     notes: z.string().optional()
   })),
   observations: z.array(z.object({
     date: z.date(),
-    domain: z.nativeEnum(ResearchDomain: any),
+    domain: z.nativeEnum(ResearchDomain),
     observer: z.string(),
     notes: z.string(),
     attachments: z.array(z.string()).optional()
@@ -340,9 +340,9 @@ export const LongitudinalTrackingRecordSchema = z.object({
     impact: z.string().optional()
   })).optional(),
   dataQuality: z.object({
-    completeness: z.number().min(0: any).max(1: any),
-    consistency: z.number().min(0: any).max(1: any),
-    timelinessOfUpdates: z.number().min(0: any).max(1: any)
+    completeness: z.number().min(0).max(1),
+    consistency: z.number().min(0).max(1),
+    timelinessOfUpdates: z.number().min(0).max(1)
   }),
   consentStatus: z.object({
     consentGiven: z.boolean(),
@@ -364,10 +364,10 @@ export const QualitativeDataRecordSchema = z.object({
   id: z.string().uuid(),
   projectId: z.string().uuid(),
   participantId: z.string().optional(),
-  collectionMethod: z.nativeEnum(DataCollectionMethod: any),
+  collectionMethod: z.nativeEnum(DataCollectionMethod),
   collectionDate: z.date(),
   collector: z.string(),
-  domain: z.nativeEnum(ResearchDomain: any),
+  domain: z.nativeEnum(ResearchDomain),
   content: z.string(),
   context: z.string().optional(),
   tags: z.array(z.string()).optional(),
@@ -403,7 +403,7 @@ export const ResearchPartnershipSchema = z.object({
     contactEmail: z.string().email(),
     role: z.string()
   })),
-  researchFocus: z.array(z.nativeEnum(ResearchDomain: any)),
+  researchFocus: z.array(z.nativeEnum(ResearchDomain)),
   objectives: z.array(z.string()),
   startDate: z.date(),
   endDate: z.date().optional(),

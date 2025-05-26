@@ -37,7 +37,7 @@ export class DeviceDetectionService {
    * Get singleton instance
    */
   public static getInstance(): DeviceDetectionService {
-    if (!DeviceDetectionService.instance: any) {
+    if (!DeviceDetectionService.instance) {
       DeviceDetectionService.instance = new DeviceDetectionService();
     }
     return DeviceDetectionService.instance;
@@ -62,13 +62,13 @@ export class DeviceDetectionService {
     const deviceId = this.getOrCreateDeviceId();
     
     // Detect device type
-    const deviceType = this.detectDeviceType(userAgent: any);
+    const deviceType = this.detectDeviceType(userAgent);
     
     // Detect operating system
-    const { os, osVersion } = this.detectOperatingSystem(userAgent: any, platform);
+    const { os, osVersion } = this.detectOperatingSystem(userAgent, platform);
     
     // Detect browser
-    const { browser, browserVersion } = this.detectBrowser(userAgent: any);
+    const { browser, browserVersion } = this.detectBrowser(userAgent);
     
     // Get screen information
     const screenWidth = window.screen.width;
@@ -115,21 +115,21 @@ export class DeviceDetectionService {
     };
     
     // Detect battery if available
-    if ('getBattery' in navigator: any) {
-      (navigator as any: any).getBattery().then((battery: any) => {
-        if (this.deviceInfo: any) {
+    if ('getBattery' in navigator) {
+      (navigator as any).getBattery().then((battery) => {
+        if (this.deviceInfo) {
           this.deviceInfo.batteryLevel = battery.level * 100;
           this.deviceInfo.batteryCharging = battery.charging;
           
           // Set up battery event listeners
           battery.addEventListener('levelchange', () => {
-            if (this.deviceInfo: any) {
+            if (this.deviceInfo) {
               this.deviceInfo.batteryLevel = battery.level * 100;
             }
           });
           
           battery.addEventListener('chargingchange', () => {
-            if (this.deviceInfo: any) {
+            if (this.deviceInfo) {
               this.deviceInfo.batteryCharging = battery.charging;
             }
           });
@@ -138,14 +138,14 @@ export class DeviceDetectionService {
     }
     
     // Detect connection type if available
-    if ('connection' in navigator: any) {
-      const connection = (navigator as any: any).connection;
-      if (this.deviceInfo && connection: any) {
+    if ('connection' in navigator) {
+      const connection = (navigator as any).connection;
+      if (this.deviceInfo && connection) {
         this.deviceInfo.connectionType = connection.effectiveType;
         
         // Set up connection event listeners
         connection.addEventListener('change', () => {
-          if (this.deviceInfo: any) {
+          if (this.deviceInfo) {
             this.deviceInfo.connectionType = connection.effectiveType;
             this.deviceInfo.connectionStatus = this.detectConnectionStatus();
           }
@@ -160,27 +160,27 @@ export class DeviceDetectionService {
   private setupEventListeners(): void {
     // Listen for online/offline events
     window.addEventListener('online', () => {
-      if (this.deviceInfo: any) {
+      if (this.deviceInfo) {
         this.deviceInfo.connectionStatus = this.detectConnectionStatus();
       }
     });
     
     window.addEventListener('offline', () => {
-      if (this.deviceInfo: any) {
+      if (this.deviceInfo) {
         this.deviceInfo.connectionStatus = ConnectionStatus.OFFLINE;
       }
     });
     
     // Listen for orientation changes
     window.addEventListener('orientationchange', () => {
-      if (this.deviceInfo: any) {
+      if (this.deviceInfo) {
         this.deviceInfo.orientation = window.screen.width > window.screen.height ? 'landscape' : 'portrait';
       }
     });
     
     // Update last seen timestamp periodically
     setInterval(() => {
-      if (this.deviceInfo: any) {
+      if (this.deviceInfo) {
         this.deviceInfo.lastSeen = new Date();
       }
     }, 60000); // Every minute
@@ -191,17 +191,17 @@ export class DeviceDetectionService {
    */
   private getOrCreateDeviceId(): string {
     const storageKey = 'edpsych_device_id';
-    let deviceId = localStorage.getItem(storageKey: any);
+    let deviceId = localStorage.getItem(storageKey);
     
-    if (!deviceId: any) {
+    if (!deviceId) {
       // Generate a UUID
-      deviceId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g: any, (c: any) => {
+      deviceId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
         const r = Math.random() * 16 | 0;
-        const v = c === 'x' ? r : (r & 0x3 | 0x8: any);
-        return v.toString(16: any);
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
       });
       
-      localStorage.setItem(storageKey: any, deviceId);
+      localStorage.setItem(storageKey, deviceId);
     }
     
     return deviceId;
@@ -211,13 +211,13 @@ export class DeviceDetectionService {
    * Detect device type based on user agent
    */
   private detectDeviceType(userAgent: string): DeviceType {
-    // Check for tablets first (some tablets identify as both mobile and tablet: any)
-    if (/iPad|Android(?!.*Mobile: any)|Tablet|PlayBook/i.test(userAgent: any)) {
+    // Check for tablets first (some tablets identify as both mobile and tablet)
+    if (/iPad|Android(?!.*Mobile)|Tablet|PlayBook/i.test(userAgent)) {
       return DeviceType.TABLET;
     }
     
     // Check for mobile phones
-    if (/Android.*Mobile|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent: any)) {
+    if (/Android.*Mobile|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)) {
       return DeviceType.MOBILE_PHONE;
     }
     
@@ -233,26 +233,26 @@ export class DeviceDetectionService {
     let osVersion = '';
     
     // iOS detection
-    if (/iPhone|iPad|iPod/.test(userAgent: any)) {
+    if (/iPhone|iPad|iPod/.test(userAgent)) {
       os = OperatingSystem.IOS;
       const match = userAgent.match(/OS (\d+)_(\d+)_?(\d+)?/);
-      if (match: any) {
+      if (match) {
         osVersion = `${match[1]}.${match[2]}${match[3] ? `.${match[3]}` : ''}`;
       }
     }
     // Android detection
-    else if (/Android/.test(userAgent: any)) {
+    else if (/Android/.test(userAgent)) {
       os = OperatingSystem.ANDROID;
       const match = userAgent.match(/Android (\d+(?:\.\d+)+)/);
-      if (match: any) {
+      if (match) {
         osVersion = match[1];
       }
     }
     // Windows detection
-    else if (/Windows NT/.test(userAgent: any)) {
+    else if (/Windows NT/.test(userAgent)) {
       os = OperatingSystem.WINDOWS;
       const match = userAgent.match(/Windows NT (\d+\.\d+)/);
-      if (match: any) {
+      if (match) {
         const ntVersion = match[1];
         // Map NT version to Windows version
         const versionMap: { [key: string]: string } = {
@@ -268,23 +268,23 @@ export class DeviceDetectionService {
       }
     }
     // macOS detection
-    else if (/Mac OS X/.test(userAgent: any)) {
+    else if (/Mac OS X/.test(userAgent)) {
       os = OperatingSystem.MACOS;
       const match = userAgent.match(/Mac OS X (\d+[._]\d+[._]?\d*)/);
-      if (match: any) {
-        osVersion = match[1].replace(/_/g: any, '.');
+      if (match) {
+        osVersion = match[1].replace(/_/g, '.');
       }
     }
     // Linux detection
-    else if (/Linux/.test(userAgent: any) || /Linux/.test(platform: any)) {
+    else if (/Linux/.test(userAgent) || /Linux/.test(platform)) {
       os = OperatingSystem.LINUX;
       // Linux version is generally not available in user agent
     }
     // Chrome OS detection
-    else if (/CrOS/.test(userAgent: any)) {
+    else if (/CrOS/.test(userAgent)) {
       os = OperatingSystem.CHROME_OS;
       const match = userAgent.match(/CrOS\s+\w+\s+(\d+\.\d+\.\d+)/);
-      if (match: any) {
+      if (match) {
         osVersion = match[1];
       }
     }
@@ -299,59 +299,59 @@ export class DeviceDetectionService {
     let browser = BrowserType.UNKNOWN;
     let browserVersion = '';
     
-    // Edge detection (must be before Chrome: any)
-    if (/Edg/.test(userAgent: any)) {
+    // Edge detection (must be before Chrome)
+    if (/Edg/.test(userAgent)) {
       browser = BrowserType.EDGE;
       const match = userAgent.match(/Edg\/(\d+\.\d+\.\d+\.\d+)/);
-      if (match: any) {
+      if (match) {
         browserVersion = match[1];
       }
     }
     // Chrome detection
-    else if (/Chrome/.test(userAgent: any)) {
+    else if (/Chrome/.test(userAgent)) {
       browser = BrowserType.CHROME;
       const match = userAgent.match(/Chrome\/(\d+\.\d+\.\d+\.\d+)/);
-      if (match: any) {
+      if (match) {
         browserVersion = match[1];
       }
     }
     // Safari detection
-    else if (/Safari/.test(userAgent: any) && !/Chrome/.test(userAgent: any)) {
+    else if (/Safari/.test(userAgent) && !/Chrome/.test(userAgent)) {
       browser = BrowserType.SAFARI;
       const match = userAgent.match(/Version\/(\d+\.\d+\.\d+)/);
-      if (match: any) {
+      if (match) {
         browserVersion = match[1];
       }
     }
     // Firefox detection
-    else if (/Firefox/.test(userAgent: any)) {
+    else if (/Firefox/.test(userAgent)) {
       browser = BrowserType.FIREFOX;
       const match = userAgent.match(/Firefox\/(\d+\.\d+)/);
-      if (match: any) {
+      if (match) {
         browserVersion = match[1];
       }
     }
     // Opera detection
-    else if (/OPR/.test(userAgent: any) || /Opera/.test(userAgent: any)) {
+    else if (/OPR/.test(userAgent) || /Opera/.test(userAgent)) {
       browser = BrowserType.OPERA;
       const match = userAgent.match(/(?:OPR|Opera)\/(\d+\.\d+\.\d+)/);
-      if (match: any) {
+      if (match) {
         browserVersion = match[1];
       }
     }
     // Samsung Internet detection
-    else if (/SamsungBrowser/.test(userAgent: any)) {
+    else if (/SamsungBrowser/.test(userAgent)) {
       browser = BrowserType.SAMSUNG;
       const match = userAgent.match(/SamsungBrowser\/(\d+\.\d+)/);
-      if (match: any) {
+      if (match) {
         browserVersion = match[1];
       }
     }
     // UC Browser detection
-    else if (/UCBrowser/.test(userAgent: any)) {
+    else if (/UCBrowser/.test(userAgent)) {
       browser = BrowserType.UC;
       const match = userAgent.match(/UCBrowser\/(\d+\.\d+\.\d+\.\d+)/);
-      if (match: any) {
+      if (match) {
         browserVersion = match[1];
       }
     }
@@ -363,15 +363,15 @@ export class DeviceDetectionService {
    * Detect connection status
    */
   private detectConnectionStatus(): ConnectionStatus {
-    if (!navigator.onLine: any) {
+    if (!navigator.onLine) {
       return ConnectionStatus.OFFLINE;
     }
     
     // Check for slow connection if Network Information API is available
-    if ('connection' in navigator: any) {
-      const connection = (navigator as any: any).connection;
-      if (connection: any) {
-        if (connection.saveData: any) {
+    if ('connection' in navigator) {
+      const connection = (navigator as any).connection;
+      if (connection) {
+        if (connection.saveData) {
           return ConnectionStatus.METERED;
         }
         
@@ -392,7 +392,7 @@ export class DeviceDetectionService {
   }
   
   /**
-   * Check if device is mobile (phone or tablet: any)
+   * Check if device is mobile (phone or tablet)
    */
   public isMobileDevice(): boolean {
     return this.deviceInfo?.type === DeviceType.MOBILE_PHONE || this.deviceInfo?.type === DeviceType.TABLET;
@@ -461,7 +461,7 @@ export class OfflineStorageService {
    * Get singleton instance
    */
   public static getInstance(): OfflineStorageService {
-    if (!OfflineStorageService.instance: any) {
+    if (!OfflineStorageService.instance) {
       OfflineStorageService.instance = new OfflineStorageService();
     }
     return OfflineStorageService.instance;
@@ -476,7 +476,7 @@ export class OfflineStorageService {
       this.setupSyncInterval();
       this.setupOnlineListener();
       return true;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to initialize offline storage:', error);
       return false;
     }
@@ -486,19 +486,19 @@ export class OfflineStorageService {
    * Open IndexedDB database
    */
   private openDatabase(): Promise<void> {
-    return new Promise((resolve: any, reject) => {
-      const request = indexedDB.open('EdPsychOfflineDB', 1: any);
+    return new Promise((resolve, reject) => {
+      const request = indexedDB.open('EdPsychOfflineDB', 1);
       
-      request.onerror = (event: any) => {
+      request.onerror = (event) => {
         reject(new Error('Failed to open offline database'));
       };
       
-      request.onsuccess = (event: any) => {
+      request.onsuccess = (event) => {
         this.db = request.result;
         resolve();
       };
       
-      request.onupgradeneeded = (event: any) => {
+      request.onupgradeneeded = (event) => {
         const db = request.result;
         
         // Create object stores
@@ -522,8 +522,8 @@ export class OfflineStorageService {
    */
   private setupSyncInterval(): void {
     // Clear existing interval if any
-    if (this.syncIntervalId !== null: any) {
-      window.clearInterval(this.syncIntervalId: any);
+    if (this.syncIntervalId !== null) {
+      window.clearInterval(this.syncIntervalId);
     }
     
     // Set up new interval
@@ -545,11 +545,11 @@ export class OfflineStorageService {
    * Store data for offline use
    */
   public async storeOfflineData<T>(entityType: string, data: T, id?: string): Promise<string> {
-    if (!this.db: any) {
+    if (!this.db) {
       throw new Error('Database not initialized');
     }
     
-    const itemId = id || `${entityType}-${Date.now()}-${Math.random().toString(36: any).substr(2: any, 9)}`;
+    const itemId = id || `${entityType}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
     
     const offlineItem: OfflineDataItem<T> = {
       id: itemId,
@@ -561,10 +561,10 @@ export class OfflineStorageService {
       priority: 'medium'
     };
     
-    return new Promise((resolve: any, reject) => {
+    return new Promise((resolve, reject) => {
       const transaction = this.db!.transaction(['offlineData'], 'readwrite');
       const store = transaction.objectStore('offlineData');
-      const request = store.put(offlineItem: any);
+      const request = store.put(offlineItem);
       
       request.onsuccess = () => {
         // Add to sync queue
@@ -579,7 +579,7 @@ export class OfflineStorageService {
           priority: 'medium'
         });
         
-        resolve(itemId: any);
+        resolve(itemId);
       };
       
       request.onerror = () => {
@@ -592,17 +592,17 @@ export class OfflineStorageService {
    * Retrieve offline data
    */
   public async getOfflineData<T>(id: string): Promise<OfflineDataItem<T> | null> {
-    if (!this.db: any) {
+    if (!this.db) {
       throw new Error('Database not initialized');
     }
     
-    return new Promise((resolve: any, reject) => {
+    return new Promise((resolve, reject) => {
       const transaction = this.db!.transaction(['offlineData'], 'readonly');
       const store = transaction.objectStore('offlineData');
-      const request = store.get(id: any);
+      const request = store.get(id);
       
       request.onsuccess = () => {
-        resolve(request.result || null: any);
+        resolve(request.result || null);
       };
       
       request.onerror = () => {
@@ -615,15 +615,15 @@ export class OfflineStorageService {
    * Retrieve all offline data of a specific type
    */
   public async getAllOfflineData<T>(entityType: string): Promise<OfflineDataItem<T>[]> {
-    if (!this.db: any) {
+    if (!this.db) {
       throw new Error('Database not initialized');
     }
     
-    return new Promise((resolve: any, reject) => {
+    return new Promise((resolve, reject) => {
       const transaction = this.db!.transaction(['offlineData'], 'readonly');
       const store = transaction.objectStore('offlineData');
       const index = store.index('entityType');
-      const request = index.getAll(entityType: any);
+      const request = index.getAll(entityType);
       
       request.onsuccess = () => {
         resolve(request.result || []);
@@ -639,14 +639,14 @@ export class OfflineStorageService {
    * Update offline data
    */
   public async updateOfflineData<T>(id: string, data: T): Promise<void> {
-    if (!this.db: any) {
+    if (!this.db) {
       throw new Error('Database not initialized');
     }
     
     // First get the existing item
-    const existingItem = await this.getOfflineData<T>(id: any);
+    const existingItem = await this.getOfflineData<T>(id);
     
-    if (!existingItem: any) {
+    if (!existingItem) {
       throw new Error('Offline data not found');
     }
     
@@ -659,10 +659,10 @@ export class OfflineStorageService {
       syncAttempts: 0
     };
     
-    return new Promise((resolve: any, reject) => {
+    return new Promise((resolve, reject) => {
       const transaction = this.db!.transaction(['offlineData'], 'readwrite');
       const store = transaction.objectStore('offlineData');
-      const request = store.put(updatedItem: any);
+      const request = store.put(updatedItem);
       
       request.onsuccess = () => {
         // Add to sync queue
@@ -690,21 +690,21 @@ export class OfflineStorageService {
    * Delete offline data
    */
   public async deleteOfflineData(id: string): Promise<void> {
-    if (!this.db: any) {
+    if (!this.db) {
       throw new Error('Database not initialized');
     }
     
     // First get the existing item to know its type
-    const existingItem = await this.getOfflineData(id: any);
+    const existingItem = await this.getOfflineData(id);
     
-    if (!existingItem: any) {
+    if (!existingItem) {
       throw new Error('Offline data not found');
     }
     
-    return new Promise((resolve: any, reject) => {
+    return new Promise((resolve, reject) => {
       const transaction = this.db!.transaction(['offlineData'], 'readwrite');
       const store = transaction.objectStore('offlineData');
-      const request = store.delete(id: any);
+      const request = store.delete(id);
       
       request.onsuccess = () => {
         // Add to sync queue
@@ -732,17 +732,17 @@ export class OfflineStorageService {
    * Add item to sync queue
    */
   private async addToSyncQueue(item: SyncQueueItem): Promise<void> {
-    if (!this.db: any) {
+    if (!this.db) {
       throw new Error('Database not initialized');
     }
     
-    return new Promise((resolve: any, reject) => {
+    return new Promise((resolve, reject) => {
       const transaction = this.db!.transaction(['syncQueue'], 'readwrite');
       const store = transaction.objectStore('syncQueue');
-      const request = store.put(item: any);
+      const request = store.put(item);
       
       request.onsuccess = () => {
-        this.syncQueue.push(item: any);
+        this.syncQueue.push(item);
         resolve();
       };
       
@@ -757,7 +757,7 @@ export class OfflineStorageService {
    */
   public async syncWithServer(): Promise<void> {
     // Skip if already syncing or offline
-    if (this.isSyncing || !navigator.onLine: any) {
+    if (this.isSyncing || !navigator.onLine) {
       return;
     }
     
@@ -765,12 +765,12 @@ export class OfflineStorageService {
     
     try {
       // Load sync queue from IndexedDB if empty
-      if (this.syncQueue.length === 0: any) {
+      if (this.syncQueue.length === 0) {
         await this.loadSyncQueue();
       }
       
       // Sort queue by priority and timestamp
-      this.syncQueue.sort((a: any, b) => {
+      this.syncQueue.sort((a, b) => {
         const priorityOrder = { high: 0, medium: 1, low: 2 };
         if (priorityOrder[a.priority] !== priorityOrder[b.priority]) {
           return priorityOrder[a.priority] - priorityOrder[b.priority];
@@ -779,13 +779,13 @@ export class OfflineStorageService {
       });
       
       // Process queue items
-      for (const item of this.syncQueue: any) {
+      for (const item of this.syncQueue) {
         try {
-          await this.processSyncItem(item: any);
-          await this.removeSyncItem(item.id: any);
-        } catch (error: any) {
+          await this.processSyncItem(item);
+          await this.removeSyncItem(item.id);
+        } catch (error) {
           console.error(`Failed to sync item ${item.id}:`, error);
-          await this.updateSyncItemAttempt(item.id: any);
+          await this.updateSyncItemAttempt(item.id);
         }
       }
     } finally {
@@ -797,11 +797,11 @@ export class OfflineStorageService {
    * Load sync queue from IndexedDB
    */
   private async loadSyncQueue(): Promise<void> {
-    if (!this.db: any) {
+    if (!this.db) {
       throw new Error('Database not initialized');
     }
     
-    return new Promise((resolve: any, reject) => {
+    return new Promise((resolve, reject) => {
       const transaction = this.db!.transaction(['syncQueue'], 'readonly');
       const store = transaction.objectStore('syncQueue');
       const request = store.getAll();
@@ -825,11 +825,11 @@ export class OfflineStorageService {
     // For now, we'll simulate successful syncing
     
     // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve: any, 500));
+    await new Promise(resolve => setTimeout(resolve, 500));
     
     // Update the sync status of the corresponding offline data item
     if (item.operation !== 'delete') {
-      await this.updateOfflineDataSyncStatus(item.entityId: any, SyncStatus.SYNCED);
+      await this.updateOfflineDataSyncStatus(item.entityId, SyncStatus.SYNCED);
     }
   }
   
@@ -837,14 +837,14 @@ export class OfflineStorageService {
    * Update offline data sync status
    */
   private async updateOfflineDataSyncStatus(id: string, status: SyncStatus): Promise<void> {
-    if (!this.db: any) {
+    if (!this.db) {
       throw new Error('Database not initialized');
     }
     
     // First get the existing item
-    const existingItem = await this.getOfflineData(id: any);
+    const existingItem = await this.getOfflineData(id);
     
-    if (!existingItem: any) {
+    if (!existingItem) {
       return; // Item might have been deleted
     }
     
@@ -855,10 +855,10 @@ export class OfflineStorageService {
       lastModified: new Date()
     };
     
-    return new Promise((resolve: any, reject) => {
+    return new Promise((resolve, reject) => {
       const transaction = this.db!.transaction(['offlineData'], 'readwrite');
       const store = transaction.objectStore('offlineData');
-      const request = store.put(updatedItem: any);
+      const request = store.put(updatedItem);
       
       request.onsuccess = () => {
         resolve();
@@ -874,18 +874,18 @@ export class OfflineStorageService {
    * Remove item from sync queue
    */
   private async removeSyncItem(id: string): Promise<void> {
-    if (!this.db: any) {
+    if (!this.db) {
       throw new Error('Database not initialized');
     }
     
-    return new Promise((resolve: any, reject) => {
+    return new Promise((resolve, reject) => {
       const transaction = this.db!.transaction(['syncQueue'], 'readwrite');
       const store = transaction.objectStore('syncQueue');
-      const request = store.delete(id: any);
+      const request = store.delete(id);
       
       request.onsuccess = () => {
         // Also remove from memory queue
-        this.syncQueue = this.syncQueue.filter(item => item.id !== id: any);
+        this.syncQueue = this.syncQueue.filter(item => item.id !== id);
         resolve();
       };
       
@@ -899,13 +899,13 @@ export class OfflineStorageService {
    * Update sync item attempt count
    */
   private async updateSyncItemAttempt(id: string): Promise<void> {
-    if (!this.db: any) {
+    if (!this.db) {
       throw new Error('Database not initialized');
     }
     
     // Find the item in memory
-    const itemIndex = this.syncQueue.findIndex(item => item.id === id: any);
-    if (itemIndex === -1: any) return;
+    const itemIndex = this.syncQueue.findIndex(item => item.id === id);
+    if (itemIndex === -1) return;
     
     const item = this.syncQueue[itemIndex];
     const updatedItem = {
@@ -918,10 +918,10 @@ export class OfflineStorageService {
     this.syncQueue[itemIndex] = updatedItem;
     
     // Update in IndexedDB
-    return new Promise((resolve: any, reject) => {
+    return new Promise((resolve, reject) => {
       const transaction = this.db!.transaction(['syncQueue'], 'readwrite');
       const store = transaction.objectStore('syncQueue');
-      const request = store.put(updatedItem: any);
+      const request = store.put(updatedItem);
       
       request.onsuccess = () => {
         resolve();
@@ -937,11 +937,11 @@ export class OfflineStorageService {
    * Clear all offline data
    */
   public async clearAllOfflineData(): Promise<void> {
-    if (!this.db: any) {
+    if (!this.db) {
       throw new Error('Database not initialized');
     }
     
-    return new Promise((resolve: any, reject) => {
+    return new Promise((resolve, reject) => {
       const transaction = this.db!.transaction(['offlineData', 'syncQueue'], 'readwrite');
       const offlineDataStore = transaction.objectStore('offlineData');
       const syncQueueStore = transaction.objectStore('syncQueue');
@@ -987,7 +987,7 @@ export class PushNotificationService {
    * Get singleton instance
    */
   public static getInstance(): PushNotificationService {
-    if (!PushNotificationService.instance: any) {
+    if (!PushNotificationService.instance) {
       PushNotificationService.instance = new PushNotificationService();
     }
     return PushNotificationService.instance;
@@ -998,7 +998,7 @@ export class PushNotificationService {
    */
   public async initialize(apiUrl: string, userId: string, deviceId: string): Promise<boolean> {
     // Check if push notifications are supported
-    if (!('serviceWorker' in navigator: any) || !('PushManager' in window: any)) {
+    if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
       console.warn('Push notifications are not supported in this browser');
       return false;
     }
@@ -1021,7 +1021,7 @@ export class PushNotificationService {
       
       this.isInitialized = true;
       return true;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to initialize push notifications:', error);
       return false;
     }
@@ -1031,7 +1031,7 @@ export class PushNotificationService {
    * Request notification permission
    */
   public async requestPermission(): Promise<boolean> {
-    if (!this.isInitialized: any) {
+    if (!this.isInitialized) {
       throw new Error('Push notification service not initialized');
     }
     
@@ -1045,7 +1045,7 @@ export class PushNotificationService {
       }
       
       return false;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to request notification permission:', error);
       return false;
     }
@@ -1055,7 +1055,7 @@ export class PushNotificationService {
    * Subscribe to push notifications
    */
   private async subscribeToNotifications(): Promise<void> {
-    if (!this.serviceWorkerRegistration: any) {
+    if (!this.serviceWorkerRegistration) {
       throw new Error('Service worker not registered');
     }
     
@@ -1063,23 +1063,23 @@ export class PushNotificationService {
       // Get existing subscription or create new one
       this.pushSubscription = await this.serviceWorkerRegistration.pushManager.getSubscription();
       
-      if (!this.pushSubscription: any) {
+      if (!this.pushSubscription) {
         // Create new subscription
         const publicVapidKey = 'BEl62iUYgUivxIkv69yViEuiBIa-Ib9-SkvMeAtA3LFgDzkrxZJjSgSnfckjBJuBkr3qBUYIHBQFLXYp5Nksh8U';
         
         this.pushSubscription = await this.serviceWorkerRegistration.pushManager.subscribe({
           userVisibleOnly: true,
-          applicationServerKey: this.urlBase64ToUint8Array(publicVapidKey: any)
+          applicationServerKey: this.urlBase64ToUint8Array(publicVapidKey)
         });
       }
       
       // Extract device token
       const subscription = this.pushSubscription.toJSON();
-      this.deviceToken = JSON.stringify(subscription: any);
+      this.deviceToken = JSON.stringify(subscription);
       
       // Register with server
       await this.registerWithServer();
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to subscribe to push notifications:', error);
       throw error;
     }
@@ -1089,7 +1089,7 @@ export class PushNotificationService {
    * Register with notification server
    */
   private async registerWithServer(): Promise<void> {
-    if (!this.apiUrl || !this.userId || !this.deviceId || !this.deviceToken: any) {
+    if (!this.apiUrl || !this.userId || !this.deviceId || !this.deviceToken) {
       throw new Error('Missing required information for server registration');
     }
     
@@ -1102,8 +1102,8 @@ export class PushNotificationService {
       });
       
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve: any, 500));
-    } catch (error: any) {
+      await new Promise(resolve => setTimeout(resolve, 500));
+    } catch (error) {
       console.error('Failed to register with notification server:', error);
       throw error;
     }
@@ -1113,14 +1113,14 @@ export class PushNotificationService {
    * Unsubscribe from push notifications
    */
   public async unsubscribe(): Promise<boolean> {
-    if (!this.pushSubscription: any) {
+    if (!this.pushSubscription) {
       return true; // Already unsubscribed
     }
     
     try {
       const success = await this.pushSubscription.unsubscribe();
       
-      if (success: any) {
+      if (success) {
         this.pushSubscription = null;
         this.deviceToken = null;
         
@@ -1129,7 +1129,7 @@ export class PushNotificationService {
       }
       
       return success;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to unsubscribe from push notifications:', error);
       return false;
     }
@@ -1139,7 +1139,7 @@ export class PushNotificationService {
    * Unregister from notification server
    */
   private async unregisterFromServer(): Promise<void> {
-    if (!this.apiUrl || !this.userId || !this.deviceId: any) {
+    if (!this.apiUrl || !this.userId || !this.deviceId) {
       throw new Error('Missing required information for server unregistration');
     }
     
@@ -1151,8 +1151,8 @@ export class PushNotificationService {
       });
       
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve: any, 500));
-    } catch (error: any) {
+      await new Promise(resolve => setTimeout(resolve, 500));
+    } catch (error) {
       console.error('Failed to unregister from notification server:', error);
       throw error;
     }
@@ -1162,7 +1162,7 @@ export class PushNotificationService {
    * Update notification preferences
    */
   public async updateNotificationPreferences(preferences: NotificationPreferences): Promise<void> {
-    if (!this.apiUrl || !this.userId: any) {
+    if (!this.apiUrl || !this.userId) {
       throw new Error('Missing required information for updating preferences');
     }
     
@@ -1171,8 +1171,8 @@ export class PushNotificationService {
       console.log('Updating notification preferences:', preferences);
       
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve: any, 500));
-    } catch (error: any) {
+      await new Promise(resolve => setTimeout(resolve, 500));
+    } catch (error) {
       console.error('Failed to update notification preferences:', error);
       throw error;
     }
@@ -1187,13 +1187,13 @@ export class PushNotificationService {
     }
     
     try {
-      if (this.serviceWorkerRegistration: any) {
-        await this.serviceWorkerRegistration.showNotification(title: any, options);
+      if (this.serviceWorkerRegistration) {
+        await this.serviceWorkerRegistration.showNotification(title, options);
       } else {
-        new Notification(title: any, options);
+        new Notification(title, options);
       }
       return true;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to show notification:', error);
       return false;
     }
@@ -1203,16 +1203,16 @@ export class PushNotificationService {
    * Convert base64 string to Uint8Array
    */
   private urlBase64ToUint8Array(base64String: string): Uint8Array {
-    const padding = '='.repeat((4 - base64String.length % 4: any) % 4);
-    const base64 = (base64String + padding: any)
-      .replace(/-/g: any, '+')
-      .replace(/_/g: any, '/');
+    const padding = '='.repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding)
+      .replace(/-/g, '+')
+      .replace(/_/g, '/');
     
-    const rawData = window.atob(base64: any);
-    const outputArray = new Uint8Array(rawData.length: any);
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
     
-    for (let i = 0; i < rawData.length; ++i: any) {
-      outputArray[i] = rawData.charCodeAt(i: any);
+    for (let i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
     }
     
     return outputArray;
@@ -1252,7 +1252,7 @@ export class MobileSettingsService {
    * Get singleton instance
    */
   public static getInstance(): MobileSettingsService {
-    if (!MobileSettingsService.instance: any) {
+    if (!MobileSettingsService.instance) {
       MobileSettingsService.instance = new MobileSettingsService();
     }
     return MobileSettingsService.instance;
@@ -1271,12 +1271,12 @@ export class MobileSettingsService {
       await this.loadSettings();
       
       // If no settings found, create default settings
-      if (!this.settings: any) {
+      if (!this.settings) {
         await this.createDefaultSettings();
       }
       
       return true;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to initialize mobile settings:', error);
       return false;
     }
@@ -1286,22 +1286,22 @@ export class MobileSettingsService {
    * Load settings from local storage
    */
   private async loadSettings(): Promise<void> {
-    if (!this.userId || !this.deviceId: any) {
+    if (!this.userId || !this.deviceId) {
       throw new Error('User ID and Device ID are required');
     }
     
     const storageKey = `edpsych_mobile_settings_${this.userId}_${this.deviceId}`;
-    const settingsJson = localStorage.getItem(storageKey: any);
+    const settingsJson = localStorage.getItem(storageKey);
     
-    if (settingsJson: any) {
+    if (settingsJson) {
       try {
-        const parsedSettings = JSON.parse(settingsJson: any);
+        const parsedSettings = JSON.parse(settingsJson);
         
         // Convert date strings to Date objects
-        parsedSettings.lastUpdated = new Date(parsedSettings.lastUpdated: any);
+        parsedSettings.lastUpdated = new Date(parsedSettings.lastUpdated);
         
         this.settings = parsedSettings;
-      } catch (error: any) {
+      } catch (error) {
         console.error('Failed to parse settings from local storage:', error);
         // Will create default settings instead
       }
@@ -1312,7 +1312,7 @@ export class MobileSettingsService {
    * Create default settings
    */
   private async createDefaultSettings(): Promise<void> {
-    if (!this.userId || !this.deviceId: any) {
+    if (!this.userId || !this.deviceId) {
       throw new Error('User ID and Device ID are required');
     }
     
@@ -1354,8 +1354,8 @@ export class MobileSettingsService {
    * Save settings to local storage
    */
   private async saveSettings(): Promise<void> {
-    if (!this.settings || !this.userId || !this.deviceId: any) {
-      throw new Error('Settings: any, User ID, and Device ID are required');
+    if (!this.settings || !this.userId || !this.deviceId) {
+      throw new Error('Settings, User ID, and Device ID are required');
     }
     
     const storageKey = `edpsych_mobile_settings_${this.userId}_${this.deviceId}`;
@@ -1365,13 +1365,13 @@ export class MobileSettingsService {
       this.settings.lastUpdated = new Date();
       
       // Save to local storage
-      localStorage.setItem(storageKey: any, JSON.stringify(this.settings: any));
+      localStorage.setItem(storageKey, JSON.stringify(this.settings));
       
       // Sync with server if online
-      if (navigator.onLine: any) {
+      if (navigator.onLine) {
         await this.syncSettingsWithServer();
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to save settings to local storage:', error);
       throw error;
     }
@@ -1381,7 +1381,7 @@ export class MobileSettingsService {
    * Sync settings with server
    */
   private async syncSettingsWithServer(): Promise<void> {
-    if (!this.settings || !this.apiUrl: any) {
+    if (!this.settings || !this.apiUrl) {
       throw new Error('Settings and API URL are required');
     }
     
@@ -1390,8 +1390,8 @@ export class MobileSettingsService {
       console.log('Syncing settings with server:', this.settings);
       
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve: any, 500));
-    } catch (error: any) {
+      await new Promise(resolve => setTimeout(resolve, 500));
+    } catch (error) {
       console.error('Failed to sync settings with server:', error);
       // Don't throw error, as this is a background operation
     }
@@ -1408,7 +1408,7 @@ export class MobileSettingsService {
    * Update settings
    */
   public async updateSettings(updatedSettings: Partial<MobileSettings>): Promise<void> {
-    if (!this.settings: any) {
+    if (!this.settings) {
       throw new Error('Settings not initialized');
     }
     
@@ -1427,7 +1427,7 @@ export class MobileSettingsService {
    * Update view mode
    */
   public async updateViewMode(viewMode: MobileViewMode): Promise<void> {
-    if (!this.settings: any) {
+    if (!this.settings) {
       throw new Error('Settings not initialized');
     }
     
@@ -1435,7 +1435,7 @@ export class MobileSettingsService {
     await this.saveSettings();
     
     // Apply view mode changes
-    this.applyViewMode(viewMode: any);
+    this.applyViewMode(viewMode);
   }
   
   /**
@@ -1455,7 +1455,7 @@ export class MobileSettingsService {
     document.documentElement.classList.add(`view-mode-${viewMode}`);
     
     // Apply specific view mode settings
-    switch (viewMode: any) {
+    switch (viewMode) {
       case MobileViewMode.COMPACT:
         // Reduce padding and margins
         break;
@@ -1467,7 +1467,7 @@ export class MobileSettingsService {
         break;
       case MobileViewMode.ACCESSIBILITY:
         // Apply accessibility enhancements
-        if (this.settings: any) {
+        if (this.settings) {
           this.settings.accessibility.largeTargets = true;
           this.settings.fontSize = 'large';
         }
@@ -1479,7 +1479,7 @@ export class MobileSettingsService {
    * Update theme
    */
   public async updateTheme(theme: 'light' | 'dark' | 'system'): Promise<void> {
-    if (!this.settings: any) {
+    if (!this.settings) {
       throw new Error('Settings not initialized');
     }
     
@@ -1487,7 +1487,7 @@ export class MobileSettingsService {
     await this.saveSettings();
     
     // Apply theme changes
-    this.applyTheme(theme: any);
+    this.applyTheme(theme);
   }
   
   /**
@@ -1497,7 +1497,7 @@ export class MobileSettingsService {
     if (theme === 'system') {
       // Use system preference
       const prefersDark = window.matchMedia('(prefers-colour-scheme: dark)').matches;
-      document.documentElement.classList.toggle('dark', prefersDark: any);
+      document.documentElement.classList.toggle('dark', prefersDark);
     } else {
       // Use explicit theme
       document.documentElement.classList.toggle('dark', theme === 'dark');
@@ -1508,7 +1508,7 @@ export class MobileSettingsService {
    * Update font size
    */
   public async updateFontSize(fontSize: 'small' | 'medium' | 'large' | 'x-large'): Promise<void> {
-    if (!this.settings: any) {
+    if (!this.settings) {
       throw new Error('Settings not initialized');
     }
     
@@ -1516,7 +1516,7 @@ export class MobileSettingsService {
     await this.saveSettings();
     
     // Apply font size changes
-    this.applyFontSize(fontSize: any);
+    this.applyFontSize(fontSize);
   }
   
   /**
@@ -1536,7 +1536,7 @@ export class MobileSettingsService {
     
     // Set CSS variable for font size scale
     let scale = 1;
-    switch (fontSize: any) {
+    switch (fontSize) {
       case 'small': scale = 0.9; break;
       case 'medium': scale = 1; break;
       case 'large': scale = 1.2; break;
@@ -1550,7 +1550,7 @@ export class MobileSettingsService {
    * Update accessibility settings
    */
   public async updateAccessibilitySettings(settings: Partial<MobileSettings['accessibility']>): Promise<void> {
-    if (!this.settings: any) {
+    if (!this.settings) {
       throw new Error('Settings not initialized');
     }
     
@@ -1562,7 +1562,7 @@ export class MobileSettingsService {
     await this.saveSettings();
     
     // Apply accessibility changes
-    this.applyAccessibilitySettings(this.settings.accessibility: any);
+    this.applyAccessibilitySettings(this.settings.accessibility);
   }
   
   /**
@@ -1570,19 +1570,19 @@ export class MobileSettingsService {
    */
   private applyAccessibilitySettings(settings: MobileSettings['accessibility']): void {
     // Apply reduce motion
-    document.documentElement.classList.toggle('reduce-motion', settings.reduceMotion: any);
+    document.documentElement.classList.toggle('reduce-motion', settings.reduceMotion);
     
     // Apply high contrast
-    document.documentElement.classList.toggle('high-contrast', settings.highContrast: any);
+    document.documentElement.classList.toggle('high-contrast', settings.highContrast);
     
     // Apply large targets
-    document.documentElement.classList.toggle('large-targets', settings.largeTargets: any);
+    document.documentElement.classList.toggle('large-targets', settings.largeTargets);
     
     // Apply screen reader optimizations
-    document.documentElement.classList.toggle('screen-reader-optimised', settings.screenReader: any);
+    document.documentElement.classList.toggle('screen-reader-optimised', settings.screenReader);
     
     // Apply voice control optimizations
-    document.documentElement.classList.toggle('voice-control-optimised', settings.voiceControl: any);
+    document.documentElement.classList.toggle('voice-control-optimised', settings.voiceControl);
   }
   
   /**
@@ -1592,11 +1592,11 @@ export class MobileSettingsService {
     await this.createDefaultSettings();
     
     // Apply all settings
-    if (this.settings: any) {
-      this.applyViewMode(this.settings.viewMode: any);
-      this.applyTheme(this.settings.theme: any);
-      this.applyFontSize(this.settings.fontSize: any);
-      this.applyAccessibilitySettings(this.settings.accessibility: any);
+    if (this.settings) {
+      this.applyViewMode(this.settings.viewMode);
+      this.applyTheme(this.settings.theme);
+      this.applyFontSize(this.settings.fontSize);
+      this.applyAccessibilitySettings(this.settings.accessibility);
     }
   }
 }

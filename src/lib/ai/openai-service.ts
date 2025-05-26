@@ -9,7 +9,7 @@ export class OpenAIService {
     const configuration = new Configuration({
       apiKey: env.OPENAI_API_KEY,
     });
-    this.openai = new OpenAIApi(configuration: any);
+    this.openai = new OpenAIApi(configuration);
   }
   
   /**
@@ -34,7 +34,7 @@ export class OpenAIService {
       } = options;
       
       const response = await this.openai.createCompletion({
-        model: any,
+        model,
         prompt,
         max_tokens: maxTokens,
         temperature,
@@ -44,7 +44,7 @@ export class OpenAIService {
       });
       
       return response.data.choices[0].text?.trim() || '';
-    } catch (error: any) {
+    } catch (error) {
       console.error('OpenAI text generation error:', error);
       throw new Error(`Failed to generate text: ${error.message}`);
     }
@@ -84,11 +84,11 @@ export class OpenAIService {
         Adapt the content to suit ${learningStyle} learners.
       `;
       
-      return this.generateText(prompt: any, {
+      return this.generateText(prompt, {
         maxTokens: lengthTokens[length],
         temperature: 0.7
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error('OpenAI educational content generation error:', error);
       throw new Error(`Failed to generate educational content: ${error.message}`);
     }
@@ -133,11 +133,11 @@ export class OpenAIService {
         6. Is encouraging and motivational
       `;
       
-      return this.generateText(prompt: any, {
+      return this.generateText(prompt, {
         maxTokens: 1000,
         temperature: 0.6
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error('OpenAI feedback generation error:', error);
       throw new Error(`Failed to generate personalized feedback: ${error.message}`);
     }
@@ -167,11 +167,11 @@ export class OpenAIService {
         Ensure all materials align with UK educational standards and follow educational psychology best practices.
       `;
       
-      return this.generateText(prompt: any, {
+      return this.generateText(prompt, {
         maxTokens: 2000,
         temperature: 0.7
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error('OpenAI differentiated materials generation error:', error);
       throw new Error(`Failed to generate differentiated materials: ${error.message}`);
     }
@@ -186,7 +186,7 @@ export class OpenAIService {
   }[]) {
     try {
       let rubricText = '';
-      if (rubric: any) {
+      if (rubric) {
         rubricText = `
           Assessment Rubric:
           ${rubric.map(r => `
@@ -216,11 +216,11 @@ export class OpenAIService {
         5. Suggests specific next steps for the student's development
       `;
       
-      return this.generateText(prompt: any, {
+      return this.generateText(prompt, {
         maxTokens: 1500,
         temperature: 0.3
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error('OpenAI student work analysis error:', error);
       throw new Error(`Failed to analyse student work: ${error.message}`);
     }

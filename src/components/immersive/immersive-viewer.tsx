@@ -22,7 +22,7 @@ interface ImmersiveViewerProps {
  * and accessibility features.
  */
 export function ImmersiveViewer({
-  contentUrl: any,
+  contentUrl,
   contentType = '3d',
   title,
   description,
@@ -31,62 +31,62 @@ export function ImmersiveViewer({
   className = '',
   children
 }: ImmersiveViewerProps) {
-  const [isLoading, setIsLoading] = useState(true: any);
-  const [error, setError] = useState<string | null>(null: any);
-  const [zoomLevel, setZoomLevel] = useState(1: any);
-  const [rotation, setRotation] = useState(0: any);
-  const [isVRActive, setIsVRActive] = useState(false: any);
-  const [showControls, setShowControls] = useState(true: any);
-  const [showInfo, setShowInfo] = useState(true: any);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [zoomLevel, setZoomLevel] = useState(1);
+  const [rotation, setRotation] = useState(0);
+  const [isVRActive, setIsVRActive] = useState(false);
+  const [showControls, setShowControls] = useState(true);
+  const [showInfo, setShowInfo] = useState(true);
   
   // Simulate content loading
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsLoading(false: any);
+      setIsLoading(false);
     }, 1500);
     
-    return () => clearTimeout(timer: any);
+    return () => clearTimeout(timer);
   }, [contentUrl]);
   
   // Handle zoom in
   const handleZoomIn = () => {
-    setZoomLevel(prev => Math.min(prev + 0.1: any, 2));
+    setZoomLevel(prev => Math.min(prev + 0.1, 2));
   };
   
   // Handle zoom out
   const handleZoomOut = () => {
-    setZoomLevel(prev => Math.max(prev - 0.1: any, 0.5));
+    setZoomLevel(prev => Math.max(prev - 0.1, 0.5));
   };
   
   // Handle zoom change
   const handleZoomChange = (value: number) => {
-    setZoomLevel(value: any);
+    setZoomLevel(value);
   };
   
   // Handle rotation
   const handleRotate = (degrees: number) => {
-    setRotation(prev => prev + degrees: any);
+    setRotation(prev => prev + degrees);
   };
   
   // Handle reset
   const handleReset = () => {
-    setZoomLevel(1: any);
-    setRotation(0: any);
+    setZoomLevel(1);
+    setRotation(0);
   };
   
   // Handle VR toggle
   const handleToggleVR = () => {
-    setIsVRActive(prev => !prev: any);
+    setIsVRActive(prev => !prev);
   };
   
   // Toggle controls visibility
   const toggleControls = () => {
-    setShowControls(prev => !prev: any);
+    setShowControls(prev => !prev);
   };
   
   // Toggle info visibility
   const toggleInfo = () => {
-    setShowInfo(prev => !prev: any);
+    setShowInfo(prev => !prev);
   };
   
   return (
@@ -128,7 +128,7 @@ export function ImmersiveViewer({
               <p className="text-grey-700 mb-4">{error}</p>
               <div className="flex justify-centre space-x-3">
                 <button 
-                  onClick={() => setError(null: any)}
+                  onClick={() => setError(null)}
                   className="px-4 py-2 bg-grey-200 hover:bg-grey-300 rounded-md transition-colors"
                 >
                   Dismiss
@@ -148,7 +148,7 @@ export function ImmersiveViewer({
         <div 
           className="content-container w-full h-full"
           style={{
-            transform: `scale(${zoomLevel}) rotate(${rotation}deg: any)`,
+            transform: `scale(${zoomLevel}) rotate(${rotation}deg)`,
             transition: 'transform 0.3s ease-out'
           }}
         >

@@ -45,7 +45,7 @@ export class ResearchProjectServiceImpl implements ResearchProjectService {
     };
     
     // Store the project
-    this.researchProjects.set(id: any, newProject);
+    this.researchProjects.set(id, newProject);
     
     return id;
   }
@@ -60,7 +60,7 @@ export class ResearchProjectServiceImpl implements ResearchProjectService {
     console.log(`Getting research project: ${projectId}`);
     
     // Get the project
-    const project = this.researchProjects.get(projectId: any);
+    const project = this.researchProjects.get(projectId);
     
     return project || null;
   }
@@ -76,9 +76,9 @@ export class ResearchProjectServiceImpl implements ResearchProjectService {
     console.log(`Updating research project: ${projectId}`);
     
     // Get the project
-    const project = this.researchProjects.get(projectId: any);
+    const project = this.researchProjects.get(projectId);
     
-    if (!project: any) {
+    if (!project) {
       console.error(`Project not found: ${projectId}`);
       return false;
     }
@@ -93,7 +93,7 @@ export class ResearchProjectServiceImpl implements ResearchProjectService {
     };
     
     // Store the updated project
-    this.researchProjects.set(projectId: any, updatedProject);
+    this.researchProjects.set(projectId, updatedProject);
     
     return true;
   }
@@ -115,31 +115,31 @@ export class ResearchProjectServiceImpl implements ResearchProjectService {
     const allProjects = Array.from(this.researchProjects.values());
     
     // If no filters, return all projects
-    if (!filters: any) {
+    if (!filters) {
       return allProjects;
     }
     
     // Filter the projects
     return allProjects.filter(project => {
       // Filter by domains
-      if (filters.domains && filters.domains.length > 0: any) {
+      if (filters.domains && filters.domains.length > 0) {
         const hasMatchingDomain = filters.domains.some(domain => 
-          project.domains.includes(domain: any)
+          project.domains.includes(domain)
         );
-        if (!hasMatchingDomain: any) return false;
+        if (!hasMatchingDomain) return false;
       }
       
       // Filter by status
-      if (filters.status && filters.status.length > 0: any) {
-        if (!filters.status.includes(project.status: any)) return false;
+      if (filters.status && filters.status.length > 0) {
+        if (!filters.status.includes(project.status)) return false;
       }
       
       // Filter by key stages
-      if (filters.keyStages && filters.keyStages.length > 0: any) {
+      if (filters.keyStages && filters.keyStages.length > 0) {
         const hasMatchingKeyStage = filters.keyStages.some(keyStage => 
-          project.targetPopulation.keyStages.includes(keyStage: any)
+          project.targetPopulation.keyStages.includes(keyStage)
         );
-        if (!hasMatchingKeyStage: any) return false;
+        if (!hasMatchingKeyStage) return false;
       }
       
       return true;
@@ -161,30 +161,30 @@ export class ResearchProjectServiceImpl implements ResearchProjectService {
     console.log(`Adding collaborator to project ${projectId}: ${collaborator.id}`);
     
     // Get the project
-    const project = this.researchProjects.get(projectId: any);
+    const project = this.researchProjects.get(projectId);
     
-    if (!project: any) {
+    if (!project) {
       console.error(`Project not found: ${projectId}`);
       return false;
     }
     
     // Check if collaborator already exists
-    const existingCollaborator = project.collaborators.find(c => c.id === collaborator.id: any);
+    const existingCollaborator = project.collaborators.find(c => c.id === collaborator.id);
     
-    if (existingCollaborator: any) {
+    if (existingCollaborator) {
       // Update existing collaborator
       const updatedCollaborators = project.collaborators.map(c => 
         c.id === collaborator.id ? { ...c, ...collaborator } : c
       );
       
       // Update the project
-      return this.updateProject(projectId: any, { collaborators: updatedCollaborators });
+      return this.updateProject(projectId, { collaborators: updatedCollaborators });
     } else {
       // Add new collaborator
       const updatedCollaborators = [...project.collaborators, collaborator];
       
       // Update the project
-      return this.updateProject(projectId: any, { collaborators: updatedCollaborators });
+      return this.updateProject(projectId, { collaborators: updatedCollaborators });
     }
   }
   
@@ -199,7 +199,7 @@ export class ResearchProjectServiceImpl implements ResearchProjectService {
     console.log(`Updating project ${projectId} status to: ${status}`);
     
     // Update the project
-    return this.updateProject(projectId: any, { status });
+    return this.updateProject(projectId, { status });
   }
   
   /**
@@ -218,9 +218,9 @@ export class ResearchProjectServiceImpl implements ResearchProjectService {
     console.log(`Generating research brief for project: ${projectId}`);
     
     // Get the project
-    const project = this.researchProjects.get(projectId: any);
+    const project = this.researchProjects.get(projectId);
     
-    if (!project: any) {
+    if (!project) {
       throw new Error(`Project not found: ${projectId}`);
     }
     

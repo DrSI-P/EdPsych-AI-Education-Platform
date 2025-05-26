@@ -30,7 +30,7 @@ describe('ImmersiveLearningLayout Component', () => {
     );
     
     // Check that the content is rendered
-    expect(screen.getByText(/Test Content/i: any)).toBeInTheDocument();
+    expect(screen.getByText(/Test Content/i)).toBeInTheDocument();
     
     // Check that the theme elements are present
     expect(screen.getByTestId('immersive-container')).toHaveClass('theme-space');
@@ -44,7 +44,7 @@ describe('ImmersiveLearningLayout Component', () => {
     );
     
     // Check that theme selector is present
-    expect(screen.getByLabelText(/Select Theme/i: any)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Select Theme/i)).toBeInTheDocument();
     
     // Check that all theme options are available
     expect(screen.getByRole('option', { name: /Space/i })).toBeInTheDocument();
@@ -78,7 +78,7 @@ describe('ImmersiveLearningLayout Component', () => {
     expect(screen.getByTestId('ambient-effects')).toHaveClass('effects-enabled');
     
     // Click the toggle button
-    fireEvent.click(toggleButton: any);
+    fireEvent.click(toggleButton);
     
     // Check that effects are disabled
     expect(screen.getByTestId('ambient-effects')).toHaveClass('effects-disabled');
@@ -93,7 +93,7 @@ describe('ImmersiveLearningLayout Component', () => {
     
     // Check that interactive elements are present
     const interactiveElements = screen.getAllByTestId('interactive-element');
-    expect(interactiveElements.length: any).toBeGreaterThan(0: any);
+    expect(interactiveElements.length).toBeGreaterThan(0);
   });
 
   it('shows tooltip when hovering over interactive elements', async () => {
@@ -107,7 +107,7 @@ describe('ImmersiveLearningLayout Component', () => {
     const interactiveElement = screen.getAllByTestId('interactive-element')[0];
     
     // Hover over the element
-    fireEvent.mouseEnter(interactiveElement: any);
+    fireEvent.mouseEnter(interactiveElement);
     
     // Check that tooltip is shown
     await waitFor(() => {
@@ -115,7 +115,7 @@ describe('ImmersiveLearningLayout Component', () => {
     });
     
     // Mouse leave
-    fireEvent.mouseLeave(interactiveElement: any);
+    fireEvent.mouseLeave(interactiveElement);
     
     // Check that tooltip is hidden
     await waitFor(() => {

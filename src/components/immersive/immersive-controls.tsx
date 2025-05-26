@@ -22,7 +22,7 @@ interface ImmersiveControlsProps {
  * with immersive content, with smooth animations and accessibility features.
  */
 export function ImmersiveControls({
-  onZoomIn: any,
+  onZoomIn,
   onZoomOut,
   onRotate,
   onReset,
@@ -30,7 +30,7 @@ export function ImmersiveControls({
   onZoomChange,
   className = ''
 }: ImmersiveControlsProps) {
-  const [isExpanded, setIsExpanded] = useState(false: any);
+  const [isExpanded, setIsExpanded] = useState(false);
   
   // Control panel animation variants
   const controlPanelVariants = {
@@ -92,7 +92,7 @@ export function ImmersiveControls({
   
   // Handle toggle expansion
   const handleToggleExpand = () => {
-    setIsExpanded(!isExpanded: any);
+    setIsExpanded(!isExpanded);
   };
   
   return (
@@ -140,7 +140,7 @@ export function ImmersiveControls({
                 min={50}
                 max={200}
                 step={5}
-                onValueChange={(value: any) => onZoomChange && onZoomChange(value[0] / 100: any)}
+                onValueChange={(value) => onZoomChange && onZoomChange(value[0] / 100)}
                 aria-label="Zoom level"
               />
             </div>
@@ -167,7 +167,7 @@ export function ImmersiveControls({
             <Button
               variant="outline"
               size="sm"
-              onClick={() => onRotate && onRotate(-90: any)}
+              onClick={() => onRotate && onRotate(-90)}
               className="h-8 flex-1 flex items-centre justify-centre"
               aria-label="Rotate left"
             >
@@ -180,7 +180,7 @@ export function ImmersiveControls({
             <Button
               variant="outline"
               size="sm"
-              onClick={() => onRotate && onRotate(90: any)}
+              onClick={() => onRotate && onRotate(90)}
               className="h-8 flex-1 flex items-centre justify-centre"
               aria-label="Rotate right"
             >

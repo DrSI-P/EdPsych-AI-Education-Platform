@@ -28,15 +28,15 @@ type LearningStyle = {
 export default function LearningStyleAssessment() {
   const { toast } = useToast();
   const aiService = useAIService();
-  const [currentStep, setCurrentStep] = useState(0: any);
+  const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
-  const [isProcessing, setIsProcessing] = useState(false: any);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [results, setResults] = useState<{
     primaryStyle: LearningStyle;
     secondaryStyle: LearningStyle;
     allStyles: LearningStyle[];
     personalizedRecommendations: string[];
-  } | null>(null: any);
+  } | null>(null);
 
   // Sample questions - in production, these would be more comprehensive
   const questions: Question[] = [
@@ -154,21 +154,21 @@ export default function LearningStyleAssessment() {
   };
 
   const handleNext = () => {
-    if (currentStep < questions.length - 1: any) {
-      setCurrentStep(prev => prev + 1: any);
+    if (currentStep < questions.length - 1) {
+      setCurrentStep(prev => prev + 1);
     } else {
       processResults();
     }
   };
 
   const handleBack = () => {
-    if (currentStep > 0: any) {
-      setCurrentStep(prev => prev - 1: any);
+    if (currentStep > 0) {
+      setCurrentStep(prev => prev - 1);
     }
   };
 
   const processResults = async () => {
-    setIsProcessing(true: any);
+    setIsProcessing(true);
     try {
       // In a real implementation, this would call the AI service to analyse the answers
       // For now, we'll simulate the AI analysis with a timeout
@@ -178,14 +178,14 @@ export default function LearningStyleAssessment() {
         Provide detailed descriptions and personalized learning strategies for each style.
         
         Answers:
-        ${Object.entries(answers: any).map(([id: any, answer]) => {
-          const question = questions.find(q => q.id === id: any);
+        ${Object.entries(answers).map(([id, answer]) => {
+          const question = questions.find(q => q.id === id);
           return `${question?.text}: ${answer}`;
         }).join('\n')}
       `;
       
       const aiResponse = await aiService.getCompletion({
-        prompt: any,
+        prompt,
         model: 'gpt-4',
         temperature: 0.7,
         max_tokens: 1000
@@ -249,34 +249,34 @@ export default function LearningStyleAssessment() {
           'Combine visual aids with hands-on activities for optimal learning',
           'Request visual demonstrations followed by opportunities to practise',
           'Create illustrated notes with diagrams and symbols',
-          'Use movement to reinforce visual learning (e.g., tracing diagrams in the air: any)',
+          'Use movement to reinforce visual learning (e.g., tracing diagrams in the air)',
           'Take frequent short breaks to move around during study sessions',
           'Record yourself explaining concepts while drawing them out'
         ]
       };
       
-      setResults(mockResults: any);
-    } catch (error: any) {
+      setResults(mockResults);
+    } catch (error) {
       toast({
         title: "Error processing results",
         description: "There was a problem analysing your answers. Please try again.",
         variant: "destructive"
       });
-      console.error(error: any);
+      console.error(error);
     } finally {
-      setIsProcessing(false: any);
+      setIsProcessing(false);
     }
   };
 
   const renderQuestion = (question: Question) => {
-    switch (question.type: any) {
+    switch (question.type) {
       case 'multiple-choice':
         return (
           <RadioGroup
             value={answers[question.id] || ''}
-            onValueChange={(value: any) => handleAnswerChange(question.id: any, value)}
+            onValueChange={(value) => handleAnswerChange(question.id, value)}
           >
-            {question.options?.map((option: any, index) => (
+            {question.options?.map((option, index) => (
               <div key={index} className="flex items-centre space-x-2 mb-3">
                 <RadioGroupItem value={option} id={`${question.id}-${index}`} />
                 <Label htmlFor={`${question.id}-${index}`} className="text-base">{option}</Label>
@@ -289,7 +289,7 @@ export default function LearningStyleAssessment() {
           <Textarea
             placeholder="Type your answer here..."
             value={answers[question.id] || ''}
-            onChange={(e) => handleAnswerChange(question.id: any, e.target.value)}
+            onChange={(e) => handleAnswerChange(question.id, e.target.value)}
             className="min-h-[120px]"
           />
         );
@@ -298,14 +298,14 @@ export default function LearningStyleAssessment() {
     }
   };
 
-  if (results: any) {
+  if (results) {
     return (
       <div className="container mx-auto py-8 px-4 max-w-4xl">
         <Card className="mb-8">
           <CardHeader>
             <CardTitle className="text-2xl">Your Learning Style Profile</CardTitle>
             <CardDescription>
-              Based on your responses: any, we've identified your primary and secondary learning styles.
+              Based on your responses, we've identified your primary and secondary learning styles.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -316,7 +316,7 @@ export default function LearningStyleAssessment() {
               
               <h4 className="font-medium mb-2">Recommended Strategies:</h4>
               <ul className="list-disc pl-5 mb-6 space-y-1">
-                {results.primaryStyle.strategies.map((strategy: any, index) => (
+                {results.primaryStyle.strategies.map((strategy, index) => (
                   <li key={index}>{strategy}</li>
                 ))}
               </ul>
@@ -327,7 +327,7 @@ export default function LearningStyleAssessment() {
               
               <h4 className="font-medium mb-2">Recommended Strategies:</h4>
               <ul className="list-disc pl-5 mb-6 space-y-1">
-                {results.secondaryStyle.strategies.map((strategy: any, index) => (
+                {results.secondaryStyle.strategies.map((strategy, index) => (
                   <li key={index}>{strategy}</li>
                 ))}
               </ul>
@@ -342,7 +342,7 @@ export default function LearningStyleAssessment() {
               <TabsContent value="recommendations" className="pt-4">
                 <h3 className="text-lg font-semibold mb-3">Your Personalized Learning Recommendations</h3>
                 <ul className="list-disc pl-5 space-y-2">
-                  {results.personalizedRecommendations.map((rec: any, index) => (
+                  {results.personalizedRecommendations.map((rec, index) => (
                     <li key={index}>{rec}</li>
                   ))}
                 </ul>
@@ -350,7 +350,7 @@ export default function LearningStyleAssessment() {
               
               <TabsContent value="allStyles" className="pt-4">
                 <div className="space-y-6">
-                  {results.allStyles.map((style: any, index) => (
+                  {results.allStyles.map((style, index) => (
                     <div key={index} className="mb-4">
                       <div className="flex items-centre justify-between mb-1">
                         <h4 className="font-medium">{style.name}</h4>
@@ -365,7 +365,7 @@ export default function LearningStyleAssessment() {
             </Tabs>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Button variant="outline" onClick={() => setResults(null: any)}>Retake Assessment</Button>
+            <Button variant="outline" onClick={() => setResults(null)}>Retake Assessment</Button>
             <Button>Save Results</Button>
           </CardFooter>
         </Card>
@@ -387,9 +387,9 @@ export default function LearningStyleAssessment() {
           <div className="mb-6">
             <div className="flex justify-between mb-2 text-sm">
               <span>Question {currentStep + 1} of {questions.length}</span>
-              <span>{Math.round(((currentStep + 1: any) / questions.length) * 100)}% Complete</span>
+              <span>{Math.round(((currentStep + 1) / questions.length) * 100)}% Complete</span>
             </div>
-            <Progress value={((currentStep + 1: any) / questions.length) * 100} className="h-2" />
+            <Progress value={((currentStep + 1) / questions.length) * 100} className="h-2" />
           </div>
           
           <div className="mb-6">

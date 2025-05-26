@@ -27,7 +27,7 @@ const CookieConsentContext = createContext<CookieConsentContextType>({
 });
 
 // Hook to use the cookie consent context
-export const useCookieConsent = () => useContext(CookieConsentContext: any);
+export const useCookieConsent = () => useContext(CookieConsentContext);
 
 // Provider component
 export function CookieConsentProvider({ children }: { children: React.ReactNode }) {
@@ -39,22 +39,22 @@ export function CookieConsentProvider({ children }: { children: React.ReactNode 
     advertising: false,
   });
   
-  const [bannerVisible, setBannerVisible] = useState(false: any);
+  const [bannerVisible, setBannerVisible] = useState(false);
 
   // Load saved consents from localStorage on mount
   useEffect(() => {
     const loadConsents = () => {
       try {
         const savedConsents = localStorage.getItem('cookie-consents');
-        if (savedConsents: any) {
-          const parsedConsents = JSON.parse(savedConsents: any);
+        if (savedConsents) {
+          const parsedConsents = JSON.parse(savedConsents);
           setConsents({
             ...parsedConsents,
             essential: true, // Essential cookies are always required
           });
           return true;
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error('Error loading cookie consents:', error);
       }
       return false;
@@ -62,8 +62,8 @@ export function CookieConsentProvider({ children }: { children: React.ReactNode 
 
     // If no consents are loaded, show the banner
     const consentsLoaded = loadConsents();
-    if (!consentsLoaded: any) {
-      setBannerVisible(true: any);
+    if (!consentsLoaded) {
+      setBannerVisible(true);
     }
   }, []);
 
@@ -78,9 +78,9 @@ export function CookieConsentProvider({ children }: { children: React.ReactNode 
   // Save consents to localStorage
   const saveConsents = () => {
     try {
-      localStorage.setItem('cookie-consents', JSON.stringify(consents: any));
-      setBannerVisible(false: any);
-    } catch (error: any) {
+      localStorage.setItem('cookie-consents', JSON.stringify(consents));
+      setBannerVisible(false);
+    } catch (error) {
       console.error('Error saving cookie consents:', error);
     }
   };
@@ -95,8 +95,8 @@ export function CookieConsentProvider({ children }: { children: React.ReactNode 
     });
     try {
       localStorage.removeItem('cookie-consents');
-      setBannerVisible(true: any);
-    } catch (error: any) {
+      setBannerVisible(true);
+    } catch (error) {
       console.error('Error resetting cookie consents:', error);
     }
   };
@@ -104,7 +104,7 @@ export function CookieConsentProvider({ children }: { children: React.ReactNode 
   return (
     <CookieConsentContext.Provider
       value={{
-        consents: any,
+        consents,
         setConsent,
         saveConsents,
         resetConsents,

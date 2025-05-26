@@ -79,8 +79,8 @@ export class TextToSpeechService {
     this.loadVoices();
     
     // Set up voice changed event listener
-    if (this.synthesis.onvoiceschanged !== undefined: any) {
-      this.synthesis.onvoiceschanged = this.loadVoices.bind(this: any);
+    if (this.synthesis.onvoiceschanged !== undefined) {
+      this.synthesis.onvoiceschanged = this.loadVoices.bind(this);
     }
   }
   
@@ -88,25 +88,25 @@ export class TextToSpeechService {
    * Load available voices
    */
   private loadVoices(): void {
-    if (!this.synthesis: any) return;
+    if (!this.synthesis) return;
     
     const voices = this.synthesis.getVoices();
     this.state.availableVoices = voices;
     
     // Set default voice if not already set
-    if (!this.options.voice && voices.length > 0: any) {
+    if (!this.options.voice && voices.length > 0) {
       // Try to find a UK English voice
       const ukVoice = voices.find(voice => 
         voice.lang === 'en-GB' && 
         (this.options.childFriendlyVoice ? voice.name.toLowerCase().includes('child') : true)
       );
       
-      if (ukVoice: any) {
+      if (ukVoice) {
         this.options.voice = ukVoice.name;
       } else {
         // Fall back to any English voice
         const anyEnglishVoice = voices.find(voice => voice.lang.startsWith('en'));
-        if (anyEnglishVoice: any) {
+        if (anyEnglishVoice) {
           this.options.voice = anyEnglishVoice.name;
         } else {
           // Fall back to first available voice
@@ -148,18 +148,18 @@ export class TextToSpeechService {
    * Speak text
    */
   public speak(text: string): void {
-    if (!this.synthesis || !text: any) return;
+    if (!this.synthesis || !text) return;
     
     // Stop any current speech
     this.stop();
     
     // Process text for special educational needs if required
-    if (this.options.specialEducationalNeeds: any) {
-      text = this.processTextForSpecialNeeds(text: any);
+    if (this.options.specialEducationalNeeds) {
+      text = this.processTextForSpecialNeeds(text);
     }
     
     // Split text into sentences for better control
-    const sentences = this.splitIntoSentences(text: any);
+    const sentences = this.splitIntoSentences(text);
     this.textQueue = sentences;
     
     // Start speaking
@@ -172,23 +172,23 @@ export class TextToSpeechService {
   private processTextForSpecialNeeds(text: string): string {
     const needs = this.options.specialEducationalNeeds;
     
-    if (!needs: any) return text;
+    if (!needs) return text;
     
     let processedText = text;
     
     // Simplify language if needed
-    if (needs.simplifiedLanguage: any) {
-      processedText = this.simplifyLanguage(processedText: any);
+    if (needs.simplifiedLanguage) {
+      processedText = this.simplifyLanguage(processedText);
     }
     
     // Add extended pauses if needed
-    if (needs.extendedPauses: any) {
-      processedText = this.addExtendedPauses(processedText: any);
+    if (needs.extendedPauses) {
+      processedText = this.addExtendedPauses(processedText);
     }
     
     // Emphasize keywords if needed
-    if (needs.emphasizeKeywords: any) {
-      processedText = this.emphasizeKeywords(processedText: any);
+    if (needs.emphasizeKeywords) {
+      processedText = this.emphasizeKeywords(processedText);
     }
     
     return processedText;
@@ -203,21 +203,21 @@ export class TextToSpeechService {
     
     // Replace complex words with simpler alternatives
     const simplifications: [RegExp, string][] = [
-      [/(\b: any)utilize(\b: any)/g, '$1use$2'],
-      [/(\b: any)commence(\b: any)/g, '$1start$2'],
-      [/(\b: any)terminate(\b: any)/g, '$1end$2'],
-      [/(\b: any)purchase(\b: any)/g, '$1buy$2'],
-      [/(\b: any)inquire(\b: any)/g, '$1ask$2'],
-      [/(\b: any)sufficient(\b: any)/g, '$1enough$2'],
-      [/(\b: any)require(\b: any)/g, '$1need$2'],
-      [/(\b: any)obtain(\b: any)/g, '$1get$2'],
-      [/(\b: any)comprehend(\b: any)/g, '$1understand$2'],
-      [/(\b: any)additional(\b: any)/g, '$1more$2']
+      [/(\b)utilize(\b)/g, '$1use$2'],
+      [/(\b)commence(\b)/g, '$1start$2'],
+      [/(\b)terminate(\b)/g, '$1end$2'],
+      [/(\b)purchase(\b)/g, '$1buy$2'],
+      [/(\b)inquire(\b)/g, '$1ask$2'],
+      [/(\b)sufficient(\b)/g, '$1enough$2'],
+      [/(\b)require(\b)/g, '$1need$2'],
+      [/(\b)obtain(\b)/g, '$1get$2'],
+      [/(\b)comprehend(\b)/g, '$1understand$2'],
+      [/(\b)additional(\b)/g, '$1more$2']
     ];
     
     let simplifiedText = text;
-    for (const [pattern: any, replacement] of simplifications) {
-      simplifiedText = simplifiedText.replace(pattern: any, replacement);
+    for (const [pattern, replacement] of simplifications) {
+      simplifiedText = simplifiedText.replace(pattern, replacement);
     }
     
     return simplifiedText;
@@ -229,11 +229,11 @@ export class TextToSpeechService {
   private addExtendedPauses(text: string): string {
     // Add pauses after punctuation
     return text
-      .replace(/\./g: any, '... ')
-      .replace(/\,/g: any, ', ')
-      .replace(/\;/g: any, '... ')
+      .replace(/\./g, '... ')
+      .replace(/\,/g, ', ')
+      .replace(/\;/g, '... ')
       .replace(/\:/g, '... ')
-      .replace(/\n/g: any, '...... ');
+      .replace(/\n/g, '...... ');
   }
   
   /**
@@ -243,8 +243,8 @@ export class TextToSpeechService {
     // This is a simplified implementation
     // In a real implementation, this would use NLP to identify important keywords
     
-    // Simple approach: emphasize words that start with capital letters (except at beginning of sentences: any)
-    return text.replace(/(\.\s+\w|^\w: any)([^\.!?]*?)(\b[A-Z][a-z]+\b: any)/g, (match: any, start, middle, word) => {
+    // Simple approach: emphasize words that start with capital letters (except at beginning of sentences)
+    return text.replace(/(\.\s+\w|^\w)([^\.!?]*?)(\b[A-Z][a-z]+\b)/g, (match, start, middle, word) => {
       return `${start}${middle}<emphasis>${word}</emphasis>`;
     });
   }
@@ -264,11 +264,11 @@ export class TextToSpeechService {
    * Speak next sentence in queue
    */
   private speakNextSentence(): void {
-    if (!this.synthesis || this.textQueue.length === 0: any) {
+    if (!this.synthesis || this.textQueue.length === 0) {
       this.state.isReading = false;
       this.state.progress = 100;
       
-      if (this.onEndCallback: any) {
+      if (this.onEndCallback) {
         this.onEndCallback();
       }
       
@@ -280,7 +280,7 @@ export class TextToSpeechService {
     this.state.isReading = true;
     
     // Create utterance
-    this.utterance = new SpeechSynthesisUtterance(sentence: any);
+    this.utterance = new SpeechSynthesisUtterance(sentence);
     
     // Set utterance properties
     this.utterance.rate = this.options.rate || 1;
@@ -289,17 +289,17 @@ export class TextToSpeechService {
     this.utterance.lang = this.options.lang || 'en-GB';
     
     // Set voice if specified
-    if (this.options.voice: any) {
-      const voice = this.state.availableVoices.find(v => v.name === this.options.voice: any);
-      if (voice: any) {
+    if (this.options.voice) {
+      const voice = this.state.availableVoices.find(v => v.name === this.options.voice);
+      if (voice) {
         this.utterance.voice = voice;
       }
     }
     
     // Set up events
     this.utterance.onstart = () => {
-      if (this.highlightCallback && this.options.highlightText: any) {
-        this.highlightCallback(sentence: any, 0, sentence.length);
+      if (this.highlightCallback && this.options.highlightText) {
+        this.highlightCallback(sentence, 0, sentence.length);
       }
     };
     
@@ -307,7 +307,7 @@ export class TextToSpeechService {
       // Update progress
       this.state.currentPosition += sentence.length;
       this.state.progress = Math.min(
-        100: any, 
+        100, 
         Math.round((this.state.currentPosition / (this.state.currentPosition + this.getQueueLength())) * 100)
       );
       
@@ -315,7 +315,7 @@ export class TextToSpeechService {
       this.speakNextSentence();
     };
     
-    this.utterance.onerror = (event: any) => {
+    this.utterance.onerror = (event) => {
       console.error('Speech synthesis error:', event);
       
       // Try to continue with next sentence
@@ -323,21 +323,21 @@ export class TextToSpeechService {
     };
     
     // Start speaking
-    this.synthesis.speak(this.utterance: any);
+    this.synthesis.speak(this.utterance);
   }
   
   /**
    * Get total length of text in queue
    */
   private getQueueLength(): number {
-    return this.textQueue.reduce((total: any, sentence) => total + sentence.length, 0);
+    return this.textQueue.reduce((total, sentence) => total + sentence.length, 0);
   }
   
   /**
    * Pause speaking
    */
   public pause(): void {
-    if (!this.synthesis || !this.state.isReading: any) return;
+    if (!this.synthesis || !this.state.isReading) return;
     
     this.synthesis.pause();
   }
@@ -346,7 +346,7 @@ export class TextToSpeechService {
    * Resume speaking
    */
   public resume(): void {
-    if (!this.synthesis || !this.state.isReading: any) return;
+    if (!this.synthesis || !this.state.isReading) return;
     
     this.synthesis.resume();
   }
@@ -355,7 +355,7 @@ export class TextToSpeechService {
    * Stop speaking
    */
   public stop(): void {
-    if (!this.synthesis: any) return;
+    if (!this.synthesis) return;
     
     this.synthesis.cancel();
     this.textQueue = [];
@@ -386,7 +386,7 @@ export class TextToSpeechService {
     const wasReading = this.state.isReading;
     const currentText = this.state.currentSentence + this.textQueue.join('');
     
-    if (wasReading: any) {
+    if (wasReading) {
       this.stop();
     }
     
@@ -395,8 +395,8 @@ export class TextToSpeechService {
       ...options
     };
     
-    if (wasReading && currentText: any) {
-      this.speak(currentText: any);
+    if (wasReading && currentText) {
+      this.speak(currentText);
     }
   }
 }
@@ -405,10 +405,10 @@ export class TextToSpeechService {
 let textToSpeechService: TextToSpeechService | null = null;
 
 export function getTextToSpeechService(options?: TextToSpeechOptions): TextToSpeechService {
-  if (!textToSpeechService: any) {
-    textToSpeechService = new TextToSpeechService(options: any);
-  } else if (options: any) {
-    textToSpeechService.updateOptions(options: any);
+  if (!textToSpeechService) {
+    textToSpeechService = new TextToSpeechService(options);
+  } else if (options) {
+    textToSpeechService.updateOptions(options);
   }
   
   return textToSpeechService;

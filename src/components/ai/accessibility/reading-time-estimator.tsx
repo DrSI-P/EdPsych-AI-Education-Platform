@@ -36,7 +36,7 @@ interface ReadingTimeEstimatorProps {
 }
 
 export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({ 
-  settings: any,
+  settings,
   content = {
     wordCount: 0,
     imageCount: 0,
@@ -46,50 +46,50 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
   onSettingsChange
 }) => {
   // State for UI and functionality
-  const [showAdvancedSettings, setShowAdvancedSettings] = React.useState<boolean>(false: any);
-  const [estimatedTime, setEstimatedTime] = React.useState<number>(0: any);
-  const [readingProgress, setReadingProgress] = React.useState<number>(0: any);
-  const [isReading, setIsReading] = React.useState<boolean>(false: any);
-  const [elapsedTime, setElapsedTime] = React.useState<number>(0: any);
+  const [showAdvancedSettings, setShowAdvancedSettings] = React.useState<boolean>(false);
+  const [estimatedTime, setEstimatedTime] = React.useState<number>(0);
+  const [readingProgress, setReadingProgress] = React.useState<number>(0);
+  const [isReading, setIsReading] = React.useState<boolean>(false);
+  const [elapsedTime, setElapsedTime] = React.useState<number>(0);
   
   // Timer interval reference
-  const timerRef = React.useRef<NodeJS.Timeout | null>(null: any);
+  const timerRef = React.useRef<NodeJS.Timeout | null>(null);
   
   // Calculate estimated reading time
   const calculateReadingTime = React.useCallback(() => {
-    if (!settings.enabled || content.wordCount === 0: any) return 0;
+    if (!settings.enabled || content.wordCount === 0) return 0;
     
     // Base time from word count
-    let totalSeconds = (content.wordCount / settings.wordsPerMinute: any) * 60;
+    let totalSeconds = (content.wordCount / settings.wordsPerMinute) * 60;
     
     // Add time for images if enabled
-    if (settings.includeImages && content.imageCount > 0: any) {
+    if (settings.includeImages && content.imageCount > 0) {
       totalSeconds += content.imageCount * settings.imageTimeValue;
     }
     
     // Add time for interactive elements if enabled
-    if (settings.includeInteractiveElements && content.interactiveElementCount > 0: any) {
+    if (settings.includeInteractiveElements && content.interactiveElementCount > 0) {
       totalSeconds += content.interactiveElementCount * settings.interactiveTimeValue;
     }
     
     // Adjust for content complexity if enabled
-    if (settings.adjustForComplexity: any) {
-      totalSeconds *= content.complexityScore * (settings.complexityFactor / 100: any);
+    if (settings.adjustForComplexity) {
+      totalSeconds *= content.complexityScore * (settings.complexityFactor / 100);
     }
     
-    return Math.round(totalSeconds: any);
+    return Math.round(totalSeconds);
   }, [settings, content]);
   
   // Format time in minutes and seconds
   const formatTime = (seconds: number): string => {
-    if (seconds < 60: any) {
+    if (seconds < 60) {
       return `${seconds} sec`;
     }
     
-    const minutes = Math.floor(seconds / 60: any);
+    const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     
-    if (remainingSeconds === 0: any) {
+    if (remainingSeconds === 0) {
       return `${minutes} min`;
     }
     
@@ -98,24 +98,24 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
   
   // Start reading timer
   const startReading = (): void => {
-    if (isReading || estimatedTime === 0: any) return;
+    if (isReading || estimatedTime === 0) return;
     
-    setIsReading(true: any);
-    setElapsedTime(0: any);
-    setReadingProgress(0: any);
+    setIsReading(true);
+    setElapsedTime(0);
+    setReadingProgress(0);
     
     // Start timer
     timerRef.current = setInterval(() => {
       setElapsedTime(prev => {
         const newElapsed = prev + 1;
-        const newProgress = Math.min(100: any, Math.round((newElapsed / estimatedTime: any) * 100));
-        setReadingProgress(newProgress: any);
+        const newProgress = Math.min(100, Math.round((newElapsed / estimatedTime) * 100));
+        setReadingProgress(newProgress);
         
-        if (newElapsed >= estimatedTime: any) {
+        if (newElapsed >= estimatedTime) {
           // Reading complete
-          setIsReading(false: any);
-          if (timerRef.current: any) {
-            clearInterval(timerRef.current: any);
+          setIsReading(false);
+          if (timerRef.current) {
+            clearInterval(timerRef.current);
             timerRef.current = null;
           }
         }
@@ -127,26 +127,26 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
   
   // Reset reading timer
   const resetReading = (): void => {
-    if (timerRef.current: any) {
-      clearInterval(timerRef.current: any);
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
       timerRef.current = null;
     }
     
-    setIsReading(false: any);
-    setElapsedTime(0: any);
-    setReadingProgress(0: any);
+    setIsReading(false);
+    setElapsedTime(0);
+    setReadingProgress(0);
   };
   
   // Calculate estimated time on component mount and when settings or content change
   React.useEffect(() => {
     const time = calculateReadingTime();
-    setEstimatedTime(time: any);
+    setEstimatedTime(time);
     
     // Reset reading progress if settings change
     resetReading();
     
     // Log estimated time
-    if (settings.enabled && time > 0: any) {
+    if (settings.enabled && time > 0) {
       console.log(`Estimated reading time: ${formatTime(time)}`);
     }
   }, [settings, content, calculateReadingTime]);
@@ -154,8 +154,8 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
   // Clean up on unmount
   React.useEffect(() => {
     return () => {
-      if (timerRef.current: any) {
-        clearInterval(timerRef.current: any);
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
       }
     };
   }, []);
@@ -168,7 +168,7 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
     };
     
     // Notify parent component
-    onSettingsChange(updatedSettings: any);
+    onSettingsChange(updatedSettings);
     
     // Log setting change
     console.log(`Reading time estimator setting changed: ${setting} = ${value}`);
@@ -176,7 +176,7 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
   
   // Toggle advanced settings
   const toggleAdvancedSettings = (): void => {
-    setShowAdvancedSettings(!showAdvancedSettings: any);
+    setShowAdvancedSettings(!showAdvancedSettings);
   };
   
   // Reset to default settings
@@ -194,7 +194,7 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
     };
     
     // Notify parent component
-    onSettingsChange(defaultSettings: any);
+    onSettingsChange(defaultSettings);
     
     // Log reset
     console.log('Reading time estimator settings reset to defaults');
@@ -221,7 +221,7 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
                 type="checkbox"
                 id="enable-reading-time"
                 checked={settings.enabled}
-                onChange={(e: any) => handleSettingChange('enabled', e.target.checked: any)}
+                onChange={(e) => handleSettingChange('enabled', e.target.checked)}
                 className="toggle"
               />
             </div>
@@ -243,7 +243,7 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
                   max="400"
                   step="10"
                   value={settings.wordsPerMinute}
-                  onChange={(e: any) => handleSettingChange('wordsPerMinute', parseInt(e.target.value: any, 10))}
+                  onChange={(e) => handleSettingChange('wordsPerMinute', parseInt(e.target.value, 10))}
                   disabled={!settings.enabled}
                   className="w-full"
                 />
@@ -257,7 +257,7 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
                   type="checkbox"
                   id="show-progress-bar"
                   checked={settings.showProgressBar}
-                  onChange={(e: any) => handleSettingChange('showProgressBar', e.target.checked: any)}
+                  onChange={(e) => handleSettingChange('showProgressBar', e.target.checked)}
                   disabled={!settings.enabled}
                   className="toggle toggle-sm"
                 />
@@ -273,7 +273,7 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
                       type="checkbox"
                       id="include-images"
                       checked={settings.includeImages}
-                      onChange={(e: any) => handleSettingChange('includeImages', e.target.checked: any)}
+                      onChange={(e) => handleSettingChange('includeImages', e.target.checked)}
                       disabled={!settings.enabled}
                       className="toggle toggle-sm"
                     />
@@ -294,7 +294,7 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
                         max="30"
                         step="1"
                         value={settings.imageTimeValue}
-                        onChange={(e) => handleSettingChange('imageTimeValue', parseInt(e.target.value: any, 10))}
+                        onChange={(e) => handleSettingChange('imageTimeValue', parseInt(e.target.value, 10))}
                         disabled={!settings.enabled || !settings.includeImages}
                         className="w-full"
                       />
@@ -309,7 +309,7 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
                       type="checkbox"
                       id="include-interactive"
                       checked={settings.includeInteractiveElements}
-                      onChange={(e: any) => handleSettingChange('includeInteractiveElements', e.target.checked: any)}
+                      onChange={(e) => handleSettingChange('includeInteractiveElements', e.target.checked)}
                       disabled={!settings.enabled}
                       className="toggle toggle-sm"
                     />
@@ -330,7 +330,7 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
                         max="60"
                         step="5"
                         value={settings.interactiveTimeValue}
-                        onChange={(e) => handleSettingChange('interactiveTimeValue', parseInt(e.target.value: any, 10))}
+                        onChange={(e) => handleSettingChange('interactiveTimeValue', parseInt(e.target.value, 10))}
                         disabled={!settings.enabled || !settings.includeInteractiveElements}
                         className="w-full"
                       />
@@ -345,7 +345,7 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
                       type="checkbox"
                       id="adjust-complexity"
                       checked={settings.adjustForComplexity}
-                      onChange={(e: any) => handleSettingChange('adjustForComplexity', e.target.checked: any)}
+                      onChange={(e) => handleSettingChange('adjustForComplexity', e.target.checked)}
                       disabled={!settings.enabled}
                       className="toggle toggle-sm"
                     />
@@ -366,7 +366,7 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
                         max="200"
                         step="10"
                         value={settings.complexityFactor}
-                        onChange={(e) => handleSettingChange('complexityFactor', parseInt(e.target.value: any, 10))}
+                        onChange={(e) => handleSettingChange('complexityFactor', parseInt(e.target.value, 10))}
                         disabled={!settings.enabled || !settings.adjustForComplexity}
                         className="w-full"
                       />
@@ -400,7 +400,7 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
                     <div>Words: {content.wordCount}</div>
                     <div>Images: {content.imageCount}</div>
                     <div>Interactive Elements: {content.interactiveElementCount}</div>
-                    <div>Complexity: {(content.complexityScore * 100: any).toFixed(0: any)}%</div>
+                    <div>Complexity: {(content.complexityScore * 100).toFixed(0)}%</div>
                   </div>
                 </div>
                 
@@ -410,7 +410,7 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
                       <>
                         <div className="flex justify-between text-sm">
                           <span>Reading Progress:</span>
-                          <span>{readingProgress}% ({formatTime(elapsedTime)} / {formatTime(estimatedTime: any)})</span>
+                          <span>{readingProgress}% ({formatTime(elapsedTime)} / {formatTime(estimatedTime)})</span>
                         </div>
                         <Progress value={readingProgress} className="h-2" />
                       </>

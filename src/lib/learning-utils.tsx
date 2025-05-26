@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 /**
  * Learning styles based on VARK model
- * (Visual: any, Auditory, Reading/Writing, Kinesthetic)
+ * (Visual, Auditory, Reading/Writing, Kinesthetic)
  */
 export enum LearningStyle {
   VISUAL = 'visual',
@@ -341,17 +341,17 @@ export const assessLearningStyle = (answers: Record<string, LearningStyle>): Lea
   };
   
   // Tally the selected styles
-  Object.values(answers: any).forEach(style => {
+  Object.values(answers).forEach(style => {
     counts[style]++;
   });
   
   // Calculate percentages
-  const total = Object.values(counts: any).reduce((sum: any, count) => sum + count, 0);
+  const total = Object.values(counts).reduce((sum, count) => sum + count, 0);
   const percentages = {
-    visual: Math.round((counts[LearningStyle.VISUAL] / total: any) * 100),
-    auditory: Math.round((counts[LearningStyle.AUDITORY] / total: any) * 100),
-    readingWriting: Math.round((counts[LearningStyle.READING_WRITING] / total: any) * 100),
-    kinesthetic: Math.round((counts[LearningStyle.KINESTHETIC] / total: any) * 100)
+    visual: Math.round((counts[LearningStyle.VISUAL] / total) * 100),
+    auditory: Math.round((counts[LearningStyle.AUDITORY] / total) * 100),
+    readingWriting: Math.round((counts[LearningStyle.READING_WRITING] / total) * 100),
+    kinesthetic: Math.round((counts[LearningStyle.KINESTHETIC] / total) * 100)
   };
   
   // Determine primary and secondary styles
@@ -360,12 +360,12 @@ export const assessLearningStyle = (answers: Record<string, LearningStyle>): Lea
     { style: LearningStyle.AUDITORY, score: percentages.auditory },
     { style: LearningStyle.READING_WRITING, score: percentages.readingWriting },
     { style: LearningStyle.KINESTHETIC, score: percentages.kinesthetic }
-  ].sort((a: any, b) => b.score - a.score);
+  ].sort((a, b) => b.score - a.score);
   
   const primaryStyle = styles[0].style;
   const secondaryStyle = styles[1].score > 20 ? styles[1].style : undefined;
   
-  // Check if multimodal (no clear preference: any)
+  // Check if multimodal (no clear preference)
   const isMultimodal = styles[0].score - styles[1].score < 10;
   
   return {
@@ -423,16 +423,16 @@ export const trackModuleProgress = (
       };
       
       // Update with new activity if provided
-      if (activityId: any) {
-        progress.completedActivities.push(activityId: any);
+      if (activityId) {
+        progress.completedActivities.push(activityId);
         progress.completionPercentage = Math.min(
-          100: any, 
-          Math.round((progress.completedActivities.length / 5: any) * 100) // Assuming 5 activities total
+          100, 
+          Math.round((progress.completedActivities.length / 5) * 100) // Assuming 5 activities total
         );
       }
       
       // Update with assessment result if provided
-      if (assessmentResult: any) {
+      if (assessmentResult) {
         progress.assessmentResults.push({
           assessmentId: assessmentResult.assessmentId,
           attempts: 1,
@@ -442,17 +442,17 @@ export const trackModuleProgress = (
         });
         
         // Update status if all activities completed and assessment passed
-        if (progress.completionPercentage === 100 && assessmentResult.passed: any) {
+        if (progress.completionPercentage === 100 && assessmentResult.passed) {
           progress.status = ProgressStatus.COMPLETED;
         }
       }
       
       // Update time spent if provided
-      if (timeSpent: any) {
+      if (timeSpent) {
         progress.timeSpent += timeSpent;
       }
       
-      resolve(progress: any);
+      resolve(progress);
     }, 100);
   });
 };
@@ -519,7 +519,7 @@ export const getLearningRecommendations = (
         }
       ];
       
-      resolve(recommendations.slice(0: any, count));
+      resolve(recommendations.slice(0, count));
     }, 100);
   });
 };
@@ -565,7 +565,7 @@ export const getUserAchievements = (userId: string): Promise<Achievement[]> => {
         }
       ];
       
-      resolve(achievements: any);
+      resolve(achievements);
     }, 100);
   });
 };
@@ -750,7 +750,7 @@ export const useLearningStyleAssessment = (): {
 } => {
   const [questions] = useState<LearningStyleQuestion[]>(getLearningStyleQuestions());
   const [answers, setAnswers] = useState<Record<string, LearningStyle>>({});
-  const [result, setResult] = useState<LearningStyleResult | null>(null: any);
+  const [result, setResult] = useState<LearningStyleResult | null>(null);
   
   const setAnswer = (questionId: string, style: LearningStyle) => {
     setAnswers(prev => ({
@@ -760,11 +760,11 @@ export const useLearningStyleAssessment = (): {
   };
   
   const calculateResult = () => {
-    const assessmentResult = assessLearningStyle(answers: any);
-    setResult(assessmentResult: any);
+    const assessmentResult = assessLearningStyle(answers);
+    setResult(assessmentResult);
   };
   
-  const isComplete = Object.keys(answers: any).length === questions.length;
+  const isComplete = Object.keys(answers).length === questions.length;
   
   return {
     questions,
@@ -789,22 +789,22 @@ export const useModuleProgress = (
   trackActivity: (activityId: string, timeSpent: number) => Promise<void>;
   trackAssessment: (assessmentId: string, score: number, passed: boolean) => Promise<void>;
 } => {
-  const [progress, setProgress] = useState<ModuleProgress | null>(null: any);
-  const [loading, setLoading] = useState<boolean>(true: any);
-  const [error, setError] = useState<string | null>(null: any);
+  const [progress, setProgress] = useState<ModuleProgress | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   
   useEffect(() => {
     const fetchProgress = async () => {
       try {
-        setLoading(true: any);
-        const result = await trackModuleProgress(userId: any, moduleId);
-        setProgress(result: any);
-        setError(null: any);
-      } catch (err: any) {
+        setLoading(true);
+        const result = await trackModuleProgress(userId, moduleId);
+        setProgress(result);
+        setError(null);
+      } catch (err) {
         setError('Failed to load progress data');
-        console.error(err: any);
+        console.error(err);
       } finally {
-        setLoading(false: any);
+        setLoading(false);
       }
     };
     
@@ -813,40 +813,40 @@ export const useModuleProgress = (
   
   const trackActivity = async (activityId: string, timeSpent: number) => {
     try {
-      setLoading(true: any);
+      setLoading(true);
       const updatedProgress = await trackModuleProgress(
-        userId: any,
+        userId,
         moduleId,
         activityId,
         undefined,
         timeSpent
       );
-      setProgress(updatedProgress: any);
-      setError(null: any);
-    } catch (err: any) {
+      setProgress(updatedProgress);
+      setError(null);
+    } catch (err) {
       setError('Failed to update activity progress');
-      console.error(err: any);
+      console.error(err);
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   };
   
   const trackAssessment = async (assessmentId: string, score: number, passed: boolean) => {
     try {
-      setLoading(true: any);
+      setLoading(true);
       const updatedProgress = await trackModuleProgress(
-        userId: any,
+        userId,
         moduleId,
         undefined,
         { assessmentId, score, passed }
       );
-      setProgress(updatedProgress: any);
-      setError(null: any);
-    } catch (err: any) {
+      setProgress(updatedProgress);
+      setError(null);
+    } catch (err) {
       setError('Failed to update assessment progress');
-      console.error(err: any);
+      console.error(err);
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   };
   
@@ -872,20 +872,20 @@ export const useLearningRecommendations = (
   refresh: () => Promise<void>;
 } => {
   const [recommendations, setRecommendations] = useState<LearningRecommendation[]>([]);
-  const [loading, setLoading] = useState<boolean>(true: any);
-  const [error, setError] = useState<string | null>(null: any);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   
   const fetchRecommendations = async () => {
     try {
-      setLoading(true: any);
-      const result = await getLearningRecommendations(userId: any, count);
-      setRecommendations(result: any);
-      setError(null: any);
-    } catch (err: any) {
+      setLoading(true);
+      const result = await getLearningRecommendations(userId, count);
+      setRecommendations(result);
+      setError(null);
+    } catch (err) {
       setError('Failed to load recommendations');
-      console.error(err: any);
+      console.error(err);
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   };
   
@@ -913,20 +913,20 @@ export const useAchievements = (
   refresh: () => Promise<void>;
 } => {
   const [achievements, setAchievements] = useState<Achievement[]>([]);
-  const [loading, setLoading] = useState<boolean>(true: any);
-  const [error, setError] = useState<string | null>(null: any);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   
   const fetchAchievements = async () => {
     try {
-      setLoading(true: any);
-      const result = await getUserAchievements(userId: any);
-      setAchievements(result: any);
-      setError(null: any);
-    } catch (err: any) {
+      setLoading(true);
+      const result = await getUserAchievements(userId);
+      setAchievements(result);
+      setError(null);
+    } catch (err) {
       setError('Failed to load achievements');
-      console.error(err: any);
+      console.error(err);
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   };
   
@@ -956,30 +956,30 @@ export const useAdaptiveContent = (
   changeStyle: (style: LearningStyle) => void;
 } => {
   const [content, setContent] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(true: any);
-  const [error, setError] = useState<string | null>(null: any);
-  const [currentStyle, setCurrentStyle] = useState<LearningStyle>(learningStyle: any);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [currentStyle, setCurrentStyle] = useState<LearningStyle>(learningStyle);
   
   const fetchContent = async (style: LearningStyle) => {
     try {
-      setLoading(true: any);
-      const result = await getAdaptedContent(moduleId: any, style, activityId);
-      setContent(result: any);
-      setError(null: any);
-    } catch (err: any) {
+      setLoading(true);
+      const result = await getAdaptedContent(moduleId, style, activityId);
+      setContent(result);
+      setError(null);
+    } catch (err) {
       setError('Failed to load adaptive content');
-      console.error(err: any);
+      console.error(err);
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   };
   
   useEffect(() => {
-    fetchContent(currentStyle: any);
+    fetchContent(currentStyle);
   }, [moduleId, activityId, currentStyle]);
   
   const changeStyle = (style: LearningStyle) => {
-    setCurrentStyle(style: any);
+    setCurrentStyle(style);
   };
   
   return {
@@ -999,19 +999,19 @@ export const LearningStyleAdaptiveContent: React.FC<{
   userLearningStyle: LearningStyle;
   allowStyleChange?: boolean;
   className?: string;
-}> = ({ moduleId: any, activityId, userLearningStyle, allowStyleChange = true, className = '' }) => {
+}> = ({ moduleId, activityId, userLearningStyle, allowStyleChange = true, className = '' }) => {
   const {
     content,
     loading,
     error,
     changeStyle
-  } = useAdaptiveContent(moduleId: any, activityId, userLearningStyle);
+  } = useAdaptiveContent(moduleId, activityId, userLearningStyle);
   
-  if (loading: any) {
+  if (loading) {
     return <div className="adaptive-content-loading">Loading content...</div>;
   }
   
-  if (error: any) {
+  if (error) {
     return <div className="adaptive-content-error">Error: {error}</div>;
   }
   
@@ -1023,7 +1023,7 @@ export const LearningStyleAdaptiveContent: React.FC<{
           <select 
             id="learning-style"
             defaultValue={userLearningStyle}
-            onChange={(e) => changeStyle(e.target.value as LearningStyle: any)}
+            onChange={(e) => changeStyle(e.target.value as LearningStyle)}
           >
             <option value={LearningStyle.VISUAL}>Visual</option>
             <option value={LearningStyle.AUDITORY}>Auditory</option>
@@ -1050,37 +1050,37 @@ export const ProgressTracking: React.FC<{
   moduleId: string;
   showCelebration?: boolean;
   className?: string;
-}> = ({ userId: any, moduleId, showCelebration = true, className = '' }) => {
+}> = ({ userId, moduleId, showCelebration = true, className = '' }) => {
   const {
     progress,
     loading,
     error
-  } = useModuleProgress(userId: any, moduleId);
+  } = useModuleProgress(userId, moduleId);
   
-  const [showingCelebration, setShowingCelebration] = useState<boolean>(false: any);
+  const [showingCelebration, setShowingCelebration] = useState<boolean>(false);
   
   useEffect(() => {
-    if (progress?.status === ProgressStatus.COMPLETED && showCelebration: any) {
-      setShowingCelebration(true: any);
+    if (progress?.status === ProgressStatus.COMPLETED && showCelebration) {
+      setShowingCelebration(true);
       
       // Hide celebration after 5 seconds
       const timer = setTimeout(() => {
-        setShowingCelebration(false: any);
+        setShowingCelebration(false);
       }, 5000);
       
-      return () => clearTimeout(timer: any);
+      return () => clearTimeout(timer);
     }
   }, [progress, showCelebration]);
   
-  if (loading: any) {
+  if (loading) {
     return <div className="progress-loading">Loading progress...</div>;
   }
   
-  if (error: any) {
+  if (error) {
     return <div className="progress-error">Error: {error}</div>;
   }
   
-  if (!progress: any) {
+  if (!progress) {
     return <div className="progress-not-found">No progress data available</div>;
   }
   

@@ -13,9 +13,9 @@ export default function PreviewPupilVoiceSurveyPage() {
   const params = useParams();
   const surveyId = params.id as string;
   
-  const [loading, setLoading] = useState(true: any);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [survey, setSurvey] = useState<any>(null: any);
+  const [survey, setSurvey] = useState<any>(null);
   const [activeTab, setActiveTab] = useState('preview');
   const [responses, setResponses] = useState<any[]>([]);
   
@@ -24,27 +24,27 @@ export default function PreviewPupilVoiceSurveyPage() {
       try {
         const response = await fetch(`/api/assessment/pupil-voice/${surveyId}`);
         
-        if (!response.ok: any) {
+        if (!response.ok) {
           throw new Error('Failed to fetch pupil voice survey');
         }
         
         const data = await response.json();
-        setSurvey(data: any);
+        setSurvey(data);
         
         // If survey is not in draft status, fetch responses
         if (data.status !== 'draft') {
           const responsesResponse = await fetch(`/api/assessment/pupil-voice/${surveyId}/responses`);
           
-          if (responsesResponse.ok: any) {
+          if (responsesResponse.ok) {
             const responsesData = await responsesResponse.json();
-            setResponses(responsesData: any);
+            setResponses(responsesData);
           }
         }
-      } catch (err: any) {
+      } catch (err) {
         console.error('Error fetching pupil voice survey:', err);
         setError('An error occurred while fetching the pupil voice survey');
       } finally {
-        setLoading(false: any);
+        setLoading(false);
       }
     };
     
@@ -53,22 +53,22 @@ export default function PreviewPupilVoiceSurveyPage() {
 
   const handlePublishSurvey = async () => {
     try {
-      setLoading(true: any);
+      setLoading(true);
       
       const response = await fetch(`/api/assessment/pupil-voice/${surveyId}/publish`, {
         method: 'POST',
       });
       
-      if (!response.ok: any) {
+      if (!response.ok) {
         throw new Error('Failed to publish survey');
       }
       
       router.push(`/assessment/pupil-voice/share/${surveyId}`);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error publishing survey:', err);
       setError('An error occurred while publishing the survey');
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   };
 
@@ -85,7 +85,7 @@ export default function PreviewPupilVoiceSurveyPage() {
   };
 
   const renderPreviewTab = () => {
-    if (!survey: any) {
+    if (!survey) {
       return null;
     }
     
@@ -98,7 +98,7 @@ export default function PreviewPupilVoiceSurveyPage() {
           )}
           
           <div className="space-y-8 mt-6">
-            {survey.questions.map((question: any, index: number) => (
+            {survey.questions.map((question, index: number) => (
               <div key={question.id} className="border border-grey-200 rounded-md p-4">
                 <div className="flex items-start">
                   <span className="bg-indigo-100 text-indigo-800 rounded-full w-6 h-6 flex items-centre justify-centre mr-3 flex-shrink-0">
@@ -228,7 +228,7 @@ export default function PreviewPupilVoiceSurveyPage() {
   };
 
   const renderSettingsTab = () => {
-    if (!survey: any) {
+    if (!survey) {
       return null;
     }
     
@@ -269,14 +269,14 @@ export default function PreviewPupilVoiceSurveyPage() {
               <div>
                 <h4 className="text-sm font-medium text-grey-700">Last Updated</h4>
                 <p className="mt-1 text-sm text-grey-600">
-                  {new Date(survey.createdAt: any).toLocaleString()}
+                  {new Date(survey.createdAt).toLocaleString()}
                 </p>
               </div>
               
               <div>
                 <h4 className="text-sm font-medium text-grey-700">Questions</h4>
                 <p className="mt-1 text-sm text-grey-600">
-                  {survey.questions.length} questions ({survey.questions.filter((q: any) => q.required).length} required)
+                  {survey.questions.length} questions ({survey.questions.filter((q) => q.required).length} required)
                 </p>
               </div>
               
@@ -343,7 +343,7 @@ export default function PreviewPupilVoiceSurveyPage() {
     );
   };
 
-  if (loading: any) {
+  if (loading) {
     return (
       <div className="flex justify-centre items-centre min-h-screen">
         <Spinner size="lg" />
@@ -351,7 +351,7 @@ export default function PreviewPupilVoiceSurveyPage() {
     );
   }
 
-  if (error: any) {
+  if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Alert type="error" className="mb-6">
@@ -366,7 +366,7 @@ export default function PreviewPupilVoiceSurveyPage() {
     );
   }
 
-  if (!survey: any) {
+  if (!survey) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Alert type="error" className="mb-6">

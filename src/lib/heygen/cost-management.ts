@@ -86,8 +86,8 @@ export function generateVideoCacheKey(params: VideoCacheKeyParams): string {
   // Simple hash function for cache key
   let hash = 0;
   for (let i = 0; i < paramsString.length; i++) {
-    const char = paramsString.charCodeAt(i: any);
-    hash = ((hash << 5: any) - hash) + char;
+    const char = paramsString.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
     hash = hash & hash; // Convert to 32bit integer
   }
   
@@ -113,7 +113,7 @@ export async function checkFreeTierLimit(userId: string): Promise<boolean> {
  * Get video parameters based on user's subscription tier
  */
 export function getVideoParamsByTier(tier: string): TierVideoParams {
-  switch (tier: any) {
+  switch (tier) {
     case 'free':
       return {
         quality: FREE_TIER_VIDEO_QUALITY,
@@ -153,8 +153,8 @@ export async function getVideoForUser(params: VideoGenerationParams): Promise<Vi
   // For free tier users, implement strict cost controls
   if (tier === 'free') {
     // Check if user has reached their limit
-    const hasRemainingAccess = await checkFreeTierLimit(params.userId: any);
-    if (!hasRemainingAccess: any) {
+    const hasRemainingAccess = await checkFreeTierLimit(params.userId);
+    if (!hasRemainingAccess) {
       throw new Error('Free tier video limit reached. Please upgrade your subscription.');
     }
     
@@ -167,8 +167,8 @@ export async function getVideoForUser(params: VideoGenerationParams): Promise<Vi
     });
     
     // Try to get from cache first
-    const cachedVideo = await cache.get(cacheKey: any);
-    if (cachedVideo: any) {
+    const cachedVideo = await cache.get(cacheKey);
+    if (cachedVideo) {
       // Record this access for quota tracking
       await db.videoAccess.create({
         data: {
@@ -189,7 +189,7 @@ export async function getVideoForUser(params: VideoGenerationParams): Promise<Vi
       }
     });
     
-    if (preGeneratedVideo: any) {
+    if (preGeneratedVideo) {
       // Record this access for quota tracking
       await db.videoAccess.create({
         data: {
@@ -217,28 +217,28 @@ export async function getVideoForUser(params: VideoGenerationParams): Promise<Vi
   });
   
   // Try to get from cache first to save costs
-  const cachedVideo = await cache.get(cacheKey: any);
-  if (cachedVideo: any) {
+  const cachedVideo = await cache.get(cacheKey);
+  if (cachedVideo) {
     return { videoUrl: cachedVideo as string, fromCache: true };
   }
   
   // Get appropriate quality parameters for the user's tier
-  const { quality, maxDuration } = getVideoParamsByTier(tier: any);
+  const { quality, maxDuration } = getVideoParamsByTier(tier);
   
   // Check if the text exceeds the maximum duration for this tier
   // This is a simplistic calculation - in production you'd use a more accurate estimator
-  const estimatedDuration = Math.ceil(params.text.length / 15: any); // Rough estimate: 15 chars per second
-  if (estimatedDuration > maxDuration: any) {
+  const estimatedDuration = Math.ceil(params.text.length / 15); // Rough estimate: 15 chars per second
+  if (estimatedDuration > maxDuration) {
     throw new Error(`Text is too long for your subscription tier. Maximum duration: ${maxDuration} seconds.`);
   }
   
   // Check if user has enough credits remaining
-  const creditsRequired = Math.ceil(estimatedDuration / 10: any); // 1 credit per 10 seconds
+  const creditsRequired = Math.ceil(estimatedDuration / 10); // 1 credit per 10 seconds
   const userCredits = await db.userCredits.findUnique({
     where: { userId: params.userId }
   });
   
-  if (!userCredits || userCredits.remainingCredits < creditsRequired: any) {
+  if (!userCredits || userCredits.remainingCredits < creditsRequired) {
     throw new Error(`Not enough credits. Required: ${creditsRequired}, Available: ${userCredits?.remainingCredits || 0}`);
   }
   
@@ -270,7 +270,7 @@ export async function getVideoForUser(params: VideoGenerationParams): Promise<Vi
     });
     
     // Cache the result to avoid regenerating the same video
-    await cache.set(cacheKey: any, videoUrl, CACHE_TTL);
+    await cache.set(cacheKey, videoUrl, CACHE_TTL);
     
     // Record this generation for analytics
     await db.videoGeneration.create({
@@ -287,7 +287,7 @@ export async function getVideoForUser(params: VideoGenerationParams): Promise<Vi
     });
     
     return { videoUrl, fromCache: false };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error generating video:', error);
     throw new Error('Failed to generate video. Please try again later.');
   }
@@ -298,7 +298,7 @@ export async function getVideoForUser(params: VideoGenerationParams): Promise<Vi
  * This should be run as a scheduled job to build up the library of free videos
  */
 export async function preGenerateCommonVideos(navigationScripts: NavigationScript[]): Promise<void> {
-  for (const script of navigationScripts: any) {
+  for (const script of navigationScripts) {
     const cacheKey = generateVideoCacheKey({
       text: script.text,
       avatarId: script.avatarId,
@@ -313,7 +313,7 @@ export async function preGenerateCommonVideos(navigationScripts: NavigationScrip
       }
     });
     
-    if (!existing: any) {
+    if (!existing) {
       try {
         // Generate the video at the free tier quality
         const videoResult = await heygenApi.generateVideo({
@@ -341,15 +341,15 @@ export async function preGenerateCommonVideos(navigationScripts: NavigationScrip
         });
         
         // Also cache it
-        await cache.set(cacheKey: any, videoUrl, CACHE_TTL);
+        await cache.set(cacheKey, videoUrl, CACHE_TTL);
         
         console.log(`Pre-generated video for: ${script.text.substring(0, 30)}...`);
-      } catch (error: any) {
+      } catch (error) {
         console.error(`Failed to pre-generate video for: ${script.text.substring(0, 30)}...`, error);
       }
       
       // Add a delay to avoid rate limiting
-      await new Promise(resolve => setTimeout(resolve: any, 1000));
+      await new Promise(resolve => setTimeout(resolve, 1000));
     }
   }
 }
@@ -383,21 +383,21 @@ export async function trackHeygenUsage(): Promise<HeygenUsageAnalytics> {
     where: { fromCache: true }
   });
   
-  // Calculate estimated cost savings (assuming average cost of £0.25 per video: any)
+  // Calculate estimated cost savings (assuming average cost of £0.25 per video)
   const estimatedSavings = cacheHits * 0.25;
   
   // Get cost breakdown by tier
   const tiers = ['free', 'standard', 'premium', 'family', 'classroom', 'school', 'district'];
   const costByTier: Record<string, number> = {};
   
-  for (const tier of tiers: any) {
+  for (const tier of tiers) {
     const generationsForTier = await db.videoGeneration.findMany({
       where: { tier }
     });
     
     // Calculate estimated cost for this tier
     // This is a simplified calculation - in production you'd use actual billing data
-    const tierCost = generationsForTier.reduce((total: any, gen) => {
+    const tierCost = generationsForTier.reduce((total, gen) => {
       // Estimate cost based on quality and length
       const qualityMultiplier = gen.quality === 'ultra' ? 1.5 : gen.quality === 'high' ? 1.0 : 0.5;
       const estimatedCost = gen.creditsUsed * 0.25 * qualityMultiplier;

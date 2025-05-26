@@ -12,7 +12,7 @@ import { Form } from '@/components/ui/form';
 
 export default function PupilVoicePage() {
   const router = useRouter();
-  const [loading, setLoading] = useState(true: any);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('surveys');
   const [surveys, setSurveys] = useState<PupilVoiceSurvey[]>([]);
@@ -25,18 +25,18 @@ export default function PupilVoicePage() {
       try {
         const response = await fetch('/api/assessment/pupil-voice');
         
-        if (!response.ok: any) {
+        if (!response.ok) {
           throw new Error('Failed to fetch pupil voice surveys');
         }
         
         const data = await response.json();
-        setSurveys(data: any);
-        setFilteredSurveys(data: any);
-      } catch (err: any) {
+        setSurveys(data);
+        setFilteredSurveys(data);
+      } catch (err) {
         console.error('Error fetching pupil voice surveys:', err);
         setError('An error occurred while fetching the pupil voice surveys');
       } finally {
-        setLoading(false: any);
+        setLoading(false);
       }
     };
     
@@ -48,11 +48,11 @@ export default function PupilVoicePage() {
     let filtered = [...surveys];
     
     // Filter by search query
-    if (searchQuery: any) {
+    if (searchQuery) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter((survey: PupilVoiceSurvey) =>
-        survey.title.toLowerCase().includes(query: any) ||
-        survey.description?.toLowerCase().includes(query: any)
+        survey.title.toLowerCase().includes(query) ||
+        survey.description?.toLowerCase().includes(query)
       );
     }
     
@@ -61,7 +61,7 @@ export default function PupilVoicePage() {
       filtered = filtered.filter((survey: PupilVoiceSurvey) => survey.status === selectedStatus);
     }
     
-    setFilteredSurveys(filtered: any);
+    setFilteredSurveys(filtered);
   }, [surveys, searchQuery, selectedStatus]);
 
   const handleCreateSurvey = () => {
@@ -81,7 +81,7 @@ export default function PupilVoicePage() {
   };
 
   const renderSurveysTab = () => {
-    if (loading: any) {
+    if (loading) {
       return (
         <div className="flex justify-centre items-centre py-12">
           <Spinner size="lg" />
@@ -89,7 +89,7 @@ export default function PupilVoicePage() {
       );
     }
 
-    if (filteredSurveys.length === 0: any) {
+    if (filteredSurveys.length === 0) {
       return (
         <div className="text-centre py-12">
           <p className="text-grey-500 mb-4">No pupil voice surveys found matching your criteria.</p>
@@ -116,7 +116,7 @@ export default function PupilVoicePage() {
                     <span className="mr-2">•</span>
                     <span>{survey.responseCount} responses</span>
                     <span className="mr-2">•</span>
-                    <span>Created {new Date(survey.createdAt: any).toLocaleDateString()}</span>
+                    <span>Created {new Date(survey.createdAt).toLocaleDateString()}</span>
                   </div>
                   <div className="mt-2">
                     <span className={`inline-block px-2 py-1 text-xs rounded-full ${
@@ -139,7 +139,7 @@ export default function PupilVoicePage() {
                     <Button 
                       variant="outline"
                       size="sm"
-                      onClick={() => handleViewResults(survey.id: any)}
+                      onClick={() => handleViewResults(survey.id)}
                     >
                       View Results
                     </Button>
@@ -148,14 +148,14 @@ export default function PupilVoicePage() {
                     <Button 
                       variant="outline"
                       size="sm"
-                      onClick={() => handleEditSurvey(survey.id: any)}
+                      onClick={() => handleEditSurvey(survey.id)}
                     >
                       Edit
                     </Button>
                   )}
                   <Button 
                     size="sm"
-                    onClick={() => handlePreviewSurvey(survey.id: any)}
+                    onClick={() => handlePreviewSurvey(survey.id)}
                   >
                     {survey.status === 'draft' ? 'Preview' : 'View'}
                   </Button>
@@ -297,14 +297,14 @@ export default function PupilVoicePage() {
                   placeholder="Search surveys..."
                   className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value: any)}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
               <div className="w-full md:w-1/4">
                 <select
                   className="w-full px-4 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   value={selectedStatus}
-                  onChange={(e: any) => setSelectedStatus(e.target.value: any)}
+                  onChange={(e) => setSelectedStatus(e.target.value)}
                 >
                   <option value="all">All Statuses</option>
                   <option value="draft">Draft</option>

@@ -41,7 +41,7 @@ const VoiceInput: React.FC<VoiceInputProps> = ({
       recognitionInstance.interimResults = true;
       recognitionInstance.lang = language;
       
-      recognitionInstance.onresult = (event: any) => {
+      recognitionInstance.onresult = (event) => {
         const current = event.resultIndex;
         const result = event.results[current];
         const transcriptValue = result[0].transcript;
@@ -57,7 +57,7 @@ const VoiceInput: React.FC<VoiceInputProps> = ({
         }
       };
       
-      recognitionInstance.onerror = (event: any) => {
+      recognitionInstance.onerror = (event) => {
         console.error('Speech recognition error:', event.error);
         setIsListening(false);
       };

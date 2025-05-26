@@ -31,7 +31,7 @@ interface ElementEditorProps {
 }
 
 export const ElementEditor: React.FC<ElementEditorProps> = ({
-  element: any,
+  element,
   onUpdate
 }) => {
   const { toast } = useToast();
@@ -47,7 +47,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
           <Textarea 
             id="textContent" 
             value={textElement.content || ''} 
-            onChange={(e: any) => onUpdate({ content: e.target.value })} 
+            onChange={(e) => onUpdate({ content: e.target.value })} 
             className="min-h-[200px]"
           />
         </div>
@@ -57,7 +57,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
             <Label htmlFor="textFormat">Format</Label>
             <Select 
               value={textElement.format || 'plain'} 
-              onValueChange={(value: any) => onUpdate({ format: value as 'plain' | 'markdown' | 'html' })}
+              onValueChange={(value) => onUpdate({ format: value as 'plain' | 'markdown' | 'html' })}
             >
               <SelectTrigger id="textFormat">
                 <SelectValue placeholder="Select format" />
@@ -74,7 +74,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
             <Label htmlFor="textAlign">Text Alignment</Label>
             <Select 
               value={textElement.style?.textAlign || 'left'} 
-              onValueChange={(value: any) => onUpdate({ 
+              onValueChange={(value) => onUpdate({ 
                 style: { 
                   ...textElement.style, 
                   textAlign: value as 'left' | 'centre' | 'right' | 'justify' 
@@ -100,7 +100,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
             <Input 
               id="fontSize" 
               value={textElement.style?.fontSize || ''} 
-              onChange={(e: any) => onUpdate({ 
+              onChange={(e) => onUpdate({ 
                 style: { 
                   ...textElement.style, 
                   fontSize: e.target.value 
@@ -114,7 +114,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
             <Label htmlFor="fontWeight">Font Weight</Label>
             <Select 
               value={textElement.style?.fontWeight || ''} 
-              onValueChange={(value: any) => onUpdate({ 
+              onValueChange={(value) => onUpdate({ 
                 style: { 
                   ...textElement.style, 
                   fontWeight: value 
@@ -137,7 +137,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
             <Label htmlFor="fontStyle">Font Style</Label>
             <Select 
               value={textElement.style?.fontStyle || ''} 
-              onValueChange={(value: any) => onUpdate({ 
+              onValueChange={(value) => onUpdate({ 
                 style: { 
                   ...textElement.style, 
                   fontStyle: value 
@@ -163,7 +163,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
                 id="textColor" 
                 type="colour"
                 value={textElement.style?.colour || '#000000'} 
-                onChange={(e: any) => onUpdate({ 
+                onChange={(e) => onUpdate({ 
                   style: { 
                     ...textElement.style, 
                     color: e.target.value 
@@ -173,13 +173,13 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
               />
               <Input 
                 value={textElement.style?.colour || ''} 
-                onChange={(e: any) => onUpdate({ 
+                onChange={(e) => onUpdate({ 
                   style: { 
                     ...textElement.style, 
                     color: e.target.value 
                   } 
                 })} 
-                placeholder="#000000 or rgb(0: any,0,0)"
+                placeholder="#000000 or rgb(0,0,0)"
                 className="flex-1"
               />
             </div>
@@ -192,7 +192,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
                 id="bgColor" 
                 type="colour"
                 value={textElement.style?.backgroundColor || '#ffffff'} 
-                onChange={(e: any) => onUpdate({ 
+                onChange={(e) => onUpdate({ 
                   style: { 
                     ...textElement.style, 
                     backgroundColor: e.target.value 
@@ -202,13 +202,13 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
               />
               <Input 
                 value={textElement.style?.backgroundColor || ''} 
-                onChange={(e: any) => onUpdate({ 
+                onChange={(e) => onUpdate({ 
                   style: { 
                     ...textElement.style, 
                     backgroundColor: e.target.value 
                   } 
                 })} 
-                placeholder="#ffffff or rgb(255: any,255,255)"
+                placeholder="#ffffff or rgb(255,255,255)"
                 className="flex-1"
               />
             </div>
@@ -229,17 +229,17 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
           <Input 
             id="imageSrc" 
             value={imageElement.src || ''} 
-            onChange={(e: any) => onUpdate({ src: e.target.value })} 
+            onChange={(e) => onUpdate({ src: e.target.value })} 
             placeholder="https://example.com/image.jpg"
           />
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="imageAlt">Alt Text (for accessibility: any)</Label>
+          <Label htmlFor="imageAlt">Alt Text (for accessibility)</Label>
           <Input 
             id="imageAlt" 
             value={imageElement.alt || ''} 
-            onChange={(e: any) => onUpdate({ alt: e.target.value })} 
+            onChange={(e) => onUpdate({ alt: e.target.value })} 
             placeholder="Descriptive text for screen readers"
           />
         </div>
@@ -249,7 +249,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
           <Input 
             id="imageCaption" 
             value={imageElement.caption || ''} 
-            onChange={(e: any) => onUpdate({ caption: e.target.value })} 
+            onChange={(e) => onUpdate({ caption: e.target.value })} 
             placeholder="Optional caption text"
           />
         </div>
@@ -260,7 +260,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
             <Input 
               id="imageWidth" 
               value={imageElement.width || ''} 
-              onChange={(e: any) => onUpdate({ width: e.target.value })} 
+              onChange={(e) => onUpdate({ width: e.target.value })} 
               placeholder="e.g., 500px or 100%"
             />
           </div>
@@ -270,7 +270,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
             <Input 
               id="imageHeight" 
               value={imageElement.height || ''} 
-              onChange={(e: any) => onUpdate({ height: e.target.value })} 
+              onChange={(e) => onUpdate({ height: e.target.value })} 
               placeholder="e.g., 300px or auto"
             />
           </div>
@@ -279,7 +279,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
             <Label htmlFor="imageAlignment">Alignment</Label>
             <Select 
               value={imageElement.alignment || 'centre'} 
-              onValueChange={(value: any) => onUpdate({ alignment: value as 'left' | 'centre' | 'right' })}
+              onValueChange={(value) => onUpdate({ alignment: value as 'left' | 'centre' | 'right' })}
             >
               <SelectTrigger id="imageAlignment">
                 <SelectValue placeholder="Select alignment" />
@@ -327,7 +327,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
           <Input 
             id="videoSrc" 
             value={videoElement.src || ''} 
-            onChange={(e: any) => onUpdate({ src: e.target.value })} 
+            onChange={(e) => onUpdate({ src: e.target.value })} 
             placeholder="https://example.com/video.mp4 or YouTube/Vimeo URL"
           />
         </div>
@@ -337,7 +337,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
           <Input 
             id="videoTitle" 
             value={videoElement.title || ''} 
-            onChange={(e: any) => onUpdate({ title: e.target.value })} 
+            onChange={(e) => onUpdate({ title: e.target.value })} 
             placeholder="Video title"
           />
         </div>
@@ -347,7 +347,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
           <Textarea 
             id="videoDescription" 
             value={videoElement.description || ''} 
-            onChange={(e: any) => onUpdate({ description: e.target.value })} 
+            onChange={(e) => onUpdate({ description: e.target.value })} 
             placeholder="Video description"
           />
         </div>
@@ -358,18 +358,18 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
             <Input 
               id="videoPoster" 
               value={videoElement.poster || ''} 
-              onChange={(e: any) => onUpdate({ poster: e.target.value })} 
+              onChange={(e) => onUpdate({ poster: e.target.value })} 
               placeholder="https://example.com/poster.jpg"
             />
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="videoDuration">Duration (seconds: any)</Label>
+            <Label htmlFor="videoDuration">Duration (seconds)</Label>
             <Input 
               id="videoDuration" 
               type="number"
               value={videoElement.duration || ''} 
-              onChange={(e: any) => onUpdate({ duration: parseInt(e.target.value) || undefined })} 
+              onChange={(e) => onUpdate({ duration: parseInt(e.target.value) || undefined })} 
               placeholder="e.g., 120"
             />
           </div>
@@ -381,7 +381,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
             <Input 
               id="videoWidth" 
               value={videoElement.width || ''} 
-              onChange={(e: any) => onUpdate({ width: e.target.value })} 
+              onChange={(e) => onUpdate({ width: e.target.value })} 
               placeholder="e.g., 640px or 100%"
             />
           </div>
@@ -391,7 +391,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
             <Input 
               id="videoHeight" 
               value={videoElement.height || ''} 
-              onChange={(e: any) => onUpdate({ height: e.target.value })} 
+              onChange={(e) => onUpdate({ height: e.target.value })} 
               placeholder="e.g., 360px or auto"
             />
           </div>
@@ -403,7 +403,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
                   type="checkbox" 
                   id="videoControls" 
                   checked={videoElement.controls !== false} 
-                  onChange={(e: any) => onUpdate({ controls: e.target.checked })} 
+                  onChange={(e) => onUpdate({ controls: e.target.checked })} 
                 />
                 <Label htmlFor="videoControls">Show Controls</Label>
               </div>
@@ -413,11 +413,11 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
         
         <div className="space-y-2">
           <Label>Captions/Subtitles</Label>
-          {videoElement.captions?.map((caption: any, index) => (
+          {videoElement.captions?.map((caption, index) => (
             <div key={index} className="flex gap-2 items-centre">
               <Input 
                 value={caption.src} 
-                onChange={(e: any) => {
+                onChange={(e) => {
                   const newCaptions = [...(videoElement.captions || [])];
                   newCaptions[index] = { ...newCaptions[index], src: e.target.value };
                   onUpdate({ captions: newCaptions });
@@ -427,22 +427,22 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
               />
               <Input 
                 value={caption.language} 
-                onChange={(e: any) => {
+                onChange={(e) => {
                   const newCaptions = [...(videoElement.captions || [])];
                   newCaptions[index] = { ...newCaptions[index], language: e.target.value };
                   onUpdate({ captions: newCaptions });
                 }} 
-                placeholder="Language code (e.g., en: any)"
+                placeholder="Language code (e.g., en)"
                 className="w-20"
               />
               <Input 
                 value={caption.label} 
-                onChange={(e: any) => {
+                onChange={(e) => {
                   const newCaptions = [...(videoElement.captions || [])];
                   newCaptions[index] = { ...newCaptions[index], label: e.target.value };
                   onUpdate({ captions: newCaptions });
                 }} 
-                placeholder="Label (e.g., English: any)"
+                placeholder="Label (e.g., English)"
                 className="w-32"
               />
               <Button 
@@ -450,7 +450,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
                 size="icon" 
                 onClick={() => {
                   const newCaptions = [...(videoElement.captions || [])];
-                  newCaptions.splice(index: any, 1);
+                  newCaptions.splice(index, 1);
                   onUpdate({ captions: newCaptions });
                 }}
               >
@@ -483,15 +483,15 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
           <Label htmlFor="questionType">Question Type</Label>
           <Select 
             value={questionElement.questionType || QuestionType.MULTIPLE_CHOICE} 
-            onValueChange={(value: any) => onUpdate({ questionType: value as QuestionType })}
+            onValueChange={(value) => onUpdate({ questionType: value as QuestionType })}
           >
             <SelectTrigger id="questionType">
               <SelectValue placeholder="Select question type" />
             </SelectTrigger>
             <SelectContent>
-              {Object.values(QuestionType: any).map((type: any) => (
+              {Object.values(QuestionType).map((type) => (
                 <SelectItem key={type} value={type}>
-                  {type.replace(/_/g: any, ' ')}
+                  {type.replace(/_/g, ' ')}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -503,7 +503,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
           <Textarea 
             id="questionText" 
             value={questionElement.question || ''} 
-            onChange={(e: any) => onUpdate({ question: e.target.value })} 
+            onChange={(e) => onUpdate({ question: e.target.value })} 
             placeholder="Enter your question here"
           />
         </div>
@@ -511,14 +511,14 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
         {(questionElement.questionType === QuestionType.MULTIPLE_CHOICE || 
           questionElement.questionType === QuestionType.TRUE_FALSE ||
           questionElement.questionType === QuestionType.MATCHING ||
-          questionElement.questionType === QuestionType.RANKING: any) && (
+          questionElement.questionType === QuestionType.RANKING) && (
           <div className="space-y-2">
             <Label>Options</Label>
-            {questionElement.options?.map((option: any, index) => (
+            {questionElement.options?.map((option, index) => (
               <div key={index} className="flex gap-2 items-centre">
                 <Input 
                   value={option} 
-                  onChange={(e: any) => {
+                  onChange={(e) => {
                     const newOptions = [...(questionElement.options || [])];
                     newOptions[index] = e.target.value;
                     onUpdate({ options: newOptions });
@@ -531,7 +531,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
                   size="icon" 
                   onClick={() => {
                     const newOptions = [...(questionElement.options || [])];
-                    newOptions.splice(index: any, 1);
+                    newOptions.splice(index, 1);
                     onUpdate({ options: newOptions });
                   }}
                 >
@@ -557,13 +557,13 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
           {questionElement.questionType === QuestionType.MULTIPLE_CHOICE && (
             <Select 
               value={questionElement.correctAnswer as string || ''} 
-              onValueChange={(value: any) => onUpdate({ correctAnswer: value })}
+              onValueChange={(value) => onUpdate({ correctAnswer: value })}
             >
               <SelectTrigger id="correctAnswer">
                 <SelectValue placeholder="Select correct answer" />
               </SelectTrigger>
               <SelectContent>
-                {questionElement.options?.map((option: any, index) => (
+                {questionElement.options?.map((option, index) => (
                   <SelectItem key={index} value={option}>
                     {option}
                   </SelectItem>
@@ -575,7 +575,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
           {questionElement.questionType === QuestionType.TRUE_FALSE && (
             <Select 
               value={questionElement.correctAnswer as string || ''} 
-              onValueChange={(value: any) => onUpdate({ correctAnswer: value })}
+              onValueChange={(value) => onUpdate({ correctAnswer: value })}
             >
               <SelectTrigger id="correctAnswer">
                 <SelectValue placeholder="Select correct answer" />
@@ -588,11 +588,11 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
           )}
           
           {(questionElement.questionType === QuestionType.SHORT_ANSWER || 
-            questionElement.questionType === QuestionType.FILL_IN_BLANK: any) && (
+            questionElement.questionType === QuestionType.FILL_IN_BLANK) && (
             <Input 
               id="correctAnswer" 
               value={questionElement.correctAnswer as string || ''} 
-              onChange={(e: any) => onUpdate({ correctAnswer: e.target.value })} 
+              onChange={(e) => onUpdate({ correctAnswer: e.target.value })} 
               placeholder="Correct answer"
             />
           )}
@@ -601,7 +601,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
             <Textarea 
               id="correctAnswer" 
               value={questionElement.correctAnswer as string || ''} 
-              onChange={(e: any) => onUpdate({ correctAnswer: e.target.value })} 
+              onChange={(e) => onUpdate({ correctAnswer: e.target.value })} 
               placeholder="Model answer or marking guide"
             />
           )}
@@ -612,7 +612,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
           <Textarea 
             id="explanation" 
             value={questionElement.explanation || ''} 
-            onChange={(e: any) => onUpdate({ explanation: e.target.value })} 
+            onChange={(e) => onUpdate({ explanation: e.target.value })} 
             placeholder="Explanation for the correct answer"
           />
         </div>
@@ -624,7 +624,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
               id="points" 
               type="number"
               value={questionElement.points || ''} 
-              onChange={(e: any) => onUpdate({ points: parseInt(e.target.value) || undefined })} 
+              onChange={(e) => onUpdate({ points: parseInt(e.target.value) || undefined })} 
               placeholder="e.g., 10"
             />
           </div>
@@ -633,7 +633,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
             <Label htmlFor="difficulty">Difficulty</Label>
             <Select 
               value={questionElement.difficulty || 'medium'} 
-              onValueChange={(value: any) => onUpdate({ difficulty: value as 'easy' | 'medium' | 'hard' })}
+              onValueChange={(value) => onUpdate({ difficulty: value as 'easy' | 'medium' | 'hard' })}
             >
               <SelectTrigger id="difficulty">
                 <SelectValue placeholder="Select difficulty" />
@@ -655,7 +655,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
               <Input 
                 id="correctFeedback" 
                 value={questionElement.feedback?.correct || ''} 
-                onChange={(e: any) => onUpdate({ 
+                onChange={(e) => onUpdate({ 
                   feedback: { 
                     ...questionElement.feedback,
                     correct: e.target.value 
@@ -669,7 +669,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
               <Input 
                 id="incorrectFeedback" 
                 value={questionElement.feedback?.incorrect || ''} 
-                onChange={(e: any) => onUpdate({ 
+                onChange={(e) => onUpdate({ 
                   feedback: { 
                     ...questionElement.feedback,
                     incorrect: e.target.value 
@@ -683,7 +683,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
               <Input 
                 id="partialFeedback" 
                 value={questionElement.feedback?.partial || ''} 
-                onChange={(e: any) => onUpdate({ 
+                onChange={(e) => onUpdate({ 
                   feedback: { 
                     ...questionElement.feedback,
                     partial: e.target.value 
@@ -700,7 +700,7 @@ export const ElementEditor: React.FC<ElementEditorProps> = ({
   
   // Render the appropriate editor based on element type
   const renderEditor = () => {
-    switch (element.type: any) {
+    switch (element.type) {
       case ContentElementType.TEXT:
         return renderTextEditor();
       case ContentElementType.IMAGE:

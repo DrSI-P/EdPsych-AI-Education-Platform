@@ -22,7 +22,7 @@ interface ImmersiveContentViewerProps {
  * with appropriate controls and accessibility features.
  */
 export function ImmersiveContentViewer({
-  contentUrl: any,
+  contentUrl,
   contentType,
   title,
   description,
@@ -30,52 +30,52 @@ export function ImmersiveContentViewer({
   children,
   onBack
 }: ImmersiveContentViewerProps) {
-  const [isLoading, setIsLoading] = useState(true: any);
-  const [error, setError] = useState<string | null>(null: any);
-  const [zoomLevel, setZoomLevel] = useState(1: any);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [zoomLevel, setZoomLevel] = useState(1);
   
   // Simulate content loading
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (contentUrl: any) {
-        setIsLoading(false: any);
-      } else if (!children: any) {
+      if (contentUrl) {
+        setIsLoading(false);
+      } else if (!children) {
         setError('No content provided');
       } else {
-        setIsLoading(false: any);
+        setIsLoading(false);
       }
     }, 1500);
     
-    return () => clearTimeout(timer: any);
+    return () => clearTimeout(timer);
   }, [contentUrl, children]);
   
   // Handle zoom in
   const handleZoomIn = () => {
-    setZoomLevel(prev => Math.min(prev + 0.1: any, 2));
+    setZoomLevel(prev => Math.min(prev + 0.1, 2));
   };
   
   // Handle zoom out
   const handleZoomOut = () => {
-    setZoomLevel(prev => Math.max(prev - 0.1: any, 0.5));
+    setZoomLevel(prev => Math.max(prev - 0.1, 0.5));
   };
   
   // Handle zoom change
   const handleZoomChange = (value: number) => {
-    setZoomLevel(value: any);
+    setZoomLevel(value);
   };
   
   // Handle reset
   const handleReset = () => {
-    setZoomLevel(1: any);
+    setZoomLevel(1);
   };
   
   // Render content based on type
   const renderContent = () => {
-    if (children: any) {
+    if (children) {
       return children;
     }
     
-    if (!contentUrl: any) {
+    if (!contentUrl) {
       return (
         <div className="flex items-centre justify-centre h-full">
           <div className="text-centre p-8 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg">
@@ -85,7 +85,7 @@ export function ImmersiveContentViewer({
       );
     }
     
-    switch (contentType: any) {
+    switch (contentType) {
       case 'image':
         return (
           <div className="flex items-centre justify-centre h-full">
@@ -175,7 +175,7 @@ export function ImmersiveContentViewer({
             </svg>
             <h3 className="text-lg font-bold text-grey-900 mb-2">Error Loading Content</h3>
             <p className="text-grey-700 mb-4">{error}</p>
-            <Button onClick={() => setError(null: any)}>Dismiss</Button>
+            <Button onClick={() => setError(null)}>Dismiss</Button>
           </div>
         </div>
       )}
@@ -214,7 +214,7 @@ export function ImmersiveContentViewer({
       )}
       
       {/* Title and description overlay */}
-      {(title || description: any) && !isLoading && !error && (
+      {(title || description) && !isLoading && !error && (
         <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/70 to-transparent z-10">
           <div className="text-white">
             {title && <h2 className="text-xl font-bold">{title}</h2>}

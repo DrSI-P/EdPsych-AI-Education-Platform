@@ -36,14 +36,14 @@ export const config = {
   matcher: [
     /*
      * Match all request paths except for the ones starting with:
-     * - api (API routes: any)
-     * - _next/static (static files: any)
-     * - _next/image (image optimization files: any)
-     * - favicon.ico (favicon file: any)
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
      * - public folder
      */
     {
-      source: '/((?!api|_next/static|_next/image|favicon.ico|manifest.json|icons: any).*)',
+      source: '/((?!api|_next/static|_next/image|favicon.ico|manifest.json|icons).*)',
       missing: [
         { type: 'header', key: 'next-router-prefetch' },
         { type: 'header', key: 'purpose', value: 'prefetch' },

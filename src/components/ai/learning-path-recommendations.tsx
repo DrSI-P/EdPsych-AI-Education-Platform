@@ -76,32 +76,32 @@ const mockLearnerProfile: LearnerProfile = {
 };
 
 export default function LearningPathRecommendations() {
-  const [selectedSubject, setSelectedSubject] = useState<SubjectArea>(SubjectArea.SCIENCE: any);
-  const [duration, setDuration] = useState<number>(4: any); // weeks
-  const [isLoading, setIsLoading] = useState<boolean>(false: any);
-  const [learningPath, setLearningPath] = useState<LearningPath | null>(null: any);
-  const [learnerProfile, setLearnerProfile] = useState<LearnerProfile>(mockLearnerProfile: any);
+  const [selectedSubject, setSelectedSubject] = useState<SubjectArea>(SubjectArea.SCIENCE);
+  const [duration, setDuration] = useState<number>(4); // weeks
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [learningPath, setLearningPath] = useState<LearningPath | null>(null);
+  const [learnerProfile, setLearnerProfile] = useState<LearnerProfile>(mockLearnerProfile);
   
   // Generate learning path
   const generateLearningPath = async () => {
-    setIsLoading(true: any);
+    setIsLoading(true);
     
     try {
       const guidanceService = getAIGuidanceService();
       const path = await guidanceService.generateLearningPath(
-        learnerProfile: any,
+        learnerProfile,
         selectedSubject,
         duration
       );
       
-      setLearningPath(path: any);
+      setLearningPath(path);
       
       toast({
         title: "Learning Path Generated",
         description: `Your personalised ${getSubjectName(selectedSubject)} learning path is ready.`,
         duration: 3000,
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to generate learning path:', error);
       toast({
         title: "Error",
@@ -110,13 +110,13 @@ export default function LearningPathRecommendations() {
         duration: 3000,
       });
     } finally {
-      setIsLoading(false: any);
+      setIsLoading(false);
     }
   };
   
   // Get human-readable subject name
   const getSubjectName = (subject: SubjectArea): string => {
-    switch (subject: any) {
+    switch (subject) {
       case SubjectArea.ENGLISH: return 'English';
       case SubjectArea.MATHEMATICS: return 'Mathematics';
       case SubjectArea.SCIENCE: return 'Science';
@@ -137,7 +137,7 @@ export default function LearningPathRecommendations() {
   
   // Get human-readable learning style name
   const getLearningStyleName = (style: LearningStyle): string => {
-    switch (style: any) {
+    switch (style) {
       case LearningStyle.VISUAL: return 'Visual';
       case LearningStyle.AUDITORY: return 'Auditory';
       case LearningStyle.READING_WRITING: return 'Reading/Writing';
@@ -149,7 +149,7 @@ export default function LearningPathRecommendations() {
   
   // Get learning style icon
   const getLearningStyleIcon = (style: LearningStyle) => {
-    switch (style: any) {
+    switch (style) {
       case LearningStyle.VISUAL: return '👁️';
       case LearningStyle.AUDITORY: return '👂';
       case LearningStyle.READING_WRITING: return '📝';
@@ -161,7 +161,7 @@ export default function LearningPathRecommendations() {
   
   // Get difficulty level name
   const getDifficultyName = (level: number): string => {
-    switch (level: any) {
+    switch (level) {
       case 1: return 'Beginner';
       case 2: return 'Elementary';
       case 3: return 'Intermediate';
@@ -206,7 +206,7 @@ export default function LearningPathRecommendations() {
         <CardHeader>
           <CardTitle>Generate Your Learning Path</CardTitle>
           <CardDescription>
-            Our AI will create a personalised learning path tailored to your learning style: any, strengths, and interests.
+            Our AI will create a personalised learning path tailored to your learning style, strengths, and interests.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -214,7 +214,7 @@ export default function LearningPathRecommendations() {
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="subject">Subject</Label>
-                <Select value={selectedSubject} onValueChange={(value: any) => setSelectedSubject(value as SubjectArea: any)}>
+                <Select value={selectedSubject} onValueChange={(value) => setSelectedSubject(value as SubjectArea)}>
                   <SelectTrigger id="subject">
                     <SelectValue placeholder="Select subject" />
                   </SelectTrigger>
@@ -232,8 +232,8 @@ export default function LearningPathRecommendations() {
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="duration">Duration (weeks: any)</Label>
-                <Select value={duration.toString()} onValueChange={(value: any) => setDuration(parseInt(value: any))}>
+                <Label htmlFor="duration">Duration (weeks)</Label>
+                <Select value={duration.toString()} onValueChange={(value) => setDuration(parseInt(value))}>
                   <SelectTrigger id="duration">
                     <SelectValue placeholder="Select duration" />
                   </SelectTrigger>
@@ -274,8 +274,8 @@ export default function LearningPathRecommendations() {
                 <div>
                   <p className="text-sm font-medium mb-1">Dominant Learning Style</p>
                   <div className="flex items-centre space-x-2">
-                    <span className="text-xl">{getLearningStyleIcon(LearningStyle.VISUAL: any)}</span>
-                    <span>{getLearningStyleName(LearningStyle.VISUAL: any)}</span>
+                    <span className="text-xl">{getLearningStyleIcon(LearningStyle.VISUAL)}</span>
+                    <span>{getLearningStyleName(LearningStyle.VISUAL)}</span>
                     <Progress value={60} className="h-2 w-20" />
                     <span className="text-sm text-muted-foreground">60%</span>
                   </div>
@@ -350,7 +350,7 @@ export default function LearningPathRecommendations() {
                 <Calendar className="h-5 w-5 text-primary" />
                 <div>
                   <p className="text-sm font-medium">Duration</p>
-                  <p>{learningPath.estimatedDuration} hours ({duration} weeks: any)</p>
+                  <p>{learningPath.estimatedDuration} hours ({duration} weeks)</p>
                 </div>
               </div>
               
@@ -358,7 +358,7 @@ export default function LearningPathRecommendations() {
                 <BarChart className="h-5 w-5 text-primary" />
                 <div>
                   <p className="text-sm font-medium">Difficulty</p>
-                  <p>{getDifficultyName(learningPath.difficulty: any)}</p>
+                  <p>{getDifficultyName(learningPath.difficulty)}</p>
                 </div>
               </div>
             </div>
@@ -367,14 +367,14 @@ export default function LearningPathRecommendations() {
               <div>
                 <h3 className="text-lg font-medium mb-2">Learning Style Alignment</h3>
                 <div className="flex items-centre space-x-2">
-                  <span className="text-xl">{getLearningStyleIcon(learningPath.alignedToLearningStyle: any)}</span>
-                  <span>{getLearningStyleName(learningPath.alignedToLearningStyle: any)}</span>
+                  <span className="text-xl">{getLearningStyleIcon(learningPath.alignedToLearningStyle)}</span>
+                  <span>{getLearningStyleName(learningPath.alignedToLearningStyle)}</span>
                   <Badge className="ml-2 bg-primary/20 text-primary border-primary/20">
                     Primary Style
                   </Badge>
                 </div>
                 <p className="text-sm text-muted-foreground mt-1">
-                  This learning path is optimised for your {getLearningStyleName(learningPath.alignedToLearningStyle: any)} learning style, 
+                  This learning path is optimised for your {getLearningStyleName(learningPath.alignedToLearningStyle)} learning style, 
                   with content and activities designed to match how you learn best.
                 </p>
               </div>
@@ -382,7 +382,7 @@ export default function LearningPathRecommendations() {
               <div>
                 <h3 className="text-lg font-medium mb-2">Learning Objectives</h3>
                 <ul className="space-y-2">
-                  {learningPath.objectives.map((objective: any, index) => (
+                  {learningPath.objectives.map((objective, index) => (
                     <li key={index} className="flex items-start">
                       <CheckCircle2 className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
                       <span>{objective}</span>
@@ -400,19 +400,19 @@ export default function LearningPathRecommendations() {
                   {/* Sample modules - in a real implementation, these would come from the learning path */}
                   <Card>
                     <CardHeader className="pb-2">
-                      <CardTitle className="text-base">Module 1: Introduction to {getSubjectName(learningPath.subject: any)}</CardTitle>
+                      <CardTitle className="text-base">Module 1: Introduction to {getSubjectName(learningPath.subject)}</CardTitle>
                     </CardHeader>
                     <CardContent className="pb-2">
                       <p className="text-sm">
-                        An introduction to key concepts in {getSubjectName(learningPath.subject: any)}, 
-                        tailored to your {getLearningStyleName(learningPath.alignedToLearningStyle: any)} learning style.
+                        An introduction to key concepts in {getSubjectName(learningPath.subject)}, 
+                        tailored to your {getLearningStyleName(learningPath.alignedToLearningStyle)} learning style.
                       </p>
                       <div className="flex items-centre justify-between mt-2">
                         <div className="flex items-centre space-x-2">
                           <Clock className="h-4 w-4 text-muted-foreground" />
                           <span className="text-sm text-muted-foreground">2 hours</span>
                         </div>
-                        <Badge variant="outline">{getDifficultyName(1: any)}</Badge>
+                        <Badge variant="outline">{getDifficultyName(1)}</Badge>
                       </div>
                     </CardContent>
                     <CardFooter>
@@ -429,7 +429,7 @@ export default function LearningPathRecommendations() {
                     </CardHeader>
                     <CardContent className="pb-2">
                       <p className="text-sm">
-                        Explore the fundamental principles of {getSubjectName(learningPath.subject: any)} 
+                        Explore the fundamental principles of {getSubjectName(learningPath.subject)} 
                         and how they apply to real-world scenarios.
                       </p>
                       <div className="flex items-centre justify-between mt-2">
@@ -437,7 +437,7 @@ export default function LearningPathRecommendations() {
                           <Clock className="h-4 w-4 text-muted-foreground" />
                           <span className="text-sm text-muted-foreground">3 hours</span>
                         </div>
-                        <Badge variant="outline">{getDifficultyName(2: any)}</Badge>
+                        <Badge variant="outline">{getDifficultyName(2)}</Badge>
                       </div>
                     </CardContent>
                     <CardFooter>
@@ -454,7 +454,7 @@ export default function LearningPathRecommendations() {
                     </CardHeader>
                     <CardContent className="pb-2">
                       <p className="text-sm">
-                        Delve deeper into advanced topics in {getSubjectName(learningPath.subject: any)}, 
+                        Delve deeper into advanced topics in {getSubjectName(learningPath.subject)}, 
                         building on your existing knowledge.
                       </p>
                       <div className="flex items-centre justify-between mt-2">
@@ -462,7 +462,7 @@ export default function LearningPathRecommendations() {
                           <Clock className="h-4 w-4 text-muted-foreground" />
                           <span className="text-sm text-muted-foreground">4 hours</span>
                         </div>
-                        <Badge variant="outline">{getDifficultyName(3: any)}</Badge>
+                        <Badge variant="outline">{getDifficultyName(3)}</Badge>
                       </div>
                     </CardContent>
                     <CardFooter>
@@ -478,11 +478,11 @@ export default function LearningPathRecommendations() {
               <div className="bg-muted rounded-lg p-4">
                 <h3 className="text-lg font-medium mb-2">UK Curriculum Alignment</h3>
                 <p className="text-sm mb-3">
-                  This learning path is aligned with the UK National Curriculum for Key Stage {learningPath.keyStage.replace('ks', '')} {getSubjectName(learningPath.subject: any)}.
+                  This learning path is aligned with the UK National Curriculum for Key Stage {learningPath.keyStage.replace('ks', '')} {getSubjectName(learningPath.subject)}.
                 </p>
                 <div className="flex flex-wrap gap-2">
                   <Badge variant="outline">
-                    KS{learningPath.keyStage.replace('ks', '')} {getSubjectName(learningPath.subject: any)}
+                    KS{learningPath.keyStage.replace('ks', '')} {getSubjectName(learningPath.subject)}
                   </Badge>
                   <Badge variant="outline">
                     National Curriculum

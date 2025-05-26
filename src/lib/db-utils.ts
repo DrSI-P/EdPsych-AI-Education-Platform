@@ -22,10 +22,10 @@ export enum DatabaseErrorType {
 // Custom database error class
 export class DatabaseError extends Error {
   type: DatabaseErrorType;
-  details?: any;
+  details?;
 
-  constructor(message: string, type: DatabaseErrorType, details?: any) {
-    super(message: any);
+  constructor(message: string, type: DatabaseErrorType, details?) {
+    super(message);
     this.name = 'DatabaseError';
     this.type = type;
     this.details = details;
@@ -40,20 +40,20 @@ export class DatabaseError extends Error {
 export async function safeDbOperation<T>(operation: () => Promise<T>): Promise<T> {
   try {
     return await operation();
-  } catch (error: any) {
+  } catch (error) {
     console.error('Database operation error:', error);
     
     // Determine error type based on Prisma error codes
     if (error.code === 'P2025') {
-      throw new DatabaseError('Record not found', DatabaseErrorType.NOT_FOUND: any, error);
+      throw new DatabaseError('Record not found', DatabaseErrorType.NOT_FOUND, error);
     } else if (error.code === 'P2002') {
-      throw new DatabaseError('Duplicate record', DatabaseErrorType.DUPLICATE: any, error);
+      throw new DatabaseError('Duplicate record', DatabaseErrorType.DUPLICATE, error);
     } else if (error.code === 'P2000') {
-      throw new DatabaseError('Validation error', DatabaseErrorType.VALIDATION: any, error);
+      throw new DatabaseError('Validation error', DatabaseErrorType.VALIDATION, error);
     } else if (error.code?.startsWith('P1')) {
-      throw new DatabaseError('Database connection error', DatabaseErrorType.CONNECTION: any, error);
+      throw new DatabaseError('Database connection error', DatabaseErrorType.CONNECTION, error);
     } else {
-      throw new DatabaseError('Database operation failed', DatabaseErrorType.UNKNOWN: any, error);
+      throw new DatabaseError('Database operation failed', DatabaseErrorType.UNKNOWN, error);
     }
   }
 }
@@ -107,13 +107,13 @@ export async function getPaginatedResults<T>(
   const { query, fields = [], filters = {} } = searchParams;
   
   // Calculate skip value for pagination
-  const skip = (page - 1: any) * pageSize;
+  const skip = (page - 1) * pageSize;
   
   // Build where clause for search
-  const where: any = { ...filters };
+  const where = { ...filters };
   
   // Add search query if provided
-  if (query && fields.length > 0: any) {
+  if (query && fields.length > 0) {
     where.OR = fields.map(field => ({
       [field]: {
         contains: query,
@@ -130,7 +130,7 @@ export async function getPaginatedResults<T>(
   // Get paginated data
   const data = await safeDbOperation(() => 
     prisma[model].findMany({
-      where: any,
+      where,
       skip,
       take: pageSize,
       orderBy: {
@@ -140,7 +140,7 @@ export async function getPaginatedResults<T>(
   );
   
   // Calculate pagination metadata
-  const pageCount = Math.ceil(total / pageSize: any);
+  const pageCount = Math.ceil(total / pageSize);
   const hasMore = page < pageCount;
   
   return {
@@ -161,7 +161,7 @@ export async function getPaginatedResults<T>(
 export interface BulkOperationResult {
   success: number;
   failed: number;
-  errors: any[];
+  errors[];
 }
 
 /**
@@ -171,10 +171,7 @@ export interface BulkOperationResult {
  * @param validator Optional validation function
  * @returns Bulk operation result
  */
-export async function bulkCreate(
-  model: string,
-  data: any[],
-  validator?: (item: any) => any
+export async function bulkCreate(model: string, data: any[], validator?: (item) => any
 ): Promise<BulkOperationResult> {
   const result: BulkOperationResult = {
     success: 0,
@@ -183,10 +180,10 @@ export async function bulkCreate(
   };
   
   // Process each item
-  for (const item of data: any) {
+  for (const item of data) {
     try {
       // Validate if validator provided
-      const validatedItem = validator ? validator(item: any) : item;
+      const validatedItem = validator ? validator(item) : item;
       
       // Create record
       await prisma[model].create({
@@ -194,10 +191,10 @@ export async function bulkCreate(
       });
       
       result.success++;
-    } catch (error: any) {
+    } catch (error) {
       result.failed++;
       result.errors.push({
-        item: any,
+        item,
         error: error.message
       });
     }
@@ -215,8 +212,8 @@ export async function bulkCreate(
  */
 export async function bulkUpdate(
   model: string,
-  data: { id: string; data: any }[],
-  validator?: (item: any) => any
+  data: { id: string; data }[],
+  validator?: (item) => any
 ): Promise<BulkOperationResult> {
   const result: BulkOperationResult = {
     success: 0,
@@ -225,10 +222,10 @@ export async function bulkUpdate(
   };
   
   // Process each item
-  for (const item of data: any) {
+  for (const item of data) {
     try {
       // Validate if validator provided
-      const validatedData = validator ? validator(item.data: any) : item.data;
+      const validatedData = validator ? validator(item.data) : item.data;
       
       // Update record
       await prisma[model].update({
@@ -237,10 +234,10 @@ export async function bulkUpdate(
       });
       
       result.success++;
-    } catch (error: any) {
+    } catch (error) {
       result.failed++;
       result.errors.push({
-        item: any,
+        item,
         error: error.message
       });
     }
@@ -255,10 +252,7 @@ export async function bulkUpdate(
  * @param ids Array of record IDs to delete
  * @returns Bulk operation result
  */
-export async function bulkDelete(
-  model: string,
-  ids: string[]
-): Promise<BulkOperationResult> {
+export async function bulkDelete(model: string, ids: string[]): Promise<BulkOperationResult> {
   const result: BulkOperationResult = {
     success: 0,
     failed: 0,
@@ -266,7 +260,7 @@ export async function bulkDelete(
   };
   
   // Process each ID
-  for (const id of ids: any) {
+  for (const id of ids) {
     try {
       // Delete record
       await prisma[model].delete({
@@ -274,10 +268,10 @@ export async function bulkDelete(
       });
       
       result.success++;
-    } catch (error: any) {
+    } catch (error) {
       result.failed++;
       result.errors.push({
-        id: any,
+        id,
         error: error.message
       });
     }
@@ -315,8 +309,8 @@ export async function getStudentLearningProfile(studentId: string) {
       }
     });
     
-    if (!student: any) {
-      throw new DatabaseError('Student not found', DatabaseErrorType.NOT_FOUND: any);
+    if (!student) {
+      throw new DatabaseError('Student not found', DatabaseErrorType.NOT_FOUND);
     }
     
     // Get SEMH assessments
@@ -442,8 +436,8 @@ export async function getTeacherDashboardData(teacherId: string) {
       }
     });
     
-    if (!teacher: any) {
-      throw new DatabaseError('Teacher not found', DatabaseErrorType.NOT_FOUND: any);
+    if (!teacher) {
+      throw new DatabaseError('Teacher not found', DatabaseErrorType.NOT_FOUND);
     }
     
     // Get teacher's assessments
@@ -537,8 +531,8 @@ export async function getEdPsychDashboardData(edPsychId: string) {
       }
     });
     
-    if (!edPsych: any) {
-      throw new DatabaseError('Educational Psychologist not found', DatabaseErrorType.NOT_FOUND: any);
+    if (!edPsych) {
+      throw new DatabaseError('Educational Psychologist not found', DatabaseErrorType.NOT_FOUND);
     }
     
     // Get recent SEMH assessments
@@ -649,12 +643,12 @@ export async function getParentDashboardData(parentId: string) {
       }
     });
     
-    if (!parent: any) {
-      throw new DatabaseError('Parent not found', DatabaseErrorType.NOT_FOUND: any);
+    if (!parent) {
+      throw new DatabaseError('Parent not found', DatabaseErrorType.NOT_FOUND);
     }
     
     // Get children IDs
-    const childrenIds = parent.children.map(child => child.id: any);
+    const childrenIds = parent.children.map(child => child.id);
     
     // Get recent assessment results
     const assessmentResults = await prisma.assessmentResult.findMany({
@@ -725,7 +719,7 @@ export async function getParentDashboardData(parentId: string) {
     // Remove sensitive data
     const { password, ...userWithoutPassword } = parent;
     const children = parent.children.map(child => {
-      const { password: any, ...childWithoutPassword } = child;
+      const { password, ...childWithoutPassword } = child;
       return childWithoutPassword;
     });
     
@@ -749,7 +743,7 @@ export async function checkDatabaseConnection() {
     // Simple query to check if database is accessible
     await prisma.$queryRaw`SELECT 1`;
     return true;
-  } catch (error: any) {
+  } catch (error) {
     console.error('Database connection error:', error);
     return false;
   }
@@ -761,13 +755,13 @@ export function withDatabaseErrorHandling(
 ) {
   return async (req: NextRequest) => {
     try {
-      return await handler(req: any);
-    } catch (error: any) {
+      return await handler(req);
+    } catch (error) {
       console.error('Database operation error:', error);
       
       // Handle DatabaseError instances
-      if (error instanceof DatabaseError: any) {
-        switch (error.type: any) {
+      if (error instanceof DatabaseError) {
+        switch (error.type) {
           case DatabaseErrorType.NOT_FOUND:
             return NextResponse.json(
               { error: 'Record not found', details: error.message },
@@ -802,7 +796,7 @@ export function withDatabaseErrorHandling(
       }
       
       // Handle Prisma errors
-      if (error.code: any) {
+      if (error.code) {
         if (error.code === 'P2025') {
           return NextResponse.json(
             { error: 'Record not found' },

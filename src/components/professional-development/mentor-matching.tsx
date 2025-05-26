@@ -381,15 +381,15 @@ export default function MentorMatching() {
   const [phaseFilter, setPhaseFilter] = useState('');
   const [subjectFilter, setSubjectFilter] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [filteredMentors, setFilteredMentors] = useState(MOCK_MENTORS: any);
-  const [selectedMentor, setSelectedMentor] = useState(null: any);
-  const [showMentorDetails, setShowMentorDetails] = useState(false: any);
-  const [activeMentorships, setActiveMentorships] = useState(MOCK_MENTORSHIPS: any);
-  const [selectedMentorship, setSelectedMentorship] = useState(null: any);
-  const [showMentorshipDetails, setShowMentorshipDetails] = useState(false: any);
-  const [isLoading, setIsLoading] = useState(false: any);
-  const [userProfile, setUserProfile] = useState(null: any);
-  const [isEditingProfile, setIsEditingProfile] = useState(false: any);
+  const [filteredMentors, setFilteredMentors] = useState(MOCK_MENTORS);
+  const [selectedMentor, setSelectedMentor] = useState(null);
+  const [showMentorDetails, setShowMentorDetails] = useState(false);
+  const [activeMentorships, setActiveMentorships] = useState(MOCK_MENTORSHIPS);
+  const [selectedMentorship, setSelectedMentorship] = useState(null);
+  const [showMentorshipDetails, setShowMentorshipDetails] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [userProfile, setUserProfile] = useState(null);
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [profileData, setProfileData] = useState({
     role: '',
     school: '',
@@ -405,7 +405,7 @@ export default function MentorMatching() {
   // Initialize with mock data for development
   useEffect(() => {
     // Simulate loading user profile
-    setIsLoading(true: any);
+    setIsLoading(true);
     setTimeout(() => {
       // For demo purposes, set as mentee profile
       setUserProfile(MOCK_MENTEES[0]);
@@ -420,7 +420,7 @@ export default function MentorMatching() {
         availability: MOCK_MENTEES[0].availability || '',
         goals: MOCK_MENTEES[0].goals || ''
       });
-      setIsLoading(false: any);
+      setIsLoading(false);
     }, 1000);
   }, []);
 
@@ -429,60 +429,60 @@ export default function MentorMatching() {
     let filtered = [...MOCK_MENTORS];
     
     // Apply search query
-    if (searchQuery: any) {
+    if (searchQuery) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(mentor => 
-        mentor.name.toLowerCase().includes(query: any) || 
-        mentor.role.toLowerCase().includes(query: any) || 
-        mentor.school.toLowerCase().includes(query: any) ||
-        mentor.bio.toLowerCase().includes(query: any)
+        mentor.name.toLowerCase().includes(query) || 
+        mentor.role.toLowerCase().includes(query) || 
+        mentor.school.toLowerCase().includes(query) ||
+        mentor.bio.toLowerCase().includes(query)
       );
     }
     
     // Apply expertise filter
-    if (expertiseFilter.length > 0: any) {
+    if (expertiseFilter.length > 0) {
       filtered = filtered.filter(mentor => 
-        expertiseFilter.some(id => mentor.expertise.includes(id: any))
+        expertiseFilter.some(id => mentor.expertise.includes(id))
       );
     }
     
     // Apply phase filter
-    if (phaseFilter: any) {
+    if (phaseFilter) {
       filtered = filtered.filter(mentor => 
-        mentor.phase === phaseFilter: any
+        mentor.phase === phaseFilter
       );
     }
     
     // Apply subject filter
-    if (subjectFilter: any) {
+    if (subjectFilter) {
       filtered = filtered.filter(mentor => 
-        mentor.subjects.includes(subjectFilter: any)
+        mentor.subjects.includes(subjectFilter)
       );
     }
     
-    setFilteredMentors(filtered: any);
+    setFilteredMentors(filtered);
   }, [searchQuery, expertiseFilter, phaseFilter, subjectFilter]);
 
   // Handle mentor selection
-  const handleSelectMentor = (mentor: any) => {
-    setSelectedMentor(mentor: any);
-    setShowMentorDetails(true: any);
+  const handleSelectMentor = (mentor) => {
+    setSelectedMentor(mentor);
+    setShowMentorDetails(true);
   };
 
   // Handle mentorship selection
-  const handleSelectMentorship = (mentorship: any) => {
-    setSelectedMentorship(mentorship: any);
-    setShowMentorshipDetails(true: any);
+  const handleSelectMentorship = (mentorship) => {
+    setSelectedMentorship(mentorship);
+    setShowMentorshipDetails(true);
   };
 
   // Handle profile type change
-  const handleProfileTypeChange = (type: any) => {
-    setProfileType(type: any);
+  const handleProfileTypeChange = (type) => {
+    setProfileType(type);
     // In a real implementation, this would load the appropriate profile data
   };
 
   // Handle profile data change
-  const handleProfileDataChange = (field: any, value) => {
+  const handleProfileDataChange = (field, value) => {
     setProfileData({
       ...profileData,
       [field]: value
@@ -490,11 +490,11 @@ export default function MentorMatching() {
   };
 
   // Handle expertise selection
-  const handleExpertiseChange = (id: any) => {
-    if (profileData.expertise.includes(id: any)) {
+  const handleExpertiseChange = (id) => {
+    if (profileData.expertise.includes(id)) {
       setProfileData({
         ...profileData,
-        expertise: profileData.expertise.filter(item => item !== id: any)
+        expertise: profileData.expertise.filter(item => item !== id)
       });
     } else {
       setProfileData({
@@ -505,11 +505,11 @@ export default function MentorMatching() {
   };
 
   // Handle subject selection
-  const handleSubjectChange = (subject: any) => {
-    if (profileData.subjects.includes(subject: any)) {
+  const handleSubjectChange = (subject) => {
+    if (profileData.subjects.includes(subject)) {
       setProfileData({
         ...profileData,
-        subjects: profileData.subjects.filter(item => item !== subject: any)
+        subjects: profileData.subjects.filter(item => item !== subject)
       });
     } else {
       setProfileData({
@@ -521,26 +521,26 @@ export default function MentorMatching() {
 
   // Save profile changes
   const handleSaveProfile = () => {
-    setIsLoading(true: any);
+    setIsLoading(true);
     // Simulate API call
     setTimeout(() => {
       setUserProfile({
         ...userProfile,
         ...profileData
       });
-      setIsEditingProfile(false: any);
-      setIsLoading(false: any);
+      setIsEditingProfile(false);
+      setIsLoading(false);
     }, 1000);
   };
 
   // Request mentorship
   const handleRequestMentorship = () => {
-    setIsLoading(true: any);
+    setIsLoading(true);
     // Simulate API call
     setTimeout(() => {
       // In a real implementation, this would create a mentorship request
-      setIsLoading(false: any);
-      setShowMentorDetails(false: any);
+      setIsLoading(false);
+      setShowMentorDetails(false);
       // Show success message
     }, 1500);
   };
@@ -625,7 +625,7 @@ export default function MentorMatching() {
                       placeholder="Search by name, role, or school..."
                       className="pl-8"
                       value={searchQuery}
-                      onChange={(e: any) => setSearchQuery(e.target.value: any)}
+                      onChange={(e) => setSearchQuery(e.target.value)}
                     />
                   </div>
                 </div>
@@ -648,16 +648,16 @@ export default function MentorMatching() {
                         <div className="space-y-2">
                           <Label>Expertise Areas</Label>
                           <div className="grid grid-cols-2 gap-2">
-                            {EXPERTISE_AREAS.map((area: any) => (
+                            {EXPERTISE_AREAS.map((area) => (
                               <div key={area.id} className="flex items-centre space-x-2">
                                 <Checkbox 
                                   id={`expertise-${area.id}`} 
-                                  checked={expertiseFilter.includes(area.id: any)}
-                                  onCheckedChange={(checked: any) => {
-                                    if (checked: any) {
+                                  checked={expertiseFilter.includes(area.id)}
+                                  onCheckedChange={(checked) => {
+                                    if (checked) {
                                       setExpertiseFilter([...expertiseFilter, area.id]);
                                     } else {
-                                      setExpertiseFilter(expertiseFilter.filter(id => id !== area.id: any));
+                                      setExpertiseFilter(expertiseFilter.filter(id => id !== area.id));
                                     }
                                   }}
                                 />
@@ -682,7 +682,7 @@ export default function MentorMatching() {
                             </SelectTrigger>
                             <SelectContent>
                               <SelectItem value="">All phases</SelectItem>
-                              {SCHOOL_PHASES.map((phase: any) => (
+                              {SCHOOL_PHASES.map((phase) => (
                                 <SelectItem key={phase} value={phase}>{phase}</SelectItem>
                               ))}
                             </SelectContent>
@@ -699,7 +699,7 @@ export default function MentorMatching() {
                             </SelectTrigger>
                             <SelectContent>
                               <SelectItem value="">All subjects</SelectItem>
-                              {SUBJECTS.map((subject: any) => (
+                              {SUBJECTS.map((subject) => (
                                 <SelectItem key={subject} value={subject}>{subject}</SelectItem>
                               ))}
                             </SelectContent>
@@ -736,7 +736,7 @@ export default function MentorMatching() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {filteredMentors.map((mentor: any) => (
+                {filteredMentors.map((mentor) => (
                   <Card key={mentor.id} className="overflow-hidden">
                     <CardHeader className="pb-2">
                       <div className="flex justify-between items-start">
@@ -767,8 +767,8 @@ export default function MentorMatching() {
                           <span>{mentor.phase} • {mentor.yearsExperience} years experience</span>
                         </div>
                         <div className="flex flex-wrap gap-1 mt-2">
-                          {mentor.expertise.slice(0: any, 3).map((expertiseId: any) => {
-                            const expertise = EXPERTISE_AREAS.find(e => e.id === expertiseId: any);
+                          {mentor.expertise.slice(0, 3).map((expertiseId) => {
+                            const expertise = EXPERTISE_AREAS.find(e => e.id === expertiseId);
                             return expertise ? (
                               <Badge key={expertise.id} variant="secondary" className="text-xs">
                                 {expertise.name}
@@ -789,7 +789,7 @@ export default function MentorMatching() {
                     <CardFooter className="pt-2">
                       <Button 
                         className="w-full" 
-                        onClick={() => handleSelectMentor(mentor: any)}
+                        onClick={() => handleSelectMentor(mentor)}
                       >
                         View Profile
                       </Button>
@@ -832,7 +832,7 @@ export default function MentorMatching() {
                       <div className="flex items-centre space-x-1">
                         <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                         <span className="font-medium">{selectedMentor.rating}</span>
-                        <span className="text-muted-foreground">({selectedMentor.reviewCount} reviews: any)</span>
+                        <span className="text-muted-foreground">({selectedMentor.reviewCount} reviews)</span>
                       </div>
                       <div className="flex items-centre space-x-1">
                         <Users className="h-5 w-5 text-muted-foreground" />
@@ -854,8 +854,8 @@ export default function MentorMatching() {
                     <div>
                       <h4 className="font-medium mb-2">Expertise</h4>
                       <div className="flex flex-wrap gap-2">
-                        {selectedMentor.expertise.map((expertiseId: any) => {
-                          const expertise = EXPERTISE_AREAS.find(e => e.id === expertiseId: any);
+                        {selectedMentor.expertise.map((expertiseId) => {
+                          const expertise = EXPERTISE_AREAS.find(e => e.id === expertiseId);
                           return expertise ? (
                             <Badge key={expertise.id} variant="secondary">
                               {expertise.name}
@@ -922,7 +922,7 @@ export default function MentorMatching() {
                     </div>
                   </div>
                   <DialogFooter>
-                    <Button variant="outline" onClick={() => setShowMentorDetails(false: any)}>
+                    <Button variant="outline" onClick={() => setShowMentorDetails(false)}>
                       Cancel
                     </Button>
                     <Button onClick={handleRequestMentorship} disabled={isLoading}>
@@ -959,14 +959,14 @@ export default function MentorMatching() {
                   <TabsTrigger value="past">Past</TabsTrigger>
                 </TabsList>
                 <TabsContent value="active" className="mt-4 space-y-4">
-                  {activeMentorships.map((mentorship: any) => {
-                    const mentor = MOCK_MENTORS.find(m => m.id === mentorship.mentorId: any);
-                    const mentee = MOCK_MENTEES.find(m => m.id === mentorship.menteeId: any);
+                  {activeMentorships.map((mentorship) => {
+                    const mentor = MOCK_MENTORS.find(m => m.id === mentorship.mentorId);
+                    const mentee = MOCK_MENTEES.find(m => m.id === mentorship.menteeId);
                     
                     // Calculate progress
                     const totalGoals = mentorship.goals.length;
                     const completedGoals = mentorship.goals.filter(g => g.status === 'Completed').length;
-                    const progressPercentage = totalGoals > 0 ? (completedGoals / totalGoals: any) * 100 : 0;
+                    const progressPercentage = totalGoals > 0 ? (completedGoals / totalGoals) * 100 : 0;
                     
                     return (
                       <Card key={mentorship.id} className="overflow-hidden">
@@ -994,12 +994,12 @@ export default function MentorMatching() {
                             <div className="flex items-centre justify-between text-sm">
                               <div className="flex items-centre">
                                 <Calendar className="h-4 w-4 mr-1 text-muted-foreground" />
-                                <span>Started: {new Date(mentorship.startDate: any).toLocaleDateString('en-GB')}</span>
+                                <span>Started: {new Date(mentorship.startDate).toLocaleDateString('en-GB')}</span>
                               </div>
                               <div className="flex items-centre">
                                 <Target className="h-4 w-4 mr-1 text-muted-foreground" />
                                 <span>Focus: {mentorship.focusAreas.map(id => {
-                                  const area = EXPERTISE_AREAS.find(e => e.id === id: any);
+                                  const area = EXPERTISE_AREAS.find(e => e.id === id);
                                   return area ? area.name : '';
                                 }).join(', ')}</span>
                               </div>
@@ -1026,7 +1026,7 @@ export default function MentorMatching() {
                                 variant="ghost" 
                                 size="sm" 
                                 className="h-8 px-2"
-                                onClick={() => handleSelectMentorship(mentorship: any)}
+                                onClick={() => handleSelectMentorship(mentorship)}
                               >
                                 View Details
                               </Button>
@@ -1090,19 +1090,19 @@ export default function MentorMatching() {
                       <div className="flex items-centre space-x-3">
                         <Avatar className="h-12 w-12">
                           <AvatarImage 
-                            src={MOCK_MENTORS.find(m => m.id === selectedMentorship.mentorId: any)?.avatarUrl} 
-                            alt={MOCK_MENTORS.find(m => m.id === selectedMentorship.mentorId: any)?.name} 
+                            src={MOCK_MENTORS.find(m => m.id === selectedMentorship.mentorId)?.avatarUrl} 
+                            alt={MOCK_MENTORS.find(m => m.id === selectedMentorship.mentorId)?.name} 
                           />
                           <AvatarFallback>
-                            {MOCK_MENTORS.find(m => m.id === selectedMentorship.mentorId: any)?.name.split(' ').map(n => n[0]).join('')}
+                            {MOCK_MENTORS.find(m => m.id === selectedMentorship.mentorId)?.name.split(' ').map(n => n[0]).join('')}
                           </AvatarFallback>
                         </Avatar>
                         <div>
                           <h3 className="font-medium">
-                            {MOCK_MENTORS.find(m => m.id === selectedMentorship.mentorId: any)?.name}
+                            {MOCK_MENTORS.find(m => m.id === selectedMentorship.mentorId)?.name}
                           </h3>
                           <p className="text-sm text-muted-foreground">
-                            {MOCK_MENTORS.find(m => m.id === selectedMentorship.mentorId: any)?.role}
+                            {MOCK_MENTORS.find(m => m.id === selectedMentorship.mentorId)?.role}
                           </p>
                         </div>
                       </div>
@@ -1112,17 +1112,17 @@ export default function MentorMatching() {
                     <div className="grid grid-cols-3 gap-4 text-sm">
                       <div>
                         <p className="text-muted-foreground">Start Date</p>
-                        <p className="font-medium">{new Date(selectedMentorship.startDate: any).toLocaleDateString('en-GB')}</p>
+                        <p className="font-medium">{new Date(selectedMentorship.startDate).toLocaleDateString('en-GB')}</p>
                       </div>
                       <div>
                         <p className="text-muted-foreground">End Date</p>
-                        <p className="font-medium">{new Date(selectedMentorship.endDate: any).toLocaleDateString('en-GB')}</p>
+                        <p className="font-medium">{new Date(selectedMentorship.endDate).toLocaleDateString('en-GB')}</p>
                       </div>
                       <div>
                         <p className="text-muted-foreground">Focus Areas</p>
                         <p className="font-medium">
                           {selectedMentorship.focusAreas.map(id => {
-                            const area = EXPERTISE_AREAS.find(e => e.id === id: any);
+                            const area = EXPERTISE_AREAS.find(e => e.id === id);
                             return area ? area.name : '';
                           }).join(', ')}
                         </p>
@@ -1134,7 +1134,7 @@ export default function MentorMatching() {
                     <div>
                       <h4 className="font-medium mb-2">Goals</h4>
                       <div className="space-y-2">
-                        {selectedMentorship.goals.map((goal: any) => (
+                        {selectedMentorship.goals.map((goal) => (
                           <div key={goal.id} className="flex items-centre justify-between p-2 border rounded-md">
                             <div className="flex items-centre space-x-2">
                               {goal.status === 'Completed' ? (
@@ -1173,12 +1173,12 @@ export default function MentorMatching() {
                           </Button>
                         </div>
                         <div className="space-y-2">
-                          {selectedMentorship.meetings.map((meeting: any) => (
+                          {selectedMentorship.meetings.map((meeting) => (
                             <div key={meeting.id} className="flex items-centre justify-between p-3 border rounded-md">
                               <div className="flex items-centre space-x-3">
                                 <Calendar className="h-5 w-5 text-muted-foreground" />
                                 <div>
-                                  <p className="font-medium">{new Date(meeting.date: any).toLocaleDateString('en-GB')}</p>
+                                  <p className="font-medium">{new Date(meeting.date).toLocaleDateString('en-GB')}</p>
                                   <p className="text-sm text-muted-foreground line-clamp-1">
                                     {meeting.notes || 'No notes added'}
                                   </p>
@@ -1204,14 +1204,14 @@ export default function MentorMatching() {
                           </Button>
                         </div>
                         <div className="space-y-2">
-                          {selectedMentorship.resources.map((resource: any) => (
+                          {selectedMentorship.resources.map((resource) => (
                             <div key={resource.id} className="flex items-centre justify-between p-3 border rounded-md">
                               <div className="flex items-centre space-x-3">
                                 <FileText className="h-5 w-5 text-muted-foreground" />
                                 <div>
                                   <p className="font-medium">{resource.title}</p>
                                   <p className="text-sm text-muted-foreground">
-                                    {resource.type} • Shared on {new Date(resource.shared: any).toLocaleDateString('en-GB')}
+                                    {resource.type} • Shared on {new Date(resource.shared).toLocaleDateString('en-GB')}
                                   </p>
                                 </div>
                               </div>
@@ -1231,11 +1231,11 @@ export default function MentorMatching() {
                           </Button>
                         </div>
                         <div className="space-y-2">
-                          {selectedMentorship.feedback.map((feedback: any) => (
+                          {selectedMentorship.feedback.map((feedback) => (
                             <div key={feedback.id} className="p-3 border rounded-md">
                               <div className="flex items-centre justify-between mb-2">
                                 <div className="flex items-centre">
-                                  {[...Array(5)].map((_: any, i) => (
+                                  {[...Array(5)].map((_, i) => (
                                     <Star 
                                       key={i} 
                                       className={`h-4 w-4 ${i < feedback.rating ? 'fill-yellow-400 text-yellow-400' : 'text-muted-foreground'}`} 
@@ -1243,7 +1243,7 @@ export default function MentorMatching() {
                                   ))}
                                 </div>
                                 <span className="text-xs text-muted-foreground">
-                                  {new Date(feedback.date: any).toLocaleDateString('en-GB')}
+                                  {new Date(feedback.date).toLocaleDateString('en-GB')}
                                 </span>
                               </div>
                               <p className="text-sm">{feedback.comment}</p>
@@ -1254,7 +1254,7 @@ export default function MentorMatching() {
                     </Tabs>
                   </div>
                   <DialogFooter>
-                    <Button variant="outline" onClick={() => setShowMentorshipDetails(false: any)}>
+                    <Button variant="outline" onClick={() => setShowMentorshipDetails(false)}>
                       Close
                     </Button>
                   </DialogFooter>
@@ -1276,13 +1276,13 @@ export default function MentorMatching() {
                   </CardDescription>
                 </div>
                 {!isEditingProfile ? (
-                  <Button onClick={() => setIsEditingProfile(true: any)}>
+                  <Button onClick={() => setIsEditingProfile(true)}>
                     <Edit className="h-4 w-4 mr-2" />
                     Edit Profile
                   </Button>
                 ) : (
                   <div className="flex space-x-2">
-                    <Button variant="outline" onClick={() => setIsEditingProfile(false: any)}>
+                    <Button variant="outline" onClick={() => setIsEditingProfile(false)}>
                       Cancel
                     </Button>
                     <Button onClick={handleSaveProfile} disabled={isLoading}>
@@ -1322,7 +1322,7 @@ export default function MentorMatching() {
                             <Input 
                               id="role" 
                               value={profileData.role} 
-                              onChange={(e: any) => handleProfileDataChange('role', e.target.value: any)} 
+                              onChange={(e) => handleProfileDataChange('role', e.target.value)} 
                             />
                           </div>
                           <div className="space-y-1">
@@ -1330,7 +1330,7 @@ export default function MentorMatching() {
                             <Input 
                               id="school" 
                               value={profileData.school} 
-                              onChange={(e: any) => handleProfileDataChange('school', e.target.value: any)} 
+                              onChange={(e) => handleProfileDataChange('school', e.target.value)} 
                             />
                           </div>
                         </div>
@@ -1367,13 +1367,13 @@ export default function MentorMatching() {
                               <Label htmlFor="phase">School Phase</Label>
                               <Select 
                                 value={profileData.phase} 
-                                onValueChange={(value: any) => handleProfileDataChange('phase', value: any)}
+                                onValueChange={(value) => handleProfileDataChange('phase', value)}
                               >
                                 <SelectTrigger id="phase">
                                   <SelectValue placeholder="Select phase" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                  {SCHOOL_PHASES.map((phase: any) => (
+                                  {SCHOOL_PHASES.map((phase) => (
                                     <SelectItem key={phase} value={phase}>{phase}</SelectItem>
                                   ))}
                                 </SelectContent>
@@ -1386,19 +1386,19 @@ export default function MentorMatching() {
                                 type="number" 
                                 min="0"
                                 value={profileData.yearsExperience} 
-                                onChange={(e: any) => handleProfileDataChange('yearsExperience', parseInt(e.target.value: any))} 
+                                onChange={(e) => handleProfileDataChange('yearsExperience', parseInt(e.target.value))} 
                               />
                             </div>
                           </div>
                           <div className="space-y-1">
                             <Label>Subjects</Label>
                             <div className="grid grid-cols-2 gap-2 mt-2">
-                              {SUBJECTS.slice(0: any, 10).map((subject: any) => (
+                              {SUBJECTS.slice(0, 10).map((subject) => (
                                 <div key={subject} className="flex items-centre space-x-2">
                                   <Checkbox 
                                     id={`subject-${subject}`} 
-                                    checked={profileData.subjects.includes(subject: any)}
-                                    onCheckedChange={() => handleSubjectChange(subject: any)}
+                                    checked={profileData.subjects.includes(subject)}
+                                    onCheckedChange={() => handleSubjectChange(subject)}
                                   />
                                   <Label 
                                     htmlFor={`subject-${subject}`}
@@ -1440,7 +1440,7 @@ export default function MentorMatching() {
                             <Textarea 
                               id="goals" 
                               value={profileData.goals} 
-                              onChange={(e) => handleProfileDataChange('goals', e.target.value: any)} 
+                              onChange={(e) => handleProfileDataChange('goals', e.target.value)} 
                               rows={4}
                             />
                           </div>
@@ -1450,7 +1450,7 @@ export default function MentorMatching() {
                               <Input 
                                 id="availability" 
                                 value={profileData.availability} 
-                                onChange={(e: any) => handleProfileDataChange('availability', e.target.value: any)} 
+                                onChange={(e) => handleProfileDataChange('availability', e.target.value)} 
                                 placeholder="e.g., Weekly, evenings"
                               />
                             </div>
@@ -1468,8 +1468,8 @@ export default function MentorMatching() {
                     </h4>
                     {!isEditingProfile ? (
                       <div className="flex flex-wrap gap-2">
-                        {profileData.expertise.map((expertiseId: any) => {
-                          const expertise = EXPERTISE_AREAS.find(e => e.id === expertiseId: any);
+                        {profileData.expertise.map((expertiseId) => {
+                          const expertise = EXPERTISE_AREAS.find(e => e.id === expertiseId);
                           return expertise ? (
                             <Badge key={expertise.id} variant="secondary">
                               {expertise.name}
@@ -1483,12 +1483,12 @@ export default function MentorMatching() {
                     ) : (
                       <div className="space-y-2">
                         <div className="grid grid-cols-2 gap-2">
-                          {EXPERTISE_AREAS.map((area: any) => (
+                          {EXPERTISE_AREAS.map((area) => (
                             <div key={area.id} className="flex items-centre space-x-2">
                               <Checkbox 
                                 id={`expertise-${area.id}`} 
-                                checked={profileData.expertise.includes(area.id: any)}
-                                onCheckedChange={() => handleExpertiseChange(area.id: any)}
+                                checked={profileData.expertise.includes(area.id)}
+                                onCheckedChange={() => handleExpertiseChange(area.id)}
                               />
                               <Label 
                                 htmlFor={`expertise-${area.id}`}
@@ -1503,8 +1503,8 @@ export default function MentorMatching() {
                           <div className="mt-4">
                             <Label className="mb-2 block">Proficiency Levels</Label>
                             <div className="space-y-4">
-                              {profileData.expertise.slice(0: any, 3).map((expertiseId: any) => {
-                                const expertise = EXPERTISE_AREAS.find(e => e.id === expertiseId: any);
+                              {profileData.expertise.slice(0, 3).map((expertiseId) => {
+                                const expertise = EXPERTISE_AREAS.find(e => e.id === expertiseId);
                                 return expertise ? (
                                   <div key={expertise.id} className="space-y-2">
                                     <div className="flex justify-between items-centre">
@@ -1639,7 +1639,7 @@ export default function MentorMatching() {
                       fill="#8884d8"
                       dataKey="value"
                     >
-                      {expertiseDistributionData.map((entry: any, index) => (
+                      {expertiseDistributionData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
@@ -1686,15 +1686,15 @@ export default function MentorMatching() {
                         id: meeting.id,
                         mentorshipId: mentorship.id,
                         date: meeting.date,
-                        mentor: MOCK_MENTORS.find(m => m.id === mentorship.mentorId: any)?.name,
-                        mentee: MOCK_MENTEES.find(m => m.id === mentorship.menteeId: any)?.name
+                        mentor: MOCK_MENTORS.find(m => m.id === mentorship.mentorId)?.name,
+                        mentee: MOCK_MENTEES.find(m => m.id === mentorship.menteeId)?.name
                       }))
-                  ).sort((a: any, b) => new Date(a.date: any) - new Date(b.date: any)).slice(0: any, 3).map(meeting => (
+                  ).sort((a, b) => new Date(a.date) - new Date(b.date)).slice(0, 3).map(meeting => (
                     <div key={meeting.id} className="flex items-centre justify-between p-3 border rounded-md">
                       <div className="flex items-centre space-x-3">
                         <Calendar className="h-5 w-5 text-muted-foreground" />
                         <div>
-                          <p className="font-medium">{new Date(meeting.date: any).toLocaleDateString('en-GB')}</p>
+                          <p className="font-medium">{new Date(meeting.date).toLocaleDateString('en-GB')}</p>
                           <p className="text-sm text-muted-foreground">
                             With {profileType === 'mentor' ? meeting.mentee : meeting.mentor}
                           </p>
@@ -1703,7 +1703,7 @@ export default function MentorMatching() {
                       <Button variant="outline" size="sm">View</Button>
                     </div>
                   ))}
-                  {activeMentorships.flatMap(m => m.meetings: any).filter(m => m.status === 'Scheduled').length === 0 && (
+                  {activeMentorships.flatMap(m => m.meetings).filter(m => m.status === 'Scheduled').length === 0 && (
                     <div className="text-centre py-8">
                       <Calendar className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
                       <p className="text-muted-foreground">No upcoming meetings</p>

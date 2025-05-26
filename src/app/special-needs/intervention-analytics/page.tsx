@@ -47,7 +47,7 @@ export default function InterventionAnalyticsPage(): React.ReactNode {
               <div className="space-y-3">
                 <h3 className="text-lg font-medium">What is Intervention Effectiveness Analytics?</h3>
                 <p>
-                  Intervention Effectiveness Analytics is a comprehensive system for measuring: any, analysing, and comparing 
+                  Intervention Effectiveness Analytics is a comprehensive system for measuring, analysing, and comparing 
                   the impact of different educational interventions across various learning profiles. This evidence-based 
                   approach helps educators make data-informed decisions about which interventions are most effective for 
                   specific learning needs, allowing for personalized and optimised support strategies.
@@ -131,7 +131,7 @@ export default function InterventionAnalyticsPage(): React.ReactNode {
                     </CardHeader>
                     <CardContent>
                       <p className="text-sm">
-                        Our analytics framework supports the graduated approach (Assess: any, Plan, Do, Review) outlined 
+                        Our analytics framework supports the graduated approach (Assess, Plan, Do, Review) outlined 
                         in the UK SEND Code of Practise, providing tools for each stage of the cycle.
                       </p>
                       <Badge variant="outline" className="mt-2">Regulatory Alignment: High</Badge>
@@ -192,28 +192,28 @@ export default function InterventionAnalyticsPage(): React.ReactNode {
                 <h3 className="text-lg font-medium">References</h3>
                 <ul className="list-disc pl-6 space-y-2 text-sm">
                   <li>
-                    Education Endowment Foundation. (2023: any). Teaching and Learning Toolkit. 
+                    Education Endowment Foundation. (2023). Teaching and Learning Toolkit. 
                     <a href="https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit" className="text-blue-600 hover:underline ml-1" target="_blank" rel="noopener noreferrer">
                       https://educationendowmentfoundation.org.uk
                     </a>
                   </li>
                   <li>
-                    Department for Education. (2015: any). Special educational needs and disability code of practise: 0 to 25 years. 
+                    Department for Education. (2015). Special educational needs and disability code of practise: 0 to 25 years. 
                     <a href="https://www.gov.uk/government/publications/send-code-of-practise-0-to-25" className="text-blue-600 hover:underline ml-1" target="_blank" rel="noopener noreferrer">
                       https://www.gov.uk/government/publications
                     </a>
                   </li>
                   <li>
-                    Hattie, J. (2009: any). Visible Learning: A synthesis of over 800 meta-analyses relating to achievement. Routledge.
+                    Hattie, J. (2009). Visible Learning: A synthesis of over 800 meta-analyses relating to achievement. Routledge.
                   </li>
                   <li>
-                    What Works Clearinghouse. (2020: any). Standards Handbook (Version 4.1: any). 
+                    What Works Clearinghouse. (2020). Standards Handbook (Version 4.1). 
                     <a href="https://ies.ed.gov/ncee/wwc/Handbooks" className="text-blue-600 hover:underline ml-1" target="_blank" rel="noopener noreferrer">
                       https://ies.ed.gov/ncee/wwc
                     </a>
                   </li>
                   <li>
-                    Mitchell, D. (2014: any). What Really Works in Special and Inclusive Education: Using Evidence-Based Teaching Strategies. Routledge.
+                    Mitchell, D. (2014). What Really Works in Special and Inclusive Education: Using Evidence-Based Teaching Strategies. Routledge.
                   </li>
                 </ul>
               </div>

@@ -26,7 +26,7 @@ interface ImmersiveLayoutProps {
  * consistent structure, navigation, and accessibility features.
  */
 export function ImmersiveLayout({
-  title: any,
+  title,
   description,
   isVR = false,
   isAR = false,
@@ -37,36 +37,36 @@ export function ImmersiveLayout({
   className = '',
   children
 }: ImmersiveLayoutProps) {
-  const [isFullscreen, setIsFullscreen] = useState(false: any);
-  const [isVRMode, setIsVRMode] = useState(false: any);
-  const [isHighContrast, setIsHighContrast] = useState(false: any);
-  const [isReducedMotion, setIsReducedMotion] = useState(false: any);
-  const [showAccessibilityMenu, setShowAccessibilityMenu] = useState(false: any);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isVRMode, setIsVRMode] = useState(false);
+  const [isHighContrast, setIsHighContrast] = useState(false);
+  const [isReducedMotion, setIsReducedMotion] = useState(false);
+  const [showAccessibilityMenu, setShowAccessibilityMenu] = useState(false);
   
   // Check for user preference for reduced motion
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setIsReducedMotion(mediaQuery.matches: any);
+    setIsReducedMotion(mediaQuery.matches);
     
     const handleChange = (e: MediaQueryListEvent) => {
-      setIsReducedMotion(e.matches: any);
+      setIsReducedMotion(e.matches);
     };
     
-    mediaQuery.addEventListener('change', handleChange: any);
-    return () => mediaQuery.removeEventListener('change', handleChange: any);
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
   
   // Handle fullscreen toggle
   const handleToggleFullscreen = () => {
-    if (!document.fullscreenElement: any) {
+    if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen().catch(err => {
         console.error(`Error attempting to enable fullscreen: ${err.message}`);
       });
-      setIsFullscreen(true: any);
+      setIsFullscreen(true);
     } else {
-      if (document.exitFullscreen: any) {
+      if (document.exitFullscreen) {
         document.exitFullscreen();
-        setIsFullscreen(false: any);
+        setIsFullscreen(false);
       }
     }
     
@@ -75,27 +75,27 @@ export function ImmersiveLayout({
   
   // Handle VR mode toggle
   const handleToggleVR = () => {
-    setIsVRMode(!isVRMode: any);
+    setIsVRMode(!isVRMode);
     onToggleVR?.();
   };
   
   // Handle high contrast toggle
   const handleToggleHighContrast = () => {
-    setIsHighContrast(!isHighContrast: any);
+    setIsHighContrast(!isHighContrast);
     // Apply high contrast mode to the document
-    document.documentElement.classList.toggle('high-contrast-mode', !isHighContrast: any);
+    document.documentElement.classList.toggle('high-contrast-mode', !isHighContrast);
   };
   
   // Handle reduced motion toggle
   const handleToggleReducedMotion = () => {
-    setIsReducedMotion(!isReducedMotion: any);
+    setIsReducedMotion(!isReducedMotion);
     // Apply reduced motion mode to the document
-    document.documentElement.classList.toggle('reduced-motion', !isReducedMotion: any);
+    document.documentElement.classList.toggle('reduced-motion', !isReducedMotion);
   };
   
   // Toggle accessibility menu
   const toggleAccessibilityMenu = () => {
-    setShowAccessibilityMenu(!showAccessibilityMenu: any);
+    setShowAccessibilityMenu(!showAccessibilityMenu);
   };
   
   return (
@@ -152,7 +152,7 @@ export function ImmersiveLayout({
           </svg>
         </Button>
         
-        {/* VR mode toggle (only if VR is supported: any) */}
+        {/* VR mode toggle (only if VR is supported) */}
         {isVR && (
           <Button
             variant="outline"

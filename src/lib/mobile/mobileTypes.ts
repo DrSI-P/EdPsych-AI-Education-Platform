@@ -102,7 +102,7 @@ export interface SyncQueueItem {
   entityId: string;
   entityType: string;
   operation: 'create' | 'update' | 'delete';
-  data: any;
+  data;
   timestamp: Date;
   attempts: number;
   lastAttempt?: Date;
@@ -134,7 +134,7 @@ export interface PushNotification {
     entityId?: string;
     entityType?: string;
     action?: string;
-    [key: string]: any;
+    [key: string];
   };
   sentAt: Date;
   expiresAt?: Date;
@@ -216,7 +216,7 @@ export interface NavigationHistoryItem {
   title: string;
   timestamp: Date;
   params?: Record<string, string>;
-  state?: any;
+  state?;
 }
 
 // Mobile navigation history
@@ -248,7 +248,7 @@ export interface DownloadItem {
     description?: string;
     entityId?: string;
     entityType?: string;
-    [key: string]: any;
+    [key: string];
   };
 }
 
@@ -272,7 +272,7 @@ export interface UploadItem {
     description?: string;
     entityId?: string;
     entityType?: string;
-    [key: string]: any;
+    [key: string];
   };
 }
 

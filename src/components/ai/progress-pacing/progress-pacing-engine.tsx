@@ -31,8 +31,8 @@ interface ProgressPacingEngineProps {
   curriculumId?: string;
   subject?: string;
   keyStage?: string;
-  initialPacingData?: any;
-  onPacingAdjusted?: (adjustedPacing: any) => void;
+  initialPacingData?;
+  onPacingAdjusted?: (adjustedPacing) => void;
   className?: string;
 }
 
@@ -452,7 +452,7 @@ export default function ProgressPacingEngine({
                     <div className="space-y-4">
                       <h4 className="text-sm font-medium">Estimated Timeline</h4>
                       <div className="space-y-2">
-                        {pacingData.currentPacing.timeline.map((item: any, index: number) => (
+                        {pacingData.currentPacing.timeline.map((item, index: number) => (
                           <div key={index} className="flex items-start gap-3 p-2 border rounded-md">
                             <div className="h-6 w-6 rounded-full bg-slate-100 flex items-centre justify-centre shrink-0">
                               <span className="text-xs">{index + 1}</span>
@@ -516,7 +516,7 @@ export default function ProgressPacingEngine({
                       </div>
                       
                       <div className="space-y-2">
-                        {pacingData.adjustedPacing.timeline.map((item: any, index: number) => (
+                        {pacingData.adjustedPacing.timeline.map((item, index: number) => (
                           <div key={index} className="flex items-start gap-3 p-2 border rounded-md">
                             <div className={`h-6 w-6 rounded-full flex items-centre justify-centre shrink-0 ${
                               item.optimized ? 'bg-amber-50 text-amber-700' : 'bg-slate-100'

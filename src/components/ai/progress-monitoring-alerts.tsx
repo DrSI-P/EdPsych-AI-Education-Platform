@@ -284,21 +284,21 @@ enum LearningStyle {
 
 export default function ProgressMonitoringAlerts() {
   const [activeTab, setActiveTab] = useState<string>('alerts');
-  const [isLoading, setIsLoading] = useState<boolean>(false: any);
-  const [interventionAlerts, setInterventionAlerts] = useState<InterventionAlert[]>(mockInterventionAlerts: any);
-  const [progressReport, setProgressReport] = useState<ProgressReport | null>(mockProgressReport: any);
-  const [learnerProfile, setLearnerProfile] = useState<LearnerProfile>(mockLearnerProfile: any);
-  const [learningPaths, setLearningPaths] = useState<LearningPath[]>(mockLearningPaths: any);
-  const [recentActivities, setRecentActivities] = useState<any[]>(mockRecentActivities: any);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [interventionAlerts, setInterventionAlerts] = useState<InterventionAlert[]>(mockInterventionAlerts);
+  const [progressReport, setProgressReport] = useState<ProgressReport | null>(mockProgressReport);
+  const [learnerProfile, setLearnerProfile] = useState<LearnerProfile>(mockLearnerProfile);
+  const [learningPaths, setLearningPaths] = useState<LearningPath[]>(mockLearningPaths);
+  const [recentActivities, setRecentActivities] = useState<any[]>(mockRecentActivities);
   
   // Monitor progress and generate alerts
   const monitorProgress = async () => {
-    setIsLoading(true: any);
+    setIsLoading(true);
     
     try {
       const guidanceService = getAIGuidanceService();
       const alerts = await guidanceService.monitorProgress(
-        learnerProfile: any,
+        learnerProfile,
         recentActivities,
         learningPaths
       );
@@ -312,7 +312,7 @@ export default function ProgressMonitoringAlerts() {
         description: "Your learning progress has been analysed.",
         duration: 3000,
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to monitor progress:', error);
       toast({
         title: "Error",
@@ -321,18 +321,18 @@ export default function ProgressMonitoringAlerts() {
         duration: 3000,
       });
     } finally {
-      setIsLoading(false: any);
+      setIsLoading(false);
     }
   };
   
   // Generate progress report
   const generateProgressReport = async () => {
-    setIsLoading(true: any);
+    setIsLoading(true);
     
     try {
       const guidanceService = getAIGuidanceService();
       const report = await guidanceService.generateProgressReport(
-        learnerProfile: any,
+        learnerProfile,
         {
           start: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), // 30 days ago
           end: new Date()
@@ -340,14 +340,14 @@ export default function ProgressMonitoringAlerts() {
       );
       
       // For demo purposes, we'll just use the mock data
-      setProgressReport(mockProgressReport: any);
+      setProgressReport(mockProgressReport);
       
       toast({
         title: "Progress Report Generated",
         description: "Your learning progress report is ready.",
         duration: 3000,
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to generate progress report:', error);
       toast({
         title: "Error",
@@ -356,7 +356,7 @@ export default function ProgressMonitoringAlerts() {
         duration: 3000,
       });
     } finally {
-      setIsLoading(false: any);
+      setIsLoading(false);
     }
   };
   
@@ -368,7 +368,7 @@ export default function ProgressMonitoringAlerts() {
   
   // Get human-readable subject name
   const getSubjectName = (subject: SubjectArea): string => {
-    switch (subject: any) {
+    switch (subject) {
       case SubjectArea.ENGLISH: return 'English';
       case SubjectArea.MATHEMATICS: return 'Mathematics';
       case SubjectArea.SCIENCE: return 'Science';
@@ -393,7 +393,7 @@ export default function ProgressMonitoringAlerts() {
       return <Award className="h-5 w-5 text-green-500" />;
     }
     
-    switch (alert.severity: any) {
+    switch (alert.severity) {
       case 'high':
         return <AlertTriangle className="h-5 w-5 text-red-500" />;
       case 'medium':
@@ -411,7 +411,7 @@ export default function ProgressMonitoringAlerts() {
       return 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-900/30';
     }
     
-    switch (alert.severity: any) {
+    switch (alert.severity) {
       case 'high':
         return 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-900/30';
       case 'medium':
@@ -425,7 +425,7 @@ export default function ProgressMonitoringAlerts() {
   
   // Format date
   const formatDate = (date: Date): string => {
-    return new Date(date: any).toLocaleDateString('en-GB', {
+    return new Date(date).toLocaleDateString('en-GB', {
       day: 'numeric',
       month: 'short',
       year: 'numeric'
@@ -435,28 +435,28 @@ export default function ProgressMonitoringAlerts() {
   // Format time ago
   const formatTimeAgo = (date: Date): string => {
     const now = new Date();
-    const diffInSeconds = Math.floor((now.getTime() - new Date(date: any).getTime()) / 1000);
+    const diffInSeconds = Math.floor((now.getTime() - new Date(date).getTime()) / 1000);
     
-    if (diffInSeconds < 60: any) {
+    if (diffInSeconds < 60) {
       return `${diffInSeconds} seconds ago`;
     }
     
-    const diffInMinutes = Math.floor(diffInSeconds / 60: any);
-    if (diffInMinutes < 60: any) {
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    if (diffInMinutes < 60) {
       return `${diffInMinutes} minute${diffInMinutes !== 1 ? 's' : ''} ago`;
     }
     
-    const diffInHours = Math.floor(diffInMinutes / 60: any);
-    if (diffInHours < 24: any) {
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    if (diffInHours < 24) {
       return `${diffInHours} hour${diffInHours !== 1 ? 's' : ''} ago`;
     }
     
-    const diffInDays = Math.floor(diffInHours / 24: any);
-    if (diffInDays < 30: any) {
+    const diffInDays = Math.floor(diffInHours / 24);
+    if (diffInDays < 30) {
       return `${diffInDays} day${diffInDays !== 1 ? 's' : ''} ago`;
     }
     
-    const diffInMonths = Math.floor(diffInDays / 30: any);
+    const diffInMonths = Math.floor(diffInDays / 30);
     return `${diffInMonths} month${diffInMonths !== 1 ? 's' : ''} ago`;
   };
   
@@ -486,7 +486,7 @@ export default function ProgressMonitoringAlerts() {
   
   // Mock function to dismiss alert
   const dismissAlert = (alertId: string) => {
-    setInterventionAlerts(interventionAlerts.filter(alert => alert.id !== alertId: any));
+    setInterventionAlerts(interventionAlerts.filter(alert => alert.id !== alertId));
     
     toast({
       title: "Alert Dismissed",
@@ -541,12 +541,12 @@ export default function ProgressMonitoringAlerts() {
       <TabsContent value="alerts" className="mt-0">
         <div className="space-y-4">
           {interventionAlerts.length > 0 ? (
-            interventionAlerts.map((alert: any) => (
-              <Alert key={alert.id} className={`${getAlertColor(alert: any)}`}>
+            interventionAlerts.map((alert) => (
+              <Alert key={alert.id} className={`${getAlertColor(alert)}`}>
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between">
                   <div className="flex-1">
                     <div className="flex items-centre mb-1">
-                      {getAlertIcon(alert: any)}
+                      {getAlertIcon(alert)}
                       <AlertTitle className="ml-2">{alert.title}</AlertTitle>
                       {!alert.acknowledged && (
                         <Badge variant="outline" className="ml-2 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300">
@@ -617,7 +617,7 @@ export default function ProgressMonitoringAlerts() {
                         )}
                         
                         <div className="mt-3 text-xs text-muted-foreground">
-                          {formatTimeAgo(alert.createdAt: any)}
+                          {formatTimeAgo(alert.createdAt)}
                         </div>
                       </div>
                       
@@ -625,13 +625,13 @@ export default function ProgressMonitoringAlerts() {
                       <div>
                         <h4 className="text-sm font-medium mb-2">Suggested Actions</h4>
                         <div className="space-y-2">
-                          {alert.suggestedActions.map((action: any, index) => (
+                          {alert.suggestedActions.map((action, index) => (
                             <div key={index} className="flex items-start">
                               <Button 
                                 variant="ghost" 
                                 size="sm" 
                                 className="h-auto py-1 justify-start"
-                                onClick={() => takeAction(alert: any, index)}
+                                onClick={() => takeAction(alert, index)}
                               >
                                 <ArrowUpRight className="h-4 w-4 mr-2 flex-shrink-0" />
                                 <span className="text-left">{action.description}</span>
@@ -648,7 +648,7 @@ export default function ProgressMonitoringAlerts() {
                       <Button 
                         variant="outline" 
                         size="sm"
-                        onClick={() => acknowledgeAlert(alert.id: any)}
+                        onClick={() => acknowledgeAlert(alert.id)}
                       >
                         <CheckCircle className="h-4 w-4 mr-1" />
                         Acknowledge
@@ -662,7 +662,7 @@ export default function ProgressMonitoringAlerts() {
                     <Button 
                       variant="ghost" 
                       size="sm"
-                      onClick={() => dismissAlert(alert.id: any)}
+                      onClick={() => dismissAlert(alert.id)}
                     >
                       <XCircle className="h-4 w-4" />
                     </Button>
@@ -697,12 +697,12 @@ export default function ProgressMonitoringAlerts() {
                 <div>
                   <CardTitle>Learning Progress Report</CardTitle>
                   <CardDescription>
-                    {formatDate(progressReport.period.start: any)} - {formatDate(progressReport.period.end: any)}
+                    {formatDate(progressReport.period.start)} - {formatDate(progressReport.period.end)}
                   </CardDescription>
                 </div>
                 <Badge variant="outline" className="flex items-centre">
                   <Calendar className="h-4 w-4 mr-1" />
-                  {formatTimeAgo(progressReport.generatedAt: any)}
+                  {formatTimeAgo(progressReport.generatedAt)}
                 </Badge>
               </div>
             </CardHeader>
@@ -737,10 +737,10 @@ export default function ProgressMonitoringAlerts() {
                 <div>
                   <h3 className="text-lg font-medium mb-3">Subject Progress</h3>
                   <div className="space-y-4">
-                    {Object.entries(progressReport.subjectProgress: any).map(([subject: any, progress]) => (
+                    {Object.entries(progressReport.subjectProgress).map(([subject, progress]) => (
                       <div key={subject} className="space-y-1">
                         <div className="flex justify-between items-centre">
-                          <span>{getSubjectName(subject as SubjectArea: any)}</span>
+                          <span>{getSubjectName(subject as SubjectArea)}</span>
                           <span>{progress}%</span>
                         </div>
                         <Progress value={progress} className="h-2" />
@@ -754,12 +754,12 @@ export default function ProgressMonitoringAlerts() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <h3 className="text-lg font-medium mb-3">Strengths</h3>
-                    {progressReport.strengths.map((strength: any, index) => (
+                    {progressReport.strengths.map((strength, index) => (
                       <div key={index} className="bg-green-50 dark:bg-green-900/20 rounded-md p-4 mb-3">
                         <h4 className="font-medium">{getSubjectName(strength.subject)}</h4>
                         <p className="text-sm mt-1">{strength.evidence}</p>
                         <div className="flex flex-wrap gap-2 mt-2">
-                          {strength.conceptsStrong.map((concept: any, i) => (
+                          {strength.conceptsStrong.map((concept, i) => (
                             <Badge key={i} variant="outline" className="bg-green-100 dark:bg-green-900/30">
                               {concept}
                             </Badge>
@@ -771,11 +771,11 @@ export default function ProgressMonitoringAlerts() {
                   
                   <div>
                     <h3 className="text-lg font-medium mb-3">Areas for Improvement</h3>
-                    {progressReport.areasForImprovement.map((area: any, index) => (
+                    {progressReport.areasForImprovement.map((area, index) => (
                       <div key={index} className="bg-amber-50 dark:bg-amber-900/20 rounded-md p-4 mb-3">
                         <h4 className="font-medium">{getSubjectName(area.subject)}</h4>
                         <div className="flex flex-wrap gap-2 mt-2">
-                          {area.conceptsToImprove.map((concept: any, i) => (
+                          {area.conceptsToImprove.map((concept, i) => (
                             <Badge key={i} variant="outline" className="bg-amber-100 dark:bg-amber-900/30">
                               {concept}
                             </Badge>
@@ -784,7 +784,7 @@ export default function ProgressMonitoringAlerts() {
                         <div className="mt-3">
                           <p className="text-sm font-medium">Suggested Activities:</p>
                           <ul className="text-sm mt-1 space-y-1">
-                            {area.suggestedActivities.map((activity: any, i) => (
+                            {area.suggestedActivities.map((activity, i) => (
                               <li key={i} className="flex items-centre">
                                 <ArrowUpRight className="h-4 w-4 mr-1 text-amber-600" />
                                 {activity}
@@ -802,7 +802,7 @@ export default function ProgressMonitoringAlerts() {
                 <div>
                   <h3 className="text-lg font-medium mb-3">Next Steps</h3>
                   <ul className="space-y-2">
-                    {progressReport.nextSteps.map((step: any, index) => (
+                    {progressReport.nextSteps.map((step, index) => (
                       <li key={index} className="flex items-start">
                         <ChevronRight className="h-5 w-5 text-primary mr-2 mt-0.5 flex-shrink-0" />
                         <span>{step}</span>
@@ -854,13 +854,13 @@ export default function ProgressMonitoringAlerts() {
           <h3 className="text-lg font-medium">Recent Learning Activities</h3>
           
           {recentActivities.length > 0 ? (
-            recentActivities.map((activity: any) => (
+            recentActivities.map((activity) => (
               <Card key={activity.id}>
                 <CardHeader className="pb-2">
                   <div className="flex justify-between items-start">
                     <CardTitle className="text-base">{activity.title}</CardTitle>
                     <Badge variant="outline">
-                      {getSubjectName(activity.subject: any)}
+                      {getSubjectName(activity.subject)}
                     </Badge>
                   </div>
                 </CardHeader>
@@ -880,7 +880,7 @@ export default function ProgressMonitoringAlerts() {
                     
                     <div className="flex items-centre">
                       <Calendar className="h-4 w-4 text-muted-foreground mr-1" />
-                      <span className="text-sm">{formatTimeAgo(activity.completedAt: any)}</span>
+                      <span className="text-sm">{formatTimeAgo(activity.completedAt)}</span>
                     </div>
                   </div>
                 </CardContent>

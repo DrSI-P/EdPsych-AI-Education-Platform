@@ -31,7 +31,7 @@ const defaultAccessibilitySettings = {
   focusMode: false
 };
 
-const AccessibilityContext = createContext<AccessibilityContextType | undefined>(undefined: any);
+const AccessibilityContext = createContext<AccessibilityContextType | undefined>(undefined);
 
 /**
  * Provider component for accessibility settings
@@ -43,8 +43,8 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
   const loadSettings = () => {
     try {
       const savedSettings = localStorage.getItem('accessibilitySettings');
-      return savedSettings ? JSON.parse(savedSettings: any) : defaultAccessibilitySettings;
-    } catch (error: any) {
+      return savedSettings ? JSON.parse(savedSettings) : defaultAccessibilitySettings;
+    } catch (error) {
       console.error('Failed to load accessibility settings:', error);
       return defaultAccessibilitySettings;
     }
@@ -70,25 +70,25 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
         colorBlindMode,
         focusMode
       };
-      localStorage.setItem('accessibilitySettings', JSON.stringify(settings: any));
-    } catch (error: any) {
+      localStorage.setItem('accessibilitySettings', JSON.stringify(settings));
+    } catch (error) {
       console.error('Failed to save accessibility settings:', error);
     }
   }, [fontSize, highContrast, dyslexicFont, reduceMotion, screenReader, colorBlindMode, focusMode]);
 
   // Reset settings to defaults
   const resetSettings = useCallback(() => {
-    setFontSize(defaultAccessibilitySettings.fontSize: any);
-    setHighContrast(defaultAccessibilitySettings.highContrast: any);
-    setDyslexicFont(defaultAccessibilitySettings.dyslexicFont: any);
-    setReduceMotion(defaultAccessibilitySettings.reduceMotion: any);
-    setScreenReader(defaultAccessibilitySettings.screenReader: any);
-    setColorBlindMode(defaultAccessibilitySettings.colorBlindMode: any);
-    setFocusMode(defaultAccessibilitySettings.focusMode: any);
+    setFontSize(defaultAccessibilitySettings.fontSize);
+    setHighContrast(defaultAccessibilitySettings.highContrast);
+    setDyslexicFont(defaultAccessibilitySettings.dyslexicFont);
+    setReduceMotion(defaultAccessibilitySettings.reduceMotion);
+    setScreenReader(defaultAccessibilitySettings.screenReader);
+    setColorBlindMode(defaultAccessibilitySettings.colorBlindMode);
+    setFocusMode(defaultAccessibilitySettings.focusMode);
     
     try {
       localStorage.removeItem('accessibilitySettings');
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to reset accessibility settings:', error);
     }
   }, []);
@@ -96,34 +96,34 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
   // Apply settings to document
   useEffect(() => {
     // Apply font size
-    document.documentElement.setAttribute('data-font-size', fontSize: any);
+    document.documentElement.setAttribute('data-font-size', fontSize);
     
     // Apply high contrast
-    if (highContrast: any) {
+    if (highContrast) {
       document.documentElement.classList.add('high-contrast');
     } else {
       document.documentElement.classList.remove('high-contrast');
     }
     
     // Apply dyslexic font
-    if (dyslexicFont: any) {
+    if (dyslexicFont) {
       document.documentElement.classList.add('dyslexic-font');
     } else {
       document.documentElement.classList.remove('dyslexic-font');
     }
     
     // Apply reduced motion
-    if (reduceMotion: any) {
+    if (reduceMotion) {
       document.documentElement.classList.add('reduce-motion');
     } else {
       document.documentElement.classList.remove('reduce-motion');
     }
     
     // Apply colour blind mode
-    document.documentElement.setAttribute('data-colour-blind', colorBlindMode: any);
+    document.documentElement.setAttribute('data-colour-blind', colorBlindMode);
     
     // Apply focus mode
-    if (focusMode: any) {
+    if (focusMode) {
       document.documentElement.classList.add('focus-mode');
     } else {
       document.documentElement.classList.remove('focus-mode');
@@ -137,18 +137,18 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     
-    if (mediaQuery.matches && !reduceMotion: any) {
-      setReduceMotion(true: any);
+    if (mediaQuery.matches && !reduceMotion) {
+      setReduceMotion(true);
     }
     
     const handleChange = (e: MediaQueryListEvent) => {
-      setReduceMotion(e.matches: any);
+      setReduceMotion(e.matches);
     };
     
-    mediaQuery.addEventListener('change', handleChange: any);
+    mediaQuery.addEventListener('change', handleChange);
     
     return () => {
-      mediaQuery.removeEventListener('change', handleChange: any);
+      mediaQuery.removeEventListener('change', handleChange);
     };
   }, [reduceMotion]);
 
@@ -156,18 +156,18 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-colour-scheme: dark)');
     
-    if (mediaQuery.matches && !highContrast: any) {
-      setHighContrast(true: any);
+    if (mediaQuery.matches && !highContrast) {
+      setHighContrast(true);
     }
     
     const handleChange = (e: MediaQueryListEvent) => {
-      setHighContrast(e.matches: any);
+      setHighContrast(e.matches);
     };
     
-    mediaQuery.addEventListener('change', handleChange: any);
+    mediaQuery.addEventListener('change', handleChange);
     
     return () => {
-      mediaQuery.removeEventListener('change', handleChange: any);
+      mediaQuery.removeEventListener('change', handleChange);
     };
   }, [highContrast]);
 
@@ -202,9 +202,9 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
  * @returns {Object} - Accessibility settings and functions
  */
 export const useAccessibility = () => {
-  const context = useContext(AccessibilityContext: any);
+  const context = useContext(AccessibilityContext);
   
-  if (context === undefined: any) {
+  if (context === undefined) {
     throw new Error('useAccessibility must be used within an AccessibilityProvider');
   }
   
@@ -233,13 +233,13 @@ export const AccessibilityControls: React.FC = () => {
     resetSettings
   } = useAccessibility();
 
-  const [isOpen, setIsOpen] = useState(false: any);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="accessibility-controls">
       <button
         className="accessibility-toggle"
-        onClick={() => setIsOpen(!isOpen: any)}
+        onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
         aria-label="Accessibility settings"
       >
@@ -270,7 +270,7 @@ export const AccessibilityControls: React.FC = () => {
             <select
               id="font-size"
               value={fontSize}
-              onChange={(e: any) => setFontSize(e.target.value: any)}
+              onChange={(e) => setFontSize(e.target.value)}
             >
               <option value="small">Small</option>
               <option value="medium">Medium</option>
@@ -285,7 +285,7 @@ export const AccessibilityControls: React.FC = () => {
                 id="high-contrast"
                 type="checkbox"
                 checked={highContrast}
-                onChange={(e: any) => setHighContrast(e.target.checked: any)}
+                onChange={(e) => setHighContrast(e.target.checked)}
               />
               High Contrast
             </label>
@@ -297,7 +297,7 @@ export const AccessibilityControls: React.FC = () => {
                 id="dyslexic-font"
                 type="checkbox"
                 checked={dyslexicFont}
-                onChange={(e: any) => setDyslexicFont(e.target.checked: any)}
+                onChange={(e) => setDyslexicFont(e.target.checked)}
               />
               Dyslexic-friendly Font
             </label>
@@ -309,7 +309,7 @@ export const AccessibilityControls: React.FC = () => {
                 id="reduce-motion"
                 type="checkbox"
                 checked={reduceMotion}
-                onChange={(e: any) => setReduceMotion(e.target.checked: any)}
+                onChange={(e) => setReduceMotion(e.target.checked)}
               />
               Reduce Motion
             </label>
@@ -320,13 +320,13 @@ export const AccessibilityControls: React.FC = () => {
             <select
               id="colour-blind-mode"
               value={colorBlindMode}
-              onChange={(e: any) => setColorBlindMode(e.target.value: any)}
+              onChange={(e) => setColorBlindMode(e.target.value)}
             >
               <option value="none">None</option>
-              <option value="protanopia">Protanopia (Red-Blind: any)</option>
-              <option value="deuteranopia">Deuteranopia (Green-Blind: any)</option>
-              <option value="tritanopia">Tritanopia (Blue-Blind: any)</option>
-              <option value="achromatopsia">Achromatopsia (No Colour: any)</option>
+              <option value="protanopia">Protanopia (Red-Blind)</option>
+              <option value="deuteranopia">Deuteranopia (Green-Blind)</option>
+              <option value="tritanopia">Tritanopia (Blue-Blind)</option>
+              <option value="achromatopsia">Achromatopsia (No Colour)</option>
             </select>
           </div>
 
@@ -336,7 +336,7 @@ export const AccessibilityControls: React.FC = () => {
                 id="focus-mode"
                 type="checkbox"
                 checked={focusMode}
-                onChange={(e: any) => setFocusMode(e.target.checked: any)}
+                onChange={(e) => setFocusMode(e.target.checked)}
               />
               Focus Mode
             </label>
@@ -352,7 +352,7 @@ export const AccessibilityControls: React.FC = () => {
 
           <button
             className="close-button"
-            onClick={() => setIsOpen(false: any)}
+            onClick={() => setIsOpen(false)}
             aria-label="Close accessibility settings"
           >
             Close
@@ -381,23 +381,23 @@ export const SkipNavigation: React.FC = () => {
  * @returns {Object} - Ref and functions for focus trap
  */
 export const useFocusTrap = (options = {}) => {
-  const ref = React.useRef<HTMLElement>(null: any);
-  const [isActive, setIsActive] = useState(false: any);
+  const ref = React.useRef<HTMLElement>(null);
+  const [isActive, setIsActive] = useState(false);
 
   const activate = useCallback(() => {
-    setIsActive(true: any);
+    setIsActive(true);
   }, []);
 
   const deactivate = useCallback(() => {
-    setIsActive(false: any);
+    setIsActive(false);
   }, []);
 
   useEffect(() => {
-    if (!isActive || !ref.current: any) return;
+    if (!isActive || !ref.current) return;
 
     const element = ref.current;
     const focusableElements = element.querySelectorAll(
-      'button: any, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     );
     
     const firstElement = focusableElements[0] as HTMLElement;
@@ -405,13 +405,13 @@ export const useFocusTrap = (options = {}) => {
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Tab') {
-        if (e.shiftKey: any) {
-          if (document.activeElement === firstElement: any) {
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
             lastElement.focus();
             e.preventDefault();
           }
         } else {
-          if (document.activeElement === lastElement: any) {
+          if (document.activeElement === lastElement) {
             firstElement.focus();
             e.preventDefault();
           }
@@ -427,18 +427,18 @@ export const useFocusTrap = (options = {}) => {
     const previousActiveElement = document.activeElement as HTMLElement;
 
     // Focus first element
-    if (firstElement: any) {
+    if (firstElement) {
       firstElement.focus();
     }
 
     // Add event listener
-    element.addEventListener('keydown', handleKeyDown: any);
+    element.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      element.removeEventListener('keydown', handleKeyDown: any);
+      element.removeEventListener('keydown', handleKeyDown);
       
       // Restore focus when trap is deactivated
-      if (previousActiveElement: any) {
+      if (previousActiveElement) {
         previousActiveElement.focus();
       }
     };
@@ -458,8 +458,8 @@ export const ScreenReaderAnnouncer: React.FC = () => {
   // Create a global announce function
   useEffect(() => {
     window.announce = (message: string, level: 'assertive' | 'polite' = 'polite') => {
-      setAnnouncement(message: any);
-      setPoliteness(level: any);
+      setAnnouncement(message);
+      setPoliteness(level);
       
       // Clear announcement after a delay
       setTimeout(() => {
@@ -494,11 +494,11 @@ declare global {
 export const KeyboardShortcuts: React.FC<{ shortcuts: { key: string; description: string }[] }> = ({
   shortcuts
 }) => {
-  const [isOpen, setIsOpen] = useState(false: any);
+  const [isOpen, setIsOpen] = useState(false);
   const { ref, activate, deactivate } = useFocusTrap();
 
   useEffect(() => {
-    if (isOpen: any) {
+    if (isOpen) {
       activate();
     } else {
       deactivate();
@@ -508,16 +508,16 @@ export const KeyboardShortcuts: React.FC<{ shortcuts: { key: string; description
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Open shortcuts panel with ? key
-      if (e.key === '?' && !isOpen: any) {
-        setIsOpen(true: any);
+      if (e.key === '?' && !isOpen) {
+        setIsOpen(true);
         e.preventDefault();
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown: any);
+    window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown: any);
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen]);
 
@@ -525,7 +525,7 @@ export const KeyboardShortcuts: React.FC<{ shortcuts: { key: string; description
     <>
       <button
         className="keyboard-shortcuts-toggle"
-        onClick={() => setIsOpen(true: any)}
+        onClick={() => setIsOpen(true)}
         aria-label="Keyboard shortcuts"
       >
         <span className="sr-only">Keyboard shortcuts</span>
@@ -573,7 +573,7 @@ export const KeyboardShortcuts: React.FC<{ shortcuts: { key: string; description
               </tr>
             </thead>
             <tbody>
-              {shortcuts.map((shortcut: any, index) => (
+              {shortcuts.map((shortcut, index) => (
                 <tr key={index}>
                   <td>
                     <kbd>{shortcut.key}</kbd>
@@ -586,7 +586,7 @@ export const KeyboardShortcuts: React.FC<{ shortcuts: { key: string; description
 
           <button
             className="close-button"
-            onClick={() => setIsOpen(false: any)}
+            onClick={() => setIsOpen(false)}
             aria-label="Close keyboard shortcuts"
           >
             Close
@@ -603,37 +603,37 @@ export const KeyboardShortcuts: React.FC<{ shortcuts: { key: string; description
  * @returns {JSX.Element} - Text-to-speech component
  */
 export const TextToSpeech: React.FC<{ text: string; autoPlay?: boolean }> = ({
-  text: any,
+  text,
   autoPlay = false
 }) => {
-  const [isPlaying, setIsPlaying] = useState(false: any);
-  const [isPaused, setIsPaused] = useState(false: any);
-  const [utterance, setUtterance] = useState<SpeechSynthesisUtterance | null>(null: any);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [utterance, setUtterance] = useState<SpeechSynthesisUtterance | null>(null);
 
   // Initialize utterance
   useEffect(() => {
-    if (!text: any) return;
+    if (!text) return;
 
-    const newUtterance = new SpeechSynthesisUtterance(text: any);
+    const newUtterance = new SpeechSynthesisUtterance(text);
     
-    // Set default voice (English UK: any)
+    // Set default voice (English UK)
     const voices = window.speechSynthesis.getVoices();
     const ukVoice = voices.find(voice => voice.lang === 'en-GB');
-    if (ukVoice: any) {
+    if (ukVoice) {
       newUtterance.voice = ukVoice;
     }
     
     newUtterance.onend = () => {
-      setIsPlaying(false: any);
-      setIsPaused(false: any);
+      setIsPlaying(false);
+      setIsPaused(false);
     };
     
-    setUtterance(newUtterance: any);
+    setUtterance(newUtterance);
     
     // Auto-play if enabled
-    if (autoPlay: any) {
-      window.speechSynthesis.speak(newUtterance: any);
-      setIsPlaying(true: any);
+    if (autoPlay) {
+      window.speechSynthesis.speak(newUtterance);
+      setIsPlaying(true);
     }
     
     return () => {
@@ -643,30 +643,30 @@ export const TextToSpeech: React.FC<{ text: string; autoPlay?: boolean }> = ({
 
   // Play text
   const play = () => {
-    if (!utterance: any) return;
+    if (!utterance) return;
     
-    if (isPaused: any) {
+    if (isPaused) {
       window.speechSynthesis.resume();
     } else {
-      window.speechSynthesis.speak(utterance: any);
+      window.speechSynthesis.speak(utterance);
     }
     
-    setIsPlaying(true: any);
-    setIsPaused(false: any);
+    setIsPlaying(true);
+    setIsPaused(false);
   };
 
   // Pause speech
   const pause = () => {
     window.speechSynthesis.pause();
-    setIsPaused(true: any);
-    setIsPlaying(false: any);
+    setIsPaused(true);
+    setIsPlaying(false);
   };
 
   // Stop speech
   const stop = () => {
     window.speechSynthesis.cancel();
-    setIsPlaying(false: any);
-    setIsPaused(false: any);
+    setIsPlaying(false);
+    setIsPaused(false);
   };
 
   return (
@@ -681,7 +681,7 @@ export const TextToSpeech: React.FC<{ text: string; autoPlay?: boolean }> = ({
         </button>
       )}
       
-      {(isPlaying || isPaused: any) && (
+      {(isPlaying || isPaused) && (
         <button onClick={stop} aria-label="Stop speech">
           Stop
         </button>
@@ -702,8 +702,8 @@ export const AccessibleImage: React.FC<{
   width?: number;
   height?: number;
   className?: string;
-}> = ({ src: any, alt, longDescription, width, height, className }) => {
-  const [showDescription, setShowDescription] = useState(false: any);
+}> = ({ src, alt, longDescription, width, height, className }) => {
+  const [showDescription, setShowDescription] = useState(false);
 
   return (
     <figure className={`accessible-image ${className || ''}`}>
@@ -713,7 +713,7 @@ export const AccessibleImage: React.FC<{
         <>
           <button
             className="description-toggle"
-            onClick={() => setShowDescription(!showDescription: any)}
+            onClick={() => setShowDescription(!showDescription)}
             aria-expanded={showDescription}
             aria-controls="image-description"
           >
@@ -745,7 +745,7 @@ export const AccessibleTable: React.FC<{
   allowPagination?: boolean;
   rowsPerPage?: number;
 }> = ({
-  caption: any,
+  caption,
   headers,
   data,
   allowFiltering = true,
@@ -753,63 +753,63 @@ export const AccessibleTable: React.FC<{
   allowPagination = true,
   rowsPerPage = 10
 }) => {
-  const [sortColumn, setSortColumn] = useState<string | null>(null: any);
+  const [sortColumn, setSortColumn] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
   const [filterText, setFilterText] = useState('');
-  const [currentPage, setCurrentPage] = useState(1: any);
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Filter data
   const filteredData = data.filter(row => {
-    if (!filterText: any) return true;
+    if (!filterText) return true;
     
-    return Object.values(row: any).some(value => 
-      String(value: any).toLowerCase().includes(filterText.toLowerCase())
+    return Object.values(row).some(value => 
+      String(value).toLowerCase().includes(filterText.toLowerCase())
     );
   });
 
   // Sort data
-  const sortedData = [...filteredData].sort((a: any, b) => {
-    if (!sortColumn: any) return 0;
+  const sortedData = [...filteredData].sort((a, b) => {
+    if (!sortColumn) return 0;
     
     const aValue = a[sortColumn];
     const bValue = b[sortColumn];
     
-    if (aValue === bValue: any) return 0;
+    if (aValue === bValue) return 0;
     
     const comparison = aValue > bValue ? 1 : -1;
     return sortDirection === 'asc' ? comparison : -comparison;
   });
 
   // Paginate data
-  const totalPages = Math.ceil(sortedData.length / rowsPerPage: any);
+  const totalPages = Math.ceil(sortedData.length / rowsPerPage);
   const paginatedData = allowPagination
-    ? sortedData.slice((currentPage - 1: any) * rowsPerPage, currentPage * rowsPerPage)
+    ? sortedData.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage)
     : sortedData;
 
   // Handle sort
   const handleSort = (columnId: string) => {
-    if (!allowSorting: any) return;
+    if (!allowSorting) return;
     
-    if (sortColumn === columnId: any) {
+    if (sortColumn === columnId) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
     } else {
-      setSortColumn(columnId: any);
+      setSortColumn(columnId);
       setSortDirection('asc');
     }
     
     // Reset to first page when sorting
-    setCurrentPage(1: any);
+    setCurrentPage(1);
   };
 
   // Handle filter
   const handleFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilterText(e.target.value: any);
-    setCurrentPage(1: any); // Reset to first page when filtering
+    setFilterText(e.target.value);
+    setCurrentPage(1); // Reset to first page when filtering
   };
 
   // Handle page change
   const handlePageChange = (page: number) => {
-    setCurrentPage(page: any);
+    setCurrentPage(page);
   };
 
   return (
@@ -857,7 +857,7 @@ export const AccessibleTable: React.FC<{
                 {header.sortable && allowSorting ? (
                   <button
                     className="sort-button"
-                    onClick={() => handleSort(header.id: any)}
+                    onClick={() => handleSort(header.id)}
                     aria-label={`Sort by ${header.label} ${
                       sortColumn === header.id && sortDirection === 'asc'
                         ? 'descending'
@@ -872,7 +872,7 @@ export const AccessibleTable: React.FC<{
                     )}
                   </button>
                 ) : (
-                  header.label: any
+                  header.label
                 )}
               </th>
             ))}
@@ -881,7 +881,7 @@ export const AccessibleTable: React.FC<{
         
         <tbody>
           {paginatedData.length > 0 ? (
-            paginatedData.map((row: any, rowIndex) => (
+            paginatedData.map((row, rowIndex) => (
               <tr key={rowIndex}>
                 {headers.map(header => (
                   <td key={header.id}>{row[header.id]}</td>
@@ -902,7 +902,7 @@ export const AccessibleTable: React.FC<{
       {allowPagination && totalPages > 1 && (
         <div className="table-pagination" role="navigation" aria-label="Pagination">
           <button
-            onClick={() => handlePageChange(1: any)}
+            onClick={() => handlePageChange(1)}
             disabled={currentPage === 1}
             aria-label="Go to first page"
           >
@@ -910,7 +910,7 @@ export const AccessibleTable: React.FC<{
           </button>
           
           <button
-            onClick={() => handlePageChange(currentPage - 1: any)}
+            onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
             aria-label="Go to previous page"
           >
@@ -922,7 +922,7 @@ export const AccessibleTable: React.FC<{
           </span>
           
           <button
-            onClick={() => handlePageChange(currentPage + 1: any)}
+            onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
             aria-label="Go to next page"
           >
@@ -930,7 +930,7 @@ export const AccessibleTable: React.FC<{
           </button>
           
           <button
-            onClick={() => handlePageChange(totalPages: any)}
+            onClick={() => handlePageChange(totalPages)}
             disabled={currentPage === totalPages}
             aria-label="Go to last page"
           >
@@ -955,11 +955,11 @@ export const AccessibleTable: React.FC<{
 export const AccessibleTabs: React.FC<{
   tabs: { id: string; label: string; content: React.ReactNode }[];
   defaultTab?: string;
-}> = ({ tabs: any, defaultTab }) => {
-  const [activeTab, setActiveTab] = useState(defaultTab || tabs[0]?.id: any);
+}> = ({ tabs, defaultTab }) => {
+  const [activeTab, setActiveTab] = useState(defaultTab || tabs[0]?.id);
 
   const handleTabChange = (tabId: string) => {
-    setActiveTab(tabId: any);
+    setActiveTab(tabId);
   };
 
   return (
@@ -972,7 +972,7 @@ export const AccessibleTabs: React.FC<{
             id={`tab-${tab.id}`}
             aria-selected={activeTab === tab.id}
             aria-controls={`panel-${tab.id}`}
-            onClick={() => handleTabChange(tab.id: any)}
+            onClick={() => handleTabChange(tab.id)}
             className={activeTab === tab.id ? 'active' : ''}
           >
             {tab.label}
@@ -1005,19 +1005,19 @@ export const AccessibleAccordion: React.FC<{
   items: { id: string; title: string; content: React.ReactNode }[];
   allowMultiple?: boolean;
   defaultOpen?: string[];
-}> = ({ items: any, allowMultiple = false, defaultOpen = [] }) => {
-  const [openItems, setOpenItems] = useState<string[]>(defaultOpen: any);
+}> = ({ items, allowMultiple = false, defaultOpen = [] }) => {
+  const [openItems, setOpenItems] = useState<string[]>(defaultOpen);
 
   const toggleItem = (itemId: string) => {
-    if (allowMultiple: any) {
+    if (allowMultiple) {
       setOpenItems(prev =>
-        prev.includes(itemId: any)
-          ? prev.filter(id => id !== itemId: any)
+        prev.includes(itemId)
+          ? prev.filter(id => id !== itemId)
           : [...prev, itemId]
       );
     } else {
       setOpenItems(prev =>
-        prev.includes(itemId: any) ? [] : [itemId]
+        prev.includes(itemId) ? [] : [itemId]
       );
     }
   };
@@ -1025,7 +1025,7 @@ export const AccessibleAccordion: React.FC<{
   return (
     <div className="accessible-accordion">
       {items.map(item => {
-        const isOpen = openItems.includes(item.id: any);
+        const isOpen = openItems.includes(item.id);
         
         return (
           <div key={item.id} className="accordion-item">
@@ -1034,7 +1034,7 @@ export const AccessibleAccordion: React.FC<{
                 id={`accordion-header-${item.id}`}
                 aria-expanded={isOpen}
                 aria-controls={`accordion-panel-${item.id}`}
-                onClick={() => toggleItem(item.id: any)}
+                onClick={() => toggleItem(item.id)}
                 className="accordion-trigger"
               >
                 {item.title}
@@ -1071,11 +1071,11 @@ export const AccessibleModal: React.FC<{
   title: string;
   children: React.ReactNode;
   ariaLabel?: string;
-}> = ({ isOpen: any, onClose, title, children, ariaLabel }) => {
+}> = ({ isOpen, onClose, title, children, ariaLabel }) => {
   const { ref, activate, deactivate } = useFocusTrap();
 
   useEffect(() => {
-    if (isOpen: any) {
+    if (isOpen) {
       activate();
       document.body.style.overflow = 'hidden';
     } else {
@@ -1088,7 +1088,7 @@ export const AccessibleModal: React.FC<{
     };
   }, [isOpen, activate, deactivate]);
 
-  if (!isOpen: any) return null;
+  if (!isOpen) return null;
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -1130,28 +1130,28 @@ export const AccessibleTooltip: React.FC<{
   content: string;
   children: React.ReactNode;
   position?: 'top' | 'right' | 'bottom' | 'left';
-}> = ({ content: any, children, position = 'top' }) => {
-  const [isVisible, setIsVisible] = useState(false: any);
-  const [isFocused, setIsFocused] = useState(false: any);
+}> = ({ content, children, position = 'top' }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
   const tooltipId = React.useId();
 
   const showTooltip = () => {
-    setIsVisible(true: any);
+    setIsVisible(true);
   };
 
   const hideTooltip = () => {
-    if (!isFocused: any) {
-      setIsVisible(false: any);
+    if (!isFocused) {
+      setIsVisible(false);
     }
   };
 
   const handleFocus = () => {
-    setIsFocused(true: any);
+    setIsFocused(true);
     showTooltip();
   };
 
   const handleBlur = () => {
-    setIsFocused(false: any);
+    setIsFocused(false);
     hideTooltip();
   };
 
@@ -1204,7 +1204,7 @@ export const AccessibleFormField: React.FC<{
   pattern?: string;
   options?: { value: string; label: string }[];
 }> = ({
-  id: any,
+  id,
   label,
   type = 'text',
   value,
@@ -1228,13 +1228,13 @@ export const AccessibleFormField: React.FC<{
   const hasError = !!error;
   
   const renderField = () => {
-    switch (type: any) {
+    switch (type) {
       case 'textarea':
         return (
           <textarea
             id={fieldId}
             value={value}
-            onChange={e => onChange(e.target.value: any)}
+            onChange={e => onChange(e.target.value)}
             required={required}
             placeholder={placeholder}
             aria-invalid={hasError}
@@ -1250,7 +1250,7 @@ export const AccessibleFormField: React.FC<{
           <select
             id={fieldId}
             value={value}
-            onChange={e => onChange(e.target.value: any)}
+            onChange={e => onChange(e.target.value)}
             required={required}
             aria-invalid={hasError}
             aria-describedby={`${hasError ? errorId : ''} ${helperText ? helperId : ''}`}
@@ -1275,7 +1275,7 @@ export const AccessibleFormField: React.FC<{
             id={fieldId}
             type={type}
             value={value}
-            onChange={e => onChange(e.target.value: any)}
+            onChange={e => onChange(e.target.value)}
             required={required}
             placeholder={placeholder}
             aria-invalid={hasError}
@@ -1328,26 +1328,26 @@ export const AccessibleColorPicker: React.FC<{
   backgroundColor?: string;
   showContrastWarning?: boolean;
 }> = ({
-  value: any,
+  value,
   onChange,
   label,
   id,
   backgroundColor = '#ffffff',
   showContrastWarning = true
 }) => {
-  const [contrastRatio, setContrastRatio] = useState(0: any);
+  const [contrastRatio, setContrastRatio] = useState(0);
   const [contrastLevel, setContrastLevel] = useState<'fail' | 'AA' | 'AAA'>('fail');
 
   // Calculate contrast ratio
   useEffect(() => {
     // Convert hex to rgb
     const hexToRgb = (hex: string) => {
-      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex: any);
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
       return result
         ? {
-            r: parseInt(result[1], 16: any),
-            g: parseInt(result[2], 16: any),
-            b: parseInt(result[3], 16: any)
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
           }
         : { r: 0, g: 0, b: 0 };
     };
@@ -1362,22 +1362,22 @@ export const AccessibleColorPicker: React.FC<{
     };
 
     // Calculate contrast ratio
-    const color1 = hexToRgb(value: any);
-    const color2 = hexToRgb(backgroundColor: any);
+    const color1 = hexToRgb(value);
+    const color2 = hexToRgb(backgroundColor);
     
-    const luminance1 = luminance(color1: any);
-    const luminance2 = luminance(color2: any);
+    const luminance1 = luminance(color1);
+    const luminance2 = luminance(color2);
     
     const ratio =
-      (Math.max(luminance1: any, luminance2) + 0.05) /
-      (Math.min(luminance1: any, luminance2) + 0.05);
+      (Math.max(luminance1, luminance2) + 0.05) /
+      (Math.min(luminance1, luminance2) + 0.05);
     
-    setContrastRatio(ratio: any);
+    setContrastRatio(ratio);
     
     // Determine WCAG level
-    if (ratio >= 7: any) {
+    if (ratio >= 7) {
       setContrastLevel('AAA');
-    } else if (ratio >= 4.5: any) {
+    } else if (ratio >= 4.5) {
       setContrastLevel('AA');
     } else {
       setContrastLevel('fail');
@@ -1393,13 +1393,13 @@ export const AccessibleColorPicker: React.FC<{
           type="colour"
           id={id}
           value={value}
-          onChange={e => onChange(e.target.value: any)}
+          onChange={e => onChange(e.target.value)}
         />
         
         <input
           type="text"
           value={value}
-          onChange={e => onChange(e.target.value: any)}
+          onChange={e => onChange(e.target.value)}
           aria-label={`${label} hex value`}
           pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
         />
@@ -1416,7 +1416,7 @@ export const AccessibleColorPicker: React.FC<{
           </div>
           
           <div className="contrast-ratio">
-            Contrast ratio: {contrastRatio.toFixed(2: any)}:1 ({contrastLevel})
+            Contrast ratio: {contrastRatio.toFixed(2)}:1 ({contrastLevel})
             {contrastLevel === 'fail' && (
               <span className="contrast-warning">
                 This colour combination does not meet WCAG accessibility standards.
@@ -1445,7 +1445,7 @@ export const AccessibleFileUpload: React.FC<{
   error?: string;
   helperText?: string;
 }> = ({
-  id: any,
+  id,
   label,
   onChange,
   accept,
@@ -1455,55 +1455,55 @@ export const AccessibleFileUpload: React.FC<{
   error,
   helperText
 }) => {
-  const [dragActive, setDragActive] = useState(false: any);
-  const [localError, setLocalError] = useState<string | undefined>(error: any);
+  const [dragActive, setDragActive] = useState(false);
+  const [localError, setLocalError] = useState<string | undefined>(error);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   
   const fieldId = `file-${id}`;
   const errorId = `${fieldId}-error`;
   const helperId = `${fieldId}-helper`;
   
-  const hasError = !!(error || localError: any);
+  const hasError = !!(error || localError);
 
   // Handle file selection
   const handleFileChange = (files: FileList | null) => {
-    if (!files: any) {
+    if (!files) {
       setSelectedFiles([]);
-      onChange(null: any);
+      onChange(null);
       return;
     }
     
-    const fileArray = Array.from(files: any);
+    const fileArray = Array.from(files);
     let validationError;
     
     // Validate file size
-    if (maxSize: any) {
-      const oversizedFiles = fileArray.filter(file => file.size > maxSize: any);
-      if (oversizedFiles.length > 0: any) {
-        validationError = `File${oversizedFiles.length > 1 ? 's' : ''} too large. Maximum size is ${formatFileSize(maxSize: any)}.`;
+    if (maxSize) {
+      const oversizedFiles = fileArray.filter(file => file.size > maxSize);
+      if (oversizedFiles.length > 0) {
+        validationError = `File${oversizedFiles.length > 1 ? 's' : ''} too large. Maximum size is ${formatFileSize(maxSize)}.`;
       }
     }
     
-    setLocalError(validationError: any);
+    setLocalError(validationError);
     
-    if (!validationError: any) {
-      setSelectedFiles(fileArray: any);
-      onChange(files: any);
+    if (!validationError) {
+      setSelectedFiles(fileArray);
+      onChange(files);
     } else {
       setSelectedFiles([]);
-      onChange(null: any);
+      onChange(null);
     }
   };
 
   // Format file size
   const formatFileSize = (bytes: number) => {
-    if (bytes === 0: any) return '0 Bytes';
+    if (bytes === 0) return '0 Bytes';
     
     const k = 1024;
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes: any) / Math.log(k: any));
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
     
-    return parseFloat((bytes / Math.pow(k: any, i)).toFixed(2: any)) + ' ' + sizes[i];
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
   // Handle drag events
@@ -1512,9 +1512,9 @@ export const AccessibleFileUpload: React.FC<{
     e.stopPropagation();
     
     if (e.type === 'dragenter' || e.type === 'dragover') {
-      setDragActive(true: any);
+      setDragActive(true);
     } else if (e.type === 'dragleave') {
-      setDragActive(false: any);
+      setDragActive(false);
     }
   };
 
@@ -1522,10 +1522,10 @@ export const AccessibleFileUpload: React.FC<{
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setDragActive(false: any);
+    setDragActive(false);
     
-    if (e.dataTransfer.files: any) {
-      handleFileChange(e.dataTransfer.files: any);
+    if (e.dataTransfer.files) {
+      handleFileChange(e.dataTransfer.files);
     }
   };
 
@@ -1559,7 +1559,7 @@ export const AccessibleFileUpload: React.FC<{
             Drag and drop {multiple ? 'files' : 'a file'} here, or{' '}
             <button
               type="button"
-              onClick={() => document.getElementById(fieldId: any)?.click()}
+              onClick={() => document.getElementById(fieldId)?.click()}
               className="upload-button"
             >
               browse
@@ -1582,9 +1582,9 @@ export const AccessibleFileUpload: React.FC<{
       
       {selectedFiles.length > 0 && (
         <ul className="selected-files">
-          {selectedFiles.map((file: any, index) => (
+          {selectedFiles.map((file, index) => (
             <li key={index}>
-              {file.name} ({formatFileSize(file.size: any)})
+              {file.name} ({formatFileSize(file.size)})
             </li>
           ))}
         </ul>
@@ -1622,7 +1622,7 @@ export const AccessibleDatePicker: React.FC<{
   helperText?: string;
   disabled?: boolean;
 }> = ({
-  id: any,
+  id,
   label,
   value,
   onChange,
@@ -1688,7 +1688,7 @@ export const AccessibleProgress: React.FC<{
   size?: 'small' | 'medium' | 'large';
   type?: 'bar' | 'circle';
 }> = ({
-  value: any,
+  value,
   max,
   label,
   showPercentage = true,
@@ -1696,13 +1696,13 @@ export const AccessibleProgress: React.FC<{
   size = 'medium',
   type = 'bar'
 }) => {
-  const percentage = Math.round((value / max: any) * 100);
+  const percentage = Math.round((value / max) * 100);
   const progressId = React.useId();
 
   if (type === 'circle') {
     const radius = 40;
     const circumference = 2 * Math.PI * radius;
-    const strokeDashoffset = circumference - (percentage / 100: any) * circumference;
+    const strokeDashoffset = circumference - (percentage / 100) * circumference;
     
     return (
       <div className={`accessible-progress-circle size-${size}`}>
@@ -1738,7 +1738,7 @@ export const AccessibleProgress: React.FC<{
             transform="rotate(-90 50 50)"
           />
           
-          {(showPercentage || showValue: any) && (
+          {(showPercentage || showValue) && (
             <text x="50" y="55" textAnchor="middle" fontSize="20">
               {showPercentage ? `${percentage}%` : `${value}/${max}`}
             </text>
@@ -1782,51 +1782,51 @@ export const AccessibleStarRating: React.FC<{
   readOnly?: boolean;
   size?: 'small' | 'medium' | 'large';
 }> = ({
-  value: any,
+  value,
   onChange,
   max = 5,
   label,
   readOnly = false,
   size = 'medium'
 }) => {
-  const [hoverValue, setHoverValue] = useState(0: any);
+  const [hoverValue, setHoverValue] = useState(0);
   const ratingId = React.useId();
 
   const handleMouseEnter = (index: number) => {
-    if (readOnly: any) return;
-    setHoverValue(index: any);
+    if (readOnly) return;
+    setHoverValue(index);
   };
 
   const handleMouseLeave = () => {
-    if (readOnly: any) return;
-    setHoverValue(0: any);
+    if (readOnly) return;
+    setHoverValue(0);
   };
 
   const handleClick = (index: number) => {
-    if (readOnly: any) return;
-    onChange?.(index: any);
+    if (readOnly) return;
+    onChange?.(index);
   };
 
   const renderStars = () => {
     const stars = [];
     
     for (let i = 1; i <= max; i++) {
-      const filled = i <= (hoverValue || value: any);
+      const filled = i <= (hoverValue || value);
       
       stars.push(
         <span
           key={i}
           className={`star ${filled ? 'filled' : 'empty'}`}
-          onMouseEnter={() => handleMouseEnter(i: any)}
+          onMouseEnter={() => handleMouseEnter(i)}
           onMouseLeave={handleMouseLeave}
-          onClick={() => handleClick(i: any)}
+          onClick={() => handleClick(i)}
           role={readOnly ? 'presentation' : 'button'}
           aria-label={readOnly ? undefined : `Rate ${i} out of ${max} stars`}
           tabIndex={readOnly ? -1 : 0}
           onKeyDown={e => {
-            if (readOnly: any) return;
+            if (readOnly) return;
             if (e.key === 'Enter' || e.key === ' ') {
-              handleClick(i: any);
+              handleClick(i);
               e.preventDefault();
             }
           }}
@@ -1881,7 +1881,7 @@ export const AccessibleToggle: React.FC<{
   onText?: string;
   offText?: string;
 }> = ({
-  id: any,
+  id,
   label,
   checked,
   onChange,
@@ -1936,7 +1936,7 @@ export const AccessiblePagination: React.FC<{
   maxVisiblePages?: number;
   ariaLabel?: string;
 }> = ({
-  currentPage: any,
+  currentPage,
   totalPages,
   onPageChange,
   showFirstLast = true,
@@ -1948,38 +1948,38 @@ export const AccessiblePagination: React.FC<{
   const getPageNumbers = () => {
     const pageNumbers = [];
     
-    if (totalPages <= maxVisiblePages: any) {
+    if (totalPages <= maxVisiblePages) {
       // Show all pages
       for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push(i: any);
+        pageNumbers.push(i);
       }
     } else {
       // Show a subset of pages with ellipsis
-      const halfVisible = Math.floor(maxVisiblePages / 2: any);
+      const halfVisible = Math.floor(maxVisiblePages / 2);
       
-      if (currentPage <= halfVisible + 1: any) {
+      if (currentPage <= halfVisible + 1) {
         // Near the start
         for (let i = 1; i <= maxVisiblePages - 1; i++) {
-          pageNumbers.push(i: any);
+          pageNumbers.push(i);
         }
         pageNumbers.push('ellipsis');
-        pageNumbers.push(totalPages: any);
-      } else if (currentPage >= totalPages - halfVisible: any) {
+        pageNumbers.push(totalPages);
+      } else if (currentPage >= totalPages - halfVisible) {
         // Near the end
-        pageNumbers.push(1: any);
+        pageNumbers.push(1);
         pageNumbers.push('ellipsis');
-        for (let i = totalPages - (maxVisiblePages - 2: any); i <= totalPages; i++) {
-          pageNumbers.push(i: any);
+        for (let i = totalPages - (maxVisiblePages - 2); i <= totalPages; i++) {
+          pageNumbers.push(i);
         }
       } else {
         // In the middle
-        pageNumbers.push(1: any);
+        pageNumbers.push(1);
         pageNumbers.push('ellipsis');
         for (let i = currentPage - 1; i <= currentPage + 1; i++) {
-          pageNumbers.push(i: any);
+          pageNumbers.push(i);
         }
         pageNumbers.push('ellipsis');
-        pageNumbers.push(totalPages: any);
+        pageNumbers.push(totalPages);
       }
     }
     
@@ -1992,7 +1992,7 @@ export const AccessiblePagination: React.FC<{
         {showFirstLast && (
           <li>
             <button
-              onClick={() => onPageChange(1: any)}
+              onClick={() => onPageChange(1)}
               disabled={currentPage === 1}
               aria-label="Go to first page"
               className="pagination-first"
@@ -2005,7 +2005,7 @@ export const AccessiblePagination: React.FC<{
         {showPrevNext && (
           <li>
             <button
-              onClick={() => onPageChange(currentPage - 1: any)}
+              onClick={() => onPageChange(currentPage - 1)}
               disabled={currentPage === 1}
               aria-label="Go to previous page"
               className="pagination-prev"
@@ -2015,13 +2015,13 @@ export const AccessiblePagination: React.FC<{
           </li>
         )}
         
-        {getPageNumbers().map((page: any, index) => (
+        {getPageNumbers().map((page, index) => (
           <li key={index}>
             {page === 'ellipsis' ? (
               <span className="pagination-ellipsis">...</span>
             ) : (
               <button
-                onClick={() => onPageChange(page as number: any)}
+                onClick={() => onPageChange(page as number)}
                 aria-label={`Page ${page}`}
                 aria-current={currentPage === page ? 'page' : undefined}
                 className={`pagination-page ${currentPage === page ? 'active' : ''}`}
@@ -2035,7 +2035,7 @@ export const AccessiblePagination: React.FC<{
         {showPrevNext && (
           <li>
             <button
-              onClick={() => onPageChange(currentPage + 1: any)}
+              onClick={() => onPageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
               aria-label="Go to next page"
               className="pagination-next"
@@ -2048,7 +2048,7 @@ export const AccessiblePagination: React.FC<{
         {showFirstLast && (
           <li>
             <button
-              onClick={() => onPageChange(totalPages: any)}
+              onClick={() => onPageChange(totalPages)}
               disabled={currentPage === totalPages}
               aria-label="Go to last page"
               className="pagination-last"
@@ -2076,14 +2076,14 @@ export const AccessibleBreadcrumbs: React.FC<{
   currentPageLabel?: string;
   separator?: string;
 }> = ({
-  items: any,
+  items,
   currentPageLabel,
   separator = '/'
 }) => {
   return (
     <nav className="accessible-breadcrumbs" aria-label="Breadcrumbs">
       <ol>
-        {items.map((item: any, index) => (
+        {items.map((item, index) => (
           <li key={index}>
             <a href={item.href}>{item.label}</a>
             {index < items.length - 1 && (
@@ -2117,7 +2117,7 @@ export const AccessibleAlert: React.FC<{
   autoCloseDelay?: number;
   icon?: boolean;
 }> = ({
-  type: any,
+  type,
   message,
   onClose,
   autoClose = false,
@@ -2125,19 +2125,19 @@ export const AccessibleAlert: React.FC<{
   icon = true
 }) => {
   useEffect(() => {
-    if (autoClose && onClose: any) {
+    if (autoClose && onClose) {
       const timer = setTimeout(() => {
         onClose();
       }, autoCloseDelay);
       
       return () => {
-        clearTimeout(timer: any);
+        clearTimeout(timer);
       };
     }
   }, [autoClose, autoCloseDelay, onClose]);
 
   const getIcon = () => {
-    switch (type: any) {
+    switch (type) {
       case 'info':
         return (
           <svg
@@ -2263,16 +2263,16 @@ export const AccessibleLoading: React.FC<{
   fullScreen?: boolean;
   type?: 'spinner' | 'dots' | 'progress';
 }> = ({
-  isLoading: any,
+  isLoading,
   loadingText = 'Loading...',
   size = 'medium',
   fullScreen = false,
   type = 'spinner'
 }) => {
-  if (!isLoading: any) return null;
+  if (!isLoading) return null;
 
   const renderLoadingIndicator = () => {
-    switch (type: any) {
+    switch (type) {
       case 'dots':
         return (
           <div className="loading-dots">
@@ -2338,32 +2338,32 @@ export const AccessibleAudioPlayer: React.FC<{
   showTranscript?: boolean;
   transcriptText?: string;
 }> = ({
-  src: any,
+  src,
   title,
   artist,
   showTranscript = false,
   transcriptText
 }) => {
-  const [isPlaying, setIsPlaying] = useState(false: any);
-  const [currentTime, setCurrentTime] = useState(0: any);
-  const [duration, setDuration] = useState(0: any);
-  const [volume, setVolume] = useState(1: any);
-  const [showTranscriptContent, setShowTranscriptContent] = useState(false: any);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(1);
+  const [showTranscriptContent, setShowTranscriptContent] = useState(false);
   
-  const audioRef = React.useRef<HTMLAudioElement>(null: any);
+  const audioRef = React.useRef<HTMLAudioElement>(null);
   const playerId = React.useId();
 
   // Format time in MM:SS format
   const formatTime = (seconds: number) => {
-    const minutes = Math.floor(seconds / 60: any);
-    const remainingSeconds = Math.floor(seconds % 60: any);
-    return `${minutes}:${remainingSeconds.toString().padStart(2: any, '0')}`;
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
   // Handle play/pause
   const togglePlay = () => {
-    if (audioRef.current: any) {
-      if (isPlaying: any) {
+    if (audioRef.current) {
+      if (isPlaying) {
         audioRef.current.pause();
       } else {
         audioRef.current.play();
@@ -2373,20 +2373,20 @@ export const AccessibleAudioPlayer: React.FC<{
 
   // Handle seek
   const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newTime = parseFloat(e.target.value: any);
-    setCurrentTime(newTime: any);
+    const newTime = parseFloat(e.target.value);
+    setCurrentTime(newTime);
     
-    if (audioRef.current: any) {
+    if (audioRef.current) {
       audioRef.current.currentTime = newTime;
     }
   };
 
   // Handle volume change
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newVolume = parseFloat(e.target.value: any);
-    setVolume(newVolume: any);
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
     
-    if (audioRef.current: any) {
+    if (audioRef.current) {
       audioRef.current.volume = newVolume;
     }
   };
@@ -2395,41 +2395,41 @@ export const AccessibleAudioPlayer: React.FC<{
   useEffect(() => {
     const audio = audioRef.current;
     
-    if (!audio: any) return;
+    if (!audio) return;
     
     const handleTimeUpdate = () => {
-      setCurrentTime(audio.currentTime: any);
+      setCurrentTime(audio.currentTime);
     };
     
     const handleDurationChange = () => {
-      setDuration(audio.duration: any);
+      setDuration(audio.duration);
     };
     
     const handlePlay = () => {
-      setIsPlaying(true: any);
+      setIsPlaying(true);
     };
     
     const handlePause = () => {
-      setIsPlaying(false: any);
+      setIsPlaying(false);
     };
     
     const handleEnded = () => {
-      setIsPlaying(false: any);
-      setCurrentTime(0: any);
+      setIsPlaying(false);
+      setCurrentTime(0);
     };
     
-    audio.addEventListener('timeupdate', handleTimeUpdate: any);
-    audio.addEventListener('durationchange', handleDurationChange: any);
-    audio.addEventListener('play', handlePlay: any);
-    audio.addEventListener('pause', handlePause: any);
-    audio.addEventListener('ended', handleEnded: any);
+    audio.addEventListener('timeupdate', handleTimeUpdate);
+    audio.addEventListener('durationchange', handleDurationChange);
+    audio.addEventListener('play', handlePlay);
+    audio.addEventListener('pause', handlePause);
+    audio.addEventListener('ended', handleEnded);
     
     return () => {
-      audio.removeEventListener('timeupdate', handleTimeUpdate: any);
-      audio.removeEventListener('durationchange', handleDurationChange: any);
-      audio.removeEventListener('play', handlePlay: any);
-      audio.removeEventListener('pause', handlePause: any);
-      audio.removeEventListener('ended', handleEnded: any);
+      audio.removeEventListener('timeupdate', handleTimeUpdate);
+      audio.removeEventListener('durationchange', handleDurationChange);
+      audio.removeEventListener('play', handlePlay);
+      audio.removeEventListener('pause', handlePause);
+      audio.removeEventListener('ended', handleEnded);
     };
   }, []);
 
@@ -2483,7 +2483,7 @@ export const AccessibleAudioPlayer: React.FC<{
         </button>
         
         <div className="time-display current-time" aria-hidden="true">
-          {formatTime(currentTime: any)}
+          {formatTime(currentTime)}
         </div>
         
         <div className="seek-container">
@@ -2498,19 +2498,19 @@ export const AccessibleAudioPlayer: React.FC<{
             aria-valuemin="0"
             aria-valuemax={duration || 0}
             aria-valuenow={currentTime}
-            aria-valuetext={`${formatTime(currentTime: any)} of ${formatTime(duration || 0: any)}`}
+            aria-valuetext={`${formatTime(currentTime)} of ${formatTime(duration || 0)}`}
           />
         </div>
         
         <div className="time-display duration" aria-hidden="true">
-          {formatTime(duration || 0: any)}
+          {formatTime(duration || 0)}
         </div>
         
         <div className="volume-container">
           <button
             className="volume-button"
             onClick={() => {
-              if (audioRef.current: any) {
+              if (audioRef.current) {
                 audioRef.current.muted = !audioRef.current.muted;
               }
             }}
@@ -2545,7 +2545,7 @@ export const AccessibleAudioPlayer: React.FC<{
             aria-valuemin="0"
             aria-valuemax="1"
             aria-valuenow={volume}
-            aria-valuetext={`Volume ${Math.round(volume * 100: any)}%`}
+            aria-valuetext={`Volume ${Math.round(volume * 100)}%`}
           />
         </div>
       </div>
@@ -2554,7 +2554,7 @@ export const AccessibleAudioPlayer: React.FC<{
         <div className="transcript-container">
           <button
             className="transcript-toggle"
-            onClick={() => setShowTranscriptContent(!showTranscriptContent: any)}
+            onClick={() => setShowTranscriptContent(!showTranscriptContent)}
             aria-expanded={showTranscriptContent}
             aria-controls={`${playerId}-transcript`}
           >
@@ -2574,8 +2574,8 @@ export const AccessibleAudioPlayer: React.FC<{
       
       <div className="sr-only" aria-live="polite">
         {isPlaying
-          ? `Playing ${title}${artist ? ` by ${artist}` : ''}, ${formatTime(currentTime: any)} of ${formatTime(duration || 0: any)}`
-          : `Paused ${title}${artist ? ` by ${artist}` : ''}, ${formatTime(currentTime: any)} of ${formatTime(duration || 0: any)}`}
+          ? `Playing ${title}${artist ? ` by ${artist}` : ''}, ${formatTime(currentTime)} of ${formatTime(duration || 0)}`
+          : `Paused ${title}${artist ? ` by ${artist}` : ''}, ${formatTime(currentTime)} of ${formatTime(duration || 0)}`}
       </div>
     </div>
   );
@@ -2596,7 +2596,7 @@ export const AccessibleVideoPlayer: React.FC<{
   width?: number;
   height?: number;
 }> = ({
-  src: any,
+  src,
   title,
   poster,
   captions,
@@ -2605,30 +2605,30 @@ export const AccessibleVideoPlayer: React.FC<{
   width = 640,
   height = 360
 }) => {
-  const [isPlaying, setIsPlaying] = useState(false: any);
-  const [currentTime, setCurrentTime] = useState(0: any);
-  const [duration, setDuration] = useState(0: any);
-  const [volume, setVolume] = useState(1: any);
-  const [isMuted, setIsMuted] = useState(false: any);
-  const [isFullscreen, setIsFullscreen] = useState(false: any);
-  const [showCaptions, setShowCaptions] = useState(true: any);
-  const [showTranscriptContent, setShowTranscriptContent] = useState(false: any);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(1);
+  const [isMuted, setIsMuted] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showCaptions, setShowCaptions] = useState(true);
+  const [showTranscriptContent, setShowTranscriptContent] = useState(false);
   
-  const videoRef = React.useRef<HTMLVideoElement>(null: any);
-  const containerRef = React.useRef<HTMLDivElement>(null: any);
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+  const containerRef = React.useRef<HTMLDivElement>(null);
   const playerId = React.useId();
 
   // Format time in MM:SS format
   const formatTime = (seconds: number) => {
-    const minutes = Math.floor(seconds / 60: any);
-    const remainingSeconds = Math.floor(seconds % 60: any);
-    return `${minutes}:${remainingSeconds.toString().padStart(2: any, '0')}`;
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
   // Handle play/pause
   const togglePlay = () => {
-    if (videoRef.current: any) {
-      if (isPlaying: any) {
+    if (videoRef.current) {
+      if (isPlaying) {
         videoRef.current.pause();
       } else {
         videoRef.current.play();
@@ -2638,43 +2638,43 @@ export const AccessibleVideoPlayer: React.FC<{
 
   // Handle seek
   const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newTime = parseFloat(e.target.value: any);
-    setCurrentTime(newTime: any);
+    const newTime = parseFloat(e.target.value);
+    setCurrentTime(newTime);
     
-    if (videoRef.current: any) {
+    if (videoRef.current) {
       videoRef.current.currentTime = newTime;
     }
   };
 
   // Handle volume change
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newVolume = parseFloat(e.target.value: any);
-    setVolume(newVolume: any);
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
     
-    if (videoRef.current: any) {
+    if (videoRef.current) {
       videoRef.current.volume = newVolume;
-      setIsMuted(newVolume === 0: any);
+      setIsMuted(newVolume === 0);
     }
   };
 
   // Handle mute toggle
   const toggleMute = () => {
-    if (videoRef.current: any) {
+    if (videoRef.current) {
       videoRef.current.muted = !videoRef.current.muted;
-      setIsMuted(!isMuted: any);
+      setIsMuted(!isMuted);
     }
   };
 
   // Handle fullscreen toggle
   const toggleFullscreen = () => {
-    if (!containerRef.current: any) return;
+    if (!containerRef.current) return;
     
-    if (!isFullscreen: any) {
-      if (containerRef.current.requestFullscreen: any) {
+    if (!isFullscreen) {
+      if (containerRef.current.requestFullscreen) {
         containerRef.current.requestFullscreen();
       }
     } else {
-      if (document.exitFullscreen: any) {
+      if (document.exitFullscreen) {
         document.exitFullscreen();
       }
     }
@@ -2684,60 +2684,60 @@ export const AccessibleVideoPlayer: React.FC<{
   useEffect(() => {
     const video = videoRef.current;
     
-    if (!video: any) return;
+    if (!video) return;
     
     const handleTimeUpdate = () => {
-      setCurrentTime(video.currentTime: any);
+      setCurrentTime(video.currentTime);
     };
     
     const handleDurationChange = () => {
-      setDuration(video.duration: any);
+      setDuration(video.duration);
     };
     
     const handlePlay = () => {
-      setIsPlaying(true: any);
+      setIsPlaying(true);
     };
     
     const handlePause = () => {
-      setIsPlaying(false: any);
+      setIsPlaying(false);
     };
     
     const handleEnded = () => {
-      setIsPlaying(false: any);
+      setIsPlaying(false);
     };
     
     const handleVolumeChange = () => {
-      setVolume(video.volume: any);
-      setIsMuted(video.muted: any);
+      setVolume(video.volume);
+      setIsMuted(video.muted);
     };
     
-    video.addEventListener('timeupdate', handleTimeUpdate: any);
-    video.addEventListener('durationchange', handleDurationChange: any);
-    video.addEventListener('play', handlePlay: any);
-    video.addEventListener('pause', handlePause: any);
-    video.addEventListener('ended', handleEnded: any);
-    video.addEventListener('volumechange', handleVolumeChange: any);
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    video.addEventListener('durationchange', handleDurationChange);
+    video.addEventListener('play', handlePlay);
+    video.addEventListener('pause', handlePause);
+    video.addEventListener('ended', handleEnded);
+    video.addEventListener('volumechange', handleVolumeChange);
     
     return () => {
-      video.removeEventListener('timeupdate', handleTimeUpdate: any);
-      video.removeEventListener('durationchange', handleDurationChange: any);
-      video.removeEventListener('play', handlePlay: any);
-      video.removeEventListener('pause', handlePause: any);
-      video.removeEventListener('ended', handleEnded: any);
-      video.removeEventListener('volumechange', handleVolumeChange: any);
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+      video.removeEventListener('durationchange', handleDurationChange);
+      video.removeEventListener('play', handlePlay);
+      video.removeEventListener('pause', handlePause);
+      video.removeEventListener('ended', handleEnded);
+      video.removeEventListener('volumechange', handleVolumeChange);
     };
   }, []);
 
   // Fullscreen event listeners
   useEffect(() => {
     const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement: any);
+      setIsFullscreen(!!document.fullscreenElement);
     };
     
-    document.addEventListener('fullscreenchange', handleFullscreenChange: any);
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
     
     return () => {
-      document.removeEventListener('fullscreenchange', handleFullscreenChange: any);
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
     };
   }, []);
 
@@ -2806,7 +2806,7 @@ export const AccessibleVideoPlayer: React.FC<{
           </button>
           
           <div className="time-display current-time" aria-hidden="true">
-            {formatTime(currentTime: any)}
+            {formatTime(currentTime)}
           </div>
           
           <div className="seek-container">
@@ -2821,12 +2821,12 @@ export const AccessibleVideoPlayer: React.FC<{
               aria-valuemin="0"
               aria-valuemax={duration || 0}
               aria-valuenow={currentTime}
-              aria-valuetext={`${formatTime(currentTime: any)} of ${formatTime(duration || 0: any)}`}
+              aria-valuetext={`${formatTime(currentTime)} of ${formatTime(duration || 0)}`}
             />
           </div>
           
           <div className="time-display duration" aria-hidden="true">
-            {formatTime(duration || 0: any)}
+            {formatTime(duration || 0)}
           </div>
           
           <div className="volume-container">
@@ -2890,10 +2890,10 @@ export const AccessibleVideoPlayer: React.FC<{
             <button
               className={`captions-button ${showCaptions ? 'active' : ''}`}
               onClick={() => {
-                setShowCaptions(!showCaptions: any);
-                if (videoRef.current: any) {
+                setShowCaptions(!showCaptions);
+                if (videoRef.current) {
                   const track = videoRef.current.textTracks[0];
-                  if (track: any) {
+                  if (track) {
                     track.mode = !showCaptions ? 'showing' : 'hidden';
                   }
                 }
@@ -2951,7 +2951,7 @@ export const AccessibleVideoPlayer: React.FC<{
         <div className="transcript-container">
           <button
             className="transcript-toggle"
-            onClick={() => setShowTranscriptContent(!showTranscriptContent: any)}
+            onClick={() => setShowTranscriptContent(!showTranscriptContent)}
             aria-expanded={showTranscriptContent}
             aria-controls={`${playerId}-transcript`}
           >
@@ -2971,8 +2971,8 @@ export const AccessibleVideoPlayer: React.FC<{
       
       <div className="sr-only" aria-live="polite">
         {isPlaying
-          ? `Playing ${title}, ${formatTime(currentTime: any)} of ${formatTime(duration || 0: any)}`
-          : `Paused ${title}, ${formatTime(currentTime: any)} of ${formatTime(duration || 0: any)}`}
+          ? `Playing ${title}, ${formatTime(currentTime)} of ${formatTime(duration || 0)}`
+          : `Paused ${title}, ${formatTime(currentTime)} of ${formatTime(duration || 0)}`}
       </div>
     </div>
   );

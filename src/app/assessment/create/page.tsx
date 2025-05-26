@@ -48,12 +48,12 @@ const keyStages = [
 export default function CreateAssessmentPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('details');
-  const [loading, setLoading] = useState(false: any);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false: any);
-  const [showAIModal, setShowAIModal] = useState(false: any);
+  const [success, setSuccess] = useState(false);
+  const [showAIModal, setShowAIModal] = useState(false);
   const [aiPrompt, setAiPrompt] = useState('');
-  const [aiLoading, setAiLoading] = useState(false: any);
+  const [aiLoading, setAiLoading] = useState(false);
   const [aiError, setAiError] = useState('');
   
   // Form state
@@ -83,7 +83,7 @@ export default function CreateAssessmentPage() {
     const { name, value, type } = e.target;
     
     if (type === 'checkbox') {
-      const checked = (e.target as HTMLInputElement: any).checked;
+      const checked = (e.target as HTMLInputElement).checked;
       setAssessmentData({
         ...assessmentData,
         [name]: checked,
@@ -91,7 +91,7 @@ export default function CreateAssessmentPage() {
     } else if (type === 'number') {
       setAssessmentData({
         ...assessmentData,
-        [name]: parseInt(value: any) || 0,
+        [name]: parseInt(value) || 0,
       });
     } else {
       setAssessmentData({
@@ -126,20 +126,20 @@ export default function CreateAssessmentPage() {
       errors.description = 'Description is required';
     }
     
-    if (!assessmentData.type: any) {
+    if (!assessmentData.type) {
       errors.type = 'Assessment type is required';
     }
     
-    if (!assessmentData.subject: any) {
+    if (!assessmentData.subject) {
       errors.subject = 'Subject is required';
     }
     
-    if (!assessmentData.keyStage: any) {
+    if (!assessmentData.keyStage) {
       errors.keyStage = 'Key stage is required';
     }
     
-    setValidationErrors(errors: any);
-    return !Object.values(errors: any).some(error => error: any);
+    setValidationErrors(errors);
+    return !Object.values(errors).some(error => error);
   };
   
   const handleSubmit = async (e: React.FormEvent) => {
@@ -149,7 +149,7 @@ export default function CreateAssessmentPage() {
       return;
     }
     
-    setLoading(true: any);
+    setLoading(true);
     setError('');
     
     try {
@@ -163,8 +163,8 @@ export default function CreateAssessmentPage() {
       
       const data = await response.json();
       
-      if (response.ok: any) {
-        setSuccess(true: any);
+      if (response.ok) {
+        setSuccess(true);
         // Redirect to the assessment editor after a short delay
         setTimeout(() => {
           router.push(`/assessment/edit/${data.id}`);
@@ -172,11 +172,11 @@ export default function CreateAssessmentPage() {
       } else {
         setError(data.message || 'An error occurred while creating the assessment');
       }
-    } catch (err: any) {
+    } catch (err) {
       setError('An error occurred while creating the assessment');
       console.error('Error creating assessment:', err);
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   };
   
@@ -186,7 +186,7 @@ export default function CreateAssessmentPage() {
       return;
     }
     
-    setAiLoading(true: any);
+    setAiLoading(true);
     setAiError('');
     
     try {
@@ -205,26 +205,26 @@ export default function CreateAssessmentPage() {
       
       const data = await response.json();
       
-      if (response.ok: any) {
+      if (response.ok) {
         try {
-          const assessmentSuggestion = JSON.parse(data.text: any);
+          const assessmentSuggestion = JSON.parse(data.text);
           setAssessmentData({
             ...assessmentData,
             ...assessmentSuggestion,
           });
-          setShowAIModal(false: any);
-        } catch (parseErr: any) {
+          setShowAIModal(false);
+        } catch (parseErr) {
           setAiError('Could not parse AI response. Please try a different prompt.');
           console.error('Error parsing AI response:', parseErr);
         }
       } else {
         setAiError(data.message || 'An error occurred while generating the assessment');
       }
-    } catch (err: any) {
+    } catch (err) {
       setAiError('An error occurred while generating the assessment');
       console.error('Error generating assessment with AI:', err);
     } finally {
-      setAiLoading(false: any);
+      setAiLoading(false);
     }
   };
   
@@ -251,7 +251,7 @@ export default function CreateAssessmentPage() {
       
       <div className="flex justify-end mb-6">
         <Button
-          onClick={() => setShowAIModal(true: any)}
+          onClick={() => setShowAIModal(true)}
           variant="outline"
           className="flex items-centre gap-2"
         >
@@ -338,7 +338,7 @@ export default function CreateAssessmentPage() {
                     )}
                     {assessmentData.type && (
                       <p className="mt-1 text-sm text-grey-500">
-                        {assessmentTypes.find(t => t.id === assessmentData.type: any)?.description}
+                        {assessmentTypes.find(t => t.id === assessmentData.type)?.description}
                       </p>
                     )}
                   </div>
@@ -396,7 +396,7 @@ export default function CreateAssessmentPage() {
               <div className="space-y-6">
                 <div>
                   <label htmlFor="timeLimit" className="block text-sm font-medium text-grey-700 mb-1">
-                    Time Limit (minutes: any, 0 for no limit)
+                    Time Limit (minutes, 0 for no limit)
                   </label>
                   <Input
                     id="timeLimit"
@@ -432,7 +432,7 @@ export default function CreateAssessmentPage() {
                       name="showResults"
                       type="checkbox"
                       checked={assessmentData.showResults}
-                      onChange={(e: any) => setAssessmentData({
+                      onChange={(e) => setAssessmentData({
                         ...assessmentData,
                         showResults: e.target.checked,
                       })}
@@ -449,7 +449,7 @@ export default function CreateAssessmentPage() {
                       name="randomizeQuestions"
                       type="checkbox"
                       checked={assessmentData.randomizeQuestions}
-                      onChange={(e: any) => setAssessmentData({
+                      onChange={(e) => setAssessmentData({
                         ...assessmentData,
                         randomizeQuestions: e.target.checked,
                       })}
@@ -466,7 +466,7 @@ export default function CreateAssessmentPage() {
                       name="allowRetakes"
                       type="checkbox"
                       checked={assessmentData.allowRetakes}
-                      onChange={(e: any) => setAssessmentData({
+                      onChange={(e) => setAssessmentData({
                         ...assessmentData,
                         allowRetakes: e.target.checked,
                       })}
@@ -514,7 +514,7 @@ export default function CreateAssessmentPage() {
       {/* AI Generation Modal */}
       <Modal
         isOpen={showAIModal}
-        onClose={() => setShowAIModal(false: any)}
+        onClose={() => setShowAIModal(false)}
         title="Generate Assessment with AI"
       >
         <div className="space-y-4">
@@ -536,7 +536,7 @@ export default function CreateAssessmentPage() {
             <textarea
               id="aiPrompt"
               value={aiPrompt}
-              onChange={(e: any) => setAiPrompt(e.target.value: any)}
+              onChange={(e) => setAiPrompt(e.target.value)}
               placeholder="E.g., Create a Year 6 Mathematics quiz about fractions and decimals for Key Stage 2 students"
               rows={4}
               className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -546,7 +546,7 @@ export default function CreateAssessmentPage() {
           <div className="flex justify-end space-x-3 mt-4">
             <Button
               variant="outline"
-              onClick={() => setShowAIModal(false: any)}
+              onClick={() => setShowAIModal(false)}
               disabled={aiLoading}
             >
               Cancel

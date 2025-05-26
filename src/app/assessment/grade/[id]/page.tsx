@@ -13,8 +13,8 @@ interface Question {
   id: string;
   type: string;
   content: string;
-  options?: any[];
-  items?: any[];
+  options?[];
+  items?[];
   allowedFileTypes?: string[];
   maxFileSize?: number;
   wordLimit?: number;
@@ -26,7 +26,7 @@ interface Question {
 interface Answer {
   id: string;
   questionId: string;
-  content: any;
+  content;
   isCorrect: boolean | null;
   feedback: string | null;
   createdAt: string;
@@ -124,7 +124,7 @@ export default function ManualGradingPage() {
         });
         
         setGrades(initialGrades);
-      } catch (err: any) {
+      } catch (err) {
         console.error('Error fetching data:', err);
         setError('An error occurred while fetching the data');
       } finally {
@@ -207,7 +207,7 @@ export default function ManualGradingPage() {
       const updatedRes = await fetch(`/api/assessment/response/${params.id}`);
       const updatedData = await updatedRes.json();
       setResponse(updatedData);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error saving grades:', err);
       setError('An error occurred while saving the grades');
     } finally {
@@ -243,7 +243,7 @@ export default function ManualGradingPage() {
           }
         }));
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error generating AI feedback:', err);
     } finally {
       setIsGeneratingAiSuggestion(null);

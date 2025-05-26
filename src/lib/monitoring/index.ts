@@ -23,7 +23,7 @@ export const alerting = alertingModule;
 export function initializeMonitoring() {
   // Initialize Sentry for error tracking
   sentry.initSentry(
-    process.env.NEXT_PUBLIC_SENTRY_DSN: any,
+    process.env.NEXT_PUBLIC_SENTRY_DSN,
     process.env.NODE_ENV
   );
   

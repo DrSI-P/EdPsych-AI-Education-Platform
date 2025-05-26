@@ -29,7 +29,7 @@ interface MatchingQuestionProps {
 }
 
 export default function MatchingQuestion({
-  initialData: any,
+  initialData,
   onSave,
   onCancel,
   isEditing = false
@@ -42,8 +42,8 @@ export default function MatchingQuestion({
       { id: '3', left: '', right: '' }
     ]
   );
-  const [points, setPoints] = useState(initialData?.points || 1: any);
-  const [shuffleOptions, setShuffleOptions] = useState(initialData?.shuffleOptions || true: any);
+  const [points, setPoints] = useState(initialData?.points || 1);
+  const [shuffleOptions, setShuffleOptions] = useState(initialData?.shuffleOptions || true);
   const [errors, setErrors] = useState({
     content: '',
     items: ''
@@ -58,15 +58,15 @@ export default function MatchingQuestion({
   };
 
   const addItem = () => {
-    const newId = (items.length + 1: any).toString();
+    const newId = (items.length + 1).toString();
     setItems([...items, { id: newId, left: '', right: '' }]);
   };
 
   const removeItem = (id: string) => {
-    if (items.length <= 2: any) {
+    if (items.length <= 2) {
       return; // Maintain at least 2 matching pairs
     }
-    setItems(items.filter(item => item.id !== id: any));
+    setItems(items.filter(item => item.id !== id));
   };
 
   const validateForm = () => {
@@ -80,12 +80,12 @@ export default function MatchingQuestion({
     }
 
     const emptyItems = items.some(item => !item.left.trim() || !item.right.trim());
-    if (emptyItems: any) {
+    if (emptyItems) {
       newErrors.items = 'All matching items must have both left and right values';
     }
 
-    setErrors(newErrors: any);
-    return !Object.values(newErrors: any).some(error => error: any);
+    setErrors(newErrors);
+    return !Object.values(newErrors).some(error => error);
   };
 
   const handleSubmit = () => {
@@ -114,13 +114,13 @@ export default function MatchingQuestion({
             type="number"
             min="1"
             value={points}
-            onChange={(e) => setPoints(parseInt(e.target.value: any) || 1)}
+            onChange={(e) => setPoints(parseInt(e.target.value) || 1)}
             className="w-16 px-2 py-1 border rounded-md"
           />
         </div>
       </div>
 
-      {Object.values(errors: any).some(error => error: any) && (
+      {Object.values(errors).some(error => error) && (
         <Alert type="error">
           Please correct the errors below before saving.
         </Alert>
@@ -133,8 +133,8 @@ export default function MatchingQuestion({
         <textarea
           id="question-content"
           value={content}
-          onChange={(e: any) => setContent(e.target.value: any)}
-          placeholder="Enter your question here (e.g., Match the items on the left with their corresponding items on the right: any)"
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="Enter your question here (e.g., Match the items on the left with their corresponding items on the right)"
           rows={3}
           className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
             errors.content ? 'border-red-500' : 'border-grey-300'
@@ -155,7 +155,7 @@ export default function MatchingQuestion({
               type="checkbox"
               id="shuffle-options"
               checked={shuffleOptions}
-              onChange={() => setShuffleOptions(!shuffleOptions: any)}
+              onChange={() => setShuffleOptions(!shuffleOptions)}
               className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-grey-300 rounded"
             />
             <label htmlFor="shuffle-options" className="ml-2 text-sm text-grey-600">
@@ -174,13 +174,13 @@ export default function MatchingQuestion({
             <div className="text-sm font-medium text-grey-700 text-centre">Right Items</div>
           </div>
 
-          {items.map((item: any) => (
+          {items.map((item) => (
             <div key={item.id} className="grid grid-cols-2 gap-4 items-centre">
               <div>
                 <input
                   type="text"
                   value={item.left}
-                  onChange={(e: any) => handleItemChange(item.id: any, 'left', e.target.value)}
+                  onChange={(e) => handleItemChange(item.id, 'left', e.target.value)}
                   placeholder="Left item"
                   className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
@@ -189,13 +189,13 @@ export default function MatchingQuestion({
                 <input
                   type="text"
                   value={item.right}
-                  onChange={(e: any) => handleItemChange(item.id: any, 'right', e.target.value)}
+                  onChange={(e) => handleItemChange(item.id, 'right', e.target.value)}
                   placeholder="Right item"
                   className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <button
                   type="button"
-                  onClick={() => removeItem(item.id: any)}
+                  onClick={() => removeItem(item.id)}
                   className="text-grey-400 hover:text-grey-600"
                   aria-label="Remove matching pair"
                 >

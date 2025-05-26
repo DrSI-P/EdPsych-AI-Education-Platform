@@ -12,12 +12,12 @@ export default function TakePupilVoiceSurveyPage() {
   const params = useParams();
   const surveyId = params.id as string;
   
-  const [loading, setLoading] = useState(true: any);
-  const [submitting, setSubmitting] = useState(false: any);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
-  const [survey, setSurvey] = useState<any>(null: any);
-  const [responses, setResponses] = useState<{[key: string]: any}>({});
-  const [currentStep, setCurrentStep] = useState(0: any);
+  const [survey, setSurvey] = useState<any>(null);
+  const [responses, setResponses] = useState<{[key: string]}>({});
+  const [currentStep, setCurrentStep] = useState(0);
   const [validationErrors, setValidationErrors] = useState<{[key: string]: string}>({});
   
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function TakePupilVoiceSurveyPage() {
       try {
         const response = await fetch(`/api/assessment/pupil-voice/${surveyId}`);
         
-        if (!response.ok: any) {
+        if (!response.ok) {
           throw new Error('Failed to fetch pupil voice survey');
         }
         
@@ -34,15 +34,15 @@ export default function TakePupilVoiceSurveyPage() {
         // Check if survey is active
         if (data.status !== 'active') {
           setError('This survey is not currently active');
-          setLoading(false: any);
+          setLoading(false);
           return;
         }
         
-        setSurvey(data: any);
+        setSurvey(data);
         
         // Initialize responses object
-        const initialResponses: {[key: string]: any} = {};
-        data.questions.forEach((question: any) => {
+        const initialResponses: {[key: string]} = {};
+        data.questions.forEach((question) => {
           if (question.type === 'multiple_choice' || question.type === 'likert_scale' || 
               question.type === 'emoji_scale' || question.type === 'yes_no') {
             initialResponses[question.id] = '';
@@ -51,19 +51,19 @@ export default function TakePupilVoiceSurveyPage() {
           }
         });
         
-        setResponses(initialResponses: any);
-      } catch (err: any) {
+        setResponses(initialResponses);
+      } catch (err) {
         console.error('Error fetching pupil voice survey:', err);
         setError('An error occurred while fetching the pupil voice survey');
       } finally {
-        setLoading(false: any);
+        setLoading(false);
       }
     };
     
     fetchSurvey();
   }, [surveyId]);
 
-  const handleInputChange = (questionId: string, value: any) => {
+  const handleInputChange = (questionId: string, value) => {
     setResponses(prev => ({
       ...prev,
       [questionId]: value
@@ -80,13 +80,13 @@ export default function TakePupilVoiceSurveyPage() {
   };
 
   const validateCurrentStep = () => {
-    if (!survey: any) return false;
+    if (!survey) return false;
     
     const currentQuestions = [survey.questions[currentStep]];
     const newErrors: {[key: string]: string} = {};
     
     currentQuestions.forEach(question => {
-      if (question.required: any) {
+      if (question.required) {
         const response = responses[question.id];
         if (!response || (typeof response === 'string' && response.trim() === '')) {
           newErrors[question.id] = 'This question requires an answer';
@@ -94,35 +94,35 @@ export default function TakePupilVoiceSurveyPage() {
       }
     });
     
-    setValidationErrors(newErrors: any);
-    return Object.keys(newErrors: any).length === 0;
+    setValidationErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleNext = () => {
-    if (!survey: any) return;
+    if (!survey) return;
     
     if (validateCurrentStep()) {
-      if (currentStep < survey.questions.length - 1: any) {
-        setCurrentStep(prev => prev + 1: any);
-        window.scrollTo(0: any, 0);
+      if (currentStep < survey.questions.length - 1) {
+        setCurrentStep(prev => prev + 1);
+        window.scrollTo(0, 0);
       }
     }
   };
 
   const handlePrevious = () => {
-    if (currentStep > 0: any) {
-      setCurrentStep(prev => prev - 1: any);
-      window.scrollTo(0: any, 0);
+    if (currentStep > 0) {
+      setCurrentStep(prev => prev - 1);
+      window.scrollTo(0, 0);
     }
   };
 
   const handleSubmit = async () => {
-    if (!survey: any) return;
+    if (!survey) return;
     
     // Validate all questions
     const newErrors: {[key: string]: string} = {};
-    survey.questions.forEach((question: any) => {
-      if (question.required: any) {
+    survey.questions.forEach((question) => {
+      if (question.required) {
         const response = responses[question.id];
         if (!response || (typeof response === 'string' && response.trim() === '')) {
           newErrors[question.id] = 'This question requires an answer';
@@ -130,19 +130,19 @@ export default function TakePupilVoiceSurveyPage() {
       }
     });
     
-    setValidationErrors(newErrors: any);
+    setValidationErrors(newErrors);
     
-    if (Object.keys(newErrors: any).length > 0) {
+    if (Object.keys(newErrors).length > 0) {
       // Find the first question with an error and navigate to it
-      const errorQuestionIndex = survey.questions.findIndex((q: any) => newErrors[q.id]);
-      if (errorQuestionIndex !== -1: any) {
-        setCurrentStep(errorQuestionIndex: any);
+      const errorQuestionIndex = survey.questions.findIndex((q) => newErrors[q.id]);
+      if (errorQuestionIndex !== -1) {
+        setCurrentStep(errorQuestionIndex);
         return;
       }
     }
     
     try {
-      setSubmitting(true: any);
+      setSubmitting(true);
       
       const response = await fetch(`/api/assessment/pupil-voice/${surveyId}/submit`, {
         method: 'POST',
@@ -152,20 +152,20 @@ export default function TakePupilVoiceSurveyPage() {
         body: JSON.stringify({ responses }),
       });
       
-      if (!response.ok: any) {
+      if (!response.ok) {
         throw new Error('Failed to submit survey responses');
       }
       
       // Navigate to thank you page
       router.push(`/assessment/pupil-voice/thank-you/${surveyId}`);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error submitting survey responses:', err);
       setError('An error occurred while submitting your responses');
-      setSubmitting(false: any);
+      setSubmitting(false);
     }
   };
 
-  if (loading: any) {
+  if (loading) {
     return (
       <div className="flex justify-centre items-centre min-h-screen">
         <Spinner size="lg" />
@@ -173,7 +173,7 @@ export default function TakePupilVoiceSurveyPage() {
     );
   }
 
-  if (error: any) {
+  if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Alert type="error" className="mb-6">
@@ -188,7 +188,7 @@ export default function TakePupilVoiceSurveyPage() {
     );
   }
 
-  if (!survey: any) {
+  if (!survey) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Alert type="error" className="mb-6">
@@ -220,12 +220,12 @@ export default function TakePupilVoiceSurveyPage() {
         <div className="w-full bg-grey-200 rounded-full h-2.5">
           <div 
             className="bg-indigo-600 h-2.5 rounded-full" 
-            style={{ width: `${((currentStep + 1: any) / survey.questions.length) * 100}%` }}
+            style={{ width: `${((currentStep + 1) / survey.questions.length) * 100}%` }}
           ></div>
         </div>
         <div className="flex justify-between mt-2 text-sm text-grey-600">
           <span>Question {currentStep + 1} of {survey.questions.length}</span>
-          <span>{Math.round(((currentStep + 1: any) / survey.questions.length) * 100)}% complete</span>
+          <span>{Math.round(((currentStep + 1) / survey.questions.length) * 100)}% complete</span>
         </div>
       </div>
 
@@ -249,7 +249,7 @@ export default function TakePupilVoiceSurveyPage() {
                           id={`option_${currentQuestion.id}_${optionIndex}`}
                           className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300"
                           checked={responses[currentQuestion.id] === option}
-                          onChange={() => handleInputChange(currentQuestion.id: any, option)}
+                          onChange={() => handleInputChange(currentQuestion.id, option)}
                         />
                         <label htmlFor={`option_${currentQuestion.id}_${optionIndex}`} className="ml-2 block text-sm text-grey-900">
                           {option}
@@ -271,7 +271,7 @@ export default function TakePupilVoiceSurveyPage() {
                               id={`option_${currentQuestion.id}_${optionIndex}`}
                               className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300"
                               checked={responses[currentQuestion.id] === option}
-                              onChange={() => handleInputChange(currentQuestion.id: any, option)}
+                              onChange={() => handleInputChange(currentQuestion.id, option)}
                             />
                             <label htmlFor={`option_${currentQuestion.id}_${optionIndex}`} className="mt-1 block text-xs text-grey-500">
                               {option}
@@ -295,7 +295,7 @@ export default function TakePupilVoiceSurveyPage() {
                               id={`option_${currentQuestion.id}_${optionIndex}`}
                               className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300"
                               checked={responses[currentQuestion.id] === emoji}
-                              onChange={() => handleInputChange(currentQuestion.id: any, emoji)}
+                              onChange={() => handleInputChange(currentQuestion.id, emoji)}
                             />
                             <label htmlFor={`option_${currentQuestion.id}_${optionIndex}`} className="mt-1 block text-2xl">
                               {emoji}
@@ -316,7 +316,7 @@ export default function TakePupilVoiceSurveyPage() {
                         id={`option_${currentQuestion.id}_yes`}
                         className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300"
                         checked={responses[currentQuestion.id] === 'Yes'}
-                        onChange={() => handleInputChange(currentQuestion.id: any, 'Yes')}
+                        onChange={() => handleInputChange(currentQuestion.id, 'Yes')}
                       />
                       <label htmlFor={`option_${currentQuestion.id}_yes`} className="ml-2 block text-sm text-grey-900">
                         Yes
@@ -329,7 +329,7 @@ export default function TakePupilVoiceSurveyPage() {
                         id={`option_${currentQuestion.id}_no`}
                         className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-grey-300"
                         checked={responses[currentQuestion.id] === 'No'}
-                        onChange={() => handleInputChange(currentQuestion.id: any, 'No')}
+                        onChange={() => handleInputChange(currentQuestion.id, 'No')}
                       />
                       <label htmlFor={`option_${currentQuestion.id}_no`} className="ml-2 block text-sm text-grey-900">
                         No
@@ -345,7 +345,7 @@ export default function TakePupilVoiceSurveyPage() {
                       rows={3}
                       placeholder="Type your answer here..."
                       value={responses[currentQuestion.id] || ''}
-                      onChange={(e) => handleInputChange(currentQuestion.id: any, e.target.value)}
+                      onChange={(e) => handleInputChange(currentQuestion.id, e.target.value)}
                     />
                   </div>
                 )}

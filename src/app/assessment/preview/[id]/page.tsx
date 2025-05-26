@@ -12,8 +12,8 @@ interface Question {
   id: string;
   type: string;
   content: string;
-  options?: any[];
-  items?: any[];
+  options?[];
+  items?[];
   allowedFileTypes?: string[];
   maxFileSize?: number;
   wordLimit?: number;
@@ -60,7 +60,7 @@ export default function AssessmentPreviewPage() {
         
         const data = await response.json();
         setAssessment(data);
-      } catch (err: any) {
+      } catch (err) {
         console.error('Error fetching assessment:', err);
         setError('An error occurred while fetching the assessment');
       } finally {
@@ -100,7 +100,7 @@ export default function AssessmentPreviewPage() {
       setTimeout(() => {
         router.push('/assessment');
       }, 2000);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error publishing assessment:', err);
       setError('An error occurred while publishing the assessment');
     } finally {

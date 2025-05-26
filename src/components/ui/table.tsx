@@ -7,7 +7,7 @@ interface TableProps {
   className?: string;
 }
 
-export function Table({ children: any, className = '' }: TableProps) {
+export function Table({ children, className = '' }: TableProps) {
   return (
     <div className={`overflow-x-auto ${className}`}>
       <table className="min-w-full divide-y divide-grey-200">
@@ -22,7 +22,7 @@ interface TableHeaderProps {
   className?: string;
 }
 
-export function TableHeader({ children: any, className = '' }: TableHeaderProps) {
+export function TableHeader({ children, className = '' }: TableHeaderProps) {
   return (
     <thead className={`bg-grey-50 ${className}`}>
       {children}
@@ -36,7 +36,7 @@ interface TableHeadProps {
   className?: string;
 }
 
-export function TableHead({ children: any, className = '' }: TableHeadProps) {
+export function TableHead({ children, className = '' }: TableHeadProps) {
   return (
     <tr className={`${className}`}>
       {children}
@@ -49,7 +49,7 @@ interface TableBodyProps {
   className?: string;
 }
 
-export function TableBody({ children: any, className = '' }: TableBodyProps) {
+export function TableBody({ children, className = '' }: TableBodyProps) {
   return (
     <tbody className={`bg-white divide-y divide-grey-200 ${className}`}>
       {children}
@@ -62,7 +62,7 @@ interface TableFooterProps {
   className?: string;
 }
 
-export function TableFooter({ children: any, className = '' }: TableFooterProps) {
+export function TableFooter({ children, className = '' }: TableFooterProps) {
   return (
     <tfoot className={`bg-grey-50 ${className}`}>
       {children}
@@ -77,7 +77,7 @@ interface TableRowProps {
   isSelected?: boolean;
 }
 
-export function TableRow({ children: any, className = '', onClick, isSelected = false }: TableRowProps) {
+export function TableRow({ children, className = '', onClick, isSelected = false }: TableRowProps) {
   return (
     <tr 
       className={`
@@ -102,7 +102,7 @@ interface TableHeaderCellProps {
 }
 
 export function TableHeaderCell({ 
-  children: any, 
+  children, 
   className = '', 
   align = 'left',
   sortable = false,
@@ -154,7 +154,7 @@ interface TableCellProps {
   align?: 'left' | 'centre' | 'right';
 }
 
-export function TableCell({ children: any, className = '', align = 'left' }: TableCellProps) {
+export function TableCell({ children, className = '', align = 'left' }: TableCellProps) {
   // Map alignment to text alignment class
   const alignClasses = {
     left: 'text-left',
@@ -175,7 +175,7 @@ interface TableEmptyProps {
   className?: string;
 }
 
-export function TableEmpty({ colSpan: any, message = 'No data available', className = '' }: TableEmptyProps) {
+export function TableEmpty({ colSpan, message = 'No data available', className = '' }: TableEmptyProps) {
   return (
     <tr>
       <td colSpan={colSpan} className={`px-6 py-12 text-centre text-sm text-grey-500 ${className}`}>
@@ -191,7 +191,7 @@ interface TableLoadingProps {
   className?: string;
 }
 
-export function TableLoading({ colSpan: any, message = 'Loading...', className = '' }: TableLoadingProps) {
+export function TableLoading({ colSpan, message = 'Loading...', className = '' }: TableLoadingProps) {
   return (
     <tr>
       <td colSpan={colSpan} className={`px-6 py-12 text-centre text-sm text-grey-500 ${className}`}>

@@ -43,11 +43,11 @@ interface LanguageSettingsProps {
 }
 
 export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
-  userId: any,
+  userId,
   className = ''
 }) => {
   const { t, currentLanguage, changeLanguage } = useI18n();
-  const [preferences, setPreferences] = useState<UserLanguagePreferences | null>(null: any);
+  const [preferences, setPreferences] = useState<UserLanguagePreferences | null>(null);
   const [accessibilityOptions, setAccessibilityOptions] = useState<MultilingualAccessibilityOptions>({
     simplifiedLanguage: false,
     glossaryTerms: true,
@@ -55,10 +55,10 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
     readingLevel: 'intermediate',
     specialEducationalNeedsAdaptations: false
   });
-  const [isLoading, setIsLoading] = useState(true: any);
-  const [isSaving, setIsSaving] = useState(false: any);
-  const [error, setError] = useState<string | null>(null: any);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null: any);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   
   const i18nService = I18nService.getInstance();
   
@@ -66,17 +66,17 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
   useEffect(() => {
     const loadPreferences = async () => {
       try {
-        setIsLoading(true: any);
-        setError(null: any);
+        setIsLoading(true);
+        setError(null);
         
-        const userPreferences = await i18nService.getUserLanguagePreferences(userId: any);
-        setPreferences(userPreferences: any);
+        const userPreferences = await i18nService.getUserLanguagePreferences(userId);
+        setPreferences(userPreferences);
         
-        setIsLoading(false: any);
-      } catch (err: any) {
+        setIsLoading(false);
+      } catch (err) {
         console.error('Error loading language preferences:', err);
         setError(t('error_loading_preferences', 'settings'));
-        setIsLoading(false: any);
+        setIsLoading(false);
       }
     };
     
@@ -85,7 +85,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
   
   // Handle primary language change
   const handlePrimaryLanguageChange = async (language: SupportedLanguage) => {
-    if (!preferences: any) return;
+    if (!preferences) return;
     
     try {
       const updatedPreferences: UserLanguagePreferences = {
@@ -93,11 +93,11 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
         primaryLanguage: language
       };
       
-      setPreferences(updatedPreferences: any);
+      setPreferences(updatedPreferences);
       
       // Apply language change immediately
-      await changeLanguage(language: any);
-    } catch (err: any) {
+      await changeLanguage(language);
+    } catch (err) {
       console.error('Error changing primary language:', err);
       setError(t('error_changing_language', 'settings'));
     }
@@ -105,7 +105,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
   
   // Handle toggle changes
   const handleToggleChange = (field: keyof Omit<UserLanguagePreferences, 'userId' | 'primaryLanguage' | 'secondaryLanguages'>) => {
-    if (!preferences: any) return;
+    if (!preferences) return;
     
     setPreferences({
       ...preferences,
@@ -114,7 +114,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
   };
   
   // Handle accessibility option changes
-  const handleAccessibilityOptionChange = (field: keyof MultilingualAccessibilityOptions, value: any) => {
+  const handleAccessibilityOptionChange = (field: keyof MultilingualAccessibilityOptions, value) => {
     setAccessibilityOptions({
       ...accessibilityOptions,
       [field]: value
@@ -123,31 +123,31 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
   
   // Save preferences
   const savePreferences = async () => {
-    if (!preferences: any) return;
+    if (!preferences) return;
     
     try {
-      setIsSaving(true: any);
-      setError(null: any);
+      setIsSaving(true);
+      setError(null);
       
-      const success = await i18nService.updateUserLanguagePreferences(preferences: any);
+      const success = await i18nService.updateUserLanguagePreferences(preferences);
       
-      if (success: any) {
+      if (success) {
         setSuccessMessage(t('preferences_saved', 'settings'));
-        setTimeout(() => setSuccessMessage(null: any), 3000);
+        setTimeout(() => setSuccessMessage(null), 3000);
       } else {
         setError(t('error_saving_preferences', 'settings'));
       }
       
-      setIsSaving(false: any);
-    } catch (err: any) {
+      setIsSaving(false);
+    } catch (err) {
       console.error('Error saving language preferences:', err);
       setError(t('error_saving_preferences', 'settings'));
-      setIsSaving(false: any);
+      setIsSaving(false);
     }
   };
   
   // If loading, show loading state
-  if (isLoading: any) {
+  if (isLoading) {
     return (
       <Card className={className}>
         <CardHeader>
@@ -165,7 +165,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
   }
   
   // If error and no preferences, show error state
-  if (error && !preferences: any) {
+  if (error && !preferences) {
     return (
       <Card className={className}>
         <CardHeader>
@@ -187,8 +187,8 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
     );
   }
   
-  // If no preferences (shouldn't happen but just in case: any)
-  if (!preferences: any) {
+  // If no preferences (shouldn't happen but just in case)
+  if (!preferences) {
     return null;
   }
   
@@ -222,7 +222,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
               </Label>
               <Select
                 value={preferences.primaryLanguage}
-                onValueChange={(value: any) => handlePrimaryLanguageChange(value as SupportedLanguage: any)}
+                onValueChange={(value) => handlePrimaryLanguageChange(value as SupportedLanguage)}
               >
                 <SelectTrigger id="primaryLanguage">
                   <SelectValue placeholder={t('select_language', 'settings')} />
@@ -325,7 +325,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
               <Switch
                 id="simplifiedLanguage"
                 checked={accessibilityOptions.simplifiedLanguage}
-                onCheckedChange={() => handleAccessibilityOptionChange('simplifiedLanguage', !accessibilityOptions.simplifiedLanguage: any)}
+                onCheckedChange={() => handleAccessibilityOptionChange('simplifiedLanguage', !accessibilityOptions.simplifiedLanguage)}
               />
             </div>
             
@@ -342,7 +342,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
               <Switch
                 id="glossaryTerms"
                 checked={accessibilityOptions.glossaryTerms}
-                onCheckedChange={() => handleAccessibilityOptionChange('glossaryTerms', !accessibilityOptions.glossaryTerms: any)}
+                onCheckedChange={() => handleAccessibilityOptionChange('glossaryTerms', !accessibilityOptions.glossaryTerms)}
               />
             </div>
             
@@ -359,7 +359,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
               <Switch
                 id="culturalContextNotes"
                 checked={accessibilityOptions.culturalContextNotes}
-                onCheckedChange={() => handleAccessibilityOptionChange('culturalContextNotes', !accessibilityOptions.culturalContextNotes: any)}
+                onCheckedChange={() => handleAccessibilityOptionChange('culturalContextNotes', !accessibilityOptions.culturalContextNotes)}
               />
             </div>
             
@@ -370,7 +370,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
               </Label>
               <Select
                 value={accessibilityOptions.readingLevel}
-                onValueChange={(value: any) => handleAccessibilityOptionChange('readingLevel', value: any)}
+                onValueChange={(value) => handleAccessibilityOptionChange('readingLevel', value)}
               >
                 <SelectTrigger id="readingLevel">
                   <SelectValue placeholder={t('select_reading_level', 'accessibility')} />
@@ -399,7 +399,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
               <Switch
                 id="specialEducationalNeedsAdaptations"
                 checked={accessibilityOptions.specialEducationalNeedsAdaptations}
-                onCheckedChange={() => handleAccessibilityOptionChange('specialEducationalNeedsAdaptations', !accessibilityOptions.specialEducationalNeedsAdaptations: any)}
+                onCheckedChange={() => handleAccessibilityOptionChange('specialEducationalNeedsAdaptations', !accessibilityOptions.specialEducationalNeedsAdaptations)}
               />
             </div>
           </TabsContent>

@@ -169,7 +169,7 @@ export interface WidgetConfig {
   dataCategory: DataCategory;
   chartConfig?: ChartConfig;
   metricConfig?: MetricConfig;
-  tableConfig?: any; // Defined as needed
+  tableConfig?; // Defined as needed
   customConfig?: Record<string, any>;
   refreshInterval?: number; // in seconds
   isInteractive?: boolean;

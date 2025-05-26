@@ -44,31 +44,31 @@ export class ComplianceValidator {
     
     // Check consent mechanisms
     const consentResult = await this.validateConsentMechanisms();
-    results.push(consentResult: any);
+    results.push(consentResult);
     
     // Check data retention policies
     const retentionResult = await this.validateDataRetentionPolicies();
-    results.push(retentionResult: any);
+    results.push(retentionResult);
     
     // Check data access controls
     const accessResult = await this.validateDataAccessControls();
-    results.push(accessResult: any);
+    results.push(accessResult);
     
     // Check data processing documentation
     const processingResult = await this.validateDataProcessingDocumentation();
-    results.push(processingResult: any);
+    results.push(processingResult);
     
     // Check right to be forgotten implementation
     const forgottenResult = await this.validateRightToBeForgotten();
-    results.push(forgottenResult: any);
+    results.push(forgottenResult);
     
     // Check data portability
     const portabilityResult = await this.validateDataPortability();
-    results.push(portabilityResult: any);
+    results.push(portabilityResult);
     
     // Check third-party data sharing
     const sharingResult = await this.validateThirdPartyDataSharing();
-    results.push(sharingResult: any);
+    results.push(sharingResult);
     
     return results;
   }
@@ -81,15 +81,15 @@ export class ComplianceValidator {
     
     // Check blockchain validation mechanisms
     const validationResult = await this.validateBlockchainValidationMechanisms();
-    results.push(validationResult: any);
+    results.push(validationResult);
     
     // Check data integrity on blockchain
     const integrityResult = await this.validateBlockchainDataIntegrity();
-    results.push(integrityResult: any);
+    results.push(integrityResult);
     
     // Check blockchain access controls
     const accessResult = await this.validateBlockchainAccessControls();
-    results.push(accessResult: any);
+    results.push(accessResult);
     
     return results;
   }
@@ -102,15 +102,15 @@ export class ComplianceValidator {
     
     // Check content attribution
     const attributionResult = await this.validateContentAttribution();
-    results.push(attributionResult: any);
+    results.push(attributionResult);
     
     // Check licensing mechanisms
     const licensingResult = await this.validateLicensingMechanisms();
-    results.push(licensingResult: any);
+    results.push(licensingResult);
     
     // Check content protection
     const protectionResult = await this.validateContentProtection();
-    results.push(protectionResult: any);
+    results.push(protectionResult);
     
     return results;
   }
@@ -169,7 +169,7 @@ export class ComplianceValidator {
         message: 'GDPR consent mechanisms are properly implemented',
         component: 'ConsentManagement'
       };
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error validating consent mechanisms:', error);
       return {
         status: 'failed',
@@ -257,7 +257,7 @@ export class ComplianceValidator {
         message: 'Blockchain validation mechanisms are properly implemented',
         component: 'BlockchainValidation'
       };
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error validating blockchain mechanisms:', error);
       return {
         status: 'failed',

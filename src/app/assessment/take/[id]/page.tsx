@@ -12,8 +12,8 @@ interface Question {
   id: string;
   type: string;
   content: string;
-  options?: any[];
-  items?: any[];
+  options?[];
+  items?[];
   allowedFileTypes?: string[];
   maxFileSize?: number;
   wordLimit?: number;
@@ -42,30 +42,30 @@ interface Assessment {
 
 interface Answer {
   questionId: string;
-  content: any;
+  content;
 }
 
 export default function AssessmentTakePage() {
   const router = useRouter();
   const params = useParams();
-  const [assessment, setAssessment] = useState<Assessment | null>(null: any);
-  const [loading, setLoading] = useState(true: any);
+  const [assessment, setAssessment] = useState<Assessment | null>(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0: any);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Answer[]>([]);
-  const [timeRemaining, setTimeRemaining] = useState<number | null>(null: any);
-  const [isSubmitting, setIsSubmitting] = useState(false: any);
-  const [showConfirmSubmit, setShowConfirmSubmit] = useState(false: any);
-  const [submissionComplete, setSubmissionComplete] = useState(false: any);
-  const [results, setResults] = useState<any>(null: any);
-  const timerRef = useRef<NodeJS.Timeout | null>(null: any);
+  const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showConfirmSubmit, setShowConfirmSubmit] = useState(false);
+  const [submissionComplete, setSubmissionComplete] = useState(false);
+  const [results, setResults] = useState<any>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const fetchAssessment = async () => {
       try {
         const response = await fetch(`/api/assessment/${params.id}`);
         
-        if (!response.ok: any) {
+        if (!response.ok) {
           throw new Error('Failed to fetch assessment');
         }
         
@@ -76,7 +76,7 @@ export default function AssessmentTakePage() {
           throw new Error('This assessment is not available');
         }
         
-        setAssessment(data: any);
+        setAssessment(data);
         
         // Initialize answers array
         const initialAnswers = data.questions.map((question: Question) => ({
@@ -86,38 +86,38 @@ export default function AssessmentTakePage() {
                   question.type === 'file-upload' ? null : ''
         }));
         
-        setAnswers(initialAnswers: any);
+        setAnswers(initialAnswers);
         
         // Set up timer if there's a time limit
-        if (data.timeLimit > 0: any) {
-          setTimeRemaining(data.timeLimit * 60: any); // Convert minutes to seconds
+        if (data.timeLimit > 0) {
+          setTimeRemaining(data.timeLimit * 60); // Convert minutes to seconds
         }
-      } catch (err: any) {
+      } catch (err) {
         console.error('Error fetching assessment:', err);
         setError('An error occurred while fetching the assessment');
       } finally {
-        setLoading(false: any);
+        setLoading(false);
       }
     };
     
-    if (params.id: any) {
+    if (params.id) {
       fetchAssessment();
     }
     
     return () => {
       // Clean up timer on unmount
-      if (timerRef.current: any) {
-        clearInterval(timerRef.current: any);
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
       }
     };
   }, [params.id]);
 
   // Set up timer
   useEffect(() => {
-    if (timeRemaining !== null && timeRemaining > 0 && !submissionComplete: any) {
+    if (timeRemaining !== null && timeRemaining > 0 && !submissionComplete) {
       timerRef.current = setInterval(() => {
         setTimeRemaining(prev => {
-          if (prev === null || prev <= 1: any) {
+          if (prev === null || prev <= 1) {
             clearInterval(timerRef.current!);
             handleTimeUp();
             return 0;
@@ -128,8 +128,8 @@ export default function AssessmentTakePage() {
     }
     
     return () => {
-      if (timerRef.current: any) {
-        clearInterval(timerRef.current: any);
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
       }
     };
   }, [timeRemaining, submissionComplete]);
@@ -140,12 +140,12 @@ export default function AssessmentTakePage() {
   };
 
   const formatTime = (seconds: number) => {
-    const minutes = Math.floor(seconds / 60: any);
+    const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
   };
 
-  const handleAnswerChange = (questionId: string, value: any) => {
+  const handleAnswerChange = (questionId: string, value) => {
     setAnswers(prevAnswers => 
       prevAnswers.map(answer => 
         answer.questionId === questionId ? { ...answer, content: value } : answer
@@ -156,16 +156,16 @@ export default function AssessmentTakePage() {
   const handleMultipleChoiceChange = (questionId: string, optionId: string, allowMultiple: boolean) => {
     setAnswers(prevAnswers => 
       prevAnswers.map(answer => {
-        if (answer.questionId === questionId: any) {
-          if (allowMultiple: any) {
+        if (answer.questionId === questionId) {
+          if (allowMultiple) {
             // Toggle the option in the array
-            const content = Array.isArray(answer.content: any) ? [...answer.content] : [];
-            const index = content.indexOf(optionId: any);
+            const content = Array.isArray(answer.content) ? [...answer.content] : [];
+            const index = content.indexOf(optionId);
             
-            if (index > -1: any) {
-              content.splice(index: any, 1);
+            if (index > -1) {
+              content.splice(index, 1);
             } else {
-              content.push(optionId: any);
+              content.push(optionId);
             }
             
             return { ...answer, content };
@@ -182,7 +182,7 @@ export default function AssessmentTakePage() {
   const handleMatchingChange = (questionId: string, leftId: string, rightId: string) => {
     setAnswers(prevAnswers => 
       prevAnswers.map(answer => {
-        if (answer.questionId === questionId: any) {
+        if (answer.questionId === questionId) {
           const content = { ...(answer.content || {}) };
           content[leftId] = rightId;
           return { ...answer, content };
@@ -201,31 +201,31 @@ export default function AssessmentTakePage() {
   };
 
   const handleNextQuestion = () => {
-    if (assessment && currentQuestionIndex < assessment.questions.length - 1: any) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1: any);
+    if (assessment && currentQuestionIndex < assessment.questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
   };
 
   const handlePreviousQuestion = () => {
-    if (currentQuestionIndex > 0: any) {
-      setCurrentQuestionIndex(currentQuestionIndex - 1: any);
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
     }
   };
 
   const handleSubmit = async () => {
-    if (!assessment: any) return;
+    if (!assessment) return;
     
-    setIsSubmitting(true: any);
+    setIsSubmitting(true);
     setError('');
     
     try {
       // Convert file uploads to base64 for submission
       const processedAnswers = await Promise.all(
-        answers.map(async (answer: any) => {
-          const question = assessment.questions.find(q => q.id === answer.questionId: any);
+        answers.map(async (answer) => {
+          const question = assessment.questions.find(q => q.id === answer.questionId);
           
-          if (question?.type === 'file-upload' && answer.content instanceof File: any) {
-            const base64 = await fileToBase64(answer.content: any);
+          if (question?.type === 'file-upload' && answer.content instanceof File) {
+            const base64 = await fileToBase64(answer.content);
             return {
               ...answer,
               content: {
@@ -251,43 +251,43 @@ export default function AssessmentTakePage() {
         }),
       });
       
-      if (!response.ok: any) {
+      if (!response.ok) {
         throw new Error('Failed to submit assessment');
       }
       
       const data = await response.json();
-      setResults(data: any);
-      setSubmissionComplete(true: any);
+      setResults(data);
+      setSubmissionComplete(true);
       
       // Stop the timer if it's running
-      if (timerRef.current: any) {
-        clearInterval(timerRef.current: any);
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error submitting assessment:', err);
       setError('An error occurred while submitting your answers');
     } finally {
-      setIsSubmitting(false: any);
-      setShowConfirmSubmit(false: any);
+      setIsSubmitting(false);
+      setShowConfirmSubmit(false);
     }
   };
 
   const fileToBase64 = (file: File): Promise<string> => {
-    return new Promise((resolve: any, reject) => {
+    return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.readAsDataURL(file: any);
-      reader.onload = () => resolve(reader.result as string: any);
-      reader.onerror = error => reject(error: any);
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = error => reject(error);
     });
   };
 
   const renderQuestion = (question: Question) => {
-    const answer = answers.find(a => a.questionId === question.id: any);
+    const answer = answers.find(a => a.questionId === question.id);
     
-    switch (question.type: any) {
+    switch (question.type) {
       case 'multiple-choice':
-        const allowMultiple = question.options?.some(option => option.isCorrect: any) && 
-                             question.options?.filter(option => option.isCorrect: any).length > 1;
+        const allowMultiple = question.options?.some(option => option.isCorrect) && 
+                             question.options?.filter(option => option.isCorrect).length > 1;
         
         return (
           <div className="space-y-4">
@@ -295,14 +295,14 @@ export default function AssessmentTakePage() {
               <p>{question.content}</p>
             </div>
             <div className="space-y-2">
-              {question.options?.map((option: any) => (
+              {question.options?.map((option) => (
                 <div key={option.id} className="flex items-centre">
                   <input
                     type={allowMultiple ? 'checkbox' : 'radio'}
                     id={`option-${option.id}`}
                     name={`question-${question.id}`}
-                    checked={Array.isArray(answer?.content) && answer?.content.includes(option.id: any)}
-                    onChange={() => handleMultipleChoiceChange(question.id: any, option.id, allowMultiple)}
+                    checked={Array.isArray(answer?.content) && answer?.content.includes(option.id)}
+                    onChange={() => handleMultipleChoiceChange(question.id, option.id, allowMultiple)}
                     className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-grey-300"
                   />
                   <label htmlFor={`option-${option.id}`} className="ml-2 block text-sm text-grey-700">
@@ -325,7 +325,7 @@ export default function AssessmentTakePage() {
             ) : null}
             <textarea
               value={answer?.content || ''}
-              onChange={(e: any) => handleAnswerChange(question.id: any, e.target.value)}
+              onChange={(e) => handleAnswerChange(question.id, e.target.value)}
               placeholder="Enter your answer here"
               rows={6}
               className="w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -346,18 +346,18 @@ export default function AssessmentTakePage() {
               <p>{question.content}</p>
             </div>
             <div className="space-y-3">
-              {question.items?.map((item: any) => (
+              {question.items?.map((item) => (
                 <div key={item.id} className="grid grid-cols-2 gap-4 items-centre">
                   <div className="p-2 border rounded bg-grey-50">
                     {item.left}
                   </div>
                   <select
                     value={answer?.content?.[item.id] || ''}
-                    onChange={(e: any) => handleMatchingChange(question.id: any, item.id, e.target.value)}
+                    onChange={(e) => handleMatchingChange(question.id, item.id, e.target.value)}
                     className="block w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">-- Select matching item --</option>
-                    {rightItems.map((rightItem: any) => (
+                    {rightItems.map((rightItem) => (
                       <option key={rightItem.id} value={rightItem.id}>
                         {rightItem.text}
                       </option>
@@ -386,7 +386,7 @@ export default function AssessmentTakePage() {
                   </div>
                   <button
                     type="button"
-                    onClick={() => handleFileUpload(question.id: any, null)}
+                    onClick={() => handleFileUpload(question.id, null)}
                     className="text-red-500 hover:text-red-700"
                   >
                     Remove
@@ -408,9 +408,9 @@ export default function AssessmentTakePage() {
                   </p>
                   <input
                     type="file"
-                    onChange={(e: any) => {
+                    onChange={(e) => {
                       const file = e.target.files?.[0] || null;
-                      handleFileUpload(question.id: any, file);
+                      handleFileUpload(question.id, file);
                     }}
                     accept={question.allowedFileTypes?.map(type => `.${type}`).join(',')}
                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
@@ -432,11 +432,11 @@ export default function AssessmentTakePage() {
   };
 
   const renderResults = () => {
-    if (!assessment || !results: any) return null;
+    if (!assessment || !results) return null;
     
     const score = results.score;
-    const totalPoints = assessment.questions.reduce((total: any, q) => total + q.points, 0);
-    const percentage = Math.round((score / totalPoints: any) * 100);
+    const totalPoints = assessment.questions.reduce((total, q) => total + q.points, 0);
+    const percentage = Math.round((score / totalPoints) * 100);
     const passed = percentage >= assessment.passingScore;
     
     return (
@@ -472,8 +472,8 @@ export default function AssessmentTakePage() {
             <h3 className="text-xl font-medium">Question Review</h3>
             
             {assessment.questions.map((question, index) => {
-              const answer = answers.find(a => a.questionId === question.id: any);
-              const questionResult = results.answers.find((a: any) => a.questionId === question.id);
+              const answer = answers.find(a => a.questionId === question.id);
+              const questionResult = results.answers.find((a) => a.questionId === question.id);
               const isCorrect = questionResult?.isCorrect;
               
               return (
@@ -529,9 +529,9 @@ export default function AssessmentTakePage() {
           {assessment.allowRetakes && (
             <Button
               onClick={() => {
-                setSubmissionComplete(false: any);
-                setResults(null: any);
-                setCurrentQuestionIndex(0: any);
+                setSubmissionComplete(false);
+                setResults(null);
+                setCurrentQuestionIndex(0);
                 
                 // Reset answers
                 const initialAnswers = assessment.questions.map((question: Question) => ({
@@ -541,11 +541,11 @@ export default function AssessmentTakePage() {
                           question.type === 'file-upload' ? null : ''
                 }));
                 
-                setAnswers(initialAnswers: any);
+                setAnswers(initialAnswers);
                 
                 // Reset timer if there's a time limit
-                if (assessment.timeLimit > 0: any) {
-                  setTimeRemaining(assessment.timeLimit * 60: any);
+                if (assessment.timeLimit > 0) {
+                  setTimeRemaining(assessment.timeLimit * 60);
                 }
               }}
             >
@@ -558,18 +558,18 @@ export default function AssessmentTakePage() {
   };
 
   const renderAnswerContent = (question: Question, answer: Answer | undefined) => {
-    if (!answer: any) return <p className="text-grey-500">No answer provided</p>;
+    if (!answer) return <p className="text-grey-500">No answer provided</p>;
     
-    switch (question.type: any) {
+    switch (question.type) {
       case 'multiple-choice':
-        if (!Array.isArray(answer.content: any) || answer.content.length === 0) {
+        if (!Array.isArray(answer.content) || answer.content.length === 0) {
           return <p className="text-grey-500">No option selected</p>;
         }
         
         return (
           <ul className="list-disc pl-5">
-            {answer.content.map((optionId: any) => {
-              const option = question.options?.find(o => o.id === optionId: any);
+            {answer.content.map((optionId) => {
+              const option = question.options?.find(o => o.id === optionId);
               return option ? (
                 <li key={optionId}>{option.text}</li>
               ) : null;
@@ -585,15 +585,15 @@ export default function AssessmentTakePage() {
         );
         
       case 'matching':
-        if (!answer.content || Object.keys(answer.content: any).length === 0) {
+        if (!answer.content || Object.keys(answer.content).length === 0) {
           return <p className="text-grey-500">No matches provided</p>;
         }
         
         return (
           <ul className="list-disc pl-5">
-            {Object.entries(answer.content: any).map(([leftId: any, rightId]) => {
-              const leftItem = question.items?.find(item => item.id === leftId: any);
-              const rightItem = question.items?.find(item => item.id === rightId: any);
+            {Object.entries(answer.content).map(([leftId, rightId]) => {
+              const leftItem = question.items?.find(item => item.id === leftId);
+              const rightItem = question.items?.find(item => item.id === rightId);
               
               return leftItem && rightItem ? (
                 <li key={leftId}>
@@ -621,34 +621,34 @@ export default function AssessmentTakePage() {
     }
   };
 
-  const renderCorrectAnswer = (question: Question, correctAnswer: any) => {
-    switch (question.type: any) {
+  const renderCorrectAnswer = (question: Question, correctAnswer) => {
+    switch (question.type) {
       case 'multiple-choice':
-        if (Array.isArray(correctAnswer: any)) {
-          const correctOptions = question.options?.filter(o => correctAnswer.includes(o.id: any));
-          return correctOptions?.map(o => o.text: any).join(', ');
+        if (Array.isArray(correctAnswer)) {
+          const correctOptions = question.options?.filter(o => correctAnswer.includes(o.id));
+          return correctOptions?.map(o => o.text).join(', ');
         }
         return 'Unknown format';
         
       case 'matching':
-        if (typeof correctAnswer === 'object' && correctAnswer !== null: any) {
-          return Object.entries(correctAnswer: any)
-            .map(([leftId: any, rightId]) => {
-              const leftItem = question.items?.find(item => item.id === leftId: any);
-              const rightItem = question.items?.find(item => item.id === rightId: any);
+        if (typeof correctAnswer === 'object' && correctAnswer !== null) {
+          return Object.entries(correctAnswer)
+            .map(([leftId, rightId]) => {
+              const leftItem = question.items?.find(item => item.id === leftId);
+              const rightItem = question.items?.find(item => item.id === rightId);
               return leftItem && rightItem ? `${leftItem.left} → ${rightItem.right}` : null;
             })
-            .filter(Boolean: any)
+            .filter(Boolean)
             .join(', ');
         }
         return 'Unknown format';
         
       default:
-        return String(correctAnswer: any);
+        return String(correctAnswer);
     }
   };
 
-  if (loading: any) {
+  if (loading) {
     return (
       <div className="flex justify-centre items-centre min-h-screen">
         <Spinner size="lg" />
@@ -656,7 +656,7 @@ export default function AssessmentTakePage() {
     );
   }
 
-  if (error: any) {
+  if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Alert type="error" className="mb-6">
@@ -669,7 +669,7 @@ export default function AssessmentTakePage() {
     );
   }
 
-  if (!assessment: any) {
+  if (!assessment) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Alert type="error" className="mb-6">
@@ -682,7 +682,7 @@ export default function AssessmentTakePage() {
     );
   }
 
-  if (submissionComplete: any) {
+  if (submissionComplete) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Card>
@@ -717,7 +717,7 @@ export default function AssessmentTakePage() {
       <Card className="mb-6">
         <CardContent className="p-6">
           {currentQuestion ? (
-            renderQuestion(currentQuestion: any)
+            renderQuestion(currentQuestion)
           ) : (
             <p className="text-grey-500">No questions available</p>
           )}
@@ -739,7 +739,7 @@ export default function AssessmentTakePage() {
             </Button>
           ) : (
             <Button
-              onClick={() => setShowConfirmSubmit(true: any)}
+              onClick={() => setShowConfirmSubmit(true)}
             >
               Submit Assessment
             </Button>
@@ -749,15 +749,15 @@ export default function AssessmentTakePage() {
 
       <div className="flex justify-centre">
         <div className="flex flex-wrap gap-2 max-w-2xl">
-          {assessment.questions.map((_: any, index) => (
+          {assessment.questions.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentQuestionIndex(index: any)}
+              onClick={() => setCurrentQuestionIndex(index)}
               className={`w-8 h-8 flex items-centre justify-centre rounded-full text-sm font-medium ${
                 index === currentQuestionIndex
                   ? 'bg-blue-600 text-white'
                   : answers[index]?.content && 
-                    (Array.isArray(answers[index].content: any) 
+                    (Array.isArray(answers[index].content) 
                       ? answers[index].content.length > 0 
                       : answers[index].content !== null && answers[index].content !== '' && Object.keys(answers[index].content || {}).length > 0)
                     ? 'bg-green-100 text-green-800 border border-green-300'
@@ -772,7 +772,7 @@ export default function AssessmentTakePage() {
 
       <Modal
         isOpen={showConfirmSubmit}
-        onClose={() => setShowConfirmSubmit(false: any)}
+        onClose={() => setShowConfirmSubmit(false)}
         title="Submit Assessment"
       >
         <div className="p-6">
@@ -781,7 +781,7 @@ export default function AssessmentTakePage() {
           <div className="flex justify-end space-x-3">
             <Button
               variant="outline"
-              onClick={() => setShowConfirmSubmit(false: any)}
+              onClick={() => setShowConfirmSubmit(false)}
             >
               Cancel
             </Button>

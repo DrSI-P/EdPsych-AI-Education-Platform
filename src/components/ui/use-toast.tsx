@@ -34,7 +34,7 @@ export const toast = sonnerToast;
 
 export const useToast = () => {
   return {
-    toast: (message: string, options?: any) => {
+    toast: (message: string, options?) => {
       console.log(message, options);
       // This is a simplified implementation
       // In a real app, this would use the actual toast library

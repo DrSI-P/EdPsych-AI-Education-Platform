@@ -112,7 +112,7 @@ export function BlogAdminDashboard({ initialTab = 'schedules' }: BlogAdminDashbo
     
     return (
       <div className="space-y-4">
-        {schedules.map((schedule: any) => (
+        {schedules.map((schedule) => (
           <Card key={schedule.id}>
             <CardHeader className="p-4 pb-2">
               <div className="flex justify-between items-start">
@@ -221,7 +221,7 @@ export function BlogAdminDashboard({ initialTab = 'schedules' }: BlogAdminDashbo
     
     return (
       <div className="space-y-4">
-        {generations.map((generation: any) => (
+        {generations.map((generation) => (
           <Card key={generation.id}>
             <CardHeader className="p-4 pb-2">
               <div className="flex justify-between items-start">

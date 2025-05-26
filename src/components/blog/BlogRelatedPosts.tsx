@@ -25,7 +25,7 @@ interface BlogRelatedPostsProps {
 }
 
 export function BlogRelatedPosts({ posts }: BlogRelatedPostsProps) {
-  if (!posts || posts.length === 0: any) {
+  if (!posts || posts.length === 0) {
     return null;
   }
 

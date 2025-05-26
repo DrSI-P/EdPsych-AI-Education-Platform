@@ -1,40 +1,39 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Slider } from "@/components/ui/slider";
-import { Switch } from "@/components/ui/switch";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { toast } from "@/components/ui/use-toast";
-import { Separator } from "@/components/ui/separator";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
+import { 
+  Card, 
+  CardContent, 
+  CardDescription, 
+  CardFooter, 
+  CardHeader, 
+  CardTitle 
+} from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Slider } from '@/components/ui/slider';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
+import { 
+  AlertTriangle, 
+  Check, 
+  Clock, 
+  FileText, 
+  Info, 
+  RefreshCw, 
+  Target, 
+  ThumbsUp, 
+  Zap 
+} from 'lucide-react';
+import { useToast } from '@/components/ui/use-toast';
 
-const EmotionalRegulationEngine = () => {
-  const { data: session } = useSession();
-  const router = useRouter();
-  const [activeTab, setActiveTab] = useState("identify");
-  const [settings, setSettings] = useState({
-    emotionVocabularyLevel: "intermediate",
-    preferredStrategies: ["deep-breathing", "counting", "visualisation"],
-    triggerAwareness: true,
-    selfMonitoringLevel: "guided",
-    notificationPreferences: {
-      escalationAlerts: true,
-      calmingReminders: true,
-      celebrateSuccess: true
-    }
-  });
+export function EmotionalRegulationEngine() {
+  const { toast } = useToast();
   
+  // State for current emotion
   const [currentEmotion, setCurrentEmotion] = useState({
     name: "",
     intensity: 5,
@@ -47,6 +46,7 @@ const EmotionalRegulationEngine = () => {
   const [emotionHistory, setEmotionHistory] = useState([]);
   const [emotionJournal, setEmotionJournal] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  
   // Basic emotions with UK spelling
   const basicEmotions = [
     { name: "Happy", color: "#FFD700", icon: "😊" },
@@ -54,238 +54,178 @@ const EmotionalRegulationEngine = () => {
     { name: "Angry", color: "#FF4500", icon: "😠" },
     { name: "Scared", color: "#9370DB", icon: "😨" },
     { name: "Disgusted", color: "#32CD32", icon: "🤢" },
-    { name: "Surprised", color: "#FF69B4", icon: "😲" }
-  ];
-  
-  // Advanced emotions with UK spelling
-  const advancedEmotions = [
-    { name: "Anxious", color: "#DAA520", icon: "😰" },
-    { name: "Frustrated", color: "#CD5C5C", icon: "😤" },
-    { name: "Excited", color: "#FF8C00", icon: "🤩" },
-    { name: "Proud", color: "#4682B4", icon: "😌" },
-    { name: "Embarrassed", color: "#DB7093", icon: "😳" },
-    { name: "Jealous", color: "#228B22", icon: "😒" },
-    { name: "Confused", color: "#9932CC", icon: "😕" },
+    { name: "Surprised", color: "#FF69B4", icon: "😲" },
     { name: "Calm", color: "#87CEEB", icon: "😌" },
-    { name: "Bored", color: "#A9A9A9", icon: "😑" },
-    { name: "Nervous", color: "#FFA07A", icon: "😬" },
-    { name: "Overwhelmed", color: "#800080", icon: "😩" },
-    { name: "Disappointed", color: "#708090", icon: "😞" }
+    { name: "Worried", color: "#D3D3D3", icon: "😟" },
+    { name: "Confused", color: "#DDA0DD", icon: "😕" },
+    { name: "Excited", color: "#FFA500", icon: "🤩" }
   ];
   
-  // Body feeling locations
-  const bodyFeelingLocations = [
-    "Head", "Chest", "Stomach", "Throat", 
-    "Shoulders", "Arms", "Hands", "Legs", "Feet"
+  // Complex emotions
+  const complexEmotions = [
+    { name: "Anxious", color: "#D3D3D3", icon: "😰" },
+    { name: "Frustrated", color: "#CD5C5C", icon: "😤" },
+    { name: "Overwhelmed", color: "#9370DB", icon: "😩" },
+    { name: "Embarrassed", color: "#FF69B4", icon: "😳" },
+    { name: "Proud", color: "#FFD700", icon: "😎" },
+    { name: "Jealous", color: "#32CD32", icon: "😒" },
+    { name: "Guilty", color: "#6495ED", icon: "😔" },
+    { name: "Hopeful", color: "#87CEEB", icon: "🙂" },
+    { name: "Disappointed", color: "#CD853F", icon: "😞" },
+    { name: "Grateful", color: "#FFD700", icon: "🙏" }
   ];
   
-  // Regulation strategies with UK spelling and terminology
+  // Body feelings
+  const bodyFeelings = [
+    { name: "Racing heart", area: "chest" },
+    { name: "Tight chest", area: "chest" },
+    { name: "Butterflies", area: "stomach" },
+    { name: "Tense muscles", area: "muscles" },
+    { name: "Sweaty palms", area: "hands" },
+    { name: "Headache", area: "head" },
+    { name: "Tired", area: "whole body" },
+    { name: "Shaky", area: "whole body" },
+    { name: "Hot face", area: "face" },
+    { name: "Clenched jaw", area: "face" }
+  ];
+  
+  // Regulation strategies
   const regulationStrategies = [
     {
-      id: "deep-breathing",
-      name: "Deep Breathing",
-      description: "Take slow, deep breaths to calm your body and mind.",
-      steps: [
-        "Find a comfortable position",
-        "Breathe in slowly through your nose for 4 counts",
-        "Hold your breath for 2 counts",
-        "Breathe out slowly through your mouth for 6 counts",
-        "Repeat 5 times"
-      ],
-      suitableFor: ["Angry", "Anxious", "Overwhelmed", "Nervous"],
-      evidenceBase: "Supported by research from the British Psychological Society and NHS mental health guidelines."
+      id: 1,
+      name: "Deep breathing",
+      description: "Take 5 slow, deep breaths, counting to 4 on the inhale and 6 on the exhale.",
+      suitable: ["Angry", "Anxious", "Overwhelmed", "Scared", "Worried"],
+      difficulty: "easy",
+      timeNeeded: "1-2 minutes"
     },
     {
-      id: "counting",
-      name: "Counting",
-      description: "Count slowly to help redirect your focus and calm down.",
-      steps: [
-        "Start counting slowly from 1",
-        "Focus on each number as you say it",
-        "Continue to 10 or 20",
-        "If needed, count backwards to 1"
-      ],
-      suitableFor: ["Angry", "Frustrated", "Overwhelmed"],
-      evidenceBase: "Recommended by the Royal College of Psychiatrists as a grounding technique."
-    },
-    {
-      id: "visualisation",
-      name: "Peaceful Place Visualisation",
-      description: "Imagine a calm, peaceful place to help you relax.",
-      steps: [
-        "Close your eyes",
-        "Think of a place where you feel safe and calm",
-        "Imagine what you can see there",
-        "Imagine what you can hear there",
-        "Imagine what you can feel there",
-        "Stay in this place for a few minutes"
-      ],
-      suitableFor: ["Anxious", "Scared", "Overwhelmed", "Sad"],
-      evidenceBase: "Supported by cognitive-behavioural therapy research and NICE guidelines for anxiety management."
-    },
-    {
-      id: "5-4-3-2-1",
+      id: 2,
       name: "5-4-3-2-1 Grounding",
-      description: "Use your senses to ground yourself in the present moment.",
-      steps: [
-        "Notice 5 things you can see",
-        "Notice 4 things you can touch/feel",
-        "Notice 3 things you can hear",
-        "Notice 2 things you can smell",
-        "Notice 1 thing you can taste"
-      ],
-      suitableFor: ["Anxious", "Overwhelmed", "Scared", "Confused"],
-      evidenceBase: "Recommended by NHS mental health services as an effective grounding technique for anxiety and panic."
+      description: "Name 5 things you can see, 4 things you can touch, 3 things you can hear, 2 things you can smell, and 1 thing you can taste.",
+      suitable: ["Anxious", "Overwhelmed", "Worried", "Scared"],
+      difficulty: "medium",
+      timeNeeded: "3-5 minutes"
     },
     {
-      id: "movement",
-      name: "Movement Break",
-      description: "Use physical movement to release energy and change your state.",
-      steps: [
-        "Stand up and stretch",
-        "Do 10 jumping jacks or march in place",
-        "Shake out your arms and legs",
-        "Roll your shoulders and neck gently",
-        "Take a short walk if possible"
-      ],
-      suitableFor: ["Angry", "Frustrated", "Bored", "Nervous", "Restless"],
-      evidenceBase: "Supported by research on the connection between physical activity and emotional regulation from Sport England and the British Association of Sport and Exercise Sciences."
+      id: 3,
+      name: "Progressive muscle relaxation",
+      description: "Tense and then relax each muscle group in your body, starting from your toes and working up to your head.",
+      suitable: ["Anxious", "Tense", "Worried", "Angry"],
+      difficulty: "medium",
+      timeNeeded: "5-10 minutes"
+    },
+    {
+      id: 4,
+      name: "Positive self-talk",
+      description: "Replace negative thoughts with positive, realistic statements.",
+      suitable: ["Sad", "Disappointed", "Guilty", "Embarrassed"],
+      difficulty: "medium",
+      timeNeeded: "ongoing"
+    },
+    {
+      id: 5,
+      name: "Emotion journaling",
+      description: "Write down your feelings, what triggered them, and how you responded.",
+      suitable: ["All emotions"],
+      difficulty: "medium",
+      timeNeeded: "5-15 minutes"
     }
   ];
   
-  // Load user settings and data on component mount
+  // Load user data on component mount
   useEffect(() => {
-    if (session?.user) {
-      fetchUserSettings();
-      fetchEmotionHistory();
-      fetchEmotionJournal();
-    }
-  }, [session]);
-  
-  // Filter strategies based on current emotion
-  useEffect(() => {
-    if (currentEmotion.name) {
-      const filteredStrategies = regulationStrategies.filter(
-        strategy => strategy.suitableFor.includes(currentEmotion.name)
-      );
-      setStrategies(filteredStrategies.length > 0 ? filteredStrategies : regulationStrategies);
-    } else {
-      setStrategies(regulationStrategies);
-    }
-  }, [currentEmotion.name]);
-  
-  const fetchUserSettings = async () => {
-    try {
-      setIsLoading(true);
-      // This would be replaced with an actual API call
-      // const response = await fetch('/api/special-needs/emotional-regulation/settings');
-      // const data = await response.json();
-      // setSettings(data.settings);
-      
-      // Simulating API response for now
-      setTimeout(() => {
+    const loadUserData = async () => {
+      try {
+        setIsLoading(true);
+        
+        // Simulate API call to load user's emotion history and strategies
+        // In a real implementation, this would fetch from a database
+        setTimeout(() => {
+          setEmotionHistory([
+            { 
+              name: "Anxious", 
+              intensity: 7, 
+              date: "2025-05-20T09:30:00", 
+              triggers: "Upcoming presentation",
+              strategies: ["Deep breathing", "5-4-3-2-1 Grounding"]
+            },
+            { 
+              name: "Happy", 
+              intensity: 8, 
+              date: "2025-05-19T15:45:00", 
+              triggers: "Received good feedback",
+              strategies: []
+            },
+            { 
+              name: "Frustrated", 
+              intensity: 6, 
+              date: "2025-05-18T11:20:00", 
+              triggers: "Technology not working",
+              strategies: ["Deep breathing", "Positive self-talk"]
+            }
+          ]);
+          
+          setEmotionJournal([
+            {
+              id: 1,
+              date: "2025-05-20T09:45:00",
+              emotion: "Anxious",
+              intensity: 7,
+              triggers: "Upcoming presentation to the whole school",
+              bodyFeelings: ["Racing heart", "Butterflies", "Sweaty palms"],
+              thoughts: "I'm worried I'll forget what to say or that people will judge me.",
+              strategies: ["Deep breathing", "5-4-3-2-1 Grounding"],
+              outcome: "Reduced anxiety to a 4/10, felt more prepared."
+            },
+            {
+              id: 2,
+              date: "2025-05-18T11:30:00",
+              emotion: "Frustrated",
+              intensity: 6,
+              triggers: "Computer crashed during lesson preparation",
+              bodyFeelings: ["Tense muscles", "Headache"],
+              thoughts: "This always happens at the worst time!",
+              strategies: ["Deep breathing", "Positive self-talk"],
+              outcome: "Calmed down to a 3/10, found a solution."
+            }
+          ]);
+          
+          setStrategies(regulationStrategies);
+          setIsLoading(false);
+        }, 1000);
+        
+      } catch (error) {
+        console.error("Error loading user data:", error);
+        toast({
+          title: "Error",
+          description: "Failed to load your emotional regulation data.",
+          variant: "destructive"
+        });
         setIsLoading(false);
-      }, 500);
-    } catch (error) {
-      console.error('Error fetching settings:', error);
-      setIsLoading(false);
-      toast({
-        title: "Error",
-        description: "Failed to load your settings. Please try again.",
-        variant: "destructive"
-      });
-    }
-  };
+      }
+    };
+    
+    loadUserData();
+  }, [toast]);
   
-  const fetchEmotionHistory = async () => {
-    try {
-      // This would be replaced with an actual API call
-      // const response = await fetch('/api/special-needs/emotional-regulation/history');
-      // const data = await response.json();
-      // setEmotionHistory(data.history);
-      
-      // Simulating API response for now
-      const mockHistory = [
-        { 
-          name: "Frustrated", 
-          intensity: 7, 
-          timestamp: new Date(Date.now() - 86400000).toISOString(),
-          triggers: "Homework was too difficult",
-          strategiesUsed: ["deep-breathing", "counting"]
-        },
-        { 
-          name: "Happy", 
-          intensity: 8, 
-          timestamp: new Date(Date.now() - 172800000).toISOString(),
-          triggers: "Played with friends at break time",
-          strategiesUsed: []
-        },
-        { 
-          name: "Anxious", 
-          intensity: 6, 
-          timestamp: new Date(Date.now() - 259200000).toISOString(),
-          triggers: "Class presentation",
-          strategiesUsed: ["visualisation", "deep-breathing"]
-        }
-      ];
-      setEmotionHistory(mockHistory);
-    } catch (error) {
-      console.error('Error fetching emotion history:', error);
-      toast({
-        title: "Error",
-        description: "Failed to load your emotion history. Please try again.",
-        variant: "destructive"
-      });
-    }
-  };
-  
-  const fetchEmotionJournal = async () => {
-    try {
-      // This would be replaced with an actual API call
-      // const response = await fetch('/api/special-needs/emotional-regulation/journal');
-      // const data = await response.json();
-      // setEmotionJournal(data.journal);
-      
-      // Simulating API response for now
-      const mockJournal = [
-        {
-          id: "journal-1",
-          date: new Date(Date.now() - 86400000).toISOString(),
-          title: "Difficult maths lesson",
-          content: "I felt frustrated during maths today because I couldn't understand the new concept. I used deep breathing to calm down and then asked the teacher for help. This made me feel better.",
-          emotions: ["Frustrated", "Confused", "Proud"],
-          strategies: ["deep-breathing"]
-        },
-        {
-          id: "journal-2",
-          date: new Date(Date.now() - 259200000).toISOString(),
-          title: "Made a new friend",
-          content: "I felt nervous about talking to the new student, but I used my brave thoughts and introduced myself. We played together at break time and it was really fun!",
-          emotions: ["Nervous", "Happy", "Excited"],
-          strategies: ["visualisation"]
-        }
-      ];
-      setEmotionJournal(mockJournal);
-    } catch (error) {
-      console.error('Error fetching emotion journal:', error);
-      toast({
-        title: "Error",
-        description: "Failed to load your emotion journal. Please try again.",
-        variant: "destructive"
-      });
-    }
-  };
-  
+  // Handle emotion selection
   const handleEmotionSelect = (emotion) => {
     setCurrentEmotion({
       ...currentEmotion,
       name: emotion.name
     });
     
-    // Move to intensity tab after selecting emotion
-    setActiveTab("intensity");
+    // Suggest strategies based on selected emotion
+    const suggestedStrategies = strategies.filter(
+      strategy => strategy.suitable.includes(emotion.name) || 
+                 strategy.suitable.includes("All emotions")
+    );
+    
+    setStrategies(suggestedStrategies);
   };
   
+  // Handle intensity change
   const handleIntensityChange = (value) => {
     setCurrentEmotion({
       ...currentEmotion,
@@ -293,663 +233,544 @@ const EmotionalRegulationEngine = () => {
     });
   };
   
-  const handleBodyFeelingToggle = (location) => {
-    const updatedBodyFeelings = currentEmotion.bodyFeelings.includes(location)
-      ? currentEmotion.bodyFeelings.filter(item => item !== location)
-      : [...currentEmotion.bodyFeelings, location];
+  // Handle body feeling toggle
+  const handleBodyFeelingToggle = (feeling) => {
+    const updatedFeelings = [...currentEmotion.bodyFeelings];
+    const index = updatedFeelings.findIndex(f => f === feeling.name);
+    
+    if (index >= 0) {
+      updatedFeelings.splice(index, 1);
+    } else {
+      updatedFeelings.push(feeling.name);
+    }
     
     setCurrentEmotion({
       ...currentEmotion,
-      bodyFeelings: updatedBodyFeelings
+      bodyFeelings: updatedFeelings
     });
   };
   
-  const handleSaveEmotion = async () => {
-    try {
-      setIsLoading(true);
-      
-      // This would be replaced with an actual API call
-      // const response = await fetch('/api/special-needs/emotional-regulation/emotions', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(currentEmotion),
-      // });
-      // const data = await response.json();
-      
-      // Simulating API response
-      setTimeout(() => {
-        // Add to history
-        const newHistoryItem = {
-          ...currentEmotion,
-          timestamp: new Date().toISOString(),
-          strategiesUsed: []
-        };
-        setEmotionHistory([newHistoryItem, ...emotionHistory]);
-        
-        // Reset current emotion
-        setCurrentEmotion({
-          name: "",
-          intensity: 5,
-          triggers: "",
-          bodyFeelings: [],
-          thoughts: ""
-        });
-        
-        setIsLoading(false);
-        setActiveTab("strategies");
-        
-        toast({
-          title: "Success",
-          description: "Your emotion has been recorded. Let's find some helpful strategies.",
-        });
-      }, 1000);
-    } catch (error) {
-      console.error('Error saving emotion:', error);
-      setIsLoading(false);
+  // Save current emotion to journal
+  const handleSaveToJournal = () => {
+    if (!currentEmotion.name) {
       toast({
-        title: "Error",
-        description: "Failed to save your emotion. Please try again.",
+        title: "Missing information",
+        description: "Please select an emotion before saving to your journal.",
         variant: "destructive"
       });
+      return;
     }
-  };
-  
-  const handleSaveJournalEntry = async (entry) => {
-    try {
-      setIsLoading(true);
-      
-      // This would be replaced with an actual API call
-      // const response = await fetch('/api/special-needs/emotional-regulation/journal', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(entry),
-      // });
-      // const data = await response.json();
-      
-      // Simulating API response
-      setTimeout(() => {
-        const newEntry = {
-          id: `journal-${Date.now()}`,
-          date: new Date().toISOString(),
-          ...entry
-        };
-        setEmotionJournal([newEntry, ...emotionJournal]);
-        setIsLoading(false);
-        
-        toast({
-          title: "Success",
-          description: "Your journal entry has been saved.",
-        });
-      }, 1000);
-    } catch (error) {
-      console.error('Error saving journal entry:', error);
-      setIsLoading(false);
-      toast({
-        title: "Error",
-        description: "Failed to save your journal entry. Please try again.",
-        variant: "destructive"
-      });
-    }
-  };
-  
-  const handleSaveSettings = async () => {
-    try {
-      setIsLoading(true);
-      
-      // This would be replaced with an actual API call
-      // const response = await fetch('/api/special-needs/emotional-regulation/settings', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(settings),
-      // });
-      // const data = await response.json();
-      
-      // Simulating API response
-      setTimeout(() => {
-        setIsLoading(false);
-        toast({
-          title: "Success",
-          description: "Your settings have been saved.",
-        });
-      }, 1000);
-    } catch (error) {
-      console.error('Error saving settings:', error);
-      setIsLoading(false);
-      toast({
-        title: "Error",
-        description: "Failed to save your settings. Please try again.",
-        variant: "destructive"
-      });
-    }
-  };
-  
-  const getEmotionColor = (emotionName) => {
-    const emotion = 
-      basicEmotions.find(e => e.name === emotionName) || 
-      advancedEmotions.find(e => e.name === emotionName);
-    return emotion ? emotion.colour : "#808080";
-  };
-  
-  const getEmotionIcon = (emotionName) => {
-    const emotion = 
-      basicEmotions.find(e => e.name === emotionName) || 
-      advancedEmotions.find(e => e.name === emotionName);
-    return emotion ? emotion.icon : "😐";
-  };
-  
-  const formatDate = (dateString) => {
-    const options = { 
-      weekday: 'long', 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+    
+    const newJournalEntry = {
+      id: Date.now(),
+      date: new Date().toISOString(),
+      emotion: currentEmotion.name,
+      intensity: currentEmotion.intensity,
+      triggers: currentEmotion.triggers,
+      bodyFeelings: currentEmotion.bodyFeelings,
+      thoughts: currentEmotion.thoughts,
+      strategies: [],
+      outcome: ""
     };
-    return new Date(dateString).toLocaleDateString('en-GB', options);
+    
+    setEmotionJournal([newJournalEntry, ...emotionJournal]);
+    
+    // Add to emotion history
+    const historyEntry = {
+      name: currentEmotion.name,
+      intensity: currentEmotion.intensity,
+      date: new Date().toISOString(),
+      triggers: currentEmotion.triggers,
+      strategies: []
+    };
+    
+    setEmotionHistory([historyEntry, ...emotionHistory]);
+    
+    // Reset current emotion
+    setCurrentEmotion({
+      name: "",
+      intensity: 5,
+      triggers: "",
+      bodyFeelings: [],
+      thoughts: ""
+    });
+    
+    toast({
+      title: "Saved to journal",
+      description: "Your emotion has been recorded in your journal.",
+    });
   };
   
-  const getIntensityLabel = (intensity) => {
-    if (intensity <= 3) return "Mild";
-    if (intensity <= 6) return "Moderate";
-    return "Strong";
+  // Get intensity color
+  const getIntensityColor = (intensity) => {
+    if (intensity <= 3) return "bg-green-100 text-green-800";
+    if (intensity <= 6) return "bg-yellow-100 text-yellow-800";
+    return "bg-red-100 text-red-800";
+  };
+  
+  // Get strategy difficulty color
+  const getDifficultyColor = (difficulty) => {
+    switch (difficulty) {
+      case "easy": return "bg-green-100 text-green-800";
+      case "medium": return "bg-yellow-100 text-yellow-800";
+      case "hard": return "bg-red-100 text-red-800";
+      default: return "bg-gray-100 text-gray-800";
+    }
   };
   
   return (
-    <div className="container mx-auto py-6">
-      <h1 className="text-3xl font-bold mb-6">Emotional Regulation Support</h1>
-      
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid grid-cols-6 mb-8">
+    <div className="space-y-6">
+      <Tabs defaultValue="identify" className="w-full">
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="identify">Identify</TabsTrigger>
-          <TabsTrigger value="intensity">Intensity</TabsTrigger>
-          <TabsTrigger value="body">Body</TabsTrigger>
           <TabsTrigger value="strategies">Strategies</TabsTrigger>
-          <TabsTrigger value="history">History</TabsTrigger>
           <TabsTrigger value="journal">Journal</TabsTrigger>
+          <TabsTrigger value="progress">Progress</TabsTrigger>
         </TabsList>
         
-        {/* Identify Emotions Tab */}
-        <TabsContent value="identify" className="space-y-6">
+        {/* Identify Tab */}
+        <TabsContent value="identify" className="space-y-4">
           <Card>
             <CardHeader>
               <CardTitle>How are you feeling right now?</CardTitle>
               <CardDescription>
-                Select the emotion that best matches how you're feeling.
+                Identifying your emotions is the first step to managing them
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-lg font-medium mb-3">Basic Emotions</h3>
-                  <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
-                    {basicEmotions.map((emotion) => (
-                      <Button
-                        key={emotion.name}
-                        variant={currentEmotion.name === emotion.name ? "default" : "outline"}
-                        className="h-24 flex flex-col items-centre justify-centre"
-                        style={{
-                          borderColor: emotion.colour,
-                          backgroundColor: currentEmotion.name === emotion.name ? emotion.colour : "transparent",
-                          color: currentEmotion.name === emotion.name ? "white" : "inherit"
-                        }}
-                        onClick={() => handleEmotionSelect(emotion)}
-                      >
-                        <span className="text-2xl mb-2">{emotion.icon}</span>
-                        <span>{emotion.name}</span>
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-                
-                <Separator />
-                
-                <div>
-                  <h3 className="text-lg font-medium mb-3">More Emotions</h3>
-                  <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
-                    {advancedEmotions.map((emotion) => (
-                      <Button
-                        key={emotion.name}
-                        variant={currentEmotion.name === emotion.name ? "default" : "outline"}
-                        className="h-24 flex flex-col items-centre justify-centre"
-                        style={{
-                          borderColor: emotion.colour,
-                          backgroundColor: currentEmotion.name === emotion.name ? emotion.colour : "transparent",
-                          color: currentEmotion.name === emotion.name ? "white" : "inherit"
-                        }}
-                        onClick={() => handleEmotionSelect(emotion)}
-                      >
-                        <span className="text-2xl mb-2">{emotion.icon}</span>
-                        <span>{emotion.name}</span>
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-            <CardFooter className="flex justify-between">
-              <Button variant="outline" onClick={() => router.push('/dashboard')}>
-                Back to Dashboard
-              </Button>
-              <Button 
-                disabled={!currentEmotion.name || isLoading}
-                onClick={() => setActiveTab("intensity")}
-              >
-                Next: Intensity
-              </Button>
-            </CardFooter>
-          </Card>
-        </TabsContent>
-        
-        {/* Intensity Tab */}
-        <TabsContent value="intensity" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>
-                How intense is your {currentEmotion.name.toLowerCase()} feeling?
-              </CardTitle>
-              <CardDescription>
-                Move the slider to show how strong the feeling is.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {currentEmotion.name && (
-                <div className="flex items-centre justify-centre mb-6">
-                  <div 
-                    className="w-20 h-20 rounded-full flex items-centre justify-centre text-4xl"
-                    style={{ backgroundColor: getEmotionColor(currentEmotion.name) }}
-                  >
-                    {getEmotionIcon(currentEmotion.name)}
-                  </div>
-                </div>
-              )}
-              
-              <div className="space-y-6">
-                <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <span>Mild</span>
-                    <span>Moderate</span>
-                    <span>Strong</span>
-                  </div>
-                  <Slider
-                    defaultValue={[currentEmotion.intensity]}
-                    max={10}
-                    min={1}
-                    step={1}
-                    onValueChange={handleIntensityChange}
-                  />
-                  <div className="flex justify-centre mt-2">
-                    <Badge variant="outline" className="text-lg px-4 py-2">
-                      {currentEmotion.intensity} - {getIntensityLabel(currentEmotion.intensity)}
-                    </Badge>
-                  </div>
-                </div>
-                
-                <Separator />
-                
-                <div className="space-y-4">
-                  <Label htmlFor="triggers">What triggered this feeling?</Label>
-                  <Textarea
-                    id="triggers"
-                    placeholder="What happened that made you feel this way?"
-                    value={currentEmotion.triggers}
-                    onChange={(e) => setCurrentEmotion({...currentEmotion, triggers: e.target.value})}
-                  />
-                </div>
-                
-                <div className="space-y-4">
-                  <Label htmlFor="thoughts">What thoughts are you having?</Label>
-                  <Textarea
-                    id="thoughts"
-                    placeholder="What are you thinking about right now?"
-                    value={currentEmotion.thoughts}
-                    onChange={(e) => setCurrentEmotion({...currentEmotion, thoughts: e.target.value})}
-                  />
-                </div>
-              </div>
-            </CardContent>
-            <CardFooter className="flex justify-between">
-              <Button variant="outline" onClick={() => setActiveTab("identify")}>
-                Back
-              </Button>
-              <Button 
-                disabled={isLoading}
-                onClick={() => setActiveTab("body")}
-              >
-                Next: Body Feelings
-              </Button>
-            </CardFooter>
-          </Card>
-        </TabsContent>
-        
-        {/* Body Feelings Tab */}
-        <TabsContent value="body" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Where do you feel this in your body?</CardTitle>
-              <CardDescription>
-                Select all the places in your body where you notice this feeling.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col items-centre space-y-6">
-                <div className="relative w-64 h-80">
-                  <Image 
-                    src="/images/body-outline.png" 
-                    alt="Body outline" 
-                    width={256}
-                    height={320}
-                    className="w-full h-auto"
-                  />
-                  {/* This would be replaced with an actual body map with clickable regions */}
-                </div>
-                
-                <div className="grid grid-cols-3 gap-2 w-full">
-                  {bodyFeelingLocations.map((location) => (
+            <CardContent className="space-y-4">
+              {/* Basic Emotions */}
+              <div>
+                <h3 className="text-sm font-medium mb-2">Basic Emotions</h3>
+                <div className="grid grid-cols-5 gap-2">
+                  {basicEmotions.map((emotion) => (
                     <Button
-                      key={location}
-                      variant={currentEmotion.bodyFeelings.includes(location) ? "default" : "outline"}
-                      className="h-12"
-                      onClick={() => handleBodyFeelingToggle(location)}
+                      key={emotion.name}
+                      variant={currentEmotion.name === emotion.name ? "default" : "outline"}
+                      className="flex flex-col items-center p-2 h-auto"
+                      onClick={() => handleEmotionSelect(emotion)}
                     >
-                      {location}
+                      <span className="text-2xl mb-1">{emotion.icon}</span>
+                      <span className="text-xs">{emotion.name}</span>
                     </Button>
                   ))}
                 </div>
               </div>
+              
+              {/* Complex Emotions */}
+              <div>
+                <h3 className="text-sm font-medium mb-2">Complex Emotions</h3>
+                <div className="grid grid-cols-5 gap-2">
+                  {complexEmotions.map((emotion) => (
+                    <Button
+                      key={emotion.name}
+                      variant={currentEmotion.name === emotion.name ? "default" : "outline"}
+                      className="flex flex-col items-center p-2 h-auto"
+                      onClick={() => handleEmotionSelect(emotion)}
+                    >
+                      <span className="text-2xl mb-1">{emotion.icon}</span>
+                      <span className="text-xs">{emotion.name}</span>
+                    </Button>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Intensity Slider */}
+              {currentEmotion.name && (
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <Label htmlFor="intensity">How intense is this feeling?</Label>
+                    <Badge 
+                      variant="outline" 
+                      className={getIntensityColor(currentEmotion.intensity)}
+                    >
+                      {currentEmotion.intensity}/10
+                    </Badge>
+                  </div>
+                  <Slider
+                    id="intensity"
+                    min={1}
+                    max={10}
+                    step={1}
+                    value={[currentEmotion.intensity]}
+                    onValueChange={handleIntensityChange}
+                  />
+                  <div className="flex justify-between text-xs text-muted-foreground">
+                    <span>Mild</span>
+                    <span>Moderate</span>
+                    <span>Intense</span>
+                  </div>
+                </div>
+              )}
+              
+              {/* Triggers */}
+              {currentEmotion.name && (
+                <div className="space-y-2">
+                  <Label htmlFor="triggers">What triggered this feeling?</Label>
+                  <Textarea
+                    id="triggers"
+                    placeholder="Describe what happened to make you feel this way..."
+                    value={currentEmotion.triggers}
+                    onChange={(e) => setCurrentEmotion({...currentEmotion, triggers: e.target.value})}
+                  />
+                </div>
+              )}
+              
+              {/* Body Feelings */}
+              {currentEmotion.name && (
+                <div className="space-y-2">
+                  <Label>Where do you feel this in your body?</Label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {bodyFeelings.map((feeling) => (
+                      <div key={feeling.name} className="flex items-center space-x-2">
+                        <Switch
+                          id={`feeling-${feeling.name}`}
+                          checked={currentEmotion.bodyFeelings.includes(feeling.name)}
+                          onCheckedChange={() => handleBodyFeelingToggle(feeling)}
+                        />
+                        <Label htmlFor={`feeling-${feeling.name}`} className="text-sm">
+                          {feeling.name} <span className="text-xs text-muted-foreground">({feeling.area})</span>
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {/* Thoughts */}
+              {currentEmotion.name && (
+                <div className="space-y-2">
+                  <Label htmlFor="thoughts">What thoughts are you having?</Label>
+                  <Textarea
+                    id="thoughts"
+                    placeholder="What are you saying to yourself about this situation?"
+                    value={currentEmotion.thoughts}
+                    onChange={(e) => setCurrentEmotion({...currentEmotion, thoughts: e.target.value})}
+                  />
+                </div>
+              )}
             </CardContent>
-            <CardFooter className="flex justify-between">
-              <Button variant="outline" onClick={() => setActiveTab("intensity")}>
-                Back
-              </Button>
+            <CardFooter>
               <Button 
-                disabled={isLoading}
-                onClick={handleSaveEmotion}
+                onClick={handleSaveToJournal}
+                disabled={!currentEmotion.name}
+                className="w-full"
               >
-                {isLoading ? "Saving..." : "Save and Find Strategies"}
+                Save to Journal
               </Button>
             </CardFooter>
           </Card>
         </TabsContent>
         
         {/* Strategies Tab */}
-        <TabsContent value="strategies" className="space-y-6">
+        <TabsContent value="strategies" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Helpful Strategies</CardTitle>
+              <CardTitle>Emotional Regulation Strategies</CardTitle>
               <CardDescription>
-                Here are some strategies that might help with your {currentEmotion.name ? currentEmotion.name.toLowerCase() : ""} feelings.
+                Try these strategies to help manage your emotions
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-6">
-                {strategies.length > 0 ? (
-                  strategies.map((strategy) => (
-                    <Card key={strategy.id} className="border-l-4" style={{ borderLeftColor: currentEmotion.name ? getEmotionColor(currentEmotion.name) : "#808080" }}>
-                      <CardHeader>
-                        <CardTitle>{strategy.name}</CardTitle>
-                        <CardDescription>{strategy.description}</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <h4 className="font-medium mb-2">Steps:</h4>
-                        <ol className="list-decimal pl-5 space-y-1">
-                          {strategy.steps.map((step, index) => (
-                            <li key={index}>{step}</li>
-                          ))}
-                        </ol>
-                        
-                        <div className="mt-4">
-                          <h4 className="font-medium mb-1">Good for:</h4>
-                          <div className="flex flex-wrap gap-2">
-                            {strategy.suitableFor.map((emotion) => (
-                              <Badge key={emotion} style={{ backgroundColor: getEmotionColor(emotion) }}>
-                                {emotion}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                        
-                        <div className="mt-4 text-sm text-muted-foreground">
-                          <p><strong>Evidence:</strong> {strategy.evidenceBase}</p>
-                        </div>
-                      </CardContent>
-                      <CardFooter>
-                        <Button className="w-full">I\'ll Try This</Button>
-                      </CardFooter>
-                    </Card>
-                  ))
+              <div className="space-y-4">
+                {currentEmotion.name ? (
+                  <div className="bg-muted p-3 rounded-md">
+                    <p className="text-sm">
+                      Showing strategies for: <Badge>{currentEmotion.name}</Badge> at intensity <Badge className={getIntensityColor(currentEmotion.intensity)}>{currentEmotion.intensity}/10</Badge>
+                    </p>
+                  </div>
                 ) : (
-                  <div className="text-centre py-8">
-                    <p>Select an emotion to see strategies that might help.</p>
+                  <div className="bg-muted p-3 rounded-md">
+                    <p className="text-sm flex items-center">
+                      <Info className="h-4 w-4 mr-2" />
+                      Select an emotion in the Identify tab to see personalized strategies
+                    </p>
                   </div>
                 )}
+                
+                {strategies.map((strategy) => (
+                  <Card key={strategy.id} className="overflow-hidden">
+                    <CardHeader className="p-4 pb-2">
+                      <CardTitle className="text-lg">{strategy.name}</CardTitle>
+                      <div className="flex flex-wrap gap-2 mt-1">
+                        <Badge variant="outline" className={getDifficultyColor(strategy.difficulty)}>
+                          {strategy.difficulty}
+                        </Badge>
+                        <Badge variant="outline">
+                          <Clock className="h-3 w-3 mr-1" />
+                          {strategy.timeNeeded}
+                        </Badge>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="p-4 pt-2">
+                      <p className="text-sm">{strategy.description}</p>
+                      
+                      <div className="mt-3">
+                        <p className="text-xs text-muted-foreground mb-1">Suitable for:</p>
+                        <div className="flex flex-wrap gap-1">
+                          {strategy.suitable.map((emotion) => (
+                            <Badge key={emotion} variant="secondary" className="text-xs">
+                              {emotion}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    </CardContent>
+                    <CardFooter className="p-4 pt-0 flex justify-between">
+                      <Button variant="outline" size="sm">
+                        <FileText className="h-4 w-4 mr-2" />
+                        Details
+                      </Button>
+                      <Button size="sm">
+                        <Check className="h-4 w-4 mr-2" />
+                        Try This
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                ))}
               </div>
             </CardContent>
-            <CardFooter className="flex justify-between">
-              <Button variant="outline" onClick={() => setActiveTab("identify")}>
-                Record Another Emotion
-              </Button>
-              <Button onClick={() => setActiveTab("history")}>
-                View History
-              </Button>
-            </CardFooter>
-          </Card>
-        </TabsContent>
-        
-        {/* History Tab */}
-        <TabsContent value="history" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Your Emotion History</CardTitle>
-              <CardDescription>
-                Track your emotions over time to notice patterns.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ScrollArea className="h-[500px] pr-4">
-                <div className="space-y-6">
-                  {emotionHistory.length > 0 ? (
-                    emotionHistory.map((entry, index) => (
-                      <Card key={index} className="border-l-4" style={{ borderLeftColor: getEmotionColor(entry.name) }}>
-                        <CardHeader className="pb-2">
-                          <div className="flex justify-between items-centre">
-                            <div className="flex items-centre gap-2">
-                              <span className="text-2xl">{getEmotionIcon(entry.name)}</span>
-                              <CardTitle>{entry.name}</CardTitle>
-                              <Badge variant="outline">
-                                {entry.intensity}/10
-                              </Badge>
-                            </div>
-                            <div className="text-sm text-muted-foreground">
-                              {formatDate(entry.timestamp)}
-                            </div>
-                          </div>
-                        </CardHeader>
-                        <CardContent className="pb-2">
-                          {entry.triggers && (
-                            <div className="mb-2">
-                              <p><strong>Trigger:</strong> {entry.triggers}</p>
-                            </div>
-                          )}
-                          
-                          {entry.strategiesUsed && entry.strategiesUsed.length > 0 && (
-                            <div>
-                              <p><strong>Strategies used:</strong></p>
-                              <div className="flex flex-wrap gap-2 mt-1">
-                                {entry.strategiesUsed.map((strategyId) => {
-                                  const strategy = regulationStrategies.find(s => s.id === strategyId);
-                                  return strategy ? (
-                                    <Badge key={strategyId} variant="secondary">
-                                      {strategy.name}
-                                    </Badge>
-                                  ) : null;
-                                })}
-                              </div>
-                            </div>
-                          )}
-                        </CardContent>
-                      </Card>
-                    ))
-                  ) : (
-                    <div className="text-centre py-8">
-                      <p>No emotion history recorded yet.</p>
-                      <Button className="mt-4" onClick={() => setActiveTab("identify")}>
-                        Record Your First Emotion
-                      </Button>
-                    </div>
-                  )}
-                </div>
-              </ScrollArea>
-            </CardContent>
-            <CardFooter className="flex justify-between">
-              <Button variant="outline" onClick={() => setActiveTab("identify")}>
-                Record New Emotion
-              </Button>
-              <Button onClick={() => setActiveTab("journal")}>
-                Go to Journal
-              </Button>
-            </CardFooter>
           </Card>
         </TabsContent>
         
         {/* Journal Tab */}
-        <TabsContent value="journal" className="space-y-6">
+        <TabsContent value="journal" className="space-y-4">
           <Card>
             <CardHeader>
               <CardTitle>Emotion Journal</CardTitle>
               <CardDescription>
-                Write about your feelings and experiences to help understand them better.
+                Track your emotions and reflect on patterns
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Tabs defaultValue="view" className="w-full">
-                <TabsList className="grid grid-cols-2 mb-4">
-                  <TabsTrigger value="view">View Entries</TabsTrigger>
-                  <TabsTrigger value="create">Create Entry</TabsTrigger>
-                </TabsList>
-                
-                <TabsContent value="view">
-                  <ScrollArea className="h-[500px] pr-4">
-                    <div className="space-y-6">
-                      {emotionJournal.length > 0 ? (
-                        emotionJournal.map((entry) => (
-                          <Card key={entry.id}>
-                            <CardHeader>
-                              <div className="flex justify-between items-centre">
-                                <CardTitle>{entry.title}</CardTitle>
-                                <div className="text-sm text-muted-foreground">
-                                  {formatDate(entry.date)}
-                                </div>
-                              </div>
-                              <div className="flex flex-wrap gap-2 mt-2">
-                                {entry.emotions.map((emotion) => (
-                                  <Badge 
-                                    key={emotion} 
-                                    style={{ backgroundColor: getEmotionColor(emotion) }}
-                                  >
-                                    {emotion}
-                                  </Badge>
-                                ))}
-                              </div>
-                            </CardHeader>
-                            <CardContent>
-                              <p className="whitespace-pre-line">{entry.content}</p>
-                              
-                              {entry.strategies && entry.strategies.length > 0 && (
-                                <div className="mt-4">
-                                  <p><strong>Strategies used:</strong></p>
-                                  <div className="flex flex-wrap gap-2 mt-1">
-                                    {entry.strategies.map((strategyId) => {
-                                      const strategy = regulationStrategies.find(s => s.id === strategyId);
-                                      return strategy ? (
-                                        <Badge key={strategyId} variant="secondary">
-                                          {strategy.name}
-                                        </Badge>
-                                      ) : null;
-                                    })}
-                                  </div>
-                                </div>
-                              )}
-                            </CardContent>
-                          </Card>
-                        ))
-                      ) : (
-                        <div className="text-centre py-8">
-                          <p>No journal entries yet.</p>
+              {isLoading ? (
+                <div className="flex justify-center p-4">
+                  <RefreshCw className="h-6 w-6 animate-spin" />
+                </div>
+              ) : emotionJournal.length > 0 ? (
+                <div className="space-y-4">
+                  {emotionJournal.map((entry) => (
+                    <Card key={entry.id}>
+                      <CardHeader className="p-4 pb-2">
+                        <div className="flex justify-between items-start">
+                          <CardTitle className="text-lg flex items-center">
+                            {entry.emotion}
+                            <Badge className={`ml-2 ${getIntensityColor(entry.intensity)}`}>
+                              {entry.intensity}/10
+                            </Badge>
+                          </CardTitle>
+                          <span className="text-xs text-muted-foreground">
+                            {new Date(entry.date).toLocaleString('en-GB', {
+                              day: 'numeric',
+                              month: 'short',
+                              year: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            })}
+                          </span>
                         </div>
-                      )}
-                    </div>
-                  </ScrollArea>
-                </TabsContent>
-                
-                <TabsContent value="create">
-                  <div className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="journal-title">Title</Label>
-                      <Input id="journal-title" placeholder="Give your entry a title" />
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label>Emotions (select all that apply)</Label>
-                      <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
-                        {[...basicEmotions, ...advancedEmotions].map((emotion) => (
-                          <Button
-                            key={emotion.name}
-                            variant="outline"
-                            className="h-10"
-                            style={{
-                              borderColor: emotion.colour
-                            }}
-                          >
-                            <span className="mr-1">{emotion.icon}</span>
-                            <span>{emotion.name}</span>
-                          </Button>
+                      </CardHeader>
+                      <CardContent className="p-4 pt-2 space-y-3">
+                        {entry.triggers && (
+                          <div>
+                            <h4 className="text-sm font-medium">Triggers:</h4>
+                            <p className="text-sm">{entry.triggers}</p>
+                          </div>
+                        )}
+                        
+                        {entry.bodyFeelings.length > 0 && (
+                          <div>
+                            <h4 className="text-sm font-medium">Body Feelings:</h4>
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              {entry.bodyFeelings.map((feeling) => (
+                                <Badge key={feeling} variant="outline" className="text-xs">
+                                  {feeling}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        
+                        {entry.thoughts && (
+                          <div>
+                            <h4 className="text-sm font-medium">Thoughts:</h4>
+                            <p className="text-sm">{entry.thoughts}</p>
+                          </div>
+                        )}
+                        
+                        {entry.strategies.length > 0 && (
+                          <div>
+                            <h4 className="text-sm font-medium">Strategies Used:</h4>
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              {entry.strategies.map((strategy) => (
+                                <Badge key={strategy} variant="secondary" className="text-xs">
+                                  {strategy}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        
+                        {entry.outcome && (
+                          <div>
+                            <h4 className="text-sm font-medium">Outcome:</h4>
+                            <p className="text-sm">{entry.outcome}</p>
+                          </div>
+                        )}
+                      </CardContent>
+                      <CardFooter className="p-4 pt-0 flex justify-end">
+                        <Button variant="outline" size="sm">
+                          <FileText className="h-4 w-4 mr-2" />
+                          Edit
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center p-4">
+                  <p className="text-muted-foreground">No journal entries yet</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+        
+        {/* Progress Tab */}
+        <TabsContent value="progress" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Your Emotional Regulation Progress</CardTitle>
+              <CardDescription>
+                Track your emotional patterns and regulation skills
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {isLoading ? (
+                <div className="flex justify-center p-4">
+                  <RefreshCw className="h-6 w-6 animate-spin" />
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-sm font-medium mb-2">Recent Emotions</h3>
+                    {emotionHistory.length > 0 ? (
+                      <div className="space-y-2">
+                        {emotionHistory.slice(0, 5).map((entry, index) => (
+                          <div key={index} className="flex items-center justify-between p-2 bg-muted rounded-md">
+                            <div className="flex items-center">
+                              <Badge className={getIntensityColor(entry.intensity)}>
+                                {entry.intensity}
+                              </Badge>
+                              <span className="ml-2">{entry.name}</span>
+                            </div>
+                            <span className="text-xs text-muted-foreground">
+                              {new Date(entry.date).toLocaleString('en-GB', {
+                                day: 'numeric',
+                                month: 'short',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                              })}
+                            </span>
+                          </div>
                         ))}
                       </div>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="journal-content">What happened?</Label>
-                      <Textarea 
-                        id="journal-content" 
-                        placeholder="Write about what happened, how you felt, and what you did to manage your feelings..."
-                        className="min-h-[200px]"
-                      />
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label>Strategies you used (if any)</Label>
-                      <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                        {regulationStrategies.map((strategy) => (
-                          <Button
-                            key={strategy.id}
-                            variant="outline"
-                            className="h-10 justify-start"
-                          >
-                            {strategy.name}
-                          </Button>
-                        ))}
+                    ) : (
+                      <p className="text-sm text-muted-foreground">No emotion history yet</p>
+                    )}
+                  </div>
+                  
+                  <div>
+                    <h3 className="text-sm font-medium mb-2">Most Used Strategies</h3>
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="p-3 bg-muted rounded-md">
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm">Deep breathing</span>
+                          <Badge variant="secondary">8 times</Badge>
+                        </div>
+                      </div>
+                      <div className="p-3 bg-muted rounded-md">
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm">5-4-3-2-1 Grounding</span>
+                          <Badge variant="secondary">5 times</Badge>
+                        </div>
+                      </div>
+                      <div className="p-3 bg-muted rounded-md">
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm">Positive self-talk</span>
+                          <Badge variant="secondary">3 times</Badge>
+                        </div>
+                      </div>
+                      <div className="p-3 bg-muted rounded-md">
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm">Emotion journaling</span>
+                          <Badge variant="secondary">2 times</Badge>
+                        </div>
                       </div>
                     </div>
-                    
-                    <Button className="w-full" disabled={isLoading}>
-                      {isLoading ? "Saving..." : "Save Journal Entry"}
+                  </div>
+                  
+                  <div>
+                    <h3 className="text-sm font-medium mb-2">Regulation Skills Progress</h3>
+                    <div className="space-y-3">
+                      <div>
+                        <div className="flex justify-between items-center mb-1">
+                          <span className="text-sm">Emotion Identification</span>
+                          <span className="text-xs text-muted-foreground">85%</span>
+                        </div>
+                        <div className="h-2 bg-muted rounded-full overflow-hidden">
+                          <div className="h-full bg-primary rounded-full" style={{ width: "85%" }}></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-between items-center mb-1">
+                          <span className="text-sm">Strategy Application</span>
+                          <span className="text-xs text-muted-foreground">70%</span>
+                        </div>
+                        <div className="h-2 bg-muted rounded-full overflow-hidden">
+                          <div className="h-full bg-primary rounded-full" style={{ width: "70%" }}></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-between items-center mb-1">
+                          <span className="text-sm">Emotional Awareness</span>
+                          <span className="text-xs text-muted-foreground">90%</span>
+                        </div>
+                        <div className="h-2 bg-muted rounded-full overflow-hidden">
+                          <div className="h-full bg-primary rounded-full" style={{ width: "90%" }}></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-between items-center mb-1">
+                          <span className="text-sm">Self-Regulation</span>
+                          <span className="text-xs text-muted-foreground">65%</span>
+                        </div>
+                        <div className="h-2 bg-muted rounded-full overflow-hidden">
+                          <div className="h-full bg-primary rounded-full" style={{ width: "65%" }}></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-muted p-4 rounded-md">
+                    <h3 className="text-sm font-medium mb-2 flex items-center">
+                      <ThumbsUp className="h-4 w-4 mr-2" />
+                      Your Progress
+                    </h3>
+                    <p className="text-sm">
+                      You've logged 12 emotions and used 18 regulation strategies in the past month.
+                      Your emotional awareness has improved by 15% since you started.
+                    </p>
+                    <Button className="mt-3 w-full" size="sm">
+                      <Zap className="h-4 w-4 mr-2" />
+                      View Detailed Report
                     </Button>
                   </div>
-                </TabsContent>
-              </Tabs>
+                </div>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
     </div>
   );
-};
-
-export default EmotionalRegulationEngine;
+}

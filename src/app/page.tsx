@@ -26,8 +26,8 @@ import { Play } from 'lucide-react';
 export default function HomePage() {
   const { ageGroup, setAgeGroup } = useTheme();
   const [learningStyle, setLearningStyle] = useState<'visual' | 'auditory' | 'kinesthetic' | 'reading-writing'>('visual');
-  const [showCelebration, setShowCelebration] = useState(false: any);
-  const [feedbackVisible, setFeedbackVisible] = useState(true: any);
+  const [showCelebration, setShowCelebration] = useState(false);
+  const [feedbackVisible, setFeedbackVisible] = useState(true);
   
   // Sample learning content
   const learningContent = [
@@ -91,17 +91,17 @@ export default function HomePage() {
   
   // Handle learning style change
   const handleLearningStyleChange = (style: 'visual' | 'auditory' | 'kinesthetic' | 'reading-writing') => {
-    setLearningStyle(style: any);
+    setLearningStyle(style);
   };
   
   // Handle age group change
   const handleAgeGroupChange = (value: string) => {
-    setAgeGroup(value as any: any);
+    setAgeGroup(value as any);
   };
   
   // Show celebration overlay
   const handleShowCelebration = () => {
-    setShowCelebration(true: any);
+    setShowCelebration(true);
   };
   
   return (
@@ -135,7 +135,7 @@ export default function HomePage() {
               title="Welcome Back!"
               message="Continue where you left off with your personalized learning journey."
               dismissable={true}
-              onDismiss={() => setFeedbackVisible(false: any)}
+              onDismiss={() => setFeedbackVisible(false)}
             />
           </div>
         )}
@@ -160,7 +160,7 @@ export default function HomePage() {
             </Button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {learningContent.map((content: any, index) => (
+            {learningContent.map((content, index) => (
               <LearningCard
                 key={index}
                 title={content.title}
@@ -177,7 +177,7 @@ export default function HomePage() {
         <div className="mb-12">
           <h2 className="text-2xl font-semibold mb-4">Your Achievements</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {achievements.map((achievement: any, index) => (
+            {achievements.map((achievement, index) => (
               <AchievementCard
                 key={index}
                 {...achievement}
@@ -260,7 +260,7 @@ export default function HomePage() {
             title="Congratulations!"
             message="You've earned the 'Design Explorer' badge for your excellent work on the platform's visual identity."
             confetti={true}
-            onClose={() => setShowCelebration(false: any)}
+            onClose={() => setShowCelebration(false)}
           />
         )}
       </main>

@@ -146,28 +146,28 @@ export enum SENCategory {
  */
 export const AssessmentMetadataSchema = z.object({
   id: z.string().uuid(),
-  title: z.string().min(3: any).max(100: any),
-  description: z.string().min(10: any).max(500: any),
-  keyStage: z.nativeEnum(UKKeyStage: any),
-  subject: z.nativeEnum(UKSubject: any),
+  title: z.string().min(3).max(100),
+  description: z.string().min(10).max(500),
+  keyStage: z.nativeEnum(UKKeyStage),
+  subject: z.nativeEnum(UKSubject),
   topics: z.array(z.string()),
-  assessmentType: z.nativeEnum(AssessmentType: any),
+  assessmentType: z.nativeEnum(AssessmentType),
   targetAgeRange: z.object({
-    min: z.number().min(3: any).max(19: any),
-    max: z.number().min(3: any).max(19: any),
+    min: z.number().min(3).max(19),
+    max: z.number().min(3).max(19),
   }),
-  estimatedDuration: z.number().min(1: any).max(180: any), // in minutes
-  difficultyLevel: z.nativeEnum(DifficultyLevel: any),
+  estimatedDuration: z.number().min(1).max(180), // in minutes
+  difficultyLevel: z.nativeEnum(DifficultyLevel),
   tags: z.array(z.string()).optional(),
   curriculumLinks: z.array(z.string()).optional(),
   author: z.string().optional(),
   createdAt: z.date(),
   updatedAt: z.date(),
-  language: z.nativeEnum(SupportedLanguage: any).default(SupportedLanguage.ENGLISH_UK: any),
-  adaptiveDifficulty: z.boolean().default(false: any),
+  language: z.nativeEnum(SupportedLanguage).default(SupportedLanguage.ENGLISH_UK),
+  adaptiveDifficulty: z.boolean().default(false),
   accessibilityFeatures: z.array(z.string()).optional(),
-  senSupport: z.array(z.nativeEnum(SENCategory: any)).optional(),
-  learningStyleFocus: z.array(z.nativeEnum(LearningStyle: any)).optional(),
+  senSupport: z.array(z.nativeEnum(SENCategory)).optional(),
+  learningStyleFocus: z.array(z.nativeEnum(LearningStyle)).optional(),
 });
 
 export type AssessmentMetadata = z.infer<typeof AssessmentMetadataSchema>;
@@ -190,21 +190,21 @@ export type QuestionOption = z.infer<typeof QuestionOptionSchema>;
  */
 export const BaseQuestionSchema = z.object({
   id: z.string().uuid(),
-  type: z.nativeEnum(QuestionType: any),
+  type: z.nativeEnum(QuestionType),
   text: z.string(),
   instructions: z.string().optional(),
   mediaUrl: z.string().optional(),
   mediaType: z.enum(['image', 'audio', 'video', 'interactive']).optional(),
-  difficultyLevel: z.nativeEnum(DifficultyLevel: any),
-  cognitiveDomain: z.nativeEnum(CognitiveDomain: any),
-  learningStyleFocus: z.array(z.nativeEnum(LearningStyle: any)).optional(),
-  points: z.number().default(1: any),
+  difficultyLevel: z.nativeEnum(DifficultyLevel),
+  cognitiveDomain: z.nativeEnum(CognitiveDomain),
+  learningStyleFocus: z.array(z.nativeEnum(LearningStyle)).optional(),
+  points: z.number().default(1),
   tags: z.array(z.string()).optional(),
   curriculumLinks: z.array(z.string()).optional(),
   timeLimit: z.number().optional(), // in seconds
-  language: z.nativeEnum(SupportedLanguage: any).default(SupportedLanguage.ENGLISH_UK: any),
+  language: z.nativeEnum(SupportedLanguage).default(SupportedLanguage.ENGLISH_UK),
   accessibilityFeatures: z.array(z.string()).optional(),
-  senSupport: z.array(z.nativeEnum(SENCategory: any)).optional(),
+  senSupport: z.array(z.nativeEnum(SENCategory)).optional(),
   feedback: z.object({
     general: z.string().optional(),
     correct: z.string().optional(),
@@ -219,8 +219,8 @@ export type BaseQuestion = z.infer<typeof BaseQuestionSchema>;
  */
 export const MultipleChoiceQuestionSchema = BaseQuestionSchema.extend({
   type: z.literal(QuestionType.MULTIPLE_CHOICE),
-  options: z.array(QuestionOptionSchema: any).min(2: any),
-  randomizeOptions: z.boolean().default(false: any),
+  options: z.array(QuestionOptionSchema).min(2),
+  randomizeOptions: z.boolean().default(false),
   correctOptionId: z.string(),
 });
 
@@ -231,10 +231,10 @@ export type MultipleChoiceQuestion = z.infer<typeof MultipleChoiceQuestionSchema
  */
 export const MultipleSelectQuestionSchema = BaseQuestionSchema.extend({
   type: z.literal(QuestionType.MULTIPLE_SELECT),
-  options: z.array(QuestionOptionSchema: any).min(2: any),
-  randomizeOptions: z.boolean().default(false: any),
-  correctOptionIds: z.array(z.string()).min(1: any),
-  partialCredit: z.boolean().default(true: any),
+  options: z.array(QuestionOptionSchema).min(2),
+  randomizeOptions: z.boolean().default(false),
+  correctOptionIds: z.array(z.string()).min(1),
+  partialCredit: z.boolean().default(true),
 });
 
 export type MultipleSelectQuestion = z.infer<typeof MultipleSelectQuestionSchema>;
@@ -246,9 +246,9 @@ export const ShortAnswerQuestionSchema = BaseQuestionSchema.extend({
   type: z.literal(QuestionType.SHORT_ANSWER),
   expectedAnswer: z.string(),
   alternativeAnswers: z.array(z.string()).optional(),
-  caseSensitive: z.boolean().default(false: any),
+  caseSensitive: z.boolean().default(false),
   wordLimit: z.number().optional(),
-  autoGrade: z.boolean().default(true: any),
+  autoGrade: z.boolean().default(true),
 });
 
 export type ShortAnswerQuestion = z.infer<typeof ShortAnswerQuestionSchema>;
@@ -264,7 +264,7 @@ export const LongAnswerQuestionSchema = BaseQuestionSchema.extend({
     maxPoints: z.number(),
   })).optional(),
   wordLimit: z.number().optional(),
-  autoGrade: z.boolean().default(false: any),
+  autoGrade: z.boolean().default(false),
   sampleAnswer: z.string().optional(),
 });
 
@@ -281,9 +281,9 @@ export const MatchingQuestionSchema = BaseQuestionSchema.extend({
     right: z.string(),
     leftMediaUrl: z.string().optional(),
     rightMediaUrl: z.string().optional(),
-  })).min(2: any),
-  randomizeOrder: z.boolean().default(true: any),
-  partialCredit: z.boolean().default(true: any),
+  })).min(2),
+  randomizeOrder: z.boolean().default(true),
+  partialCredit: z.boolean().default(true),
 });
 
 export type MatchingQuestion = z.infer<typeof MatchingQuestionSchema>;
@@ -297,10 +297,10 @@ export const OrderingQuestionSchema = BaseQuestionSchema.extend({
     id: z.string(),
     text: z.string(),
     mediaUrl: z.string().optional(),
-  })).min(2: any),
+  })).min(2),
   correctOrder: z.array(z.string()),
-  randomizeInitialOrder: z.boolean().default(true: any),
-  partialCredit: z.boolean().default(true: any),
+  randomizeInitialOrder: z.boolean().default(true),
+  partialCredit: z.boolean().default(true),
 });
 
 export type OrderingQuestion = z.infer<typeof OrderingQuestionSchema>;
@@ -313,11 +313,11 @@ export const FillInBlankQuestionSchema = BaseQuestionSchema.extend({
   textWithBlanks: z.string(),
   blanks: z.array(z.object({
     id: z.string(),
-    correctAnswers: z.array(z.string()).min(1: any),
-    caseSensitive: z.boolean().default(false: any),
+    correctAnswers: z.array(z.string()).min(1),
+    caseSensitive: z.boolean().default(false),
     feedback: z.string().optional(),
-  })).min(1: any),
-  partialCredit: z.boolean().default(true: any),
+  })).min(1),
+  partialCredit: z.boolean().default(true),
 });
 
 export type FillInBlankQuestion = z.infer<typeof FillInBlankQuestionSchema>;
@@ -340,26 +340,26 @@ export type Question =
 export const AssessmentSchema = z.object({
   metadata: AssessmentMetadataSchema,
   questions: z.array(z.union([
-    MultipleChoiceQuestionSchema: any,
+    MultipleChoiceQuestionSchema,
     MultipleSelectQuestionSchema,
     ShortAnswerQuestionSchema,
     LongAnswerQuestionSchema,
     MatchingQuestionSchema,
     OrderingQuestionSchema,
     FillInBlankQuestionSchema,
-  ])).min(1: any),
+  ])).min(1),
   settings: z.object({
-    randomizeQuestions: z.boolean().default(false: any),
+    randomizeQuestions: z.boolean().default(false),
     showFeedback: z.enum(['none', 'immediate', 'end']).default('end'),
-    passingScore: z.number().min(0: any).max(100: any).default(60: any), // percentage
-    maxAttempts: z.number().min(1: any).optional(),
+    passingScore: z.number().min(0).max(100).default(60), // percentage
+    maxAttempts: z.number().min(1).optional(),
     timeLimit: z.number().optional(), // in minutes
-    showResults: z.boolean().default(true: any),
-    allowReview: z.boolean().default(true: any),
+    showResults: z.boolean().default(true),
+    allowReview: z.boolean().default(true),
     adaptiveDifficulty: z.object({
-      enabled: z.boolean().default(false: any),
-      initialLevel: z.nativeEnum(DifficultyLevel: any).default(DifficultyLevel.INTERMEDIATE: any),
-      adjustmentThreshold: z.number().min(0: any).max(100: any).default(70: any), // percentage
+      enabled: z.boolean().default(false),
+      initialLevel: z.nativeEnum(DifficultyLevel).default(DifficultyLevel.INTERMEDIATE),
+      adjustmentThreshold: z.number().min(0).max(100).default(70), // percentage
     }).optional(),
   }),
   sections: z.array(z.object({
@@ -381,7 +381,7 @@ export const QuestionResponseSchema = z.object({
   startTime: z.date(),
   endTime: z.date(),
   timeSpent: z.number(), // in seconds
-  isComplete: z.boolean().default(true: any),
+  isComplete: z.boolean().default(true),
 });
 
 export type QuestionResponse = z.infer<typeof QuestionResponseSchema>;
@@ -395,9 +395,9 @@ export const AssessmentAttemptSchema = z.object({
   studentId: z.string().uuid(),
   startTime: z.date(),
   endTime: z.date().optional(),
-  isComplete: z.boolean().default(false: any),
-  responses: z.array(QuestionResponseSchema: any),
-  currentQuestionIndex: z.number().default(0: any),
+  isComplete: z.boolean().default(false),
+  responses: z.array(QuestionResponseSchema),
+  currentQuestionIndex: z.number().default(0),
   score: z.number().optional(),
   percentage: z.number().optional(),
   passed: z.boolean().optional(),
@@ -427,8 +427,8 @@ export const AssessmentResultSchema = z.object({
     correct: z.boolean(),
     partialScore: z.number().optional(),
     timeSpent: z.number(), // in seconds
-    difficultyLevel: z.nativeEnum(DifficultyLevel: any),
-    cognitiveDomain: z.nativeEnum(CognitiveDomain: any),
+    difficultyLevel: z.nativeEnum(DifficultyLevel),
+    cognitiveDomain: z.nativeEnum(CognitiveDomain),
   })),
   analytics: z.object({
     byDifficulty: z.record(z.nativeEnum(DifficultyLevel), z.object({
@@ -436,7 +436,7 @@ export const AssessmentResultSchema = z.object({
       correct: z.number(),
       percentage: z.number(),
     })),
-    byCognitiveDomain: z.record(z.nativeEnum(CognitiveDomain: any), z.object({
+    byCognitiveDomain: z.record(z.nativeEnum(CognitiveDomain), z.object({
       count: z.number(),
       correct: z.number(),
       percentage: z.number(),
@@ -464,39 +464,39 @@ export type AssessmentResult = z.infer<typeof AssessmentResultSchema>;
  */
 export const AssessmentTemplateSchema = z.object({
   id: z.string().uuid(),
-  name: z.string().min(3: any).max(100: any),
-  description: z.string().min(10: any).max(500: any),
-  keyStage: z.nativeEnum(UKKeyStage: any),
-  subject: z.nativeEnum(UKSubject: any),
-  assessmentType: z.nativeEnum(AssessmentType: any),
-  difficultyLevel: z.nativeEnum(DifficultyLevel: any),
-  questionCount: z.number().min(1: any),
+  name: z.string().min(3).max(100),
+  description: z.string().min(10).max(500),
+  keyStage: z.nativeEnum(UKKeyStage),
+  subject: z.nativeEnum(UKSubject),
+  assessmentType: z.nativeEnum(AssessmentType),
+  difficultyLevel: z.nativeEnum(DifficultyLevel),
+  questionCount: z.number().min(1),
   questionDistribution: z.array(z.object({
     type: z.nativeEnum(QuestionType),
-    percentage: z.number().min(0: any).max(100: any),
+    percentage: z.number().min(0).max(100),
     count: z.number().optional(),
   })),
   topicDistribution: z.array(z.object({
     topic: z.string(),
-    percentage: z.number().min(0: any).max(100: any),
+    percentage: z.number().min(0).max(100),
     count: z.number().optional(),
   })),
   cognitiveDomainDistribution: z.array(z.object({
     domain: z.nativeEnum(CognitiveDomain),
-    percentage: z.number().min(0: any).max(100: any),
+    percentage: z.number().min(0).max(100),
     count: z.number().optional(),
   })),
   settings: z.object({
-    randomizeQuestions: z.boolean().default(true: any),
+    randomizeQuestions: z.boolean().default(true),
     showFeedback: z.enum(['none', 'immediate', 'end']).default('end'),
-    passingScore: z.number().min(0: any).max(100: any).default(60: any),
+    passingScore: z.number().min(0).max(100).default(60),
     timeLimit: z.number().optional(),
-    adaptiveDifficulty: z.boolean().default(false: any),
+    adaptiveDifficulty: z.boolean().default(false),
   }),
   accessibilityOptions: z.object({
-    provideSenSupport: z.boolean().default(false: any),
-    adaptToLearningStyle: z.boolean().default(false: any),
-    includeMultimodalContent: z.boolean().default(false: any),
+    provideSenSupport: z.boolean().default(false),
+    adaptToLearningStyle: z.boolean().default(false),
+    includeMultimodalContent: z.boolean().default(false),
   }),
   createdBy: z.string().uuid(),
   createdAt: z.date(),
@@ -585,7 +585,7 @@ export interface AssessmentEngine {
  * Evidence-based feedback generator
  */
 export interface FeedbackGenerator {
-  generateQuestionFeedback: (question: Question, response: any, correct: boolean) => string;
+  generateQuestionFeedback: (question: Question, response, correct: boolean) => string;
   generateAssessmentFeedback: (result: AssessmentResult) => {
     overall: string;
     byTopic: Record<string, string>;

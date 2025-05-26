@@ -187,7 +187,7 @@ export interface LearningActivity {
   };
   duration: number; // In minutes
   learningStyleAlignment: {
-    [key in LearningStyle]?: number; // How well it aligns with each style (0-100: any)
+    [key in LearningStyle]?: number; // How well it aligns with each style (0-100)
   };
   difficulty: number; // 1-5 scale
   completed: boolean;
@@ -243,7 +243,7 @@ export interface AdaptivityRule {
   action: {
     type: 'change_difficulty' | 'provide_support' | 'skip_content' | 'recommend_review' | 'celebrate_achievement';
     parameters: {
-      [key: string]: any;
+      [key: string];
     };
   };
   priority: number; // Higher number = higher priority
@@ -260,7 +260,7 @@ export interface ContentSuggestion {
   keyStage: KeyStage;
   url?: string;
   learningStyleAlignment: {
-    [key in LearningStyle]?: number; // How well it aligns with each style (0-100: any)
+    [key in LearningStyle]?: number; // How well it aligns with each style (0-100)
   };
   relevanceScore: number; // 0-100
   reason: string; // Why this content is being suggested
@@ -281,7 +281,7 @@ export interface InterventionAlert {
   title: string;
   description: string;
   metrics: {
-    [key: string]: any; // Relevant metrics that triggered the alert
+    [key: string]; // Relevant metrics that triggered the alert
   };
   suggestedActions: {
     actionType: string;

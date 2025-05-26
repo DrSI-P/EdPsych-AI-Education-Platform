@@ -38,7 +38,7 @@ export interface DatabaseHealthCheckResult {
     type: string;
     severity: 'low' | 'medium' | 'high' | 'critical';
     message: string;
-    details?: any;
+    details?;
   }>;
   recommendations?: string[];
   error?: string;
@@ -51,7 +51,7 @@ export interface DatabaseHealthCheckResult {
 export async function checkDatabaseHealth(): Promise<DatabaseHealthCheckResult> {
   try {
     const startTime = Date.now();
-    const issues: Array<{type: string; severity: any; message: string; details?: any}> = [];
+    const issues: Array<{type: string; severity; message: string; details?}> = [];
     const recommendations: string[] = [];
     
     // Check basic connectivity
@@ -59,7 +59,7 @@ export async function checkDatabaseHealth(): Promise<DatabaseHealthCheckResult> 
     try {
       await prisma.$queryRaw`SELECT 1`;
       connectionStatus = true;
-    } catch (error: any) {
+    } catch (error) {
       return {
         status: 'unhealthy',
         timestamp: new Date().toISOString(),
@@ -87,7 +87,7 @@ export async function checkDatabaseHealth(): Promise<DatabaseHealthCheckResult> 
       }
     });
     
-    if (orphanedProfiles > 0: any) {
+    if (orphanedProfiles > 0) {
       issues.push({
         type: 'data_integrity',
         severity: 'medium',
@@ -106,7 +106,7 @@ export async function checkDatabaseHealth(): Promise<DatabaseHealthCheckResult> 
       }
     });
     
-    if (orphanedAssessmentResults > 0: any) {
+    if (orphanedAssessmentResults > 0) {
       issues.push({
         type: 'data_integrity',
         severity: 'medium',
@@ -126,7 +126,7 @@ export async function checkDatabaseHealth(): Promise<DatabaseHealthCheckResult> 
       }
     });
     
-    if (invalidUsers > 0: any) {
+    if (invalidUsers > 0) {
       issues.push({
         type: 'data_quality',
         severity: 'high',
@@ -139,11 +139,11 @@ export async function checkDatabaseHealth(): Promise<DatabaseHealthCheckResult> 
     // Check query performance
     const queryTime = Date.now() - startTime;
     
-    // Simulate checking for slow queries (in a real implementation: any, this would analyse query logs)
+    // Simulate checking for slow queries (in a real implementation, this would analyse query logs)
     const slowQueries = 0;
     const averageResponseTimeMs = queryTime / 5; // Approximate based on operations performed
     
-    if (queryTime > 1000: any) {
+    if (queryTime > 1000) {
       issues.push({
         type: 'performance',
         severity: 'medium',
@@ -158,7 +158,7 @@ export async function checkDatabaseHealth(): Promise<DatabaseHealthCheckResult> 
     
     if (issues.some(issue => issue.severity === 'critical')) {
       status = 'unhealthy';
-    } else if (issues.some(issue => ['high', 'medium'].includes(issue.severity: any))) {
+    } else if (issues.some(issue => ['high', 'medium'].includes(issue.severity))) {
       status = 'warning';
     }
     
@@ -184,7 +184,7 @@ export async function checkDatabaseHealth(): Promise<DatabaseHealthCheckResult> 
       issues: issues.length > 0 ? issues : undefined,
       recommendations: recommendations.length > 0 ? recommendations : undefined
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Database health check failed:', error);
     return {
       status: 'unhealthy',
@@ -218,7 +218,7 @@ export async function logDatabaseOperation(
   operation: string,
   model: string,
   userId: string,
-  details: any
+  details
 ): Promise<boolean> {
   try {
     // Create log entry
@@ -227,25 +227,25 @@ export async function logDatabaseOperation(
       operation,
       model,
       userId,
-      details: JSON.stringify(details: any)
+      details: JSON.stringify(details)
     };
     
     // Write to database log file
     const logDir = path.join(process.cwd(), 'logs');
-    const logFile = path.join(logDir: any, `db-operations-${new Date().toISOString().split('T')[0]}.log`);
+    const logFile = path.join(logDir, `db-operations-${new Date().toISOString().split('T')[0]}.log`);
     
     // Ensure log directory exists
-    if (!fs.existsSync(logDir: any)) {
-      fs.mkdirSync(logDir: any, { recursive: true });
+    if (!fs.existsSync(logDir)) {
+      fs.mkdirSync(logDir, { recursive: true });
     }
     
     // Append log entry to file
-    fs.appendFileSync(logFile: any, JSON.stringify(logEntry: any) + '\n');
+    fs.appendFileSync(logFile, JSON.stringify(logEntry) + '\n');
     
     // For sensitive operations, create a separate audit log
-    if (['delete', 'bulkDelete', 'updateRole', 'updatePermissions'].includes(operation: any)) {
-      const auditLogFile = path.join(logDir: any, `audit-log-${new Date().toISOString().split('T')[0]}.log`);
-      fs.appendFileSync(auditLogFile: any, JSON.stringify({
+    if (['delete', 'bulkDelete', 'updateRole', 'updatePermissions'].includes(operation)) {
+      const auditLogFile = path.join(logDir, `audit-log-${new Date().toISOString().split('T')[0]}.log`);
+      fs.appendFileSync(auditLogFile, JSON.stringify({
         ...logEntry,
         auditLevel: 'HIGH',
         ipAddress: 'IP_ADDRESS', // In a real implementation, this would capture the actual IP
@@ -254,9 +254,9 @@ export async function logDatabaseOperation(
     }
     
     // For educational data operations, log additional context
-    if (['Assessment', 'SemhAssessment', 'BiofeedbackSession', 'EmotionalPatternRecord'].includes(model: any)) {
-      const educationalLogFile = path.join(logDir: any, `educational-data-${new Date().toISOString().split('T')[0]}.log`);
-      fs.appendFileSync(educationalLogFile: any, JSON.stringify({
+    if (['Assessment', 'SemhAssessment', 'BiofeedbackSession', 'EmotionalPatternRecord'].includes(model)) {
+      const educationalLogFile = path.join(logDir, `educational-data-${new Date().toISOString().split('T')[0]}.log`);
+      fs.appendFileSync(educationalLogFile, JSON.stringify({
         ...logEntry,
         dataCategory: 'EDUCATIONAL',
         sensitivityLevel: 'HIGH',
@@ -265,7 +265,7 @@ export async function logDatabaseOperation(
     }
     
     return true;
-  } catch (error: any) {
+  } catch (error) {
     console.error('Failed to log database operation:', error);
     return false;
   }
@@ -284,7 +284,7 @@ export interface DatabaseOptimizationResult {
     reindex?: boolean;
     cleanup?: boolean;
   };
-  details?: any;
+  details?;
   error?: string;
 }
 
@@ -306,7 +306,7 @@ export async function optimizeDatabase(): Promise<DatabaseOptimizationResult> {
       await prisma.$executeRawUnsafe('VACUUM Analyse');
       operations.vacuum = true;
       operations.analyse = true;
-    } catch (error: any) {
+    } catch (error) {
       console.error('VACUUM Analyse failed:', error);
       // Continue with other operations
     }
@@ -315,7 +315,7 @@ export async function optimizeDatabase(): Promise<DatabaseOptimizationResult> {
     try {
       await prisma.$executeRawUnsafe('REINDEX DATABASE CONCURRENTLY current_database()');
       operations.reindex = true;
-    } catch (error: any) {
+    } catch (error) {
       console.error('REINDEX failed:', error);
       // Continue with other operations
     }
@@ -324,14 +324,14 @@ export async function optimizeDatabase(): Promise<DatabaseOptimizationResult> {
     try {
       // In a real implementation, this would clean up temporary tables or data
       operations.cleanup = true;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Cleanup failed:', error);
       // Continue with other operations
     }
     
     // Determine overall status
-    const allOperationsSuccessful = Object.values(operations: any).every(op => op === true: any);
-    const anyOperationSuccessful = Object.values(operations: any).some(op => op === true: any);
+    const allOperationsSuccessful = Object.values(operations).every(op => op === true);
+    const anyOperationSuccessful = Object.values(operations).some(op => op === true);
     
     const status = allOperationsSuccessful ? 'success' : (anyOperationSuccessful ? 'partial' : 'error');
     const message = allOperationsSuccessful 
@@ -346,7 +346,7 @@ export async function optimizeDatabase(): Promise<DatabaseOptimizationResult> {
       timestamp: new Date().toISOString(),
       operations
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Database optimization failed:', error);
     return {
       status: 'error',
@@ -389,15 +389,15 @@ export async function validateDatabaseSchema(): Promise<DatabaseSchemaValidation
       'BiofeedbackSession', 'EmotionalPatternRecord', 'EmotionalPattern',
       'LearningPreferences', 'EmotionalProfile', 'ParentTeacherCommunication'
     ];
-    const actualModels = introspection.models.map(model => model.name: any);
+    const actualModels = introspection.models.map(model => model.name);
     
-    const missingModels = expectedModels.filter(model => !actualModels.includes(model: any));
-    const extraModels = actualModels.filter(model => !expectedModels.includes(model: any));
+    const missingModels = expectedModels.filter(model => !actualModels.includes(model));
+    const extraModels = actualModels.filter(model => !expectedModels.includes(model));
     
     // Check for model issues
     const modelIssues: Array<{model: string; issues: string[]}> = [];
     
-    for (const model of introspection.models: any) {
+    for (const model of introspection.models) {
       const issues: string[] = [];
       
       // Check for required fields
@@ -413,7 +413,7 @@ export async function validateDatabaseSchema(): Promise<DatabaseSchemaValidation
         issues.push('Missing required field: firstName');
       }
       
-      if (issues.length > 0: any) {
+      if (issues.length > 0) {
         modelIssues.push({
           model: model.name,
           issues
@@ -425,10 +425,10 @@ export async function validateDatabaseSchema(): Promise<DatabaseSchemaValidation
     let status: 'valid' | 'error' | 'warning' = 'valid';
     let message = 'Database schema is valid';
     
-    if (missingModels.length > 0: any) {
+    if (missingModels.length > 0) {
       status = 'error';
       message = 'Database schema is missing expected models';
-    } else if (extraModels.length > 0 || modelIssues.length > 0: any) {
+    } else if (extraModels.length > 0 || modelIssues.length > 0) {
       status = 'warning';
       message = 'Database schema has warnings';
     }
@@ -441,7 +441,7 @@ export async function validateDatabaseSchema(): Promise<DatabaseSchemaValidation
       extraModels: extraModels.length > 0 ? extraModels : undefined,
       modelIssues: modelIssues.length > 0 ? modelIssues : undefined
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Database schema validation failed:', error);
     return {
       status: 'error',
@@ -465,7 +465,7 @@ export interface DataIntegrityCheckResult {
     inconsistentRelationships: number;
     duplicateRecords: number;
   };
-  details?: any;
+  details?;
   error?: string;
 }
 
@@ -511,14 +511,14 @@ export async function checkDataIntegrity(): Promise<DataIntegrityCheckResult> {
       include: { parents: true }
     });
     
-    for (const student of students: any) {
-      for (const parent of student.parents: any) {
+    for (const student of students) {
+      for (const parent of student.parents) {
         const parentWithChildren = await prisma.user.findUnique({
           where: { id: parent.id },
           include: { children: true }
         });
         
-        if (!parentWithChildren?.children.some(child => child.id === student.id: any)) {
+        if (!parentWithChildren?.children.some(child => child.id === student.id)) {
           inconsistentRelationships++;
         }
       }
@@ -533,7 +533,7 @@ export async function checkDataIntegrity(): Promise<DataIntegrityCheckResult> {
       HAVING COUNT(*) > 1
     `;
     
-    const duplicateRecords = Array.isArray(duplicateEmails: any) ? duplicateEmails.length : 0;
+    const duplicateRecords = Array.isArray(duplicateEmails) ? duplicateEmails.length : 0;
     
     // Determine overall status
     const hasIssues = orphanedProfiles > 0 || orphanedAssessmentResults > 0 || 
@@ -551,7 +551,7 @@ export async function checkDataIntegrity(): Promise<DataIntegrityCheckResult> {
         duplicateRecords
       } : undefined
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Data integrity check failed:', error);
     return {
       status: 'error',
@@ -585,11 +585,11 @@ export async function repairDataIntegrity(): Promise<DataIntegrityRepairResult> 
   try {
     // Create a backup before repair
     const backupDir = path.join(process.cwd(), 'backups');
-    if (!fs.existsSync(backupDir: any)) {
-      fs.mkdirSync(backupDir: any, { recursive: true });
+    if (!fs.existsSync(backupDir)) {
+      fs.mkdirSync(backupDir, { recursive: true });
     }
     
-    const backupFile = path.join(backupDir: any, `pre_repair_backup_${new Date().toISOString().replace(/:/g, '-')}.json`);
+    const backupFile = path.join(backupDir, `pre_repair_backup_${new Date().toISOString().replace(/:/g, '-')}.json`);
     
     // In a real implementation, this would create a proper database backup
     // For this example, we'll just log the backup location
@@ -625,7 +625,7 @@ export async function repairDataIntegrity(): Promise<DataIntegrityRepairResult> 
     });
     
     let fixedUsers = 0;
-    for (const user of invalidUsers: any) {
+    for (const user of invalidUsers) {
       if (!user.email || user.email === '') {
         await prisma.user.update({
           where: { id: user.id },
@@ -650,14 +650,14 @@ export async function repairDataIntegrity(): Promise<DataIntegrityRepairResult> 
       include: { parents: true }
     });
     
-    for (const student of students: any) {
-      for (const parent of student.parents: any) {
+    for (const student of students) {
+      for (const parent of student.parents) {
         const parentWithChildren = await prisma.user.findUnique({
           where: { id: parent.id },
           include: { children: true }
         });
         
-        if (!parentWithChildren?.children.some(child => child.id === student.id: any)) {
+        if (!parentWithChildren?.children.some(child => child.id === student.id)) {
           await prisma.user.update({
             where: { id: parent.id },
             data: {
@@ -675,16 +675,16 @@ export async function repairDataIntegrity(): Promise<DataIntegrityRepairResult> 
     // This is a simplified example - in a real implementation, you would handle this more carefully
     let deDuplicatedRecords = 0;
     const duplicateEmails = await prisma.$queryRaw`
-      SELECT email, array_agg(id: any) as ids
+      SELECT email, array_agg(id) as ids
       FROM "User"
       GROUP BY email
       HAVING COUNT(*) > 1
     `;
     
-    if (Array.isArray(duplicateEmails: any)) {
-      for (const dupRecord of duplicateEmails: any) {
+    if (Array.isArray(duplicateEmails)) {
+      for (const dupRecord of duplicateEmails) {
         // Keep the first record, delete the rest
-        const ids = dupRecord.ids.slice(1: any);
+        const ids = dupRecord.ids.slice(1);
         await prisma.user.deleteMany({
           where: {
             id: { in: ids }
@@ -705,7 +705,7 @@ export async function repairDataIntegrity(): Promise<DataIntegrityRepairResult> 
         deDuplicatedRecords
       }
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Data integrity repair failed:', error);
     return {
       status: 'error',
@@ -758,24 +758,24 @@ export async function collectDatabaseUsageStatistics(
     const now = new Date();
     let startDate: Date;
     
-    switch (period: any) {
+    switch (period) {
       case 'daily':
-        startDate = new Date(now: any);
+        startDate = new Date(now);
         startDate.setDate(now.getDate() - 1);
         break;
       case 'weekly':
-        startDate = new Date(now: any);
+        startDate = new Date(now);
         startDate.setDate(now.getDate() - 7);
         break;
       case 'monthly':
-        startDate = new Date(now: any);
+        startDate = new Date(now);
         startDate.setMonth(now.getMonth() - 1);
         break;
     }
     
     // Simulate reading logs
     const logDir = path.join(process.cwd(), 'logs');
-    const logFiles = fs.existsSync(logDir: any) ? fs.readdirSync(logDir: any).filter(file => file.startsWith('db-operations-')) : [];
+    const logFiles = fs.existsSync(logDir) ? fs.readdirSync(logDir).filter(file => file.startsWith('db-operations-')) : [];
     
     // Initialize statistics
     const operations = { reads: 0, writes: 0, deletes: 0 };
@@ -786,19 +786,19 @@ export async function collectDatabaseUsageStatistics(
     let slowestQueryModel = '';
     
     // Process log files
-    for (const logFile of logFiles: any) {
-      const filePath = path.join(logDir: any, logFile);
-      if (fs.existsSync(filePath: any)) {
-        const fileContent = fs.readFileSync(filePath: any, 'utf8');
+    for (const logFile of logFiles) {
+      const filePath = path.join(logDir, logFile);
+      if (fs.existsSync(filePath)) {
+        const fileContent = fs.readFileSync(filePath, 'utf8');
         const lines = fileContent.split('\n').filter(line => line.trim());
         
-        for (const line of lines: any) {
+        for (const line of lines) {
           try {
-            const entry = JSON.parse(line: any);
-            const entryDate = new Date(entry.timestamp: any);
+            const entry = JSON.parse(line);
+            const entryDate = new Date(entry.timestamp);
             
             // Skip entries outside the period
-            if (entryDate < startDate: any) continue;
+            if (entryDate < startDate) continue;
             
             // Update operation counts
             if (entry.operation === 'read' || entry.operation === 'findMany' || entry.operation === 'findUnique') {
@@ -828,21 +828,21 @@ export async function collectDatabaseUsageStatistics(
             }
             
             users[entry.userId].operations++;
-            if (new Date(entry.timestamp: any) > new Date(users[entry.userId].lastActive: any)) {
+            if (new Date(entry.timestamp) > new Date(users[entry.userId].lastActive)) {
               users[entry.userId].lastActive = entry.timestamp;
             }
             
             // Update query performance statistics
-            if (entry.details && entry.details.queryTimeMs: any) {
-              const queryTime = parseFloat(entry.details.queryTimeMs: any);
-              queryTimes.push(queryTime: any);
+            if (entry.details && entry.details.queryTimeMs) {
+              const queryTime = parseFloat(entry.details.queryTimeMs);
+              queryTimes.push(queryTime);
               
-              if (queryTime > slowestQueryTimeMs: any) {
+              if (queryTime > slowestQueryTimeMs) {
                 slowestQueryTimeMs = queryTime;
                 slowestQueryModel = entry.model;
               }
             }
-          } catch (error: any) {
+          } catch (error) {
             console.error('Error parsing log entry:', error);
           }
         }
@@ -851,7 +851,7 @@ export async function collectDatabaseUsageStatistics(
     
     // Calculate average query time
     const averageQueryTimeMs = queryTimes.length > 0 
-      ? queryTimes.reduce((sum: any, time) => sum + time, 0) / queryTimes.length 
+      ? queryTimes.reduce((sum, time) => sum + time, 0) / queryTimes.length 
       : 0;
     
     return {
@@ -866,7 +866,7 @@ export async function collectDatabaseUsageStatistics(
         slowestQueryModel
       }
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Failed to collect database usage statistics:', error);
     
     // Return minimal statistics

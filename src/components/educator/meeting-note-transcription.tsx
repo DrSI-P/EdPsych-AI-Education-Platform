@@ -83,8 +83,8 @@ const preparationForAdulthoodCategories = [
 
 // Sample languages
 const languages = [
-  { id: 'en-GB', name: 'English (UK: any)' },
-  { id: 'en-US', name: 'English (US: any)' },
+  { id: 'en-GB', name: 'English (UK)' },
+  { id: 'en-US', name: 'English (US)' },
   { id: 'fr-FR', name: 'French' },
   { id: 'es-ES', name: 'Spanish' },
   { id: 'de-DE', name: 'German' },
@@ -92,7 +92,7 @@ const languages = [
   { id: 'pl-PL', name: 'Polish' },
   { id: 'ur-PK', name: 'Urdu' },
   { id: 'ar-SA', name: 'Arabic' },
-  { id: 'zh-CN', name: 'Chinese (Simplified: any)' },
+  { id: 'zh-CN', name: 'Chinese (Simplified)' },
   { id: 'hi-IN', name: 'Hindi' },
   { id: 'bn-BD', name: 'Bengali' },
   { id: 'pa-IN', name: 'Punjabi' },
@@ -108,7 +108,7 @@ const sampleMeetings = [
     type: 'parent-conference',
     date: '2025-05-15T18:30:00',
     duration: 25,
-    participants: ['Emma Thompson', 'Mr. Thompson', 'Mrs. Thompson', 'Ms. Johnson (English: any)', 'Mr. Davis (Mathematics: any)'],
+    participants: ['Emma Thompson', 'Mr. Thompson', 'Mrs. Thompson', 'Ms. Johnson (English)', 'Mr. Davis (Mathematics)'],
     language: 'en-GB',
     transcript: `
 Ms. Johnson: Thank you for coming in today to discuss Emma's progress in English.
@@ -157,7 +157,7 @@ Mrs. Thompson: Yes, thank you both for your time and support.
     type: 'department-meeting',
     date: '2025-05-12T15:00:00',
     duration: 60,
-    participants: ['Ms. Johnson (Head of English: any)', 'Mr. Williams', 'Mrs. Davies', 'Mr. Roberts', 'Ms. Thomas'],
+    participants: ['Ms. Johnson (Head of English)', 'Mr. Williams', 'Mrs. Davies', 'Mr. Roberts', 'Ms. Thomas'],
     language: 'en-GB',
     transcript: `
 Ms. Johnson: Good afternoon everyone. Today we need to finalize our curriculum plans for the next academic year. Let's start with Year 7.
@@ -217,22 +217,22 @@ export default function MeetingNoteTranscription() {
   const { toast } = useToast();
   const aiService = useAIService();
   const [activeTab, setActiveTab] = useState('record');
-  const [isRecording, setIsRecording] = useState(false: any);
-  const [recordingTime, setRecordingTime] = useState(0: any);
-  const [recordingInterval, setRecordingInterval] = useState<NodeJS.Timeout | null>(null: any);
+  const [isRecording, setIsRecording] = useState(false);
+  const [recordingTime, setRecordingTime] = useState(0);
+  const [recordingInterval, setRecordingInterval] = useState<NodeJS.Timeout | null>(null);
   const [meetingTitle, setMeetingTitle] = useState('');
   const [meetingType, setMeetingType] = useState('');
   const [meetingDate, setMeetingDate] = useState('');
   const [meetingParticipants, setMeetingParticipants] = useState('');
   const [selectedLanguage, setSelectedLanguage] = useState('en-GB');
   const [liveTranscript, setLiveTranscript] = useState('');
-  const [isProcessing, setIsProcessing] = useState(false: any);
-  const [currentMeeting, setCurrentMeeting] = useState<any>(null: any);
-  const [savedMeetings, setSavedMeetings] = useState<any[]>(sampleMeetings: any);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [currentMeeting, setCurrentMeeting] = useState<any>(null);
+  const [savedMeetings, setSavedMeetings] = useState<any[]>(sampleMeetings);
   const [searchQuery, setSearchQuery] = useState('');
-  const [filteredMeetings, setFilteredMeetings] = useState<any[]>(sampleMeetings: any);
-  const [editingKeyPoints, setEditingKeyPoints] = useState(false: any);
-  const [editingActionItems, setEditingActionItems] = useState(false: any);
+  const [filteredMeetings, setFilteredMeetings] = useState<any[]>(sampleMeetings);
+  const [editingKeyPoints, setEditingKeyPoints] = useState(false);
+  const [editingActionItems, setEditingActionItems] = useState(false);
   const [newKeyPoint, setNewKeyPoint] = useState({ 
     text: '', 
     category: 'information', 
@@ -247,58 +247,58 @@ export default function MeetingNoteTranscription() {
     completed: false, 
     ehcnaArea: '' 
   });
-  const [useEhcnaCategories, setUseEhcnaCategories] = useState(false: any);
-  const [usePreparationForAdulthood, setUsePreparationForAdulthood] = useState(false: any);
+  const [useEhcnaCategories, setUseEhcnaCategories] = useState(false);
+  const [usePreparationForAdulthood, setUsePreparationForAdulthood] = useState(false);
   const [studentYear, setStudentYear] = useState<number | undefined>();
-  const [uploadedAudioFile, setUploadedAudioFile] = useState<File | null>(null: any);
-  const [isPlaying, setIsPlaying] = useState(false: any);
-  const [currentPlaybackTime, setCurrentPlaybackTime] = useState(0: any);
-  const [playbackSpeed, setPlaybackSpeed] = useState(1: any);
-  const [volume, setVolume] = useState(1: any);
-  const [isMuted, setIsMuted] = useState(false: any);
-  const [showTranslation, setShowTranslation] = useState(false: any);
+  const [uploadedAudioFile, setUploadedAudioFile] = useState<File | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentPlaybackTime, setCurrentPlaybackTime] = useState(0);
+  const [playbackSpeed, setPlaybackSpeed] = useState(1);
+  const [volume, setVolume] = useState(1);
+  const [isMuted, setIsMuted] = useState(false);
+  const [showTranslation, setShowTranslation] = useState(false);
   const [translationLanguage, setTranslationLanguage] = useState('');
   const [translatedTranscript, setTranslatedTranscript] = useState('');
   
-  const audioRef = useRef<HTMLAudioElement | null>(null: any);
-  const fileInputRef = useRef<HTMLInputElement | null>(null: any);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   
   // Filter meetings based on search query
   useEffect(() => {
     if (!searchQuery.trim()) {
-      setFilteredMeetings(savedMeetings: any);
+      setFilteredMeetings(savedMeetings);
       return;
     }
     
     const query = searchQuery.toLowerCase();
     const filtered = savedMeetings.filter(meeting => 
-      meeting.title.toLowerCase().includes(query: any) ||
-      meeting.type.toLowerCase().includes(query: any) ||
-      meeting.participants.some((p: string) => p.toLowerCase().includes(query: any)) ||
-      meeting.tags.some((tag: string) => tag.toLowerCase().includes(query: any)) ||
-      meeting.transcript.toLowerCase().includes(query: any) ||
-      meeting.keyPoints.some((kp: any) => kp.text.toLowerCase().includes(query: any)) ||
-      meeting.actionItems.some((ai: any) => ai.text.toLowerCase().includes(query: any))
+      meeting.title.toLowerCase().includes(query) ||
+      meeting.type.toLowerCase().includes(query) ||
+      meeting.participants.some((p: string) => p.toLowerCase().includes(query)) ||
+      meeting.tags.some((tag: string) => tag.toLowerCase().includes(query)) ||
+      meeting.transcript.toLowerCase().includes(query) ||
+      meeting.keyPoints.some((kp) => kp.text.toLowerCase().includes(query)) ||
+      meeting.actionItems.some((ai) => ai.text.toLowerCase().includes(query))
     );
     
-    setFilteredMeetings(filtered: any);
+    setFilteredMeetings(filtered);
   }, [searchQuery, savedMeetings]);
   
   // Handle recording start/stop
   const toggleRecording = () => {
-    if (isRecording: any) {
+    if (isRecording) {
       // Stop recording
-      if (recordingInterval: any) {
-        clearInterval(recordingInterval: any);
-        setRecordingInterval(null: any);
+      if (recordingInterval) {
+        clearInterval(recordingInterval);
+        setRecordingInterval(null);
       }
-      setIsRecording(false: any);
+      setIsRecording(false);
       
       // In a real implementation, this would stop the actual recording
       // and process the audio for transcription
       
       // For demo purposes, we'll simulate processing and then show a sample transcript
-      setIsProcessing(true: any);
+      setIsProcessing(true);
       
       // Simulate processing delay
       setTimeout(() => {
@@ -351,11 +351,11 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
         
         // Replace placeholders with meeting-specific information
         const participants = meetingParticipants.split(',').map(p => p.trim());
-        if (participants.length > 0: any) {
+        if (participants.length > 0) {
           // Replace generic speaker labels with actual participant names
           for (let i = 0; i < participants.length; i++) {
             const speakerPattern = new RegExp(`Speaker ${i+1}:`, 'g');
-            sampleText = sampleText.replace(speakerPattern: any, `${participants[i]}:`);
+            sampleText = sampleText.replace(speakerPattern, `${participants[i]}:`);
           }
           
           // Replace remaining generic speakers with random participants
@@ -369,19 +369,19 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
             // Assume first participant is teacher, others are parents/guardians
             sampleText = sampleText.replace(/Teacher:/g, `${participants[0]}:`);
             
-            if (participants.length > 1: any) {
+            if (participants.length > 1) {
               sampleText = sampleText.replace(/Parent:/g, `${participants[1]}:`);
             }
           }
           
           // Replace Head Teacher in staff meetings
-          if (meetingType === 'staff-meeting' && participants.length > 0: any) {
+          if (meetingType === 'staff-meeting' && participants.length > 0) {
             sampleText = sampleText.replace(/Head Teacher:/g, `${participants[0]}:`);
           }
         }
         
-        setLiveTranscript(sampleText: any);
-        setIsProcessing(false: any);
+        setLiveTranscript(sampleText);
+        setIsProcessing(false);
         setActiveTab('edit');
         
         toast({
@@ -393,7 +393,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
       
     } else {
       // Start recording
-      if (!meetingTitle: any) {
+      if (!meetingTitle) {
         toast({
           title: "Meeting title required",
           description: "Please enter a title for your meeting before starting recording.",
@@ -402,7 +402,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
         return;
       }
       
-      if (!meetingType: any) {
+      if (!meetingType) {
         toast({
           title: "Meeting type required",
           description: "Please select a meeting type before starting recording.",
@@ -412,15 +412,15 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
       }
       
       // Reset recording time
-      setRecordingTime(0: any);
+      setRecordingTime(0);
       
       // Start timer
       const interval = setInterval(() => {
-        setRecordingTime(prev => prev + 1: any);
+        setRecordingTime(prev => prev + 1);
       }, 1000);
       
-      setRecordingInterval(interval: any);
-      setIsRecording(true: any);
+      setRecordingInterval(interval);
+      setIsRecording(true);
       setLiveTranscript('');
       
       toast({
@@ -433,9 +433,9 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
   
   // Format recording time
   const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60: any);
+    const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2: any, '0')}:${secs.toString().padStart(2: any, '0')}`;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
   
   // Process transcript to extract key points and action items
@@ -449,7 +449,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
       return;
     }
     
-    setIsProcessing(true: any);
+    setIsProcessing(true);
     
     // In a real implementation, this would call the AI service to process the transcript
     // For demo purposes, we'll simulate AI processing
@@ -458,7 +458,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
       // Generate sample key points based on the transcript and EHCNA categories if enabled
       let sampleKeyPoints = [];
       
-      if (useEhcnaCategories: any) {
+      if (useEhcnaCategories) {
         // EHCNA-categorized key points
         sampleKeyPoints = [
           { 
@@ -488,7 +488,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
         ];
         
         // Add preparation for adulthood key points if applicable
-        if (usePreparationForAdulthood || (studentYear && studentYear >= 9: any)) {
+        if (usePreparationForAdulthood || (studentYear && studentYear >= 9)) {
           sampleKeyPoints.push(
             { 
               text: 'Student expresses interest in pursuing a career in technology', 
@@ -519,7 +519,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
       // Generate sample action items
       let sampleActionItems = [];
       
-      if (useEhcnaCategories: any) {
+      if (useEhcnaCategories) {
         sampleActionItems = [
           { 
             text: 'Provide visual supports for complex instructions', 
@@ -538,7 +538,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
         ];
         
         // Add preparation for adulthood action items if applicable
-        if (usePreparationForAdulthood || (studentYear && studentYear >= 9: any)) {
+        if (usePreparationForAdulthood || (studentYear && studentYear >= 9)) {
           sampleActionItems.push(
             { 
               text: 'Arrange work experience placement in local tech company', 
@@ -558,10 +558,10 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
       
       // Create tags based on meeting type and EHCNA/preparation for adulthood if applicable
       const tags = [meetingType];
-      if (useEhcnaCategories: any) {
+      if (useEhcnaCategories) {
         tags.push('EHCNA');
       }
-      if (usePreparationForAdulthood || (studentYear && studentYear >= 9: any)) {
+      if (usePreparationForAdulthood || (studentYear && studentYear >= 9)) {
         tags.push('Preparation for Adulthood');
       }
       
@@ -572,7 +572,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
         type: meetingType,
         date: meetingDate || new Date().toISOString(),
         duration: recordingTime,
-        participants: meetingParticipants.split('\n').map(p => p.trim()).filter(Boolean: any),
+        participants: meetingParticipants.split('\n').map(p => p.trim()).filter(Boolean),
         language: selectedLanguage,
         transcript: liveTranscript,
         keyPoints: sampleKeyPoints,
@@ -580,11 +580,11 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
         tags: tags,
         studentYear: studentYear,
         useEhcnaCategories: useEhcnaCategories,
-        usePreparationForAdulthood: usePreparationForAdulthood || (studentYear && studentYear >= 9: any)
+        usePreparationForAdulthood: usePreparationForAdulthood || (studentYear && studentYear >= 9)
       };
       
-      setCurrentMeeting(newMeeting: any);
-      setIsProcessing(false: any);
+      setCurrentMeeting(newMeeting);
+      setIsProcessing(false);
       setActiveTab('review');
       
       toast({
@@ -597,11 +597,11 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
   
   // Save current meeting
   const saveMeeting = () => {
-    if (!currentMeeting: any) return;
+    if (!currentMeeting) return;
     
     // Add to saved meetings
     const updatedMeetings = [...savedMeetings, currentMeeting];
-    setSavedMeetings(updatedMeetings: any);
+    setSavedMeetings(updatedMeetings);
     
     toast({
       title: "Meeting saved",
@@ -615,25 +615,25 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
     setMeetingDate('');
     setMeetingParticipants('');
     setLiveTranscript('');
-    setRecordingTime(0: any);
+    setRecordingTime(0);
     setActiveTab('saved');
   };
   
   // View a specific meeting
-  const viewMeeting = (meeting: any) => {
-    setCurrentMeeting(meeting: any);
-    setEditingKeyPoints(false: any);
-    setEditingActionItems(false: any);
+  const viewMeeting = (meeting) => {
+    setCurrentMeeting(meeting);
+    setEditingKeyPoints(false);
+    setEditingActionItems(false);
     setActiveTab('review');
   };
   
   // Delete a meeting
   const deleteMeeting = (meetingId: number) => {
-    const updatedMeetings = savedMeetings.filter(meeting => meeting.id !== meetingId: any);
-    setSavedMeetings(updatedMeetings: any);
+    const updatedMeetings = savedMeetings.filter(meeting => meeting.id !== meetingId);
+    setSavedMeetings(updatedMeetings);
     
-    if (currentMeeting && currentMeeting.id === meetingId: any) {
-      setCurrentMeeting(null: any);
+    if (currentMeeting && currentMeeting.id === meetingId) {
+      setCurrentMeeting(null);
       setActiveTab('saved');
     }
     
@@ -646,7 +646,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
   
   // Add a new key point
   const addKeyPoint = () => {
-    if (!currentMeeting: any) return;
+    if (!currentMeeting) return;
     if (!newKeyPoint.text.trim()) {
       toast({
         title: "Empty key point",
@@ -667,10 +667,10 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
   
   // Remove a key point
   const removeKeyPoint = (index: number) => {
-    if (!currentMeeting: any) return;
+    if (!currentMeeting) return;
     
     const updatedKeyPoints = [...currentMeeting.keyPoints];
-    updatedKeyPoints.splice(index: any, 1);
+    updatedKeyPoints.splice(index, 1);
     
     setCurrentMeeting({
       ...currentMeeting,
@@ -680,7 +680,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
   
   // Toggle key point highlight
   const toggleKeyPointHighlight = (index: number) => {
-    if (!currentMeeting: any) return;
+    if (!currentMeeting) return;
     
     const updatedKeyPoints = [...currentMeeting.keyPoints];
     updatedKeyPoints[index] = {
@@ -696,7 +696,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
   
   // Add a new action item
   const addActionItem = () => {
-    if (!currentMeeting: any) return;
+    if (!currentMeeting) return;
     if (!newActionItem.text.trim()) {
       toast({
         title: "Empty action item",
@@ -717,10 +717,10 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
   
   // Remove an action item
   const removeActionItem = (index: number) => {
-    if (!currentMeeting: any) return;
+    if (!currentMeeting) return;
     
     const updatedActionItems = [...currentMeeting.actionItems];
-    updatedActionItems.splice(index: any, 1);
+    updatedActionItems.splice(index, 1);
     
     setCurrentMeeting({
       ...currentMeeting,
@@ -730,7 +730,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
   
   // Toggle action item completion
   const toggleActionItemCompletion = (index: number) => {
-    if (!currentMeeting: any) return;
+    if (!currentMeeting) return;
     
     const updatedActionItems = [...currentMeeting.actionItems];
     updatedActionItems[index] = {
@@ -747,9 +747,9 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
   // Handle file upload
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (!file: any) return;
+    if (!file) return;
     
-    setUploadedAudioFile(file: any);
+    setUploadedAudioFile(file);
     
     // In a real implementation, this would upload the file for processing
     // For demo purposes, we'll simulate processing
@@ -763,7 +763,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
   
   // Process uploaded file
   const processUploadedFile = () => {
-    if (!uploadedAudioFile: any) {
+    if (!uploadedAudioFile) {
       toast({
         title: "No file selected",
         description: "Please upload an audio file before processing.",
@@ -772,7 +772,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
       return;
     }
     
-    if (!meetingTitle: any) {
+    if (!meetingTitle) {
       toast({
         title: "Meeting title required",
         description: "Please enter a title for your meeting before processing.",
@@ -781,7 +781,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
       return;
     }
     
-    if (!meetingType: any) {
+    if (!meetingType) {
       toast({
         title: "Meeting type required",
         description: "Please select a meeting type before processing.",
@@ -790,7 +790,7 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for [Action
       return;
     }
     
-    setIsProcessing(true: any);
+    setIsProcessing(true);
     
     // Simulate processing delay
     setTimeout(() => {
@@ -809,8 +809,8 @@ Speaker 4: Training will also be crucial. Many staff members are used to the cur
 Speaker 1: Let's develop an action plan. Who can take responsibility for drafting the new assessment guidelines?
       `;
       
-      setLiveTranscript(sampleText: any);
-      setIsProcessing(false: any);
+      setLiveTranscript(sampleText);
+      setIsProcessing(false);
       setActiveTab('edit');
       
       toast({
@@ -823,17 +823,17 @@ Speaker 1: Let's develop an action plan. Who can take responsibility for draftin
   
   // Generate translation
   const generateTranslation = () => {
-    if (!currentMeeting || !translationLanguage: any) return;
+    if (!currentMeeting || !translationLanguage) return;
     
-    setIsProcessing(true: any);
+    setIsProcessing(true);
     
     // In a real implementation, this would call a translation API
     // For demo purposes, we'll simulate translation
     
     setTimeout(() => {
-      // Generate a sample translation (just a placeholder: any)
+      // Generate a sample translation (just a placeholder)
       const sampleTranslation = `[This is a simulated translation of the transcript into ${
-        languages.find(lang => lang.id === translationLanguage: any)?.name || translationLanguage
+        languages.find(lang => lang.id === translationLanguage)?.name || translationLanguage
       }]
 
 ${currentMeeting.transcript.split('\n').map((line: string) => {
@@ -844,9 +844,9 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
   return line;
 }).join('\n')}`;
       
-      setTranslatedTranscript(sampleTranslation: any);
-      setShowTranslation(true: any);
-      setIsProcessing(false: any);
+      setTranslatedTranscript(sampleTranslation);
+      setShowTranslation(true);
+      setIsProcessing(false);
       
       toast({
         title: "Translation generated",
@@ -860,7 +860,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
   
   // Export meeting as PDF
   const exportAsPDF = () => {
-    if (!currentMeeting: any) return;
+    if (!currentMeeting) return;
     
     toast({
       title: "Exporting PDF",
@@ -880,13 +880,13 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
   
   // Get meeting type display name
   const getMeetingTypeDisplayName = (typeId: string) => {
-    const meetingType = meetingTypes.find(type => type.id === typeId: any);
+    const meetingType = meetingTypes.find(type => type.id === typeId);
     return meetingType ? meetingType.name : typeId;
   };
   
   // Format date for display
   const formatDate = (dateString: string) => {
-    return new Date(dateString: any).toLocaleDateString('en-GB', {
+    return new Date(dateString).toLocaleDateString('en-GB', {
       day: 'numeric',
       month: 'long',
       year: 'numeric',
@@ -897,7 +897,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
   
   // Get category badge colour
   const getCategoryBadgeColor = (category: string) => {
-    switch (category: any) {
+    switch (category) {
       case 'strength':
       case 'decision':
         return "bg-green-100 text-green-800";
@@ -939,7 +939,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
             Meeting Note Transcription with Key Point Extraction
           </CardTitle>
           <CardDescription>
-            Automatically transcribe meetings: any, extract key points, and identify action items
+            Automatically transcribe meetings, extract key points, and identify action items
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -969,7 +969,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                           id="meeting-title" 
                           placeholder="Enter meeting title" 
                           value={meetingTitle}
-                          onChange={(e: any) => setMeetingTitle(e.target.value: any)}
+                          onChange={(e) => setMeetingTitle(e.target.value)}
                           disabled={isRecording}
                         />
                       </div>
@@ -1000,7 +1000,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                           id="meeting-date" 
                           type="datetime-local" 
                           value={meetingDate}
-                          onChange={(e: any) => setMeetingDate(e.target.value: any)}
+                          onChange={(e) => setMeetingDate(e.target.value)}
                           disabled={isRecording}
                         />
                       </div>
@@ -1013,7 +1013,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                           id="meeting-participants" 
                           placeholder="Enter participant names, separated by commas" 
                           value={meetingParticipants}
-                          onChange={(e: any) => setMeetingParticipants(e.target.value: any)}
+                          onChange={(e) => setMeetingParticipants(e.target.value)}
                           disabled={isRecording}
                           className="min-h-[80px]"
                         />
@@ -1073,7 +1073,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                     
                     <div className="text-centre">
                       <div className="text-2xl font-bold">
-                        {formatTime(recordingTime: any)}
+                        {formatTime(recordingTime)}
                       </div>
                       <div className="text-sm text-muted-foreground">
                         {isRecording ? "Recording in progress" : "Ready to record"}
@@ -1129,7 +1129,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                       <Upload className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
                       <p className="text-sm font-medium">Click to upload or drag and drop</p>
                       <p className="text-xs text-muted-foreground mt-1">
-                        MP3, WAV, M4A, or MP4 files (max 2 hours: any)
+                        MP3, WAV, M4A, or MP4 files (max 2 hours)
                       </p>
                     </div>
                     
@@ -1144,7 +1144,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                         <Button 
                           variant="ghost" 
                           size="sm"
-                          onClick={() => setUploadedAudioFile(null: any)}
+                          onClick={() => setUploadedAudioFile(null)}
                         >
                           <X className="h-4 w-4" />
                         </Button>
@@ -1176,7 +1176,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                   <div className="space-y-4">
                     <Textarea 
                       value={liveTranscript}
-                      onChange={(e: any) => setLiveTranscript(e.target.value: any)}
+                      onChange={(e) => setLiveTranscript(e.target.value)}
                       className="min-h-[400px] font-mono text-sm"
                       placeholder="Transcript will appear here after recording or uploading audio"
                     />
@@ -1214,7 +1214,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                     <div>
                       <h2 className="text-2xl font-bold">{currentMeeting.title}</h2>
                       <p className="text-muted-foreground">
-                        {getMeetingTypeDisplayName(currentMeeting.type: any)} • {formatDate(currentMeeting.date: any)}
+                        {getMeetingTypeDisplayName(currentMeeting.type)} • {formatDate(currentMeeting.date)}
                       </p>
                     </div>
                     <div className="flex space-x-2">
@@ -1250,7 +1250,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                                 <SelectValue placeholder="Translate to..." />
                               </SelectTrigger>
                               <SelectContent>
-                                {languages.filter(lang => lang.id !== currentMeeting.language: any).map(language => (
+                                {languages.filter(lang => lang.id !== currentMeeting.language).map(language => (
                                   <SelectItem key={language.id} value={language.id}>
                                     {language.name}
                                   </SelectItem>
@@ -1281,7 +1281,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                                 <Button 
                                   variant="ghost" 
                                   size="sm"
-                                  onClick={() => setShowTranslation(false: any)}
+                                  onClick={() => setShowTranslation(false)}
                                 >
                                   Show Original
                                 </Button>
@@ -1290,10 +1290,10 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                             
                             <div className="flex items-centre space-x-2">
                               <Badge variant="outline" className="text-xs">
-                                {languages.find(lang => lang.id === currentMeeting.language: any)?.name || currentMeeting.language}
+                                {languages.find(lang => lang.id === currentMeeting.language)?.name || currentMeeting.language}
                               </Badge>
                               <Badge variant="outline" className="text-xs">
-                                {currentMeeting.duration ? `${Math.floor(currentMeeting.duration / 60: any)}:${(currentMeeting.duration % 60: any).toString().padStart(2: any, '0')}` : 'Duration unknown'}
+                                {currentMeeting.duration ? `${Math.floor(currentMeeting.duration / 60)}:${(currentMeeting.duration % 60).toString().padStart(2, '0')}` : 'Duration unknown'}
                               </Badge>
                               <Badge variant="outline" className="text-xs">
                                 {currentMeeting.participants.length} participants
@@ -1311,14 +1311,14 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                           <Button 
                             variant="ghost" 
                             size="sm"
-                            onClick={() => setEditingKeyPoints(!editingKeyPoints: any)}
+                            onClick={() => setEditingKeyPoints(!editingKeyPoints)}
                           >
                             <Edit className="h-4 w-4" />
                           </Button>
                         </CardHeader>
                         <CardContent>
                           <div className="space-y-2">
-                            {currentMeeting.keyPoints.map((keyPoint: any, index: number) => (
+                            {currentMeeting.keyPoints.map((keyPoint, index: number) => (
                               <div 
                                 key={index} 
                                 className={`p-2 rounded-md flex items-start space-x-2 ${
@@ -1330,7 +1330,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                                     variant="ghost" 
                                     size="sm"
                                     className="h-5 w-5 p-0 text-muted-foreground"
-                                    onClick={() => removeKeyPoint(index: any)}
+                                    onClick={() => removeKeyPoint(index)}
                                   >
                                     <X className="h-4 w-4" />
                                   </Button>
@@ -1339,7 +1339,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                                     variant="ghost" 
                                     size="sm"
                                     className="h-5 w-5 p-0 text-muted-foreground"
-                                    onClick={() => toggleKeyPointHighlight(index: any)}
+                                    onClick={() => toggleKeyPointHighlight(index)}
                                   >
                                     {keyPoint.highlighted ? (
                                       <Star className="h-4 w-4 text-amber-500" />
@@ -1351,9 +1351,9 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                                 <div className="flex-1">
                                   <p className="text-sm">{keyPoint.text}</p>
                                   <Badge 
-                                    className={`mt-1 text-xs ${getCategoryBadgeColor(keyPoint.category: any)}`}
+                                    className={`mt-1 text-xs ${getCategoryBadgeColor(keyPoint.category)}`}
                                   >
-                                    {getCategoryDisplayName(keyPoint.category: any)}
+                                    {getCategoryDisplayName(keyPoint.category)}
                                   </Badge>
                                 </div>
                               </div>
@@ -1368,7 +1368,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                                     id="new-key-point"
                                     placeholder="Enter new key point"
                                     value={newKeyPoint.text}
-                                    onChange={(e: any) => setNewKeyPoint({...newKeyPoint, text: e.target.value})}
+                                    onChange={(e) => setNewKeyPoint({...newKeyPoint, text: e.target.value})}
                                     className="min-h-[60px]"
                                   />
                                 </div>
@@ -1377,7 +1377,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                                     <Label htmlFor="key-point-category">Category</Label>
                                     <Select 
                                       value={newKeyPoint.category} 
-                                      onValueChange={(value: any) => setNewKeyPoint({...newKeyPoint, category: value})}
+                                      onValueChange={(value) => setNewKeyPoint({...newKeyPoint, category: value})}
                                     >
                                       <SelectTrigger id="key-point-category">
                                         <SelectValue placeholder="Select category" />
@@ -1400,7 +1400,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                                       <Checkbox 
                                         id="highlight-key-point" 
                                         checked={newKeyPoint.highlighted}
-                                        onCheckedChange={(checked: any) => setNewKeyPoint({...newKeyPoint, highlighted: checked as boolean})}
+                                        onCheckedChange={(checked) => setNewKeyPoint({...newKeyPoint, highlighted: checked as boolean})}
                                       />
                                       <Label htmlFor="highlight-key-point">Highlight</Label>
                                     </div>
@@ -1423,7 +1423,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                                   variant="outline" 
                                   size="sm"
                                   className="mt-2"
-                                  onClick={() => setEditingKeyPoints(true: any)}
+                                  onClick={() => setEditingKeyPoints(true)}
                                 >
                                   Add Manually
                                 </Button>
@@ -1439,14 +1439,14 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                           <Button 
                             variant="ghost" 
                             size="sm"
-                            onClick={() => setEditingActionItems(!editingActionItems: any)}
+                            onClick={() => setEditingActionItems(!editingActionItems)}
                           >
                             <Edit className="h-4 w-4" />
                           </Button>
                         </CardHeader>
                         <CardContent>
                           <div className="space-y-2">
-                            {currentMeeting.actionItems.map((actionItem: any, index: number) => (
+                            {currentMeeting.actionItems.map((actionItem, index: number) => (
                               <div 
                                 key={index} 
                                 className={`p-2 rounded-md flex items-start space-x-2 ${
@@ -1458,14 +1458,14 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                                     variant="ghost" 
                                     size="sm"
                                     className="h-5 w-5 p-0 text-muted-foreground"
-                                    onClick={() => removeActionItem(index: any)}
+                                    onClick={() => removeActionItem(index)}
                                   >
                                     <X className="h-4 w-4" />
                                   </Button>
                                 ) : (
                                   <Checkbox 
                                     checked={actionItem.completed}
-                                    onCheckedChange={() => toggleActionItemCompletion(index: any)}
+                                    onCheckedChange={() => toggleActionItemCompletion(index)}
                                   />
                                 )}
                                 <div className="flex-1">
@@ -1497,7 +1497,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                                     id="new-action-item"
                                     placeholder="Enter new action item"
                                     value={newActionItem.text}
-                                    onChange={(e: any) => setNewActionItem({...newActionItem, text: e.target.value})}
+                                    onChange={(e) => setNewActionItem({...newActionItem, text: e.target.value})}
                                     className="min-h-[60px]"
                                   />
                                 </div>
@@ -1507,7 +1507,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                                     id="action-assigned-to"
                                     placeholder="Enter name"
                                     value={newActionItem.assignedTo}
-                                    onChange={(e: any) => setNewActionItem({...newActionItem, assignedTo: e.target.value})}
+                                    onChange={(e) => setNewActionItem({...newActionItem, assignedTo: e.target.value})}
                                   />
                                 </div>
                                 <div className="space-y-2">
@@ -1516,7 +1516,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                                     id="action-due-date"
                                     type="date"
                                     value={newActionItem.dueDate}
-                                    onChange={(e: any) => setNewActionItem({...newActionItem, dueDate: e.target.value})}
+                                    onChange={(e) => setNewActionItem({...newActionItem, dueDate: e.target.value})}
                                   />
                                 </div>
                                 <Button 
@@ -1536,7 +1536,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                                   variant="outline" 
                                   size="sm"
                                   className="mt-2"
-                                  onClick={() => setEditingActionItems(true: any)}
+                                  onClick={() => setEditingActionItems(true)}
                                 >
                                   Add Manually
                                 </Button>
@@ -1573,7 +1573,7 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                 <Input 
                   placeholder="Search meetings by title, content, or tags..." 
                   value={searchQuery}
-                  onChange={(e: any) => setSearchQuery(e.target.value: any)}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   className="flex-1"
                 />
               </div>
@@ -1587,21 +1587,21 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                           <div>
                             <CardTitle>{meeting.title}</CardTitle>
                             <CardDescription>
-                              {getMeetingTypeDisplayName(meeting.type: any)} • {formatDate(meeting.date: any)}
+                              {getMeetingTypeDisplayName(meeting.type)} • {formatDate(meeting.date)}
                             </CardDescription>
                           </div>
                           <div className="flex space-x-1">
                             <Button 
                               variant="ghost" 
                               size="sm"
-                              onClick={() => viewMeeting(meeting: any)}
+                              onClick={() => viewMeeting(meeting)}
                             >
                               <Eye className="h-4 w-4" />
                             </Button>
                             <Button 
                               variant="ghost" 
                               size="sm"
-                              onClick={() => deleteMeeting(meeting.id: any)}
+                              onClick={() => deleteMeeting(meeting.id)}
                             >
                               <Trash className="h-4 w-4" />
                             </Button>
@@ -1621,17 +1621,17 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                             <h3 className="text-sm font-medium">Key Points:</h3>
                             <div className="mt-1">
                               {meeting.keyPoints
-                                .filter((kp: any) => kp.highlighted)
-                                .slice(0: any, 2)
-                                .map((keyPoint: any, index: number) => (
+                                .filter((kp) => kp.highlighted)
+                                .slice(0, 2)
+                                .map((keyPoint, index: number) => (
                                   <div key={index} className="flex items-start space-x-2 mb-1">
                                     <Star className="h-3 w-3 text-amber-500 mt-1 flex-shrink-0" />
                                     <p className="text-xs text-muted-foreground">{keyPoint.text}</p>
                                   </div>
                                 ))}
-                              {meeting.keyPoints.filter((kp: any) => kp.highlighted).length > 2 && (
+                              {meeting.keyPoints.filter((kp) => kp.highlighted).length > 2 && (
                                 <p className="text-xs text-muted-foreground italic">
-                                  +{meeting.keyPoints.filter((kp: any) => kp.highlighted).length - 2} more highlighted points
+                                  +{meeting.keyPoints.filter((kp) => kp.highlighted).length - 2} more highlighted points
                                 </p>
                               )}
                             </div>
@@ -1641,17 +1641,17 @@ ${currentMeeting.transcript.split('\n').map((line: string) => {
                             <h3 className="text-sm font-medium">Action Items:</h3>
                             <div className="mt-1">
                               {meeting.actionItems
-                                .filter((ai: any) => !ai.completed)
-                                .slice(0: any, 2)
-                                .map((actionItem: any, index: number) => (
+                                .filter((ai) => !ai.completed)
+                                .slice(0, 2)
+                                .map((actionItem, index: number) => (
                                   <div key={index} className="flex items-start space-x-2 mb-1">
                                     <CheckCircle className="h-3 w-3 text-primary mt-1 flex-shrink-0" />
                                     <p className="text-xs text-muted-foreground">{actionItem.text}</p>
                                   </div>
                                 ))}
-                              {meeting.actionItems.filter((ai: any) => !ai.completed).length > 2 && (
+                              {meeting.actionItems.filter((ai) => !ai.completed).length > 2 && (
                                 <p className="text-xs text-muted-foreground italic">
-                                  +{meeting.actionItems.filter((ai: any) => !ai.completed).length - 2} more pending actions
+                                  +{meeting.actionItems.filter((ai) => !ai.completed).length - 2} more pending actions
                                 </p>
                               )}
                             </div>

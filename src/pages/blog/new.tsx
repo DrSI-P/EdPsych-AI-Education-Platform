@@ -23,7 +23,7 @@ export default function NewBlogPostPage({ categories }: NewBlogPostPageProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   
-  const handleSubmit = async (data: any) => {
+  const handleSubmit = async (data) => {
     setIsSubmitting(true);
     
     try {

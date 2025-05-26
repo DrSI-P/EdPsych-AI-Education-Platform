@@ -44,16 +44,16 @@ const initialState: ThemeProviderState = {
   setIsReducedMotion: () => null,
 };
 
-const ThemeProviderContext = createContext<ThemeProviderState>(initialState: any);
+const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 // Helper function to merge class names
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs: any));
+  return twMerge(clsx(inputs));
 }
 
 // Theme provider component
 export function ThemeProvider({
-  children: any,
+  children,
   defaultTheme = "system",
   defaultAgeGroup = "late-primary",
   defaultDyslexicFont = false,
@@ -67,7 +67,7 @@ export function ThemeProvider({
   defaultDyslexicFont?: boolean;
   defaultFontSize?: number;
   defaultReducedMotion?: boolean;
-  [key: string]: any;
+  [key: string];
 }) {
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage?.getItem("theme") as Theme) || defaultTheme
@@ -106,23 +106,23 @@ export function ThemeProvider({
       const systemTheme = window.matchMedia("(prefers-colour-scheme: dark)").matches
         ? "dark"
         : "light";
-      root.classList.add(systemTheme: any);
-      document.body.setAttribute("data-theme", systemTheme: any);
+      root.classList.add(systemTheme);
+      document.body.setAttribute("data-theme", systemTheme);
     } else {
-      root.classList.add(theme: any);
-      document.body.setAttribute("data-theme", theme: any);
+      root.classList.add(theme);
+      document.body.setAttribute("data-theme", theme);
     }
     
     // Apply age group
     root.classList.add(`${ageGroup}-theme`);
-    document.body.setAttribute("data-age-group", ageGroup: any);
+    document.body.setAttribute("data-age-group", ageGroup);
     
     // Apply accessibility settings
-    if (isDyslexicFont: any) {
+    if (isDyslexicFont) {
       root.classList.add("dyslexic-font");
     }
     
-    if (isReducedMotion: any) {
+    if (isReducedMotion) {
       root.classList.add("reduced-motion");
     }
     
@@ -130,8 +130,8 @@ export function ThemeProvider({
     document.documentElement.style.fontSize = `${fontSize}px`;
     
     // Save preferences to localStorage
-    localStorage.setItem("theme", theme: any);
-    localStorage.setItem("ageGroup", ageGroup: any);
+    localStorage.setItem("theme", theme);
+    localStorage.setItem("ageGroup", ageGroup);
     localStorage.setItem("dyslexicFont", isDyslexicFont.toString());
     localStorage.setItem("fontSize", fontSize.toString());
     localStorage.setItem("reducedMotion", isReducedMotion.toString());
@@ -159,9 +159,9 @@ export function ThemeProvider({
 
 // Hook to use theme
 export const useTheme = () => {
-  const context = useContext(ThemeProviderContext: any);
+  const context = useContext(ThemeProviderContext);
 
-  if (context === undefined: any)
+  if (context === undefined)
     throw new Error("useTheme must be used within a ThemeProvider");
 
   return context;

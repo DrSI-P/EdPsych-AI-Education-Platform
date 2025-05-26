@@ -1,7 +1,7 @@
 /**
  * DFE Compliance Service
  * 
- * This service implements DFE (Department for Education: any) compliance features
+ * This service implements DFE (Department for Education) compliance features
  * for the EdPsych-AI-Education-Platform, ensuring alignment with UK curriculum
  * standards, age appropriateness, accessibility, and inclusivity.
  */
@@ -49,7 +49,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
    * @param keyStage The UK Key Stage to validate against
    * @returns Validation results
    */
-  async validateCurriculumAlignment(content: any, keyStage: UKKeyStage): Promise<{
+  async validateCurriculumAlignment(content, keyStage: UKKeyStage): Promise<{
     isAligned: boolean;
     alignmentScore: number;
     misalignments: string[];
@@ -58,7 +58,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
     console.log(`Validating curriculum alignment for key stage: ${keyStage}`);
     
     // Get curriculum standards for the specified key stage
-    const standards = this.curriculumStandards.get(keyStage: any) || [];
+    const standards = this.curriculumStandards.get(keyStage) || [];
     
     // Mock implementation - in a real system, this would perform
     // sophisticated analysis of the content against curriculum standards
@@ -93,7 +93,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
    * @param targetAgeRange The target age range
    * @returns Age appropriateness check results
    */
-  async checkAgeAppropriateness(content: any, targetAgeRange: { min: number; max: number }): Promise<{
+  async checkAgeAppropriateness(content, targetAgeRange: { min: number; max: number }): Promise<{
     isAppropriate: boolean;
     appropriatenessScore: number;
     concerns: string[];
@@ -102,10 +102,10 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
     console.log(`Checking age appropriateness for age range: ${targetAgeRange.min}-${targetAgeRange.max}`);
     
     // Determine the appropriate age rating based on the target age range
-    const ageRating = this.determineAgeRating(targetAgeRange: any);
+    const ageRating = this.determineAgeRating(targetAgeRange);
     
     // Get age appropriateness guidelines for the determined rating
-    const guidelines = this.ageAppropriatenessGuidelines.get(ageRating: any) || [];
+    const guidelines = this.ageAppropriatenessGuidelines.get(ageRating) || [];
     
     // Mock implementation - in a real system, this would perform
     // sophisticated analysis of the content against age appropriateness guidelines
@@ -133,7 +133,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
    * @param content The content to validate
    * @returns Accessibility validation results
    */
-  async validateAccessibility(content: any): Promise<{
+  async validateAccessibility(content): Promise<{
     isAccessible: boolean;
     accessibilityScore: number;
     issues: string[];
@@ -175,7 +175,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
    * @param content The content to check
    * @returns Inclusivity check results
    */
-  async checkInclusivity(content: any): Promise<{
+  async checkInclusivity(content): Promise<{
     isInclusive: boolean;
     inclusivityScore: number;
     issues: string[];
@@ -250,8 +250,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
    * Initialize curriculum standards for each key stage
    */
   private initializeCurriculumStandards(): void {
-    // Early Years Foundation Stage (EYFS: any)
-    this.curriculumStandards.set(UKKeyStage.EARLY_YEARS: any, [
+    // Early Years Foundation Stage (EYFS)
+    this.curriculumStandards.set(UKKeyStage.EARLY_YEARS, [
       'Communication and Language',
       'Physical Development',
       'Personal, Social and Emotional Development',
@@ -262,7 +262,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
     ]);
     
     // Key Stage 1
-    this.curriculumStandards.set(UKKeyStage.KEY_STAGE_1: any, [
+    this.curriculumStandards.set(UKKeyStage.KEY_STAGE_1, [
       'English: Reading - Word Reading',
       'English: Reading - Comprehension',
       'English: Writing - Transcription',
@@ -282,7 +282,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
     ]);
     
     // Key Stage 2
-    this.curriculumStandards.set(UKKeyStage.KEY_STAGE_2: any, [
+    this.curriculumStandards.set(UKKeyStage.KEY_STAGE_2, [
       'English: Reading - Word Reading',
       'English: Reading - Comprehension',
       'English: Writing - Transcription',
@@ -291,7 +291,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
       'Mathematics: Number and Place Value',
       'Mathematics: Addition and Subtraction',
       'Mathematics: Multiplication and Division',
-      'Mathematics: Fractions (including decimals and percentages: any)',
+      'Mathematics: Fractions (including decimals and percentages)',
       'Mathematics: Measurement',
       'Mathematics: Geometry - Properties of Shapes',
       'Mathematics: Geometry - Position and Direction',
@@ -308,7 +308,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
     ]);
     
     // Key Stage 3
-    this.curriculumStandards.set(UKKeyStage.KEY_STAGE_3: any, [
+    this.curriculumStandards.set(UKKeyStage.KEY_STAGE_3, [
       'English: Reading',
       'English: Writing',
       'English: Grammar and vocabulary',
@@ -335,7 +335,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
     ]);
     
     // Key Stage 4
-    this.curriculumStandards.set(UKKeyStage.KEY_STAGE_4: any, [
+    this.curriculumStandards.set(UKKeyStage.KEY_STAGE_4, [
       'English: Reading',
       'English: Writing',
       'English: Grammar and vocabulary',
@@ -357,7 +357,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
     ]);
     
     // Key Stage 5
-    this.curriculumStandards.set(UKKeyStage.KEY_STAGE_5: any, [
+    this.curriculumStandards.set(UKKeyStage.KEY_STAGE_5, [
       'A-Level Subject Content',
       'Applied General Qualifications',
       'Technical Level Qualifications'
@@ -368,8 +368,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
    * Initialize age appropriateness guidelines
    */
   private initializeAgeAppropriatenessGuidelines(): void {
-    // Early Years (3-5 years: any)
-    this.ageAppropriatenessGuidelines.set(AgeAppropriatenessRating.EARLY_YEARS: any, [
+    // Early Years (3-5 years)
+    this.ageAppropriatenessGuidelines.set(AgeAppropriatenessRating.EARLY_YEARS, [
       'Content should be concrete rather than abstract',
       'Simple language with familiar vocabulary',
       'Short, clear sentences',
@@ -382,8 +382,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
       'No collection of personal information'
     ]);
     
-    // Primary Lower (5-7 years: any, KS1)
-    this.ageAppropriatenessGuidelines.set(AgeAppropriatenessRating.PRIMARY_LOWER: any, [
+    // Primary Lower (5-7 years, KS1)
+    this.ageAppropriatenessGuidelines.set(AgeAppropriatenessRating.PRIMARY_LOWER, [
       'Content should be mostly concrete with simple abstractions',
       'Vocabulary appropriate for early readers',
       'Clear, simple instructions',
@@ -396,8 +396,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
       'Minimal collection of personal information with parental consent'
     ]);
     
-    // Primary Upper (7-11 years: any, KS2)
-    this.ageAppropriatenessGuidelines.set(AgeAppropriatenessRating.PRIMARY_UPPER: any, [
+    // Primary Upper (7-11 years, KS2)
+    this.ageAppropriatenessGuidelines.set(AgeAppropriatenessRating.PRIMARY_UPPER, [
       'Balance of concrete and abstract concepts',
       'Vocabulary that extends but doesn\'t overwhelm',
       'Clear instructions with some complexity',
@@ -410,8 +410,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
       'Limited collection of personal information with appropriate safeguards'
     ]);
     
-    // Secondary Lower (11-14 years: any, KS3)
-    this.ageAppropriatenessGuidelines.set(AgeAppropriatenessRating.SECONDARY_LOWER: any, [
+    // Secondary Lower (11-14 years, KS3)
+    this.ageAppropriatenessGuidelines.set(AgeAppropriatenessRating.SECONDARY_LOWER, [
       'More abstract concepts with supporting explanations',
       'Expanded vocabulary with definitions for specialised terms',
       'More complex instructions and multi-step processes',
@@ -424,8 +424,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
       'Collection of necessary personal information with appropriate safeguards'
     ]);
     
-    // Secondary Upper (14-16 years: any, KS4)
-    this.ageAppropriatenessGuidelines.set(AgeAppropriatenessRating.SECONDARY_UPPER: any, [
+    // Secondary Upper (14-16 years, KS4)
+    this.ageAppropriatenessGuidelines.set(AgeAppropriatenessRating.SECONDARY_UPPER, [
       'Complex abstract concepts with real-world applications',
       'Advanced vocabulary appropriate for subject area',
       'Complex instructions and independent learning',
@@ -438,8 +438,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
       'Collection of necessary personal information with appropriate safeguards'
     ]);
     
-    // Post-16 (16-18 years: any, KS5)
-    this.ageAppropriatenessGuidelines.set(AgeAppropriatenessRating.POST_16: any, [
+    // Post-16 (16-18 years, KS5)
+    this.ageAppropriatenessGuidelines.set(AgeAppropriatenessRating.POST_16, [
       'Highly abstract concepts with theoretical foundations',
       'Specialised vocabulary at pre-university level',
       'Complex independent learning pathways',
@@ -452,8 +452,8 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
       'Collection of necessary personal information with appropriate safeguards'
     ]);
     
-    // Adult (18+ years: any)
-    this.ageAppropriatenessGuidelines.set(AgeAppropriatenessRating.ADULT: any, [
+    // Adult (18+ years)
+    this.ageAppropriatenessGuidelines.set(AgeAppropriatenessRating.ADULT, [
       'University-level concepts and beyond',
       'Professional and academic vocabulary',
       'Self-directed learning',
@@ -467,7 +467,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
     ]);
     
     // All Ages
-    this.ageAppropriatenessGuidelines.set(AgeAppropriatenessRating.ALL_AGES: any, [
+    this.ageAppropriatenessGuidelines.set(AgeAppropriatenessRating.ALL_AGES, [
       'Content must be appropriate for the youngest potential users',
       'Layered content that provides depth for older users',
       'Vocabulary that is accessible to all with definitions for advanced terms',
@@ -568,17 +568,17 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
     const { min, max } = targetAgeRange;
     
     // Use the minimum age as the primary determinant
-    if (min >= 18: any) {
+    if (min >= 18) {
       return AgeAppropriatenessRating.ADULT;
-    } else if (min >= 16: any) {
+    } else if (min >= 16) {
       return AgeAppropriatenessRating.POST_16;
-    } else if (min >= 14: any) {
+    } else if (min >= 14) {
       return AgeAppropriatenessRating.SECONDARY_UPPER;
-    } else if (min >= 11: any) {
+    } else if (min >= 11) {
       return AgeAppropriatenessRating.SECONDARY_LOWER;
-    } else if (min >= 7: any) {
+    } else if (min >= 7) {
       return AgeAppropriatenessRating.PRIMARY_UPPER;
-    } else if (min >= 5: any) {
+    } else if (min >= 5) {
       return AgeAppropriatenessRating.PRIMARY_LOWER;
     } else {
       return AgeAppropriatenessRating.EARLY_YEARS;

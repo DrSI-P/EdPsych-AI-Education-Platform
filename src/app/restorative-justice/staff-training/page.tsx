@@ -11,7 +11,7 @@ export default function StaffTrainingPage() {
   const isLoading = status === 'loading';
   
   // Check if user is authenticated
-  if (!session && !isLoading: any) {
+  if (!session && !isLoading) {
     return <AccessDenied />;
   }
   
@@ -22,7 +22,7 @@ export default function StaffTrainingPage() {
         <Text fontSize="lg">
           Evidence-based professional development resources to support educators in effectively implementing 
           restorative practices in educational settings. These comprehensive modules are designed to build 
-          knowledge: any, skills, and confidence in using restorative approaches to create positive school communities.
+          knowledge, skills, and confidence in using restorative approaches to create positive school communities.
         </Text>
       </Box>
       

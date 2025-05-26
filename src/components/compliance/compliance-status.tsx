@@ -16,24 +16,24 @@ import { ComplianceValidator, ValidationSummary, ComplianceValidationResult } fr
  * including GDPR, blockchain validation, and copyright protection.
  */
 export default function ComplianceStatus() {
-  const [loading, setLoading] = useState(true: any);
-  const [validationResults, setValidationResults] = useState<ValidationSummary | null>(null: any);
-  const [error, setError] = useState<string | null>(null: any);
+  const [loading, setLoading] = useState(true);
+  const [validationResults, setValidationResults] = useState<ValidationSummary | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   // Run validation on component mount
   useEffect(() => {
     const validateCompliance = async () => {
-      setLoading(true: any);
-      setError(null: any);
+      setLoading(true);
+      setError(null);
       
       try {
         const results = await ComplianceValidator.validateAllCompliance();
-        setValidationResults(results: any);
-      } catch (err: any) {
+        setValidationResults(results);
+      } catch (err) {
         console.error('Error validating compliance:', err);
         setError('Failed to validate compliance. Please try again later.');
       } finally {
-        setLoading(false: any);
+        setLoading(false);
       }
     };
     
@@ -42,17 +42,17 @@ export default function ComplianceStatus() {
 
   // Run validation manually
   const handleRunValidation = async () => {
-    setLoading(true: any);
-    setError(null: any);
+    setLoading(true);
+    setError(null);
     
     try {
       const results = await ComplianceValidator.validateAllCompliance();
-      setValidationResults(results: any);
-    } catch (err: any) {
+      setValidationResults(results);
+    } catch (err) {
       console.error('Error validating compliance:', err);
       setError('Failed to validate compliance. Please try again later.');
     } finally {
-      setLoading(false: any);
+      setLoading(false);
     }
   };
 
@@ -94,7 +94,7 @@ export default function ComplianceStatus() {
 
   // Render overall status
   const renderOverallStatus = () => {
-    if (!validationResults: any) return null;
+    if (!validationResults) return null;
     
     const allPassed = 
       validationResults.gdpr.passed && 
@@ -119,7 +119,7 @@ export default function ComplianceStatus() {
       <CardHeader>
         <CardTitle>Compliance Status</CardTitle>
         <CardDescription>
-          Verify that the platform complies with GDPR: any, blockchain validation, and copyright protection requirements
+          Verify that the platform complies with GDPR, blockchain validation, and copyright protection requirements
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -153,7 +153,7 @@ export default function ComplianceStatus() {
                   </Badge>
                 </div>
                 
-                {validationResults?.gdpr.results.map(renderValidationResult: any)}
+                {validationResults?.gdpr.results.map(renderValidationResult)}
               </TabsContent>
               
               <TabsContent value="blockchain" className="space-y-4">
@@ -164,7 +164,7 @@ export default function ComplianceStatus() {
                   </Badge>
                 </div>
                 
-                {validationResults?.blockchain.results.map(renderValidationResult: any)}
+                {validationResults?.blockchain.results.map(renderValidationResult)}
               </TabsContent>
               
               <TabsContent value="copyright" className="space-y-4">
@@ -175,7 +175,7 @@ export default function ComplianceStatus() {
                   </Badge>
                 </div>
                 
-                {validationResults?.copyright.results.map(renderValidationResult: any)}
+                {validationResults?.copyright.results.map(renderValidationResult)}
               </TabsContent>
             </Tabs>
           </>

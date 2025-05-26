@@ -79,7 +79,7 @@ export class SafeguardingServiceImpl implements SafeguardingService {
     };
     
     // Store the report
-    this.safeguardingReports.set(id: any, report);
+    this.safeguardingReports.set(id, report);
     
     // In a real implementation, this would trigger notifications to
     // designated safeguarding leads based on the concern type and severity
@@ -102,9 +102,9 @@ export class SafeguardingServiceImpl implements SafeguardingService {
     console.log(`Assessing safeguarding concern: ${reportId}`);
     
     // Get the report
-    const report = this.safeguardingReports.get(reportId: any);
+    const report = this.safeguardingReports.get(reportId);
     
-    if (!report: any) {
+    if (!report) {
       console.error(`Report not found: ${reportId}`);
       return false;
     }
@@ -119,7 +119,7 @@ export class SafeguardingServiceImpl implements SafeguardingService {
     };
     
     // Store the updated report
-    this.safeguardingReports.set(reportId: any, updatedReport);
+    this.safeguardingReports.set(reportId, updatedReport);
     
     // In a real implementation, this would trigger appropriate actions
     // based on the concern level, such as notifications, escalations, etc.
@@ -144,9 +144,9 @@ export class SafeguardingServiceImpl implements SafeguardingService {
     console.log(`Taking safeguarding action for concern: ${reportId}`);
     
     // Get the report
-    const report = this.safeguardingReports.get(reportId: any);
+    const report = this.safeguardingReports.get(reportId);
     
-    if (!report: any) {
+    if (!report) {
       console.error(`Report not found: ${reportId}`);
       return false;
     }
@@ -163,7 +163,7 @@ export class SafeguardingServiceImpl implements SafeguardingService {
     };
     
     // Store the updated report
-    this.safeguardingReports.set(reportId: any, updatedReport);
+    this.safeguardingReports.set(reportId, updatedReport);
     
     return true;
   }
@@ -185,7 +185,7 @@ export class SafeguardingServiceImpl implements SafeguardingService {
     console.log(`Monitoring user activity for: ${userId}`);
     
     // Get monitoring data for the user
-    const monitoringData = this.userMonitoringData.get(userId: any) || [];
+    const monitoringData = this.userMonitoringData.get(userId) || [];
     
     // Convert monitoring data to concern indicators
     const concernIndicators = monitoringData.map(data => ({
@@ -195,7 +195,7 @@ export class SafeguardingServiceImpl implements SafeguardingService {
     }));
     
     // Generate recommended actions based on indicators
-    const recommendedActions = this.generateRecommendedActions(concernIndicators: any);
+    const recommendedActions = this.generateRecommendedActions(concernIndicators);
     
     return {
       concernIndicators,
@@ -221,31 +221,31 @@ export class SafeguardingServiceImpl implements SafeguardingService {
     const allReports = Array.from(this.safeguardingReports.values());
     
     // If no filters, return all reports
-    if (!filters: any) {
+    if (!filters) {
       return allReports;
     }
     
     // Filter the reports
     return allReports.filter(report => {
       // Filter by status
-      if (filters.status && report.status !== filters.status: any) {
+      if (filters.status && report.status !== filters.status) {
         return false;
       }
       
       // Filter by concern type
-      if (filters.concernType && report.concernType !== filters.concernType: any) {
+      if (filters.concernType && report.concernType !== filters.concernType) {
         return false;
       }
       
       // Filter by concern level
-      if (filters.concernLevel && report.concernLevel !== filters.concernLevel: any) {
+      if (filters.concernLevel && report.concernLevel !== filters.concernLevel) {
         return false;
       }
       
       // Filter by date range
-      if (filters.dateRange: any) {
+      if (filters.dateRange) {
         const reportDate = report.reportedAt;
-        if (reportDate < filters.dateRange.start || reportDate > filters.dateRange.end: any) {
+        if (reportDate < filters.dateRange.start || reportDate > filters.dateRange.end) {
           return false;
         }
       }
@@ -332,34 +332,34 @@ export class SafeguardingServiceImpl implements SafeguardingService {
       high: 0
     };
     
-    for (const indicator of concernIndicators: any) {
+    for (const indicator of concernIndicators) {
       severityCounts[indicator.severity]++;
     }
     
     const recommendedActions: string[] = [];
     
     // Generate recommendations based on severity counts
-    if (severityCounts.high > 0: any) {
+    if (severityCounts.high > 0) {
       recommendedActions.push('Immediate referral to designated safeguarding lead');
       recommendedActions.push('Consider temporary restriction of account access');
       recommendedActions.push('Document all concerns and actions taken');
     }
     
-    if (severityCounts.medium > 0: any) {
+    if (severityCounts.medium > 0) {
       recommendedActions.push('Review user activity with increased monitoring');
       recommendedActions.push('Consult with safeguarding team for assessment');
       recommendedActions.push('Consider reaching out to user or responsible adult');
     }
     
-    if (severityCounts.low > 0: any) {
+    if (severityCounts.low > 0) {
       recommendedActions.push('Continue monitoring user activity');
       recommendedActions.push('Document concerns for future reference');
       recommendedActions.push('Review again in 30 days if no escalation');
     }
     
     // If no indicators, provide default recommendation
-    if (concernIndicators.length === 0: any) {
-      recommendedActions.push('No concerns detected: any, continue standard monitoring');
+    if (concernIndicators.length === 0) {
+      recommendedActions.push('No concerns detected, continue standard monitoring');
     }
     
     return recommendedActions;
@@ -380,15 +380,15 @@ export class SafeguardingServiceImpl implements SafeguardingService {
     console.log(`Adding monitoring data for user ${userId}: ${indicator}`);
     
     // Get or create the user's monitoring data array
-    if (!this.userMonitoringData.has(userId: any)) {
-      this.userMonitoringData.set(userId: any, []);
+    if (!this.userMonitoringData.has(userId)) {
+      this.userMonitoringData.set(userId, []);
     }
     
-    const monitoringData = this.userMonitoringData.get(userId: any)!;
+    const monitoringData = this.userMonitoringData.get(userId)!;
     
     // Add the new monitoring data
     monitoringData.push({
-      indicator: any,
+      indicator,
       severity,
       detectionDate: new Date(),
       details

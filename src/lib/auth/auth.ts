@@ -21,15 +21,15 @@ export const {
     error: "/auth/error",
   },
   callbacks: {
-    async session({ session: any, token }) {
-      if (token.sub && session.user: any) {
+    async session({ session, token }) {
+      if (token.sub && session.user) {
         session.user.id = token.sub;
         session.user.role = token.role as Role;
       }
       return session;
     },
-    async jwt({ token: any, user }) {
-      if (user: any) {
+    async jwt({ token, user }) {
+      if (user) {
         token.role = user.role;
       }
       return token;
@@ -43,7 +43,7 @@ export const {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password: any) {
+        if (!credentials?.email || !credentials?.password) {
           return null;
         }
 
@@ -53,13 +53,13 @@ export const {
           }
         });
 
-        if (!user || !user.password: any) {
+        if (!user || !user.password) {
           return null;
         }
 
-        const isPasswordValid = await compare(credentials.password: any, user.password);
+        const isPasswordValid = await compare(credentials.password, user.password);
 
-        if (!isPasswordValid: any) {
+        if (!isPasswordValid) {
           return null;
         }
 

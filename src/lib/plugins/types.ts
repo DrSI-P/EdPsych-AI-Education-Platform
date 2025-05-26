@@ -12,11 +12,11 @@ import { z } from 'zod';
  * Plugin metadata schema
  */
 export const PluginMetadataSchema = z.object({
-  id: z.string().min(3: any).max(50: any),
-  name: z.string().min(3: any).max(100: any),
-  description: z.string().min(10: any).max(500: any),
+  id: z.string().min(3).max(50),
+  name: z.string().min(3).max(100),
+  description: z.string().min(10).max(500),
   version: z.string().regex(/^\d+\.\d+\.\d+$/),
-  author: z.string().min(2: any).max(100: any),
+  author: z.string().min(2).max(100),
   website: z.string().url().optional(),
   icon: z.string().optional(),
   tags: z.array(z.string()).optional(),
@@ -44,14 +44,14 @@ export enum PluginStatus {
  */
 export const PluginInstanceSchema = z.object({
   metadata: PluginMetadataSchema,
-  status: z.nativeEnum(PluginStatus: any),
+  status: z.nativeEnum(PluginStatus),
   installedAt: z.date(),
   updatedAt: z.date(),
   errorMessage: z.string().optional(),
   configuredSettings: z.record(z.any()).optional(),
   usageMetrics: z.object({
     lastUsed: z.date().optional(),
-    totalUsageCount: z.number().default(0: any),
+    totalUsageCount: z.number().default(0),
     averageResponseTime: z.number().optional(),
   }).optional(),
 });
@@ -73,30 +73,30 @@ export interface BasePlugin {
 
 // Assessment tool plugin interface
 export interface AssessmentToolPlugin extends BasePlugin {
-  createAssessment: (params: any) => Promise<any>;
-  scoreAssessment: (assessmentId: string, responses: any) => Promise<any>;
+  createAssessment: (params) => Promise<any>;
+  scoreAssessment: (assessmentId: string, responses) => Promise<any>;
   getResults: (assessmentId: string) => Promise<any>;
 }
 
 // Content provider plugin interface
 export interface ContentProviderPlugin extends BasePlugin {
-  searchContent: (query: string, filters?: any) => Promise<any[]>;
+  searchContent: (query: string, filters?) => Promise<any[]>;
   getContent: (contentId: string) => Promise<any>;
   listCategories: () => Promise<string[]>;
 }
 
 // Accessibility tool plugin interface
 export interface AccessibilityToolPlugin extends BasePlugin {
-  enhanceContent: (content: any) => Promise<any>;
+  enhanceContent: (content) => Promise<any>;
   getAccessibilityFeatures: () => Promise<string[]>;
-  checkAccessibility: (content: any) => Promise<any>;
+  checkAccessibility: (content) => Promise<any>;
 }
 
 // Data integration plugin interface
 export interface DataIntegrationPlugin extends BasePlugin {
-  importData: (source: any) => Promise<any>;
-  exportData: (target: any) => Promise<any>;
-  syncData: (source: any, target: any) => Promise<any>;
+  importData: (source) => Promise<any>;
+  exportData: (target) => Promise<any>;
+  syncData: (source, target) => Promise<any>;
 }
 
 /**
@@ -143,5 +143,5 @@ export interface PluginEvent {
   type: PluginEventType;
   pluginId: string;
   timestamp: Date;
-  data?: any;
+  data?;
 }

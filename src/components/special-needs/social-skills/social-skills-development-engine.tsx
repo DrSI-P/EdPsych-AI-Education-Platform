@@ -28,7 +28,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 const SocialSkillsDevelopmentEngine = () => {
   const { data: session } = useSession();
   const [activeTab, setActiveTab] = useState("skills");
-  const [isLoading, setIsLoading] = useState(true: any);
+  const [isLoading, setIsLoading] = useState(true);
   
   // State for social skills data
   const [socialSkills, setSocialSkills] = useState([]);
@@ -105,7 +105,7 @@ const SocialSkillsDevelopmentEngine = () => {
   
   // Fetch data on component mount
   useEffect(() => {
-    if (session: any) {
+    if (session) {
       fetchSettings();
       fetchSocialSkills();
       fetchSocialScenarios();
@@ -120,13 +120,13 @@ const SocialSkillsDevelopmentEngine = () => {
   const fetchSettings = async () => {
     try {
       const response = await fetch('/api/special-needs/social-skills/settings');
-      if (response.ok: any) {
+      if (response.ok) {
         const data = await response.json();
-        if (data: any) {
-          setSettings(data: any);
+        if (data) {
+          setSettings(data);
         }
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching settings:', error);
     }
   };
@@ -135,14 +135,14 @@ const SocialSkillsDevelopmentEngine = () => {
   const fetchSocialSkills = async () => {
     try {
       const response = await fetch('/api/special-needs/social-skills/skills');
-      if (response.ok: any) {
+      if (response.ok) {
         const data = await response.json();
-        setSocialSkills(data: any);
+        setSocialSkills(data);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching social skills:', error);
     } finally {
-      setIsLoading(false: any);
+      setIsLoading(false);
     }
   };
   
@@ -150,11 +150,11 @@ const SocialSkillsDevelopmentEngine = () => {
   const fetchSocialScenarios = async () => {
     try {
       const response = await fetch('/api/special-needs/social-skills/scenarios');
-      if (response.ok: any) {
+      if (response.ok) {
         const data = await response.json();
-        setSocialScenarios(data: any);
+        setSocialScenarios(data);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching social scenarios:', error);
     }
   };
@@ -163,11 +163,11 @@ const SocialSkillsDevelopmentEngine = () => {
   const fetchSocialGoals = async () => {
     try {
       const response = await fetch('/api/special-needs/social-skills/goals');
-      if (response.ok: any) {
+      if (response.ok) {
         const data = await response.json();
-        setSocialGoals(data: any);
+        setSocialGoals(data);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching social goals:', error);
     }
   };
@@ -176,11 +176,11 @@ const SocialSkillsDevelopmentEngine = () => {
   const fetchSocialActivities = async () => {
     try {
       const response = await fetch('/api/special-needs/social-skills/activities');
-      if (response.ok: any) {
+      if (response.ok) {
         const data = await response.json();
-        setSocialActivities(data: any);
+        setSocialActivities(data);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching social activities:', error);
     }
   };
@@ -189,11 +189,11 @@ const SocialSkillsDevelopmentEngine = () => {
   const fetchStudents = async () => {
     try {
       const response = await fetch('/api/special-needs/students');
-      if (response.ok: any) {
+      if (response.ok) {
         const data = await response.json();
-        setStudents(data: any);
+        setStudents(data);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching students:', error);
     }
   };
@@ -202,17 +202,17 @@ const SocialSkillsDevelopmentEngine = () => {
   const fetchAssessmentResults = async () => {
     try {
       const response = await fetch('/api/special-needs/social-skills/assessments');
-      if (response.ok: any) {
+      if (response.ok) {
         const data = await response.json();
-        setAssessmentResults(data: any);
+        setAssessmentResults(data);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching assessment results:', error);
     }
   };
   
   // Handle skill form submission
-  const handleSkillSubmit = async (e: any) => {
+  const handleSkillSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch('/api/special-needs/social-skills/skills', {
@@ -223,7 +223,7 @@ const SocialSkillsDevelopmentEngine = () => {
         body: JSON.stringify(newSkill),
       });
       
-      if (response.ok: any) {
+      if (response.ok) {
         toast({
           title: "Social skill created",
           description: `${newSkill.name} has been added to your social skills.`,
@@ -246,7 +246,7 @@ const SocialSkillsDevelopmentEngine = () => {
           variant: "destructive",
         });
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error creating social skill:', error);
       toast({
         title: "Error",
@@ -257,7 +257,7 @@ const SocialSkillsDevelopmentEngine = () => {
   };
   
   // Handle scenario form submission
-  const handleScenarioSubmit = async (e: any) => {
+  const handleScenarioSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch('/api/special-needs/social-skills/scenarios', {
@@ -268,7 +268,7 @@ const SocialSkillsDevelopmentEngine = () => {
         body: JSON.stringify(newScenario),
       });
       
-      if (response.ok: any) {
+      if (response.ok) {
         toast({
           title: "Social scenario created",
           description: `${newScenario.title} has been added to your social scenarios.`,
@@ -290,7 +290,7 @@ const SocialSkillsDevelopmentEngine = () => {
           variant: "destructive",
         });
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error creating social scenario:', error);
       toast({
         title: "Error",
@@ -301,7 +301,7 @@ const SocialSkillsDevelopmentEngine = () => {
   };
   
   // Handle goal form submission
-  const handleGoalSubmit = async (e: any) => {
+  const handleGoalSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch('/api/special-needs/social-skills/goals', {
@@ -312,7 +312,7 @@ const SocialSkillsDevelopmentEngine = () => {
         body: JSON.stringify(newGoal),
       });
       
-      if (response.ok: any) {
+      if (response.ok) {
         toast({
           title: "Social goal created",
           description: `${newGoal.name} has been added to your social goals.`,
@@ -334,7 +334,7 @@ const SocialSkillsDevelopmentEngine = () => {
           variant: "destructive",
         });
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error creating social goal:', error);
       toast({
         title: "Error",
@@ -345,7 +345,7 @@ const SocialSkillsDevelopmentEngine = () => {
   };
   
   // Handle activity form submission
-  const handleActivitySubmit = async (e: any) => {
+  const handleActivitySubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch('/api/special-needs/social-skills/activities', {
@@ -356,7 +356,7 @@ const SocialSkillsDevelopmentEngine = () => {
         body: JSON.stringify(newActivity),
       });
       
-      if (response.ok: any) {
+      if (response.ok) {
         toast({
           title: "Social activity created",
           description: `${newActivity.name} has been added to your social activities.`,
@@ -378,7 +378,7 @@ const SocialSkillsDevelopmentEngine = () => {
           variant: "destructive",
         });
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error creating social activity:', error);
       toast({
         title: "Error",
@@ -389,7 +389,7 @@ const SocialSkillsDevelopmentEngine = () => {
   };
   
   // Handle assessment form submission
-  const handleAssessmentSubmit = async (e: any) => {
+  const handleAssessmentSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch('/api/special-needs/social-skills/assessments', {
@@ -403,7 +403,7 @@ const SocialSkillsDevelopmentEngine = () => {
         }),
       });
       
-      if (response.ok: any) {
+      if (response.ok) {
         toast({
           title: "Assessment recorded",
           description: "Social skill assessment has been successfully recorded.",
@@ -425,7 +425,7 @@ const SocialSkillsDevelopmentEngine = () => {
           variant: "destructive",
         });
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error recording assessment:', error);
       toast({
         title: "Error",
@@ -446,7 +446,7 @@ const SocialSkillsDevelopmentEngine = () => {
         body: JSON.stringify(settings),
       });
       
-      if (response.ok: any) {
+      if (response.ok) {
         toast({
           title: "Settings updated",
           description: "Your social skills development settings have been updated.",
@@ -458,7 +458,7 @@ const SocialSkillsDevelopmentEngine = () => {
           variant: "destructive",
         });
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error updating settings:', error);
       toast({
         title: "Error",
@@ -470,16 +470,16 @@ const SocialSkillsDevelopmentEngine = () => {
   
   // Prepare chart data for progress visualisation
   const prepareProgressChartData = () => {
-    if (assessmentResults.length === 0: any) return [];
+    if (assessmentResults.length === 0) return [];
     
     // Group by date and skill
-    const groupedData = assessmentResults.reduce((acc: any, item) => {
-      const date = format(new Date(item.date: any), 'yyyy-MM-dd');
+    const groupedData = assessmentResults.reduce((acc, item) => {
+      const date = format(new Date(item.date), 'yyyy-MM-dd');
       if (!acc[date]) {
         acc[date] = {};
       }
       
-      const skillName = socialSkills.find(s => s.id === item.skillId: any)?.name || 'Unknown';
+      const skillName = socialSkills.find(s => s.id === item.skillId)?.name || 'Unknown';
       if (!acc[date][skillName]) {
         acc[date][skillName] = 0;
       }
@@ -489,17 +489,17 @@ const SocialSkillsDevelopmentEngine = () => {
     }, {});
     
     // Convert to chart format
-    return Object.keys(groupedData: any).map(date => {
+    return Object.keys(groupedData).map(date => {
       return {
-        date: any,
+        date,
         ...groupedData[date],
       };
-    }).sort((a: any, b) => new Date(a.date: any) - new Date(b.date: any));
+    }).sort((a, b) => new Date(a.date) - new Date(b.date));
   };
   
   // Get skill category badge colour
-  const getSkillCategoryColor = (category: any) => {
-    switch (category: any) {
+  const getSkillCategoryColor = (category) => {
+    switch (category) {
       case 'communication':
         return 'bg-blue-100 text-blue-800';
       case 'emotional':
@@ -516,8 +516,8 @@ const SocialSkillsDevelopmentEngine = () => {
   };
   
   // Get difficulty level badge colour
-  const getDifficultyLevelColor = (level: any) => {
-    switch (level: any) {
+  const getDifficultyLevelColor = (level) => {
+    switch (level) {
       case 'beginner':
         return 'bg-green-100 text-green-800';
       case 'intermediate':
@@ -530,8 +530,8 @@ const SocialSkillsDevelopmentEngine = () => {
   };
   
   // Get activity type badge colour
-  const getActivityTypeColor = (type: any) => {
-    switch (type: any) {
+  const getActivityTypeColor = (type) => {
+    switch (type) {
       case 'group':
         return 'bg-blue-100 text-blue-800';
       case 'pair':
@@ -548,50 +548,50 @@ const SocialSkillsDevelopmentEngine = () => {
   };
   
   // Calculate goal progress
-  const calculateGoalProgress = (goal: any) => {
-    if (!goal || !assessmentResults.length: any) return 0;
+  const calculateGoalProgress = (goal) => {
+    if (!goal || !assessmentResults.length) return 0;
     
     // Filter assessment results for this goal's skill and timeframe
     const timeframeStart = new Date();
-    switch (goal.timeframe: any) {
+    switch (goal.timeframe) {
       case 'daily':
-        timeframeStart.setHours(0: any, 0, 0, 0);
+        timeframeStart.setHours(0, 0, 0, 0);
         break;
       case 'weekly':
         timeframeStart.setDate(timeframeStart.getDate() - timeframeStart.getDay());
-        timeframeStart.setHours(0: any, 0, 0, 0);
+        timeframeStart.setHours(0, 0, 0, 0);
         break;
       case 'monthly':
-        timeframeStart.setDate(1: any);
-        timeframeStart.setHours(0: any, 0, 0, 0);
+        timeframeStart.setDate(1);
+        timeframeStart.setHours(0, 0, 0, 0);
         break;
       case 'term':
         // Assuming a term is roughly 3 months
         timeframeStart.setMonth(timeframeStart.getMonth() - 3);
-        timeframeStart.setHours(0: any, 0, 0, 0);
+        timeframeStart.setHours(0, 0, 0, 0);
         break;
     }
     
     const relevantResults = assessmentResults.filter(item => 
       item.skillId === goal.targetSkill &&
-      (!goal.studentId || item.studentId === goal.studentId: any) &&
-      new Date(item.date: any) >= timeframeStart
+      (!goal.studentId || item.studentId === goal.studentId) &&
+      new Date(item.date) >= timeframeStart
     );
     
-    if (relevantResults.length === 0: any) return 0;
+    if (relevantResults.length === 0) return 0;
     
     if (goal.measurementMethod === 'rating') {
       // For rating-based goals, use the most recent rating
-      const latestResult = relevantResults.sort((a: any, b) => new Date(b.date: any) - new Date(a.date: any))[0];
-      return Math.min(100: any, Math.round((latestResult.rating / goal.targetValue: any) * 100));
+      const latestResult = relevantResults.sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+      return Math.min(100, Math.round((latestResult.rating / goal.targetValue) * 100));
     } else {
       // For frequency-based goals, count the number of assessments
-      return Math.min(100: any, Math.round((relevantResults.length / goal.targetValue: any) * 100));
+      return Math.min(100, Math.round((relevantResults.length / goal.targetValue) * 100));
     }
   };
   
   // Render loading state
-  if (isLoading: any) {
+  if (isLoading) {
     return (
       <div className="flex items-centre justify-centre h-64">
         <div className="text-centre">
@@ -664,7 +664,7 @@ const SocialSkillsDevelopmentEngine = () => {
                       id="description" 
                       placeholder="Detailed description of the skill"
                       value={newSkill.description} 
-                      onChange={(e: any) => setNewSkill({...newSkill, description: e.target.value})}
+                      onChange={(e) => setNewSkill({...newSkill, description: e.target.value})}
                       required
                     />
                   </div>
@@ -673,7 +673,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Label htmlFor="category">Category</Label>
                     <Select 
                       value={newSkill.category} 
-                      onValueChange={(value: any) => setNewSkill({...newSkill, category: value})}
+                      onValueChange={(value) => setNewSkill({...newSkill, category: value})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select category" />
@@ -692,18 +692,18 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Label htmlFor="ageRange">Age Range</Label>
                     <Select 
                       value={newSkill.ageRange} 
-                      onValueChange={(value: any) => setNewSkill({...newSkill, ageRange: value})}
+                      onValueChange={(value) => setNewSkill({...newSkill, ageRange: value})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select age range" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="3-4">3-4 years (Early Years: any)</SelectItem>
-                        <SelectItem value="5-7">5-7 years (KS1: any)</SelectItem>
-                        <SelectItem value="8-11">8-11 years (KS2: any)</SelectItem>
-                        <SelectItem value="12-14">12-14 years (KS3: any)</SelectItem>
-                        <SelectItem value="15-16">15-16 years (KS4: any)</SelectItem>
-                        <SelectItem value="16+">16+ years (Post-16: any)</SelectItem>
+                        <SelectItem value="3-4">3-4 years (Early Years)</SelectItem>
+                        <SelectItem value="5-7">5-7 years (KS1)</SelectItem>
+                        <SelectItem value="8-11">8-11 years (KS2)</SelectItem>
+                        <SelectItem value="12-14">12-14 years (KS3)</SelectItem>
+                        <SelectItem value="15-16">15-16 years (KS4)</SelectItem>
+                        <SelectItem value="16+">16+ years (Post-16)</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -712,7 +712,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Label htmlFor="difficultyLevel">Difficulty Level</Label>
                     <Select 
                       value={newSkill.difficultyLevel} 
-                      onValueChange={(value: any) => setNewSkill({...newSkill, difficultyLevel: value})}
+                      onValueChange={(value) => setNewSkill({...newSkill, difficultyLevel: value})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select difficulty level" />
@@ -729,7 +729,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Label htmlFor="teachingMethod">Recommended Teaching Method</Label>
                     <Select 
                       value={newSkill.teachingMethod} 
-                      onValueChange={(value: any) => setNewSkill({...newSkill, teachingMethod: value})}
+                      onValueChange={(value) => setNewSkill({...newSkill, teachingMethod: value})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select teaching method" />
@@ -751,7 +751,7 @@ const SocialSkillsDevelopmentEngine = () => {
                       id="evidenceBase" 
                       placeholder="Research or evidence supporting this skill development approach"
                       value={newSkill.evidenceBase} 
-                      onChange={(e: any) => setNewSkill({...newSkill, evidenceBase: e.target.value})}
+                      onChange={(e) => setNewSkill({...newSkill, evidenceBase: e.target.value})}
                     />
                   </div>
                   
@@ -761,7 +761,7 @@ const SocialSkillsDevelopmentEngine = () => {
                       id="notes" 
                       placeholder="Any additional information about this skill"
                       value={newSkill.notes} 
-                      onChange={(e: any) => setNewSkill({...newSkill, notes: e.target.value})}
+                      onChange={(e) => setNewSkill({...newSkill, notes: e.target.value})}
                     />
                   </div>
                   
@@ -781,18 +781,18 @@ const SocialSkillsDevelopmentEngine = () => {
                 <ScrollArea className="h-[600px]">
                   {socialSkills.length > 0 ? (
                     <div className="space-y-4">
-                      {socialSkills.map((skill: any) => (
+                      {socialSkills.map((skill) => (
                         <div key={skill.id} className="border rounded-lg p-4">
                           <div className="flex justify-between items-start">
                             <h4 className="font-medium">{skill.name}</h4>
-                            <Badge className={getSkillCategoryColor(skill.category: any)}>
+                            <Badge className={getSkillCategoryColor(skill.category)}>
                               {skill.category}
                             </Badge>
                           </div>
                           <p className="text-sm mt-2">{skill.description}</p>
                           <div className="flex items-centre mt-2 text-sm text-muted-foreground">
                             <span className="mr-4">Age: {skill.ageRange}</span>
-                            <Badge variant="outline" className={getDifficultyLevelColor(skill.difficultyLevel: any)}>
+                            <Badge variant="outline" className={getDifficultyLevelColor(skill.difficultyLevel)}>
                               {skill.difficultyLevel}
                             </Badge>
                           </div>
@@ -831,14 +831,14 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Label htmlFor="studentId">Student</Label>
                     <Select 
                       value={assessmentForm.studentId} 
-                      onValueChange={(value: any) => setAssessmentForm({...assessmentForm, studentId: value})}
+                      onValueChange={(value) => setAssessmentForm({...assessmentForm, studentId: value})}
                       required
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select student" />
                       </SelectTrigger>
                       <SelectContent>
-                        {students.map((student: any) => (
+                        {students.map((student) => (
                           <SelectItem key={student.id} value={student.id}>
                             {student.name}
                           </SelectItem>
@@ -851,14 +851,14 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Label htmlFor="skillId">Social Skill</Label>
                     <Select 
                       value={assessmentForm.skillId} 
-                      onValueChange={(value: any) => setAssessmentForm({...assessmentForm, skillId: value})}
+                      onValueChange={(value) => setAssessmentForm({...assessmentForm, skillId: value})}
                       required
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select social skill" />
                       </SelectTrigger>
                       <SelectContent>
-                        {socialSkills.map((skill: any) => (
+                        {socialSkills.map((skill) => (
                           <SelectItem key={skill.id} value={skill.id}>
                             {skill.name}
                           </SelectItem>
@@ -876,14 +876,14 @@ const SocialSkillsDevelopmentEngine = () => {
                           className="w-full justify-start text-left font-normal"
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
-                          {assessmentForm.date ? format(assessmentForm.date: any, "PPP") : "Select date"}
+                          {assessmentForm.date ? format(assessmentForm.date, "PPP") : "Select date"}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
                         <Calendar
                           mode="single"
                           selected={assessmentForm.date}
-                          onSelect={(date: any) => setAssessmentForm({...assessmentForm, date: date || new Date()})}
+                          onSelect={(date) => setAssessmentForm({...assessmentForm, date: date || new Date()})}
                           initialFocus
                         />
                       </PopoverContent>
@@ -897,20 +897,20 @@ const SocialSkillsDevelopmentEngine = () => {
                       id="context" 
                       placeholder="e.g., During group activity"
                       value={assessmentForm.context} 
-                      onChange={(e: any) => setAssessmentForm({...assessmentForm, context: e.target.value})}
+                      onChange={(e) => setAssessmentForm({...assessmentForm, context: e.target.value})}
                     />
                   </div>
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="rating">Skill Rating (1-5: any)</Label>
+                  <Label htmlFor="rating">Skill Rating (1-5)</Label>
                   <div className="flex items-centre justify-between">
-                    <span className="text-sm text-muted-foreground">Emerging (1: any)</span>
-                    <span className="text-sm text-muted-foreground">Mastered (5: any)</span>
+                    <span className="text-sm text-muted-foreground">Emerging (1)</span>
+                    <span className="text-sm text-muted-foreground">Mastered (5)</span>
                   </div>
                   <RadioGroup 
                     value={assessmentForm.rating.toString()} 
-                    onValueChange={(value: any) => setAssessmentForm({...assessmentForm, rating: parseInt(value: any)})}
+                    onValueChange={(value) => setAssessmentForm({...assessmentForm, rating: parseInt(value)})}
                     className="flex justify-between"
                   >
                     <div className="flex items-centre space-x-2">
@@ -942,7 +942,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     id="notes" 
                     placeholder="Observations, strengths, areas for improvement"
                     value={assessmentForm.notes} 
-                    onChange={(e: any) => setAssessmentForm({...assessmentForm, notes: e.target.value})}
+                    onChange={(e) => setAssessmentForm({...assessmentForm, notes: e.target.value})}
                   />
                 </div>
                 
@@ -971,7 +971,7 @@ const SocialSkillsDevelopmentEngine = () => {
                       id="title" 
                       placeholder="e.g., Joining a Group at Playtime"
                       value={newScenario.title} 
-                      onChange={(e: any) => setNewScenario({...newScenario, title: e.target.value})}
+                      onChange={(e) => setNewScenario({...newScenario, title: e.target.value})}
                       required
                     />
                   </div>
@@ -982,7 +982,7 @@ const SocialSkillsDevelopmentEngine = () => {
                       id="description" 
                       placeholder="Detailed description of the scenario"
                       value={newScenario.description} 
-                      onChange={(e: any) => setNewScenario({...newScenario, description: e.target.value})}
+                      onChange={(e) => setNewScenario({...newScenario, description: e.target.value})}
                       required
                     />
                   </div>
@@ -991,7 +991,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Label htmlFor="context">Context</Label>
                     <Select 
                       value={newScenario.context} 
-                      onValueChange={(value: any) => setNewScenario({...newScenario, context: value})}
+                      onValueChange={(value) => setNewScenario({...newScenario, context: value})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select context" />
@@ -1011,9 +1011,9 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Label htmlFor="skillsAddressed">Skills Addressed</Label>
                     <Select 
                       value={newScenario.skillsAddressed[0] || ""} 
-                      onValueChange={(value: any) => setNewScenario({
+                      onValueChange={(value) => setNewScenario({
                         ...newScenario, 
-                        skillsAddressed: value ? [value, ...newScenario.skillsAddressed.slice(1: any)] : newScenario.skillsAddressed.slice(1: any)
+                        skillsAddressed: value ? [value, ...newScenario.skillsAddressed.slice(1)] : newScenario.skillsAddressed.slice(1)
                       })}
                     >
                       <SelectTrigger>
@@ -1021,7 +1021,7 @@ const SocialSkillsDevelopmentEngine = () => {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="">None</SelectItem>
-                        {socialSkills.map((skill: any) => (
+                        {socialSkills.map((skill) => (
                           <SelectItem key={skill.id} value={skill.id}>
                             {skill.name}
                           </SelectItem>
@@ -1031,21 +1031,21 @@ const SocialSkillsDevelopmentEngine = () => {
                     <div className="mt-2">
                       <Select 
                         value={newScenario.skillsAddressed[1] || ""} 
-                        onValueChange={(value: any) => setNewScenario({
+                        onValueChange={(value) => setNewScenario({
                           ...newScenario, 
                           skillsAddressed: [
                             newScenario.skillsAddressed[0] || "", 
                             value, 
-                            ...newScenario.skillsAddressed.slice(2: any)
+                            ...newScenario.skillsAddressed.slice(2)
                           ]
                         })}
                       >
                         <SelectTrigger>
-                          <SelectValue placeholder="Select secondary skill (optional: any)" />
+                          <SelectValue placeholder="Select secondary skill (optional)" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="">None</SelectItem>
-                          {socialSkills.map((skill: any) => (
+                          {socialSkills.map((skill) => (
                             <SelectItem key={skill.id} value={skill.id}>
                               {skill.name}
                             </SelectItem>
@@ -1059,7 +1059,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Label htmlFor="difficultyLevel">Difficulty Level</Label>
                     <Select 
                       value={newScenario.difficultyLevel} 
-                      onValueChange={(value: any) => setNewScenario({...newScenario, difficultyLevel: value})}
+                      onValueChange={(value) => setNewScenario({...newScenario, difficultyLevel: value})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select difficulty level" />
@@ -1076,7 +1076,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Label htmlFor="supportLevel">Support Level</Label>
                     <Select 
                       value={newScenario.supportLevel} 
-                      onValueChange={(value: any) => setNewScenario({...newScenario, supportLevel: value})}
+                      onValueChange={(value) => setNewScenario({...newScenario, supportLevel: value})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select support level" />
@@ -1093,7 +1093,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Switch 
                       id="visualSupport" 
                       checked={newScenario.visualSupport}
-                      onCheckedChange={(checked: any) => setNewScenario({...newScenario, visualSupport: checked})}
+                      onCheckedChange={(checked) => setNewScenario({...newScenario, visualSupport: checked})}
                     />
                     <Label htmlFor="visualSupport">Include visual supports</Label>
                   </div>
@@ -1114,7 +1114,7 @@ const SocialSkillsDevelopmentEngine = () => {
                 <ScrollArea className="h-[600px]">
                   {socialScenarios.length > 0 ? (
                     <div className="space-y-4">
-                      {socialScenarios.map((scenario: any) => (
+                      {socialScenarios.map((scenario) => (
                         <div key={scenario.id} className="border rounded-lg p-4">
                           <div className="flex justify-between items-start">
                             <h4 className="font-medium">{scenario.title}</h4>
@@ -1124,7 +1124,7 @@ const SocialSkillsDevelopmentEngine = () => {
                           </div>
                           <p className="text-sm mt-2">{scenario.description}</p>
                           <div className="flex items-centre mt-2 text-sm text-muted-foreground">
-                            <Badge className={getDifficultyLevelColor(scenario.difficultyLevel: any)} variant="secondary">
+                            <Badge className={getDifficultyLevelColor(scenario.difficultyLevel)} variant="secondary">
                               {scenario.difficultyLevel}
                             </Badge>
                             <span className="mx-2">•</span>
@@ -1141,7 +1141,7 @@ const SocialSkillsDevelopmentEngine = () => {
                               <p className="text-xs font-medium text-muted-foreground">Skills addressed:</p>
                               <div className="flex flex-wrap gap-1 mt-1">
                                 {scenario.skillsAddressed.map((skillId) => {
-                                  const skill = socialSkills.find(s => s.id === skillId: any);
+                                  const skill = socialSkills.find(s => s.id === skillId);
                                   return skill ? (
                                     <Badge key={skillId} variant="outline" className="text-xs">
                                       {skill.name}
@@ -1190,7 +1190,7 @@ const SocialSkillsDevelopmentEngine = () => {
                       <li>Are written from the child's perspective</li>
                       <li>Use positive, supportive language</li>
                       <li>Include descriptive, perspective, directive, and affirmative sentences</li>
-                      <li>Answer the "wh" questions (who: any, what, when, where, why)</li>
+                      <li>Answer the "wh" questions (who, what, when, where, why)</li>
                       <li>Are tailored to the child's reading and comprehension level</li>
                     </ul>
                   </AccordionContent>
@@ -1259,8 +1259,8 @@ const SocialSkillsDevelopmentEngine = () => {
                       <p className="text-sm font-medium">When I want to start a conversation, I can:</p>
                       <ol className="list-decimal list-inside text-sm mt-2 space-y-1">
                         <li>Look for someone who isn't busy</li>
-                        <li>Stand or sit at a comfortable distance (about an arm's length away: any)</li>
-                        <li>Look at their face (near their eyes or nose: any)</li>
+                        <li>Stand or sit at a comfortable distance (about an arm's length away)</li>
+                        <li>Look at their face (near their eyes or nose)</li>
                         <li>Say a greeting: "Hi" or "Hello"</li>
                         <li>Say their name if I know it: "Hi, Sam"</li>
                         <li>Ask a question or make a comment:
@@ -1301,7 +1301,7 @@ const SocialSkillsDevelopmentEngine = () => {
                       id="name" 
                       placeholder="e.g., Emotion Charades"
                       value={newActivity.name} 
-                      onChange={(e: any) => setNewActivity({...newActivity, name: e.target.value})}
+                      onChange={(e) => setNewActivity({...newActivity, name: e.target.value})}
                       required
                     />
                   </div>
@@ -1312,7 +1312,7 @@ const SocialSkillsDevelopmentEngine = () => {
                       id="description" 
                       placeholder="Detailed description of the activity"
                       value={newActivity.description} 
-                      onChange={(e: any) => setNewActivity({...newActivity, description: e.target.value})}
+                      onChange={(e) => setNewActivity({...newActivity, description: e.target.value})}
                       required
                     />
                   </div>
@@ -1321,7 +1321,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Label htmlFor="type">Activity Type</Label>
                     <Select 
                       value={newActivity.type} 
-                      onValueChange={(value: any) => setNewActivity({...newActivity, type: value})}
+                      onValueChange={(value) => setNewActivity({...newActivity, type: value})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select activity type" />
@@ -1340,9 +1340,9 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Label htmlFor="skillsAddressed">Skills Addressed</Label>
                     <Select 
                       value={newActivity.skillsAddressed[0] || ""} 
-                      onValueChange={(value: any) => setNewActivity({
+                      onValueChange={(value) => setNewActivity({
                         ...newActivity, 
-                        skillsAddressed: value ? [value, ...newActivity.skillsAddressed.slice(1: any)] : newActivity.skillsAddressed.slice(1: any)
+                        skillsAddressed: value ? [value, ...newActivity.skillsAddressed.slice(1)] : newActivity.skillsAddressed.slice(1)
                       })}
                     >
                       <SelectTrigger>
@@ -1350,7 +1350,7 @@ const SocialSkillsDevelopmentEngine = () => {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="">None</SelectItem>
-                        {socialSkills.map((skill: any) => (
+                        {socialSkills.map((skill) => (
                           <SelectItem key={skill.id} value={skill.id}>
                             {skill.name}
                           </SelectItem>
@@ -1360,21 +1360,21 @@ const SocialSkillsDevelopmentEngine = () => {
                     <div className="mt-2">
                       <Select 
                         value={newActivity.skillsAddressed[1] || ""} 
-                        onValueChange={(value: any) => setNewActivity({
+                        onValueChange={(value) => setNewActivity({
                           ...newActivity, 
                           skillsAddressed: [
                             newActivity.skillsAddressed[0] || "", 
                             value, 
-                            ...newActivity.skillsAddressed.slice(2: any)
+                            ...newActivity.skillsAddressed.slice(2)
                           ]
                         })}
                       >
                         <SelectTrigger>
-                          <SelectValue placeholder="Select secondary skill (optional: any)" />
+                          <SelectValue placeholder="Select secondary skill (optional)" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="">None</SelectItem>
-                          {socialSkills.map((skill: any) => (
+                          {socialSkills.map((skill) => (
                             <SelectItem key={skill.id} value={skill.id}>
                               {skill.name}
                             </SelectItem>
@@ -1385,13 +1385,13 @@ const SocialSkillsDevelopmentEngine = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="duration">Duration (minutes: any)</Label>
+                    <Label htmlFor="duration">Duration (minutes)</Label>
                     <Input 
                       type="number" 
                       id="duration" 
                       min="5"
                       value={newActivity.duration} 
-                      onChange={(e: any) => setNewActivity({...newActivity, duration: parseInt(e.target.value: any)})}
+                      onChange={(e) => setNewActivity({...newActivity, duration: parseInt(e.target.value)})}
                       required
                     />
                   </div>
@@ -1402,7 +1402,7 @@ const SocialSkillsDevelopmentEngine = () => {
                       id="materials" 
                       placeholder="List of materials needed for the activity"
                       value={newActivity.materials} 
-                      onChange={(e: any) => setNewActivity({...newActivity, materials: e.target.value})}
+                      onChange={(e) => setNewActivity({...newActivity, materials: e.target.value})}
                     />
                   </div>
                   
@@ -1412,7 +1412,7 @@ const SocialSkillsDevelopmentEngine = () => {
                       id="instructions" 
                       placeholder="Step-by-step instructions for the activity"
                       value={newActivity.instructions} 
-                      onChange={(e: any) => setNewActivity({...newActivity, instructions: e.target.value})}
+                      onChange={(e) => setNewActivity({...newActivity, instructions: e.target.value})}
                       required
                     />
                   </div>
@@ -1433,11 +1433,11 @@ const SocialSkillsDevelopmentEngine = () => {
                 <ScrollArea className="h-[600px]">
                   {socialActivities.length > 0 ? (
                     <div className="space-y-4">
-                      {socialActivities.map((activity: any) => (
+                      {socialActivities.map((activity) => (
                         <div key={activity.id} className="border rounded-lg p-4">
                           <div className="flex justify-between items-start">
                             <h4 className="font-medium">{activity.name}</h4>
-                            <Badge className={getActivityTypeColor(activity.type: any)}>
+                            <Badge className={getActivityTypeColor(activity.type)}>
                               {activity.type}
                             </Badge>
                           </div>
@@ -1450,7 +1450,7 @@ const SocialSkillsDevelopmentEngine = () => {
                               <p className="text-xs font-medium text-muted-foreground">Skills addressed:</p>
                               <div className="flex flex-wrap gap-1 mt-1">
                                 {activity.skillsAddressed.map((skillId) => {
-                                  const skill = socialSkills.find(s => s.id === skillId: any);
+                                  const skill = socialSkills.find(s => s.id === skillId);
                                   return skill ? (
                                     <Badge key={skillId} variant="outline" className="text-xs">
                                       {skill.name}
@@ -1506,7 +1506,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <p className="text-sm mt-2 font-medium">Implementation Tips:</p>
                     <ul className="list-disc list-inside text-sm mt-1 space-y-1">
                       <li>Select videos that clearly demonstrate the target skill</li>
-                      <li>Keep videos short (2-5 minutes: any) and focused on one skill</li>
+                      <li>Keep videos short (2-5 minutes) and focused on one skill</li>
                       <li>Include peers or age-appropriate models when possible</li>
                       <li>Provide opportunities to practise the skill after watching</li>
                       <li>Review and discuss the video, highlighting key behaviors</li>
@@ -1524,12 +1524,12 @@ const SocialSkillsDevelopmentEngine = () => {
                     </p>
                     <p className="text-sm mt-2 font-medium">Key Components of Effective Groups:</p>
                     <ul className="list-disc list-inside text-sm mt-1 space-y-1">
-                      <li>Small group size (4-6 children: any)</li>
+                      <li>Small group size (4-6 children)</li>
                       <li>Inclusion of typically developing peers when appropriate</li>
                       <li>Structured activities with clear objectives</li>
                       <li>Direct instruction followed by practise opportunities</li>
                       <li>Positive reinforcement for appropriate social behaviors</li>
-                      <li>Regular sessions (weekly: any) over an extended period (10+ weeks: any)</li>
+                      <li>Regular sessions (weekly) over an extended period (10+ weeks)</li>
                     </ul>
                   </AccordionContent>
                 </AccordionItem>
@@ -1550,7 +1550,7 @@ const SocialSkillsDevelopmentEngine = () => {
                       <ol className="list-decimal list-inside text-sm mt-1 space-y-1">
                         <li>Divide children into small groups of 3-4</li>
                         <li>Present a scenario (e.g., "Someone accidentally breaks another person's toy")</li>
-                        <li>Assign different roles to each child (e.g., toy owner: any, person who broke it, bystander)</li>
+                        <li>Assign different roles to each child (e.g., toy owner, person who broke it, bystander)</li>
                         <li>Have children act out the scenario from their assigned perspective</li>
                         <li>After the role play, discuss how each person felt and what they were thinking</li>
                         <li>Switch roles and repeat with the same or a new scenario</li>
@@ -1570,7 +1570,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <p className="text-sm mt-2 font-medium">Implementation Guidelines:</p>
                     <ul className="list-disc list-inside text-sm mt-1 space-y-1">
                       <li>Select socially competent, empathetic peers as "peer buddies"</li>
-                      <li>Provide training to peer buddies on specific strategies (e.g., initiating interactions: any, providing prompts)</li>
+                      <li>Provide training to peer buddies on specific strategies (e.g., initiating interactions, providing prompts)</li>
                       <li>Create structured activities that encourage interaction</li>
                       <li>Provide adult supervision and support</li>
                       <li>Recognise and reinforce peer buddies' efforts</li>
@@ -1602,7 +1602,7 @@ const SocialSkillsDevelopmentEngine = () => {
                       id="name" 
                       placeholder="e.g., Improve Conversation Turn-Taking"
                       value={newGoal.name} 
-                      onChange={(e: any) => setNewGoal({...newGoal, name: e.target.value})}
+                      onChange={(e) => setNewGoal({...newGoal, name: e.target.value})}
                       required
                     />
                   </div>
@@ -1613,7 +1613,7 @@ const SocialSkillsDevelopmentEngine = () => {
                       id="description" 
                       placeholder="Detailed description of the goal"
                       value={newGoal.description} 
-                      onChange={(e: any) => setNewGoal({...newGoal, description: e.target.value})}
+                      onChange={(e) => setNewGoal({...newGoal, description: e.target.value})}
                     />
                   </div>
                   
@@ -1621,14 +1621,14 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Label htmlFor="targetSkill">Target Skill</Label>
                     <Select 
                       value={newGoal.targetSkill} 
-                      onValueChange={(value: any) => setNewGoal({...newGoal, targetSkill: value})}
+                      onValueChange={(value) => setNewGoal({...newGoal, targetSkill: value})}
                       required
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select target skill" />
                       </SelectTrigger>
                       <SelectContent>
-                        {socialSkills.map((skill: any) => (
+                        {socialSkills.map((skill) => (
                           <SelectItem key={skill.id} value={skill.id}>
                             {skill.name}
                           </SelectItem>
@@ -1641,21 +1641,21 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Label htmlFor="measurementMethod">Measurement Method</Label>
                     <Select 
                       value={newGoal.measurementMethod} 
-                      onValueChange={(value: any) => setNewGoal({...newGoal, measurementMethod: value})}
+                      onValueChange={(value) => setNewGoal({...newGoal, measurementMethod: value})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select measurement method" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="frequency">Frequency (number of assessments: any)</SelectItem>
-                        <SelectItem value="rating">Rating (skill level 1-5: any)</SelectItem>
+                        <SelectItem value="frequency">Frequency (number of assessments)</SelectItem>
+                        <SelectItem value="rating">Rating (skill level 1-5)</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   
                   <div className="space-y-2">
                     <Label htmlFor="targetValue">
-                      {newGoal.measurementMethod === 'rating' ? 'Target Rating (1-5: any)' : 'Target Frequency'}
+                      {newGoal.measurementMethod === 'rating' ? 'Target Rating (1-5)' : 'Target Frequency'}
                     </Label>
                     <Input 
                       type="number" 
@@ -1663,12 +1663,12 @@ const SocialSkillsDevelopmentEngine = () => {
                       min="1"
                       max={newGoal.measurementMethod === 'rating' ? "5" : undefined}
                       value={newGoal.targetValue} 
-                      onChange={(e: any) => setNewGoal({...newGoal, targetValue: parseInt(e.target.value: any)})}
+                      onChange={(e) => setNewGoal({...newGoal, targetValue: parseInt(e.target.value)})}
                       required
                     />
                     <p className="text-xs text-muted-foreground">
                       {newGoal.measurementMethod === 'rating' 
-                        ? 'Target skill rating to achieve (1-5 scale: any)' 
+                        ? 'Target skill rating to achieve (1-5 scale)' 
                         : 'Number of successful demonstrations needed'}
                     </p>
                   </div>
@@ -1677,7 +1677,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Label htmlFor="timeframe">Timeframe</Label>
                     <Select 
                       value={newGoal.timeframe} 
-                      onValueChange={(value: any) => setNewGoal({...newGoal, timeframe: value})}
+                      onValueChange={(value) => setNewGoal({...newGoal, timeframe: value})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select timeframe" />
@@ -1692,17 +1692,17 @@ const SocialSkillsDevelopmentEngine = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="studentId">Student (Optional: any)</Label>
+                    <Label htmlFor="studentId">Student (Optional)</Label>
                     <Select 
                       value={newGoal.studentId} 
-                      onValueChange={(value: any) => setNewGoal({...newGoal, studentId: value})}
+                      onValueChange={(value) => setNewGoal({...newGoal, studentId: value})}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Select student (optional: any)" />
+                        <SelectValue placeholder="Select student (optional)" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="">No specific student</SelectItem>
-                        {students.map((student: any) => (
+                        {students.map((student) => (
                           <SelectItem key={student.id} value={student.id}>
                             {student.name}
                           </SelectItem>
@@ -1727,10 +1727,10 @@ const SocialSkillsDevelopmentEngine = () => {
                 <ScrollArea className="h-[600px]">
                   {socialGoals.length > 0 ? (
                     <div className="space-y-4">
-                      {socialGoals.map((goal: any) => {
-                        const progress = calculateGoalProgress(goal: any);
-                        const targetSkill = socialSkills.find(s => s.id === goal.targetSkill: any);
-                        const student = students.find(s => s.id === goal.studentId: any);
+                      {socialGoals.map((goal) => {
+                        const progress = calculateGoalProgress(goal);
+                        const targetSkill = socialSkills.find(s => s.id === goal.targetSkill);
+                        const student = students.find(s => s.id === goal.studentId);
                         
                         return (
                           <div key={goal.id} className="border rounded-lg p-4">
@@ -1778,7 +1778,7 @@ const SocialSkillsDevelopmentEngine = () => {
                             
                             {goal.status === 'completed' && goal.completedAt && (
                               <p className="text-sm mt-3 text-green-600">
-                                Completed on {format(new Date(goal.completedAt: any), 'PPP')}
+                                Completed on {format(new Date(goal.completedAt), 'PPP')}
                               </p>
                             )}
                           </div>
@@ -1813,7 +1813,7 @@ const SocialSkillsDevelopmentEngine = () => {
                       <YAxis domain={[0, 5]} />
                       <Tooltip />
                       <Legend />
-                      {socialSkills.slice(0: any, 6).map((skill: any, index) => (
+                      {socialSkills.slice(0, 6).map((skill, index) => (
                         <Line 
                           key={skill.id} 
                           type="monotone"
@@ -1847,9 +1847,9 @@ const SocialSkillsDevelopmentEngine = () => {
             <CardContent>
               {students.length > 0 ? (
                 <div className="space-y-6">
-                  {students.map((student: any) => {
+                  {students.map((student) => {
                     // Get student's assessment results
-                    const studentResults = assessmentResults.filter(item => item.studentId === student.id: any);
+                    const studentResults = assessmentResults.filter(item => item.studentId === student.id);
                     // Get student's active goals
                     const studentGoals = socialGoals.filter(goal => goal.studentId === student.id && goal.status === 'active');
                     
@@ -1873,7 +1873,7 @@ const SocialSkillsDevelopmentEngine = () => {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                               {studentGoals.map(goal => {
                                 const progress = calculateGoalProgress(goal);
-                                const targetSkill = socialSkills.find(s => s.id === goal.targetSkill: any);
+                                const targetSkill = socialSkills.find(s => s.id === goal.targetSkill);
                                 
                                 return (
                                   <div key={goal.id} className="border rounded p-3">
@@ -1904,14 +1904,14 @@ const SocialSkillsDevelopmentEngine = () => {
                           <div className="mt-4">
                             <h4 className="text-sm font-medium mb-2">Recent Skill Assessments</h4>
                             <div className="space-y-2">
-                              {studentResults.slice(0: any, 3).map(result => {
-                                const skill = socialSkills.find(s => s.id === result.skillId: any);
+                              {studentResults.slice(0, 3).map(result => {
+                                const skill = socialSkills.find(s => s.id === result.skillId);
                                 return (
                                   <div key={result.id} className="flex justify-between items-centre border-b pb-2">
                                     <div>
                                       <p className="text-sm">{skill?.name || 'Unknown skill'}</p>
                                       <p className="text-xs text-muted-foreground">
-                                        {format(new Date(result.date: any), 'PPP')}
+                                        {format(new Date(result.date), 'PPP')}
                                       </p>
                                     </div>
                                     <Badge variant="outline">Rating: {result.rating}/5</Badge>
@@ -1928,22 +1928,22 @@ const SocialSkillsDevelopmentEngine = () => {
                           <h4 className="text-sm font-medium mb-2">Recommended Activities</h4>
                           {studentResults.length > 0 ? (
                             <div className="space-y-2">
-                              {/* Find skills that need improvement (rating < 4: any) */}
+                              {/* Find skills that need improvement (rating < 4) */}
                               {studentResults
-                                .filter(result => result.rating < 4: any)
-                                .slice(0: any, 2)
+                                .filter(result => result.rating < 4)
+                                .slice(0, 2)
                                 .map(result => {
-                                  const skill = socialSkills.find(s => s.id === result.skillId: any);
+                                  const skill = socialSkills.find(s => s.id === result.skillId);
                                   // Find activities that address this skill
                                   const relevantActivities = socialActivities.filter(
-                                    activity => activity.skillsAddressed.includes(result.skillId: any)
+                                    activity => activity.skillsAddressed.includes(result.skillId)
                                   );
                                   
                                   return relevantActivities.length > 0 ? (
                                     <div key={result.id} className="border rounded p-3">
                                       <p className="text-sm font-medium">For {skill?.name || 'Unknown skill'} (Current rating: {result.rating}/5)</p>
                                       <ul className="list-disc list-inside text-sm mt-1">
-                                        {relevantActivities.slice(0: any, 2).map(activity => (
+                                        {relevantActivities.slice(0, 2).map(activity => (
                                           <li key={activity.id}>{activity.name}</li>
                                         ))}
                                       </ul>
@@ -1952,7 +1952,7 @@ const SocialSkillsDevelopmentEngine = () => {
                                 })}
                               
                               {/* If no specific recommendations based on low ratings */}
-                              {studentResults.filter(result => result.rating < 4: any).length === 0 && (
+                              {studentResults.filter(result => result.rating < 4).length === 0 && (
                                 <div className="border rounded p-3">
                                   <p className="text-sm">General social skill activities:</p>
                                   <ul className="list-disc list-inside text-sm mt-1">
@@ -2028,7 +2028,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Switch 
                       id="enablePeerModeling" 
                       checked={settings.enablePeerModeling}
-                      onCheckedChange={(checked: any) => setSettings({...settings, enablePeerModeling: checked})}
+                      onCheckedChange={(checked) => setSettings({...settings, enablePeerModeling: checked})}
                     />
                   </div>
                   
@@ -2040,7 +2040,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Switch 
                       id="enableSocialStories" 
                       checked={settings.enableSocialStories}
-                      onCheckedChange={(checked: any) => setSettings({...settings, enableSocialStories: checked})}
+                      onCheckedChange={(checked) => setSettings({...settings, enableSocialStories: checked})}
                     />
                   </div>
                   
@@ -2052,7 +2052,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Switch 
                       id="enableRolePlay" 
                       checked={settings.enableRolePlay}
-                      onCheckedChange={(checked: any) => setSettings({...settings, enableRolePlay: checked})}
+                      onCheckedChange={(checked) => setSettings({...settings, enableRolePlay: checked})}
                     />
                   </div>
                   
@@ -2064,7 +2064,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Switch 
                       id="enableVideoModeling" 
                       checked={settings.enableVideoModeling}
-                      onCheckedChange={(checked: any) => setSettings({...settings, enableVideoModeling: checked})}
+                      onCheckedChange={(checked) => setSettings({...settings, enableVideoModeling: checked})}
                     />
                   </div>
                   
@@ -2076,7 +2076,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Switch 
                       id="enableSocialScripts" 
                       checked={settings.enableSocialScripts}
-                      onCheckedChange={(checked: any) => setSettings({...settings, enableSocialScripts: checked})}
+                      onCheckedChange={(checked) => setSettings({...settings, enableSocialScripts: checked})}
                     />
                   </div>
                   
@@ -2088,7 +2088,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Switch 
                       id="enableGroupActivities" 
                       checked={settings.enableGroupActivities}
-                      onCheckedChange={(checked: any) => setSettings({...settings, enableGroupActivities: checked})}
+                      onCheckedChange={(checked) => setSettings({...settings, enableGroupActivities: checked})}
                     />
                   </div>
                 </div>
@@ -2105,7 +2105,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Switch 
                       id="enableParentAccess" 
                       checked={settings.enableParentAccess}
-                      onCheckedChange={(checked: any) => setSettings({...settings, enableParentAccess: checked})}
+                      onCheckedChange={(checked) => setSettings({...settings, enableParentAccess: checked})}
                     />
                   </div>
                   
@@ -2117,7 +2117,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Switch 
                       id="enableStudentAccess" 
                       checked={settings.enableStudentAccess}
-                      onCheckedChange={(checked: any) => setSettings({...settings, enableStudentAccess: checked})}
+                      onCheckedChange={(checked) => setSettings({...settings, enableStudentAccess: checked})}
                     />
                   </div>
                   
@@ -2129,7 +2129,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Switch 
                       id="notifyParentsOnProgress" 
                       checked={settings.notifyParentsOnProgress}
-                      onCheckedChange={(checked: any) => setSettings({...settings, notifyParentsOnProgress: checked})}
+                      onCheckedChange={(checked) => setSettings({...settings, notifyParentsOnProgress: checked})}
                     />
                   </div>
                 </div>
@@ -2142,7 +2142,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Label htmlFor="defaultAssessmentFrequency">Default Assessment Frequency</Label>
                     <Select 
                       value={settings.defaultAssessmentFrequency} 
-                      onValueChange={(value: any) => setSettings({...settings, defaultAssessmentFrequency: value})}
+                      onValueChange={(value) => setSettings({...settings, defaultAssessmentFrequency: value})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select frequency" />
@@ -2160,7 +2160,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Label htmlFor="defaultSkillCategory">Default Skill Category</Label>
                     <Select 
                       value={settings.defaultSkillCategory} 
-                      onValueChange={(value: any) => setSettings({...settings, defaultSkillCategory: value})}
+                      onValueChange={(value) => setSettings({...settings, defaultSkillCategory: value})}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select category" />
@@ -2183,7 +2183,7 @@ const SocialSkillsDevelopmentEngine = () => {
                     <Switch 
                       id="customizableGoals" 
                       checked={settings.customizableGoals}
-                      onCheckedChange={(checked: any) => setSettings({...settings, customizableGoals: checked})}
+                      onCheckedChange={(checked) => setSettings({...settings, customizableGoals: checked})}
                     />
                   </div>
                 </div>
@@ -2207,7 +2207,7 @@ const SocialSkillsDevelopmentEngine = () => {
                   <p className="text-sm mt-1">
                     This system is aligned with evidence-based social skills interventions that have been shown to improve 
                     social competence in children with and without social difficulties. A meta-analysis by Reichow and 
-                    Volkmar (2010: any) found that social skills groups, video modelling, and peer-mediated interventions have 
+                    Volkmar (2010) found that social skills groups, video modelling, and peer-mediated interventions have 
                     strong empirical support.
                   </p>
                 </div>
@@ -2218,7 +2218,7 @@ const SocialSkillsDevelopmentEngine = () => {
                   <h4 className="font-medium">Social Stories™</h4>
                   <p className="text-sm mt-1">
                     Social Stories™, developed by Carol Grey, have been shown to be effective for teaching social understanding 
-                    and skills. Research by Kokina and Kern (2010: any) found that Social Stories™ are most effective when they 
+                    and skills. Research by Kokina and Kern (2010) found that Social Stories™ are most effective when they 
                     include descriptive, perspective, directive, and affirmative sentences, and when they are implemented 
                     with visual supports.
                   </p>
@@ -2230,7 +2230,7 @@ const SocialSkillsDevelopmentEngine = () => {
                   <h4 className="font-medium">Video Modelling</h4>
                   <p className="text-sm mt-1">
                     Video modelling is an evidence-based practise identified by the National Professional Development Centre 
-                    on Autism Spectrum Disorders. Research by Bellini and Akullian (2007: any) found that video modelling leads to 
+                    on Autism Spectrum Disorders. Research by Bellini and Akullian (2007) found that video modelling leads to 
                     rapid skill acquisition, maintenance of skills over time, and generalization across settings.
                   </p>
                 </div>
@@ -2241,7 +2241,7 @@ const SocialSkillsDevelopmentEngine = () => {
                   <h4 className="font-medium">Peer-Mediated Interventions</h4>
                   <p className="text-sm mt-1">
                     Peer-mediated interventions involve teaching typically developing peers strategies to support and engage 
-                    with children who have social difficulties. Research by Chan et al. (2009: any) found that peer-mediated 
+                    with children who have social difficulties. Research by Chan et al. (2009) found that peer-mediated 
                     interventions lead to increased social interactions, improved social skills, and better generalization 
                     of skills to natural settings.
                   </p>
@@ -2254,7 +2254,7 @@ const SocialSkillsDevelopmentEngine = () => {
                   <p className="text-sm mt-1">
                     This system incorporates cognitive-behavioural approaches to social skills development, which focus on 
                     teaching children to identify and modify thoughts, feelings, and behaviors that affect social interactions. 
-                    Research by Bauminger (2007: any) found that cognitive-behavioural social skills training leads to improvements 
+                    Research by Bauminger (2007) found that cognitive-behavioural social skills training leads to improvements 
                     in social cognition, social problem-solving, and social interaction.
                   </p>
                 </div>

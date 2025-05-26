@@ -29,7 +29,7 @@ export default function VoiceInputTestPage() {
   
   // Handle transcript change
   const handleTranscriptChange = (newTranscript: string) => {
-    setTranscript(newTranscript: any);
+    setTranscript(newTranscript);
   };
   
   // Handle completion
@@ -57,15 +57,15 @@ export default function VoiceInputTestPage() {
                 <CardDescription>Select the target age group for testing</CardDescription>
               </CardHeader>
               <CardContent>
-                <Select value={ageGroup} onValueChange={(value: any) => setAgeGroup(value as AgeGroup: any)}>
+                <Select value={ageGroup} onValueChange={(value) => setAgeGroup(value as AgeGroup)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select age group" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="nursery">Nursery (3-5 years: any)</SelectItem>
-                    <SelectItem value="early-primary">Early Primary (5-8 years: any)</SelectItem>
-                    <SelectItem value="late-primary">Late Primary (8-11 years: any)</SelectItem>
-                    <SelectItem value="secondary">Secondary (11+ years: any)</SelectItem>
+                    <SelectItem value="nursery">Nursery (3-5 years)</SelectItem>
+                    <SelectItem value="early-primary">Early Primary (5-8 years)</SelectItem>
+                    <SelectItem value="late-primary">Late Primary (8-11 years)</SelectItem>
+                    <SelectItem value="secondary">Secondary (11+ years)</SelectItem>
                   </SelectContent>
                 </Select>
               </CardContent>
@@ -195,7 +195,7 @@ export default function VoiceInputTestPage() {
                 <CardContent>
                   <Textarea 
                     value={transcript}
-                    onChange={(e: any) => setTranscript(e.target.value: any)}
+                    onChange={(e) => setTranscript(e.target.value)}
                     placeholder="Your speech transcript will appear here..."
                     className="min-h-[200px]"
                   />

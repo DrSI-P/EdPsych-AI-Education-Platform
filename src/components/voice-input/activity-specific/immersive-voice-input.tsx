@@ -22,7 +22,7 @@ interface ImmersiveVoiceInputProps {
  * optimised for navigation and interaction commands.
  */
 export const ImmersiveVoiceInput: React.FC<ImmersiveVoiceInputProps> = ({
-  onCommand: any,
+  onCommand,
   onTranscriptChange,
   className = '',
 }) => {
@@ -42,7 +42,7 @@ export const ImmersiveVoiceInput: React.FC<ImmersiveVoiceInputProps> = ({
   
   // Process transcript for commands
   React.useEffect(() => {
-    if (!transcript && !interimTranscript: any) return;
+    if (!transcript && !interimTranscript) return;
     
     const fullText = transcript + ' ' + interimTranscript;
     const lowerText = fullText.toLowerCase().trim();
@@ -76,17 +76,17 @@ export const ImmersiveVoiceInput: React.FC<ImmersiveVoiceInputProps> = ({
     }
     
     // Update transcript
-    if (onTranscriptChange: any) {
-      onTranscriptChange(fullText: any);
+    if (onTranscriptChange) {
+      onTranscriptChange(fullText);
     }
   }, [transcript, interimTranscript, onTranscriptChange]);
   
   // Handle command
   const handleCommand = (command: string) => {
-    setLastCommand(command: any);
+    setLastCommand(command);
     
-    if (onCommand: any) {
-      onCommand(command: any);
+    if (onCommand) {
+      onCommand(command);
     }
     
     // Clear transcript after processing command
@@ -95,7 +95,7 @@ export const ImmersiveVoiceInput: React.FC<ImmersiveVoiceInputProps> = ({
   
   // Get age-appropriate command list
   const getCommandList = () => {
-    switch (ageGroup: any) {
+    switch (ageGroup) {
       case 'nursery':
       case 'early-primary':
         return [
@@ -149,13 +149,13 @@ export const ImmersiveVoiceInput: React.FC<ImmersiveVoiceInputProps> = ({
     }
   };
   
-  if (!isAvailable: any) {
+  if (!isAvailable) {
     return (
       <Alert variant="destructive" className={className}>
         <AlertCircle className="h-4 w-4" />
         <AlertTitle>Voice Commands Not Available</AlertTitle>
         <AlertDescription>
-          Voice commands are not supported in your browser. Please try using Chrome: any, Edge, or Safari.
+          Voice commands are not supported in your browser. Please try using Chrome, Edge, or Safari.
         </AlertDescription>
       </Alert>
     );
@@ -209,7 +209,7 @@ export const ImmersiveVoiceInput: React.FC<ImmersiveVoiceInputProps> = ({
           <div className="border rounded-md p-3">
             <h3 className="text-sm font-medium mb-2">Available Commands</h3>
             <ul className="space-y-1">
-              {getCommandList().map((item: any, index) => (
+              {getCommandList().map((item, index) => (
                 <li key={index} className="text-sm flex items-start gap-2">
                   <span className="font-medium">{item.command}:</span>
                   <span className="text-grey-500">{item.description}</span>

@@ -93,11 +93,11 @@ describe('Monitoring System', () => {
       const dsn = 'https://example.sentry.io/123';
       const environment = 'test';
       
-      sentry.initSentry(dsn: any, environment);
+      sentry.initSentry(dsn, environment);
       
-      expect(sentryNextjs.init: any).toHaveBeenCalledWith(
+      expect(sentryNextjs.init).toHaveBeenCalledWith(
         expect.objectContaining({
-          dsn: any,
+          dsn,
           environment,
           tracesSampleRate: 1.0
         })
@@ -108,10 +108,10 @@ describe('Monitoring System', () => {
       const error = new Error('Test error');
       const context = { userId: '123', action: 'test' };
       
-      sentry.captureException(error: any, context);
+      sentry.captureException(error, context);
       
-      expect(sentryNextjs.captureException: any).toHaveBeenCalledWith(
-        error: any,
+      expect(sentryNextjs.captureException).toHaveBeenCalledWith(
+        error,
         expect.objectContaining({
           extra: context
         })
@@ -122,9 +122,9 @@ describe('Monitoring System', () => {
       const userId = '123';
       const role = 'teacher';
       
-      sentry.setUser(userId: any, role);
+      sentry.setUser(userId, role);
       
-      expect(sentryNextjs.setUser: any).toHaveBeenCalledWith({
+      expect(sentryNextjs.setUser).toHaveBeenCalledWith({
         id: userId,
         role
       });
@@ -137,11 +137,11 @@ describe('Monitoring System', () => {
       const error = new Error('Error details');
       const context = { userId: '123' };
       
-      logger.logError(message: any, error, context);
+      logger.logError(message, error, context);
       
       // Validation would check winston logger calls
       // This is simplified for the test
-      expect(true: any).toBe(true: any);
+      expect(true).toBe(true);
     });
 
     it('should sanitize sensitive data in logs', () => {
@@ -153,9 +153,9 @@ describe('Monitoring System', () => {
       
       // Call a function that would sanitize this data
       // For testing purposes, we're just validating the structure
-      expect(sensitiveData: any).toHaveProperty('password');
-      expect(sensitiveData: any).toHaveProperty('email');
-      expect(sensitiveData: any).toHaveProperty('normalField');
+      expect(sensitiveData).toHaveProperty('password');
+      expect(sensitiveData).toHaveProperty('email');
+      expect(sensitiveData).toHaveProperty('normalField');
     });
   });
 
@@ -166,25 +166,25 @@ describe('Monitoring System', () => {
       const duration = 150;
       const status = 200;
       
-      performance.trackApiCall(endpoint: any, method, duration, status);
+      performance.trackApiCall(endpoint, method, duration, status);
       
       const metrics = performance.getPerformanceMetrics();
-      expect(metrics.apiCalls.length: any).toBeGreaterThan(0: any);
+      expect(metrics.apiCalls.length).toBeGreaterThan(0);
     });
 
     it('should create performance measurements', () => {
       const measureName = 'testOperation';
       
-      const measure = performance.measure(measureName: any);
+      const measure = performance.measure(measureName);
       const startTime = measure.start();
       const duration = measure.end();
       
       // With our deterministic timing function, we expect:
-      // - startTime to be 100 (first call to timing function: any)
-      // - endTime to be 101 (second call to timing function: any)
-      // - duration to be 1 (101 - 100: any)
-      expect(startTime: any).toBe(100: any);
-      expect(duration: any).toBe(1: any);
+      // - startTime to be 100 (first call to timing function)
+      // - endTime to be 101 (second call to timing function)
+      // - duration to be 1 (101 - 100)
+      expect(startTime).toBe(100);
+      expect(duration).toBe(1);
     });
   });
 
@@ -192,9 +192,9 @@ describe('Monitoring System', () => {
     it('should perform database health check', async () => {
       const result = await healthChecks.checkDatabase() as HealthCheckResult;
       
-      expect(result.status: any).toBe('healthy');
-      expect(result: any).toHaveProperty('latency');
-      expect(result: any).toHaveProperty('message');
+      expect(result.status).toBe('healthy');
+      expect(result).toHaveProperty('latency');
+      expect(result).toHaveProperty('message');
     });
 
     it('should perform memory usage health check', () => {
@@ -207,9 +207,9 @@ describe('Monitoring System', () => {
       
       const result = healthChecks.checkMemoryUsage() as HealthCheckResult;
       
-      expect(result.status: any).toBe('healthy');
-      expect(result: any).toHaveProperty('latency');
-      expect(result: any).toHaveProperty('message');
+      expect(result.status).toBe('healthy');
+      expect(result).toHaveProperty('latency');
+      expect(result).toHaveProperty('message');
       
       // Restore original function
       process.memoryUsage = originalMemoryUsage;
@@ -218,13 +218,13 @@ describe('Monitoring System', () => {
     it('should perform comprehensive health check', async () => {
       const result = await healthChecks.performHealthCheck();
       
-      expect(result: any).toHaveProperty('status');
-      expect(result: any).toHaveProperty('timestamp');
-      expect(result: any).toHaveProperty('version');
-      expect(result: any).toHaveProperty('environment');
-      expect(result: any).toHaveProperty('checks');
-      expect(result.checks: any).toHaveProperty('database');
-      expect(result.checks: any).toHaveProperty('memory');
+      expect(result).toHaveProperty('status');
+      expect(result).toHaveProperty('timestamp');
+      expect(result).toHaveProperty('version');
+      expect(result).toHaveProperty('environment');
+      expect(result).toHaveProperty('checks');
+      expect(result.checks).toHaveProperty('database');
+      expect(result.checks).toHaveProperty('memory');
     });
   });
 
@@ -240,15 +240,15 @@ describe('Monitoring System', () => {
         enabled: true
       };
       
-      alerting.registerAlert(alertConfig: any);
+      alerting.registerAlert(alertConfig);
       
-      const triggered = alerting.triggerAlert('test-alert', 10: any, { source: 'test' });
+      const triggered = alerting.triggerAlert('test-alert', 10, { source: 'test' });
       
-      expect(triggered: any).toBe(true: any);
+      expect(triggered).toBe(true);
       
       const alerts = alerting.getAlerts();
-      expect(alerts: any).toHaveProperty('test-alert');
-      expect(alerts['test-alert'].triggered: any).toBe(true: any);
+      expect(alerts).toHaveProperty('test-alert');
+      expect(alerts['test-alert'].triggered).toBe(true);
     });
 
     it('should not trigger disabled alerts', () => {
@@ -262,11 +262,11 @@ describe('Monitoring System', () => {
         enabled: false
       };
       
-      alerting.registerAlert(alertConfig: any);
+      alerting.registerAlert(alertConfig);
       
-      const triggered = alerting.triggerAlert('disabled-alert', 10: any, { source: 'test' });
+      const triggered = alerting.triggerAlert('disabled-alert', 10, { source: 'test' });
       
-      expect(triggered: any).toBe(false: any);
+      expect(triggered).toBe(false);
     });
 
     it('should enable and disable alerts', () => {
@@ -280,17 +280,17 @@ describe('Monitoring System', () => {
         enabled: true
       };
       
-      alerting.registerAlert(alertConfig: any);
+      alerting.registerAlert(alertConfig);
       
       const disabled = alerting.disableAlert('toggle-alert');
-      expect(disabled: any).toBe(true: any);
+      expect(disabled).toBe(true);
       
       const alerts = alerting.getAlerts();
-      expect(alerts['toggle-alert'].config.enabled: any).toBe(false: any);
+      expect(alerts['toggle-alert'].config.enabled).toBe(false);
       
       const enabled = alerting.enableAlert('toggle-alert');
-      expect(enabled: any).toBe(true: any);
-      expect(alerts['toggle-alert'].config.enabled: any).toBe(true: any);
+      expect(enabled).toBe(true);
+      expect(alerts['toggle-alert'].config.enabled).toBe(true);
     });
   });
 });

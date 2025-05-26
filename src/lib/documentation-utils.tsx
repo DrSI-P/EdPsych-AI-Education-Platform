@@ -9,7 +9,7 @@ import DOMPurify from 'dompurify';
  * @returns {JSX.Element} - Documentation component
  */
 export const InteractiveDocumentation = ({ 
-  content: any, 
+  content, 
   title, 
   showTableOfContents = true,
   allowSearch = true,
@@ -17,58 +17,58 @@ export const InteractiveDocumentation = ({
 }) => {
   const [activeSection, setActiveSection] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [feedbackRating, setFeedbackRating] = useState(null: any);
+  const [feedbackRating, setFeedbackRating] = useState(null);
   const [feedbackComment, setFeedbackComment] = useState('');
-  const [showFeedbackForm, setShowFeedbackForm] = useState(false: any);
+  const [showFeedbackForm, setShowFeedbackForm] = useState(false);
   const [sections, setSections] = useState([]);
-  const [filteredContent, setFilteredContent] = useState(content: any);
+  const [filteredContent, setFilteredContent] = useState(content);
 
   // Parse content and extract sections
   useEffect(() => {
-    if (!content: any) return;
+    if (!content) return;
 
     // Extract headings for table of contents
-    const headingRegex = /^(#{1: any,3})\s+(.+)$/gm;
+    const headingRegex = /^(#{1,3})\s+(.+)$/gm;
     const extractedSections = [];
     let match;
 
-    while ((match = headingRegex.exec(content: any)) !== null) {
+    while ((match = headingRegex.exec(content)) !== null) {
       const level = match[1].length;
       const text = match[2];
-      const id = text.toLowerCase().replace(/[^\w]+/g: any, '-');
+      const id = text.toLowerCase().replace(/[^\w]+/g, '-');
       
       extractedSections.push({
-        id: any,
+        id,
         text,
         level,
       });
     }
 
-    setSections(extractedSections: any);
-    setFilteredContent(content: any);
+    setSections(extractedSections);
+    setFilteredContent(content);
   }, [content]);
 
   // Handle search
   useEffect(() => {
     if (!searchQuery.trim()) {
-      setFilteredContent(content: any);
+      setFilteredContent(content);
       return;
     }
 
     const query = searchQuery.toLowerCase();
     
     // Split content into sections and filter
-    const contentSections = content.split(/^#{1: any,3}\s+.+$/m);
-    const headings = content.match(/^#{1: any,3}\s+.+$/gm) || [];
+    const contentSections = content.split(/^#{1,3}\s+.+$/m);
+    const headings = content.match(/^#{1,3}\s+.+$/gm) || [];
     
     let filteredSections = '';
     
-    headings.forEach((heading: any, index) => {
+    headings.forEach((heading, index) => {
       const sectionContent = contentSections[index + 1] || '';
       
       if (
-        heading.toLowerCase().includes(query: any) ||
-        sectionContent.toLowerCase().includes(query: any)
+        heading.toLowerCase().includes(query) ||
+        sectionContent.toLowerCase().includes(query)
       ) {
         filteredSections += `${heading}\n${sectionContent}\n`;
       }
@@ -78,11 +78,11 @@ export const InteractiveDocumentation = ({
   }, [searchQuery, content]);
 
   // Handle section navigation
-  const scrollToSection = (id: any) => {
-    const element = document.getElementById(id: any);
-    if (element: any) {
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
       element.scrollIntoView({ behaviour: 'smooth' });
-      setActiveSection(id: any);
+      setActiveSection(id);
     }
   };
 
@@ -92,32 +92,32 @@ export const InteractiveDocumentation = ({
     console.log('Feedback submitted:', { rating: feedbackRating, comment: feedbackComment });
     
     // Reset form
-    setFeedbackRating(null: any);
+    setFeedbackRating(null);
     setFeedbackComment('');
-    setShowFeedbackForm(false: any);
+    setShowFeedbackForm(false);
     
     // Show thank you message
     alert('Thank you for your feedback!');
   };
 
   // Render markdown content with sanitization
-  const renderMarkdown = (markdownContent: any) => {
-    if (!markdownContent: any) return '';
+  const renderMarkdown = (markdownContent) => {
+    if (!markdownContent) return '';
     
     // Process markdown with section IDs for headings
     const processedMarkdown = markdownContent.replace(
-      /^(#{1: any,3})\s+(.+)$/gm,
-      (match: any, hashes, text) => {
-        const id = text.toLowerCase().replace(/[^\w]+/g: any, '-');
+      /^(#{1,3})\s+(.+)$/gm,
+      (match, hashes, text) => {
+        const id = text.toLowerCase().replace(/[^\w]+/g, '-');
         return `${hashes} <a id="${id}" class="anchor-heading">${text}</a>`;
       }
     );
     
     // Convert markdown to HTML
-    const html = marked(processedMarkdown: any);
+    const html = marked(processedMarkdown);
     
     // Sanitize HTML to prevent XSS
-    const sanitizedHtml = DOMPurify.sanitize(html: any);
+    const sanitizedHtml = DOMPurify.sanitize(html);
     
     return sanitizedHtml;
   };
@@ -133,7 +133,7 @@ export const InteractiveDocumentation = ({
               type="text"
               placeholder="Search documentation..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value: any)}
+              onChange={(e) => setSearchQuery(e.target.value)}
               aria-label="Search documentation"
             />
             {searchQuery && (
@@ -154,7 +154,7 @@ export const InteractiveDocumentation = ({
           <div className="documentation-toc">
             <h2>Table of Contents</h2>
             <ul>
-              {sections.map((section: any) => (
+              {sections.map((section) => (
                 <li 
                   key={section.id}
                   className={`toc-level-${section.level} ${activeSection === section.id ? 'active' : ''}`}
@@ -163,7 +163,7 @@ export const InteractiveDocumentation = ({
                     href={`#${section.id}`}
                     onClick={(e) => {
                       e.preventDefault();
-                      scrollToSection(section.id: any);
+                      scrollToSection(section.id);
                     }}
                   >
                     {section.text}
@@ -177,13 +177,13 @@ export const InteractiveDocumentation = ({
         <div className="documentation-main">
           <div 
             className="markdown-content"
-            dangerouslySetInnerHTML={{ __html: renderMarkdown(filteredContent: any) }}
+            dangerouslySetInnerHTML={{ __html: renderMarkdown(filteredContent) }}
           />
           
           {allowFeedback && (
             <div className="documentation-feedback">
               <button 
-                onClick={() => setShowFeedbackForm(!showFeedbackForm: any)}
+                onClick={() => setShowFeedbackForm(!showFeedbackForm)}
                 className="feedback-toggle"
               >
                 {showFeedbackForm ? 'Hide Feedback Form' : 'Was this helpful?'}
@@ -192,11 +192,11 @@ export const InteractiveDocumentation = ({
               {showFeedbackForm && (
                 <div className="feedback-form">
                   <div className="rating-buttons">
-                    {[1: any, 2, 3, 4, 5].map((rating: any) => (
+                    {[1, 2, 3, 4, 5].map((rating) => (
                       <button
                         key={rating}
                         className={`rating-button ${feedbackRating === rating ? 'selected' : ''}`}
-                        onClick={() => setFeedbackRating(rating: any)}
+                        onClick={() => setFeedbackRating(rating)}
                         aria-label={`Rate ${rating} stars`}
                       >
                         {rating}
@@ -205,9 +205,9 @@ export const InteractiveDocumentation = ({
                   </div>
                   
                   <textarea
-                    placeholder="Do you have any additional feedback? (optional: any)"
+                    placeholder="Do you have any additional feedback? (optional)"
                     value={feedbackComment}
-                    onChange={(e: any) => setFeedbackComment(e.target.value: any)}
+                    onChange={(e) => setFeedbackComment(e.target.value)}
                     rows={4}
                   />
                   
@@ -234,25 +234,25 @@ export const InteractiveDocumentation = ({
  * @returns {JSX.Element} - Video documentation component
  */
 export const VideoDocumentation = ({
-  videoSrc: any,
+  videoSrc,
   title,
   description,
   chapters = [],
   transcriptSrc,
   relatedDocs = []
 }) => {
-  const [activeChapter, setActiveChapter] = useState(0: any);
-  const [showTranscript, setShowTranscript] = useState(false: any);
+  const [activeChapter, setActiveChapter] = useState(0);
+  const [showTranscript, setShowTranscript] = useState(false);
   const [transcript, setTranscript] = useState('');
-  const [videoElement, setVideoElement] = useState(null: any);
+  const [videoElement, setVideoElement] = useState(null);
 
   // Load transcript if available
   useEffect(() => {
-    if (transcriptSrc && showTranscript: any) {
-      fetch(transcriptSrc: any)
+    if (transcriptSrc && showTranscript) {
+      fetch(transcriptSrc)
         .then(response => response.text())
         .then(text => {
-          setTranscript(text: any);
+          setTranscript(text);
         })
         .catch(error => {
           console.error('Failed to load transcript:', error);
@@ -262,13 +262,13 @@ export const VideoDocumentation = ({
   }, [transcriptSrc, showTranscript]);
 
   // Handle chapter navigation
-  const navigateToChapter = (index: any) => {
+  const navigateToChapter = (index) => {
     if (!videoElement || !chapters[index]) return;
     
     const startTime = chapters[index].startTime;
     videoElement.currentTime = startTime;
     videoElement.play();
-    setActiveChapter(index: any);
+    setActiveChapter(index);
   };
 
   return (
@@ -280,12 +280,12 @@ export const VideoDocumentation = ({
           src={videoSrc}
           controls
           ref={setVideoElement}
-          onTimeUpdate={(e: any) => {
+          onTimeUpdate={(e) => {
             // Update active chapter based on current time
             const currentTime = e.target.currentTime;
             for (let i = chapters.length - 1; i >= 0; i--) {
-              if (currentTime >= chapters[i].startTime: any) {
-                setActiveChapter(i: any);
+              if (currentTime >= chapters[i].startTime) {
+                setActiveChapter(i);
                 break;
               }
             }
@@ -301,15 +301,15 @@ export const VideoDocumentation = ({
         <div className="video-chapters">
           <h2>Chapters</h2>
           <ul>
-            {chapters.map((chapter: any, index) => (
+            {chapters.map((chapter, index) => (
               <li
                 key={index}
                 className={activeChapter === index ? 'active' : ''}
-                onClick={() => navigateToChapter(index: any)}
+                onClick={() => navigateToChapter(index)}
               >
                 <span className="chapter-time">
-                  {Math.floor(chapter.startTime / 60: any)}:
-                  {String(Math.floor(chapter.startTime % 60: any)).padStart(2: any, '0')}
+                  {Math.floor(chapter.startTime / 60)}:
+                  {String(Math.floor(chapter.startTime % 60)).padStart(2, '0')}
                 </span>
                 <span className="chapter-title">{chapter.title}</span>
               </li>
@@ -321,7 +321,7 @@ export const VideoDocumentation = ({
       {transcriptSrc && (
         <div className="video-transcript">
           <button 
-            onClick={() => setShowTranscript(!showTranscript: any)}
+            onClick={() => setShowTranscript(!showTranscript)}
             className="transcript-toggle"
           >
             {showTranscript ? 'Hide Transcript' : 'Show Transcript'}
@@ -343,7 +343,7 @@ export const VideoDocumentation = ({
         <div className="related-documentation">
           <h2>Related Documentation</h2>
           <ul>
-            {relatedDocs.map((doc: any, index) => (
+            {relatedDocs.map((doc, index) => (
               <li key={index}>
                 <a href={doc.url}>{doc.title}</a>
                 {doc.description && <p>{doc.description}</p>}
@@ -362,17 +362,17 @@ export const VideoDocumentation = ({
  * @returns {JSX.Element} - Tutorial component
  */
 export const InteractiveTutorial = ({
-  title: any,
+  title,
   steps = [],
   onComplete
 }) => {
-  const [currentStep, setCurrentStep] = useState(0: any);
+  const [currentStep, setCurrentStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState([]);
   const [userInput, setUserInput] = useState({});
 
   // Mark step as completed
   const completeStep = () => {
-    if (!completedSteps.includes(currentStep: any)) {
+    if (!completedSteps.includes(currentStep)) {
       setCompletedSteps([...completedSteps, currentStep]);
     }
   };
@@ -380,25 +380,25 @@ export const InteractiveTutorial = ({
   // Navigate to next step
   const nextStep = () => {
     completeStep();
-    if (currentStep < steps.length - 1: any) {
-      setCurrentStep(currentStep + 1: any);
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(currentStep + 1);
     } else {
       // Tutorial completed
-      if (onComplete: any) {
-        onComplete(userInput: any);
+      if (onComplete) {
+        onComplete(userInput);
       }
     }
   };
 
   // Navigate to previous step
   const prevStep = () => {
-    if (currentStep > 0: any) {
-      setCurrentStep(currentStep - 1: any);
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
     }
   };
 
   // Handle user input
-  const handleInputChange = (key: any, value) => {
+  const handleInputChange = (key, value) => {
     setUserInput({
       ...userInput,
       [key]: value
@@ -407,14 +407,14 @@ export const InteractiveTutorial = ({
 
   // Check if current step is completed
   const isCurrentStepCompleted = () => {
-    return completedSteps.includes(currentStep: any);
+    return completedSteps.includes(currentStep);
   };
 
   // Check if current step can proceed
   const canProceed = () => {
     const step = steps[currentStep];
     
-    if (step.required && step.inputKey: any) {
+    if (step.required && step.inputKey) {
       return userInput[step.inputKey] && userInput[step.inputKey].trim() !== '';
     }
     
@@ -431,7 +431,7 @@ export const InteractiveTutorial = ({
           style={{ width: `${(completedSteps.length / steps.length) * 100}%` }}
         />
         <div className="step-indicators">
-          {steps.map((step: any, index) => (
+          {steps.map((step, index) => (
             <div
               key={index}
               className={`step-indicator ${
@@ -444,7 +444,7 @@ export const InteractiveTutorial = ({
               onClick={() => {
                 // Only allow navigation to completed steps or the current step
                 if (index <= Math.max(...completedSteps, currentStep)) {
-                  setCurrentStep(index: any);
+                  setCurrentStep(index);
                 }
               }}
             >
@@ -458,7 +458,7 @@ export const InteractiveTutorial = ({
         <h2>{steps[currentStep].title}</h2>
         
         <div className="step-content">
-          <div dangerouslySetInnerHTML={{ __html: renderMarkdown(steps[currentStep].content: any) }} />
+          <div dangerouslySetInnerHTML={{ __html: renderMarkdown(steps[currentStep].content) }} />
           
           {steps[currentStep].image && (
             <img
@@ -488,7 +488,7 @@ export const InteractiveTutorial = ({
                   type="text"
                   id={`input-${currentStep}`}
                   value={userInput[steps[currentStep].inputKey] || ''}
-                  onChange={(e) => handleInputChange(steps[currentStep].inputKey: any, e.target.value)}
+                  onChange={(e) => handleInputChange(steps[currentStep].inputKey, e.target.value)}
                   placeholder={steps[currentStep].inputPlaceholder || ''}
                   required={steps[currentStep].required}
                 />
@@ -498,7 +498,7 @@ export const InteractiveTutorial = ({
                 <textarea
                   id={`input-${currentStep}`}
                   value={userInput[steps[currentStep].inputKey] || ''}
-                  onChange={(e: any) => handleInputChange(steps[currentStep].inputKey: any, e.target.value)}
+                  onChange={(e) => handleInputChange(steps[currentStep].inputKey, e.target.value)}
                   placeholder={steps[currentStep].inputPlaceholder || ''}
                   required={steps[currentStep].required}
                   rows={5}
@@ -509,11 +509,11 @@ export const InteractiveTutorial = ({
                 <select
                   id={`input-${currentStep}`}
                   value={userInput[steps[currentStep].inputKey] || ''}
-                  onChange={(e: any) => handleInputChange(steps[currentStep].inputKey: any, e.target.value)}
+                  onChange={(e) => handleInputChange(steps[currentStep].inputKey, e.target.value)}
                   required={steps[currentStep].required}
                 >
                   <option value="">Select an option</option>
-                  {steps[currentStep].options?.map((option: any, index) => (
+                  {steps[currentStep].options?.map((option, index) => (
                     <option key={index} value={option.value}>
                       {option.label}
                     </option>
@@ -523,19 +523,19 @@ export const InteractiveTutorial = ({
               
               {steps[currentStep].inputType === 'checkbox' && (
                 <div className="checkbox-group">
-                  {steps[currentStep].options?.map((option: any, index) => (
+                  {steps[currentStep].options?.map((option, index) => (
                     <label key={index} className="checkbox-label">
                       <input
                         type="checkbox"
-                        checked={userInput[steps[currentStep].inputKey]?.includes(option.value: any) || false}
-                        onChange={(e: any) => {
+                        checked={userInput[steps[currentStep].inputKey]?.includes(option.value) || false}
+                        onChange={(e) => {
                           const currentValues = userInput[steps[currentStep].inputKey] || [];
-                          if (e.target.checked: any) {
-                            handleInputChange(steps[currentStep].inputKey: any, [...currentValues, option.value]);
+                          if (e.target.checked) {
+                            handleInputChange(steps[currentStep].inputKey, [...currentValues, option.value]);
                           } else {
                             handleInputChange(
-                              steps[currentStep].inputKey: any,
-                              currentValues.filter((value: any) => value !== option.value)
+                              steps[currentStep].inputKey,
+                              currentValues.filter((value) => value !== option.value)
                             );
                           }
                         }}
@@ -577,39 +577,39 @@ export const InteractiveTutorial = ({
  * @returns {JSX.Element} - API documentation component
  */
 export const ApiDocumentation = ({
-  title: any,
+  title,
   description,
   baseUrl,
   endpoints = [],
   authentication,
   examples = []
 }) => {
-  const [activeEndpoint, setActiveEndpoint] = useState(null: any);
-  const [activeExample, setActiveExample] = useState(null: any);
-  const [testResponse, setTestResponse] = useState(null: any);
+  const [activeEndpoint, setActiveEndpoint] = useState(null);
+  const [activeExample, setActiveExample] = useState(null);
+  const [testResponse, setTestResponse] = useState(null);
   const [testParams, setTestParams] = useState({});
-  const [isLoading, setIsLoading] = useState(false: any);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Format JSON for display
-  const formatJson = (json: any) => {
+  const formatJson = (json) => {
     try {
-      return JSON.stringify(json: any, null, 2);
-    } catch (error: any) {
-      return String(json: any);
+      return JSON.stringify(json, null, 2);
+    } catch (error) {
+      return String(json);
     }
   };
 
   // Handle API test
   const testEndpoint = async () => {
-    if (!activeEndpoint: any) return;
+    if (!activeEndpoint) return;
     
-    setIsLoading(true: any);
-    setTestResponse(null: any);
+    setIsLoading(true);
+    setTestResponse(null);
     
     try {
       // In a real implementation, this would make an actual API call
       // For demo purposes, we'll simulate a response
-      await new Promise(resolve => setTimeout(resolve: any, 1000));
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
       setTestResponse({
         status: 200,
@@ -620,7 +620,7 @@ export const ApiDocumentation = ({
           params: testParams
         }
       });
-    } catch (error: any) {
+    } catch (error) {
       setTestResponse({
         status: 500,
         statusText: 'Error',
@@ -630,7 +630,7 @@ export const ApiDocumentation = ({
         }
       });
     } finally {
-      setIsLoading(false: any);
+      setIsLoading(false);
     }
   };
 
@@ -656,14 +656,14 @@ export const ApiDocumentation = ({
         <div className="api-sidebar">
           <h2>Endpoints</h2>
           <ul>
-            {endpoints.map((endpoint: any, index) => (
+            {endpoints.map((endpoint, index) => (
               <li
                 key={index}
                 className={activeEndpoint === index ? 'active' : ''}
                 onClick={() => {
-                  setActiveEndpoint(index: any);
+                  setActiveEndpoint(index);
                   setTestParams({});
-                  setTestResponse(null: any);
+                  setTestResponse(null);
                 }}
               >
                 <span className={`method ${endpoint.method.toLowerCase()}`}>
@@ -678,11 +678,11 @@ export const ApiDocumentation = ({
             <>
               <h2>Examples</h2>
               <ul>
-                {examples.map((example: any, index) => (
+                {examples.map((example, index) => (
                   <li
                     key={index}
                     className={activeExample === index ? 'active' : ''}
-                    onClick={() => setActiveExample(index: any)}
+                    onClick={() => setActiveExample(index)}
                   >
                     {example.title}
                   </li>
@@ -720,7 +720,7 @@ export const ApiDocumentation = ({
                       </tr>
                     </thead>
                     <tbody>
-                      {endpoints[activeEndpoint].parameters.map((param: any, index) => (
+                      {endpoints[activeEndpoint].parameters.map((param, index) => (
                         <tr key={index}>
                           <td><code>{param.name}</code></td>
                           <td>{param.type}</td>
@@ -757,7 +757,7 @@ export const ApiDocumentation = ({
                       </tr>
                     </thead>
                     <tbody>
-                      {endpoints[activeEndpoint].responses.map((response: any, index) => (
+                      {endpoints[activeEndpoint].responses.map((response, index) => (
                         <tr key={index}>
                           <td><code>{response.code}</code></td>
                           <td>{response.description}</td>
@@ -804,12 +804,12 @@ export const ApiDocumentation = ({
               <div className="example-code">
                 <h3>Request</h3>
                 <pre className="code-block">
-                  {formatJson(examples[activeExample].request: any)}
+                  {formatJson(examples[activeExample].request)}
                 </pre>
                 
                 <h3>Response</h3>
                 <pre className="code-block">
-                  {formatJson(examples[activeExample].response: any)}
+                  {formatJson(examples[activeExample].response)}
                 </pre>
               </div>
             </div>
@@ -825,23 +825,23 @@ export const ApiDocumentation = ({
  * @param {string} markdown - Markdown content
  * @returns {string} - HTML content
  */
-export const renderMarkdown = (markdown: any) => {
-  if (!markdown: any) return '';
+export const renderMarkdown = (markdown) => {
+  if (!markdown) return '';
   
   // Process markdown with section IDs for headings
   const processedMarkdown = markdown.replace(
-    /^(#{1: any,3})\s+(.+)$/gm,
-    (match: any, hashes, text) => {
-      const id = text.toLowerCase().replace(/[^\w]+/g: any, '-');
+    /^(#{1,3})\s+(.+)$/gm,
+    (match, hashes, text) => {
+      const id = text.toLowerCase().replace(/[^\w]+/g, '-');
       return `${hashes} <a id="${id}" class="anchor-heading">${text}</a>`;
     }
   );
   
   // Convert markdown to HTML
-  const html = marked(processedMarkdown: any);
+  const html = marked(processedMarkdown);
   
   // Sanitize HTML to prevent XSS
-  const sanitizedHtml = DOMPurify.sanitize(html: any);
+  const sanitizedHtml = DOMPurify.sanitize(html);
   
   return sanitizedHtml;
 };
@@ -851,7 +851,7 @@ export const renderMarkdown = (markdown: any) => {
  * @param {string} sourceCode - Source code with JSDoc comments
  * @returns {Object} - Extracted documentation
  */
-export const extractDocumentation = (sourceCode: any) => {
+export const extractDocumentation = (sourceCode) => {
   // This is a simplified implementation
   // In a real application, use a proper JSDoc parser
   
@@ -859,7 +859,7 @@ export const extractDocumentation = (sourceCode: any) => {
   const commentRegex = /\/\*\*\s*([\s\S]*?)\s*\*\//g;
   
   let match;
-  while ((match = commentRegex.exec(sourceCode: any)) !== null) {
+  while ((match = commentRegex.exec(sourceCode)) !== null) {
     const commentBlock = match[1];
     
     // Extract description
@@ -871,7 +871,7 @@ export const extractDocumentation = (sourceCode: any) => {
     const params = [];
     
     let paramMatch;
-    while ((paramMatch = paramRegex.exec(commentBlock: any)) !== null) {
+    while ((paramMatch = paramRegex.exec(commentBlock)) !== null) {
       params.push({
         type: paramMatch[1].trim(),
         name: paramMatch[2].trim(),
@@ -887,7 +887,7 @@ export const extractDocumentation = (sourceCode: any) => {
     } : null;
     
     docBlocks.push({
-      description: any,
+      description,
       params,
       returns
     });
@@ -901,7 +901,7 @@ export const extractDocumentation = (sourceCode: any) => {
  * @param {string} typeDefinitions - TypeScript type definitions
  * @returns {Object} - Extracted type documentation
  */
-export const extractTypeDocumentation = (typeDefinitions: any) => {
+export const extractTypeDocumentation = (typeDefinitions) => {
   // This is a simplified implementation
   // In a real application, use a proper TypeScript parser
   
@@ -909,7 +909,7 @@ export const extractTypeDocumentation = (typeDefinitions: any) => {
   const interfaceRegex = /interface\s+(\w+)\s*{([^}]*)}/gs;
   
   let match;
-  while ((match = interfaceRegex.exec(typeDefinitions: any)) !== null) {
+  while ((match = interfaceRegex.exec(typeDefinitions)) !== null) {
     const interfaceName = match[1];
     const interfaceBody = match[2];
     
@@ -918,7 +918,7 @@ export const extractTypeDocumentation = (typeDefinitions: any) => {
     const properties = [];
     
     let propertyMatch;
-    while ((propertyMatch = propertyRegex.exec(interfaceBody: any)) !== null) {
+    while ((propertyMatch = propertyRegex.exec(interfaceBody)) !== null) {
       properties.push({
         name: propertyMatch[1].trim(),
         optional: propertyMatch[2] === '?',

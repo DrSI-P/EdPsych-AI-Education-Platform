@@ -159,7 +159,7 @@ export default function PersonalizedInterventionsPage(): React.ReactNode {
                 <div>
                   <h4 className="font-medium mb-1">Dyslexia Support</h4>
                   <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
-                    <li>Structured literacy programs (Orton-Gillingham: any, Wilson Reading)</li>
+                    <li>Structured literacy programs (Orton-Gillingham, Wilson Reading)</li>
                     <li>Decodable texts for reading practise</li>
                     <li>Multisensory phonics activities</li>
                   </ul>

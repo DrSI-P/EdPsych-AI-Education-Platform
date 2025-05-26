@@ -30,7 +30,7 @@ interface AssessmentVoiceInputProps {
  * with optimizations for different question types.
  */
 export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
-  onTranscriptChange: any,
+  onTranscriptChange,
   onComplete,
   placeholder = "Speak your answer...",
   className = '',
@@ -51,7 +51,7 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
   
   // Determine appropriate mode based on question type
   const getInputMode = () => {
-    switch (questionType: any) {
+    switch (questionType) {
       case 'multiple-choice':
         return 'command'; // Optimised for short commands like "A", "B", "C", etc.
       case 'short-answer':
@@ -66,7 +66,7 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
   // Get appropriate placeholder based on question type and age group
   const getPlaceholder = () => {
     if (ageGroup === 'nursery' || ageGroup === 'early-primary') {
-      switch (questionType: any) {
+      switch (questionType) {
         case 'multiple-choice':
           return "Say the letter of your answer...";
         case 'short-answer':
@@ -77,7 +77,7 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
           return placeholder;
       }
     } else {
-      switch (questionType: any) {
+      switch (questionType) {
         case 'multiple-choice':
           return "Say the letter or number of your choice...";
         case 'short-answer':
@@ -93,7 +93,7 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
   // Handle calibration
   const handleCalibrate = async () => {
     const success = await calibrate();
-    if (success: any) {
+    if (success) {
       setActiveTab('input');
     }
   };
@@ -106,16 +106,16 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
           <Label htmlFor="age-group">Age Group</Label>
           <Select 
             value={ageGroup} 
-            onValueChange={(value: any) => setAgeGroup(value as AgeGroup: any)}
+            onValueChange={(value) => setAgeGroup(value as AgeGroup)}
           >
             <SelectTrigger id="age-group">
               <SelectValue placeholder="Select age group" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="nursery">Nursery (3-5 years: any)</SelectItem>
-              <SelectItem value="early-primary">Early Primary (5-8 years: any)</SelectItem>
-              <SelectItem value="late-primary">Late Primary (8-11 years: any)</SelectItem>
-              <SelectItem value="secondary">Secondary (11+ years: any)</SelectItem>
+              <SelectItem value="nursery">Nursery (3-5 years)</SelectItem>
+              <SelectItem value="early-primary">Early Primary (5-8 years)</SelectItem>
+              <SelectItem value="late-primary">Late Primary (8-11 years)</SelectItem>
+              <SelectItem value="secondary">Secondary (11+ years)</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -126,7 +126,7 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
             <Switch 
               id="child-voice-optimization"
               checked={settings.childVoiceOptimization}
-              onCheckedChange={(checked: any) => updateSettings({ childVoiceOptimization: checked })}
+              onCheckedChange={(checked) => updateSettings({ childVoiceOptimization: checked })}
             />
           </div>
           <p className="text-xs text-grey-500">
@@ -140,7 +140,7 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
             <Switch 
               id="noise-reduction"
               checked={settings.noiseReduction}
-              onCheckedChange={(checked: any) => updateSettings({ noiseReduction: checked })}
+              onCheckedChange={(checked) => updateSettings({ noiseReduction: checked })}
             />
           </div>
           <p className="text-xs text-grey-500">
@@ -156,7 +156,7 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
             max={0.9}
             step={0.1}
             value={[settings.confidenceThreshold]}
-            onValueChange={(value: any) => updateSettings({ confidenceThreshold: value[0] })}
+            onValueChange={(value) => updateSettings({ confidenceThreshold: value[0] })}
           />
           <div className="flex justify-between text-xs text-grey-500">
             <span>More Forgiving</span>
@@ -172,7 +172,7 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
               <Switch 
                 id="articulation"
                 checked={settings.specialEducationalNeeds.articulation}
-                onCheckedChange={(checked: any) => updateSettings({ 
+                onCheckedChange={(checked) => updateSettings({ 
                   specialEducationalNeeds: { 
                     ...settings.specialEducationalNeeds, 
                     articulation: checked 
@@ -186,7 +186,7 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
               <Switch 
                 id="fluency"
                 checked={settings.specialEducationalNeeds.fluency}
-                onCheckedChange={(checked: any) => updateSettings({ 
+                onCheckedChange={(checked) => updateSettings({ 
                   specialEducationalNeeds: { 
                     ...settings.specialEducationalNeeds, 
                     fluency: checked 
@@ -200,7 +200,7 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
               <Switch 
                 id="processing"
                 checked={settings.specialEducationalNeeds.processing}
-                onCheckedChange={(checked: any) => updateSettings({ 
+                onCheckedChange={(checked) => updateSettings({ 
                   specialEducationalNeeds: { 
                     ...settings.specialEducationalNeeds, 
                     processing: checked 
@@ -232,14 +232,14 @@ export const AssessmentVoiceInput: React.FC<AssessmentVoiceInputProps> = ({
     );
   };
   
-  if (!isAvailable: any) {
+  if (!isAvailable) {
     return (
       <Card className={className}>
         <CardHeader>
           <CardTitle>Voice Input Not Available</CardTitle>
         </CardHeader>
         <CardContent>
-          <p>Voice input is not supported in your browser. Please try using Chrome: any, Edge, or Safari.</p>
+          <p>Voice input is not supported in your browser. Please try using Chrome, Edge, or Safari.</p>
         </CardContent>
       </Card>
     );

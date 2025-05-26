@@ -7,9 +7,9 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/toast';
 
 interface AssessmentCreatorProps {
-  onSave?: (assessment: any) => void;
+  onSave?: (assessment) => void;
   onCancel?: () => void;
-  initialData?: any;
+  initialData?;
 }
 
 export function AssessmentCreator({ onSave, onCancel, initialData }: AssessmentCreatorProps) {
@@ -157,7 +157,7 @@ export function AssessmentCreator({ onSave, onCancel, initialData }: AssessmentC
           <h2 className="text-xl font-semibold">Questions</h2>
         </CardHeader>
         <CardContent className="space-y-6">
-          {assessment.questions.map((question: any, index: number) => (
+          {assessment.questions.map((question, index: number) => (
             <div key={question.id || index} className="p-4 border rounded-md relative">
               <button
                 type="button"
