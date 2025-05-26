@@ -276,7 +276,7 @@ const BlogPostCard = ({ post }: { post: any }) => {
 };
 
 // Category List Component
-const CategoryList = ({ categories }: { categories[] }) => {
+const CategoryList = ({ categories }: { categories: any[] }) => {
   return (
     <div className="space-y-1">
       {categories.map((category) => (
@@ -293,7 +293,7 @@ const CategoryList = ({ categories }: { categories[] }) => {
 };
 
 // Tag Cloud Component
-const TagCloud = ({ tags }: { tags[] }) => {
+const TagCloud = ({ tags }: { tags: any[] }) => {
   return (
     <div className="flex flex-wrap gap-2">
       {tags.map((tag) => (
@@ -454,23 +454,19 @@ export function EducationalAIBlog() {
           {/* Categories */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-centre">
-                <BookMarked className="mr-2 h-5 w-5" />
-                Categories
-              </CardTitle>
+              <CardTitle>Categories</CardTitle>
             </CardHeader>
             <CardContent>
-              <CategoryList categories={categories} />
+              <ScrollArea className="h-[300px] pr-4">
+                <CategoryList categories={categories} />
+              </ScrollArea>
             </CardContent>
           </Card>
           
           {/* Popular Tags */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-centre">
-                <Tag className="mr-2 h-5 w-5" />
-                Popular Tags
-              </CardTitle>
+              <CardTitle>Popular Tags</CardTitle>
             </CardHeader>
             <CardContent>
               <TagCloud tags={popularTags} />
@@ -483,41 +479,72 @@ export function EducationalAIBlog() {
         
         {/* Main Blog Content */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Tabs */}
+          {/* Tabs for filtering */}
           <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid grid-cols-4 mb-6">
-              <TabsTrigger value="all">All</TabsTrigger>
-              <TabsTrigger value="ai-generated">AI Generated</TabsTrigger>
-              <TabsTrigger value="human-authored">Human Authored</TabsTrigger>
-              <TabsTrigger value="teaching-strategies">Teaching</TabsTrigger>
-            </TabsList>
+            <div className="flex items-centre justify-between">
+              <TabsList>
+                <TabsTrigger value="all">All Posts</TabsTrigger>
+                <TabsTrigger value="ai-generated">AI Generated</TabsTrigger>
+                <TabsTrigger value="human-authored">Human Authored</TabsTrigger>
+              </TabsList>
+              <Select defaultValue="newest">
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Sort by" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="newest">Newest First</SelectItem>
+                  <SelectItem value="oldest">Oldest First</SelectItem>
+                  <SelectItem value="popular">Most Popular</SelectItem>
+                  <SelectItem value="comments">Most Comments</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
             
-            <TabsContent value={activeTab} className="mt-0">
+            <TabsContent value="all" className="mt-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {filteredPosts.map(post => (
                   <BlogPostCard key={post.id} post={post} />
                 ))}
               </div>
-              
-              {filteredPosts.length === 0 && (
-                <Card className="p-8 text-center">
-                  <p className="text-muted-foreground mb-4">No articles found matching your criteria.</p>
-                  <Button variant="outline" onClick={() => setActiveTab("all")}>
-                    View All Articles
-                  </Button>
-                </Card>
-              )}
-              
-              {filteredPosts.length > 0 && (
-                <div className="flex justify-center mt-8">
-                  <Button variant="outline">
-                    Load More Articles
-                    <ChevronRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </div>
-              )}
+            </TabsContent>
+            
+            <TabsContent value="ai-generated" className="mt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {filteredPosts.map(post => (
+                  <BlogPostCard key={post.id} post={post} />
+                ))}
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="human-authored" className="mt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {filteredPosts.map(post => (
+                  <BlogPostCard key={post.id} post={post} />
+                ))}
+              </div>
             </TabsContent>
           </Tabs>
+          
+          {/* Pagination */}
+          <div className="flex items-centre justify-centre mt-8">
+            <div className="flex items-centre space-x-2">
+              <Button variant="outline" size="sm" disabled>
+                Previous
+              </Button>
+              <Button variant="outline" size="sm" className="bg-primary text-primary-foreground">
+                1
+              </Button>
+              <Button variant="outline" size="sm">
+                2
+              </Button>
+              <Button variant="outline" size="sm">
+                3
+              </Button>
+              <Button variant="outline" size="sm">
+                Next
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
