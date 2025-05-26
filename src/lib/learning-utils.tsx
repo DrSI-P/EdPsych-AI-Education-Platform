@@ -585,16 +585,16 @@ export const getAdaptedContent = (
       const contentByStyle: Record<LearningStyle, string> = {
         [LearningStyle.VISUAL]: `
           <div class="visual-content">
-            <h2>>Visual Representation of Key Concepts</h2>
+            <h2>Visual Representation of Key Concepts</h2>
             <img src="/images/modules/${moduleId}/concept_map.svg" alt="Concept map" />
-            <p>>The diagram above illustrates the relationships between key concepts in this module.</p>
+            <p>The diagram above illustrates the relationships between key concepts in this module.</p>
             <div class="video-container">
               <video controls>
                 <source src="/videos/modules/${moduleId}/visual_explanation.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             </div>
-            <h3>>Colour-Coded Summary</h3>
+            <h3>Colour-Coded Summary</h3>
             <ul class="colour-coded">
               <li class="primary">Primary concept: Educational Psychology Foundations</li>
               <li class="secondary">Secondary concept: Cognitive Development Stages</li>
@@ -604,25 +604,25 @@ export const getAdaptedContent = (
         `,
         [LearningStyle.AUDITORY]: `
           <div class="auditory-content">
-            <h2>>Audio Explanations of Key Concepts</h2>
-            <p>>Listen to the following audio explanations of the key concepts in this module:</p>
+            <h2>Audio Explanations of Key Concepts</h2>
+            <p>Listen to the following audio explanations of the key concepts in this module:</p>
             <div class="audio-player">
-              <h3>>Introduction to Educational Psychology</h3>
+              <h3>Introduction to Educational Psychology</h3>
               <audio controls>
                 <source src="/audio/modules/${moduleId}/introduction.mp3" type="audio/mpeg" />
                 Your browser does not support the audio element.
               </audio>
             </div>
             <div class="audio-player">
-              <h3>>Cognitive Development Theories</h3>
+              <h3>Cognitive Development Theories</h3>
               <audio controls>
                 <source src="/audio/modules/${moduleId}/cognitive_development.mp3" type="audio/mpeg" />
                 Your browser does not support the audio element.
               </audio>
             </div>
             <div class="discussion-points">
-              <h3>>Discussion Points</h3>
-              <p>>Consider these questions as you listen:</p>
+              <h3>Discussion Points</h3>
+              <p>Consider these questions as you listen:</p>
               <ul>>
                 <li>>How do the different theories of cognitive development compare?</li>
                 <li>>What implications do these theories have for educational practise?</li>
@@ -633,14 +633,14 @@ export const getAdaptedContent = (
         `,
         [LearningStyle.READING_WRITING]: `
           <div class="reading-writing-content">
-            <h2>>Detailed Text Explanation of Key Concepts</h2>
+            <h2>Detailed Text Explanation of Key Concepts</h2>
             <article>>
-              <h3>>Introduction to Educational Psychology</h3>
-              <p>>Educational psychology is the branch of psychology concerned with the scientific study of human learning. The study of learning processes, from both cognitive and behavioural perspectives, allows researchers to understand individual differences in intelligence, cognitive development, affect, motivation, self-regulation, and self-concept, as well as their role in learning.</p>
-              <p>>The field of educational psychology relies heavily on quantitative methods, including testing and measurement, to enhance educational activities related to instructional design, classroom management, and assessment, which serve to facilitate learning processes in various educational settings across the lifespan.</p>
+              <h3>Introduction to Educational Psychology</h3>
+              <p>Educational psychology is the branch of psychology concerned with the scientific study of human learning. The study of learning processes, from both cognitive and behavioural perspectives, allows researchers to understand individual differences in intelligence, cognitive development, affect, motivation, self-regulation, and self-concept, as well as their role in learning.</p>
+              <p>The field of educational psychology relies heavily on quantitative methods, including testing and measurement, to enhance educational activities related to instructional design, classroom management, and assessment, which serve to facilitate learning processes in various educational settings across the lifespan.</p>
               
-              <h3>>Key Theories in Educational Psychology</h3>
-              <p>>Several key theories have shaped our understanding of how people learn:</p>
+              <h3>Key Theories in Educational Psychology</h3>
+              <p>Several key theories have shaped our understanding of how people learn:</p>
               <ol>>
                 <li>><strong>>Behaviorism</strong>: Focuses on observable behaviors and how they are affected by external stimuli.</li>
                 <li>><strong>>Cognitivism</strong>: Examines internal mental processes such as problem-solving, memory, and language.</li>
@@ -648,12 +648,12 @@ export const getAdaptedContent = (
                 <li>><strong>>Social Learning Theory</strong>: Proposes that people learn from observing others.</li>
               </ol>
               
-              <h3>>Summary and Key Points</h3>
-              <p>>Educational psychology provides the foundation for understanding how students learn and develop. By applying psychological principles to educational settings, educators can improve teaching methods, enhance learning outcomes, and address individual differences among students.</p>
+              <h3>Summary and Key Points</h3>
+              <p>Educational psychology provides the foundation for understanding how students learn and develop. By applying psychological principles to educational settings, educators can improve teaching methods, enhance learning outcomes, and address individual differences among students.</p>
             </article>
             <div class="writing-prompts">
-              <h3>>Writing Prompts</h3>
-              <p>>Respond to the following prompts to reinforce your understanding:</p>
+              <h3>Writing Prompts</h3>
+              <p>Respond to the following prompts to reinforce your understanding:</p>
               <ol>>
                 <li>>Summarize the key differences between behaviorism and cognitivism.</li>
                 <li>>Explain how constructivist theory might influence classroom teaching methods.</li>
@@ -664,31 +664,31 @@ export const getAdaptedContent = (
         `,
         [LearningStyle.KINESTHETIC]: `
           <div class="kinesthetic-content">
-            <h2>>Interactive Learning Activities</h2>
+            <h2>Interactive Learning Activities</h2>
             <div class="interactive-exercise">
-              <h3>>Hands-on Application Exercise</h3>
-              <p>>Complete the following interactive activities to apply the concepts you've learned:</p>
+              <h3>Hands-on Application Exercise</h3>
+              <p>Complete the following interactive activities to apply the concepts you've learned:</p>
               <div class="activity-container">
                 <button class="start-activity" data-activity="cognitive_mapping">Start Cognitive Mapping Exercise</button>
                 <div class="activity-description">
-                  <p>>In this exercise, you'll create a physical or digital mind map of key educational psychology concepts and their relationships.</p>
-                  <p>>Materials needed: Paper and coloured pens, or a digital mind mapping tool.</p>
+                  <p>In this exercise, you'll create a physical or digital mind map of key educational psychology concepts and their relationships.</p>
+                  <p>Materials needed: Paper and coloured pens, or a digital mind mapping tool.</p>
                 </div>
               </div>
               <div class="activity-container">
                 <button class="start-activity" data-activity="case_study_simulation">Start Case Study Simulation</button>
                 <div class="activity-description">
-                  <p>>Work through a realistic classroom scenario where you'll apply educational psychology principles to solve challenges.</p>
+                  <p>Work through a realistic classroom scenario where you'll apply educational psychology principles to solve challenges.</p>
                 </div>
               </div>
             </div>
             <div class="role-play">
-              <h3>>Role-Play Scenario</h3>
-              <p>>With a partner or in a group, act out the following scenario:</p>
+              <h3>Role-Play Scenario</h3>
+              <p>With a partner or in a group, act out the following scenario:</p>
               <blockquote>>
                 You are a teacher designing a lesson for a diverse classroom with students who have different learning preferences. Demonstrate how you would incorporate multiple approaches to accommodate various learning styles.
               </blockquote>
-              <p>>After completing the role-play, reflect on:</p>
+              <p>After completing the role-play, reflect on:</p>
               <ul>>
                 <li>>Which strategies were most effective?</li>
                 <li>>What challenges did you encounter?</li>
@@ -699,17 +699,17 @@ export const getAdaptedContent = (
         `,
         [LearningStyle.MULTIMODAL]: `
           <div class="multimodal-content">
-            <h2>>Multimodal Learning Experience</h2>
-            <p>>This content combines visual, auditory, reading/writing, and kinesthetic elements to provide a comprehensive learning experience.</p>
+            <h2>Multimodal Learning Experience</h2>
+            <p>This content combines visual, auditory, reading/writing, and kinesthetic elements to provide a comprehensive learning experience.</p>
             
             <div class="visual-section">
-              <h3>>Visual Elements</h3>
+              <h3>Visual Elements</h3>
               <img src="/images/modules/${moduleId}/concept_map.svg" alt="Concept map" />
-              <p>>The diagram above illustrates the relationships between key concepts in this module.</p>
+              <p>The diagram above illustrates the relationships between key concepts in this module.</p>
             </div>
             
             <div class="auditory-section">
-              <h3>>Audio Explanation</h3>
+              <h3>Audio Explanation</h3>
               <audio controls>
                 <source src="/audio/modules/${moduleId}/introduction.mp3" type="audio/mpeg" />
                 Your browser does not support the audio element.
@@ -717,15 +717,15 @@ export const getAdaptedContent = (
             </div>
             
             <div class="reading-section">
-              <h3>>Text Explanation</h3>
-              <p>>Educational psychology is the branch of psychology concerned with the scientific study of human learning. The study of learning processes, from both cognitive and behavioural perspectives, allows researchers to understand individual differences in intelligence, cognitive development, affect, motivation, self-regulation, and self-concept, as well as their role in learning.</p>
+              <h3>Text Explanation</h3>
+              <p>Educational psychology is the branch of psychology concerned with the scientific study of human learning. The study of learning processes, from both cognitive and behavioural perspectives, allows researchers to understand individual differences in intelligence, cognitive development, affect, motivation, self-regulation, and self-concept, as well as their role in learning.</p>
             </div>
             
             <div class="kinesthetic-section">
-              <h3>>Interactive Activity</h3>
+              <h3>Interactive Activity</h3>
               <button class="start-activity" data-activity="cognitive_mapping">Start Cognitive Mapping Exercise</button>
               <div class="activity-description">
-                <p>>In this exercise, you'll create a physical or digital mind map of key educational psychology concepts and their relationships.</p>
+                <p>In this exercise, you'll create a physical or digital mind map of key educational psychology concepts and their relationships.</p>
               </div>
             </div>
           </div>
@@ -747,7 +747,7 @@ export const useLearningStyleAssessment = (): {
   result: LearningStyleResult | null;
   calculateResult: () => void;
   isComplete: boolean;
-} => {
+} = {
   const [questions] = useState<LearningStyleQuestion[]>(getLearningStyleQuestions());
   const [answers, setAnswers] = useState<Record<string, LearningStyle>>({});
   const [result, setResult] = useState<LearningStyleResult | null>(null);
@@ -788,7 +788,7 @@ export const useModuleProgress = (
   error: string | null;
   trackActivity: (activityId: string, timeSpent: number) => Promise<void>;
   trackAssessment: (assessmentId: string, score: number, passed: boolean) => Promise<void>;
-} => {
+} = {
   const [progress, setProgress] = useState<ModuleProgress | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -870,7 +870,7 @@ export const useLearningRecommendations = (
   loading: boolean;
   error: string | null;
   refresh: () => Promise<void>;
-} => {
+} = {
   const [recommendations, setRecommendations] = useState<LearningRecommendation[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -906,12 +906,12 @@ export const useLearningRecommendations = (
  */
 export const useAchievements = (
   userId: string
-): void {
+) => {
   achievements: any[];
   loading: boolean;
   error: string | null;
   refresh: () => Promise<void>;
-} => {
+} = {
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -949,12 +949,12 @@ export const useAdaptiveContent = (
   moduleId: string,
   activityId: string,
   learningStyle: LearningStyle
-): void {
+) => {
   content: string;
   loading: boolean;
   error: string | null;
-  changeStyle: (style: LearningStyle) => void;
-} => {
+  changeStyle: (style: LearningStyle) => void
+} = {
   const [content, setContent] = useState<string>>('');
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -1087,7 +1087,7 @@ export const ProgressTracking: React.FC<{
   return (
     <div className={`progress-tracking ${className}`}>
       <div className="progress-header">
-        <h3>>Your Progress</h3>
+        <h3>Your Progress</h3>
         <div className="progress-status">{progress.status}</div>
       </div>
       
@@ -1117,8 +1117,8 @@ export const ProgressTracking: React.FC<{
       {showingCelebration && (
         <div className="celebration-overlay">
           <div className="celebration-content">
-            <h2>>Congratulations!</h2>
-            <p>>You've completed this module!</p>
+            <h2>Congratulations!</h2>
+            <p>You've completed this module!</p>
             <div className="confetti-animation"></div>
           </div>
         </div>

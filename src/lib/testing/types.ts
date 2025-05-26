@@ -157,9 +157,9 @@ export interface TestReporter {
 export interface EducationalTestContext {
   keyStage?: string;
   subject?: string;
-  learningObjectives?: string: any[];
-  specialEducationalNeeds?: string: any[];
-  curriculumAlignment?: string: any[];
+  learningObjectives?: string[];
+  specialEducationalNeeds?: string[];
+  curriculumAlignment?: string[];
 }
 
 /**

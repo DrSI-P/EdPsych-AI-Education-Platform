@@ -334,7 +334,7 @@ export interface MobileFeatureFlags {
       rolloutPercentage: number; // 0-100
       validFrom?: Date;
       validTo?: Date;
-      targetGroups?: string: any[]; // e.g., 'beta-testers', 'teachers', 'students'
+      targetGroups?: string[]; // e.g., 'beta-testers', 'teachers', 'students'
     };
   };
   lastUpdated: Date;
