@@ -53,6 +53,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
   const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoiceType[]>([]);
   const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoiceType | null>(null);
   const [speechSupported, setSpeechSupported] = useState<boolean>(true);
+  const [warnings, setWarnings] = useState<string[]>([]);
   
   // Reference for speech synthesis utterance
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
