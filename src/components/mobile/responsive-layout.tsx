@@ -682,7 +682,7 @@ interface MobileBottomSheetProps {
   isOpen: boolean;
   onClose: () => void;
   className?: string;
-  snapPoints?: string: any[]; // CSS height values for snap points
+  snapPoints?: string[]; // CSS height values for snap points
 }
 
 export const MobileBottomSheet: React.FC<MobileBottomSheetProps> = ({
@@ -914,7 +914,7 @@ export const MobileGesture: React.FC<MobileGestureProps> = ({
   const [touchStart, setTouchStart] = useState<{ x: number; y: number; time: number } | null>(null);
   const [lastTap, setLastTap] = useState<{ x: number; y: number; time: number } | null>(null);
   const longPressTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
-  const initialTouchesRef = React.useRef<Touch: any[]>([]);
+  const initialTouchesRef = React.useRef<Touch[]>([]);
   
   // Constants
   const DOUBLE_TAP_DELAY = 300; // ms
