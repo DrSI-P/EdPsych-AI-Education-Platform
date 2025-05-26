@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { getVideos, deleteVideo } from '@/lib/heygen/heygen-service';
+import { HeygenService } from '@/lib/heygen/heygen-service';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -376,3 +376,6 @@ export function HeygenVideoLibrary() {
     </div>
   );
 }
+
+// Add default export to fix import errors
+export default HeygenVideoLibrary;

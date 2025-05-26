@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { 
   BookOpen, Clock, Calendar, User, Tag, ThumbsUp, MessageSquare, 
   Share2, Bookmark, Search, Filter, TrendingUp, Award, Lightbulb,
@@ -550,3 +551,5 @@ export function EducationalAIBlog() {
     </div>
   );
 }
+
+export default EducationalAIBlog;

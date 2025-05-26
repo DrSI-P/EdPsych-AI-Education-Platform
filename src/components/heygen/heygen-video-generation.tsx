@@ -10,7 +10,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { HeyGenService, VideoGenerationParams } from '@/lib/heygen/heygen-service';
+import { HeygenService, HeyGenVideo } from '@/lib/heygen/heygen-service';
+import { VideoGenerationRequest } from '@/lib/heygen/heygen-api';
 import { Loader2, Upload, Check, AlertCircle } from 'lucide-react';
 
 export function HeyGenVideoGeneration() {
@@ -429,3 +430,6 @@ export function HeyGenVideoGeneration() {
     </div>
   );
 }
+
+// Add default export to fix import errors
+export default HeyGenVideoGeneration;

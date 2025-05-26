@@ -845,3 +845,5 @@ export function ProgressMonitoringEngine() {
     </div>
   );
 }
+
+export default ProgressMonitoringEngine;

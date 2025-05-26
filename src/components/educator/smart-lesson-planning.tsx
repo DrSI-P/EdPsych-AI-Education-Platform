@@ -523,3 +523,5 @@ ${assessment || "Ongoing assessment through observation and questioning."}
     </div>
   );
 }
+
+export default SmartLessonPlanning;

@@ -2,13 +2,20 @@
 
 import React, { useState } from 'react';
 import { PageHeader } from '@/components/page-header';
-import { AvatarCreator } from '@/components/ai-avatar/avatar-creator';
-import { VideoGenerator } from '@/components/ai-avatar/video-generator';
+import { AvatarCreator, VideoGenerator } from '@/components/ai-avatar';
 
 export default function AIAvatarPage() {
   // Get age group from URL query parameter or default to 'secondary'
-  const ageGroup = typeof window !== 'undefined' 
+  const ageGroupParam = typeof window !== 'undefined'
     ? new URLSearchParams(window.location.search).get('ageGroup') || 'secondary'
+    : 'secondary';
+  
+  // Validate that ageGroup is one of the allowed values
+  const validAgeGroups = ['nursery', 'early-primary', 'late-primary', 'secondary', 'professional'] as const;
+  type AgeGroup = typeof validAgeGroups[number];
+  
+  const ageGroup: AgeGroup = validAgeGroups.includes(ageGroupParam as AgeGroup)
+    ? ageGroupParam as AgeGroup
     : 'secondary';
   
   const [selectedAvatarId, setSelectedAvatarId] = useState<string | null>(null);

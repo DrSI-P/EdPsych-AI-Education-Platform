@@ -1,10 +1,16 @@
 'use client';
 
 import { hash, compare } from 'bcryptjs';
-import { db } from '../db';
+import { db } from '../db-wrapper';
 
 // Export individual functions needed by API routes
-export async function registerUser(userData) {
+export async function registerUser(userData: {
+  email: string;
+  password: string;
+  name: string;
+  role: string;
+  [key: string]: any;
+}) {
   try {
     // Check if user already exists
     const existingUser = await db.user.findByEmail(userData.email);
@@ -61,7 +67,13 @@ export async function getUserById(userId: string) {
   }
 }
 
-export async function updateUserProfile(userId: string, profileData) {
+export async function updateUserProfile(userId: string, profileData: {
+  name?: string;
+  email?: string;
+  role?: string;
+  password?: string;
+  [key: string]: any;
+}) {
   try {
     const user = await db.user.findById(userId);
     
@@ -149,6 +161,10 @@ export async function verifyPassword(email: string, password: string) {
       return { success: false, message: 'User not found' };
     }
     
+    if (!user.password) {
+      return { success: false, message: 'Invalid user credentials' };
+    }
+    
     // In a real implementation, this would use bcrypt.compare
     // For now, we'll simulate password verification
     const isValid = await compare(password, user.password);
@@ -187,6 +203,10 @@ export const users = {
       
       if (!user) {
         return { success: false, message: 'User not found' };
+      }
+      
+      if (!user.password) {
+        return { success: false, message: 'Invalid user credentials' };
       }
       
       // Verify current password

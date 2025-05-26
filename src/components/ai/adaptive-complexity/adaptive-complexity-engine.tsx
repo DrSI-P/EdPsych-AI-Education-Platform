@@ -384,3 +384,6 @@ export const AdaptiveComplexityEngine: React.FC<AdaptiveComplexityEngineProps> =
     </div>
   );
 };
+
+// Add default export to fix import errors
+export default AdaptiveComplexityEngine;

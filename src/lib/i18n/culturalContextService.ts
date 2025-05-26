@@ -346,8 +346,8 @@ export class CulturalContextService {
       // In a real implementation, this would use more sophisticated adaptation
       // For now, we'll use a simple approach with mock data
       
-      const culturalNotes[] = [];
-      const adaptationsMade[] = [];
+      const culturalNotes: string[] = [];
+      const adaptationsMade: string[] = [];
       const adaptedContent = content;
       
       // Get cultural context

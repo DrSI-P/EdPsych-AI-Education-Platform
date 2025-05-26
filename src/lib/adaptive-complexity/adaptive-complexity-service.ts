@@ -543,3 +543,6 @@ export class AdaptiveComplexityService {
     return recommendations;
   }
 }
+
+// Export a singleton instance of the service
+export const adaptiveComplexityService = new AdaptiveComplexityService();
