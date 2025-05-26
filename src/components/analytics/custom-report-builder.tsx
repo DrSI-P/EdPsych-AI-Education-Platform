@@ -387,6 +387,8 @@ const ChartPreview = ({ chartType }: { chartType: string }): React.ReactNode => 
 const TablePreview = ({ dataType }: { dataType: string }): React.ReactNode => {
   const data = sampleTableData[dataType as keyof typeof sampleTableData] || sampleTableData.students;
   
+  }
+
   return (
     <div className="p-4 bg-white rounded-md overflow-x-auto">
       <table className="w-full border-collapse">

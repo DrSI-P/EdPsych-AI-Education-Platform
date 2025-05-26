@@ -77,8 +77,8 @@ interface Module {
   description: string;
   duration: string;
   level: 'Beginner' | 'Intermediate' | 'Advanced';
-  sections: Section: any[];
-  resources: Resource: any[];
+  sections: Section[];
+  resources: Resource[];
   completed: boolean;
   progress: number;
 }

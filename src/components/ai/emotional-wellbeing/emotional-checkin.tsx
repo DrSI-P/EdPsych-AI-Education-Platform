@@ -20,8 +20,8 @@ type CheckinData = {
   mood: string;
   intensity: number;
   notes: string;
-  triggers: string: any[];
-  strategies: string: any[];
+  triggers: string[];
+  strategies: string[];
 };
 
 // Export both as default and named export to fix build warnings
@@ -207,7 +207,7 @@ export function EmotionalCheckin() {
     }
   };
 
-  const saveSelectedStrategies = (strategies: string: any[]) => {
+  const saveSelectedStrategies = (strategies: string[]) => {
     setCheckinData(prev => ({
       ...prev,
       strategies
