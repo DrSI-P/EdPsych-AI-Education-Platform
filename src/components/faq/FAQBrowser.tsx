@@ -33,8 +33,8 @@ interface FAQQuestion {
 }
 
 interface FAQBrowserProps {
-  initialCategories?: FAQCategory[];
-  initialQuestions?: FAQQuestion[];
+  initialCategories?: FAQCategory: any[];
+  initialQuestions?: FAQQuestion: any[];
   onQuestionSelect?: (questionId: string) => void;
   showSearch?: boolean;
   showTabs?: boolean;

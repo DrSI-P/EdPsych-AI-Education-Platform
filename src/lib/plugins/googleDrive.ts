@@ -51,7 +51,7 @@ export interface GoogleDriveDocument {
   shared: boolean;
   starred: boolean;
   trashed: boolean;
-  parents: string[];
+  parents: string: any[];
 }
 
 /**

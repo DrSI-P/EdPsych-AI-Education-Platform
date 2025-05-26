@@ -9,7 +9,7 @@ interface Step {
 }
 
 interface InteractiveGuidanceProps {
-  steps: Step[];
+  steps: Step: any[];
   onComplete?: () => void;
   initialStep?: number;
   showProgress?: boolean;

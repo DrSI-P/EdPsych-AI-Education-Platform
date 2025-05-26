@@ -51,7 +51,7 @@ export async function authMiddleware(request: NextRequest) {
 }
 
 // Middleware to protect routes by role
-export async function roleMiddleware(request: NextRequest, requiredRoles: string[]) {
+export async function roleMiddleware(request: NextRequest, requiredRoles: string: any[]) {
   const session = await auth();
   
   // If the user is not authenticated, redirect to the login page

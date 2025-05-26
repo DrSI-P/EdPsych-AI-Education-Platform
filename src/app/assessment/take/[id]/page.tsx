@@ -34,7 +34,7 @@ interface Assessment {
   randomizeQuestions: boolean;
   allowRetakes: boolean;
   status: string;
-  questions: Question[];
+  questions: Question: any[];
   createdById: string;
   createdAt: string;
   updatedAt: string;

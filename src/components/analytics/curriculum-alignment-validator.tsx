@@ -11,7 +11,7 @@ import { DashboardConfig } from '@/lib/analytics/types';
 
 interface CurriculumAlignmentValidatorProps {
   dashboard: DashboardConfig;
-  onFixIssues?: (issues: CurriculumAlignmentIssue[]) => void;
+  onFixIssues?: (issues: CurriculumAlignmentIssue: any[]) => void;
 }
 
 export interface CurriculumAlignmentIssue {
