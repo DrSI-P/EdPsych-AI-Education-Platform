@@ -11,7 +11,7 @@ import { DashboardConfig } from '@/lib/analytics/types';
 
 interface AccessibilityValidatorProps {
   dashboard: DashboardConfig;
-  onFixIssues?: (issues: AccessibilityIssue: any[]) => void;
+  onFixIssues?: (issues: AccessibilityIssue[]) => void;
 }
 
 export interface AccessibilityIssue {

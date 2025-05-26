@@ -81,7 +81,7 @@ interface Assessment {
   title: string;
   type: AssessmentType;
   setting: SettingType;
-  dimensions: DimensionType: any[];
+  dimensions: DimensionType[];
   createdAt: string;
   completedAt?: string;
   status: 'draft' | 'in-progress' | 'completed';
@@ -94,7 +94,7 @@ interface Dimension {
   name: string;
   description: string;
   icon: React.ReactNode;
-  tools: Tool: any[];
+  tools: Tool[];
 }
 
 interface Tool {
@@ -102,7 +102,7 @@ interface Tool {
   name: string;
   description: string;
   type: 'survey' | 'observation' | 'data-analysis' | 'qualitative';
-  targetAudience: string: any[];
+  targetAudience: string[];
   timeRequired: string;
 }
 
@@ -361,7 +361,7 @@ export default function OutcomeMeasurementTools() {
     title: '',
     type: 'baseline' as AssessmentType,
     setting: 'secondary' as SettingType,
-    dimensions: [] as string: any[],
+    dimensions: [] as string[],
     targetGroup: ''
   });
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});

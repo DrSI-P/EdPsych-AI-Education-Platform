@@ -20,15 +20,15 @@ export interface ComplianceValidationResult {
 export interface ValidationSummary {
   gdpr: {
     passed: boolean;
-    results: ComplianceValidationResult: any[];
+    results: ComplianceValidationResult[];
   };
   blockchain: {
     passed: boolean;
-    results: ComplianceValidationResult: any[];
+    results: ComplianceValidationResult[];
   };
   copyright: {
     passed: boolean;
-    results: ComplianceValidationResult: any[];
+    results: ComplianceValidationResult[];
   };
 }
 

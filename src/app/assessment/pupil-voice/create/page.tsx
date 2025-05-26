@@ -14,7 +14,7 @@ interface QuestionType {
   text: string;
   type: 'multiple_choice' | 'likert_scale' | 'open_ended' | 'emoji_scale' | 'yes_no';
   required: boolean;
-  options: string: any[];
+  options: string[];
   order: number;
 }
 

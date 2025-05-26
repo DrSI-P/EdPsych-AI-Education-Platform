@@ -62,10 +62,10 @@ interface ReflectionPrompt {
   ageGroup: string;
   category: string;
   promptText: string;
-  supportingQuestions: string: any[];
+  supportingQuestions: string[];
   visualSupports: boolean;
   simplifiedLanguage: boolean;
-  visualAids?: string: any[];
+  visualAids?: string[];
 }
 
 /**
@@ -410,7 +410,7 @@ const AgeAppropriateReflectionPrompts = () => {
   };
 
   // Handle custom prompt changes
-  const handleCustomPromptChange = (field: keyof ReflectionPrompt, value: string | boolean | string: any[]) => {
+  const handleCustomPromptChange = (field: keyof ReflectionPrompt, value: string | boolean | string[]) => {
     setCustomPrompt(prev => ({
       ...prev,
       [field]: value

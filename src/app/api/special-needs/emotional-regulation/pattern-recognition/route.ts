@@ -97,7 +97,7 @@ export async function GET(req: Request) {
 }
 
 // Function to generate pattern analysis from emotion data
-function generatePatternAnalysis(emotionRecords: any[], emotionJournals: any[], analysisType: string = 'all') {
+function generatePatternAnalysis(emotionRecords[], emotionJournals[], analysisType: string = 'all') {
   // Initialize analysis object
   const analysis = {
     insights: [] as Array<{
@@ -150,7 +150,7 @@ function generatePatternAnalysis(emotionRecords: any[], emotionJournals: any[], 
 }
 
 // Helper function to generate insights
-function generateInsights(emotionRecords: any[]) {
+function generateInsights(emotionRecords[]) {
   const insights = [];
   
   // Most common emotion
@@ -314,7 +314,7 @@ function generateInsights(emotionRecords: any[]) {
 }
 
 // Helper function to generate trigger patterns
-function generateTriggerPatterns(emotionRecords: any[]) {
+function generateTriggerPatterns(emotionRecords[]) {
   // Group emotions by triggers
   const triggerEmotions: Record<string, Record<string, number>> = {};
   
@@ -348,7 +348,7 @@ function generateTriggerPatterns(emotionRecords: any[]) {
 }
 
 // Helper function to generate time patterns
-function generateTimePatterns(emotionRecords: any[]) {
+function generateTimePatterns(emotionRecords[]) {
   // Group by hour of day
   const hourCounts = Array(24).fill(0).map((_, i) => ({ hour: i, count: 0 }));
   
@@ -376,7 +376,7 @@ function generateTimePatterns(emotionRecords: any[]) {
 }
 
 // Helper function to generate emotion trends
-function generateEmotionTrends(emotionRecords: any[]) {
+function generateEmotionTrends(emotionRecords[]) {
   // Group by date
   const dateEmotions: Record<string, Record<string, number>> = {};
   
@@ -402,7 +402,7 @@ function generateEmotionTrends(emotionRecords: any[]) {
 }
 
 // Helper function to generate emotion correlations
-function generateEmotionCorrelations(emotionRecords: any[]) {
+function generateEmotionCorrelations(emotionRecords[]) {
   // Find emotions that often occur together or in sequence
   const emotionPairs: Record<string, { source: string; target: string; count: number; strength: number }> = {};
   

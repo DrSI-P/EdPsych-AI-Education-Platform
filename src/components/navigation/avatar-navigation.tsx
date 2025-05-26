@@ -66,7 +66,7 @@ interface NavigationVideo {
 }
 
 interface NavigationVideoResponse {
-  videos: NavigationVideo: any[];
+  videos: NavigationVideo[];
 }
 
 export default function AvatarNavigation({
