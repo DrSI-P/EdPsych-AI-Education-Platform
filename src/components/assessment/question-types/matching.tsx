@@ -16,11 +16,11 @@ interface MatchingQuestionProps {
     items: any[];
     points: number;
     shuffleOptions: boolean;
-  };
+  }
   onSave: (data: {
     type: string;
     content: string;
-    items[];
+    items: any[];
     points: number;
     shuffleOptions: boolean;
   }) => void;
@@ -35,7 +35,7 @@ export default function MatchingQuestion({
   isEditing = false
 }: MatchingQuestionProps) {
   const [content, setContent] = useState(initialData?.content || '');
-  const [items, setItems] = useState<MatchingItem[]>(
+  const [items, setItems] = useState<MatchingItem: any[]>(
     initialData?.items || [
       { id: '1', left: '', right: '' },
       { id: '2', left: '', right: '' },
@@ -55,25 +55,25 @@ export default function MatchingQuestion({
         item.id === id ? { ...item, [field]: value } : item
       )
     );
-  };
+  }
 
   const addItem = () => {
     const newId = (items.length + 1).toString();
     setItems([...items, { id: newId, left: '', right: '' }]);
-  };
+  }
 
   const removeItem = (id: string) => {
     if (items.length <= 2) {
       return; // Maintain at least 2 matching pairs
     }
     setItems(items.filter(item => item.id !== id));
-  };
+  }
 
   const validateForm = () => {
     const newErrors = {
       content: '',
       items: ''
-    };
+    }
 
     if (!content.trim()) {
       newErrors.content = 'Question content is required';
@@ -86,7 +86,7 @@ export default function MatchingQuestion({
 
     setErrors(newErrors);
     return !Object.values(newErrors).some(error => error);
-  };
+  }
 
   const handleSubmit = () => {
     if (!validateForm()) {
@@ -100,7 +100,7 @@ export default function MatchingQuestion({
       points,
       shuffleOptions
     });
-  };
+  }
 
   return (
     <div className="space-y-6 p-4 bg-white rounded-lg border">

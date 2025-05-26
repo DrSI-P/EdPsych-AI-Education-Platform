@@ -10,11 +10,11 @@ interface FileUploadQuestionProps {
     points: number;
     allowedFileTypes: any[];
     maxFileSize: number;
-  };
+  }
   onSave: (data: {
     type: string;
     content: string;
-    allowedFileTypes[];
+    allowedFileTypes: any[];
     maxFileSize: number;
     points: number;
   }) => void;
@@ -30,7 +30,7 @@ export default function FileUploadQuestion({
 }: FileUploadQuestionProps) {
   const [content, setContent] = useState(initialData?.content || '');
   const [points, setPoints] = useState(initialData?.points || 1);
-  const [allowedFileTypes, setAllowedFileTypes] = useState<string[]>(
+  const [allowedFileTypes, setAllowedFileTypes] = useState<string: any[]>(
     initialData?.allowedFileTypes || ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png']
   );
   const [maxFileSize, setMaxFileSize] = useState(initialData?.maxFileSize || 5);
@@ -69,24 +69,24 @@ export default function FileUploadQuestion({
       });
       setAllowedFileTypes(newTypes);
     }
-  };
+  }
 
   const addCustomFileType = () => {
     if (customFileType && !allowedFileTypes.includes(customFileType)) {
       setAllowedFileTypes([...allowedFileTypes, customFileType]);
       setCustomFileType('');
     }
-  };
+  }
 
   const removeFileType = (type: string) => {
     setAllowedFileTypes(allowedFileTypes.filter(t => t !== type));
-  };
+  }
 
   const validateForm = () => {
     const newErrors = {
       content: '',
       allowedFileTypes: '',
-    };
+    }
 
     if (!content.trim()) {
       newErrors.content = 'Question content is required';
@@ -98,7 +98,7 @@ export default function FileUploadQuestion({
 
     setErrors(newErrors);
     return !Object.values(newErrors).some(error => error);
-  };
+  }
 
   const handleSubmit = () => {
     if (!validateForm()) {
@@ -112,7 +112,7 @@ export default function FileUploadQuestion({
       maxFileSize,
       points
     });
-  };
+  }
 
   return (
     <div className="space-y-6 p-4 bg-white rounded-lg border">

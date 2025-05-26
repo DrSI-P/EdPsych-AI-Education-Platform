@@ -15,11 +15,11 @@ interface MultipleChoiceQuestionProps {
     content: string;
     options: any[];
     points: number;
-  };
+  }
   onSave: (data: {
     type: string;
     content: string;
-    options[];
+    options: any[];
     correctAnswer: any[];
     points: number;
   }) => void;
@@ -34,7 +34,7 @@ export default function MultipleChoiceQuestion({
   isEditing = false
 }: MultipleChoiceQuestionProps) {
   const [content, setContent] = useState(initialData?.content || '');
-  const [options, setOptions] = useState<MultipleChoiceOption[]>(
+  const [options, setOptions] = useState<MultipleChoiceOption: any[]>(
     initialData?.options || [
       { id: '1', text: '', isCorrect: false },
       { id: '2', text: '', isCorrect: false },
@@ -56,7 +56,7 @@ export default function MultipleChoiceQuestion({
         option.id === id ? { ...option, text } : option
       )
     );
-  };
+  }
 
   const handleCorrectChange = (id: string) => {
     if (allowMultiple) {
@@ -72,26 +72,26 @@ export default function MultipleChoiceQuestion({
         )
       );
     }
-  };
+  }
 
   const addOption = () => {
     const newId = (options.length + 1).toString();
     setOptions([...options, { id: newId, text: '', isCorrect: false }]);
-  };
+  }
 
   const removeOption = (id: string) => {
     if (options.length <= 2) {
       return; // Maintain at least 2 options
     }
     setOptions(options.filter(option => option.id !== id));
-  };
+  }
 
   const validateForm = () => {
     const newErrors = {
       content: '',
       options: '',
       correctAnswer: ''
-    };
+    }
 
     if (!content.trim()) {
       newErrors.content = 'Question content is required';
@@ -109,7 +109,7 @@ export default function MultipleChoiceQuestion({
 
     setErrors(newErrors);
     return !Object.values(newErrors).some(error => error);
-  };
+  }
 
   const handleSubmit = () => {
     if (!validateForm()) {
@@ -127,7 +127,7 @@ export default function MultipleChoiceQuestion({
       correctAnswer: correctAnswerIds,
       points
     });
-  };
+  }
 
   return (
     <div className="space-y-6 p-4 bg-white rounded-lg border">
