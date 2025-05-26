@@ -38,43 +38,43 @@ import {
 // This component demonstrates the concept of intelligent, adaptive assessment systems
 
 interface AssessmentQuestion {
-  id: string;,
+  id: string;
 
   type: 'multiple-choice' | 'short-answer' | 'essay' | 'interactive';
-  difficulty: number;,
+  difficulty: number;
 
   question: string;
   options?: string;
-  correctAnswer?: string | string: any;,
+  correctAnswer?: string | string[];
  rubric?: {
-    criteria: string;,
+    criteria: string;
 
-    levels: {;
-      score: number;,
+    levels: {
+      score: number;
 
       description: string;
     }[];
   }[];
-  conceptTags: any;,
+  conceptTags: any;
 
   adaptiveFollowUp?: {
-    correct: any;,
+    correct: any;
 
     incorrect: any;
   };
 }
 
 interface AssessmentResult {
-  questionId: string;,
+  questionId: string;
 
   correct: boolean;
-  score: number;,
+  score: number;
 
   response: string;
-  feedback: string;,
+  feedback: string;
 
-  conceptsAssessed: {;
-    concept: string;,
+  conceptsAssessed: {
+    concept: string;
 
     mastery: number;
   }[];
@@ -82,10 +82,10 @@ interface AssessmentResult {
 }
 
 interface ConceptMastery {
-  concept: string;,
+  concept: string;
 
   mastery: number;
-  confidence: number;,
+  confidence: number;
 
   lastAssessed: string;
   trend: 'improving' | 'stable' | 'declining';
@@ -117,10 +117,10 @@ export default function AIPoweredAssessmentPage() {
   const [feedbackLevel, setFeedbackLevel] = useState(80);
   
   // State for assessment results
-  const [results, setResults] = useState<AssessmentResult>([]);
+  const [results, setResults] = useState<AssessmentResult[]>([]);
   
   // State for concept mastery
-  const [conceptMastery, setConceptMastery] = useState<ConceptMastery>([
+  const [conceptMastery, setConceptMastery] = useState<ConceptMastery[]>([
     {
       concept: "Algebraic Expressions",
       mastery: 85,
@@ -166,7 +166,7 @@ export default function AIPoweredAssessmentPage() {
   ]);
   
   // Sample assessment questions
-  const [questions, setQuestions] = useState<AssessmentQuestion>([
+  const [questions, setQuestions] = useState<AssessmentQuestion[]>([
     {
       id: "q1",
       type: "multiple-choice",
@@ -248,7 +248,7 @@ export default function AIPoweredAssessmentPage() {
         correct: [],
         incorrect: ["q3"]
       }
-    };
+    }
   ]);
   
   // Get current question
@@ -277,7 +277,7 @@ export default function AIPoweredAssessmentPage() {
       let feedback = '';
       
       // Check if answer is correct based on question type
-      if (currentQuestion.type = == 'multiple-choice' && selectedAnswer) {;
+      if (currentQuestion.type === 'multiple-choice' && selectedAnswer) {;
         isCorrect = selectedAnswer === currentQuestion.correctAnswer;
         score = isCorrect ? 100 : 0;
         
@@ -286,12 +286,12 @@ export default function AIPoweredAssessmentPage() {
         } else {
           feedback = `Incorrect. The correct answer is ${currentQuestion.correctAnswer}. Remember that when solving linear equations, you need to isolate the variable.`;
         }
-      } else if ((currentQuestion.type = == 'short-answer' || currentQuestion.type === 'essay') && textAnswer) {
+      } else if ((currentQuestion.type === 'short-answer' || currentQuestion.type === 'essay') && textAnswer) {
         // Simulate AI evaluation for text answers
         if (currentQuestion.type === 'short-answer') {;
-          const possibleAnswers = currentQuestion.correctAnswer as string: any;,
+          const possibleAnswers = currentQuestion.correctAnswer as string: any;
  isCorrect = possibleAnswers.some(answer => 
-            textAnswer.toLowerCase().includes(answer.toLowerCase());
+            textAnswer.toLowerCase().includes(answer.toLowerCase())
           );
           score = isCorrect ? 100 : 30; // Partial credit possible
           
@@ -303,7 +303,7 @@ export default function AIPoweredAssessmentPage() {
         } else {
           // Essay scoring simulation
           const lengthScore = Math.min(100, textAnswer.length / 5);
-          const keywordScore = textAnswer.toLowerCase().includes('substitution') && ;
+          const keywordScore = textAnswer.toLowerCase().includes(\'substitution\') && 
                               textAnswer.toLowerCase().includes('equation') ? 100 : 50;
           score = Math.round((lengthScore + keywordScore) / 2);
           isCorrect = score >= 70;
@@ -330,16 +330,16 @@ export default function AIPoweredAssessmentPage() {
           return {
             concept,
             mastery: Math.min(100, Math.max(0, masteryChange))
-          };
+          }
         }),
         timeSpent: Math.floor(Math.random() * 120) + 30 // Random time between 30-150 seconds
-      };
+      }
       
       // Update results
       setResults(prev => [...prev, result]);
       
       // Update concept mastery based on results
-      setConceptMastery(prev = > 
+      setConceptMastery(prev => 
         prev.map(concept => {;
           const assessed = currentQuestion.conceptTags.includes(concept.concept);
           if (!assessed) return concept;
@@ -351,10 +351,8 @@ export default function AIPoweredAssessmentPage() {
             ...concept,
             mastery: newMastery,
             lastAssessed: new Date().toISOString().split('T')[0],
-            trend: newMastery > concept.mastery ? 'improving' : ,
-
-            newMastery < concept.mastery ? 'declining' : 'stable'
-          };
+            trend: newMastery > concept.mastery ? 'improving' : (newMastery < concept.mastery ? 'declining' : 'stable')
+          }
         })
       );
       
