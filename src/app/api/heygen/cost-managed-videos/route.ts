@@ -14,8 +14,8 @@ import { getEnv } from '@/lib/env-validator';
 export async function POST(req: NextRequest) {
   try {
     // Get the authenticated user
-    const session = await getServerSession(authOptions: any);
-    if (!session?.user: any) {
+    const session = await getServerSession(authOptions);
+    if (!session?.user) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { text, avatarId, voiceId } = body;
     
-    if (!text || !avatarId || !voiceId: any) {
+    if (!text || !avatarId || !voiceId) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
       where: { email: session.user.email as string },
     });
     
-    if (!user: any) {
+    if (!user) {
       return NextResponse.json(
         { error: 'User not found' },
         { status: 404 }
@@ -82,7 +82,7 @@ export async function POST(req: NextRequest) {
         throw error; // Re-throw for general error handling
       }
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error generating video:', error);
     
     return NextResponse.json(
@@ -95,8 +95,8 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   try {
     // Get the authenticated user
-    const session = await getServerSession(authOptions: any);
-    if (!session?.user: any) {
+    const session = await getServerSession(authOptions);
+    if (!session?.user) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -104,10 +104,10 @@ export async function GET(req: NextRequest) {
     }
     
     // Get query parameters
-    const url = new URL(req.url: any);
+    const url = new URL(req.url);
     const category = url.searchParams.get('category');
     
-    if (!category: any) {
+    if (!category) {
       return NextResponse.json(
         { error: 'Category parameter is required' },
         { status: 400 }
@@ -115,10 +115,10 @@ export async function GET(req: NextRequest) {
     }
     
     // Get pre-generated videos for the specified category
-    const videos = await getPreGeneratedVideosByCategory(category: any);
+    const videos = await getPreGeneratedVideosByCategory(category);
     
     return NextResponse.json({ videos });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching pre-generated videos:', error);
     
     return NextResponse.json(

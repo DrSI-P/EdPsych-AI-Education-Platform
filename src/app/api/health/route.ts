@@ -21,8 +21,8 @@ export async function GET(req: NextRequest) {
     // Set appropriate status code based on health status
     const statusCode = result.status === 'healthy' ? 200 : result.status === 'degraded' ? 200 : 503;
     
-    return NextResponse.json(result: any, { status: statusCode });
-  } catch (error: any) {
+    return NextResponse.json(result, { status: statusCode });
+  } catch (error) {
     return NextResponse.json({
       status: 'unhealthy',
       timestamp: new Date().toISOString(),
@@ -31,7 +31,7 @@ export async function GET(req: NextRequest) {
       checks: {
         error: {
           status: 'unhealthy',
-          message: `Health check failed: ${(error as Error: any).message}`,
+          message: `Health check failed: ${(error as Error).message}`,
         },
       },
     }, { status: 500 });

@@ -99,7 +99,7 @@ export async function POST(req: NextRequest) {
 async function handleSendCommunication(body: any, session: any) {
   try {
     const { subject, content, recipientIds, language, scheduledDate, templateId, communicationType, attachments, metadata } = 
-      sendCommunicationSchema.parse(body: any);
+      sendCommunicationSchema.parse(body);
     
     // In a real implementation, this would:
     // 1. Validate that the user has permission to contact these recipients
@@ -107,10 +107,10 @@ async function handleSendCommunication(body: any, session: any) {
     // 3. Handle translation if needed
     // 4. Schedule for later delivery if scheduledDate is provided
     // 5. Store the communication in the database
-    // 6. Send via the appropriate channel (email: any, SMS, etc.)
+    // 6. Send via the appropriate channel (email, SMS, etc.)
     
     // For now, we'll simulate success
-    const communicationIds = recipientIds.map((recipientId: any, index) => `comm_${Date.now()}_${index}`);
+    const communicationIds = recipientIds.map((recipientId, index) => `comm_${Date.now()}_${index}`);
     
     return NextResponse.json({
       success: true,
@@ -118,8 +118,8 @@ async function handleSendCommunication(body: any, session: any) {
       communicationIds,
       scheduledDate: scheduledDate || null,
     });
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "Validation error", details: error.errors },
         { status: 400 }
@@ -133,7 +133,7 @@ async function handleSendCommunication(body: any, session: any) {
 async function handleGetHistory(body: any, session: any) {
   try {
     const { studentId, parentId, startDate, endDate, type, status, limit, offset } = 
-      getCommunicationHistorySchema.parse(body: any);
+      getCommunicationHistorySchema.parse(body);
     
     // In a real implementation, this would:
     // 1. Query the database for communications matching the filters
@@ -141,7 +141,7 @@ async function handleGetHistory(body: any, session: any) {
     // 3. Return the results
     
     // For now, we'll return mock data
-    const mockCommunications = Array.from({ length: Math.min(limit, 10) }, (_: any, i) => ({
+    const mockCommunications = Array.from({ length: Math.min(limit, 10) }, (_, i) => ({
       id: `comm_${Date.now()}_${i}`,
       subject: `Sample Communication ${i + 1}`,
       content: "This is a sample communication content.",
@@ -160,8 +160,8 @@ async function handleGetHistory(body: any, session: any) {
       limit,
       offset,
     });
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "Validation error", details: error.errors },
         { status: 400 }
@@ -175,7 +175,7 @@ async function handleGetHistory(body: any, session: any) {
 async function handleCreateTemplate(body: any, session: any) {
   try {
     const { title, content, category, tags, isPublic } = 
-      createTemplateSchema.parse(body: any);
+      createTemplateSchema.parse(body);
     
     // In a real implementation, this would:
     // 1. Store the template in the database
@@ -199,8 +199,8 @@ async function handleCreateTemplate(body: any, session: any) {
         createdBy: session.user.id,
       },
     });
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "Validation error", details: error.errors },
         { status: 400 }
@@ -260,7 +260,7 @@ async function handleGetTemplates(body: any, session: any) {
 async function handleGetAnalytics(body: any, session: any) {
   try {
     const { startDate, endDate, groupBy, metrics } = 
-      getAnalyticsSchema.parse(body: any);
+      getAnalyticsSchema.parse(body);
     
     // In a real implementation, this would:
     // 1. Query the database for analytics data
@@ -271,8 +271,8 @@ async function handleGetAnalytics(body: any, session: any) {
     const today = new Date();
     const mockData = {
       timePoints: Array.from({ length: 14 }, (_, i) => {
-        const date = new Date(today: any);
-        date.setDate(date.getDate() - (13 - i: any));
+        const date = new Date(today);
+        date.setDate(date.getDate() - (13 - i));
         return date.toISOString().split('T')[0];
       }),
       metrics: {
@@ -308,8 +308,8 @@ async function handleGetAnalytics(body: any, session: any) {
         groupBy,
       },
     });
-  } catch (error: any) {
-    if (error instanceof z.ZodError: any) {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "Validation error", details: error.errors },
         { status: 400 }
@@ -322,9 +322,9 @@ async function handleGetAnalytics(body: any, session: any) {
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions: any);
+    const session = await getServerSession(authOptions);
     
-    if (!session || !session.user: any) {
+    if (!session || !session.user) {
       return NextResponse.json(
         { error: "Unauthorised" },
         { status: 401 }
@@ -332,12 +332,12 @@ export async function GET(req: NextRequest) {
     }
     
     // Handle GET requests for templates
-    const url = new URL(req.url: any);
+    const url = new URL(req.url);
     const action = url.searchParams.get("action");
     
-    switch (action: any) {
+    switch (action) {
       case "get_templates":
-        return handleGetTemplates({}, session: any);
+        return handleGetTemplates({}, session);
       case "get_analytics":
         return handleGetAnalytics({
           startDate: url.searchParams.get("startDate") || undefined,
@@ -350,7 +350,7 @@ export async function GET(req: NextRequest) {
           { status: 400 }
         );
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error in parent communication API:", error);
     return NextResponse.json(
       { error: "Internal server error" },
