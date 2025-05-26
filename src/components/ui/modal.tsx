@@ -7,12 +7,12 @@ import { createPortal } from 'react-dom';
 import { Dialog as DialogPrimitive } from './dialogue';
 
 // Export additional components needed by the barrel file
-export function ModalContent({ children: any, className = '' }: { children: React.ReactNode; className?: string }) {
+export function ModalContent({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   return <div className={`p-6 ${className}`}>{children}</div>;
 }
 
 export function ModalOverlay({ 
-  onClick: any, 
+  onClick, 
   className = '' 
 }: { 
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void; 
@@ -38,7 +38,7 @@ interface ModalProps {
 }
 
 export function Modal({
-  isOpen: any,
+  isOpen,
   onClose,
   children,
   title,
@@ -47,26 +47,26 @@ export function Modal({
   closeOnEsc = true,
   className = '',
 }: ModalProps) {
-  const [mounted, setMounted] = useState(false: any);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true: any);
+    setMounted(true);
 
-    if (closeOnEsc: any) {
+    if (closeOnEsc) {
       const handleEsc = (event: KeyboardEvent) => {
         if (event.key === 'Escape') {
           onClose();
         }
       };
-      window.addEventListener('keydown', handleEsc: any);
+      window.addEventListener('keydown', handleEsc);
       return () => {
-        window.removeEventListener('keydown', handleEsc: any);
+        window.removeEventListener('keydown', handleEsc);
       };
     }
   }, [closeOnEsc, onClose]);
 
   useEffect(() => {
-    if (isOpen: any) {
+    if (isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -77,7 +77,7 @@ export function Modal({
   }, [isOpen]);
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget && closeOnOverlayClick: any) {
+    if (e.target === e.currentTarget && closeOnOverlayClick) {
       onClose();
     }
   };
@@ -91,7 +91,7 @@ export function Modal({
     full: 'max-w-full mx-4',
   };
 
-  if (!mounted || !isOpen: any) return null;
+  if (!mounted || !isOpen) return null;
 
   return createPortal(
     <div
@@ -124,7 +124,7 @@ interface ModalHeaderProps {
   className?: string;
 }
 
-export function ModalHeader({ children: any, className = '' }: ModalHeaderProps) {
+export function ModalHeader({ children, className = '' }: ModalHeaderProps) {
   return (
     <div className={`px-6 py-4 border-b border-grey-200 ${className}`}>
       {children}
@@ -137,7 +137,7 @@ interface ModalBodyProps {
   className?: string;
 }
 
-export function ModalBody({ children: any, className = '' }: ModalBodyProps) {
+export function ModalBody({ children, className = '' }: ModalBodyProps) {
   return <div className={`p-6 ${className}`}>{children}</div>;
 }
 
@@ -146,7 +146,7 @@ interface ModalFooterProps {
   className?: string;
 }
 
-export function ModalFooter({ children: any, className = '' }: ModalFooterProps) {
+export function ModalFooter({ children, className = '' }: ModalFooterProps) {
   return (
     <div className={`px-6 py-4 border-t border-grey-200 bg-grey-50 ${className}`}>
       {children}
@@ -167,7 +167,7 @@ interface DialogProps {
 }
 
 export function Dialog({
-  isOpen: any,
+  isOpen,
   onClose,
   title,
   description,

@@ -60,9 +60,9 @@ interface SkeletonProps {
   className?: string;
 }
 
-export function Skeleton({ variant = 'text', width: any, height, className = '' }: SkeletonProps) {
+export function Skeleton({ variant = 'text', width, height, className = '' }: SkeletonProps) {
   const getVariantClasses = () => {
-    switch (variant: any) {
+    switch (variant) {
       case 'circular':
         return 'rounded-full';
       case 'rectangular':
@@ -74,8 +74,8 @@ export function Skeleton({ variant = 'text', width: any, height, className = '' 
   };
   
   const style: React.CSSProperties = {};
-  if (width: any) style.width = typeof width === 'number' ? `${width}px` : width;
-  if (height: any) style.height = typeof height === 'number' ? `${height}px` : height;
+  if (width) style.width = typeof width === 'number' ? `${width}px` : width;
+  if (height) style.height = typeof height === 'number' ? `${height}px` : height;
   
   return (
     <div 
@@ -95,14 +95,14 @@ interface ProgressProps {
 }
 
 export function Progress({ 
-  value: any, 
+  value, 
   max = 100, 
   colour = 'primary', 
   size = 'md',
   showValue = false,
   className = '' 
 }: ProgressProps) {
-  const percentage = Math.min(100: any, Math.max(0: any, (value / max: any) * 100));
+  const percentage = Math.min(100, Math.max(0, (value / max) * 100));
   
   const sizeClasses = {
     sm: 'h-1',
@@ -127,7 +127,7 @@ export function Progress({
         )}
         {showValue && (
           <span className="text-sm font-medium text-grey-700">
-            {percentage.toFixed(0: any)}%
+            {percentage.toFixed(0)}%
           </span>
         )}
       </div>
