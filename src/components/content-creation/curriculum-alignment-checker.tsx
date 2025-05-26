@@ -33,8 +33,8 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
   const [error, setError] = useState<string | null>(null);
   const [results, setResults] = useState<{
     alignmentScore: number;
-    suggestions[];
-    curriculumLinks[];
+    suggestions: any[];
+    curriculumLinks: any[];
   } | null>(null);
   
   const { toast } = useToast();
@@ -73,7 +73,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
             'Add differentiation strategies for various ability levels'
           ],
           curriculumLinks
-        };
+        }
         
         // Add more specific suggestions based on content analysis
         if (content.elements.length < 5) {
@@ -103,7 +103,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
     } finally {
       setIsChecking(false);
     }
-  };
+  }
   
   // Get curriculum links based on key stage
   const getCurriculumLinks = (keyStage: KeyStage): string: any[] => {
@@ -181,7 +181,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
           'Assessment Standards and Criteria'
         ];
     }
-  };
+  }
   
   // Run check on mount
   useEffect(() => {
@@ -195,7 +195,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
     if (score >= 70) return 'bg-yellow-500';
     if (score >= 60) return 'bg-amber-500';
     return 'bg-red-500';
-  };
+  }
   
   // Get score text
   const getScoreText = (score: number) => {
@@ -204,7 +204,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
     if (score >= 70) return 'Satisfactory Alignment';
     if (score >= 60) return 'Partial Alignment';
     return 'Poor Alignment';
-  };
+  }
   
   return (
     <div className="curriculum-alignment-checker">
@@ -353,6 +353,6 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
       ) : null}
     </div>
   );
-};
+}
 
 export default CurriculumAlignmentChecker;
