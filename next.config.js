@@ -72,9 +72,11 @@ const nextConfig = {
       '@/lib/ai/ai-service': path.join(__dirname, 'src/lib/ai/ai-service')
     };
     
-    // Handle browser globals in Node.js environment
+    // Get webpack's DefinePlugin
+    const { DefinePlugin } = require('webpack');
+    
     if (isServer) {
-      // Provide fallbacks for browser globals when running in Node.js
+      // Handle browser globals in Node.js environment (server-side)
       config.resolve.fallback = {
         ...config.resolve.fallback,
         // Provide empty objects for browser globals
@@ -85,12 +87,20 @@ const nextConfig = {
         'sessionStorage': false,
       };
       
-      // Add plugin to define global variables for server-side rendering
-      const { DefinePlugin } = require('webpack');
+      // Define global variables for server-side rendering
       config.plugins.push(
         new DefinePlugin({
           'self': 'global',
           'global.self': 'global',
+        })
+      );
+    } else {
+      // Handle browser globals in client-side code
+      // For client-side, ensure 'self' is properly defined
+      config.plugins.push(
+        new DefinePlugin({
+          // In client-side code, self should refer to window
+          'global.self': 'window',
         })
       );
     }
