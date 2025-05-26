@@ -50,7 +50,7 @@ export const CurriculumAlignmentValidator: React.FC<CurriculumAlignmentValidator
     // Simulate validation process
     setTimeout(() => {
       // This would be replaced with actual validation logic in a real implementation
-      const mockIssues[] = [];
+      const mockIssues: CurriculumAlignmentIssue[] = [];
       
       // Check for missing curriculum metadata
       dashboard.widgets.forEach(widget => {
