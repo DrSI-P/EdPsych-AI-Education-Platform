@@ -1,5 +1,5 @@
 import React from 'react';
-import CommunityBuildingActivities from '@/components/restorative-justice/community-building/community-building-activities';
+import CommunityBuildingWrapper from '@/components/restorative-justice/community-building/community-building-wrapper';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const CommunityBuildingPage = () => {
   return (
     <div className="min-h-screen bg-background">
-      <CommunityBuildingActivities />
+      <CommunityBuildingWrapper />
     </div>
   );
 };

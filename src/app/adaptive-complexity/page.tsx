@@ -1,11 +1,17 @@
 'use client';
-import { useState } from 'react';
-import AdaptiveComplexityEngine from '@/components/ai/adaptive-complexity/adaptive-complexity-engine';
+import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, BookOpen, Layers, ArrowRight, CheckCircle2, BarChart3 } from "lucide-react";
 import { useRouter, useSearchParams } from 'next/navigation';
+
+// Dynamically import the AdaptiveComplexityEngine component with SSR disabled
+const AdaptiveComplexityEngine = dynamic(
+  () => import('@/components/ai/adaptive-complexity/adaptive-complexity-engine'),
+  { ssr: false }
+);
 
 // Define interface for content structure
 interface ContentItem {

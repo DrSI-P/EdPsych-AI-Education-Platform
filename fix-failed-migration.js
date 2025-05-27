@@ -48,7 +48,7 @@ async function fixFailedMigration() {
               `INSERT INTO _prisma_migrations (id, checksum, finished_at, migration_name, logs, rolled_back_at, started_at, applied_steps_count)
                VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
               [
-                '00000000-0000-0000-0000-000000000000', // Generate a random UUID in production
+                require('crypto').randomUUID(), // Generate a random UUID
                 'fixed-checksum',
                 new Date(),
                 migrationName,
@@ -119,7 +119,7 @@ async function fixFailedMigration() {
           `INSERT INTO _prisma_migrations (id, checksum, finished_at, migration_name, logs, rolled_back_at, started_at, applied_steps_count)
            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
           [
-            '00000000-0000-0000-0000-000000000000', // Generate a random UUID in production
+            require('crypto').randomUUID(), // Generate a random UUID
             'fixed-checksum',
             new Date(),
             migration,

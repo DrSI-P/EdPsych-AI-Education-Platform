@@ -2,10 +2,28 @@
 
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import EducationalAIBlog from "@/components/blog/educational-ai-blog";
-import BlogPostEditor from "@/components/blog/blog-post-editor";
-import BlogPostDetail from "@/components/blog/blog-post-detail";
-import CommentModerationDashboard from "@/components/blog/comment-moderation-dashboard";
+import dynamic from 'next/dynamic';
+
+// Dynamically import components with SSR disabled
+const EducationalAIBlog = dynamic(
+  () => import('@/components/blog/educational-ai-blog'),
+  { ssr: false }
+);
+
+const BlogPostEditor = dynamic(
+  () => import('@/components/blog/blog-post-editor'),
+  { ssr: false }
+);
+
+const BlogPostDetail = dynamic(
+  () => import('@/components/blog/blog-post-detail'),
+  { ssr: false }
+);
+
+const CommentModerationDashboard = dynamic(
+  () => import('@/components/blog/comment-moderation-dashboard'),
+  { ssr: false }
+);
 
 const BlogPage = () => {
   return (

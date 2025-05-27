@@ -1,18 +1,7 @@
-'use client';
-
-import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { Pagination } from '@/components/ui/pagination';
-import { Search, Upload, BookOpen, Filter, Grid3X3, List } from 'lucide-react';
-import Link from 'next/link';
+import ResourcesWrapper from '@/components/resources/resources-wrapper';
 
 export default function ResourceLibrary() {
+  return <ResourcesWrapper />;
   const { data: session, status } = useSession();
   const [resources, setResources] = useState([]);
   const [loading, setLoading] = useState(true);

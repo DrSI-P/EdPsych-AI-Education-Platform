@@ -1,4 +1,4 @@
-import { auth } from '@/lib/auth/auth';
+import { auth } from '@/lib/auth/auth-compat';
 import { getUserById, updateUserProfile } from '@/lib/auth/users';
 import { profileSchema } from '@/lib/validations/schemas';
 import { NextResponse } from 'next/server';

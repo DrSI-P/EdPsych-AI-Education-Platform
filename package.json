@@ -2,13 +2,15 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "node server.js",
+    "start:next": "next start",
     "lint": "next lint",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:i18n": "vitest run src/tests/i18n.test.js",
     "fix-migrations": "node fix-failed-migration.js",
-    "build-with-migrations": "node fix-failed-migration.js && npx prisma migrate deploy && next build"
+    "build-with-migrations": "node fix-failed-migration.js && npx prisma migrate deploy && next build",
+    "build:vercel": "node vercel-build.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.52.0",
@@ -61,6 +63,7 @@
     "crypto-browserify": "^3.12.1",
     "cssnano": "^7.0.7",
     "date-fns": "^4.1.0",
+    "dotenv": "^16.5.0",
     "framer-motion": "^12.12.2",
     "https-browserify": "^1.0.0",
     "lucide-react": "^0.511.0",
@@ -73,6 +76,8 @@
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
     "pdf-lib": "^1.17.1",
+    "pg": "^8.16.0",
+    "prisma": "^6.8.2",
     "react": "^19.1.0",
     "react-apexcharts": "^1.7.0",
     "react-big-calendar": "^1.18.0",
@@ -91,8 +96,7 @@
     "tailwind-merge": "^3.3.0",
     "tailwindcss": "^4.1.7",
     "winston": "^3.17.0",
-    "zod": "^3.25.28",
-    "pg": "^8.11.3"
+    "zod": "^3.25.28"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",

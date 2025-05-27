@@ -1,7 +1,5 @@
-'use client';
-
 import React from 'react';
-import { CalendarOptimization } from '@/components/educator/calendar-optimization';
+import CalendarOptimizationWrapper from '@/components/educator/calendar-optimization-wrapper';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -18,7 +16,7 @@ export default function CalendarOptimizationPage() {
         </TabsList>
         
         <TabsContent value="calendar">
-          <CalendarOptimization />
+          <CalendarOptimizationWrapper />
         </TabsContent>
         
         <TabsContent value="about">

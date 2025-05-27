@@ -1,6 +1,5 @@
-import React from 'react';
 import { Metadata } from 'next';
-import RestorativeConversationFrameworks from '@/components/restorative-justice/restorative-conversation-frameworks';
+import ClientPage from '@/components/restorative-justice/conversation-frameworks-client';
 
 export const metadata: Metadata = {
   title: 'Guided Restorative Conversation Frameworks | EdPsych Connect',
@@ -8,9 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function RestorativeConversationFrameworksPage() {
-  return (
-    <div className="container mx-auto py-6">
-      <RestorativeConversationFrameworks />
-    </div>
-  );
+  return <ClientPage />;
 }

@@ -573,4 +573,5 @@ export function EmotionalCheckin() {
   );
 }
 
+// Make sure the default export is the same as the named export
 export default EmotionalCheckin;

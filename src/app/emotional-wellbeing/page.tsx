@@ -1,7 +1,14 @@
 'use client';
 
-import { EmotionalCheckin } from '@/components/ai/emotional-wellbeing/emotional-checkin';
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 import { Metadata } from 'next';
+
+// Dynamically import the EmotionalCheckin component with SSR disabled
+const EmotionalCheckin = dynamic(
+  () => import('@/components/ai/emotional-wellbeing/emotional-checkin'),
+  { ssr: false }
+);
 
 export default function EmotionalWellbeingPage() {
   return (
@@ -14,7 +21,9 @@ export default function EmotionalWellbeingPage() {
           </p>
         </div>
         
-        <EmotionalCheckin />
+        <Suspense fallback={<div>Loading emotional check-in tool...</div>}>
+          <EmotionalCheckin />
+        </Suspense>
       </div>
     </div>
   );

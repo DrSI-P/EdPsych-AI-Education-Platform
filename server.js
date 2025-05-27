@@ -1,3 +1,6 @@
+// Import polyfills first to ensure they're applied before any other code
+require('./src/globalPolyfills');
+
 const fs = require('fs');
 const path = require('path');
 const { Client } = require('pg');
@@ -342,28 +345,39 @@ const fallbackHtml = `
 </html>
 `;
 
-// Initialize Next.js with error handling
-let app;
-let handle;
-try {
-  const dev = process.env.NODE_ENV !== 'production';
-  app = next({ dev });
-  handle = app.getRequestHandler();
-  console.log('Next.js initialized successfully');
-} catch (error) {
-  console.error('Error initializing Next.js:', error);
-  // Continue with a fallback server if Next.js fails to initialize
-}
-
 // Prepare Next.js and start the server
 const startServer = async () => {
   try {
+    console.log('Starting server initialization...');
+    
     // Set up the database first
     try {
       await setupDatabase();
     } catch (error) {
       console.error('Error during database setup:', error);
+      console.error(error.stack);
       // Continue even if database setup fails
+    }
+    
+    // Initialize Next.js with error handling
+    let app;
+    let handle;
+    try {
+      console.log('Initializing Next.js...');
+      const dev = process.env.NODE_ENV !== 'production';
+      app = next({ dev });
+      handle = app.getRequestHandler();
+      
+      // Prepare Next.js
+      console.log('Preparing Next.js application...');
+      await app.prepare();
+      console.log('Next.js initialized and prepared successfully');
+    } catch (error) {
+      console.error('Error initializing Next.js:', error);
+      console.error(error.stack);
+      app = null;
+      handle = null;
+      // Continue with a fallback server if Next.js fails to initialize
     }
 
     // Create server with appropriate handler
@@ -405,14 +419,5 @@ const startServer = async () => {
   }
 };
 
-// Initialize Next.js if possible, otherwise start with fallback
-if (app) {
-  app.prepare()
-    .then(startServer)
-    .catch(error => {
-      console.error('Error preparing Next.js application:', error);
-      startServer(); // Start with fallback if Next.js preparation fails
-    });
-} else {
-  startServer(); // Start with fallback if Next.js initialization fails
-}
+// Start the server directly
+startServer();

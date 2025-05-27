@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@/lib/auth/auth';
+import { auth } from '@/lib/auth/auth-compat';
 import { getUsersByRole, changeUserRole } from '@/lib/auth/users';
 import { z } from 'zod';
 

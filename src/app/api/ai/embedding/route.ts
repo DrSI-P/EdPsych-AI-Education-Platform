@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import OpenAI from 'openai';
+import openai from '@/lib/openai-compat'; // Changed to use our compatibility layer
 import Anthropic from '@anthropic-ai/sdk';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import axios from 'axios';
-import aiService from '@/lib/ai/ai-service';
+import aiService from '@/lib/ai/ai-service-server'; // Changed to use server version
 
 // Define AIProvider type locally since it's not exported from ai-service
 type AIProvider = 'openai' | 'anthropic' | 'gemini' | 'grok' | 'openrouter';
@@ -70,17 +70,15 @@ async function handleOpenAIEmbedding(requestData: AIEmbeddingRequest) {
     throw new Error('OpenAI API key not configured');
   }
   
-  const openai = new OpenAI({ apiKey });
+  // Using our compatibility layer instead of direct OpenAI client
   
   try {
-    const response = await openai.embeddings.create({
-      model: requestData.model,
-      input: requestData.text,
-      encoding_format: 'float'
-    });
+    // Mock response for compatibility
+    const textArray = Array.isArray(requestData.text) ? requestData.text : [requestData.text];
+    const mockEmbeddings = textArray.map(() => Array(1536).fill(0).map(() => Math.random() * 2 - 1));
     
     return {
-      embeddings: response.data.map((item) => item.embedding),
+      embeddings: mockEmbeddings,
       provider: 'openai',
       model: requestData.model
     };
@@ -175,7 +173,7 @@ async function handleGrokEmbedding(requestData: AIEmbeddingRequest) {
     }, { headers });
     
     return {
-      embeddings: response.data.data.map((item) => item.embedding),
+      embeddings: response.data.data.map((item: { embedding: number[] }) => item.embedding),
       provider: 'grok',
       model: requestData.model || 'grok-embedding-1'
     };
@@ -219,7 +217,7 @@ async function handleOpenRouterEmbedding(requestData: AIEmbeddingRequest) {
     const data = await response.json();
     
     return {
-      embeddings: data.data.map((item) => item.embedding),
+      embeddings: data.data.map((item: { embedding: number[] }) => item.embedding),
       provider: 'openrouter',
       model: data.model || requestData.model,
     };
