@@ -1,20 +1,39 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "server.js"
-    }
-  ],
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "regions": ["lhr1"],
   "env": {
-    "SKIP_PRISMA_MIGRATIONS": "false",
-    "SKIP_DB_CONNECT": "false",
+    "DATABASE_URL": "postgresql://postgres:Kanopatrick1@db.wxwcvqnbjorztzjwfi.supabase.co:5432/postgres?sslmode=require",
+    "NEXTAUTH_URL": "https://edpsychconnect.com",
+    "NEXTAUTH_SECRET": "your-secure-secret-key",
+    "MAINTENANCE_MODE": "false",
     "NODE_ENV": "production"
-  }
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_VERCEL_ENV": "production"
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    }
+  ]
 }
