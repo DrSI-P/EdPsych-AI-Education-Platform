@@ -2,14 +2,19 @@
   "version": 2,
   "builds": [
     {
-      "src": "package.json",
-      "use": "@vercel/next",
-      "config": {
-        "buildCommand": "npx prisma generate && next build"
-      }
+      "src": "server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "server.js"
     }
   ],
   "env": {
-    "SKIP_PRISMA_MIGRATIONS": "true"
+    "SKIP_PRISMA_MIGRATIONS": "false",
+    "SKIP_DB_CONNECT": "false",
+    "NODE_ENV": "production"
   }
 }
