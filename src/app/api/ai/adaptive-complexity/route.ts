@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth/auth-options';
 import { db } from '@/lib/db';
-import { aiService } from '@/lib/ai';
+import { aiServiceServer } from '@/lib/ai/ai-service-server';
 
 // Define interfaces for type safety
 interface AdaptiveComplexitySettings {
@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
     } = body;
     
     // Validate required fields
-    if (!content && !contentId && !title) {
+    if (!content && !contentId && !contentTitle) {
       return NextResponse.json(
         { error: 'Either content, contentId, or title must be provided' },
         { status: 400 }
@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
     
     if (contentId) {
       // Fetch content from database
-      const curriculumPlan = await db.prisma.curriculumPlan.findUnique({
+      const curriculumPlan = await db.curriculumPlan.findUnique({
         where: { id: contentId }
       });
       
@@ -76,12 +76,13 @@ export async function POST(req: NextRequest) {
         contentToAdjust = curriculumPlan.content;
       } else {
         // Try to find as a resource
-        const resource = await db.prisma.resource.findUnique({
+        const resource = await db.resource.findUnique({
           where: { id: contentId }
         });
         
         if (resource) {
-          contentToAdjust = resource.content;
+          // Use description or url as content if resource doesn't have content property
+          contentToAdjust = resource.description || resource.url || 'No content available';
         } else {
           return NextResponse.json(
             { error: 'Content not found with the provided ID' },
@@ -178,7 +179,7 @@ export async function POST(req: NextRequest) {
     `;
     
     // Call AI service for adaptive complexity adjustment
-    const response = await aiService.generateText(prompt, {
+    const response = await aiServiceServer.generateText(prompt, {
       model: 'gpt-4',
       temperature: 0.5,
       max_tokens: 4000,
@@ -195,7 +196,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Save the adjusted content using db interface
-    const savedContent = await db.prisma.adaptiveContent.create({
+    const savedContent = await db.adaptiveContent.create({
       data: {
         userId: session.user.id,
         title: adjustedContent.title || contentTitle || 'Adjusted Content',
@@ -233,7 +234,7 @@ export async function GET(req: NextRequest) {
     const contentId = searchParams.get('contentId');
     
     // Get user's adaptive content using db interface
-    const adaptiveContents = await db.prisma.adaptiveContent.findMany({
+    const adaptiveContents = await db.adaptiveContent.findMany({
       where: {
         userId: session.user.id,
         ...(contentId ? { sourceContentId: contentId } : {})
