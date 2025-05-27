@@ -1,7 +1,7 @@
-const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const { Client } = require('pg');
+const next = require('next');
 require('dotenv').config();
 
 // Function to create the _prisma_migrations table and mark migrations as applied
@@ -100,87 +100,31 @@ async function setupDatabase() {
   }
 }
 
-// Create a simple HTML page
-const html = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EdPsych AI Education Platform</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            color: #333;
-        }
-        h1 {
-            color: #0070f3;
-            text-align: center;
-        }
-        .container {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 20px;
-            margin-top: 20px;
-            background-color: #f9f9f9;
-        }
-        .status-success {
-            background-color: #e8f5e9;
-            border-left: 4px solid #4caf50;
-            padding: 10px;
-            margin: 20px 0;
-        }
-        .next-steps {
-            background-color: #e8f5e9;
-            border-left: 4px solid #4caf50;
-            padding: 10px;
-            margin: 20px 0;
-        }
-    </style>
-</head>
-<body>
-    <h1>EdPsych AI Education Platform</h1>
-    
-    <div class="container">
-        <h2>Deployment Status</h2>
-        <div class="status-success">
-            <p><strong>Database Setup Complete</strong></p>
-            <p>The application has been deployed successfully, and the database tables have been created.</p>
-        </div>
-        
-        <h2>Next Steps</h2>
-        <div class="next-steps">
-            <p>The application is now ready for use. You can proceed with:</p>
-            <ol>
-                <li>Implementing the full application functionality</li>
-                <li>Adding user authentication</li>
-                <li>Populating the database with initial data</li>
-            </ol>
-        </div>
-    </div>
-</body>
-</html>
-`;
+// Initialize Next.js
+const dev = process.env.NODE_ENV !== 'production';
+const app = next({ dev });
+const handle = app.getRequestHandler();
 
-// Create a simple server
-const server = http.createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end(html);
-});
+// Prepare Next.js and start the server
+app.prepare().then(async () => {
+  // Set up the database first
+  try {
+    await setupDatabase();
+  } catch (error) {
+    console.error('Error during database setup:', error);
+  }
 
-// Start the server
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, async () => {
-    console.log(`Server running on port ${PORT}`);
-    
-    // Set up the database
-    try {
-        await setupDatabase();
-    } catch (error) {
-        console.error('Error during database setup:', error);
-    }
+  // Create server with Next.js handler
+  const { createServer } = require('http');
+  const server = createServer((req, res) => {
+    // Let Next.js handle all requests
+    return handle(req, res);
+  });
+
+  // Start the server
+  const PORT = process.env.PORT || 3000;
+  server.listen(PORT, (err) => {
+    if (err) throw err;
+    console.log(`> Ready on http://localhost:${PORT}`);
+  });
 });
