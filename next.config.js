@@ -5,12 +5,30 @@
  */
 const path = require('path');
 
+// All polyfills are now loaded from the dedicated polyfill files
+// This ensures consistent behavior across all entry points
+
+// Instead of inline polyfills, load from files to ensure consistency
+// This ensures the same polyfills are used across the entire application
+require('./src/globalPolyfills');
+require('./src/polyfills');
+
 // This is a simplified configuration to fix build issues
 const nextConfig = {
   reactStrictMode: true,
   
   // Optimize output for production
   output: 'standalone',
+  
+  // Completely disable static generation
+  staticPageGenerationTimeout: 1, // Set a very short timeout to force dynamic rendering
+  
+  // Disable static optimization to prevent localStorage errors
+  experimental: {
+    // Disable static optimization
+    disableOptimizedLoading: true,
+    optimizeCss: false
+  },
   
   // Disable ESLint during build to prevent build failures
   eslint: {
@@ -39,10 +57,31 @@ const nextConfig = {
       'openai': path.join(__dirname, 'src/lib/openai-compat.js')
     };
     
-    // Fix for 'self is not defined' error
+    // Add polyfills for browser APIs in server environment
     if (isServer) {
-      // For server-side rendering
-      global.self = global;
+      // Include polyfills at the beginning of the entry points
+      const originalEntry = config.entry;
+      config.entry = async () => {
+        const entries = await originalEntry();
+        
+        // Add polyfills to server entries only
+        if (entries['main.js']) {
+          if (Array.isArray(entries['main.js'])) {
+            // Add both polyfill files at the beginning
+            if (!entries['main.js'].includes('./src/globalPolyfills.js')) {
+              entries['main.js'].unshift('./src/globalPolyfills.js');
+            }
+            if (!entries['main.js'].includes('./src/polyfills.js')) {
+              entries['main.js'].unshift('./src/polyfills.js');
+            }
+          } else {
+            // Convert to array and add polyfills
+            entries['main.js'] = ['./src/globalPolyfills.js', './src/polyfills.js', entries['main.js']];
+          }
+        }
+        
+        return entries;
+      };
     }
     
     return config;

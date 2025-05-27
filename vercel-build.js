@@ -8,9 +8,10 @@
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
-
-// Ensure polyfills are loaded
+// Ensure polyfills are loaded in the same order as server.js
+require('./src/globalPolyfills');
 require('./src/polyfills');
+
 
 console.log('🚀 Starting custom Vercel build process...');
 
