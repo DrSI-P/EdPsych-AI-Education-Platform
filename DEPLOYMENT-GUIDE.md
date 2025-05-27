@@ -103,6 +103,7 @@ SKIP_DB_CONNECT="false"
 NEXT_PUBLIC_SKIP_DB_INIT="false"
 NEXT_SKIP_STATIC_GENERATION="true"
 NEXT_TELEMETRY_DISABLED="1"
+NEXT_PUBLIC_SITE_URL="https://edpsychconnect.com"
 ```
 
 ## Key Files and Components

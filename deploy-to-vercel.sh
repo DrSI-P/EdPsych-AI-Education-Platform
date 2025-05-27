@@ -68,6 +68,7 @@ echo -e "SKIP_DB_CONNECT=\"false\""
 echo -e "NEXT_PUBLIC_SKIP_DB_INIT=\"false\""
 echo -e "NEXT_SKIP_STATIC_GENERATION=\"true\""
 echo -e "NEXT_TELEMETRY_DISABLED=\"1\""
+echo -e "NEXT_PUBLIC_SITE_URL=\"https://edpsychconnect.com\""
 echo ""
 
 echo -e "${GREEN}=== Troubleshooting ===${NC}"

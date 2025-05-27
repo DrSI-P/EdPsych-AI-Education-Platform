@@ -62,6 +62,7 @@ echo SKIP_DB_CONNECT="false"
 echo NEXT_PUBLIC_SKIP_DB_INIT="false"
 echo NEXT_SKIP_STATIC_GENERATION="true"
 echo NEXT_TELEMETRY_DISABLED="1"
+echo NEXT_PUBLIC_SITE_URL="https://edpsychconnect.com"
 echo.
 
 echo === Troubleshooting ===
