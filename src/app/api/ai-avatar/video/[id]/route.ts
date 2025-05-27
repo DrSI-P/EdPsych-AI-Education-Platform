@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import AvatarService, { AvatarProvider } from '@/lib/ai-avatar/avatar-service';
+import AvatarService, { AvatarProvider } from '@/lib/ai-avatar/avatar-service-server';
 
 // Initialize the avatar service with API keys from environment variables
 const avatarService = new AvatarService({
