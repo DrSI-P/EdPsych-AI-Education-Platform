@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { prisma } from '@/lib/db';
+import prisma from '@/lib/prisma-client';
 import { BlogAdminDashboard } from '@/components/blog/BlogAdminDashboard';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 

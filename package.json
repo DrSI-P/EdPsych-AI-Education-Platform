@@ -11,7 +11,14 @@
     "fix-migrations": "node fix-failed-migration.js",
     "build-with-migrations": "node fix-failed-migration.js && npx prisma migrate deploy && next build",
     "build:vercel": "node vercel-build.js",
-    "vercel-build": "next build"
+    "vercel-build": "node vercel-build.js",
+    "postinstall": "prisma generate",
+    "generate-sitemap": "node scripts/generate-sitemap.js",
+    "check-env": "node scripts/check-env.js",
+    "verify-deployment": "node scripts/verify-deployment.js",
+    "prebuild": "npm run check-env && npm run generate-sitemap",
+    "prevercel-build": "npm run check-env && npm run generate-sitemap",
+    "postdeploy": "npm run verify-deployment"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.52.0",

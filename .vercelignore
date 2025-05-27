@@ -1,0 +1,35 @@
+# Vercel ignore file
+# This file specifies which files and directories should be excluded from Vercel deployments
+
+# Dependencies
+node_modules
+
+# Development files
+.git
+.github
+.vscode
+.idea
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build artifacts
+.next/cache
+
+# Environment files (except .env.production)
+.env
+.env.local
+.env.development
+.env.test
+
+# Backup and temporary files
+*.bak
+*.tmp
+*.swp
+*~
+
+# Documentation and non-essential files
+docs
+*.md
+LICENSE
