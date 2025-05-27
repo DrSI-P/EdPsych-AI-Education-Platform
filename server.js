@@ -16,12 +16,19 @@ async function setupDatabase() {
   
   console.log('Connecting to database...');
   
-  const client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false } // Add SSL option for Supabase
-  });
-
+  // Check if DATABASE_URL is defined
+  if (!process.env.DATABASE_URL) {
+    console.error('DATABASE_URL environment variable is not defined');
+    return;
+  }
+  
+  let client;
   try {
+    client = new Client({
+      connectionString: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false } // Add SSL option for Supabase
+    });
+    
     await client.connect();
     console.log('Connected to database');
 
@@ -60,34 +67,44 @@ async function setupDatabase() {
     console.log('_prisma_migrations table created successfully');
     
     // Mark all migrations as applied
-    const migrationsDir = path.join(__dirname, 'prisma/migrations');
-    
-    // Get all migration directories
-    const migrationDirs = fs.readdirSync(migrationsDir)
-      .filter(dir => !dir.startsWith('_') && fs.statSync(path.join(migrationsDir, dir)).isDirectory());
-    
-    console.log(`Found ${migrationDirs.length} migrations to mark as applied`);
-    
-    for (const migrationName of migrationDirs) {
-      console.log(`Marking migration ${migrationName} as applied...`);
+    try {
+      const migrationsDir = path.join(__dirname, 'prisma/migrations');
       
-      // Insert the migration as applied
-      await client.query(
-        `INSERT INTO _prisma_migrations (id, checksum, finished_at, migration_name, logs, rolled_back_at, started_at, applied_steps_count)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
-        [
-          require('crypto').randomUUID(), // Generate a random UUID
-          'fixed-checksum',
-          new Date(),
-          migrationName,
-          'Migration manually marked as applied',
-          null,
-          new Date(),
-          1
-        ]
-      );
-      
-      console.log(`Migration ${migrationName} marked as applied`);
+      // Check if migrations directory exists
+      if (fs.existsSync(migrationsDir)) {
+        // Get all migration directories
+        const migrationDirs = fs.readdirSync(migrationsDir)
+          .filter(dir => !dir.startsWith('_') && fs.statSync(path.join(migrationsDir, dir)).isDirectory());
+        
+        console.log(`Found ${migrationDirs.length} migrations to mark as applied`);
+        
+        for (const migrationName of migrationDirs) {
+          console.log(`Marking migration ${migrationName} as applied...`);
+          
+          // Insert the migration as applied
+          await client.query(
+            `INSERT INTO _prisma_migrations (id, checksum, finished_at, migration_name, logs, rolled_back_at, started_at, applied_steps_count)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+            [
+              require('crypto').randomUUID(), // Generate a random UUID
+              'fixed-checksum',
+              new Date(),
+              migrationName,
+              'Migration manually marked as applied',
+              null,
+              new Date(),
+              1
+            ]
+          );
+          
+          console.log(`Migration ${migrationName} marked as applied`);
+        }
+      } else {
+        console.log('Migrations directory not found. Skipping migration marking.');
+      }
+    } catch (error) {
+      console.error('Error marking migrations as applied:', error);
+      // Continue execution even if there's an error with migrations
     }
     
     console.log('All migrations have been marked as applied');
@@ -95,8 +112,14 @@ async function setupDatabase() {
   } catch (error) {
     console.error('Error setting up database:', error);
   } finally {
-    await client.end();
-    console.log('Disconnected from database');
+    if (client) {
+      try {
+        await client.end();
+        console.log('Disconnected from database');
+      } catch (error) {
+        console.error('Error disconnecting from database:', error);
+      }
+    }
   }
 }
 
@@ -106,25 +129,31 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 // Prepare Next.js and start the server
-app.prepare().then(async () => {
-  // Set up the database first
-  try {
-    await setupDatabase();
-  } catch (error) {
-    console.error('Error during database setup:', error);
-  }
+app.prepare()
+  .then(async () => {
+    // Set up the database first
+    try {
+      await setupDatabase();
+    } catch (error) {
+      console.error('Error during database setup:', error);
+      // Continue even if database setup fails
+    }
 
-  // Create server with Next.js handler
-  const { createServer } = require('http');
-  const server = createServer((req, res) => {
-    // Let Next.js handle all requests
-    return handle(req, res);
-  });
+    // Create server with Next.js handler
+    const { createServer } = require('http');
+    const server = createServer((req, res) => {
+      // Let Next.js handle all requests
+      return handle(req, res);
+    });
 
-  // Start the server
-  const PORT = process.env.PORT || 3000;
-  server.listen(PORT, (err) => {
-    if (err) throw err;
-    console.log(`> Ready on http://localhost:${PORT}`);
+    // Start the server
+    const PORT = process.env.PORT || 3000;
+    server.listen(PORT, (err) => {
+      if (err) throw err;
+      console.log(`> Ready on http://localhost:${PORT}`);
+    });
+  })
+  .catch(error => {
+    console.error('Error preparing Next.js application:', error);
+    process.exit(1);
   });
-});
