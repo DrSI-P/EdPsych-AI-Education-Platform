@@ -128,9 +128,9 @@ const html = `
             margin-top: 20px;
             background-color: #f9f9f9;
         }
-        .status {
-            background-color: #ffebee;
-            border-left: 4px solid #f44336;
+        .status-success {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
             padding: 10px;
             margin: 20px 0;
         }
@@ -147,18 +147,18 @@ const html = `
     
     <div class="container">
         <h2>Deployment Status</h2>
-        <div class="status">
-            <p><strong>Database Setup Required</strong></p>
-            <p>The application has been deployed successfully, but the database tables need to be created.</p>
+        <div class="status-success">
+            <p><strong>Database Setup Complete</strong></p>
+            <p>The application has been deployed successfully, and the database tables have been created.</p>
         </div>
         
         <h2>Next Steps</h2>
         <div class="next-steps">
-            <p>To complete the setup, the following steps need to be performed:</p>
+            <p>The application is now ready for use. You can proceed with:</p>
             <ol>
-                <li>Run database migrations to create the necessary tables</li>
-                <li>Verify database connectivity</li>
-                <li>Redeploy the application with database access enabled</li>
+                <li>Implementing the full application functionality</li>
+                <li>Adding user authentication</li>
+                <li>Populating the database with initial data</li>
             </ol>
         </div>
     </div>
