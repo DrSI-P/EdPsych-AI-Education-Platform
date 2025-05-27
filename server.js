@@ -54,29 +54,171 @@ async function setupDatabase() {
     
     if (tableExists) {
       console.log('The _prisma_migrations table already exists. No action needed.');
-      return;
+    } else {
+      // Create the _prisma_migrations table
+      console.log('Creating _prisma_migrations table...');
+      await client.query(`
+        CREATE TABLE "_prisma_migrations" (
+          "id" character varying(36) NOT NULL,
+          "checksum" character varying(64) NOT NULL,
+          "finished_at" timestamp with time zone,
+          "migration_name" character varying(255) NOT NULL,
+          "logs" text,
+          "rolled_back_at" timestamp with time zone,
+          "started_at" timestamp with time zone NOT NULL DEFAULT now(),
+          "applied_steps_count" integer NOT NULL DEFAULT 0,
+          CONSTRAINT "_prisma_migrations_pkey" PRIMARY KEY ("id")
+        );
+      `);
+      
+      console.log('_prisma_migrations table created successfully');
     }
     
-    // Create the _prisma_migrations table
-    console.log('Creating _prisma_migrations table...');
-    await client.query(`
-      CREATE TABLE "_prisma_migrations" (
-        "id" character varying(36) NOT NULL,
-        "checksum" character varying(64) NOT NULL,
-        "finished_at" timestamp with time zone,
-        "migration_name" character varying(255) NOT NULL,
-        "logs" text,
-        "rolled_back_at" timestamp with time zone,
-        "started_at" timestamp with time zone NOT NULL DEFAULT now(),
-        "applied_steps_count" integer NOT NULL DEFAULT 0,
-        CONSTRAINT "_prisma_migrations_pkey" PRIMARY KEY ("id")
-      );
-    `);
-    
-    console.log('_prisma_migrations table created successfully');
-    
-    // Mark all migrations as applied
+    // Run Prisma migrations directly
     try {
+      // First, check if we have the required tables for the application
+      const requiredTables = [
+        'User', 'Account', 'Session', 'VerificationToken',
+        'Course', 'Enrollment', 'CourseProgress', 'Certificate'
+      ];
+      
+      for (const tableName of requiredTables) {
+        const tableCheckResult = await client.query(`
+          SELECT EXISTS (
+            SELECT FROM information_schema.tables
+            WHERE table_schema = 'public'
+            AND table_name = '${tableName.toLowerCase()}'
+          );
+        `);
+        
+        const tableExists = tableCheckResult.rows[0].exists;
+        
+        if (!tableExists) {
+          console.log(`Table ${tableName} does not exist. Creating basic schema...`);
+          
+          // Create basic tables based on the table name
+          if (tableName === 'User') {
+            await client.query(`
+              CREATE TABLE "User" (
+                "id" TEXT NOT NULL,
+                "name" TEXT,
+                "email" TEXT,
+                "emailVerified" TIMESTAMP(3),
+                "image" TEXT,
+                "role" TEXT DEFAULT 'user',
+                "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                "updatedAt" TIMESTAMP(3) NOT NULL,
+                CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+              );
+              CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+            `);
+            console.log('Created User table');
+          } else if (tableName === 'Account') {
+            await client.query(`
+              CREATE TABLE "Account" (
+                "id" TEXT NOT NULL,
+                "userId" TEXT NOT NULL,
+                "type" TEXT NOT NULL,
+                "provider" TEXT NOT NULL,
+                "providerAccountId" TEXT NOT NULL,
+                "refresh_token" TEXT,
+                "access_token" TEXT,
+                "expires_at" INTEGER,
+                "token_type" TEXT,
+                "scope" TEXT,
+                "id_token" TEXT,
+                "session_state" TEXT,
+                CONSTRAINT "Account_pkey" PRIMARY KEY ("id"),
+                CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE
+              );
+              CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");
+            `);
+            console.log('Created Account table');
+          } else if (tableName === 'Session') {
+            await client.query(`
+              CREATE TABLE "Session" (
+                "id" TEXT NOT NULL,
+                "sessionToken" TEXT NOT NULL,
+                "userId" TEXT NOT NULL,
+                "expires" TIMESTAMP(3) NOT NULL,
+                CONSTRAINT "Session_pkey" PRIMARY KEY ("id"),
+                CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE
+              );
+              CREATE UNIQUE INDEX "Session_sessionToken_key" ON "Session"("sessionToken");
+            `);
+            console.log('Created Session table');
+          } else if (tableName === 'VerificationToken') {
+            await client.query(`
+              CREATE TABLE "VerificationToken" (
+                "identifier" TEXT NOT NULL,
+                "token" TEXT NOT NULL,
+                "expires" TIMESTAMP(3) NOT NULL,
+                CONSTRAINT "VerificationToken_pkey" PRIMARY KEY ("identifier", "token")
+              );
+              CREATE UNIQUE INDEX "VerificationToken_token_key" ON "VerificationToken"("token");
+            `);
+            console.log('Created VerificationToken table');
+          } else if (tableName === 'Course') {
+            await client.query(`
+              CREATE TABLE "Course" (
+                "id" TEXT NOT NULL,
+                "title" TEXT NOT NULL,
+                "description" TEXT,
+                "imageUrl" TEXT,
+                "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                "updatedAt" TIMESTAMP(3) NOT NULL,
+                CONSTRAINT "Course_pkey" PRIMARY KEY ("id")
+              );
+            `);
+            console.log('Created Course table');
+          } else if (tableName === 'Enrollment') {
+            await client.query(`
+              CREATE TABLE "Enrollment" (
+                "id" TEXT NOT NULL,
+                "userId" TEXT NOT NULL,
+                "courseId" TEXT NOT NULL,
+                "enrolledAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                "completedAt" TIMESTAMP(3),
+                CONSTRAINT "Enrollment_pkey" PRIMARY KEY ("id"),
+                CONSTRAINT "Enrollment_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE,
+                CONSTRAINT "Enrollment_courseId_fkey" FOREIGN KEY ("courseId") REFERENCES "Course"("id") ON DELETE CASCADE ON UPDATE CASCADE
+              );
+              CREATE UNIQUE INDEX "Enrollment_userId_courseId_key" ON "Enrollment"("userId", "courseId");
+            `);
+            console.log('Created Enrollment table');
+          } else if (tableName === 'CourseProgress') {
+            await client.query(`
+              CREATE TABLE "CourseProgress" (
+                "id" TEXT NOT NULL,
+                "enrollmentId" TEXT NOT NULL,
+                "progress" INTEGER NOT NULL DEFAULT 0,
+                "lastAccessedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                CONSTRAINT "CourseProgress_pkey" PRIMARY KEY ("id"),
+                CONSTRAINT "CourseProgress_enrollmentId_fkey" FOREIGN KEY ("enrollmentId") REFERENCES "Enrollment"("id") ON DELETE CASCADE ON UPDATE CASCADE
+              );
+              CREATE UNIQUE INDEX "CourseProgress_enrollmentId_key" ON "CourseProgress"("enrollmentId");
+            `);
+            console.log('Created CourseProgress table');
+          } else if (tableName === 'Certificate') {
+            await client.query(`
+              CREATE TABLE "Certificate" (
+                "id" TEXT NOT NULL,
+                "enrollmentId" TEXT NOT NULL,
+                "issuedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                "certificateUrl" TEXT,
+                CONSTRAINT "Certificate_pkey" PRIMARY KEY ("id"),
+                CONSTRAINT "Certificate_enrollmentId_fkey" FOREIGN KEY ("enrollmentId") REFERENCES "Enrollment"("id") ON DELETE CASCADE ON UPDATE CASCADE
+              );
+              CREATE UNIQUE INDEX "Certificate_enrollmentId_key" ON "Certificate"("enrollmentId");
+            `);
+            console.log('Created Certificate table');
+          }
+        } else {
+          console.log(`Table ${tableName} already exists.`);
+        }
+      }
+      
+      // Mark all migrations as applied
       const migrationsDir = path.join(__dirname, 'prisma/migrations');
       
       // Check if migrations directory exists
@@ -88,35 +230,45 @@ async function setupDatabase() {
         console.log(`Found ${migrationDirs.length} migrations to mark as applied`);
         
         for (const migrationName of migrationDirs) {
-          console.log(`Marking migration ${migrationName} as applied...`);
-          
-          // Insert the migration as applied
-          await client.query(
-            `INSERT INTO _prisma_migrations (id, checksum, finished_at, migration_name, logs, rolled_back_at, started_at, applied_steps_count)
-             VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
-            [
-              require('crypto').randomUUID(), // Generate a random UUID
-              'fixed-checksum',
-              new Date(),
-              migrationName,
-              'Migration manually marked as applied',
-              null,
-              new Date(),
-              1
-            ]
+          // Check if migration is already marked as applied
+          const migrationCheckResult = await client.query(
+            `SELECT * FROM _prisma_migrations WHERE migration_name = $1`,
+            [migrationName]
           );
           
-          console.log(`Migration ${migrationName} marked as applied`);
+          if (migrationCheckResult.rows.length === 0) {
+            console.log(`Marking migration ${migrationName} as applied...`);
+            
+            // Insert the migration as applied
+            await client.query(
+              `INSERT INTO _prisma_migrations (id, checksum, finished_at, migration_name, logs, rolled_back_at, started_at, applied_steps_count)
+               VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+              [
+                require('crypto').randomUUID(), // Generate a random UUID
+                'fixed-checksum',
+                new Date(),
+                migrationName,
+                'Migration manually marked as applied',
+                null,
+                new Date(),
+                1
+              ]
+            );
+            
+            console.log(`Migration ${migrationName} marked as applied`);
+          } else {
+            console.log(`Migration ${migrationName} already marked as applied.`);
+          }
         }
       } else {
         console.log('Migrations directory not found. Skipping migration marking.');
       }
     } catch (error) {
-      console.error('Error marking migrations as applied:', error);
-      // Continue execution even if there's an error with migrations
+      console.error('Error setting up database schema:', error);
+      // Continue execution even if there's an error with schema setup
     }
     
-    console.log('All migrations have been marked as applied');
+    console.log('Database setup completed');
     
   } catch (error) {
     console.error('Error setting up database:', error);
