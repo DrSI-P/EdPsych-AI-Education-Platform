@@ -710,9 +710,18 @@ const MOCK_RESEARCH_IMPACT = [
     testimonial: 'The research-based implementation of restorative practices has transformed our school culture and significantly reduced serious behaviour incidents.'
   }
 ];
-
 // Colors for charts
 const COLORS = ['#4f46e5', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4', '#f43f5e', '#84cc16'];
+
+// Mock data for category distribution
+const MOCK_CATEGORY_DISTRIBUTION = [
+  { name: 'Primary', value: 24 },
+  { name: 'Secondary', value: 18 },
+  { name: 'Special', value: 12 },
+  { name: 'All-through', value: 8 },
+  { name: 'Alternative Provision', value: 5 },
+];
+
 
 export default function ResearchCollaboration() {
   const [activeTab, setActiveTab] = useState('projects');
