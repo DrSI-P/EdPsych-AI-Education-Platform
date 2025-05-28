@@ -19,7 +19,8 @@ export interface TeamMemberProps {
   education?: string[];
 }
 
-const TeamMember: React.FC<TeamMemberProps> = ({
+// Component with both named and default export
+export const TeamMember: React.FC<TeamMemberProps> = ({
   name,
   role,
   bio,
@@ -113,4 +114,5 @@ const TeamMember: React.FC<TeamMemberProps> = ({
   );
 };
 
+// Also export as default for backward compatibility
 export default TeamMember;
