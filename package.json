@@ -55,6 +55,7 @@
     "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.2",
     "browserify-zlib": "^0.2.0",
+    "canvas-confetti": "^1.9.3",
     "class-variance-authority": "^0.7.1",
     "crypto-browserify": "^3.12.1",
     "cssnano": "^7.0.7",
