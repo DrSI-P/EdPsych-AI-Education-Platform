@@ -7,6 +7,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        border: '#e2e8f0', // Adding border color (Tailwind's slate-200)
         primary: {
           50: '#f0f9ff',
           100: '#e0f2fe',

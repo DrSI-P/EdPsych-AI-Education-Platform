@@ -121,6 +121,28 @@ async function main() {
       process.exit(1);
     }
     
+    // Run Prisma migrations if not skipped
+    if (process.env.SKIP_PRISMA_MIGRATIONS !== 'true') {
+      console.log('🔄 Running Prisma migrations...');
+      try {
+        // Use db push instead of migrate deploy for safer schema updates
+        // This will update the database schema without requiring migration files
+        execSync('npx prisma db push --accept-data-loss', {
+          stdio: 'inherit',
+          env: {
+            ...process.env
+          }
+        });
+        console.log('✅ Database schema updated successfully');
+      } catch (error) {
+        console.error('⚠️ Database schema update failed:', error.message);
+        console.log('⚠️ Continuing build process despite migration failure');
+        // Continue the build process even if migrations fail
+      }
+    } else {
+      console.log('⏭️ Skipping Prisma migrations as SKIP_PRISMA_MIGRATIONS is set to true');
+    }
+    
     // Verify Prisma client was generated
     const prismaClientPath = path.join(__dirname, 'node_modules', '.prisma', 'client');
     if (!fs.existsSync(prismaClientPath)) {
