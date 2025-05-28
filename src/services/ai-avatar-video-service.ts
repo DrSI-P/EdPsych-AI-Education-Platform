@@ -1,50 +1,59 @@
 /**
  * AI Avatar Video Service
- * 
- * This service handles interactions with the AI Avatar Video generation API
- * for creating and managing educational videos with AI avatars.
+ * Handles creation, management, and playback of AI-generated avatar videos
  */
 
-export interface VideoMetadata {
+export interface AvatarVideoOptions {
+  avatarId: string;
+  script: string;
+  voiceId?: string;
+  background?: string;
+  duration?: number;
+  resolution?: '720p' | '1080p';
+  format?: 'mp4' | 'webm';
+}
+
+export interface AvatarVideo {
   id: string;
   title: string;
-  description: string;
-  status: 'pending' | 'processing' | 'completed' | 'failed';
-  url: string | null;
-  thumbnail: string | null;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface VideoGenerationOptions {
-  avatarProfileId: string;
-  script: string;
-  title: string;
   description?: string;
-  voiceId?: string;
-  language?: string;
-  settings?: {
-    background?: string;
-    resolution?: '720p' | '1080p';
-    aspectRatio?: '16:9' | '4:3' | '1:1';
-  };
+  url: string;
+  thumbnailUrl: string;
+  duration: number;
+  createdAt: Date;
+  status: 'processing' | 'ready' | 'failed';
+  avatarId: string;
+  userId: string;
 }
 
-export class AIAvatarVideoService {
-  private apiUrl: string;
-  
-  constructor() {
-    this.apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api/ai-avatar-videos';
-  }
-  
+/**
+ * Service for managing AI avatar videos
+ */
+class AiAvatarVideoService {
   /**
-   * Generate a new AI avatar video
-   * @param options Video generation options
-   * @returns Promise with the generated video metadata
+   * Fetches a video by ID
+   * @param id - Video ID
+   * @returns Promise resolving to the video or null if not found
    */
-  async generateVideo(options: VideoGenerationOptions): Promise<VideoMetadata> {
+  async getVideoById(id: string): Promise<AvatarVideo | null> {
     try {
-      const response = await fetch(`${this.apiUrl}/generate`, {
+      const response = await fetch(`/api/ai-avatar/video/${id}`);
+      if (!response.ok) return null;
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching avatar video:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Creates a new avatar video
+   * @param options - Video creation options
+   * @returns Promise resolving to the created video
+   */
+  async createVideo(options: AvatarVideoOptions): Promise<AvatarVideo | null> {
+    try {
+      const response = await fetch('/api/ai-avatar/video', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -53,108 +62,53 @@ export class AIAvatarVideoService {
       });
       
       if (!response.ok) {
-        throw new Error(`Failed to generate video: ${response.statusText}`);
+        throw new Error(`Failed to create video: ${response.statusText}`);
       }
       
-      const data = await response.json();
-      return this.normalizeVideoData(data);
+      return await response.json();
     } catch (error) {
-      console.error('Error generating video:', error);
-      throw error;
+      console.error('Error creating avatar video:', error);
+      return null;
     }
   }
-  
+
   /**
-   * Get a list of all videos for the current user
-   * @returns Promise with an array of video metadata
+   * Lists all videos for the current user
+   * @param limit - Maximum number of videos to return
+   * @param offset - Pagination offset
+   * @returns Promise resolving to an array of videos
    */
-  async getAllVideos(): Promise<VideoMetadata[]> {
+  async listVideos(limit = 10, offset = 0): Promise<AvatarVideo[]> {
     try {
-      const response = await fetch(`${this.apiUrl}/list`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      
-      if (!response.ok) {
-        throw new Error(`Failed to fetch videos: ${response.statusText}`);
-      }
-      
-      const data = await response.json();
-      return data.videos.map(this.normalizeVideoData);
+      const response = await fetch(`/api/ai-avatar/video?limit=${limit}&offset=${offset}`);
+      if (!response.ok) return [];
+      return await response.json();
     } catch (error) {
-      console.error('Error fetching videos:', error);
-      throw error;
+      console.error('Error listing avatar videos:', error);
+      return [];
     }
   }
-  
+
   /**
-   * Get the status and metadata of a specific video
-   * @param videoId The ID of the video to check
-   * @returns Promise with the video metadata
+   * Deletes a video by ID
+   * @param id - Video ID
+   * @returns Promise resolving to success status
    */
-  async getVideoStatus(videoId: string): Promise<VideoMetadata> {
+  async deleteVideo(id: string): Promise<boolean> {
     try {
-      const response = await fetch(`${this.apiUrl}/${videoId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      
-      if (!response.ok) {
-        throw new Error(`Failed to fetch video status: ${response.statusText}`);
-      }
-      
-      const data = await response.json();
-      return this.normalizeVideoData(data);
-    } catch (error) {
-      console.error('Error fetching video status:', error);
-      throw error;
-    }
-  }
-  
-  /**
-   * Delete a video
-   * @param videoId The ID of the video to delete
-   * @returns Promise indicating success
-   */
-  async deleteVideo(videoId: string): Promise<boolean> {
-    try {
-      const response = await fetch(`${this.apiUrl}/${videoId}`, {
+      const response = await fetch(`/api/ai-avatar/video/${id}`, {
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
       });
-      
-      if (!response.ok) {
-        throw new Error(`Failed to delete video: ${response.statusText}`);
-      }
-      
-      return true;
+      return response.ok;
     } catch (error) {
-      console.error('Error deleting video:', error);
-      throw error;
+      console.error('Error deleting avatar video:', error);
+      return false;
     }
-  }
-  
-  /**
-   * Normalize video data from API response
-   * @param data Raw video data from API
-   * @returns Normalized VideoMetadata object
-   */
-  private normalizeVideoData(data): VideoMetadata {
-    return {
-      id: data.id,
-      title: data.title,
-      description: data.description || '',
-      status: data.status,
-      url: data.url,
-      thumbnail: data.thumbnail,
-      createdAt: new Date(data.createdAt),
-      updatedAt: new Date(data.updatedAt),
-    };
   }
 }
+
+// Export singleton instance
+export const aiAvatarVideoService = new AiAvatarVideoService();
+
+// Default export
+export default aiAvatarVideoService;

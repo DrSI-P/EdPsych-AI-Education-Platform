@@ -53,12 +53,23 @@ const nextConfig = {
     // Add module resolution aliases for better imports
     config.resolve.alias = {
       ...config.resolve.alias,
-      // Add explicit aliases for problematic paths using plain string paths
-      '@/lib/auth/auth-options': path.join(__dirname, 'src/lib/auth/auth-options'),
-      '@/lib/db/prisma': path.join(__dirname, 'src/lib/db/prisma'),
-      '@/lib/ai/ai-service': path.join(__dirname, 'src/lib/ai/ai-service'),
+      // Add explicit aliases for all project paths
       '@/components': path.join(__dirname, 'src/components'),
-      '@/components/ui': path.join(__dirname, 'src/components/ui')
+      '@/components/ui': path.join(__dirname, 'src/components/ui'),
+      '@/lib': path.join(__dirname, 'src/lib'),
+      '@/lib/auth': path.join(__dirname, 'src/lib/auth'),
+      '@/lib/db': path.join(__dirname, 'src/lib/db'),
+      '@/lib/ai': path.join(__dirname, 'src/lib/ai'),
+      '@/lib/utils': path.join(__dirname, 'src/lib/utils'),
+      '@/lib/adaptive-complexity': path.join(__dirname, 'src/lib/adaptive-complexity'),
+      '@/services': path.join(__dirname, 'src/services'),
+      '@/providers': path.join(__dirname, 'src/providers'),
+      '@/app': path.join(__dirname, 'src/app'),
+      '@/hooks': path.join(__dirname, 'src/hooks'),
+      '@/types': path.join(__dirname, 'src/types'),
+      '@/styles': path.join(__dirname, 'src/styles'),
+      '@/config': path.join(__dirname, 'src/config'),
+      '@/constants': path.join(__dirname, 'src/constants')
     };
     
     return config;
