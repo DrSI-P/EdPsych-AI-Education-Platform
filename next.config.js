@@ -20,9 +20,10 @@ const nextConfig = {
   experimental: {
     serverActions: {
       allowedOrigins: ['localhost:3000', 'edpsychconnect.com']
-    },
-    serverComponentsExternalPackages: ['@prisma/client']
+    }
   },
+  // Updated from serverComponentsExternalPackages to serverExternalPackages
+  serverExternalPackages: ['@prisma/client'],
   webpack: (config) => {
     config.resolve.fallback = { fs: false, net: false, tls: false };
     return config;

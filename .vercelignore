@@ -1,0 +1,33 @@
+# Ignore development files and directories
+.git
+.github
+.vscode
+node_modules
+coverage
+.next/cache
+
+# Ignore test files
+**/*.test.js
+**/*.test.jsx
+**/*.test.ts
+**/*.test.tsx
+**/__tests__
+**/__mocks__
+
+# Ignore documentation
+*.md
+LICENSE
+docs
+
+# Ignore development configuration files
+.eslintrc*
+.prettierrc*
+.editorconfig
+tsconfig.tsbuildinfo
+
+# Ignore scripts directory
+scripts
+
+# Ignore large assets that aren't needed for build
+public/videos
+public/large-assets
