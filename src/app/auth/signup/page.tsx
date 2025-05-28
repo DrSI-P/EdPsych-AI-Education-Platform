@@ -1,8 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+
+// This ensures localStorage is only accessed in the browser environment
+const isBrowser = typeof window !== 'undefined';
 
 export default function SignUpForm() {
   const router = useRouter();

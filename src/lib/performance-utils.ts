@@ -12,6 +12,8 @@ export const useLazyImage = (src: string, placeholder: string = '/images/placeho
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     // Create new image object to preload
     const img = new Image();
     img.src = src;
@@ -71,16 +73,19 @@ export const useDataCache = (key, fetchFunc, ttl = 5 * 60 * 1000) => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        // Check cache first
-        const cachedData = localStorage.getItem(`cache_${key}`);
-        if (cachedData) {
-          const { data: cachedValue, timestamp } = JSON.parse(cachedData);
-          const isValid = Date.now() - timestamp < ttl;
-          
-          if (isValid) {
-            setData(cachedValue);
-            setIsLoading(false);
-            return;
+        // Check if we're in a browser environment
+        if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+          // Check cache first
+          const cachedData = localStorage.getItem(`cache_${key}`);
+          if (cachedData) {
+            const { data: cachedValue, timestamp } = JSON.parse(cachedData);
+            const isValid = Date.now() - timestamp < ttl;
+            
+            if (isValid) {
+              setData(cachedValue);
+              setIsLoading(false);
+              return;
+            }
           }
         }
         
@@ -88,14 +93,16 @@ export const useDataCache = (key, fetchFunc, ttl = 5 * 60 * 1000) => {
         const freshData = await fetchFunc();
         setData(freshData);
         
-        // Update cache
-        localStorage.setItem(
-          `cache_${key}`,
-          JSON.stringify({
-            data: freshData,
-            timestamp: Date.now()
-          })
-        );
+        // Update cache if in browser environment
+        if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+          localStorage.setItem(
+            `cache_${key}`,
+            JSON.stringify({
+              data: freshData,
+              timestamp: Date.now()
+            })
+          );
+        }
       } catch (err) {
         console.error('Failed to fetch data:', err);
         setError(err);
@@ -114,14 +121,16 @@ export const useDataCache = (key, fetchFunc, ttl = 5 * 60 * 1000) => {
       const freshData = await fetchFunc();
       setData(freshData);
       
-      // Update cache
-      localStorage.setItem(
-        `cache_${key}`,
-        JSON.stringify({
-          data: freshData,
-          timestamp: Date.now()
-        })
-      );
+      // Update cache if in browser environment
+      if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+        localStorage.setItem(
+          `cache_${key}`,
+          JSON.stringify({
+            data: freshData,
+            timestamp: Date.now()
+          })
+        );
+      }
     } catch (err) {
       console.error('Failed to refresh data:', err);
       setError(err);
@@ -218,18 +227,20 @@ export const useAnimationFrame = (callback) => {
       callback(deltaTime);
     }
     previousTimeRef.current = time;
-    requestRef.current = requestAnimationFrame(animate);
+    if (typeof window !== 'undefined') {
+      requestRef.current = requestAnimationFrame(animate);
+    }
   }, [callback]);
   
   const start = useCallback(() => {
-    if (!isRunning) {
+    if (!isRunning && typeof window !== 'undefined') {
       requestRef.current = requestAnimationFrame(animate);
       setIsRunning(true);
     }
   }, [animate, isRunning]);
   
   const stop = useCallback(() => {
-    if (isRunning) {
+    if (isRunning && typeof window !== 'undefined') {
       cancelAnimationFrame(requestRef.current);
       setIsRunning(false);
     }
@@ -237,7 +248,7 @@ export const useAnimationFrame = (callback) => {
   
   useEffect(() => {
     return () => {
-      if (requestRef.current) {
+      if (typeof window !== 'undefined' && requestRef.current) {
         cancelAnimationFrame(requestRef.current);
       }
     };
@@ -259,6 +270,8 @@ export const useNetworkAwareness = () => {
   });
   
   useEffect(() => {
+    if (typeof navigator === 'undefined') return;
+    
     const updateNetworkInfo = () => {
       if ('connection' in navigator) {
         const connection = navigator.connection;
@@ -338,6 +351,8 @@ export const useIntersectionObserver = (options = {}) => {
   const ref = useRef(null);
   
   useEffect(() => {
+    if (typeof window === 'undefined' || typeof IntersectionObserver === 'undefined') return;
+    
     const observer = new IntersectionObserver(([entry]) => {
       setIsIntersecting(entry.isIntersecting);
     }, options);

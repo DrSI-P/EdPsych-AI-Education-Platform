@@ -67,29 +67,60 @@ export function ThemeProvider({
   defaultDyslexicFont?: boolean;
   defaultFontSize?: number;
   defaultReducedMotion?: boolean;
-  [key: string];
+  [key: string]: any;
 }) {
+  // Check if we're in a browser environment
+  const isBrowser = typeof window !== 'undefined';
+
   const [theme, setTheme] = useState<Theme>(
-    () => (localStorage?.getItem("theme") as Theme) || defaultTheme
+    () => {
+      if (isBrowser) {
+        return (localStorage.getItem("theme") as Theme) || defaultTheme;
+      }
+      return defaultTheme;
+    }
   );
   
   const [ageGroup, setAgeGroup] = useState<AgeGroup>(
-    () => (localStorage?.getItem("ageGroup") as AgeGroup) || defaultAgeGroup
+    () => {
+      if (isBrowser) {
+        return (localStorage.getItem("ageGroup") as AgeGroup) || defaultAgeGroup;
+      }
+      return defaultAgeGroup;
+    }
   );
   
   const [isDyslexicFont, setIsDyslexicFont] = useState<boolean>(
-    localStorage?.getItem("dyslexicFont") === "true" || defaultDyslexicFont
+    () => {
+      if (isBrowser) {
+        return localStorage.getItem("dyslexicFont") === "true" || defaultDyslexicFont;
+      }
+      return defaultDyslexicFont;
+    }
   );
   
   const [fontSize, setFontSize] = useState<number>(
-    parseInt(localStorage?.getItem("fontSize") || defaultFontSize.toString())
+    () => {
+      if (isBrowser) {
+        return parseInt(localStorage.getItem("fontSize") || defaultFontSize.toString());
+      }
+      return defaultFontSize;
+    }
   );
   
   const [isReducedMotion, setIsReducedMotion] = useState<boolean>(
-    localStorage?.getItem("reducedMotion") === "true" || defaultReducedMotion
+    () => {
+      if (isBrowser) {
+        return localStorage.getItem("reducedMotion") === "true" || defaultReducedMotion;
+      }
+      return defaultReducedMotion;
+    }
   );
 
   useEffect(() => {
+    // Only run in browser environment
+    if (typeof window === 'undefined') return;
+    
     const root = window.document.documentElement;
     
     // Remove all theme classes
@@ -130,11 +161,16 @@ export function ThemeProvider({
     document.documentElement.style.fontSize = `${fontSize}px`;
     
     // Save preferences to localStorage
-    localStorage.setItem("theme", theme);
-    localStorage.setItem("ageGroup", ageGroup);
-    localStorage.setItem("dyslexicFont", isDyslexicFont.toString());
-    localStorage.setItem("fontSize", fontSize.toString());
-    localStorage.setItem("reducedMotion", isReducedMotion.toString());
+    try {
+      localStorage.setItem("theme", theme);
+      localStorage.setItem("ageGroup", ageGroup);
+      localStorage.setItem("dyslexicFont", isDyslexicFont.toString());
+      localStorage.setItem("fontSize", fontSize.toString());
+      localStorage.setItem("reducedMotion", isReducedMotion.toString());
+    } catch (e) {
+      // Handle localStorage errors (e.g., in private browsing mode)
+      console.warn('Failed to save theme preferences to localStorage:', e);
+    }
   }, [theme, ageGroup, isDyslexicFont, fontSize, isReducedMotion]);
 
   const value = {

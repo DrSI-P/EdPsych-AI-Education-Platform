@@ -1,7 +1,9 @@
 // Security utilities for EdPsych-AI-Education-Platform
 import { useState, useEffect } from 'react';
 import { hash, compare } from 'bcryptjs';
+// @ts-ignore
 import { v4 as uuidv4 } from 'uuid';
+// @ts-ignore
 import { AES, enc } from 'crypto-js';
 
 /**
@@ -43,7 +45,7 @@ export const generateSecureToken = (length: number = 32): string => {
  * @param {string} secretKey - Secret key for encryption
  * @returns {string} - Encrypted data
  */
-export const encryptData = (data, secretKey: string): string => {
+export const encryptData = (data: any, secretKey: string): string => {
   const jsonString = JSON.stringify(data);
   return AES.encrypt(jsonString, secretKey).toString();
 };
@@ -174,22 +176,26 @@ export const getContentSecurityPolicy = () => {
  * Utility for implementing secure storage
  */
 export const secureStorage = {
-  setItem: (key: string, value, secretKey: string): void => {
+  setItem: (key: string, value: any, secretKey: string): void => {
+    if (typeof window === 'undefined') return;
     const encryptedValue = encryptData(value, secretKey);
     localStorage.setItem(key, encryptedValue);
   },
   
   getItem: (key: string, secretKey: string) => {
+    if (typeof window === 'undefined') return null;
     const encryptedValue = localStorage.getItem(key);
     if (!encryptedValue) return null;
     return decryptData(encryptedValue, secretKey);
   },
   
   removeItem: (key: string): void => {
+    if (typeof window === 'undefined') return;
     localStorage.removeItem(key);
   },
   
   clear: (): void => {
+    if (typeof window === 'undefined') return;
     localStorage.clear();
   }
 };
@@ -199,6 +205,8 @@ export const secureStorage = {
  */
 export const secureCookies = {
   set: (name: string, value: string, options = {}): void => {
+    if (typeof document === 'undefined') return;
+    
     const defaultOptions = {
       path: '/',
       secure: true,
@@ -224,6 +232,8 @@ export const secureCookies = {
   },
   
   get: (name: string): string | null => {
+    if (typeof document === 'undefined') return null;
+    
     const cookies = document.cookie.split(';');
     for (let i = 0; i < cookies.length; i++) {
       const cookie = cookies[i].trim();
@@ -235,6 +245,8 @@ export const secureCookies = {
   },
   
   remove: (name: string): void => {
+    if (typeof document === 'undefined') return;
+    
     document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; sameSite=strict`;
   }
 };

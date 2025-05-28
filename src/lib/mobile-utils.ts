@@ -18,6 +18,8 @@ export const useDeviceDetection = () => {
   });
 
   const updateDeviceInfo = useCallback(() => {
+    if (typeof window === 'undefined') return;
+    
     const width = window.innerWidth;
     const height = window.innerHeight;
     const isPortrait = height > width;
@@ -30,11 +32,13 @@ export const useDeviceDetection = () => {
       isLandscape: !isPortrait,
       screenWidth: width,
       screenHeight: height,
-      touchEnabled: 'ontouchstart' in window || navigator.maxTouchPoints > 0
+      touchEnabled: 'ontouchstart' in window || (typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0)
     });
   }, []);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     // Initial detection
     updateDeviceInfo();
     
@@ -258,6 +262,8 @@ export const useResponsiveFontSize = (baseFontSize = 16, minFontSize = 14, maxFo
   const [fontSize, setFontSize] = useState(baseFontSize);
   
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const calculateFontSize = () => {
       const width = window.innerWidth;
       const calculatedSize = baseFontSize * (width / 1440); // 1440px is the reference width
@@ -282,10 +288,12 @@ export const useResponsiveFontSize = (baseFontSize = 16, minFontSize = 14, maxFo
  * @returns {Object} - Online status and related functions
  */
 export const useOfflineSupport = () => {
-  const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [isOnline, setIsOnline] = useState(typeof navigator !== 'undefined' ? navigator.onLine : true);
   const [offlineData, setOfflineData] = useState({});
   
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
     
@@ -295,9 +303,11 @@ export const useOfflineSupport = () => {
     // Load offline data from storage
     const loadOfflineData = () => {
       try {
-        const storedData = localStorage.getItem('offlineData');
-        if (storedData) {
-          setOfflineData(JSON.parse(storedData));
+        if (typeof localStorage !== 'undefined') {
+          const storedData = localStorage.getItem('offlineData');
+          if (storedData) {
+            setOfflineData(JSON.parse(storedData));
+          }
         }
       } catch (error) {
         console.error('Failed to load offline data:', error);
@@ -316,7 +326,9 @@ export const useOfflineSupport = () => {
     try {
       const updatedData = { ...offlineData, [key]: data };
       setOfflineData(updatedData);
-      localStorage.setItem('offlineData', JSON.stringify(updatedData));
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('offlineData', JSON.stringify(updatedData));
+      }
       return true;
     } catch (error) {
       console.error('Failed to save offline data:', error);
@@ -336,12 +348,16 @@ export const useOfflineSupport = () => {
       } else {
         // Clear all offline data
         setOfflineData({});
-        localStorage.removeItem('offlineData');
+        if (typeof localStorage !== 'undefined') {
+          localStorage.removeItem('offlineData');
+        }
         return true;
       }
       
       setOfflineData(updatedData);
-      localStorage.setItem('offlineData', JSON.stringify(updatedData));
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('offlineData', JSON.stringify(updatedData));
+      }
       return true;
     } catch (error) {
       console.error('Failed to clear offline data:', error);
@@ -437,6 +453,8 @@ export const useMobileNavigation = () => {
   }, []);
   
   useEffect(() => {
+    if (typeof document === 'undefined') return;
+    
     // Close menu when switching to desktop
     if (!isMobile && isMenuOpen) {
       closeMenu();
@@ -450,7 +468,9 @@ export const useMobileNavigation = () => {
     }
     
     return () => {
-      document.body.style.overflow = '';
+      if (typeof document !== 'undefined') {
+        document.body.style.overflow = '';
+      }
     };
   }, [isMobile, isMenuOpen, closeMenu]);
   

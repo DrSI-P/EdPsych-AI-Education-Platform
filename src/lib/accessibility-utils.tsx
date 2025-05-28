@@ -39,11 +39,17 @@ const AccessibilityContext = createContext<AccessibilityContextType | undefined>
  * @returns {JSX.Element} - Provider component
  */
 export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  // Check if we're in a browser environment
+  const isBrowser = typeof window !== 'undefined';
+
   // Load settings from localStorage or use defaults
   const loadSettings = () => {
     try {
-      const savedSettings = localStorage.getItem('accessibilitySettings');
-      return savedSettings ? JSON.parse(savedSettings) : defaultAccessibilitySettings;
+      if (isBrowser) {
+        const savedSettings = localStorage.getItem('accessibilitySettings');
+        return savedSettings ? JSON.parse(savedSettings) : defaultAccessibilitySettings;
+      }
+      return defaultAccessibilitySettings;
     } catch (error) {
       console.error('Failed to load accessibility settings:', error);
       return defaultAccessibilitySettings;
@@ -61,20 +67,22 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
   // Save settings to localStorage
   const saveSettings = useCallback(() => {
     try {
-      const settings = {
-        fontSize,
-        highContrast,
-        dyslexicFont,
-        reduceMotion,
-        screenReader,
-        colorBlindMode,
-        focusMode
-      };
-      localStorage.setItem('accessibilitySettings', JSON.stringify(settings));
+      if (isBrowser) {
+        const settings = {
+          fontSize,
+          highContrast,
+          dyslexicFont,
+          reduceMotion,
+          screenReader,
+          colorBlindMode,
+          focusMode
+        };
+        localStorage.setItem('accessibilitySettings', JSON.stringify(settings));
+      }
     } catch (error) {
       console.error('Failed to save accessibility settings:', error);
     }
-  }, [fontSize, highContrast, dyslexicFont, reduceMotion, screenReader, colorBlindMode, focusMode]);
+  }, [fontSize, highContrast, dyslexicFont, reduceMotion, screenReader, colorBlindMode, focusMode, isBrowser]);
 
   // Reset settings to defaults
   const resetSettings = useCallback(() => {
@@ -87,7 +95,9 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
     setFocusMode(defaultAccessibilitySettings.focusMode);
     
     try {
-      localStorage.removeItem('accessibilitySettings');
+      if (isBrowser) {
+        localStorage.removeItem('accessibilitySettings');
+      }
     } catch (error) {
       console.error('Failed to reset accessibility settings:', error);
     }
@@ -95,6 +105,8 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // Apply settings to document
   useEffect(() => {
+    if (!isBrowser) return;
+    
     // Apply font size
     document.documentElement.setAttribute('data-font-size', fontSize);
     
@@ -135,6 +147,8 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // Check for prefers-reduced-motion media query
   useEffect(() => {
+    if (!isBrowser) return;
+    
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     
     if (mediaQuery.matches && !reduceMotion) {
@@ -154,6 +168,8 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // Check for prefers-colour-scheme media query
   useEffect(() => {
+    if (!isBrowser) return;
+    
     const mediaQuery = window.matchMedia('(prefers-colour-scheme: dark)');
     
     if (mediaQuery.matches && !highContrast) {

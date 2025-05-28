@@ -197,7 +197,7 @@ export const initializeI18n = async (
   // Determine initial language
   if (initialLanguage) {
     currentLanguage = initialLanguage;
-  } else if (typeof window !== 'undefined') {
+  } else if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
     // Try to get from localStorage
     const savedLanguage = localStorage.getItem('preferred_language');
     if (savedLanguage && Object.values(SupportedLanguage).includes(savedLanguage as SupportedLanguage)) {
