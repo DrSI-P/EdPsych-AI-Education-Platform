@@ -1,6 +1,7 @@
 // Import all UI components
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './accordion';
-import { Alert, AlertDescription, AlertTitle } from './alert';
+import { Alert, AlertDescription } from './alert';
+import { AlertTitle } from './AlertTitle'; // Import from dedicated file
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from './alert-dialog';
 import { Avatar, AvatarFallback, AvatarImage } from './avatar';
 import { Badge, badgeVariants } from './badge';
@@ -53,7 +54,7 @@ export {
   AccordionTrigger,
   Alert,
   AlertDescription,
-  AlertTitle,
+  AlertTitle, // Export from dedicated file
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,

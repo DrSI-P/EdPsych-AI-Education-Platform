@@ -1,5 +1,5 @@
 // Create a db module that works with both relative and absolute imports
-// This file is the main entry point for database-related imports
+// This file is at src/lib/db/index.ts to support imports from within the db directory
 
 import prisma from './prisma';
 
@@ -7,7 +7,7 @@ import prisma from './prisma';
 const db = prisma;
 
 // Export as named export
-export { db, prisma };
+export { db };
 
 // Also export db as default for compatibility with existing imports
 export default db;

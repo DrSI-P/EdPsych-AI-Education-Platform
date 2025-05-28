@@ -1,10 +1,7 @@
-// Create a db module that works with both relative and absolute imports
-// This file is at src/lib/db.ts to support relative imports from auth/users.ts
+// This file is specifically created to support relative imports from auth/users.ts
+// It re-exports the db from the index.ts file
 
-import prisma from './db/prisma';
-
-// Create a db object that can be imported throughout the application
-const db = prisma;
+import { db } from './db';
 
 // Export as named export
 export { db };
