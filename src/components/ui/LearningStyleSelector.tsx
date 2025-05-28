@@ -35,7 +35,7 @@ const LearningStyleSelector: React.FC<LearningStyleSelectorProps> = ({
     switch (ageGroup) {
       case 'nursery':
         return {
-          container: 'rounded-3xl border-4 border-primary/20 p-5 bg-background',
+          container: 'rounded-3xl border-4 border-primary/20 p-5 bg-white',
           tabs: 'grid grid-cols-2 gap-4',
           tab: 'rounded-2xl p-4 flex flex-col items-centre text-centre gap-3 border-4',
           tabIcon: 'w-16 h-16 p-3 rounded-full',
@@ -43,7 +43,7 @@ const LearningStyleSelector: React.FC<LearningStyleSelectorProps> = ({
         };
       case 'early-primary':
         return {
-          container: 'rounded-2xl border-2 border-primary/20 p-4 bg-background',
+          container: 'rounded-2xl border-2 border-primary/20 p-4 bg-white',
           tabs: 'grid grid-cols-2 gap-3',
           tab: 'rounded-xl p-3 flex flex-col items-centre text-centre gap-2 border-2',
           tabIcon: 'w-12 h-12 p-2 rounded-full',
@@ -51,7 +51,7 @@ const LearningStyleSelector: React.FC<LearningStyleSelectorProps> = ({
         };
       case 'late-primary':
         return {
-          container: 'rounded-xl border border-primary/20 p-3 bg-background',
+          container: 'rounded-xl border border-primary/20 p-3 bg-white',
           tabs: 'grid grid-cols-2 gap-2',
           tab: 'rounded-lg p-2 flex flex-col items-centre text-centre gap-2 border',
           tabIcon: 'w-10 h-10 p-2 rounded-full',
@@ -60,7 +60,7 @@ const LearningStyleSelector: React.FC<LearningStyleSelectorProps> = ({
       case 'secondary':
       default:
         return {
-          container: 'rounded-lg border border-primary/20 p-3 bg-background',
+          container: 'rounded-lg border border-primary/20 p-3 bg-white',
           tabs: 'grid grid-cols-4 gap-2',
           tab: 'rounded-md p-2 flex flex-col items-centre text-centre gap-1 border',
           tabIcon: 'w-8 h-8 p-1.5 rounded-full',

@@ -227,7 +227,7 @@ const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
               variant="outline"
               size="icon"
               onClick={togglePanel}
-              className="h-10 w-10 rounded-full shadow-md bg-background border-primary/20"
+              className="h-10 w-10 rounded-full shadow-md bg-white border-primary/20"
             >
               <PanelLeftOpen className="h-5 w-5" />
             </Button>
