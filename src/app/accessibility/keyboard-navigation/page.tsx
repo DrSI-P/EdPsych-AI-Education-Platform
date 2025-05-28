@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button } from '@/components/ui';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Button } from '../../../components/ui';
+import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui';
 import { KeyRound, Keyboard, MousePointer } from 'lucide-react';
 import { motion } from 'framer-motion';
 

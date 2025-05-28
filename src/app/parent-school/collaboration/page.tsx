@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui';
 import ParentSchoolCollaboration from '@/components/parent-school/parent-school-collaboration';
 
 export default function ParentSchoolCollaborationPage() {

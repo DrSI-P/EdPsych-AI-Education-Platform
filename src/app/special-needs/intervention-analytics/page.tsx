@@ -1,12 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../../../components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui';
 import { FileText, Download, Info, BookOpen } from "lucide-react";
-import { Separator } from '@/components/ui';
-import { Badge } from '@/components/ui';
-import { Button } from '@/components/ui';
+import { Separator } from '../../../components/ui';
+import { Badge } from '../../../components/ui';
+import { Button } from '../../../components/ui';
 import { InterventionAnalyticsEngine } from '@/components/special-needs/intervention-analytics/intervention-analytics-engine';
 
 export default function InterventionAnalyticsPage(): React.ReactNode {

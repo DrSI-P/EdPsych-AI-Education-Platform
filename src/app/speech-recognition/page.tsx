@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import AdvancedSpeechRecognition from '@/components/ai/speech-recognition/advanced-speech-recognition';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui';
+import { Alert, AlertDescription, AlertTitle } from '../../components/ui';
 import { Info, Mic, BookOpen, CheckCircle2 } from 'lucide-react';
 
 export default function SpeechRecognitionPage() {

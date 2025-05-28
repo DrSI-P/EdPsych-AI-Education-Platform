@@ -2,15 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Card, CardContent, CardFooter } from '@/components/ui';
-import { Button } from '@/components/ui';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
-import { Badge } from '@/components/ui';
-import { Progress } from '@/components/ui';
-import { Slider } from '@/components/ui';
-import { Switch } from '@/components/ui';
-import { Label } from '@/components/ui';
-import { Textarea } from '@/components/ui';
+import { Card, CardContent, CardFooter } from '../../../components/ui';
+import { Button } from '../../../components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui';
+import { Badge } from '../../../components/ui';
+import { Progress } from '../../../components/ui';
+import { Slider } from '../../../components/ui';
+import { Switch } from '../../../components/ui';
+import { Label } from '../../../components/ui';
+import { Textarea } from '../../../components/ui';
 import { 
   BookOpen, 
   Brain, 

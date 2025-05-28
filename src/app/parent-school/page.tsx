@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui';
 import ParentCommunication from '@/components/parent-school/parent-communication';
 import SharedGoalTracking from '@/components/parent-school/shared-goal-tracking';
 import HomeStrategyLibrary from '@/components/parent-school/home-strategy-library';

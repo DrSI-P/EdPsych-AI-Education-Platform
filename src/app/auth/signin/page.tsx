@@ -3,11 +3,11 @@
 import React, { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui';
-import { Button } from '@/components/ui';
-import { Input } from '@/components/ui';
-import { Alert } from '@/components/ui';
-import { Spinner } from '@/components/ui';
+import { Card, CardHeader, CardContent, CardFooter } from '../../../components/ui';
+import { Button } from '../../../components/ui';
+import { Input } from '../../../components/ui';
+import { Alert } from '../../../components/ui';
+import { Spinner } from '../../../components/ui';
 import Link from 'next/link';
 
 export default function SignInPage() {

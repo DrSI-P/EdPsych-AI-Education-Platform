@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui';
 import EmotionalRegulationEngine from '@/components/special-needs/emotional-regulation/emotional-regulation-engine';
 
 export default function EmotionalRegulationPage() {

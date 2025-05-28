@@ -6,10 +6,10 @@ import { Card,
   CardContent, 
   CardDescription, 
   CardHeader, 
-  CardTitle } from '@/components/ui';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
-import { Separator } from '@/components/ui';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui';
+  CardTitle } from '../../../components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui';
+import { Separator } from '../../../components/ui';
+import { Alert, AlertDescription, AlertTitle } from '../../../components/ui';
 import { Info, Vibrate, BookOpen, Lightbulb } from 'lucide-react';
 
 export default function SensoryRegulationPage(): React.ReactNode {

@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui';
-import { Button } from '@/components/ui';
-import { Input } from '@/components/ui';
-import { SimpleTabs } from '@/components/ui';
-import { Alert } from '@/components/ui';
-import { Spinner } from '@/components/ui';
-import { Dropdown } from '@/components/ui';
-import { Modal } from '@/components/ui';
+import { Card, CardHeader, CardContent, CardFooter } from '../../../components/ui';
+import { Button } from '../../../components/ui';
+import { Input } from '../../../components/ui';
+import { SimpleTabs } from '../../../components/ui';
+import { Alert } from '../../../components/ui';
+import { Spinner } from '../../../components/ui';
+import { Dropdown } from '../../../components/ui';
+import { Modal } from '../../../components/ui';
 import { useRouter } from 'next/navigation';
 
 // Define assessment types

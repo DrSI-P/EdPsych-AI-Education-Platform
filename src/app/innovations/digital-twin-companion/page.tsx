@@ -2,14 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui';
-import { Button } from '@/components/ui';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
-import { Progress } from '@/components/ui';
-import { Badge } from '@/components/ui';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui';
-import { Input } from '@/components/ui';
-import { Textarea } from '@/components/ui';
+import { Card, CardContent } from '../../../components/ui';
+import { Button } from '../../../components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui';
+import { Progress } from '../../../components/ui';
+import { Badge } from '../../../components/ui';
+import { Avatar, AvatarFallback, AvatarImage } from '../../../components/ui';
+import { Input } from '../../../components/ui';
+import { Textarea } from '../../../components/ui';
 import { 
   User, 
   Brain, 

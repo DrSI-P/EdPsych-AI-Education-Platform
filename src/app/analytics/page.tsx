@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui';
 import { StudentProgressTracking } from "@/components/analytics/student-progress-tracking";
 import { EducatorPerformanceAnalytics } from "@/components/analytics/educator-performance-analytics";
 import { ResourceAndAssessmentAnalytics } from "@/components/analytics/resource-and-assessment-analytics";

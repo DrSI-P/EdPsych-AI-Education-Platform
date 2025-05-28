@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui';
 import CPDTracking from '@/components/professional-development/cpd-tracking';
 
 export default function CPDTrackingPage() {

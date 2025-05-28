@@ -1,8 +1,8 @@
 import React from 'react';
 import { Metadata } from 'next';
 import IEP504PlanEngine from '@/components/special-needs/iep-504-plan/iep-504-plan-engine';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui';
 import { FileText, BookOpen, Users, School, Briefcase, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {

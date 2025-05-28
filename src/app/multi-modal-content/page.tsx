@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import MultiModalPresentationEngine from '@/components/ai/multi-modal-content/multi-modal-presentation-engine';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
-import { Button } from '@/components/ui';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui';
+import { Button } from '../../components/ui';
 import { Sparkles, BookOpen, Layers, ArrowRight, CheckCircle2 } from "lucide-react";
 import { useRouter, useSearchParams } from 'next/navigation';
 

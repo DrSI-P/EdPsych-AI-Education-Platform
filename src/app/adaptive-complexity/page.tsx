@@ -1,9 +1,9 @@
 'use client';
 import { useState } from 'react';
 import AdaptiveComplexityEngine from '@/components/ai/adaptive-complexity/adaptive-complexity-engine';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
-import { Button } from '@/components/ui';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui';
+import { Button } from '../../components/ui';
 import { ArrowUpDown, BookOpen, Layers, ArrowRight, CheckCircle2, BarChart3 } from "lucide-react";
 import { useRouter, useSearchParams } from 'next/navigation';
 

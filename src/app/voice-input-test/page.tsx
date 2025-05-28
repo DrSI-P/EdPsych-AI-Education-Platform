@@ -5,12 +5,12 @@ import { VoiceInputProvider } from '@/providers/voice-input-provider';
 import UniversalVoiceInput from '@/components/voice-input/universal-voice-input';
 import AssessmentVoiceInput from '@/components/voice-input/activity-specific/assessment-voice-input';
 import AdaptiveComplexityVoiceInput from '@/components/voice-input/activity-specific/adaptive-complexity-voice-input';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
-import { Button } from '@/components/ui';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui';
-import { Textarea } from '@/components/ui';
-import { Label } from '@/components/ui';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../../components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui';
+import { Button } from '../../components/ui';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui';
+import { Textarea } from '../../components/ui';
+import { Label } from '../../components/ui';
 import { AgeGroup } from '@/providers/voice-input-provider';
 import { motion } from 'framer-motion';
 

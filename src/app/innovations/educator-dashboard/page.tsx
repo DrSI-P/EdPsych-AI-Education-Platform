@@ -1,16 +1,16 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
-import { Button } from '@/components/ui';
-import { Input } from '@/components/ui';
-import { Label } from '@/components/ui';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui';
-import { Separator } from '@/components/ui';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../../../components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui';
+import { Button } from '../../../components/ui';
+import { Input } from '../../../components/ui';
+import { Label } from '../../../components/ui';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../components/ui';
+import { Separator } from '../../../components/ui';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
-import { Calendar } from '@/components/ui';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui';
+import { Calendar } from '../../../components/ui';
+import { Popover, PopoverContent, PopoverTrigger } from '../../../components/ui';
 import { CalendarIcon, Users, BookOpen, ClipboardList, BarChart2, Settings, Bell, Search } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";

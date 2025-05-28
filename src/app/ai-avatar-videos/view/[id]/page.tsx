@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import { Button } from '@/components/ui';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui';
+import { Button } from '../../../../components/ui';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../../../../components/ui';
 import { ArrowLeft, Download, Loader2 } from 'lucide-react';
 import { AIAvatarVideoService } from '@/services/ai-avatar-video-service';
 

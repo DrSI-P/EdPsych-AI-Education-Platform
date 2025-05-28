@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui';
 import ProfessionalPortfolio from '@/components/professional-development/professional-portfolio';
 import PortfolioExport from '@/components/professional-development/portfolio-export';
 

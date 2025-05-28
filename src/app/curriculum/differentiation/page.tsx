@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import CurriculumDifferentiationEngine from '@/components/ai/curriculum-differentiation/curriculum-differentiation-engine';
-import { Button } from '@/components/ui';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Button } from '../../../components/ui';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui';
 import { Brain, BookOpen, Users, Sparkles, ArrowRight, CheckCircle2 } from "lucide-react";
 
 export default function CurriculumDifferentiationPage() {

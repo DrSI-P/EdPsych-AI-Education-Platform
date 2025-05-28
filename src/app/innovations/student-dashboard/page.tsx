@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
-import { Button } from '@/components/ui';
-import { Progress } from '@/components/ui';
-import { Badge } from '@/components/ui';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui';
-import { Separator } from '@/components/ui';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../../../components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui';
+import { Button } from '../../../components/ui';
+import { Progress } from '../../../components/ui';
+import { Badge } from '../../../components/ui';
+import { Avatar, AvatarFallback, AvatarImage } from '../../../components/ui';
+import { Separator } from '../../../components/ui';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
 import { Bell, BookOpen, Calendar, CheckCircle, Clock, FileText, Home, MessageSquare, Search, Settings, Star, Trophy } from "lucide-react";
 

@@ -17,9 +17,9 @@ import AchievementCard, { AchievementGallery } from '@/components/ui/Achievement
 import FeedbackMessage from '@/components/ui/FeedbackMessage';
 import LearningStyleSelector from '@/components/ui/LearningStyleSelector';
 import CelebrationOverlay from '@/components/ui/CelebrationOverlay';
-import { Button } from '@/components/ui';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Button } from '../components/ui';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui';
 import { motion } from 'framer-motion';
 import { Play } from 'lucide-react';
 

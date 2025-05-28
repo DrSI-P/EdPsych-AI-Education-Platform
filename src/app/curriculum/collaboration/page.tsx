@@ -1,16 +1,16 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
-import { Button } from '@/components/ui';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui';
-import { Badge } from '@/components/ui';
-import { Textarea } from '@/components/ui';
-import { Input } from '@/components/ui';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui';
-import { Calendar } from '@/components/ui';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui';
+import { Button } from '../../../components/ui';
+import { Avatar, AvatarFallback, AvatarImage } from '../../../components/ui';
+import { Badge } from '../../../components/ui';
+import { Textarea } from '../../../components/ui';
+import { Input } from '../../../components/ui';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../../../components/ui';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../components/ui';
+import { Calendar } from '../../../components/ui';
+import { Popover, PopoverContent, PopoverTrigger } from '../../../components/ui';
 import { format } from 'date-fns';
 import { CalendarIcon, Clock, MessageSquare, Plus, Trash2, Users } from "lucide-react";
 

@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui';
 import TranscriptionTranslationSystem from '@/components/student-voice/transcription-translation-system';
 import AnonymousSuggestionSystem from '@/components/student-voice/anonymous-suggestion-system';
 

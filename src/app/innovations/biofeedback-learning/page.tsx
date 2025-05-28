@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui';
-import { Button } from '@/components/ui';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
-import { Progress } from '@/components/ui';
-import { Slider } from '@/components/ui';
-import { Switch } from '@/components/ui';
-import { Label } from '@/components/ui';
+import { Card, CardContent } from '../../../components/ui';
+import { Button } from '../../../components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui';
+import { Progress } from '../../../components/ui';
+import { Slider } from '../../../components/ui';
+import { Switch } from '../../../components/ui';
+import { Label } from '../../../components/ui';
 import { 
   Heart, 
   Activity, 

@@ -6,7 +6,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   images: {
     domains: [
       'images.unsplash.com',
@@ -20,17 +19,11 @@ const nextConfig = {
   },
   experimental: {
     serverActions: true,
-    serverComponentsExternalPackages: ['@prisma/client'],
   },
+  serverComponentsExternalPackages: ['@prisma/client'],
   webpack: (config) => {
     config.resolve.fallback = { fs: false, net: false, tls: false };
     return config;
-  },
-  // Ensure all path aliases are properly configured
-  resolve: {
-    alias: {
-      '@': '.',
-    },
   },
   // Optimize CSS
   compiler: {

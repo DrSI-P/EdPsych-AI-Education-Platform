@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { Metadata } from 'next';
 import ContentTransformationEngine from '@/components/ai/content-transformation/content-transformation-engine';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui';
 
 export default function ContentTransformationPage() {
   const [sampleContent] = useState(`

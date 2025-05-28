@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { ParentCommunicationManagement } from '@/components/educator/parent-communication-management';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui';
 
 export default function ParentCommunicationPage() {
   return (

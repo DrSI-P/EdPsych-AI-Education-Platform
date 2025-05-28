@@ -2,10 +2,10 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { SpeechToTextEngine } from '@/components/ai/accessibility/speech-to-text-engine';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
-import { Button } from '@/components/ui';
-import { Textarea } from '@/components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui';
+import { Button } from '../../../components/ui';
+import { Textarea } from '../../../components/ui';
 import { Keyboard, Mic, BookOpen, FileText, BookMarked } from "lucide-react";
 
 interface SpeechToTextSettings {

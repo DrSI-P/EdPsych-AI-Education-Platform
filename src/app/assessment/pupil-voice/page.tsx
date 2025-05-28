@@ -3,12 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import type { PupilVoiceSurvey } from '@/types/assessment';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui';
-import { Button } from '@/components/ui';
-import { Alert } from '@/components/ui';
-import { Spinner } from '@/components/ui';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui';
-import { Form } from '@/components/ui';
+import { Card, CardHeader, CardContent, CardFooter } from '../../../components/ui';
+import { Button } from '../../../components/ui';
+import { Alert } from '../../../components/ui';
+import { Spinner } from '../../../components/ui';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../../components/ui';
+import { Form } from '../../../components/ui';
 
 export default function PupilVoicePage() {
   const router = useRouter();

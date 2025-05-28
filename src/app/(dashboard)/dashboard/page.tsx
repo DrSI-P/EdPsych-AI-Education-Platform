@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@/components/ui';
+import { Button } from '../../../components/ui';
 import Link from "next/link";
 
 export default function Dashboard(): React.ReactNode {
