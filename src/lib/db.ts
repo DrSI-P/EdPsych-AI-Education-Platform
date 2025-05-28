@@ -1,35 +1,27 @@
 /**
- * Direct DB export file - Single source of truth
- * 
- * This file provides a singleton PrismaClient instance that can be imported
- * throughout the application using both named and default imports.
+ * Direct DB export file specifically designed to fix circular dependencies
+ * and ensure compatibility with both relative and absolute imports.
  */
 
 import { PrismaClient } from '@prisma/client';
 
-// Create a singleton instance of PrismaClient
-let prismaInstance: PrismaClient;
+// Create a singleton instance of PrismaClient to prevent multiple instances
+// during hot reloading in development
+const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
-if (process.env.NODE_ENV === 'production') {
-  prismaInstance = new PrismaClient();
-} else {
-  // In development, use a global variable to prevent multiple instances during hot-reloading
-  if (!global.prisma) {
-    global.prisma = new PrismaClient();
-  }
-  prismaInstance = global.prisma;
-}
+// Initialize the prisma client with logging in development
+export const prisma = globalForPrisma.prisma || 
+  new PrismaClient({
+    log: process.env.NODE_ENV === 'development' 
+      ? ['query', 'error', 'warn'] 
+      : ['error'],
+  });
 
-// Export prisma instance directly with explicit named export
-export const prisma = prismaInstance;
+// Prevent multiple instances during hot reloading in development
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
-// Export db as a named export
-export const db = prismaInstance;
+// Export db as an alias for prisma for backward compatibility
+export const db = prisma;
 
-// Also export as default for backward compatibility
-export default prismaInstance;
-
-// Add type declaration for global variable
-declare global {
-  var prisma: PrismaClient | undefined;
-}
+// Default export for CommonJS compatibility
+export default prisma;
