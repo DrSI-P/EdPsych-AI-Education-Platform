@@ -3,7 +3,7 @@
  * This service handles the creation, management, and retrieval of AI avatar videos
  */
 
-export export class AIAvatarVideoService {
+export class AIAvatarVideoService {
   /**
    * Get a video by ID
    */

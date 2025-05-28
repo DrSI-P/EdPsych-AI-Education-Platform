@@ -31,13 +31,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';
 import { Textarea } from './textarea';
 import { Toast, ToastAction, ToastClose, ToastDescription, ToastProvider, ToastTitle, ToastViewport } from './toast';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip';
-import  from './';
 import EnhancedCelebrationOverlay from './EnhancedCelebrationOverlay';
 import AccessibilityControls from './AccessibilityControls';
 import MultilingualSupport from './MultilingualSupport';
 import VoiceInput from './VoiceInput';
 import { Link } from './link';
 import { Icons } from './icons';
+import { useToast } from './use-toast';
 
 // Import components that were moved to separate .tsx files
 import { Spinner } from './Spinner';
@@ -202,9 +202,8 @@ export {
   MultilingualSupport,
   VoiceInput,
   Link,
-  Icons
-
-  useToast};
-import { useToast } from './use-toast';
+  Icons,
+  useToast
+};
 
 export { default as EnhancedAchievementCard } from './EnhancedAchievementCard';
