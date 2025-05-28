@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'production') {
   prismaInstance = global.prisma;
 }
 
-// Export prisma instance directly
+// Export prisma instance directly with explicit named export
 export const prisma = prismaInstance;
 
 // Export db as a named export only (no default export to avoid ambiguity)

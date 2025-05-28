@@ -36,7 +36,7 @@ const Alert = React.forwardRef<
 Alert.displayName = "Alert";
 
 // Define AlertTitle directly in this file as the single source of truth
-const AlertTitle = React.forwardRef<
+export const AlertTitle = React.forwardRef<
   HTMLHeadingElement,
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
@@ -61,4 +61,4 @@ const AlertDescription = React.forwardRef<
 AlertDescription.displayName = "AlertDescription";
 
 // Named exports only - no default export to avoid ambiguity
-export { Alert, AlertTitle, AlertDescription };
+export { Alert, AlertDescription };
