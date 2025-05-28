@@ -137,7 +137,7 @@ export { Textarea };
 export { Toast, ToastProvider, ToastViewport };
 export { Toaster };
 export { Toggle };
-export { Tooltip, TooltContent: TooltipContent, TooltProvider: TooltipProvider, TooltTrigger: TooltipTrigger };
+export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger };
 export { useToast };
 
 // Export enhanced UI components
