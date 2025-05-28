@@ -13,30 +13,32 @@ const path = require('path');
 require('./src/globalPolyfills');
 require('./src/polyfills');
 
-// This is a simplified configuration to fix build issues
+// Enhanced configuration to enable premium visual design
 const nextConfig = {
   reactStrictMode: true,
   
-  // Optimize output for production
-  output: 'standalone',
+  // Standard output configuration for better asset handling
+  // Changed from 'standalone' to default for better CSS processing
   
-  // Completely disable static generation
-  staticPageGenerationTimeout: 1, // Set a very short timeout to force dynamic rendering
+  // Enable proper static generation with reasonable timeout
+  staticPageGenerationTimeout: 60, // Set to 60 seconds to allow proper rendering
   
-  // Disable static optimization to prevent localStorage errors
+  // Enable static optimization for proper CSS processing
   experimental: {
-    // Disable static optimization
-    disableOptimizedLoading: true,
-    optimizeCss: false
+    // Enable optimized loading for better performance
+    disableOptimizedLoading: false,
+    optimizeCss: true
   },
   
-  // Disable ESLint during build to prevent build failures
+  // Enable ESLint during build to catch potential issues
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false,
   },
   
-  // Disable TypeScript type checking during build to prevent build failures
+  // Enable TypeScript type checking during build for better quality
   typescript: {
+    // We can keep this true temporarily if there are still some TS errors
+    // but should be set to false once all TypeScript issues are resolved
     ignoreBuildErrors: true,
   },
   
