@@ -1,6 +1,6 @@
-// import React from 'react'; // Unused import
+import React from 'react';
 
-export function Alert(: React.ReactNode { variant = 'default', title, children }) {
+export function Alert({ variant = 'default', title, children }: React.ReactNode) {
   const variantClasses = {
     default: 'bg-gray-100 border-gray-300 text-gray-800',
     destructive: 'bg-red-100 border-red-300 text-red-800',
@@ -17,11 +17,11 @@ export function Alert(: React.ReactNode { variant = 'default', title, children }
   );
 }
 
-export function AlertTitle(: React.ReactNode { children }) {
+export function AlertTitle({ children }: React.ReactNode) {
   return <h5 className="font-medium mb-2">{children}</h5>;
 }
 
-export function AlertDescription(: React.ReactNode { children }) {
+export function AlertDescription({ children }: React.ReactNode) {
   return <div className="text-sm">{children}</div>;
 }
 

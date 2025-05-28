@@ -21,7 +21,7 @@ interface ImmersiveControlsProps {
  * A component providing intuitive controls for navigating and interacting
  * with immersive content, with smooth animations and accessibility features.
  */
-export function ImmersiveControls() : React.ReactNode {
+export function ImmersiveControls({
   onZoomIn,
   onZoomOut,
   onRotate,
@@ -29,7 +29,7 @@ export function ImmersiveControls() : React.ReactNode {
   zoomLevel = 1,
   onZoomChange,
   className = ''
-}: ImmersiveControlsProps) {
+}: ImmersiveControlsProps): React.ReactNode {
   const [isExpanded, setIsExpanded] = useState(false);
   
   // Control panel animation variants

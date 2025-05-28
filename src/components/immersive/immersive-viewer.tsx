@@ -21,7 +21,7 @@ interface ImmersiveViewerProps {
  * A component for viewing 3D, VR, and AR content with appropriate controls
  * and accessibility features.
  */
-export function ImmersiveViewer() : React.ReactNode {
+export function ImmersiveViewer({
   contentUrl,
   contentType = '3d',
   title,
@@ -30,7 +30,7 @@ export function ImmersiveViewer() : React.ReactNode {
   onBack,
   className = '',
   children
-}: ImmersiveViewerProps) {
+}: ImmersiveViewerProps): React.ReactNode {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [zoomLevel, setZoomLevel] = useState(1);
