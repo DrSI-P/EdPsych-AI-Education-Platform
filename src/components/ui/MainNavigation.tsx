@@ -115,7 +115,7 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
           navItem: 'rounded-md p-2 text-sm font-medium',
           activeNavItem: 'bg-primary/10 text-primary',
           inactiveNavItem: 'hover:bg-muted',
-          mobileNav: 'rounded-xl border border-border',
+          mobileNav: 'rounded-xl border border-gray-200',
         };
     }
   };

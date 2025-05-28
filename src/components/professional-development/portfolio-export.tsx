@@ -364,7 +364,7 @@ export default function PortfolioExport() {
                   <h3 className="text-lg font-medium mb-2">Export Format</h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div 
-                      className={`border rounded-lg p-4 cursor-pointer ${exportFormat === 'pdf' ? 'border-primary bg-primary/5' : 'border-border'}`}
+                      className={`border rounded-lg p-4 cursor-pointer ${exportFormat === 'pdf' ? 'border-primary bg-primary/5' : 'border-gray-200'}`}
                       onClick={() => setExportFormat('pdf')}
                     >
                       <div className="flex items-center gap-2">
@@ -375,7 +375,7 @@ export default function PortfolioExport() {
                     </div>
                     
                     <div 
-                      className={`border rounded-lg p-4 cursor-pointer ${exportFormat === 'web' ? 'border-primary bg-primary/5' : 'border-border'}`}
+                      className={`border rounded-lg p-4 cursor-pointer ${exportFormat === 'web' ? 'border-primary bg-primary/5' : 'border-gray-200'}`}
                       onClick={() => setExportFormat('web')}
                     >
                       <div className="flex items-center gap-2">
@@ -386,7 +386,7 @@ export default function PortfolioExport() {
                     </div>
                     
                     <div 
-                      className={`border rounded-lg p-4 cursor-pointer ${exportFormat === 'docx' ? 'border-primary bg-primary/5' : 'border-border'}`}
+                      className={`border rounded-lg p-4 cursor-pointer ${exportFormat === 'docx' ? 'border-primary bg-primary/5' : 'border-gray-200'}`}
                       onClick={() => setExportFormat('docx')}
                     >
                       <div className="flex items-center gap-2">
