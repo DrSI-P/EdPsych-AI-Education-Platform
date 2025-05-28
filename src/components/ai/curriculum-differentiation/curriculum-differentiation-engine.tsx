@@ -23,7 +23,7 @@ interface CurriculumDifferentiationEngineProps {
   className?: string;
 }
 
-export default function CurriculumDifferentiationEngine() : React.ReactNode {
+export function CurriculumDifferentiationEngine({
   curriculumPlanId,
   curriculumContent = '',
   objectives = [],
@@ -32,7 +32,7 @@ export default function CurriculumDifferentiationEngine() : React.ReactNode {
   year = '',
   onDifferentiationGenerated,
   className
-}: CurriculumDifferentiationEngineProps) {
+}: CurriculumDifferentiationEngineProps): React.ReactNode {
   const [isGenerating, setIsGenerating] = useState(false);
   const [differentiatedContent, setDifferentiatedContent] = useState<any>(null);
   const [learningProfiles, setLearningProfiles] = useState<any[]>([]);

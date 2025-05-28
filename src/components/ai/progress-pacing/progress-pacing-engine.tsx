@@ -22,7 +22,7 @@ interface ProgressPacingEngineProps {
   className?: string;
 }
 
-export default function ProgressPacingEngine() : React.ReactNode {
+export function ProgressPacingEngine({
   studentId,
   curriculumId,
   subject = '',
@@ -30,7 +30,7 @@ export default function ProgressPacingEngine() : React.ReactNode {
   initialPacingData,
   onPacingAdjusted,
   className
-}: ProgressPacingEngineProps) {
+}: ProgressPacingEngineProps): React.ReactNode {
   const [isAdjusting, setIsAdjusting] = useState(false);
   const [pacingData, setPacingData] = useState<any>(initialPacingData || null);
   const [activeTab, setActiveTab] = useState('current');

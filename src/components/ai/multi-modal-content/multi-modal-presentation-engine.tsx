@@ -22,7 +22,7 @@ interface MultiModalPresentationEngineProps {
   className?: string;
 }
 
-export default function MultiModalPresentationEngine() : React.ReactNode {
+export function MultiModalPresentationEngine({
   content = '',
   title = '',
   subject = '',
@@ -30,7 +30,7 @@ export default function MultiModalPresentationEngine() : React.ReactNode {
   contentId,
   onContentGenerated,
   className
-}: MultiModalPresentationEngineProps) {
+}: MultiModalPresentationEngineProps): React.ReactNode {
   const [isGenerating, setIsGenerating] = useState(false);
   const [multiModalContent, setMultiModalContent] = useState<any>(null);
   const [activeTab, setActiveTab] = useState('combined');

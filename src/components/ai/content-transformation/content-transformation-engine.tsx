@@ -36,14 +36,14 @@ type TransformedContent = {
   multimodal: string;
 };
 
-export default function ContentTransformationEngine() : React.ReactNode {
+export function ContentTransformationEngine({
   originalContent,
   contentType = 'lesson',
   subjectArea = '',
   targetAge = 10,
   learningStyle,
   onTransformationComplete
-}: ContentTransformationProps) {
+}: ContentTransformationProps): React.ReactNode {
   const { toast } = useToast();
   const aiService = useAIService();
   

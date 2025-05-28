@@ -28,7 +28,7 @@ interface SpeechRecognitionProps {
   className?: string;
 }
 
-export default function AdvancedSpeechRecognition() : React.ReactNode {
+export function AdvancedSpeechRecognition({
   onTranscriptChange,
   onSpeechEnd,
   placeholder = 'Your speech will appear here...',
@@ -37,7 +37,7 @@ export default function AdvancedSpeechRecognition() : React.ReactNode {
   childVoiceOptimization = true,
   showCalibration = false,
   className = '',
-}: SpeechRecognitionProps) {
+}: SpeechRecognitionProps): React.ReactNode {
   const { data: session } = useSession();
   const { toast } = useToast();
   
