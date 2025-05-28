@@ -27,11 +27,8 @@ const nextConfig = {
       'react-icons',
       '@radix-ui/react-icons',
       'framer-motion'
-    ],
-    // Improve build performance
-    turbotrace: {
-      logLevel: 'error'
-    }
+    ]
+    // Removed turbotrace as it's not supported in Next.js 15.3.2
   },
   // Updated from serverComponentsExternalPackages to serverExternalPackages
   serverExternalPackages: ['@prisma/client'],
@@ -61,10 +58,7 @@ const nextConfig = {
   ],
   // Add build output config to reduce memory usage
   output: 'standalone',
-  // Add memory limit for builds
-  env: {
-    NODE_OPTIONS: '--max-old-space-size=4096'
-  },
+  // Removed NODE_OPTIONS from env as it's not allowed
   // Improve production performance
   productionBrowserSourceMaps: false,
   poweredByHeader: false,
