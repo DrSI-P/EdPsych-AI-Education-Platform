@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
+// import { Checkbox } from "@/components/ui/checkbox"; // Unused import
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/components/ui/use-toast";
 import { MessageSquare, ThumbsUp, ThumbsDown, Send, RefreshCw, User, UserPlus, Users, Lock, Unlock } from 'lucide-react';
@@ -53,7 +53,7 @@ interface Suggestion {
   createdAt: string;
 }
 
-export default function AnonymousSuggestionSystem() {
+export default function AnonymousSuggestionSystem() : React.ReactNode {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('submit');
   const [isLoading, setIsLoading] = useState(false);

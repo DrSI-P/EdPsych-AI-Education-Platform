@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { prisma } from '@/lib/prisma';
+// import { prisma } from '@/lib/prisma'; // Unused import
 
 // Schema for documentation request validation
 const DocumentationRequestSchema = z.object({
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
     }, { status: 201 });
     
   } catch (error) {
-    console.error('Error saving documentation:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error saving documentation:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json({ 
@@ -165,7 +165,7 @@ export async function GET(request: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error retrieving documentations:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error retrieving documentations:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json({ 

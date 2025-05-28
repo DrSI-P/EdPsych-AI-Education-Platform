@@ -6,8 +6,8 @@ import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
-import { Tabs } from '@/components/ui/tabs';
-import { Form } from '@/components/ui/form';
+// import { Tabs } from '@/components/ui/tabs'; // Unused import
+// import { Form } from '@/components/ui/form'; // Unused import
 
 interface CurriculumStandard {
   id: string;
@@ -34,7 +34,7 @@ interface Assessment {
   };
 }
 
-export default function AlignAssessmentPage() {
+export default function AlignAssessmentPage() : React.ReactNode {
   const router = useRouter();
   const searchParams = useSearchParams();
   const standardId = searchParams.get('standard');
@@ -82,7 +82,7 @@ export default function AlignAssessmentPage() {
           }
         }
       } catch (err) {
-        console.error('Error fetching data:', err);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching data:', err);
         setError('An error occurred while fetching data');
       } finally {
         setLoading(false);
@@ -142,7 +142,7 @@ export default function AlignAssessmentPage() {
       // Redirect back to curriculum page
       router.push('/assessment/curriculum');
     } catch (err) {
-      console.error('Error saving alignment:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error saving alignment:', err);
       setError(err.message || 'An error occurred while saving the alignment');
     } finally {
       setSaving(false);

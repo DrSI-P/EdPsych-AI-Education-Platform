@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+// import Link from "next/link"; // Unused import
 import { UILink } from '@/components/ui';
 
 export default function Dashboard(): React.ReactNode {

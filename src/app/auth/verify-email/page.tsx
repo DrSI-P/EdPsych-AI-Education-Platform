@@ -2,16 +2,16 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/form';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
 import Link from 'next/link';
-import Image from 'next/image';
+// import Image from 'next/image'; // Unused import
 import { UILink } from '@/components/ui';
 
-export default function RequestVerificationPage() {
+export default function RequestVerificationPage() : React.ReactNode {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
@@ -41,7 +41,7 @@ export default function RequestVerificationPage() {
       }
     } catch (err) {
       setError('An error occurred. Please try again.');
-      console.error('Email verification request error:', err);
+      /* eslint-disable-next-line no-console */ console.error('Email verification request error:', err);
     } finally {
       setLoading(false);
     }

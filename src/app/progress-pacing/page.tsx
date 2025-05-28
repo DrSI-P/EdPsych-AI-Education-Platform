@@ -1,14 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+// import { useState } from 'react'; // Unused import
 import ProgressPacingEngine from '@/components/ai/progress-pacing/progress-pacing-engine';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Users, ArrowRight, CheckCircle2, BarChart3 } from "lucide-react";
+import { BookOpen, Users, CheckCircle2 } from "lucide-react";
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function ProgressPacingPage() {
+// import React from "react"; // Unused import
+
+export default function ProgressPacingPage() : React.ReactNode {
   const router = useRouter();
   const searchParams = useSearchParams();
   const studentId = searchParams.get('studentId');

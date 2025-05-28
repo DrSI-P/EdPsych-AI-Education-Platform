@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
-import { Input, Textarea, Select, Checkbox } from '@/components/ui/form';
+import { Input, Textarea, Select } from "@/components/ui/form";
 import { Button } from '@/components/ui/button';
 import { Tabs } from '@/components/ui/tabs';
 import { Spinner } from '@/components/ui/loading';
@@ -36,7 +36,7 @@ interface AssessmentModuleProps {
   className?: string;
 }
 
-export function AssessmentModule({
+export function AssessmentModule(: React.ReactNode {
   initialAssessments = [],
   onAssessmentSelect,
   className = ''

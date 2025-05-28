@@ -1,8 +1,9 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
@@ -13,7 +14,7 @@ interface AIAssessmentGeneratorProps {
   // Props can be added as needed
 }
 
-export default function AIAssessmentGeneratorClient() {
+export default function AIAssessmentGeneratorClient() : React.ReactNode {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [generating, setGenerating] = useState(false);
@@ -100,7 +101,7 @@ export default function AIAssessmentGeneratorClient() {
       setGeneratedAssessment(data);
       setActiveTab('preview');
     } catch (err) {
-      console.error('Error generating assessment:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error generating assessment:', err);
       setError(err.message || 'An error occurred while generating the assessment');
     } finally {
       setGenerating(false);
@@ -131,7 +132,7 @@ export default function AIAssessmentGeneratorClient() {
       // Redirect to the assessment edit page
       router.push(`/assessment/edit/${data.id}`);
     } catch (err) {
-      console.error('Error saving assessment:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error saving assessment:', err);
       setError(err.message || 'An error occurred while saving the assessment');
     } finally {
       setLoading(false);

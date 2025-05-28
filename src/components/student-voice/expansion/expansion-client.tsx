@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+// import React from 'react'; // Unused import
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import CollaborativeGoalSetting from '@/components/student-voice/collaborative-goal-setting';
@@ -22,7 +22,7 @@ const StudentLedConferenceTool = () => {
   );
 };
 
-export default function StudentVoiceExpansionClient() {
+export default function StudentVoiceExpansionClient() : React.ReactNode {
   return (
     <div className="container mx-auto py-8">
       <div className="mb-8">

@@ -57,7 +57,7 @@ export class SpeechRecognitionService {
   private initRecognition(): void {
     // Check if browser supports speech recognition
     if (!this.isBrowserSupported()) {
-      console.error('Speech recognition is not supported in this browser');
+      /* eslint-disable-next-line no-console */ console.error('Speech recognition is not supported in this browser');
       return;
     }
     
@@ -91,15 +91,15 @@ export class SpeechRecognitionService {
     try {
       // In a real implementation, this would load a specialised model
       // For now, we'll simulate loading a model
-      console.log('Loading child voice optimization model...');
+      /* eslint-disable-next-line no-console */ console.log('Loading child voice optimization model...');
       
       // Simulate model loading delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       this.childVoiceModel = true;
-      console.log('Child voice optimization model loaded');
+      /* eslint-disable-next-line no-console */ console.log('Child voice optimization model loaded');
     } catch (error) {
-      console.error('Failed to load child voice model:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to load child voice model:', error);
       this.childVoiceModel = false;
     }
   }

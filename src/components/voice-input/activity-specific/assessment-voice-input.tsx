@@ -10,7 +10,7 @@ import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Mic, Settings, RefreshCw, CheckCircle } from 'lucide-react';
+import { Mic, Settings, RefreshCw } from "lucide-react";
 import { motion } from 'framer-motion';
 import { useToast } from '@/components/ui/use-toast';
 import { AgeGroup } from '@/providers/voice-input-provider';

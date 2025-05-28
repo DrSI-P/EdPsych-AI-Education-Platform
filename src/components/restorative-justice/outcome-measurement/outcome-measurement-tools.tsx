@@ -348,7 +348,7 @@ const newAssessmentSchema = z.object({
   targetGroup: z.string().min(3, "Target group must be specified")
 });
 
-export default function OutcomeMeasurementTools() {
+export default function OutcomeMeasurementTools() : React.ReactNode {
   const { data: session } = useSession();
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();

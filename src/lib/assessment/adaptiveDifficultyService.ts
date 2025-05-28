@@ -165,7 +165,7 @@ export class AdaptiveDifficultyService implements AdaptiveDifficultyEngine {
   async updateDifficultyModel(responses: any[]): Promise<void> {
     // In a real implementation, this would update the IRT parameters
     // based on accumulated response data
-    console.log(`Updating difficulty model with ${responses.length} responses`);
+    /* eslint-disable-next-line no-console */ console.log(`Updating difficulty model with ${responses.length} responses`);
   }
   
   /**

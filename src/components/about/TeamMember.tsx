@@ -1,6 +1,7 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
-import React from 'react';
+// import React from 'react'; // Unused import
 import Image from 'next/image';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -24,7 +25,7 @@ interface TeamMemberProps {
   specialties: any[];
 }
 
-export function TeamMember({
+export function TeamMember(: React.ReactNode {
   name,
   title,
   qualifications,

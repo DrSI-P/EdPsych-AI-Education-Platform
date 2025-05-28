@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 import React, { useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 

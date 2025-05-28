@@ -11,8 +11,10 @@ import { Slider } from "@/components/ui/slider";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Info, BookOpen, Settings, CheckCircle2, AlertCircle } from "lucide-react";
+import { Info, Settings, CheckCircle2, AlertCircle } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
+
+// import React from "react"; // Unused import
 
 interface LearningDifferenceSettings {
   dyslexiaSupport: boolean;
@@ -48,7 +50,7 @@ const defaultSettings: LearningDifferenceSettings = {
   readingSpeed: 1.0
 };
 
-export default function LearningDifferencesAccommodation() {
+export default function LearningDifferencesAccommodation() : React.ReactNode {
   const { data: session } = useSession();
   const [settings, setSettings] = useState<LearningDifferenceSettings>(defaultSettings);
   const [loading, setLoading] = useState<boolean>(true);
@@ -78,7 +80,7 @@ export default function LearningDifferencesAccommodation() {
         }
       }
     } catch (error) {
-      console.error('Error fetching learning difference settings:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching learning difference settings:', error);
       toast({
         title: "Error",
         description: "Failed to load your learning difference settings.",
@@ -121,7 +123,7 @@ export default function LearningDifferencesAccommodation() {
         throw new Error('Failed to save settings');
       }
     } catch (error) {
-      console.error('Error saving settings:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error saving settings:', error);
       toast({
         title: "Error",
         description: "Failed to save your settings. Please try again.",
@@ -163,7 +165,7 @@ export default function LearningDifferencesAccommodation() {
         throw new Error('Failed to run assessment');
       }
     } catch (error) {
-      console.error('Error running assessment:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error running assessment:', error);
       toast({
         title: "Error",
         description: "Failed to complete the assessment. Please try again.",

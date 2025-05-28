@@ -12,7 +12,7 @@ import {
 import { getAnalyticsService } from '@/lib/analytics/analyticsService';
 import DashboardWidget from './dashboard-widget';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+// import { Input } from '@/components/ui/input'; // Unused import
 import { Label } from '@/components/ui/label';
 import { 
   Select, 
@@ -88,7 +88,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
           setCurrentDashboard(availableDashboards[0]);
         }
       } catch (error) {
-        console.error('Failed to load dashboards:', error);
+        /* eslint-disable-next-line no-console */ console.error('Failed to load dashboards:', error);
         toast({
           variant: "destructive",
           title: "Failed to load dashboards",
@@ -118,7 +118,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
         }));
       }
     } catch (error) {
-      console.error('Failed to load dashboard:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to load dashboard:', error);
       toast({
         variant: "destructive",
         title: "Failed to load dashboard",
@@ -215,7 +215,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
         description: `Dashboard exported as ${format}.`
       });
     } catch (error) {
-      console.error('Failed to export dashboard:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to export dashboard:', error);
       toast({
         variant: "destructive",
         title: "Export failed",

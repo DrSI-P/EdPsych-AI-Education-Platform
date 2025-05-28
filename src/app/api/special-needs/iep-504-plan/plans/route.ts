@@ -99,7 +99,7 @@ export async function GET(req: Request) {
     
     return NextResponse.json({ plans });
   } catch (error) {
-    console.error('Error retrieving plans:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error retrieving plans:', error);
     return NextResponse.json({ error: 'Failed to retrieve plans' }, { status: 500 });
   }
 }
@@ -233,7 +233,7 @@ export async function POST(req: Request) {
       plan: result 
     });
   } catch (error) {
-    console.error('Error creating plan:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating plan:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json({ 

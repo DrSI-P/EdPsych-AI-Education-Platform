@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -14,7 +15,7 @@ import { Progress } from "@/components/ui/progress";
 import { toast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { 
@@ -274,7 +275,7 @@ const TeacherAlertSystem = () => {
       }, 1000);
       
     } catch (error) {
-      console.error('Error fetching data:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching data:', error);
       setIsLoading(false);
       toast({
         title: "Error",
@@ -308,7 +309,7 @@ const TeacherAlertSystem = () => {
       }, 1000);
       
     } catch (error) {
-      console.error('Error saving settings:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error saving settings:', error);
       setIsLoading(false);
       toast({
         title: "Error",
@@ -377,7 +378,7 @@ const TeacherAlertSystem = () => {
       }, 1000);
       
     } catch (error) {
-      console.error('Error creating ABCC record:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error creating ABCC record:', error);
       setIsLoading(false);
       toast({
         title: "Error",
@@ -410,7 +411,7 @@ const TeacherAlertSystem = () => {
       });
       
     } catch (error) {
-      console.error('Error updating alert status:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error updating alert status:', error);
       toast({
         title: "Error",
         description: "Failed to update alert status. Please try again.",
@@ -436,7 +437,7 @@ const TeacherAlertSystem = () => {
       });
       
     } catch (error) {
-      console.error('Error deleting alert:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error deleting alert:', error);
       toast({
         title: "Error",
         description: "Failed to delete alert. Please try again.",
@@ -462,7 +463,7 @@ const TeacherAlertSystem = () => {
       });
       
     } catch (error) {
-      console.error('Error deleting ABCC record:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error deleting ABCC record:', error);
       toast({
         title: "Error",
         description: "Failed to delete ABCC record. Please try again.",
@@ -491,7 +492,7 @@ const TeacherAlertSystem = () => {
       }, 1500);
       
     } catch (error) {
-      console.error('Error generating report:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error generating report:', error);
       setIsLoading(false);
       toast({
         title: "Error",

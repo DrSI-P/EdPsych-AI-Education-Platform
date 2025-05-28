@@ -803,7 +803,7 @@ export const useModuleProgress = (
         setError(null);
       } catch (err) {
         setError('Failed to load progress data');
-        console.error(err);
+        /* eslint-disable-next-line no-console */ console.error(err);
       } finally {
         setLoading(false);
       }
@@ -826,7 +826,7 @@ export const useModuleProgress = (
       setError(null);
     } catch (err) {
       setError('Failed to update activity progress');
-      console.error(err);
+      /* eslint-disable-next-line no-console */ console.error(err);
     } finally {
       setLoading(false);
     }
@@ -845,7 +845,7 @@ export const useModuleProgress = (
       setError(null);
     } catch (err) {
       setError('Failed to update assessment progress');
-      console.error(err);
+      /* eslint-disable-next-line no-console */ console.error(err);
     } finally {
       setLoading(false);
     }
@@ -884,7 +884,7 @@ export const useLearningRecommendations = (
       setError(null);
     } catch (err) {
       setError('Failed to load recommendations');
-      console.error(err);
+      /* eslint-disable-next-line no-console */ console.error(err);
     } finally {
       setLoading(false);
     }
@@ -925,7 +925,7 @@ export const useAchievements = (
       setError(null);
     } catch (err) {
       setError('Failed to load achievements');
-      console.error(err);
+      /* eslint-disable-next-line no-console */ console.error(err);
     } finally {
       setLoading(false);
     }
@@ -969,7 +969,7 @@ export const useAdaptiveContent = (
       setError(null);
     } catch (err) {
       setError('Failed to load adaptive content');
-      console.error(err);
+      /* eslint-disable-next-line no-console */ console.error(err);
     } finally {
       setLoading(false);
     }

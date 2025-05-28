@@ -1,10 +1,11 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Slider } from '@/components/ui/slider';
@@ -90,7 +91,7 @@ interface ConceptMastery {
   trend: 'improving' | 'stable' | 'declining';
 }
 
-export default function AIPoweredAssessmentPage() {
+export default function AIPoweredAssessmentPage() : React.ReactNode {
   // State for active tab
   const [activeTab, setActiveTab] = useState('assessment');
   

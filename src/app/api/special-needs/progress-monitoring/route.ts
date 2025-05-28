@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
       }
     });
   } catch (error) {
-    console.error('Progress monitoring API error:', error);
+    /* eslint-disable-next-line no-console */ console.error('Progress monitoring API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve progress monitoring settings' },
       { status: 500 }
@@ -132,7 +132,7 @@ export async function POST(req: NextRequest) {
       settings: updatedSettings
     });
   } catch (error) {
-    console.error('Progress monitoring API error:', error);
+    /* eslint-disable-next-line no-console */ console.error('Progress monitoring API error:', error);
     return NextResponse.json(
       { error: 'Failed to save progress monitoring settings' },
       { status: 500 }

@@ -7,7 +7,7 @@ interface TableProps {
   className?: string;
 }
 
-export function Table({ children, className = '' }: TableProps) {
+export function Table(: React.ReactNode { children, className = '' }: TableProps) {
   return (
     <div className={`overflow-x-auto ${className}`}>
       <table className="min-w-full divide-y divide-grey-200">
@@ -22,7 +22,7 @@ interface TableHeaderProps {
   className?: string;
 }
 
-export function TableHeader({ children, className = '' }: TableHeaderProps) {
+export function TableHeader(: React.ReactNode { children, className = '' }: TableHeaderProps) {
   return (
     <thead className={`bg-grey-50 ${className}`}>
       {children}
@@ -36,7 +36,7 @@ interface TableHeadProps {
   className?: string;
 }
 
-export function TableHead({ children, className = '' }: TableHeadProps) {
+export function TableHead(: React.ReactNode { children, className = '' }: TableHeadProps) {
   return (
     <tr className={`${className}`}>
       {children}
@@ -49,7 +49,7 @@ interface TableBodyProps {
   className?: string;
 }
 
-export function TableBody({ children, className = '' }: TableBodyProps) {
+export function TableBody(: React.ReactNode { children, className = '' }: TableBodyProps) {
   return (
     <tbody className={`bg-white divide-y divide-grey-200 ${className}`}>
       {children}
@@ -62,7 +62,7 @@ interface TableFooterProps {
   className?: string;
 }
 
-export function TableFooter({ children, className = '' }: TableFooterProps) {
+export function TableFooter(: React.ReactNode { children, className = '' }: TableFooterProps) {
   return (
     <tfoot className={`bg-grey-50 ${className}`}>
       {children}
@@ -77,7 +77,7 @@ interface TableRowProps {
   isSelected?: boolean;
 }
 
-export function TableRow({ children, className = '', onClick, isSelected = false }: TableRowProps) {
+export function TableRow(: React.ReactNode { children, className = '', onClick, isSelected = false }: TableRowProps) {
   return (
     <tr 
       className={`
@@ -101,7 +101,7 @@ interface TableHeaderCellProps {
   onSort?: () => void;
 }
 
-export function TableHeaderCell({ 
+export function TableHeaderCell(: React.ReactNode { 
   children, 
   className = '', 
   align = 'left',
@@ -154,7 +154,7 @@ interface TableCellProps {
   align?: 'left' | 'centre' | 'right';
 }
 
-export function TableCell({ children, className = '', align = 'left' }: TableCellProps) {
+export function TableCell(: React.ReactNode { children, className = '', align = 'left' }: TableCellProps) {
   // Map alignment to text alignment class
   const alignClasses = {
     left: 'text-left',
@@ -175,7 +175,7 @@ interface TableEmptyProps {
   className?: string;
 }
 
-export function TableEmpty({ colSpan, message = 'No data available', className = '' }: TableEmptyProps) {
+export function TableEmpty(: React.ReactNode { colSpan, message = 'No data available', className = '' }: TableEmptyProps) {
   return (
     <tr>
       <td colSpan={colSpan} className={`px-6 py-12 text-centre text-sm text-grey-500 ${className}`}>
@@ -191,7 +191,7 @@ interface TableLoadingProps {
   className?: string;
 }
 
-export function TableLoading({ colSpan, message = 'Loading...', className = '' }: TableLoadingProps) {
+export function TableLoading(: React.ReactNode { colSpan, message = 'Loading...', className = '' }: TableLoadingProps) {
   return (
     <tr>
       <td colSpan={colSpan} className={`px-6 py-12 text-centre text-sm text-grey-500 ${className}`}>

@@ -1,10 +1,10 @@
-import React from 'react';
+// import React from 'react'; // Unused import
 
 interface OfflineFallbackProps {
   resourceType: string;
 }
 
-export function OfflineFallback({ resourceType }: OfflineFallbackProps) {
+export function OfflineFallback(: React.ReactNode { resourceType }: OfflineFallbackProps) {
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] p-6 text-center">
       <div className="mb-6">

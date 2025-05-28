@@ -67,7 +67,7 @@ const staggerItemVariants = {
  * This page provides a comprehensive interface for accessing and interacting with
  * immersive learning experiences, including VR, AR, and 3D content.
  */
-export default function ImmersiveLearningClient() {
+export default function ImmersiveLearningClient() : React.ReactNode {
   const [activeExperience, setActiveExperience] = React.useState<ImmersiveExperience | null>(null);
   const [isFullscreen, setIsFullscreen] = React.useState(false);
   const [isVRMode, setIsVRMode] = React.useState(false);

@@ -3,12 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+// import { Input } from "@/components/ui/input"; // Unused import
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+// import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"; // Unused import
+// import { Badge } from "@/components/ui/badge"; // Unused import
+// import { Separator } from "@/components/ui/separator"; // Unused import
 import { 
   Dialog, 
   DialogContent, 
@@ -58,7 +58,7 @@ const PortfolioIntegration = ({ credential, onAddToPortfolio }) => {
         variant: "success",
       });
     } catch (error) {
-      console.error('Error adding to portfolio:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error adding to portfolio:', error);
       toast({
         title: "Error",
         description: "Failed to add credential to portfolio",
@@ -149,7 +149,7 @@ const CPDIntegration = ({ credential, onLinkToCPD }) => {
         variant: "success",
       });
     } catch (error) {
-      console.error('Error linking to CPD:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error linking to CPD:', error);
       toast({
         title: "Error",
         description: "Failed to link credential to CPD activity",
@@ -208,12 +208,12 @@ const BlockchainCredentialIntegration = ({ credential, onClose }) => {
   
   const handleAddToPortfolio = (credential, section) => {
     // In a real implementation, this would call an API to add the credential to the portfolio
-    console.log(`Added credential ${credential.id} to ${section} section`);
+    /* eslint-disable-next-line no-console */ console.log(`Added credential ${credential.id} to ${section} section`);
   };
   
   const handleLinkToCPD = (credential, activity) => {
     // In a real implementation, this would call an API to link the credential to CPD
-    console.log(`Linked credential ${credential.id} to CPD activity ${activity.id}`);
+    /* eslint-disable-next-line no-console */ console.log(`Linked credential ${credential.id} to CPD activity ${activity.id}`);
   };
   
   return (

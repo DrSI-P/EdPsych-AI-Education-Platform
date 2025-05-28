@@ -9,15 +9,15 @@ import {
   CardHeader, 
   CardTitle 
 } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; // Unused import
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+// import { Label } from "@/components/ui/label"; // Unused import
+// import { Textarea } from "@/components/ui/textarea"; // Unused import
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ScrollArea } from "@/components/ui/scroll-area";
+// import { ScrollArea } from "@/components/ui/scroll-area"; // Unused import
 import { Separator } from "@/components/ui/separator";
 import { 
   Search, 
@@ -159,7 +159,7 @@ const MOCK_RECOMMENDED_MENTEES = [
   }
 ];
 
-export default function MentorMatchingDashboard() {
+export default function MentorMatchingDashboard() : React.ReactNode {
   const [profileType, setProfileType] = useState('mentor');
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredRecommendations, setFilteredRecommendations] = useState(

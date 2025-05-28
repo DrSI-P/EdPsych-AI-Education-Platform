@@ -43,7 +43,7 @@ interface LearningMetrics {
   optimalChallengeZone: number;
 }
 
-export default function BiofeedbackLearningPage() {
+export default function BiofeedbackLearningPage() : React.ReactNode {
   const [biometrics, setBiometrics] = useState<BiometricData>({
     heartRate: 72,
     breathingRate: 14,

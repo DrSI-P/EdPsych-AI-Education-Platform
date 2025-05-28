@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react'; // Unused import
 import Head from 'next/head';
 
 /**
@@ -7,7 +7,7 @@ import Head from 'next/head';
  * This page replaces the main index page with a minimal version
  * to help isolate and resolve deployment issues.
  */
-export default function MinimalIndex() {
+export default function MinimalIndex() : React.ReactNode {
   return (
     <div style={{ 
       padding: '40px', 

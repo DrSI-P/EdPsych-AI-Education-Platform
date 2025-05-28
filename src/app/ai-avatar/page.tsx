@@ -1,5 +1,7 @@
 import AIAvatarWrapper from '@/components/ai-avatar/ai-avatar-wrapper';
 
-export default function AIAvatarPage() {
+// import React from "react"; // Unused import
+
+export default function AIAvatarPage() : React.ReactNode {
   return <AIAvatarWrapper />;
 }

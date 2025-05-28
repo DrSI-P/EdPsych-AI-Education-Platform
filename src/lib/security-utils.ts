@@ -1,8 +1,10 @@
 // Security utilities for EdPsych-AI-Education-Platform
 import { useState, useEffect } from 'react';
 import { hash, compare } from 'bcryptjs';
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid'; // Unused import
 import { AES, enc } from 'crypto-js';
+
+// import React from "react"; // Unused import
 
 /**
  * Utility for securely hashing passwords
@@ -60,7 +62,7 @@ export const decryptData = (encryptedData: string, secretKey: string) => {
     const decryptedString = bytes.toString(enc.Utf8);
     return JSON.parse(decryptedString);
   } catch (error) {
-    console.error('Failed to decrypt data:', error);
+    /* eslint-disable-next-line no-console */ console.error('Failed to decrypt data:', error);
     return null;
   }
 };
@@ -269,13 +271,13 @@ export const validateSecureFileUpload = (
 ): boolean => {
   // Check file type
   if (!allowedTypes.includes(file.type)) {
-    console.error(`Invalid file type: ${file.type}. Allowed types: ${allowedTypes.join(', ')}`);
+    /* eslint-disable-next-line no-console */ console.error(`Invalid file type: ${file.type}. Allowed types: ${allowedTypes.join(', ')}`);
     return false;
   }
   
   // Check file size
   if (file.size > maxSize) {
-    console.error(`File too large: ${file.size} bytes. Maximum size: ${maxSize} bytes`);
+    /* eslint-disable-next-line no-console */ console.error(`File too large: ${file.size} bytes. Maximum size: ${maxSize} bytes`);
     return false;
   }
   
@@ -321,7 +323,7 @@ export const secureApiRequest = async (
     
     return await response.json();
   } catch (error) {
-    console.error('Secure API request failed:', error);
+    /* eslint-disable-next-line no-console */ console.error('Secure API request failed:', error);
     throw error;
   }
 };

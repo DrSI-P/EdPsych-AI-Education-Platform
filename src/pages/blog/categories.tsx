@@ -1,7 +1,7 @@
-import React from 'react';
+// import React from 'react'; // Unused import
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import Link from 'next/link';
+// import Link from 'next/link'; // Unused import
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import prisma from '@/lib/prisma-client';
@@ -24,7 +24,7 @@ interface BlogCategoriesPageProps {
   categories: any[];
 }
 
-export default function BlogCategoriesPage({ categories }: BlogCategoriesPageProps) {
+export default function BlogCategoriesPage(: React.ReactNode { categories }: BlogCategoriesPageProps) {
   return (
     <>
       <Head>
@@ -115,7 +115,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   } catch (error) {
-    console.error('Error fetching categories:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching categories:', error);
     return {
       props: {
         categories: [],

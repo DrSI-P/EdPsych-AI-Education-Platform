@@ -1,6 +1,6 @@
-import React from 'react';
+// import React from 'react'; // Unused import
 
-export function BlogPostView({ post, relatedPosts = [], onLike, isLikeLoading = false }) {
+export function BlogPostView(: React.ReactNode { post, relatedPosts = [], onLike, isLikeLoading = false }) {
   return (
     <div className="max-w-4xl mx-auto">
       {post.featuredImage && (

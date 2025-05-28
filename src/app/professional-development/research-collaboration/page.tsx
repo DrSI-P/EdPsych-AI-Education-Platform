@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react';
+// import React from 'react'; // Unused import
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ResearchCollaboration from '@/components/professional-development/research-collaboration';
 import ResearchCollaborationDashboard from '@/components/professional-development/research-collaboration-dashboard';
 
-export default function ResearchCollaborationPage() {
+export default function ResearchCollaborationPage() : React.ReactNode {
   return (
     <div className="container mx-auto py-6">
       <Tabs defaultValue="projects" className="space-y-6">

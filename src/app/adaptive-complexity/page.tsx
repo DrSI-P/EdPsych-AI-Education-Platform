@@ -1,11 +1,13 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from "react";
 import dynamic from 'next/dynamic';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown, BookOpen, Layers, ArrowRight, CheckCircle2, BarChart3 } from "lucide-react";
+import { BookOpen, Layers, CheckCircle2, BarChart3 } from "lucide-react";
 import { useRouter, useSearchParams } from 'next/navigation';
+
+// import React from "react"; // Unused import
 
 // Dynamically import the AdaptiveComplexityEngine component with SSR disabled
 const AdaptiveComplexityEngine = dynamic(
@@ -19,7 +21,7 @@ interface ContentItem {
   content: string;
 }
 
-export default function AdaptiveComplexityPage() {
+export default function AdaptiveComplexityPage() : React.ReactNode {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [content, setContent] = useState<ContentItem | null>(null);

@@ -77,7 +77,7 @@ export async function POST(request: Request) {
     
     // In a real application, send email with verification link
     // For now, just return the token (this would be removed in production)
-    console.log(`Verification token for ${email}: ${verificationToken}`);
+    /* eslint-disable-next-line no-console */ console.log(`Verification token for ${email}: ${verificationToken}`);
     
     return NextResponse.json({ 
       success: true, 

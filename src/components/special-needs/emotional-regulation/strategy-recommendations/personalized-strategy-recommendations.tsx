@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -5,9 +6,9 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+// import { Textarea } from "@/components/ui/textarea"; // Unused import
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Slider } from "@/components/ui/slider";
+// import { Slider } from "@/components/ui/slider"; // Unused import
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "@/components/ui/use-toast";
@@ -31,7 +32,7 @@ import {
   Settings,
   Lightbulb
 } from "lucide-react";
-import Image from "next/image";
+// import Image from "next/image"; // Unused import
 
 const PersonalizedStrategyRecommendations = () => {
   const { data: session } = useSession();
@@ -369,7 +370,7 @@ const PersonalizedStrategyRecommendations = () => {
         setIsLoading(false);
       }, 500);
     } catch (error) {
-      console.error('Error fetching user preferences:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching user preferences:', error);
       setIsLoading(false);
       toast({
         title: "Error",
@@ -436,7 +437,7 @@ const PersonalizedStrategyRecommendations = () => {
       ];
       setEmotionHistory(mockHistory);
     } catch (error) {
-      console.error('Error fetching emotion history:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching emotion history:', error);
       toast({
         title: "Error",
         description: "Failed to load your emotion history. Please try again.",
@@ -517,7 +518,7 @@ const PersonalizedStrategyRecommendations = () => {
       setStrategyEffectiveness(effectiveness);
       
     } catch (error) {
-      console.error('Error fetching strategy history:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching strategy history:', error);
       toast({
         title: "Error",
         description: "Failed to load your strategy history. Please try again.",
@@ -701,7 +702,7 @@ const PersonalizedStrategyRecommendations = () => {
         });
       }, 1000);
     } catch (error) {
-      console.error('Error saving preferences:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error saving preferences:', error);
       setIsLoading(false);
       toast({
         title: "Error",
@@ -773,7 +774,7 @@ const PersonalizedStrategyRecommendations = () => {
         
       }, 1000);
     } catch (error) {
-      console.error('Error saving strategy feedback:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error saving strategy feedback:', error);
       setIsLoading(false);
       toast({
         title: "Error",

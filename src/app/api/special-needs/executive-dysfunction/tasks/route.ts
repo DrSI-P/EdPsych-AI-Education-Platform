@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth/auth-options';
 import { prisma } from '@/lib/db';
-import { getAIService } from '@/lib/ai/ai-service';
+// import { getAIService } from '@/lib/ai/ai-service'; // Unused import
 
 export async function GET(req: NextRequest) {
   try {
@@ -48,7 +48,7 @@ export async function GET(req: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error fetching tasks:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching tasks:', error);
     return NextResponse.json({ error: 'Failed to fetch tasks' }, { status: 500 });
   }
 }
@@ -103,7 +103,7 @@ export async function POST(req: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error saving tasks:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error saving tasks:', error);
     return NextResponse.json({ error: 'Failed to save tasks' }, { status: 500 });
   }
 }
@@ -149,7 +149,7 @@ export async function PUT(req: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error updating task:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error updating task:', error);
     return NextResponse.json({ error: 'Failed to update task' }, { status: 500 });
   }
 }
@@ -197,7 +197,7 @@ export async function DELETE(req: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error deleting task:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error deleting task:', error);
     return NextResponse.json({ error: 'Failed to delete task' }, { status: 500 });
   }
 }

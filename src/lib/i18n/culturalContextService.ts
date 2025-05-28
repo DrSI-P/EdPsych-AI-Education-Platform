@@ -171,12 +171,12 @@ export class CulturalContextService {
       }
       
       // In a real implementation, this would fetch from an API or database
-      console.log(`Fetching cultural context for ${language}`);
+      /* eslint-disable-next-line no-console */ console.log(`Fetching cultural context for ${language}`);
       
       // For now, return null for languages we don't have context for
       return null;
     } catch (error) {
-      console.error(`Error fetching cultural context for ${language}:`, error);
+      /* eslint-disable-next-line no-console */ console.error(`Error fetching cultural context for ${language}:`, error);
       return null;
     }
   }
@@ -198,12 +198,12 @@ export class CulturalContextService {
       }
       
       // In a real implementation, this would fetch from an API or database
-      console.log(`Fetching glossary for ${sourceLanguage} to ${targetLanguage} (${domain})`);
+      /* eslint-disable-next-line no-console */ console.log(`Fetching glossary for ${sourceLanguage} to ${targetLanguage} (${domain})`);
       
       // For now, return null for language pairs we don't have glossaries for
       return null;
     } catch (error) {
-      console.error(`Error fetching glossary:`, error);
+      /* eslint-disable-next-line no-console */ console.error(`Error fetching glossary:`, error);
       return null;
     }
   }
@@ -216,7 +216,7 @@ export class CulturalContextService {
       const culturalContext = await this.getCulturalContext(language);
       return culturalContext?.curriculumDifferences || null;
     } catch (error) {
-      console.error(`Error fetching curriculum differences:`, error);
+      /* eslint-disable-next-line no-console */ console.error(`Error fetching curriculum differences:`, error);
       return null;
     }
   }
@@ -323,7 +323,7 @@ export class CulturalContextService {
       
       return recommendations;
     } catch (error) {
-      console.error('Error generating content recommendations:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error generating content recommendations:', error);
       return [];
     }
   }
@@ -390,7 +390,7 @@ export class CulturalContextService {
         adaptationsMade
       };
     } catch (error) {
-      console.error('Error adapting content:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error adapting content:', error);
       return {
         adaptedContent: content,
         culturalNotes: [],

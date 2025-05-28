@@ -4,10 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { AIAvatarVideo, AIAvatarVideoCategory, AIAvatarVideoAudience } from './types';
 import { AIAvatarVideoService } from './ai-avatar-video-service';
 import { AIAvatarVideoPlayer } from './ai-avatar-video-player';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'; // Unused import
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { Search, Filter, Clock, User, Tag } from 'lucide-react';
 import { Skeleton } from '../ui/skeleton';
 
@@ -39,7 +39,7 @@ export const AIAvatarVideoLibrary: React.FC = () => {
         setFilteredVideos(allVideos);
         setLoading(false);
       } catch (error) {
-        console.error('Failed to load videos:', error);
+        /* eslint-disable-next-line no-console */ console.error('Failed to load videos:', error);
         setLoading(false);
       }
     };

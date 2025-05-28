@@ -294,7 +294,7 @@ export async function getVideoForUser(params: VideoGenerationParams): Promise<Vi
     
     return { videoUrl, fromCache: false };
   } catch (error) {
-    console.error('Error generating video:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error generating video:', error);
     throw new Error('Failed to generate video. Please try again later.');
   }
 }
@@ -349,9 +349,9 @@ export async function preGenerateCommonVideos(navigationScripts: NavigationScrip
         // Also cache it
         await cache.set(cacheKey, videoUrl, CACHE_TTL);
         
-        console.log(`Pre-generated video for: ${script.text.substring(0, 30)}...`);
+        /* eslint-disable-next-line no-console */ console.log(`Pre-generated video for: ${script.text.substring(0, 30)}...`);
       } catch (error) {
-        console.error(`Failed to pre-generate video for: ${script.text.substring(0, 30)}...`, error);
+        /* eslint-disable-next-line no-console */ console.error(`Failed to pre-generate video for: ${script.text.substring(0, 30)}...`, error);
       }
       
       // Add a delay to avoid rate limiting

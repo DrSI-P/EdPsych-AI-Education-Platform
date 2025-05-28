@@ -60,7 +60,7 @@ export async function GET(req: NextRequest) {
     
     return NextResponse.json({ plans: transitionPlans }, { status: 200 });
   } catch (error) {
-    console.error('Error fetching transition plans:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching transition plans:', error);
     return NextResponse.json({ error: 'Failed to fetch transition plans' }, { status: 500 });
   }
 }
@@ -143,7 +143,7 @@ export async function POST(req: NextRequest) {
     
     return NextResponse.json({ plan: transitionPlan }, { status: 201 });
   } catch (error) {
-    console.error('Error creating transition plan:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating transition plan:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: 'Validation error', details: error.errors }, { status: 400 });

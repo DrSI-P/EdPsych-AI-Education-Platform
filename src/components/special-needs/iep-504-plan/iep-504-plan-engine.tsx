@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -10,14 +11,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { Switch } from "@/components/ui/switch";
+// import { Switch } from "@/components/ui/switch"; // Unused import
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { toast } from "@/components/ui/use-toast";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
-import { CalendarIcon, PlusCircle, CheckCircle2, XCircle, FileText, Users, School, Briefcase, BookOpen, Pencil, Target, AlertCircle } from "lucide-react";
+import { CalendarIcon, PlusCircle, CheckCircle2, XCircle, FileText, School, BookOpen } from "lucide-react";
 
 const IEP504PlanEngine = () => {
   const { data: session } = useSession();
@@ -202,7 +203,7 @@ const IEP504PlanEngine = () => {
         setIsLoading(false);
       }, 1000);
     } catch (error) {
-      console.error('Error fetching plans:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching plans:', error);
       setIsLoading(false);
     }
   };
@@ -407,7 +408,7 @@ const IEP504PlanEngine = () => {
         setActiveTab('dashboard');
       }, 1500);
     } catch (error) {
-      console.error('Error saving plan:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error saving plan:', error);
       toast({
         title: "Error",
         description: "Failed to save plan. Please try again.",

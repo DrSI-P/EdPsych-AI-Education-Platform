@@ -1,3 +1,5 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
+// TODO: Fix NodeJS type errors by adding @types/node dependency
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -38,13 +40,15 @@ import { Slider } from "@/components/ui/slider";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
+// import React from "react"; // Unused import
+
 interface ExecutiveDysfunctionSupportProps {
   userId?: string;
   initialData?;
   className?: string;
 }
 
-export default function ExecutiveDysfunctionSupport({
+export default function ExecutiveDysfunctionSupport(: React.ReactNode {
   userId,
   initialData,
   className
@@ -141,7 +145,7 @@ export default function ExecutiveDysfunctionSupport({
         }
       }
     } catch (error) {
-      console.error('Error fetching user data:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching user data:', error);
       toast({
         title: "Error",
         description: "Failed to load your data. Please try again.",
@@ -218,7 +222,7 @@ export default function ExecutiveDysfunctionSupport({
         throw new Error('Failed to add task');
       }
     } catch (error) {
-      console.error('Error adding task:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error adding task:', error);
       toast({
         title: "Error",
         description: "Failed to add task. Please try again.",
@@ -246,7 +250,7 @@ export default function ExecutiveDysfunctionSupport({
         });
       }
     } catch (error) {
-      console.error('Error completing task:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error completing task:', error);
       toast({
         title: "Error",
         description: "Failed to update task status. Please try again.",
@@ -275,7 +279,7 @@ export default function ExecutiveDysfunctionSupport({
         }));
       }
     } catch (error) {
-      console.error('Error completing step:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error completing step:', error);
       toast({
         title: "Error",
         description: "Failed to update step status. Please try again.",

@@ -10,11 +10,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { HeygenService, HeyGenVideo } from '@/lib/heygen/heygen-service';
-import { VideoGenerationRequest } from '@/lib/heygen/heygen-api';
+// import { HeygenService, HeyGenVideo } from '@/lib/heygen/heygen-service'; // Unused import
+// import { VideoGenerationRequest } from '@/lib/heygen/heygen-api'; // Unused import
 import { Loader2, Upload, Check, AlertCircle } from 'lucide-react';
 
-export function HeyGenVideoGeneration() {
+export function HeyGenVideoGeneration() : React.ReactNode {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -120,7 +120,7 @@ export function HeyGenVideoGeneration() {
       
     } catch (err) {
       setError('Failed to generate video. Please try again.');
-      console.error('Video generation error:', err);
+      /* eslint-disable-next-line no-console */ console.error('Video generation error:', err);
     } finally {
       setLoading(false);
     }

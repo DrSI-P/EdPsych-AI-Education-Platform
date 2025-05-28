@@ -43,7 +43,7 @@ export class CommunicationService {
       
       return newMessage;
     } catch (error) {
-      console.error('Error sending message:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error sending message:', error);
       throw new Error('Failed to send message');
     }
   }
@@ -60,7 +60,7 @@ export class CommunicationService {
       // In a real implementation, this would call an API endpoint
       return []; // Placeholder
     } catch (error) {
-      console.error('Error fetching conversations:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching conversations:', error);
       throw new Error('Failed to fetch conversations');
     }
   }
@@ -73,7 +73,7 @@ export class CommunicationService {
       // In a real implementation, this would call an API endpoint
       throw new Error('Conversation not found');
     } catch (error) {
-      console.error('Error fetching conversation:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching conversation:', error);
       throw new Error('Failed to fetch conversation');
     }
   }
@@ -85,7 +85,7 @@ export class CommunicationService {
     try {
       // In a real implementation, this would call an API endpoint
     } catch (error) {
-      console.error('Error marking message as read:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error marking message as read:', error);
       throw new Error('Failed to mark message as read');
     }
   }
@@ -104,7 +104,7 @@ export class CommunicationService {
       
       return newReport;
     } catch (error) {
-      console.error('Error creating progress report:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error creating progress report:', error);
       throw new Error('Failed to create progress report');
     }
   }
@@ -117,7 +117,7 @@ export class CommunicationService {
       // In a real implementation, this would call an API endpoint
       throw new Error('Report not found');
     } catch (error) {
-      console.error('Error publishing progress report:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error publishing progress report:', error);
       throw new Error('Failed to publish progress report');
     }
   }
@@ -135,7 +135,7 @@ export class CommunicationService {
       // In a real implementation, this would call an API endpoint
       return []; // Placeholder
     } catch (error) {
-      console.error('Error fetching progress reports:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching progress reports:', error);
       throw new Error('Failed to fetch progress reports');
     }
   }
@@ -148,7 +148,7 @@ export class CommunicationService {
       // In a real implementation, this would call an API endpoint
       throw new Error('Report not found');
     } catch (error) {
-      console.error('Error adding parent feedback:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error adding parent feedback:', error);
       throw new Error('Failed to add parent feedback');
     }
   }
@@ -171,7 +171,7 @@ export class CommunicationService {
       
       return newGoal;
     } catch (error) {
-      console.error('Error creating shared goal:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error creating shared goal:', error);
       throw new Error('Failed to create shared goal');
     }
   }
@@ -190,7 +190,7 @@ export class CommunicationService {
       // In a real implementation, this would call an API endpoint
       throw new Error('Goal not found');
     } catch (error) {
-      console.error('Error updating goal progress:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error updating goal progress:', error);
       throw new Error('Failed to update goal progress');
     }
   }
@@ -214,7 +214,7 @@ export class CommunicationService {
       
       return newMeeting;
     } catch (error) {
-      console.error('Error scheduling meeting:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error scheduling meeting:', error);
       throw new Error('Failed to schedule meeting');
     }
   }
@@ -235,7 +235,7 @@ export class CommunicationService {
       
       return newCelebration;
     } catch (error) {
-      console.error('Error creating celebration:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error creating celebration:', error);
       throw new Error('Failed to create celebration');
     }
   }
@@ -252,7 +252,7 @@ export class CommunicationService {
       // In a real implementation, this would call an API endpoint
       throw new Error('Celebration not found');
     } catch (error) {
-      console.error('Error adding celebration comment:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error adding celebration comment:', error);
       throw new Error('Failed to add celebration comment');
     }
   }
@@ -265,7 +265,7 @@ export class CommunicationService {
       // In a real implementation, this would call an API endpoint
       return preferences;
     } catch (error) {
-      console.error('Error updating communication preferences:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error updating communication preferences:', error);
       throw new Error('Failed to update communication preferences');
     }
   }
@@ -285,7 +285,7 @@ export class CommunicationService {
       // In a real implementation, this would call an API endpoint
       return []; // Placeholder
     } catch (error) {
-      console.error('Error fetching home strategies:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching home strategies:', error);
       throw new Error('Failed to fetch home strategies');
     }
   }

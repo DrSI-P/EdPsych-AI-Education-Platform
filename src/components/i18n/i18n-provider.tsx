@@ -50,7 +50,7 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({
         // Set RTL status
         setIsRtl(i18nService.isRtl());
       } catch (error) {
-        console.error('Error initializing I18nProvider:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error initializing I18nProvider:', error);
       }
     };
     
@@ -72,7 +72,7 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({
       }
       return success;
     } catch (error) {
-      console.error('Error changing language:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error changing language:', error);
       return false;
     }
   };

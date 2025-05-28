@@ -7,12 +7,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from 'date-fns';
-import { CalendarIcon, Clock, MessageSquare, Plus, Trash2, Users } from "lucide-react";
+import { CalendarIcon, Clock, Plus, Trash2, Users } from "lucide-react";
+
+// import React from "react"; // Unused import
 
 // Define interfaces for data structures
 interface User {
@@ -65,7 +67,7 @@ interface CollaborationData {
   plan: Plan;
 }
 
-export default function CollaborationPage() {
+export default function CollaborationPage() : React.ReactNode {
   const [activeTab, setActiveTab] = useState('overview');
   const [collaborationData, setCollaborationData] = useState<CollaborationData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -224,7 +226,7 @@ export default function CollaborationPage() {
         setCollaborationData(data);
       } catch (err) {
         setError('Failed to load collaboration data');
-        console.error(err);
+        /* eslint-disable-next-line no-console */ console.error(err);
       } finally {
         setLoading(false);
       }

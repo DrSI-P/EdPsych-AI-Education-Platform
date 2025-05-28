@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -7,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
 import { SimpleTabs  } from '@/components/ui/tabs';
-import { Form } from '@/components/ui/form';
+// import { Form } from '@/components/ui/form'; // Unused import
 
 interface Template {
   id: string;
@@ -27,7 +28,7 @@ interface Template {
   previewImage?: string;
 }
 
-export default function AssessmentTemplatesPage() {
+export default function AssessmentTemplatesPage() : React.ReactNode {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -75,7 +76,7 @@ export default function AssessmentTemplatesPage() {
         setTemplates(data);
         setFilteredTemplates(data);
       } catch (err) {
-        console.error('Error fetching templates:', err);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching templates:', err);
         setError('An error occurred while fetching the assessment templates');
       } finally {
         setLoading(false);

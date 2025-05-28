@@ -3,9 +3,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; // Unused import
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+// import { Badge } from "@/components/ui/badge"; // Unused import
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import { 
@@ -119,7 +119,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
       // Add style to document
       document.head.appendChild(style);
     } catch (error) {
-      console.error('Error highlighting focus:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error highlighting focus:', error);
     }
   }, [settings.enabled, settings.highlightFocus]);
   
@@ -217,14 +217,14 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
           shortcuts.forEach(shortcut => {
             if (e.key === shortcut.key) {
               // This would implement the actual shortcut functionality
-              console.log(`Keyboard shortcut: ${shortcut.action}`);
+              /* eslint-disable-next-line no-console */ console.log(`Keyboard shortcut: ${shortcut.action}`);
               e.preventDefault();
             }
           });
         }
       });
     } catch (error) {
-      console.error('Error adding keyboard shortcuts:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error adding keyboard shortcuts:', error);
     }
   }, [settings.enabled, settings.keyboardShortcuts]);
   
@@ -270,7 +270,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
         mainContent.setAttribute('tabindex', '-1');
       }
     } catch (error) {
-      console.error('Error adding skip to content link:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error adding skip to content link:', error);
     }
   }, [settings.enabled, settings.skipToContent]);
   
@@ -331,7 +331,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
         }
       });
     } catch (error) {
-      console.error('Error adding arrow navigation:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error adding arrow navigation:', error);
     }
   }, [settings.enabled, settings.arrowNavigation]);
   
@@ -378,7 +378,7 @@ export const KeyboardNavigationEngine: React.FC<KeyboardNavigationEngineProps> =
         });
       });
     } catch (error) {
-      console.error('Error adding tab trap:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error adding tab trap:', error);
     }
   }, [settings.enabled, settings.tabTrap]);
   

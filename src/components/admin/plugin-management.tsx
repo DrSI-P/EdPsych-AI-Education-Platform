@@ -60,10 +60,12 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { ScrollArea } from '@/components/ui/scroll-area';
+// import { ScrollArea } from '@/components/ui/scroll-area'; // Unused import
 import { Separator } from '@/components/ui/separator';
 import { toast } from '@/components/ui/use-toast';
 import { PluginStatus } from '@/lib/plugins/types';
+
+// import React from "react"; // Unused import
 
 // Plugin type definition for the admin interface
 interface Plugin {
@@ -167,7 +169,7 @@ const StatusBadge = ({ status }: { status: PluginStatus }) => {
   }
 };
 
-export default function PluginManagement() {
+export default function PluginManagement() : React.ReactNode {
   const [plugins, setPlugins] = useState<Plugin[]>(mockPlugins);
   const [filteredPlugins, setFilteredPlugins] = useState<Plugin[]>(mockPlugins);
   const [searchTerm, setSearchTerm] = useState('');
@@ -221,7 +223,7 @@ export default function PluginManagement() {
         setIsLoading(false);
       }, 500);
     } catch (error) {
-      console.error('Failed to fetch plugins:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to fetch plugins:', error);
       toast({
         title: "Error",
         description: "Failed to fetch plugins. Please try again.",
@@ -262,7 +264,7 @@ export default function PluginManagement() {
         });
       }, 500);
     } catch (error) {
-      console.error('Failed to toggle plugin status:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to toggle plugin status:', error);
       toast({
         title: "Error",
         description: "Failed to update plugin status. Please try again.",
@@ -311,7 +313,7 @@ export default function PluginManagement() {
         });
       }, 1000);
     } catch (error) {
-      console.error('Failed to install plugin:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to install plugin:', error);
       toast({
         title: "Error",
         description: "Failed to install plugin. Please check the URL and try again.",
@@ -357,7 +359,7 @@ export default function PluginManagement() {
         });
       }, 500);
     } catch (error) {
-      console.error('Failed to update plugin settings:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to update plugin settings:', error);
       toast({
         title: "Error",
         description: "Failed to update plugin settings. Please try again.",
@@ -388,7 +390,7 @@ export default function PluginManagement() {
         });
       }, 500);
     } catch (error) {
-      console.error('Failed to uninstall plugin:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to uninstall plugin:', error);
       toast({
         title: "Error",
         description: "Failed to uninstall plugin. Please try again.",

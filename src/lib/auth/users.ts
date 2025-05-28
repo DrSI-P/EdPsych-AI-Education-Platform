@@ -38,7 +38,7 @@ export async function registerUser(userData: {
       }
     };
   } catch (error) {
-    console.error('Error registering user:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error registering user:', error);
     return { success: false, message: 'Failed to register user' };
   }
 }
@@ -62,7 +62,7 @@ export async function getUserById(userId: string) {
       }
     };
   } catch (error) {
-    console.error('Error getting user by ID:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error getting user by ID:', error);
     return { success: false, message: 'Failed to retrieve user' };
   }
 }
@@ -97,7 +97,7 @@ export async function updateUserProfile(userId: string, profileData: {
       }
     };
   } catch (error) {
-    console.error('Error updating user profile:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error updating user profile:', error);
     return { success: false, message: 'Failed to update profile' };
   }
 }
@@ -122,7 +122,7 @@ export async function getUsersByRole(role: string) {
       users: safeUsers
     };
   } catch (error) {
-    console.error('Error getting users by role:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error getting users by role:', error);
     return { success: false, message: 'Failed to retrieve users' };
   }
 }
@@ -148,7 +148,7 @@ export async function changeUserRole(userId: string, newRole: string) {
       }
     };
   } catch (error) {
-    console.error('Error changing user role:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error changing user role:', error);
     return { success: false, message: 'Failed to change role' };
   }
 }
@@ -183,7 +183,7 @@ export async function verifyPassword(email: string, password: string) {
       }
     };
   } catch (error) {
-    console.error('Error verifying password:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error verifying password:', error);
     return { success: false, message: 'Authentication error' };
   }
 }
@@ -226,7 +226,7 @@ export const users = {
       
       return { success: true, message: 'Password updated successfully' };
     } catch (error) {
-      console.error('Error updating password:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error updating password:', error);
       return { success: false, message: 'Failed to update password' };
     }
   }

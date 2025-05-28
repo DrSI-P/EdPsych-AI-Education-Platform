@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { CheckCircle2, AlertCircle, AlertTriangle, Info, HelpCircle } from 'lucide-react';
+import { CheckCircle2, AlertCircle, AlertTriangle, HelpCircle } from "lucide-react";
 import { DashboardConfig } from '@/lib/analytics/types';
 
 interface CurriculumAlignmentValidatorProps {

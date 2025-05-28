@@ -477,7 +477,7 @@ export class OfflineStorageService {
       this.setupOnlineListener();
       return true;
     } catch (error) {
-      console.error('Failed to initialize offline storage:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to initialize offline storage:', error);
       return false;
     }
   }
@@ -784,7 +784,7 @@ export class OfflineStorageService {
           await this.processSyncItem(item);
           await this.removeSyncItem(item.id);
         } catch (error) {
-          console.error(`Failed to sync item ${item.id}:`, error);
+          /* eslint-disable-next-line no-console */ console.error(`Failed to sync item ${item.id}:`, error);
           await this.updateSyncItemAttempt(item.id);
         }
       }
@@ -999,7 +999,7 @@ export class PushNotificationService {
   public async initialize(apiUrl: string, userId: string, deviceId: string): Promise<boolean> {
     // Check if push notifications are supported
     if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
-      console.warn('Push notifications are not supported in this browser');
+      /* eslint-disable-next-line no-console */ console.warn('Push notifications are not supported in this browser');
       return false;
     }
     
@@ -1022,7 +1022,7 @@ export class PushNotificationService {
       this.isInitialized = true;
       return true;
     } catch (error) {
-      console.error('Failed to initialize push notifications:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to initialize push notifications:', error);
       return false;
     }
   }
@@ -1046,7 +1046,7 @@ export class PushNotificationService {
       
       return false;
     } catch (error) {
-      console.error('Failed to request notification permission:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to request notification permission:', error);
       return false;
     }
   }
@@ -1080,7 +1080,7 @@ export class PushNotificationService {
       // Register with server
       await this.registerWithServer();
     } catch (error) {
-      console.error('Failed to subscribe to push notifications:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to subscribe to push notifications:', error);
       throw error;
     }
   }
@@ -1095,7 +1095,7 @@ export class PushNotificationService {
     
     try {
       // In a real implementation, this would make an API call to register the device
-      console.log('Registering device with server:', {
+      /* eslint-disable-next-line no-console */ console.log('Registering device with server:', {
         userId: this.userId,
         deviceId: this.deviceId,
         deviceToken: this.deviceToken
@@ -1104,7 +1104,7 @@ export class PushNotificationService {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 500));
     } catch (error) {
-      console.error('Failed to register with notification server:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to register with notification server:', error);
       throw error;
     }
   }
@@ -1130,7 +1130,7 @@ export class PushNotificationService {
       
       return success;
     } catch (error) {
-      console.error('Failed to unsubscribe from push notifications:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to unsubscribe from push notifications:', error);
       return false;
     }
   }
@@ -1145,7 +1145,7 @@ export class PushNotificationService {
     
     try {
       // In a real implementation, this would make an API call to unregister the device
-      console.log('Unregistering device from server:', {
+      /* eslint-disable-next-line no-console */ console.log('Unregistering device from server:', {
         userId: this.userId,
         deviceId: this.deviceId
       });
@@ -1153,7 +1153,7 @@ export class PushNotificationService {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 500));
     } catch (error) {
-      console.error('Failed to unregister from notification server:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to unregister from notification server:', error);
       throw error;
     }
   }
@@ -1168,12 +1168,12 @@ export class PushNotificationService {
     
     try {
       // In a real implementation, this would make an API call to update preferences
-      console.log('Updating notification preferences:', preferences);
+      /* eslint-disable-next-line no-console */ console.log('Updating notification preferences:', preferences);
       
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 500));
     } catch (error) {
-      console.error('Failed to update notification preferences:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to update notification preferences:', error);
       throw error;
     }
   }
@@ -1194,7 +1194,7 @@ export class PushNotificationService {
       }
       return true;
     } catch (error) {
-      console.error('Failed to show notification:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to show notification:', error);
       return false;
     }
   }
@@ -1277,7 +1277,7 @@ export class MobileSettingsService {
       
       return true;
     } catch (error) {
-      console.error('Failed to initialize mobile settings:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to initialize mobile settings:', error);
       return false;
     }
   }
@@ -1302,7 +1302,7 @@ export class MobileSettingsService {
         
         this.settings = parsedSettings;
       } catch (error) {
-        console.error('Failed to parse settings from local storage:', error);
+        /* eslint-disable-next-line no-console */ console.error('Failed to parse settings from local storage:', error);
         // Will create default settings instead
       }
     }
@@ -1372,7 +1372,7 @@ export class MobileSettingsService {
         await this.syncSettingsWithServer();
       }
     } catch (error) {
-      console.error('Failed to save settings to local storage:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to save settings to local storage:', error);
       throw error;
     }
   }
@@ -1387,12 +1387,12 @@ export class MobileSettingsService {
     
     try {
       // In a real implementation, this would make an API call to sync settings
-      console.log('Syncing settings with server:', this.settings);
+      /* eslint-disable-next-line no-console */ console.log('Syncing settings with server:', this.settings);
       
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 500));
     } catch (error) {
-      console.error('Failed to sync settings with server:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to sync settings with server:', error);
       // Don't throw error, as this is a background operation
     }
   }

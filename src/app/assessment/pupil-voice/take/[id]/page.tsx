@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
 
-export default function TakePupilVoiceSurveyPage() {
+export default function TakePupilVoiceSurveyPage() : React.ReactNode {
   const router = useRouter();
   const params = useParams();
   const surveyId = params.id as string;
@@ -53,7 +53,7 @@ export default function TakePupilVoiceSurveyPage() {
         
         setResponses(initialResponses);
       } catch (err) {
-        console.error('Error fetching pupil voice survey:', err);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching pupil voice survey:', err);
         setError('An error occurred while fetching the pupil voice survey');
       } finally {
         setLoading(false);
@@ -159,7 +159,7 @@ export default function TakePupilVoiceSurveyPage() {
       // Navigate to thank you page
       router.push(`/assessment/pupil-voice/thank-you/${surveyId}`);
     } catch (err) {
-      console.error('Error submitting survey responses:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error submitting survey responses:', err);
       setError('An error occurred while submitting your responses');
       setSubmitting(false);
     }

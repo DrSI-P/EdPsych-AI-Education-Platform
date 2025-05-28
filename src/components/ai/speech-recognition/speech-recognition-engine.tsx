@@ -6,9 +6,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Mic, MicOff, Settings, Volume2, VolumeX, Wand2, AlertCircle } from "lucide-react";
+import { Mic, MicOff, Settings, VolumeX, Wand2, AlertCircle } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
+
+// import React from "react"; // Unused import
 
 interface SpeechRecognitionEngineProps {
   onTranscriptChange?: (transcript: string) => void;
@@ -20,7 +22,7 @@ interface SpeechRecognitionEngineProps {
   className?: string;
 }
 
-export default function SpeechRecognitionEngine({
+export default function SpeechRecognitionEngine(: React.ReactNode {
   onTranscriptChange,
   onSpeechEnd,
   placeholder = "Speak to see your words appear here...",
@@ -93,7 +95,7 @@ export default function SpeechRecognitionEngine({
         };
         
         recognitionRef.current.onerror = (event) => {
-          console.error('Speech recognition error', event.error);
+          /* eslint-disable-next-line no-console */ console.error('Speech recognition error', event.error);
           if (event.error === 'not-allowed') {
             toast({
               title: "Microphone access denied",
@@ -187,7 +189,7 @@ export default function SpeechRecognitionEngine({
       
       recognitionRef.current.start();
     } catch (error) {
-      console.error('Error starting speech recognition:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error starting speech recognition:', error);
       setIsListening(false);
       toast({
         title: "Failed to start speech recognition",

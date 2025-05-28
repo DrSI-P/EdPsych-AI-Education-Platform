@@ -5,7 +5,7 @@
  * It provides structured logging with appropriate privacy controls for UK educational settings.
  */
 
-import winston from 'winston';
+// import winston from 'winston'; // Unused import
 import { createLogger, format, transports } from 'winston';
 import { NextApiRequest } from 'next';
 

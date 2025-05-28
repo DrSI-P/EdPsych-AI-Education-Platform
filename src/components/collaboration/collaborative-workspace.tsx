@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -5,9 +6,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+// import { Label } from '@/components/ui/label'; // Unused import
 import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Separator } from '@/components/ui/separator';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { toast } from '@/components/ui/use-toast';
@@ -40,7 +41,7 @@ import {
   CollaborationParticipant,
   CollaborativeDocument
 } from '@/lib/collaboration/types';
-import { getCollaborationService } from '@/lib/collaboration/collaborationService';
+// import { getCollaborationService } from '@/lib/collaboration/collaborationService'; // Unused import
 
 // Mock user for demonstration
 const mockUser = {
@@ -348,7 +349,7 @@ const mockChatMessages = [
   }
 ];
 
-export default function CollaborativeWorkspace() {
+export default function CollaborativeWorkspace() : React.ReactNode {
   const [activeTab, setActiveTab] = useState<string>('document');
   const [session, setSession] = useState<CollaborationSession>(mockSession);
   const [document, setDocument] = useState<CollaborativeDocument>(mockDocument);

@@ -9,7 +9,7 @@
 
 import React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
-import { type ClassValue, clsx } from "clsx";
+import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 // Define theme types
@@ -47,7 +47,7 @@ const initialState: ThemeProviderState = {
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 // Helper function to merge class names
-export function cn(...inputs: any[]) {
+export function cn(...inputs: any[]) : React.ReactNode {
   return twMerge(clsx(inputs));
 }
 

@@ -69,7 +69,7 @@ interface NavigationVideoResponse {
   videos: any[];
 }
 
-export default function AvatarNavigation({
+export default function AvatarNavigation(: React.ReactNode {
   autoShowOnFirstVisit = true,
   position = 'bottom-right',
   size = 'md',
@@ -154,7 +154,7 @@ export default function AvatarNavigation({
         }
       }
     } catch (err) {
-      console.error('Error loading navigation video:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error loading navigation video:', err);
       setError('Failed to load navigation assistance. Please try again later.');
     } finally {
       setLoading(false);

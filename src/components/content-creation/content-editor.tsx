@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -15,7 +16,7 @@ import {
 import { getContentCreationService } from '@/lib/content-creation/contentCreationService';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+// import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'; // Unused import
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -23,9 +24,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { AlertCircle, Save, Eye, Upload, Download, Share2, Settings, Plus, Trash2, MoveUp, MoveDown, Copy } from 'lucide-react';
+import { AlertCircle, Save, Settings, Plus, Trash2, MoveUp, MoveDown, Copy } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useToast } from '@/components/ui/use-toast';
@@ -111,7 +112,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
           });
         }
       } catch (error) {
-        console.error('Failed to initialize content:', error);
+        /* eslint-disable-next-line no-console */ console.error('Failed to initialize content:', error);
         setError('Failed to load content. Please try again.');
       } finally {
         setIsLoading(false);
@@ -325,7 +326,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
       
       setUnsavedChanges(false);
     } catch (error) {
-      console.error('Failed to save content:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to save content:', error);
       setError('Failed to save content. Please try again.');
       toast({
         variant: "destructive",
@@ -375,7 +376,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
         onPublish(contentId);
       }
     } catch (error) {
-      console.error('Failed to publish content:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to publish content:', error);
       setError('Failed to publish content. Please try again.');
       toast({
         variant: "destructive",

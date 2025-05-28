@@ -108,7 +108,7 @@ export async function POST(req: NextRequest) {
     
     return NextResponse.json({ url: checkoutUrl });
   } catch (error) {
-    console.error('Error creating subscription:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating subscription:', error);
     
     return NextResponse.json(
       { error: 'Failed to create subscription' },
@@ -162,7 +162,7 @@ export async function GET(req: NextRequest) {
       cancelAtPeriodEnd: user.cancelAtPeriodEnd || false,
     });
   } catch (error) {
-    console.error('Error fetching subscriptions:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching subscriptions:', error);
     
     return NextResponse.json(
       { error: 'Failed to fetch subscriptions' },

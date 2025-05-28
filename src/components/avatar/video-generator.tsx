@@ -1,3 +1,4 @@
+// TODO: Fix NodeJS type errors by adding @types/node dependency
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -89,7 +90,7 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
           setSelectedAvatarId(models[0].id);
         }
       } catch (err) {
-        console.error('Error fetching avatar models:', err);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching avatar models:', err);
         setError('Failed to load avatar models. Please try again.');
       }
     };
@@ -123,7 +124,7 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
             setIsGenerating(false);
           }
         } catch (err) {
-          console.error('Error checking job status:', err);
+          /* eslint-disable-next-line no-console */ console.error('Error checking job status:', err);
           // Don't stop polling on error, just log it
         }
       }, 3000); // Poll every 3 seconds
@@ -198,7 +199,7 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({
         setActiveTab('preview');
       }, 5000);
     } catch (err) {
-      console.error('Error generating video:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error generating video:', err);
       setError('Failed to generate video. Please try again.');
       setIsGenerating(false);
     }

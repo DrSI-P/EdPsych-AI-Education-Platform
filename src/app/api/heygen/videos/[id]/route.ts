@@ -74,7 +74,7 @@ export async function GET(
     
     return NextResponse.json({ video });
   } catch (error) {
-    console.error(`Error fetching HEYGEN video ${params.id}:`, error);
+    /* eslint-disable-next-line no-console */ console.error(`Error fetching HEYGEN video ${params.id}:`, error);
     return NextResponse.json({ error: 'Failed to fetch video' }, { status: 500 });
   }
 }
@@ -113,7 +113,7 @@ export async function DELETE(
     
     return NextResponse.json(result);
   } catch (error) {
-    console.error(`Error deleting HEYGEN video ${params.id}:`, error);
+    /* eslint-disable-next-line no-console */ console.error(`Error deleting HEYGEN video ${params.id}:`, error);
     return NextResponse.json({ error: 'Failed to delete video' }, { status: 500 });
   }
 }

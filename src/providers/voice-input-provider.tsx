@@ -124,7 +124,7 @@ export const VoiceInputProvider: React.FC<{
       speechServiceRef.current = getSpeechRecognitionService();
       setIsAvailable(speechServiceRef.current.isBrowserSupported());
     } catch (error) {
-      console.error('Error initializing speech recognition:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error initializing speech recognition:', error);
       setIsAvailable(false);
     }
   }, []);
@@ -166,7 +166,7 @@ export const VoiceInputProvider: React.FC<{
           }
         })
         .catch(error => {
-          console.error('Error loading voice settings:', error);
+          /* eslint-disable-next-line no-console */ console.error('Error loading voice settings:', error);
         });
       */
     }
@@ -199,7 +199,7 @@ export const VoiceInputProvider: React.FC<{
       speechServiceRef.current.start(handleSpeechResult, handleSpeechError);
       setIsListening(true);
     } catch (error) {
-      console.error('Error starting speech recognition:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error starting speech recognition:', error);
       toast({
         title: "Speech recognition error",
         description: "There was a problem starting speech recognition. Please try again.",
@@ -217,7 +217,7 @@ export const VoiceInputProvider: React.FC<{
       stopVolumeMonitoring();
       setIsListening(false);
     } catch (error) {
-      console.error('Error stopping speech recognition:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error stopping speech recognition:', error);
     }
   };
   
@@ -244,7 +244,7 @@ export const VoiceInputProvider: React.FC<{
   
   // Handle speech recognition errors
   const handleSpeechError = (error) => {
-    console.error('Speech recognition error:', error);
+    /* eslint-disable-next-line no-console */ console.error('Speech recognition error:', error);
     setIsListening(false);
     
     // Show appropriate error message
@@ -302,7 +302,7 @@ export const VoiceInputProvider: React.FC<{
         
         updateVolume();
       } catch (error) {
-        console.error('Error accessing microphone:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error accessing microphone:', error);
         toast({
           title: "Microphone access error",
           description: "Unable to access your microphone. Please check permissions.",
@@ -350,7 +350,7 @@ export const VoiceInputProvider: React.FC<{
       if (session?.user?.id) {
         // In a real implementation, this would save to an API
         // For now, we'll just log to console
-        console.log('Saving voice settings for user:', session.user.id, updatedSettings);
+        /* eslint-disable-next-line no-console */ console.log('Saving voice settings for user:', session.user.id, updatedSettings);
       }
       
       return updatedSettings;
@@ -384,7 +384,7 @@ export const VoiceInputProvider: React.FC<{
       setIsCalibrating(false);
       return true;
     } catch (error) {
-      console.error('Error during calibration:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error during calibration:', error);
       toast({
         title: "Calibration failed",
         description: "There was a problem calibrating voice recognition. Please try again.",

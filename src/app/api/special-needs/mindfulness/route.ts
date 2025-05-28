@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 import { z } from 'zod';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -129,7 +129,7 @@ export async function GET(req: Request): Promise<NextResponse> {
     });
     
   } catch (error) {
-    // Using type guard instead of console.error
+    // Using type guard instead of /* eslint-disable-next-line no-console */ console.error
     if (error instanceof Error) {
       // Log error in a production-safe way
       // We could use a proper logging service here
@@ -324,7 +324,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     }
     
   } catch (error) {
-    // Using type guard instead of console.error
+    // Using type guard instead of /* eslint-disable-next-line no-console */ console.error
     if (error instanceof Error) {
       // Log error in a production-safe way
       // We could use a proper logging service here

@@ -13,7 +13,7 @@
  * - Ensuring accessibility features in generated content
  */
 
-import axios from 'axios';
+// import axios from 'axios'; // Unused import
 
 // Avatar generation provider types
 export type AvatarProvider = 'simli' | 'veed' | 'elevenlabs' | 'heygen' | 'custom';
@@ -108,12 +108,12 @@ export class AvatarService {
       if (profile.provider !== 'custom' && profile.imageUrl) {
         // Register avatar with the provider if needed
         // This is a placeholder for actual implementation
-        console.log(`Registering avatar with ${profile.provider}`);
+        /* eslint-disable-next-line no-console */ console.log(`Registering avatar with ${profile.provider}`);
       }
       
       return newProfile;
     } catch (error) {
-      console.error('Error creating avatar profile:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error creating avatar profile:', error);
       throw new Error('Failed to create avatar profile');
     }
   }
@@ -146,7 +146,7 @@ export class AvatarService {
           throw new Error(`Unsupported avatar provider: ${avatarProfile.provider}`);
       }
     } catch (error) {
-      console.error('Error generating video:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error generating video:', error);
       return {
         id: `video_error_${Date.now()}`,
         status: 'failed',
@@ -172,7 +172,7 @@ export class AvatarService {
         createdAt: new Date()
       };
     } catch (error) {
-      console.error('Error checking video status:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error checking video status:', error);
       throw new Error('Failed to check video status');
     }
   }
@@ -209,7 +209,7 @@ export class AvatarService {
     
     try {
       // This would be replaced with actual API call in production
-      console.log('Generating video with Simli API');
+      /* eslint-disable-next-line no-console */ console.log('Generating video with Simli API');
       
       // Simulated API response
       return {
@@ -218,7 +218,7 @@ export class AvatarService {
         createdAt: new Date()
       };
     } catch (error) {
-      console.error('Error with Simli API:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error with Simli API:', error);
       throw new Error('Failed to generate video with Simli');
     }
   }
@@ -236,7 +236,7 @@ export class AvatarService {
     
     try {
       // This would be replaced with actual API call in production
-      console.log('Generating video with VEED API');
+      /* eslint-disable-next-line no-console */ console.log('Generating video with VEED API');
       
       // Simulated API response
       return {
@@ -245,7 +245,7 @@ export class AvatarService {
         createdAt: new Date()
       };
     } catch (error) {
-      console.error('Error with VEED API:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error with VEED API:', error);
       throw new Error('Failed to generate video with VEED');
     }
   }
@@ -263,7 +263,7 @@ export class AvatarService {
     
     try {
       // This would be replaced with actual API call in production
-      console.log('Generating video with ElevenLabs API');
+      /* eslint-disable-next-line no-console */ console.log('Generating video with ElevenLabs API');
       
       // Simulated API response
       return {
@@ -272,7 +272,7 @@ export class AvatarService {
         createdAt: new Date()
       };
     } catch (error) {
-      console.error('Error with ElevenLabs API:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error with ElevenLabs API:', error);
       throw new Error('Failed to generate video with ElevenLabs');
     }
   }
@@ -290,7 +290,7 @@ export class AvatarService {
     
     try {
       // This would be replaced with actual API call in production
-      console.log('Generating video with HeyGen API');
+      /* eslint-disable-next-line no-console */ console.log('Generating video with HeyGen API');
       
       // Simulated API response
       return {
@@ -299,7 +299,7 @@ export class AvatarService {
         createdAt: new Date()
       };
     } catch (error) {
-      console.error('Error with HeyGen API:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error with HeyGen API:', error);
       throw new Error('Failed to generate video with HeyGen');
     }
   }
@@ -313,7 +313,7 @@ export class AvatarService {
   ): Promise<VideoGenerationResult> {
     try {
       // This would be replaced with actual implementation in production
-      console.log('Generating video with custom implementation');
+      /* eslint-disable-next-line no-console */ console.log('Generating video with custom implementation');
       
       // Simulated response
       return {
@@ -322,7 +322,7 @@ export class AvatarService {
         createdAt: new Date()
       };
     } catch (error) {
-      console.error('Error with custom video generation:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error with custom video generation:', error);
       throw new Error('Failed to generate video with custom implementation');
     }
   }

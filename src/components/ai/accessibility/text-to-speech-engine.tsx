@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Progress } from "@/components/ui/progress";
+// import { Progress } from "@/components/ui/progress"; // Unused import
 import { 
   AlertTriangle,
   Volume2,
@@ -138,7 +138,7 @@ export const TextToSpeechEngine: React.FC<TextToSpeechEngineProps> = ({
     };
     
     utteranceRef.current.onerror = (event) => {
-      console.error('Speech synthesis error:', event);
+      /* eslint-disable-next-line no-console */ console.error('Speech synthesis error:', event);
       setIsSpeaking(false);
       setIsPaused(false);
     };

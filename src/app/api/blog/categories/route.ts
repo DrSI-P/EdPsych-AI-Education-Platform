@@ -100,7 +100,7 @@ export async function GET(req: NextRequest) {
       categories: formattedCategories,
     });
   } catch (error) {
-    console.error('Error fetching blog categories:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching blog categories:', error);
     return NextResponse.json(
       { error: 'Failed to fetch blog categories' },
       { status: 500 }
@@ -174,7 +174,7 @@ export async function POST(req: NextRequest) {
       category,
     });
   } catch (error) {
-    console.error('Error creating blog category:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating blog category:', error);
     return NextResponse.json(
       { error: 'Failed to create blog category' },
       { status: 500 }
@@ -291,7 +291,7 @@ export async function PUT(req: NextRequest) {
       category: updatedCategory,
     });
   } catch (error) {
-    console.error('Error updating blog category:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error updating blog category:', error);
     return NextResponse.json(
       { error: 'Failed to update blog category' },
       { status: 500 }
@@ -363,7 +363,7 @@ export async function DELETE(req: NextRequest) {
       message: 'Category deleted successfully',
     });
   } catch (error) {
-    console.error('Error deleting blog category:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error deleting blog category:', error);
     return NextResponse.json(
       { error: 'Failed to delete blog category' },
       { status: 500 }

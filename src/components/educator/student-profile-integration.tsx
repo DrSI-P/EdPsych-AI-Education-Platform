@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"; // Unused import
 import { Button } from "@/components/ui/button";
 import { ContextualResourceRecommendation } from '@/components/resource/contextual-resource-recommendation';
 
@@ -18,7 +18,7 @@ interface StudentProfileIntegrationProps {
   className?: string;
 }
 
-export function StudentProfileIntegration({
+export function StudentProfileIntegration(: React.ReactNode {
   studentId,
   studentProfile,
   className = ''

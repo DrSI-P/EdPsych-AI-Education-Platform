@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth/auth-options';
 import { db } from '@/lib/db';
 import { getVideoForUser, getPreGeneratedVideosByCategory } from '@/lib/heygen/cost-management';
-import { getEnv } from '@/lib/env-validator';
+// import { getEnv } from '@/lib/env-validator'; // Unused import
 
 /**
  * HEYGEN API Cost Management Controller
@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
       }
     }
   } catch (error) {
-    console.error('Error generating video:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error generating video:', error);
     
     return NextResponse.json(
       { error: 'Failed to generate video' },
@@ -119,7 +119,7 @@ export async function GET(req: NextRequest) {
     
     return NextResponse.json({ videos });
   } catch (error) {
-    console.error('Error fetching pre-generated videos:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching pre-generated videos:', error);
     
     return NextResponse.json(
       { error: 'Failed to fetch pre-generated videos' },

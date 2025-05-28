@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
+// import { Checkbox } from "@/components/ui/checkbox"; // Unused import
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Calendar } from "@/components/ui/calendar";
@@ -16,7 +16,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { format } from "date-fns";
 import { CalendarIcon, PlusCircle, CheckCircle2, Calendar as CalendarIcon2, Award, Target, ArrowUpRight, Trash2 } from "lucide-react";
 
-export default function CollaborativeGoalSetting() {
+export default function CollaborativeGoalSetting() : React.ReactNode {
   const [activeTab, setActiveTab] = useState("active");
   
   // Sample goals data

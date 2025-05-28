@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { ThemeProvider as NextThemesProvider } from 'next-themes';
+// import { ThemeProvider as NextThemesProvider } from 'next-themes'; // Unused import
 
 type AgeGroup = 'nursery' | 'early-primary' | 'late-primary' | 'secondary' | 'professional';
 type LearningStyle = 'visual' | 'auditory' | 'kinesthetic' | 'reading-writing';
@@ -38,7 +38,7 @@ const ThemeContext = createContext<ThemeContextType>({
   themeClass: '',
 });
 
-export function useTheme() {
+export function useTheme() : React.ReactNode {
   return useContext(ThemeContext);
 }
 
@@ -48,7 +48,7 @@ interface ThemeProviderProps {
   defaultLearningStyle?: LearningStyle;
 }
 
-export function EnhancedThemeProvider({
+export function EnhancedThemeProvider(: React.ReactNode {
   children,
   defaultAgeGroup = 'secondary',
   defaultLearningStyle = 'visual',

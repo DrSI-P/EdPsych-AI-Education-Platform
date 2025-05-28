@@ -7,18 +7,14 @@ import { Calendar as CalendarIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+import { PopoverContent, PopoverTrigger,  } from "@/components/ui/popover";
 
 interface DatePickerProps {
   date?: Date
   setDate?: (date: Date | undefined) => void
 }
 
-export function DatePicker({ date, setDate }: DatePickerProps) {
+export function DatePicker(: React.ReactNode { date, setDate }: DatePickerProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>

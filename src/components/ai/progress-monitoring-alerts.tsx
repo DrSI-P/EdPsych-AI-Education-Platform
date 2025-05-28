@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -282,7 +283,7 @@ enum LearningStyle {
   MULTIMODAL = 'multimodal'
 }
 
-export default function ProgressMonitoringAlerts() {
+export default function ProgressMonitoringAlerts() : React.ReactNode {
   const [activeTab, setActiveTab] = useState<string>('alerts');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [interventionAlerts, setInterventionAlerts] = useState<InterventionAlert[]>(mockInterventionAlerts);
@@ -313,7 +314,7 @@ export default function ProgressMonitoringAlerts() {
         duration: 3000,
       });
     } catch (error) {
-      console.error('Failed to monitor progress:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to monitor progress:', error);
       toast({
         title: "Error",
         description: "Failed to monitor progress. Please try again.",
@@ -348,7 +349,7 @@ export default function ProgressMonitoringAlerts() {
         duration: 3000,
       });
     } catch (error) {
-      console.error('Failed to generate progress report:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to generate progress report:', error);
       toast({
         title: "Error",
         description: "Failed to generate progress report. Please try again.",

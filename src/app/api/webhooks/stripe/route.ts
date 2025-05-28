@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { handleWebhookEvent } from '@/lib/stripe/stripe-service';
-import { getEnv } from '@/lib/env-validator';
+// import { getEnv } from '@/lib/env-validator'; // Unused import
 
 /**
  * Stripe Webhook Handler for EdPsych AI Education Platform
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
       );
     }
   } catch (error) {
-    console.error('Error handling Stripe webhook:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error handling Stripe webhook:', error);
     
     return NextResponse.json(
       { error: 'Internal server error' },

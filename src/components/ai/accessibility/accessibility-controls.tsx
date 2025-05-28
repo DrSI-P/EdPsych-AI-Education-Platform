@@ -60,7 +60,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
         setIsApplying(false);
         
         // Success applied
-        // Remove console.log for production
+        // Remove /* eslint-disable-next-line no-console */ console.log for production
       } else {
         // Continue to next step
         setTimeout(processStep, 500);
@@ -89,7 +89,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
     onSettingsChange(updatedSettings);
     
     // Setting changed
-    // Remove console.log for production
+    // Remove /* eslint-disable-next-line no-console */ console.log for production
   };
   
   // Toggle advanced settings
@@ -116,7 +116,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({
     onSettingsChange(defaultSettings);
     
     // Settings reset
-    // Remove console.log for production
+    // Remove /* eslint-disable-next-line no-console */ console.log for production
   };
   
   return (

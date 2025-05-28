@@ -120,8 +120,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         );
     }
   } catch (error) {
-    // Replace console.error with structured logging when available
-    console.error("Error in data visualisation API:", error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error("Error in data visualisation API:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
@@ -451,8 +451,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     
     return handleGetDashboardConfig({ configId, action: "get_dashboard_config" }, session as UserSession);
   } catch (error) {
-    // Replace console.error with structured logging when available
-    console.error("Error in data visualisation API:", error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error("Error in data visualisation API:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

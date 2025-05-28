@@ -107,7 +107,7 @@ export const AdaptiveComplexityEngine: React.FC<AdaptiveComplexityEngineProps> =
         }
         
         // Log success
-        console.log('Complexity analysis complete', { recommendedLevel, confidence, reason });
+        /* eslint-disable-next-line no-console */ console.log('Complexity analysis complete', { recommendedLevel, confidence, reason });
       } else {
         // Continue to next step
         setTimeout(processStep, 500);
@@ -136,7 +136,7 @@ export const AdaptiveComplexityEngine: React.FC<AdaptiveComplexityEngineProps> =
     onSettingsChange(updatedSettings);
     
     // Log setting change
-    console.log(`Adaptive complexity setting changed: ${setting} = ${value}`);
+    /* eslint-disable-next-line no-console */ console.log(`Adaptive complexity setting changed: ${setting} = ${value}`);
   };
   
   // Toggle advanced settings
@@ -160,7 +160,7 @@ export const AdaptiveComplexityEngine: React.FC<AdaptiveComplexityEngineProps> =
     onSettingsChange(defaultSettings);
     
     // Log reset
-    console.log('Adaptive complexity settings reset to defaults');
+    /* eslint-disable-next-line no-console */ console.log('Adaptive complexity settings reset to defaults');
   };
   
   return (

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import prisma from '@/lib/prisma';
+// import prisma from '@/lib/prisma'; // Unused import
 
 // Schema for meeting note transcription request
 const meetingNoteRequestSchema = z.object({
@@ -149,7 +149,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
-    console.error('Error processing meeting note:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error processing meeting note:', error);
     return NextResponse.json({ error: 'Failed to process meeting note' }, { status: 500 });
   }
 }
@@ -219,7 +219,7 @@ export async function GET(request: NextRequest) {
     
     return NextResponse.json(filteredMeetings);
   } catch (error) {
-    console.error('Error fetching meeting notes:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching meeting notes:', error);
     return NextResponse.json({ error: 'Failed to fetch meeting notes' }, { status: 500 });
   }
 }

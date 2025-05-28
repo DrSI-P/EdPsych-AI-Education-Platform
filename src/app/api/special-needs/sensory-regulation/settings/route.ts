@@ -63,7 +63,7 @@ export async function GET(req: NextRequest) {
     // Return sensory settings
     return NextResponse.json(sensorySettings);
   } catch (error) {
-    console.error('Error fetching sensory regulation settings:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching sensory regulation settings:', error);
     return NextResponse.json(
       { error: 'Failed to fetch sensory regulation settings' },
       { status: 500 }
@@ -131,7 +131,7 @@ export async function POST(req: NextRequest) {
     // Return sensory settings
     return NextResponse.json(sensorySettings);
   } catch (error) {
-    console.error('Error saving sensory regulation settings:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error saving sensory regulation settings:', error);
     
     // Handle validation errors
     if (error instanceof z.ZodError) {

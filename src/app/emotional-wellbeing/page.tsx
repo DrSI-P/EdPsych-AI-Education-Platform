@@ -2,7 +2,9 @@
 
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
-import { Metadata } from 'next';
+// import { Metadata } from 'next'; // Unused import
+
+// import React from "react"; // Unused import
 
 // Dynamically import the EmotionalCheckin component with SSR disabled
 const EmotionalCheckin = dynamic(
@@ -10,7 +12,7 @@ const EmotionalCheckin = dynamic(
   { ssr: false }
 );
 
-export default function EmotionalWellbeingPage() {
+export default function EmotionalWellbeingPage() : React.ReactNode {
   return (
     <div className="container mx-auto py-8">
       <div className="max-w-4xl mx-auto">

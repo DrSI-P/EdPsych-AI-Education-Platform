@@ -22,7 +22,7 @@ interface FileUploadQuestionProps {
   isEditing?: boolean;
 }
 
-export default function FileUploadQuestion({
+export default function FileUploadQuestion(: React.ReactNode {
   initialData,
   onSave,
   onCancel,

@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -53,7 +54,7 @@ import {
 } from "@/components/ui/accordion";
 import { Progress } from "@/components/ui/progress";
 import { toast } from "@/components/ui/use-toast";
-import { CheckCircle, AlertCircle, CreditCard, Package, Zap, Shield, Users, BarChart, Clock, Gift } from 'lucide-react';
+import { CheckCircle, AlertCircle, CreditCard, Package, Zap, Shield, Users, Gift } from "lucide-react";
 
 const SubscriptionManagement = () => {
   const [activeTab, setActiveTab] = useState('plans');

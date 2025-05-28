@@ -1,3 +1,5 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
+// TODO: Fix NodeJS type errors by adding @types/node dependency
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
@@ -8,25 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "@/components/ui/use-toast";
-import { 
-  Play, 
-  Pause, 
-  SkipForward, 
-  SkipBack, 
-  Volume2, 
-  VolumeX, 
-  Maximize2, 
-  Minimize2,
-  Image as ImageIcon,
-  FileText,
-  Headphones,
-  Hand,
-  Sparkles,
-  RefreshCw,
-  Settings,
-  CheckCircle2,
-  Download
-} from "lucide-react";
+import { Pause, SkipForward, SkipBack, Volume2, VolumeX, Maximize2, Minimize2, Image as ImageIcon, FileText, Headphones, Hand, Sparkles, RefreshCw, Settings, CheckCircle2, Download } from "lucide-react";
 
 interface MultiModalPresentationEngineProps {
   content?: string;
@@ -38,7 +22,7 @@ interface MultiModalPresentationEngineProps {
   className?: string;
 }
 
-export default function MultiModalPresentationEngine({
+export default function MultiModalPresentationEngine(: React.ReactNode {
   content = '',
   title = '',
   subject = '',
@@ -106,7 +90,7 @@ export default function MultiModalPresentationEngine({
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.play().catch(error => {
-          console.error('Error playing audio:', error);
+          /* eslint-disable-next-line no-console */ console.error('Error playing audio:', error);
           setIsPlaying(false);
         });
       } else {
@@ -162,7 +146,7 @@ export default function MultiModalPresentationEngine({
       // Reset to first slide
       setCurrentSlide(0);
     } catch (error) {
-      console.error('Error generating multi-modal content:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error generating multi-modal content:', error);
       toast({
         title: "Generation failed",
         description: "Failed to generate multi-modal content. Please try again.",

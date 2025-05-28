@@ -11,7 +11,7 @@ import {
   BookOpen,
   Settings
 } from 'lucide-react';
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+// import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"; // Unused import
 
 // Define TypeScript interfaces
 interface DyslexiaFriendlyModeEngineProps {
@@ -130,7 +130,7 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
         }
         
         // Log success
-        console.log('Dyslexia-friendly mode applied');
+        /* eslint-disable-next-line no-console */ console.log('Dyslexia-friendly mode applied');
       } else {
         // Continue to next step
         setTimeout(processStep, 500);
@@ -196,7 +196,7 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
     onSettingsChange(updatedSettings);
     
     // Log setting change
-    console.log(`Dyslexia-friendly mode setting changed: ${setting} = ${value}`);
+    /* eslint-disable-next-line no-console */ console.log(`Dyslexia-friendly mode setting changed: ${setting} = ${value}`);
   };
   
   // Toggle advanced settings
@@ -227,7 +227,7 @@ export const DyslexiaFriendlyModeEngine: React.FC<DyslexiaFriendlyModeEngineProp
     onSettingsChange(defaultSettings);
     
     // Log reset
-    console.log('Dyslexia-friendly mode settings reset to defaults');
+    /* eslint-disable-next-line no-console */ console.log('Dyslexia-friendly mode settings reset to defaults');
   };
   
   return (

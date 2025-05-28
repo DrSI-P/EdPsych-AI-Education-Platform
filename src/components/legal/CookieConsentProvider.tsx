@@ -55,7 +55,7 @@ export function CookieConsentProvider({ children }: { children: React.ReactNode 
           return true;
         }
       } catch (error) {
-        console.error('Error loading cookie consents:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error loading cookie consents:', error);
       }
       return false;
     };
@@ -81,7 +81,7 @@ export function CookieConsentProvider({ children }: { children: React.ReactNode 
       localStorage.setItem('cookie-consents', JSON.stringify(consents));
       setBannerVisible(false);
     } catch (error) {
-      console.error('Error saving cookie consents:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error saving cookie consents:', error);
     }
   };
 
@@ -97,7 +97,7 @@ export function CookieConsentProvider({ children }: { children: React.ReactNode 
       localStorage.removeItem('cookie-consents');
       setBannerVisible(true);
     } catch (error) {
-      console.error('Error resetting cookie consents:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error resetting cookie consents:', error);
     }
   };
 

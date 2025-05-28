@@ -179,7 +179,7 @@ export async function GET(req: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error fetching blog posts:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching blog posts:', error);
     return NextResponse.json(
       { error: 'Failed to fetch blog posts' },
       { status: 500 }
@@ -264,7 +264,7 @@ export async function POST(req: NextRequest) {
       post,
     });
   } catch (error) {
-    console.error('Error creating blog post:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating blog post:', error);
     return NextResponse.json(
       { error: 'Failed to create blog post' },
       { status: 500 }
@@ -367,7 +367,7 @@ export async function PUT(req: NextRequest) {
       post: updatedPost,
     });
   } catch (error) {
-    console.error('Error updating blog post:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error updating blog post:', error);
     return NextResponse.json(
       { error: 'Failed to update blog post' },
       { status: 500 }
@@ -430,7 +430,7 @@ export async function DELETE(req: NextRequest) {
       message: 'Blog post deleted successfully',
     });
   } catch (error) {
-    console.error('Error deleting blog post:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error deleting blog post:', error);
     return NextResponse.json(
       { error: 'Failed to delete blog post' },
       { status: 500 }

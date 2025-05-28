@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
     
     return NextResponse.json({ settings });
   } catch (error) {
-    console.error('Error fetching social skills settings:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching social skills settings:', error);
     return NextResponse.json({ error: 'Failed to fetch settings' }, { status: 500 });
   }
 }
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
       settings 
     });
   } catch (error) {
-    console.error('Error saving social skills settings:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error saving social skills settings:', error);
     return NextResponse.json({ error: 'Failed to save settings' }, { status: 500 });
   }
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+// import React from 'react'; // Unused import
 import ErrorBoundaryTest from '@/components/error-boundary/error-boundary-test';
 
 /**
@@ -9,7 +9,7 @@ import ErrorBoundaryTest from '@/components/error-boundary/error-boundary-test';
  * This page provides a testing environment for the error boundary components,
  * allowing developers to validate error handling across different scenarios.
  */
-export default function ErrorBoundaryTestPage() {
+export default function ErrorBoundaryTestPage() : React.ReactNode {
   return (
     <div className="container mx-auto py-8">
       <ErrorBoundaryTest />

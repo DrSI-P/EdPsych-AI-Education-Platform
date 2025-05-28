@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 /**
  * EdPsych-AI-Education-Platform - Home Page
  * 
@@ -8,7 +9,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
+// import Link from 'next/link'; // Unused import
 import { useTheme } from '@/components/theme-provider';
 import MainNavigation from '@/components/ui/MainNavigation';
 import PageHeader from '@/components/ui/PageHeader';
@@ -19,12 +20,12 @@ import LearningStyleSelector from '@/components/ui/LearningStyleSelector';
 import CelebrationOverlay from '@/components/ui/CelebrationOverlay';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { motion } from 'framer-motion';
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { motion } from 'framer-motion'; // Unused import
 import { Play } from 'lucide-react';
 import { UILink } from '@/components/ui';
 
-export default function HomePage() {
+export default function HomePage() : React.ReactNode {
   const { ageGroup, setAgeGroup } = useTheme();
   const [learningStyle, setLearningStyle] = useState<'visual' | 'auditory' | 'kinesthetic' | 'reading-writing'>('visual');
   const [showCelebration, setShowCelebration] = useState(false);

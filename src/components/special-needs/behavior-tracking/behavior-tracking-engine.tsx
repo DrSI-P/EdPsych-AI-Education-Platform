@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,13 +14,13 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
 import { CalendarIcon, PlusCircle, Award, Target, BarChart2, Settings, Users } from "lucide-react";
-import { cn } from "@/lib/utils";
+// import { cn } from "@/lib/utils"; // Unused import
 import { Badge } from "@/components/ui/badge";
 import { toast } from "@/components/ui/use-toast";
 import { useSession } from "next-auth/react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 
 const BehaviorTrackingEngine = () => {
@@ -108,7 +108,7 @@ const BehaviorTrackingEngine = () => {
         }
       }
     } catch (error) {
-      console.error('Error fetching settings:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching settings:', error);
     }
   };
   
@@ -121,7 +121,7 @@ const BehaviorTrackingEngine = () => {
         setBehaviors(data);
       }
     } catch (error) {
-      console.error('Error fetching behaviors:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching behaviors:', error);
     } finally {
       setIsLoading(false);
     }
@@ -136,7 +136,7 @@ const BehaviorTrackingEngine = () => {
         setStudents(data);
       }
     } catch (error) {
-      console.error('Error fetching students:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching students:', error);
     }
   };
   
@@ -149,7 +149,7 @@ const BehaviorTrackingEngine = () => {
         setGoals(data);
       }
     } catch (error) {
-      console.error('Error fetching goals:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching goals:', error);
     }
   };
   
@@ -162,7 +162,7 @@ const BehaviorTrackingEngine = () => {
         setRewards(data);
       }
     } catch (error) {
-      console.error('Error fetching rewards:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching rewards:', error);
     }
   };
   
@@ -175,7 +175,7 @@ const BehaviorTrackingEngine = () => {
         setTrackingData(data);
       }
     } catch (error) {
-      console.error('Error fetching tracking data:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching tracking data:', error);
     }
   };
   
@@ -214,7 +214,7 @@ const BehaviorTrackingEngine = () => {
         });
       }
     } catch (error) {
-      console.error('Error creating behaviour:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error creating behaviour:', error);
       toast({
         title: "Error",
         description: "An unexpected error occurred. Please try again.",
@@ -258,7 +258,7 @@ const BehaviorTrackingEngine = () => {
         });
       }
     } catch (error) {
-      console.error('Error creating goal:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error creating goal:', error);
       toast({
         title: "Error",
         description: "An unexpected error occurred. Please try again.",
@@ -299,7 +299,7 @@ const BehaviorTrackingEngine = () => {
         });
       }
     } catch (error) {
-      console.error('Error creating reward:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error creating reward:', error);
       toast({
         title: "Error",
         description: "An unexpected error occurred. Please try again.",
@@ -346,7 +346,7 @@ const BehaviorTrackingEngine = () => {
         });
       }
     } catch (error) {
-      console.error('Error recording behaviour:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error recording behaviour:', error);
       toast({
         title: "Error",
         description: "An unexpected error occurred. Please try again.",
@@ -379,7 +379,7 @@ const BehaviorTrackingEngine = () => {
         });
       }
     } catch (error) {
-      console.error('Error updating settings:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error updating settings:', error);
       toast({
         title: "Error",
         description: "An unexpected error occurred. Please try again.",

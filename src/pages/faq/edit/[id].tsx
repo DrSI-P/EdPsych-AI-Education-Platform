@@ -6,12 +6,12 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 import { FAQForm } from '@/components/faq/FAQForm';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+// import { Alert, AlertDescription } from '@/components/ui/alert'; // Unused import
 import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 
-export default function EditFAQPage({ question, categories }) {
+export default function EditFAQPage(: React.ReactNode { question, categories }) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
@@ -42,7 +42,7 @@ export default function EditFAQPage({ question, categories }) {
       // Redirect to the FAQ
       router.push(`/faq/questions/${question.id}`);
     } catch (error) {
-      console.error('Error updating FAQ:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error updating FAQ:', error);
       toast({
         title: 'Error',
         description: error instanceof Error ? error.message : 'Failed to update FAQ',
@@ -131,7 +131,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   } catch (error) {
-    console.error('Error fetching FAQ data:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching FAQ data:', error);
     return {
       props: {
         question: null,

@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react';
+// import React from 'react'; // Unused import
 import { CalendarOptimization } from '@/components/educator/calendar-optimization';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export default function CalendarOptimizationPage() {
+export default function CalendarOptimizationPage() : React.ReactNode {
   return (
     <div className="container mx-auto py-8">
       <h1 className="text-3xl font-bold mb-6">Calendar Optimization</h1>

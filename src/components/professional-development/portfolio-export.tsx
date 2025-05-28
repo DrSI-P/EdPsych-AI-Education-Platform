@@ -12,11 +12,11 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+// import { Textarea } from "@/components/ui/textarea"; // Unused import
+// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"; // Unused import
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ScrollArea } from "@/components/ui/scroll-area";
+// import { ScrollArea } from "@/components/ui/scroll-area"; // Unused import
 import { Separator } from "@/components/ui/separator";
 import { 
   Search, 
@@ -188,7 +188,7 @@ const sampleCPDActivities = [
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
 
-export default function PortfolioExport() {
+export default function PortfolioExport() : React.ReactNode {
   const [activeTab, setActiveTab] = useState('profile');
   const [isGenerating, setIsGenerating] = useState(false);
   const [showExportSuccess, setShowExportSuccess] = useState(false);

@@ -189,7 +189,7 @@ export class AdaptiveComplexityService {
     };
     
     // In a real implementation, this would likely save to a database
-    console.log('Complexity adjustment recorded:', adjustment);
+    /* eslint-disable-next-line no-console */ console.log('Complexity adjustment recorded:', adjustment);
     
     return adjustment;
   }

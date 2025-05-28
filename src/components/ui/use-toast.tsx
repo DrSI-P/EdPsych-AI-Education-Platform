@@ -3,6 +3,8 @@ import { Toaster as Sonner, toast as sonnerToast } from "sonner";
 
 import { cn } from "@/lib/utils";
 
+import React from "react";
+
 type ToasterProps = React.ComponentProps<typeof Sonner>
 
 const Toaster = ({ ...props }: ToasterProps) => {
@@ -35,13 +37,13 @@ export const toast = sonnerToast;
 export const useToast = () => {
   return {
     toast: (message: string, options?) => {
-      console.log(message, options);
+      /* eslint-disable-next-line no-console */ console.log(message, options);
       // This is a simplified implementation
       // In a real app, this would use the actual toast library
       sonnerToast(message, options);
     },
     dismiss: (toastId?: string) => {
-      console.log("Dismissed toast", toastId);
+      /* eslint-disable-next-line no-console */ console.log("Dismissed toast", toastId);
     },
   };
 };

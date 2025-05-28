@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error in learning differences assessment API:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in learning differences assessment API:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

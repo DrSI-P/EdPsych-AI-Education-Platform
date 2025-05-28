@@ -49,7 +49,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
         
         setIsLoading(false);
       } catch (error) {
-        console.error('Error initializing language switcher:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error initializing language switcher:', error);
         setIsLoading(false);
       }
     };
@@ -70,7 +70,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
         window.location.reload();
       }
     } catch (error) {
-      console.error('Error changing language:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error changing language:', error);
     }
   };
   

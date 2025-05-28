@@ -307,7 +307,7 @@ export async function GET(req: Request) {
     return NextResponse.json(responseData);
     
   } catch (error) {
-    console.error('Error in digital expression API:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in digital expression API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
@@ -529,7 +529,7 @@ export async function POST(req: Request) {
     }
     
   } catch (error) {
-    console.error('Error in digital expression API:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in digital expression API:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(

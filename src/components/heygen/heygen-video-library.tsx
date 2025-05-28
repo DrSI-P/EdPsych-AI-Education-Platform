@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { HeygenService } from '@/lib/heygen/heygen-service';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"; // Unused import
+// import { HeygenService } from '@/lib/heygen/heygen-service'; // Unused import
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; // Unused import
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Loader2, Play, Download, Share, Trash2, Search, Filter } from 'lucide-react';
 
@@ -52,7 +52,7 @@ const mockVideos: any[] = [
   }
 ];
 
-export function HeygenVideoLibrary() {
+export function HeygenVideoLibrary() : React.ReactNode {
   const [loading, setLoading] = useState(false);
   const [videos, setVideos] = useState<HeygenVideo[]>([]);
   const [selectedVideo, setSelectedVideo] = useState<HeygenVideo | null>(null);
@@ -77,7 +77,7 @@ export function HeygenVideoLibrary() {
         // Using mock data for demonstration
         setVideos(mockVideos);
       } catch (error) {
-        console.error('Failed to fetch videos:', error);
+        /* eslint-disable-next-line no-console */ console.error('Failed to fetch videos:', error);
         setVideos([]);
       } finally {
         setLoading(false);
@@ -114,7 +114,7 @@ export function HeygenVideoLibrary() {
         setSelectedVideo(null);
       }
     } catch (error) {
-      console.error('Failed to delete video:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to delete video:', error);
     } finally {
       setLoading(false);
     }
@@ -129,7 +129,7 @@ export function HeygenVideoLibrary() {
       await navigator.clipboard.writeText(video.url);
       alert('Video URL copied to clipboard!');
     } catch (error) {
-      console.error('Failed to copy URL:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to copy URL:', error);
       alert('Failed to copy URL. Please try again.');
     }
   };

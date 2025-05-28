@@ -25,7 +25,7 @@ if (!i18n.isInitialized) {
     });
 }
 
-export function I18nProvider({ children }) {
+export function I18nProvider(: React.ReactNode { children }) {
   const router = useRouter();
   const { locale } = router;
   
@@ -42,7 +42,7 @@ export function I18nProvider({ children }) {
   );
 }
 
-export function useI18n() {
+export function useI18n() : React.ReactNode {
   const context = useContext(I18nContext);
   if (context === undefined) {
     throw new Error('useI18n must be used within an I18nProvider');
@@ -50,7 +50,7 @@ export function useI18n() {
   return context;
 }
 
-export function useTranslation(namespace = 'common') {
+export function useTranslation(namespace = 'common') : React.ReactNode {
   const { i18n } = useI18n();
   return useTranslationOriginal(namespace, { i18n });
 }
@@ -67,7 +67,7 @@ export async function loadTranslations(locale, namespaces = ['common']) {
       // Add resources to i18n instance
       i18n.addResourceBundle(locale, ns, translations[ns], true, true);
     } catch (error) {
-      console.error(`Failed to load translation for ${locale}/${ns}:`, error);
+      /* eslint-disable-next-line no-console */ console.error(`Failed to load translation for ${locale}/${ns}:`, error);
     }
   }
   

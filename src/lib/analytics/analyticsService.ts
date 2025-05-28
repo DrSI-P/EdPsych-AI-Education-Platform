@@ -55,7 +55,7 @@ export class AnalyticsService {
       
       return await response.json();
     } catch (error) {
-      console.error('Error fetching student performance data:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching student performance data:', error);
       throw error;
     }
   }
@@ -73,7 +73,7 @@ export class AnalyticsService {
       
       return await response.json();
     } catch (error) {
-      console.error('Error fetching curriculum coverage data:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching curriculum coverage data:', error);
       throw error;
     }
   }
@@ -91,7 +91,7 @@ export class AnalyticsService {
       
       return await response.json();
     } catch (error) {
-      console.error('Error fetching engagement data:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching engagement data:', error);
       throw error;
     }
   }
@@ -109,7 +109,7 @@ export class AnalyticsService {
       
       return await response.json();
     } catch (error) {
-      console.error('Error fetching special needs data:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching special needs data:', error);
       throw error;
     }
   }
@@ -127,7 +127,7 @@ export class AnalyticsService {
       
       return await response.json();
     } catch (error) {
-      console.error('Error fetching dashboard configuration:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching dashboard configuration:', error);
       throw error;
     }
   }
@@ -151,7 +151,7 @@ export class AnalyticsService {
       
       return await response.json();
     } catch (error) {
-      console.error('Error saving dashboard configuration:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error saving dashboard configuration:', error);
       throw error;
     }
   }
@@ -169,7 +169,7 @@ export class AnalyticsService {
       
       return await response.json();
     } catch (error) {
-      console.error('Error fetching available dashboards:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching available dashboards:', error);
       throw error;
     }
   }
@@ -204,7 +204,7 @@ export class AnalyticsService {
           throw new Error(`Unsupported export format: ${config.format}`);
       }
     } catch (error) {
-      console.error('Error exporting dashboard:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error exporting dashboard:', error);
       throw error;
     }
   }
@@ -222,7 +222,7 @@ export class AnalyticsService {
       
       return await response.json();
     } catch (error) {
-      console.error('Error fetching alert thresholds:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching alert thresholds:', error);
       throw error;
     }
   }
@@ -246,7 +246,7 @@ export class AnalyticsService {
       
       return await response.json();
     } catch (error) {
-      console.error('Error saving alert threshold:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error saving alert threshold:', error);
       throw error;
     }
   }
@@ -264,7 +264,7 @@ export class AnalyticsService {
       
       return await response.json();
     } catch (error) {
-      console.error('Error fetching active alerts:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching active alerts:', error);
       throw error;
     }
   }

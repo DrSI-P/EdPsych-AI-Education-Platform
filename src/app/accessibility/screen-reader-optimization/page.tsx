@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Eye, Lightbulb, Volume2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-export default function ScreenReaderOptimizationPage() {
+export default function ScreenReaderOptimizationPage() : React.ReactNode {
   const [announcementLevel, setAnnouncementLevel] = useState('standard');
   
   const handleAnnouncementLevelChange = (level: string) => {

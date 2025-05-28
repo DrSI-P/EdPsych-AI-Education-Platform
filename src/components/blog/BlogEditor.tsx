@@ -1,5 +1,5 @@
-import React from 'react';
-import dynamic from 'next/dynamic';
+// import React from 'react'; // Unused import
+// import dynamic from 'next/dynamic'; // Unused import
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Heading from '@tiptap/extension-heading';
@@ -36,7 +36,7 @@ interface BlogEditorProps {
   placeholder?: string;
 }
 
-export function BlogEditor({ value, onChange, placeholder = 'Start writing your blog post...' }: BlogEditorProps) {
+export function BlogEditor(: React.ReactNode { value, onChange, placeholder = 'Start writing your blog post...' }: BlogEditorProps) {
   const editor = useEditor({
     extensions: [
       StarterKit,

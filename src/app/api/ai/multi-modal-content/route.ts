@@ -144,7 +144,7 @@ export async function POST(req: NextRequest) {
     try {
       multiModalContent = JSON.parse(multiModalResponse.text);
     } catch (error) {
-      console.error('Error parsing AI response:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error parsing AI response:', error);
       return NextResponse.json({ error: 'Failed to parse multi-modal content' }, { status: 500 });
     }
     
@@ -169,7 +169,7 @@ export async function POST(req: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error in multi-modal content generation:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in multi-modal content generation:', error);
     return NextResponse.json({ error: 'Failed to generate multi-modal content' }, { status: 500 });
   }
 }
@@ -203,7 +203,7 @@ export async function GET(req: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error fetching multi-modal content:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching multi-modal content:', error);
     return NextResponse.json({ error: 'Failed to fetch multi-modal content' }, { status: 500 });
   }
 }

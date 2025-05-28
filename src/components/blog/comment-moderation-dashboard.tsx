@@ -27,7 +27,7 @@ import {
   TabsTrigger 
 } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+// import { Separator } from "@/components/ui/separator"; // Unused import
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -36,7 +36,7 @@ import {
   DropdownMenuSeparator, 
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
-import { ScrollArea } from "@/components/ui/scroll-area";
+// import { ScrollArea } from "@/components/ui/scroll-area"; // Unused import
 import { Switch } from "@/components/ui/switch";
 import {
   AlertDialog,

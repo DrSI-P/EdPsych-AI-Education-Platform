@@ -1,8 +1,9 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
@@ -58,7 +59,7 @@ interface Assessment {
   responses: any[];
 }
 
-export default function AssessmentResultsPage() {
+export default function AssessmentResultsPage() : React.ReactNode {
   const router = useRouter();
   const params = useParams();
   const [assessment, setAssessment] = useState<Assessment | null>(null);
@@ -81,7 +82,7 @@ export default function AssessmentResultsPage() {
         const data = await response.json();
         setAssessment(data);
       } catch (err) {
-        console.error('Error fetching assessment results:', err);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching assessment results:', err);
         setError('An error occurred while fetching the assessment results');
       } finally {
         setLoading(false);
@@ -109,7 +110,7 @@ export default function AssessmentResultsPage() {
         const data = await response.json();
         setResponseDetails(data);
       } catch (err) {
-        console.error('Error fetching response details:', err);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching response details:', err);
         setError('An error occurred while fetching the response details');
       } finally {
         setResponseLoading(false);

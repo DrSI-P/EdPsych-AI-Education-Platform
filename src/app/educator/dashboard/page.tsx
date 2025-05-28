@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState } from 'react';
@@ -9,7 +10,7 @@ import AutomatedDocumentation from '@/components/educator/automated-documentatio
 import SmartLessonPlanning from '@/components/educator/smart-lesson-planning';
 import { BookOpen, FileText, Settings, HelpCircle } from 'lucide-react';
 
-export default function EducatorDashboardPage() {
+export default function EducatorDashboardPage() : React.ReactNode {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('overview');
   

@@ -224,7 +224,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       },
     });
   } catch (error) {
-    // Using a type guard instead of console.error
+    // Using a type guard instead of /* eslint-disable-next-line no-console */ console.error
     if (error instanceof Error) {
       // Log error in a production-safe way
       // We could use a proper logging service here instead of console

@@ -7,9 +7,9 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
+// import { Switch } from '@/components/ui/switch'; // Unused import
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Card, CardContent } from '@/components/ui/card';
+// import { Card, CardContent } from '@/components/ui/card'; // Unused import
 import { Badge } from '@/components/ui/badge';
 import { Loader2 } from 'lucide-react';
 import { BlogEditor } from './BlogEditor';
@@ -38,7 +38,7 @@ interface BlogFormProps {
   mode?: 'create' | 'edit';
 }
 
-export function BlogForm({
+export function BlogForm(: React.ReactNode {
   initialData,
   categories = [],
   isSubmitting = false,

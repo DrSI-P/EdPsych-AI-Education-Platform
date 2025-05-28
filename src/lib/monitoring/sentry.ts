@@ -16,10 +16,10 @@ import * as Sentry from '@sentry/nextjs';
 export function initSentry(
   dsn: string = process.env.NEXT_PUBLIC_SENTRY_DSN || '',
   environment: string = process.env.NODE_ENV || 'development'
-) {
+) : React.ReactNode {
   // Only initialize if DSN is provided
   if (!dsn) {
-    console.warn('Sentry DSN not provided. Error tracking disabled.');
+    /* eslint-disable-next-line no-console */ console.warn('Sentry DSN not provided. Error tracking disabled.');
     return;
   }
 
@@ -62,7 +62,7 @@ export function initSentry(
  * @param error - The error to capture
  * @param context - Additional context information
  */
-export function captureException(error: Error, context?: Record<string, any>) {
+export function captureException(error: Error, context?: Record<string, any>) : React.ReactNode {
   Sentry.captureException(error, {
     extra: context,
   });
@@ -79,7 +79,7 @@ export function captureMessage(
   message: string, 
   level: Sentry.SeverityLevel = 'info',
   context?: Record<string, any>
-) {
+) : React.ReactNode {
   Sentry.captureMessage(message, {
     level,
     extra: context,
@@ -92,7 +92,7 @@ export function captureMessage(
  * @param id - User ID
  * @param role - User role (student, teacher, admin)
  */
-export function setUser(id: string, role?: string) {
+export function setUser(id: string, role?: string) : React.ReactNode {
   Sentry.setUser({
     id,
     role,
@@ -102,7 +102,7 @@ export function setUser(id: string, role?: string) {
 /**
  * Clear user information
  */
-export function clearUser() {
+export function clearUser() : React.ReactNode {
   Sentry.setUser(null);
 }
 
@@ -111,7 +111,7 @@ export function clearUser() {
  * 
  * @param tags - Key-value pairs for tagging errors
  */
-export function setTags(tags: Record<string, string>) {
+export function setTags(tags: Record<string, string>) : React.ReactNode {
   Object.entries(tags).forEach(([key, value]) => {
     Sentry.setTag(key, value);
   });
@@ -124,7 +124,7 @@ export function setTags(tags: Record<string, string>) {
  * @param options - Additional options
  * @returns Transaction object
  */
-export function startTransaction(name: string, options?: Record<string, any>) {
+export function startTransaction(name: string, options?: Record<string, any>) : React.ReactNode {
   return Sentry.startTransaction({
     name,
     ...options,
@@ -138,7 +138,7 @@ export function startTransaction(name: string, options?: Record<string, any>) {
  * @param operation - Operation name
  * @returns Span object
  */
-export function createSpan(transaction: Sentry.Transaction, operation: string) {
+export function createSpan(transaction: Sentry.Transaction, operation: string) : React.ReactNode {
   return transaction.startChild({
     op: operation,
   });

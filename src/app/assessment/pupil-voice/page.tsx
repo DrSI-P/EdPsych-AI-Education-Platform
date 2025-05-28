@@ -3,14 +3,14 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import type { PupilVoiceSurvey } from '@/types/assessment';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { Form } from '@/components/ui/form';
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { Form } from '@/components/ui/form'; // Unused import
 
-export default function PupilVoicePage() {
+export default function PupilVoicePage() : React.ReactNode {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -33,7 +33,7 @@ export default function PupilVoicePage() {
         setSurveys(data);
         setFilteredSurveys(data);
       } catch (err) {
-        console.error('Error fetching pupil voice surveys:', err);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching pupil voice surveys:', err);
         setError('An error occurred while fetching the pupil voice surveys');
       } finally {
         setLoading(false);

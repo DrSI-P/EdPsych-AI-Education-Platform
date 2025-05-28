@@ -1,5 +1,5 @@
 import openai from '@/lib/openai-compat';
-import { env } from '@/env.mjs';
+// import { env } from '@/env.mjs'; // Unused import
 
 // OpenAI service integration
 export class OpenAIService {
@@ -32,7 +32,7 @@ export class OpenAIService {
       // Mock response for compatibility
       return "This is a mock response from the OpenAI compatibility layer.";
     } catch (error: any) {
-      console.error('OpenAI text generation error:', error);
+      /* eslint-disable-next-line no-console */ console.error('OpenAI text generation error:', error);
       throw new Error(`Failed to generate text: ${error?.message || 'Unknown error'}`);
     }
   }
@@ -76,7 +76,7 @@ export class OpenAIService {
         temperature: 0.7
       });
     } catch (error: any) {
-      console.error('OpenAI educational content generation error:', error);
+      /* eslint-disable-next-line no-console */ console.error('OpenAI educational content generation error:', error);
       throw new Error(`Failed to generate educational content: ${error?.message || 'Unknown error'}`);
     }
   }
@@ -125,7 +125,7 @@ export class OpenAIService {
         temperature: 0.6
       });
     } catch (error: any) {
-      console.error('OpenAI feedback generation error:', error);
+      /* eslint-disable-next-line no-console */ console.error('OpenAI feedback generation error:', error);
       throw new Error(`Failed to generate personalized feedback: ${error?.message || 'Unknown error'}`);
     }
   }
@@ -159,7 +159,7 @@ export class OpenAIService {
         temperature: 0.7
       });
     } catch (error: any) {
-      console.error('OpenAI differentiated materials generation error:', error);
+      /* eslint-disable-next-line no-console */ console.error('OpenAI differentiated materials generation error:', error);
       throw new Error(`Failed to generate differentiated materials: ${error?.message || 'Unknown error'}`);
     }
   }
@@ -208,7 +208,7 @@ export class OpenAIService {
         temperature: 0.3
       });
     } catch (error: any) {
-      console.error('OpenAI student work analysis error:', error);
+      /* eslint-disable-next-line no-console */ console.error('OpenAI student work analysis error:', error);
       throw new Error(`Failed to analyse student work: ${error?.message || 'Unknown error'}`);
     }
   }

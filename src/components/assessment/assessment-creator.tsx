@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState } from 'react';
@@ -12,7 +13,7 @@ interface AssessmentCreatorProps {
   initialData?: any;
 }
 
-export function AssessmentCreator({ onSave, onCancel, initialData }: AssessmentCreatorProps) {
+export function AssessmentCreator(: React.ReactNode { onSave, onCancel, initialData }: AssessmentCreatorProps) {
   const { showToast } = useToast();
   const [assessment, setAssessment] = useState(initialData || {
     title: '',

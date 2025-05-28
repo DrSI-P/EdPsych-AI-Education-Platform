@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
     
     return NextResponse.json(settings);
   } catch (error) {
-    console.error('Error fetching behaviour tracking settings:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching behaviour tracking settings:', error);
     return NextResponse.json({ error: 'Failed to fetch settings' }, { status: 500 });
   }
 }
@@ -108,7 +108,7 @@ export async function POST(req: NextRequest) {
     
     return NextResponse.json(settings);
   } catch (error) {
-    console.error('Error saving behaviour tracking settings:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error saving behaviour tracking settings:', error);
     return NextResponse.json({ error: 'Failed to save settings' }, { status: 500 });
   }
 }

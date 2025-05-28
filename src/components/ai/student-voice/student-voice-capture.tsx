@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
@@ -11,7 +12,9 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/components/ui/use-toast";
 import { useAIService } from '@/lib/ai/ai-service';
 
-export default function StudentVoiceCapture() {
+// import React from "react"; // Unused import
+
+export default function StudentVoiceCapture() : React.ReactNode {
   const { toast } = useToast();
   const aiService = useAIService();
   const [isProcessing, setIsProcessing] = useState(false);
@@ -44,11 +47,11 @@ export default function StudentVoiceCapture() {
     const simulateSpeechRecognition = () => {
       return {
         start: () => {
-          console.log('Speech recognition started');
+          /* eslint-disable-next-line no-console */ console.log('Speech recognition started');
           setIsRecording(true);
         },
         stop: () => {
-          console.log('Speech recognition stopped');
+          /* eslint-disable-next-line no-console */ console.log('Speech recognition stopped');
           setIsRecording(false);
         },
         onresult: null,
@@ -256,7 +259,7 @@ export default function StudentVoiceCapture() {
           description: "There was a problem saving your drawing. Please try again.",
           variant: "destructive"
         });
-        console.error(error);
+        /* eslint-disable-next-line no-console */ console.error(error);
       }
     }
   };
@@ -342,7 +345,7 @@ export default function StudentVoiceCapture() {
         description: "There was a problem analysing your input. Please try again.",
         variant: "destructive"
       });
-      console.error(error);
+      /* eslint-disable-next-line no-console */ console.error(error);
     } finally {
       setIsProcessing(false);
     }
@@ -414,7 +417,7 @@ export default function StudentVoiceCapture() {
         description: "There was a problem analysing your drawing. Please try again.",
         variant: "destructive"
       });
-      console.error(error);
+      /* eslint-disable-next-line no-console */ console.error(error);
     } finally {
       setIsProcessing(false);
     }

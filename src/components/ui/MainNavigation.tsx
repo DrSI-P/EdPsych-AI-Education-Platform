@@ -5,7 +5,7 @@ import { useTheme } from '@/components/theme-provider';
 import { cn } from '@/lib/utils';
 import Logo from '@/components/ui/Logo';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+// import Link from 'next/link'; // Unused import
 import { 
   Home, 
   BookOpen, 

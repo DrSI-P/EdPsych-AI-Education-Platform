@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/form';
 import { Alert } from '@/components/ui/alert';
@@ -10,7 +10,7 @@ import { Spinner } from '@/components/ui/loading';
 import Link from 'next/link';
 import { UILink } from '@/components/ui';
 
-export default function RequestResetPage() {
+export default function RequestResetPage() : React.ReactNode {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
@@ -40,7 +40,7 @@ export default function RequestResetPage() {
       }
     } catch (err) {
       setError('An error occurred. Please try again.');
-      console.error('Password reset request error:', err);
+      /* eslint-disable-next-line no-console */ console.error('Password reset request error:', err);
     } finally {
       setLoading(false);
     }

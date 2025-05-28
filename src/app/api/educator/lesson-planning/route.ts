@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { prisma } from '@/lib/prisma';
+// import { prisma } from '@/lib/prisma'; // Unused import
 
 // Schema for lesson plan request validation
 const LessonPlanRequestSchema = z.object({
@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
     }, { status: 201 });
     
   } catch (error) {
-    console.error('Error saving lesson plan:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error saving lesson plan:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json({ 
@@ -199,7 +199,7 @@ export async function GET(request: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error retrieving lesson plans:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error retrieving lesson plans:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json({ 

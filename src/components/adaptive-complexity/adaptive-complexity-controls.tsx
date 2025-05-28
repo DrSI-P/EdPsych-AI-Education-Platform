@@ -94,7 +94,7 @@ export const AdaptiveComplexityControls: React.FC<AdaptiveComplexityControlsProp
           }
         }
       } catch (error) {
-        console.error('Error fetching learning profile:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching learning profile:', error);
       } finally {
         setIsLoading(false);
       }
@@ -112,7 +112,7 @@ export const AdaptiveComplexityControls: React.FC<AdaptiveComplexityControlsProp
     }
     
     // In a real implementation, this would update the user's profile via API
-    console.log(`Manually changed complexity to ${level}`);
+    /* eslint-disable-next-line no-console */ console.log(`Manually changed complexity to ${level}`);
   };
 
   // Toggle between automatic and manual modes

@@ -116,7 +116,7 @@ export async function POST(req: NextRequest) {
           primaryStyle = additionalData.primaryStyle || '';
           secondaryStyle = additionalData.secondaryStyle || '';
         } catch (e) {
-          console.error('Error parsing additional styles:', e);
+          /* eslint-disable-next-line no-console */ console.error('Error parsing additional styles:', e);
         }
       }
     }
@@ -287,7 +287,7 @@ export async function POST(req: NextRequest) {
     try {
       pacingData = JSON.parse(pacingResponse.text);
     } catch (error) {      
-      console.error('Error parsing AI response:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error parsing AI response:', error);
       return NextResponse.json({ error: 'Failed to parse pacing data' }, { status: 500 });
     }
     
@@ -317,7 +317,7 @@ export async function POST(req: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error in progress-adaptive pacing:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in progress-adaptive pacing:', error);
     return NextResponse.json({ error: 'Failed to adjust learning pace' }, { status: 500 });
   }
 }
@@ -353,7 +353,7 @@ export async function GET(req: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error fetching progress pacing data:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching progress pacing data:', error);
     return NextResponse.json({ error: 'Failed to fetch progress pacing data' }, { status: 500 });
   }
 }

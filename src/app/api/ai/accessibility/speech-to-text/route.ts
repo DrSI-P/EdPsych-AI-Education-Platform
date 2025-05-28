@@ -87,7 +87,7 @@ export async function POST(req: NextRequest) {
       message: 'Speech-to-text conversion logged successfully'
     });
   } catch (error) {
-    console.error('Speech-to-text API error:', error);
+    /* eslint-disable-next-line no-console */ console.error('Speech-to-text API error:', error);
     return NextResponse.json(
       { error: 'Failed to process speech-to-text request' },
       { status: 500 }

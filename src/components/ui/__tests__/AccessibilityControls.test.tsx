@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react'; // Unused import
 import { render, screen, fireEvent } from '@testing-library/react';
 import AccessibilityControls from '@/components/ui/AccessibilityControls';
 

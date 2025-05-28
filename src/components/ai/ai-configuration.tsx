@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Input, Textarea, Select, Checkbox } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Tabs } from '@/components/ui/tabs';
@@ -14,7 +14,7 @@ interface AIConfigurationProps {
   className?: string;
 }
 
-export function AIConfiguration({
+export function AIConfiguration(: React.ReactNode {
   className = ''
 }: AIConfigurationProps) {
   const { showToast } = useToast();
@@ -101,7 +101,7 @@ export function AIConfiguration({
           }));
         }
       } catch (error) {
-        console.error('Error fetching AI configuration:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching AI configuration:', error);
         showToast({
           title: 'Failed to load configuration',
           type: 'error'
@@ -181,7 +181,7 @@ export function AIConfiguration({
         throw new Error('Failed to save configuration');
       }
     } catch (error) {
-      console.error('Error saving AI configuration:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error saving AI configuration:', error);
       showToast({
         title: 'Failed to save configuration',
         type: 'error'

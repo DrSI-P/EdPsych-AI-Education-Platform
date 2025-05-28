@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -13,7 +14,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+// import { Textarea } from '@/components/ui/textarea'; // Unused import
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Slider } from '@/components/ui/slider';
@@ -65,7 +66,7 @@ interface Intervention {
   progress: number;
 }
 
-export function PersonalizedInterventionsEngine() {
+export function PersonalizedInterventionsEngine() : React.ReactNode {
   const { toast } = useToast();
   
   // State for settings
@@ -232,7 +233,7 @@ export function PersonalizedInterventionsEngine() {
           setInterventions(sampleInterventions);
         }, 1000);
       } catch (error) {
-        console.error('Error loading interventions:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error loading interventions:', error);
         toast({
           title: 'Error',
           description: 'Failed to load interventions. Please try again.',

@@ -129,7 +129,7 @@ export async function GET(request: Request) {
     });
     
   } catch (error) {
-    console.error('Error fetching communication data:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching communication data:', error);
     return NextResponse.json(
       { error: "Failed to fetch communication data" },
       { status: 500 }
@@ -236,7 +236,7 @@ export async function POST(request: Request) {
     );
     
   } catch (error) {
-    console.error('Error creating communication item:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating communication item:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -338,7 +338,7 @@ export async function PATCH(request: Request) {
     );
     
   } catch (error) {
-    console.error('Error updating communication item:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error updating communication item:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -420,7 +420,7 @@ export async function DELETE(request: Request) {
     );
     
   } catch (error) {
-    console.error('Error deleting communication item:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error deleting communication item:', error);
     return NextResponse.json(
       { error: "Failed to delete communication item" },
       { status: 500 }

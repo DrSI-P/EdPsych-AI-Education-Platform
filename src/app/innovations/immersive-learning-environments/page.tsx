@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -28,7 +29,7 @@ import {
 // Immersive Learning Environments prototype
 // This component demonstrates the concept of deeply engaging, multisensory learning spaces
 
-export default function ImmersiveLearningEnvironmentsPage() {
+export default function ImmersiveLearningEnvironmentsPage() : React.ReactNode {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [activeTab, setActiveTab] = useState('rainforest');
   const [immersionLevel, setImmersionLevel] = useState(70);

@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
           userLearningStyle = primaryStyle.toLowerCase();
         }
       } catch (error) {
-        console.log('Learning style not found:', error);
+        /* eslint-disable-next-line no-console */ console.log('Learning style not found:', error);
         // Continue without learning style
       }
     }
@@ -115,7 +115,7 @@ export async function POST(req: NextRequest) {
       const responseText = aiResponse.text;
       transformedContent = JSON.parse(responseText);
     } catch (error) {
-      console.error('Failed to parse AI response:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to parse AI response:', error);
       return NextResponse.json({ error: 'Failed to transform content' }, { status: 500 });
     }
     
@@ -139,7 +139,7 @@ export async function POST(req: NextRequest) {
         }
       });
     } catch (error) {
-      console.log('Failed to save content transformation to database:', error);
+      /* eslint-disable-next-line no-console */ console.log('Failed to save content transformation to database:', error);
       // Continue without saving to database
     }
     
@@ -150,7 +150,7 @@ export async function POST(req: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error in content transformation:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in content transformation:', error);
     return NextResponse.json({ error: 'Failed to process content transformation' }, { status: 500 });
   }
 }
@@ -229,7 +229,7 @@ export async function GET(req: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error fetching content transformation:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching content transformation:', error);
     return NextResponse.json({ error: 'Failed to fetch content transformation' }, { status: 500 });
   }
 }

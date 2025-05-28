@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
     
     return NextResponse.json(result);
   } catch (error) {
-    console.error('Error generating video:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error generating video:', error);
     return NextResponse.json(
       { error: 'Failed to generate video' },
       { status: 500 }

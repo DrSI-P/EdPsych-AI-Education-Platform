@@ -2,14 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/form';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
 import Link from 'next/link';
 
-export default function ResetPasswordPage() {
+export default function ResetPasswordPage() : React.ReactNode {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
@@ -83,7 +83,7 @@ export default function ResetPasswordPage() {
       }
     } catch (err) {
       setError('An error occurred. Please try again.');
-      console.error('Password reset error:', err);
+      /* eslint-disable-next-line no-console */ console.error('Password reset error:', err);
     } finally {
       setLoading(false);
     }

@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react'; // Unused import
 import CircleProcessTemplates from '@/components/restorative-justice/circle-process/circle-process-templates';
 import { Metadata } from 'next';
 
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
  * This page provides structured templates for conducting restorative circles
  * in educational settings, based on evidence-based restorative justice principles.
  */
-export default function CircleProcessPage() {
+export default function CircleProcessPage() : React.ReactNode {
   return (
     <div className="container mx-auto py-8">
       <CircleProcessTemplates />

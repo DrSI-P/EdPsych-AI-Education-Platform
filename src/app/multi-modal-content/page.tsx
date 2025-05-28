@@ -5,10 +5,12 @@ import MultiModalPresentationEngine from '@/components/ai/multi-modal-content/mu
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Sparkles, BookOpen, Layers, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Sparkles, BookOpen, Layers, CheckCircle2 } from "lucide-react";
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function MultiModalContentPage() {
+// import React from "react"; // Unused import
+
+export default function MultiModalContentPage() : React.ReactNode {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [content, setContent] = useState<any>(null);

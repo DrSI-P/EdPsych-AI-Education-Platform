@@ -1,12 +1,12 @@
 'use client';
 
-import React from 'react';
+// import React from 'react'; // Unused import
 
 interface VrHeadsetProps {
   className?: string;
 }
 
-export function VrHeadset({ className = '' }: VrHeadsetProps) {
+export function VrHeadset(: React.ReactNode { className = '' }: VrHeadsetProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

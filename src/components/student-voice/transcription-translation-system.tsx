@@ -1,3 +1,5 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
+// TODO: Fix NodeJS type errors by adding @types/node dependency
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -12,7 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/components/ui/use-toast";
 // Import VolumeUp from our custom icons to fix build errors
-import { Mic, MicOff, Send, Globe, Volume2, MessageSquare, Copy, Download, RefreshCw, Check, X, FileText, BookOpen } from 'lucide-react';
+import { Mic, MicOff, Send, Globe, MessageSquare, Copy, Download, RefreshCw, Check, X, FileText, BookOpen } from "lucide-react";
 import { VolumeUp } from '@/components/icons/volume-up';
 
 // Mock data for language options
@@ -66,7 +68,7 @@ interface VocabularyItem {
   createdAt: string;
 }
 
-export default function TranscriptionTranslationSystem() {
+export default function TranscriptionTranslationSystem() : React.ReactNode {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("translate");
   const [isRecording, setIsRecording] = useState(false);
@@ -214,7 +216,7 @@ export default function TranscriptionTranslationSystem() {
         description: "Speak clearly into your microphone.",
       });
     } catch (error) {
-      console.error('Error starting recording:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error starting recording:', error);
       toast({
         title: "Recording failed",
         description: "Could not access microphone. Please check permissions.",
@@ -479,7 +481,7 @@ export default function TranscriptionTranslationSystem() {
     });
     
     // In a real application, this would use the Web Speech API or a TTS service
-    console.log(`Speaking: ${text} in ${language}`);
+    /* eslint-disable-next-line no-console */ console.log(`Speaking: ${text} in ${language}`);
   };
   
   // Simulate copying text to clipboard

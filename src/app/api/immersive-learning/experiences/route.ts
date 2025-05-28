@@ -96,7 +96,7 @@ export async function GET(req: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error fetching immersive experiences:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching immersive experiences:', error);
     return NextResponse.json(
       { error: 'Failed to fetch immersive experiences' },
       { status: 500 }
@@ -169,7 +169,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ experience }, { status: 201 });
   } catch (error) {
-    console.error('Error creating immersive experience:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating immersive experience:', error);
     return NextResponse.json(
       { error: 'Failed to create immersive experience' },
       { status: 500 }

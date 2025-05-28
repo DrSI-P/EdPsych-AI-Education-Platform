@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -35,7 +36,7 @@ import {
 import { useToast } from '@/components/ui/use-toast';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
-import { Textarea } from '@/components/ui/textarea';
+// import { Textarea } from '@/components/ui/textarea'; // Unused import
 import { Slider } from '@/components/ui/slider';
 
 // Types for type safety
@@ -67,7 +68,7 @@ interface SensoryProfile {
   notes: string;
 }
 
-export function SensoryRegulationEngine() {
+export function SensoryRegulationEngine() : React.ReactNode {
   const { toast } = useToast();
   
   // State for activities and profiles
@@ -280,7 +281,7 @@ export function SensoryRegulationEngine() {
           setIsLoading(false);
         }, 1000);
       } catch (error) {
-        console.error('Error loading activities:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error loading activities:', error);
         toast({
           title: 'Error',
           description: 'Failed to load sensory activities. Please try again.',

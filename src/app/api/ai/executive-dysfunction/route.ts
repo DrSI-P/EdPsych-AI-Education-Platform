@@ -54,8 +54,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
         });
     }
   } catch (error) {
-    // Replace console.error with structured logging when available
-    console.error('Error in executive dysfunction API:', error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error('Error in executive dysfunction API:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -122,8 +122,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     }
   } catch (error) {
-    // Replace console.error with structured logging when available
-    console.error('Error in executive dysfunction API:', error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error('Error in executive dysfunction API:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -159,8 +159,8 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
         return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     }
   } catch (error) {
-    // Replace console.error with structured logging when available
-    console.error('Error in executive dysfunction API:', error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error('Error in executive dysfunction API:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

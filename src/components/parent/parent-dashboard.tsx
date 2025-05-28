@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
-import { Input, Textarea, Select, Checkbox } from '@/components/ui/form';
+import { Input, Select } from "@/components/ui/form";
 import { Button } from '@/components/ui/button';
 import { Tabs } from '@/components/ui/tabs';
 import { Spinner } from '@/components/ui/loading';
@@ -14,7 +14,7 @@ interface ParentDashboardProps {
   className?: string;
 }
 
-export function ParentDashboard({
+export function ParentDashboard(: React.ReactNode {
   className = ''
 }: ParentDashboardProps) {
   const { showToast } = useToast();

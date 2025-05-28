@@ -91,7 +91,7 @@ export class CollaborationService {
       
       return true;
     } catch (error) {
-      console.error('Failed to join collaboration session:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to join collaboration session:', error);
       return false;
     }
   }
@@ -269,7 +269,7 @@ export class CollaborationService {
       try {
         listener(data);
       } catch (error) {
-        console.error(`Error in ${event} event listener:`, error);
+        /* eslint-disable-next-line no-console */ console.error(`Error in ${event} event listener:`, error);
       }
     }
   }
@@ -405,7 +405,7 @@ export class CollaborationService {
       
       return await response.json();
     } catch (error) {
-      console.error('Failed to create collaboration session:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to create collaboration session:', error);
       return null;
     }
   }
@@ -423,7 +423,7 @@ export class CollaborationService {
       
       return await response.json();
     } catch (error) {
-      console.error('Failed to get collaboration session:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to get collaboration session:', error);
       return null;
     }
   }
@@ -461,7 +461,7 @@ export class CollaborationService {
       
       return await response.json();
     } catch (error) {
-      console.error('Failed to invite participant:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to invite participant:', error);
       return null;
     }
   }

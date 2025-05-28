@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -98,7 +99,7 @@ const mockLearningPath: LearningPath = {
   alignedToLearningStyle: LearningStyle.VISUAL
 };
 
-export default function AdaptiveContentSuggestions() {
+export default function AdaptiveContentSuggestions() : React.ReactNode {
   const [activeTab, setActiveTab] = useState<string>('for-you');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [contentSuggestions, setContentSuggestions] = useState<ContentSuggestion[]>([]);
@@ -125,7 +126,7 @@ export default function AdaptiveContentSuggestions() {
         duration: 3000,
       });
     } catch (error) {
-      console.error('Failed to generate content suggestions:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to generate content suggestions:', error);
       toast({
         title: "Error",
         description: "Failed to generate content suggestions. Please try again.",

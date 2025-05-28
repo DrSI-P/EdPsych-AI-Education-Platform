@@ -3,15 +3,15 @@
 import React, { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/form';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
-import Link from 'next/link';
+// import Link from 'next/link'; // Unused import
 import { UILink } from '@/components/ui';
 
-export default function SignInPage() {
+export default function SignInPage() : React.ReactNode {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -37,7 +37,7 @@ export default function SignInPage() {
       }
     } catch (err) {
       setError('An error occurred. Please try again.');
-      console.error('Sign in error:', err);
+      /* eslint-disable-next-line no-console */ console.error('Sign in error:', err);
     } finally {
       setLoading(false);
     }
@@ -48,7 +48,7 @@ export default function SignInPage() {
     try {
       await signIn(provider, { callbackUrl: '/dashboard' });
     } catch (err) {
-      console.error(`${provider} sign in error:`, err);
+      /* eslint-disable-next-line no-console */ console.error(`${provider} sign in error:`, err);
       setError(`An error occurred with ${provider} sign in. Please try again.`);
       setLoading(false);
     }

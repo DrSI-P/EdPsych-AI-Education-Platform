@@ -6,7 +6,7 @@ import LearningCommunities from '@/components/professional-development/learning-
 // Metadata should not be exported from client components
 // Removed the metadata export to fix the React Server Components error
 
-export default function LearningCommunitiesPage() {
+export default function LearningCommunitiesPage() : React.ReactNode {
   return (
     <div>
       <LearningCommunities />

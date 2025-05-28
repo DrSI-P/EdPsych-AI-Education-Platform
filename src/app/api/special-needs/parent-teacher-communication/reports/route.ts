@@ -196,7 +196,7 @@ export async function GET(req: NextRequest) {
       data: reportData
     });
   } catch (error) {
-    console.error('Error generating report:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error generating report:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to generate report' },
       { status: 500 }
@@ -276,7 +276,7 @@ export async function POST(req: NextRequest) {
       }
     });
   } catch (error) {
-    console.error('Error requesting report:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error requesting report:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to request report' },
       { status: 500 }

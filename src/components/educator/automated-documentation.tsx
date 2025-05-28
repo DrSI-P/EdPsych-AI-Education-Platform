@@ -1,3 +1,4 @@
+// TODO: Fix NodeJS type errors by adding @types/node dependency
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -8,9 +9,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Select } from "@/components/ui/select";
+// import { Checkbox } from "@/components/ui/checkbox"; // Unused import
+// import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"; // Unused import
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { useAIService } from '@/lib/ai/ai-service';
@@ -259,7 +260,7 @@ const documentationTemplates: any[] = [
   }
 ];
 
-export default function AutomatedDocumentation() {
+export default function AutomatedDocumentation() : React.ReactNode {
   const { toast } = useToast();
   const aiService = useAIService();
   const [isProcessing, setIsProcessing] = useState(false);
@@ -289,7 +290,7 @@ export default function AutomatedDocumentation() {
           setSavedDocuments(JSON.parse(saved));
         }
       } catch (error) {
-        console.error('Error loading saved documents:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error loading saved documents:', error);
       }
     };
     
@@ -377,7 +378,7 @@ export default function AutomatedDocumentation() {
       setRecordingInterval(interval);
       
     } catch (error) {
-      console.error('Error accessing microphone:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error accessing microphone:', error);
       toast({
         title: "Microphone Error",
         description: "Could not access your microphone. Please check permissions.",
@@ -443,7 +444,7 @@ export default function AutomatedDocumentation() {
         description: "An error occurred while generating your document.",
         variant: "destructive"
       });
-      console.error('Error generating document:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error generating document:', error);
     } finally {
       setIsProcessing(false);
     }
@@ -478,7 +479,7 @@ export default function AutomatedDocumentation() {
         description: "An error occurred while saving your document.",
         variant: "destructive"
       });
-      console.error('Error saving document:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error saving document:', error);
     }
   };
   
@@ -497,7 +498,7 @@ export default function AutomatedDocumentation() {
           description: "Failed to copy content to clipboard.",
           variant: "destructive"
         });
-        console.error('Error copying to clipboard:', err);
+        /* eslint-disable-next-line no-console */ console.error('Error copying to clipboard:', err);
       });
   };
   

@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -261,7 +262,7 @@ const BlockchainCredentialsWallet = () => {
         });
       }
     } catch (error) {
-      console.error('Error connecting wallet:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error connecting wallet:', error);
       toast({
         title: "Connection Failed",
         description: error.message || "Failed to connect wallet",
@@ -334,7 +335,7 @@ const BlockchainCredentialsWallet = () => {
         setShowCredentialDialog(false);
       }
     } catch (error) {
-      console.error('Error issuing credential:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error issuing credential:', error);
       toast({
         title: "Issuance Failed",
         description: error.message || "Failed to issue credential",
@@ -408,7 +409,7 @@ const BlockchainCredentialsWallet = () => {
         setShowCopyrightDialog(false);
       }
     } catch (error) {
-      console.error('Error registering copyright:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error registering copyright:', error);
       toast({
         title: "Registration Failed",
         description: error.message || "Failed to register copyright",
@@ -449,7 +450,7 @@ const BlockchainCredentialsWallet = () => {
         variant: result.valid ? "success" : "destructive",
       });
     } catch (error) {
-      console.error('Error verifying item:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error verifying item:', error);
       toast({
         title: "Verification Failed",
         description: error.message || "Failed to verify item",

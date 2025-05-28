@@ -96,7 +96,7 @@ export async function GET(req) {
     return NextResponse.json(alerts);
     
   } catch (error) {
-    console.error('Error retrieving alerts:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error retrieving alerts:', error);
     return NextResponse.json({ error: 'Failed to retrieve alerts' }, { status: 500 });
   }
 }
@@ -165,7 +165,7 @@ export async function POST(req) {
     }
     
   } catch (error) {
-    console.error('Error creating record:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating record:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: 'Validation error', details: error.errors }, { status: 400 });
@@ -213,7 +213,7 @@ export async function PATCH(req) {
     return NextResponse.json(settings);
     
   } catch (error) {
-    console.error('Error updating alert settings:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error updating alert settings:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: 'Validation error', details: error.errors }, { status: 400 });

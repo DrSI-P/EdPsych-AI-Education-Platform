@@ -10,7 +10,7 @@ import {
   CardTitle 
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'; // Unused import
 import { Dialog as Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { 
   AlertCircle, 
@@ -106,14 +106,14 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
             
             setVideo(mockVideo);
           } catch (err) {
-            console.error('Error fetching video:', err);
+            /* eslint-disable-next-line no-console */ console.error('Error fetching video:', err);
             setError('Failed to load video. Please try again.');
           }
         }
         
         setIsLoading(false);
       } catch (err) {
-        console.error('Error fetching integration point:', err);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching integration point:', err);
         setError('Failed to load avatar integration. Please try again.');
         setIsLoading(false);
       }
@@ -138,7 +138,7 @@ export const AvatarVideoIntegration: React.FC<AvatarVideoIntegrationProps> = ({
       
       // Save the updated integration point
       // avatarService.updateIntegrationPoint(updatedIntegrationPoint)
-      //   .catch(err => console.error('Error updating integration point:', err));
+      //   .catch(err => /* eslint-disable-next-line no-console */ console.error('Error updating integration point:', err));
     }
   };
   

@@ -84,8 +84,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     try {
       results = JSON.parse(aiResponse.text);
     } catch (error) {
-      // Replace console.error with structured logging when available
-      console.error('Failed to parse AI response:', error);
+      // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+      /* eslint-disable-next-line no-console */ console.error('Failed to parse AI response:', error);
       return NextResponse.json({ error: 'Failed to analyse learning style' }, { status: 500 });
     }
     
@@ -113,8 +113,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     });
     
   } catch (error) {
-    // Replace console.error with structured logging when available
-    console.error('Error in learning style assessment:', error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error('Error in learning style assessment:', error);
     return NextResponse.json({ error: 'Failed to process learning style assessment' }, { status: 500 });
   }
 }
@@ -162,8 +162,8 @@ export async function GET(_req: NextRequest): Promise<NextResponse> {
           };
         }
       } catch (e) {
-        // Replace console.error with structured logging when available
-        console.error('Error parsing additional styles:', e);
+        // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+        /* eslint-disable-next-line no-console */ console.error('Error parsing additional styles:', e);
         // Continue with default values
       }
     }
@@ -177,8 +177,8 @@ export async function GET(_req: NextRequest): Promise<NextResponse> {
           results = parsedResults;
         }
       } catch (e) {
-        // Replace console.error with structured logging when available
-        console.error('Error parsing assessment results:', e);
+        // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+        /* eslint-disable-next-line no-console */ console.error('Error parsing assessment results:', e);
         // Continue with empty results
       }
     }
@@ -200,8 +200,8 @@ export async function GET(_req: NextRequest): Promise<NextResponse> {
     });
     
   } catch (error) {
-    // Replace console.error with structured logging when available
-    console.error('Error fetching learning style profile:', error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error('Error fetching learning style profile:', error);
     return NextResponse.json({ error: 'Failed to fetch learning style profile' }, { status: 500 });
   }
 }

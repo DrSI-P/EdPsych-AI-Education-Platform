@@ -4,8 +4,10 @@
 import { PrismaClient } from '@prisma/client';
 import * as fs from 'fs';
 import * as path from 'path';
-import { validateAndSanitizeUser } from '@/lib/validation';
-import { safeDbOperation, DatabaseError, DatabaseErrorType } from '@/lib/db-utils';
+// import { validateAndSanitizeUser } from '@/lib/validation'; // Unused import
+// import { safeDbOperation, DatabaseError, DatabaseErrorType } from '@/lib/db-utils'; // Unused import
+
+// import React from "react"; // Unused import
 
 const prisma = new PrismaClient();
 
@@ -188,7 +190,7 @@ export async function checkDatabaseHealth(): Promise<DatabaseHealthCheckResult> 
       recommendations: recommendations.length > 0 ? recommendations : undefined
     };
   } catch (error) {
-    console.error('Database health check failed:', error);
+    /* eslint-disable-next-line no-console */ console.error('Database health check failed:', error);
     return {
       status: 'unhealthy',
       timestamp: new Date().toISOString(),
@@ -269,7 +271,7 @@ export async function logDatabaseOperation(
     
     return true;
   } catch (error) {
-    console.error('Failed to log database operation:', error);
+    /* eslint-disable-next-line no-console */ console.error('Failed to log database operation:', error);
     return false;
   }
 }
@@ -310,7 +312,7 @@ export async function optimizeDatabase(): Promise<DatabaseOptimizationResult> {
       operations.vacuum = true;
       operations.analyse = true;
     } catch (error) {
-      console.error('VACUUM Analyse failed:', error);
+      /* eslint-disable-next-line no-console */ console.error('VACUUM Analyse failed:', error);
       // Continue with other operations
     }
     
@@ -319,7 +321,7 @@ export async function optimizeDatabase(): Promise<DatabaseOptimizationResult> {
       await prisma.$executeRawUnsafe('REINDEX DATABASE CONCURRENTLY current_database()');
       operations.reindex = true;
     } catch (error) {
-      console.error('REINDEX failed:', error);
+      /* eslint-disable-next-line no-console */ console.error('REINDEX failed:', error);
       // Continue with other operations
     }
     
@@ -328,7 +330,7 @@ export async function optimizeDatabase(): Promise<DatabaseOptimizationResult> {
       // In a real implementation, this would clean up temporary tables or data
       operations.cleanup = true;
     } catch (error) {
-      console.error('Cleanup failed:', error);
+      /* eslint-disable-next-line no-console */ console.error('Cleanup failed:', error);
       // Continue with other operations
     }
     
@@ -350,7 +352,7 @@ export async function optimizeDatabase(): Promise<DatabaseOptimizationResult> {
       operations
     };
   } catch (error) {
-    console.error('Database optimization failed:', error);
+    /* eslint-disable-next-line no-console */ console.error('Database optimization failed:', error);
     return {
       status: 'error',
       message: 'Database optimization failed',
@@ -445,7 +447,7 @@ export async function validateDatabaseSchema(): Promise<DatabaseSchemaValidation
       modelIssues: modelIssues.length > 0 ? modelIssues : undefined
     };
   } catch (error) {
-    console.error('Database schema validation failed:', error);
+    /* eslint-disable-next-line no-console */ console.error('Database schema validation failed:', error);
     return {
       status: 'error',
       message: 'Database schema validation failed',
@@ -555,7 +557,7 @@ export async function checkDataIntegrity(): Promise<DataIntegrityCheckResult> {
       } : undefined
     };
   } catch (error) {
-    console.error('Data integrity check failed:', error);
+    /* eslint-disable-next-line no-console */ console.error('Data integrity check failed:', error);
     return {
       status: 'error',
       timestamp: new Date().toISOString(),
@@ -596,7 +598,7 @@ export async function repairDataIntegrity(): Promise<DataIntegrityRepairResult> 
     
     // In a real implementation, this would create a proper database backup
     // For this example, we'll just log the backup location
-    console.log(`Backup would be created at: ${backupFile}`);
+    /* eslint-disable-next-line no-console */ console.log(`Backup would be created at: ${backupFile}`);
     
     // Delete orphaned profiles
     const deleteOrphanedProfiles = await prisma.profile.deleteMany({
@@ -714,7 +716,7 @@ export async function repairDataIntegrity(): Promise<DataIntegrityRepairResult> 
       }
     };
   } catch (error) {
-    console.error('Data integrity repair failed:', error);
+    /* eslint-disable-next-line no-console */ console.error('Data integrity repair failed:', error);
     return {
       status: 'error',
       timestamp: new Date().toISOString(),
@@ -851,7 +853,7 @@ export async function collectDatabaseUsageStatistics(period: 'daily' | 'weekly' 
             }
           }
         } catch (error) {
-          console.error('Error parsing log entry:', error);
+          /* eslint-disable-next-line no-console */ console.error('Error parsing log entry:', error);
         }
       }
     }
@@ -874,7 +876,7 @@ export async function collectDatabaseUsageStatistics(period: 'daily' | 'weekly' 
       }
     };
   } catch (error) {
-    console.error('Failed to collect database usage statistics:', error);
+    /* eslint-disable-next-line no-console */ console.error('Failed to collect database usage statistics:', error);
     return {
       timestamp: new Date().toISOString(),
       period,

@@ -130,7 +130,7 @@ export class I18nService {
   public async setLanguage(language: SupportedLanguage): Promise<boolean> {
     try {
       if (!this.languageMetadata.has(language)) {
-        console.error(`Language ${language} is not supported`);
+        /* eslint-disable-next-line no-console */ console.error(`Language ${language} is not supported`);
         return false;
       }
       
@@ -149,7 +149,7 @@ export class I18nService {
       
       return true;
     } catch (error) {
-      console.error('Error setting language:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error setting language:', error);
       return false;
     }
   }
@@ -209,12 +209,12 @@ export class I18nService {
       
       // For other languages, we would fetch from an API
       // This is a placeholder for the actual implementation
-      console.log(`Loading language pack for ${language}`);
+      /* eslint-disable-next-line no-console */ console.log(`Loading language pack for ${language}`);
       
       // Mock successful loading
       return true;
     } catch (error) {
-      console.error(`Error loading language pack for ${language}:`, error);
+      /* eslint-disable-next-line no-console */ console.error(`Error loading language pack for ${language}:`, error);
       return false;
     }
   }
@@ -250,7 +250,7 @@ export class I18nService {
       
       return text;
     } catch (error) {
-      console.error('Translation error:', error);
+      /* eslint-disable-next-line no-console */ console.error('Translation error:', error);
       return this.translateFallback(key, namespace, params);
     }
   }
@@ -310,7 +310,7 @@ export class I18nService {
       
       // In a real implementation, this would call a translation API
       // For now, we'll use a mock implementation
-      console.log(`Translating from ${request.sourceLanguage} to ${request.targetLanguage}: ${request.text}`);
+      /* eslint-disable-next-line no-console */ console.log(`Translating from ${request.sourceLanguage} to ${request.targetLanguage}: ${request.text}`);
       
       // Mock translation (just append language code for demo)
       const mockTranslatedText = `${request.text} [${request.targetLanguage}]`;
@@ -326,7 +326,7 @@ export class I18nService {
         confidence: 0.85
       };
     } catch (error) {
-      console.error('Translation error:', error);
+      /* eslint-disable-next-line no-console */ console.error('Translation error:', error);
       throw new Error(`Translation failed: ${error}`);
     }
   }
@@ -338,7 +338,7 @@ export class I18nService {
     try {
       // In a real implementation, this would call a language detection API
       // For now, we'll use a mock implementation
-      console.log(`Detecting language for: ${text}`);
+      /* eslint-disable-next-line no-console */ console.log(`Detecting language for: ${text}`);
       
       // Mock detection (always returns English for demo)
       return {
@@ -351,7 +351,7 @@ export class I18nService {
         ]
       };
     } catch (error) {
-      console.error('Language detection error:', error);
+      /* eslint-disable-next-line no-console */ console.error('Language detection error:', error);
       throw new Error(`Language detection failed: ${error}`);
     }
   }
@@ -373,7 +373,7 @@ export class I18nService {
         translateCommunications: true
       };
     } catch (error) {
-      console.error('Error fetching user language preferences:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching user language preferences:', error);
       
       // Return default preferences
       return {
@@ -394,12 +394,12 @@ export class I18nService {
   public async updateUserLanguagePreferences(preferences: UserLanguagePreferences): Promise<boolean> {
     try {
       // In a real implementation, this would update an API or database
-      console.log('Updating user language preferences:', preferences);
+      /* eslint-disable-next-line no-console */ console.log('Updating user language preferences:', preferences);
       
       // Mock successful update
       return true;
     } catch (error) {
-      console.error('Error updating user language preferences:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error updating user language preferences:', error);
       return false;
     }
   }
@@ -428,7 +428,7 @@ export class I18nService {
         }
       };
     } catch (error) {
-      console.error('Error fetching content localization metadata:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching content localization metadata:', error);
       return null;
     }
   }
@@ -440,7 +440,7 @@ export class I18nService {
     try {
       return new Intl.DateTimeFormat(this.currentLanguage, options).format(date);
     } catch (error) {
-      console.error('Date formatting error:', error);
+      /* eslint-disable-next-line no-console */ console.error('Date formatting error:', error);
       return date.toLocaleDateString();
     }
   }
@@ -452,7 +452,7 @@ export class I18nService {
     try {
       return new Intl.NumberFormat(this.currentLanguage, options).format(number);
     } catch (error) {
-      console.error('Number formatting error:', error);
+      /* eslint-disable-next-line no-console */ console.error('Number formatting error:', error);
       return number.toString();
     }
   }

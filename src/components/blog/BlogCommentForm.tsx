@@ -24,7 +24,7 @@ interface BlogCommentFormProps {
   isReply?: boolean;
 }
 
-export function BlogCommentForm({
+export function BlogCommentForm(: React.ReactNode {
   postId,
   parentId,
   onSuccess,
@@ -78,7 +78,7 @@ export function BlogCommentForm({
         onSuccess();
       }
     } catch (error) {
-      console.error('Error submitting comment:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error submitting comment:', error);
       toast({
         title: 'Error',
         description: error instanceof Error ? error.message : 'Failed to submit comment',

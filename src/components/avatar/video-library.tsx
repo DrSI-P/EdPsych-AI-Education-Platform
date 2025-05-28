@@ -198,7 +198,7 @@ export const VideoLibrary: React.FC<VideoLibraryProps> = ({
         setScripts(mockScripts);
         setIsLoading(false);
       } catch (err) {
-        console.error('Error fetching videos and scripts:', err);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching videos and scripts:', err);
         setError('Failed to load video library. Please try again.');
         setIsLoading(false);
       }

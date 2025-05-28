@@ -14,7 +14,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import Link from 'next/link';
+// import Link from 'next/link'; // Unused import
 import { UILink } from '@/components/ui';
 
 // Feature explanation tooltip
@@ -57,7 +57,7 @@ const CreditBadge = ({ amount }: { amount: number }) => (
   </Badge>
 );
 
-export default function PricingPage() {
+export default function PricingPage() : React.ReactNode {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
   
   // Calculate yearly prices (20% discount)

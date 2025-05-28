@@ -1,7 +1,7 @@
 import Head from 'next/head';
-import React from 'react';
+// import React from 'react'; // Unused import
 
-export function PWAHead() {
+export function PWAHead() : React.ReactNode {
   return (
     <Head>
       <meta name="application-name" content="EdPsych Connect" />

@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react';
+// import React from 'react'; // Unused import
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ProfessionalPortfolio from '@/components/professional-development/professional-portfolio';
 import PortfolioExport from '@/components/professional-development/portfolio-export';
 
-export default function PortfolioPage() {
+export default function PortfolioPage() : React.ReactNode {
   return (
     <div className="container mx-auto py-6">
       <div className="mb-6">

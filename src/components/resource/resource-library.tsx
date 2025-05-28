@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
-import { Input, Textarea, Select, Checkbox } from '@/components/ui/form';
+import { Input, Textarea, Select } from "@/components/ui/form";
 import { Button } from '@/components/ui/button';
 import { Tabs } from '@/components/ui/tabs';
 import { Spinner } from '@/components/ui/loading';
@@ -30,7 +30,7 @@ interface ResourceLibraryProps {
   className?: string;
 }
 
-export function ResourceLibrary({
+export function ResourceLibrary(: React.ReactNode {
   initialResources = [],
   onResourceSelect,
   className = ''

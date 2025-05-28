@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AlertTriangle, Pause, Play } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-export default function ReducedMotionPage() {
+export default function ReducedMotionPage() : React.ReactNode {
   const [motionLevel, setMotionLevel] = useState('default');
   
   const handleMotionLevelChange = (level: string) => {

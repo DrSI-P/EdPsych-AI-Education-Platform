@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -7,14 +8,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
+// import { Textarea } from "@/components/ui/textarea"; // Unused import
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { toast } from "@/components/ui/use-toast";
-import { Separator } from "@/components/ui/separator";
+// import { Separator } from "@/components/ui/separator"; // Unused import
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+// import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"; // Unused import
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { 
@@ -970,7 +971,7 @@ const EmotionalVocabularyDevelopment = () => {
       }, 1000);
       
     } catch (error) {
-      console.error('Error fetching data:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching data:', error);
       setIsLoading(false);
       toast({
         title: "Error",
@@ -1004,7 +1005,7 @@ const EmotionalVocabularyDevelopment = () => {
       }, 1000);
       
     } catch (error) {
-      console.error('Error saving preferences:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error saving preferences:', error);
       setIsLoading(false);
       toast({
         title: "Error",

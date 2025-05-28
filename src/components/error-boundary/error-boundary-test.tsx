@@ -77,8 +77,8 @@ const ErrorBoundaryTest: React.FC = () => {
             <ErrorBoundary
               resetKeys={[shouldThrowError]}
               onError={(error, errorInfo) => {
-                console.log('Error caught by standard boundary:', error);
-                console.log('Component stack:', errorInfo.componentStack);
+                /* eslint-disable-next-line no-console */ console.log('Error caught by standard boundary:', error);
+                /* eslint-disable-next-line no-console */ console.log('Component stack:', errorInfo.componentStack);
               }}
             >
               <BuggyComponent />
@@ -92,8 +92,8 @@ const ErrorBoundaryTest: React.FC = () => {
               ageGroup={ageGroup}
               resetKeys={[shouldThrowError]}
               onError={(error, errorInfo) => {
-                console.log('Error caught by age-adaptive boundary:', error);
-                console.log('Component stack:', errorInfo.componentStack);
+                /* eslint-disable-next-line no-console */ console.log('Error caught by age-adaptive boundary:', error);
+                /* eslint-disable-next-line no-console */ console.log('Component stack:', errorInfo.componentStack);
               }}
             >
               <BuggyComponent />

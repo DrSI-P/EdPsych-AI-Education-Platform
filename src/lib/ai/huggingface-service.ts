@@ -31,7 +31,7 @@ export class HuggingFaceService {
       
       return await response.json();
     } catch (error) {
-      console.error(`Hugging Face API error for model ${model}:`, error);
+      /* eslint-disable-next-line no-console */ console.error(`Hugging Face API error for model ${model}:`, error);
       throw new Error(`Failed to query Hugging Face model: ${error.message}`);
     }
   }
@@ -77,7 +77,7 @@ export class HuggingFaceService {
       
       return result.generated_text || '';
     } catch (error) {
-      console.error('Hugging Face text generation error:', error);
+      /* eslint-disable-next-line no-console */ console.error('Hugging Face text generation error:', error);
       throw new Error(`Failed to generate text: ${error.message}`);
     }
   }
@@ -114,7 +114,7 @@ export class HuggingFaceService {
       
       return result.summary_text || '';
     } catch (error) {
-      console.error('Hugging Face summarization error:', error);
+      /* eslint-disable-next-line no-console */ console.error('Hugging Face summarization error:', error);
       throw new Error(`Failed to summarize text: ${error.message}`);
     }
   }
@@ -142,7 +142,7 @@ export class HuggingFaceService {
       
       return result;
     } catch (error) {
-      console.error('Hugging Face text classification error:', error);
+      /* eslint-disable-next-line no-console */ console.error('Hugging Face text classification error:', error);
       throw new Error(`Failed to classify text: ${error.message}`);
     }
   }
@@ -174,7 +174,7 @@ export class HuggingFaceService {
         end: result.end
       };
     } catch (error) {
-      console.error('Hugging Face question answering error:', error);
+      /* eslint-disable-next-line no-console */ console.error('Hugging Face question answering error:', error);
       throw new Error(`Failed to answer question: ${error.message}`);
     }
   }
@@ -211,7 +211,7 @@ export class HuggingFaceService {
       
       return result.translation_text || '';
     } catch (error) {
-      console.error('Hugging Face translation error:', error);
+      /* eslint-disable-next-line no-console */ console.error('Hugging Face translation error:', error);
       throw new Error(`Failed to translate text: ${error.message}`);
     }
   }
@@ -251,7 +251,7 @@ export class HuggingFaceService {
         temperature: 0.7
       });
     } catch (error) {
-      console.error('Hugging Face educational content generation error:', error);
+      /* eslint-disable-next-line no-console */ console.error('Hugging Face educational content generation error:', error);
       throw new Error(`Failed to generate educational content: ${error.message}`);
     }
   }
@@ -316,7 +316,7 @@ export class HuggingFaceService {
         complexity: complexityResult
       };
     } catch (error) {
-      console.error('Hugging Face reading level analysis error:', error);
+      /* eslint-disable-next-line no-console */ console.error('Hugging Face reading level analysis error:', error);
       throw new Error(`Failed to analyse reading level: ${error.message}`);
     }
   }
@@ -332,7 +332,7 @@ export class HuggingFaceService {
     const cachedItem = this.cache.get(cacheKey);
     
     if (cachedItem && (Date.now() - cachedItem.timestamp) < this.cacheTTL) {
-      console.log(`Using cached response for ${cacheKey}`);
+      /* eslint-disable-next-line no-console */ console.log(`Using cached response for ${cacheKey}`);
       return cachedItem.result;
     }
     

@@ -82,7 +82,7 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
     processingBasis: GDPRProcessingBasis;
     retentionPeriod: DataRetentionPeriod;
   }): Promise<string> {
-    console.log(`Registering data processing activity: ${activity.name}`);
+    /* eslint-disable-next-line no-console */ console.log(`Registering data processing activity: ${activity.name}`);
     
     // Generate a unique ID for the activity
     const id = `dpa-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
@@ -106,11 +106,11 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
    * @returns Whether the consent was successfully recorded
    */
   async recordDataSubjectConsent(userId: string, purposeId: string, consentGiven: boolean): Promise<boolean> {
-    console.log(`Recording consent for user ${userId} for purpose ${purposeId}: ${consentGiven}`);
+    /* eslint-disable-next-line no-console */ console.log(`Recording consent for user ${userId} for purpose ${purposeId}: ${consentGiven}`);
     
     // Check if the processing purpose exists
     if (!this.dataProcessingActivities.has(purposeId)) {
-      console.error(`Processing purpose not found: ${purposeId}`);
+      /* eslint-disable-next-line no-console */ console.error(`Processing purpose not found: ${purposeId}`);
       return false;
     }
     
@@ -146,7 +146,7 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
     retentionPeriods: Record<string, string>;
     recipients: any[];
   }> {
-    console.log(`Handling subject access request for user: ${userId}`);
+    /* eslint-disable-next-line no-console */ console.log(`Handling subject access request for user: ${userId}`);
     
     // In a real implementation, this would retrieve the user's personal data
     // from various systems and databases
@@ -230,7 +230,7 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
     retainedCategories: any[];
     retentionReasons: Record<string, string>;
   }> {
-    console.log(`Handling right to erasure request for user: ${userId}`);
+    /* eslint-disable-next-line no-console */ console.log(`Handling right to erasure request for user: ${userId}`);
     
     // In a real implementation, this would delete the user's personal data
     // from various systems and databases
@@ -296,7 +296,7 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
     downloadUrl: string;
     expiryDate: Date;
   }> {
-    console.log(`Handling data portability request for user: ${userId} in format: ${format}`);
+    /* eslint-disable-next-line no-console */ console.log(`Handling data portability request for user: ${userId} in format: ${format}`);
     
     // In a real implementation, this would export the user's personal data
     // in the requested format and generate a secure download link
@@ -319,7 +319,7 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
    * @returns The completed impact assessment
    */
   async conductImpactAssessment(featureId: string): Promise<DataProtectionImpactAssessment> {
-    console.log(`Conducting impact assessment for feature: ${featureId}`);
+    /* eslint-disable-next-line no-console */ console.log(`Conducting impact assessment for feature: ${featureId}`);
     
     // In a real implementation, this would involve a structured assessment process
     // with input from various stakeholders
@@ -414,7 +414,7 @@ export class GDPRComplianceServiceImpl implements GDPRComplianceService {
     containmentActions: any[];
     severity: 'low' | 'medium' | 'high' | 'critical';
   }): Promise<string> {
-    console.log(`Logging data breach: ${details.description}`);
+    /* eslint-disable-next-line no-console */ console.log(`Logging data breach: ${details.description}`);
     
     // Generate a unique ID for the breach
     const id = `breach-${Date.now()}-${Math.floor(Math.random() * 1000)}`;

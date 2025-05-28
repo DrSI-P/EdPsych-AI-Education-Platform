@@ -4,7 +4,7 @@ import React from 'react';
 import { Label } from './label';
 
 // Add Form component export to fix build warning
-export function Form({ children, ...props }: React.FormHTMLAttributes<HTMLFormElement>) {
+export function Form(: React.ReactNode { children, ...props }: React.FormHTMLAttributes<HTMLFormElement>) {
   return (
     <form {...props}>
       {children}
@@ -22,7 +22,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
 }
 
-export function Input({
+export function Input(: React.ReactNode {
   label,
   error,
   hint,
@@ -75,7 +75,7 @@ interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement
   className?: string;
 }
 
-export function Textarea({
+export function Textarea(: React.ReactNode {
   label,
   error,
   hint,
@@ -117,7 +117,7 @@ interface SelectProps {
   placeholder?: string;
 }
 
-export function Select({
+export function Select(: React.ReactNode {
   options,
   value,
   onChange,
@@ -178,7 +178,7 @@ interface CheckboxProps {
   className?: string;
 }
 
-export function Checkbox({
+export function Checkbox(: React.ReactNode {
   label,
   checked,
   onChange,
@@ -224,7 +224,7 @@ interface RadioProps {
   className?: string;
 }
 
-export function Radio({
+export function Radio(: React.ReactNode {
   options,
   value,
   onChange,
@@ -272,7 +272,7 @@ export function Radio({
   );
 }
 
-export function FormLabel({
+export function FormLabel(: React.ReactNode {
   children,
   htmlFor,
   className = '',

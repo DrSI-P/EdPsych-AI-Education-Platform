@@ -8,7 +8,7 @@ import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
 import { SimpleTabs  } from '@/components/ui/tabs';
 
-export default function PreviewPupilVoiceSurveyPage() {
+export default function PreviewPupilVoiceSurveyPage() : React.ReactNode {
   const router = useRouter();
   const params = useParams();
   const surveyId = params.id as string;
@@ -41,7 +41,7 @@ export default function PreviewPupilVoiceSurveyPage() {
           }
         }
       } catch (err) {
-        console.error('Error fetching pupil voice survey:', err);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching pupil voice survey:', err);
         setError('An error occurred while fetching the pupil voice survey');
       } finally {
         setLoading(false);
@@ -65,7 +65,7 @@ export default function PreviewPupilVoiceSurveyPage() {
       
       router.push(`/assessment/pupil-voice/share/${surveyId}`);
     } catch (err) {
-      console.error('Error publishing survey:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error publishing survey:', err);
       setError('An error occurred while publishing the survey');
     } finally {
       setLoading(false);

@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
     
     return NextResponse.json({ stories });
   } catch (error) {
-    console.error('Error fetching social stories:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching social stories:', error);
     return NextResponse.json({ error: 'Failed to fetch stories' }, { status: 500 });
   }
 }
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
       story 
     });
   } catch (error) {
-    console.error('Error creating social story:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating social story:', error);
     return NextResponse.json({ error: 'Failed to create social story' }, { status: 500 });
   }
 }

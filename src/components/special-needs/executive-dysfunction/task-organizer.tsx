@@ -8,31 +8,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "@/components/ui/use-toast";
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { 
-  CheckCircle2, 
-  Clock, 
-  Calendar, 
-  AlertCircle, 
-  Star, 
-  GripVertical, 
-  Plus, 
-  Trash2, 
-  Edit, 
-  Save, 
-  X, 
-  ChevronDown, 
-  ChevronUp,
-  Sparkles,
-  Brain,
-  ListChecks,
-  Timer,
-  Layers
-} from "lucide-react";
+import { Clock, Calendar, AlertCircle, Star, GripVertical, Plus, Trash2, Edit, Save, X, ChevronDown, ChevronUp, Sparkles, Brain, ListChecks, Timer, Layers } from "lucide-react";
 
 interface Task {
   id: string;
@@ -61,7 +42,7 @@ interface TaskOrganizerProps {
   className?: string;
 }
 
-export default function TaskOrganizer({
+export default function TaskOrganizer(: React.ReactNode {
   userId,
   initialTasks,
   onTasksChange,
@@ -110,7 +91,7 @@ export default function TaskOrganizer({
         setTasks(data.tasks);
       }
     } catch (error) {
-      console.error('Error fetching tasks:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching tasks:', error);
       toast({
         title: "Error",
         description: "Failed to load your tasks. Please try again.",
@@ -134,7 +115,7 @@ export default function TaskOrganizer({
         }),
       });
     } catch (error) {
-      console.error('Error saving tasks:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error saving tasks:', error);
       toast({
         title: "Error",
         description: "Failed to save your tasks. Please try again.",

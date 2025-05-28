@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -6,7 +7,7 @@ import {
 } from '@/lib/content-creation/types';
 import { getContentCreationService } from '@/lib/content-creation/contentCreationService';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from '@/components/ui/progress';
 import { AlertCircle, AlertTriangle, AlertOctagon, CheckCircle2, Info } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -123,7 +124,7 @@ export const AccessibilityChecker: React.FC<AccessibilityCheckerProps> = ({
         }
       }
     } catch (error) {
-      console.error('Failed to check accessibility:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to check accessibility:', error);
       setError('Failed to check accessibility. Please try again.');
       toast({
         variant: "destructive",

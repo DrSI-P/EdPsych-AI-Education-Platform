@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import prisma from '@/lib/prisma';
+// import prisma from '@/lib/prisma'; // Unused import
 
 // Schema for progress report generation request
 const progressReportRequestSchema = z.object({
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
-    console.error('Error generating progress report:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error generating progress report:', error);
     return NextResponse.json({ error: 'Failed to generate progress report' }, { status: 500 });
   }
 }
@@ -86,7 +86,7 @@ export async function GET(request: NextRequest) {
     
     return NextResponse.json(reports);
   } catch (error) {
-    console.error('Error fetching progress reports:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching progress reports:', error);
     return NextResponse.json({ error: 'Failed to fetch progress reports' }, { status: 500 });
   }
 }

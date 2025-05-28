@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error fetching communication settings:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching communication settings:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to fetch communication settings' },
       { status: 500 }
@@ -131,7 +131,7 @@ export async function POST(req: NextRequest) {
       settings: communicationSettings,
     });
   } catch (error) {
-    console.error('Error saving communication settings:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error saving communication settings:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to save communication settings' },
       { status: 500 }

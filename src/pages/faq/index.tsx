@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react'; // Unused import
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { getServerSession } from 'next-auth';
@@ -8,7 +8,7 @@ import { ChatInterface } from '@/components/faq/ChatInterface';
 import { FAQBrowser } from '@/components/faq/FAQBrowser';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-export default function FAQPage({ initialCategories, initialQuestions }) {
+export default function FAQPage(: React.ReactNode { initialCategories, initialQuestions }) {
   return (
     <>
       <Head>
@@ -95,7 +95,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   } catch (error) {
-    console.error('Error fetching FAQ data:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching FAQ data:', error);
     return {
       props: {
         initialCategories: [],

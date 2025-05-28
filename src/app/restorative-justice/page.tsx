@@ -1,11 +1,13 @@
 import { Metadata } from 'next';
 import ClientWrapper from '@/components/restorative-justice/client-wrapper';
 
+// import React from "react"; // Unused import
+
 export const metadata: Metadata = {
   title: 'Guided Restorative Conversation Frameworks | EdPsych Connect',
   description: 'Evidence-based frameworks for conducting restorative conversations based on restorative justice principles.',
 };
 
-export default function GuidedRestorativeConversationFrameworksPage() {
+export default function GuidedRestorativeConversationFrameworksPage() : React.ReactNode {
   return <ClientWrapper />;
 }

@@ -3,13 +3,15 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 
+// import React from "react"; // Unused import
+
 // Dynamically import the AccessibilityControls component with SSR disabled
 const AccessibilityControls = dynamic(
   () => import('@/components/ai/accessibility/accessibility-controls').then(mod => ({ default: mod.AccessibilityControls })),
   { ssr: false }
 );
 
-export default function AccessibilityClient() {
+export default function AccessibilityClient() : React.ReactNode {
   const [settings, setSettings] = useState({
     enabled: true,
     screenReaderOptimization: false,

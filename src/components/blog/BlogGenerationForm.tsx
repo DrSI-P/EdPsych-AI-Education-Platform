@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+// import { Input } from '@/components/ui/input'; // Unused import
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -22,7 +22,7 @@ const generationFormSchema = z.object({
 
 type GenerationFormValues = z.infer<typeof generationFormSchema>;
 
-export function BlogGenerationForm() {
+export function BlogGenerationForm() : React.ReactNode {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   
@@ -101,7 +101,7 @@ export function BlogGenerationForm() {
       });
       
     } catch (error) {
-      console.error('Error generating content:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error generating content:', error);
       toast({
         title: 'Error',
         description: error instanceof Error ? error.message : 'Failed to generate content',

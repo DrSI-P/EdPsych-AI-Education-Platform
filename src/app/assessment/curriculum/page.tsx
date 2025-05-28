@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
 import { SimpleTabs  } from '@/components/ui/tabs';
-import { Form } from '@/components/ui/form';
+// import { Form } from '@/components/ui/form'; // Unused import
 
 interface CurriculumStandard {
   id: string;
@@ -19,7 +19,7 @@ interface CurriculumStandard {
   category: string;
 }
 
-export default function CurriculumAlignmentPage() {
+export default function CurriculumAlignmentPage() : React.ReactNode {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -95,7 +95,7 @@ export default function CurriculumAlignmentPage() {
         setStandards(data);
         setFilteredStandards(data);
       } catch (err) {
-        console.error('Error fetching curriculum standards:', err);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching curriculum standards:', err);
         setError('An error occurred while fetching the curriculum standards');
       } finally {
         setLoading(false);

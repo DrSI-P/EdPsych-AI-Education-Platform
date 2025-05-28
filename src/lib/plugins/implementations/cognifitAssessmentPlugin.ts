@@ -11,7 +11,7 @@ import {
   AssessmentToolPluginResponse,
   AssessmentToolPluginResult
 } from '../templates/assessmentToolPlugin';
-import { PluginMetadata, PluginStatus } from '../types';
+import { PluginMetadata } from "../types";
 
 /**
  * Cognifit API client interface
@@ -484,7 +484,7 @@ export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
       // Initialize the API client
       return await this.apiClient.initialize(apiKey, apiSecret);
     } catch (error) {
-      console.error('Error initializing Cognifit plugin:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error initializing Cognifit plugin:', error);
       return false;
     }
   }
@@ -511,7 +511,7 @@ export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
       
       return true;
     } catch (error) {
-      console.error('Error configuring Cognifit plugin:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error configuring Cognifit plugin:', error);
       return false;
     }
   }
@@ -532,7 +532,7 @@ export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
       
       return assessment;
     } catch (error) {
-      console.error('Error creating Cognifit assessment:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error creating Cognifit assessment:', error);
       throw error;
     }
   }
@@ -554,7 +554,7 @@ export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
       
       return result;
     } catch (error) {
-      console.error('Error scoring Cognifit assessment:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error scoring Cognifit assessment:', error);
       throw error;
     }
   }
@@ -572,7 +572,7 @@ export class CognifitAssessmentPlugin extends BaseAssessmentToolPlugin {
       
       return result;
     } catch (error) {
-      console.error('Error getting Cognifit results:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error getting Cognifit results:', error);
       throw error;
     }
   }

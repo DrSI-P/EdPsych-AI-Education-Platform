@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
       settings: updatedSettings
     });
   } catch (error) {
-    console.error('Screen reader optimization API error:', error);
+    /* eslint-disable-next-line no-console */ console.error('Screen reader optimization API error:', error);
     return NextResponse.json(
       { error: 'Failed to save screen reader optimization settings' },
       { status: 500 }

@@ -29,7 +29,7 @@ export class AIAvatarVideoService {
       this.videos = await this.loadVideoMetadata();
       this.initialized = true;
     } catch (error) {
-      console.error('Failed to initialize AI Avatar Video Service:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to initialize AI Avatar Video Service:', error);
       throw error;
     }
   }

@@ -64,7 +64,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(templates);
     
   } catch (error) {
-    console.error('Error fetching assessment templates:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching assessment templates:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching the assessment templates' },
       { status: 500 }
@@ -121,7 +121,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(template);
     
   } catch (error) {
-    console.error('Error creating assessment template:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating assessment template:', error);
     return NextResponse.json(
       { error: 'An error occurred while creating the assessment template' },
       { status: 500 }

@@ -43,7 +43,7 @@ export async function GET(req: NextRequest) {
     
     return NextResponse.json({ videos });
   } catch (error) {
-    console.error('Error fetching HEYGEN videos:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching HEYGEN videos:', error);
     return NextResponse.json({ error: 'Failed to fetch videos' }, { status: 500 });
   }
 }
@@ -99,7 +99,7 @@ export async function POST(req: NextRequest) {
     
     return NextResponse.json(result);
   } catch (error) {
-    console.error('Error creating HEYGEN video:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating HEYGEN video:', error);
     return NextResponse.json({ error: 'Failed to create video' }, { status: 500 });
   }
 }

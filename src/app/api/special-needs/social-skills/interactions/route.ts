@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
     
     return NextResponse.json({ interactions });
   } catch (error) {
-    console.error('Error fetching peer interactions:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching peer interactions:', error);
     return NextResponse.json({ error: 'Failed to fetch interactions' }, { status: 500 });
   }
 }
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
       interaction 
     });
   } catch (error) {
-    console.error('Error recording peer interaction:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error recording peer interaction:', error);
     return NextResponse.json({ error: 'Failed to record peer interaction' }, { status: 500 });
   }
 }

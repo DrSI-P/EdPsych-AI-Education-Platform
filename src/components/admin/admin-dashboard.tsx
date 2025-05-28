@@ -8,13 +8,13 @@ import { Tabs } from '@/components/ui/tabs';
 import { Spinner } from '@/components/ui/loading';
 import { Alert } from '@/components/ui/alert';
 import { useToast } from '@/components/ui/toast';
-import { AIPrompt } from '@/components/ai/ai-prompt';
+// import { AIPrompt } from '@/components/ai/ai-prompt'; // Unused import
 
 interface AdminDashboardProps {
   className?: string;
 }
 
-export function AdminDashboard({
+export function AdminDashboard(: React.ReactNode {
   className = ''
 }: AdminDashboardProps) {
   const { showToast } = useToast();

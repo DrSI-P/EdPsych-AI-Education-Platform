@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -6,22 +7,10 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
-import { Badge } from "@/components/ui/badge";
+// import { Badge } from "@/components/ui/badge"; // Unused import
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "@/components/ui/use-toast";
-import { 
-  Brain, 
-  Users, 
-  BookOpen, 
-  Sparkles, 
-  ArrowRight, 
-  CheckCircle2, 
-  RefreshCw,
-  Layers,
-  Zap,
-  BarChart4,
-  Lightbulb
-} from "lucide-react";
+import { Users, BookOpen, Sparkles, ArrowRight, CheckCircle2, RefreshCw, Layers, Zap, BarChart4, Lightbulb } from "lucide-react";
 
 interface CurriculumDifferentiationEngineProps {
   curriculumPlanId?: string;
@@ -34,7 +23,7 @@ interface CurriculumDifferentiationEngineProps {
   className?: string;
 }
 
-export default function CurriculumDifferentiationEngine({
+export default function CurriculumDifferentiationEngine(: React.ReactNode {
   curriculumPlanId,
   curriculumContent = '',
   objectives = [],
@@ -73,7 +62,7 @@ export default function CurriculumDifferentiationEngine({
           }
         }
       } catch (error) {
-        console.error('Error fetching learning profiles:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching learning profiles:', error);
       }
     };
 
@@ -144,7 +133,7 @@ export default function CurriculumDifferentiationEngine({
         description: "Curriculum has been successfully differentiated based on learning needs.",
       });
     } catch (error) {
-      console.error('Error generating differentiation:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error generating differentiation:', error);
       toast({
         title: "Generation failed",
         description: "Failed to generate differentiated curriculum. Please try again.",

@@ -141,7 +141,7 @@ async function GET(req: NextRequest) {
       }
     });
   } catch (error) {
-    console.error('Error fetching strategies:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching strategies:', error);
     return NextResponse.json(
       { error: 'Failed to fetch strategies' },
       { status: 500 }
@@ -190,7 +190,7 @@ async function POST(req: NextRequest) {
       data: newStrategy
     });
   } catch (error) {
-    console.error('Error creating strategy:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating strategy:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -228,7 +228,7 @@ async function PATCH(req: NextRequest) {
       }
     });
   } catch (error) {
-    console.error('Error rating strategy:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error rating strategy:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -304,7 +304,7 @@ async function PUT(req: NextRequest) {
       total: filteredStrategies.length
     });
   } catch (error) {
-    console.error('Error searching strategies:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error searching strategies:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(

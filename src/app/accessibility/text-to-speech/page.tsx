@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { BookOpen, FileText, Headphones, BookMarked } from "lucide-react";
 
+// import React from "react"; // Unused import
+
 // Define the type for sample texts
 interface SampleTexts {
   primary: string;
@@ -25,7 +27,7 @@ interface TextToSpeechSettings {
   highlightText: boolean;
 }
 
-export default function TextToSpeechPage() {
+export default function TextToSpeechPage() : React.ReactNode {
   const [sampleText, setSampleText] = useState<string>(
     "Welcome to the EdPsych Connect text-to-speech feature. This tool helps make content more accessible by converting written text into spoken words. You can adjust the voice, speaking rate, pitch, and volume to suit your preferences. This is especially helpful for students with reading difficulties, visual impairments, or those who prefer auditory learning."
   );

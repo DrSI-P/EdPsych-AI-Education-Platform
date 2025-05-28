@@ -3,9 +3,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; // Unused import
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+// import { Badge } from "@/components/ui/badge"; // Unused import
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import { 
@@ -107,7 +107,7 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
         }
       });
     } catch (error) {
-      console.error('Error reducing animations:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error reducing animations:', error);
     }
   }, [settings.reduceAnimations]);
   
@@ -130,7 +130,7 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
         audio.pause();
       });
     } catch (error) {
-      console.error('Error disabling autoplay:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error disabling autoplay:', error);
     }
   }, [settings.disableAutoplay]);
   
@@ -151,7 +151,7 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
         }
       });
     } catch (error) {
-      console.error('Error reducing transitions:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error reducing transitions:', error);
     }
   }, [settings.reduceTransitions]);
   
@@ -170,7 +170,7 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
         }
       });
     } catch (error) {
-      console.error('Error disabling parallax effects:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error disabling parallax effects:', error);
     }
   }, [settings.disableParallaxEffects]);
   
@@ -189,7 +189,7 @@ export const ReducedMotionModeEngine: React.FC<ReducedMotionModeEngineProps> = (
         }
       });
     } catch (error) {
-      console.error('Error disabling scroll effects:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error disabling scroll effects:', error);
     }
   }, [settings.disableScrollEffects]);
   

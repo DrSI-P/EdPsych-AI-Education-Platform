@@ -120,7 +120,7 @@ export class HeygenAPI {
       const response = await this.axiosInstance.get('/v1/avatars');
       return response.data.data;
     } catch (error) {
-      console.error('Error fetching avatars:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching avatars:', error);
       throw this.handleApiError(error);
     }
   }
@@ -134,7 +134,7 @@ export class HeygenAPI {
       const response = await this.axiosInstance.get('/v1/videos');
       return response.data.data.map((video) => this.formatVideoResponse(video));
     } catch (error) {
-      console.error('Error fetching videos:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching videos:', error);
       throw this.handleApiError(error);
     }
   }
@@ -149,7 +149,7 @@ export class HeygenAPI {
       const response = await this.axiosInstance.get(`/v1/videos/${id}`);
       return this.formatVideoResponse(response.data);
     } catch (error) {
-      console.error(`Error fetching video ${id}:`, error);
+      /* eslint-disable-next-line no-console */ console.error(`Error fetching video ${id}:`, error);
       throw this.handleApiError(error);
     }
   }
@@ -168,7 +168,7 @@ export class HeygenAPI {
         estimated_completion_time: response.data.estimated_completion_time
       };
     } catch (error) {
-      console.error('Error generating video:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error generating video:', error);
       throw this.handleApiError(error);
     }
   }
@@ -183,7 +183,7 @@ export class HeygenAPI {
       await this.axiosInstance.delete(`/v1/videos/${id}`);
       return { success: true };
     } catch (error) {
-      console.error(`Error deleting video ${id}:`, error);
+      /* eslint-disable-next-line no-console */ console.error(`Error deleting video ${id}:`, error);
       throw this.handleApiError(error);
     }
   }
@@ -197,7 +197,7 @@ export class HeygenAPI {
       const response = await this.axiosInstance.get('/v1/voices');
       return response.data.data;
     } catch (error) {
-      console.error('Error fetching voices:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching voices:', error);
       throw this.handleApiError(error);
     }
   }

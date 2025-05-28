@@ -228,7 +228,7 @@ export const initializeI18n = async (
   for (const lang of preloadLanguages) {
     if (lang !== currentLanguage && lang !== SupportedLanguage.EN_GB) {
       loadLanguage(lang).catch(err => 
-        console.warn(`Failed to preload language ${lang}:`, err)
+        /* eslint-disable-next-line no-console */ console.warn(`Failed to preload language ${lang}:`, err)
       );
     }
   }
@@ -268,7 +268,7 @@ export const loadLanguage = async (language: SupportedLanguage): Promise<void> =
       }));
     }
   } catch (error) {
-    console.error(`Failed to load translations for ${language}:`, error);
+    /* eslint-disable-next-line no-console */ console.error(`Failed to load translations for ${language}:`, error);
     throw error;
   }
 };
@@ -343,7 +343,7 @@ export const translate = (
   options: TranslationOptions = {}
 ): string => {
   if (!isInitialized) {
-    console.warn('i18n not initialized, using key as fallback');
+    /* eslint-disable-next-line no-console */ console.warn('i18n not initialized, using key as fallback');
     return key;
   }
   
@@ -445,7 +445,7 @@ export const useTranslation = (): {
     };
     
     if (!isInitialized) {
-      initializeI18n().catch(console.error);
+      initializeI18n().catch(/* eslint-disable-next-line no-console */ console.error);
     }
     
     window.addEventListener('languageChanged', handleLanguageChange);

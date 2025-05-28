@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+// import React from 'react'; // Unused import
 import { AdaptiveComplexityDashboard } from '@/components/adaptive-complexity/adaptive-complexity-dashboard';
 import { motion } from 'framer-motion';
 
@@ -10,7 +10,7 @@ import { motion } from 'framer-motion';
  * This page provides access to the adaptive complexity features of the platform,
  * allowing students and educators to view and manage learning complexity settings.
  */
-export default function AdaptiveLearningPage() {
+export default function AdaptiveLearningPage() : React.ReactNode {
   // In a real implementation, this would come from authentication
   const userId = 'current-user-id';
 

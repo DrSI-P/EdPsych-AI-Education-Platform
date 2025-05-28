@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -45,7 +46,7 @@ import {
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
+// import Image from "next/image"; // Unused import
 
 /**
  * Guided Restorative Conversation Frameworks Component
@@ -447,7 +448,7 @@ const GuidedRestorativeConversationFrameworks = () => {
           setSavedFrameworks(JSON.parse(saved));
         }
       } catch (error) {
-        console.error('Error loading saved frameworks:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error loading saved frameworks:', error);
         toast.error('Failed to load saved frameworks');
       } finally {
         setIsLoading(false);

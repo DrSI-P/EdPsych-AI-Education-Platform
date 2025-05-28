@@ -1,18 +1,18 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Slider } from "@/components/ui/slider";
+// import { Input } from "@/components/ui/input"; // Unused import
+// import { Badge } from "@/components/ui/badge"; // Unused import
+// import { Slider } from "@/components/ui/slider"; // Unused import
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
-import { format, subDays, subMonths } from "date-fns";
+import { format, subMonths } from "date-fns";
 import { 
   BarChart, Bar, LineChart, Line, AreaChart, Area, PieChart, Pie, ScatterChart, Scatter,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell, RadarChart, 
@@ -25,7 +25,7 @@ import {
   Award, TrendingUp, AlertTriangle, CheckCircle, Info, FileText, Sliders, 
   BarChart as BarChartIcon, Layers, Save, Plus, Edit, Trash2
 } from 'lucide-react';
-import { cn } from "@/lib/utils";
+// import { cn } from "@/lib/utils"; // Unused import
 
 // Sample data for student progress tracking
 const studentProgressData = [
@@ -128,7 +128,7 @@ const scheduledReports = [
   },
 ];
 
-export default function AnalyticsAndReporting() {
+export default function AnalyticsAndReporting() : React.ReactNode {
   // State for dashboard configuration
   const [activeTab, setActiveTab] = useState('student-progress');
   const [selectedTimePeriod, setSelectedTimePeriod] = useState('academic-year');

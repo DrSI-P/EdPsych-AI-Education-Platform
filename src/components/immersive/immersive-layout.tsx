@@ -25,7 +25,7 @@ interface ImmersiveLayoutProps {
  * A layout component for immersive learning experiences that provides
  * consistent structure, navigation, and accessibility features.
  */
-export function ImmersiveLayout({
+export function ImmersiveLayout(: React.ReactNode {
   title,
   description,
   isVR = false,
@@ -60,7 +60,7 @@ export function ImmersiveLayout({
   const handleToggleFullscreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen().catch(err => {
-        console.error(`Error attempting to enable fullscreen: ${err.message}`);
+        /* eslint-disable-next-line no-console */ console.error(`Error attempting to enable fullscreen: ${err.message}`);
       });
       setIsFullscreen(true);
     } else {

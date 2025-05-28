@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
     
     return NextResponse.json({ activities });
   } catch (error) {
-    console.error('Error fetching social skills activities:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching social skills activities:', error);
     return NextResponse.json({ error: 'Failed to fetch activities' }, { status: 500 });
   }
 }
@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
       activity 
     });
   } catch (error) {
-    console.error('Error creating social skills activity:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating social skills activity:', error);
     return NextResponse.json({ error: 'Failed to create activity' }, { status: 500 });
   }
 }

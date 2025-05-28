@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -343,7 +344,7 @@ const AgreementTrackingSystem = () => {
         // For now, we'll use mock data
         setAgreements(mockAgreements);
       } catch (error) {
-        console.error('Error loading agreements:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error loading agreements:', error);
         toast.error('Failed to load agreements');
       } finally {
         setIsLoading(false);

@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
+// import React from 'react'; // Unused import
 
-export default function SharedGoalTracking() {
+export default function SharedGoalTracking() : React.ReactNode {
   return (
     <div>
       <h1>Shared Goal Tracking</h1>

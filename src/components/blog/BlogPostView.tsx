@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react'; // Unused import
 
 interface BlogPostViewProps {
   post: {
@@ -20,7 +20,7 @@ interface BlogPostViewProps {
   isLikeLoading?: boolean;
 }
 
-export function BlogPostView({ post, relatedPosts = [], onLike, isLikeLoading = false }: BlogPostViewProps) {
+export function BlogPostView(: React.ReactNode { post, relatedPosts = [], onLike, isLikeLoading = false }: BlogPostViewProps) {
   return (
     <div className="max-w-4xl mx-auto">
       {post.featuredImage && (

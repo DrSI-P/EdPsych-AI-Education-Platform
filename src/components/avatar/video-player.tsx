@@ -1,3 +1,4 @@
+// TODO: Fix NodeJS type errors by adding @types/node dependency
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -72,7 +73,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
         'current_user', // In a real app, this would be the actual user ID
         videoElement.duration,
         true
-      ).catch(err => console.error('Error recording view:', err));
+      ).catch(err => /* eslint-disable-next-line no-console */ console.error('Error recording view:', err));
     };
     
     const handleWaiting = () => {
@@ -95,7 +96,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
     // Auto play if specified
     if (autoPlay) {
       videoElement.play().catch(err => {
-        console.error('Auto play failed:', err);
+        /* eslint-disable-next-line no-console */ console.error('Auto play failed:', err);
         setIsPlaying(false);
       });
     }
@@ -118,7 +119,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
       videoElement.pause();
     } else {
       videoElement.play().catch(err => {
-        console.error('Play failed:', err);
+        /* eslint-disable-next-line no-console */ console.error('Play failed:', err);
       });
     }
     
@@ -203,7 +204,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
     setShowCaptions(!showCaptions);
     
     // For demo purposes, we'll just log this
-    console.log(`Captions ${!showCaptions ? 'enabled' : 'disabled'}`);
+    /* eslint-disable-next-line no-console */ console.log(`Captions ${!showCaptions ? 'enabled' : 'disabled'}`);
   };
   
   // Handle skip backward

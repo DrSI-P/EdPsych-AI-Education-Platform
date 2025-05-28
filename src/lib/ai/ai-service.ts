@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from "react";
 
 // Define interfaces for AI service responses
 interface TextGenerationResponse {
@@ -55,13 +55,13 @@ interface AIServiceOptions {
 }
 
 // Server-side AI service function for API routes
-export function getAIService() {
+export function getAIService() : React.ReactNode {
   return {
     // Generate text using AI
     generateText: async (prompt: string, options: AIServiceOptions = {}): Promise<TextGenerationResponse> => {
       try {
         // In a real implementation, this would call an actual AI service
-        console.log('Server: Generating text for prompt:', prompt, 'with options:', options);
+        /* eslint-disable-next-line no-console */ console.log('Server: Generating text for prompt:', prompt, 'with options:', options);
         
         // Simulate API call delay
         await new Promise(resolve => setTimeout(resolve, 1000));
@@ -75,7 +75,7 @@ export function getAIService() {
           }
         };
       } catch (error) {
-        console.error('Error generating text:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error generating text:', error);
         throw error;
       }
     },
@@ -113,7 +113,7 @@ export function getAIService() {
           }
         };
       } catch (error) {
-        console.error('Error analysing sentiment:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error analysing sentiment:', error);
         throw error;
       }
     },
@@ -134,7 +134,7 @@ export function getAIService() {
           }
         };
       } catch (error) {
-        console.error('Error generating educational content:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error generating educational content:', error);
         throw error;
       }
     },
@@ -180,7 +180,7 @@ export function getAIService() {
           maxScore
         };
       } catch (error) {
-        console.error('Error evaluating open-ended answer:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error evaluating open-ended answer:', error);
         throw error;
       }
     }
@@ -188,7 +188,7 @@ export function getAIService() {
 }
 
 // Custom hook for using AI service in components
-export function useAIService() {
+export function useAIService() : React.ReactNode {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   
@@ -269,7 +269,7 @@ export const aiService = {
     try {
       // In a real implementation, this would call an actual AI service
       // For now, we'll return a mock response
-      console.log('Generating text for prompt:', prompt, 'with options:', options);
+      /* eslint-disable-next-line no-console */ console.log('Generating text for prompt:', prompt, 'with options:', options);
       
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -283,7 +283,7 @@ export const aiService = {
         }
       };
     } catch (error) {
-      console.error('Error generating text:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error generating text:', error);
       throw error;
     }
   },
@@ -321,7 +321,7 @@ export const aiService = {
         }
       };
     } catch (error) {
-      console.error('Error analysing sentiment:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error analysing sentiment:', error);
       throw error;
     }
   },
@@ -342,7 +342,7 @@ export const aiService = {
         }
       };
     } catch (error) {
-      console.error('Error generating educational content:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error generating educational content:', error);
       throw error;
     }
   },
@@ -388,7 +388,7 @@ export const aiService = {
         maxScore
       };
     } catch (error) {
-      console.error('Error evaluating open-ended answer:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error evaluating open-ended answer:', error);
       throw error;
     }
   }

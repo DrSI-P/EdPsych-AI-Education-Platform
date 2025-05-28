@@ -1,11 +1,12 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
-import React from 'react';
+// import React from 'react'; // Unused import
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { TeamMember } from '@/components/about/TeamMember';
 
-export default function TeamPage() {
+export default function TeamPage() : React.ReactNode {
   const teamMembers = [
     {
       name: "Dr. Scott Ighavongbe-Patrick",

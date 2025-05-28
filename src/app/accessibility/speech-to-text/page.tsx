@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Keyboard, Mic, BookOpen, FileText, BookMarked } from "lucide-react";
 
+// import React from "react"; // Unused import
+
 interface SpeechToTextSettings {
   enabled: boolean;
   language: string;
@@ -17,7 +19,7 @@ interface SpeechToTextSettings {
   autoStart: boolean;
 }
 
-export default function SpeechToTextPage() {
+export default function SpeechToTextPage() : React.ReactNode {
   const [sampleText, setSampleText] = useState('');
   const [settings, setSettings] = useState<SpeechToTextSettings>({
     enabled: false,

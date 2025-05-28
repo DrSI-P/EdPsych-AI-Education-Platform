@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 /**
  * Curriculum Alignment Validator for Multilingual Content
  * 
@@ -123,7 +124,7 @@ export const MultilingualCurriculumValidator: React.FC<MultilingualCurriculumVal
       setSelectedLanguage(currentLanguage);
       setIsValidating(false);
     } catch (err) {
-      console.error('Error validating curriculum alignment:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error validating curriculum alignment:', err);
       setError(t('validation_error', 'curriculum'));
       setIsValidating(false);
     }

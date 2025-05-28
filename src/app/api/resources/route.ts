@@ -91,7 +91,7 @@ export async function GET(req: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error fetching resources:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching resources:', error);
     return NextResponse.json(
       { error: 'Failed to fetch resources' },
       { status: 500 }
@@ -167,7 +167,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ resource }, { status: 201 });
   } catch (error) {
-    console.error('Error creating resource:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating resource:', error);
     return NextResponse.json(
       { error: 'Failed to create resource' },
       { status: 500 }

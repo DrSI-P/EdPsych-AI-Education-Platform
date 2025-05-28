@@ -53,7 +53,7 @@ export async function GET(req: NextRequest) {
     
     return NextResponse.json({ categories });
   } catch (error) {
-    console.error('Error fetching FAQ categories:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching FAQ categories:', error);
     return NextResponse.json({ error: 'Failed to fetch FAQ categories' }, { status: 500 });
   }
 }
@@ -91,7 +91,7 @@ export async function POST(req: NextRequest) {
     
     return NextResponse.json({ message: 'Category created successfully', category }, { status: 201 });
   } catch (error) {
-    console.error('Error creating FAQ category:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating FAQ category:', error);
     return NextResponse.json({ error: 'Failed to create FAQ category' }, { status: 500 });
   }
 }
@@ -148,7 +148,7 @@ export async function PUT(req: NextRequest) {
     
     return NextResponse.json({ message: 'Category updated successfully', category: updatedCategory });
   } catch (error) {
-    console.error('Error updating FAQ category:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error updating FAQ category:', error);
     return NextResponse.json({ error: 'Failed to update FAQ category' }, { status: 500 });
   }
 }
@@ -198,7 +198,7 @@ export async function DELETE(req: NextRequest) {
     
     return NextResponse.json({ message: 'Category deleted successfully' });
   } catch (error) {
-    console.error('Error deleting FAQ category:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error deleting FAQ category:', error);
     return NextResponse.json({ error: 'Failed to delete FAQ category' }, { status: 500 });
   }
 }

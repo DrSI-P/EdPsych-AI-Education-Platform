@@ -63,7 +63,7 @@ export async function GET(req: NextRequest) {
       }
     });
   } catch (error) {
-    console.error('Personalized interventions API error:', error);
+    /* eslint-disable-next-line no-console */ console.error('Personalized interventions API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve personalized intervention settings' },
       { status: 500 }
@@ -144,7 +144,7 @@ export async function POST(req: NextRequest) {
       }
     });
   } catch (error) {
-    console.error('Personalized interventions API error:', error);
+    /* eslint-disable-next-line no-console */ console.error('Personalized interventions API error:', error);
     return NextResponse.json(
       { error: 'Failed to save personalized intervention settings' },
       { status: 500 }

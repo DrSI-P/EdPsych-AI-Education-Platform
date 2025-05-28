@@ -72,7 +72,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
-    console.error('Error processing resource recommendations:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error processing resource recommendations:', error);
     return NextResponse.json({ error: 'Failed to process resource recommendations' }, { status: 500 });
   }
 }
@@ -299,7 +299,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     
     return NextResponse.json(recommendations);
   } catch (error) {
-    console.error('Error fetching resource recommendations:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching resource recommendations:', error);
     return NextResponse.json({ error: 'Failed to fetch resource recommendations' }, { status: 500 });
   }
 }

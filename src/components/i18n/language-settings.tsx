@@ -74,7 +74,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
         
         setIsLoading(false);
       } catch (err) {
-        console.error('Error loading language preferences:', err);
+        /* eslint-disable-next-line no-console */ console.error('Error loading language preferences:', err);
         setError(t('error_loading_preferences', 'settings'));
         setIsLoading(false);
       }
@@ -98,7 +98,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
       // Apply language change immediately
       await changeLanguage(language);
     } catch (err) {
-      console.error('Error changing primary language:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error changing primary language:', err);
       setError(t('error_changing_language', 'settings'));
     }
   };
@@ -140,7 +140,7 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({
       
       setIsSaving(false);
     } catch (err) {
-      console.error('Error saving language preferences:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error saving language preferences:', err);
       setError(t('error_saving_preferences', 'settings'));
       setIsSaving(false);
     }

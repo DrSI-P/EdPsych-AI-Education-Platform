@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { VoiceInputProvider } from '@/providers/voice-input-provider';
 import GlobalVoiceInput from '@/components/voice-input/global-voice-input';
 import AccessibilityControls from '@/components/ui/AccessibilityControls';
-import { MultilingualSupport } from '@/components/ui/MultilingualSupport';
+// import { MultilingualSupport } from '@/components/ui/MultilingualSupport'; // Unused import
 
 /**
  * Integrated Accessibility Wrapper Component

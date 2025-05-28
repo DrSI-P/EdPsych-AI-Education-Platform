@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -9,22 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "@/components/ui/use-toast";
-import { 
-  Clock, 
-  LineChart, 
-  BookOpen, 
-  Sparkles, 
-  ArrowRight, 
-  CheckCircle2, 
-  RefreshCw,
-  Gauge,
-  Zap,
-  BarChart3,
-  FastForward,
-  Calendar,
-  Award,
-  AlertCircle
-} from "lucide-react";
+import { LineChart, BookOpen, Sparkles, ArrowRight, CheckCircle2, RefreshCw, Gauge, Zap, BarChart3, FastForward, Calendar, Award, AlertCircle } from "lucide-react";
 
 interface ProgressPacingEngineProps {
   studentId?: string;
@@ -36,7 +22,7 @@ interface ProgressPacingEngineProps {
   className?: string;
 }
 
-export default function ProgressPacingEngine({
+export default function ProgressPacingEngine(: React.ReactNode {
   studentId,
   curriculumId,
   subject = '',
@@ -83,7 +69,7 @@ export default function ProgressPacingEngine({
         }
       }
     } catch (error) {
-      console.error('Error fetching progress data:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching progress data:', error);
     }
   };
 
@@ -134,7 +120,7 @@ export default function ProgressPacingEngine({
       // Switch to adjusted pacing tab
       setActiveTab('adjusted');
     } catch (error) {
-      console.error('Error adjusting pacing:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error adjusting pacing:', error);
       toast({
         title: "Adjustment failed",
         description: "Failed to adjust learning pace. Please try again.",

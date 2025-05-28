@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,18 +9,18 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
+import { XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from "recharts";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
-import { CalendarIcon, Users, UserPlus, Settings, BookOpen, MessageSquare, Award, Target, Activity } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { CalendarIcon, Users, UserPlus, Settings, BookOpen, MessageSquare, Target, Activity } from "lucide-react";
+// import { cn } from "@/lib/utils"; // Unused import
 import { Badge } from "@/components/ui/badge";
 import { toast } from "@/components/ui/use-toast";
 import { useSession } from "next-auth/react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -127,7 +127,7 @@ const SocialSkillsDevelopmentEngine = () => {
         }
       }
     } catch (error) {
-      console.error('Error fetching settings:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching settings:', error);
     }
   };
   
@@ -140,7 +140,7 @@ const SocialSkillsDevelopmentEngine = () => {
         setSocialSkills(data);
       }
     } catch (error) {
-      console.error('Error fetching social skills:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching social skills:', error);
     } finally {
       setIsLoading(false);
     }
@@ -155,7 +155,7 @@ const SocialSkillsDevelopmentEngine = () => {
         setSocialScenarios(data);
       }
     } catch (error) {
-      console.error('Error fetching social scenarios:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching social scenarios:', error);
     }
   };
   
@@ -168,7 +168,7 @@ const SocialSkillsDevelopmentEngine = () => {
         setSocialGoals(data);
       }
     } catch (error) {
-      console.error('Error fetching social goals:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching social goals:', error);
     }
   };
   
@@ -181,7 +181,7 @@ const SocialSkillsDevelopmentEngine = () => {
         setSocialActivities(data);
       }
     } catch (error) {
-      console.error('Error fetching social activities:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching social activities:', error);
     }
   };
   
@@ -194,7 +194,7 @@ const SocialSkillsDevelopmentEngine = () => {
         setStudents(data);
       }
     } catch (error) {
-      console.error('Error fetching students:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching students:', error);
     }
   };
   
@@ -207,7 +207,7 @@ const SocialSkillsDevelopmentEngine = () => {
         setAssessmentResults(data);
       }
     } catch (error) {
-      console.error('Error fetching assessment results:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching assessment results:', error);
     }
   };
   
@@ -247,7 +247,7 @@ const SocialSkillsDevelopmentEngine = () => {
         });
       }
     } catch (error) {
-      console.error('Error creating social skill:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error creating social skill:', error);
       toast({
         title: "Error",
         description: "An unexpected error occurred. Please try again.",
@@ -291,7 +291,7 @@ const SocialSkillsDevelopmentEngine = () => {
         });
       }
     } catch (error) {
-      console.error('Error creating social scenario:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error creating social scenario:', error);
       toast({
         title: "Error",
         description: "An unexpected error occurred. Please try again.",
@@ -335,7 +335,7 @@ const SocialSkillsDevelopmentEngine = () => {
         });
       }
     } catch (error) {
-      console.error('Error creating social goal:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error creating social goal:', error);
       toast({
         title: "Error",
         description: "An unexpected error occurred. Please try again.",
@@ -379,7 +379,7 @@ const SocialSkillsDevelopmentEngine = () => {
         });
       }
     } catch (error) {
-      console.error('Error creating social activity:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error creating social activity:', error);
       toast({
         title: "Error",
         description: "An unexpected error occurred. Please try again.",
@@ -426,7 +426,7 @@ const SocialSkillsDevelopmentEngine = () => {
         });
       }
     } catch (error) {
-      console.error('Error recording assessment:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error recording assessment:', error);
       toast({
         title: "Error",
         description: "An unexpected error occurred. Please try again.",
@@ -459,7 +459,7 @@ const SocialSkillsDevelopmentEngine = () => {
         });
       }
     } catch (error) {
-      console.error('Error updating settings:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error updating settings:', error);
       toast({
         title: "Error",
         description: "An unexpected error occurred. Please try again.",

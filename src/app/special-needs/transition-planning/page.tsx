@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react'; // Unused import
 import { Metadata } from 'next';
 import TransitionPlanningEngine from '@/components/special-needs/transition-planning/transition-planning-engine';
 
@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Create and manage transition plans for educational changes, supporting students through key transitions in their educational journey.',
 };
 
-export default function TransitionPlanningPage() {
+export default function TransitionPlanningPage() : React.ReactNode {
   return (
     <div className="container mx-auto py-8 px-4">
       <div className="max-w-5xl mx-auto space-y-8">

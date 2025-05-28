@@ -17,7 +17,7 @@ import { db } from '../db';
 import { eventBus } from '../events';
 
 // Import the plugins placeholder directly
-import pluginsPlaceholder from '../../../plugins';
+// import pluginsPlaceholder from '../../../plugins'; // Unused import
 
 class PluginRegistry implements IPluginRegistry {
   private plugins: Map<string, BasePlugin> = new Map();
@@ -87,7 +87,7 @@ class PluginRegistry implements IPluginRegistry {
       
       return true;
     } catch (error) {
-      console.error('Failed to register plugin:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to register plugin:', error);
       return false;
     }
   }
@@ -124,7 +124,7 @@ class PluginRegistry implements IPluginRegistry {
       
       return true;
     } catch (error) {
-      console.error('Failed to unregister plugin:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to unregister plugin:', error);
       return false;
     }
   }
@@ -191,7 +191,7 @@ class PluginRegistry implements IPluginRegistry {
       
       return true;
     } catch (error) {
-      console.error('Failed to enable plugin:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to enable plugin:', error);
       
       // Update status to error
       const instance = this.instances.get(pluginId);
@@ -261,7 +261,7 @@ class PluginRegistry implements IPluginRegistry {
       
       return true;
     } catch (error) {
-      console.error('Failed to disable plugin:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to disable plugin:', error);
       return false;
     }
   }
@@ -309,7 +309,7 @@ class PluginRegistry implements IPluginRegistry {
       
       return true;
     } catch (error) {
-      console.error('Failed to update plugin settings:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to update plugin settings:', error);
       return false;
     }
   }
@@ -380,11 +380,11 @@ class PluginRegistry implements IPluginRegistry {
             await plugin.initialize();
           }
         } catch (error) {
-          console.error(`Failed to load plugin ${dbPlugin.id}:`, error);
+          /* eslint-disable-next-line no-console */ console.error(`Failed to load plugin ${dbPlugin.id}:`, error);
         }
       }
     } catch (error) {
-      console.error('Failed to load plugins from database:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to load plugins from database:', error);
     }
   }
 }

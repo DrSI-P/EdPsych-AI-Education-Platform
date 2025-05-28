@@ -65,7 +65,7 @@ export async function GET(req: NextRequest) {
     // Return activities
     return NextResponse.json(activities);
   } catch (error) {
-    console.error('Error fetching sensory activities:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching sensory activities:', error);
     return NextResponse.json(
       { error: 'Failed to fetch sensory activities' },
       { status: 500 }
@@ -119,7 +119,7 @@ export async function POST(req: NextRequest) {
     // Return created activity
     return NextResponse.json(activity);
   } catch (error) {
-    console.error('Error creating sensory activity:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating sensory activity:', error);
     
     // Handle validation errors
     if (error instanceof z.ZodError) {

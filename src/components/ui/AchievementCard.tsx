@@ -1,13 +1,14 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React from 'react';
 import { useTheme } from '@/components/theme-provider';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+// import { Button } from '@/components/ui/button'; // Unused import
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Trophy, Star, Award, Zap, BookOpen, Clock } from 'lucide-react';
+import { Trophy, Star, Award, Clock } from "lucide-react";
 
 interface AchievementCardProps {
   title: string;

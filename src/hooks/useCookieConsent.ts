@@ -9,7 +9,7 @@ export interface CookiePreferences {
 
 const COOKIE_CONSENT_KEY = 'edpsych-cookie-consent';
 
-export function useCookieConsent() {
+export function useCookieConsent() : React.ReactNode {
   const [preferences, setPreferences] = useState<CookiePreferences>({
     essential: true,
     functional: false,
@@ -33,7 +33,7 @@ export function useCookieConsent() {
         setPreferences(parsedConsent);
         setShowBanner(false);
       } catch (e) {
-        console.error('Error parsing stored cookie consent', e);
+        /* eslint-disable-next-line no-console */ console.error('Error parsing stored cookie consent', e);
         setShowBanner(true);
       }
     } else {
@@ -52,7 +52,7 @@ export function useCookieConsent() {
         // For now, we'll default to false
         setIsChild(false);
       } catch (e) {
-        console.error('Error checking user age', e);
+        /* eslint-disable-next-line no-console */ console.error('Error checking user age', e);
         setIsChild(false);
       }
     };
@@ -126,18 +126,18 @@ export function useCookieConsent() {
   // Helper functions to enable/disable specific cookie types
   const enableFunctionalCookies = () => {
     // Implementation would depend on what functional cookies you use
-    console.log('Functional cookies enabled');
+    /* eslint-disable-next-line no-console */ console.log('Functional cookies enabled');
   };
   
   const disableFunctionalCookies = () => {
     // Implementation would depend on what functional cookies you use
-    console.log('Functional cookies disabled');
+    /* eslint-disable-next-line no-console */ console.log('Functional cookies disabled');
   };
   
   const enableAnalyticsCookies = () => {
     // Example: Initialize Google Analytics
     if (typeof window !== 'undefined' && window.gtag) {
-      console.log('Analytics cookies enabled');
+      /* eslint-disable-next-line no-console */ console.log('Analytics cookies enabled');
     }
   };
   
@@ -148,18 +148,18 @@ export function useCookieConsent() {
       document.cookie = '_ga=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       document.cookie = '_gid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       document.cookie = '_gat=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-      console.log('Analytics cookies disabled');
+      /* eslint-disable-next-line no-console */ console.log('Analytics cookies disabled');
     }
   };
   
   const enableEducationalCookies = () => {
     // Implementation for educational tracking cookies
-    console.log('Educational cookies enabled');
+    /* eslint-disable-next-line no-console */ console.log('Educational cookies enabled');
   };
   
   const disableEducationalCookies = () => {
     // Implementation for educational tracking cookies
-    console.log('Educational cookies disabled');
+    /* eslint-disable-next-line no-console */ console.log('Educational cookies disabled');
   };
   
   return {

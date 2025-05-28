@@ -31,7 +31,7 @@ interface Video {
   createdAt: string;
 }
 
-export default function HeygenVideoCreator() {
+export default function HeygenVideoCreator() : React.ReactNode {
   const [avatars, setAvatars] = useState<Avatar[]>([]);
   const [voices, setVoices] = useState<Voice[]>([]);
   const [videos, setVideos] = useState<Video[]>([]);
@@ -75,7 +75,7 @@ export default function HeygenVideoCreator() {
           setVideos(data.videos || []);
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching data:', error);
         toast({
           title: 'Error',
           description: 'Failed to load resources. Please try again later.',
@@ -143,7 +143,7 @@ export default function HeygenVideoCreator() {
         throw new Error(error.error || 'Failed to create video');
       }
     } catch (error) {
-      console.error('Error creating video:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error creating video:', error);
       toast({
         title: 'Error',
         description: error instanceof Error ? error.message : 'Failed to create video',
@@ -172,7 +172,7 @@ export default function HeygenVideoCreator() {
         throw new Error(error.error || 'Failed to delete video');
       }
     } catch (error) {
-      console.error('Error deleting video:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error deleting video:', error);
       toast({
         title: 'Error',
         description: error instanceof Error ? error.message : 'Failed to delete video',
@@ -194,7 +194,7 @@ export default function HeygenVideoCreator() {
         throw new Error(error.error || 'Failed to fetch videos');
       }
     } catch (error) {
-      console.error('Error refreshing videos:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error refreshing videos:', error);
       toast({
         title: 'Error',
         description: error instanceof Error ? error.message : 'Failed to refresh videos',

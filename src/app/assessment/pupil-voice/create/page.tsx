@@ -1,13 +1,14 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
-import { Tabs } from '@/components/ui/tabs';
-import { Form } from '@/components/ui/form';
+// import { Tabs } from '@/components/ui/tabs'; // Unused import
+// import { Form } from '@/components/ui/form'; // Unused import
 
 interface QuestionType {
   id?: string;
@@ -18,7 +19,7 @@ interface QuestionType {
   order: number;
 }
 
-export default function CreatePupilVoiceSurveyPage() {
+export default function CreatePupilVoiceSurveyPage() : React.ReactNode {
   const router = useRouter();
   const searchParams = useSearchParams();
   const templateId = searchParams.get('template');
@@ -52,7 +53,7 @@ export default function CreatePupilVoiceSurveyPage() {
           setQuestions(data.questions || []);
           
         } catch (err) {
-          console.error('Error loading template:', err);
+          /* eslint-disable-next-line no-console */ console.error('Error loading template:', err);
           setError('An error occurred while loading the template');
         } finally {
           setLoading(false);
@@ -252,7 +253,7 @@ export default function CreatePupilVoiceSurveyPage() {
         router.push('/assessment/pupil-voice');
       }
     } catch (err) {
-      console.error('Error saving survey:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error saving survey:', err);
       setError(err.message || 'An error occurred while saving the survey');
     } finally {
       setSaving(false);

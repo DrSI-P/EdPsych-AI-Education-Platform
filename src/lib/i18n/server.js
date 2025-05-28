@@ -18,6 +18,6 @@ export async function getI18nProps(ctx, namespaces = ['common']) {
   };
 }
 
-export function useI18n(namespace = 'common') {
+export function useI18n(namespace = 'common') : React.ReactNode {
   return useTranslation(namespace);
 }

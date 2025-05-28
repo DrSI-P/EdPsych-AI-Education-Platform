@@ -51,7 +51,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
     targetAudience: AgeAppropriatenessRating;
     language: SupportedLanguage;
   }): Promise<ContentModerationResult> {
-    console.log(`Moderating text for ${context.contentType}, target audience: ${context.targetAudience}`);
+    /* eslint-disable-next-line no-console */ console.log(`Moderating text for ${context.contentType}, target audience: ${context.targetAudience}`);
     
     // Generate a unique ID for the moderation result
     const id = `moderation-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
@@ -132,7 +132,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
     authorId: string;
     targetAudience: AgeAppropriatenessRating;
   }): Promise<ContentModerationResult> {
-    console.log(`Moderating image: ${imageUrl}`);
+    /* eslint-disable-next-line no-console */ console.log(`Moderating image: ${imageUrl}`);
     
     // Generate a unique ID for the moderation result
     const id = `moderation-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
@@ -176,7 +176,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
     targetAudience: AgeAppropriatenessRating;
     language: SupportedLanguage;
   }): Promise<ContentModerationResult> {
-    console.log(`Moderating document: ${documentUrl}`);
+    /* eslint-disable-next-line no-console */ console.log(`Moderating document: ${documentUrl}`);
     
     // Generate a unique ID for the moderation result
     const id = `moderation-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
@@ -222,7 +222,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
       reason: ContentModerationReason;
     }>;
   }> {
-    console.log(`Filtering content with level: ${filteringSettings.filteringLevel}`);
+    /* eslint-disable-next-line no-console */ console.log(`Filtering content with level: ${filteringSettings.filteringLevel}`);
     
     let filteredContent = content;
     const filteringActions: Array<{
@@ -280,7 +280,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
    * @returns The user's content filtering settings
    */
   async getUserContentFilteringSettings(userId: string): Promise<ContentFilteringSettings> {
-    console.log(`Getting content filtering settings for user: ${userId}`);
+    /* eslint-disable-next-line no-console */ console.log(`Getting content filtering settings for user: ${userId}`);
     
     // Get the user's settings or create default settings
     if (!this.userFilteringSettings.has(userId)) {
@@ -310,7 +310,7 @@ export class ContentModerationServiceImpl implements ContentModerationService {
    * @returns Whether the update was successful
    */
   async updateUserContentFilteringSettings(userId: string, settings: Partial<ContentFilteringSettings>): Promise<boolean> {
-    console.log(`Updating content filtering settings for user: ${userId}`);
+    /* eslint-disable-next-line no-console */ console.log(`Updating content filtering settings for user: ${userId}`);
     
     // Get the user's current settings
     const currentSettings = await this.getUserContentFilteringSettings(userId);
@@ -340,13 +340,13 @@ export class ContentModerationServiceImpl implements ContentModerationService {
     reviewedBy: string;
     notes: string;
   }): Promise<boolean> {
-    console.log(`Reviewing moderation decision: ${moderationResultId}`);
+    /* eslint-disable-next-line no-console */ console.log(`Reviewing moderation decision: ${moderationResultId}`);
     
     // Get the moderation result
     const result = this.moderationResults.get(moderationResultId);
     
     if (!result) {
-      console.error(`Moderation result not found: ${moderationResultId}`);
+      /* eslint-disable-next-line no-console */ console.error(`Moderation result not found: ${moderationResultId}`);
       return false;
     }
     

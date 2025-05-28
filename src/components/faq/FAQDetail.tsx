@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'; // Unused import
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -19,7 +19,7 @@ interface FAQDetailProps {
   className?: string;
 }
 
-export function FAQDetail({
+export function FAQDetail(: React.ReactNode {
   questionId,
   onBack,
   showBackButton = true,
@@ -59,7 +59,7 @@ export function FAQDetail({
           }
         }
       } catch (error) {
-        console.error('Error fetching FAQ question:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching FAQ question:', error);
         setError('Failed to load question. Please try again later.');
       } finally {
         setIsLoading(false);
@@ -98,7 +98,7 @@ export function FAQDetail({
         notHelpfulVotes: !isHelpful ? prev.notHelpfulVotes + 1 : prev.notHelpfulVotes,
       }));
     } catch (error) {
-      console.error('Error submitting vote:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error submitting vote:', error);
       toast({
         title: 'Error',
         description: 'Failed to submit your feedback. Please try again.',
@@ -118,7 +118,7 @@ export function FAQDetail({
           url,
         });
       } catch (error) {
-        console.error('Error sharing:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error sharing:', error);
         copyToClipboard(url);
       }
     } else {
@@ -135,7 +135,7 @@ export function FAQDetail({
         });
       },
       (err) => {
-        console.error('Could not copy text: ', err);
+        /* eslint-disable-next-line no-console */ console.error('Could not copy text: ', err);
       }
     );
   };

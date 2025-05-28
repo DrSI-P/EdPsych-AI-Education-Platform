@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
-import { Input, Textarea } from '@/components/ui/form';
+import { Textarea } from "@/components/ui/form";
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/loading';
 import { Alert } from '@/components/ui/alert';
@@ -52,7 +52,7 @@ interface AIPromptProps {
   className?: string;
 }
 
-export function AIPrompt({
+export function AIPrompt(: React.ReactNode {
   onCompletion,
   initialPrompt = '',
   placeholder = 'Enter your question or prompt here...',

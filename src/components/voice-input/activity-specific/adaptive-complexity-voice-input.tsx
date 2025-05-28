@@ -5,12 +5,12 @@ import { useVoiceInput } from '@/providers/voice-input-provider';
 import UniversalVoiceInput from '@/components/voice-input/universal-voice-input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Button } from '@/components/ui/button';
+// import { Button } from '@/components/ui/button'; // Unused import
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Mic, Settings, Sliders, Wand2 } from 'lucide-react';
+import { Mic, Settings } from "lucide-react";
 import { motion } from 'framer-motion';
 import { useToast } from '@/components/ui/use-toast';
 import { AgeGroup } from '@/providers/voice-input-provider';

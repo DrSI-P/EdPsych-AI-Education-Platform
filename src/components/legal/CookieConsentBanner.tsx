@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
+// import { Label } from '@/components/ui/label'; // Unused import
 import { X } from 'lucide-react';
 
 interface CookieConsentBannerProps {

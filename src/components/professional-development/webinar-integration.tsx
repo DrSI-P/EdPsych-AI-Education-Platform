@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -227,7 +228,7 @@ const SAMPLE_MY_WEBINARS = [
   }
 ];
 
-export default function WebinarIntegration() {
+export default function WebinarIntegration() : React.ReactNode {
   const [activeTab, setActiveTab] = useState('upcoming');
   const [searchQuery, setSearchQuery] = useState('');
   const [topicFilter, setTopicFilter] = useState('');

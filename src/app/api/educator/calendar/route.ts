@@ -139,8 +139,8 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     
     return NextResponse.json(filteredActivities);
   } catch (error) {
-    // Replace console.error with structured logging when available
-    console.error('Error fetching calendar activities:', error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error('Error fetching calendar activities:', error);
     return NextResponse.json({ error: 'Failed to fetch calendar activities' }, { status: 500 });
   }
 }
@@ -166,8 +166,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
-    // Replace console.error with structured logging when available
-    console.error('Error creating/updating calendar activity:', error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error('Error creating/updating calendar activity:', error);
     return NextResponse.json({ error: 'Failed to create/update calendar activity' }, { status: 500 });
   }
 }
@@ -188,8 +188,8 @@ export async function DELETE(request: NextRequest): Promise<NextResponse> {
     
     return NextResponse.json({ success: true, message: `Activity ${id} deleted successfully` });
   } catch (error) {
-    // Replace console.error with structured logging when available
-    console.error('Error deleting calendar activity:', error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error('Error deleting calendar activity:', error);
     return NextResponse.json({ error: 'Failed to delete calendar activity' }, { status: 500 });
   }
 }
@@ -257,8 +257,8 @@ export async function PUT(request: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
-    // Replace console.error with structured logging when available
-    console.error('Error optimising calendar:', error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error('Error optimising calendar:', error);
     return NextResponse.json({ error: 'Failed to optimise calendar' }, { status: 500 });
   }
 }
@@ -304,8 +304,8 @@ export async function PATCH(request: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
-    // Replace console.error with structured logging when available
-    console.error('Error generating calendar analytics:', error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error('Error generating calendar analytics:', error);
     return NextResponse.json({ error: 'Failed to generate calendar analytics' }, { status: 500 });
   }
 }

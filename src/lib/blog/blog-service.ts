@@ -7,8 +7,8 @@
 
 import { db } from '@/lib/db';
 import { OpenAI } from 'openai';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth/auth-options';
+// import { getServerSession } from 'next-auth'; // Unused import
+// import { authOptions } from '@/lib/auth/auth-options'; // Unused import
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -232,7 +232,7 @@ export async function generateBlogPost({
       seoDescription: blogData.seoDescription,
     };
   } catch (error) {
-    console.error("Error generating blog post:", error);
+    /* eslint-disable-next-line no-console */ console.error("Error generating blog post:", error);
     throw new Error("Failed to generate blog post. Please try again later.");
   }
 }
@@ -510,7 +510,7 @@ export async function generateBlogPostIdeas(count: number = 5, topics?: string[]
     const ideasData = JSON.parse(responseText);
     return ideasData.ideas || [];
   } catch (error) {
-    console.error("Error generating blog post ideas:", error);
+    /* eslint-disable-next-line no-console */ console.error("Error generating blog post ideas:", error);
     throw new Error("Failed to generate blog post ideas. Please try again later.");
   }
 }
@@ -564,7 +564,7 @@ export async function shareBlogPostToSocialMedia(
   for (const platform of platforms) {
     try {
       // Simulate API call to share post
-      console.log(`Sharing post "${post.title}" to ${platform}`);
+      /* eslint-disable-next-line no-console */ console.log(`Sharing post "${post.title}" to ${platform}`);
       
       // In a real implementation, this would use the appropriate API
       // For example, using the Twitter API, Facebook Graph API, etc.
@@ -582,7 +582,7 @@ export async function shareBlogPostToSocialMedia(
         }
       });
     } catch (error) {
-      console.error(`Error sharing to ${platform}:`, error);
+      /* eslint-disable-next-line no-console */ console.error(`Error sharing to ${platform}:`, error);
       results[platform] = false;
       
       // Log the failed share
@@ -655,7 +655,7 @@ export async function generateSeoRecommendations(
       suggestions: seoData.suggestions
     };
   } catch (error) {
-    console.error("Error generating SEO recommendations:", error);
+    /* eslint-disable-next-line no-console */ console.error("Error generating SEO recommendations:", error);
     throw new Error("Failed to generate SEO recommendations. Please try again later.");
   }
 }

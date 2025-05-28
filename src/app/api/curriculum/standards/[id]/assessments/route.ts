@@ -48,8 +48,8 @@ export async function GET(
     return NextResponse.json([]);
     
   } catch (error) {
-    // Replace console.error with structured logging when available
-    console.error('Error fetching aligned assessments:', error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error('Error fetching aligned assessments:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching aligned assessments' },
       { status: 500 }
@@ -122,8 +122,8 @@ export async function POST(
     return NextResponse.json({ success: true, count: 0 });
     
   } catch (error) {
-    // Replace console.error with structured logging when available
-    console.error('Error aligning assessments:', error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error('Error aligning assessments:', error);
     return NextResponse.json(
       { error: 'An error occurred while aligning assessments' },
       { status: 500 }

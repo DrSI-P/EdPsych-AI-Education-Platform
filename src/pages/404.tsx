@@ -1,8 +1,10 @@
 import Head from 'next/head';
-import Link from 'next/link';
+// import Link from 'next/link'; // Unused import
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { UILink } from '@/components/ui';
+
+// import React from "react"; // Unused import
 
 /**
  * Custom 404 (Not Found) page for EdPsych Connect
@@ -11,7 +13,7 @@ import { UILink } from '@/components/ui';
  * navigation options and suggestions for users who have reached
  * a non-existent page.
  */
-export default function Custom404() {
+export default function Custom404() : React.ReactNode {
   const router = useRouter();
 
   // Log 404 errors to monitoring system
@@ -19,7 +21,7 @@ export default function Custom404() {
     // Only log in production
     if (process.env.NODE_ENV === 'production') {
       // Send 404 error to monitoring service
-      console.error(`404 error occurred on ${router.asPath}`);
+      /* eslint-disable-next-line no-console */ console.error(`404 error occurred on ${router.asPath}`);
       
       // You could add more sophisticated error logging here
       // e.g., Sentry, LogRocket, etc.

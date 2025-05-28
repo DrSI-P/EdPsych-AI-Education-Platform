@@ -10,7 +10,7 @@ import {
   CardTitle 
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+// import { Input } from '@/components/ui/input'; // Unused import
 import { Textarea } from '@/components/ui/textarea';
 import { 
   Select,
@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'; // Unused import
 import { 
   AlertCircle, 
   Check, 
@@ -100,7 +100,7 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
       
       setIsTranslating(false);
     } catch (err) {
-      console.error('Error detecting language:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error detecting language:', err);
       setError(t('detection_error', 'translation'));
       setIsTranslating(false);
     }
@@ -131,7 +131,7 @@ export const TranslationTool: React.FC<TranslationToolProps> = ({
       
       setIsTranslating(false);
     } catch (err) {
-      console.error('Error translating text:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error translating text:', err);
       setError(t('translation_error', 'translation'));
       setIsTranslating(false);
     }

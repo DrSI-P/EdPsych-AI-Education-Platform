@@ -10,7 +10,7 @@ import { prisma } from '@/lib/db';
 export async function addSpeechCalibrationModel() {
   // This is a placeholder function to document the schema changes
   // The actual changes should be made in the schema.prisma file
-  console.log('Adding SpeechCalibration model to schema');
+  /* eslint-disable-next-line no-console */ console.log('Adding SpeechCalibration model to schema');
 }
 
 // Schema addition:

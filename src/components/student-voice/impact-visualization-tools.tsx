@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -60,7 +61,7 @@ const AreaChartComponent = ({ data, title }) => (
   </div>
 );
 
-export default function ImpactVisualizationTools() {
+export default function ImpactVisualizationTools() : React.ReactNode {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [timeRange, setTimeRange] = useState("academic-year");
   const [category, setCategory] = useState("all");

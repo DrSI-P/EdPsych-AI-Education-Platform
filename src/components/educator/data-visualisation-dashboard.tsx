@@ -1,15 +1,15 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Slider } from "@/components/ui/slider";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
+// import { Input } from "@/components/ui/input"; // Unused import
+// import { Badge } from "@/components/ui/badge"; // Unused import
+// import { Slider } from "@/components/ui/slider"; // Unused import
+// import { Switch } from "@/components/ui/switch"; // Unused import
+// import { Label } from "@/components/ui/label"; // Unused import
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { format, subDays, subMonths } from "date-fns";
@@ -23,7 +23,7 @@ import {
   LineChart as LineChartIcon, Activity, Users, BookOpen as BookOpenIcon, Clock, 
   Award, TrendingUp, AlertTriangle, CheckCircle, Info
 } from 'lucide-react';
-import { cn } from "@/lib/utils";
+// import { cn } from "@/lib/utils"; // Unused import
 
 // Sample data for visualisations
 const studentProgressData = [
@@ -151,7 +151,7 @@ const studentGroups = [
   { value: 'esl', label: 'EAL Students' },
 ];
 
-export function DataVisualisationDashboard() {
+export function DataVisualisationDashboard() : React.ReactNode {
   // State for dashboard configuration
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedConfig, setSelectedConfig] = useState('default');

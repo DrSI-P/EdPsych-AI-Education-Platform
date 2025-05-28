@@ -11,8 +11,8 @@ import {
   CardTitle 
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Slider } from '@/components/ui/slider';
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'; // Unused import
+// import { Slider } from '@/components/ui/slider'; // Unused import
 import { Switch } from '@/components/ui/switch';
 import { 
   Form, 
@@ -30,8 +30,8 @@ import {
   SelectTrigger, 
   SelectValue 
 } from '@/components/ui/select';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+// import { Input } from '@/components/ui/input'; // Unused import
+// import { Textarea } from '@/components/ui/textarea'; // Unused import
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { 
@@ -50,12 +50,12 @@ import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { cn } from '@/lib/utils';
+// import { cn } from '@/lib/utils'; // Unused import
 
 // This component will be the main engine for parent-teacher communication
 // It will provide the core functionality that can be used across the platform
 
-export function ParentTeacherCommunicationEngine() {
+export function ParentTeacherCommunicationEngine() : React.ReactNode {
   const { data: session, status } = useSession();
   const [communicationSettings, setCommunicationSettings] = useState({
     emailNotifications: true,
@@ -124,7 +124,7 @@ export function ParentTeacherCommunicationEngine() {
         setLoading(false);
       }, 500);
     } catch (error) {
-      console.error('Error fetching communication settings:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching communication settings:', error);
       toast.error('Failed to load communication settings');
       setLoading(false);
     }
@@ -142,7 +142,7 @@ export function ParentTeacherCommunicationEngine() {
         setLoading(false);
       }, 500);
     } catch (error) {
-      console.error('Error saving communication settings:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error saving communication settings:', error);
       toast.error('Failed to save communication settings');
       setLoading(false);
     }

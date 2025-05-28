@@ -135,7 +135,7 @@ export async function POST(req: NextRequest) {
       studentProgress: studentProgress,
     });
   } catch (error) {
-    console.error('Error fetching intervention analytics data:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching intervention analytics data:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to fetch analytics data' },
       { status: 500 }

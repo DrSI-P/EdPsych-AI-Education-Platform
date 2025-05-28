@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
     
     return NextResponse.json({ journal });
   } catch (error) {
-    console.error('Error fetching journal entries:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching journal entries:', error);
     return NextResponse.json({ error: 'Failed to fetch journal entries' }, { status: 500 });
   }
 }
@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
       journal 
     });
   } catch (error) {
-    console.error('Error creating journal entry:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating journal entry:', error);
     return NextResponse.json({ error: 'Failed to create journal entry' }, { status: 500 });
   }
 }

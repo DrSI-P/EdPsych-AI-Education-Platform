@@ -1,18 +1,19 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+// import { Input } from "@/components/ui/input"; // Unused import
 import { Badge } from "@/components/ui/badge";
-import { Slider } from "@/components/ui/slider";
-import { Switch } from "@/components/ui/switch";
+// import { Slider } from "@/components/ui/slider"; // Unused import
+// import { Switch } from "@/components/ui/switch"; // Unused import
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
-import { format, subDays, subMonths, subYears } from "date-fns";
+import { format, subMonths, subYears } from "date-fns";
 import { 
   BarChart, Bar, LineChart, Line, AreaChart, Area, PieChart, Pie, ScatterChart, Scatter,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell, RadarChart, 
@@ -27,7 +28,7 @@ import {
   ArrowRight, Target, Eye, EyeOff, Zap, Flag, User, UserPlus, UserCheck, Star,
   Lightbulb, Clipboard, Briefcase, Heart, ThumbsUp, MessageSquare, School, GraduationCap
 } from 'lucide-react';
-import { cn } from "@/lib/utils";
+// import { cn } from "@/lib/utils"; // Unused import
 
 // Sample data for teaching effectiveness
 const teachingEffectivenessData = [
@@ -110,7 +111,7 @@ const teacherComparisonData = [
   { metric: 'Assessment Quality', you: 91, departmentAvg: 84, schoolAvg: 82 },
 ];
 
-export function EducatorPerformanceAnalytics() {
+export function EducatorPerformanceAnalytics() : React.ReactNode {
   // State for tracking configuration
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedTimePeriod, setSelectedTimePeriod] = useState('academic-year');

@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -17,7 +18,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+// import { Label } from "@/components/ui/label"; // Unused import
 import { 
   BarChart, 
   Bar, 
@@ -57,7 +58,7 @@ import {
   CheckCircle
 } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+// import { Separator } from "@/components/ui/separator"; // Unused import
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -69,7 +70,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { DateRangePicker } from "@/components/ui/date-range-picker";
+// import { DateRangePicker } from "@/components/ui/date-range-picker"; // Unused import
 import { toast } from "@/components/ui/use-toast";
 
 // Mock data for demonstration

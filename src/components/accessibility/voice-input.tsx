@@ -33,7 +33,7 @@ interface ButtonSizeClasses {
   [key: string]: string;
 }
 
-export default function VoiceInput({
+export default function VoiceInput(: React.ReactNode {
   onTextCapture,
   placeholder = 'Speak now...',
   language = 'en-GB', // Default to British English
@@ -114,7 +114,7 @@ export default function VoiceInput({
     };
     
     recognitionRef.current.onerror = (event: SpeechRecognitionErrorEvent) => {
-      console.error('Speech recognition error:', event.error);
+      /* eslint-disable-next-line no-console */ console.error('Speech recognition error:', event.error);
       
       switch (event.error) {
         case 'not-allowed':
@@ -145,7 +145,7 @@ export default function VoiceInput({
           };
         })
         .catch(err => {
-          console.error('Error checking microphone permission:', err);
+          /* eslint-disable-next-line no-console */ console.error('Error checking microphone permission:', err);
         });
     }
     
@@ -175,7 +175,7 @@ export default function VoiceInput({
     try {
       recognitionRef.current.start();
     } catch (err) {
-      console.error('Error starting speech recognition:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error starting speech recognition:', err);
       
       // If already started, stop and restart
       if ((err as Error).message.includes('already started')) {
@@ -191,7 +191,7 @@ export default function VoiceInput({
     try {
       recognitionRef.current.stop();
     } catch (err) {
-      console.error('Error stopping speech recognition:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error stopping speech recognition:', err);
     }
   };
   
@@ -262,7 +262,7 @@ export default function VoiceInput({
                     setError(null);
                   })
                   .catch(err => {
-                    console.error('Error requesting microphone permission:', err);
+                    /* eslint-disable-next-line no-console */ console.error('Error requesting microphone permission:', err);
                     setError('Microphone access denied. Please enable microphone permissions in your browser settings.');
                   });
               }}

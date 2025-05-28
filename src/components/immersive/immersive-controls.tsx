@@ -21,7 +21,7 @@ interface ImmersiveControlsProps {
  * A component providing intuitive controls for navigating and interacting
  * with immersive content, with smooth animations and accessibility features.
  */
-export function ImmersiveControls({
+export function ImmersiveControls(: React.ReactNode {
   onZoomIn,
   onZoomOut,
   onRotate,

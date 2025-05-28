@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Progress } from "@/components/ui/progress";
+// import { Progress } from "@/components/ui/progress"; // Unused import
 import { 
   AlertTriangle,
   Mic,
@@ -92,7 +92,7 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
           try {
             recognitionRef.current.start();
           } catch (error) {
-            console.error('Error restarting speech recognition:', error);
+            /* eslint-disable-next-line no-console */ console.error('Error restarting speech recognition:', error);
           }
         }
       };
@@ -138,7 +138,7 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
       };
       
       recognitionRef.current.onerror = (event: SpeechRecognitionErrorEvent) => {
-        console.error('Speech recognition error:', event.error);
+        /* eslint-disable-next-line no-console */ console.error('Speech recognition error:', event.error);
         setRecognitionError(event.error);
         setIsListening(false);
       };
@@ -168,7 +168,7 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
     try {
       recognitionRef.current.start();
     } catch (error) {
-      console.error('Error starting speech recognition:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error starting speech recognition:', error);
       setRecognitionError('Failed to start speech recognition');
     }
   };
@@ -180,7 +180,7 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
     try {
       recognitionRef.current.stop();
     } catch (error) {
-      console.error('Error stopping speech recognition:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error stopping speech recognition:', error);
     }
   };
   
@@ -218,7 +218,7 @@ export const SpeechToTextEngine: React.FC<SpeechToTextEngineProps> = ({
         }, 2000);
       })
       .catch(error => {
-        console.error('Error copying transcript:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error copying transcript:', error);
       });
   };
   

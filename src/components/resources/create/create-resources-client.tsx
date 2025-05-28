@@ -12,13 +12,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { Checkbox } from '@/components/ui/checkbox';
+// import { Checkbox } from '@/components/ui/checkbox'; // Unused import
 import { AlertCircle, Upload, X, Plus, FileText, Image, FileVideo, FileAudio, File } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 
-export default function CreateResourcesClient() {
+export default function CreateResourcesClient() : React.ReactNode {
   const router = useRouter();
   const { data: session, status } = useSession({
     required: true,
@@ -181,7 +181,7 @@ export default function CreateResourcesClient() {
       // Redirect to the resource library
       router.push('/resources');
     } catch (error) {
-      console.error('Error creating resource:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error creating resource:', error);
       setFormErrors((prev) => ({ ...prev, submit: 'Failed to create resource. Please try again.' }));
     } finally {
       setIsSubmitting(false);

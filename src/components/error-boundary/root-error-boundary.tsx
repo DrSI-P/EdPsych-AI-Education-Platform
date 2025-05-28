@@ -24,8 +24,8 @@ const RootErrorBoundary: React.FC<{
   // Handle errors at the application level
   const handleError = (error: Error, errorInfo: React.ErrorInfo) => {
     // Log the error to console in development
-    console.error('Application error:', error);
-    console.error('Component stack:', errorInfo.componentStack);
+    /* eslint-disable-next-line no-console */ console.error('Application error:', error);
+    /* eslint-disable-next-line no-console */ console.error('Component stack:', errorInfo.componentStack);
     
     // In a production environment, this would send the error to a monitoring service
     if (process.env.NODE_ENV === 'production') {
@@ -38,7 +38,7 @@ const RootErrorBoundary: React.FC<{
       // });
       
       // For now, we'll just log to console with a note
-      console.log('In production, this error would be reported to monitoring services');
+      /* eslint-disable-next-line no-console */ console.log('In production, this error would be reported to monitoring services');
     }
   };
   

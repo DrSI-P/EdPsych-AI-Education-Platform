@@ -19,7 +19,7 @@ interface ThreeDSceneProps {
  * A component for rendering 3D content with navigation controls
  * and accessibility features.
  */
-export function ThreeDScene({
+export function ThreeDScene(: React.ReactNode {
   children,
   showControls = true,
   controlsPosition = 'bottom-right',
@@ -73,7 +73,7 @@ export function ThreeDScene({
   const handleToggleFullscreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen().catch(err => {
-        console.error(`Error attempting to enable fullscreen: ${err.message}`);
+        /* eslint-disable-next-line no-console */ console.error(`Error attempting to enable fullscreen: ${err.message}`);
       });
       setIsFullscreen(true);
     } else {

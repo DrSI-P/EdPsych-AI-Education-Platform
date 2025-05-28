@@ -59,7 +59,7 @@ const ImmersiveLearningLayout: React.FC<ImmersiveLearningLayoutProps> = ({
   React.useEffect(() => {
     if (audioRef.current) {
       if (audioPlaying) {
-        audioRef.current.play().catch(e => console.error("Audio playback failed:", e));
+        audioRef.current.play().catch(e => /* eslint-disable-next-line no-console */ console.error("Audio playback failed:", e));
       } else {
         audioRef.current.pause();
       }

@@ -4,7 +4,7 @@ interface InstallPromptProps {
   className?: string;
 }
 
-export function InstallPrompt({ className = '' }: InstallPromptProps) {
+export function InstallPrompt(: React.ReactNode { className = '' }: InstallPromptProps) {
   const [showPrompt, setShowPrompt] = useState(false);
   const [installPromptEvent, setInstallPromptEvent] = useState<any>(null);
 
@@ -57,9 +57,9 @@ export function InstallPrompt({ className = '' }: InstallPromptProps) {
     
     // Track the outcome
     if (choiceResult.outcome === 'accepted') {
-      console.log('User accepted the install prompt');
+      /* eslint-disable-next-line no-console */ console.log('User accepted the install prompt');
     } else {
-      console.log('User dismissed the install prompt');
+      /* eslint-disable-next-line no-console */ console.log('User dismissed the install prompt');
     }
   };
 

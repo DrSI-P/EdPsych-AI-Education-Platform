@@ -38,7 +38,7 @@ export const OfflineManager: React.FC<OfflineManagerProps> = ({
           }
         }
       } catch (error) {
-        console.error('Failed to initialize offline storage:', error);
+        /* eslint-disable-next-line no-console */ console.error('Failed to initialize offline storage:', error);
       }
     };
     
@@ -77,7 +77,7 @@ export const OfflineManager: React.FC<OfflineManagerProps> = ({
       // Update pending sync items count
       updatePendingSyncItems();
     } catch (error) {
-      console.error('Failed to sync data:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to sync data:', error);
     } finally {
       setSyncInProgress(false);
     }
@@ -96,7 +96,7 @@ export const OfflineManager: React.FC<OfflineManagerProps> = ({
         onSyncStatusChange(isOnline, pendingItems);
       }
     } catch (error) {
-      console.error('Failed to update pending sync items:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to update pending sync items:', error);
     }
   };
 
@@ -199,7 +199,7 @@ export function OfflineAware<T>({
           setLocalId(savedId);
           setSyncStatus(SyncStatus.SYNCED);
         } catch (error) {
-          console.error('Failed to save online, falling back to offline storage:', error);
+          /* eslint-disable-next-line no-console */ console.error('Failed to save online, falling back to offline storage:', error);
           
           // Fall back to offline storage
           setSyncStatus(SyncStatus.PENDING);
@@ -217,7 +217,7 @@ export function OfflineAware<T>({
         setIsSyncing(false);
       }
     } catch (error) {
-      console.error('Failed to save data:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to save data:', error);
       setSyncStatus(SyncStatus.FAILED);
     }
   };
@@ -257,7 +257,7 @@ export const OfflineCache: React.FC<OfflineCacheProps> = ({
   useEffect(() => {
     const cacheUrls = async () => {
       if (!('caches' in window)) {
-        console.warn('Cache API not supported');
+        /* eslint-disable-next-line no-console */ console.warn('Cache API not supported');
         return;
       }
       
@@ -281,13 +281,13 @@ export const OfflineCache: React.FC<OfflineCacheProps> = ({
               newlyCachedUrls.push(url);
             }
           } catch (error) {
-            console.error(`Failed to cache URL ${url}:`, error);
+            /* eslint-disable-next-line no-console */ console.error(`Failed to cache URL ${url}:`, error);
           }
         }
         
         setCachedUrls(newlyCachedUrls);
       } catch (error) {
-        console.error('Failed to cache URLs:', error);
+        /* eslint-disable-next-line no-console */ console.error('Failed to cache URLs:', error);
       } finally {
         setIsCaching(false);
       }

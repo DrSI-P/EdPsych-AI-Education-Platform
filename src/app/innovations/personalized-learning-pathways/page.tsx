@@ -1,10 +1,11 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Slider } from '@/components/ui/slider';
@@ -69,7 +70,7 @@ interface LearningModule {
   completionStatus: number;
 }
 
-export default function PersonalizedLearningPathwaysPage() {
+export default function PersonalizedLearningPathwaysPage() : React.ReactNode {
   // State for learner profile
   const [learnerProfile, setLearnerProfile] = useState<LearnerProfile>({
     name: "Alex Thompson",

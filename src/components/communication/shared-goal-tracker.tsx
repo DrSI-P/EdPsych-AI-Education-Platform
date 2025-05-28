@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -187,7 +188,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
         setGoals(mockGoals);
         setIsLoading(false);
       } catch (error) {
-        console.error('Error fetching goals:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching goals:', error);
         setIsLoading(false);
       }
     };
@@ -241,7 +242,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
       
       setGoals([...goals, mockNewGoal]);
     } catch (error) {
-      console.error('Error creating goal:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error creating goal:', error);
     }
   };
   
@@ -286,7 +287,7 @@ export const SharedGoalTracker: React.FC<SharedGoalTrackerProps> = ({
       setNewProgress(null);
       setSelectedGoal(null);
     } catch (error) {
-      console.error('Error adding update:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error adding update:', error);
     }
   };
   

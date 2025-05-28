@@ -68,7 +68,7 @@ export async function GET(req: Request) {
     
     return NextResponse.json(templates);
   } catch (error) {
-    console.error('Error fetching circle templates:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching circle templates:', error);
     return NextResponse.json(
       { error: "Failed to fetch circle templates" },
       { status: 500 }
@@ -110,7 +110,7 @@ export async function POST(req: Request) {
       );
     }
     
-    console.error('Error creating circle template:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating circle template:', error);
     return NextResponse.json(
       { error: "Failed to create circle template" },
       { status: 500 }
@@ -180,7 +180,7 @@ export async function PUT(req: Request) {
       );
     }
     
-    console.error('Error updating circle template:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error updating circle template:', error);
     return NextResponse.json(
       { error: "Failed to update circle template" },
       { status: 500 }
@@ -240,7 +240,7 @@ export async function DELETE(req: Request) {
     
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error deleting circle template:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error deleting circle template:', error);
     return NextResponse.json(
       { error: "Failed to delete circle template" },
       { status: 500 }

@@ -105,7 +105,7 @@ export async function GET(req: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error fetching FAQ questions:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching FAQ questions:', error);
     return NextResponse.json({ error: 'Failed to fetch FAQ questions' }, { status: 500 });
   }
 }
@@ -143,7 +143,7 @@ export async function POST(req: NextRequest) {
     
     return NextResponse.json({ message: 'Question created successfully', question }, { status: 201 });
   } catch (error) {
-    console.error('Error creating FAQ question:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating FAQ question:', error);
     return NextResponse.json({ error: 'Failed to create FAQ question' }, { status: 500 });
   }
 }
@@ -200,7 +200,7 @@ export async function PUT(req: NextRequest) {
     
     return NextResponse.json({ message: 'Question updated successfully', question: updatedQuestion });
   } catch (error) {
-    console.error('Error updating FAQ question:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error updating FAQ question:', error);
     return NextResponse.json({ error: 'Failed to update FAQ question' }, { status: 500 });
   }
 }
@@ -237,7 +237,7 @@ export async function DELETE(req: NextRequest) {
     
     return NextResponse.json({ message: 'Question deleted successfully' });
   } catch (error) {
-    console.error('Error deleting FAQ question:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error deleting FAQ question:', error);
     return NextResponse.json({ error: 'Failed to delete FAQ question' }, { status: 500 });
   }
 }

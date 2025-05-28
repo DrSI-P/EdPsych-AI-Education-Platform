@@ -11,9 +11,9 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+// import { Input } from "@/components/ui/input"; // Unused import
+// import { Label } from "@/components/ui/label"; // Unused import
+// import { Textarea } from "@/components/ui/textarea"; // Unused import
 import { 
   Select, 
   SelectContent, 
@@ -24,11 +24,11 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
-import { Switch } from "@/components/ui/switch";
+// import { Switch } from "@/components/ui/switch"; // Unused import
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { format } from "date-fns";
+// import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"; // Unused import
+// import { format } from "date-fns"; // Unused import
 import { 
   User, 
   Briefcase, 
@@ -270,7 +270,7 @@ const sectionViewsData = [
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
 
-export default function ProfessionalPortfolio() {
+export default function ProfessionalPortfolio() : React.ReactNode {
   const [activeTab, setActiveTab] = useState("profile");
   const [editMode, setEditMode] = useState(false);
   const [profile, setProfile] = useState(sampleUserProfile);

@@ -58,7 +58,7 @@ export async function GET(req: NextRequest) {
     // Return sensory diets
     return NextResponse.json(sensoryDiets);
   } catch (error) {
-    console.error('Error fetching sensory diets:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching sensory diets:', error);
     return NextResponse.json(
       { error: 'Failed to fetch sensory diets' },
       { status: 500 }
@@ -145,7 +145,7 @@ export async function POST(req: NextRequest) {
     // Return result
     return NextResponse.json(result);
   } catch (error) {
-    console.error('Error creating sensory diet:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating sensory diet:', error);
     
     // Handle validation errors
     if (error instanceof z.ZodError) {

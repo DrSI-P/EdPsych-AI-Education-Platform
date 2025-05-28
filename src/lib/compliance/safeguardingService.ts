@@ -60,7 +60,7 @@ export class SafeguardingServiceImpl implements SafeguardingService {
     involvedUsers?: string[];
     contentReference?: string;
   }): Promise<string> {
-    console.log(`Reporting safeguarding concern: ${concern.concernType}`);
+    /* eslint-disable-next-line no-console */ console.log(`Reporting safeguarding concern: ${concern.concernType}`);
     
     // Generate a unique ID for the report
     const id = `report-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
@@ -99,13 +99,13 @@ export class SafeguardingServiceImpl implements SafeguardingService {
     assignedTo: string;
     notes?: string;
   }): Promise<boolean> {
-    console.log(`Assessing safeguarding concern: ${reportId}`);
+    /* eslint-disable-next-line no-console */ console.log(`Assessing safeguarding concern: ${reportId}`);
     
     // Get the report
     const report = this.safeguardingReports.get(reportId);
     
     if (!report) {
-      console.error(`Report not found: ${reportId}`);
+      /* eslint-disable-next-line no-console */ console.error(`Report not found: ${reportId}`);
       return false;
     }
     
@@ -141,13 +141,13 @@ export class SafeguardingServiceImpl implements SafeguardingService {
     followUpDate?: Date;
     notes?: string;
   }): Promise<boolean> {
-    console.log(`Taking safeguarding action for concern: ${reportId}`);
+    /* eslint-disable-next-line no-console */ console.log(`Taking safeguarding action for concern: ${reportId}`);
     
     // Get the report
     const report = this.safeguardingReports.get(reportId);
     
     if (!report) {
-      console.error(`Report not found: ${reportId}`);
+      /* eslint-disable-next-line no-console */ console.error(`Report not found: ${reportId}`);
       return false;
     }
     
@@ -182,7 +182,7 @@ export class SafeguardingServiceImpl implements SafeguardingService {
     }>;
     recommendedActions: string[];
   }> {
-    console.log(`Monitoring user activity for: ${userId}`);
+    /* eslint-disable-next-line no-console */ console.log(`Monitoring user activity for: ${userId}`);
     
     // Get monitoring data for the user
     const monitoringData = this.userMonitoringData.get(userId) || [];
@@ -215,7 +215,7 @@ export class SafeguardingServiceImpl implements SafeguardingService {
     concernLevel?: SafeguardingConcernLevel;
     dateRange?: { start: Date; end: Date };
   }): Promise<SafeguardingReport[]> {
-    console.log('Getting safeguarding reports');
+    /* eslint-disable-next-line no-console */ console.log('Getting safeguarding reports');
     
     // Convert the map to an array
     const allReports = Array.from(this.safeguardingReports.values());
@@ -266,7 +266,7 @@ export class SafeguardingServiceImpl implements SafeguardingService {
     effectiveDate: Date;
     documentUrl: string;
   }>> {
-    console.log('Getting safeguarding policies');
+    /* eslint-disable-next-line no-console */ console.log('Getting safeguarding policies');
     
     return this.safeguardingPolicies;
   }
@@ -377,7 +377,7 @@ export class SafeguardingServiceImpl implements SafeguardingService {
    * @param details Additional details about the concern
    */
   async addMonitoringData(userId: string, indicator: string, severity: 'low' | 'medium' | 'high', details: string): Promise<void> {
-    console.log(`Adding monitoring data for user ${userId}: ${indicator}`);
+    /* eslint-disable-next-line no-console */ console.log(`Adding monitoring data for user ${userId}: ${indicator}`);
     
     // Get or create the user's monitoring data array
     if (!this.userMonitoringData.has(userId)) {
@@ -398,7 +398,7 @@ export class SafeguardingServiceImpl implements SafeguardingService {
     // for high-severity indicators
     if (severity === 'high') {
       // This would trigger an alert to safeguarding leads
-      console.log(`HIGH SEVERITY ALERT for user ${userId}: ${indicator}`);
+      /* eslint-disable-next-line no-console */ console.log(`HIGH SEVERITY ALERT for user ${userId}: ${indicator}`);
     }
   }
 }

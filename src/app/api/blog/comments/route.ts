@@ -127,7 +127,7 @@ export async function GET(req: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error fetching blog comments:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching blog comments:', error);
     return NextResponse.json(
       { error: 'Failed to fetch blog comments' },
       { status: 500 }
@@ -225,7 +225,7 @@ export async function POST(req: NextRequest) {
         : 'Comment posted successfully',
     });
   } catch (error) {
-    console.error('Error creating blog comment:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating blog comment:', error);
     return NextResponse.json(
       { error: 'Failed to create comment' },
       { status: 500 }
@@ -335,7 +335,7 @@ export async function PUT(req: NextRequest) {
       comment: updatedComment,
     });
   } catch (error) {
-    console.error('Error updating blog comment:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error updating blog comment:', error);
     return NextResponse.json(
       { error: 'Failed to update comment' },
       { status: 500 }
@@ -413,7 +413,7 @@ export async function DELETE(req: NextRequest) {
       message: 'Comment deleted successfully',
     });
   } catch (error) {
-    console.error('Error deleting blog comment:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error deleting blog comment:', error);
     return NextResponse.json(
       { error: 'Failed to delete comment' },
       { status: 500 }

@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react';
+// import React from 'react'; // Unused import
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import EmotionalRegulationEngine from '@/components/special-needs/emotional-regulation/emotional-regulation-engine';
 
-export default function EmotionalRegulationPage() {
+export default function EmotionalRegulationPage() : React.ReactNode {
   return (
     <div className="container mx-auto py-8">
       <h1 className="text-3xl font-bold mb-6">Emotional Regulation Support</h1>

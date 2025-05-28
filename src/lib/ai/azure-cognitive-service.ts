@@ -44,7 +44,7 @@ export class AzureCognitiveService {
         }))
       };
     } catch (error) {
-      console.error('Azure sentiment analysis error:', error);
+      /* eslint-disable-next-line no-console */ console.error('Azure sentiment analysis error:', error);
       throw new Error(`Failed to analyse sentiment: ${error.message}`);
     }
   }
@@ -62,7 +62,7 @@ export class AzureCognitiveService {
       
       return results[0].keyPhrases;
     } catch (error) {
-      console.error('Azure key phrase extraction error:', error);
+      /* eslint-disable-next-line no-console */ console.error('Azure key phrase extraction error:', error);
       throw new Error(`Failed to extract key phrases: ${error.message}`);
     }
   }
@@ -91,7 +91,7 @@ export class AzureCognitiveService {
         }))
       };
     } catch (error) {
-      console.error('Azure language detection error:', error);
+      /* eslint-disable-next-line no-console */ console.error('Azure language detection error:', error);
       throw new Error(`Failed to detect language: ${error.message}`);
     }
   }
@@ -137,7 +137,7 @@ export class AzureCognitiveService {
         }))
       };
     } catch (error) {
-      console.error('Azure image analysis error:', error);
+      /* eslint-disable-next-line no-console */ console.error('Azure image analysis error:', error);
       throw new Error(`Failed to analyse image: ${error.message}`);
     }
   }
@@ -192,7 +192,7 @@ export class AzureCognitiveService {
         }))
       };
     } catch (error) {
-      console.error('Azure OCR error:', error);
+      /* eslint-disable-next-line no-console */ console.error('Azure OCR error:', error);
       throw new Error(`Failed to extract text from image: ${error.message}`);
     }
   }
@@ -229,7 +229,7 @@ export class AzureCognitiveService {
           }
         );
       } catch (error) {
-        console.error('Azure speech-to-text error:', error);
+        /* eslint-disable-next-line no-console */ console.error('Azure speech-to-text error:', error);
         reject(new Error(`Failed to convert speech to text: ${error.message}`));
       }
     });
@@ -289,7 +289,7 @@ export class AzureCognitiveService {
         )
       };
     } catch (error) {
-      console.error('Azure educational content analysis error:', error);
+      /* eslint-disable-next-line no-console */ console.error('Azure educational content analysis error:', error);
       throw new Error(`Failed to analyse educational content: ${error.message}`);
     }
   }

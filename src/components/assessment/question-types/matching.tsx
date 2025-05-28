@@ -28,7 +28,7 @@ interface MatchingQuestionProps {
   isEditing?: boolean;
 }
 
-export default function MatchingQuestion({
+export default function MatchingQuestion(: React.ReactNode {
   initialData,
   onSave,
   onCancel,

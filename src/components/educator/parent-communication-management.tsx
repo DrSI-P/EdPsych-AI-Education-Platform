@@ -6,13 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
+// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"; // Unused import
+// import { Badge } from "@/components/ui/badge"; // Unused import
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
-import { CalendarIcon, Search, Send, Clock, CheckCircle, AlertCircle, RefreshCw, Download, Upload, Plus, Trash2, Edit, MessageSquare, Users, Calendar as CalendarIcon2, BarChart2 } from "lucide-react";
-import { toast } from "@/components/ui/use-toast";
+import { CalendarIcon, Send, Calendar as CalendarIcon2 } from "lucide-react";
+// import { toast } from "@/components/ui/use-toast"; // Unused import
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 
@@ -60,7 +60,7 @@ const sampleStudents = [
   { id: "s3", name: "Sophia Ahmed", yearGroup: "Year 2", parent: "Dr Ahmed", email: "ahmed@example.com", lastContact: "2025-05-01" }
 ];
 
-export function ParentCommunicationManagement() {
+export function ParentCommunicationManagement() : React.ReactNode {
   // State for selected tab
   const [activeTab, setActiveTab] = useState("compose");
   
@@ -169,7 +169,7 @@ export function ParentCommunicationManagement() {
         </CardContent>
         <CardFooter className="flex justify-between">
           <Button variant="outline">Save Draft</Button>
-          <Button onClick={() => console.log("Send message")}>
+          <Button onClick={() => /* eslint-disable-next-line no-console */ console.log("Send message")}>
             <Send className="mr-2 h-4 w-4" />
             Send Message
           </Button>

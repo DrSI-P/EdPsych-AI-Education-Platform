@@ -3,13 +3,15 @@
 import { useEffect } from 'react';
 import { initializeMonitoring } from '@/lib/monitoring';
 
+// import React from "react"; // Unused import
+
 /**
  * Monitoring Provider Component
  * 
  * This component initializes and provides monitoring functionality to the application.
  * It should be included near the root of the component tree.
  */
-export function MonitoringProvider({ children }) {
+export function MonitoringProvider(: React.ReactNode { children }) {
   useEffect(() => {
     // Initialize monitoring on client-side
     if (typeof window !== 'undefined') {

@@ -1,12 +1,12 @@
 'use client';
 
-import React from 'react';
+// import React from 'react'; // Unused import
 import { Box, Container, Heading, Text } from '@chakra-ui/react';
 import StaffTrainingModules from '@/components/restorative-justice/staff-training/staff-training-modules';
 import { useSession } from 'next-auth/react';
 import AccessDenied from '@/components/common/access-denied';
 
-export default function StaffTrainingPage() {
+export default function StaffTrainingPage() : React.ReactNode {
   const { data: session, status } = useSession();
   const isLoading = status === 'loading';
   

@@ -1,7 +1,7 @@
 import React from 'react';
 import { auth } from '@/lib/auth/auth-compat';
 import { redirect } from 'next/navigation';
-import Link from 'next/link';
+// import Link from 'next/link'; // Unused import
 import { Button } from '@/components/ui/button';
 import { UILink } from '@/components/ui';
 

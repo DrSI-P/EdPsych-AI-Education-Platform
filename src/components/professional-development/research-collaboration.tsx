@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -16,11 +17,11 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Switch } from "@/components/ui/switch";
+// import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"; // Unused import
+// import { Switch } from "@/components/ui/switch"; // Unused import
 import { Progress } from "@/components/ui/progress";
 import { 
   BarChart, 
@@ -714,7 +715,7 @@ const MOCK_RESEARCH_IMPACT = [
 // Colors for charts
 const COLORS = ['#4f46e5', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4', '#f43f5e', '#84cc16'];
 
-export default function ResearchCollaboration() {
+export default function ResearchCollaboration() : React.ReactNode {
   const [activeTab, setActiveTab] = useState('projects');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedMethodology, setSelectedMethodology] = useState('all');

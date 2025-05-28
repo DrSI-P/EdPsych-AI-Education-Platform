@@ -1,14 +1,14 @@
 'use client';
 
-import React from 'react';
+// import React from 'react'; // Unused import
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+// import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"; // Unused import
 import ParentCommunication from '@/components/parent-school/parent-communication';
 import SharedGoalTracking from '@/components/parent-school/shared-goal-tracking';
 import HomeStrategyLibrary from '@/components/parent-school/home-strategy-library';
 import VirtualConferenceTools from '@/components/parent-school/virtual-conference-tools';
 
-export default function ParentSchoolCollaborationHub() {
+export default function ParentSchoolCollaborationHub() : React.ReactNode {
   return (
     <div className="container mx-auto py-6">
       <div className="mb-6">

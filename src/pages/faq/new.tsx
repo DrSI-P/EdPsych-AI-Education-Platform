@@ -6,10 +6,10 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 import { FAQForm } from '@/components/faq/FAQForm';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+// import { Alert, AlertDescription } from '@/components/ui/alert'; // Unused import
 import { useToast } from '@/components/ui/use-toast';
 
-export default function NewFAQPage({ categories }) {
+export default function NewFAQPage(: React.ReactNode { categories }) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
@@ -40,7 +40,7 @@ export default function NewFAQPage({ categories }) {
       // Redirect to the new FAQ
       router.push(`/faq/questions/${result.question.id}`);
     } catch (error) {
-      console.error('Error creating FAQ:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error creating FAQ:', error);
       toast({
         title: 'Error',
         description: error instanceof Error ? error.message : 'Failed to create FAQ',
@@ -100,7 +100,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   } catch (error) {
-    console.error('Error fetching categories:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching categories:', error);
     return {
       props: {
         categories: [],

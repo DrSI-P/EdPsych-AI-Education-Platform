@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+// import Link from 'next/link'; // Unused import
 import { useTheme } from '@/components/theme-provider';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';

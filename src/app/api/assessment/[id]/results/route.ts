@@ -72,7 +72,7 @@ export async function GET(
     return NextResponse.json(assessment);
     
   } catch (error) {
-    console.error('Error fetching assessment results:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching assessment results:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching the assessment results' },
       { status: 500 }

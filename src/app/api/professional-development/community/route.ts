@@ -48,7 +48,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         );
     }
   } catch (error) {
-    console.error('Error in community API:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in community API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
@@ -150,7 +150,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
         );
     }
   } catch (error) {
-    console.error('Error in community API:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in community API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

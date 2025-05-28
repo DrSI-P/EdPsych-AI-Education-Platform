@@ -75,7 +75,7 @@ export async function GET(req: NextRequest) {
       meetings
     });
   } catch (error) {
-    console.error('Error fetching meetings:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching meetings:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to fetch meetings' },
       { status: 500 }
@@ -167,7 +167,7 @@ export async function POST(req: NextRequest) {
       
       if (participantSettings?.emailNotifications) {
         // In a real implementation, this would send an email notification
-        console.log(`Email notification would be sent to participant ${participantId}`);
+        /* eslint-disable-next-line no-console */ console.log(`Email notification would be sent to participant ${participantId}`);
       }
     }
     
@@ -176,7 +176,7 @@ export async function POST(req: NextRequest) {
       meeting: newMeeting
     });
   } catch (error) {
-    console.error('Error scheduling meeting:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error scheduling meeting:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to schedule meeting' },
       { status: 500 }

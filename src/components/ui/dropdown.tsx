@@ -10,7 +10,7 @@ interface DropdownProps {
   className?: string;
 }
 
-export function Dropdown({
+export function Dropdown(: React.ReactNode {
   trigger,
   children,
   align = 'left',
@@ -84,7 +84,7 @@ interface DropdownItemProps {
   className?: string;
 }
 
-export function DropdownItem({
+export function DropdownItem(: React.ReactNode {
   children,
   onClick,
   disabled = false,
@@ -110,7 +110,7 @@ interface DropdownLinkProps {
   className?: string;
 }
 
-export function DropdownLink({ children, href, className = '' }: DropdownLinkProps) {
+export function DropdownLink(: React.ReactNode { children, href, className = '' }: DropdownLinkProps) {
   return (
     <a
       href={href}
@@ -126,7 +126,7 @@ interface DropdownDividerProps {
   className?: string;
 }
 
-export function DropdownDivider({ className = '' }: DropdownDividerProps) {
+export function DropdownDivider(: React.ReactNode { className = '' }: DropdownDividerProps) {
   return <div className={`my-1 h-px bg-grey-200 ${className}`} role="none" />;
 }
 
@@ -135,7 +135,7 @@ interface DropdownLabelProps {
   className?: string;
 }
 
-export function DropdownLabel({ children, className = '' }: DropdownLabelProps) {
+export function DropdownLabel(: React.ReactNode { children, className = '' }: DropdownLabelProps) {
   return (
     <div className={`px-4 py-2 text-xs text-grey-500 ${className}`} role="none">
       {children}
@@ -148,7 +148,7 @@ interface MenuProps {
   className?: string;
 }
 
-export function Menu({ children, className = '' }: MenuProps) {
+export function Menu(: React.ReactNode { children, className = '' }: MenuProps) {
   return (
     <nav className={`bg-white shadow ${className}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -168,7 +168,7 @@ interface MenuItemProps {
   className?: string;
 }
 
-export function MenuItem({
+export function MenuItem(: React.ReactNode {
   children,
   active = false,
   href,

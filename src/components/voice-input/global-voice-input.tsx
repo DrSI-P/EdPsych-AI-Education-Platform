@@ -3,11 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import { useVoiceInput } from '@/providers/voice-input-provider';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+// import { Card, CardContent } from '@/components/ui/card'; // Unused import
 import { Mic, MicOff, X, Minimize2, Maximize2, Settings, HelpCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -54,7 +54,7 @@ const GlobalVoiceInput: React.FC = () => {
       try {
         setPosition(JSON.parse(savedPosition));
       } catch (e) {
-        console.error('Error loading voice input position:', e);
+        /* eslint-disable-next-line no-console */ console.error('Error loading voice input position:', e);
       }
     } else {
       // Default position based on screen size

@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react';
+// import React from 'react'; // Unused import
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AutomatedDocumentation from '@/components/educator/automated-documentation';
 import SmartLessonPlanning from '@/components/educator/smart-lesson-planning';
 
-export default function AdministrativeAutomationContent() {
+export default function AdministrativeAutomationContent() : React.ReactNode {
   return (
     <div className="container mx-auto py-8">
       <h1 className="text-4xl font-bold mb-2">Teacher Administrative Automation</h1>

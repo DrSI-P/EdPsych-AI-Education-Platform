@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { UILink } from '@/components/ui';
 
-export default function ForgotPasswordForm() {
+export default function ForgotPasswordForm() : React.ReactNode {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');

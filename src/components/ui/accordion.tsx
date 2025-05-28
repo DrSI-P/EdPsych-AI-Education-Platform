@@ -17,7 +17,7 @@ interface AccordionContextType {
 
 const AccordionContext = React.createContext<AccordionContextType | undefined>(undefined);
 
-export function Accordion({
+export function Accordion(: React.ReactNode {
   children,
   defaultExpanded = [],
   allowMultiple = false,
@@ -52,7 +52,7 @@ interface AccordionItemProps {
   className?: string;
 }
 
-export function AccordionItem({ children, id, className = '' }: AccordionItemProps) {
+export function AccordionItem(: React.ReactNode { children, id, className = '' }: AccordionItemProps) {
   const context = React.useContext(AccordionContext);
 
   if (!context) {
@@ -72,7 +72,7 @@ interface AccordionTriggerProps {
   className?: string;
 }
 
-export function AccordionTrigger({ children, id, className = '' }: AccordionTriggerProps) {
+export function AccordionTrigger(: React.ReactNode { children, id, className = '' }: AccordionTriggerProps) {
   const context = React.useContext(AccordionContext);
 
   if (!context) {
@@ -113,7 +113,7 @@ interface AccordionContentProps {
   className?: string;
 }
 
-export function AccordionContent({ children, id, className = '' }: AccordionContentProps) {
+export function AccordionContent(: React.ReactNode { children, id, className = '' }: AccordionContentProps) {
   const context = React.useContext(AccordionContext);
 
   if (!context) {
@@ -142,7 +142,7 @@ interface DisclosureProps {
   className?: string;
 }
 
-export function Disclosure({ children, defaultOpen = false, className = '' }: DisclosureProps) {
+export function Disclosure(: React.ReactNode { children, defaultOpen = false, className = '' }: DisclosureProps) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   const toggle = () => {
@@ -171,7 +171,7 @@ interface DisclosureTriggerProps {
   className?: string;
 }
 
-export function DisclosureTrigger({
+export function DisclosureTrigger(: React.ReactNode {
   children,
   isOpen,
   toggle,
@@ -206,7 +206,7 @@ interface DisclosureContentProps {
   className?: string;
 }
 
-export function DisclosureContent({ children, isOpen, className = '' }: DisclosureContentProps) {
+export function DisclosureContent(: React.ReactNode { children, isOpen, className = '' }: DisclosureContentProps) {
   if (!isOpen) return null;
 
   return <div className={`px-4 py-3 ${className}`}>{children}</div>;

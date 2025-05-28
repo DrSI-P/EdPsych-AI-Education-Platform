@@ -89,7 +89,7 @@ export async function GET(req: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error fetching immersive tools:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching immersive tools:', error);
     return NextResponse.json(
       { error: 'Failed to fetch immersive tools' },
       { status: 500 }
@@ -160,7 +160,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ tool }, { status: 201 });
   } catch (error) {
-    console.error('Error creating immersive tool:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating immersive tool:', error);
     return NextResponse.json(
       { error: 'Failed to create immersive tool' },
       { status: 500 }

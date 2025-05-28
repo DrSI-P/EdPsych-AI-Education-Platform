@@ -1,3 +1,4 @@
+// TODO: Fix NodeJS type errors by adding @types/node dependency
 'use client';
 
 import React from 'react';
@@ -100,7 +101,7 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
         }
         
         // Log success
-        console.log('Focus mode applied');
+        /* eslint-disable-next-line no-console */ console.log('Focus mode applied');
       } else {
         // Continue to next step
         setTimeout(processStep, 500);
@@ -198,7 +199,7 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
     onSettingsChange(updatedSettings);
     
     // Log setting change
-    console.log(`Focus mode setting changed: ${setting} = ${value}`);
+    /* eslint-disable-next-line no-console */ console.log(`Focus mode setting changed: ${setting} = ${value}`);
   };
   
   // Toggle advanced settings
@@ -225,7 +226,7 @@ export const FocusModeEngine: React.FC<FocusModeEngineProps> = ({
     onSettingsChange(defaultSettings);
     
     // Log reset
-    console.log('Focus mode settings reset to defaults');
+    /* eslint-disable-next-line no-console */ console.log('Focus mode settings reset to defaults');
   };
   
   return (

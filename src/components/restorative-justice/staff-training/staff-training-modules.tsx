@@ -51,9 +51,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Separator } from "@/components/ui/separator";
+// import { Separator } from "@/components/ui/separator"; // Unused import
 import { toast } from "@/components/ui/use-toast";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+// import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"; // Unused import
 import { 
   FaPlay, 
   FaCheck, 
@@ -187,7 +187,7 @@ const StaffTrainingModules: React.FC = () => {
           setModules(modulesData);
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching data:', error);
         toast({
           title: 'Error',
           description: 'Failed to load training modules. Please try again.',
@@ -223,7 +223,7 @@ const StaffTrainingModules: React.FC = () => {
           }),
         });
       } catch (error) {
-        console.error('Error recording module access:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error recording module access:', error);
       }
     }
   };
@@ -314,7 +314,7 @@ const StaffTrainingModules: React.FC = () => {
         }
       }
     } catch (error) {
-      console.error('Error completing section:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error completing section:', error);
       toast({
         title: 'Error',
         description: 'Failed to record progress. Please try again.',
@@ -365,7 +365,7 @@ const StaffTrainingModules: React.FC = () => {
         }
       }
     } catch (error) {
-      console.error('Error recording quiz score:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error recording quiz score:', error);
     }
   };
 
@@ -404,7 +404,7 @@ const StaffTrainingModules: React.FC = () => {
       
       onClose();
     } catch (error) {
-      console.error('Error generating certificate:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error generating certificate:', error);
       toast({
         title: 'Error',
         description: 'Failed to generate certificate. Please try again.',

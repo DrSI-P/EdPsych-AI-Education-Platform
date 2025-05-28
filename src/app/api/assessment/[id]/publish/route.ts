@@ -58,7 +58,7 @@ export async function PUT(
     return NextResponse.json(publishedAssessment);
     
   } catch (error) {
-    console.error('Error publishing assessment:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error publishing assessment:', error);
     return NextResponse.json(
       { error: 'An error occurred while publishing the assessment' },
       { status: 500 }

@@ -82,7 +82,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         );
     }
   } catch (error) {
-    console.error('Error in webinar API:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in webinar API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
@@ -174,7 +174,7 @@ async function handleRegistration(body: RegistrationData): Promise<NextResponse>
     // If addToCalendar is true, integrate with calendar system
     if (addToCalendar) {
       // In a real implementation, this would call a calendar integration service
-      console.log(`Adding webinar ${webinarId} to calendar for user ${userId}`);
+      /* eslint-disable-next-line no-console */ console.log(`Adding webinar ${webinarId} to calendar for user ${userId}`);
     }
 
     return NextResponse.json(
@@ -342,7 +342,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
         );
     }
   } catch (error) {
-    console.error('Error in webinar API:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in webinar API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

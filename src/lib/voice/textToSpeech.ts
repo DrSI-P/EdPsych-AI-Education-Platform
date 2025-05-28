@@ -68,7 +68,7 @@ export class TextToSpeechService {
   private initSynthesis(): void {
     // Check if browser supports speech synthesis
     if (!this.isBrowserSupported()) {
-      console.error('Speech synthesis is not supported in this browser');
+      /* eslint-disable-next-line no-console */ console.error('Speech synthesis is not supported in this browser');
       return;
     }
     
@@ -316,7 +316,7 @@ export class TextToSpeechService {
     };
     
     this.utterance.onerror = (event) => {
-      console.error('Speech synthesis error:', event);
+      /* eslint-disable-next-line no-console */ console.error('Speech synthesis error:', event);
       
       // Try to continue with next sentence
       this.speakNextSentence();

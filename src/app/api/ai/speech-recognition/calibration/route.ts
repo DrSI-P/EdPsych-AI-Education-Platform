@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error saving speech calibration data:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error saving speech calibration data:', error);
     return NextResponse.json({ error: 'Failed to save calibration data' }, { status: 500 });
   }
 }
@@ -82,7 +82,7 @@ export async function GET(req: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error retrieving speech calibration data:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error retrieving speech calibration data:', error);
     return NextResponse.json({ error: 'Failed to retrieve calibration data' }, { status: 500 });
   }
 }

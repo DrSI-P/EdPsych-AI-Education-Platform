@@ -34,7 +34,7 @@ export async function GET(): Promise<NextResponse> {
     
     return NextResponse.json(behaviors);
   } catch (error) {
-    // Using type guard instead of console.error
+    // Using type guard instead of /* eslint-disable-next-line no-console */ console.error
     if (error instanceof Error) {
       // Log error in a production-safe way
       // We could use a proper logging service here
@@ -83,7 +83,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     
     return NextResponse.json(behaviour);
   } catch (error) {
-    // Using type guard instead of console.error
+    // Using type guard instead of /* eslint-disable-next-line no-console */ console.error
     if (error instanceof Error) {
       // Log error in a production-safe way
       // We could use a proper logging service here

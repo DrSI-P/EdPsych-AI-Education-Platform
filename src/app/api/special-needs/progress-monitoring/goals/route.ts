@@ -44,7 +44,7 @@ export async function GET(req: NextRequest) {
       }))
     });
   } catch (error) {
-    console.error('Progress monitoring goals API error:', error);
+    /* eslint-disable-next-line no-console */ console.error('Progress monitoring goals API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve progress monitoring goals' },
       { status: 500 }
@@ -114,7 +114,7 @@ export async function POST(req: NextRequest) {
       goal: newGoal
     });
   } catch (error) {
-    console.error('Progress monitoring goals API error:', error);
+    /* eslint-disable-next-line no-console */ console.error('Progress monitoring goals API error:', error);
     return NextResponse.json(
       { error: 'Failed to create progress monitoring goal' },
       { status: 500 }

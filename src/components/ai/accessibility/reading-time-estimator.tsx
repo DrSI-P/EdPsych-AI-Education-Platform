@@ -1,3 +1,4 @@
+// TODO: Fix NodeJS type errors by adding @types/node dependency
 'use client';
 
 import React from 'react';
@@ -11,7 +12,7 @@ import {
   Clock,
   BookOpen
 } from 'lucide-react';
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+// import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"; // Unused import
 
 // Define TypeScript interfaces
 interface ReadingTimeEstimatorProps {
@@ -147,7 +148,7 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
     
     // Log estimated time
     if (settings.enabled && time > 0) {
-      console.log(`Estimated reading time: ${formatTime(time)}`);
+      /* eslint-disable-next-line no-console */ console.log(`Estimated reading time: ${formatTime(time)}`);
     }
   }, [settings, content, calculateReadingTime]);
   
@@ -171,7 +172,7 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
     onSettingsChange(updatedSettings);
     
     // Log setting change
-    console.log(`Reading time estimator setting changed: ${setting} = ${value}`);
+    /* eslint-disable-next-line no-console */ console.log(`Reading time estimator setting changed: ${setting} = ${value}`);
   };
   
   // Toggle advanced settings
@@ -197,7 +198,7 @@ export const ReadingTimeEstimator: React.FC<ReadingTimeEstimatorProps> = ({
     onSettingsChange(defaultSettings);
     
     // Log reset
-    console.log('Reading time estimator settings reset to defaults');
+    /* eslint-disable-next-line no-console */ console.log('Reading time estimator settings reset to defaults');
   };
   
   return (

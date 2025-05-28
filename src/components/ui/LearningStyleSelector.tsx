@@ -4,9 +4,9 @@ import React from 'react';
 import { useTheme } from '@/components/theme-provider';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+// import { Button } from '@/components/ui/button'; // Unused import
+// import { Card, CardContent } from '@/components/ui/card'; // Unused import
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'; // Unused import
 import { BookOpen, Video, Headphones, PenTool } from 'lucide-react';
 
 interface LearningStyleSelectorProps {

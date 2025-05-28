@@ -3,10 +3,10 @@
 import React from 'react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+// import Link from 'next/link'; // Unused import
 import { UILink } from '@/components/ui';
 
-export default function SignUpForm() {
+export default function SignUpForm() : React.ReactNode {
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: '',

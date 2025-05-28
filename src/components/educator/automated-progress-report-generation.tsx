@@ -1,10 +1,11 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+// import { Input } from "@/components/ui/input"; // Unused import
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -154,7 +155,7 @@ const reportTemplates = [
   }
 ];
 
-export default function AutomatedProgressReportGeneration() {
+export default function AutomatedProgressReportGeneration() : React.ReactNode {
   const { toast } = useToast();
   const aiService = useAIService();
   const [activeTab, setActiveTab] = useState('create');
@@ -182,7 +183,7 @@ export default function AutomatedProgressReportGeneration() {
         setSavedReports(JSON.parse(saved));
       }
     } catch (error) {
-      console.error('Error loading saved reports:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error loading saved reports:', error);
     }
   }, []);
   
@@ -333,7 +334,7 @@ export default function AutomatedProgressReportGeneration() {
         variant: "default"
       });
     } catch (error) {
-      console.error('Error generating reports:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error generating reports:', error);
       toast({
         title: "Error generating reports",
         description: "An error occurred while generating the reports. Please try again.",

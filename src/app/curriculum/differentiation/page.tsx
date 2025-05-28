@@ -6,9 +6,11 @@ import CurriculumDifferentiationEngine from '@/components/ai/curriculum-differen
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Brain, BookOpen, Users, Sparkles, ArrowRight, CheckCircle2 } from "lucide-react";
+import { BookOpen } from "lucide-react";
 
-export default function CurriculumDifferentiationPage() {
+// import React from "react"; // Unused import
+
+export default function CurriculumDifferentiationPage() : React.ReactNode {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [curriculumPlan, setCurriculumPlan] = useState<any>(null);
@@ -30,7 +32,7 @@ export default function CurriculumDifferentiationPage() {
         setCurriculumPlan(data.plan);
       }
     } catch (error) {
-      console.error('Error fetching curriculum plan:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching curriculum plan:', error);
     } finally {
       setIsLoading(false);
     }

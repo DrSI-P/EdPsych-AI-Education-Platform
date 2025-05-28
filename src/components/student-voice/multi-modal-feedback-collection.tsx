@@ -1,3 +1,5 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
+// TODO: Fix NodeJS type errors by adding @types/node dependency
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -9,14 +11,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Slider } from "@/components/ui/slider";
-import { Switch } from "@/components/ui/switch";
+// import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"; // Unused import
+// import { Slider } from "@/components/ui/slider"; // Unused import
+// import { Switch } from "@/components/ui/switch"; // Unused import
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+// import { Separator } from "@/components/ui/separator"; // Unused import
 import { useToast } from "@/components/ui/use-toast";
 // Import VolumeUp from our custom icons to fix build errors
-import { Mic, MicOff, Send, Image, Video, Smile, Save, Download, Copy, Globe, Volume2, MessageSquare, Eye, EyeOff, RefreshCw, Check, X } from 'lucide-react';
+import { Mic, MicOff, Send, Image, Video, Copy, Globe, Volume2, MessageSquare, Eye, EyeOff, RefreshCw } from "lucide-react";
 import { VolumeUp } from '@/components/icons/volume-up';
 
 // Mock data for language options
@@ -104,7 +106,7 @@ interface TranscriptionEntry {
   createdAt: string;
 }
 
-export default function MultiModalFeedbackCollection() {
+export default function MultiModalFeedbackCollection() : React.ReactNode {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('provide');
   const [isRecording, setIsRecording] = useState(false);
@@ -268,7 +270,7 @@ export default function MultiModalFeedbackCollection() {
         description: "Speak clearly into your microphone.",
       });
     } catch (error) {
-      console.error('Error starting recording:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error starting recording:', error);
       toast({
         title: "Recording failed",
         description: "Could not access microphone. Please check permissions.",
@@ -582,7 +584,7 @@ export default function MultiModalFeedbackCollection() {
           description: "Could not copy text to clipboard.",
           variant: "destructive"
         });
-        console.error('Could not copy text: ', err);
+        /* eslint-disable-next-line no-console */ console.error('Could not copy text: ', err);
       }
     );
   };

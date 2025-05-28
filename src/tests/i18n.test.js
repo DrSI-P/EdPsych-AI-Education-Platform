@@ -48,9 +48,9 @@ describe('i18n Translation Tests', () => {
           const content = fs.readFileSync(filePath, 'utf8');
           translations[locale][namespace] = JSON.parse(content);
         } else {
-          // Using console.warn for test debugging is acceptable
+          // Using /* eslint-disable-next-line no-console */ console.warn for test debugging is acceptable
           // eslint-disable-next-line no-console
-          console.warn(`Translation file not found: ${filePath}`);
+          /* eslint-disable-next-line no-console */ console.warn(`Translation file not found: ${filePath}`);
         }
       }
     }

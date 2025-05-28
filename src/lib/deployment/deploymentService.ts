@@ -54,7 +54,7 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns The ID of the created configuration
    */
   async createDeploymentConfig(config: Omit<DeploymentConfig, 'environmentVariables'>): Promise<string> {
-    console.log(`Creating deployment configuration for environment: ${config.environment}`);
+    /* eslint-disable-next-line no-console */ console.log(`Creating deployment configuration for environment: ${config.environment}`);
     
     // Create the configuration with empty environment variables
     const newConfig: DeploymentConfig = {
@@ -75,7 +75,7 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns The deployment configuration or null if not found
    */
   async getDeploymentConfig(environment: DeploymentEnvironment): Promise<DeploymentConfig | null> {
-    console.log(`Getting deployment configuration for environment: ${environment}`);
+    /* eslint-disable-next-line no-console */ console.log(`Getting deployment configuration for environment: ${environment}`);
     
     // Get the configuration
     const config = this.deploymentConfigs.get(environment);
@@ -91,13 +91,13 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns Whether the update was successful
    */
   async updateDeploymentConfig(environment: DeploymentEnvironment, updates: Partial<DeploymentConfig>): Promise<boolean> {
-    console.log(`Updating deployment configuration for environment: ${environment}`);
+    /* eslint-disable-next-line no-console */ console.log(`Updating deployment configuration for environment: ${environment}`);
     
     // Get the configuration
     const config = this.deploymentConfigs.get(environment);
     
     if (!config) {
-      console.error(`Configuration not found for environment: ${environment}`);
+      /* eslint-disable-next-line no-console */ console.error(`Configuration not found for environment: ${environment}`);
       return false;
     }
     
@@ -122,13 +122,13 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns Whether the addition was successful
    */
   async addEnvironmentVariable(environment: DeploymentEnvironment, variable: EnvironmentVariable): Promise<boolean> {
-    console.log(`Adding environment variable ${variable.key} to environment: ${environment}`);
+    /* eslint-disable-next-line no-console */ console.log(`Adding environment variable ${variable.key} to environment: ${environment}`);
     
     // Get the configuration
     const config = this.deploymentConfigs.get(environment);
     
     if (!config) {
-      console.error(`Configuration not found for environment: ${environment}`);
+      /* eslint-disable-next-line no-console */ console.error(`Configuration not found for environment: ${environment}`);
       return false;
     }
     
@@ -157,13 +157,13 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns Whether the removal was successful
    */
   async removeEnvironmentVariable(environment: DeploymentEnvironment, key: string): Promise<boolean> {
-    console.log(`Removing environment variable ${key} from environment: ${environment}`);
+    /* eslint-disable-next-line no-console */ console.log(`Removing environment variable ${key} from environment: ${environment}`);
     
     // Get the configuration
     const config = this.deploymentConfigs.get(environment);
     
     if (!config) {
-      console.error(`Configuration not found for environment: ${environment}`);
+      /* eslint-disable-next-line no-console */ console.error(`Configuration not found for environment: ${environment}`);
       return false;
     }
     
@@ -183,7 +183,7 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns The ID of the created configuration
    */
   async createCICDPipelineConfig(config: CICDPipelineConfig): Promise<string> {
-    console.log(`Creating CI/CD pipeline configuration`);
+    /* eslint-disable-next-line no-console */ console.log(`Creating CI/CD pipeline configuration`);
     
     // Store the configuration
     this.cicdPipelineConfig = config;
@@ -197,7 +197,7 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns The CI/CD pipeline configuration or null if not found
    */
   async getCICDPipelineConfig(): Promise<CICDPipelineConfig | null> {
-    console.log(`Getting CI/CD pipeline configuration`);
+    /* eslint-disable-next-line no-console */ console.log(`Getting CI/CD pipeline configuration`);
     
     return this.cicdPipelineConfig;
   }
@@ -209,10 +209,10 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns Whether the update was successful
    */
   async updateCICDPipelineConfig(updates: Partial<CICDPipelineConfig>): Promise<boolean> {
-    console.log(`Updating CI/CD pipeline configuration`);
+    /* eslint-disable-next-line no-console */ console.log(`Updating CI/CD pipeline configuration`);
     
     if (!this.cicdPipelineConfig) {
-      console.error(`CI/CD pipeline configuration not found`);
+      /* eslint-disable-next-line no-console */ console.error(`CI/CD pipeline configuration not found`);
       return false;
     }
     
@@ -232,7 +232,7 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns The ID of the created configuration
    */
   async createDNSConfig(config: DNSConfig): Promise<string> {
-    console.log(`Creating DNS configuration for domain: ${config.domain}`);
+    /* eslint-disable-next-line no-console */ console.log(`Creating DNS configuration for domain: ${config.domain}`);
     
     // Store the configuration
     this.dnsConfigs.set(config.domain, config);
@@ -247,7 +247,7 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns The DNS configuration or null if not found
    */
   async getDNSConfig(domain: string): Promise<DNSConfig | null> {
-    console.log(`Getting DNS configuration for domain: ${domain}`);
+    /* eslint-disable-next-line no-console */ console.log(`Getting DNS configuration for domain: ${domain}`);
     
     // Get the configuration
     const config = this.dnsConfigs.get(domain);
@@ -263,13 +263,13 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns Whether the update was successful
    */
   async updateDNSConfig(domain: string, updates: Partial<DNSConfig>): Promise<boolean> {
-    console.log(`Updating DNS configuration for domain: ${domain}`);
+    /* eslint-disable-next-line no-console */ console.log(`Updating DNS configuration for domain: ${domain}`);
     
     // Get the configuration
     const config = this.dnsConfigs.get(domain);
     
     if (!config) {
-      console.error(`DNS configuration not found for domain: ${domain}`);
+      /* eslint-disable-next-line no-console */ console.error(`DNS configuration not found for domain: ${domain}`);
       return false;
     }
     
@@ -300,13 +300,13 @@ export class DeploymentServiceImpl implements DeploymentService {
     ttl?: number;
     priority?: number;
   }): Promise<boolean> {
-    console.log(`Adding DNS record ${record.name} to domain: ${domain}`);
+    /* eslint-disable-next-line no-console */ console.log(`Adding DNS record ${record.name} to domain: ${domain}`);
     
     // Get the configuration
     const config = this.dnsConfigs.get(domain);
     
     if (!config) {
-      console.error(`DNS configuration not found for domain: ${domain}`);
+      /* eslint-disable-next-line no-console */ console.error(`DNS configuration not found for domain: ${domain}`);
       return false;
     }
     
@@ -333,13 +333,13 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns Whether the removal was successful
    */
   async removeDNSRecord(domain: string, recordId: string): Promise<boolean> {
-    console.log(`Removing DNS record ${recordId} from domain: ${domain}`);
+    /* eslint-disable-next-line no-console */ console.log(`Removing DNS record ${recordId} from domain: ${domain}`);
     
     // Get the configuration
     const config = this.dnsConfigs.get(domain);
     
     if (!config) {
-      console.error(`DNS configuration not found for domain: ${domain}`);
+      /* eslint-disable-next-line no-console */ console.error(`DNS configuration not found for domain: ${domain}`);
       return false;
     }
     
@@ -360,7 +360,7 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns The ID of the created configuration
    */
   async createTestingConfig(config: TestingConfig): Promise<string> {
-    console.log(`Creating testing configuration`);
+    /* eslint-disable-next-line no-console */ console.log(`Creating testing configuration`);
     
     // Store the configuration
     this.testingConfig = config;
@@ -374,7 +374,7 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns The testing configuration or null if not found
    */
   async getTestingConfig(): Promise<TestingConfig | null> {
-    console.log(`Getting testing configuration`);
+    /* eslint-disable-next-line no-console */ console.log(`Getting testing configuration`);
     
     return this.testingConfig;
   }
@@ -386,10 +386,10 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns Whether the update was successful
    */
   async updateTestingConfig(updates: Partial<TestingConfig>): Promise<boolean> {
-    console.log(`Updating testing configuration`);
+    /* eslint-disable-next-line no-console */ console.log(`Updating testing configuration`);
     
     if (!this.testingConfig) {
-      console.error(`Testing configuration not found`);
+      /* eslint-disable-next-line no-console */ console.error(`Testing configuration not found`);
       return false;
     }
     
@@ -409,7 +409,7 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns The ID of the created configuration
    */
   async createDatabaseDeploymentConfig(config: DatabaseDeploymentConfig): Promise<string> {
-    console.log(`Creating database deployment configuration`);
+    /* eslint-disable-next-line no-console */ console.log(`Creating database deployment configuration`);
     
     // Store the configuration
     this.databaseDeploymentConfig = config;
@@ -423,7 +423,7 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns The database deployment configuration or null if not found
    */
   async getDatabaseDeploymentConfig(): Promise<DatabaseDeploymentConfig | null> {
-    console.log(`Getting database deployment configuration`);
+    /* eslint-disable-next-line no-console */ console.log(`Getting database deployment configuration`);
     
     return this.databaseDeploymentConfig;
   }
@@ -435,10 +435,10 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns Whether the update was successful
    */
   async updateDatabaseDeploymentConfig(updates: Partial<DatabaseDeploymentConfig>): Promise<boolean> {
-    console.log(`Updating database deployment configuration`);
+    /* eslint-disable-next-line no-console */ console.log(`Updating database deployment configuration`);
     
     if (!this.databaseDeploymentConfig) {
-      console.error(`Database deployment configuration not found`);
+      /* eslint-disable-next-line no-console */ console.error(`Database deployment configuration not found`);
       return false;
     }
     
@@ -458,7 +458,7 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns The ID of the created configuration
    */
   async createMonitoringConfig(config: MonitoringConfig): Promise<string> {
-    console.log(`Creating monitoring configuration`);
+    /* eslint-disable-next-line no-console */ console.log(`Creating monitoring configuration`);
     
     // Store the configuration
     this.monitoringConfig = config;
@@ -472,7 +472,7 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns The monitoring configuration or null if not found
    */
   async getMonitoringConfig(): Promise<MonitoringConfig | null> {
-    console.log(`Getting monitoring configuration`);
+    /* eslint-disable-next-line no-console */ console.log(`Getting monitoring configuration`);
     
     return this.monitoringConfig;
   }
@@ -484,10 +484,10 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns Whether the update was successful
    */
   async updateMonitoringConfig(updates: Partial<MonitoringConfig>): Promise<boolean> {
-    console.log(`Updating monitoring configuration`);
+    /* eslint-disable-next-line no-console */ console.log(`Updating monitoring configuration`);
     
     if (!this.monitoringConfig) {
-      console.error(`Monitoring configuration not found`);
+      /* eslint-disable-next-line no-console */ console.error(`Monitoring configuration not found`);
       return false;
     }
     
@@ -507,7 +507,7 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns The ID of the created configuration
    */
   async createSecurityConfig(config: SecurityConfig): Promise<string> {
-    console.log(`Creating security configuration`);
+    /* eslint-disable-next-line no-console */ console.log(`Creating security configuration`);
     
     // Store the configuration
     this.securityConfig = config;
@@ -521,7 +521,7 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns The security configuration or null if not found
    */
   async getSecurityConfig(): Promise<SecurityConfig | null> {
-    console.log(`Getting security configuration`);
+    /* eslint-disable-next-line no-console */ console.log(`Getting security configuration`);
     
     return this.securityConfig;
   }
@@ -533,10 +533,10 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns Whether the update was successful
    */
   async updateSecurityConfig(updates: Partial<SecurityConfig>): Promise<boolean> {
-    console.log(`Updating security configuration`);
+    /* eslint-disable-next-line no-console */ console.log(`Updating security configuration`);
     
     if (!this.securityConfig) {
-      console.error(`Security configuration not found`);
+      /* eslint-disable-next-line no-console */ console.error(`Security configuration not found`);
       return false;
     }
     
@@ -561,7 +561,7 @@ export class DeploymentServiceImpl implements DeploymentService {
     logs: string;
     error?: string;
   }> {
-    console.log(`Deploying to environment: ${environment}`);
+    /* eslint-disable-next-line no-console */ console.log(`Deploying to environment: ${environment}`);
     
     // Get the configuration
     const config = this.deploymentConfigs.get(environment);
@@ -613,7 +613,7 @@ export class DeploymentServiceImpl implements DeploymentService {
     readyAt?: Date;
     error?: string;
   }> {
-    console.log(`Getting deployment status: ${deploymentId}`);
+    /* eslint-disable-next-line no-console */ console.log(`Getting deployment status: ${deploymentId}`);
     
     // In a real implementation, this would check the status
     // of the deployment using the provider's API
@@ -634,7 +634,7 @@ export class DeploymentServiceImpl implements DeploymentService {
    * @returns Whether the rollback was successful
    */
   async rollbackDeployment(deploymentId: string): Promise<boolean> {
-    console.log(`Rolling back deployment: ${deploymentId}`);
+    /* eslint-disable-next-line no-console */ console.log(`Rolling back deployment: ${deploymentId}`);
     
     // In a real implementation, this would trigger a rollback
     // of the deployment using the provider's API
@@ -656,7 +656,7 @@ export class DeploymentServiceImpl implements DeploymentService {
     securityConfiguration: string;
     monitoringConfiguration: string;
   }> {
-    console.log(`Generating deployment documentation`);
+    /* eslint-disable-next-line no-console */ console.log(`Generating deployment documentation`);
     
     // In a real implementation, this would generate comprehensive
     // documentation based on the actual configurations

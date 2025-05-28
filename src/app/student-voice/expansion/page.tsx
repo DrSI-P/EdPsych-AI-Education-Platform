@@ -1,5 +1,7 @@
 import ExpansionWrapper from '@/components/student-voice/expansion/expansion-wrapper';
 
-export default function StudentVoiceExpansionPage() {
+// import React from "react"; // Unused import
+
+export default function StudentVoiceExpansionPage() : React.ReactNode {
   return <ExpansionWrapper />;
 }

@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 // Accessibility utilities for EdPsych-AI-Education-Platform
 import React, { useState, useEffect, useCallback, createContext, useContext } from 'react';
 
@@ -45,7 +46,7 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
       const savedSettings = localStorage.getItem('accessibilitySettings');
       return savedSettings ? JSON.parse(savedSettings) : defaultAccessibilitySettings;
     } catch (error) {
-      console.error('Failed to load accessibility settings:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to load accessibility settings:', error);
       return defaultAccessibilitySettings;
     }
   };
@@ -72,7 +73,7 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
       };
       localStorage.setItem('accessibilitySettings', JSON.stringify(settings));
     } catch (error) {
-      console.error('Failed to save accessibility settings:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to save accessibility settings:', error);
     }
   }, [fontSize, highContrast, dyslexicFont, reduceMotion, screenReader, colorBlindMode, focusMode]);
 
@@ -89,7 +90,7 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       localStorage.removeItem('accessibilitySettings');
     } catch (error) {
-      console.error('Failed to reset accessibility settings:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to reset accessibility settings:', error);
     }
   }, []);
 

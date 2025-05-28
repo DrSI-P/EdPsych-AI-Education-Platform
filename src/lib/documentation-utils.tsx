@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 // Documentation utilities for EdPsych-AI-Education-Platform
 import React, { useState, useEffect } from 'react';
 import { marked } from 'marked';
@@ -89,7 +90,7 @@ export const InteractiveDocumentation = ({
   // Handle feedback submission
   const submitFeedback = () => {
     // In a real implementation, this would send feedback to a server
-    console.log('Feedback submitted:', { rating: feedbackRating, comment: feedbackComment });
+    /* eslint-disable-next-line no-console */ console.log('Feedback submitted:', { rating: feedbackRating, comment: feedbackComment });
     
     // Reset form
     setFeedbackRating(null);
@@ -255,7 +256,7 @@ export const VideoDocumentation = ({
           setTranscript(text);
         })
         .catch(error => {
-          console.error('Failed to load transcript:', error);
+          /* eslint-disable-next-line no-console */ console.error('Failed to load transcript:', error);
           setTranscript('Transcript could not be loaded.');
         });
     }

@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react'; // Unused import
 import { BlogCard } from './BlogCard';
 import { Pagination } from '@/components/ui/pagination';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -40,7 +40,7 @@ interface BlogListProps {
   featuredPostIndex?: number;
 }
 
-export function BlogList({
+export function BlogList(: React.ReactNode {
   posts,
   isLoading = false,
   error,

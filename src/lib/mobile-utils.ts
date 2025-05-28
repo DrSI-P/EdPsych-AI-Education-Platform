@@ -300,7 +300,7 @@ export const useOfflineSupport = () => {
           setOfflineData(JSON.parse(storedData));
         }
       } catch (error) {
-        console.error('Failed to load offline data:', error);
+        /* eslint-disable-next-line no-console */ console.error('Failed to load offline data:', error);
       }
     };
     
@@ -319,7 +319,7 @@ export const useOfflineSupport = () => {
       localStorage.setItem('offlineData', JSON.stringify(updatedData));
       return true;
     } catch (error) {
-      console.error('Failed to save offline data:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to save offline data:', error);
       return false;
     }
   }, [offlineData]);
@@ -344,7 +344,7 @@ export const useOfflineSupport = () => {
       localStorage.setItem('offlineData', JSON.stringify(updatedData));
       return true;
     } catch (error) {
-      console.error('Failed to clear offline data:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to clear offline data:', error);
       return false;
     }
   }, [offlineData]);

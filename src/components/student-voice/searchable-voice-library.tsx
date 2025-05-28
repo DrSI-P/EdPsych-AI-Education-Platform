@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -18,7 +19,7 @@ import {
   Headphones, Volume2, VolumeX, Settings
 } from "lucide-react";
 
-export default function SearchableVoiceLibrary() {
+export default function SearchableVoiceLibrary() : React.ReactNode {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("search");
   const [contentType, setContentType] = useState("all");

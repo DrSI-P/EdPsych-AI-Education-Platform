@@ -1,8 +1,9 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
-import { Input, Textarea, Select, Checkbox } from '@/components/ui/form';
+import { Input, Select } from "@/components/ui/form";
 import { Button } from '@/components/ui/button';
 import { Tabs } from '@/components/ui/tabs';
 import { Spinner } from '@/components/ui/loading';
@@ -14,7 +15,7 @@ interface ProfessionalDashboardProps {
   className?: string;
 }
 
-export function ProfessionalDashboard({
+export function ProfessionalDashboard(: React.ReactNode {
   className = ''
 }: ProfessionalDashboardProps) {
   const { showToast } = useToast();

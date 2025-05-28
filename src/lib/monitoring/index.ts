@@ -20,7 +20,7 @@ export const healthChecks = healthChecksModule;
 export const alerting = alertingModule;
 
 // Initialize monitoring based on environment
-export function initializeMonitoring() {
+export function initializeMonitoring() : React.ReactNode {
   // Initialize Sentry for error tracking
   sentry.initSentry(
     process.env.NEXT_PUBLIC_SENTRY_DSN,

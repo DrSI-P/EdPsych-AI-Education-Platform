@@ -55,7 +55,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
     misalignments: any[];
     recommendations: any[];
   }> {
-    console.log(`Validating curriculum alignment for key stage: ${keyStage}`);
+    /* eslint-disable-next-line no-console */ console.log(`Validating curriculum alignment for key stage: ${keyStage}`);
     
     // Get curriculum standards for the specified key stage
     const standards = this.curriculumStandards.get(keyStage) || [];
@@ -99,7 +99,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
     concerns: any[];
     recommendedAgeRating: AgeAppropriatenessRating;
   }> {
-    console.log(`Checking age appropriateness for age range: ${targetAgeRange.min}-${targetAgeRange.max}`);
+    /* eslint-disable-next-line no-console */ console.log(`Checking age appropriateness for age range: ${targetAgeRange.min}-${targetAgeRange.max}`);
     
     // Determine the appropriate age rating based on the target age range
     const ageRating = this.determineAgeRating(targetAgeRange);
@@ -139,7 +139,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
     issues: any[];
     recommendations: any[];
   }> {
-    console.log('Validating accessibility');
+    /* eslint-disable-next-line no-console */ console.log('Validating accessibility');
     
     // Mock implementation - in a real system, this would perform
     // sophisticated analysis of the content against accessibility requirements
@@ -181,7 +181,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
     issues: any[];
     recommendations: any[];
   }> {
-    console.log('Checking inclusivity');
+    /* eslint-disable-next-line no-console */ console.log('Checking inclusivity');
     
     // Mock implementation - in a real system, this would perform
     // sophisticated analysis of the content against inclusivity guidelines
@@ -218,7 +218,7 @@ export class DFEComplianceServiceImpl implements DFEComplianceService {
    * @returns DFE compliance report
    */
   async generateComplianceReport(contentId: string): Promise<DFECompliance> {
-    console.log(`Generating compliance report for content: ${contentId}`);
+    /* eslint-disable-next-line no-console */ console.log(`Generating compliance report for content: ${contentId}`);
     
     // In a real implementation, this would retrieve the content and perform
     // comprehensive analysis against all compliance criteria

@@ -1,5 +1,7 @@
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
 
+// import React from "react"; // Unused import
+
 /**
  * Custom Document component for EdPsych Connect
  * 

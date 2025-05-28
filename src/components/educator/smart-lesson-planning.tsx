@@ -11,8 +11,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { Save, Copy, Download, FileText, RefreshCw, BookOpen, Lightbulb, Wand2 } from 'lucide-react';
+// import { Separator } from "@/components/ui/separator"; // Unused import
+import { Save, Copy, Download, FileText, RefreshCw, BookOpen, Wand2 } from "lucide-react";
 
 interface LessonPlanTemplate {
   id: string;
@@ -62,7 +62,7 @@ const differentiationStrategies = [
   { id: "concrete", name: "Concrete resources", description: "Hands-on manipulatives and resources" }
 ];
 
-export function SmartLessonPlanning() {
+export function SmartLessonPlanning() : React.ReactNode {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("create");
   const [lessonTitle, setLessonTitle] = useState("");

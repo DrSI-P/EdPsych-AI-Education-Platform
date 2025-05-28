@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -6,10 +7,10 @@ import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
-import { Tabs } from '@/components/ui/tabs';
+// import { Tabs } from '@/components/ui/tabs'; // Unused import
 import { Form } from '@/components/ui/form';
 
-export default function UseAssessmentTemplatePage() {
+export default function UseAssessmentTemplatePage() : React.ReactNode {
   const router = useRouter();
   const params = useParams();
   const templateId = params.id;
@@ -41,7 +42,7 @@ export default function UseAssessmentTemplatePage() {
         setDescription(data.templateData.description || '');
         setPassingScore(data.templateData.passingScore || 70);
       } catch (err) {
-        console.error('Error fetching template:', err);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching template:', err);
         setError('An error occurred while fetching the template');
       } finally {
         setLoading(false);
@@ -101,7 +102,7 @@ export default function UseAssessmentTemplatePage() {
       // Redirect to the assessment edit page
       router.push(`/assessment/edit/${data.id}`);
     } catch (err) {
-      console.error('Error creating assessment:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error creating assessment:', err);
       setError(err.message || 'An error occurred while creating the assessment');
     } finally {
       setSaving(false);

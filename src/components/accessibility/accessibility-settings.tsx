@@ -27,7 +27,7 @@ import {
  * A comprehensive accessibility settings panel that allows users to customize
  * their experience based on their specific needs.
  */
-export default function AccessibilitySettings() {
+export default function AccessibilitySettings() : React.ReactNode {
   const { toast } = useToast();
   
   // Visual settings

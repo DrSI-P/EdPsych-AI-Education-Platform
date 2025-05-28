@@ -1,8 +1,8 @@
-import React from 'react';
+// import React from 'react'; // Unused import
 import Head from 'next/head';
 import { Container } from '@/components/ui/container';
 
-export default function TermsOfServicePage() {
+export default function TermsOfServicePage() : React.ReactNode {
   const lastUpdated = "23 May 2025";
   const version = "1.0";
   

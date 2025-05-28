@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"; // Unused import
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; // Unused import
 import { ContextualResourceRecommendation } from '@/components/resource/contextual-resource-recommendation';
 
 interface SmartLessonPlanningIntegrationProps {
@@ -12,7 +12,7 @@ interface SmartLessonPlanningIntegrationProps {
   className?: string;
 }
 
-export function SmartLessonPlanningIntegration({
+export function SmartLessonPlanningIntegration(: React.ReactNode {
   lessonPlanId,
   lessonPlanContent = '',
   className = ''

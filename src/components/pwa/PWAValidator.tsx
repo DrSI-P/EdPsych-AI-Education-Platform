@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-export function PWAValidator() {
+export function PWAValidator() : React.ReactNode {
   const [validationResults, setValidationResults] = useState({
     serviceWorker: 'checking',
     manifest: 'checking',

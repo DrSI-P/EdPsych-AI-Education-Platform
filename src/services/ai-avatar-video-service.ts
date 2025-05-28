@@ -59,7 +59,7 @@ export class AIAvatarVideoService {
       const data = await response.json();
       return this.normalizeVideoData(data);
     } catch (error) {
-      console.error('Error generating video:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error generating video:', error);
       throw error;
     }
   }
@@ -84,7 +84,7 @@ export class AIAvatarVideoService {
       const data = await response.json();
       return data.videos.map(this.normalizeVideoData);
     } catch (error) {
-      console.error('Error fetching videos:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching videos:', error);
       throw error;
     }
   }
@@ -110,7 +110,7 @@ export class AIAvatarVideoService {
       const data = await response.json();
       return this.normalizeVideoData(data);
     } catch (error) {
-      console.error('Error fetching video status:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching video status:', error);
       throw error;
     }
   }
@@ -135,7 +135,7 @@ export class AIAvatarVideoService {
       
       return true;
     } catch (error) {
-      console.error('Error deleting video:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error deleting video:', error);
       throw error;
     }
   }

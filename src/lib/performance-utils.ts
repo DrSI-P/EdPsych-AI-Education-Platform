@@ -21,7 +21,7 @@ export const useLazyImage = (src: string, placeholder: string = '/images/placeho
       setIsLoaded(true);
     };
     img.onerror = () => {
-      console.error(`Failed to load image: ${src}`);
+      /* eslint-disable-next-line no-console */ console.error(`Failed to load image: ${src}`);
       // Keep placeholder on error
     };
   }, [src]);
@@ -47,7 +47,7 @@ export const useLazyComponent = (importFunc) => {
         setIsLoading(false);
       })
       .catch((err) => {
-        console.error('Failed to load component:', err);
+        /* eslint-disable-next-line no-console */ console.error('Failed to load component:', err);
         setError(err);
         setIsLoading(false);
       });
@@ -98,7 +98,7 @@ export const useDataCache = (key, fetchFunc, ttl = 5 * 60 * 1000) => {
           })
         );
       } catch (err) {
-        console.error('Failed to fetch data:', err);
+        /* eslint-disable-next-line no-console */ console.error('Failed to fetch data:', err);
         setError(err);
       } finally {
         setIsLoading(false);
@@ -124,7 +124,7 @@ export const useDataCache = (key, fetchFunc, ttl = 5 * 60 * 1000) => {
         })
       );
     } catch (err) {
-      console.error('Failed to refresh data:', err);
+      /* eslint-disable-next-line no-console */ console.error('Failed to refresh data:', err);
       setError(err);
     } finally {
       setIsLoading(false);

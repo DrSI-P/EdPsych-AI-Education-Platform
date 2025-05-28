@@ -2,6 +2,8 @@ import { z } from 'zod';
 import DOMPurify from 'isomorphic-dompurify';
 import { validate as validateEmail } from 'email-validator';
 
+// import React from "react"; // Unused import
+
 /**
  * EdPsych-AI-Education-Platform Validation Library
  * Provides comprehensive validation and sanitization for all platform data
@@ -330,7 +332,7 @@ export function validateEmailEnhanced(email: string): boolean {
 /**
  * Function to validate and sanitize user input
  */
-export function validateAndSanitizeUser(userData) {
+export function validateAndSanitizeUser(userData) : React.ReactNode {
   // Validate with Zod schema
   const validatedData = userSchema.parse(userData);
   
@@ -346,7 +348,7 @@ export function validateAndSanitizeUser(userData) {
 /**
  * Function to validate and sanitize profile input
  */
-export function validateAndSanitizeProfile(profileData) {
+export function validateAndSanitizeProfile(profileData) : React.ReactNode {
   // Validate with Zod schema
   const validatedData = profileSchema.parse(profileData);
   
@@ -374,7 +376,7 @@ export function validateAndSanitizeProfile(profileData) {
 /**
  * Function to validate and sanitize assessment input
  */
-export function validateAndSanitizeAssessment(assessmentData) {
+export function validateAndSanitizeAssessment(assessmentData) : React.ReactNode {
   // Validate with Zod schema
   const validatedData = assessmentSchema.parse(assessmentData);
   
@@ -401,7 +403,7 @@ export function validateAndSanitizeAssessment(assessmentData) {
 /**
  * Function to validate and sanitize resource input
  */
-export function validateAndSanitizeResource(resourceData) {
+export function validateAndSanitizeResource(resourceData) : React.ReactNode {
   // Validate with Zod schema
   const validatedData = resourceSchema.parse(resourceData);
   
@@ -422,7 +424,7 @@ export function validateAndSanitizeResource(resourceData) {
 /**
  * Function to validate and sanitize curriculum plan input
  */
-export function validateAndSanitizeCurriculumPlan(planData) {
+export function validateAndSanitizeCurriculumPlan(planData) : React.ReactNode {
   // Validate with Zod schema
   const validatedData = curriculumPlanSchema.parse(planData);
   
@@ -456,7 +458,7 @@ export function validateAndSanitizeCurriculumPlan(planData) {
 /**
  * Function to validate and sanitize SEMH assessment input
  */
-export function validateAndSanitizeSEMHAssessment(assessmentData) {
+export function validateAndSanitizeSEMHAssessment(assessmentData) : React.ReactNode {
   // Validate with Zod schema
   const validatedData = semhAssessmentSchema.parse(assessmentData);
   
@@ -478,7 +480,7 @@ export function validateAndSanitizeSEMHAssessment(assessmentData) {
 /**
  * Function to validate and sanitize biofeedback session input
  */
-export function validateAndSanitizeBiofeedbackSession(sessionData) {
+export function validateAndSanitizeBiofeedbackSession(sessionData) : React.ReactNode {
   // Validate with Zod schema
   const validatedData = biofeedbackSessionSchema.parse(sessionData);
   
@@ -494,7 +496,7 @@ export function validateAndSanitizeBiofeedbackSession(sessionData) {
 /**
  * Function to validate and sanitize emotional pattern record input
  */
-export function validateAndSanitizeEmotionalPatternRecord(recordData) {
+export function validateAndSanitizeEmotionalPatternRecord(recordData) : React.ReactNode {
   // Validate with Zod schema
   const validatedData = emotionalPatternRecordSchema.parse(recordData);
   
@@ -517,7 +519,7 @@ export function validateAndSanitizeEmotionalPatternRecord(recordData) {
 /**
  * Function to validate and sanitize parent-teacher communication input
  */
-export function validateAndSanitizeParentTeacherCommunication(communicationData) {
+export function validateAndSanitizeParentTeacherCommunication(communicationData) : React.ReactNode {
   // Validate with Zod schema
   const validatedData = parentTeacherCommunicationSchema.parse(communicationData);
   

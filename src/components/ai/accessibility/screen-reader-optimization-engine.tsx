@@ -3,9 +3,9 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; // Unused import
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+// import { Badge } from "@/components/ui/badge"; // Unused import
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import { 
@@ -130,7 +130,7 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
         }
       });
     } catch (error) {
-      console.error('Error enhancing headings:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error enhancing headings:', error);
     }
   }, [settings.enabled, settings.enhanceHeadings, settings.verbosityLevel]);
   
@@ -181,7 +181,7 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
         image.setAttribute('role', 'img');
       });
     } catch (error) {
-      console.error('Error improving alt text:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error improving alt text:', error);
     }
   }, [settings.enabled, settings.improveAltText]);
   
@@ -244,7 +244,7 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
         }
       });
     } catch (error) {
-      console.error('Error adding contextual descriptions:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error adding contextual descriptions:', error);
     }
   }, [settings.enabled, settings.addContextualDescriptions, settings.verbosityLevel]);
   
@@ -283,7 +283,7 @@ export const ScreenReaderOptimizationEngine: React.FC<ScreenReaderOptimizationEn
         }
       });
     } catch (error) {
-      console.error('Error optimizing tab order:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error optimizing tab order:', error);
     }
   }, [settings.enabled, settings.optimizeTabOrder]);
   

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import aiService from '@/lib/ai/ai-service';
+// import aiService from '@/lib/ai/ai-service'; // Unused import
 
 // Define AIProvider type locally since it's not exported from ai-service
 type AIProvider = 'openai' | 'anthropic' | 'gemini' | 'grok' | 'openrouter';
@@ -50,7 +50,7 @@ export async function GET() {
       defaultModel: defaultProvider ? defaultModels[defaultProvider] : 'gpt-4-turbo'
     });
   } catch (error) {
-    console.error('Error getting AI configuration:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error getting AI configuration:', error);
     return NextResponse.json(
       { error: 'Failed to get AI configuration' },
       { status: 500 }
@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
       defaultModel
     });
   } catch (error) {
-    console.error('Error updating AI configuration:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error updating AI configuration:', error);
     return NextResponse.json(
       { error: 'Failed to update AI configuration' },
       { status: 500 }

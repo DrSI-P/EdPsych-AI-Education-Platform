@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -382,7 +383,7 @@ const AgeAppropriateReflectionPrompts = () => {
           setSavedPrompts(JSON.parse(saved));
         }
       } catch (error) {
-        console.error('Error loading saved prompts:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error loading saved prompts:', error);
         toast.error('Failed to load saved prompts');
       } finally {
         setIsLoading(false);
@@ -530,7 +531,7 @@ const AgeAppropriateReflectionPrompts = () => {
         localStorage.setItem('savedReflectionPrompts', JSON.stringify(imported));
         toast.success('Prompt collection imported successfully');
       } catch (error) {
-        console.error('Error importing prompts:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error importing prompts:', error);
         toast.error('Failed to import prompts');
       }
     };

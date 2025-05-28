@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+// import React from 'react'; // Unused import
 
 // Create a stub Certificate icon component to fix build warnings
 export const Certificate = ({ 

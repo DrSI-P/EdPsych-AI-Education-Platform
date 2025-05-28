@@ -10,10 +10,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge';
 import { Pagination } from '@/components/ui/pagination';
 import { Search, Upload, BookOpen, Filter, Grid3X3, List } from 'lucide-react';
-import Link from 'next/link';
+// import Link from 'next/link'; // Unused import
 import { UILink } from '@/components/ui';
 
-export default function ResourcesClient() {
+// import React from "react"; // Unused import
+
+export default function ResourcesClient() : React.ReactNode {
   const { data: session, status } = useSession();
   const [resources, setResources] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -129,7 +131,7 @@ export default function ResourcesClient() {
           setLoading(false);
         }, 800);
       } catch (error) {
-        console.error('Error fetching resources:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching resources:', error);
         setLoading(false);
       }
     };

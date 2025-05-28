@@ -4,10 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+// import { Progress } from '@/components/ui/progress'; // Unused import
+// import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'; // Unused import
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -98,7 +98,7 @@ interface MessageThread {
   unread: number;
 }
 
-export default function ParentPortalPage() {
+export default function ParentPortalPage() : React.ReactNode {
   // State for active tab
   const [activeTab, setActiveTab] = useState('dashboard');
   

@@ -3,7 +3,7 @@ import openai from '@/lib/openai-compat'; // Changed to use our compatibility la
 import Anthropic from '@anthropic-ai/sdk';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import axios from 'axios';
-import aiService from '@/lib/ai/ai-service-server'; // Changed to use server version
+// import aiService from '@/lib/ai/ai-service-server'; // Unused import // Changed to use server version
 
 // Define AIProvider type locally since it's not exported from ai-service
 type AIProvider = 'openai' | 'anthropic' | 'gemini' | 'grok' | 'openrouter';
@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
     
     return NextResponse.json(completion);
   } catch (error) {
-    console.error('Error processing AI completion request:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error processing AI completion request:', error);
     return NextResponse.json(
       { error: 'Failed to process AI completion request' },
       { status: 500 }
@@ -220,9 +220,9 @@ async function handleGrokCompletion(
       model: requestData.model || 'grok-1'
     };
   } catch (error) {
-    console.error('Error calling Grok API:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error calling Grok API:', error);
     // Implement fallback to mock response
-    console.log('Falling back to mock response for completion');
+    /* eslint-disable-next-line no-console */ console.log('Falling back to mock response for completion');
     return {
       text: `This is a mock response for the prompt: ${requestData.prompt}. In production, this would be an actual AI-generated response.`,
       provider: 'openai',

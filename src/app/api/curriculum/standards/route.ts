@@ -77,7 +77,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       },
     });
   } catch (error) {
-    console.error('Error fetching curriculum standards:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching curriculum standards:', error);
     return NextResponse.json(
       { error: 'Failed to fetch curriculum standards' },
       { status: 500 }
@@ -154,7 +154,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       }
     }, { status: 201 });
   } catch (error) {
-    console.error('Error creating curriculum standard:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating curriculum standard:', error);
     return NextResponse.json(
       { error: 'Failed to create curriculum standard' },
       { status: 500 }

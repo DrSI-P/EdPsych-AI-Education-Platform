@@ -327,7 +327,7 @@ const SAMPLE_CERTIFICATES = [
   }
 ];
 
-export default function ProfessionalDevelopmentCourses() {
+export default function ProfessionalDevelopmentCourses() : React.ReactNode {
   const [activeTab, setActiveTab] = useState('explore');
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');

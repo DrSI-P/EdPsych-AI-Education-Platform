@@ -1,5 +1,5 @@
 // @ts-check
-import React from 'react';
+// import React from 'react'; // Unused import
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import { describe, it, expect, vi, beforeEach } from 'vitest';

@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
 import Link from 'next/link';
 
-export default function VerifyEmailPage() {
+export default function VerifyEmailPage() : React.ReactNode {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
@@ -43,7 +43,7 @@ export default function VerifyEmailPage() {
         }
       } catch (err) {
         setError('An error occurred during verification');
-        console.error('Email verification error:', err);
+        /* eslint-disable-next-line no-console */ console.error('Email verification error:', err);
       } finally {
         setLoading(false);
       }

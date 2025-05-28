@@ -12,7 +12,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+// import { Label } from '@/components/ui/label'; // Unused import
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { 
   BarChart, 
@@ -25,10 +25,10 @@ import {
   RefreshCw, 
   Search 
 } from 'lucide-react';
-import { useToast } from '@/components/ui/use-toast';
+// import { useToast } from '@/components/ui/use-toast'; // Unused import
 
 // Create stub InterventionAnalyticsEngine component to fix build warnings
-export function InterventionAnalyticsEngine() {
+export function InterventionAnalyticsEngine() : React.ReactNode {
   const [activeTab, setActiveTab] = useState("overview");
   const [isLoading, setIsLoading] = useState(true);
   const [analyticsData, setAnalyticsData] = useState(null);
@@ -91,7 +91,7 @@ export function InterventionAnalyticsEngine() {
   const handleExportData = (format) => {
     // Simulate export functionality
     setTimeout(() => {
-      console.log(`Exporting data in ${format} format`);
+      /* eslint-disable-next-line no-console */ console.log(`Exporting data in ${format} format`);
     }, 500);
   };
 

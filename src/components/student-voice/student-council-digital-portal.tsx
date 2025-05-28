@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState } from 'react';
@@ -20,7 +21,7 @@ import {
   Flag, Award, Bell, Menu, Filter, ArrowUpRight
 } from "lucide-react";
 
-export default function StudentCouncilDigitalPortal() {
+export default function StudentCouncilDigitalPortal() : React.ReactNode {
   const [activeTab, setActiveTab] = useState("dashboard");
   
   // Sample council data

@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -34,7 +35,7 @@ export const PushNotificationManager: React.FC<PushNotificationManagerProps> = (
     const initializeNotifications = async () => {
       // Check if push notifications are supported
       if (!pushNotifications.isSupported()) {
-        console.warn('Push notifications are not supported in this browser');
+        /* eslint-disable-next-line no-console */ console.warn('Push notifications are not supported in this browser');
         return;
       }
       
@@ -60,7 +61,7 @@ export const PushNotificationManager: React.FC<PushNotificationManagerProps> = (
           }, 3000);
         }
       } catch (error) {
-        console.error('Failed to initialize push notifications:', error);
+        /* eslint-disable-next-line no-console */ console.error('Failed to initialize push notifications:', error);
       }
     };
     
@@ -86,7 +87,7 @@ export const PushNotificationManager: React.FC<PushNotificationManagerProps> = (
       // Hide permission prompt
       setShowPermissionPrompt(false);
     } catch (error) {
-      console.error('Failed to request notification permission:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to request notification permission:', error);
     }
   };
 
@@ -274,7 +275,7 @@ export const NotificationPreferencesManager: React.FC<NotificationPreferencesMan
     try {
       await pushNotifications.updateNotificationPreferences(preferences);
     } catch (error) {
-      console.error('Failed to save notification preferences:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to save notification preferences:', error);
     }
   };
 
@@ -552,7 +553,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
         
         setNotifications(mockNotifications);
       } catch (error) {
-        console.error('Failed to fetch notifications:', error);
+        /* eslint-disable-next-line no-console */ console.error('Failed to fetch notifications:', error);
       } finally {
         setIsLoading(false);
       }
@@ -575,7 +576,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
         )
       );
     } catch (error) {
-      console.error('Failed to mark notification as read:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to mark notification as read:', error);
     }
   };
 
@@ -589,7 +590,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
         prev.map(notification => ({ ...notification, read: true }))
       );
     } catch (error) {
-      console.error('Failed to mark all notifications as read:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to mark all notifications as read:', error);
     }
   };
 

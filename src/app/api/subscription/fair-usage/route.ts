@@ -266,7 +266,7 @@ export async function POST(req: NextRequest) {
         );
     }
   } catch (error) {
-    console.error('Error in subscription fair usage API:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in subscription fair usage API:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(

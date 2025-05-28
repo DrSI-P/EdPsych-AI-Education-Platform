@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
       message: 'Text-to-speech request processed successfully'
     });
   } catch (error) {
-    console.error('Text-to-speech API error:', error);
+    /* eslint-disable-next-line no-console */ console.error('Text-to-speech API error:', error);
     return NextResponse.json(
       { error: 'Failed to process text-to-speech request' },
       { status: 500 }

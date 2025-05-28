@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react'; // Unused import
 
 interface SkeletonProps {
   className?: string;
@@ -7,7 +7,7 @@ interface SkeletonProps {
   borderRadius?: string | number;
 }
 
-export function Skeleton({
+export function Skeleton(: React.ReactNode {
   className = '',
   height = '1rem',
   width = '100%',

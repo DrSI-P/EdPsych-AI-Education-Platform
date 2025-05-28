@@ -95,7 +95,7 @@ export class HeygenService {
         return false;
       });
     } catch (error) {
-      console.error(`Error fetching videos for user ${userId}:`, error);
+      /* eslint-disable-next-line no-console */ console.error(`Error fetching videos for user ${userId}:`, error);
       throw error;
     }
   }

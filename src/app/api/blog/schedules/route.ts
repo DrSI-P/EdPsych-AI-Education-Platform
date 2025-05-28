@@ -86,8 +86,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
     return NextResponse.json(schedules);
   } catch (error) {
-    // Replace console.error with structured logging when available
-    console.error('Error fetching blog content schedules:', error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error('Error fetching blog content schedules:', error);
     return NextResponse.json(
       { error: 'Failed to fetch blog content schedules' },
       { status: 500 }
@@ -165,8 +165,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       schedule,
     });
   } catch (error) {
-    // Replace console.error with structured logging when available
-    console.error('Error creating blog content schedule:', error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error('Error creating blog content schedule:', error);
     return NextResponse.json(
       { error: 'Failed to create blog content schedule' },
       { status: 500 }
@@ -247,8 +247,8 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
       schedule: updatedSchedule,
     });
   } catch (error) {
-    // Replace console.error with structured logging when available
-    console.error('Error updating blog content schedule:', error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error('Error updating blog content schedule:', error);
     return NextResponse.json(
       { error: 'Failed to update blog content schedule' },
       { status: 500 }
@@ -308,8 +308,8 @@ export async function DELETE(req: NextRequest): Promise<NextResponse> {
       message: 'Schedule deleted successfully',
     });
   } catch (error) {
-    // Replace console.error with structured logging when available
-    console.error('Error deleting blog content schedule:', error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error('Error deleting blog content schedule:', error);
     return NextResponse.json(
       { error: 'Failed to delete blog content schedule' },
       { status: 500 }

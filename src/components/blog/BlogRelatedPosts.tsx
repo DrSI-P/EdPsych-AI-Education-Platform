@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react'; // Unused import
 import { BlogCard } from './BlogCard';
 
 interface BlogRelatedPostsProps {
@@ -24,7 +24,7 @@ interface BlogRelatedPostsProps {
   }>;
 }
 
-export function BlogRelatedPosts({ posts }: BlogRelatedPostsProps) {
+export function BlogRelatedPosts(: React.ReactNode { posts }: BlogRelatedPostsProps) {
   if (!posts || posts.length === 0) {
     return null;
   }

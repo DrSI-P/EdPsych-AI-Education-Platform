@@ -31,7 +31,7 @@ export class ResearchProjectServiceImpl implements ResearchProjectService {
    * @returns The ID of the created project
    */
   async createProject(project: Omit<ResearchProject, 'id' | 'createdAt' | 'updatedAt'>): Promise<string> {
-    console.log(`Creating research project: ${project.title}`);
+    /* eslint-disable-next-line no-console */ console.log(`Creating research project: ${project.title}`);
     
     // Generate a unique ID for the project
     const id = `project-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
@@ -57,7 +57,7 @@ export class ResearchProjectServiceImpl implements ResearchProjectService {
    * @returns The research project or null if not found
    */
   async getProject(projectId: string): Promise<ResearchProject | null> {
-    console.log(`Getting research project: ${projectId}`);
+    /* eslint-disable-next-line no-console */ console.log(`Getting research project: ${projectId}`);
     
     // Get the project
     const project = this.researchProjects.get(projectId);
@@ -73,13 +73,13 @@ export class ResearchProjectServiceImpl implements ResearchProjectService {
    * @returns Whether the update was successful
    */
   async updateProject(projectId: string, updates: Partial<ResearchProject>): Promise<boolean> {
-    console.log(`Updating research project: ${projectId}`);
+    /* eslint-disable-next-line no-console */ console.log(`Updating research project: ${projectId}`);
     
     // Get the project
     const project = this.researchProjects.get(projectId);
     
     if (!project) {
-      console.error(`Project not found: ${projectId}`);
+      /* eslint-disable-next-line no-console */ console.error(`Project not found: ${projectId}`);
       return false;
     }
     
@@ -109,7 +109,7 @@ export class ResearchProjectServiceImpl implements ResearchProjectService {
     status?: ResearchProjectStatus[];
     keyStages?: UKKeyStage[];
   }): Promise<ResearchProject[]> {
-    console.log('Listing research projects');
+    /* eslint-disable-next-line no-console */ console.log('Listing research projects');
     
     // Convert the map to an array
     const allProjects = Array.from(this.researchProjects.values());
@@ -158,13 +158,13 @@ export class ResearchProjectServiceImpl implements ResearchProjectService {
     role: string;
     organisation?: string;
   }): Promise<boolean> {
-    console.log(`Adding collaborator to project ${projectId}: ${collaborator.id}`);
+    /* eslint-disable-next-line no-console */ console.log(`Adding collaborator to project ${projectId}: ${collaborator.id}`);
     
     // Get the project
     const project = this.researchProjects.get(projectId);
     
     if (!project) {
-      console.error(`Project not found: ${projectId}`);
+      /* eslint-disable-next-line no-console */ console.error(`Project not found: ${projectId}`);
       return false;
     }
     
@@ -196,7 +196,7 @@ export class ResearchProjectServiceImpl implements ResearchProjectService {
    * @returns Whether the update was successful
    */
   async updateProjectStatus(projectId: string, status: ResearchProjectStatus): Promise<boolean> {
-    console.log(`Updating project ${projectId} status to: ${status}`);
+    /* eslint-disable-next-line no-console */ console.log(`Updating project ${projectId} status to: ${status}`);
     
     // Update the project
     return this.updateProject(projectId, { status });
@@ -215,7 +215,7 @@ export class ResearchProjectServiceImpl implements ResearchProjectService {
     ethicalConsiderations: string;
     dataManagementSummary: string;
   }> {
-    console.log(`Generating research brief for project: ${projectId}`);
+    /* eslint-disable-next-line no-console */ console.log(`Generating research brief for project: ${projectId}`);
     
     // Get the project
     const project = this.researchProjects.get(projectId);

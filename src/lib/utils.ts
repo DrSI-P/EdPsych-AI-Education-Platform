@@ -1,4 +1,5 @@
-import { type ClassValue, clsx } from "clsx";
+// TODO: Fix NodeJS type errors by adding @types/node dependency
+import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 /**
@@ -56,7 +57,7 @@ export function safeJsonParse<T>(jsonString: string | null | undefined, fallback
   try {
     return JSON.parse(jsonString) as T;
   } catch (error) {
-    console.error("Error parsing JSON:", error);
+    /* eslint-disable-next-line no-console */ console.error("Error parsing JSON:", error);
     return fallback;
   }
 }

@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
     
     return NextResponse.json(profile);
   } catch (error) {
-    console.error('Error creating avatar profile:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating avatar profile:', error);
     return NextResponse.json(
       { error: 'Failed to create avatar profile' },
       { status: 500 }
@@ -68,7 +68,7 @@ export async function GET(request: NextRequest) {
     
     return NextResponse.json(status);
   } catch (error) {
-    console.error('Error getting video status:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error getting video status:', error);
     return NextResponse.json(
       { error: 'Failed to get video status' },
       { status: 500 }

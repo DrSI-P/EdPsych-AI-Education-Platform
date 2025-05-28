@@ -57,7 +57,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(transformedSurveys);
     
   } catch (error) {
-    console.error('Error fetching pupil voice surveys:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching pupil voice surveys:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching pupil voice surveys' },
       { status: 500 }
@@ -112,7 +112,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(survey);
     
   } catch (error) {
-    console.error('Error creating pupil voice survey:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating pupil voice survey:', error);
     return NextResponse.json(
       { error: 'An error occurred while creating the pupil voice survey' },
       { status: 500 }

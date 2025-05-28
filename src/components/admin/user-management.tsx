@@ -9,7 +9,7 @@ import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Pagination } from '@/components/ui/pagination';
-import { Dropdown } from '@/components/ui/dropdown';
+// import { Dropdown } from '@/components/ui/dropdown'; // Unused import
 
 interface User {
   id: string;
@@ -26,7 +26,7 @@ interface RoleOption {
   label: string;
 }
 
-export default function AdminUserManagementContent() {
+export default function AdminUserManagementContent() : React.ReactNode {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -78,7 +78,7 @@ export default function AdminUserManagementContent() {
       setTotalPages(Math.ceil(data.total / pageSize));
     } catch (err) {
       setError('Error loading users. Please try again.');
-      console.error(err);
+      /* eslint-disable-next-line no-console */ console.error(err);
     } finally {
       setLoading(false);
     }
@@ -176,7 +176,7 @@ export default function AdminUserManagementContent() {
       setIsEditModalOpen(false);
       fetchUsers();
     } catch (err) {
-      console.error(err);
+      /* eslint-disable-next-line no-console */ console.error(err);
       setError(selectedUser ? 'Error updating user' : 'Error creating user');
     } finally {
       setActionLoading(false);
@@ -200,7 +200,7 @@ export default function AdminUserManagementContent() {
       setIsDeleteModalOpen(false);
       fetchUsers();
     } catch (err) {
-      console.error(err);
+      /* eslint-disable-next-line no-console */ console.error(err);
       setError('Error deleting user');
     } finally {
       setActionLoading(false);

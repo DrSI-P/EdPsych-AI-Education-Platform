@@ -33,7 +33,7 @@ const VideoViewPage = () => {
         const fetchedVideo = await service.getVideoStatus(videoId);
         setVideo(fetchedVideo);
       } catch (error) {
-        console.error('Failed to fetch video:', error);
+        /* eslint-disable-next-line no-console */ console.error('Failed to fetch video:', error);
         setError('Failed to load video. Please try again later.');
       } finally {
         setLoading(false);

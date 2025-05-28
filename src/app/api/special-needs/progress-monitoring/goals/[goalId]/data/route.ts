@@ -59,7 +59,7 @@ export async function GET(
       }))
     });
   } catch (error) {
-    console.error('Data points API error:', error);
+    /* eslint-disable-next-line no-console */ console.error('Data points API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve data points' },
       { status: 500 }
@@ -160,7 +160,7 @@ export async function POST(
       }
     });
   } catch (error) {
-    console.error('Data points API error:', error);
+    /* eslint-disable-next-line no-console */ console.error('Data points API error:', error);
     return NextResponse.json(
       { error: 'Failed to create data point' },
       { status: 500 }

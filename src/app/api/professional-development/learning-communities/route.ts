@@ -276,10 +276,10 @@ let privacySettings: any[] = [];
 const integrateCPDActivity = async (userId: string, activityType: string, details): Promise<{success: boolean, points?: number, error?: string}> => {
   try {
     // In a real implementation, this would call the CPD Tracking API
-    console.log(`Recording CPD activity for user ${userId}: ${activityType}`);
+    /* eslint-disable-next-line no-console */ console.log(`Recording CPD activity for user ${userId}: ${activityType}`);
     return { success: true, points: calculateCPDPoints(activityType) };
   } catch (error) {
-    console.error("Error integrating with CPD tracking:", error);
+    /* eslint-disable-next-line no-console */ console.error("Error integrating with CPD tracking:", error);
     return { success: false, error: "Failed to record CPD activity" };
   }
 };
@@ -287,10 +287,10 @@ const integrateCPDActivity = async (userId: string, activityType: string, detail
 const integratePortfolio = async (userId: string, portfolioItem): Promise<{success: boolean, portfolioItemId?: string, error?: string}> => {
   try {
     // In a real implementation, this would call the Professional Portfolio API
-    console.log(`Adding portfolio item for user ${userId}`);
+    /* eslint-disable-next-line no-console */ console.log(`Adding portfolio item for user ${userId}`);
     return { success: true, portfolioItemId: "port_" + Date.now() };
   } catch (error) {
-    console.error("Error integrating with portfolio:", error);
+    /* eslint-disable-next-line no-console */ console.error("Error integrating with portfolio:", error);
     return { success: false, error: "Failed to add portfolio item" };
   }
 };
@@ -298,10 +298,10 @@ const integratePortfolio = async (userId: string, portfolioItem): Promise<{succe
 const integrateMentorMatching = async (userId: string, expertise: any[]): Promise<{success: boolean, error?: string}> => {
   try {
     // In a real implementation, this would call the Mentor Matching API
-    console.log(`Updating expertise for user ${userId}: ${expertise.join(', ')}`);
+    /* eslint-disable-next-line no-console */ console.log(`Updating expertise for user ${userId}: ${expertise.join(', ')}`);
     return { success: true };
   } catch (error) {
-    console.error("Error integrating with mentor matching:", error);
+    /* eslint-disable-next-line no-console */ console.error("Error integrating with mentor matching:", error);
     return { success: false, error: "Failed to update expertise" };
   }
 };
@@ -466,7 +466,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: "Invalid endpoint" }, { status: 400 });
     }
   } catch (error) {
-    console.error("Error processing GET request:", error);
+    /* eslint-disable-next-line no-console */ console.error("Error processing GET request:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
@@ -809,7 +809,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: "Invalid endpoint" }, { status: 400 });
     }
   } catch (error) {
-    console.error("Error processing POST request:", error);
+    /* eslint-disable-next-line no-console */ console.error("Error processing POST request:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
@@ -977,7 +977,7 @@ export async function PUT(request: NextRequest) {
         return NextResponse.json({ error: "Invalid endpoint" }, { status: 400 });
     }
   } catch (error) {
-    console.error("Error processing PUT request:", error);
+    /* eslint-disable-next-line no-console */ console.error("Error processing PUT request:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
@@ -1090,7 +1090,7 @@ export async function DELETE(request: NextRequest) {
         return NextResponse.json({ error: "Invalid endpoint" }, { status: 400 });
     }
   } catch (error) {
-    console.error("Error processing DELETE request:", error);
+    /* eslint-disable-next-line no-console */ console.error("Error processing DELETE request:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

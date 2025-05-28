@@ -172,7 +172,7 @@ async function GET(req: NextRequest) {
       }
     });
   } catch (error) {
-    console.error('Error fetching meetings:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching meetings:', error);
     return NextResponse.json(
       { error: 'Failed to fetch meetings' },
       { status: 500 }
@@ -235,7 +235,7 @@ async function POST(req: NextRequest) {
       data: newMeeting
     });
   } catch (error) {
-    console.error('Error scheduling meeting:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error scheduling meeting:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -278,7 +278,7 @@ async function PATCH(req: NextRequest) {
       }
     });
   } catch (error) {
-    console.error('Error updating meeting:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error updating meeting:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -318,7 +318,7 @@ async function PUT(req: NextRequest) {
       }
     });
   } catch (error) {
-    console.error('Error adding meeting notes:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error adding meeting notes:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(

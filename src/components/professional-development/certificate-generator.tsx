@@ -42,7 +42,7 @@ import {
 import { Certificate } from "@/components/icons/certificate";
 
 // Certificate generation component
-export default function CertificateGenerator() {
+export default function CertificateGenerator() : React.ReactNode {
   const [generating, setGenerating] = useState(false);
   const [certificate, setCertificate] = useState(null);
   const [selectedTemplate, setSelectedTemplate] = useState('standard');

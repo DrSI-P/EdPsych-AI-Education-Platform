@@ -15,6 +15,8 @@ import { Slider } from "@/components/ui/slider";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Mic, Play, Pause, Volume2, BookOpen, Eye, Hand, Ear } from 'lucide-react';
 
+// import React from "react"; // Unused import
+
 type LearningStyle = 'visual' | 'auditory' | 'kinesthetic' | 'reading-writing';
 
 type ContentTransformationProps = {
@@ -34,7 +36,7 @@ type TransformedContent = {
   multimodal: string;
 };
 
-export default function ContentTransformationEngine({
+export default function ContentTransformationEngine(: React.ReactNode {
   originalContent,
   contentType = 'lesson',
   subjectArea = '',
@@ -70,7 +72,7 @@ export default function ContentTransformationEngine({
           }
         }
       } catch (error) {
-        console.error('Error fetching learning style profile:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching learning style profile:', error);
       }
     };
     
@@ -181,7 +183,7 @@ export default function ContentTransformationEngine({
           description: "Content has been adapted for different learning styles.",
         });
       } catch (error) {
-        console.error('Failed to parse AI response:', error);
+        /* eslint-disable-next-line no-console */ console.error('Failed to parse AI response:', error);
         toast({
           title: "Transformation error",
           description: "Failed to process the transformed content.",
@@ -189,7 +191,7 @@ export default function ContentTransformationEngine({
         });
       }
     } catch (error) {
-      console.error('Error transforming content:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error transforming content:', error);
       toast({
         title: "Transformation failed",
         description: "There was an error transforming the content. Please try again.",

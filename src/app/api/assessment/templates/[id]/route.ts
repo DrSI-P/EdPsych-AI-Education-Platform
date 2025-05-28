@@ -51,7 +51,7 @@ export async function GET(
     return NextResponse.json(template);
     
   } catch (error) {
-    console.error('Error fetching assessment template:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching assessment template:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching the assessment template' },
       { status: 500 }
@@ -121,7 +121,7 @@ export async function PUT(
     return NextResponse.json(updatedTemplate);
     
   } catch (error) {
-    console.error('Error updating assessment template:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error updating assessment template:', error);
     return NextResponse.json(
       { error: 'An error occurred while updating the assessment template' },
       { status: 500 }
@@ -173,7 +173,7 @@ export async function DELETE(
     return NextResponse.json({ success: true });
     
   } catch (error) {
-    console.error('Error deleting assessment template:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error deleting assessment template:', error);
     return NextResponse.json(
       { error: 'An error occurred while deleting the assessment template' },
       { status: 500 }

@@ -233,7 +233,7 @@ const CopyrightRegistrationTools = () => {
         });
       }
     } catch (error) {
-      console.error('Error connecting wallet:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error connecting wallet:', error);
       toast({
         title: "Connection Failed",
         description: error.message || "Failed to connect wallet",
@@ -327,7 +327,7 @@ const CopyrightRegistrationTools = () => {
         setShowRegistrationDialog(false);
       }
     } catch (error) {
-      console.error('Error registering copyright:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error registering copyright:', error);
       toast({
         title: "Registration Failed",
         description: error.message || "Failed to register copyright",
@@ -361,7 +361,7 @@ const CopyrightRegistrationTools = () => {
         variant: result.valid ? "success" : "destructive",
       });
     } catch (error) {
-      console.error('Error verifying copyright:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error verifying copyright:', error);
       toast({
         title: "Verification Failed",
         description: error.message || "Failed to verify copyright",
@@ -396,7 +396,7 @@ const CopyrightRegistrationTools = () => {
         variant: result.matches ? "success" : "destructive",
       });
     } catch (error) {
-      console.error('Error verifying content:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error verifying content:', error);
       toast({
         title: "Verification Failed",
         description: error.message || "Failed to verify content",
@@ -1159,7 +1159,7 @@ const ResourceCopyrightRegistration = ({ resource, onRegister }) => {
         });
       }
     } catch (error) {
-      console.error('Error registering copyright:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error registering copyright:', error);
       toast({
         title: "Registration Failed",
         description: error.message || "Failed to register copyright",
@@ -1241,7 +1241,7 @@ const AIContentCopyrightRegistration = ({ content, onRegister }) => {
         });
       }
     } catch (error) {
-      console.error('Error registering copyright:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error registering copyright:', error);
       toast({
         title: "Registration Failed",
         description: error.message || "Failed to register copyright",

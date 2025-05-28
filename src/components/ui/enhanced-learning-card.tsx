@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+// import Link from 'next/link'; // Unused import
 import { motion } from 'framer-motion';
 import { useTheme } from '@/components/enhanced-theme-provider';
 import { UILink } from '@/components/ui';

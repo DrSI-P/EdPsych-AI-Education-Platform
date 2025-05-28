@@ -1,10 +1,10 @@
 'use client';
 
-import React from 'react';
+// import React from 'react'; // Unused import
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CPDTracking from '@/components/professional-development/cpd-tracking';
 
-export default function CPDTrackingPage() {
+export default function CPDTrackingPage() : React.ReactNode {
   return (
     <div className="container mx-auto py-8">
       <h1 className="text-3xl font-bold mb-6">Professional Development</h1>

@@ -1,8 +1,10 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
+// TODO: Fix NodeJS type errors by adding @types/node dependency
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
@@ -45,7 +47,7 @@ interface Answer {
   content;
 }
 
-export default function AssessmentTakePage() {
+export default function AssessmentTakePage() : React.ReactNode {
   const router = useRouter();
   const params = useParams();
   const [assessment, setAssessment] = useState<Assessment | null>(null);
@@ -93,7 +95,7 @@ export default function AssessmentTakePage() {
           setTimeRemaining(data.timeLimit * 60); // Convert minutes to seconds
         }
       } catch (err) {
-        console.error('Error fetching assessment:', err);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching assessment:', err);
         setError('An error occurred while fetching the assessment');
       } finally {
         setLoading(false);
@@ -264,7 +266,7 @@ export default function AssessmentTakePage() {
         clearInterval(timerRef.current);
       }
     } catch (err) {
-      console.error('Error submitting assessment:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error submitting assessment:', err);
       setError('An error occurred while submitting your answers');
     } finally {
       setIsSubmitting(false);

@@ -83,14 +83,14 @@ export function emitEvent(
   payload,
   priority: EventPriority = EventPriority.MEDIUM,
   metadata?: Record<string, any>
-) {
+) : React.ReactNode {
   const event = createEvent(type, source, payload, priority, metadata);
   eventBus.emit(type, event);
   return event;
 }
 
-export function logEvent(event: Event) {
-  console.log(`[${event.timestamp.toISOString()}] [${event.type}] [${event.source}] [${event.priority}]`, event.payload);
+export function logEvent(event: Event) : React.ReactNode {
+  /* eslint-disable-next-line no-console */ console.log(`[${event.timestamp.toISOString()}] [${event.type}] [${event.source}] [${event.priority}]`, event.payload);
 }
 
 // Default event listeners

@@ -3,7 +3,7 @@ import { useSession } from 'next-auth/react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+// import { Input } from '@/components/ui/input'; // Unused import
 import { Textarea } from '@/components/ui/textarea';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Loader2, Send, ThumbsUp, ThumbsDown, HelpCircle, RefreshCw } from 'lucide-react';
@@ -30,7 +30,7 @@ interface ChatInterfaceProps {
   className?: string;
 }
 
-export function ChatInterface({
+export function ChatInterface(: React.ReactNode {
   initialSessionId,
   initialMessages = [],
   showTitle = true,
@@ -108,7 +108,7 @@ export function ChatInterface({
         },
       ]);
     } catch (error) {
-      console.error('Error sending message:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error sending message:', error);
       toast({
         title: 'Error',
         description: error instanceof Error ? error.message : 'Failed to send message',
@@ -141,7 +141,7 @@ export function ChatInterface({
         description: 'Your feedback helps us improve our responses.',
       });
     } catch (error) {
-      console.error('Error sending feedback:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error sending feedback:', error);
     }
   };
 

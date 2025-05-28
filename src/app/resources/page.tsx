@@ -1,7 +1,9 @@
 import ResourcesWrapper from '@/components/resources/resources-wrapper';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, Button, Badge, Tabs, TabsContent, TabsList, TabsTrigger, Link, Pagination, BookOpen } from '@/components/ui';
 
-export default function ResourceLibrary() {
+// import React from "react"; // Unused import
+
+export default function ResourceLibrary() : React.ReactNode {
   return <ResourcesWrapper />;
   const { data: session, status } = useSession();
   const [resources, setResources] = useState([]);
@@ -118,7 +120,7 @@ export default function ResourceLibrary() {
           setLoading(false);
         }, 800);
       } catch (error) {
-        console.error('Error fetching resources:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching resources:', error);
         setLoading(false);
       }
     };

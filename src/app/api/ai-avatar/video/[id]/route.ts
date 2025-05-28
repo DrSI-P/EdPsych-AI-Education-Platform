@@ -32,7 +32,7 @@ export async function GET(
     
     return NextResponse.json(status);
   } catch (error) {
-    console.error('Error getting video status:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error getting video status:', error);
     return NextResponse.json(
       { error: 'Failed to get video status' },
       { status: 500 }

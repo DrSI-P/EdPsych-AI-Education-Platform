@@ -1,5 +1,7 @@
 import AccessibilityWrapper from '@/components/ai/accessibility/accessibility-wrapper';
 
-export default function AccessibilityPage() {
+// import React from "react"; // Unused import
+
+export default function AccessibilityPage() : React.ReactNode {
   return <AccessibilityWrapper />;
 }

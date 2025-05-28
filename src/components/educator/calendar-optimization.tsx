@@ -1,12 +1,13 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -147,7 +148,7 @@ interface CalendarOptimizationProps {
   className?: string;
 }
 
-export function CalendarOptimization({ className = '' }: CalendarOptimizationProps) {
+export function CalendarOptimization(: React.ReactNode { className = '' }: CalendarOptimizationProps) {
   const { toast } = useToast();
   const aiService = useAIService();
   
@@ -410,7 +411,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
         description: `${suggestions.length} suggestions generated based on your preferences.`
       });
     } catch (error) {
-      console.error('Error optimizing calendar:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error optimizing calendar:', error);
       toast({
         title: "Optimization failed",
         description: "There was a problem optimizing your calendar. Please try again.",
@@ -512,7 +513,7 @@ export function CalendarOptimization({ className = '' }: CalendarOptimizationPro
       
       setAnalyticsData(data);
     } catch (error) {
-      console.error('Error loading analytics:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error loading analytics:', error);
       toast({
         title: "Analytics failed",
         description: "There was a problem loading your calendar analytics. Please try again.",

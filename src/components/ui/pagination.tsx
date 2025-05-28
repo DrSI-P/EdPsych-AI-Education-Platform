@@ -1,4 +1,5 @@
-import React from 'react';
+// TODO: Fix array index in keys warnings by using unique identifiers
+// import React from 'react'; // Unused import
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -9,7 +10,7 @@ interface PaginationProps {
   siblingCount?: number;
 }
 
-export function Pagination({
+export function Pagination(: React.ReactNode {
   currentPage,
   totalPages,
   onPageChange,

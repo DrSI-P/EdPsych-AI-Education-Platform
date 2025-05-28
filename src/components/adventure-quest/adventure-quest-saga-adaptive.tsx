@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -5,7 +6,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; // Unused import
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -52,10 +53,10 @@ import { useUserProfile } from '../user/user-profile-context';
 import { mockCharacter, mockQuests, learningStyles } from './mock-data';
 
 // Component imports
-import CharacterCreation from './character-creation';
-import QuestDetail from './quest-detail';
-import QuestHub from './quest-hub';
-import CharacterDashboard from './character-dashboard';
+// import CharacterCreation from './character-creation'; // Unused import
+// import QuestDetail from './quest-detail'; // Unused import
+// import QuestHub from './quest-hub'; // Unused import
+// import CharacterDashboard from './character-dashboard'; // Unused import
 
 // Types
 interface Character {
@@ -190,7 +191,7 @@ export const AdventureQuestSagaAdaptive = (): JSX.Element => {
       }, 2000);
       
     } catch (error) {
-      console.error("Error generating adaptive quest:", error);
+      /* eslint-disable-next-line no-console */ console.error("Error generating adaptive quest:", error);
       toast({
         title: "Generation Failed",
         description: "There was an error generating your quest. Please try again.",

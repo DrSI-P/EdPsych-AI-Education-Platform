@@ -213,7 +213,7 @@ export const trackEvent = (eventData: Omit<AnalyticsEvent, 'timestamp' | 'sessio
   }
   
   if (!currentSession) {
-    console.warn('Cannot track event: No active session');
+    /* eslint-disable-next-line no-console */ console.warn('Cannot track event: No active session');
     return;
   }
   
@@ -266,7 +266,7 @@ export const processAnalyticsQueue = async (): Promise<void> => {
     // In a real implementation, this would send to a backend endpoint
     // For now, we'll just log to console in development
     if (process.env.NODE_ENV === 'development') {
-      console.log('Analytics events:', eventsToSend);
+      /* eslint-disable-next-line no-console */ console.log('Analytics events:', eventsToSend);
     }
     
     // Here would be the actual API call to send events
@@ -276,7 +276,7 @@ export const processAnalyticsQueue = async (): Promise<void> => {
     //   body: JSON.stringify({ events: eventsToSend })
     // });
   } catch (error) {
-    console.error('Failed to send analytics events:', error);
+    /* eslint-disable-next-line no-console */ console.error('Failed to send analytics events:', error);
     // Put events back in queue for retry
     analyticsQueue = [...eventsToSend, ...analyticsQueue];
   }
@@ -666,7 +666,7 @@ export const AnalyticsDashboard: React.FC<{
         setError(null);
       } catch (err) {
         setError('Failed to load analytics data');
-        console.error(err);
+        /* eslint-disable-next-line no-console */ console.error(err);
       } finally {
         setLoading(false);
       }

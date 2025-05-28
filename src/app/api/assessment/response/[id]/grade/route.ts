@@ -73,7 +73,7 @@ export async function GET(
     return NextResponse.json(response);
     
   } catch (error) {
-    console.error('Error fetching response:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching response:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching the response' },
       { status: 500 }
@@ -152,7 +152,7 @@ export async function PUT(
     return NextResponse.json(updatedResponse);
     
   } catch (error) {
-    console.error('Error updating grades:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error updating grades:', error);
     return NextResponse.json(
       { error: 'An error occurred while updating the grades' },
       { status: 500 }

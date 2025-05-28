@@ -8,7 +8,7 @@
  */
 
 // Console message to track polyfill loading
-console.log('Loading server-side polyfills...');
+/* eslint-disable-next-line no-console */ console.log('Loading server-side polyfills...');
 
 // Create a shared memory store for storage polyfills
 const memoryStore = {
@@ -40,9 +40,9 @@ if (typeof global.window === 'undefined') {
       hash: '',
       href: 'https://edpsychconnect.com/',
       origin: 'https://edpsychconnect.com',
-      assign: (url) => console.log(`[Polyfill] window.location.assign: ${url}`),
-      replace: (url) => console.log(`[Polyfill] window.location.replace: ${url}`),
-      reload: () => console.log('[Polyfill] window.location.reload'),
+      assign: (url) => /* eslint-disable-next-line no-console */ console.log(`[Polyfill] window.location.assign: ${url}`),
+      replace: (url) => /* eslint-disable-next-line no-console */ console.log(`[Polyfill] window.location.replace: ${url}`),
+      reload: () => /* eslint-disable-next-line no-console */ console.log('[Polyfill] window.location.reload'),
       toString: () => 'https://edpsychconnect.com/'
     }
   };
@@ -164,4 +164,4 @@ if (typeof global.navigator === 'undefined') {
 }
 
 // Console message to confirm polyfills are loaded
-console.log('Server-side polyfills applied successfully');
+/* eslint-disable-next-line no-console */ console.log('Server-side polyfills applied successfully');

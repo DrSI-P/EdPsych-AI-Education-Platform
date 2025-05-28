@@ -170,7 +170,7 @@ export class ComplianceValidator {
         component: 'ConsentManagement'
       };
     } catch (error) {
-      console.error('Error validating consent mechanisms:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error validating consent mechanisms:', error);
       return {
         status: 'failed',
         message: 'Failed to validate GDPR consent mechanisms',
@@ -258,7 +258,7 @@ export class ComplianceValidator {
         component: 'BlockchainValidation'
       };
     } catch (error) {
-      console.error('Error validating blockchain mechanisms:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error validating blockchain mechanisms:', error);
       return {
         status: 'failed',
         message: 'Failed to validate blockchain mechanisms',

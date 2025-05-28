@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -11,7 +12,7 @@ import {
 } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+// import { Input } from '@/components/ui/input'; // Unused import
 import { Textarea } from '@/components/ui/textarea';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
@@ -30,7 +31,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 
-export function EmotionalRegulationEngine() {
+export function EmotionalRegulationEngine() : React.ReactNode {
   const { toast } = useToast();
   
   // State for current emotion
@@ -196,7 +197,7 @@ export function EmotionalRegulationEngine() {
         }, 1000);
         
       } catch (error) {
-        console.error("Error loading user data:", error);
+        /* eslint-disable-next-line no-console */ console.error("Error loading user data:", error);
         toast({
           title: "Error",
           description: "Failed to load your emotional regulation data.",

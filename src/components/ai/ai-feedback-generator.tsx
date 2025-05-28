@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
-import { Input, Textarea, Select } from '@/components/ui/form';
+import { Textarea, Select } from "@/components/ui/form";
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/loading';
 import { Alert } from '@/components/ui/alert';
@@ -14,7 +14,7 @@ interface AIFeedbackGeneratorProps {
   className?: string;
 }
 
-export function AIFeedbackGenerator({
+export function AIFeedbackGenerator(: React.ReactNode {
   studentWork,
   onFeedbackGenerated,
   className = ''

@@ -1,12 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { Metadata } from 'next';
+// import { Metadata } from 'next'; // Unused import
 import ContentTransformationEngine from '@/components/ai/content-transformation/content-transformation-engine';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export default function ContentTransformationPage() {
+// import React from "react"; // Unused import
+
+export default function ContentTransformationPage() : React.ReactNode {
   const [sampleContent] = useState(`
     The Water Cycle
 

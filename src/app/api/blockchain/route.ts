@@ -131,7 +131,7 @@ export async function GET(request: NextRequest) {
       }
     });
   } catch (error) {
-    console.error('Error verifying credential:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error verifying credential:', error);
     return NextResponse.json({ error: 'Failed to verify credential' }, { status: 500 });
   }
 }
@@ -236,7 +236,7 @@ export async function POST(request: NextRequest) {
     
     return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
   } catch (error) {
-    console.error('Error processing blockchain request:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error processing blockchain request:', error);
     return NextResponse.json({ error: 'Failed to process blockchain request' }, { status: 500 });
   }
 }

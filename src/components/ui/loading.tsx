@@ -9,11 +9,11 @@ interface LoadingProps {
 }
 
 // Export additional components needed by the barrel file
-export function Loading({ size = 'md', colour = 'primary', className = '' }: LoadingProps) {
+export function Loading(: React.ReactNode { size = 'md', colour = 'primary', className = '' }: LoadingProps) {
   return <Spinner size={size} colour={colour} className={className} />;
 }
 
-export function LoadingDots({ size = 'md', colour = 'primary', className = '' }: LoadingProps) {
+export function LoadingDots(: React.ReactNode { size = 'md', colour = 'primary', className = '' }: LoadingProps) {
   return (
     <div className={`flex space-x-1 ${className}`}>
       <div className={`animate-bounce bg-${colour === 'white' ? 'white' : 'blue-600'} rounded-full`} style={{ width: size === 'sm' ? '4px' : size === 'md' ? '6px' : '8px', height: size === 'sm' ? '4px' : size === 'md' ? '6px' : '8px' }}></div>
@@ -23,13 +23,13 @@ export function LoadingDots({ size = 'md', colour = 'primary', className = '' }:
   );
 }
 
-export function LoadingSpinner({ size = 'md', colour = 'primary', className = '' }: LoadingProps) {
+export function LoadingSpinner(: React.ReactNode { size = 'md', colour = 'primary', className = '' }: LoadingProps) {
   return <Spinner size={size} colour={colour} className={className} />;
 }
 
 // Progress component is defined in this file, no need to import from progress.tsx
 
-export function Spinner({ size = 'md', colour = 'primary', className = '' }: LoadingProps) {
+export function Spinner(: React.ReactNode { size = 'md', colour = 'primary', className = '' }: LoadingProps) {
   const sizeClasses = {
     sm: 'h-4 w-4',
     md: 'h-8 w-8',
@@ -60,7 +60,7 @@ interface SkeletonProps {
   className?: string;
 }
 
-export function Skeleton({ variant = 'text', width, height, className = '' }: SkeletonProps) {
+export function Skeleton(: React.ReactNode { variant = 'text', width, height, className = '' }: SkeletonProps) {
   const getVariantClasses = () => {
     switch (variant) {
       case 'circular':
@@ -94,7 +94,7 @@ interface ProgressProps {
   className?: string;
 }
 
-export function Progress({ 
+export function Progress(: React.ReactNode { 
   value, 
   max = 100, 
   colour = 'primary', 
@@ -145,7 +145,7 @@ interface LoadingScreenProps {
   message?: string;
 }
 
-export function LoadingScreen({ message = 'Loading...' }: LoadingScreenProps) {
+export function LoadingScreen(: React.ReactNode { message = 'Loading...' }: LoadingScreenProps) {
   return (
     <div className="fixed inset-0 flex flex-col items-centre justify-centre bg-white bg-opacity-90 z-50">
       <Spinner size="lg" />

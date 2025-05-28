@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
@@ -10,10 +10,10 @@ import { Slider } from '@/components/ui/slider';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Progress } from '@/components/ui/progress';
 import { toast } from '@/components/ui/use-toast';
-import { Volume2, VolumeX, Play, Pause, StopCircle, Settings, RefreshCw, Check } from 'lucide-react';
-import { TextToSpeechService, TextToSpeechOptions, TextToSpeechState } from '@/lib/voice/textToSpeech';
+import { Volume2, VolumeX, Play, Pause, StopCircle, Settings, RefreshCw } from "lucide-react";
+import { TextToSpeechService, TextToSpeechOptions } from "@/lib/voice/textToSpeech";
 
-export default function TextToSpeechReader() {
+export default function TextToSpeechReader() : React.ReactNode {
   // State for text-to-speech
   const [text, setText] = useState('');
   const [isReading, setIsReading] = useState(false);
@@ -96,7 +96,7 @@ export default function TextToSpeechReader() {
           return () => clearInterval(interval);
         });
       } catch (error) {
-        console.error('Failed to initialize text-to-speech:', error);
+        /* eslint-disable-next-line no-console */ console.error('Failed to initialize text-to-speech:', error);
         setIsSupported(false);
       }
     }

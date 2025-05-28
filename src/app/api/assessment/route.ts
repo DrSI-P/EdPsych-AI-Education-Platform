@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(assessment, { status: 201 });
     
   } catch (error) {
-    console.error('Error creating assessment:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating assessment:', error);
     return NextResponse.json(
       { error: 'An error occurred while creating the assessment' },
       { status: 500 }
@@ -172,7 +172,7 @@ export async function GET(request: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error fetching assessments:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching assessments:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching assessments' },
       { status: 500 }

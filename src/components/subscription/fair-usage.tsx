@@ -53,7 +53,7 @@ export const useFairUsage = () => {
       
       return data;
     } catch (error) {
-      console.error('Error checking feature limit:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error checking feature limit:', error);
       toast({
         title: "Error",
         description: error.message || "Failed to check usage limits",
@@ -98,7 +98,7 @@ export const useFairUsage = () => {
       
       return data;
     } catch (error) {
-      console.error('Error tracking feature usage:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error tracking feature usage:', error);
       toast({
         title: "Error",
         description: error.message || "Failed to track usage",
@@ -177,7 +177,7 @@ export const useFairUsage = () => {
         return { success: false, limitReached: true };
       }
     } catch (error) {
-      console.error('Error using feature with credit:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error using feature with credit:', error);
       toast({
         title: "Error",
         description: error.message || "Failed to use feature",
@@ -212,7 +212,7 @@ export const useFairUsage = () => {
       
       return data.credits;
     } catch (error) {
-      console.error('Error getting credits:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error getting credits:', error);
       return 0;
     }
   };
@@ -262,7 +262,7 @@ export const useFairUsage = () => {
       
       return data;
     } catch (error) {
-      console.error('Error purchasing credits:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error purchasing credits:', error);
       toast({
         title: "Error",
         description: error.message || "Failed to purchase credits",

@@ -9,19 +9,19 @@ import {
   CardHeader, 
   CardTitle 
 } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; // Unused import
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
-import { Calendar as CalendarIcon, Clock, Video, Users, MessageSquare, Globe, Check, X, Calendar as CalendarComponent, ChevronLeft, ChevronRight, MoreHorizontal, Plus, Star, Award, Camera, Download, Share2, Sparkles, FileText, Mic, Settings, Bell, Clipboard, PlusCircle, Trash2, Edit, ExternalLink, Copy } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+// import { Input } from "@/components/ui/input"; // Unused import
+// import { Label } from "@/components/ui/label"; // Unused import
+// import { Textarea } from "@/components/ui/textarea"; // Unused import
+// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"; // Unused import
+// import { Badge } from "@/components/ui/badge"; // Unused import
+// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"; // Unused import
+// import { ScrollArea } from "@/components/ui/scroll-area"; // Unused import
+// import { Separator } from "@/components/ui/separator"; // Unused import
+import { Award, PlusCircle } from "lucide-react";
+// import { Calendar } from "@/components/ui/calendar"; // Unused import
+// import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"; // Unused import
 import { 
   DropdownMenu,
   DropdownMenuContent,
@@ -31,7 +31,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "@/components/ui/use-toast";
-import { format } from "date-fns";
+// import { format } from "date-fns"; // Unused import
 
 // Mock data for upcoming conferences
 const MOCK_CONFERENCES = [
@@ -192,7 +192,7 @@ const MOCK_CELEBRATIONS = [
   }
 ];
 
-export default function VirtualConferenceTools() {
+export default function VirtualConferenceTools() : React.ReactNode {
   const [activeTab, setActiveTab] = useState('conferences');
   const [selectedConference, setSelectedConference] = useState(MOCK_CONFERENCES[0]);
   const [selectedCelebration, setSelectedCelebration] = useState(MOCK_CELEBRATIONS[0]);

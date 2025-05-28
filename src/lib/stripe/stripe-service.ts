@@ -95,7 +95,7 @@ export async function createCustomer(
     
     return customer.id;
   } catch (error) {
-    console.error('Error creating Stripe customer:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating Stripe customer:', error);
     throw new Error('Failed to create customer account. Please try again later.');
   }
 }
@@ -132,7 +132,7 @@ export async function createSubscriptionCheckout({
     
     return session.url || '';
   } catch (error) {
-    console.error('Error creating subscription checkout:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating subscription checkout:', error);
     throw new Error('Failed to create subscription checkout. Please try again later.');
   }
 }
@@ -166,7 +166,7 @@ export async function createCreditPurchaseCheckout({
     
     return session.url || '';
   } catch (error) {
-    console.error('Error creating credit purchase checkout:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating credit purchase checkout:', error);
     throw new Error('Failed to create credit purchase checkout. Please try again later.');
   }
 }
@@ -184,7 +184,7 @@ export async function getActiveSubscriptions(customerId: string): Promise<Stripe
     
     return subscriptions.data;
   } catch (error) {
-    console.error('Error fetching active subscriptions:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching active subscriptions:', error);
     throw new Error('Failed to fetch subscription information. Please try again later.');
   }
 }
@@ -205,7 +205,7 @@ export async function cancelSubscription(
       await stripe.subscriptions.cancel(subscriptionId);
     }
   } catch (error) {
-    console.error('Error cancelling subscription:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error cancelling subscription:', error);
     throw new Error('Failed to cancel subscription. Please try again later.');
   }
 }
@@ -231,7 +231,7 @@ export async function updateSubscription(
       ],
     });
   } catch (error) {
-    console.error('Error updating subscription:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error updating subscription:', error);
     throw new Error('Failed to update subscription. Please try again later.');
   }
 }
@@ -248,7 +248,7 @@ export async function getCustomerPaymentMethods(customerId: string): Promise<Str
     
     return paymentMethods.data;
   } catch (error) {
-    console.error('Error fetching payment methods:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching payment methods:', error);
     throw new Error('Failed to fetch payment methods. Please try again later.');
   }
 }
@@ -268,7 +268,7 @@ export async function createPortalSession(
     
     return session.url;
   } catch (error) {
-    console.error('Error creating portal session:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating portal session:', error);
     throw new Error('Failed to create customer portal session. Please try again later.');
   }
 }
@@ -333,7 +333,7 @@ export async function handleWebhookEvent(
     
     return { received: true, event };
   } catch (error) {
-    console.error('Error handling webhook event:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error handling webhook event:', error);
     throw new Error('Failed to process webhook event.');
   }
 }
@@ -343,7 +343,7 @@ export async function handleWebhookEvent(
  */
 async function handleSubscriptionCreated(session: Stripe.Checkout.Session): Promise<void> {
   if (!session.customer || !session.subscription) {
-    console.error('Missing customer or subscription ID in session:', session.id);
+    /* eslint-disable-next-line no-console */ console.error('Missing customer or subscription ID in session:', session.id);
     return;
   }
   
@@ -375,7 +375,7 @@ async function handleSubscriptionCreated(session: Stripe.Checkout.Session): Prom
     });
     
     if (!user) {
-      console.error('User not found for Stripe customer ID:', customerId);
+      /* eslint-disable-next-line no-console */ console.error('User not found for Stripe customer ID:', customerId);
       return;
     }
     
@@ -435,7 +435,7 @@ async function handleSubscriptionCreated(session: Stripe.Checkout.Session): Prom
       },
     });
   } catch (error) {
-    console.error('Error processing subscription creation:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error processing subscription creation:', error);
   }
 }
 
@@ -453,7 +453,7 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription): Pro
     });
     
     if (!user) {
-      console.error('User not found for Stripe customer ID:', customerId);
+      /* eslint-disable-next-line no-console */ console.error('User not found for Stripe customer ID:', customerId);
       return;
     }
     
@@ -493,7 +493,7 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription): Pro
       },
     });
   } catch (error) {
-    console.error('Error processing subscription update:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error processing subscription update:', error);
   }
 }
 
@@ -511,7 +511,7 @@ async function handleSubscriptionCancelled(subscription: Stripe.Subscription): P
     });
     
     if (!user) {
-      console.error('User not found for Stripe customer ID:', customerId);
+      /* eslint-disable-next-line no-console */ console.error('User not found for Stripe customer ID:', customerId);
       return;
     }
     
@@ -534,7 +534,7 @@ async function handleSubscriptionCancelled(subscription: Stripe.Subscription): P
       },
     });
   } catch (error) {
-    console.error('Error processing subscription cancellation:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error processing subscription cancellation:', error);
   }
 }
 
@@ -561,7 +561,7 @@ async function handleInvoicePaid(invoice: Stripe.Invoice): Promise<void> {
     });
     
     if (!user) {
-      console.error('User not found for Stripe customer ID:', customerId);
+      /* eslint-disable-next-line no-console */ console.error('User not found for Stripe customer ID:', customerId);
       return;
     }
     
@@ -607,7 +607,7 @@ async function handleInvoicePaid(invoice: Stripe.Invoice): Promise<void> {
       },
     });
   } catch (error) {
-    console.error('Error processing invoice payment:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error processing invoice payment:', error);
   }
 }
 
@@ -634,7 +634,7 @@ async function handleInvoicePaymentFailed(invoice: Stripe.Invoice): Promise<void
     });
     
     if (!user) {
-      console.error('User not found for Stripe customer ID:', customerId);
+      /* eslint-disable-next-line no-console */ console.error('User not found for Stripe customer ID:', customerId);
       return;
     }
     
@@ -664,7 +664,7 @@ async function handleInvoicePaymentFailed(invoice: Stripe.Invoice): Promise<void
     
     // TODO: Send payment failure notification to user
   } catch (error) {
-    console.error('Error processing invoice payment failure:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error processing invoice payment failure:', error);
   }
 }
 
@@ -673,7 +673,7 @@ async function handleInvoicePaymentFailed(invoice: Stripe.Invoice): Promise<void
  */
 async function handleCreditPurchase(session: Stripe.Checkout.Session): Promise<void> {
   if (!session.customer || !session.metadata?.creditAmount) {
-    console.error('Missing customer or credit amount in session:', session.id);
+    /* eslint-disable-next-line no-console */ console.error('Missing customer or credit amount in session:', session.id);
     return;
   }
   
@@ -684,7 +684,7 @@ async function handleCreditPurchase(session: Stripe.Checkout.Session): Promise<v
   const creditAmount = parseInt(session.metadata.creditAmount, 10);
   
   if (isNaN(creditAmount)) {
-    console.error('Invalid credit amount in session metadata:', session.metadata.creditAmount);
+    /* eslint-disable-next-line no-console */ console.error('Invalid credit amount in session metadata:', session.metadata.creditAmount);
     return;
   }
   
@@ -695,7 +695,7 @@ async function handleCreditPurchase(session: Stripe.Checkout.Session): Promise<v
     });
     
     if (!user) {
-      console.error('User not found for Stripe customer ID:', customerId);
+      /* eslint-disable-next-line no-console */ console.error('User not found for Stripe customer ID:', customerId);
       return;
     }
     
@@ -736,6 +736,6 @@ async function handleCreditPurchase(session: Stripe.Checkout.Session): Promise<v
       },
     });
   } catch (error) {
-    console.error('Error processing credit purchase:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error processing credit purchase:', error);
   }
 }

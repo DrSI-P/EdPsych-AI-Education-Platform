@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react'; // Unused import
 import CommunityBuildingWrapper from '@/components/restorative-justice/community-building/community-building-wrapper';
 import { Metadata } from 'next';
 

@@ -134,7 +134,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
-    console.error('Error fetching activities:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching activities:', error);
     return NextResponse.json({ error: 'Failed to fetch activities' }, { status: 500 });
   }
 }
@@ -183,7 +183,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
     
-    console.error('Error toggling favourite:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error toggling favourite:', error);
     return NextResponse.json({ error: 'Failed to update favourite status' }, { status: 500 });
   }
 }

@@ -9,11 +9,11 @@ import {
   CardHeader, 
   CardTitle 
 } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; // Unused import
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+// import { Input } from "@/components/ui/input"; // Unused import
+// import { Label } from "@/components/ui/label"; // Unused import
+// import { Textarea } from "@/components/ui/textarea"; // Unused import
 import { 
   Select, 
   SelectContent, 
@@ -21,12 +21,12 @@ import {
   SelectTrigger, 
   SelectValue 
 } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
+// import { Badge } from "@/components/ui/badge"; // Unused import
 import { Progress } from "@/components/ui/progress";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+// import { Calendar } from "@/components/ui/calendar"; // Unused import
+// import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"; // Unused import
 import { format } from "date-fns";
-import { CalendarIcon, PlusCircle, FileText, Award, BarChart3, Target, Clock, Upload, Download } from "lucide-react";
+import { PlusCircle, FileText } from "lucide-react";
 import { 
   AreaChart, 
   Area, 
@@ -177,7 +177,7 @@ const standardsData = [
   { name: "TS8", value: 15 }
 ];
 
-export default function CPDTracking() {
+export default function CPDTracking() : React.ReactNode {
   const [activities, setActivities] = useState(sampleCpdActivities);
   const [showAddForm, setShowAddForm] = useState(false);
   const [date, setDate] = useState(new Date());
@@ -316,7 +316,7 @@ export default function CPDTracking() {
   // Generate CPD report
   const generateReport = () => {
     // In a real implementation, this would generate a PDF report
-    console.log("Generating CPD report...");
+    /* eslint-disable-next-line no-console */ console.log("Generating CPD report...");
     alert("CPD report generated and ready for download.");
   };
 

@@ -168,7 +168,7 @@ async function GET(req: NextRequest) {
       }
     });
   } catch (error) {
-    console.error('Error fetching celebrations:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching celebrations:', error);
     return NextResponse.json(
       { error: 'Failed to fetch celebrations' },
       { status: 500 }
@@ -230,7 +230,7 @@ async function POST(req: NextRequest) {
       data: newCelebration
     });
   } catch (error) {
-    console.error('Error creating celebration:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating celebration:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -276,7 +276,7 @@ async function PATCH(req: NextRequest) {
       data: newComment
     });
   } catch (error) {
-    console.error('Error adding comment:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error adding comment:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -314,7 +314,7 @@ async function PUT(req: NextRequest) {
       }
     });
   } catch (error) {
-    console.error('Error adding reaction:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error adding reaction:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(

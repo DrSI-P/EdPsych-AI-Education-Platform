@@ -110,7 +110,7 @@ export async function POST(req: NextRequest) {
         );
     }
   } catch (error) {
-    console.error('Error in mentor matching API:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in mentor matching API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
@@ -821,7 +821,7 @@ export async function GET(req: NextRequest) {
         );
     }
   } catch (error) {
-    console.error('Error in mentor matching API:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in mentor matching API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

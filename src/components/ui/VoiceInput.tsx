@@ -58,7 +58,7 @@ const VoiceInput: React.FC<VoiceInputProps> = ({
       };
       
       recognitionInstance.onerror = (event) => {
-        console.error('Speech recognition error:', event.error);
+        /* eslint-disable-next-line no-console */ console.error('Speech recognition error:', event.error);
         setIsListening(false);
       };
       
@@ -73,7 +73,7 @@ const VoiceInput: React.FC<VoiceInputProps> = ({
       setRecognition(recognitionInstance);
     } else {
       setIsSupported(false);
-      console.error('Speech recognition is not supported in this browser');
+      /* eslint-disable-next-line no-console */ console.error('Speech recognition is not supported in this browser');
     }
     
     // Cleanup

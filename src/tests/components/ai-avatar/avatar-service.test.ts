@@ -2,9 +2,9 @@ import { AvatarService, VideoGenerationOptions } from '@/lib/ai-avatar/avatar-se
 import { describe, it, expect, vi, beforeEach, afterAll } from 'vitest';
 
 // Mock console methods
-const originalConsoleError = console.error;
+const originalConsoleError = /* eslint-disable-next-line no-console */ console.error;
 const mockConsoleError = vi.fn();
-console.error = mockConsoleError;
+/* eslint-disable-next-line no-console */ console.error = mockConsoleError;
 
 describe('AvatarService', () => {
   let avatarService: AvatarService;
@@ -25,7 +25,7 @@ describe('AvatarService', () => {
   
   afterAll(() => {
     // Restore console methods
-    console.error = originalConsoleError;
+    /* eslint-disable-next-line no-console */ console.error = originalConsoleError;
   });
   
   describe('createAvatarProfile', () => {
@@ -56,7 +56,7 @@ describe('AvatarService', () => {
         throw new Error('Failed to create avatar profile');
       } catch (error) {
         // Log the error to ensure mockConsoleError is called
-        console.error('Avatar creation failed:', error);
+        /* eslint-disable-next-line no-console */ console.error('Avatar creation failed:', error);
         
         expect(error).toBeInstanceOf(Error);
         expect((error as Error).message).toBe('Failed to create avatar profile');

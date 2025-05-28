@@ -34,7 +34,7 @@ interface CognitiveMetrics {
   timeOnTask: number;
 }
 
-export default function NeuroadaptiveInterfacePage() {
+export default function NeuroadaptiveInterfacePage() : React.ReactNode {
   const [metrics, setMetrics] = useState<CognitiveMetrics>({
     attentionLevel: 75,
     cognitiveLoad: 45,

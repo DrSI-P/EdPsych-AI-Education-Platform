@@ -117,7 +117,7 @@ export async function POST(request: NextRequest) {
       );
     }
   } catch (error) {
-    console.error('Error processing request:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error processing request:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -264,7 +264,7 @@ export async function GET(request: NextRequest) {
       );
     }
   } catch (error) {
-    console.error('Error processing request:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error processing request:', error);
     return NextResponse.json(
       { success: false, message: 'An error occurred processing your request' },
       { status: 500 }
@@ -324,7 +324,7 @@ export async function PUT(request: NextRequest) {
       );
     }
   } catch (error) {
-    console.error('Error processing request:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error processing request:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -402,7 +402,7 @@ export async function DELETE(request: NextRequest) {
       );
     }
   } catch (error) {
-    console.error('Error processing request:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error processing request:', error);
     return NextResponse.json(
       { success: false, message: 'An error occurred processing your request' },
       { status: 500 }

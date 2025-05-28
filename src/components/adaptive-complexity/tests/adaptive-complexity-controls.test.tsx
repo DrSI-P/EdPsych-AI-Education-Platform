@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react'; // Unused import
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { AdaptiveComplexityControls } from '../adaptive-complexity-controls';
 import { ComplexityLevel } from '@/lib/adaptive-complexity/types';

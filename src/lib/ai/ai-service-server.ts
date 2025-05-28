@@ -60,7 +60,7 @@ export const aiServiceServer = {
   generateText: async (prompt: string, options: AIServiceOptions = {}): Promise<TextGenerationResponse> => {
     try {
       // In a real implementation, this would call an actual AI service
-      console.log('Server: Generating text for prompt:', prompt, 'with options:', options);
+      /* eslint-disable-next-line no-console */ console.log('Server: Generating text for prompt:', prompt, 'with options:', options);
       
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -74,7 +74,7 @@ export const aiServiceServer = {
         }
       };
     } catch (error) {
-      console.error('Error generating text:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error generating text:', error);
       throw error;
     }
   },
@@ -112,7 +112,7 @@ export const aiServiceServer = {
         }
       };
     } catch (error) {
-      console.error('Error analysing sentiment:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error analysing sentiment:', error);
       throw error;
     }
   },
@@ -133,7 +133,7 @@ export const aiServiceServer = {
         }
       };
     } catch (error) {
-      console.error('Error generating educational content:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error generating educational content:', error);
       throw error;
     }
   },
@@ -179,7 +179,7 @@ export const aiServiceServer = {
         maxScore
       };
     } catch (error) {
-      console.error('Error evaluating open-ended answer:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error evaluating open-ended answer:', error);
       throw error;
     }
   }

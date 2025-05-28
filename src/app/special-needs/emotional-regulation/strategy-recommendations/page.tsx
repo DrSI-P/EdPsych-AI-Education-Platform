@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react'; // Unused import
 import { Metadata } from 'next';
 import PersonalizedStrategyRecommendations from '@/components/special-needs/emotional-regulation/strategy-recommendations/personalized-strategy-recommendations';
 
@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Discover personalized emotional regulation strategies tailored to your unique patterns and preferences.',
 };
 
-export default function PersonalizedStrategyRecommendationsPage() {
+export default function PersonalizedStrategyRecommendationsPage() : React.ReactNode {
   return (
     <div className="container mx-auto py-8">
       <PersonalizedStrategyRecommendations />

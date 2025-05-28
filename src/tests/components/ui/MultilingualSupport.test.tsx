@@ -1,5 +1,5 @@
 // @ts-check
-import React from 'react';
+// import React from 'react'; // Unused import
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import MultilingualSupport from '../../components/ui/MultilingualSupport';

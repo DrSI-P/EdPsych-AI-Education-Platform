@@ -12,9 +12,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+// import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'; // Unused import
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { AlertCircle, Share2, Users, Mail, Check, X } from 'lucide-react';
+import { AlertCircle, Share2, Users, Mail, X } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -95,7 +95,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
           }
         ]);
       } catch (error) {
-        console.error('Failed to load sharing data:', error);
+        /* eslint-disable-next-line no-console */ console.error('Failed to load sharing data:', error);
         setError('Failed to load sharing information. Please try again.');
       } finally {
         setIsLoading(false);
@@ -152,7 +152,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
         status: 'pending'
       });
     } catch (error) {
-      console.error('Failed to send invitation:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to send invitation:', error);
       setError('Failed to send invitation. Please try again.');
       toast({
         variant: "destructive",
@@ -181,7 +181,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
         description: "The invitation has been canceled.",
       });
     } catch (error) {
-      console.error('Failed to cancel invitation:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to cancel invitation:', error);
       setError('Failed to cancel invitation. Please try again.');
       toast({
         variant: "destructive",
@@ -212,7 +212,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
         description: "The collaborator's permission has been updated.",
       });
     } catch (error) {
-      console.error('Failed to update permission:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to update permission:', error);
       setError('Failed to update permission. Please try again.');
       toast({
         variant: "destructive",
@@ -241,7 +241,7 @@ export const ContentSharing: React.FC<ContentSharingProps> = ({
         description: "The collaborator has been removed.",
       });
     } catch (error) {
-      console.error('Failed to remove collaborator:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to remove collaborator:', error);
       setError('Failed to remove collaborator. Please try again.');
       toast({
         variant: "destructive",

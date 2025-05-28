@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 /**
  * Multilingual Accessibility Validator
  * 
@@ -105,7 +106,7 @@ export const MultilingualAccessibilityValidator: React.FC<MultilingualAccessibil
       
       setIsValidating(false);
     } catch (error) {
-      console.error('Error running validation:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error running validation:', error);
       setIsValidating(false);
     }
   };

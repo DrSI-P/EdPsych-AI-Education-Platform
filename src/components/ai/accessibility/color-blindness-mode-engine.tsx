@@ -11,7 +11,7 @@ import {
   EyeOff,
   Palette
 } from 'lucide-react';
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+// import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"; // Unused import
 
 // Define TypeScript interfaces
 interface ColorBlindnessModeEngineProps {
@@ -134,7 +134,7 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
         }
         
         // Log success
-        console.log('Color blindness mode applied');
+        /* eslint-disable-next-line no-console */ console.log('Color blindness mode applied');
       } else {
         // Continue to next step
         setTimeout(processStep, 500);
@@ -179,7 +179,7 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
     onSettingsChange(updatedSettings);
     
     // Log setting change
-    console.log(`Color blindness mode setting changed: ${setting} = ${value}`);
+    /* eslint-disable-next-line no-console */ console.log(`Color blindness mode setting changed: ${setting} = ${value}`);
   };
   
   // Toggle advanced settings
@@ -211,7 +211,7 @@ export const ColorBlindnessModeEngine: React.FC<ColorBlindnessModeEngineProps> =
     onSettingsChange(defaultSettings);
     
     // Log reset
-    console.log('Color blindness mode settings reset to defaults');
+    /* eslint-disable-next-line no-console */ console.log('Color blindness mode settings reset to defaults');
   };
   
   // Get color blindness type label

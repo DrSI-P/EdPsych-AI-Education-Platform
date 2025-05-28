@@ -59,7 +59,7 @@ export async function GET(
     return NextResponse.json(assessment);
     
   } catch (error) {
-    console.error('Error fetching assessment:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching assessment:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching the assessment' },
       { status: 500 }
@@ -122,7 +122,7 @@ export async function PUT(
     return NextResponse.json(updatedAssessment);
     
   } catch (error) {
-    console.error('Error updating assessment:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error updating assessment:', error);
     return NextResponse.json(
       { error: 'An error occurred while updating the assessment' },
       { status: 500 }
@@ -170,7 +170,7 @@ export async function DELETE(
     return NextResponse.json({ success: true });
     
   } catch (error) {
-    console.error('Error deleting assessment:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error deleting assessment:', error);
     return NextResponse.json(
       { error: 'An error occurred while deleting the assessment' },
       { status: 500 }

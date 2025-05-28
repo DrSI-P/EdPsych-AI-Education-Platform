@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react';
+// import React from 'react'; // Unused import
 import { DataVisualisationDashboard } from '@/components/educator/data-visualisation-dashboard';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export default function DataVisualisationPage() {
+export default function DataVisualisationPage() : React.ReactNode {
   return (
     <div className="container mx-auto py-8">
       <h1 className="text-3xl font-bold mb-6">Data Visualisation Dashboard</h1>

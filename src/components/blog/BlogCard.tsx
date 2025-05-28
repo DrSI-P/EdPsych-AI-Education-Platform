@@ -1,5 +1,5 @@
-import React from 'react';
-import Link from 'next/link';
+// import React from 'react'; // Unused import
+// import Link from 'next/link'; // Unused import
 import Image from 'next/image';
 import { formatDistanceToNow } from 'date-fns';
 import { Badge } from '@/components/ui/badge';
@@ -30,7 +30,7 @@ interface BlogCardProps {
   variant?: 'default' | 'compact' | 'featured';
 }
 
-export function BlogCard({ post, variant = 'default' }: BlogCardProps) {
+export function BlogCard(: React.ReactNode { post, variant = 'default' }: BlogCardProps) {
   const isFeatured = variant === 'featured';
   const isCompact = variant === 'compact';
   

@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
 import { SimpleTabs  } from '@/components/ui/tabs';
 
-export default function PupilVoiceResultsPage() {
+export default function PupilVoiceResultsPage() : React.ReactNode {
   const router = useRouter();
   const params = useParams();
   const surveyId = params.id as string;
@@ -42,7 +42,7 @@ export default function PupilVoiceResultsPage() {
         const responsesData = await responsesResponse.json();
         setResponses(responsesData);
       } catch (err) {
-        console.error('Error fetching survey data:', err);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching survey data:', err);
         setError('An error occurred while fetching the survey data');
       } finally {
         setLoading(false);

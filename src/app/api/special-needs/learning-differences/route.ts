@@ -49,7 +49,7 @@ export async function GET(req: NextRequest) {
         });
     }
   } catch (error) {
-    console.error('Error in learning differences API:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in learning differences API:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     }
   } catch (error) {
-    console.error('Error in learning differences API:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in learning differences API:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -124,7 +124,7 @@ export async function PUT(req: NextRequest) {
         return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
     }
   } catch (error) {
-    console.error('Error in learning differences API:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in learning differences API:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

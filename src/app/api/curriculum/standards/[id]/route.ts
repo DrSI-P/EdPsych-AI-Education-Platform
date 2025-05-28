@@ -48,7 +48,7 @@ export async function GET(
     });
     
   } catch (error) {
-    console.error('Error fetching curriculum standard:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching curriculum standard:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching the curriculum standard' },
       { status: 500 }
@@ -130,7 +130,7 @@ export async function PUT(
     });
     
   } catch (error) {
-    console.error('Error updating curriculum standard:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error updating curriculum standard:', error);
     return NextResponse.json(
       { error: 'An error occurred while updating the curriculum standard' },
       { status: 500 }
@@ -159,7 +159,7 @@ export async function DELETE(
     // Return success for now until the Prisma schema is updated
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error deleting curriculum standard:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error deleting curriculum standard:', error);
     return NextResponse.json(
       { error: 'An error occurred while deleting the curriculum standard' },
       { status: 500 }

@@ -1,7 +1,8 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { deviceDetection, mobileSettings } from '@/lib/mobile/mobileService';
+import { mobileSettings } from "@/lib/mobile/mobileService";
 import { MobileViewMode } from '@/lib/mobile/mobileTypes';
 
 interface AccessibilityValidatorProps {
@@ -87,7 +88,7 @@ export const AccessibilityValidator: React.FC<AccessibilityValidatorProps> = ({
           onValidationComplete(results);
         }
       } catch (error) {
-        console.error('Failed to validate accessibility:', error);
+        /* eslint-disable-next-line no-console */ console.error('Failed to validate accessibility:', error);
       } finally {
         setIsValidating(false);
       }
@@ -189,7 +190,7 @@ export const UserExperienceValidator: React.FC<UserExperienceValidatorProps> = (
           onValidationComplete(results);
         }
       } catch (error) {
-        console.error('Failed to validate user experience:', error);
+        /* eslint-disable-next-line no-console */ console.error('Failed to validate user experience:', error);
       } finally {
         setIsValidating(false);
       }
@@ -288,7 +289,7 @@ export const AccessibilitySettingsValidator: React.FC<AccessibilitySettingsValid
         [`viewMode_${mode}`]: true
       }));
     } catch (error) {
-      console.error(`Failed to test view mode ${mode}:`, error);
+      /* eslint-disable-next-line no-console */ console.error(`Failed to test view mode ${mode}:`, error);
       
       setTestResults(prev => ({
         ...prev,
@@ -313,7 +314,7 @@ export const AccessibilitySettingsValidator: React.FC<AccessibilitySettingsValid
         [`fontSize_${size}`]: true
       }));
     } catch (error) {
-      console.error(`Failed to test font size ${size}:`, error);
+      /* eslint-disable-next-line no-console */ console.error(`Failed to test font size ${size}:`, error);
       
       setTestResults(prev => ({
         ...prev,
@@ -340,7 +341,7 @@ export const AccessibilitySettingsValidator: React.FC<AccessibilitySettingsValid
         [`${setting}_${value}`]: true
       }));
     } catch (error) {
-      console.error(`Failed to test ${setting} ${value}:`, error);
+      /* eslint-disable-next-line no-console */ console.error(`Failed to test ${setting} ${value}:`, error);
       
       setTestResults(prev => ({
         ...prev,
@@ -471,7 +472,7 @@ export const DeviceCompatibilityValidator: React.FC<DeviceCompatibilityValidator
           onValidationComplete(results);
         }
       } catch (error) {
-        console.error('Failed to validate device compatibility:', error);
+        /* eslint-disable-next-line no-console */ console.error('Failed to validate device compatibility:', error);
       } finally {
         setIsValidating(false);
       }

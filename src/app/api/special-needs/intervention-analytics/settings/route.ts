@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error fetching intervention analytics settings:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching intervention analytics settings:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to fetch analytics settings' },
       { status: 500 }
@@ -139,7 +139,7 @@ export async function POST(req: NextRequest) {
       settings: analyticsSettings,
     });
   } catch (error) {
-    console.error('Error saving intervention analytics settings:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error saving intervention analytics settings:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to save analytics settings' },
       { status: 500 }

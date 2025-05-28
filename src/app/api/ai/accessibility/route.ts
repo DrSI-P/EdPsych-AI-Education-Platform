@@ -72,7 +72,7 @@ export async function GET(req: NextRequest) {
       }
     });
   } catch (error) {
-    console.error('Accessibility API error:', error);
+    /* eslint-disable-next-line no-console */ console.error('Accessibility API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve accessibility settings' },
       { status: 500 }
@@ -142,7 +142,7 @@ export async function POST(req: NextRequest) {
       settings: updatedSettings
     });
   } catch (error) {
-    console.error('Accessibility API error:', error);
+    /* eslint-disable-next-line no-console */ console.error('Accessibility API error:', error);
     return NextResponse.json(
       { error: 'Failed to save accessibility settings' },
       { status: 500 }

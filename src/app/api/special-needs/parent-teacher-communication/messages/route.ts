@@ -76,7 +76,7 @@ export async function GET(req: NextRequest) {
       messages
     });
   } catch (error) {
-    console.error('Error fetching messages:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching messages:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to fetch messages' },
       { status: 500 }
@@ -180,12 +180,12 @@ export async function POST(req: NextRequest) {
     // Handle notifications based on recipient settings
     if (recipientSettings?.emailNotifications) {
       // In a real implementation, this would send an email notification
-      console.log(`Email notification would be sent to recipient ${message.recipientId}`);
+      /* eslint-disable-next-line no-console */ console.log(`Email notification would be sent to recipient ${message.recipientId}`);
     }
     
     if (recipientSettings?.smsNotifications && message.urgent) {
       // In a real implementation, this would send an SMS for urgent messages
-      console.log(`SMS notification would be sent to recipient ${message.recipientId} for urgent message`);
+      /* eslint-disable-next-line no-console */ console.log(`SMS notification would be sent to recipient ${message.recipientId} for urgent message`);
     }
     
     return NextResponse.json({
@@ -193,7 +193,7 @@ export async function POST(req: NextRequest) {
       message: newMessage
     });
   } catch (error) {
-    console.error('Error sending message:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error sending message:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to send message' },
       { status: 500 }

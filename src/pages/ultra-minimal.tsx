@@ -4,7 +4,7 @@ import React from 'react';
  * Ultra-minimal page with no dependencies beyond React itself
  * This is for testing the most basic Vercel deployment functionality
  */
-export default function UltraMinimal() {
+export default function UltraMinimal() : React.ReactNode {
   return (
     <div>
       <h1>Ultra Minimal Test</h1>

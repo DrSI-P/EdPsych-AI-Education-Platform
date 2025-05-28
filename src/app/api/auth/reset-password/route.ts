@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import prisma from '@/lib/db/prisma';
-import { hash, compare } from 'bcrypt';
+import { hash } from "bcrypt";
 import { randomBytes } from 'crypto';
 
 // Schema for request validation
@@ -59,7 +59,7 @@ export async function POST(request: Request) {
     
     // In a real application, send email with reset link
     // For now, just return the token (this would be removed in production)
-    console.log(`Reset token for ${email}: ${resetToken}`);
+    /* eslint-disable-next-line no-console */ console.log(`Reset token for ${email}: ${resetToken}`);
     
     return NextResponse.json({ 
       success: true, 

@@ -1,10 +1,11 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+// import { Input } from "@/components/ui/input"; // Unused import
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
@@ -21,7 +22,7 @@ import {
   Check, X, HelpCircle, Info, AlertCircle, ArrowRight
 } from "lucide-react";
 
-export default function PreferenceTrackingSystem() {
+export default function PreferenceTrackingSystem() : React.ReactNode {
   const [activeTab, setActiveTab] = useState("dashboard");
   
   // Sample preference data

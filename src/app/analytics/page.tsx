@@ -1,14 +1,14 @@
 'use client';
 
-import React from 'react';
+// import React from 'react'; // Unused import
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+// import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"; // Unused import
 import { StudentProgressTracking } from "@/components/analytics/student-progress-tracking";
 import { EducatorPerformanceAnalytics } from "@/components/analytics/educator-performance-analytics";
 import { ResourceAndAssessmentAnalytics } from "@/components/analytics/resource-and-assessment-analytics";
 import CustomReportBuilder from "@/components/analytics/custom-report-builder";
 
-export default function AnalyticsAndReportingPage() {
+export default function AnalyticsAndReportingPage() : React.ReactNode {
   return (
     <div className="container mx-auto py-8">
       <div className="mb-8">

@@ -2,14 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
 import { SimpleTabs  } from '@/components/ui/tabs';
 import { Form } from '@/components/ui/form';
 
-export default function CreateAssessmentTemplatePage() {
+export default function CreateAssessmentTemplatePage() : React.ReactNode {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -33,7 +33,7 @@ export default function CreateAssessmentTemplatePage() {
         const data = await response.json();
         setAssessments(data);
       } catch (err) {
-        console.error('Error fetching assessments:', err);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching assessments:', err);
         setError('An error occurred while fetching your assessments');
       }
     };
@@ -91,7 +91,7 @@ export default function CreateAssessmentTemplatePage() {
       // Redirect to templates page
       router.push('/assessment/templates');
     } catch (err) {
-      console.error('Error creating template:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error creating template:', err);
       setError(err.message || 'An error occurred while creating the template');
     } finally {
       setLoading(false);

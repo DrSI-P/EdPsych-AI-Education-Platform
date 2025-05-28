@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { Label } from "@/components/ui/label"; // Unused import
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; // Unused import
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -45,7 +45,7 @@ import { useCurriculum } from '../curriculum/curriculum-context';
 import { useGamification } from '../gamification/gamification-context';
 import { useAssessment } from '../assessment/assessment-context';
 import { useUserProfile } from '../user/user-profile-context';
-import { mockCharacter, mockQuests, learningStyles } from './mock-data';
+import { mockCharacter, mockQuests } from "./mock-data";
 
 // Types
 interface Character {

@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react'; // Unused import
 import Head from 'next/head';
 
 /**
@@ -7,7 +7,7 @@ import Head from 'next/head';
  * This page contains minimal dependencies and features to test
  * basic Vercel deployment functionality.
  */
-export default function TestDeployment() {
+export default function TestDeployment() : React.ReactNode {
   return (
     <div className="min-h-screen flex flex-col items-centre justify-centre p-4">
       <Head>

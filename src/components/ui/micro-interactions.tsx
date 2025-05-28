@@ -14,7 +14,7 @@ interface MicroInteractionProps {
  * 
  * Adds a subtle scale and shadow effect on hover for buttons
  */
-export function ButtonHoverEffect({ children, className }: MicroInteractionProps) {
+export function ButtonHoverEffect(: React.ReactNode { children, className }: MicroInteractionProps) {
   return (
     <motion.div
       className={className}
@@ -35,7 +35,7 @@ export function ButtonHoverEffect({ children, className }: MicroInteractionProps
  * 
  * Adds a subtle lift and shadow effect on hover for cards
  */
-export function CardHoverEffect({ children, className }: MicroInteractionProps) {
+export function CardHoverEffect(: React.ReactNode { children, className }: MicroInteractionProps) {
   return (
     <motion.div
       className={cn("transition-all duration-300", className)}
@@ -55,7 +55,7 @@ export function CardHoverEffect({ children, className }: MicroInteractionProps) 
  * 
  * Adds a subtle highlight effect when an element is focused
  */
-export function FocusHighlight({ children, className }: MicroInteractionProps) {
+export function FocusHighlight(: React.ReactNode { children, className }: MicroInteractionProps) {
   const [isFocused, setIsFocused] = useState(false);
   
   return (
@@ -85,7 +85,7 @@ export function FocusHighlight({ children, className }: MicroInteractionProps) {
  * 
  * Displays a success animation (checkmark)
  */
-export function SuccessAnimation({ className }: { className?: string }) {
+export function SuccessAnimation(: React.ReactNode { className }: { className?: string }) {
   return (
     <div className={cn("flex items-centre justify-centre", className)}>
       <motion.div
@@ -125,7 +125,7 @@ export function SuccessAnimation({ className }: { className?: string }) {
  * 
  * Displays an error animation (X mark)
  */
-export function ErrorAnimation({ className }: { className?: string }) {
+export function ErrorAnimation(: React.ReactNode { className }: { className?: string }) {
   return (
     <div className={cn("flex items-centre justify-centre", className)}>
       <motion.div
@@ -179,7 +179,7 @@ export function ErrorAnimation({ className }: { className?: string }) {
  * 
  * An enhanced loading spinner with subtle animations
  */
-export function LoadingSpinner({ className, size = "md" }: { className?: string, size?: "sm" | "md" | "lg" }) {
+export function LoadingSpinner(: React.ReactNode { className, size = "md" }: { className?: string, size?: "sm" | "md" | "lg" }) {
   const sizeClasses = {
     sm: "w-4 h-4",
     md: "w-8 h-8",
@@ -285,7 +285,7 @@ export function NotificationToast({
  * 
  * Adds a ripple effect on click for buttons and interactive elements
  */
-export function RippleEffect({ children, className }: MicroInteractionProps) {
+export function RippleEffect(: React.ReactNode { children, className }: MicroInteractionProps) {
   const [ripples, setRipples] = useState<{ id: number; x: number; y: number; size: number }[]>([]);
   
   const addRipple = (e: React.MouseEvent) => {
@@ -374,7 +374,7 @@ export function HoverInfo({
  * 
  * Shows a progress bar indicating scroll position
  */
-export function ScrollIndicator({ className }: { className?: string }) {
+export function ScrollIndicator(: React.ReactNode { className }: { className?: string }) {
   const [scrollProgress, setScrollProgress] = useState(0);
   
   React.useEffect(() => {

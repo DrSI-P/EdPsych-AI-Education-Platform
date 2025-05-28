@@ -41,7 +41,7 @@ interface FAQBrowserProps {
   className?: string;
 }
 
-export function FAQBrowser({
+export function FAQBrowser(: React.ReactNode {
   initialCategories = [],
   initialQuestions = [],
   onQuestionSelect,
@@ -80,7 +80,7 @@ export function FAQBrowser({
         const questionsData = await questionsResponse.json();
         setQuestions(questionsData.questions || []);
       } catch (error) {
-        console.error('Error fetching FAQ data:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching FAQ data:', error);
         setError('Failed to load FAQ data. Please try again later.');
       } finally {
         setIsLoading(false);
@@ -109,7 +109,7 @@ export function FAQBrowser({
       setQuestions(data.questions || []);
       setActiveTab('questions');
     } catch (error) {
-      console.error('Error searching questions:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error searching questions:', error);
       setError('Failed to search questions. Please try again later.');
     } finally {
       setIsLoading(false);
@@ -130,7 +130,7 @@ export function FAQBrowser({
       setQuestions(data.questions || []);
       setActiveTab('questions');
     } catch (error) {
-      console.error('Error fetching category questions:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching category questions:', error);
       setError('Failed to load category questions. Please try again later.');
     } finally {
       setIsLoading(false);

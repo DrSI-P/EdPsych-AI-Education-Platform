@@ -20,7 +20,7 @@ import {
   SelectValue 
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Progress } from '@/components/ui/progress';
+// import { Progress } from '@/components/ui/progress'; // Unused import
 import { Badge } from '@/components/ui/badge';
 import { 
   AlertCircle, 
@@ -133,7 +133,7 @@ export const ScriptEditor: React.FC<ScriptEditorProps> = ({
         setTargetAudience([TargetAudience.KEY_STAGE_2]);
       }
     } catch (err) {
-      console.error('Error creating script:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error creating script:', err);
       setError('Failed to create script. Please try again.');
     } finally {
       setIsSubmitting(false);

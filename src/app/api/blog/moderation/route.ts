@@ -104,7 +104,7 @@ export async function GET(request: NextRequest) {
       }
     });
   } catch (error) {
-    console.error('Error fetching comments for moderation:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching comments for moderation:', error);
     return NextResponse.json({ error: 'Failed to fetch comments' }, { status: 500 });
   }
 }
@@ -156,7 +156,7 @@ export async function POST(request: NextRequest) {
       throw error;
     }
   } catch (error) {
-    console.error('Error processing moderation action:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error processing moderation action:', error);
     return NextResponse.json({ error: 'Failed to process moderation action' }, { status: 500 });
   }
 }

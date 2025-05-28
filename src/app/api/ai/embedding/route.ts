@@ -3,7 +3,7 @@ import openai from '@/lib/openai-compat'; // Changed to use our compatibility la
 import Anthropic from '@anthropic-ai/sdk';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import axios from 'axios';
-import aiService from '@/lib/ai/ai-service-server'; // Changed to use server version
+// import aiService from '@/lib/ai/ai-service-server'; // Unused import // Changed to use server version
 
 // Define AIProvider type locally since it's not exported from ai-service
 type AIProvider = 'openai' | 'anthropic' | 'gemini' | 'grok' | 'openrouter';
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
     
     return NextResponse.json(embedding);
   } catch (error) {
-    console.error('Error processing AI embedding request:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error processing AI embedding request:', error);
     return NextResponse.json(
       { error: 'Failed to process AI embedding request' },
       { status: 500 }
@@ -83,7 +83,7 @@ async function handleOpenAIEmbedding(requestData: AIEmbeddingRequest) {
       model: requestData.model
     };
   } catch (error) {
-    console.error('Error generating OpenAI embeddings:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error generating OpenAI embeddings:', error);
     throw error;
   }
 }
@@ -98,14 +98,14 @@ async function handleAnthropicEmbedding(requestData: AIEmbeddingRequest) {
   try {
     // Anthropic doesn't have a dedicated embeddings API yet
     // Fallback to OpenAI embeddings
-    console.log('Anthropic embeddings not available, falling back to OpenAI');
+    /* eslint-disable-next-line no-console */ console.log('Anthropic embeddings not available, falling back to OpenAI');
     return handleOpenAIEmbedding({
       ...requestData,
       provider: 'openai',
       model: 'text-embedding-3-small'
     });
   } catch (error) {
-    console.error('Error generating Anthropic embeddings:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error generating Anthropic embeddings:', error);
     throw error;
   }
 }
@@ -138,9 +138,9 @@ async function handleGeminiEmbedding(requestData: AIEmbeddingRequest) {
       model: 'embedding-001'
     };
   } catch (error) {
-    console.error('Error generating Gemini embeddings:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error generating Gemini embeddings:', error);
     // Fallback to OpenAI
-    console.log('Falling back to OpenAI for embeddings');
+    /* eslint-disable-next-line no-console */ console.log('Falling back to OpenAI for embeddings');
     return handleOpenAIEmbedding({
       ...requestData,
       provider: 'openai',
@@ -178,9 +178,9 @@ async function handleGrokEmbedding(requestData: AIEmbeddingRequest) {
       model: requestData.model || 'grok-embedding-1'
     };
   } catch (error) {
-    console.error('Error generating Grok embeddings:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error generating Grok embeddings:', error);
     // Fallback to OpenAI
-    console.log('Falling back to OpenAI for embeddings');
+    /* eslint-disable-next-line no-console */ console.log('Falling back to OpenAI for embeddings');
     return handleOpenAIEmbedding({
       ...requestData,
       provider: 'openai',
@@ -222,9 +222,9 @@ async function handleOpenRouterEmbedding(requestData: AIEmbeddingRequest) {
       model: data.model || requestData.model,
     };
   } catch (error) {
-    console.error('Error generating OpenRouter embeddings:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error generating OpenRouter embeddings:', error);
     // Fallback to OpenAI
-    console.log('Falling back to OpenAI for embeddings');
+    /* eslint-disable-next-line no-console */ console.log('Falling back to OpenAI for embeddings');
     return handleOpenAIEmbedding({
       ...requestData,
       provider: 'openai',

@@ -113,8 +113,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       },
     });
   } catch (error) {
-    // Replace console.error with structured logging when available
-    console.error('Error fetching curriculum plans:', error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error('Error fetching curriculum plans:', error);
     return NextResponse.json(
       { error: 'Failed to fetch curriculum plans' },
       { status: 500 }
@@ -160,8 +160,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
     return NextResponse.json({ plan }, { status: 201 });
   } catch (error) {
-    // Replace console.error with structured logging when available
-    console.error('Error creating curriculum plan:', error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error('Error creating curriculum plan:', error);
     return NextResponse.json(
       { error: 'Failed to create curriculum plan' },
       { status: 500 }

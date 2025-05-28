@@ -82,7 +82,7 @@ const goalData = [
   { name: 'Goal 4: Deepen Subject Knowledge', progress: 85 }
 ];
 
-export default function ProfessionalDevelopmentAnalytics() {
+export default function ProfessionalDevelopmentAnalytics() : React.ReactNode {
   const [activeTab, setActiveTab] = useState('overview');
   const [timeRange, setTimeRange] = useState('year');
   

@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React from 'react';
@@ -7,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Mic, MicOff, AlertCircle, CheckCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
+// import { motion } from 'framer-motion'; // Unused import
 
 interface ImmersiveVoiceInputProps {
   onCommand?: (command: string) => void;

@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react'; // Unused import
 import Head from 'next/head';
 
 /**
@@ -7,7 +7,7 @@ import Head from 'next/head';
  * This page contains absolutely minimal dependencies and features
  * to test the most basic Vercel deployment functionality.
  */
-export default function MinimalTest() {
+export default function MinimalTest() : React.ReactNode {
   return (
     <div style={{ padding: '20px', fontFamily: 'system-ui, sans-serif' }}>
       <Head>

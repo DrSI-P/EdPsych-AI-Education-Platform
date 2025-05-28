@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import { useState } from 'react';
@@ -10,6 +11,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAIService } from '@/lib/ai/ai-service';
+
+// import React from "react"; // Unused import
 
 type Question = {
   id: string;
@@ -25,7 +28,7 @@ type LearningStyle = {
   strategies: string[];
 };
 
-export default function LearningStyleAssessment() {
+export default function LearningStyleAssessment() : React.ReactNode {
   const { toast } = useToast();
   const aiService = useAIService();
   const [currentStep, setCurrentStep] = useState(0);
@@ -262,7 +265,7 @@ export default function LearningStyleAssessment() {
         description: "There was a problem analysing your answers. Please try again.",
         variant: "destructive"
       });
-      console.error(error);
+      /* eslint-disable-next-line no-console */ console.error(error);
     } finally {
       setIsProcessing(false);
     }

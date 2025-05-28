@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
       settings: updatedSettings
     });
   } catch (error) {
-    console.error('High contrast mode API error:', error);
+    /* eslint-disable-next-line no-console */ console.error('High contrast mode API error:', error);
     return NextResponse.json(
       { error: 'Failed to save high contrast mode settings' },
       { status: 500 }

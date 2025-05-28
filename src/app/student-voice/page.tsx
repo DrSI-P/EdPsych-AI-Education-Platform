@@ -1,5 +1,7 @@
 import StudentVoiceWrapper from '@/components/student-voice/student-voice-wrapper';
 
-export default function StudentVoicePage() {
+// import React from "react"; // Unused import
+
+export default function StudentVoicePage() : React.ReactNode {
   return <StudentVoiceWrapper />;
 }

@@ -9,12 +9,14 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import prisma from '@/lib/prisma-client';
 
+// import React from "react"; // Unused import
+
 interface BlogPostPageProps {
   post: any;
   relatedPosts: any[];
 }
 
-export default function BlogPostPage({ post, relatedPosts }: BlogPostPageProps) {
+export default function BlogPostPage(: React.ReactNode { post, relatedPosts }: BlogPostPageProps) {
   const router = useRouter();
   const [isLikeLoading, setIsLikeLoading] = useState(false);
   const [currentPost, setCurrentPost] = useState(post);
@@ -69,7 +71,7 @@ export default function BlogPostPage({ post, relatedPosts }: BlogPostPageProps) 
         likeCount: data.likeCount,
       }));
     } catch (error) {
-      console.error('Error liking post:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error liking post:', error);
     } finally {
       setIsLikeLoading(false);
     }
@@ -184,7 +186,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   } catch (error) {
-    console.error('Error fetching blog post:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching blog post:', error);
     return {
       notFound: true,
     };

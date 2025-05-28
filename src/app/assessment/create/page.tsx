@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/form';
 import { SimpleTabs  } from '@/components/ui/tabs';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
-import { Dropdown } from '@/components/ui/dropdown';
+// import { Dropdown } from '@/components/ui/dropdown'; // Unused import
 import { Modal } from '@/components/ui/modal';
 import { useRouter } from 'next/navigation';
 
@@ -45,7 +45,7 @@ const keyStages = [
   { id: 'ks5', name: 'Key Stage 5' },
 ];
 
-export default function CreateAssessmentPage() {
+export default function CreateAssessmentPage() : React.ReactNode {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('details');
   const [loading, setLoading] = useState(false);
@@ -174,7 +174,7 @@ export default function CreateAssessmentPage() {
       }
     } catch (err) {
       setError('An error occurred while creating the assessment');
-      console.error('Error creating assessment:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error creating assessment:', err);
     } finally {
       setLoading(false);
     }
@@ -215,14 +215,14 @@ export default function CreateAssessmentPage() {
           setShowAIModal(false);
         } catch (parseErr) {
           setAiError('Could not parse AI response. Please try a different prompt.');
-          console.error('Error parsing AI response:', parseErr);
+          /* eslint-disable-next-line no-console */ console.error('Error parsing AI response:', parseErr);
         }
       } else {
         setAiError(data.message || 'An error occurred while generating the assessment');
       }
     } catch (err) {
       setAiError('An error occurred while generating the assessment');
-      console.error('Error generating assessment with AI:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error generating assessment with AI:', err);
     } finally {
       setAiLoading(false);
     }

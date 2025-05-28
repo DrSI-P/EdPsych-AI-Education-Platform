@@ -56,7 +56,7 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
       
       return success;
     } catch (error) {
-      console.error(`Error initializing plugin ${this.metadata.id}:`, error);
+      /* eslint-disable-next-line no-console */ console.error(`Error initializing plugin ${this.metadata.id}:`, error);
       this.status = PluginStatus.ERROR;
       return false;
     }
@@ -72,7 +72,7 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
       
       this.status = PluginStatus.DISABLED;
     } catch (error) {
-      console.error(`Error shutting down plugin ${this.metadata.id}:`, error);
+      /* eslint-disable-next-line no-console */ console.error(`Error shutting down plugin ${this.metadata.id}:`, error);
       this.status = PluginStatus.ERROR;
     }
   }
@@ -119,7 +119,7 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
       // Perform plugin-specific configuration
       return await this.configurePlugin(settings);
     } catch (error) {
-      console.error(`Error configuring plugin ${this.metadata.id}:`, error);
+      /* eslint-disable-next-line no-console */ console.error(`Error configuring plugin ${this.metadata.id}:`, error);
       return false;
     }
   }
@@ -140,7 +140,7 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
       // Perform plugin-specific assessment creation
       return await this.createAssessmentImpl(params);
     } catch (error) {
-      console.error(`Error creating assessment with plugin ${this.metadata.id}:`, error);
+      /* eslint-disable-next-line no-console */ console.error(`Error creating assessment with plugin ${this.metadata.id}:`, error);
       throw error;
     }
   }
@@ -162,7 +162,7 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
       // Perform plugin-specific assessment scoring
       return await this.scoreAssessmentImpl(assessmentId, responses);
     } catch (error) {
-      console.error(`Error scoring assessment with plugin ${this.metadata.id}:`, error);
+      /* eslint-disable-next-line no-console */ console.error(`Error scoring assessment with plugin ${this.metadata.id}:`, error);
       throw error;
     }
   }
@@ -183,7 +183,7 @@ export abstract class BaseAssessmentToolPlugin implements AssessmentToolPlugin {
       // Perform plugin-specific results retrieval
       return await this.getResultsImpl(assessmentId);
     } catch (error) {
-      console.error(`Error getting results with plugin ${this.metadata.id}:`, error);
+      /* eslint-disable-next-line no-console */ console.error(`Error getting results with plugin ${this.metadata.id}:`, error);
       throw error;
     }
   }

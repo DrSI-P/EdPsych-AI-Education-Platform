@@ -30,7 +30,7 @@ import {
 import { cn } from "@/lib/utils";
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid'; // Unused import
 
 // Define item types for drag and drop
 const ItemTypes = {
@@ -502,7 +502,7 @@ export default function CustomReportBuilder(): React.ReactNode {
   // Handle saving the report
   const handleSaveReport = () => {
     // In a real application, this would save to a database
-    console.log("Saving report:", {
+    /* eslint-disable-next-line no-console */ console.log("Saving report:", {
       title: reportTitle,
       description: reportDescription,
       items: reportItems,
@@ -515,7 +515,7 @@ export default function CustomReportBuilder(): React.ReactNode {
   // Handle exporting the report
   const handleExportReport = () => {
     // In a real application, this would generate a PDF or other format
-    console.log("Exporting report:", {
+    /* eslint-disable-next-line no-console */ console.log("Exporting report:", {
       title: reportTitle,
       description: reportDescription,
       items: reportItems,

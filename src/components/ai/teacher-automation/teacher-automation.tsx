@@ -11,7 +11,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAIService } from '@/lib/ai/ai-service';
 
-export default function TeacherAutomation() {
+export default function TeacherAutomation() : React.ReactNode {
   const { toast } = useToast();
   const aiService = useAIService();
   const [isProcessing, setIsProcessing] = useState(false);
@@ -59,10 +59,10 @@ export default function TeacherAutomation() {
     const simulateSpeechRecognition = () => {
       return {
         start: () => {
-          console.log('Speech recognition started');
+          /* eslint-disable-next-line no-console */ console.log('Speech recognition started');
         },
         stop: () => {
-          console.log('Speech recognition stopped');
+          /* eslint-disable-next-line no-console */ console.log('Speech recognition stopped');
         },
         onresult: null as any,
         onerror: null as any
@@ -226,7 +226,7 @@ export default function TeacherAutomation() {
         description: "There was a problem creating your lesson plan. Please try again.",
         variant: "destructive"
       });
-      console.error(error);
+      /* eslint-disable-next-line no-console */ console.error(error);
     } finally {
       setIsProcessing(false);
     }
@@ -274,7 +274,7 @@ export default function TeacherAutomation() {
         description: "There was a problem creating the student report. Please try again.",
         variant: "destructive"
       });
-      console.error(error);
+      /* eslint-disable-next-line no-console */ console.error(error);
     } finally {
       setIsProcessing(false);
     }
@@ -321,7 +321,7 @@ export default function TeacherAutomation() {
         description: "There was a problem creating the assignment feedback. Please try again.",
         variant: "destructive"
       });
-      console.error(error);
+      /* eslint-disable-next-line no-console */ console.error(error);
     } finally {
       setIsProcessing(false);
     }
@@ -341,7 +341,7 @@ export default function TeacherAutomation() {
           description: "There was an error copying the content.",
           variant: "destructive"
         });
-        console.error('Could not copy text: ', err);
+        /* eslint-disable-next-line no-console */ console.error('Could not copy text: ', err);
       }
     );
   };

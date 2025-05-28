@@ -44,7 +44,7 @@ export const AIAvatarVideoPlayer: React.FC<AIAvatarVideoPlayerProps> = ({
         setVideoUrl(`/api/ai-avatar/videos/${videoId}`);
         setLoading(false);
       } catch (err) {
-        console.error('Failed to load video:', err);
+        /* eslint-disable-next-line no-console */ console.error('Failed to load video:', err);
         setError(err instanceof Error ? err : new Error('Failed to load video'));
         setLoading(false);
         if (onError) onError(err instanceof Error ? err : new Error('Failed to load video'));
@@ -96,7 +96,7 @@ export const AIAvatarVideoPlayer: React.FC<AIAvatarVideoPlayerProps> = ({
     if (videoRef.current) {
       if (playing) {
         videoRef.current.play().catch(err => {
-          console.error('Failed to play video:', err);
+          /* eslint-disable-next-line no-console */ console.error('Failed to play video:', err);
           setPlaying(false);
         });
       } else {

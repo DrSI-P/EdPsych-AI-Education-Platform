@@ -6,7 +6,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import prisma from '@/lib/prisma-client';
 import { BlogForm } from '@/components/blog/BlogForm';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+// import { Alert, AlertDescription } from '@/components/ui/alert'; // Unused import
 import { useToast } from '@/components/ui/use-toast';
 
 interface Category {
@@ -18,7 +18,7 @@ interface NewBlogPostPageProps {
   categories: any[];
 }
 
-export default function NewBlogPostPage({ categories }: NewBlogPostPageProps) {
+export default function NewBlogPostPage(: React.ReactNode { categories }: NewBlogPostPageProps) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
@@ -49,7 +49,7 @@ export default function NewBlogPostPage({ categories }: NewBlogPostPageProps) {
       // Redirect to the new post
       router.push(`/blog/${result.post.slug}`);
     } catch (error) {
-      console.error('Error creating blog post:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error creating blog post:', error);
       toast({
         title: 'Error',
         description: error instanceof Error ? error.message : 'Failed to create blog post',
@@ -109,7 +109,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   } catch (error) {
-    console.error('Error fetching categories:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching categories:', error);
     return {
       props: {
         categories: [],

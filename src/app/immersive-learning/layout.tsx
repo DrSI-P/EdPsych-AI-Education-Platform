@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ImmersiveLayout } from '@/components/immersive/immersive-layout';
+// import { ImmersiveLayout } from '@/components/immersive/immersive-layout'; // Unused import
 
 interface ImmersiveLearningLayoutProps {
   children: React.ReactNode;
@@ -14,7 +14,7 @@ interface ImmersiveLearningLayoutProps {
  * experiences, including navigation, accessibility controls, and responsive
  * design elements.
  */
-export default function ImmersiveLearningLayout({
+export default function ImmersiveLearningLayout(: React.ReactNode {
   children
 }: ImmersiveLearningLayoutProps) {
   return (

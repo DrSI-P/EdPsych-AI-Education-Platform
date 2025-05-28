@@ -1,9 +1,9 @@
 'use client';
 
-import React from 'react';
+// import React from 'react'; // Unused import
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-export function TestComponent() {
+export function TestComponent() : React.ReactNode {
   return (
     <div className="container mx-auto py-8">
       <h1 className="text-3xl font-bold mb-6">Test Component</h1>

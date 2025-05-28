@@ -70,7 +70,7 @@ export async function GET(request: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error fetching users:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching users:', error);
     return NextResponse.json(
       { error: 'An error occurred while fetching users' },
       { status: 500 }
@@ -134,7 +134,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(newUser, { status: 201 });
     
   } catch (error) {
-    console.error('Error creating user:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating user:', error);
     return NextResponse.json(
       { error: 'An error occurred while creating the user' },
       { status: 500 }

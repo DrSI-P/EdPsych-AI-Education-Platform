@@ -1,7 +1,8 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from "framer-motion";
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -51,7 +52,7 @@ interface CompanionState {
   lastInteraction: Date;
 }
 
-export default function DigitalTwinCompanionPage() {
+export default function DigitalTwinCompanionPage() : React.ReactNode {
   const [learningProfile, setLearningProfile] = useState<LearningProfile>({
     strengths: ['Pattern recognition', 'Creative problem-solving', 'Visual learning'],
     challenges: ['Sustained focus', 'Mathematical formulas', 'Text-heavy content'],

@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -56,7 +57,7 @@ interface DataPoint {
   notes: string;
 }
 
-export function ProgressMonitoringEngine() {
+export function ProgressMonitoringEngine() : React.ReactNode {
   const { toast } = useToast();
   
   // State for goals and data points
@@ -200,7 +201,7 @@ export function ProgressMonitoringEngine() {
           setIsLoading(false);
         }, 1000);
       } catch (error) {
-        console.error('Error loading goals:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error loading goals:', error);
         toast({
           title: 'Error',
           description: 'Failed to load goals. Please try again.',

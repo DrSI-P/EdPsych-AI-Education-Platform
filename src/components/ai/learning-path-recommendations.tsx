@@ -1,9 +1,10 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'; // Unused import
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
@@ -75,7 +76,7 @@ const mockLearnerProfile: LearnerProfile = {
   lastUpdated: new Date()
 };
 
-export default function LearningPathRecommendations() {
+export default function LearningPathRecommendations() : React.ReactNode {
   const [selectedSubject, setSelectedSubject] = useState<SubjectArea>(SubjectArea.SCIENCE);
   const [duration, setDuration] = useState<number>(4); // weeks
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -102,7 +103,7 @@ export default function LearningPathRecommendations() {
         duration: 3000,
       });
     } catch (error) {
-      console.error('Failed to generate learning path:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to generate learning path:', error);
       toast({
         title: "Error",
         description: "Failed to generate learning path. Please try again.",

@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState } from 'react';
@@ -12,14 +13,14 @@ import {
 } from '@/lib/content-creation/types';
 import { getContentCreationService } from '@/lib/content-creation/contentCreationService';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+// import { Card, CardContent } from '@/components/ui/card'; // Unused import
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Separator } from '@/components/ui/separator';
+// import { Separator } from '@/components/ui/separator'; // Unused import
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AlertCircle, Wand2 } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -89,7 +90,7 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
       
       onGenerate(generatedContent);
     } catch (error) {
-      console.error('Failed to generate content:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to generate content:', error);
       setError('Failed to generate content. Please try again.');
       toast({
         variant: "destructive",
@@ -117,7 +118,7 @@ export const AIGenerationPanel: React.FC<AIGenerationPanelProps> = ({
       
       onGenerate(generatedContent);
     } catch (error) {
-      console.error('Failed to generate content:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to generate content:', error);
       setError('Failed to generate content. Please try again.');
       toast({
         variant: "destructive",

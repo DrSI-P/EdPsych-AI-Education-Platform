@@ -180,7 +180,7 @@ async function GET(req: NextRequest) {
       }
     });
   } catch (error) {
-    console.error('Error fetching goals:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching goals:', error);
     return NextResponse.json(
       { error: 'Failed to fetch goals' },
       { status: 500 }
@@ -230,7 +230,7 @@ async function POST(req: NextRequest) {
       data: newGoal
     });
   } catch (error) {
-    console.error('Error creating goal:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating goal:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -273,7 +273,7 @@ async function PATCH(req: NextRequest) {
       }
     });
   } catch (error) {
-    console.error('Error updating goal:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error updating goal:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -320,7 +320,7 @@ async function PUT(req: NextRequest) {
       data: newEvidence
     });
   } catch (error) {
-    console.error('Error adding evidence:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error adding evidence:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(

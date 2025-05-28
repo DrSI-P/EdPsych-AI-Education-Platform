@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
     
     // Handle error case
     if (error) {
-      console.error('Google Drive OAuth error:', error);
+      /* eslint-disable-next-line no-console */ console.error('Google Drive OAuth error:', error);
       return NextResponse.redirect(
         new URL(`/admin/plugins?error=${encodeURIComponent(error)}`, request.url)
       );
@@ -102,7 +102,7 @@ export async function GET(request: NextRequest) {
       new URL('/admin/plugins?success=google_drive_connected', request.url)
     );
   } catch (error) {
-    console.error('Error handling Google Drive OAuth callback:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error handling Google Drive OAuth callback:', error);
     return NextResponse.redirect(
       new URL('/admin/plugins?error=server_error', request.url)
     );
@@ -158,7 +158,7 @@ async function exchangeAuthorizationCode(code: string) {
       expiresAt: new Date(Date.now() + data.expires_in * 1000).toISOString(),
     };
   } catch (error) {
-    console.error('Failed to exchange authorization code:', error);
+    /* eslint-disable-next-line no-console */ console.error('Failed to exchange authorization code:', error);
     return {
       success: false,
       error: 'token_exchange_failed',

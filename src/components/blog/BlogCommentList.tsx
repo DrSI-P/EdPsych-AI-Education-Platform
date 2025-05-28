@@ -25,7 +25,7 @@ interface BlogCommentListProps {
   postId: string;
 }
 
-export function BlogCommentList({ postId }: BlogCommentListProps) {
+export function BlogCommentList(: React.ReactNode { postId }: BlogCommentListProps) {
   const { data: session } = useSession();
   const [comments, setComments] = useState<Comment[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -46,7 +46,7 @@ export function BlogCommentList({ postId }: BlogCommentListProps) {
       const data = await response.json();
       setComments(data.comments || []);
     } catch (error) {
-      console.error('Error fetching comments:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching comments:', error);
       setError('Failed to load comments. Please try again later.');
     } finally {
       setIsLoading(false);

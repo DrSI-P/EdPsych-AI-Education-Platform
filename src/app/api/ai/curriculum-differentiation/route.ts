@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
           return NextResponse.json({ error: 'Curriculum plan not found' }, { status: 404 });
         }
       } catch (error) {
-        console.log('Error fetching curriculum plan:', error);
+        /* eslint-disable-next-line no-console */ console.log('Error fetching curriculum plan:', error);
         return NextResponse.json({ error: 'Failed to fetch curriculum plan' }, { status: 500 });
       }
     }
@@ -155,7 +155,7 @@ export async function POST(req: NextRequest) {
       const responseText = differentiationResponse.text;
       differentiatedContent = JSON.parse(responseText);
     } catch (error) {
-      console.error('Error parsing AI response:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error parsing AI response:', error);
       return NextResponse.json({ error: 'Failed to parse differentiated curriculum' }, { status: 500 });
     }
     
@@ -175,7 +175,7 @@ export async function POST(req: NextRequest) {
         }
       });
     } catch (error) {
-      console.log('Failed to save curriculum differentiation to database:', error);
+      /* eslint-disable-next-line no-console */ console.log('Failed to save curriculum differentiation to database:', error);
       // Continue without saving to database
     }
     
@@ -186,7 +186,7 @@ export async function POST(req: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error in curriculum differentiation:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in curriculum differentiation:', error);
     return NextResponse.json({ error: 'Failed to process curriculum differentiation' }, { status: 500 });
   }
 }
@@ -220,7 +220,7 @@ export async function GET(req: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error fetching curriculum differentiations:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching curriculum differentiations:', error);
     return NextResponse.json({ error: 'Failed to fetch curriculum differentiations' }, { status: 500 });
   }
 }

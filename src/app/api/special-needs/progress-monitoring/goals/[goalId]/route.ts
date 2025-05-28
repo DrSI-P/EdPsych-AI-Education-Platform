@@ -54,7 +54,7 @@ export async function GET(
       }
     });
   } catch (error) {
-    console.error('Progress monitoring goal API error:', error);
+    /* eslint-disable-next-line no-console */ console.error('Progress monitoring goal API error:', error);
     return NextResponse.json(
       { error: 'Failed to retrieve goal' },
       { status: 500 }
@@ -138,7 +138,7 @@ export async function PUT(
       goal: updatedGoal
     });
   } catch (error) {
-    console.error('Progress monitoring goal API error:', error);
+    /* eslint-disable-next-line no-console */ console.error('Progress monitoring goal API error:', error);
     return NextResponse.json(
       { error: 'Failed to update goal' },
       { status: 500 }
@@ -208,7 +208,7 @@ export async function DELETE(
       message: 'Goal deleted successfully'
     });
   } catch (error) {
-    console.error('Progress monitoring goal API error:', error);
+    /* eslint-disable-next-line no-console */ console.error('Progress monitoring goal API error:', error);
     return NextResponse.json(
       { error: 'Failed to delete goal' },
       { status: 500 }

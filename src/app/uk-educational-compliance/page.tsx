@@ -12,7 +12,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Switch } from "@/components/ui/switch";
 import { CheckCircle, FileText, Info, Search, Settings } from "lucide-react";
 
-export default function UKEducationalCompliance() {
+export default function UKEducationalCompliance() : React.ReactNode {
   const [selectedKeyStage, setSelectedKeyStage] = useState("ks2");
   
   return (

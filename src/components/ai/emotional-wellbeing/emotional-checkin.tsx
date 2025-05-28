@@ -1,9 +1,10 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -26,7 +27,7 @@ type CheckinData = {
 };
 
 // Export both as default and named export to fix build warnings
-export function EmotionalCheckin() {
+export function EmotionalCheckin() : React.ReactNode {
   const { toast } = useToast();
   const aiService = useAIService();
   const [step, setStep] = useState(1);
@@ -202,7 +203,7 @@ export function EmotionalCheckin() {
         description: "There was a problem analysing your emotional check-in. Please try again.",
         variant: "destructive"
       });
-      console.error(error);
+      /* eslint-disable-next-line no-console */ console.error(error);
     } finally {
       setIsProcessing(false);
     }

@@ -1,16 +1,17 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+// import { Input } from "@/components/ui/input"; // Unused import
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
+// import { Progress } from "@/components/ui/progress"; // Unused import
 import { toast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -371,7 +372,7 @@ const GuidedMindfulnessActivities = () => {
       // Play/pause based on state
       if (isPlaying) {
         audioRef.current.play().catch(error => {
-          console.error('Error playing audio:', error);
+          /* eslint-disable-next-line no-console */ console.error('Error playing audio:', error);
           setIsPlaying(false);
           toast({
             title: "Playback Error",
@@ -439,7 +440,7 @@ const GuidedMindfulnessActivities = () => {
         setIsLoading(false);
       }, 500);
     } catch (error) {
-      console.error('Error fetching user preferences:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching user preferences:', error);
       setIsLoading(false);
       toast({
         title: "Error",
@@ -492,7 +493,7 @@ const GuidedMindfulnessActivities = () => {
       
       setActivityHistory(mockHistory);
     } catch (error) {
-      console.error('Error fetching activity history:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching activity history:', error);
       toast({
         title: "Error",
         description: "Failed to load your activity history. Please try again.",
@@ -512,7 +513,7 @@ const GuidedMindfulnessActivities = () => {
       const mockFavorites = ["breathing-awareness", "body-scan", "mindful-walking"];
       setFavoriteActivities(mockFavorites);
     } catch (error) {
-      console.error('Error fetching favourite activities:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching favourite activities:', error);
       toast({
         title: "Error",
         description: "Failed to load your favourite activities. Please try again.",
@@ -544,7 +545,7 @@ const GuidedMindfulnessActivities = () => {
         });
       }, 1000);
     } catch (error) {
-      console.error('Error saving preferences:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error saving preferences:', error);
       setIsLoading(false);
       toast({
         title: "Error",
@@ -619,7 +620,7 @@ const GuidedMindfulnessActivities = () => {
         description: "Your favorites have been updated.",
       });
     } catch (error) {
-      console.error('Error updating favorites:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error updating favorites:', error);
       toast({
         title: "Error",
         description: "Failed to update your favorites. Please try again.",
@@ -656,7 +657,7 @@ const GuidedMindfulnessActivities = () => {
       setActivityHistory(prev => [newHistoryEntry, ...prev]);
       
     } catch (error) {
-      console.error('Error logging activity completion:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error logging activity completion:', error);
       toast({
         title: "Error",
         description: "Failed to log your activity. Please try again.",
@@ -700,7 +701,7 @@ const GuidedMindfulnessActivities = () => {
       });
       
     } catch (error) {
-      console.error('Error saving feedback:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error saving feedback:', error);
       toast({
         title: "Error",
         description: "Failed to save your feedback. Please try again.",

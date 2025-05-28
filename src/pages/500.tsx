@@ -1,8 +1,10 @@
 import Head from 'next/head';
-import Link from 'next/link';
+// import Link from 'next/link'; // Unused import
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { UILink } from '@/components/ui';
+
+// import React from "react"; // Unused import
 
 /**
  * Custom 500 (Server Error) page for EdPsych Connect
@@ -10,7 +12,7 @@ import { UILink } from '@/components/ui';
  * This component provides a user-friendly 500 error page when
  * server-side errors occur in production.
  */
-export default function Custom500() {
+export default function Custom500() : React.ReactNode {
   const router = useRouter();
 
   // Log 500 errors to monitoring system
@@ -18,7 +20,7 @@ export default function Custom500() {
     // Only log in production
     if (process.env.NODE_ENV === 'production') {
       // Send 500 error to monitoring service
-      console.error(`500 error occurred on ${router.asPath}`);
+      /* eslint-disable-next-line no-console */ console.error(`500 error occurred on ${router.asPath}`);
       
       // You could add more sophisticated error logging here
       // e.g., Sentry, LogRocket, etc.

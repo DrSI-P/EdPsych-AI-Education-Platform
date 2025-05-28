@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
@@ -39,7 +39,7 @@ interface Assessment {
   updatedAt: string;
 }
 
-export default function AssessmentPreviewPage() {
+export default function AssessmentPreviewPage() : React.ReactNode {
   const router = useRouter();
   const params = useParams();
   const [assessment, setAssessment] = useState<Assessment | null>(null);
@@ -61,7 +61,7 @@ export default function AssessmentPreviewPage() {
         const data = await response.json();
         setAssessment(data);
       } catch (err) {
-        console.error('Error fetching assessment:', err);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching assessment:', err);
         setError('An error occurred while fetching the assessment');
       } finally {
         setLoading(false);
@@ -101,7 +101,7 @@ export default function AssessmentPreviewPage() {
         router.push('/assessment');
       }, 2000);
     } catch (err) {
-      console.error('Error publishing assessment:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error publishing assessment:', err);
       setError('An error occurred while publishing the assessment');
     } finally {
       setPublishing(false);

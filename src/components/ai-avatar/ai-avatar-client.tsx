@@ -16,7 +16,7 @@ const VideoGenerator = dynamic(
   { ssr: false }
 );
 
-export default function AIAvatarClient() {
+export default function AIAvatarClient() : React.ReactNode {
   const searchParams = useSearchParams();
   
   // Validate that ageGroup is one of the allowed values
@@ -123,7 +123,7 @@ export default function AIAvatarClient() {
                     navigator.clipboard.writeText(generatedVideoUrl);
                     alert('Video URL copied to clipboard!');
                   } catch (error) {
-                    console.error('Failed to copy URL to clipboard', error);
+                    /* eslint-disable-next-line no-console */ console.error('Failed to copy URL to clipboard', error);
                     alert('Could not copy URL to clipboard. Please copy it manually.');
                   }
                 }

@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -5,19 +6,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+// import { Label } from "@/components/ui/label"; // Unused import
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+// import { ScrollArea } from "@/components/ui/scroll-area"; // Unused import
+// import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"; // Unused import
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
+// import { Checkbox } from "@/components/ui/checkbox"; // Unused import
 import { Progress } from "@/components/ui/progress";
-import { AlertCircle, BookOpen, Download, Heart, Home, Info, MessageCircle, Search, Share2, Star } from "lucide-react";
+import { AlertCircle, BookOpen, Download, Heart, Home, Search, Share2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"; // Unused import
 import { toast } from "@/components/ui/use-toast";
-import { z } from "zod";
+// import { z } from "zod"; // Unused import
 
 // Define types for parent education resources
 type ResourceCategory = 'guide' | 'video' | 'activity' | 'printable' | 'course';
@@ -333,7 +334,7 @@ const mockActivities: any[] = [
   }
 ];
 
-export default function ParentEducationResources() {
+export default function ParentEducationResources() : React.ReactNode {
   const [resources, setResources] = useState<ParentResource[]>(mockResources);
   const [modules, setModules] = useState<Module[]>(mockModules);
   const [activities, setActivities] = useState<FamilyActivity[]>(mockActivities);

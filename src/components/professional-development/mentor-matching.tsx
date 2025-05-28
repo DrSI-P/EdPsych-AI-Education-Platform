@@ -21,9 +21,9 @@ import {
   SelectTrigger, 
   SelectValue 
 } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
+// import { Switch } from "@/components/ui/switch"; // Unused import
 import { Checkbox } from "@/components/ui/checkbox";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+// import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"; // Unused import
 import { Separator } from "@/components/ui/separator";
 import { 
   Dialog, 
@@ -374,7 +374,7 @@ const MOCK_MENTORSHIPS = [
   }
 ];
 
-export default function MentorMatching() {
+export default function MentorMatching() : React.ReactNode {
   const [activeTab, setActiveTab] = useState('find');
   const [profileType, setProfileType] = useState('mentee');
   const [expertiseFilter, setExpertiseFilter] = useState([]);

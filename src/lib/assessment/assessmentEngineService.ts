@@ -6,7 +6,7 @@
  * evidence-based educational psychology principles.
  */
 
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid'; // Unused import
 import {
   Assessment,
   AssessmentMetadata,
@@ -68,7 +68,7 @@ export class AssessmentEngineService implements AssessmentEngine {
     this.validateAssessment(assessment);
     
     // In a real implementation, this would save to a database
-    console.log(`Creating assessment: ${assessment.metadata.title}`);
+    /* eslint-disable-next-line no-console */ console.log(`Creating assessment: ${assessment.metadata.title}`);
     
     // Return the assessment ID
     return assessment.metadata.id;
@@ -81,7 +81,7 @@ export class AssessmentEngineService implements AssessmentEngine {
    */
   async getAssessment(id: string): Promise<Assessment | null> {
     // In a real implementation, this would fetch from a database
-    console.log(`Fetching assessment: ${id}`);
+    /* eslint-disable-next-line no-console */ console.log(`Fetching assessment: ${id}`);
     
     // Mock implementation - would be replaced with actual database query
     return null;
@@ -101,7 +101,7 @@ export class AssessmentEngineService implements AssessmentEngine {
     this.validateAssessment(assessment);
     
     // In a real implementation, this would update in a database
-    console.log(`Updating assessment: ${id}`);
+    /* eslint-disable-next-line no-console */ console.log(`Updating assessment: ${id}`);
     
     return true;
   }
@@ -113,7 +113,7 @@ export class AssessmentEngineService implements AssessmentEngine {
    */
   async deleteAssessment(id: string): Promise<boolean> {
     // In a real implementation, this would delete from a database
-    console.log(`Deleting assessment: ${id}`);
+    /* eslint-disable-next-line no-console */ console.log(`Deleting assessment: ${id}`);
     
     return true;
   }
@@ -129,7 +129,7 @@ export class AssessmentEngineService implements AssessmentEngine {
     assessmentType?: AssessmentType;
   }): Promise<AssessmentMetadata[]> {
     // In a real implementation, this would query a database with filters
-    console.log('Listing assessments with filters:', params);
+    /* eslint-disable-next-line no-console */ console.log('Listing assessments with filters:', params);
     
     // Mock implementation - would be replaced with actual database query
     return [];
@@ -161,7 +161,7 @@ export class AssessmentEngineService implements AssessmentEngine {
     };
     
     // In a real implementation, this would save to a database
-    console.log(`Starting attempt ${attemptId} for student ${studentId} on assessment ${assessmentId}`);
+    /* eslint-disable-next-line no-console */ console.log(`Starting attempt ${attemptId} for student ${studentId} on assessment ${assessmentId}`);
     
     return attemptId;
   }
@@ -174,7 +174,7 @@ export class AssessmentEngineService implements AssessmentEngine {
    */
   async submitResponse(attemptId: string, response: QuestionResponse): Promise<boolean> {
     // In a real implementation, this would update the attempt in a database
-    console.log(`Submitting response for question ${response.questionId} in attempt ${attemptId}`);
+    /* eslint-disable-next-line no-console */ console.log(`Submitting response for question ${response.questionId} in attempt ${attemptId}`);
     
     return true;
   }
@@ -205,7 +205,7 @@ export class AssessmentEngineService implements AssessmentEngine {
     const result = await this.calculateResults(attempt, assessment);
     
     // In a real implementation, this would update the attempt and save the result in a database
-    console.log(`Completing attempt ${attemptId} with score ${result.percentage}%`);
+    /* eslint-disable-next-line no-console */ console.log(`Completing attempt ${attemptId} with score ${result.percentage}%`);
     
     return result;
   }
@@ -217,7 +217,7 @@ export class AssessmentEngineService implements AssessmentEngine {
    */
   async getAttempt(attemptId: string): Promise<AssessmentAttempt | null> {
     // In a real implementation, this would fetch from a database
-    console.log(`Fetching attempt: ${attemptId}`);
+    /* eslint-disable-next-line no-console */ console.log(`Fetching attempt: ${attemptId}`);
     
     // Mock implementation - would be replaced with actual database query
     return null;
@@ -231,7 +231,7 @@ export class AssessmentEngineService implements AssessmentEngine {
    */
   async getStudentAttempts(studentId: string, assessmentId?: string): Promise<AssessmentAttempt[]> {
     // In a real implementation, this would query a database with filters
-    console.log(`Fetching attempts for student ${studentId}${assessmentId ? ` on assessment ${assessmentId}` : ''}`);
+    /* eslint-disable-next-line no-console */ console.log(`Fetching attempts for student ${studentId}${assessmentId ? ` on assessment ${assessmentId}` : ''}`);
     
     // Mock implementation - would be replaced with actual database query
     return [];
@@ -243,7 +243,7 @@ export class AssessmentEngineService implements AssessmentEngine {
    * @returns The generated assessment
    */
   async generateAssessment(template: AssessmentTemplate): Promise<Assessment> {
-    console.log(`Generating assessment from template: ${template.name}`);
+    /* eslint-disable-next-line no-console */ console.log(`Generating assessment from template: ${template.name}`);
     
     // Create assessment metadata
     const metadata: AssessmentMetadata = {
@@ -297,7 +297,7 @@ export class AssessmentEngineService implements AssessmentEngine {
    * @returns The next question to present
    */
   async generateAdaptiveQuestion(attemptId: string, previousResponses: any[]): Promise<Question> {
-    console.log(`Generating adaptive question for attempt ${attemptId}`);
+    /* eslint-disable-next-line no-console */ console.log(`Generating adaptive question for attempt ${attemptId}`);
     
     // Get the attempt
     const attempt = await this.getAttempt(attemptId);
@@ -352,7 +352,7 @@ export class AssessmentEngineService implements AssessmentEngine {
       averageTimeSpent: number;
     }>;
   }> {
-    console.log(`Analysing results for assessment ${assessmentId}`);
+    /* eslint-disable-next-line no-console */ console.log(`Analysing results for assessment ${assessmentId}`);
     
     // In a real implementation, this would query a database for all attempts on this assessment
     // and perform statistical analysis
@@ -387,7 +387,7 @@ export class AssessmentEngineService implements AssessmentEngine {
       assessmentId: string;
     }>;
   }> {
-    console.log(`Getting progress for student ${studentId} with filters:`, params);
+    /* eslint-disable-next-line no-console */ console.log(`Getting progress for student ${studentId} with filters:`, params);
     
     // In a real implementation, this would query a database for all attempts by this student
     // and perform analysis to identify strengths and areas for improvement
@@ -682,7 +682,7 @@ export class AssessmentEngineService implements AssessmentEngine {
     
     // Ensure we have the required number of questions
     if (questions.length < template.questionCount) {
-      console.warn(`Could only generate ${questions.length} of ${template.questionCount} required questions`);
+      /* eslint-disable-next-line no-console */ console.warn(`Could only generate ${questions.length} of ${template.questionCount} required questions`);
     }
     
     return questions;

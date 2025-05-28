@@ -177,7 +177,7 @@ export async function POST(
               
               continue; // Skip the rest of the loop for this answer
             } catch (error) {
-              console.error('Error evaluating open-ended answer with AI:', error);
+              /* eslint-disable-next-line no-console */ console.error('Error evaluating open-ended answer with AI:', error);
               // Fall back to manual grading (marked as needing review)
               isCorrect = false; // Use false instead of null for manual review
               feedback = 'This answer requires manual review.';
@@ -264,7 +264,7 @@ export async function POST(
     });
     
   } catch (error) {
-    console.error('Error submitting assessment:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error submitting assessment:', error);
     return NextResponse.json(
       { error: 'An error occurred while submitting the assessment' },
       { status: 500 }

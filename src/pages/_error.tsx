@@ -1,9 +1,11 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
-import Link from 'next/link';
+// import Link from 'next/link'; // Unused import
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { UILink } from '@/components/ui';
+
+// import React from "react"; // Unused import
 
 interface ErrorProps {
   statusCode: number;
@@ -25,7 +27,7 @@ const ErrorPage: NextPage<ErrorProps> = ({ statusCode }) => {
     // Only log in production
     if (process.env.NODE_ENV === 'production') {
       // Send error to monitoring service
-      console.error(`Error ${statusCode} occurred on ${router.asPath}`);
+      /* eslint-disable-next-line no-console */ console.error(`Error ${statusCode} occurred on ${router.asPath}`);
       
       // You could add more sophisticated error logging here
       // e.g., Sentry, LogRocket, etc.

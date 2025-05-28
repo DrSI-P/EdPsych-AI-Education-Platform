@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { db, prisma } from '@/lib/db';
+import { prisma } from "@/lib/db";
 
 // Schema for pattern analysis request
 const PatternAnalysisRequestSchema = z.object({
@@ -88,7 +88,7 @@ export async function GET(req: Request) {
     });
     
   } catch (error) {
-    console.error('Error in pattern recognition API:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in pattern recognition API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
@@ -502,7 +502,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true });
     
   } catch (error) {
-    console.error('Error in pattern recognition API:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in pattern recognition API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

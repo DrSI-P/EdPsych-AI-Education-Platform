@@ -3,9 +3,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; // Unused import
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+// import { Badge } from "@/components/ui/badge"; // Unused import
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import { 
@@ -124,7 +124,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
         document.documentElement.style.setProperty('--secondary', '#0088cc');
       }
     } catch (error) {
-      console.error('Error applying contrast level:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error applying contrast level:', error);
     }
   }, [settings.enabled, settings.contrastLevel]);
   
@@ -143,7 +143,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
       `;
       document.head.appendChild(style);
     } catch (error) {
-      console.error('Error applying bold text:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error applying bold text:', error);
     }
   }, [settings.enabled, settings.boldText]);
   
@@ -162,7 +162,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
       `;
       document.head.appendChild(style);
     } catch (error) {
-      console.error('Error applying larger text:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error applying larger text:', error);
     }
   }, [settings.enabled, settings.largerText]);
   
@@ -189,7 +189,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
       `;
       document.head.appendChild(style);
     } catch (error) {
-      console.error('Error highlighting links:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error highlighting links:', error);
     }
   }, [settings.enabled, settings.highlightLinks]);
   
@@ -214,7 +214,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
       `;
       document.head.appendChild(style);
     } catch (error) {
-      console.error('Error highlighting buttons:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error highlighting buttons:', error);
     }
   }, [settings.enabled, settings.highlightButtons]);
   
@@ -228,7 +228,7 @@ export const HighContrastModeEngine: React.FC<HighContrastModeEngineProps> = ({
       // This would typically be implemented with a color picker UI
       // and would allow users to select custom colors for various elements
     } catch (error) {
-      console.error('Error applying custom colors:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error applying custom colors:', error);
     }
   }, [settings.enabled, settings.customColors]);
   

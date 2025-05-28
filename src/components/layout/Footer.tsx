@@ -1,8 +1,8 @@
-import React from 'react';
-import Link from 'next/link';
+// import React from 'react'; // Unused import
+// import Link from 'next/link'; // Unused import
 import { UILink } from '@/components/ui';
 
-export function Footer() {
+export function Footer() : React.ReactNode {
   return (
     <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
       <div className="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">

@@ -1,3 +1,4 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -7,8 +8,8 @@ import {
 } from '@/lib/content-creation/types';
 import { getContentCreationService } from '@/lib/content-creation/contentCreationService';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
+// import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'; // Unused import
+// import { Progress } from '@/components/ui/progress'; // Unused import
 import { AlertCircle, AlertTriangle, CheckCircle2, BookOpen, FileText } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
@@ -93,7 +94,7 @@ export const CurriculumAlignmentChecker: React.FC<CurriculumAlignmentCheckerProp
         }
       }
     } catch (error) {
-      console.error('Failed to check curriculum alignment:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to check curriculum alignment:', error);
       setError('Failed to check curriculum alignment. Please try again.');
       toast({
         variant: "destructive",

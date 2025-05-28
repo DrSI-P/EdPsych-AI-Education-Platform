@@ -219,7 +219,7 @@ export async function POST(req: NextRequest) {
       );
     }
   } catch (error) {
-    console.error('Error generating blog post:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error generating blog post:', error);
     
     return NextResponse.json(
       { error: 'Failed to generate blog post' },
@@ -305,7 +305,7 @@ export async function GET(req: NextRequest) {
       currentPage: page,
     });
   } catch (error) {
-    console.error('Error fetching blog posts:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching blog posts:', error);
     
     return NextResponse.json(
       { error: 'Failed to fetch blog posts' },

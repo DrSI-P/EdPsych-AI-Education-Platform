@@ -213,7 +213,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ success: false, error: 'Invalid request type' }, { status: 400 });
     }
   } catch (error) {
-    console.error('Error in research collaboration GET:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in research collaboration GET:', error);
     return NextResponse.json({ success: false, error: 'Server error' }, { status: 500 });
   }
 }
@@ -395,7 +395,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ success: false, error: 'Invalid action' }, { status: 400 });
     }
   } catch (error) {
-    console.error('Error in research collaboration POST:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in research collaboration POST:', error);
     return NextResponse.json({ success: false, error: 'Server error' }, { status: 500 });
   }
 }
@@ -510,7 +510,7 @@ export async function PUT(request: NextRequest) {
         return NextResponse.json({ success: false, error: 'Invalid type' }, { status: 400 });
     }
   } catch (error) {
-    console.error('Error in research collaboration PUT:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in research collaboration PUT:', error);
     return NextResponse.json({ success: false, error: 'Server error' }, { status: 500 });
   }
 }
@@ -542,7 +542,7 @@ export async function DELETE(request: NextRequest) {
         return NextResponse.json({ success: false, error: 'Invalid type' }, { status: 400 });
     }
   } catch (error) {
-    console.error('Error in research collaboration DELETE:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in research collaboration DELETE:', error);
     return NextResponse.json({ success: false, error: 'Server error' }, { status: 500 });
   }
 }

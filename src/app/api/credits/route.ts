@@ -102,7 +102,7 @@ export async function POST(req: NextRequest) {
     
     return NextResponse.json({ url: checkoutUrl });
   } catch (error) {
-    console.error('Error creating credit purchase:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error creating credit purchase:', error);
     
     return NextResponse.json(
       { error: 'Failed to create credit purchase' },
@@ -153,7 +153,7 @@ export async function GET(req: NextRequest) {
       purchases,
     });
   } catch (error) {
-    console.error('Error fetching credits:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error fetching credits:', error);
     
     return NextResponse.json(
       { error: 'Failed to fetch credits' },

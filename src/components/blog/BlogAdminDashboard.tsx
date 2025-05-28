@@ -13,7 +13,7 @@ interface BlogAdminDashboardProps {
   initialTab?: 'schedules' | 'generations' | 'analytics';
 }
 
-export function BlogAdminDashboard({ initialTab = 'schedules' }: BlogAdminDashboardProps) {
+export function BlogAdminDashboard(: React.ReactNode { initialTab = 'schedules' }: BlogAdminDashboardProps) {
   const { data: session } = useSession();
   const [activeTab, setActiveTab] = useState(initialTab);
   const [schedules, setSchedules] = useState([]);
@@ -48,7 +48,7 @@ export function BlogAdminDashboard({ initialTab = 'schedules' }: BlogAdminDashbo
         const generationsData = await generationsResponse.json();
         setGenerations(generationsData.generations || []);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        /* eslint-disable-next-line no-console */ console.error('Error fetching data:', error);
         setError('Failed to load data. Please try again later.');
       } finally {
         setIsLoading(false);

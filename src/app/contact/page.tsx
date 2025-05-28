@@ -53,7 +53,7 @@ const formSchema = z.object({
   }),
 });
 
-export default function ContactPage() {
+export default function ContactPage() : React.ReactNode {
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   
   const form = useForm<z.infer<typeof formSchema>>({
@@ -72,7 +72,7 @@ export default function ContactPage() {
     
     // Simulate API call
     setTimeout(() => {
-      console.log(values);
+      /* eslint-disable-next-line no-console */ console.log(values);
       setFormState('success');
       form.reset();
       

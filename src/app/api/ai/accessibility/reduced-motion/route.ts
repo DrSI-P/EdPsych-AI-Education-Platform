@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
       settings: updatedSettings
     });
   } catch (error) {
-    console.error('Reduced motion mode API error:', error);
+    /* eslint-disable-next-line no-console */ console.error('Reduced motion mode API error:', error);
     return NextResponse.json(
       { error: 'Failed to save reduced motion mode settings' },
       { status: 500 }

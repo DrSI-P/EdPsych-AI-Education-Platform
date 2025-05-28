@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
-import { ThemeProvider } from 'next-themes';
-import Head from 'next/head';
+// import { ThemeProvider } from 'next-themes'; // Unused import
+// import Head from 'next/head'; // Unused import
 import { Toaster } from '@/components/ui/toaster';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import '@/styles/globals.css';
+
+// import React from "react"; // Unused import
 
 // PWA head component for metadata
 function PWAHead() {
@@ -134,7 +136,7 @@ function InstallPrompt() {
   );
 }
 
-export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+export default function App(: React.ReactNode { Component, pageProps: { session, ...pageProps } }: AppProps) {
   const [isOnline, setIsOnline] = useState(true);
 
   useEffect(() => {

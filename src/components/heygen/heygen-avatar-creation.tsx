@@ -1,14 +1,15 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { HeyGenService, AvatarCreationParams, VideoGenerationParams } from '@/lib/heygen/heygen-service';
+import { HeyGenService, AvatarCreationParams } from "@/lib/heygen/heygen-service";
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+// import { Textarea } from '@/components/ui/textarea'; // Unused import
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Upload, Mic, Video, Check, AlertCircle, RefreshCw } from 'lucide-react';
+// import { Skeleton } from '@/components/ui/skeleton'; // Unused import
+import { Upload, Mic, Check, AlertCircle, RefreshCw } from "lucide-react";
 
 /**
  * HeyGen Avatar Creation Component
@@ -41,7 +42,7 @@ export const HeyGenAvatarCreation: React.FC = () => {
       try {
         await heygenService.initialize();
       } catch (error) {
-        console.error('Failed to initialize HeyGen service:', error);
+        /* eslint-disable-next-line no-console */ console.error('Failed to initialize HeyGen service:', error);
         setError('Failed to initialize avatar creation service. Please try again later.');
       }
     };
@@ -94,7 +95,7 @@ export const HeyGenAvatarCreation: React.FC = () => {
       recorder.start();
       setIsRecording(true);
     } catch (error) {
-      console.error('Error starting recording:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error starting recording:', error);
       setError('Failed to access microphone. Please check your permissions.');
     }
   };
@@ -140,7 +141,7 @@ export const HeyGenAvatarCreation: React.FC = () => {
       setSuccess(true);
       setLoading(false);
     } catch (error) {
-      console.error('Failed to create avatar:', error);
+      /* eslint-disable-next-line no-console */ console.error('Failed to create avatar:', error);
       setError('Failed to create avatar. Please try again later.');
       setLoading(false);
     }

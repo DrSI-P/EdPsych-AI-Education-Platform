@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+// import React from 'react'; // Unused import
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -8,7 +8,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Shield, FileText, Lock, UserCheck, Clock, AlertTriangle } from 'lucide-react';
 
-export default function TermsOfServicePage() {
+export default function TermsOfServicePage() : React.ReactNode {
   return (
     <div className="container mx-auto py-12 px-4">
       <motion.div

@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
-import { NextRequest, NextResponse } from 'next/server';
-import { validateAndSanitizeUser, validateAndSanitizeProfile } from '@/lib/validation';
+// import { NextRequest, NextResponse } from 'next/server'; // Unused import
+// import { validateAndSanitizeUser, validateAndSanitizeProfile } from '@/lib/validation'; // Unused import
 
 const prisma = new PrismaClient();
 
@@ -41,7 +41,7 @@ export async function safeDbOperation<T>(operation: () => Promise<T>): Promise<T
   try {
     return await operation();
   } catch (error) {
-    console.error('Database operation error:', error);
+    /* eslint-disable-next-line no-console */ console.error('Database operation error:', error);
     
     // Determine error type based on Prisma error codes
     if (error.code === 'P2025') {

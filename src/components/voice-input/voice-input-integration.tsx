@@ -3,7 +3,7 @@
 import React from 'react';
 import { VoiceInputProvider } from '@/providers/voice-input-provider';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Mic, MicOff, Settings, CheckCircle, AlertCircle } from 'lucide-react';
@@ -107,8 +107,8 @@ const VoiceControlsContent: React.FC<{
 }> = ({ onClose }) => {
   // In a real implementation, this would use the useVoiceInput hook
   const isListening = false;
-  const startListening = () => console.log('Start listening');
-  const stopListening = () => console.log('Stop listening');
+  const startListening = () => /* eslint-disable-next-line no-console */ console.log('Start listening');
+  const stopListening = () => /* eslint-disable-next-line no-console */ console.log('Stop listening');
   
   return (
     <>

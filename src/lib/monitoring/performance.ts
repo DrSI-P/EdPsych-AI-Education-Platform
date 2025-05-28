@@ -34,7 +34,7 @@ export function setTimingFunction(timingFn: () => number) {
 /**
  * Reset to default timing function
  */
-export function resetTimingFunction() {
+export function resetTimingFunction() : React.ReactNode {
   getNow = () => typeof performance !== 'undefined' ? performance.now() : Date.now();
 }
 
@@ -43,7 +43,7 @@ export function resetTimingFunction() {
  * 
  * @param metric - Web Vitals metric object
  */
-export function reportWebVitals(metric: NextWebVitalsMetric) {
+export function reportWebVitals(metric: NextWebVitalsMetric) : React.ReactNode {
   // Log the metric
   logInfo(`Web Vital: ${metric.name}`, {
     name: metric.name,
@@ -92,7 +92,7 @@ export function trackApiCall(
   duration: number,
   status: number,
   error?: string
-) {
+) : React.ReactNode {
   // Log the API call
   logInfo(`API Call: ${method} ${endpoint}`, {
     endpoint,
@@ -129,7 +129,7 @@ export function trackPageLoad(
   page: string,
   loadTime: number,
   isInitialLoad: boolean = false
-) {
+) : React.ReactNode {
   // Log the page load
   logInfo(`Page Load: ${page}`, {
     page,
@@ -162,7 +162,7 @@ export function trackResourceLoad(
   resource: string,
   type: string,
   loadTime: number
-) {
+) : React.ReactNode {
   // Log the resource load
   logInfo(`Resource Load: ${type} ${resource}`, {
     resource,
@@ -189,14 +189,14 @@ export function trackResourceLoad(
  * 
  * @returns Current performance metrics
  */
-export function getPerformanceMetrics() {
+export function getPerformanceMetrics() : React.ReactNode {
   return performanceMetrics;
 }
 
 /**
  * Clear performance metrics
  */
-export function clearPerformanceMetrics() {
+export function clearPerformanceMetrics() : React.ReactNode {
   Object.keys(performanceMetrics).forEach(key => {
     performanceMetrics[key] = [];
   });
@@ -208,7 +208,7 @@ export function clearPerformanceMetrics() {
  * @param name - Measurement name
  * @returns Object with start and end functions
  */
-export function measure(name: string) {
+export function measure(name: string) : React.ReactNode {
   const startTime = getNow();
   
   return {

@@ -4,15 +4,15 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import prisma from '@/lib/prisma-client';
+// import prisma from '@/lib/prisma-client'; // Unused import
 import { BlogAdminDashboard } from '@/components/blog/BlogAdminDashboard';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+// import { Alert, AlertDescription } from '@/components/ui/alert'; // Unused import
 
 interface BlogAdminPageProps {
   initialTab: string;
 }
 
-export default function BlogAdminPage({ initialTab }: BlogAdminPageProps) {
+export default function BlogAdminPage(: React.ReactNode { initialTab }: BlogAdminPageProps) {
   const router = useRouter();
   
   return (

@@ -7,7 +7,7 @@
 
 // Only run this code on the server side
 if (typeof window === 'undefined') {
-  console.log('Applying global polyfills for server-side rendering...');
+  /* eslint-disable-next-line no-console */ console.log('Applying global polyfills for server-side rendering...');
   
   // Create a global window object if it doesn't exist
   global.window = {
@@ -22,9 +22,9 @@ if (typeof window === 'undefined') {
       hash: '',
       href: 'https://edpsychconnect.com/',
       origin: 'https://edpsychconnect.com',
-      assign: (url) => console.log(`[Polyfill] window.location.assign: ${url}`),
-      replace: (url) => console.log(`[Polyfill] window.location.replace: ${url}`),
-      reload: () => console.log('[Polyfill] window.location.reload'),
+      assign: (url) => /* eslint-disable-next-line no-console */ console.log(`[Polyfill] window.location.assign: ${url}`),
+      replace: (url) => /* eslint-disable-next-line no-console */ console.log(`[Polyfill] window.location.replace: ${url}`),
+      reload: () => /* eslint-disable-next-line no-console */ console.log('[Polyfill] window.location.reload'),
       toString: () => 'https://edpsychconnect.com/'
     },
     
@@ -100,5 +100,5 @@ if (typeof window === 'undefined') {
   // Add self as an alias for window
   global.self = global.window;
   
-  console.log('Global polyfills applied successfully');
+  /* eslint-disable-next-line no-console */ console.log('Global polyfills applied successfully');
 }

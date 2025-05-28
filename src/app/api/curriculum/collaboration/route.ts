@@ -165,8 +165,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       userRole,
     });
   } catch (error) {
-    // Replace console.error with structured logging when available
-    console.error('Error fetching collaboration data:', error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error('Error fetching collaboration data:', error);
     return NextResponse.json(
       { error: 'Failed to fetch collaboration data' },
       { status: 500 }
@@ -560,8 +560,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         );
     }
   } catch (error) {
-    // Replace console.error with structured logging when available
-    console.error('Error managing collaboration:', error);
+    // Replace /* eslint-disable-next-line no-console */ console.error with structured logging when available
+    /* eslint-disable-next-line no-console */ console.error('Error managing collaboration:', error);
     return NextResponse.json(
       { error: 'Failed to manage collaboration' },
       { status: 500 }

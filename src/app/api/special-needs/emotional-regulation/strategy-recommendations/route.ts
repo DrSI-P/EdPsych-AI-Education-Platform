@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { db, prisma } from '@/lib/db';
+import { prisma } from "@/lib/db";
 
 // Schema for strategy recommendations request
 const StrategyRecommendationsRequestSchema = z.object({
@@ -122,7 +122,7 @@ export async function GET(req: Request) {
     });
     
   } catch (error) {
-    console.error('Error in strategy recommendations API:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in strategy recommendations API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
@@ -225,7 +225,7 @@ export async function POST(req: Request) {
     }
     
   } catch (error) {
-    console.error('Error in strategy recommendations API:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error in strategy recommendations API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { KeyRound, Keyboard, MousePointer } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-export default function KeyboardNavigationPage() {
+export default function KeyboardNavigationPage() : React.ReactNode {
   const [focusStyle, setFocusStyle] = useState('default');
   
   const handleFocusStyleChange = (style: string) => {

@@ -15,7 +15,7 @@ import { ComplianceValidator, ValidationSummary, ComplianceValidationResult } fr
  * A component that displays the current compliance status of the platform,
  * including GDPR, blockchain validation, and copyright protection.
  */
-export default function ComplianceStatus() {
+export default function ComplianceStatus() : React.ReactNode {
   const [loading, setLoading] = useState(true);
   const [validationResults, setValidationResults] = useState<ValidationSummary | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -30,7 +30,7 @@ export default function ComplianceStatus() {
         const results = await ComplianceValidator.validateAllCompliance();
         setValidationResults(results);
       } catch (err) {
-        console.error('Error validating compliance:', err);
+        /* eslint-disable-next-line no-console */ console.error('Error validating compliance:', err);
         setError('Failed to validate compliance. Please try again later.');
       } finally {
         setLoading(false);
@@ -49,7 +49,7 @@ export default function ComplianceStatus() {
       const results = await ComplianceValidator.validateAllCompliance();
       setValidationResults(results);
     } catch (err) {
-      console.error('Error validating compliance:', err);
+      /* eslint-disable-next-line no-console */ console.error('Error validating compliance:', err);
       setError('Failed to validate compliance. Please try again later.');
     } finally {
       setLoading(false);

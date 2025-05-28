@@ -1,8 +1,9 @@
+// TODO: Fix array index in keys warnings by using unique identifiers
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
-import { Input, Textarea, Select, Checkbox } from '@/components/ui/form';
+import { Input, Textarea, Select } from "@/components/ui/form";
 import { Button } from '@/components/ui/button';
 import { Tabs } from '@/components/ui/tabs';
 import { Spinner } from '@/components/ui/loading';
@@ -31,7 +32,7 @@ interface CurriculumPlannerProps {
   className?: string;
 }
 
-export function CurriculumPlanner({
+export function CurriculumPlanner(: React.ReactNode {
   initialPlans = [],
   onPlanSelect,
   className = ''

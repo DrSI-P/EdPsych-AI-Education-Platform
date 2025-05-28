@@ -46,7 +46,7 @@ export class AvatarService {
       
       return newScript;
     } catch (error) {
-      console.error('Error creating avatar script:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error creating avatar script:', error);
       throw new Error('Failed to create avatar script');
     }
   }
@@ -59,7 +59,7 @@ export class AvatarService {
       // In a real implementation, this would call an API endpoint
       throw new Error('Script not found');
     } catch (error) {
-      console.error('Error updating avatar script:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error updating avatar script:', error);
       throw new Error('Failed to update avatar script');
     }
   }
@@ -81,7 +81,7 @@ export class AvatarService {
       
       return job;
     } catch (error) {
-      console.error('Error generating avatar video:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error generating avatar video:', error);
       throw new Error('Failed to generate avatar video');
     }
   }
@@ -94,7 +94,7 @@ export class AvatarService {
       // In a real implementation, this would call an API endpoint
       throw new Error('Job not found');
     } catch (error) {
-      console.error('Error checking job status:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error checking job status:', error);
       throw new Error('Failed to check job status');
     }
   }
@@ -107,7 +107,7 @@ export class AvatarService {
       // In a real implementation, this would call an API endpoint
       throw new Error('Video not found');
     } catch (error) {
-      console.error('Error fetching video metadata:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching video metadata:', error);
       throw new Error('Failed to fetch video metadata');
     }
   }
@@ -127,7 +127,7 @@ export class AvatarService {
       // In a real implementation, this would call an API endpoint
       return []; // Placeholder
     } catch (error) {
-      console.error('Error searching videos:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error searching videos:', error);
       throw new Error('Failed to search videos');
     }
   }
@@ -140,7 +140,7 @@ export class AvatarService {
       // In a real implementation, this would call an API endpoint
       throw new Error('Video not found');
     } catch (error) {
-      console.error('Error fetching video analytics:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching video analytics:', error);
       throw new Error('Failed to fetch video analytics');
     }
   }
@@ -158,7 +158,7 @@ export class AvatarService {
       
       return newIntegrationPoint;
     } catch (error) {
-      console.error('Error creating integration point:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error creating integration point:', error);
       throw new Error('Failed to create integration point');
     }
   }
@@ -272,7 +272,7 @@ export class AvatarService {
         }
       ];
     } catch (error) {
-      console.error('Error fetching avatar models:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching avatar models:', error);
       throw new Error('Failed to fetch avatar models');
     }
   }
@@ -285,7 +285,7 @@ export class AvatarService {
       // In a real implementation, this would call an API endpoint
       return preferences;
     } catch (error) {
-      console.error('Error updating user preferences:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error updating user preferences:', error);
       throw new Error('Failed to update user preferences');
     }
   }
@@ -311,7 +311,7 @@ export class AvatarService {
         }
       };
     } catch (error) {
-      console.error('Error fetching user preferences:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error fetching user preferences:', error);
       throw new Error('Failed to fetch user preferences');
     }
   }
@@ -323,7 +323,7 @@ export class AvatarService {
     try {
       // In a real implementation, this would call an API endpoint
     } catch (error) {
-      console.error('Error recording video view:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error recording video view:', error);
       throw new Error('Failed to record video view');
     }
   }
@@ -335,7 +335,7 @@ export class AvatarService {
     try {
       // In a real implementation, this would call an API endpoint
     } catch (error) {
-      console.error('Error submitting video feedback:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error submitting video feedback:', error);
       throw new Error('Failed to submit video feedback');
     }
   }

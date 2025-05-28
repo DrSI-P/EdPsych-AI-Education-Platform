@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server';
+// import { NextRequest } from 'next/server'; // Unused import
 
 // Define custom type for route parameters to fix Next.js type generation issues
 declare module 'next/dist/server/future/route-modules/app-route/module' {

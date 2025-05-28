@@ -113,7 +113,7 @@ ${faqContext}`,
       });
     }
   } catch (error) {
-    console.error('Error generating chat response:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error generating chat response:', error);
     return NextResponse.json({ error: 'Failed to generate response' }, { status: 500 });
   }
 }
@@ -149,7 +149,7 @@ async function findRelevantFAQs(query: string) {
     
     return faqs;
   } catch (error) {
-    console.error('Error finding relevant FAQs:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error finding relevant FAQs:', error);
     return [];
   }
 }

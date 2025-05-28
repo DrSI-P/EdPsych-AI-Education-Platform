@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react'; // Unused import
 import AgeAppropriateReflectionPrompts from '@/components/restorative-justice/reflection-prompts/age-appropriate-reflection-prompts';
 import { Metadata } from 'next';
 
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
  * This page provides developmentally appropriate reflection prompts
  * for students at different age levels within the restorative justice framework.
  */
-export default function ReflectionPromptsPage() {
+export default function ReflectionPromptsPage() : React.ReactNode {
   return (
     <div className="container mx-auto py-8">
       <AgeAppropriateReflectionPrompts />

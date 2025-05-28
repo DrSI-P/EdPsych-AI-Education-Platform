@@ -2,7 +2,7 @@ import React from 'react';
 import CreateResourcesWrapper from '@/components/resources/create/create-resources-wrapper';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, Button, Badge, Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
 
-export default function CreateResource() {
+export default function CreateResource() : React.ReactNode {
   return <CreateResourcesWrapper />;
   const router = useRouter();
   const { data: session, status } = useSession({
@@ -166,7 +166,7 @@ export default function CreateResource() {
       // Redirect to the resource library
       router.push('/resources');
     } catch (error) {
-      console.error('Error creating resource:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error creating resource:', error);
       setFormErrors((prev) => ({ ...prev, submit: 'Failed to create resource. Please try again.' }));
     } finally {
       setIsSubmitting(false);

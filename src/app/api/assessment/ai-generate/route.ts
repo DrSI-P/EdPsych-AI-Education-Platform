@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth/auth-options';
-import prisma from '@/lib/db/prisma';
+// import prisma from '@/lib/db/prisma'; // Unused import
 import { aiService } from '@/lib/ai/ai-service';
 
 // POST handler for generating an assessment using AI
@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
     try {
       assessment = JSON.parse(aiResponse.text);
     } catch (error) {
-      console.error('Error parsing AI response:', error);
+      /* eslint-disable-next-line no-console */ console.error('Error parsing AI response:', error);
       return NextResponse.json(
         { error: 'Failed to parse AI response' },
         { status: 500 }
@@ -119,7 +119,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(assessment);
     
   } catch (error) {
-    console.error('Error generating assessment:', error);
+    /* eslint-disable-next-line no-console */ console.error('Error generating assessment:', error);
     return NextResponse.json(
       { error: 'An error occurred while generating the assessment' },
       { status: 500 }

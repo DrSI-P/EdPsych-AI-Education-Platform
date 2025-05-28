@@ -20,7 +20,7 @@ import { motion } from 'framer-motion';
  * This page provides a testing environment for the voice input feature,
  * allowing developers to test different components, age groups, and scenarios.
  */
-export default function VoiceInputTestPage() {
+export default function VoiceInputTestPage() : React.ReactNode {
   const [ageGroup, setAgeGroup] = useState<AgeGroup>('late-primary');
   const [transcript, setTranscript] = useState('');
   const [activeTab, setActiveTab] = useState('universal');
@@ -34,7 +34,7 @@ export default function VoiceInputTestPage() {
   
   // Handle completion
   const handleComplete = (finalTranscript: string) => {
-    console.log('Voice input complete:', finalTranscript);
+    /* eslint-disable-next-line no-console */ console.log('Voice input complete:', finalTranscript);
   };
   
   return (

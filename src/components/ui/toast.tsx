@@ -9,7 +9,7 @@ export interface ToastTitleProps {
   className?: string;
 }
 
-export function ToastTitle({ children, className = '' }: ToastTitleProps) {
+export function ToastTitle(: React.ReactNode { children, className = '' }: ToastTitleProps) {
   return (
     <div className={`font-medium text-sm ${className}`}>
       {children}
@@ -22,7 +22,7 @@ export interface ToastDescriptionProps {
   className?: string;
 }
 
-export function ToastDescription({ children, className = '' }: ToastDescriptionProps) {
+export function ToastDescription(: React.ReactNode { children, className = '' }: ToastDescriptionProps) {
   return (
     <div className={`text-sm opacity-90 ${className}`}>
       {children}
@@ -35,7 +35,7 @@ export interface ToastCloseProps {
   className?: string;
 }
 
-export function ToastClose({ onClick, className = '' }: ToastCloseProps) {
+export function ToastClose(: React.ReactNode { onClick, className = '' }: ToastCloseProps) {
   return (
     <button 
       onClick={onClick} 
@@ -66,7 +66,7 @@ export interface ToastViewportProps {
   position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-centre' | 'bottom-centre';
 }
 
-export function ToastViewport({ 
+export function ToastViewport(: React.ReactNode { 
   children, 
   className = '',
   position = 'bottom-right'
@@ -97,7 +97,7 @@ interface ToastProps {
   className?: string;
 }
 
-export function Toast({
+export function Toast(: React.ReactNode {
   message,
   type = 'info',
   duration = 3000,
@@ -260,7 +260,7 @@ interface ToastContextType {
 
 const ToastContext = React.createContext<ToastContextType | undefined>(undefined);
 
-export function ToastProvider({ children }: ToastProviderProps) {
+export function ToastProvider(: React.ReactNode { children }: ToastProviderProps) {
   const [toasts, setToasts] = useState<(ToastProps & { id: string })[]>([]);
 
   const showToast = (props: Omit<ToastProps, 'onClose'>) => {
@@ -282,7 +282,7 @@ export function ToastProvider({ children }: ToastProviderProps) {
   );
 }
 
-export function useToast() {
+export function useToast() : React.ReactNode {
   const context = React.useContext(ToastContext);
   if (context === undefined) {
     throw new Error('useToast must be used within a ToastProvider');
