@@ -1,6 +1,9 @@
 /**
  * Next.js Build Optimization Configuration
  *
+ * This file configures webpack to use our compatibility modules
+ * for the missing d3-shape and d3-scale exports in victory-vendor
+ *
  * @type {import('next').NextConfig}
  */
 const path = require('path');
@@ -54,7 +57,7 @@ const nextConfig = {
   
   // Configure image optimization
   images: {
-    domains: ['api.heygen.com', 'example.com'],
+    domains: ['api.heygen.com', 'example.com', 'localhost', 'res.cloudinary.com'],
     formats: ['image/avif', 'image/webp'],
   },
   
@@ -66,7 +69,10 @@ const nextConfig = {
       '@/lib/auth/auth-options': path.join(__dirname, 'src/lib/auth/auth-options'),
       '@/lib/db/prisma': path.join(__dirname, 'src/lib/db/prisma'),
       '@/lib/ai/ai-service': path.join(__dirname, 'src/lib/ai/ai-service'),
-      'openai': path.join(__dirname, 'src/lib/openai-compat.js')
+      'openai': path.join(__dirname, 'src/lib/openai-compat.js'),
+      // Add aliases for victory-vendor compatibility
+      'victory-vendor/d3-shape': path.resolve(__dirname, './src/lib/victory-vendor-d3-shape.js'),
+      'victory-vendor/d3-scale': path.resolve(__dirname, './src/lib/victory-vendor-d3-scale.js'),
     };
     
     // Add polyfills for browser APIs in server environment
