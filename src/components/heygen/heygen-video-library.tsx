@@ -42,3 +42,5 @@ export const HeyGenVideoLibrary = ({
 };
 
 
+
+export default HeyGenVideoLibrary;

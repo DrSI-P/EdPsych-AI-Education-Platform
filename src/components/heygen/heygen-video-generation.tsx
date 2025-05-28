@@ -72,3 +72,5 @@ export const HeyGenVideoGeneration = ({
 };
 
 
+
+export default HeyGenVideoGeneration;

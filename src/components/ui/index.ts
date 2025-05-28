@@ -31,11 +31,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';
 import { Textarea } from './textarea';
 import { Toast, ToastAction, ToastClose, ToastDescription, ToastProvider, ToastTitle, ToastViewport } from './toast';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip';
-import { EnhancedAchievementCard } from './enhanced-achievement-card';
-import { EnhancedCelebrationOverlay } from './enhanced-celebration-overlay';
-import { AccessibilityControls } from './AccessibilityControls';
-import { MultilingualSupport } from './MultilingualSupport';
-import { VoiceInput } from './VoiceInput';
+import  from './';
+import EnhancedCelebrationOverlay from './EnhancedCelebrationOverlay';
+import AccessibilityControls from './AccessibilityControls';
+import MultilingualSupport from './MultilingualSupport';
+import VoiceInput from './VoiceInput';
 import { Link } from './link';
 import { Icons } from './icons';
 
@@ -197,11 +197,14 @@ export {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-  EnhancedAchievementCard,
   EnhancedCelebrationOverlay,
   AccessibilityControls,
   MultilingualSupport,
   VoiceInput,
   Link,
   Icons
-};
+
+  useToast};
+import { useToast } from './use-toast';
+
+export { default as EnhancedAchievementCard } from './EnhancedAchievementCard';

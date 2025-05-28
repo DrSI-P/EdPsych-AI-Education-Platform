@@ -868,3 +868,5 @@ export function PersonalizedInterventionsEngine() {
     </div>
   );
 }
+
+export default PersonalizedInterventionsEngine;

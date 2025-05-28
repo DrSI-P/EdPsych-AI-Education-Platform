@@ -550,3 +550,5 @@ export function EducationalAIBlog() {
     </div>
   );
 }
+
+export default EducationalAIBlog;
