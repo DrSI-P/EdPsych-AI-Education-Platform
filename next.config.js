@@ -23,11 +23,23 @@ const nextConfig = {
   // Completely disable static generation
   staticPageGenerationTimeout: 1, // Set a very short timeout to force dynamic rendering
   
-  // Disable static optimization to prevent localStorage errors
+  // Combine optimizations from both branches
   experimental: {
-    // Disable static optimization
+    // From complete-rebuild
     disableOptimizedLoading: true,
-    optimizeCss: false
+    optimizeCss: false,
+    // From build-optimization-fixes
+    serverActions: {
+      allowedOrigins: ['localhost:3000', 'edpsychconnect.com']
+    },
+    // Add memory optimization for large component trees
+    optimizePackageImports: [
+      'lucide-react',
+      'react-icons',
+      '@radix-ui/react-icons',
+      'framer-motion'
+    ]
+    // Removed turbotrace as it's not supported in Next.js 15.3.2
   },
   
   // Disable ESLint during build to prevent build failures
@@ -87,12 +99,34 @@ const nextConfig = {
     return config;
   },
   
-  // Configure environment variables
+  // Configure environment variables (from complete-rebuild)
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
     NEXT_PUBLIC_HEYGEN_API_KEY: process.env.NEXT_PUBLIC_HEYGEN_API_KEY,
     NEXT_PUBLIC_HEYGEN_API_URL: process.env.NEXT_PUBLIC_HEYGEN_API_URL,
   },
+  
+  // Optimize CSS (from build-optimization-fixes)
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  
+  // Transpile specific modules (from build-optimization-fixes)
+  transpilePackages: [
+    'react-syntax-highlighter',
+    '@headlessui/react',
+  ],
+  
+  // Using serverExternalPackages instead of serverComponentsExternalPackages
+  serverExternalPackages: [
+    'bcrypt',
+    'canvas',
+    'sharp'
+  ],
+  
+  // Improve production performance (from build-optimization-fixes)
+  productionBrowserSourceMaps: false,
+  poweredByHeader: false,
 };
 
 module.exports = nextConfig;
