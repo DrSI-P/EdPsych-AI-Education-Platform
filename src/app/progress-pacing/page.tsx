@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import ProgressPacingEngine from '@/components/ai/progress-pacing/progress-pacing-engine';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Button } from '@/components/ui';
 import { BookOpen, Users, ArrowRight, CheckCircle2, BarChart3 } from "lucide-react";
 import { useRouter, useSearchParams } from 'next/navigation';
 

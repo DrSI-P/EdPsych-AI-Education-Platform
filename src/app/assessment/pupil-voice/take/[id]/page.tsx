@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Alert } from '@/components/ui/alert';
-import { Spinner } from '@/components/ui/loading';
+import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui';
+import { Button } from '@/components/ui';
+import { Alert } from '@/components/ui';
+import { Spinner } from '@/components/ui';
 
 export default function TakePupilVoiceSurveyPage() {
   const router = useRouter();

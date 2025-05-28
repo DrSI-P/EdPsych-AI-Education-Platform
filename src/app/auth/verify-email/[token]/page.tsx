@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Alert } from '@/components/ui/alert';
-import { Spinner } from '@/components/ui/loading';
+import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui';
+import { Button } from '@/components/ui';
+import { Alert } from '@/components/ui';
+import { Spinner } from '@/components/ui';
 import Link from 'next/link';
 
 export default function VerifyEmailPage() {

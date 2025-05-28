@@ -2,11 +2,11 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/form';
-import { Alert } from '@/components/ui/alert';
-import { Spinner } from '@/components/ui/loading';
+import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui';
+import { Button } from '@/components/ui';
+import { Input } from '@/components/ui';
+import { Alert } from '@/components/ui';
+import { Spinner } from '@/components/ui';
 import Link from 'next/link';
 import Image from 'next/image';
 

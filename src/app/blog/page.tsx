@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
 import EducationalAIBlog from "@/components/blog/educational-ai-blog";
 import BlogPostEditor from "@/components/blog/blog-post-editor";
 import BlogPostDetail from "@/components/blog/blog-post-detail";

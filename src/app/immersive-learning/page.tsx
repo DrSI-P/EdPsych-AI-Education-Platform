@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Card, CardContent, CardHeader } from '@/components/ui';
+import { Button } from '@/components/ui';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui';
 import { ImmersiveLayout } from '@/components/immersive/immersive-layout';
 import { ThreeDScene } from '@/components/immersive/3d-navigation';
 

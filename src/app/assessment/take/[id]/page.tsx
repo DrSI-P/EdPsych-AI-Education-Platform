@@ -2,11 +2,11 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Alert } from '@/components/ui/alert';
-import { Spinner } from '@/components/ui/loading';
-import { Modal } from '@/components/ui/modal';
+import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui';
+import { Button } from '@/components/ui';
+import { Alert } from '@/components/ui';
+import { Spinner } from '@/components/ui';
+import { Modal } from '@/components/ui';
 
 interface Question {
   id: string;

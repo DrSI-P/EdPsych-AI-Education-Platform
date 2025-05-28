@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { CalendarOptimization } from '@/components/educator/calendar-optimization';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
 
 export default function CalendarOptimizationPage() {
   return (

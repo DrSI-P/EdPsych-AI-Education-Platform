@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
 import ResearchCollaboration from '@/components/professional-development/research-collaboration';
 import ResearchCollaborationDashboard from '@/components/professional-development/research-collaboration-dashboard';
 

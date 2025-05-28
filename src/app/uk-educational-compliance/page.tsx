@@ -1,15 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Switch } from "@/components/ui/switch";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Button } from '@/components/ui';
+import { Input } from '@/components/ui';
+import { Label } from '@/components/ui';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui';
+import { Separator } from '@/components/ui';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui';
+import { Switch } from '@/components/ui';
 import { CheckCircle, FileText, Info, Search, Settings } from "lucide-react";
 
 export default function UKEducationalCompliance() {

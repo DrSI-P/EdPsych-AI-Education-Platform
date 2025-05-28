@@ -2,14 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import { Slider } from '@/components/ui/slider';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
+import { Card, CardContent } from '@/components/ui';
+import { Button } from '@/components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Badge } from '@/components/ui';
+import { Progress } from '@/components/ui';
+import { Slider } from '@/components/ui';
+import { Switch } from '@/components/ui';
+import { Label } from '@/components/ui';
 import { 
   BookOpen, 
   Brain, 

@@ -2,16 +2,14 @@
 
 import React from 'react';
 import { SensoryRegulationEngine } from '@/components/special-needs/sensory-regulation/sensory-regulation-engine';
-import { 
-  Card, 
+import { Card, 
   CardContent, 
   CardDescription, 
   CardHeader, 
-  CardTitle 
-} from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Separator } from '@/components/ui/separator';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+  CardTitle } from '@/components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Separator } from '@/components/ui';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui';
 import { Info, Vibrate, BookOpen, Lightbulb } from 'lucide-react';
 
 export default function SensoryRegulationPage(): React.ReactNode {

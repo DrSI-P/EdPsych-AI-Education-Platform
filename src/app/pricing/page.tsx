@@ -2,18 +2,16 @@
 
 import React, { useState } from 'react';
 import { Check, HelpCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import {
-  Card,
+import { Button } from '@/components/ui';
+import { Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Badge } from '@/components/ui/badge';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+  CardTitle, } from '@/components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Badge } from '@/components/ui';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui';
 import Link from 'next/link';
 
 // Feature explanation tooltip

@@ -3,19 +3,19 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Label } from '@/components/ui/label';
-import { Badge } from '@/components/ui/badge';
-import { Checkbox } from '@/components/ui/checkbox';
+import { Button } from '@/components/ui';
+import { Input } from '@/components/ui';
+import { Textarea } from '@/components/ui';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Label } from '@/components/ui';
+import { Badge } from '@/components/ui';
+import { Checkbox } from '@/components/ui';
 import { AlertCircle, Upload, X, Plus, FileText, Image, FileVideo, FileAudio, File } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Separator } from '@/components/ui/separator';
-import { Switch } from '@/components/ui/switch';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui';
+import { Separator } from '@/components/ui';
+import { Switch } from '@/components/ui';
 
 export default function CreateResource() {
   const router = useRouter();

@@ -3,9 +3,9 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import PersonalizedInterventionsEngine from '@/components/special-needs/personalized-interventions/personalized-interventions-engine';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui';
 import { Info, GraduationCap, FileText } from "lucide-react";
 
 export default function PersonalizedInterventionsPage(): React.ReactNode {

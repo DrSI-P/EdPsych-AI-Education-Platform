@@ -2,10 +2,10 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { Card, CardContent } from '@/components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui';
+import { ScrollArea } from '@/components/ui';
 import { Shield, FileText, Lock, UserCheck, Clock, AlertTriangle } from 'lucide-react';
 
 export default function TermsOfServicePage() {

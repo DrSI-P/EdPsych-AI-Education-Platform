@@ -2,13 +2,13 @@
 
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { Pagination } from '@/components/ui/pagination';
+import { Button } from '@/components/ui';
+import { Input } from '@/components/ui';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui';
+import { Badge } from '@/components/ui';
+import { Pagination } from '@/components/ui';
 import { Search, Plus, BookOpen, Filter, Grid3X3, List, FileText, Calendar, LayoutGrid } from 'lucide-react';
 import Link from 'next/link';
 

@@ -4,9 +4,9 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Card, CardContent } from '@/components/ui';
+import { Button } from '@/components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
 import { ChevronRight, Target, Lightbulb, BookOpen, Heart, Award } from 'lucide-react';
 
 export default function AboutPage(): React.ReactNode {

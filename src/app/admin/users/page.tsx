@@ -1,14 +1,14 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Table } from '@/components/ui/table';
-import { Modal } from '@/components/ui/modal';
-import { Alert } from '@/components/ui/alert';
-import { Spinner } from '@/components/ui/loading';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Pagination } from '@/components/ui/pagination';
-import { Dropdown } from '@/components/ui/dropdown';
+import { Card, CardHeader, CardContent } from '@/components/ui';
+import { Button } from '@/components/ui';
+import { Table } from '@/components/ui';
+import { Modal } from '@/components/ui';
+import { Alert } from '@/components/ui';
+import { Spinner } from '@/components/ui';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui';
+import { Pagination } from '@/components/ui';
+import { Dropdown } from '@/components/ui';
 
 interface User {
   id: string;
