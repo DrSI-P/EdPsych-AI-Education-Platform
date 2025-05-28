@@ -1,4 +1,4 @@
-import { env } from '@/env';
+import { env } from '../../env';
 import { TextAnalyticsClient, AzureKeyCredential } from '@azure/ai-text-analytics';
 import { ComputerVisionClient } from '@azure/cognitiveservices-computervision';
 import { ApiKeyCredentials } from '@azure/ms-rest-js';
