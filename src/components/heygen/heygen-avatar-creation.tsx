@@ -324,4 +324,4 @@ export const HeyGenAvatarCreation: React.FC = () => {
   );
 };
 
-export default HeyGenAvatarCreation;
+

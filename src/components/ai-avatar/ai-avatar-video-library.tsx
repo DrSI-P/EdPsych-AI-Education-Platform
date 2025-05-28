@@ -279,4 +279,4 @@ export const AIAvatarVideoLibrary: React.FC = () => {
   );
 };
 
-export default AIAvatarVideoLibrary;
+

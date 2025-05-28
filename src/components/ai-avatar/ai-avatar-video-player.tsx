@@ -315,4 +315,4 @@ export const AIAvatarVideoPlayer: React.FC<AIAvatarVideoPlayerProps> = ({
   );
 };
 
-export default AIAvatarVideoPlayer;
+
