@@ -1,8 +1,8 @@
 /**
- * Direct DB export file specifically for auth/users.ts relative imports
+ * Direct DB export file - Single source of truth
  * 
- * This file provides the db instance for relative imports from auth/users.ts
- * using the '../db' path.
+ * This file provides a singleton PrismaClient instance that can be imported
+ * throughout the application using both named and default imports.
  */
 
 import { PrismaClient } from '@prisma/client';
@@ -20,11 +20,14 @@ if (process.env.NODE_ENV === 'production') {
   prismaInstance = global.prisma;
 }
 
-// Export db as a named export (for named imports)
+// Export prisma instance directly with explicit named export
+export const prisma = prismaInstance;
+
+// Export db as a named export
 export const db = prismaInstance;
 
-// Export prisma as a named export (for components that import prisma directly)
-export const prisma = prismaInstance;
+// Also export as default for backward compatibility
+export default prismaInstance;
 
 // Add type declaration for global variable
 declare global {
