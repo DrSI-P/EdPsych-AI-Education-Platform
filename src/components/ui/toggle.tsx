@@ -8,7 +8,7 @@ interface ToggleProps {
   className?: string;
 }
 
-export function Toggle(: React.ReactNode {
+export function Toggle() : React.ReactNode {
   pressed,
   defaultPressed = false,
   onPressedChange,

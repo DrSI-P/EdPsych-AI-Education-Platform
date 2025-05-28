@@ -14,7 +14,7 @@ interface AdminDashboardProps {
   className?: string;
 }
 
-export function AdminDashboard(: React.ReactNode {
+export function AdminDashboard() : React.ReactNode {
   className = ''
 }: AdminDashboardProps) {
   const { showToast } = useToast();

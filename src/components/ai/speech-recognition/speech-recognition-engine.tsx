@@ -22,7 +22,7 @@ interface SpeechRecognitionEngineProps {
   className?: string;
 }
 
-export default function SpeechRecognitionEngine(: React.ReactNode {
+export default function SpeechRecognitionEngine() : React.ReactNode {
   onTranscriptChange,
   onSpeechEnd,
   placeholder = "Speak to see your words appear here...",

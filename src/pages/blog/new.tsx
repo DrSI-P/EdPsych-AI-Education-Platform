@@ -18,7 +18,7 @@ interface NewBlogPostPageProps {
   categories: any[];
 }
 
-export default function NewBlogPostPage(: React.ReactNode { categories }: NewBlogPostPageProps) {
+export default function NewBlogPostPage() : React.ReactNode { categories }: NewBlogPostPageProps) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();

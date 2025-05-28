@@ -36,7 +36,7 @@ interface AssessmentModuleProps {
   className?: string;
 }
 
-export function AssessmentModule(: React.ReactNode {
+export function AssessmentModule() : React.ReactNode {
   initialAssessments = [],
   onAssessmentSelect,
   className = ''

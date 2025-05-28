@@ -41,7 +41,7 @@ interface FAQBrowserProps {
   className?: string;
 }
 
-export function FAQBrowser(: React.ReactNode {
+export function FAQBrowser() : React.ReactNode {
   initialCategories = [],
   initialQuestions = [],
   onQuestionSelect,

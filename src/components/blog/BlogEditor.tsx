@@ -36,7 +36,7 @@ interface BlogEditorProps {
   placeholder?: string;
 }
 
-export function BlogEditor(: React.ReactNode { value, onChange, placeholder = 'Start writing your blog post...' }: BlogEditorProps) {
+export function BlogEditor() : React.ReactNode { value, onChange, placeholder = 'Start writing your blog post...' }: BlogEditorProps) {
   const editor = useEditor({
     extensions: [
       StarterKit,

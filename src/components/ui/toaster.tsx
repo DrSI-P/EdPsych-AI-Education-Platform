@@ -4,7 +4,7 @@ interface ToasterProps {
   position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
 }
 
-export function Toaster(: React.ReactNode { position = 'bottom-right' }: ToasterProps) {
+export function Toaster() : React.ReactNode { position = 'bottom-right' }: ToasterProps) {
   // This is a simplified version of the toaster component
   // In a real implementation, this would manage a queue of toast notifications
   return (

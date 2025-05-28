@@ -13,7 +13,7 @@ interface BlogAdminDashboardProps {
   initialTab?: 'schedules' | 'generations' | 'analytics';
 }
 
-export function BlogAdminDashboard(: React.ReactNode { initialTab = 'schedules' }: BlogAdminDashboardProps) {
+export function BlogAdminDashboard() : React.ReactNode { initialTab = 'schedules' }: BlogAdminDashboardProps) {
   const { data: session } = useSession();
   const [activeTab, setActiveTab] = useState(initialTab);
   const [schedules, setSchedules] = useState([]);

@@ -42,7 +42,7 @@ interface TaskOrganizerProps {
   className?: string;
 }
 
-export default function TaskOrganizer(: React.ReactNode {
+export default function TaskOrganizer() : React.ReactNode {
   userId,
   initialTasks,
   onTasksChange,

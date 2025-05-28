@@ -58,7 +58,7 @@ interface ContextualResourceRecommendationProps {
   className?: string;
 }
 
-export function ContextualResourceRecommendation(: React.ReactNode {
+export function ContextualResourceRecommendation() : React.ReactNode {
   contextSource = 'manual',
   contextId,
   contextContent = '',

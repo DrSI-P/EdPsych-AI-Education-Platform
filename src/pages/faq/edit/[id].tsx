@@ -11,7 +11,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 
-export default function EditFAQPage(: React.ReactNode { question, categories }) {
+export default function EditFAQPage() : React.ReactNode { question, categories }) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();

@@ -15,7 +15,7 @@ interface SimpleTabsProps {
   className?: string;
 }
 
-export function SimpleTabs(: React.ReactNode { tabs, activeTab, onChange, className }: SimpleTabsProps) {
+export function SimpleTabs() : React.ReactNode { tabs, activeTab, onChange, className }: SimpleTabsProps) {
   return (
     <TabsPrimitive.Root
       value={activeTab}
@@ -104,7 +104,7 @@ interface TabsContextType {
 
 const TabsContext = React.createContext<TabsContextType | undefined>(undefined);
 
-export function CustomTabs(: React.ReactNode { children, defaultTab, className = '' }: CustomTabsProps) {
+export function CustomTabs() : React.ReactNode { children, defaultTab, className = '' }: CustomTabsProps) {
   // Find the first tab's id if no default is provided
   const firstTabId = React.Children.toArray(children).find(
     (child) => React.isValidElement(child) && child.type === TabList
@@ -134,7 +134,7 @@ interface TabListProps {
   className?: string;
 }
 
-export function TabList(: React.ReactNode { children, className = '' }: TabListProps) {
+export function TabList() : React.ReactNode { children, className = '' }: TabListProps) {
   return (
     <div className={`flex border-b border-grey-200 ${className}`} role="tablist">
       {children}
@@ -148,7 +148,7 @@ interface CustomTabProps {
   className?: string;
 }
 
-export function CustomTab(: React.ReactNode { children, id, className = '' }: CustomTabProps) {
+export function CustomTab() : React.ReactNode { children, id, className = '' }: CustomTabProps) {
   const context = React.useContext(TabsContext);
   
   if (!context) {
@@ -185,7 +185,7 @@ interface CustomTabPanelProps {
   className?: string;
 }
 
-export function CustomTabPanel(: React.ReactNode { children, id, className = '' }: CustomTabPanelProps) {
+export function CustomTabPanel() : React.ReactNode { children, id, className = '' }: CustomTabPanelProps) {
   const context = React.useContext(TabsContext);
   
   if (!context) {
@@ -216,7 +216,7 @@ interface VerticalTabsProps {
   className?: string;
 }
 
-export function VerticalTabs(: React.ReactNode { children, defaultTab, className = '' }: VerticalTabsProps) {
+export function VerticalTabs() : React.ReactNode { children, defaultTab, className = '' }: VerticalTabsProps) {
   // Find the first tab's id if no default is provided
   const firstTabId = React.Children.toArray(children).find(
     (child) => React.isValidElement(child) && child.type === VerticalTabList
@@ -246,7 +246,7 @@ interface VerticalTabListProps {
   className?: string;
 }
 
-export function VerticalTabList(: React.ReactNode { children, className = '' }: VerticalTabListProps) {
+export function VerticalTabList() : React.ReactNode { children, className = '' }: VerticalTabListProps) {
   return (
     <div className={`flex flex-col border-r border-grey-200 ${className}`} role="tablist">
       {children}
@@ -260,7 +260,7 @@ interface VerticalTabProps {
   className?: string;
 }
 
-export function VerticalTab(: React.ReactNode { children, id, className = '' }: VerticalTabProps) {
+export function VerticalTab() : React.ReactNode { children, id, className = '' }: VerticalTabProps) {
   const context = React.useContext(TabsContext);
   
   if (!context) {
@@ -297,7 +297,7 @@ interface VerticalTabPanelProps {
   className?: string;
 }
 
-export function VerticalTabPanel(: React.ReactNode { children, id, className = '' }: VerticalTabPanelProps) {
+export function VerticalTabPanel() : React.ReactNode { children, id, className = '' }: VerticalTabPanelProps) {
   const context = React.useContext(TabsContext);
   
   if (!context) {

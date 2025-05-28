@@ -25,7 +25,7 @@ interface ImmersiveLayoutProps {
  * A layout component for immersive learning experiences that provides
  * consistent structure, navigation, and accessibility features.
  */
-export function ImmersiveLayout(: React.ReactNode {
+export function ImmersiveLayout() : React.ReactNode {
   title,
   description,
   isVR = false,

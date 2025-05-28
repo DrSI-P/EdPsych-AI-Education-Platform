@@ -37,7 +37,7 @@ interface ModalProps {
   className?: string;
 }
 
-export function Modal(: React.ReactNode {
+export function Modal() : React.ReactNode {
   isOpen,
   onClose,
   children,
@@ -124,7 +124,7 @@ interface ModalHeaderProps {
   className?: string;
 }
 
-export function ModalHeader(: React.ReactNode { children, className = '' }: ModalHeaderProps) {
+export function ModalHeader() : React.ReactNode { children, className = '' }: ModalHeaderProps) {
   return (
     <div className={`px-6 py-4 border-b border-grey-200 ${className}`}>
       {children}
@@ -137,7 +137,7 @@ interface ModalBodyProps {
   className?: string;
 }
 
-export function ModalBody(: React.ReactNode { children, className = '' }: ModalBodyProps) {
+export function ModalBody() : React.ReactNode { children, className = '' }: ModalBodyProps) {
   return <div className={`p-6 ${className}`}>{children}</div>;
 }
 
@@ -146,7 +146,7 @@ interface ModalFooterProps {
   className?: string;
 }
 
-export function ModalFooter(: React.ReactNode { children, className = '' }: ModalFooterProps) {
+export function ModalFooter() : React.ReactNode { children, className = '' }: ModalFooterProps) {
   return (
     <div className={`px-6 py-4 border-t border-grey-200 bg-grey-50 ${className}`}>
       {children}
@@ -166,7 +166,7 @@ interface DialogProps {
   isLoading?: boolean;
 }
 
-export function Dialog(: React.ReactNode {
+export function Dialog() : React.ReactNode {
   isOpen,
   onClose,
   title,

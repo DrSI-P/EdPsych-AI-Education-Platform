@@ -4,7 +4,7 @@ interface InstallPromptProps {
   className?: string;
 }
 
-export function InstallPrompt(: React.ReactNode { className = '' }: InstallPromptProps) {
+export function InstallPrompt() : React.ReactNode { className = '' }: InstallPromptProps) {
   const [showPrompt, setShowPrompt] = useState(false);
   const [installPromptEvent, setInstallPromptEvent] = useState<any>(null);
 

@@ -12,7 +12,7 @@ interface SmartLessonPlanningIntegrationProps {
   className?: string;
 }
 
-export function SmartLessonPlanningIntegration(: React.ReactNode {
+export function SmartLessonPlanningIntegration() : React.ReactNode {
   lessonPlanId,
   lessonPlanContent = '',
   className = ''

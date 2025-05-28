@@ -48,7 +48,7 @@ interface ExecutiveDysfunctionSupportProps {
   className?: string;
 }
 
-export default function ExecutiveDysfunctionSupport(: React.ReactNode {
+export default function ExecutiveDysfunctionSupport() : React.ReactNode {
   userId,
   initialData,
   className

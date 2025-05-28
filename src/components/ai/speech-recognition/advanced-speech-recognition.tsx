@@ -28,7 +28,7 @@ interface SpeechRecognitionProps {
   className?: string;
 }
 
-export default function AdvancedSpeechRecognition(: React.ReactNode {
+export default function AdvancedSpeechRecognition() : React.ReactNode {
   onTranscriptChange,
   onSpeechEnd,
   placeholder = 'Your speech will appear here...',

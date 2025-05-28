@@ -185,7 +185,7 @@ interface AnimatedPageProps {
   className?: string;
 }
 
-export function AnimatedPage(: React.ReactNode { children, className = '' }: AnimatedPageProps) {
+export function AnimatedPage() : React.ReactNode { children, className = '' }: AnimatedPageProps) {
   return (
     <motion.div
       initial="hidden"
@@ -207,7 +207,7 @@ interface StaggerContainerProps {
   staggerDelay?: number;
 }
 
-export function StaggerContainer(: React.ReactNode { 
+export function StaggerContainer() : React.ReactNode { 
   children, 
   className = '',
   delay = 0.2,
@@ -243,7 +243,7 @@ interface StaggerItemProps {
   index?: number;
 }
 
-export function StaggerItem(: React.ReactNode { 
+export function StaggerItem() : React.ReactNode { 
   children, 
   className = '',
   index = 0
@@ -276,7 +276,7 @@ interface HoverScaleProps {
   scale?: number;
 }
 
-export function HoverScale(: React.ReactNode { 
+export function HoverScale() : React.ReactNode { 
   children, 
   className = '',
   scale = 1.05
@@ -308,7 +308,7 @@ interface AnimatedButtonProps {
   disabled?: boolean;
 }
 
-export function AnimatedButton(: React.ReactNode { 
+export function AnimatedButton() : React.ReactNode { 
   children, 
   className = '',
   onClick,
@@ -336,7 +336,7 @@ interface FadeInProps {
   duration?: number;
 }
 
-export function FadeIn(: React.ReactNode { 
+export function FadeIn() : React.ReactNode { 
   children, 
   className = '',
   delay = 0,

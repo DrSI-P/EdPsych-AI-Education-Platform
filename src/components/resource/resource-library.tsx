@@ -30,7 +30,7 @@ interface ResourceLibraryProps {
   className?: string;
 }
 
-export function ResourceLibrary(: React.ReactNode {
+export function ResourceLibrary() : React.ReactNode {
   initialResources = [],
   onResourceSelect,
   className = ''

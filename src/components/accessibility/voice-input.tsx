@@ -33,7 +33,7 @@ interface ButtonSizeClasses {
   [key: string]: string;
 }
 
-export default function VoiceInput(: React.ReactNode {
+export default function VoiceInput() : React.ReactNode {
   onTextCapture,
   placeholder = 'Speak now...',
   language = 'en-GB', // Default to British English

@@ -24,7 +24,7 @@ interface BlogCommentFormProps {
   isReply?: boolean;
 }
 
-export function BlogCommentForm(: React.ReactNode {
+export function BlogCommentForm() : React.ReactNode {
   postId,
   parentId,
   onSuccess,

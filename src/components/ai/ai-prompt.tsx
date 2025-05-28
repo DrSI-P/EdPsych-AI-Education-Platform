@@ -52,7 +52,7 @@ interface AIPromptProps {
   className?: string;
 }
 
-export function AIPrompt(: React.ReactNode {
+export function AIPrompt() : React.ReactNode {
   onCompletion,
   initialPrompt = '',
   placeholder = 'Enter your question or prompt here...',

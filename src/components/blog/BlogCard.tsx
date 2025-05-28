@@ -30,7 +30,7 @@ interface BlogCardProps {
   variant?: 'default' | 'compact' | 'featured';
 }
 
-export function BlogCard(: React.ReactNode { post, variant = 'default' }: BlogCardProps) {
+export function BlogCard() : React.ReactNode { post, variant = 'default' }: BlogCardProps) {
   const isFeatured = variant === 'featured';
   const isCompact = variant === 'compact';
   

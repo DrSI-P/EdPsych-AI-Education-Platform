@@ -14,7 +14,7 @@ interface DatePickerProps {
   setDate?: (date: Date | undefined) => void
 }
 
-export function DatePicker(: React.ReactNode { date, setDate }: DatePickerProps) {
+export function DatePicker() : React.ReactNode { date, setDate }: DatePickerProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>

@@ -24,7 +24,7 @@ interface BlogRelatedPostsProps {
   }>;
 }
 
-export function BlogRelatedPosts(: React.ReactNode { posts }: BlogRelatedPostsProps) {
+export function BlogRelatedPosts() : React.ReactNode { posts }: BlogRelatedPostsProps) {
   if (!posts || posts.length === 0) {
     return null;
   }

@@ -36,7 +36,7 @@ type TransformedContent = {
   multimodal: string;
 };
 
-export default function ContentTransformationEngine(: React.ReactNode {
+export default function ContentTransformationEngine() : React.ReactNode {
   originalContent,
   contentType = 'lesson',
   subjectArea = '',

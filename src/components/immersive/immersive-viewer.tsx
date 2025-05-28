@@ -21,7 +21,7 @@ interface ImmersiveViewerProps {
  * A component for viewing 3D, VR, and AR content with appropriate controls
  * and accessibility features.
  */
-export function ImmersiveViewer(: React.ReactNode {
+export function ImmersiveViewer() : React.ReactNode {
   contentUrl,
   contentType = '3d',
   title,

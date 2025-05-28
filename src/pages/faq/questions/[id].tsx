@@ -10,7 +10,7 @@ import { FAQBrowser } from '@/components/faq/FAQBrowser';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 
-export default function FAQQuestionPage(: React.ReactNode { question, relatedQuestions }) {
+export default function FAQQuestionPage() : React.ReactNode { question, relatedQuestions }) {
   const router = useRouter();
   const { id } = router.query;
   

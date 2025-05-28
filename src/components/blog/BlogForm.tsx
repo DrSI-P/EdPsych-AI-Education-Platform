@@ -38,7 +38,7 @@ interface BlogFormProps {
   mode?: 'create' | 'edit';
 }
 
-export function BlogForm(: React.ReactNode {
+export function BlogForm() : React.ReactNode {
   initialData,
   categories = [],
   isSubmitting = false,

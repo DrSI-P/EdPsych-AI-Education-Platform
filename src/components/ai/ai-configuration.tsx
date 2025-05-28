@@ -14,7 +14,7 @@ interface AIConfigurationProps {
   className?: string;
 }
 
-export function AIConfiguration(: React.ReactNode {
+export function AIConfiguration() : React.ReactNode {
   className = ''
 }: AIConfigurationProps) {
   const { showToast } = useToast();

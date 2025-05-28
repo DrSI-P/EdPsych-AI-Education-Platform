@@ -7,7 +7,7 @@ interface SkeletonProps {
   borderRadius?: string | number;
 }
 
-export function Skeleton(: React.ReactNode {
+export function Skeleton() : React.ReactNode {
   className = '',
   height = '1rem',
   width = '100%',

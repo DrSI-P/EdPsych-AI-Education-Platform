@@ -6,7 +6,7 @@ interface ContainerProps {
   as?: React.ElementType;
 }
 
-export function Container(: React.ReactNode {
+export function Container() : React.ReactNode {
   children,
   className = '',
   as: Component = 'div',

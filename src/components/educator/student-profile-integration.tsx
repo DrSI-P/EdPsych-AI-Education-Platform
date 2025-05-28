@@ -18,7 +18,7 @@ interface StudentProfileIntegrationProps {
   className?: string;
 }
 
-export function StudentProfileIntegration(: React.ReactNode {
+export function StudentProfileIntegration() : React.ReactNode {
   studentId,
   studentProfile,
   className = ''

@@ -12,7 +12,7 @@ interface BlogAdminPageProps {
   initialTab: string;
 }
 
-export default function BlogAdminPage(: React.ReactNode { initialTab }: BlogAdminPageProps) {
+export default function BlogAdminPage() : React.ReactNode { initialTab }: BlogAdminPageProps) {
   const router = useRouter();
   
   return (

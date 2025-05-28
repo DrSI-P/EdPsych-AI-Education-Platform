@@ -13,7 +13,7 @@ interface AssessmentCreatorProps {
   initialData?: any;
 }
 
-export function AssessmentCreator(: React.ReactNode { onSave, onCancel, initialData }: AssessmentCreatorProps) {
+export function AssessmentCreator() : React.ReactNode { onSave, onCancel, initialData }: AssessmentCreatorProps) {
   const { showToast } = useToast();
   const [assessment, setAssessment] = useState(initialData || {
     title: '',

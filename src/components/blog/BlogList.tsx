@@ -40,7 +40,7 @@ interface BlogListProps {
   featuredPostIndex?: number;
 }
 
-export function BlogList(: React.ReactNode {
+export function BlogList() : React.ReactNode {
   posts,
   isLoading = false,
   error,

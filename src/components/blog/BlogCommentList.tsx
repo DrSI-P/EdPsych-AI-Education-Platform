@@ -25,7 +25,7 @@ interface BlogCommentListProps {
   postId: string;
 }
 
-export function BlogCommentList(: React.ReactNode { postId }: BlogCommentListProps) {
+export function BlogCommentList() : React.ReactNode { postId }: BlogCommentListProps) {
   const { data: session } = useSession();
   const [comments, setComments] = useState<Comment[]>([]);
   const [isLoading, setIsLoading] = useState(true);

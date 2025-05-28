@@ -14,7 +14,7 @@ interface ImmersiveLearningLayoutProps {
  * experiences, including navigation, accessibility controls, and responsive
  * design elements.
  */
-export default function ImmersiveLearningLayout(: React.ReactNode {
+export default function ImmersiveLearningLayout() : React.ReactNode {
   children
 }: ImmersiveLearningLayoutProps) {
   return (

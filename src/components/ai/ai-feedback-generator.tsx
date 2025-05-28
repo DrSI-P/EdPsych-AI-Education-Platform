@@ -14,7 +14,7 @@ interface AIFeedbackGeneratorProps {
   className?: string;
 }
 
-export function AIFeedbackGenerator(: React.ReactNode {
+export function AIFeedbackGenerator() : React.ReactNode {
   studentWork,
   onFeedbackGenerated,
   className = ''

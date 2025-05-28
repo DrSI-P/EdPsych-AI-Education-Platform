@@ -9,7 +9,7 @@ import { FAQForm } from '@/components/faq/FAQForm';
 // import { Alert, AlertDescription } from '@/components/ui/alert'; // Unused import
 import { useToast } from '@/components/ui/use-toast';
 
-export default function NewFAQPage(: React.ReactNode { categories }) {
+export default function NewFAQPage() : React.ReactNode { categories }) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();

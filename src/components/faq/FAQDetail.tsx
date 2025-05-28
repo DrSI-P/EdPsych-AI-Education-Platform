@@ -19,7 +19,7 @@ interface FAQDetailProps {
   className?: string;
 }
 
-export function FAQDetail(: React.ReactNode {
+export function FAQDetail() : React.ReactNode {
   questionId,
   onBack,
   showBackButton = true,

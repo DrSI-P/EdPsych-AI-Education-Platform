@@ -15,7 +15,7 @@ interface StudentDashboardProps {
   className?: string;
 }
 
-export function StudentDashboard(: React.ReactNode {
+export function StudentDashboard() : React.ReactNode {
   className = ''
 }: StudentDashboardProps) {
   const { showToast } = useToast();

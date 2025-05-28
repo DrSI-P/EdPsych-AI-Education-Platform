@@ -136,7 +136,7 @@ function InstallPrompt() {
   );
 }
 
-export default function App(: React.ReactNode { Component, pageProps: { session, ...pageProps } }: AppProps) {
+export default function App() : React.ReactNode { Component, pageProps: { session, ...pageProps } }: AppProps) {
   const [isOnline, setIsOnline] = useState(true);
 
   useEffect(() => {

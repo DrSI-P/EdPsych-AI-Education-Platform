@@ -30,7 +30,7 @@ interface ChatInterfaceProps {
   className?: string;
 }
 
-export function ChatInterface(: React.ReactNode {
+export function ChatInterface() : React.ReactNode {
   initialSessionId,
   initialMessages = [],
   showTitle = true,

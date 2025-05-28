@@ -8,7 +8,7 @@ import { ChatInterface } from '@/components/faq/ChatInterface';
 import { FAQBrowser } from '@/components/faq/FAQBrowser';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-export default function FAQPage(: React.ReactNode { initialCategories, initialQuestions }) {
+export default function FAQPage() : React.ReactNode { initialCategories, initialQuestions }) {
   return (
     <>
       <Head>

@@ -24,7 +24,7 @@ interface BlogCategoriesPageProps {
   categories: any[];
 }
 
-export default function BlogCategoriesPage(: React.ReactNode { categories }: BlogCategoriesPageProps) {
+export default function BlogCategoriesPage() : React.ReactNode { categories }: BlogCategoriesPageProps) {
   return (
     <>
       <Head>

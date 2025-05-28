@@ -22,7 +22,7 @@ interface OpenEndedQuestionProps {
   isEditing?: boolean;
 }
 
-export default function OpenEndedQuestion(: React.ReactNode {
+export default function OpenEndedQuestion() : React.ReactNode {
   initialData,
   onSave,
   onCancel,

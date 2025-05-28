@@ -34,7 +34,7 @@ interface FAQFormProps {
   className?: string;
 }
 
-export function FAQForm(: React.ReactNode {
+export function FAQForm() : React.ReactNode {
   initialData,
   categories = [],
   isSubmitting = false,

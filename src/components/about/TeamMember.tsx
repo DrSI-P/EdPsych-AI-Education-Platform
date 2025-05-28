@@ -25,7 +25,7 @@ interface TeamMemberProps {
   specialties: any[];
 }
 
-export function TeamMember(: React.ReactNode {
+export function TeamMember() : React.ReactNode {
   name,
   title,
   qualifications,

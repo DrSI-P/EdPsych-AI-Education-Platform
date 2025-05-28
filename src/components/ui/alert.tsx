@@ -6,7 +6,7 @@ export interface AlertProps {
   children?: React.ReactNode;
 }
 
-export function Alert(: React.ReactNode { variant = 'default', title, children }: AlertProps) {
+export function Alert() : React.ReactNode { variant = 'default', title, children }: AlertProps) {
   const variantClasses = {
     default: 'bg-gray-100 border-gray-300 text-gray-800',
     destructive: 'bg-red-100 border-red-300 text-red-800',

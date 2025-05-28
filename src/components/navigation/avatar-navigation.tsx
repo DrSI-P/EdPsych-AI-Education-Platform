@@ -69,7 +69,7 @@ interface NavigationVideoResponse {
   videos: any[];
 }
 
-export default function AvatarNavigation(: React.ReactNode {
+export default function AvatarNavigation() : React.ReactNode {
   autoShowOnFirstVisit = true,
   position = 'bottom-right',
   size = 'md',

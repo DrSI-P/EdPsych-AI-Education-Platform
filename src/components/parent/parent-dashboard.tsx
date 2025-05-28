@@ -14,7 +14,7 @@ interface ParentDashboardProps {
   className?: string;
 }
 
-export function ParentDashboard(: React.ReactNode {
+export function ParentDashboard() : React.ReactNode {
   className = ''
 }: ParentDashboardProps) {
   const { showToast } = useToast();

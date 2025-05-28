@@ -12,7 +12,7 @@ interface MeetingNoteIntegrationProps {
   className?: string;
 }
 
-export function MeetingNoteIntegration(: React.ReactNode {
+export function MeetingNoteIntegration() : React.ReactNode {
   meetingId,
   meetingContent = '',
   ehcnaCategories = false,

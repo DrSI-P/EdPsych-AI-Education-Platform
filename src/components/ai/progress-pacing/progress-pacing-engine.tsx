@@ -22,7 +22,7 @@ interface ProgressPacingEngineProps {
   className?: string;
 }
 
-export default function ProgressPacingEngine(: React.ReactNode {
+export default function ProgressPacingEngine() : React.ReactNode {
   studentId,
   curriculumId,
   subject = '',

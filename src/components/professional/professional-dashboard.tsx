@@ -15,7 +15,7 @@ interface ProfessionalDashboardProps {
   className?: string;
 }
 
-export function ProfessionalDashboard(: React.ReactNode {
+export function ProfessionalDashboard() : React.ReactNode {
   className = ''
 }: ProfessionalDashboardProps) {
   const { showToast } = useToast();

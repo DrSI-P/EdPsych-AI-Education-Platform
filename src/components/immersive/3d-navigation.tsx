@@ -19,7 +19,7 @@ interface ThreeDSceneProps {
  * A component for rendering 3D content with navigation controls
  * and accessibility features.
  */
-export function ThreeDScene(: React.ReactNode {
+export function ThreeDScene() : React.ReactNode {
   children,
   showControls = true,
   controlsPosition = 'bottom-right',

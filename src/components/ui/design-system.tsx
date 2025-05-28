@@ -303,7 +303,7 @@ interface TypographyProps {
   className?: string;
 }
 
-export function Typography(: React.ReactNode { 
+export function Typography() : React.ReactNode { 
   variant = 'body', 
   children, 
   className = '' 
@@ -339,7 +339,7 @@ interface ContainerProps {
   children: React.ReactNode;
 }
 
-export function Container(: React.ReactNode { 
+export function Container() : React.ReactNode { 
   size = 'lg', 
   className = '', 
   children 
@@ -358,7 +358,7 @@ interface SectionProps {
   children: React.ReactNode;
 }
 
-export function Section(: React.ReactNode { 
+export function Section() : React.ReactNode { 
   size = 'md', 
   className = '', 
   children 
@@ -378,7 +378,7 @@ interface GridProps {
   children: React.ReactNode;
 }
 
-export function Grid(: React.ReactNode { 
+export function Grid() : React.ReactNode { 
   variant = 'cards', 
   size = 'md', 
   className = '', 
@@ -398,7 +398,7 @@ interface FlexProps {
   children: React.ReactNode;
 }
 
-export function Flex(: React.ReactNode { 
+export function Flex() : React.ReactNode { 
   variant = 'centre', 
   className = '', 
   children 
@@ -416,7 +416,7 @@ interface SpacerProps {
   className?: string;
 }
 
-export function Spacer(: React.ReactNode { 
+export function Spacer() : React.ReactNode { 
   size = '4', 
   className = '' 
 }: SpacerProps) {

@@ -32,7 +32,7 @@ interface ImmersiveLearningProps {
   className?: string;
 }
 
-export function ImmersiveLearning(: React.ReactNode {
+export function ImmersiveLearning() : React.ReactNode {
   initialEnvironments = [],
   onEnvironmentSelect,
   className = ''

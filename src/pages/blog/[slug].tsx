@@ -16,7 +16,7 @@ interface BlogPostPageProps {
   relatedPosts: any[];
 }
 
-export default function BlogPostPage(: React.ReactNode { post, relatedPosts }: BlogPostPageProps) {
+export default function BlogPostPage() : React.ReactNode { post, relatedPosts }: BlogPostPageProps) {
   const router = useRouter();
   const [isLikeLoading, setIsLikeLoading] = useState(false);
   const [currentPost, setCurrentPost] = useState(post);

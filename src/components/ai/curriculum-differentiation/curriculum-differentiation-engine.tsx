@@ -23,7 +23,7 @@ interface CurriculumDifferentiationEngineProps {
   className?: string;
 }
 
-export default function CurriculumDifferentiationEngine(: React.ReactNode {
+export default function CurriculumDifferentiationEngine() : React.ReactNode {
   curriculumPlanId,
   curriculumContent = '',
   objectives = [],

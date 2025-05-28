@@ -32,7 +32,7 @@ interface CurriculumPlannerProps {
   className?: string;
 }
 
-export function CurriculumPlanner(: React.ReactNode {
+export function CurriculumPlanner() : React.ReactNode {
   initialPlans = [],
   onPlanSelect,
   className = ''

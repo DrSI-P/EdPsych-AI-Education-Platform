@@ -48,7 +48,7 @@ interface ThemeProviderProps {
   defaultLearningStyle?: LearningStyle;
 }
 
-export function EnhancedThemeProvider(: React.ReactNode {
+export function EnhancedThemeProvider() : React.ReactNode {
   children,
   defaultAgeGroup = 'secondary',
   defaultLearningStyle = 'visual',

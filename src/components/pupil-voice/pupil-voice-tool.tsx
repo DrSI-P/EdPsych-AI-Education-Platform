@@ -33,7 +33,7 @@ interface PupilVoiceToolProps {
   className?: string;
 }
 
-export function PupilVoiceTool(: React.ReactNode {
+export function PupilVoiceTool() : React.ReactNode {
   initialEntries = [],
   onEntrySelect,
   className = ''

@@ -46,7 +46,7 @@ interface AIImageGeneratorProps {
   className?: string;
 }
 
-export function AIImageGenerator(: React.ReactNode {
+export function AIImageGenerator() : React.ReactNode {
   onGeneration,
   initialPrompt = '',
   placeholder = 'Describe the image you want to generate...',

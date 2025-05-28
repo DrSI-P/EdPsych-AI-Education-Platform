@@ -10,7 +10,7 @@ interface PaginationProps {
   siblingCount?: number;
 }
 
-export function Pagination(: React.ReactNode {
+export function Pagination() : React.ReactNode {
   currentPage,
   totalPages,
   onPageChange,

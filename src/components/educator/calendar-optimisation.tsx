@@ -150,7 +150,7 @@ interface CalendarOptimizationProps {
   className?: string;
 }
 
-export function CalendarOptimization(: React.ReactNode { className = '' }: CalendarOptimizationProps) {
+export function CalendarOptimization() : React.ReactNode { className = '' }: CalendarOptimizationProps) {
   const { toast } = useToast();
   const aiService = useAIService();
   

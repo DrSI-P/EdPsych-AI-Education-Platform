@@ -6,7 +6,7 @@ interface VrHeadsetProps {
   className?: string;
 }
 
-export function VrHeadset(: React.ReactNode { className = '' }: VrHeadsetProps) {
+export function VrHeadset() : React.ReactNode { className = '' }: VrHeadsetProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -22,7 +22,7 @@ interface MultiModalPresentationEngineProps {
   className?: string;
 }
 
-export default function MultiModalPresentationEngine(: React.ReactNode {
+export default function MultiModalPresentationEngine() : React.ReactNode {
   content = '',
   title = '',
   subject = '',

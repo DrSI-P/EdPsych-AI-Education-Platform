@@ -27,7 +27,7 @@ interface MultipleChoiceQuestionProps {
   isEditing?: boolean;
 }
 
-export default function MultipleChoiceQuestion(: React.ReactNode {
+export default function MultipleChoiceQuestion() : React.ReactNode {
   initialData,
   onSave,
   onCancel,

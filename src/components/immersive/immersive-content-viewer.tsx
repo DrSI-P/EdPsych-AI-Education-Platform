@@ -21,7 +21,7 @@ interface ImmersiveContentViewerProps {
  * A component for viewing various types of content in an immersive context
  * with appropriate controls and accessibility features.
  */
-export function ImmersiveContentViewer(: React.ReactNode {
+export function ImmersiveContentViewer() : React.ReactNode {
   contentUrl,
   contentType,
   title,
