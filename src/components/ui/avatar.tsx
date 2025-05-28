@@ -114,6 +114,44 @@ function getInitials(name: string): string {
     .substring(0, 2);
 }
 
+// Avatar Image component
+const AvatarImage = React.forwardRef<
+  HTMLImageElement,
+  React.ImgHTMLAttributes<HTMLImageElement>
+>(({ className, alt, ...props }, ref) => {
+  return (
+    <img
+      ref={ref}
+      className={cn("h-full w-full object-cover", className)}
+      alt={alt || "Avatar"}
+      {...props}
+    />
+  );
+});
+
+AvatarImage.displayName = "AvatarImage";
+
+// Avatar Fallback component
+const AvatarFallback = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, children, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "flex h-full w-full items-center justify-center bg-muted",
+        className
+      )}
+      {...props}
+    >
+      {children || <span className="text-foreground font-medium">?</span>}
+    </div>
+  );
+});
+
+AvatarFallback.displayName = "AvatarFallback";
+
 // Avatar Group component for displaying multiple avatars
 interface AvatarGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   avatars: Array<Omit<AvatarProps, "className">>;
@@ -161,4 +199,4 @@ const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
 
 AvatarGroup.displayName = "AvatarGroup";
 
-export { Avatar, AvatarGroup, avatarVariants };
+export { Avatar, AvatarGroup, AvatarImage, AvatarFallback, avatarVariants };

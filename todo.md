@@ -54,6 +54,8 @@
 - [x] Optimize build process with configuration improvements
 - [x] Fix AlertTitle export in alert.tsx and create dedicated AlertTitle.tsx
 - [x] Fix DB export structure for compatibility with both relative and absolute imports
+- [x] Fix Avatar component exports (AvatarImage, AvatarFallback)
+- [x] Fix Recharts dependency issues with d3-shape and d3-scale exports
 
 ## Common Error Patterns to Address
 - [ ] Missing semicolons (';' expected)
