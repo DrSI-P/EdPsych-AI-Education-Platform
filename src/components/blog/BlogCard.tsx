@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { formatDistanceToNow } from 'date-fns';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { Link } from '@/components/ui';
+import { UILink } from '@/components/ui';
 
 interface BlogCardProps {
   post: {
@@ -46,7 +46,7 @@ export function BlogCard({ post, variant = 'default' }: BlogCardProps) {
     <Card className={`overflow-hidden transition-all duration-300 hover:shadow-lg ${
       isFeatured ? 'border-primary' : ''
     }`}>
-      <Link href={`/blog/${post.slug}`} className="block">
+      <UILink href={`/blog/${post.slug}`} className="block">
         <div className={`relative ${isFeatured ? 'h-64' : isCompact ? 'h-32' : 'h-48'}`}>
           <Image
             src={imageUrl}
@@ -102,7 +102,7 @@ export function BlogCard({ post, variant = 'default' }: BlogCardProps) {
             <span>{publishedDate}</span>
           </div>
         </CardFooter>
-      </Link>
+      </UILink>
     </Card>
   );
 }

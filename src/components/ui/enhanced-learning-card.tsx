@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useTheme } from '@/components/enhanced-theme-provider';
-import { Link } from '@/components/ui';
+import { UILink } from '@/components/ui';
 
 interface LearningCardProps {
   title: string;
@@ -224,7 +224,7 @@ const EnhancedLearningCard: React.FC<LearningCardProps> = ({
   const ageStyles = getAgeSpecificStyles();
   
   return (
-    <Link href={href} passHref>
+    <UILink href={href} passHref>
       <motion.div
         className={`${ageStyles.cardClass} ${className} overflow-hidden`}
         onMouseEnter={() => setIsHovered(true)}
@@ -269,7 +269,7 @@ const EnhancedLearningCard: React.FC<LearningCardProps> = ({
           {getProgressBar()}
         </div>
       </motion.div>
-    </Link>
+    </UILink>
   );
 };
 

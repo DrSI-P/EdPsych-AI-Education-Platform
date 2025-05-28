@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/form';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
 import Link from 'next/link';
-import { Link } from '@/components/ui';
+import { UILink } from '@/components/ui';
 
 export default function SignInPage() {
   const router = useRouter();
@@ -142,9 +142,9 @@ export default function SignInPage() {
                     <label htmlFor="password" className="block text-sm font-medium text-grey-700">
                       Password
                     </label>
-                    <Link href="/auth/reset-password" className="text-sm text-blue-600 hover:text-blue-500">
+                    <UILink href="/auth/reset-password" className="text-sm text-blue-600 hover:text-blue-500">
                       Forgot password?
-                    </Link>
+                    </UILink>
                   </div>
                   <Input
                     id="password"
@@ -173,9 +173,9 @@ export default function SignInPage() {
           <CardFooter className="flex justify-centre border-t pt-6">
             <p className="text-sm text-grey-600">
               Don't have an account?{' '}
-              <Link href="/auth/signup" className="font-medium text-blue-600 hover:text-blue-500">
+              <UILink href="/auth/signup" className="font-medium text-blue-600 hover:text-blue-500">
                 Sign up
-              </Link>
+              </UILink>
             </p>
           </CardFooter>
         </Card>

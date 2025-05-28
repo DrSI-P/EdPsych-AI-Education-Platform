@@ -4,7 +4,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Link } from '@/components/ui';
+import { UILink } from '@/components/ui';
 
 export default function SignUpForm() {
   const router = useRouter();
@@ -168,9 +168,9 @@ export default function SignUpForm() {
       <div className="mt-6 text-centre">
         <p className="text-sm text-grey-600">
           Already have an account?{' '}
-          <Link href="/auth/signin" className="text-blue-600 hover:underline">
+          <UILink href="/auth/signin" className="text-blue-600 hover:underline">
             Sign in
-          </Link>
+          </UILink>
         </p>
       </div>
     </div>

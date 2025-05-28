@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useTheme } from '@/components/theme-provider';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
-import { Link } from '@/components/ui';
+import { UILink } from '@/components/ui';
 
 interface LogoProps {
   variant?: 'default' | 'compact' | 'text-only';
@@ -70,7 +70,7 @@ const Logo: React.FC<LogoProps> = ({
   // Render text-only variant
   if (variant === 'text-only') {
     return (
-      <Link href="/">
+      <UILink href="/">
         <div className={cn('flex items-centre', className)}>
           {animated && !isReducedMotion ? (
             <motion.span
@@ -95,13 +95,13 @@ const Logo: React.FC<LogoProps> = ({
             </span>
           )}
         </div>
-      </Link>
+      </UILink>
     );
   }
   
   // Render image-based variants
   return (
-    <Link href="/">
+    <UILink href="/">
       <div className={cn('flex items-centre', className)}>
         {animated && !isReducedMotion ? (
           <motion.div
@@ -161,7 +161,7 @@ const Logo: React.FC<LogoProps> = ({
           </div>
         )}
       </div>
-    </Link>
+    </UILink>
   );
 };
 

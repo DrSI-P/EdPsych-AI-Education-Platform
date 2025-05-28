@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Link } from '@/components/ui';
+import { UILink } from '@/components/ui';
 
 export function Footer() {
   return (
@@ -8,29 +8,29 @@ export function Footer() {
       <div className="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
         <nav className="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
           <div className="px-5 py-2">
-            <Link href="/legal/privacy-policy" className="text-base text-gray-500 hover:text-gray-900 dark:hover:text-gray-300">
+            <UILink href="/legal/privacy-policy" className="text-base text-gray-500 hover:text-gray-900 dark:hover:text-gray-300">
               Privacy Policy
-            </Link>
+            </UILink>
           </div>
           <div className="px-5 py-2">
-            <Link href="/legal/terms-of-service" className="text-base text-gray-500 hover:text-gray-900 dark:hover:text-gray-300">
+            <UILink href="/legal/terms-of-service" className="text-base text-gray-500 hover:text-gray-900 dark:hover:text-gray-300">
               Terms of Service
-            </Link>
+            </UILink>
           </div>
           <div className="px-5 py-2">
-            <Link href="/legal/accessibility" className="text-base text-gray-500 hover:text-gray-900 dark:hover:text-gray-300">
+            <UILink href="/legal/accessibility" className="text-base text-gray-500 hover:text-gray-900 dark:hover:text-gray-300">
               Accessibility
-            </Link>
+            </UILink>
           </div>
           <div className="px-5 py-2">
-            <Link href="/legal/cookie-policy" className="text-base text-gray-500 hover:text-gray-900 dark:hover:text-gray-300">
+            <UILink href="/legal/cookie-policy" className="text-base text-gray-500 hover:text-gray-900 dark:hover:text-gray-300">
               Cookie Policy
-            </Link>
+            </UILink>
           </div>
           <div className="px-5 py-2">
-            <Link href="/legal/gdpr-compliance" className="text-base text-gray-500 hover:text-gray-900 dark:hover:text-gray-300">
+            <UILink href="/legal/gdpr-compliance" className="text-base text-gray-500 hover:text-gray-900 dark:hover:text-gray-300">
               GDPR Compliance
-            </Link>
+            </UILink>
           </div>
         </nav>
         <div className="mt-8 flex justify-center space-x-6">

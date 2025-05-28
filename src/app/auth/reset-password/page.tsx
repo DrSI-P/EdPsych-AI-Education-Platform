@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/form';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
 import Link from 'next/link';
-import { Link } from '@/components/ui';
+import { UILink } from '@/components/ui';
 
 export default function RequestResetPage() {
   const router = useRouter();
@@ -105,9 +105,9 @@ export default function RequestResetPage() {
                 </div>
                 
                 <div className="mt-4 text-centre">
-                  <Link href="/auth/signin" className="text-sm text-blue-600 hover:text-blue-800">
+                  <UILink href="/auth/signin" className="text-sm text-blue-600 hover:text-blue-800">
                     Return to sign in
-                  </Link>
+                  </UILink>
                 </div>
               </form>
             )}

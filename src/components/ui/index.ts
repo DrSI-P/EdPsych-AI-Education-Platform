@@ -13,8 +13,8 @@ export { Badge } from './badge';
 // Tab components
 export { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';
 
-// Link component
-export { Link } from './link';
+// Link component - renamed to UILink to avoid conflicts with Next.js Link
+export { Link as UILink } from './link';
 
 // Pagination component
 export { Pagination } from './pagination';

@@ -28,7 +28,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Link } from '@/components/ui';
+import { UILink } from '@/components/ui';
 
 interface MainNavigationProps {
   className?: string;
@@ -166,7 +166,7 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
     return (
       <div className="hidden md:flex items-centre space-x-1">
         {navigationItems.map((item) => (
-          <Link
+          <UILink
             key={item.href}
             href={item.href}
             className={cn(
@@ -177,7 +177,7 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
           >
             {item.icon}
             <span>{item.name}</span>
-          </Link>
+          </UILink>
         ))}
       </div>
     );
@@ -219,7 +219,7 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
                 <div className="flex flex-col space-y-2">
                   {navigationItems.map((item) => (
                     <motion.div key={item.href} variants={mobileMenuItemAnimation}>
-                      <Link
+                      <UILink
                         href={item.href}
                         className={cn(
                           'flex items-centre gap-3 p-3',
@@ -230,7 +230,7 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
                       >
                         {item.icon}
                         <span>{item.name}</span>
-                      </Link>
+                      </UILink>
                     </motion.div>
                   ))}
                   
@@ -260,9 +260,9 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
     if (!session?.user) {
       return (
         <div className="hidden md:block">
-          <Link href="/auth/signin">
+          <UILink href="/auth/signin">
             <Button variant="outline" size="sm">Sign In</Button>
-          </Link>
+          </UILink>
         </div>
       );
     }
@@ -282,10 +282,10 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link href="/profile">Profile</Link>
+              <UILink href="/profile">Profile</UILink>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href="/settings">Settings</Link>
+              <UILink href="/settings">Settings</UILink>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => signOut()}>

@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Pagination } from '@/components/ui/pagination';
 import { Search, Plus, BookOpen, Filter, Grid3X3, List, FileText, Calendar, LayoutGrid } from 'lucide-react';
 import Link from 'next/link';
-import { Link } from '@/components/ui';
+import { UILink } from '@/components/ui';
 
 export default function CurriculumPlanner() {
   const { data: session, status } = useSession();
@@ -225,10 +225,10 @@ export default function CurriculumPlanner() {
         
         {session && (
           <Button asChild className="mt-4 md:mt-0">
-            <Link href="/curriculum/create">
+            <UILink href="/curriculum/create">
               <Plus className="mr-2 h-4 w-4" />
               Create Curriculum Plan
-            </Link>
+            </UILink>
           </Button>
         )}
       </div>
@@ -389,9 +389,9 @@ export default function CurriculumPlanner() {
                       <CardHeader>
                         <div className="flex justify-between items-start">
                           <CardTitle className="text-lg">
-                            <Link href={`/curriculum/plans/${plan.id}`} className="hover:underline">
+                            <UILink href={`/curriculum/plans/${plan.id}`} className="hover:underline">
                               {plan.title}
-                            </Link>
+                            </UILink>
                           </CardTitle>
                           <Badge variant={plan.status === 'published' ? 'default' : 'outline'}>
                             {plan.status === 'published' ? 'Published' : 'Draft'}
@@ -424,9 +424,9 @@ export default function CurriculumPlanner() {
                             Last updated: {plan.lastUpdated}
                           </span>
                           <Button variant="outline" size="sm" asChild>
-                            <Link href={`/curriculum/plans/${plan.id}`}>
+                            <UILink href={`/curriculum/plans/${plan.id}`}>
                               View Plan
-                            </Link>
+                            </UILink>
                           </Button>
                         </div>
                       </CardFooter>
@@ -444,9 +444,9 @@ export default function CurriculumPlanner() {
                             <div>
                               <div className="flex items-centre">
                                 <h3 className="text-lg font-semibold">
-                                  <Link href={`/curriculum/plans/${plan.id}`} className="hover:underline">
+                                  <UILink href={`/curriculum/plans/${plan.id}`} className="hover:underline">
                                     {plan.title}
-                                  </Link>
+                                  </UILink>
                                 </h3>
                                 <Badge className="ml-2" variant={plan.status === 'published' ? 'default' : 'outline'}>
                                   {plan.status === 'published' ? 'Published' : 'Draft'}
@@ -479,9 +479,9 @@ export default function CurriculumPlanner() {
                               </div>
                             </div>
                             <Button variant="outline" size="sm" asChild>
-                              <Link href={`/curriculum/plans/${plan.id}`}>
+                              <UILink href={`/curriculum/plans/${plan.id}`}>
                                 View Plan
-                              </Link>
+                              </UILink>
                             </Button>
                           </div>
                         </div>
@@ -549,9 +549,9 @@ export default function CurriculumPlanner() {
                             </CardDescription>
                           </div>
                           <Button variant="outline" size="sm" asChild>
-                            <Link href={`/curriculum/standards/${standard.id}`}>
+                            <UILink href={`/curriculum/standards/${standard.id}`}>
                               View Details
-                            </Link>
+                            </UILink>
                           </Button>
                         </div>
                       </CardHeader>
@@ -605,10 +605,10 @@ export default function CurriculumPlanner() {
                     Your personal curriculum plans will be displayed here.
                   </p>
                   <Button className="mt-4" asChild>
-                    <Link href="/curriculum/create">
+                    <UILink href="/curriculum/create">
                       <Plus className="mr-2 h-4 w-4" />
                       Create New Plan
-                    </Link>
+                    </UILink>
                   </Button>
                 </div>
               </TabsContent>

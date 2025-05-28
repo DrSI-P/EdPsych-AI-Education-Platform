@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { Link } from '@/components/ui';
+import { UILink } from '@/components/ui';
 
 /**
  * Custom 500 (Server Error) page for EdPsych Connect
@@ -60,12 +60,12 @@ export default function Custom500() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
+              <UILink 
                 href="/"
                 className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
               >
                 Return Home
-              </Link>
+              </UILink>
               
               <button
                 onClick={() => router.reload()}
@@ -96,9 +96,9 @@ export default function Custom500() {
           <div className="mt-8 text-sm text-gray-500">
             <p>
               Need immediate assistance?{' '}
-              <Link href="/contact" className="text-indigo-600 hover:underline">
+              <UILink href="/contact" className="text-indigo-600 hover:underline">
                 Contact our support team
-              </Link>
+              </UILink>
               .
             </p>
           </div>

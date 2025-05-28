@@ -15,7 +15,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Link from 'next/link';
-import { Link } from '@/components/ui';
+import { UILink } from '@/components/ui';
 
 // Feature explanation tooltip
 const FeatureTooltip = ({ content }: { content: string }) => (
@@ -135,7 +135,7 @@ export default function PricingPage() {
                 </CardContent>
                 <CardFooter>
                   <Button variant="outline" className="w-full" asChild>
-                    <Link href="/register">Get Started</Link>
+                    <UILink href="/register">Get Started</UILink>
                   </Button>
                 </CardFooter>
               </Card>
@@ -190,7 +190,7 @@ export default function PricingPage() {
                 </CardContent>
                 <CardFooter>
                   <Button className="w-full" asChild>
-                    <Link href="/register?plan=standard">Subscribe Now</Link>
+                    <UILink href="/register?plan=standard">Subscribe Now</UILink>
                   </Button>
                 </CardFooter>
               </Card>
@@ -240,7 +240,7 @@ export default function PricingPage() {
                 </CardContent>
                 <CardFooter>
                   <Button className="w-full" asChild>
-                    <Link href="/register?plan=premium">Subscribe Now</Link>
+                    <UILink href="/register?plan=premium">Subscribe Now</UILink>
                   </Button>
                 </CardFooter>
               </Card>
@@ -292,7 +292,7 @@ export default function PricingPage() {
                 </CardContent>
                 <CardFooter>
                   <Button className="w-full md:w-auto md:ml-auto" asChild>
-                    <Link href="/register?plan=family">Subscribe Now</Link>
+                    <UILink href="/register?plan=family">Subscribe Now</UILink>
                   </Button>
                 </CardFooter>
               </Card>
@@ -335,7 +335,7 @@ export default function PricingPage() {
                 </CardContent>
                 <CardFooter>
                   <Button className="w-full" asChild>
-                    <Link href="/contact?plan=classroom">Contact Sales</Link>
+                    <UILink href="/contact?plan=classroom">Contact Sales</UILink>
                   </Button>
                 </CardFooter>
               </Card>
@@ -373,7 +373,7 @@ export default function PricingPage() {
                 </CardContent>
                 <CardFooter>
                   <Button className="w-full" asChild>
-                    <Link href="/contact?plan=school">Contact Sales</Link>
+                    <UILink href="/contact?plan=school">Contact Sales</UILink>
                   </Button>
                 </CardFooter>
               </Card>
@@ -414,7 +414,7 @@ export default function PricingPage() {
                 </CardContent>
                 <CardFooter>
                   <Button className="w-full" asChild>
-                    <Link href="/contact?plan=district">Contact Sales</Link>
+                    <UILink href="/contact?plan=district">Contact Sales</UILink>
                   </Button>
                 </CardFooter>
               </Card>
@@ -446,7 +446,7 @@ export default function PricingPage() {
             </CardContent>
             <CardFooter>
               <Button variant="outline" className="w-full" asChild>
-                <Link href="/credits?package=small">Purchase</Link>
+                <UILink href="/credits?package=small">Purchase</UILink>
               </Button>
             </CardFooter>
           </Card>
@@ -467,7 +467,7 @@ export default function PricingPage() {
             </CardContent>
             <CardFooter>
               <Button className="w-full" asChild>
-                <Link href="/credits?package=medium">Purchase</Link>
+                <UILink href="/credits?package=medium">Purchase</UILink>
               </Button>
             </CardFooter>
           </Card>
@@ -485,7 +485,7 @@ export default function PricingPage() {
             </CardContent>
             <CardFooter>
               <Button variant="outline" className="w-full" asChild>
-                <Link href="/credits?package=large">Purchase</Link>
+                <UILink href="/credits?package=large">Purchase</UILink>
               </Button>
             </CardFooter>
           </Card>
@@ -542,10 +542,10 @@ export default function PricingPage() {
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <Button size="lg" asChild>
-            <Link href="/register">Start Free Trial</Link>
+            <UILink href="/register">Start Free Trial</UILink>
           </Button>
           <Button variant="outline" size="lg" asChild>
-            <Link href="/contact">Contact Sales</Link>
+            <UILink href="/contact">Contact Sales</UILink>
           </Button>
         </div>
       </div>

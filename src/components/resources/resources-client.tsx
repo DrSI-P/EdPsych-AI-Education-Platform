@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Pagination } from '@/components/ui/pagination';
 import { Search, Upload, BookOpen, Filter, Grid3X3, List } from 'lucide-react';
 import Link from 'next/link';
-import { Link } from '@/components/ui';
+import { UILink } from '@/components/ui';
 
 export default function ResourcesClient() {
   const { data: session, status } = useSession();
@@ -163,10 +163,10 @@ export default function ResourcesClient() {
         
         {session && (
           <Button asChild className="mt-4 md:mt-0">
-            <Link href="/resources/create">
+            <UILink href="/resources/create">
               <Upload className="mr-2 h-4 w-4" />
               Upload Resource
-            </Link>
+            </UILink>
           </Button>
         )}
       </div>
@@ -342,9 +342,9 @@ export default function ResourcesClient() {
                           </div>
                           <CardHeader>
                             <CardTitle className="text-lg">
-                              <Link href={`/resources/${resource.id}`} className="hover:underline">
+                              <UILink href={`/resources/${resource.id}`} className="hover:underline">
                                 {resource.title}
-                              </Link>
+                              </UILink>
                             </CardTitle>
                             <CardDescription>{resource.subject} • {resource.type}</CardDescription>
                           </CardHeader>
@@ -366,9 +366,9 @@ export default function ResourcesClient() {
                                 {resource.downloads} downloads
                               </span>
                               <Button variant="outline" size="sm" asChild>
-                                <Link href={`/resources/${resource.id}`}>
+                                <UILink href={`/resources/${resource.id}`}>
                                   View Resource
-                                </Link>
+                                </UILink>
                               </Button>
                             </div>
                           </CardFooter>
@@ -385,9 +385,9 @@ export default function ResourcesClient() {
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div>
                                   <h3 className="text-lg font-semibold">
-                                    <Link href={`/resources/${resource.id}`} className="hover:underline">
+                                    <UILink href={`/resources/${resource.id}`} className="hover:underline">
                                       {resource.title}
-                                    </Link>
+                                    </UILink>
                                   </h3>
                                   <p className="text-sm text-muted-foreground mt-1">
                                     {resource.subject} • {resource.type} • {resource.keyStage}
@@ -409,9 +409,9 @@ export default function ResourcesClient() {
                                   ))}
                                 </div>
                                 <Button variant="outline" size="sm" asChild>
-                                  <Link href={`/resources/${resource.id}`}>
+                                  <UILink href={`/resources/${resource.id}`}>
                                     View Resource
-                                  </Link>
+                                  </UILink>
                                 </Button>
                               </div>
                             </div>

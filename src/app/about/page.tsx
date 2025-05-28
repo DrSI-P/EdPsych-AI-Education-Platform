@@ -8,7 +8,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ChevronRight, Target, Lightbulb, BookOpen, Heart, Award } from 'lucide-react';
-import { Link } from '@/components/ui';
+import { UILink } from '@/components/ui';
 
 export default function AboutPage(): React.ReactNode {
   return (
@@ -64,9 +64,9 @@ export default function AboutPage(): React.ReactNode {
           
           <div className="mt-8">
             <Button asChild>
-              <Link href="/about/team">
+              <UILink href="/about/team">
                 Meet Our Team <ChevronRight className="ml-2 h-4 w-4" />
-              </Link>
+              </UILink>
             </Button>
           </div>
         </div>
@@ -233,19 +233,19 @@ export default function AboutPage(): React.ReactNode {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-centre mb-6">
           <Button size="lg" asChild>
-            <Link href="/register">Get Started</Link>
+            <UILink href="/register">Get Started</UILink>
           </Button>
           <Button size="lg" variant="outline" asChild>
-            <Link href="/contact">Contact Us</Link>
+            <UILink href="/contact">Contact Us</UILink>
           </Button>
         </div>
         <div className="mt-4 border-t border-primary/10 pt-6">
           <h3 className="text-xl font-semibold mb-3">Featured Resources</h3>
           <div className="flex flex-col sm:flex-row gap-4 justify-centre">
             <Button variant="secondary" asChild>
-              <Link href="/ai-avatar-videos">
+              <UILink href="/ai-avatar-videos">
                 Explore AI Avatar Videos with Dr. Scott
-              </Link>
+              </UILink>
             </Button>
           </div>
         </div>

@@ -22,7 +22,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { motion } from 'framer-motion';
 import { Play } from 'lucide-react';
-import { Link } from '@/components/ui';
+import { UILink } from '@/components/ui';
 
 export default function HomePage() {
   const { ageGroup, setAgeGroup } = useTheme();
@@ -155,9 +155,9 @@ export default function HomePage() {
           <div className="flex justify-between items-centre mb-4">
             <h2 className="text-2xl font-semibold">Recommended for You</h2>
             <Button variant="outline" size="sm" asChild>
-              <Link href="/ai-avatar-videos">
+              <UILink href="/ai-avatar-videos">
                 Explore AI Avatar Videos
-              </Link>
+              </UILink>
             </Button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -202,9 +202,9 @@ export default function HomePage() {
                     Watch Dr. Scott's executive summary video introducing our platform's vision, components, and benefits
                   </p>
                   <Button asChild>
-                    <Link href="/ai-avatar-videos">
+                    <UILink href="/ai-avatar-videos">
                       Watch Video
-                    </Link>
+                    </UILink>
                   </Button>
                 </div>
               </div>
@@ -233,9 +233,9 @@ export default function HomePage() {
                 </CardContent>
                 <CardFooter>
                   <Button variant="outline" className="w-full" asChild>
-                    <Link href="/ai-avatar-videos">
+                    <UILink href="/ai-avatar-videos">
                       Browse All Videos
-                    </Link>
+                    </UILink>
                   </Button>
                 </CardFooter>
               </Card>

@@ -7,7 +7,7 @@ import { authOptions } from '@/lib/auth';
 import prisma from '@/lib/prisma-client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Link } from '@/components/ui';
+import { UILink } from '@/components/ui';
 
 interface Category {
   id: string;
@@ -41,14 +41,14 @@ export default function BlogCategoriesPage({ categories }: BlogCategoriesPagePro
             </p>
           </div>
           
-          <Link href="/blog" className="text-primary hover:underline">
+          <UILink href="/blog" className="text-primary hover:underline">
             Back to Blog
-          </Link>
+          </UILink>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.map((category) => (
-            <Link href={`/blog/category/${category.slug}`} key={category.id}>
+            <UILink href={`/blog/category/${category.slug}`} key={category.id}>
               <Card className="h-full transition-all duration-300 hover:shadow-lg">
                 <CardHeader className="pb-2">
                   <CardTitle>{category.name}</CardTitle>
@@ -67,7 +67,7 @@ export default function BlogCategoriesPage({ categories }: BlogCategoriesPagePro
                   </div>
                 </CardContent>
               </Card>
-            </Link>
+            </UILink>
           ))}
         </div>
       </div>

@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { Link } from '@/components/ui';
+import { UILink } from '@/components/ui';
 
 interface ErrorProps {
   statusCode: number;
@@ -75,20 +75,20 @@ const ErrorPage: NextPage<ErrorProps> = ({ statusCode }) => {
             <p className="text-gray-600 dark:text-gray-400 mb-6">{getErrorMessage()}</p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
+              <UILink 
                 href="/"
                 className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
               >
                 Return Home
-              </Link>
+              </UILink>
               
               {statusCode === 404 && (
-                <Link 
+                <UILink 
                   href="/resources"
                   className="px-4 py-2 border border-indigo-600 text-indigo-600 rounded-md hover:bg-indigo-50 dark:hover:bg-indigo-900 transition-colors"
                 >
                   Browse Resources
-                </Link>
+                </UILink>
               )}
               
               <button
@@ -107,10 +107,10 @@ const ErrorPage: NextPage<ErrorProps> = ({ statusCode }) => {
                 Try searching or check out these popular sections:
               </p>
               <div className="grid grid-cols-2 gap-2 text-sm">
-                <Link href="/blog" className="text-indigo-600 hover:underline">Blog</Link>
-                <Link href="/resources" className="text-indigo-600 hover:underline">Resources</Link>
-                <Link href="/courses" className="text-indigo-600 hover:underline">Courses</Link>
-                <Link href="/contact" className="text-indigo-600 hover:underline">Contact Us</Link>
+                <UILink href="/blog" className="text-indigo-600 hover:underline">Blog</UILink>
+                <UILink href="/resources" className="text-indigo-600 hover:underline">Resources</UILink>
+                <UILink href="/courses" className="text-indigo-600 hover:underline">Courses</UILink>
+                <UILink href="/contact" className="text-indigo-600 hover:underline">Contact Us</UILink>
               </div>
             </div>
           )}

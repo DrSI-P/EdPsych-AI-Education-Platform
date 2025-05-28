@@ -9,7 +9,7 @@ import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Link } from '@/components/ui';
+import { UILink } from '@/components/ui';
 
 export default function RequestVerificationPage() {
   const router = useRouter();
@@ -126,9 +126,9 @@ export default function RequestVerificationPage() {
                 </div>
                 
                 <div className="text-centre">
-                  <Link href="/auth/signin" className="text-sm text-blue-600 hover:text-blue-800">
+                  <UILink href="/auth/signin" className="text-sm text-blue-600 hover:text-blue-800">
                     Return to sign in
-                  </Link>
+                  </UILink>
                 </div>
               </form>
             )}

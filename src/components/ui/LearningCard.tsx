@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
-import { Link } from '@/components/ui';
+import { UILink } from '@/components/ui';
 
 interface LearningCardProps {
   title: string;
@@ -193,7 +193,7 @@ const LearningCard: React.FC<LearningCardProps> = ({
 
     // If href is provided, wrap the card in a Link component
     if (href) {
-      return <Link href={href}>{cardContent}</Link>;
+      return <UILink href={href}>{cardContent}</UILink>;
     }
 
     return cardContent;

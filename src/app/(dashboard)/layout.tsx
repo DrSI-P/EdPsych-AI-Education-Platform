@@ -3,7 +3,7 @@ import { auth } from '@/lib/auth/auth-compat';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Link } from '@/components/ui';
+import { UILink } from '@/components/ui';
 
 export default async function DashboardLayout({
   children,
@@ -26,34 +26,34 @@ export default async function DashboardLayout({
         </div>
         
         <nav className="space-y-2">
-          <Link href="/dashboard" className="block py-2 px-4 rounded hover:bg-grey-800">
+          <UILink href="/dashboard" className="block py-2 px-4 rounded hover:bg-grey-800">
             Dashboard
-          </Link>
-          <Link href="/assessment" className="block py-2 px-4 rounded hover:bg-grey-800">
+          </UILink>
+          <UILink href="/assessment" className="block py-2 px-4 rounded hover:bg-grey-800">
             Assessments
-          </Link>
-          <Link href="/resources" className="block py-2 px-4 rounded hover:bg-grey-800">
+          </UILink>
+          <UILink href="/resources" className="block py-2 px-4 rounded hover:bg-grey-800">
             Resources
-          </Link>
-          <Link href="/curriculum" className="block py-2 px-4 rounded hover:bg-grey-800">
+          </UILink>
+          <UILink href="/curriculum" className="block py-2 px-4 rounded hover:bg-grey-800">
             Curriculum
-          </Link>
-          <Link href="/immersive" className="block py-2 px-4 rounded hover:bg-grey-800">
+          </UILink>
+          <UILink href="/immersive" className="block py-2 px-4 rounded hover:bg-grey-800">
             Immersive Learning
-          </Link>
+          </UILink>
           
           {/* Admin-only links */}
           {session.user?.role === 'ADMIN' && (
-            <Link href="/admin" className="block py-2 px-4 rounded hover:bg-grey-800">
+            <UILink href="/admin" className="block py-2 px-4 rounded hover:bg-grey-800">
               Admin Panel
-            </Link>
+            </UILink>
           )}
           
           {/* Educator-only links */}
           {(session.user?.role === 'EDUCATOR' || session.user?.role === 'ADMIN') && (
-            <Link href="/educator" className="block py-2 px-4 rounded hover:bg-grey-800">
+            <UILink href="/educator" className="block py-2 px-4 rounded hover:bg-grey-800">
               Educator Tools
-            </Link>
+            </UILink>
           )}
         </nav>
         

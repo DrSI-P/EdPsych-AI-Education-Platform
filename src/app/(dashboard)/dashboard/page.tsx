@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Link } from '@/components/ui';
+import { UILink } from '@/components/ui';
 
 export default function Dashboard(): React.ReactNode {
   return (
@@ -29,9 +29,9 @@ export default function Dashboard(): React.ReactNode {
             </div>
           </div>
           <div className="mt-4">
-            <Link href="/assessment" className="text-blue-600 hover:underline text-sm">
+            <UILink href="/assessment" className="text-blue-600 hover:underline text-sm">
               View all assessments →
-            </Link>
+            </UILink>
           </div>
         </div>
         
@@ -49,9 +49,9 @@ export default function Dashboard(): React.ReactNode {
             </div>
           </div>
           <div className="mt-4">
-            <Link href="/resources" className="text-blue-600 hover:underline text-sm">
+            <UILink href="/resources" className="text-blue-600 hover:underline text-sm">
               View all resources →
-            </Link>
+            </UILink>
           </div>
         </div>
         
