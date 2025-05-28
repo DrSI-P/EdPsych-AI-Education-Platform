@@ -107,5 +107,13 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
+    function({ addUtilities }) {
+      const newUtilities = {
+        '.bg-background': {
+          backgroundColor: '#ffffff',
+        },
+      }
+      addUtilities(newUtilities)
+    },
   ],
 };
