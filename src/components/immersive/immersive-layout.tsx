@@ -1,4 +1,5 @@
-'use client';
+
+CLIENT_COMPONENT_IMPORTS_PLACEHOLDER
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -25,7 +26,7 @@ interface ImmersiveLayoutProps {
  * A layout component for immersive learning experiences that provides
  * consistent structure, navigation, and accessibility features.
  */
-export function ImmersiveLayout() : React.ReactNode {
+export function ImmersiveLayout({
   title,
   description,
   isVR = false,
@@ -35,8 +36,8 @@ export function ImmersiveLayout() : React.ReactNode {
   onToggleFullscreen,
   onToggleVR,
   className = '',
-  children
-}: ImmersiveLayoutProps) {
+  children,
+}: ImmersiveLayoutProps): React.ReactNode {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isVRMode, setIsVRMode] = useState(false);
   const [isHighContrast, setIsHighContrast] = useState(false);
@@ -255,3 +256,10 @@ export function ImmersiveLayout() : React.ReactNode {
     </div>
   );
 }
+
+// Ensure 'use client' directive is at the very top
+const finalContent = `
+'use client';
+${content.replace("CLIENT_COMPONENT_IMPORTS_PLACEHOLDER", "")}
+`;
+print(finalContent);

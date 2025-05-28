@@ -1,6 +1,7 @@
-'use client';
 
-import React, { useState } from 'react';
+CLIENT_COMPONENT_IMPORTS_PLACEHOLDER
+
+import React, { useState } from "react";
 
 interface AccordionProps {
   children: React.ReactNode;
@@ -15,15 +16,18 @@ interface AccordionContextType {
   allowMultiple: boolean;
 }
 
-const AccordionContext = React.createContext<AccordionContextType | undefined>(undefined);
+const AccordionContext = React.createContext<AccordionContextType | undefined>(
+  undefined
+);
 
-export function Accordion() : React.ReactNode {
+export function Accordion({
   children,
   defaultExpanded = [],
   allowMultiple = false,
-  className = '',
-}: AccordionProps) {
-  const [expandedItems, setExpandedItems] = useState<string[]>(defaultExpanded);
+  className = "",
+}: AccordionProps): React.ReactNode {
+  const [expandedItems, setExpandedItems] =
+    useState<string[]>(defaultExpanded);
 
   const toggleItem = (id: string) => {
     if (expandedItems.includes(id)) {
@@ -38,8 +42,12 @@ export function Accordion() : React.ReactNode {
   };
 
   return (
-    <AccordionContext.Provider value={{ expandedItems, toggleItem, allowMultiple }}>
-      <div className={`divide-y divide-grey-200 border border-grey-200 rounded-md ${className}`}>
+    <AccordionContext.Provider
+      value={{ expandedItems, toggleItem, allowMultiple }}
+    >
+      <div
+        className={`divide-y divide-grey-200 border border-grey-200 rounded-md ${className}`}
+      >
         {children}
       </div>
     </AccordionContext.Provider>
@@ -52,11 +60,15 @@ interface AccordionItemProps {
   className?: string;
 }
 
-export function AccordionItem() : React.ReactNode { children, id, className = '' }: AccordionItemProps) {
+export function AccordionItem({
+  children,
+  id,
+  className = "",
+}: AccordionItemProps): React.ReactNode {
   const context = React.useContext(AccordionContext);
 
   if (!context) {
-    throw new Error('AccordionItem must be used within an Accordion component');
+    throw new Error("AccordionItem must be used within an Accordion component");
   }
 
   return (
@@ -72,11 +84,17 @@ interface AccordionTriggerProps {
   className?: string;
 }
 
-export function AccordionTrigger() : React.ReactNode { children, id, className = '' }: AccordionTriggerProps) {
+export function AccordionTrigger({
+  children,
+  id,
+  className = "",
+}: AccordionTriggerProps): React.ReactNode {
   const context = React.useContext(AccordionContext);
 
   if (!context) {
-    throw new Error('AccordionTrigger must be used within an Accordion component');
+    throw new Error(
+      "AccordionTrigger must be used within an Accordion component"
+    );
   }
 
   const { expandedItems, toggleItem } = context;
@@ -94,14 +112,19 @@ export function AccordionTrigger() : React.ReactNode { children, id, className =
       {children}
       <svg
         className={`w-5 h-5 transform transition-transform duration-200 ${
-          isExpanded ? 'rotate-180' : ''
+          isExpanded ? "rotate-180" : ""
         }`}
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M19 9l-7 7-7-7"
+        ></path>
       </svg>
     </button>
   );
@@ -113,11 +136,17 @@ interface AccordionContentProps {
   className?: string;
 }
 
-export function AccordionContent() : React.ReactNode { children, id, className = '' }: AccordionContentProps) {
+export function AccordionContent({
+  children,
+  id,
+  className = "",
+}: AccordionContentProps): React.ReactNode {
   const context = React.useContext(AccordionContext);
 
   if (!context) {
-    throw new Error('AccordionContent must be used within an Accordion component');
+    throw new Error(
+      "AccordionContent must be used within an Accordion component"
+    );
   }
 
   const { expandedItems } = context;
@@ -142,7 +171,11 @@ interface DisclosureProps {
   className?: string;
 }
 
-export function Disclosure() : React.ReactNode { children, defaultOpen = false, className = '' }: DisclosureProps) {
+export function Disclosure({
+  children,
+  defaultOpen = false,
+  className = "",
+}: DisclosureProps): React.ReactNode {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   const toggle = () => {
@@ -171,12 +204,12 @@ interface DisclosureTriggerProps {
   className?: string;
 }
 
-export function DisclosureTrigger() : React.ReactNode {
+export function DisclosureTrigger({
   children,
   isOpen,
   toggle,
-  className = '',
-}: DisclosureTriggerProps) {
+  className = "",
+}: DisclosureTriggerProps): React.ReactNode {
   return (
     <button
       type="button"
@@ -187,14 +220,19 @@ export function DisclosureTrigger() : React.ReactNode {
       {children}
       <svg
         className={`w-5 h-5 transform transition-transform duration-200 ${
-          isOpen ? 'rotate-180' : ''
+          isOpen ? "rotate-180" : ""
         }`}
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M19 9l-7 7-7-7"
+        ></path>
       </svg>
     </button>
   );
@@ -206,8 +244,20 @@ interface DisclosureContentProps {
   className?: string;
 }
 
-export function DisclosureContent() : React.ReactNode { children, isOpen, className = '' }: DisclosureContentProps) {
+export function DisclosureContent({
+  children,
+  isOpen,
+  className = "",
+}: DisclosureContentProps): React.ReactNode {
   if (!isOpen) return null;
 
   return <div className={`px-4 py-3 ${className}`}>{children}</div>;
 }
+
+// Ensure 'use client' directive is at the very top
+const finalContent = `
+'use client';
+${content.replace("CLIENT_COMPONENT_IMPORTS_PLACEHOLDER", "")}
+`;
+print(finalContent);
+
