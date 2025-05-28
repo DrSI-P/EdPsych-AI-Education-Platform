@@ -278,6 +278,22 @@ export function ToastProvider({ children }: ToastProviderProps) {
   );
 }
 
+
+export const ToastAction = React.forwardRef<
+  React.ElementRef<typeof ToastPrimitiveAction>,
+  React.ComponentPropsWithoutRef<typeof ToastPrimitiveAction>
+>(({ className, ...props }, ref) => (
+  <ToastPrimitiveAction
+    ref={ref}
+    className={cn(
+      "inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-transparent px-3 text-sm font-medium ring-offset-white transition-colors hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:border-slate-800 dark:ring-offset-slate-950 dark:hover:bg-slate-800 dark:focus:ring-slate-300",
+      className
+    )}
+    {...props}
+  />
+));
+ToastAction.displayName = ToastPrimitiveAction.displayName;
+
 export function useToast() {
   const context = React.useContext(ToastContext);
   if (context === undefined) {

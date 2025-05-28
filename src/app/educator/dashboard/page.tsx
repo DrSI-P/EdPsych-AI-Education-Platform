@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Button } from '../../../components/ui';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../../../components/ui';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui';
-import { useToast } from '../../../components/ui';
 import AutomatedDocumentation from '@/components/educator/automated-documentation';
 import SmartLessonPlanning from '@/components/educator/smart-lesson-planning';
 import { BookOpen, FileText, Settings, HelpCircle } from 'lucide-react';
@@ -237,3 +236,5 @@ export default function EducatorDashboardPage() {
     </div>
   );
 }
+
+import { useToast } from '@/components/ui/use-toast';
