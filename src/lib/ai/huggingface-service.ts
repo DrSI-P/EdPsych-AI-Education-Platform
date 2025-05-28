@@ -1,81 +1,42 @@
-import { env } from '@/env.mjs';
-import fetch from 'node-fetch';
+import { env } from '@/env';
+import { HfInference } from '@huggingface/inference';
 
-// Hugging Face models integration
-export class HuggingFaceService {
-  private apiKey: string;
-  private baseUrl: string = 'https://api-inference.huggingface.co/models';
-  
-  constructor() {
-    this.apiKey = env.HUGGINGFACE_API_KEY;
-  }
-  
+// Initialize the Hugging Face client
+const hf = new HfInference(env.HUGGINGFACE_API_KEY);
+
+/**
+ * Hugging Face AI service for various AI tasks
+ */
+export class HuggingfaceService {
   /**
-   * Make a request to the Hugging Face Inference API
-   */
-  private async query(model: string, payload): Promise<any> {
-    try {
-      const response = await fetch(`${this.baseUrl}/${model}`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
-      
-      if (!response.ok) {
-        const error = await response.text();
-        throw new Error(`Hugging Face API error: ${error}`);
-      }
-      
-      return await response.json();
-    } catch (error) {
-      console.error(`Hugging Face API error for model ${model}:`, error);
-      throw new Error(`Failed to query Hugging Face model: ${error.message}`);
-    }
-  }
-  
-  /**
-   * Generate text using a text generation model
+   * Generate text using a specified model
    */
   async generateText(prompt: string, options: {
     model?: string;
-    maxLength?: number;
+    maxTokens?: number;
     temperature?: number;
-    topK?: number;
-    topP?: number;
-    repetitionPenalty?: number;
   } = {}) {
     try {
       const {
-        model = 'gpt2',
-        maxLength = 100,
-        temperature = 0.7,
-        topK = 50,
-        topP = 0.95,
-        repetitionPenalty = 1.0
+        model = 'mistralai/Mistral-7B-Instruct-v0.2',
+        maxTokens = 100,
+        temperature = 0.7
       } = options;
       
-      const payload = {
+      const response = await hf.textGeneration({
+        model,
         inputs: prompt,
         parameters: {
-          max_length: maxLength,
-          temperature,
-          top_k: topK,
-          top_p: topP,
-          repetition_penalty: repetitionPenalty,
-          do_sample: true
+          max_new_tokens: maxTokens,
+          temperature: temperature,
+          return_full_text: false
         }
+      });
+      
+      return {
+        text: response.generated_text,
+        model
       };
-      
-      const result = await this.query(model, payload);
-      
-      if (Array.isArray(result) && result.length > 0) {
-        return result[0].generated_text;
-      }
-      
-      return result.generated_text || '';
     } catch (error) {
       console.error('Hugging Face text generation error:', error);
       throw new Error(`Failed to generate text: ${error.message}`);
@@ -83,36 +44,30 @@ export class HuggingFaceService {
   }
   
   /**
-   * Summarize text using a summarization model
+   * Summarize text using a specified model
    */
   async summarizeText(text: string, options: {
     model?: string;
     maxLength?: number;
-    minLength?: number;
   } = {}) {
     try {
       const {
         model = 'facebook/bart-large-cnn',
-        maxLength = 130,
-        minLength = 30
+        maxLength = 100
       } = options;
       
-      const payload = {
+      const response = await hf.summarization({
+        model,
         inputs: text,
         parameters: {
-          max_length: maxLength,
-          min_length: minLength,
-          do_sample: false
+          max_length: maxLength
         }
+      });
+      
+      return {
+        summary: response.summary_text,
+        model
       };
-      
-      const result = await this.query(model, payload);
-      
-      if (Array.isArray(result) && result.length > 0) {
-        return result[0].summary_text;
-      }
-      
-      return result.summary_text || '';
     } catch (error) {
       console.error('Hugging Face summarization error:', error);
       throw new Error(`Failed to summarize text: ${error.message}`);
@@ -120,58 +75,53 @@ export class HuggingFaceService {
   }
   
   /**
-   * Classify text using a text classification model
+   * Classify text sentiment
    */
-  async classifyText(text: string, options: {
+  async classifySentiment(text: string, options: {
     model?: string;
   } = {}) {
     try {
-      const {
-        model = 'distilbert-base-uncased-finetuned-sst-2-english'
-      } = options;
+      const { model = 'distilbert-base-uncased-finetuned-sst-2-english' } = options;
       
-      const payload = {
+      const response = await hf.textClassification({
+        model,
         inputs: text
+      });
+      
+      return {
+        sentiment: response[0].label,
+        score: response[0].score,
+        model
       };
-      
-      const result = await this.query(model, payload);
-      
-      if (Array.isArray(result) && result.length > 0 && Array.isArray(result[0])) {
-        return result[0];
-      }
-      
-      return result;
     } catch (error) {
-      console.error('Hugging Face text classification error:', error);
-      throw new Error(`Failed to classify text: ${error.message}`);
+      console.error('Hugging Face sentiment classification error:', error);
+      throw new Error(`Failed to classify sentiment: ${error.message}`);
     }
   }
   
   /**
-   * Answer questions using a question-answering model
+   * Answer questions based on context
    */
   async answerQuestion(question: string, context: string, options: {
     model?: string;
   } = {}) {
     try {
-      const {
-        model = 'deepset/roberta-base-squad2'
-      } = options;
+      const { model = 'deepset/roberta-base-squad2' } = options;
       
-      const payload = {
+      const response = await hf.questionAnswering({
+        model,
         inputs: {
           question,
           context
         }
-      };
-      
-      const result = await this.query(model, payload);
+      });
       
       return {
-        answer: result.answer,
-        score: result.score,
-        start: result.start,
-        end: result.end
+        answer: response.answer,
+        score: response.score,
+        start: response.start,
+        end: response.end,
+        model
       };
     } catch (error) {
       console.error('Hugging Face question answering error:', error);
@@ -180,183 +130,293 @@ export class HuggingFaceService {
   }
   
   /**
-   * Translate text using a translation model
+   * Generate image from text prompt
    */
-  async translateText(text: string, options: {
+  async generateImage(prompt: string, options: {
     model?: string;
-    sourceLanguage?: string;
-    targetLanguage?: string;
+    negativePrompt?: string;
   } = {}) {
     try {
       const {
-        model = 'Helsinki-NLP/opus-mt-en-fr',
-        sourceLanguage = 'en',
-        targetLanguage = 'fr'
+        model = 'stabilityai/stable-diffusion-xl-base-1.0',
+        negativePrompt = 'blurry, bad quality, distorted'
       } = options;
       
-      // For Helsinki-NLP models, use the appropriate model for the language pair
-      const actualModel = model === 'Helsinki-NLP/opus-mt-en-fr' 
-        ? `Helsinki-NLP/opus-mt-${sourceLanguage}-${targetLanguage}`
-        : model;
-      
-      const payload = {
-        inputs: text
-      };
-      
-      const result = await this.query(actualModel, payload);
-      
-      if (Array.isArray(result) && result.length > 0) {
-        return result[0].translation_text;
-      }
-      
-      return result.translation_text || '';
-    } catch (error) {
-      console.error('Hugging Face translation error:', error);
-      throw new Error(`Failed to translate text: ${error.message}`);
-    }
-  }
-  
-  /**
-   * Generate educational content using a text generation model
-   */
-  async generateEducationalContent(topic: string, ageGroup: string, options: {
-    model?: string;
-    maxLength?: number;
-    format?: 'lesson' | 'quiz' | 'activity';
-  } = {}) {
-    try {
-      const {
-        model = 'gpt2',
-        maxLength = 500,
-        format = 'lesson'
-      } = options;
-      
-      let prompt = '';
-      
-      switch (format) {
-        case 'lesson':
-          prompt = `Create an educational lesson about ${topic} for ${ageGroup} students. Include an introduction, key concepts, examples, and a summary.`;
-          break;
-        case 'quiz':
-          prompt = `Create a quiz about ${topic} for ${ageGroup} students. Include 5 questions with multiple choice answers and explanations.`;
-          break;
-        case 'activity':
-          prompt = `Create an engaging activity about ${topic} for ${ageGroup} students. Include objectives, materials needed, step-by-step instructions, and reflection questions.`;
-          break;
-      }
-      
-      return this.generateText(prompt, {
+      const response = await hf.textToImage({
         model,
-        maxLength,
-        temperature: 0.7
-      });
-    } catch (error) {
-      console.error('Hugging Face educational content generation error:', error);
-      throw new Error(`Failed to generate educational content: ${error.message}`);
-    }
-  }
-  
-  /**
-   * Analyse student text for reading level and complexity
-   */
-  async analyzeReadingLevel(text: string) {
-    try {
-      // First, classify the text complexity
-      const complexityResult = await this.classifyText(text, {
-        model: 'cross-encoder/ms-marco-MiniLM-L-12-v2' // Using a relevance model as proxy
+        inputs: prompt,
+        parameters: {
+          negative_prompt: negativePrompt
+        }
       });
       
-      // Then, summarize the text to extract key concepts
-      const summary = await this.summarizeText(text, {
-        maxLength: 100,
-        minLength: 30
-      });
-      
-      // Calculate basic readability metrics
-      const words = text.split(/\s+/).filter(word => word.length > 0);
-      const sentences = text.split(/[.!?]+/).filter(sentence => sentence.length > 0);
-      const wordsPerSentence = words.length / sentences.length;
-      
-      // Count syllables (very simplified)
-      const syllables = words.reduce((count, word) => {
-        return count + (word.match(/[aeiouy]{1,2}/g)?.length || 1);
-      }, 0);
-      
-      const syllablesPerWord = syllables / words.length;
-      
-      // Calculate Flesch-Kincaid Grade Level (simplified)
-      const fleschKincaidGradeLevel = 0.39 * wordsPerSentence + 11.8 * syllablesPerWord - 15.59;
-      
-      // Map to UK year groups
-      let yearGroup = 'Unknown';
-      if (fleschKincaidGradeLevel <= 1) yearGroup = 'Reception';
-      else if (fleschKincaidGradeLevel <= 2) yearGroup = 'Year 1';
-      else if (fleschKincaidGradeLevel <= 3) yearGroup = 'Year 2';
-      else if (fleschKincaidGradeLevel <= 4) yearGroup = 'Year 3';
-      else if (fleschKincaidGradeLevel <= 5) yearGroup = 'Year 4';
-      else if (fleschKincaidGradeLevel <= 6) yearGroup = 'Year 5';
-      else if (fleschKincaidGradeLevel <= 7) yearGroup = 'Year 6';
-      else if (fleschKincaidGradeLevel <= 8) yearGroup = 'Year 7';
-      else if (fleschKincaidGradeLevel <= 9) yearGroup = 'Year 8';
-      else if (fleschKincaidGradeLevel <= 10) yearGroup = 'Year 9';
-      else if (fleschKincaidGradeLevel <= 11) yearGroup = 'Year 10';
-      else if (fleschKincaidGradeLevel <= 12) yearGroup = 'Year 11';
-      else yearGroup = 'Year 12+';
+      // Convert blob to base64
+      const arrayBuffer = await response.arrayBuffer();
+      const base64 = Buffer.from(arrayBuffer).toString('base64');
       
       return {
-        readabilityMetrics: {
-          fleschKincaidGradeLevel: fleschKincaidGradeLevel.toFixed(1),
-          wordsPerSentence: wordsPerSentence.toFixed(1),
-          syllablesPerWord: syllablesPerWord.toFixed(1),
-          wordCount: words.length,
-          sentenceCount: sentences.length
-        },
-        estimatedYearGroup: yearGroup,
-        keyConcepts: summary,
-        complexity: complexityResult
+        imageBase64: `data:image/jpeg;base64,${base64}`,
+        model
       };
     } catch (error) {
-      console.error('Hugging Face reading level analysis error:', error);
-      throw new Error(`Failed to analyse reading level: ${error.message}`);
+      console.error('Hugging Face image generation error:', error);
+      throw new Error(`Failed to generate image: ${error.message}`);
     }
   }
   
   /**
-   * Implement caching for AI responses to improve performance and reduce API calls
+   * Fill in masked text
    */
-  private cache: Map<string, { result, timestamp: number }> = new Map();
-  private cacheTTL: number = 3600000; // 1 hour in milliseconds
-  
-  async getCachedResponse(cacheKey: string, fetchFunction: () => Promise<any>) {
-    // Check if we have a cached response
-    const cachedItem = this.cache.get(cacheKey);
-    
-    if (cachedItem && (Date.now() - cachedItem.timestamp) < this.cacheTTL) {
-      console.log(`Using cached response for ${cacheKey}`);
-      return cachedItem.result;
+  async fillMask(text: string, options: {
+    model?: string;
+    topK?: number;
+  } = {}) {
+    try {
+      const {
+        model = 'bert-base-uncased',
+        topK = 5
+      } = options;
+      
+      // Ensure text contains [MASK] token
+      if (!text.includes('[MASK]')) {
+        throw new Error('Text must contain [MASK] token');
+      }
+      
+      const response = await hf.fillMask({
+        model,
+        inputs: text
+      });
+      
+      return {
+        results: response.slice(0, topK).map(result => ({
+          sequence: result.sequence,
+          token: result.token_str,
+          score: result.score
+        })),
+        model
+      };
+    } catch (error) {
+      console.error('Hugging Face fill mask error:', error);
+      throw new Error(`Failed to fill mask: ${error.message}`);
     }
-    
-    // If no cache hit or cache expired, fetch new data
-    const result = await fetchFunction();
-    
-    // Cache the new result
-    this.cache.set(cacheKey, {
-      result,
-      timestamp: Date.now()
-    });
-    
-    return result;
   }
   
-  // Example of using the cache
-  async generateTextWithCache(prompt: string, options = {}) {
-    const cacheKey = `generateText:${prompt}:${JSON.stringify(options)}`;
+  /**
+   * Analyze educational content complexity
+   */
+  async analyzeEducationalContent(text: string, targetAgeGroup: string) {
+    try {
+      // First, classify the text complexity
+      const complexityResponse = await this.classifyTextComplexity(text);
+      
+      // Then, get readability metrics
+      const readabilityMetrics = this.calculateReadabilityMetrics(text);
+      
+      // Map complexity level to age range
+      const complexityToAge = {
+        'elementary': [5, 10],
+        'intermediate': [11, 14],
+        'high_school': [15, 18],
+        'college': [19, 22],
+        'technical': [19, 99]
+      };
+      
+      // Determine target age range
+      const targetAge = this.estimateAgeFromGroup(targetAgeGroup);
+      
+      // Check if content complexity matches target age
+      const complexityLevel = complexityResponse.complexity;
+      const [minAge, maxAge] = complexityToAge[complexityLevel] || [0, 99];
+      const isAppropriate = targetAge >= minAge && targetAge <= maxAge;
+      
+      return {
+        complexity: {
+          level: complexityLevel,
+          confidence: complexityResponse.score,
+          ageRange: `${minAge}-${maxAge}`
+        },
+        readability: readabilityMetrics,
+        targetAnalysis: {
+          targetAgeGroup,
+          estimatedTargetAge: targetAge,
+          isAppropriateForAge: isAppropriate
+        },
+        recommendations: this.generateRecommendations(
+          complexityLevel,
+          readabilityMetrics,
+          targetAge
+        )
+      };
+    } catch (error) {
+      console.error('Educational content analysis error:', error);
+      throw new Error(`Failed to analyze educational content: ${error.message}`);
+    }
+  }
+  
+  /**
+   * Classify text complexity level
+   * This is a simplified implementation using sentiment analysis as a proxy
+   */
+  private async classifyTextComplexity(text: string) {
+    // Use a zero-shot classification approach
+    const response = await hf.zeroShotClassification({
+      model: 'facebook/bart-large-mnli',
+      inputs: text,
+      parameters: {
+        candidate_labels: ['elementary', 'intermediate', 'high_school', 'college', 'technical']
+      }
+    });
     
-    return this.getCachedResponse(cacheKey, () => 
-      this.generateText(prompt, options)
-    );
+    return {
+      complexity: response.labels[0],
+      score: response.scores[0]
+    };
+  }
+  
+  /**
+   * Calculate readability metrics for text
+   */
+  private calculateReadabilityMetrics(text: string) {
+    // Count words, sentences, and syllables
+    const words = text.split(/\s+/).filter(word => word.length > 0);
+    const sentences = text.split(/[.!?]+/).filter(sentence => sentence.length > 0);
+    const syllables = this.countSyllables(text);
+    
+    const wordCount = words.length;
+    const sentenceCount = sentences.length;
+    const syllableCount = syllables;
+    
+    // Calculate average words per sentence
+    const wordsPerSentence = wordCount / sentenceCount;
+    
+    // Calculate average syllables per word
+    const syllablesPerWord = syllableCount / wordCount;
+    
+    // Calculate Flesch-Kincaid Grade Level
+    const fleschKincaidGradeLevel = 0.39 * wordsPerSentence + 11.8 * syllablesPerWord - 15.59;
+    
+    // Calculate Flesch Reading Ease
+    const fleschReadingEase = 206.835 - 1.015 * wordsPerSentence - 84.6 * syllablesPerWord;
+    
+    return {
+      wordCount,
+      sentenceCount,
+      syllableCount,
+      wordsPerSentence: wordsPerSentence.toFixed(1),
+      syllablesPerWord: syllablesPerWord.toFixed(1),
+      fleschKincaidGradeLevel: Math.max(0, fleschKincaidGradeLevel).toFixed(1),
+      fleschReadingEase: Math.max(0, Math.min(100, fleschReadingEase)).toFixed(1),
+      estimatedAge: Math.round(fleschKincaidGradeLevel + 5)
+    };
+  }
+  
+  /**
+   * Count syllables in text (simplified)
+   */
+  private countSyllables(text: string): number {
+    const words = text.toLowerCase().split(/\s+/);
+    let count = 0;
+    
+    for (const word of words) {
+      if (word.length <= 3) {
+        count += 1;
+        continue;
+      }
+      
+      // Count vowel groups as syllables
+      const vowelGroups = word.match(/[aeiouy]+/g);
+      if (vowelGroups) {
+        count += vowelGroups.length;
+      }
+      
+      // Subtract silent e at the end
+      if (word.endsWith('e') && word.length > 2 && !/[aeiouy]/.test(word.charAt(word.length - 2))) {
+        count -= 1;
+      }
+    }
+    
+    return count;
+  }
+  
+  /**
+   * Estimate age from age group string
+   */
+  private estimateAgeFromGroup(ageGroup: string): number {
+    const ageGroupMap: Record<string, number> = {
+      'reception': 5,
+      'year 1': 6,
+      'year 2': 7,
+      'year 3': 8,
+      'year 4': 9,
+      'year 5': 10,
+      'year 6': 11,
+      'year 7': 12,
+      'year 8': 13,
+      'year 9': 14,
+      'year 10': 15,
+      'year 11': 16,
+      'year 12': 17,
+      'year 13': 18,
+      'ks1': 6,
+      'ks2': 9,
+      'ks3': 13,
+      'ks4': 15,
+      'ks5': 17,
+      'primary': 8,
+      'secondary': 14,
+      'early years': 4
+    };
+    
+    const normalizedAgeGroup = ageGroup.toLowerCase().trim();
+    
+    if (normalizedAgeGroup in ageGroupMap) {
+      return ageGroupMap[normalizedAgeGroup];
+    }
+    
+    // Try to extract a number if the age group contains digits
+    const match = normalizedAgeGroup.match(/\d+/);
+    if (match) {
+      return parseInt(match[0], 10);
+    }
+    
+    // Default to middle school age if unknown
+    return 12;
+  }
+  
+  /**
+   * Generate recommendations based on analysis
+   */
+  private generateRecommendations(
+    complexityLevel: string,
+    readabilityMetrics: any,
+    targetAge: number
+  ): string[] {
+    const recommendations: string[] = [];
+    const gradeLevel = parseFloat(readabilityMetrics.fleschKincaidGradeLevel);
+    const targetGradeLevel = targetAge - 5;
+    
+    if (Math.abs(gradeLevel - targetGradeLevel) > 2) {
+      if (gradeLevel > targetGradeLevel) {
+        recommendations.push('The content may be too complex for the target age group.');
+        
+        if (parseFloat(readabilityMetrics.wordsPerSentence) > 15) {
+          recommendations.push('Consider using shorter sentences to improve readability.');
+        }
+        
+        if (parseFloat(readabilityMetrics.syllablesPerWord) > 1.5) {
+          recommendations.push('Consider using simpler words with fewer syllables.');
+        }
+      } else {
+        recommendations.push('The content may be too simple for the target age group.');
+        recommendations.push('Consider introducing more complex vocabulary and sentence structures.');
+      }
+    } else {
+      recommendations.push('The content is appropriately matched to the target age group.');
+    }
+    
+    return recommendations;
   }
 }
 
 // Export a singleton instance
-export const huggingFaceService = new HuggingFaceService();
+export const huggingfaceService = new HuggingfaceService();

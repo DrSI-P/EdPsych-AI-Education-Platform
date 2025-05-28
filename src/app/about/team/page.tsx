@@ -1,6 +1,8 @@
+"use client";
+
 import React from 'react';
 import { Button } from '@/components/ui';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { TeamMember } from '@/components/about/TeamMember';
 
 export default function TeamPage() {
