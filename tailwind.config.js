@@ -10,7 +10,6 @@ module.exports = {
       current: 'currentColor',
       black: '#000000',
       white: '#ffffff',
-      background: '#ffffff',
       gray: {
         50: '#f9fafb',
         100: '#f3f4f6',
@@ -28,6 +27,7 @@ module.exports = {
     extend: {
       colors: {
         border: '#e2e8f0', // Adding border color (Tailwind's slate-200)
+        background: '#ffffff',
         primary: {
           50: '#f0f9ff',
           100: '#e0f2fe',
@@ -107,13 +107,5 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
-    function({ addUtilities }) {
-      const newUtilities = {
-        '.bg-background': {
-          backgroundColor: '#ffffff',
-        },
-      }
-      addUtilities(newUtilities)
-    },
   ],
 };
