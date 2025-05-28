@@ -17,12 +17,13 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { 
+import {
   AlertCircle,
   BookOpen,
   Check,
   ChevronDown,
   ChevronUp,
+  Clock,
   Download,
   ExternalLink,
   Eye,
