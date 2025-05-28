@@ -59,70 +59,82 @@ async function generateSitemap() {
     });
 
     // Add blog posts
-    console.log('Fetching blog posts...');
-    const blogPosts = await prisma.blogPost.findMany({
-      where: {
-        status: 'published',
-      },
-      select: {
-        slug: true,
-        updatedAt: true,
-      },
-    });
+    try {
+      console.log('Fetching blog posts...');
+      const blogPosts = await prisma.blogPost.findMany({
+        where: {
+          status: 'published',
+        },
+        select: {
+          slug: true,
+          updatedAt: true,
+        },
+      });
 
-    blogPosts.forEach(post => {
-      const lastmod = post.updatedAt.toISOString().split('T')[0];
-      xmlContent += `  <url>
-    <loc>${BASE_URL}/blog/${post.slug}</loc>
-    <lastmod>${lastmod}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+      blogPosts.forEach(post => {
+        const lastmod = post.updatedAt.toISOString().split('T')[0];
+        xmlContent += `  <url>
+      <loc>${BASE_URL}/blog/${post.slug}</loc>
+      <lastmod>${lastmod}</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
 `;
-    });
+      });
+    } catch (error) {
+      console.warn('Warning: Could not fetch blog posts. Skipping blog posts in sitemap.', error.message);
+    }
 
     // Add blog categories
-    console.log('Fetching blog categories...');
-    const blogCategories = await prisma.blogCategory.findMany({
-      select: {
-        slug: true,
-        updatedAt: true,
-      },
-    });
+    try {
+      console.log('Fetching blog categories...');
+      const blogCategories = await prisma.blogCategory.findMany({
+        select: {
+          slug: true,
+          updatedAt: true,
+        },
+      });
 
-    blogCategories.forEach(category => {
-      const lastmod = category.updatedAt.toISOString().split('T')[0];
-      xmlContent += `  <url>
-    <loc>${BASE_URL}/blog/category/${category.slug}</loc>
-    <lastmod>${lastmod}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
+      blogCategories.forEach(category => {
+        const lastmod = category.updatedAt.toISOString().split('T')[0];
+        xmlContent += `  <url>
+      <loc>${BASE_URL}/blog/category/${category.slug}</loc>
+      <lastmod>${lastmod}</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+    </url>
 `;
-    });
+      });
+    } catch (error) {
+      console.warn('Warning: Could not fetch blog categories. Skipping blog categories in sitemap.', error.message);
+    }
 
     // Add courses
-    console.log('Fetching courses...');
-    const courses = await prisma.course.findMany({
-      where: {
-        isPublished: true,
-      },
-      select: {
-        id: true,
-        updatedAt: true,
-      },
-    });
+    try {
+      console.log('Fetching courses...');
+      const courses = await prisma.course.findMany({
+        where: {
+          isPublished: true,
+        },
+        select: {
+          id: true,
+          updatedAt: true,
+        },
+      });
 
-    courses.forEach(course => {
-      const lastmod = course.updatedAt.toISOString().split('T')[0];
-      xmlContent += `  <url>
-    <loc>${BASE_URL}/courses/${course.id}</loc>
-    <lastmod>${lastmod}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
+      courses.forEach(course => {
+        const lastmod = course.updatedAt.toISOString().split('T')[0];
+        xmlContent += `  <url>
+      <loc>${BASE_URL}/courses/${course.id}</loc>
+      <lastmod>${lastmod}</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+    </url>
 `;
-    });
+      });
+    } catch (error) {
+      console.warn('Warning: Could not fetch courses. Skipping courses in sitemap.', error.message);
+    }
 
     // Close XML content
     xmlContent += `</urlset>`;
