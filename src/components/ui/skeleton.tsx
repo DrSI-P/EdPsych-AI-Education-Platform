@@ -7,12 +7,10 @@ interface SkeletonProps {
   borderRadius?: string | number;
 }
 
-export function Skeleton({
-  className = '',
+export function Skeleton({ className = '',
   height = '1rem',
   width = '100%',
-  borderRadius = '0.25rem'
-}: SkeletonProps) {
+  borderRadius = '0.25rem' }: SkeletonProps) {
   return (
     <div
       className={`animate-pulse bg-gray-200 ${className}`}

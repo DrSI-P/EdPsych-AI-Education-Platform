@@ -17,12 +17,10 @@ interface AccordionContextType {
 
 const AccordionContext = React.createContext<AccordionContextType | undefined>(undefined);
 
-export function Accordion({
-  children,
+export function Accordion({ children,
   defaultExpanded = [],
   allowMultiple = false,
-  className = '',
-}: AccordionProps) {
+  className = '', }: AccordionProps) {
   const [expandedItems, setExpandedItems] = useState<string[]>(defaultExpanded);
 
   const toggleItem = (id: string) => {
@@ -171,12 +169,10 @@ interface DisclosureTriggerProps {
   className?: string;
 }
 
-export function DisclosureTrigger({
-  children,
+export function DisclosureTrigger({ children,
   isOpen,
   toggle,
-  className = '',
-}: DisclosureTriggerProps) {
+  className = '', }: DisclosureTriggerProps) {
   return (
     <button
       type="button"

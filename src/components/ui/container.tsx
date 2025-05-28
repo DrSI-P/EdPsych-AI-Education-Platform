@@ -6,11 +6,9 @@ interface ContainerProps {
   as?: React.ElementType;
 }
 
-export function Container({
-  children,
+export function Container({ children,
   className = '',
-  as: Component = 'div',
-}: ContainerProps) {
+  as: Component = 'div', }: ContainerProps) {
   return (
     <Component className={`container mx-auto px-4 md:px-6 ${className}`}>
       {children}

@@ -101,14 +101,12 @@ interface TableHeaderCellProps {
   onSort?: () => void;
 }
 
-export function TableHeaderCell({ 
-  children, 
+export function TableHeaderCell({ children, 
   className = '', 
   align = 'left',
   sortable = false,
   sorted = null,
-  onSort
-}: TableHeaderCellProps) {
+  onSort }: TableHeaderCellProps) {
   // Map alignment to text alignment class
   const alignClasses = {
     left: 'text-left',

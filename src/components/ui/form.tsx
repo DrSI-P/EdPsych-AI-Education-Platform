@@ -30,8 +30,7 @@ export function Input({
   rightIcon,
   fullWidth = false,
   className = '',
-  ...props
-}: InputProps) {
+  ...props }: InputProps) {
   const inputClasses = `
     ${error ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-grey-300 focus:ring-blue-500 focus:border-blue-500'}
     ${leftIcon ? 'pl-10' : ''}
@@ -75,14 +74,12 @@ interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement
   className?: string;
 }
 
-export function Textarea({
-  label,
+export function Textarea({ label,
   error,
   hint,
   fullWidth = false,
   className = '',
-  ...props
-}: TextareaProps) {
+  ...props }: TextareaProps) {
   const textareaClasses = `
     ${error ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-grey-300 focus:ring-blue-500 focus:border-blue-500'}
     ${fullWidth ? 'w-full' : ''}
@@ -117,8 +114,7 @@ interface SelectProps {
   placeholder?: string;
 }
 
-export function Select({
-  options,
+export function Select({ options,
   value,
   onChange,
   label,
@@ -128,8 +124,7 @@ export function Select({
   disabled = false,
   className = '',
   placeholder,
-  ...props
-}: SelectProps) {
+  ...props }: SelectProps) {
   const selectClasses = `
     ${error ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-grey-300 focus:ring-blue-500 focus:border-blue-500'}
     ${fullWidth ? 'w-full' : ''}
@@ -178,15 +173,13 @@ interface CheckboxProps {
   className?: string;
 }
 
-export function Checkbox({
-  label,
+export function Checkbox({ label,
   checked,
   onChange,
   description,
   disabled = false,
   className = '',
-  ...props
-}: CheckboxProps) {
+  ...props }: CheckboxProps) {
   return (
     <div className={`flex items-start ${className}`}>
       <div className="flex items-centre h-5">
@@ -224,16 +217,14 @@ interface RadioProps {
   className?: string;
 }
 
-export function Radio({
-  options,
+export function Radio({ options,
   value,
   onChange,
   name,
   label,
   disabled = false,
   className = '',
-  ...props
-}: RadioProps) {
+  ...props }: RadioProps) {
   return (
     <div className={className}>
       {label && <Label className="mb-2">{label}</Label>}

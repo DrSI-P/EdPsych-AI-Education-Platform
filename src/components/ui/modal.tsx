@@ -45,8 +45,7 @@ export function Modal({
   size = 'md',
   closeOnOverlayClick = true,
   closeOnEsc = true,
-  className = '',
-}: ModalProps) {
+  className = '', }: ModalProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -166,8 +165,7 @@ interface DialogProps {
   isLoading?: boolean;
 }
 
-export function Dialog({
-  isOpen,
+export function Dialog({ isOpen,
   onClose,
   title,
   description,
@@ -175,8 +173,7 @@ export function Dialog({
   cancelText = 'Cancel',
   onConfirm,
   variant = 'info',
-  isLoading = false,
-}: DialogProps) {
+  isLoading = false, }: DialogProps) {
   // Map variant to colour classes
   const variantClasses = {
     info: 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500',

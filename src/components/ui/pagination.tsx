@@ -9,12 +9,10 @@ interface PaginationProps {
   siblingCount?: number;
 }
 
-export function Pagination({
-  currentPage,
+export function Pagination({ currentPage,
   totalPages,
   onPageChange,
-  siblingCount = 1,
-}: PaginationProps) {
+  siblingCount = 1, }: PaginationProps) {
   // Generate page numbers to show
   const getPageNumbers = () => {
     const pageNumbers = [];

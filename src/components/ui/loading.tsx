@@ -94,14 +94,12 @@ interface ProgressProps {
   className?: string;
 }
 
-export function Progress({ 
-  value, 
+export function Progress({ value, 
   max = 100, 
   colour = 'primary', 
   size = 'md',
   showValue = false,
-  className = '' 
-}: ProgressProps) {
+  className = '' }: ProgressProps) {
   const percentage = Math.min(100, Math.max(0, (value / max) * 100));
   
   const sizeClasses = {

@@ -10,13 +10,11 @@ interface DropdownProps {
   className?: string;
 }
 
-export function Dropdown({
-  trigger,
+export function Dropdown({ trigger,
   children,
   align = 'left',
   width = 'auto',
-  className = '',
-}: DropdownProps) {
+  className = '', }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -84,12 +82,10 @@ interface DropdownItemProps {
   className?: string;
 }
 
-export function DropdownItem({
-  children,
+export function DropdownItem({ children,
   onClick,
   disabled = false,
-  className = '',
-}: DropdownItemProps) {
+  className = '', }: DropdownItemProps) {
   return (
     <button
       className={`block w-full text-left px-4 py-2 text-sm text-grey-700 hover:bg-grey-100 hover:text-grey-900 ${
@@ -168,13 +164,11 @@ interface MenuItemProps {
   className?: string;
 }
 
-export function MenuItem({
-  children,
+export function MenuItem({ children,
   active = false,
   href,
   onClick,
-  className = '',
-}: MenuItemProps) {
+  className = '', }: MenuItemProps) {
   const classes = `inline-flex items-centre px-1 pt-1 border-b-2 text-sm font-medium ${
     active
       ? 'border-blue-500 text-grey-900'

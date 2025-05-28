@@ -66,11 +66,9 @@ export interface ToastViewportProps {
   position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-centre' | 'bottom-centre';
 }
 
-export function ToastViewport({ 
-  children, 
+export function ToastViewport({ children, 
   className = '',
-  position = 'bottom-right'
-}: ToastViewportProps) {
+  position = 'bottom-right' }: ToastViewportProps) {
   // Map position to position classes
   const positionClasses = {
     'top-right': 'top-0 right-0 flex flex-col pt-4 pr-4',
@@ -97,14 +95,12 @@ interface ToastProps {
   className?: string;
 }
 
-export function Toast({
-  message,
+export function Toast({ message,
   type = 'info',
   duration = 3000,
   onClose,
   position = 'top-right',
-  className = '',
-}: ToastProps) {
+  className = '', }: ToastProps) {
   const [isVisible, setIsVisible] = useState(true);
   const [mounted, setMounted] = useState(false);
 

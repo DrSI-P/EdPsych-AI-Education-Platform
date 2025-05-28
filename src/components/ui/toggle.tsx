@@ -8,13 +8,11 @@ interface ToggleProps {
   className?: string;
 }
 
-export function Toggle({
-  pressed,
+export function Toggle({ pressed,
   defaultPressed = false,
   onPressedChange,
   children,
-  className = '',
-}: ToggleProps) {
+  className = '', }: ToggleProps) {
   const [isPressed, setIsPressed] = React.useState(defaultPressed);
   
   const handleClick = () => {

@@ -303,11 +303,9 @@ interface TypographyProps {
   className?: string;
 }
 
-export function Typography({ 
-  variant = 'body', 
+export function Typography({ variant = 'body', 
   children, 
-  className = '' 
-}: TypographyProps) {
+  className = '' }: TypographyProps) {
   const style = 
     variant in headingStyles 
       ? headingStyles[variant as keyof typeof headingStyles]
@@ -339,11 +337,9 @@ interface ContainerProps {
   children: React.ReactNode;
 }
 
-export function Container({ 
-  size = 'lg', 
+export function Container({ size = 'lg', 
   className = '', 
-  children 
-}: ContainerProps) {
+  children }: ContainerProps) {
   return (
     <div className={`mx-auto px-4 ${containerWidths[size]} ${className}`}>
       {children}
@@ -358,11 +354,9 @@ interface SectionProps {
   children: React.ReactNode;
 }
 
-export function Section({ 
-  size = 'md', 
+export function Section({ size = 'md', 
   className = '', 
-  children 
-}: SectionProps) {
+  children }: SectionProps) {
   return (
     <section className={`${sectionSpacing[size]} ${className}`}>
       {children}
@@ -378,12 +372,10 @@ interface GridProps {
   children: React.ReactNode;
 }
 
-export function Grid({ 
-  variant = 'cards', 
+export function Grid({ variant = 'cards', 
   size = 'md', 
   className = '', 
-  children 
-}: GridProps) {
+  children }: GridProps) {
   return (
     <div className={`${gridLayouts[variant][size]} ${className}`}>
       {children}
@@ -398,11 +390,9 @@ interface FlexProps {
   children: React.ReactNode;
 }
 
-export function Flex({ 
-  variant = 'centre', 
+export function Flex({ variant = 'centre', 
   className = '', 
-  children 
-}: FlexProps) {
+  children }: FlexProps) {
   return (
     <div className={`${flexLayouts[variant]} ${className}`}>
       {children}
@@ -416,10 +406,8 @@ interface SpacerProps {
   className?: string;
 }
 
-export function Spacer({ 
-  size = '4', 
-  className = '' 
-}: SpacerProps) {
+export function Spacer({ size = '4', 
+  className = '' }: SpacerProps) {
   return (
     <div className={`h-[${spacing[size as keyof typeof spacing]}] ${className}`} />
   );
