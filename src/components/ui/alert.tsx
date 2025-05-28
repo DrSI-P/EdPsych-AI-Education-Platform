@@ -3,8 +3,6 @@
 import * as React from 'react';
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
-// Import AlertTitle from dedicated file to re-export it
-import { AlertTitle as AlertTitleComponent } from './AlertTitle';
 
 const alertVariants = cva(
   "relative w-full rounded-lg border p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground",
@@ -37,8 +35,18 @@ const Alert = React.forwardRef<
 ));
 Alert.displayName = "Alert";
 
-// Re-export AlertTitle from dedicated file for backward compatibility
-const AlertTitle = AlertTitleComponent;
+// Define AlertTitle directly in this file to ensure it's available for imports
+const AlertTitle = React.forwardRef<
+  HTMLHeadingElement,
+  React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, ...props }, ref) => (
+  <h5
+    ref={ref}
+    className={cn("mb-1 font-medium leading-none tracking-tight", className)}
+    {...props}
+  />
+));
+AlertTitle.displayName = "AlertTitle";
 
 const AlertDescription = React.forwardRef<
   HTMLParagraphElement,
