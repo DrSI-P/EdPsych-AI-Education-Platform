@@ -1,39 +1,41 @@
-import React from 'react';
+"use client";
 
-export interface AlertProps {
-  variant?: 'default' | 'destructive' | 'success' | 'warning' | 'info';
-  title?: string;
-  children?: React.ReactNode;
-}
+import * as React from 'react';
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
-export function Alert({ variant = 'default', title, children }: AlertProps) {
-  const variantClasses = {
-    default: 'bg-gray-100 border-gray-300 text-gray-800',
-    destructive: 'bg-red-100 border-red-300 text-red-800',
-    success: 'bg-green-100 border-green-300 text-green-800',
-    warning: 'bg-yellow-100 border-yellow-300 text-yellow-800',
-    info: 'bg-blue-100 border-blue-300 text-blue-800',
-  };
+const alertVariants = cva(
+  "relative w-full rounded-lg border p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground",
+  {
+    variants: {
+      variant: {
+        default: "bg-background text-foreground",
+        destructive: "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
+        success: "border-green-500/50 text-green-700 dark:border-green-500 [&>svg]:text-green-500",
+        warning: "border-yellow-500/50 text-yellow-700 dark:border-yellow-500 [&>svg]:text-yellow-500",
+        info: "border-blue-500/50 text-blue-700 dark:border-blue-500 [&>svg]:text-blue-500",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
 
-  return (
-    <div className={`p-4 mb-4 border rounded-md ${variantClasses[variant]}`}>
-      {title && <h5 className="font-medium mb-2">{title}</h5>}
-      <div>{children}</div>
-    </div>
-  );
-}
+const Alert = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>
+>(({ className, variant, ...props }, ref) => (
+  <div
+    ref={ref}
+    role="alert"
+    className={cn(alertVariants({ variant }), className)}
+    {...props}
+  />
+));
+Alert.displayName = "Alert";
 
-// Add missing AlertTitle component that's causing build errors
-export function AlertTitle({ children }: { children: React.ReactNode }) {
-  return <h5 className="font-medium mb-2">{children}</h5>;
-}
-
-export function AlertDescription({ children }: { children: React.ReactNode }) {
-  return <div className="text-sm">{children}</div>;
-}
-
-
-export const AlertTitle = React.forwardRef<
+const AlertTitle = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
@@ -45,4 +47,17 @@ export const AlertTitle = React.forwardRef<
 ));
 AlertTitle.displayName = "AlertTitle";
 
+const AlertDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("text-sm [&_p]:leading-relaxed", className)}
+    {...props}
+  />
+));
+AlertDescription.displayName = "AlertDescription";
+
+export { Alert, AlertTitle, AlertDescription };
 export default Alert;
