@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { formatDistanceToNow } from 'date-fns';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { Link } from '@/components/ui';
 
 interface BlogCardProps {
   post: {

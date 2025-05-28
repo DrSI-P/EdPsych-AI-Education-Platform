@@ -1,4 +1,5 @@
 import ResourcesWrapper from '@/components/resources/resources-wrapper';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, Button, Badge, Tabs, TabsContent, TabsList, TabsTrigger, Link, Pagination, BookOpen } from '@/components/ui';
 
 export default function ResourceLibrary() {
   return <ResourcesWrapper />;

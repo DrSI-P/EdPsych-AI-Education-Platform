@@ -28,6 +28,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Link } from '@/components/ui';
 
 interface MainNavigationProps {
   className?: string;

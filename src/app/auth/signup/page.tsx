@@ -1,8 +1,10 @@
 'use client';
 
+import React from 'react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { Link } from '@/components/ui';
 
 export default function SignUpForm() {
   const router = useRouter();

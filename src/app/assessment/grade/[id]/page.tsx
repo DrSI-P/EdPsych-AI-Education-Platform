@@ -8,6 +8,7 @@ import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
 import { SimpleTabs } from '@/components/ui/tabs';
 import { aiService } from '@/lib/ai/ai-service';
+import { CardTitle } from '@/components/ui';
 
 interface Question {
   id: string;

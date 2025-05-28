@@ -1,6 +1,7 @@
 // Analytics utilities for EdPsych-AI-Education-Platform
 // Provides comprehensive analytics tracking, reporting, and visualisation
 
+import React from 'react';
 import { useEffect, useState } from 'react';
 
 /**

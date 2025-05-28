@@ -1,6 +1,7 @@
 // Internationalization utilities for EdPsych-AI-Education-Platform
 // Provides comprehensive multilingual support with educational context awareness
 
+import React from 'react';
 import { useEffect, useState } from 'react';
 
 /**

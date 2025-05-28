@@ -1,76 +1,23 @@
-import { Alert as AlertComponent } from './alert';
-import { AlertDescription } from './alert';
-import { AlertTitle } from './alert';
-import { Button } from './button';
-import { Badge } from './badge';
-import { Label } from './label';
-import { Input } from './input';
-import { Textarea } from './textarea';
-import { Checkbox } from './checkbox';
-import { Progress } from './progress';
-import {
-  Table,
-  TableHeader,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
-  TableFooter,
-  TableHeaderCell,
-  TableEmpty,
-  TableLoading
-} from './table';
-import {
-  Select,
-  SelectGroup,
-  SelectValue,
-  SelectTrigger,
-  SelectContent,
-  SelectLabel,
-  SelectItem,
-  SelectSeparator,
-  SelectScrollUpButton,
-  SelectScrollDownButton,
-} from './select';
+// Central export file for UI components
+// This file exports all UI components used throughout the application
 
-// Export all UI components
-export const Alert = AlertComponent;
-export { AlertDescription };
-export { AlertTitle };
-export { Button };
-export { Badge };
-export { Label };
-export { Input };
-export { Textarea };
-export { Checkbox };
-export { Progress };
+// Card components
+export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from './card';
 
-// Export Table components
-export {
-  Table,
-  TableHeader,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
-  TableFooter,
-  TableHeaderCell,
-  TableEmpty,
-  TableLoading
-};
+// Button components
+export { Button } from './button';
 
-// Export Select components
-export {
-  Select,
-  SelectGroup,
-  SelectValue,
-  SelectTrigger,
-  SelectContent,
-  SelectLabel,
-  SelectItem,
-  SelectSeparator,
-  SelectScrollUpButton,
-  SelectScrollDownButton,
-};
+// Badge component
+export { Badge } from './badge';
 
-export default AlertComponent;
+// Tab components
+export { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';
+
+// Link component
+export { Link } from './link';
+
+// Pagination component
+export { Pagination } from './pagination';
+
+// Icon components
+export { BookOpen, Mic } from './icons';

@@ -9,6 +9,7 @@ import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Link } from '@/components/ui';
 
 export default function RequestVerificationPage() {
   const router = useRouter();

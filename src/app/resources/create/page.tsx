@@ -1,4 +1,6 @@
+import React from 'react';
 import CreateResourcesWrapper from '@/components/resources/create/create-resources-wrapper';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, Button, Badge, Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
 
 export default function CreateResource() {
   return <CreateResourcesWrapper />;

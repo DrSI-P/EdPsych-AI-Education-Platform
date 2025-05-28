@@ -1,3 +1,4 @@
+import React from 'react';
 // Server-side AI service for API routes
 // This file does NOT use 'use client' directive or React hooks
 

@@ -1,6 +1,7 @@
 // Learning analytics and adaptive content utilities for EdPsych-AI-Education-Platform
 // Provides comprehensive learning style detection, progress tracking, and content adaptation
 
+import React from 'react';
 import { useEffect, useState } from 'react';
 
 /**

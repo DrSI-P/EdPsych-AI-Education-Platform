@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { Link } from '@/components/ui';
 
 /**
  * Custom 500 (Server Error) page for EdPsych Connect

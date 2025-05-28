@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { useState } from 'react';
 import Image from 'next/image';
 import ProgressMonitoringEngine from '@/components/special-needs/progress-monitoring/progress-monitoring-engine';

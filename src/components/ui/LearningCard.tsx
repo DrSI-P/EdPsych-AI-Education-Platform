@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
+import { Link } from '@/components/ui';
 
 interface LearningCardProps {
   title: string;

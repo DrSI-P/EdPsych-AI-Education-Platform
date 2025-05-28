@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { Link } from '@/components/ui';
 
 /**
  * Custom 404 (Not Found) page for EdPsych Connect

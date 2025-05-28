@@ -1,4 +1,5 @@
 // Performance optimization utilities for EdPsych-AI-Education-Platform
+import React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 
 /**

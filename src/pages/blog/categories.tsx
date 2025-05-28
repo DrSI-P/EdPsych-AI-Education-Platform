@@ -7,6 +7,7 @@ import { authOptions } from '@/lib/auth';
 import prisma from '@/lib/prisma-client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Link } from '@/components/ui';
 
 interface Category {
   id: string;

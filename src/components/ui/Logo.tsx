@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useTheme } from '@/components/theme-provider';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
+import { Link } from '@/components/ui';
 
 interface LogoProps {
   variant?: 'default' | 'compact' | 'text-only';

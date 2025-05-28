@@ -1,7 +1,9 @@
+import React from 'react';
 import { auth } from '@/lib/auth/auth-compat';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { Link } from '@/components/ui';
 
 export default async function DashboardLayout({
   children,

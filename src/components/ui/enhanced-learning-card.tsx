@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useTheme } from '@/components/enhanced-theme-provider';
+import { Link } from '@/components/ui';
 
 interface LearningCardProps {
   title: string;

@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/form';
 import { Alert } from '@/components/ui/alert';
 import { Spinner } from '@/components/ui/loading';
 import Link from 'next/link';
+import { Link } from '@/components/ui';
 
 export default function SignInPage() {
   const router = useRouter();

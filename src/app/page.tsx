@@ -22,6 +22,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { motion } from 'framer-motion';
 import { Play } from 'lucide-react';
+import { Link } from '@/components/ui';
 
 export default function HomePage() {
   const { ageGroup, setAgeGroup } = useTheme();

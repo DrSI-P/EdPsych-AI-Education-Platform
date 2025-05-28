@@ -11,6 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Pagination } from '@/components/ui/pagination';
 import { Search, Upload, BookOpen, Filter, Grid3X3, List } from 'lucide-react';
 import Link from 'next/link';
+import { Link } from '@/components/ui';
 
 export default function ResourcesClient() {
   const { data: session, status } = useSession();

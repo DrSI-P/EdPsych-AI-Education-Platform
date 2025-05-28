@@ -1,3 +1,4 @@
+import React from 'react';
 import '@/styles/globals.css';
 import '@/styles/enhanced-brand.css';
 import '@/styles/brand.css';

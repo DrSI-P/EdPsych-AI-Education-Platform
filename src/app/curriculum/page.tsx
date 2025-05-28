@@ -11,6 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Pagination } from '@/components/ui/pagination';
 import { Search, Plus, BookOpen, Filter, Grid3X3, List, FileText, Calendar, LayoutGrid } from 'lucide-react';
 import Link from 'next/link';
+import { Link } from '@/components/ui';
 
 export default function CurriculumPlanner() {
   const { data: session, status } = useSession();

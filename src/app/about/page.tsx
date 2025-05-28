@@ -8,6 +8,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ChevronRight, Target, Lightbulb, BookOpen, Heart, Award } from 'lucide-react';
+import { Link } from '@/components/ui';
 
 export default function AboutPage(): React.ReactNode {
   return (
