@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Alert({ variant = 'default', title, children }: React.ReactNode) {
+export function Alert({ variant = 'default', title, children }) {
   const variantClasses = {
     default: 'bg-gray-100 border-gray-300 text-gray-800',
     destructive: 'bg-red-100 border-red-300 text-red-800',
@@ -17,11 +17,11 @@ export function Alert({ variant = 'default', title, children }: React.ReactNode)
   );
 }
 
-export function AlertTitle({ children }: React.ReactNode) {
+export function AlertTitle({ children }) {
   return <h5 className="font-medium mb-2">{children}</h5>;
 }
 
-export function AlertDescription({ children }: React.ReactNode) {
+export function AlertDescription({ children }) {
   return <div className="text-sm">{children}</div>;
 }
 
