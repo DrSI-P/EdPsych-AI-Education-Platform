@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Heading, Text, Button } from '@chakra-ui/react';
+import { Button } from '@/components/ui/button';
 
 interface AccessDeniedProps {
   message?: string;
@@ -13,26 +13,25 @@ const AccessDenied: React.FC<AccessDeniedProps> = ({
   redirectLabel = "Return to Home"
 }) => {
   return (
-    <Box 
-      className="flex flex-col items-centre justify-centre min-h-[50vh] p-8 text-centre"
+    <div
+      className="flex flex-col items-center justify-center min-h-[50vh] p-8 text-center"
       data-testid="access-denied-component"
     >
-      <Heading as="h1" size="xl" mb={4} className="text-red-600">
+      <h1 className="text-3xl font-bold mb-4 text-red-600">
         Access Denied
-      </Heading>
+      </h1>
       
-      <Text mb={6} className="text-grey-700 max-w-md">
+      <p className="mb-6 text-gray-700 max-w-md">
         {message}
-      </Text>
+      </p>
       
-      <Button 
-        colorScheme="blue"
+      <Button
         onClick={() => window.location.href = redirectPath}
         className="px-6 py-2 rounded-md"
       >
         {redirectLabel}
       </Button>
-    </Box>
+    </div>
   );
 };
 
