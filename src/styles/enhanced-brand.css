@@ -110,7 +110,7 @@
 /* Base Styles - Enhanced typography and spacing */
 @layer base {
   * {
-    @apply border-border;
+    @apply border-gray-200;
   }
   
   html {
