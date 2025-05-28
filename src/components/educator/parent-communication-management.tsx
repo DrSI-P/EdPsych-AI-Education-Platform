@@ -88,8 +88,8 @@ export function ParentCommunicationManagement() {
     
     if (searchTerm) {
       const lowerSearchTerm = searchTerm.toLowerCase();
-      filtered = filtered.filter(template => 
-        template.title.toLowerCase().includes(lowerSearchTerm) || 
+      filtered = filtered.filter(template =>
+        template.title.toLowerCase().includes(lowerSearchTerm) ||
         template.content.toLowerCase().includes(lowerSearchTerm) ||
         template.tags.some(tag => tag.toLowerCase().includes(lowerSearchTerm))
       );
@@ -108,6 +108,85 @@ export function ParentCommunicationManagement() {
     }
   };
   
+  // Define renderTemplateSelection function before it's used
+  function renderTemplateSelection() {
+    return (
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle>Communication Templates</CardTitle>
+          <CardDescription>Select a template to start your communication</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="flex items-center gap-4">
+              <div className="flex-1">
+                <Label htmlFor="category">Filter by Category</Label>
+                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                  <SelectTrigger id="category">
+                    <SelectValue placeholder="All Categories" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">All Categories</SelectItem>
+                    {templateCategories.map(category => (
+                      <SelectItem key={category.id} value={category.id}>
+                        {category.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex-1">
+                <Label htmlFor="search">Search Templates</Label>
+                <div className="relative">
+                  <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    id="search"
+                    type="search"
+                    placeholder="Search..."
+                    className="pl-8"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              {filteredTemplates.map(template => (
+                <Card
+                  key={template.id}
+                  className={cn(
+                    "cursor-pointer hover:border-primary transition-colors",
+                    selectedTemplate === template.id ? "border-primary bg-primary/5" : ""
+                  )}
+                  onClick={() => handleTemplateSelect(template.id)}
+                >
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-base">{template.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="pb-2">
+                    <p className="text-sm text-muted-foreground line-clamp-2">
+                      {template.content.substring(0, 100)}...
+                    </p>
+                  </CardContent>
+                  <CardFooter>
+                    <div className="flex flex-wrap gap-1">
+                      {template.tags.map(tag => (
+                        <Badge key={tag} variant="outline" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  };
+
   // Render message composition section
   const renderMessageComposition = () => {
     return (
