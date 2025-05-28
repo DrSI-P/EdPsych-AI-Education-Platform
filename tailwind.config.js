@@ -10,6 +10,7 @@ module.exports = {
       current: 'currentColor',
       black: '#000000',
       white: '#ffffff',
+      background: '#ffffff',
       gray: {
         50: '#f9fafb',
         100: '#f3f4f6',
@@ -26,7 +27,6 @@ module.exports = {
     },
     extend: {
       colors: {
-        background: '#ffffff',
         border: '#e2e8f0', // Adding border color (Tailwind's slate-200)
         primary: {
           50: '#f0f9ff',
