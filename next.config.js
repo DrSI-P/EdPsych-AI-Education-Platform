@@ -4,7 +4,6 @@
  * @type {import('next').NextConfig}
  */
 const path = require('path');
-
 const nextConfig = {
   reactStrictMode: true,
   
@@ -57,7 +56,9 @@ const nextConfig = {
       // Add explicit aliases for problematic paths using plain string paths
       '@/lib/auth/auth-options': path.join(__dirname, 'src/lib/auth/auth-options'),
       '@/lib/db/prisma': path.join(__dirname, 'src/lib/db/prisma'),
-      '@/lib/ai/ai-service': path.join(__dirname, 'src/lib/ai/ai-service')
+      '@/lib/ai/ai-service': path.join(__dirname, 'src/lib/ai/ai-service'),
+      '@/components': path.join(__dirname, 'src/components'),
+      '@/components/ui': path.join(__dirname, 'src/components/ui')
     };
     
     return config;
