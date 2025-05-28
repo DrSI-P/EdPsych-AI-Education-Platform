@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import CurriculumDifferentiationEngine from '@/components/ai/curriculum-differentiation/curriculum-differentiation-engine';
 import { Button } from "@/components/ui/button";
@@ -8,12 +8,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Brain, BookOpen, Users, Sparkles, ArrowRight, CheckCircle2 } from "lucide-react";
 
-export default function CurriculumDifferentiationPage() {
+// Component that uses useSearchParams
+function CurriculumDifferentiationContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [curriculumPlan, setCurriculumPlan] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const planId = searchParams.get('planId');
+  const planId = searchParams?.get('planId') || null;
   
   useEffect(() => {
     if (planId) {
@@ -135,7 +136,7 @@ export default function CurriculumDifferentiationPage() {
               <CurriculumDifferentiationEngine 
                 curriculumPlanId={planId || undefined}
                 curriculumContent={curriculumPlan?.content || ''}
-                objectives={curriculumPlan?.objectives?.map((obj) => obj.description) || []}
+                objectives={curriculumPlan?.objectives?.map((obj: any) => obj.description) || []}
                 subject={curriculumPlan?.subject || ''}
                 keyStage={curriculumPlan?.keyStage || ''}
                 year={curriculumPlan?.year || ''}
@@ -217,5 +218,33 @@ export default function CurriculumDifferentiationPage() {
         </Tabs>
       </div>
     </div>
+  );
+}
+
+// Main page component with Suspense boundary
+export default function CurriculumDifferentiationPage() {
+  return (
+    <Suspense fallback={
+      <div className="container mx-auto py-8 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold mb-2">AI-Driven Curriculum Differentiation</h1>
+            <p className="text-muted-foreground">
+              Loading...
+            </p>
+          </div>
+          <Card className="mb-6">
+            <CardContent className="py-6">
+              <div className="flex flex-col items-center justify-center space-y-4">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                <p>Loading curriculum differentiation...</p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    }>
+      <CurriculumDifferentiationContent />
+    </Suspense>
   );
 }
