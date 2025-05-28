@@ -42,12 +42,12 @@ interface TaskOrganizerProps {
   className?: string;
 }
 
-export default function TaskOrganizer() : React.ReactNode {
+export default function TaskOrganizer({
   userId,
   initialTasks,
   onTasksChange,
   className
-}: TaskOrganizerProps) {
+}: TaskOrganizerProps): React.ReactNode {
   const [tasks, setTasks] = useState<Task[]>(initialTasks || []);
   const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
   const [newTask, setNewTask] = useState<Partial<Task>>({

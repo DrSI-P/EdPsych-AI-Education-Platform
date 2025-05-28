@@ -48,11 +48,11 @@ interface ExecutiveDysfunctionSupportProps {
   className?: string;
 }
 
-export default function ExecutiveDysfunctionSupport() : React.ReactNode {
+export default function ExecutiveDysfunctionSupport({
   userId,
   initialData,
   className
-}: ExecutiveDysfunctionSupportProps) {
+}: ExecutiveDysfunctionSupportProps): React.ReactNode {
   const [activeTab, setActiveTab] = useState('task-management');
   const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState<any>(null);

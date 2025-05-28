@@ -25,7 +25,7 @@ interface TeamMemberProps {
   specialties: any[];
 }
 
-export function TeamMember() : React.ReactNode {
+export function TeamMember({
   name,
   title,
   qualifications,
@@ -33,7 +33,7 @@ export function TeamMember() : React.ReactNode {
   imageSrc,
   socialLinks,
   specialties
-}: TeamMemberProps) {
+}: TeamMemberProps): React.ReactNode {
   return (
     <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg">
       <div className="relative h-64 w-full overflow-hidden">
