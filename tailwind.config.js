@@ -28,6 +28,8 @@ module.exports = {
       colors: {
         border: '#e2e8f0', // Adding border color (Tailwind's slate-200)
         background: '#ffffff',
+        // Add explicit background color for bg-background utility
+        'bg-background': '#ffffff',
         primary: {
           50: '#f0f9ff',
           100: '#e0f2fe',
