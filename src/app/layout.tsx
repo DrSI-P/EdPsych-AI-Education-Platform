@@ -1,9 +1,10 @@
 import '@/styles/globals.css';
+import '@/styles/enhanced-globals.css'; // Added enhanced-globals.css import
 import '@/styles/enhanced-brand.css';
 import '@/styles/brand.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeProvider } from '@/components/ui/theme-provider'; // Updated to use enhanced ThemeProvider
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/components/auth-provider';
 import { RootLayoutWrapper } from '@/components/root-layout-wrapper';
