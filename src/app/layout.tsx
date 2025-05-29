@@ -8,6 +8,8 @@ import { ThemeProvider } from '@/components/ui/theme-provider'; // Updated to us
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/components/auth-provider';
 import { RootLayoutWrapper } from '@/components/root-layout-wrapper';
+// Import the CSS loader to ensure CSS files are included in the build
+import '@/styles/ensure-css-loading';
 
 const inter = Inter({ subsets: ['latin'] });
 

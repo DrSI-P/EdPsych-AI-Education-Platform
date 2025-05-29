@@ -30,7 +30,7 @@ const nextConfig = {
   experimental: {
     // From complete-rebuild
     disableOptimizedLoading: true,
-    optimizeCss: false,
+    optimizeCss: true, // Changed to true to ensure CSS is properly processed
     // From build-optimization-fixes
     serverActions: {
       allowedOrigins: ['localhost:3000', 'edpsychconnect.com']
@@ -100,6 +100,29 @@ const nextConfig = {
         
         return entries;
       };
+    }
+    
+    // Ensure CSS files are properly processed and included
+    if (!isServer) {
+      // Make sure CSS files are processed by the CSS loader
+      const cssRule = config.module.rules.find(
+        rule => rule.test && rule.test.toString().includes('css')
+      );
+      
+      if (cssRule) {
+        // Ensure enhanced-globals.css is not excluded
+        if (cssRule.exclude) {
+          const originalExclude = cssRule.exclude;
+          cssRule.exclude = (path) => {
+            if (path.includes('enhanced-globals.css') || 
+                path.includes('enhanced-theme.ts') || 
+                path.includes('enhanced-tokens.ts')) {
+              return false;
+            }
+            return originalExclude(path);
+          };
+        }
+      }
     }
     
     return config;
