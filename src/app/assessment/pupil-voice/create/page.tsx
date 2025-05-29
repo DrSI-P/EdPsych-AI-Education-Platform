@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -18,7 +18,8 @@ interface QuestionType {
   order: number;
 }
 
-export default function CreatePupilVoiceSurveyPage() {
+// Component to handle search params with Suspense
+function CreatePupilVoiceSurveyContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const templateId = searchParams.get('template');
@@ -572,5 +573,18 @@ export default function CreatePupilVoiceSurveyPage() {
         {currentStep === 2 && renderStep2()}
       </div>
     </div>
+  );
+}
+
+// Main component with Suspense boundary
+export default function CreatePupilVoiceSurveyPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex justify-centre items-centre min-h-screen">
+        <Spinner size="lg" />
+      </div>
+    }>
+      <CreatePupilVoiceSurveyContent />
+    </Suspense>
   );
 }

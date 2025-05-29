@@ -23,8 +23,8 @@ const nextConfig = {
   // Optimize output for production
   output: 'standalone',
   
-  // Completely disable static generation
-  staticPageGenerationTimeout: 1, // Set a very short timeout to force dynamic rendering
+  // Increase static generation timeout to allow for complex pages
+  staticPageGenerationTimeout: 120, // 2 minutes timeout for static generation
   
   // Combine optimizations from both branches
   experimental: {

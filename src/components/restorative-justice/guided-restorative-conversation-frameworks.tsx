@@ -64,7 +64,21 @@ const GuidedRestorativeConversationFrameworks = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("frameworks");
-  const [selectedFramework, setSelectedFramework] = useState(null);
+  // Define framework type
+  type Framework = {
+    id: string;
+    title: string;
+    description: string;
+    ageGroup: string;
+    scenario: string;
+    steps: {
+      title: string;
+      description: string;
+      questions: string[];
+    }[];
+  };
+  
+  const [selectedFramework, setSelectedFramework] = useState<Framework | null>(null);
   const [customFramework, setCustomFramework] = useState({
     title: "",
     description: "",
@@ -442,9 +456,11 @@ const GuidedRestorativeConversationFrameworks = () => {
       try {
         // In a real implementation, this would fetch from an API
         // For now, we'll use localStorage as a placeholder
-        const saved = localStorage.getItem('savedRestorativeFrameworks');
-        if (saved) {
-          setSavedFrameworks(JSON.parse(saved));
+        if (typeof window !== 'undefined') {
+          const saved = localStorage.getItem('savedRestorativeFrameworks');
+          if (saved) {
+            setSavedFrameworks(JSON.parse(saved));
+          }
         }
       } catch (error) {
         console.error('Error loading saved frameworks:', error);
@@ -468,13 +484,13 @@ const GuidedRestorativeConversationFrameworks = () => {
   });
 
   // Handle framework selection
-  const handleSelectFramework = (framework) => {
+  const handleSelectFramework = (framework: Framework) => {
     setSelectedFramework(framework);
     setActiveTab("conversation");
   };
 
   // Handle custom framework changes
-  const handleCustomFrameworkChange = (field, value) => {
+  const handleCustomFrameworkChange = (field: string, value: string) => {
     setCustomFramework(prev => ({
       ...prev,
       [field]: value
@@ -482,7 +498,7 @@ const GuidedRestorativeConversationFrameworks = () => {
   };
 
   // Handle step changes in custom framework
-  const handleStepChange = (index, field, value) => {
+  const handleStepChange = (index: number, field: string, value: string) => {
     setCustomFramework(prev => {
       const updatedSteps = [...prev.steps];
       updatedSteps[index] = {
@@ -497,7 +513,7 @@ const GuidedRestorativeConversationFrameworks = () => {
   };
 
   // Handle question changes in custom framework
-  const handleQuestionChange = (stepIndex, questionIndex, value) => {
+  const handleQuestionChange = (stepIndex: number, questionIndex: number, value: string) => {
     setCustomFramework(prev => {
       const updatedSteps = [...prev.steps];
       const updatedQuestions = [...updatedSteps[stepIndex].questions];
@@ -522,7 +538,7 @@ const GuidedRestorativeConversationFrameworks = () => {
   };
 
   // Add a new question to a step
-  const addQuestion = (stepIndex) => {
+  const addQuestion = (stepIndex: number) => {
     setCustomFramework(prev => {
       const updatedSteps = [...prev.steps];
       updatedSteps[stepIndex] = {
@@ -537,7 +553,7 @@ const GuidedRestorativeConversationFrameworks = () => {
   };
 
   // Remove a step from custom framework
-  const removeStep = (index) => {
+  const removeStep = (index: number) => {
     setCustomFramework(prev => {
       const updatedSteps = [...prev.steps];
       updatedSteps.splice(index, 1);
@@ -549,7 +565,7 @@ const GuidedRestorativeConversationFrameworks = () => {
   };
 
   // Remove a question from a step
-  const removeQuestion = (stepIndex, questionIndex) => {
+  const removeQuestion = (stepIndex: number, questionIndex: number) => {
     setCustomFramework(prev => {
       const updatedSteps = [...prev.steps];
       const updatedQuestions = [...updatedSteps[stepIndex].questions];
@@ -580,7 +596,9 @@ const GuidedRestorativeConversationFrameworks = () => {
     setSavedFrameworks(prev => {
       const updated = [...prev, newFramework];
       // In a real implementation, this would save to an API
-      localStorage.setItem('savedRestorativeFrameworks', JSON.stringify(updated));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('savedRestorativeFrameworks', JSON.stringify(updated));
+      }
       return updated;
     });
 

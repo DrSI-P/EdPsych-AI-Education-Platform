@@ -1,14 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import MultiModalPresentationEngine from '@/components/ai/multi-modal-content/multi-modal-presentation-engine';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Sparkles, BookOpen, Layers, ArrowRight, CheckCircle2 } from "lucide-react";
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Spinner } from "@/components/ui/loading";
 
-export default function MultiModalContentPage() {
+// Component to handle search params with Suspense
+function MultiModalContentPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [content, setContent] = useState<any>(null);
@@ -172,5 +174,18 @@ export default function MultiModalContentPage() {
         </Tabs>
       </div>
     </div>
+  );
+}
+
+// Main component with Suspense boundary
+export default function MultiModalContentPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex justify-centre items-centre min-h-screen">
+        <Spinner size="lg" />
+      </div>
+    }>
+      <MultiModalContentPageContent />
+    </Suspense>
   );
 }

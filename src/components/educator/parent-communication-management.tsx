@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
-import { CalendarIcon, Search, Send, Clock, CheckCircle, AlertCircle, RefreshCw, Download, Upload, Plus, Trash2, Edit, MessageSquare, Users, Calendar as CalendarIcon2, BarChart2 } from "lucide-react";
+import { CalendarIcon, Search, Send, Clock, CheckCircle, AlertCircle, RefreshCw, Download, Upload, Plus, Trash2, Edit, MessageSquare, Users, BarChart2 } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
@@ -108,6 +108,79 @@ export function ParentCommunicationManagement() {
     }
   };
   
+  // Render template selection section
+  const renderTemplateSelection = () => {
+    return (
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle>Communication Templates</CardTitle>
+          <CardDescription>Select a template to start your message</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="flex flex-wrap gap-2 mb-4">
+              {templateCategories.map(category => (
+                <Badge
+                  key={category.id}
+                  variant={selectedCategory === category.id ? "default" : "outline"}
+                  className="cursor-pointer"
+                  onClick={() => setSelectedCategory(category.id === selectedCategory ? "" : category.id)}
+                >
+                  {category.name}
+                </Badge>
+              ))}
+            </div>
+            
+            <div className="relative mb-4">
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              <Input
+                type="search"
+                placeholder="Search templates..."
+                className="pl-8"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[400px] overflow-y-auto pr-2">
+              {filteredTemplates.map(template => (
+                <Card
+                  key={template.id}
+                  className={`cursor-pointer hover:border-primary transition-colors ${
+                    selectedTemplate === template.id ? 'border-primary bg-primary/5' : ''
+                  }`}
+                  onClick={() => handleTemplateSelect(template.id)}
+                >
+                  <CardHeader className="p-4 pb-2">
+                    <CardTitle className="text-base">{template.title}</CardTitle>
+                    <div className="flex flex-wrap gap-1 mt-1">
+                      {template.tags.map(tag => (
+                        <Badge key={tag} variant="secondary" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-4 pt-0">
+                    <p className="text-sm text-muted-foreground line-clamp-2">
+                      {template.content.substring(0, 100)}...
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+              
+              {filteredTemplates.length === 0 && (
+                <div className="col-span-2 text-centre py-8">
+                  <p className="text-muted-foreground">No templates found matching your criteria.</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  };
+
   // Render message composition section
   const renderMessageComposition = () => {
     return (

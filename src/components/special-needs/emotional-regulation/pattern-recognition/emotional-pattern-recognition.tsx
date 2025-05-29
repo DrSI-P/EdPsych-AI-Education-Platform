@@ -563,7 +563,7 @@ const EmotionalPatternRecognition = () => {
     const emotion = 
       basicEmotions.find(e => e.name === emotionName) || 
       advancedEmotions.find(e => e.name === emotionName);
-    return emotion ? emotion.colour : "#808080";
+    return emotion ? emotion.color : "#808080";
   };
   
   const getEmotionIcon = (emotionName) => {
@@ -907,8 +907,8 @@ const EmotionalPatternRecognition = () => {
                                   <Bar 
                                     key={emotion.name}
                                     dataKey={emotion.name} 
-                                    stackId="a" 
-                                    fill={emotion.colour} 
+                                    stackId="a"
+                                    fill={emotion.color}
                                     name={emotion.name}
                                   />
                                 )
@@ -1197,8 +1197,8 @@ const EmotionalPatternRecognition = () => {
                                   <Line 
                                     key={emotion.name}
                                     type="monotone" 
-                                    dataKey={emotion.name} 
-                                    stroke={emotion.colour} 
+                                    dataKey={emotion.name}
+                                    stroke={emotion.color}
                                     name={emotion.name}
                                     strokeWidth={2}
                                     dot={{ r: 3 }}

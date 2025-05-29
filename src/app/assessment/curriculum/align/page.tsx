@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -34,7 +34,8 @@ interface Assessment {
   };
 }
 
-export default function AlignAssessmentPage() {
+// Component to handle search params with Suspense
+function AlignAssessmentContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const standardId = searchParams.get('standard');
@@ -152,7 +153,7 @@ export default function AlignAssessmentPage() {
   if (loading) {
     return (
       <div className="flex justify-centre items-centre min-h-screen">
-        <Spinner size="large" />
+        <Spinner size="lg" />
       </div>
     );
   }
@@ -323,5 +324,18 @@ export default function AlignAssessmentPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Main component with Suspense boundary
+export default function AlignAssessmentPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex justify-centre items-centre min-h-screen">
+        <Spinner size="lg" />
+      </div>
+    }>
+      <AlignAssessmentContent />
+    </Suspense>
   );
 }

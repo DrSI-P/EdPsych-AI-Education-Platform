@@ -127,8 +127,11 @@ interface UserProgress {
 const StaffTrainingModules: React.FC = () => {
   const { data: session } = useSession();
   const router = useRouter();
-  const toast = useToast();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  
+  // Replace Chakra UI hooks with state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const onOpen = () => setIsModalOpen(true);
+  const onClose = () => setIsModalOpen(false);
   
   const [activeTab, setActiveTab] = useState(0);
   const [modules, setModules] = useState<Module[]>([]);
@@ -189,11 +192,8 @@ const StaffTrainingModules: React.FC = () => {
       } catch (error) {
         console.error('Error fetching data:', error);
         toast({
-          title: 'Error',
-          description: 'Failed to load training modules. Please try again.',
-          status: 'error',
-          duration: 5000,
-          isClosable: true,
+          title: "Error",
+          description: "Failed to load training modules. Please try again."
         });
       } finally {
         setIsLoading(false);
@@ -290,22 +290,16 @@ const StaffTrainingModules: React.FC = () => {
         } else {
           // Module completed
           toast({
-            title: 'Section completed',
-            description: 'You have completed this section.',
-            status: 'success',
-            duration: 3000,
-            isClosable: true,
+            title: "Section completed",
+            description: "You have completed this section."
           });
           
           // Check if entire module is completed
           const moduleProgress = data.completedSections.length / currentModule.sections.length;
           if (moduleProgress === 1) {
             toast({
-              title: 'Module completed',
-              description: 'Congratulations! You have completed this module.',
-              status: 'success',
-              duration: 5000,
-              isClosable: true,
+              title: "Module completed",
+              description: "Congratulations! You have completed this module."
             });
             
             setCertificateModule(currentModule);
@@ -316,11 +310,8 @@ const StaffTrainingModules: React.FC = () => {
     } catch (error) {
       console.error('Error completing section:', error);
       toast({
-        title: 'Error',
-        description: 'Failed to record progress. Please try again.',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
+        title: "Error",
+        description: "Failed to record progress. Please try again."
       });
     }
   };
@@ -395,22 +386,16 @@ const StaffTrainingModules: React.FC = () => {
       window.URL.revokeObjectURL(url);
       
       toast({
-        title: 'Certificate generated',
-        description: 'Your certificate has been generated and downloaded.',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
+        title: "Certificate generated",
+        description: "Your certificate has been generated and downloaded."
       });
       
       onClose();
     } catch (error) {
       console.error('Error generating certificate:', error);
       toast({
-        title: 'Error',
-        description: 'Failed to generate certificate. Please try again.',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
+        title: "Error",
+        description: "Failed to generate certificate. Please try again."
       });
     }
   };
@@ -428,56 +413,55 @@ const StaffTrainingModules: React.FC = () => {
   // Render module catalog
   const renderModuleCatalog = () => {
     return (
-      <Box>
-        <Heading as="h1" size="xl" mb={6}>Staff Training on Restorative Approaches</Heading>
-        <Text fontSize="lg" mb={8}>
-          Comprehensive professional development resources to support educators in effectively implementing 
-          restorative practices in their classrooms and schools. These evidence-based modules are designed 
+      <div>
+        <h1 className="text-3xl font-bold mb-6">Staff Training on Restorative Approaches</h1>
+        <p className="text-lg mb-8">
+          Comprehensive professional development resources to support educators in effectively implementing
+          restorative practices in their classrooms and schools. These evidence-based modules are designed
           to build knowledge, skills, and confidence in using restorative approaches.
-        </Text>
+        </p>
         
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {modules.map((module) => (
-            <Card key={module.id} variant="outline" borderRadius="lg" overflow="hidden" boxShadow="md">
-              <CardHeader bg="blue.50" pb={2}>
-                <Flex justify="space-between" align="centre">
-                  <Heading size="md">{module.title}</Heading>
-                  <Badge colorScheme={module.level === 'Beginner' ? 'green' : module.level === 'Intermediate' ? 'blue' : 'purple'}>
+            <Card key={module.id} className="overflow-hidden shadow-md">
+              <CardHeader className="bg-blue-50 pb-2">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-lg font-medium">{module.title}</h3>
+                  <Badge variant={module.level === 'Beginner' ? 'success' : module.level === 'Intermediate' ? 'info' : 'secondary'}>
                     {module.level}
                   </Badge>
-                </Flex>
+                </div>
               </CardHeader>
-              <CardBody>
-                <Text mb={4}>{module.description}</Text>
-                <Flex justify="space-between" align="centre" mb={4}>
-                  <Text fontSize="sm" colour="grey.600">
-                    <Icon as={FaChalkboardTeacher} mr={1} />
+              <CardContent>
+                <p className="mb-4">{module.description}</p>
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-sm text-gray-600">
+                    <FaChalkboardTeacher className="inline mr-1" />
                     {module.duration}
-                  </Text>
-                  <Text fontSize="sm" colour="grey.600">
-                    <Icon as={FaBookOpen} mr={1} />
+                  </span>
+                  <span className="text-sm text-gray-600">
+                    <FaBookOpen className="inline mr-1" />
                     {module.sections.length} sections
-                  </Text>
-                </Flex>
-                <Progress value={module.progress} colorScheme="blue" size="sm" mb={4} borderRadius="full" />
-                <Text fontSize="sm" textAlign="right" mb={2}>
+                  </span>
+                </div>
+                <Progress value={module.progress} className="mb-4 rounded-full" />
+                <p className="text-sm text-right mb-2">
                   {module.progress}% complete
-                </Text>
-              </CardBody>
-              <CardFooter pt={0}>
-                <Button 
-                  colorScheme="blue" 
-                  leftIcon={module.completed ? <FaCheck /> : <FaPlay />}
+                </p>
+              </CardContent>
+              <CardFooter className="pt-0">
+                <Button
                   onClick={() => handleModuleSelect(module)}
-                  width="full"
+                  className="w-full"
                 >
+                  {module.completed ? <FaCheck className="mr-2" /> : <FaPlay className="mr-2" />}
                   {module.completed ? 'Review Module' : module.progress > 0 ? 'Continue' : 'Start Module'}
                 </Button>
               </CardFooter>
             </Card>
           ))}
-        </SimpleGrid>
-      </Box>
+        </div>
+      </div>
     );
   };
 
@@ -486,175 +470,163 @@ const StaffTrainingModules: React.FC = () => {
     if (!currentModule || !currentSection) return null;
     
     return (
-      <Box>
-        <Flex justify="space-between" align="centre" mb={6}>
-          <Button leftIcon={<FaChalkboardTeacher />} onClick={handleBackToModules} variant="outline">
+      <div>
+        <div className="flex justify-between items-center mb-6">
+          <Button onClick={handleBackToModules} variant="outline">
+            <FaChalkboardTeacher className="mr-2" />
             Back to Modules
           </Button>
-          <Badge colorScheme={currentModule.level === 'Beginner' ? 'green' : currentModule.level === 'Intermediate' ? 'blue' : 'purple'} p={2}>
+          <Badge className="p-2" variant={currentModule.level === 'Beginner' ? 'success' : currentModule.level === 'Intermediate' ? 'info' : 'secondary'}>
             {currentModule.level} Level
           </Badge>
-        </Flex>
+        </div>
         
-        <Heading as="h1" size="xl" mb={2}>{currentModule.title}</Heading>
-        <Text fontSize="md" colour="grey.600" mb={6}>
+        <h1 className="text-3xl font-bold mb-2">{currentModule.title}</h1>
+        <p className="text-md text-gray-600 mb-6">
           {currentModule.duration} • {currentModule.sections.length} sections
-        </Text>
+        </p>
         
-        <Progress value={currentModule.progress} colorScheme="blue" size="md" mb={6} borderRadius="full" />
+        <Progress value={currentModule.progress} className="mb-6 rounded-full" />
         
-        <Flex mb={8}>
-          <Tabs orientation="vertical" variant="line" flex={1}>
-            <TabList minW="250px" borderRight="1px" borderColor="grey.200">
+        <div className="mb-8">
+          <Tabs>
+            <TabsList>
               {currentModule.sections.map((section, index) => {
-                const isCompleted = userProgress.some(p => 
-                  p.moduleId === currentModule.id && 
+                const isCompleted = userProgress.some(p =>
+                  p.moduleId === currentModule.id &&
                   p.completedSections.includes(section.id)
                 );
                 
                 return (
-                  <Tab 
-                    key={section.id} 
-                    justifyContent="flex-start" 
-                    py={4}
-                    _selected={{ color: 'blue.500', borderLeft: '4px solid', borderLeftColor: 'blue.500', bg: 'blue.50' }}
+                  <TabsTrigger
+                    key={section.id}
+                    value={section.id}
                     onClick={() => setCurrentSection(section)}
                   >
-                    <Flex align="centre" width="100%">
-                      <Box mr={3}>
+                    <div className="flex items-center">
+                      <div className="mr-3">
                         {isCompleted ? (
-                          <Icon as={FaCheck} colour="green.500" />
+                          <FaCheck className="text-green-500" />
                         ) : (
-                          <Box w={4} h={4} borderRadius="full" bg={index === 0 || userProgress.some(p => 
-                            p.moduleId === currentModule.id && 
+                          <div className={`w-4 h-4 rounded-full ${index === 0 || userProgress.some(p =>
+                            p.moduleId === currentModule.id &&
                             p.completedSections.includes(currentModule.sections[index-1]?.id)
-                          ) ? "blue.500" : "grey.300"} />
+                          ) ? "bg-blue-500" : "bg-gray-300"}`} />
                         )}
-                      </Box>
-                      <Box flex={1}>
-                        <Text fontSize="sm" fontWeight="medium" textAlign="left">{section.title}</Text>
-                        <Flex align="centre" mt={1}>
-                          {section.type === 'video' && <Icon as={FaVideo} colour="grey.500" mr={1} size="xs" />}
-                          {section.type === 'text' && <Icon as={FaFileAlt} colour="grey.500" mr={1} size="xs" />}
-                          {section.type === 'quiz' && <Icon as={FaQuestionCircle} colour="grey.500" mr={1} size="xs" />}
-                          {section.type === 'activity' && <Icon as={FaUserFriends} colour="grey.500" mr={1} size="xs" />}
-                          {section.type === 'reflection' && <Icon as={FaBookOpen} colour="grey.500" mr={1} size="xs" />}
-                          <Text fontSize="xs" colour="grey.500">{section.duration}</Text>
-                        </Flex>
-                      </Box>
-                    </Flex>
-                  </Tab>
+                      </div>
+                      <div className="flex-1">
+                        <span className="text-sm font-medium text-left">{section.title}</span>
+                        <div className="flex items-center mt-1">
+                          {section.type === 'video' && <FaVideo className="text-gray-500 mr-1" />}
+                          {section.type === 'text' && <FaFileAlt className="text-gray-500 mr-1" />}
+                          {section.type === 'quiz' && <FaQuestionCircle className="text-gray-500 mr-1" />}
+                          {section.type === 'activity' && <FaUserFriends className="text-gray-500 mr-1" />}
+                          {section.type === 'reflection' && <FaBookOpen className="text-gray-500 mr-1" />}
+                          <span className="text-xs text-gray-500">{section.duration}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </TabsTrigger>
                 );
               })}
-            </TabList>
+            </TabsList>
             
-            <TabPanels flex={3} pl={8}>
-              <TabPanel p={0}>
-                <Box>
-                  <Heading as="h2" size="lg" mb={4}>{currentSection.title}</Heading>
-                  
-                  {currentSection.type === 'video' && (
-                    <Box mb={6}>
-                      <Box 
-                        bg="grey.100" 
-                        borderRadius="md" 
-                        height="400px" 
-                        display="flex" 
-                        alignItems="centre" 
-                        justifyContent="centre"
-                        mb={4}
-                      >
-                        <Text>Video content would be embedded here</Text>
-                      </Box>
-                      <Text whiteSpace="pre-wrap">{currentSection.content}</Text>
-                    </Box>
-                  )}
-                  
-                  {currentSection.type === 'text' && (
-                    <Box mb={6}>
-                      <Text whiteSpace="pre-wrap">{currentSection.content}</Text>
-                    </Box>
-                  )}
-                  
-                  {currentSection.type === 'quiz' && (
-                    <Box mb={6}>
-                      {/* Quiz content would be rendered here */}
-                      <Text mb={4}>Quiz content would be rendered here based on the quiz data</Text>
-                    </Box>
-                  )}
-                  
-                  {currentSection.type === 'activity' && (
-                    <Box mb={6}>
-                      <Text whiteSpace="pre-wrap">{currentSection.content}</Text>
-                    </Box>
-                  )}
-                  
-                  {currentSection.type === 'reflection' && (
-                    <Box mb={6}>
-                      <Text whiteSpace="pre-wrap">{currentSection.content}</Text>
-                    </Box>
-                  )}
-                  
-                  <Flex justify="space-between" mt={8}>
-                    <Button 
-                      variant="outline" 
-                      isDisabled={currentModule.sections.indexOf(currentSection) === 0}
-                      onClick={() => {
-                        const currentIndex = currentModule.sections.indexOf(currentSection);
-                        if (currentIndex > 0) {
-                          setCurrentSection(currentModule.sections[currentIndex - 1]);
-                        }
-                      }}
+            <TabsContent value={currentSection.id}>
+              <div>
+                <h2 className="text-2xl font-bold mb-4">{currentSection.title}</h2>
+                
+                {currentSection.type === 'video' && (
+                  <div className="mb-6">
+                    <div
+                      className="bg-gray-100 rounded-md h-96 flex items-center justify-center mb-4"
                     >
-                      Previous
-                    </Button>
-                    
-                    <Button 
-                      colorScheme="blue" 
-                      onClick={() => handleSectionComplete(currentSection)}
-                    >
-                      {currentModule.sections.indexOf(currentSection) === currentModule.sections.length - 1 
-                        ? 'Complete Module' 
-                        : 'Mark as Complete'}
-                    </Button>
-                  </Flex>
-                </Box>
-              </TabPanel>
-            </TabPanels>
+                      <p>Video content would be embedded here</p>
+                    </div>
+                    <p className="whitespace-pre-wrap">{currentSection.content}</p>
+                  </div>
+                )}
+                
+                {currentSection.type === 'text' && (
+                  <div className="mb-6">
+                    <p className="whitespace-pre-wrap">{currentSection.content}</p>
+                  </div>
+                )}
+                
+                {currentSection.type === 'quiz' && (
+                  <div className="mb-6">
+                    <p className="mb-4">Quiz content would be rendered here based on the quiz data</p>
+                  </div>
+                )}
+                
+                {currentSection.type === 'activity' && (
+                  <div className="mb-6">
+                    <p className="whitespace-pre-wrap">{currentSection.content}</p>
+                  </div>
+                )}
+                
+                {currentSection.type === 'reflection' && (
+                  <div className="mb-6">
+                    <p className="whitespace-pre-wrap">{currentSection.content}</p>
+                  </div>
+                )}
+                
+                <div className="flex justify-between mt-8">
+                  <Button
+                    variant="outline"
+                    disabled={currentModule.sections.indexOf(currentSection) === 0}
+                    onClick={() => {
+                      const currentIndex = currentModule.sections.indexOf(currentSection);
+                      if (currentIndex > 0) {
+                        setCurrentSection(currentModule.sections[currentIndex - 1]);
+                      }
+                    }}
+                  >
+                    Previous
+                  </Button>
+                  
+                  <Button
+                    onClick={() => handleSectionComplete(currentSection)}
+                  >
+                    {currentModule.sections.indexOf(currentSection) === currentModule.sections.length - 1
+                      ? 'Complete Module'
+                      : 'Mark as Complete'}
+                  </Button>
+                </div>
+              </div>
+            </TabsContent>
           </Tabs>
-        </Flex>
+        </div>
         
-        <Divider my={8} />
+        <Separator className="my-8" />
         
-        <Box>
-          <Heading as="h3" size="md" mb={4}>Module Resources</Heading>
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4}>
+        <div>
+          <h3 className="text-xl font-medium mb-4">Module Resources</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {currentModule.resources.map((resource) => (
-              <Card key={resource.id} variant="outline">
-                <CardBody>
-                  <Flex align="centre" mb={2}>
-                    {resource.type === 'pdf' && <Icon as={FaFileAlt} colour="red.500" mr={2} />}
-                    {resource.type === 'video' && <Icon as={FaVideo} colour="blue.500" mr={2} />}
-                    {resource.type === 'link' && <Icon as={FaBookOpen} colour="green.500" mr={2} />}
-                    {resource.type === 'template' && <Icon as={FaClipboardCheck} colour="purple.500" mr={2} />}
-                    <Heading size="sm">{resource.title}</Heading>
-                  </Flex>
-                  <Text fontSize="sm" mb={3}>{resource.description}</Text>
-                  <Button 
-                    size="sm" 
-                    leftIcon={<FaDownload />} 
-                    colorScheme="blue" 
+              <Card key={resource.id}>
+                <CardContent className="pt-6">
+                  <div className="flex items-center mb-2">
+                    {resource.type === 'pdf' && <FaFileAlt className="text-red-500 mr-2" />}
+                    {resource.type === 'video' && <FaVideo className="text-blue-500 mr-2" />}
+                    {resource.type === 'link' && <FaBookOpen className="text-green-500 mr-2" />}
+                    {resource.type === 'template' && <FaClipboardCheck className="text-purple-500 mr-2" />}
+                    <h4 className="text-sm font-semibold">{resource.title}</h4>
+                  </div>
+                  <p className="text-sm mb-3">{resource.description}</p>
+                  <Button
+                    size="sm"
                     variant="outline"
                     onClick={() => window.open(resource.url, '_blank')}
                   >
+                    <FaDownload className="mr-2" />
                     Download
                   </Button>
-                </CardBody>
+                </CardContent>
               </Card>
             ))}
-          </SimpleGrid>
-        </Box>
-      </Box>
+          </div>
+        </div>
+      </div>
     );
   };
 
@@ -663,52 +635,53 @@ const StaffTrainingModules: React.FC = () => {
     if (!certificateModule) return null;
     
     return (
-      <Modal isOpen={isOpen} onClose={onClose} size="xl">
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Module Completion Certificate</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Box textAlign="centre" py={6}>
-              <Icon as={FaCertificate} w={24} h={24} colour="gold" mb={4} />
-              <Heading size="lg" mb={2}>Congratulations!</Heading>
-              <Text fontSize="lg" mb={6}>
-                You have successfully completed the module:
-              </Text>
-              <Heading size="md" mb={6} colour="blue.600">
-                {certificateModule.title}
-              </Heading>
-              <Text mb={8}>
-                Click the button below to generate your certificate of completion.
-              </Text>
-            </Box>
-          </ModalBody>
-          <ModalFooter>
-            <Button variant="outline" mr={3} onClick={onClose}>
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Module Completion Certificate</DialogTitle>
+            <DialogDescription>
+              <div className="text-center py-6">
+                <FaCertificate className="w-24 h-24 text-yellow-500 mx-auto mb-4" />
+                <h2 className="text-2xl font-bold mb-2">Congratulations!</h2>
+                <p className="text-lg mb-6">
+                  You have successfully completed the module:
+                </p>
+                <h3 className="text-xl font-semibold mb-6 text-blue-600">
+                  {certificateModule.title}
+                </h3>
+                <p className="mb-8">
+                  Click the button below to generate your certificate of completion.
+                </p>
+              </div>
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={onClose}>
               Close
             </Button>
-            <Button colorScheme="blue" leftIcon={<FaDownload />} onClick={handleGenerateCertificate}>
+            <Button onClick={handleGenerateCertificate}>
+              <FaDownload className="mr-2" />
               Generate Certificate
             </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     );
   };
 
   return (
-    <Box maxW="1200px" mx="auto" px={4} py={8}>
+    <div className="max-w-7xl mx-auto px-4 py-8">
       {isLoading ? (
-        <Flex justify="centre" align="centre" height="400px">
-          <Text>Loading training modules...</Text>
-        </Flex>
+        <div className="flex justify-center items-center h-96">
+          <p>Loading training modules...</p>
+        </div>
       ) : (
         <>
           {currentModule ? renderModuleContent() : renderModuleCatalog()}
           {renderCertificateModal()}
         </>
       )}
-    </Box>
+    </div>
   );
 };
 

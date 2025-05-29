@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import CurriculumDifferentiationEngine from '@/components/ai/curriculum-differentiation/curriculum-differentiation-engine';
 import { Button } from "@/components/ui/button";
@@ -8,12 +8,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Brain, BookOpen, Users, Sparkles, ArrowRight, CheckCircle2 } from "lucide-react";
 
-export default function CurriculumDifferentiationPage() {
+// Client component that uses useSearchParams
+function CurriculumDifferentiationContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [curriculumPlan, setCurriculumPlan] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const planId = searchParams.get('planId');
+  const planId = searchParams?.get('planId') || null;
   
   useEffect(() => {
     if (planId) {
@@ -21,6 +22,12 @@ export default function CurriculumDifferentiationPage() {
     }
   }, [planId]);
   
+  // Define the type for curriculum objectives
+  interface CurriculumObjective {
+    description: string;
+    [key: string]: any;
+  }
+
   const fetchCurriculumPlan = async (id: string) => {
     setIsLoading(true);
     try {
@@ -37,24 +44,8 @@ export default function CurriculumDifferentiationPage() {
   };
 
   return (
-    <div className="container mx-auto py-8 px-4">
-      <div className="max-w-5xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">AI-Driven Curriculum Differentiation</h1>
-          <p className="text-muted-foreground">
-            Automatically adapt curriculum content to meet diverse learning needs and styles
-          </p>
-        </div>
-        
-        <Tabs defaultValue="differentiate" className="mb-8">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="differentiate">Differentiate Curriculum</TabsTrigger>
-            <TabsTrigger value="about">About This Feature</TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="differentiate" className="pt-4">
-            <div className="space-y-8">
-              {planId && curriculumPlan ? (
+    <div className="space-y-8">
+      {planId && curriculumPlan ? (
                 <Card className="mb-6">
                   <CardHeader>
                     <CardTitle>Selected Curriculum Plan</CardTitle>
@@ -132,15 +123,49 @@ export default function CurriculumDifferentiationPage() {
                 </Card>
               )}
               
-              <CurriculumDifferentiationEngine 
-                curriculumPlanId={planId || undefined}
-                curriculumContent={curriculumPlan?.content || ''}
-                objectives={curriculumPlan?.objectives?.map((obj) => obj.description) || []}
-                subject={curriculumPlan?.subject || ''}
-                keyStage={curriculumPlan?.keyStage || ''}
-                year={curriculumPlan?.year || ''}
-              />
-            </div>
+     <CurriculumDifferentiationEngine
+       curriculumPlanId={planId || undefined}
+       curriculumContent={curriculumPlan?.content || ''}
+       objectives={curriculumPlan?.objectives?.map((obj: CurriculumObjective) => obj.description) || []}
+       subject={curriculumPlan?.subject || ''}
+       keyStage={curriculumPlan?.keyStage || ''}
+       year={curriculumPlan?.year || ''}
+     />
+    </div>
+  );
+}
+
+// Main page component with Suspense boundary
+export default function CurriculumDifferentiationPage() {
+  return (
+    <div className="container mx-auto py-8 px-4">
+      <div className="max-w-5xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold mb-2">AI-Driven Curriculum Differentiation</h1>
+          <p className="text-muted-foreground">
+            Automatically adapt curriculum content to meet diverse learning needs and styles
+          </p>
+        </div>
+        
+        <Tabs defaultValue="differentiate" className="mb-8">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="differentiate">Differentiate Curriculum</TabsTrigger>
+            <TabsTrigger value="about">About This Feature</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="differentiate" className="pt-4">
+            <Suspense fallback={
+              <Card className="mb-6">
+                <CardContent className="py-6">
+                  <div className="flex flex-col items-centre justify-centre space-y-4">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                    <p>Loading curriculum differentiation...</p>
+                  </div>
+                </CardContent>
+              </Card>
+            }>
+              <CurriculumDifferentiationContent />
+            </Suspense>
           </TabsContent>
           
           <TabsContent value="about" className="pt-4">

@@ -1,19 +1,72 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import ProgressPacingEngine from '@/components/ai/progress-pacing/progress-pacing-engine';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Users, ArrowRight, CheckCircle2, BarChart3 } from "lucide-react";
-import { useRouter, useSearchParams } from 'next/navigation';
+import { BookOpen, Users, CheckCircle2 } from "lucide-react";
+import { LoadingSpinner } from "@/components/ui/micro-interactions";
 
-export default function ProgressPacingPage() {
+// Content component that uses client-side features
+const ProgressPacingContent = () => {
+  
   const router = useRouter();
   const searchParams = useSearchParams();
   const studentId = searchParams.get('studentId');
   const curriculumId = searchParams.get('curriculumId');
+  
+  return (
+    <>
+      {!studentId && !curriculumId && (
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle>Select Student or Curriculum</CardTitle>
+            <CardDescription>
+              Choose a student or curriculum to adjust learning pace
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Button
+                variant="outline"
+                className="h-auto flex flex-col items-centre justify-centre p-6 gap-2"
+                onClick={() => router.push('/students')}
+              >
+                <Users className="h-10 w-10 text-primary mb-2" />
+                <span className="text-lg font-medium">Select Student</span>
+                <span className="text-sm text-muted-foreground text-centre">
+                  Adjust pacing based on individual student progress
+                </span>
+              </Button>
+              
+              <Button
+                variant="outline"
+                className="h-auto flex flex-col items-centre justify-centre p-6 gap-2"
+                onClick={() => router.push('/curriculum')}
+              >
+                <BookOpen className="h-10 w-10 text-primary mb-2" />
+                <span className="text-lg font-medium">Select Curriculum</span>
+                <span className="text-sm text-muted-foreground text-centre">
+                  Adjust pacing for a specific curriculum plan
+                </span>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+      
+      <ProgressPacingEngine
+        studentId={studentId || undefined}
+        curriculumId={curriculumId || undefined}
+      />
+    </>
+  );
+};
 
+// Main page component with Suspense boundary
+export default function ProgressPacingPage() {
   return (
     <div className="container mx-auto py-8 px-4">
       <div className="max-w-5xl mx-auto">
@@ -32,48 +85,13 @@ export default function ProgressPacingPage() {
           
           <TabsContent value="adjust" className="pt-4">
             <div className="space-y-8">
-              {!studentId && !curriculumId && (
-                <Card className="mb-6">
-                  <CardHeader>
-                    <CardTitle>Select Student or Curriculum</CardTitle>
-                    <CardDescription>
-                      Choose a student or curriculum to adjust learning pace
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <Button 
-                        variant="outline" 
-                        className="h-auto flex flex-col items-centre justify-centre p-6 gap-2"
-                        onClick={() => router.push('/students')}
-                      >
-                        <Users className="h-10 w-10 text-primary mb-2" />
-                        <span className="text-lg font-medium">Select Student</span>
-                        <span className="text-sm text-muted-foreground text-centre">
-                          Adjust pacing based on individual student progress
-                        </span>
-                      </Button>
-                      
-                      <Button 
-                        variant="outline" 
-                        className="h-auto flex flex-col items-centre justify-centre p-6 gap-2"
-                        onClick={() => router.push('/curriculum')}
-                      >
-                        <BookOpen className="h-10 w-10 text-primary mb-2" />
-                        <span className="text-lg font-medium">Select Curriculum</span>
-                        <span className="text-sm text-muted-foreground text-centre">
-                          Adjust pacing for a specific curriculum plan
-                        </span>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-              
-              <ProgressPacingEngine 
-                studentId={studentId || undefined}
-                curriculumId={curriculumId || undefined}
-              />
+              <Suspense fallback={
+                <div className="flex justify-center items-center min-h-[200px]">
+                  <LoadingSpinner size="lg" />
+                </div>
+              }>
+                <ProgressPacingContent />
+              </Suspense>
             </div>
           </TabsContent>
           

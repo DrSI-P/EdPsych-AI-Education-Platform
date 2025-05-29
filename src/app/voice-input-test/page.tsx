@@ -133,42 +133,44 @@ export default function VoiceInputTestPage() {
             <div>
               <h2 className="text-xl font-bold mb-4">Voice Input Component</h2>
               
-              <TabsContent value="universal" className="mt-0" forceMount={activeTab === 'universal'}>
-                {activeTab === 'universal' && (
-                  <UniversalVoiceInput 
-                    onTranscriptChange={handleTranscriptChange}
-                    onComplete={handleComplete}
-                    placeholder="Speak to test the universal voice input component..."
-                    mode="standard"
-                    showSettings={true}
-                    className="mb-4"
-                  />
-                )}
-              </TabsContent>
-              
-              <TabsContent value="assessment" className="mt-0" forceMount={activeTab === 'assessment'}>
-                {activeTab === 'assessment' && (
-                  <AssessmentVoiceInput 
-                    onTranscriptChange={handleTranscriptChange}
-                    onComplete={handleComplete}
-                    placeholder="Speak to test the assessment voice input component..."
-                    questionType={questionType as 'multiple-choice' | 'short-answer' | 'essay'}
-                    className="mb-4"
-                  />
-                )}
-              </TabsContent>
-              
-              <TabsContent value="adaptive" className="mt-0" forceMount={activeTab === 'adaptive'}>
-                {activeTab === 'adaptive' && (
-                  <AdaptiveComplexityVoiceInput 
-                    onTranscriptChange={handleTranscriptChange}
-                    onComplete={handleComplete}
-                    placeholder="Speak to test the adaptive complexity voice input component..."
-                    complexityLevel={complexityLevel as 'beginner' | 'intermediate' | 'advanced' | 'expert'}
-                    className="mb-4"
-                  />
-                )}
-              </TabsContent>
+              <Tabs value={activeTab} onValueChange={setActiveTab}>
+                <TabsContent value="universal" className="mt-0">
+                  {activeTab === 'universal' && (
+                    <UniversalVoiceInput
+                      onTranscriptChange={handleTranscriptChange}
+                      onComplete={handleComplete}
+                      placeholder="Speak to test the universal voice input component..."
+                      mode="standard"
+                      showSettings={true}
+                      className="mb-4"
+                    />
+                  )}
+                </TabsContent>
+                
+                <TabsContent value="assessment" className="mt-0">
+                  {activeTab === 'assessment' && (
+                    <AssessmentVoiceInput
+                      onTranscriptChange={handleTranscriptChange}
+                      onComplete={handleComplete}
+                      placeholder="Speak to test the assessment voice input component..."
+                      questionType={questionType as 'multiple-choice' | 'short-answer' | 'essay'}
+                      className="mb-4"
+                    />
+                  )}
+                </TabsContent>
+                
+                <TabsContent value="adaptive" className="mt-0">
+                  {activeTab === 'adaptive' && (
+                    <AdaptiveComplexityVoiceInput
+                      onTranscriptChange={handleTranscriptChange}
+                      onComplete={handleComplete}
+                      placeholder="Speak to test the adaptive complexity voice input component..."
+                      complexityLevel={complexityLevel as 'beginner' | 'intermediate' | 'advanced' | 'expert'}
+                      className="mb-4"
+                    />
+                  )}
+                </TabsContent>
+              </Tabs>
               
               <Card className="mt-4">
                 <CardHeader>
