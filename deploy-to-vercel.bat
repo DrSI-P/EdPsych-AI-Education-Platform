@@ -26,14 +26,14 @@ echo Changes committed successfully
 echo.
 
 REM Step 3: Push to GitHub
-echo Step 3: Pushing to GitHub (complete-rebuild branch)...
-git push origin complete-rebuild
+echo Step 3: Pushing to GitHub (clean-unified-branch branch)...
+git push origin clean-unified-branch
 if %ERRORLEVEL% neq 0 (
   echo Error: Failed to push to GitHub
   echo You may need to pull changes first or force push:
-  echo git pull origin complete-rebuild --rebase
+  echo git pull origin clean-unified-branch --rebase
   echo or
-  echo git push origin complete-rebuild --force
+  echo git push origin clean-unified-branch --force
   exit /b 1
 )
 echo Changes pushed to GitHub successfully
@@ -45,7 +45,7 @@ echo 1. Go to the Vercel dashboard: https://vercel.com/dashboard
 echo 2. Select your project: EdPsych-AI-Education-Platform
 echo 3. Click on 'Deployments' tab
 echo 4. Click 'Create New Deployment'
-echo 5. Select the 'complete-rebuild' branch
+echo 5. Select the 'clean-unified-branch' branch
 echo 6. Verify environment variables match .env.production
 echo 7. Click 'Deploy'
 echo.
