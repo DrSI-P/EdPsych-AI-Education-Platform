@@ -4,6 +4,13 @@ import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import MainNavigation from '../src/components/ui/MainNavigation';
 import Footer from '../src/components/layout/Footer';
+import dynamic from 'next/dynamic';
+
+// Import AI Avatar component with SSR disabled
+const AIAvatarWrapper = dynamic(
+  () => import('../src/components/ai-avatar/ai-avatar-wrapper'),
+  { ssr: false }
+);
 
 /**
  * Enhanced homepage for EdPsych Connect using Pages Router approach
@@ -38,6 +45,11 @@ export default function Home() {
       <MainNavigation />
       
       <div className="container mx-auto px-4 py-8 flex-grow">
+        {/* AI Avatar Navigation Assistant */}
+        <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800 animate-fade-in">
+          <AIAvatarWrapper />
+        </div>
+        
         <header className="mb-12 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gradient mb-4">EdPsych Connect</h1>
           <p className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-300">
