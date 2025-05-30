@@ -110,7 +110,7 @@
 /* Base Styles */
 @layer base {
   * {
-    @apply border-gray-200;
+    @apply border-border;
   }
   
   html {
@@ -118,7 +118,7 @@
   }
   
   body {
-    @apply bg-background text-foreground;
+    @apply bg-neutral-50 text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
   
@@ -161,7 +161,7 @@
 @layer components {
   /* Cards */
   .card {
-    @apply rounded-lg border bg-card text-card-foreground shadow-sm;
+    @apply rounded-lg border bg-white text-card-foreground shadow-sm;
   }
   
   /* Age-specific UI Components */
@@ -242,7 +242,7 @@
   }
   
   .achievement-badge-inner {
-    @apply rounded-full bg-background p-2;
+    @apply rounded-full bg-white p-2;
   }
   
   /* Navigation */
@@ -268,7 +268,7 @@
   }
   
   .btn-outline {
-    @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md px-4 py-2 font-medium;
+    @apply border border-input bg-white hover:bg-accent hover:text-accent-foreground rounded-md px-4 py-2 font-medium;
   }
   
   .btn-ghost {
