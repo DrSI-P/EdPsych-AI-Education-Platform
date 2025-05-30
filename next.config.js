@@ -6,7 +6,7 @@ const path = require('path');
 // All polyfills are now loaded from the dedicated polyfill files
 require('./src/globalPolyfills');
 require('./src/polyfills');
-// Simplified configuration for Pages Router compatibility
+// Explicitly configured for Pages Router only
 const nextConfig = {
   reactStrictMode: true,
   
@@ -27,7 +27,9 @@ const nextConfig = {
       'react-icons',
       '@radix-ui/react-icons',
       'framer-motion'
-    ]
+    ],
+    // EXPLICITLY DISABLE APP ROUTER
+    appDir: false
   },
   
   // Disable ESLint during build to prevent build failures
