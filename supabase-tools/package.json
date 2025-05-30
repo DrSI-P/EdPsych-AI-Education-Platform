@@ -1,0 +1,27 @@
+{
+  "name": "edpsych-supabase-tools",
+  "version": "1.0.0",
+  "description": "Tools for resetting and configuring Supabase for EdPsych Connect Platform",
+  "main": "index.js",
+  "scripts": {
+    "update-env": "node update_supabase_env.js",
+    "verify": "node verify_supabase_reset.js",
+    "setup": "node setup_supabase.js",
+    "manual-verify": "node manual_verify.js",
+    "check-connection": "node check_connection.js",
+    "help": "echo 'Available commands:\\n  npm run update-env -- <supabase_url> <supabase_anon_key>\\n  npm run verify -- <supabase_url> <supabase_anon_key>\\n  npm run setup -- <supabase_url> <supabase_anon_key>\\n  npm run manual-verify -- <supabase_url> <supabase_anon_key>\\n  npm run check-connection -- <supabase_url>'"
+  },
+  "keywords": [
+    "supabase",
+    "edpsych",
+    "database",
+    "reset",
+    "configuration"
+  ],
+  "author": "EdPsych Connect Team",
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "node-fetch": "^2.6.7"
+  }
+}
