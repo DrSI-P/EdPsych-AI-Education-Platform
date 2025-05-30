@@ -20,7 +20,7 @@ const nextConfig = {
   experimental: {
     // From complete-rebuild
     disableOptimizedLoading: true,
-    optimizeCss: true, // Ensure CSS is properly processed
+    optimizeCss: false, // Disable CSS optimization to prevent style removal
     // Remove App Router specific features
     optimizePackageImports: [
       'lucide-react',
