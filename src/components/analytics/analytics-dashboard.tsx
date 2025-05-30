@@ -1,639 +1,579 @@
-'use client';
-
 import React, { useState, useEffect } from 'react';
-import { 
-  DashboardConfig, 
-  WidgetConfig,
-  AnalyticsFilter,
-  TimePeriod,
-  DataGranularity,
-  ExportFormat
-} from '@/lib/analytics/types';
-import { getAnalyticsService } from '@/lib/analytics/analyticsService';
-import DashboardWidget from './dashboard-widget';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
-} from '@/components/ui/select';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { Calendar } from '@/components/ui/calendar';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  Plus, 
-  Download, 
-  Filter, 
-  Save, 
-  Share2, 
-  Calendar as CalendarIcon,
-  Loader2
-} from 'lucide-react';
-import { format } from 'date-fns';
-import { cn } from '@/lib/utils';
-import { useToast } from '@/components/ui/use-toast';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { BarChart, PieChart, LineChart, Calendar, Download, Filter } from 'lucide-react';
 
-interface AnalyticsDashboardProps {
-  initialDashboardId?: string;
-}
-
-export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
-  initialDashboardId
-}) => {
+/**
+ * Analytics dashboard component for EdPsych Connect
+ * Provides data visualization and reporting for user activity and learning progress
+ */
+const AnalyticsDashboard = () => {
+  const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState(true);
-  const [dashboards, setDashboards] = useState<DashboardConfig[]>([]);
-  const [currentDashboard, setCurrentDashboard] = useState<DashboardConfig | null>(null);
-  const [filter, setFilter] = useState<AnalyticsFilter>({
-    timePeriod: TimePeriod.MONTH,
-    granularity: DataGranularity.DAILY
-  });
-  const [dateRange, setDateRange] = useState<{
-    from: Date;
-    to: Date;
-  }>({
-    from: undefined,
-    to: undefined
-  });
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [isExporting, setIsExporting] = useState(false);
+  const [timeRange, setTimeRange] = useState('week');
+  const [analyticsData, setAnalyticsData] = useState(null);
+  const [activeTab, setActiveTab] = useState('overview');
+  const [errorMessage, setErrorMessage] = useState('');
   
-  const { toast } = useToast();
-  const analyticsService = getAnalyticsService();
+  // Check if user has appropriate permissions
+  const hasPermission = session?.user?.role === 'educator' || session?.user?.role === 'admin' || session?.user?.role === 'professional';
   
-  // Load available dashboards
+  // Fetch analytics data
   useEffect(() => {
-    const loadDashboards = async () => {
+    const fetchAnalyticsData = async () => {
+      if (!session?.user?.email) return;
+      
       try {
-        setIsLoading(true);
-        const availableDashboards = await analyticsService.getAvailableDashboards();
-        setDashboards(availableDashboards);
-        
-        // Load initial dashboard
-        if (initialDashboardId) {
-          const dashboard = availableDashboards.find(d => d.id === initialDashboardId);
-          if (dashboard) {
-            setCurrentDashboard(dashboard);
-          } else if (availableDashboards.length > 0) {
-            setCurrentDashboard(availableDashboards[0]);
+        // In a real implementation, this would fetch from an API
+        // For now, we'll use mock data
+        const mockData = {
+          overview: {
+            totalUsers: 256,
+            activeUsers: 187,
+            averageEngagementTime: 45, // minutes
+            completionRate: 73, // percentage
+            userGrowth: 12 // percentage
+          },
+          engagement: {
+            dailyActiveUsers: [42, 45, 50, 47, 52, 58, 60],
+            weeklyActiveUsers: [180, 185, 190, 187, 195, 205, 210],
+            averageSessionDuration: [38, 40, 42, 39, 44, 45, 45],
+            pageViews: [1250, 1300, 1280, 1350, 1400, 1450, 1500]
+          },
+          learning: {
+            assignmentsCompleted: 1245,
+            averageScore: 82, // percentage
+            skillsImproved: 18,
+            learningPathProgress: 67, // percentage
+            topPerformingAreas: [
+              { name: 'Reading Comprehension', score: 88 },
+              { name: 'Mathematical Reasoning', score: 85 },
+              { name: 'Scientific Inquiry', score: 82 },
+              { name: 'Critical Thinking', score: 80 },
+              { name: 'Creative Expression', score: 78 }
+            ]
+          },
+          demographics: {
+            ageGroups: [
+              { name: '5-7', value: 15 },
+              { name: '8-11', value: 25 },
+              { name: '12-14', value: 30 },
+              { name: '15-16', value: 20 },
+              { name: '17-18', value: 10 }
+            ],
+            learningStyles: [
+              { name: 'Visual', value: 40 },
+              { name: 'Auditory', value: 25 },
+              { name: 'Kinesthetic', value: 20 },
+              { name: 'Reading/Writing', value: 15 }
+            ],
+            specialNeeds: {
+              total: 45,
+              categories: [
+                { name: 'Dyslexia', value: 15 },
+                { name: 'ADHD', value: 12 },
+                { name: 'Autism Spectrum', value: 8 },
+                { name: 'Other', value: 10 }
+              ]
+            }
           }
-        } else if (availableDashboards.length > 0) {
-          setCurrentDashboard(availableDashboards[0]);
-        }
+        };
+        
+        setAnalyticsData(mockData);
       } catch (error) {
-        console.error('Failed to load dashboards:', error);
-        toast({
-          variant: "destructive",
-          title: "Failed to load dashboards",
-          description: "There was a problem loading your dashboards. Please try again."
-        });
+        setErrorMessage('Failed to load analytics data');
+        console.error('Error fetching analytics:', error);
       } finally {
         setIsLoading(false);
       }
     };
     
-    loadDashboards();
-  }, [initialDashboardId]);
+    fetchAnalyticsData();
+  }, [session, timeRange]);
   
-  // Handle dashboard change
-  const handleDashboardChange = async (dashboardId: string) => {
-    try {
-      setIsLoading(true);
-      const dashboard = await analyticsService.getDashboardConfig(dashboardId);
-      setCurrentDashboard(dashboard);
-      
-      // Update filter with dashboard defaults
-      if (dashboard.defaultTimePeriod || dashboard.defaultGranularity) {
-        setFilter(prev => ({
-          ...prev,
-          timePeriod: dashboard.defaultTimePeriod || prev.timePeriod,
-          granularity: dashboard.defaultGranularity || prev.granularity
-        }));
-      }
-    } catch (error) {
-      console.error('Failed to load dashboard:', error);
-      toast({
-        variant: "destructive",
-        title: "Failed to load dashboard",
-        description: "There was a problem loading the selected dashboard. Please try again."
-      });
-    } finally {
-      setIsLoading(false);
-    }
+  // Format number with commas
+  const formatNumber = (num) => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
   
-  // Handle time period change
-  const handleTimePeriodChange = (period: TimePeriod) => {
-    setFilter(prev => ({
-      ...prev,
-      timePeriod: period
-    }));
-    
-    // Reset custom date range if not custom
-    if (period !== TimePeriod.CUSTOM) {
-      setDateRange({
-        from: undefined,
-        to: undefined
-      });
-    }
-  };
-  
-  // Handle date range change
-  const handleDateRangeChange = (range: { from: Date; to: Date }) => {
-    setDateRange(range);
-    
-    if (range.from && range.to) {
-      setFilter(prev => ({
-        ...prev,
-        timePeriod: TimePeriod.CUSTOM,
-        startDate: range.from,
-        endDate: range.to
-      }));
-    }
-  };
-  
-  // Handle widget refresh
-  const handleWidgetRefresh = async (widgetId: string) => {
-    // In a real implementation, this would refresh the specific widget data
-    toast({
-      title: "Refreshing widget",
-      description: "Widget data is being updated."
-    });
-  };
-  
-  // Handle dashboard export
-  const handleExport = async (format: ExportFormat) => {
-    if (!currentDashboard) return;
-    
-    try {
-      setIsExporting(true);
-      
-      const exportConfig = {
-        format,
-        includeFilters: true,
-        includeSummary: true,
-        fileName: `${currentDashboard.title.replace(/\s+/g, '_')}_${format}`
-      };
-      
-      const result = await analyticsService.exportDashboard(currentDashboard.id, exportConfig);
-      
-      // Handle the exported data based on format
-      if (format === ExportFormat.PDF || format === ExportFormat.EXCEL || format === ExportFormat.CSV || format === ExportFormat.IMAGE) {
-        // Create a download link for blob data
-        const blob = result as Blob;
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${exportConfig.fileName}.${format.toLowerCase()}`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      } else if (format === ExportFormat.JSON) {
-        // Create a download link for JSON data
-        const jsonString = result as string;
-        const blob = new Blob([jsonString], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${exportConfig.fileName}.json`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      }
-      
-      toast({
-        title: "Export successful",
-        description: `Dashboard exported as ${format}.`
-      });
-    } catch (error) {
-      console.error('Failed to export dashboard:', error);
-      toast({
-        variant: "destructive",
-        title: "Export failed",
-        description: "There was a problem exporting the dashboard. Please try again."
-      });
-    } finally {
-      setIsExporting(false);
-    }
-  };
-  
-  // Render time period selector
-  const renderTimePeriodSelector = () => {
+  // If user doesn't have permission, show unauthorized message
+  if (!isLoading && !hasPermission) {
     return (
-      <div className="flex items-centre space-x-2">
-        <Select
-          value={filter.timePeriod}
-          onValueChange={(value) => handleTimePeriodChange(value as TimePeriod)}
-        >
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Select time period" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value={TimePeriod.DAY}>Today</SelectItem>
-            <SelectItem value={TimePeriod.WEEK}>This Week</SelectItem>
-            <SelectItem value={TimePeriod.MONTH}>This Month</SelectItem>
-            <SelectItem value={TimePeriod.TERM}>This Term</SelectItem>
-            <SelectItem value={TimePeriod.ACADEMIC_YEAR}>This Academic Year</SelectItem>
-            <SelectItem value={TimePeriod.CUSTOM}>Custom Range</SelectItem>
-          </SelectContent>
-        </Select>
-        
-        {filter.timePeriod === TimePeriod.CUSTOM && (
-          <div className="flex items-centre space-x-2">
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  className={cn(
-                    "w-[240px] justify-start text-left font-normal",
-                    !dateRange.from && "text-muted-foreground"
-                  )}
-                >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  {dateRange.from ? (
-                    dateRange.to ? (
-                      <>
-                        {format(dateRange.from, "PPP")} - {format(dateRange.to, "PPP")}
-                      </>
-                    ) : (
-                      format(dateRange.from, "PPP")
-                    )
-                  ) : (
-                    <span>Pick a date range</span>
-                  )}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
-                <Calendar
-                  mode="range"
-                  selected={dateRange}
-                  onSelect={handleDateRangeChange}
-                  initialFocus
-                />
-              </PopoverContent>
-            </Popover>
-          </div>
-        )}
-      </div>
-    );
-  };
-  
-  // Render granularity selector
-  const renderGranularitySelector = () => {
-    return (
-      <div className="flex items-centre space-x-2">
-        <Label htmlFor="granularity" className="mr-2">Granularity:</Label>
-        <Select
-          value={filter.granularity}
-          onValueChange={(value) => setFilter(prev => ({ ...prev, granularity: value as DataGranularity }))}
-        >
-          <SelectTrigger id="granularity" className="w-[150px]">
-            <SelectValue placeholder="Select granularity" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value={DataGranularity.HOURLY}>Hourly</SelectItem>
-            <SelectItem value={DataGranularity.DAILY}>Daily</SelectItem>
-            <SelectItem value={DataGranularity.WEEKLY}>Weekly</SelectItem>
-            <SelectItem value={DataGranularity.MONTHLY}>Monthly</SelectItem>
-            <SelectItem value={DataGranularity.TERMLY}>Termly</SelectItem>
-            <SelectItem value={DataGranularity.YEARLY}>Yearly</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-    );
-  };
-  
-  // Render filter panel
-  const renderFilterPanel = () => {
-    return (
-      <Popover open={isFilterOpen} onOpenChange={setIsFilterOpen}>
-        <PopoverTrigger asChild>
-          <Button variant="outline" className="ml-2">
-            <Filter className="h-4 w-4 mr-2" />
-            Filters
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-80">
-          <div className="space-y-4">
-            <h4 className="font-medium">Filter Options</h4>
-            
-            <div className="space-y-2">
-              <Label htmlFor="subjects">Subjects</Label>
-              <Select>
-                <SelectTrigger id="subjects">
-                  <SelectValue placeholder="All Subjects" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="english">English</SelectItem>
-                  <SelectItem value="maths">Mathematics</SelectItem>
-                  <SelectItem value="science">Science</SelectItem>
-                  <SelectItem value="history">History</SelectItem>
-                  <SelectItem value="geography">Geography</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="keyStages">Key Stages</Label>
-              <Select>
-                <SelectTrigger id="keyStages">
-                  <SelectValue placeholder="All Key Stages" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="early_years">Early Years</SelectItem>
-                  <SelectItem value="ks1">Key Stage 1</SelectItem>
-                  <SelectItem value="ks2">Key Stage 2</SelectItem>
-                  <SelectItem value="ks3">Key Stage 3</SelectItem>
-                  <SelectItem value="ks4">Key Stage 4</SelectItem>
-                  <SelectItem value="ks5">Key Stage 5</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="yearGroups">Year Groups</Label>
-              <Select>
-                <SelectTrigger id="yearGroups">
-                  <SelectValue placeholder="All Year Groups" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="reception">Reception</SelectItem>
-                  <SelectItem value="year1">Year 1</SelectItem>
-                  <SelectItem value="year2">Year 2</SelectItem>
-                  <SelectItem value="year3">Year 3</SelectItem>
-                  <SelectItem value="year4">Year 4</SelectItem>
-                  <SelectItem value="year5">Year 5</SelectItem>
-                  <SelectItem value="year6">Year 6</SelectItem>
-                  <SelectItem value="year7">Year 7</SelectItem>
-                  <SelectItem value="year8">Year 8</SelectItem>
-                  <SelectItem value="year9">Year 9</SelectItem>
-                  <SelectItem value="year10">Year 10</SelectItem>
-                  <SelectItem value="year11">Year 11</SelectItem>
-                  <SelectItem value="year12">Year 12</SelectItem>
-                  <SelectItem value="year13">Year 13</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="specialNeeds">Special Educational Needs</Label>
-              <Select>
-                <SelectTrigger id="specialNeeds">
-                  <SelectValue placeholder="All SEN Categories" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="dyslexia">Dyslexia</SelectItem>
-                  <SelectItem value="dyspraxia">Dyspraxia</SelectItem>
-                  <SelectItem value="asd">ASD</SelectItem>
-                  <SelectItem value="adhd">ADHD</SelectItem>
-                  <SelectItem value="anxiety">Anxiety</SelectItem>
-                  <SelectItem value="ebsna">EBSNA</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div className="flex justify-end space-x-2">
-              <Button variant="outline" onClick={() => setIsFilterOpen(false)}>
-                Cancel
-              </Button>
-              <Button onClick={() => {
-                toast({
-                  title: "Filters applied",
-                  description: "Dashboard data has been updated with your filters."
-                });
-                setIsFilterOpen(false);
-              }}>
-                Apply Filters
-              </Button>
-            </div>
-          </div>
-        </PopoverContent>
-      </Popover>
-    );
-  };
-  
-  // Render dashboard selector
-  const renderDashboardSelector = () => {
-    return (
-      <div className="flex items-centre space-x-2">
-        <Select
-          value={currentDashboard?.id}
-          onValueChange={handleDashboardChange}
-          disabled={isLoading || dashboards.length === 0}
-        >
-          <SelectTrigger className="w-[250px]">
-            <SelectValue placeholder="Select dashboard" />
-          </SelectTrigger>
-          <SelectContent>
-            {dashboards.map((dashboard) => (
-              <SelectItem key={dashboard.id} value={dashboard.id}>
-                {dashboard.title}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        
-        <Button variant="outline" size="icon">
-          <Plus className="h-4 w-4" />
-        </Button>
-      </div>
-    );
-  };
-  
-  // Render export options
-  const renderExportOptions = () => {
-    return (
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button variant="outline" disabled={isExporting || !currentDashboard}>
-            <Download className="h-4 w-4 mr-2" />
-            {isExporting ? (
-              <>
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                Exporting...
-              </>
-            ) : (
-              'Export'
-            )}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-56">
-          <div className="space-y-1">
-            <Button 
-              variant="ghost" 
-              className="w-full justify-start" 
-              onClick={() => handleExport(ExportFormat.PDF)}
-            >
-              PDF Document
-            </Button>
-            <Button 
-              variant="ghost" 
-              className="w-full justify-start" 
-              onClick={() => handleExport(ExportFormat.EXCEL)}
-            >
-              Excel Spreadsheet
-            </Button>
-            <Button 
-              variant="ghost" 
-              className="w-full justify-start" 
-              onClick={() => handleExport(ExportFormat.CSV)}
-            >
-              CSV File
-            </Button>
-            <Button 
-              variant="ghost" 
-              className="w-full justify-start" 
-              onClick={() => handleExport(ExportFormat.IMAGE)}
-            >
-              Image (PNG)
-            </Button>
-            <Button 
-              variant="ghost" 
-              className="w-full justify-start" 
-              onClick={() => handleExport(ExportFormat.JSON)}
-            >
-              JSON Data
-            </Button>
-          </div>
-        </PopoverContent>
-      </Popover>
-    );
-  };
-  
-  // Render dashboard content
-  const renderDashboardContent = () => {
-    if (isLoading) {
-      return (
-        <div className="flex items-centre justify-centre h-64">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          <span className="ml-2">Loading dashboard...</span>
+      <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-md p-6">
+        <div className="flex items-center justify-center text-red-500 mb-4">
+          <BarChart className="h-12 w-12" />
         </div>
-      );
-    }
-    
-    if (!currentDashboard) {
-      return (
-        <div className="flex flex-col items-centre justify-centre h-64">
-          <p className="text-muted-foreground mb-4">No dashboard selected or available.</p>
-          <Button>
-            <Plus className="h-4 w-4 mr-2" />
-            Create Dashboard
-          </Button>
+        <h2 className="text-2xl font-bold text-center text-gray-900 dark:text-white mb-2">
+          Analytics Access Restricted
+        </h2>
+        <p className="text-center text-gray-600 dark:text-gray-400 mb-4">
+          You do not have permission to access the analytics dashboard.
+        </p>
+        <div className="flex justify-center">
+          <Link href="/dashboard">
+            <span className="px-4 py-2 bg-primary text-white rounded-md text-sm font-medium hover:bg-primary/90">
+              Return to Dashboard
+            </span>
+          </Link>
         </div>
-      );
-    }
-    
-    return (
-      <div className="grid grid-cols-4 gap-4">
-        {currentDashboard.widgets.map((widget) => (
-          <DashboardWidget
-            key={widget.id}
-            widget={widget}
-            isLoading={isLoading}
-            onRefresh={() => handleWidgetRefresh(widget.id)}
-            onEdit={() => {
-              toast({
-                title: "Edit widget",
-                description: "Widget editing functionality will be implemented in a future update."
-              });
-            }}
-            onDelete={() => {
-              toast({
-                title: "Delete widget",
-                description: "Widget deletion functionality will be implemented in a future update."
-              });
-            }}
-            onExport={() => {
-              toast({
-                title: "Export widget",
-                description: "Widget export functionality will be implemented in a future update."
-              });
-            }}
-            onMaximize={() => {
-              // Handle widget maximization
-            }}
-          />
-        ))}
       </div>
     );
-  };
+  }
+  
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
   
   return (
-    <div className="analytics-dashboard space-y-4">
-      <div className="flex flex-col space-y-4">
-        <div className="flex justify-between items-centre">
-          <h1 className="text-2xl font-bold">Analytics Dashboard</h1>
-          
-          <div className="flex items-centre space-x-2">
-            <Button variant="outline">
-              <Save className="h-4 w-4 mr-2" />
-              Save
-            </Button>
-            <Button variant="outline">
-              <Share2 className="h-4 w-4 mr-2" />
-              Share
-            </Button>
-            {renderExportOptions()}
+    <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-md">
+      <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Analytics Dashboard</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              Monitor user engagement and learning progress
+            </p>
           </div>
-        </div>
-        
-        <div className="flex justify-between items-centre">
-          {renderDashboardSelector()}
           
-          <div className="flex items-centre space-x-4">
-            {renderTimePeriodSelector()}
-            {renderGranularitySelector()}
-            {renderFilterPanel()}
+          <div className="mt-4 md:mt-0 flex flex-wrap gap-2">
+            <div className="relative">
+              <select
+                value={timeRange}
+                onChange={(e) => setTimeRange(e.target.value)}
+                className="pl-8 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary dark:bg-neutral-700 dark:text-white"
+              >
+                <option value="day">Today</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+                <option value="quarter">This Quarter</option>
+                <option value="year">This Year</option>
+              </select>
+              <Calendar className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500 dark:text-gray-400" />
+            </div>
+            
+            <button className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-700 dark:text-white">
+              <Filter className="h-4 w-4" />
+              Filter
+            </button>
+            
+            <button className="px-4 py-2 bg-primary text-white rounded-md text-sm flex items-center gap-2 hover:bg-primary/90">
+              <Download className="h-4 w-4" />
+              Export
+            </button>
           </div>
         </div>
       </div>
       
-      <Tabs defaultValue="dashboard" className="w-full">
-        <TabsList>
-          <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
-          <TabsTrigger value="student-performance">Student Performance</TabsTrigger>
-          <TabsTrigger value="curriculum-coverage">Curriculum Coverage</TabsTrigger>
-          <TabsTrigger value="engagement">Engagement</TabsTrigger>
-          <TabsTrigger value="special-needs">Special Needs</TabsTrigger>
-        </TabsList>
-        
-        <TabsContent value="dashboard" className="pt-4">
-          {renderDashboardContent()}
-        </TabsContent>
-        
-        <TabsContent value="student-performance" className="pt-4">
-          <div className="flex items-centre justify-centre h-64 border border-dashed rounded-md">
-            <p className="text-muted-foreground">Student Performance view will be available in a future update.</p>
+      {/* Analytics tabs */}
+      <div className="border-b border-gray-200 dark:border-gray-700">
+        <nav className="flex overflow-x-auto">
+          <button 
+            onClick={() => setActiveTab('overview')}
+            className={`px-4 py-3 text-sm font-medium ${
+              activeTab === 'overview'
+                ? 'text-primary border-b-2 border-primary'
+                : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+            }`}
+          >
+            Overview
+          </button>
+          <button 
+            onClick={() => setActiveTab('engagement')}
+            className={`px-4 py-3 text-sm font-medium ${
+              activeTab === 'engagement'
+                ? 'text-primary border-b-2 border-primary'
+                : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+            }`}
+          >
+            User Engagement
+          </button>
+          <button 
+            onClick={() => setActiveTab('learning')}
+            className={`px-4 py-3 text-sm font-medium ${
+              activeTab === 'learning'
+                ? 'text-primary border-b-2 border-primary'
+                : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+            }`}
+          >
+            Learning Progress
+          </button>
+          <button 
+            onClick={() => setActiveTab('demographics')}
+            className={`px-4 py-3 text-sm font-medium ${
+              activeTab === 'demographics'
+                ? 'text-primary border-b-2 border-primary'
+                : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+            }`}
+          >
+            Demographics
+          </button>
+        </nav>
+      </div>
+      
+      {/* Overview tab */}
+      {activeTab === 'overview' && (
+        <div className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Total Users */}
+            <div className="bg-gray-50 dark:bg-neutral-750 rounded-lg p-4">
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Total Users</p>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
+                    {formatNumber(analyticsData.overview.totalUsers)}
+                  </h3>
+                </div>
+                <div className="h-10 w-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+                  </svg>
+                </div>
+              </div>
+              <div className="mt-2 flex items-center">
+                <span className="text-xs font-medium text-green-600 dark:text-green-400">
+                  +{analyticsData.overview.userGrowth}%
+                </span>
+                <span className="ml-1 text-xs text-gray-500 dark:text-gray-400">
+                  since last {timeRange}
+                </span>
+              </div>
+            </div>
+            
+            {/* Active Users */}
+            <div className="bg-gray-50 dark:bg-neutral-750 rounded-lg p-4">
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Active Users</p>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
+                    {formatNumber(analyticsData.overview.activeUsers)}
+                  </h3>
+                </div>
+                <div className="h-10 w-10 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+              <div className="mt-2 flex items-center">
+                <span className="text-xs text-gray-500 dark:text-gray-400">
+                  {Math.round((analyticsData.overview.activeUsers / analyticsData.overview.totalUsers) * 100)}% of total users
+                </span>
+              </div>
+            </div>
+            
+            {/* Average Engagement */}
+            <div className="bg-gray-50 dark:bg-neutral-750 rounded-lg p-4">
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Avg. Engagement Time</p>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
+                    {analyticsData.overview.averageEngagementTime} min
+                  </h3>
+                </div>
+                <div className="h-10 w-10 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center text-purple-600 dark:text-purple-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+              <div className="mt-2 flex items-center">
+                <span className="text-xs font-medium text-green-600 dark:text-green-400">
+                  +5%
+                </span>
+                <span className="ml-1 text-xs text-gray-500 dark:text-gray-400">
+                  since last {timeRange}
+                </span>
+              </div>
+            </div>
+            
+            {/* Completion Rate */}
+            <div className="bg-gray-50 dark:bg-neutral-750 rounded-lg p-4">
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Completion Rate</p>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
+                    {analyticsData.overview.completionRate}%
+                  </h3>
+                </div>
+                <div className="h-10 w-10 rounded-full bg-yellow-100 dark:bg-yellow-900 flex items-center justify-center text-yellow-600 dark:text-yellow-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                </div>
+              </div>
+              <div className="mt-2 flex items-center">
+                <span className="text-xs font-medium text-green-600 dark:text-green-400">
+                  +3%
+                </span>
+                <span className="ml-1 text-xs text-gray-500 dark:text-gray-400">
+                  since last {timeRange}
+                </span>
+              </div>
+            </div>
           </div>
-        </TabsContent>
-        
-        <TabsContent value="curriculum-coverage" className="pt-4">
-          <div className="flex items-centre justify-centre h-64 border border-dashed rounded-md">
-            <p className="text-muted-foreground">Curriculum Coverage view will be available in a future update.</p>
+          
+          {/* Charts */}
+          <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="bg-gray-50 dark:bg-neutral-750 rounded-lg p-4">
+              <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-4">User Growth</h4>
+              <div className="h-64 flex items-center justify-center">
+                <LineChart className="h-32 w-32 text-gray-400 dark:text-gray-600" />
+                <p className="text-sm text-gray-500 dark:text-gray-400 ml-4">
+                  Chart visualization would be implemented here with actual data
+                </p>
+              </div>
+            </div>
+            
+            <div className="bg-gray-50 dark:bg-neutral-750 rounded-lg p-4">
+              <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Learning Activity</h4>
+              <div className="h-64 flex items-center justify-center">
+                <BarChart className="h-32 w-32 text-gray-400 dark:text-gray-600" />
+                <p className="text-sm text-gray-500 dark:text-gray-400 ml-4">
+                  Chart visualization would be implemented here with actual data
+                </p>
+              </div>
+            </div>
           </div>
-        </TabsContent>
-        
-        <TabsContent value="engagement" className="pt-4">
-          <div className="flex items-centre justify-centre h-64 border border-dashed rounded-md">
-            <p className="text-muted-foreground">Engagement view will be available in a future update.</p>
+        </div>
+      )}
+      
+      {/* Engagement tab */}
+      {activeTab === 'engagement' && (
+        <div className="p-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="bg-gray-50 dark:bg-neutral-750 rounded-lg p-4">
+              <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Daily Active Users</h4>
+              <div className="h-64 flex items-center justify-center">
+                <LineChart className="h-32 w-32 text-gray-400 dark:text-gray-600" />
+                <p className="text-sm text-gray-500 dark:text-gray-400 ml-4">
+                  Chart visualization would be implemented here with actual data
+                </p>
+              </div>
+            </div>
+            
+            <div className="bg-gray-50 dark:bg-neutral-750 rounded-lg p-4">
+              <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Average Session Duration</h4>
+              <div className="h-64 flex items-center justify-center">
+                <LineChart className="h-32 w-32 text-gray-400 dark:text-gray-600" />
+                <p className="text-sm text-gray-500 dark:text-gray-400 ml-4">
+                  Chart visualization would be implemented here with actual data
+                </p>
+              </div>
+            </div>
+            
+            <div className="bg-gray-50 dark:bg-neutral-750 rounded-lg p-4">
+              <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Page Views</h4>
+              <div className="h-64 flex items-center justify-center">
+                <BarChart className="h-32 w-32 text-gray-400 dark:text-gray-600" />
+                <p className="text-sm text-gray-500 dark:text-gray-400 ml-4">
+                  Chart visualization would be implemented here with actual data
+                </p>
+              </div>
+            </div>
+            
+            <div className="bg-gray-50 dark:bg-neutral-750 rounded-lg p-4">
+              <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-4">User Retention</h4>
+              <div className="h-64 flex items-center justify-center">
+                <BarChart className="h-32 w-32 text-gray-400 dark:text-gray-600" />
+                <p className="text-sm text-gray-500 dark:text-gray-400 ml-4">
+                  Chart visualization would be implemented here with actual data
+                </p>
+              </div>
+            </div>
           </div>
-        </TabsContent>
-        
-        <TabsContent value="special-needs" className="pt-4">
-          <div className="flex items-centre justify-centre h-64 border border-dashed rounded-md">
-            <p className="text-muted-foreground">Special Needs view will be available in a future update.</p>
+        </div>
+      )}
+      
+      {/* Learning Progress tab */}
+      {activeTab === 'learning' && (
+        <div className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Assignments Completed */}
+            <div className="bg-gray-50 dark:bg-neutral-750 rounded-lg p-4">
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Assignments Completed</p>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
+                    {formatNumber(analyticsData.learning.assignmentsCompleted)}
+                  </h3>
+                </div>
+                <div className="h-10 w-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                    <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            
+            {/* Average Score */}
+            <div className="bg-gray-50 dark:bg-neutral-750 rounded-lg p-4">
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Average Score</p>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
+                    {analyticsData.learning.averageScore}%
+                  </h3>
+                </div>
+                <div className="h-10 w-10 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            
+            {/* Skills Improved */}
+            <div className="bg-gray-50 dark:bg-neutral-750 rounded-lg p-4">
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Skills Improved</p>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
+                    {analyticsData.learning.skillsImproved}
+                  </h3>
+                </div>
+                <div className="h-10 w-10 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center text-purple-600 dark:text-purple-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            
+            {/* Learning Path Progress */}
+            <div className="bg-gray-50 dark:bg-neutral-750 rounded-lg p-4">
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Learning Path Progress</p>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
+                    {analyticsData.learning.learningPathProgress}%
+                  </h3>
+                </div>
+                <div className="h-10 w-10 rounded-full bg-yellow-100 dark:bg-yellow-900 flex items-center justify-center text-yellow-600 dark:text-yellow-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+            </div>
           </div>
-        </TabsContent>
-      </Tabs>
+          
+          {/* Top Performing Areas */}
+          <div className="mt-8 bg-gray-50 dark:bg-neutral-750 rounded-lg p-4">
+            <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Top Performing Areas</h4>
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead>
+                  <tr>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                      Area
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                      Score
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                      Progress
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                  {analyticsData.learning.topPerformingAreas.map((area, index) => (
+                    <tr key={index}>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                        {area.name}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                        {area.score}%
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                          <div 
+                            className="bg-primary h-2.5 rounded-full" 
+                            style={{ width: `${area.score}%` }}
+                          ></div>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* Demographics tab */}
+      {activeTab === 'demographics' && (
+        <div className="p-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="bg-gray-50 dark:bg-neutral-750 rounded-lg p-4">
+              <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Age Groups</h4>
+              <div className="h-64 flex items-center justify-center">
+                <PieChart className="h-32 w-32 text-gray-400 dark:text-gray-600" />
+                <div className="ml-4">
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                    Chart visualization would be implemented here with actual data
+                  </p>
+                  <ul className="space-y-1">
+                    {analyticsData.demographics.ageGroups.map((group, index) => (
+                      <li key={index} className="text-xs flex items-center">
+                        <span className={`h-2 w-2 rounded-full mr-2 bg-primary-${(index % 5) * 100 + 300}`}></span>
+                        <span className="text-gray-700 dark:text-gray-300">{group.name}: {group.value}%</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-gray-50 dark:bg-neutral-750 rounded-lg p-4">
+              <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Learning Styles</h4>
+              <div className="h-64 flex items-center justify-center">
+                <PieChart className="h-32 w-32 text-gray-400 dark:text-gray-600" />
+                <div className="ml-4">
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                    Chart visualization would be implemented here with actual data
+                  </p>
+                  <ul className="space-y-1">
+                    {analyticsData.demographics.learningStyles.map((style, index) => (
+                      <li key={index} className="text-xs flex items-center">
+                        <span className={`h-2 w-2 rounded-full mr-2 bg-blue-${(index % 5) * 100 + 300}`}></span>
+                        <span className="text-gray-700 dark:text-gray-300">{style.name}: {style.value}%</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-gray-50 dark:bg-neutral-750 rounded-lg p-4 lg:col-span-2">
+              <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                Special Needs Support ({analyticsData.demographics.specialNeeds.total} students)
+              </h4>
+              <div className="h-64 flex items-center justify-center">
+                <BarChart className="h-32 w-32 text-gray-400 dark:text-gray-600" />
+                <div className="ml-4">
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                    Chart visualization would be implemented here with actual data
+                  </p>
+                  <ul className="space-y-1">
+                    {analyticsData.demographics.specialNeeds.categories.map((category, index) => (
+                      <li key={index} className="text-xs flex items-center">
+                        <span className={`h-2 w-2 rounded-full mr-2 bg-green-${(index % 5) * 100 + 300}`}></span>
+                        <span className="text-gray-700 dark:text-gray-300">{category.name}: {category.value} students</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
