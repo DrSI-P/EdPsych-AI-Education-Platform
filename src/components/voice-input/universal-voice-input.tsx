@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useVoiceInput } from '@/providers/voice-input-provider';
+import { useVoiceInput } from '@/components/VoiceInput';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Mic, MicOff, Volume2 } from 'lucide-react';
@@ -523,18 +523,20 @@ const SecondaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
               variant="destructive"
               size="sm"
               onClick={stopListening}
-              className="h-8 px-3 text-xs"
+              className="flex items-centre gap-1 h-8"
             >
-              Stop Recording
+              <MicOff className="h-3.5 w-3.5" />
+              <span className="text-xs">Stop Recording</span>
             </Button>
           ) : (
             <Button 
               variant="default"
               size="sm"
               onClick={startListening}
-              className="h-8 px-3 text-xs bg-blue-600 hover:bg-blue-700"
+              className="flex items-centre gap-1 h-8"
             >
-              Start Recording
+              <Mic className="h-3.5 w-3.5" />
+              <span className="text-xs">Start Recording</span>
             </Button>
           )}
           
@@ -543,15 +545,15 @@ const SecondaryVoiceUI: React.FC<AgeSpecificVoiceUIProps> = ({
               variant="outline"
               size="sm"
               onClick={clearTranscript}
-              className="h-8 px-3 text-xs"
+              className="h-8"
             >
-              Clear Text
+              <span className="text-xs">Clear</span>
             </Button>
           )}
         </div>
         
         <div className="text-xs text-grey-500">
-          {isListening ? "Recording in progress" : "Ready to record"}
+          {isListening ? "Recording..." : "Ready"}
         </div>
       </CardFooter>
     </Card>

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { usePathname } from 'next/navigation';
-import { VoiceInputProvider } from '@/providers/voice-input-provider';
+import { VoiceInputProvider } from '@/components/VoiceInput';
 import GlobalVoiceInput from '@/components/voice-input/global-voice-input';
 import AccessibilityControls from '@/components/ui/AccessibilityControls';
 import { useSession } from 'next-auth/react';

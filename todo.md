@@ -1,43 +1,35 @@
-# EdPsych Connect Platform - Task List
+# EdPsych Connect Platform Migration Tasks
 
-## Project Audit and Configuration
-- [x] Examine project structure and files
-- [x] Review next.config.js for routing configuration
-- [x] Check for conflicts between Pages Router and App Router
-- [x] Identify missing pages causing 404 errors
+## Repository Setup
+- [x] Clone the repository
+- [x] Check current branch and switch to complete-rebuild branch
 
-## Routing Conflict Resolution
-- [x] Modify next.config.js to explicitly use Pages Router only
-- [x] Remove any references to App Router if present
-- [x] Fix import paths for navigation components
-- [x] Ensure consistent routing across all pages
+## Merge Steps for CSS Fixes Branch
+- [x] Create app_backup directory if it doesn't exist
+- [x] Skip moving the analytics backup file (file not found)
+- [ ] Add the resolved files
+- [ ] Continue the merge of css-fixes into complete-rebuild
 
-## Page Verification
-- [x] Test all navigation links for 404 errors
-- [x] Verify analytics page loads correctly
-- [x] Verify analytics-dashboard page loads correctly
-- [x] Verify all resource pages load correctly
-- [x] Verify settings page loads correctly
-- [x] Verify learning styles resource page loads correctly
+## Resolve VoiceInput Component Build Error
+- [x] Check VoiceInput component files in /src/components/VoiceInput/
+- [x] Fix index.tsx file to properly export all components
+- [x] Wrap application with VoiceInputProvider in _app.tsx
+- [x] Unify VoiceInputProvider and useVoiceInput imports across the codebase
+- [x] Audit index page and common layouts for VoiceInputProvider context issues
 
-## Branding and Styling
-- [x] Verify text-gradient class is applied to headings
-- [x] Verify animation classes (animate-fade-in, animate-slide-up) are applied consistently
-- [x] Verify button styling follows brand guidelines
-- [x] Verify card components are styled consistently
-- [x] Verify responsive design is implemented with appropriate breakpoints
-- [x] Ensure consistent application of text gradients
-- [x] Verify animation effects are working
-- [x] Check age selection tabs visibility
-- [x] Validate responsive design across all pages
+## Fix Build Errors
+- [x] Fix GlobalVoiceInput export error in global-voice-input.tsx
+- [x] Fix theme provider import path in AccessibilityControls.tsx
 
-## Implementation Checklist Validation
-- [ ] Compare current implementation against the comprehensive checklist
-- [ ] Identify missing features (AI Avatar Video System, Voice Input, etc.)
-- [ ] Prioritize remaining implementation tasks
-- [ ] Document any gaps for future development
+## Resolve App/Pages Router Conflict
+- [x] Ensure .vercelignore file properly excludes the /src/app directory
+- [ ] Make sure the Pages Router version in /pages/analytics.js is complete and functional
 
-## Reporting
-- [ ] Create summary of fixed issues
-- [ ] Document remaining tasks
-- [ ] Provide recommendations for next steps
+## Test and Validate Build
+- [x] Run npm install to ensure all dependencies are installed
+- [ ] Test the build with npm run build
+- [ ] Validate platform functionality and navigation
+
+## Perform Regular Commits and Pushes
+- [ ] Commit changes with descriptive messages
+- [ ] Push changes to GitHub after validation

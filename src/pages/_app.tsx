@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
@@ -8,6 +10,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import '@/styles/global-styles.css';
 import StylesInjector from '@/components/StylesInjector';
+import { VoiceInputProvider } from '@/components/VoiceInput';
 
 // PWA head component for metadata
 function PWAHead() {
@@ -137,8 +140,12 @@ function InstallPrompt() {
 
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const [isOnline, setIsOnline] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    // Mark component as mounted (client-side only)
+    setIsMounted(true);
+    
     // Check if the app is online
     setIsOnline(navigator.onLine);
 
@@ -157,20 +164,36 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
 
   return (
     <SessionProvider session={session}>
-      <StylesInjector />
-      <PWAHead />
-      {!isOnline && (
-        <div className="bg-yellow-500 text-white p-2 text-center">
-          You are currently offline. Some features may be limited.
-        </div>
+      {/* Only render VoiceInputProvider on client-side to prevent SSR context issues */}
+      {isMounted ? (
+        <VoiceInputProvider>
+          <StylesInjector />
+          <PWAHead />
+          {!isOnline && (
+            <div className="bg-yellow-500 text-white p-2 text-center">
+              You are currently offline. Some features may be limited.
+            </div>
+          )}
+          <Navbar />
+          <main className="min-h-screen">
+            <Component {...pageProps} />
+          </main>
+          <Footer />
+          <Toaster />
+          <InstallPrompt />
+        </VoiceInputProvider>
+      ) : (
+        <>
+          <StylesInjector />
+          <PWAHead />
+          <Navbar />
+          <main className="min-h-screen">
+            <Component {...pageProps} />
+          </main>
+          <Footer />
+          <Toaster />
+        </>
       )}
-      <Navbar />
-      <main className="min-h-screen">
-        <Component {...pageProps} />
-      </main>
-      <Footer />
-      <Toaster />
-      <InstallPrompt />
     </SessionProvider>
   );
 }
