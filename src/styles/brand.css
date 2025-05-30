@@ -113,8 +113,16 @@
     background-color: hsl(var(--background));
   }
   
+  .bg-primary {
+    background-color: hsl(var(--primary));
+  }
+  
   .text-foreground {
     color: hsl(var(--foreground));
+  }
+  
+  .text-white {
+    color: #ffffff;
   }
   
   .text-card-foreground {
