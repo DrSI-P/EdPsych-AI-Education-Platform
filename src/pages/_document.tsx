@@ -1,20 +1,13 @@
-import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 
-/**
- * Custom Document component to ensure proper CSS loading
- * This helps prevent CSS optimization issues in production
- */
 class MyDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext) {
-    const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
-  }
-
   render() {
     return (
       <Html lang="en">
         <Head>
-          {/* Force critical CSS to be included */}
+          {/* Direct link to CSS in public directory */}
+          <link rel="stylesheet" href="/styles/global.css" />
+          {/* Critical inline styles */}
           <style dangerouslySetInnerHTML={{ __html: `
             :root {
               --primary: #6366f1;
@@ -22,22 +15,14 @@ class MyDocument extends Document {
               --secondary: #8b5cf6;
               --secondary-dark: #7c3aed;
               --accent: #f97316;
-              --accent-dark: #ea580c;
-            }
-            
-            .text-gradient {
-              background: linear-gradient(to right, var(--primary), var(--secondary));
-              -webkit-background-clip: text;
-              -webkit-text-fill-color: transparent;
-              background-clip: text;
-              color: transparent;
             }
             
             .nav-item {
               background-color: var(--primary);
-              color: white;
+              color: white !important;
               padding: 0.75rem 1.5rem;
               border-radius: 0.5rem;
+              text-decoration: none;
               transition: all 0.3s ease;
             }
             
@@ -47,15 +32,23 @@ class MyDocument extends Document {
               padding: 0.75rem 1.5rem;
               border-radius: 0.5rem;
               border: none;
+              font-weight: 500;
+              cursor: pointer;
               transition: all 0.3s ease;
             }
+            
+            .text-gradient {
+              background: linear-gradient(to right, var(--primary), var(--secondary));
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+              color: transparent;
+            }
           `}} />
-          
-          {/* Preload fonts */}
-          <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap"
-            rel="stylesheet"
-          />
+          {/* Google Fonts */}
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
         </Head>
         <body>
           <Main />
