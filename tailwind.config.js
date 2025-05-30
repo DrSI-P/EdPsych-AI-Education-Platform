@@ -5,6 +5,43 @@ module.exports = {
     './src/pages/**/*.{js,ts,jsx,tsx}',
     './src/components/**/*.{js,ts,jsx,tsx}',
     './src/app/**/*.{js,ts,jsx,tsx}',
+    './pages/**/*.{js,ts,jsx,tsx}',
+  ],
+  safelist: [
+    // Critical button classes
+    'btn-primary',
+    'btn-secondary',
+    'btn-outline',
+    'btn-ghost',
+    'btn-nursery',
+    'btn-early-primary',
+    
+    // Critical text classes
+    'text-gradient',
+    
+    // Critical navigation classes
+    'nav-item',
+    'active',
+    
+    // Critical animation classes
+    'animate-fade-in',
+    'animate-slide-up',
+    'animate-scale-in',
+    
+    // Critical UI component classes
+    'card',
+    'nursery-ui',
+    'early-primary-ui',
+    'late-primary-ui',
+    'secondary-ui',
+    
+    // Critical utility patterns
+    /^bg-/,
+    /^text-/,
+    /^border-/,
+    /^hover:/,
+    /^focus:/,
+    /^active:/,
   ],
   theme: {
     extend: {
