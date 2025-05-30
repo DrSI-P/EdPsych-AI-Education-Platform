@@ -1,188 +1,193 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { useTheme } from 'next-themes';
 import MainNavigation from '../src/components/ui/MainNavigation';
 import Footer from '../src/components/layout/Footer';
-import dynamic from 'next/dynamic';
+import { VoiceInputProvider } from '../src/components/VoiceInput';
 
-// Import AI Avatar component with SSR disabled
-const AIAvatarWrapper = dynamic(
-  () => import('../src/components/ai-avatar/ai-avatar-wrapper'),
-  { ssr: false }
-);
-
-/**
- * Enhanced homepage for EdPsych Connect using Pages Router approach
- * With full navigation, footer, and enhanced styling
- */
 export default function Home() {
-  const { theme, setTheme } = useTheme();
-  const [ageGroup, setAgeGroup] = useState('standard');
-  const [mounted, setMounted] = useState(false);
-  
-  // Use useEffect to avoid hydration mismatch
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  
-  // Enhanced age group handler that uses next-themes
-  const handleAgeGroupChange = (value) => {
-    setAgeGroup(value);
-    setTheme(value + '-theme');
-  };
-  
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Head>
-        <title>EdPsych Connect - Educational Psychology Platform</title>
-        <meta name="description" content="EdPsych Connect - Empowering learners through tailored, evidence-based support" />
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#6366f1" />
-      </Head>
-      
-      <MainNavigation />
-      
-      <div className="container mx-auto px-4 py-8 flex-grow">
-        {/* AI Avatar Navigation Assistant */}
-        <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800 animate-fade-in">
-          <AIAvatarWrapper />
-        </div>
-        
-        <header className="mb-12 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-gradient mb-4">EdPsych Connect</h1>
-          <p className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-300">
-            Empowering learners through tailored, evidence-based support
-          </p>
-        </header>
-        
-        <main>
-          <section className="mb-12 p-8 bg-card rounded-lg shadow-md animate-fade-in">
-            <h2 className="text-2xl md:text-3xl font-semibold mb-6">Welcome to EdPsych Connect</h2>
-            <p className="mb-6 text-lg">
-              EdPsych Connect is a comprehensive platform designed by educational psychologists 
-              to provide personalised learning experiences for all students.
-            </p>
-            
-            <div className="mt-8">
-              <h3 className="text-xl mb-4">Select Age Group:</h3>
-              <div className="flex flex-wrap gap-4">
-                <button 
-                  onClick={() => handleAgeGroupChange('nursery')}
-                  className={`px-5 py-2.5 rounded-full transition-all duration-300 ${ageGroup === 'nursery' ? 'btn-nursery' : 'bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700'}`}
-                >
-                  Nursery
-                </button>
-                <button 
-                  onClick={() => handleAgeGroupChange('early-primary')}
-                  className={`px-5 py-2.5 rounded-xl transition-all duration-300 ${ageGroup === 'early-primary' ? 'btn-early-primary' : 'bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700'}`}
-                >
-                  Early Primary
-                </button>
-                <button 
-                  onClick={() => handleAgeGroupChange('late-primary')}
-                  className={`px-5 py-2.5 rounded-lg transition-all duration-300 ${ageGroup === 'late-primary' ? 'late-primary-ui text-white' : 'bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700'}`}
-                >
-                  Late Primary
-                </button>
-                <button 
-                  onClick={() => handleAgeGroupChange('secondary')}
-                  className={`px-5 py-2.5 rounded-md transition-all duration-300 ${ageGroup === 'secondary' ? 'secondary-ui text-white' : 'bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700'}`}
-                >
-                  Secondary
-                </button>
-                <button 
-                  onClick={() => handleAgeGroupChange('standard')}
-                  className={`px-5 py-2.5 rounded-md transition-all duration-300 ${ageGroup === 'standard' ? 'bg-primary text-white' : 'bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700'}`}
-                >
-                  Standard
-                </button>
+    <VoiceInputProvider>
+      <div className="min-h-screen flex flex-col">
+        <Head>
+          <title>EdPsych Connect - Personalised Learning for All Students</title>
+          <meta name="description" content="EdPsych Connect is a comprehensive platform designed by educational psychologists to provide personalised learning experiences for all students." />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+
+        <MainNavigation />
+
+        <main className="flex-grow">
+          {/* Hero Section */}
+          <section className="bg-gradient-to-b from-white to-gray-100 py-12 md:py-20">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto text-center">
+                <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gradient">
+                  Welcome to EdPsych Connect
+                </h1>
+                <p className="text-lg md:text-xl mb-8">
+                  EdPsych Connect is a comprehensive platform designed by educational psychologists to provide personalised learning experiences for all students.
+                </p>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <Link href="/student" className="btn-primary animate-fade-in" style={{animationDelay: '0.1s'}}>
+                    Student Portal
+                  </Link>
+                  <Link href="/educator" className="btn-secondary animate-fade-in" style={{animationDelay: '0.2s'}}>
+                    Educator Resources
+                  </Link>
+                </div>
               </div>
             </div>
           </section>
-          
-          <section className="grid md:grid-cols-2 gap-8 mb-12">
-            <div className="p-8 bg-card rounded-lg shadow-md hover:shadow-lg transition-all duration-300 animate-slide-up">
-              <h2 className="text-2xl md:text-3xl font-semibold mb-4">For Students</h2>
-              <p className="mb-6 text-lg">
-                Personalised learning paths, interactive content, and tools designed to support your unique learning style.
-              </p>
-              <Link href="/student" className="btn-primary inline-flex items-center justify-center">
-                Student Portal
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-              </Link>
-            </div>
-            
-            <div className="p-8 bg-card rounded-lg shadow-md hover:shadow-lg transition-all duration-300 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-              <h2 className="text-2xl md:text-3xl font-semibold mb-4">For Educators</h2>
-              <p className="mb-6 text-lg">
-                Evidence-based resources, assessment tools, and professional development to enhance your teaching practice.
-              </p>
-              <Link href="/educator" className="btn-primary inline-flex items-center justify-center">
-                Educator Resources
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-              </Link>
+
+          {/* Age Group Selection */}
+          <section className="py-12 bg-white">
+            <div className="container mx-auto px-4">
+              <h2 className="text-3xl font-semibold mb-8 text-center">Select Age Group:</h2>
+              <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+                <Link href="/age-group/nursery" className="age-group-button bg-gray-800 text-white hover:bg-gray-700 animate-fade-in" style={{animationDelay: '0.3s'}}>
+                  Nursery
+                </Link>
+                <Link href="/age-group/early-primary" className="age-group-button bg-gray-800 text-white hover:bg-gray-700 animate-fade-in" style={{animationDelay: '0.4s'}}>
+                  Early Primary
+                </Link>
+                <Link href="/age-group/late-primary" className="age-group-button bg-gray-800 text-white hover:bg-gray-700 animate-fade-in" style={{animationDelay: '0.5s'}}>
+                  Late Primary
+                </Link>
+                <Link href="/age-group/secondary" className="age-group-button bg-gray-800 text-white hover:bg-gray-700 animate-fade-in" style={{animationDelay: '0.6s'}}>
+                  Secondary
+                </Link>
+                <Link href="/age-group/standard" className="age-group-button bg-purple-600 text-white hover:bg-purple-700 animate-fade-in" style={{animationDelay: '0.7s'}}>
+                  Standard
+                </Link>
+              </div>
             </div>
           </section>
-          
-          <section className="p-8 bg-card rounded-lg shadow-md mb-12 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-            <h2 className="text-2xl md:text-3xl font-semibold mb-6">Featured Resources</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              <Link href="/resources/restorative-justice" className="p-6 border rounded-lg hover:shadow-md transition-all duration-300 interactive-element bg-white dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700">
-                <div className="h-full flex flex-col">
-                  <h3 className="text-xl font-medium mb-3">Restorative Justice Practices</h3>
-                  <p className="text-neutral-600 dark:text-neutral-300 mb-4 flex-grow">
+
+          {/* User Pathways */}
+          <section className="py-12 bg-gray-50">
+            <div className="container mx-auto px-4">
+              <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                {/* For Students */}
+                <div className="bg-white p-6 rounded-lg shadow-md animate-slide-up" style={{animationDelay: '0.2s'}}>
+                  <h2 className="text-2xl font-semibold mb-4">For Students</h2>
+                  <p className="mb-6">
+                    Personalised learning paths, interactive content, and tools designed to support your unique learning style.
+                  </p>
+                  <Link href="/student" className="btn-primary inline-flex items-center">
+                    Student Portal
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </Link>
+                </div>
+
+                {/* For Educators */}
+                <div className="bg-white p-6 rounded-lg shadow-md animate-slide-up" style={{animationDelay: '0.4s'}}>
+                  <h2 className="text-2xl font-semibold mb-4">For Educators</h2>
+                  <p className="mb-6">
+                    Evidence-based resources, assessment tools, and professional development to enhance your teaching practice.
+                  </p>
+                  <Link href="/educator" className="btn-secondary inline-flex items-center">
+                    Educator Resources
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Featured Resources */}
+          <section className="py-12 bg-white">
+            <div className="container mx-auto px-4">
+              <h2 className="text-3xl font-semibold mb-8 text-center">Featured Resources</h2>
+              <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                {/* Restorative Justice */}
+                <div className="bg-gray-800 text-white p-6 rounded-lg shadow-md animate-fade-in" style={{animationDelay: '0.3s'}}>
+                  <h3 className="text-xl font-semibold mb-4">Restorative Justice Practices</h3>
+                  <p className="mb-6">
                     Evidence-based approaches to building community and resolving conflict in educational settings.
                   </p>
-                  <div className="text-primary font-medium flex items-center mt-auto">
+                  <Link href="/resources/restorative-justice" className="text-white hover:text-gray-300 inline-flex items-center">
                     Learn more
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
-                  </div>
+                  </Link>
                 </div>
-              </Link>
-              
-              <Link href="/resources/adaptive-learning" className="p-6 border rounded-lg hover:shadow-md transition-all duration-300 interactive-element bg-white dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700">
-                <div className="h-full flex flex-col">
-                  <h3 className="text-xl font-medium mb-3">Adaptive Learning Strategies</h3>
-                  <p className="text-neutral-600 dark:text-neutral-300 mb-4 flex-grow">
+
+                {/* Adaptive Learning */}
+                <div className="bg-gray-800 text-white p-6 rounded-lg shadow-md animate-fade-in" style={{animationDelay: '0.4s'}}>
+                  <h3 className="text-xl font-semibold mb-4">Adaptive Learning Strategies</h3>
+                  <p className="mb-6">
                     Personalized approaches that adapt to individual learning styles and needs.
                   </p>
-                  <div className="text-primary font-medium flex items-center mt-auto">
+                  <Link href="/resources/adaptive-learning" className="text-white hover:text-gray-300 inline-flex items-center">
                     Learn more
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
-                  </div>
+                  </Link>
                 </div>
-              </Link>
-              
-              <Link href="/resources/special-needs" className="p-6 border rounded-lg hover:shadow-md transition-all duration-300 interactive-element bg-white dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700">
-                <div className="h-full flex flex-col">
-                  <h3 className="text-xl font-medium mb-3">Special Educational Needs Support</h3>
-                  <p className="text-neutral-600 dark:text-neutral-300 mb-4 flex-grow">
+
+                {/* Special Educational Needs */}
+                <div className="bg-gray-800 text-white p-6 rounded-lg shadow-md animate-fade-in" style={{animationDelay: '0.5s'}}>
+                  <h3 className="text-xl font-semibold mb-4">Special Educational Needs Support</h3>
+                  <p className="mb-6">
                     Resources and tools to support diverse learning needs and abilities.
                   </p>
-                  <div className="text-primary font-medium flex items-center mt-auto">
+                  <Link href="/resources/special-needs" className="text-white hover:text-gray-300 inline-flex items-center">
                     Learn more
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
-                  </div>
+                  </Link>
                 </div>
-              </Link>
+              </div>
+            </div>
+          </section>
+
+          {/* Advanced Features */}
+          <section className="py-12 bg-gray-50">
+            <div className="container mx-auto px-4">
+              <h2 className="text-3xl font-semibold mb-8 text-center">Advanced Features</h2>
+              <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                {/* Voice Input */}
+                <div className="bg-white p-6 rounded-lg shadow-md animate-slide-up" style={{animationDelay: '0.2s'}}>
+                  <h3 className="text-xl font-semibold mb-4">Voice Input Technology</h3>
+                  <p className="mb-6">
+                    Speak instead of type with our advanced voice recognition system, designed to support students who struggle with typing.
+                  </p>
+                  <Link href="/features/voice-input" className="btn-primary inline-flex items-center">
+                    Learn More
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </Link>
+                </div>
+
+                {/* AI Avatar */}
+                <div className="bg-white p-6 rounded-lg shadow-md animate-slide-up" style={{animationDelay: '0.4s'}}>
+                  <h3 className="text-xl font-semibold mb-4">AI Avatar Video System</h3>
+                  <p className="mb-6">
+                    Engage with educational content through our interactive AI avatars, designed to enhance learning experiences.
+                  </p>
+                  <Link href="/features/ai-avatar" className="btn-secondary inline-flex items-center">
+                    Explore Avatars
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
             </div>
           </section>
         </main>
+
+        <Footer />
       </div>
-      
-      <Footer />
-    </div>
+    </VoiceInputProvider>
   );
 }
