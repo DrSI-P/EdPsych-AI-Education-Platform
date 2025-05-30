@@ -1,33 +1,35 @@
 /**
  * Next.js Build Optimization Configuration
- *
- * @type {import('next').NextConfig}
+ * Modified for Pages Router compatibility
  */
 const path = require('path');
 
 // All polyfills are now loaded from the dedicated polyfill files
-// This ensures consistent behavior across all entry points
-
-// Instead of inline polyfills, load from files to ensure consistency
-// This ensures the same polyfills are used across the entire application
 require('./src/globalPolyfills');
 require('./src/polyfills');
 
-// This is a simplified configuration to fix build issues
+// Simplified configuration for Pages Router compatibility
 const nextConfig = {
   reactStrictMode: true,
   
   // Optimize output for production
   output: 'standalone',
   
-  // Completely disable static generation
-  staticPageGenerationTimeout: 1, // Set a very short timeout to force dynamic rendering
+  // Increase static generation timeout to allow for complex pages
+  staticPageGenerationTimeout: 120, // 2 minutes timeout for static generation
   
-  // Disable static optimization to prevent localStorage errors
+  // Combine optimizations from both branches
   experimental: {
-    // Disable static optimization
+    // From complete-rebuild
     disableOptimizedLoading: true,
-    optimizeCss: false
+    optimizeCss: true, // Ensure CSS is properly processed
+    // Remove App Router specific features
+    optimizePackageImports: [
+      'lucide-react',
+      'react-icons',
+      '@radix-ui/react-icons',
+      'framer-motion'
+    ]
   },
   
   // Disable ESLint during build to prevent build failures
@@ -42,7 +44,7 @@ const nextConfig = {
   
   // Configure image optimization
   images: {
-    domains: ['api.heygen.com', 'example.com'],
+    domains: ['api.heygen.com', 'example.com', 'localhost', 'res.cloudinary.com'],
     formats: ['image/avif', 'image/webp'],
   },
   
@@ -54,7 +56,10 @@ const nextConfig = {
       '@/lib/auth/auth-options': path.join(__dirname, 'src/lib/auth/auth-options'),
       '@/lib/db/prisma': path.join(__dirname, 'src/lib/db/prisma'),
       '@/lib/ai/ai-service': path.join(__dirname, 'src/lib/ai/ai-service'),
-      'openai': path.join(__dirname, 'src/lib/openai-compat.js')
+      'openai': path.join(__dirname, 'src/lib/openai-compat.js'),
+      // Add aliases for victory-vendor compatibility
+      'victory-vendor/d3-shape': path.resolve(__dirname, './src/lib/victory-vendor-d3-shape.js'),
+      'victory-vendor/d3-scale': path.resolve(__dirname, './src/lib/victory-vendor-d3-scale.js'),
     };
     
     // Add polyfills for browser APIs in server environment
@@ -84,6 +89,29 @@ const nextConfig = {
       };
     }
     
+    // Ensure CSS files are properly processed and included
+    if (!isServer) {
+      // Make sure CSS files are processed by the CSS loader
+      const cssRule = config.module.rules.find(
+        rule => rule.test && rule.test.toString().includes('css')
+      );
+      
+      if (cssRule) {
+        // Ensure enhanced-globals.css is not excluded
+        if (cssRule.exclude) {
+          const originalExclude = cssRule.exclude;
+          cssRule.exclude = (path) => {
+            if (path.includes('enhanced-globals.css') || 
+                path.includes('enhanced-theme.ts') || 
+                path.includes('enhanced-tokens.ts')) {
+              return false;
+            }
+            return originalExclude(path);
+          };
+        }
+      }
+    }
+    
     return config;
   },
   
@@ -93,6 +121,24 @@ const nextConfig = {
     NEXT_PUBLIC_HEYGEN_API_KEY: process.env.NEXT_PUBLIC_HEYGEN_API_KEY,
     NEXT_PUBLIC_HEYGEN_API_URL: process.env.NEXT_PUBLIC_HEYGEN_API_URL,
   },
+  
+  // Optimize CSS
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  
+  // Transpile specific modules
+  transpilePackages: [
+    'react-syntax-highlighter',
+    '@headlessui/react',
+  ],
+  
+  // External packages for server
+  externalDir: true,
+  
+  // Improve production performance
+  productionBrowserSourceMaps: false,
+  poweredByHeader: false,
 };
 
 module.exports = nextConfig;

@@ -1,17 +1,13 @@
 'use client';
-import { useState, useEffect } from 'react';
+
+import { Suspense, useState } from 'react';
 import dynamic from 'next/dynamic';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown, BookOpen, Layers, ArrowRight, CheckCircle2, BarChart3 } from "lucide-react";
-import { useRouter, useSearchParams } from 'next/navigation';
-
-// Dynamically import the AdaptiveComplexityEngine component with SSR disabled
-const AdaptiveComplexityEngine = dynamic(
-  () => import('@/components/ai/adaptive-complexity/adaptive-complexity-engine'),
-  { ssr: false }
-);
+import { BookOpen, Layers, CheckCircle2, BarChart3 } from "lucide-react";
+import { LoadingSpinner } from "@/components/ui/micro-interactions";
 
 // Define interface for content structure
 interface ContentItem {
@@ -19,12 +15,85 @@ interface ContentItem {
   content: string;
 }
 
-export default function AdaptiveComplexityPage() {
+// Dynamically import the AdaptiveComplexityEngine component with SSR disabled
+const AdaptiveComplexityEngine = dynamic(
+  () => import('@/components/ai/adaptive-complexity/adaptive-complexity-engine'),
+  { ssr: false }
+);
+
+// Content component that uses client-side features
+const AdaptiveComplexityContent = () => {
+  
   const router = useRouter();
   const searchParams = useSearchParams();
   const [content, setContent] = useState<ContentItem | null>(null);
   const contentId = searchParams ? searchParams.get('contentId') : null;
   
+  return (
+    <>
+      {!contentId && (
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle>Select Content to Adjust</CardTitle>
+            <CardDescription>
+              Choose existing content or create new adaptive content
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Button
+                variant="outline"
+                className="h-auto py-4 px-6 flex flex-col items-center justify-center text-center"
+                onClick={() => router.push('/curriculum/content?select=true')}
+              >
+                <BookOpen className="h-10 w-10 mb-2" />
+                <div>
+                  <div className="font-medium">Existing Content</div>
+                  <div className="text-sm text-muted-foreground mt-1">Adapt previously created materials</div>
+                </div>
+              </Button>
+              
+              <Button
+                variant="outline"
+                className="h-auto py-4 px-6 flex flex-col items-center justify-center text-center"
+                onClick={() => router.push('/curriculum/content/create?adaptive=true')}
+              >
+                <Layers className="h-10 w-10 mb-2" />
+                <div>
+                  <div className="font-medium">New Content</div>
+                  <div className="text-sm text-muted-foreground mt-1">Create new adaptive content</div>
+                </div>
+              </Button>
+              
+              <Button
+                variant="outline"
+                className="h-auto py-4 px-6 flex flex-col items-center justify-center text-center"
+                onClick={() => router.push('/curriculum/content/examples?adaptive=true')}
+              >
+                <BarChart3 className="h-10 w-10 mb-2" />
+                <div>
+                  <div className="font-medium">View Examples</div>
+                  <div className="text-sm text-muted-foreground mt-1">See adaptive content in action</div>
+                </div>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+      
+      {contentId && (
+        <AdaptiveComplexityEngine
+          contentId={contentId}
+          initialContent={content}
+          onContentChange={setContent}
+        />
+      )}
+    </>
+  );
+};
+
+// Main page component with Suspense boundary
+export default function AdaptiveComplexityPage() {
   return (
     <div className="container mx-auto py-8 px-4">
       <div className="max-w-5xl mx-auto">
@@ -43,63 +112,13 @@ export default function AdaptiveComplexityPage() {
           
           <TabsContent value="adjust" className="pt-4">
             <div className="space-y-8">
-              {!contentId && (
-                <Card className="mb-6">
-                  <CardHeader>
-                    <CardTitle>Select Content to Adjust</CardTitle>
-                    <CardDescription>
-                      Choose existing content or create new adaptive content
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <Button 
-                        variant="outline" 
-                        className="h-auto py-4 px-6 flex flex-col items-center justify-center text-center"
-                        onClick={() => router.push('/curriculum/content?select=true')}
-                      >
-                        <BookOpen className="h-10 w-10 mb-2" />
-                        <div>
-                          <div className="font-medium">Existing Content</div>
-                          <div className="text-sm text-muted-foreground mt-1">Adapt previously created materials</div>
-                        </div>
-                      </Button>
-                      
-                      <Button 
-                        variant="outline" 
-                        className="h-auto py-4 px-6 flex flex-col items-center justify-center text-center"
-                        onClick={() => router.push('/curriculum/content/create?adaptive=true')}
-                      >
-                        <Layers className="h-10 w-10 mb-2" />
-                        <div>
-                          <div className="font-medium">New Content</div>
-                          <div className="text-sm text-muted-foreground mt-1">Create new adaptive content</div>
-                        </div>
-                      </Button>
-                      
-                      <Button 
-                        variant="outline" 
-                        className="h-auto py-4 px-6 flex flex-col items-center justify-center text-center"
-                        onClick={() => router.push('/curriculum/content/examples?adaptive=true')}
-                      >
-                        <BarChart3 className="h-10 w-10 mb-2" />
-                        <div>
-                          <div className="font-medium">View Examples</div>
-                          <div className="text-sm text-muted-foreground mt-1">See adaptive content in action</div>
-                        </div>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-              
-              {contentId && (
-                <AdaptiveComplexityEngine 
-                  contentId={contentId}
-                  initialContent={content}
-                  onContentChange={setContent}
-                />
-              )}
+              <Suspense fallback={
+                <div className="flex justify-center items-center min-h-[200px]">
+                  <LoadingSpinner size="lg" />
+                </div>
+              }>
+                <AdaptiveComplexityContent />
+              </Suspense>
             </div>
           </TabsContent>
           

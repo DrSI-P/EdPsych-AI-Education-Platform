@@ -54,6 +54,15 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 
+// Mock data for charts and visualizations
+const MOCK_CATEGORY_DISTRIBUTION = [
+  { category: "Trauma-Informed Practice", percentage: 25 },
+  { category: "Neurodevelopment", percentage: 20 },
+  { category: "Mental Health", percentage: 30 },
+  { category: "Digital Assessment", percentage: 15 },
+  { category: "Parental Engagement", percentage: 10 }
+];
+
 // Sample data for research collaboration opportunities
 const researchProjects = [
   {
@@ -516,8 +525,19 @@ export default function ResearchCollaborationDashboard() {
                 <CardDescription>Your research area distribution</CardDescription>
               </CardHeader>
               <CardContent className="h-[200px] flex items-center justify-center">
-                <div className="text-center text-muted-foreground">
-                  [Research Focus Chart]
+                <div className="text-center">
+                  {MOCK_CATEGORY_DISTRIBUTION.map((item, index) => (
+                    <div key={index} className="flex items-center mb-2">
+                      <div className="w-24 text-sm text-left">{item.category}</div>
+                      <div className="w-full bg-gray-200 rounded-full h-2.5 ml-2">
+                        <div
+                          className="bg-blue-600 h-2.5 rounded-full"
+                          style={{ width: `${item.percentage}%` }}
+                        ></div>
+                      </div>
+                      <div className="w-10 text-sm text-right ml-2">{item.percentage}%</div>
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>

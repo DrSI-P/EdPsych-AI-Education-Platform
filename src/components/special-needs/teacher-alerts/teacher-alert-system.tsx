@@ -14,6 +14,7 @@ import { Progress } from "@/components/ui/progress";
 import { toast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Slider } from "@/components/ui/slider";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";

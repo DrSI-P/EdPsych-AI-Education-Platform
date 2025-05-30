@@ -17,12 +17,13 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { 
+import {
   AlertCircle,
   BookOpen,
   Check,
   ChevronDown,
   ChevronUp,
+  Clock,
   Download,
   ExternalLink,
   Eye,
@@ -1342,7 +1343,7 @@ const EmotionalVocabularyDevelopment = () => {
                       <CardHeader className="pb-2">
                         <div className="flex justify-between items-start">
                           <div>
-                            <CardTitle className="text-2xl" style={{ color: selectedEmotion.colour }}>
+                            <CardTitle className="text-2xl" style={{ color: selectedEmotion.color }}>
                               {selectedEmotion.name}
                             </CardTitle>
                             <CardDescription>
@@ -1427,8 +1428,8 @@ const EmotionalVocabularyDevelopment = () => {
                           
                           <div className="space-y-4">
                             <div className="rounded-lg overflow-hidden border bg-card text-card-foreground shadow">
-                              <div className="p-6 flex justify-centre items-centre" style={{ backgroundColor: `${selectedEmotion.colour}20` }}>
-                                <div className="w-32 h-32 rounded-full flex justify-centre items-centre" style={{ backgroundColor: selectedEmotion.colour }}>
+                              <div className="p-6 flex justify-centre items-centre" style={{ backgroundColor: `${selectedEmotion.color}20` }}>
+                                <div className="w-32 h-32 rounded-full flex justify-centre items-centre" style={{ backgroundColor: selectedEmotion.color }}>
                                   {/* In a real implementation, this would be an actual image */}
                                   <span className="text-4xl">😊</span>
                                 </div>
@@ -1439,7 +1440,7 @@ const EmotionalVocabularyDevelopment = () => {
                               <h3 className="text-lg font-medium mb-2">Similar Words</h3>
                               <div className="flex flex-wrap gap-2">
                                 {selectedEmotion.synonyms.map((synonym, index) => (
-                                  <Badge key={index} variant="outline" style={{ borderColor: selectedEmotion.colour }}>
+                                  <Badge key={index} variant="outline" style={{ borderColor: selectedEmotion.color }}>
                                     {synonym}
                                   </Badge>
                                 ))}
@@ -1499,7 +1500,7 @@ const EmotionalVocabularyDevelopment = () => {
                         >
                           <CardHeader className="pb-2">
                             <div className="flex justify-between items-start">
-                              <CardTitle style={{ color: emotion.colour }}>{emotion.name}</CardTitle>
+                              <CardTitle style={{ color: emotion.color }}>{emotion.name}</CardTitle>
                               <Button 
                                 variant="ghost" 
                                 size="icon"
@@ -1988,15 +1989,15 @@ const EmotionalVocabularyDevelopment = () => {
                                 >
                                   <div 
                                     className="w-10 h-10 rounded-full flex items-centre justify-centre"
-                                    style={{ backgroundColor: `${emotion.colour}20` }}
+                                    style={{ backgroundColor: `${emotion.color}20` }}
                                   >
-                                    <span className="text-lg" style={{ color: emotion.colour }}>
+                                    <span className="text-lg" style={{ color: emotion.color }}>
                                       {emotion.name.charAt(0)}
                                     </span>
                                   </div>
                                   <div className="flex-1 space-y-1">
                                     <div className="flex items-centre justify-between">
-                                      <p className="font-medium" style={{ color: emotion.colour }}>{emotion.name}</p>
+                                      <p className="font-medium" style={{ color: emotion.color }}>{emotion.name}</p>
                                       <Badge variant="outline" className="capitalize text-xs">
                                         {emotion.category}
                                       </Badge>

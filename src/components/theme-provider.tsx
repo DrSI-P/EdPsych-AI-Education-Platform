@@ -70,23 +70,48 @@ export function ThemeProvider({
   [key: string];
 }) {
   const [theme, setTheme] = useState<Theme>(
-    () => (localStorage?.getItem("theme") as Theme) || defaultTheme
+    () => {
+      if (typeof window !== 'undefined') {
+        return (localStorage?.getItem("theme") as Theme) || defaultTheme;
+      }
+      return defaultTheme;
+    }
   );
   
   const [ageGroup, setAgeGroup] = useState<AgeGroup>(
-    () => (localStorage?.getItem("ageGroup") as AgeGroup) || defaultAgeGroup
+    () => {
+      if (typeof window !== 'undefined') {
+        return (localStorage?.getItem("ageGroup") as AgeGroup) || defaultAgeGroup;
+      }
+      return defaultAgeGroup;
+    }
   );
   
   const [isDyslexicFont, setIsDyslexicFont] = useState<boolean>(
-    localStorage?.getItem("dyslexicFont") === "true" || defaultDyslexicFont
+    () => {
+      if (typeof window !== 'undefined') {
+        return localStorage?.getItem("dyslexicFont") === "true" || defaultDyslexicFont;
+      }
+      return defaultDyslexicFont;
+    }
   );
   
   const [fontSize, setFontSize] = useState<number>(
-    parseInt(localStorage?.getItem("fontSize") || defaultFontSize.toString())
+    () => {
+      if (typeof window !== 'undefined') {
+        return parseInt(localStorage?.getItem("fontSize") || defaultFontSize.toString());
+      }
+      return defaultFontSize;
+    }
   );
   
   const [isReducedMotion, setIsReducedMotion] = useState<boolean>(
-    localStorage?.getItem("reducedMotion") === "true" || defaultReducedMotion
+    () => {
+      if (typeof window !== 'undefined') {
+        return localStorage?.getItem("reducedMotion") === "true" || defaultReducedMotion;
+      }
+      return defaultReducedMotion;
+    }
   );
 
   useEffect(() => {
@@ -130,11 +155,13 @@ export function ThemeProvider({
     document.documentElement.style.fontSize = `${fontSize}px`;
     
     // Save preferences to localStorage
-    localStorage.setItem("theme", theme);
-    localStorage.setItem("ageGroup", ageGroup);
-    localStorage.setItem("dyslexicFont", isDyslexicFont.toString());
-    localStorage.setItem("fontSize", fontSize.toString());
-    localStorage.setItem("reducedMotion", isReducedMotion.toString());
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("theme", theme);
+      localStorage.setItem("ageGroup", ageGroup);
+      localStorage.setItem("dyslexicFont", isDyslexicFont.toString());
+      localStorage.setItem("fontSize", fontSize.toString());
+      localStorage.setItem("reducedMotion", isReducedMotion.toString());
+    }
   }, [theme, ageGroup, isDyslexicFont, fontSize, isReducedMotion]);
 
   const value = {

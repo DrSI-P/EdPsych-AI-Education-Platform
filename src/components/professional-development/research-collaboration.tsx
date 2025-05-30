@@ -1570,7 +1570,13 @@ export default function ResearchCollaboration() {
                         fill="#8884d8"
                         dataKey="value"
                       >
-                        {MOCK_CATEGORY_DISTRIBUTION.map((entry, index) => (
+                        {[
+                          { name: 'Primary', value: 24 },
+                          { name: 'Secondary', value: 18 },
+                          { name: 'Special', value: 12 },
+                          { name: 'All-through', value: 8 },
+                          { name: 'Alternative Provision', value: 5 },
+                        ].map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>

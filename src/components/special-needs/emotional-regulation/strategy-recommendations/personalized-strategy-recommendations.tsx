@@ -795,18 +795,18 @@ const PersonalizedStrategyRecommendations = () => {
     });
     
     toast({
-      title: updated.favoriteStrategies.includes(strategyId) 
-        ? "Added to Favorites" 
+      title: userPreferences.favoriteStrategies.includes(strategyId)
+        ? "Added to Favorites"
         : "Removed from Favorites",
       description: "Your favourite strategies have been updated.",
     });
   };
   
   const getEmotionColor = (emotionName) => {
-    const emotion = 
-      basicEmotions.find(e => e.name === emotionName) || 
+    const emotion =
+      basicEmotions.find(e => e.name === emotionName) ||
       advancedEmotions.find(e => e.name === emotionName);
-    return emotion ? emotion.colour : "#808080";
+    return emotion ? emotion.color : "#808080";
   };
   
   const getEmotionIcon = (emotionName) => {
@@ -875,8 +875,8 @@ const PersonalizedStrategyRecommendations = () => {
                     variant={currentMood?.name === emotion.name ? "default" : "outline"}
                     className="h-20 flex flex-col items-centre justify-centre"
                     style={{
-                      borderColor: emotion.colour,
-                      backgroundColor: currentMood?.name === emotion.name ? emotion.colour : "transparent",
+                      borderColor: emotion.color,
+                      backgroundColor: currentMood?.name === emotion.name ? emotion.color : "transparent",
                       color: currentMood?.name === emotion.name ? "white" : "inherit"
                     }}
                     onClick={() => handleCurrentMoodSelect(emotion)}

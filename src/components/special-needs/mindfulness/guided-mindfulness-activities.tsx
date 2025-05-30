@@ -17,12 +17,12 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { 
-  Play, 
-  Pause, 
-  SkipBack, 
-  SkipForward, 
-  Volume2, 
+import {
+  Play,
+  Pause,
+  SkipBack,
+  SkipForward,
+  Volume2,
   VolumeX,
   Clock,
   Calendar,
@@ -36,7 +36,10 @@ import {
   Cloud,
   Leaf,
   Waves,
-  Mountain
+  Mountain,
+  Wind,
+  Activity,
+  Eye
 } from "lucide-react";
 
 const GuidedMindfulnessActivities = () => {
