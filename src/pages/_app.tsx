@@ -10,7 +10,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import '@/styles/global-styles.css';
 import StylesInjector from '@/components/StylesInjector';
-import { VoiceInputProvider } from '@/components/VoiceInput';
+// VoiceInputProvider is now managed by root-layout-wrapper.tsx
 
 // PWA head component for metadata
 function PWAHead() {
@@ -166,7 +166,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
     <SessionProvider session={session}>
       {/* Only render VoiceInputProvider on client-side to prevent SSR context issues */}
       {isMounted ? (
-        <VoiceInputProvider>
+        <>
           <StylesInjector />
           <PWAHead />
           {!isOnline && (
@@ -181,7 +181,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
           <Footer />
           <Toaster />
           <InstallPrompt />
-        </VoiceInputProvider>
+        </>
       ) : (
         <>
           <StylesInjector />

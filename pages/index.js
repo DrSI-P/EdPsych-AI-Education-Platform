@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Avatar, AvatarVideoPlayer } from '../src/components/Avatar';
-import { VoiceInputButton } from '../src/components/VoiceInput';
+import DynamicStandaloneVoiceInputButton from '../src/components/voice-input/dynamic-standalone-voice-input-button';
 import MainNavigation from '../src/components/ui/MainNavigation';
 import Footer from '../src/components/layout/Footer';
 
@@ -146,7 +146,7 @@ export default function Home() {
                       className="w-full px-4 py-3 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
                     />
                     <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
-                      <VoiceInputButton 
+                      <DynamicStandaloneVoiceInputButton
                         onResult={handleVoiceInput}
                         ageGroup={ageGroup}
                         buttonStyle="icon"
@@ -346,7 +346,7 @@ export default function Home() {
                 <div className="md:w-1/2 flex justify-center">
                   <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
                     <div className="text-center mb-4">
-                      <VoiceInputButton 
+                      <DynamicStandaloneVoiceInputButton
                         onResult={handleVoiceInput}
                         ageGroup={ageGroup}
                         buttonStyle="large"
