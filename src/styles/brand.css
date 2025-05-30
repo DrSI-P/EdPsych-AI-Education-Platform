@@ -118,7 +118,7 @@
   }
   
   body {
-    @apply bg-background text-foreground;
+    @apply bg-neutral-50 text-neutral-900;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
   
@@ -161,7 +161,7 @@
 @layer components {
   /* Cards */
   .card {
-    @apply rounded-lg border bg-card text-card-foreground shadow-sm;
+    @apply rounded-lg border bg-white text-neutral-900 shadow-sm;
   }
   
   /* Age-specific UI Components */
@@ -242,7 +242,7 @@
   }
   
   .achievement-badge-inner {
-    @apply rounded-full bg-background p-2;
+    @apply rounded-full bg-white p-2;
   }
   
   /* Navigation */
@@ -251,7 +251,7 @@
   }
   
   .nav-item:hover {
-    @apply bg-accent text-accent-foreground;
+    @apply bg-neutral-100 text-neutral-900;
   }
   
   .nav-item.active {
@@ -268,11 +268,11 @@
   }
   
   .btn-outline {
-    @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md px-4 py-2 font-medium;
+    @apply border border-input bg-white hover:bg-neutral-100 hover:text-neutral-900 rounded-md px-4 py-2 font-medium;
   }
   
   .btn-ghost {
-    @apply hover:bg-accent hover:text-accent-foreground rounded-md px-4 py-2 font-medium;
+    @apply hover:bg-neutral-100 hover:text-neutral-900 rounded-md px-4 py-2 font-medium;
   }
   
   /* Nursery-specific buttons */
@@ -298,6 +298,11 @@
 
 /* Utility Classes */
 @layer utilities {
+  /* Background utilities */
+  .bg-page {
+    @apply bg-neutral-50;
+  }
+  
   /* Animation utilities */
   .animate-bounce-subtle {
     animation: bounce-subtle 2s infinite;

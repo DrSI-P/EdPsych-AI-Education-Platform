@@ -1,22 +1,14 @@
 /**
  * Next.js Build Optimization Configuration
- *
- * This file configures webpack to use our compatibility modules
- * for the missing d3-shape and d3-scale exports in victory-vendor
- *
- * @type {import('next').NextConfig}
+ * Modified for Pages Router compatibility
  */
 const path = require('path');
 
 // All polyfills are now loaded from the dedicated polyfill files
-// This ensures consistent behavior across all entry points
-
-// Instead of inline polyfills, load from files to ensure consistency
-// This ensures the same polyfills are used across the entire application
 require('./src/globalPolyfills');
 require('./src/polyfills');
 
-// This is a simplified configuration to fix build issues
+// Simplified configuration for Pages Router compatibility
 const nextConfig = {
   reactStrictMode: true,
   
@@ -30,19 +22,14 @@ const nextConfig = {
   experimental: {
     // From complete-rebuild
     disableOptimizedLoading: true,
-    optimizeCss: true, // Changed to true to ensure CSS is properly processed
-    // From build-optimization-fixes
-    serverActions: {
-      allowedOrigins: ['localhost:3000', 'edpsychconnect.com']
-    },
-    // Add memory optimization for large component trees
+    optimizeCss: true, // Ensure CSS is properly processed
+    // Remove App Router specific features
     optimizePackageImports: [
       'lucide-react',
       'react-icons',
       '@radix-ui/react-icons',
       'framer-motion'
     ]
-    // Removed turbotrace as it's not supported in Next.js 15.3.2
   },
   
   // Disable ESLint during build to prevent build failures
@@ -128,32 +115,28 @@ const nextConfig = {
     return config;
   },
   
-  // Configure environment variables (from complete-rebuild)
+  // Configure environment variables
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
     NEXT_PUBLIC_HEYGEN_API_KEY: process.env.NEXT_PUBLIC_HEYGEN_API_KEY,
     NEXT_PUBLIC_HEYGEN_API_URL: process.env.NEXT_PUBLIC_HEYGEN_API_URL,
   },
   
-  // Optimize CSS (from build-optimization-fixes)
+  // Optimize CSS
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   
-  // Transpile specific modules (from build-optimization-fixes)
+  // Transpile specific modules
   transpilePackages: [
     'react-syntax-highlighter',
     '@headlessui/react',
   ],
   
-  // Using serverExternalPackages instead of serverComponentsExternalPackages
-  serverExternalPackages: [
-    'bcrypt',
-    'canvas',
-    'sharp'
-  ],
+  // External packages for server
+  externalDir: true,
   
-  // Improve production performance (from build-optimization-fixes)
+  // Improve production performance
   productionBrowserSourceMaps: false,
   poweredByHeader: false,
 };
