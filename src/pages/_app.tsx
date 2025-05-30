@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import { ThemeProvider } from 'next-themes';
@@ -9,8 +9,10 @@ import { Toaster } from '@/components/ui/toaster';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import '@/styles/global-styles.css';
+import '@/styles/accessibility.css';
 import StylesInjector from '@/components/StylesInjector';
 // VoiceInputProvider is now managed by root-layout-wrapper.tsx
+import AccessibilityProvider from '@/components/accessibility/accessibility-provider';
 
 // PWA head component for metadata
 function PWAHead() {
@@ -38,6 +40,12 @@ function PWAHead() {
       <link rel="manifest" href="/manifest.json" />
       <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#6366f1" />
       <link rel="shortcut icon" href="/favicon.ico" />
+      
+      {/* Add OpenDyslexic font for accessibility */}
+      <link 
+        rel="stylesheet" 
+        href="https://cdn.jsdelivr.net/npm/opendyslexic@1.0.3/dist/opendyslexic/opendyslexic.min.css" 
+      />
     </>
   );
 }
@@ -164,9 +172,10 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
 
   return (
     <SessionProvider session={session}>
-      {/* Only render VoiceInputProvider on client-side to prevent SSR context issues */}
+      {/* Only render AccessibilityProvider on client-side to prevent SSR context issues */}
+      {/* VoiceInputProvider is now managed by root-layout-wrapper.tsx */}
       {isMounted ? (
-        <>
+        <AccessibilityProvider>
           <StylesInjector />
           <PWAHead />
           {!isOnline && (
@@ -181,7 +190,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
           <Footer />
           <Toaster />
           <InstallPrompt />
-        </>
+        </AccessibilityProvider>
       ) : (
         <>
           <StylesInjector />
