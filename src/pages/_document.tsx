@@ -1,10 +1,8 @@
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
 
 /**
- * Custom Document component for EdPsych Connect
- * 
- * This component customizes the HTML document structure for better SEO,
- * accessibility, and performance in production.
+ * Custom Document component to ensure proper CSS loading
+ * This helps prevent CSS optimization issues in production
  */
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -16,47 +14,50 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          {/* Character set and viewport settings */}
-          <meta charSet="utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+          {/* Force critical CSS to be included */}
+          <style dangerouslySetInnerHTML={{ __html: `
+            :root {
+              --primary: #6366f1;
+              --primary-dark: #4f46e5;
+              --secondary: #8b5cf6;
+              --secondary-dark: #7c3aed;
+              --accent: #f97316;
+              --accent-dark: #ea580c;
+            }
+            
+            .text-gradient {
+              background: linear-gradient(to right, var(--primary), var(--secondary));
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+              color: transparent;
+            }
+            
+            .nav-item {
+              background-color: var(--primary);
+              color: white;
+              padding: 0.75rem 1.5rem;
+              border-radius: 0.5rem;
+              transition: all 0.3s ease;
+            }
+            
+            .btn-primary {
+              background-color: var(--primary);
+              color: white;
+              padding: 0.75rem 1.5rem;
+              border-radius: 0.5rem;
+              border: none;
+              transition: all 0.3s ease;
+            }
+          `}} />
           
-          {/* Preconnect to domains for performance */}
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-          
-          {/* Font loading */}
-          <link 
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" 
+          {/* Preload fonts */}
+          <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap"
             rel="stylesheet"
           />
-          
-          {/* Favicon */}
-          <link rel="icon" href="/favicon.ico" />
-          
-          {/* DNS prefetch for external services */}
-          <link rel="dns-prefetch" href="https://api.edpsychconnect.com" />
-          
-          {/* Preload critical assets */}
-          <link rel="preload" href="/fonts/custom-font.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-          
-          {/* SEO meta tags */}
-          <meta name="robots" content="index, follow" />
-          <meta name="googlebot" content="index, follow" />
-          
-          {/* Open Graph / Social Media */}
-          <meta property="og:type" content="website" />
-          <meta property="og:site_name" content="EdPsych Connect" />
-          <meta property="og:url" content="https://edpsychconnect.com" />
-          <meta property="og:image" content="https://edpsychconnect.com/images/og-image.jpg" />
-          
-          {/* Twitter Card */}
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:site" content="@edpsychconnect" />
-          
-          {/* PWA color theme */}
-          <meta name="theme-color" content="#6366f1" />
         </Head>
-        <body className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+        <body>
           <Main />
           <NextScript />
         </body>

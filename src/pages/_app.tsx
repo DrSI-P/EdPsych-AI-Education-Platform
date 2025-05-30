@@ -7,6 +7,7 @@ import { Toaster } from '@/components/ui/toaster';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import '@/styles/global-styles.css';
+import StylesInjector from '@/components/StylesInjector';
 
 // PWA head component for metadata
 function PWAHead() {
@@ -156,6 +157,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
 
   return (
     <SessionProvider session={session}>
+      <StylesInjector />
       <PWAHead />
       {!isOnline && (
         <div className="bg-yellow-500 text-white p-2 text-center">
