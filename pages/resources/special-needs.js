@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
-import MainNavigation from '../../src/components/navigation/main-navigation';
-import Footer from '../../src/components/navigation/footer';
+import MainNavigation from '../../src/components/ui/MainNavigation';
+import Footer from '../../src/components/layout/Footer';
 
 const SpecialNeeds = () => {
   return (
