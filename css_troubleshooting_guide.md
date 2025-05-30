@@ -29,8 +29,8 @@ This document provides detailed instructions for troubleshooting and fixing the 
 # Clone the repository
 git clone https://github.com/DrSI-P/EdPsych-AI-Education-Platform.git
 
-# Switch to the css-debug branch
-git checkout css-debug
+# Switch to the complete-rebuild branch
+git checkout complete-rebuild
 
 # Install dependencies
 npm install
@@ -230,6 +230,67 @@ checkCssClass('text-gradient');
 checkCssClass('btn-primary');
 ```
 
+## Alternative Approaches to Try
+
+### Option A: Use Next.js CSS Modules
+
+1. Create CSS modules for components:
+```
+src/styles/Button.module.css
+src/styles/Navigation.module.css
+```
+
+2. Import and use in components:
+```jsx
+import styles from '../styles/Button.module.css';
+
+<button className={styles.primary}>Click Me</button>
+```
+
+### Option B: Use Styled Components or Emotion
+
+1. Install styled-components:
+```bash
+npm install styled-components
+```
+
+2. Create styled components:
+```jsx
+import styled from 'styled-components';
+
+const Button = styled.button`
+  background-color: #6366f1;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  /* ... */
+`;
+```
+
+### Option C: Create a Minimal Test Page
+
+Create a minimal test page with basic styling to isolate the issue:
+
+```jsx
+// pages/test-styling.js
+export default function TestStyling() {
+  return (
+    <div>
+      <h1 style={{ color: 'blue' }}>Inline Style Test</h1>
+      <button style={{ 
+        backgroundColor: '#6366f1', 
+        color: 'white',
+        padding: '0.75rem 1.5rem',
+        borderRadius: '0.5rem',
+        border: 'none'
+      }}>
+        Test Button
+      </button>
+    </div>
+  );
+}
+```
+
 ## Recommended Solutions (In Priority Order)
 
 1. **Direct CSS Inclusion**: Add CSS directly to public/styles/global.css and reference it in a <link> tag in _document.tsx
@@ -246,6 +307,16 @@ After implementing fixes:
 3. Check browser console for any remaining 404 errors
 4. Test across different browsers and devices
 5. Validate that all interactive elements have proper styling
+
+## Reporting Back
+
+After investigating and implementing potential solutions, please:
+
+1. Document all findings in a detailed report
+2. Note which approaches were attempted and their results
+3. Provide a clear explanation of the root cause once identified
+4. Implement the solution in the css-debug branch
+5. Create a pull request to merge the fix into the complete-rebuild branch
 
 ## Contact Information
 If you encounter issues or need clarification, please contact the technical director through the project management system.

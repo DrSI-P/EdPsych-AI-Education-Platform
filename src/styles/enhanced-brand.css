@@ -210,7 +210,7 @@
   }
   
   .early-primary-ui {
-    @apply rounded-xl border-3 shadow-md;
+    @apply rounded-xl border-2 shadow-md;
     border-color: hsl(var(--early-primary-accent));
     background-color: hsl(var(--early-primary-accent) / 0.1);
   }
