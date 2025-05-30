@@ -133,9 +133,8 @@ const nextConfig = {
     '@headlessui/react',
   ],
   
-  // Improve production performance
+   // Improve production performance
   productionBrowserSourceMaps: false,
   poweredByHeader: false,
-};};
-
+};
 module.exports = nextConfig;
