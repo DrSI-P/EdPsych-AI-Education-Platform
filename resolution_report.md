@@ -18,6 +18,7 @@ After thorough investigation, the following root causes were identified:
 2. **Missing Critical CSS Inlining**: No inline critical CSS in _document.js
 3. **CSS Loading Order**: CSS files may not have been loading in the correct order
 4. **Next.js App/Pages Router Conflict**: Conflicts between /pages and /src/app directories
+5. **Server-Side Rendering Issues**: DOM manipulation attempts during server-side rendering
 
 ## Solutions Implemented
 
@@ -35,7 +36,7 @@ This ensures that critical styles are available immediately, even if external CS
 We modified `tailwind.config.js` to:
 - Include the pages directory in the content paths
 - Add a comprehensive safelist of critical CSS classes to prevent them from being purged
-- Include pattern-based safelist entries for common utility classes
+- Replace regex patterns with explicit class names for better compatibility with Tailwind v3.0
 
 This prevents Tailwind from purging essential CSS classes during the build process.
 
@@ -52,53 +53,33 @@ We added a `global.css` file in the public/styles directory that contains:
 
 This file serves as a fallback that can be directly accessed by the browser if the main CSS bundling has issues.
 
-### 4. Implemented CSS Modules Approach
+### 4. Fixed Enhanced Brand CSS
 
-We created CSS modules for critical components:
-- `Button.module.css` for button styles
-- `Typography.module.css` for text and gradient styles
-- `Navigation.module.css` for navigation styles
-
-These modules ensure that component-specific styles are properly included in the build and scoped to their components.
-
-### 5. Created Component-Based Styling
-
-We developed React components that use the CSS modules:
-- `Button.jsx` component with various variants and sizes
-- `Typography.jsx` component with text gradient support
-- `Navigation.jsx` component with proper styling
-
-This approach ensures that styles are directly tied to components and won't be purged during the build process.
-
-### 6. Created a Test Page
-
-We created a `css-test.js` page that demonstrates all the styled components and CSS classes to:
-- Verify that styles are being applied correctly
-- Provide a reference for developers
-- Serve as a visual regression test for future changes
+We identified and fixed an issue in the enhanced-brand.css file where it was using a non-existent `border-3` class, which was causing compilation errors. We replaced it with the valid `border-2` class.
 
 ## Testing and Verification
 
-The changes have been implemented in the `css-fixes` branch, which was created from the `css-debug` branch. To test the changes:
+The changes have been implemented in the `css-fixes` branch, which was created from the `css-debug` branch.
 
-1. Run the development server:
-   ```
-   npm run dev
-   ```
+During testing, we encountered server-side rendering issues with our initial approach of creating React components with CSS modules. These components were attempting to use browser DOM methods during server-side rendering, which isn't available in that context.
 
-2. Navigate to `/css-test` to verify that all styles are being applied correctly
-
-3. Check the production build to ensure styles are preserved:
-   ```
-   npm run build
-   npm run start
-   ```
+We've adjusted our approach to focus on the core CSS fixes that don't cause server-side rendering issues:
+- Inline critical CSS in _document.js
+- Global CSS fallback
+- Updated Tailwind configuration
+- Fixed CSS syntax errors
 
 ## Recommendations for Future Development
 
-1. **Consistent Styling Approach**: Use CSS modules for component-specific styles and global CSS for theme variables and utility classes
+1. **Server-Side Rendering Compatibility**: When creating components, use Next.js's built-in features for client-side rendering when DOM manipulation is needed:
+   ```jsx
+   'use client'; // Mark component as client-side only
+   ```
 
-2. **Component Documentation**: Maintain the test page as a living style guide for the project
+2. **Consistent Styling Approach**: Use a combination of:
+   - Inline critical CSS for essential styles
+   - Global CSS for theme variables and utility classes
+   - Tailwind utility classes with proper safelist configuration
 
 3. **Build Process Monitoring**: Add CSS size monitoring to the build process to detect unexpected purging
 
@@ -108,6 +89,6 @@ The changes have been implemented in the `css-fixes` branch, which was created f
 
 ## Conclusion
 
-The CSS issues in the EdPsych Connect platform were resolved by implementing a multi-layered approach that ensures styles are properly applied regardless of build optimizations. The combination of inline critical CSS, CSS modules, and a global CSS fallback provides redundancy and resilience to the styling system.
+The CSS issues in the EdPsych Connect platform were resolved by implementing a focused approach that ensures styles are properly applied without causing server-side rendering issues. The combination of inline critical CSS, global CSS fallback, and proper Tailwind configuration provides a solid foundation for styling the application.
 
-These changes maintain the performance benefits of CSS optimization while ensuring that all necessary styles are included in the production build.
+These changes maintain the performance benefits of CSS optimization while ensuring that all necessary styles are included in the production build and are compatible with Next.js's server-side rendering.
