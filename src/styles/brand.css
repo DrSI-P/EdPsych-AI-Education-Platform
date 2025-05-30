@@ -299,19 +299,39 @@
   
   /* Buttons */
   .btn-primary {
-    @apply bg-primary text-white hover:bg-primary/90 rounded-md px-4 py-2 font-medium;
+    background-color: hsl(var(--primary));
+    color: white;
+    border-radius: 0.375rem;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+  }
+  
+  .btn-primary:hover {
+    background-color: hsl(var(--primary) / 0.9);
   }
   
   .btn-secondary {
-    @apply bg-neutral-100 text-neutral-900 hover:bg-neutral-200 rounded-md px-4 py-2 font-medium;
+    @apply bg-neutral-100 text-neutral-900 rounded-md px-4 py-2 font-medium;
+  }
+  
+  .btn-secondary:hover {
+    @apply bg-neutral-200;
   }
   
   .btn-outline {
-    @apply border border-neutral-200 bg-white hover:bg-neutral-100 hover:text-neutral-900 rounded-md px-4 py-2 font-medium;
+    @apply border border-neutral-200 bg-white rounded-md px-4 py-2 font-medium;
+  }
+  
+  .btn-outline:hover {
+    @apply bg-neutral-100 text-neutral-900;
   }
   
   .btn-ghost {
-    @apply hover:bg-neutral-100 hover:text-neutral-900 rounded-md px-4 py-2 font-medium;
+    @apply rounded-md px-4 py-2 font-medium;
+  }
+  
+  .btn-ghost:hover {
+    @apply bg-neutral-100 text-neutral-900;
   }
   
   /* Nursery-specific buttons */
