@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
-import MainNavigation from '../../src/components/ui/MainNavigation';
-import Footer from '../../src/components/layout/Footer';
+import MainNavigation from '../src/components/ui/MainNavigation';
+import Footer from '../src/components/layout/Footer';
 
 const AnalyticsDashboardPage = () => {
   return (
