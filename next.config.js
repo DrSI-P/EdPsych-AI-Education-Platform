@@ -3,11 +3,9 @@
  * Modified for Pages Router compatibility
  */
 const path = require('path');
-
 // All polyfills are now loaded from the dedicated polyfill files
 require('./src/globalPolyfills');
 require('./src/polyfills');
-
 // Simplified configuration for Pages Router compatibility
 const nextConfig = {
   reactStrictMode: true,
@@ -102,6 +100,8 @@ const nextConfig = {
           const originalExclude = cssRule.exclude;
           cssRule.exclude = (path) => {
             if (path.includes('enhanced-globals.css') || 
+                path.includes('enhanced-brand.css') ||
+                path.includes('brand.css') ||
                 path.includes('enhanced-theme.ts') || 
                 path.includes('enhanced-tokens.ts')) {
               return false;
@@ -133,12 +133,9 @@ const nextConfig = {
     '@headlessui/react',
   ],
   
-  // External packages for server
-  externalDir: true,
-  
   // Improve production performance
   productionBrowserSourceMaps: false,
   poweredByHeader: false,
-};
+};};
 
 module.exports = nextConfig;

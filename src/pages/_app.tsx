@@ -7,6 +7,8 @@ import { Toaster } from '@/components/ui/toaster';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import '@/styles/globals.css';
+import '@/styles/brand.css';
+import '@/styles/enhanced-brand.css';
 
 // PWA head component for metadata
 function PWAHead() {
