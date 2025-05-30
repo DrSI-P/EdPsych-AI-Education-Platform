@@ -35,13 +35,25 @@ module.exports = {
     'late-primary-ui',
     'secondary-ui',
     
-    // Critical utility patterns
-    /^bg-/,
-    /^text-/,
-    /^border-/,
-    /^hover:/,
-    /^focus:/,
-    /^active:/,
+    // Critical utility patterns - updated for Tailwind v3.0
+    'bg-primary',
+    'bg-secondary',
+    'bg-white',
+    'bg-neutral-100',
+    'bg-neutral-200',
+    'text-white',
+    'text-neutral-900',
+    'text-neutral-500',
+    'text-foreground',
+    'text-primary-foreground',
+    'text-secondary-foreground',
+    'border-border',
+    'hover:bg-neutral-100',
+    'hover:bg-neutral-200',
+    'hover:text-neutral-900',
+    'focus:outline-none',
+    'focus:ring-2',
+    'active:bg-primary',
   ],
   theme: {
     extend: {
