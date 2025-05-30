@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
-import MainNavigation from '../src/components/navigation/main-navigation';
-import Footer from '../src/components/navigation/footer';
+import MainNavigation from '../src/components/ui/MainNavigation';
+import Footer from '../src/components/layout/Footer';
 
 /**
  * Enhanced homepage for EdPsych Connect using Pages Router approach
