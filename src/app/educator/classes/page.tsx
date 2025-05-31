@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
@@ -384,243 +386,21 @@ export default function ClassManagementDashboard() {
               </Table>
             </CardContent>
           </Card>
-          
-          {/* Class insights - only for premium tiers */}
-          {hasAdvancedClassManagement && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg flex items-center">
-                    <BarChart className="h-5 w-5 mr-2 text-primary" />
-                    Class Performance
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center mb-4">
-                    <div className="text-3xl font-bold text-primary">76%</div>
-                    <p className="text-sm text-muted-foreground">Average progress across all classes</p>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span>Top class: Year 9 Science</span>
-                      <span className="font-medium">81%</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span>Lowest class: Year 10 History</span>
-                      <span className="font-medium">65%</span>
-                    </div>
-                  </div>
-                </CardContent>
-                <CardFooter>
-                  <Button variant="outline" className="w-full" asChild>
-                    <Link href="/educator/analytics/classes">
-                      Detailed Analysis
-                    </Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-              
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg flex items-center">
-                    <AlertCircle className="h-5 w-5 mr-2 text-primary" />
-                    Attention Required
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3">
-                    <li className="flex items-start">
-                      <div className="bg-red-100 p-2 rounded-full mr-3">
-                        <AlertCircle className="h-4 w-4 text-red-500" />
-                      </div>
-                      <div>
-                        <p className="font-medium">Year 10 History</p>
-                        <p className="text-sm text-muted-foreground">
-                          5 students below 50% progress
-                        </p>
-                      </div>
-                    </li>
-                    <li className="flex items-start">
-                      <div className="bg-amber-100 p-2 rounded-full mr-3">
-                        <Clock className="h-4 w-4 text-amber-500" />
-                      </div>
-                      <div>
-                        <p className="font-medium">Year 8 English</p>
-                        <p className="text-sm text-muted-foreground">
-                          Assignment completion rate dropping
-                        </p>
-                      </div>
-                    </li>
-                  </ul>
-                </CardContent>
-                <CardFooter>
-                  <Button variant="outline" className="w-full" asChild>
-                    <Link href="/educator/classes/alerts">
-                      View All Alerts
-                    </Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-              
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg flex items-center">
-                    <Calendar className="h-5 w-5 mr-2 text-primary" />
-                    Upcoming Class Events
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3">
-                    <li className="flex items-start">
-                      <div className="bg-primary/10 p-2 rounded-full mr-3">
-                        <Calendar className="h-4 w-4 text-primary" />
-                      </div>
-                      <div>
-                        <p className="font-medium">Year 7 Mathematics</p>
-                        <p className="text-sm text-muted-foreground">
-                          End of unit test - Tomorrow
-                        </p>
-                      </div>
-                    </li>
-                    <li className="flex items-start">
-                      <div className="bg-primary/10 p-2 rounded-full mr-3">
-                        <Calendar className="h-4 w-4 text-primary" />
-                      </div>
-                      <div>
-                        <p className="font-medium">Year 9 Science</p>
-                        <p className="text-sm text-muted-foreground">
-                          Lab session - Wednesday
-                        </p>
-                      </div>
-                    </li>
-                  </ul>
-                </CardContent>
-                <CardFooter>
-                  <Button variant="outline" className="w-full" asChild>
-                    <Link href="/educator/calendar">
-                      View Calendar
-                    </Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-            </div>
-          )}
         </div>
       )}
       
       {/* Students Tab Content */}
       {activeTab === 'students' && (
         <div className="space-y-6">
-          {/* Filters and search */}
-          <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
-            <div className="relative flex-grow">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search students..."
-                className="pl-8"
-              />
-            </div>
-            <div className="flex gap-2 flex-wrap">
-              <Select defaultValue="all">
-                <SelectTrigger className="w-[150px]">
-                  <SelectValue placeholder="Year Group" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Years</SelectItem>
-                  <SelectItem value="7">Year 7</SelectItem>
-                  <SelectItem value="8">Year 8</SelectItem>
-                  <SelectItem value="9">Year 9</SelectItem>
-                  <SelectItem value="10">Year 10</SelectItem>
-                  <SelectItem value="11">Year 11</SelectItem>
-                </SelectContent>
-              </Select>
-              
-              <Select defaultValue="all">
-                <SelectTrigger className="w-[150px]">
-                  <SelectValue placeholder="Status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Statuses</SelectItem>
-                  <SelectItem value="active">Active</SelectItem>
-                  <SelectItem value="at-risk">At Risk</SelectItem>
-                  <SelectItem value="excelling">Excelling</SelectItem>
-                </SelectContent>
-              </Select>
-              
-              <Button variant="outline" className="flex items-center">
-                <Filter className="mr-2 h-4 w-4" />
-                More Filters
-              </Button>
-            </div>
-          </div>
-          
-          {/* Students table */}
           <Card>
-            <CardContent className="p-0">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Year</TableHead>
-                    <TableHead>Classes</TableHead>
-                    <TableHead>Progress</TableHead>
-                    <TableHead>Learning Style</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {students.map(student => (
-                    <TableRow key={student.id}>
-                      <TableCell className="font-medium">{student.name}</TableCell>
-                      <TableCell>Year {student.year}</TableCell>
-                      <TableCell>{student.classes.join(', ')}</TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-2">
-                          <Progress value={student.progress} className="h-2 w-20" />
-                          <span>{student.progress}%</span>
-                        </div>
-                      </TableCell>
-                      <TableCell>{student.learningStyle}</TableCell>
-                      <TableCell>{getStatusBadge(student.status)}</TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex justify-end gap-2">
-                          <Button variant="ghost" size="sm" asChild>
-                            <Link href={`/educator/students/${student.id}`}>
-                              View
-                            </Link>
-                          </Button>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" size="sm">
-                                <ChevronDown className="h-4 w-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuItem asChild>
-                                <Link href={`/educator/students/${student.id}/learning-path`}>
-                                  Learning Path
-                                </Link>
-                              </DropdownMenuItem>
-                              <DropdownMenuItem asChild>
-                                <Link href={`/educator/students/${student.id}/analytics`}>
-                                  Analytics
-                                </Link>
-                              </DropdownMenuItem>
-                              <DropdownMenuItem asChild>
-                                <Link href={`/educator/students/${student.id}/communication`}>
-                                  Contact Parent/Guardian
-                                </Link>
-                              </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+            <CardHeader>
+              <CardTitle>Students</CardTitle>
+              <CardDescription>
+                View and manage students across all your classes
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Student management content will be displayed here.</p>
             </CardContent>
           </Card>
         </div>
@@ -629,154 +409,17 @@ export default function ClassManagementDashboard() {
       {/* Resources Tab Content */}
       {activeTab === 'resources' && (
         <div className="space-y-6">
-          {/* Filters and search */}
-          <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
-            <div className="relative flex-grow">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search resources..."
-                className="pl-8"
-              />
-            </div>
-            <div className="flex gap-2 flex-wrap">
-              <Select defaultValue="all">
-                <SelectTrigger className="w-[150px]">
-                  <SelectValue placeholder="Subject" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Subjects</SelectItem>
-                  <SelectItem value="Mathematics">Mathematics</SelectItem>
-                  <SelectItem value="English">English</SelectItem>
-                  <SelectItem value="Science">Science</SelectItem>
-                  <SelectItem value="History">History</SelectItem>
-                </SelectContent>
-              </Select>
-              
-              <Select defaultValue="all">
-                <SelectTrigger className="w-[150px]">
-                  <SelectValue placeholder="Type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Types</SelectItem>
-                  <SelectItem value="lesson">Lesson</SelectItem>
-                  <SelectItem value="worksheet">Worksheet</SelectItem>
-                  <SelectItem value="interactive">Interactive</SelectItem>
-                  <SelectItem value="presentation">Presentation</SelectItem>
-                </SelectContent>
-              </Select>
-              
-              <Button className="flex items-center" asChild>
-                <Link href="/educator/resources/create">
-                  <FileText className="mr-2 h-4 w-4" />
-                  Create Resource
-                </Link>
-              </Button>
-            </div>
-          </div>
-          
-          {/* Resources grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {resources.map(resource => (
-              <Card key={resource.id} className="hover:shadow-md transition-shadow">
-                <CardHeader>
-                  <div className="flex justify-between items-start">
-                    <CardTitle className="text-lg">{resource.title || resource.name}</CardTitle>
-                    <Badge variant="outline">{resource.subject}</Badge>
-                  </div>
-                  <CardDescription className="flex items-center">
-                    {getResourceTypeIcon(resource.type)}
-                    <span className="ml-1 capitalize">{resource.type}</span>
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex justify-between text-sm text-muted-foreground">
-                    <span>Usage: {resource.usage}</span>
-                    <span>Last used: {resource.lastUsed}</span>
-                  </div>
-                </CardContent>
-                <CardFooter className="flex justify-between">
-                  <Button variant="outline" size="sm" asChild>
-                    <Link href={`/educator/resources/${resource.id}`}>
-                      View
-                    </Link>
-                  </Button>
-                  <Button variant="outline" size="sm" asChild>
-                    <Link href={`/educator/resources/${resource.id}/assign`}>
-                      Assign
-                    </Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
-          
-          {/* Resource recommendations - premium feature */}
-          {hasAdvancedClassManagement && (
-            <Card className="mt-8 bg-primary/5">
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Lightbulb className="h-5 w-5 mr-2 text-primary" />
-                  Recommended Resources
-                </CardTitle>
-                <CardDescription>
-                  Based on your classes' performance and learning styles
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="border rounded-lg p-4 bg-white">
-                    <div className="flex items-start mb-2">
-                      <div className="bg-blue-100 p-2 rounded-full mr-3">
-                        <BookOpen className="h-4 w-4 text-blue-500" />
-                      </div>
-                      <div>
-                        <p className="font-medium">Fractions Interactive Game</p>
-                        <p className="text-sm text-muted-foreground">
-                          Recommended for Year 7 Mathematics
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex justify-end">
-                      <Button variant="link" size="sm" className="h-auto p-0" asChild>
-                        <Link href="/educator/resources/recommended/1">
-                          View Resource
-                        </Link>
-                      </Button>
-                    </div>
-                  </div>
-                  
-                  <div className="border rounded-lg p-4 bg-white">
-                    <div className="flex items-start mb-2">
-                      <div className="bg-green-100 p-2 rounded-full mr-3">
-                        <FileText className="h-4 w-4 text-green-500" />
-                      </div>
-                      <div>
-                        <p className="font-medium">Scientific Method Worksheet</p>
-                        <p className="text-sm text-muted-foreground">
-                          Recommended for Year 9 Science
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex justify-end">
-                      <Button variant="link" size="sm" className="h-auto p-0" asChild>
-                        <Link href="/educator/resources/recommended/2">
-                          View Resource
-                        </Link>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button variant="outline" className="w-full" asChild>
-                  <Link href="/educator/resources/recommended">
-                    View All Recommendations
-                  </Link>
-                </Button>
-              </CardFooter>
-            </Card>
-          )}
+          <Card>
+            <CardHeader>
+              <CardTitle>Teaching Resources</CardTitle>
+              <CardDescription>
+                Access and manage your teaching resources
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Resource management content will be displayed here.</p>
+            </CardContent>
+          </Card>
         </div>
       )}
     </div>

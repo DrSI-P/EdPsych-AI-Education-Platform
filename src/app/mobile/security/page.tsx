@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -367,57 +369,40 @@ const MobileSecurity: React.FC = () => {
                         <option>Deny</option>
                       </select>
                     </div>
-                    
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label className="text-sm">Notifications</Label>
-                        <p className="text-xs text-muted-foreground">For alerts and reminders</p>
-                      </div>
-                      <select className="text-xs p-1 border rounded">
-                        <option>Allow</option>
-                        <option>Deny</option>
-                      </select>
-                    </div>
                   </div>
                 </div>
                 
-                <div className="pt-2">
+                <div className="pt-4">
                   <h3 className="font-medium mb-3">Data Usage</h3>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
                       <div>
-                        <Label htmlFor="analytics-enabled" className="text-sm">Analytics</Label>
+                        <Label className="text-sm">Analytics</Label>
                         <p className="text-xs text-muted-foreground">Help improve the app by sharing usage data</p>
                       </div>
-                      <input 
-                        type="checkbox" 
-                        id="analytics-enabled" 
-                        defaultChecked={true}
-                        className="h-4 w-4"
-                      />
+                      <input type="checkbox" className="h-4 w-4" defaultChecked />
                     </div>
                     
                     <div className="flex items-center justify-between">
                       <div>
-                        <Label htmlFor="personalization-enabled" className="text-sm">Personalization</Label>
+                        <Label className="text-sm">Personalization</Label>
                         <p className="text-xs text-muted-foreground">Customize content based on your activity</p>
                       </div>
-                      <input 
-                        type="checkbox" 
-                        id="personalization-enabled" 
-                        defaultChecked={true}
-                        className="h-4 w-4"
-                      />
+                      <input type="checkbox" className="h-4 w-4" defaultChecked />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <Label className="text-sm">Third-Party Sharing</Label>
+                        <p className="text-xs text-muted-foreground">Share data with trusted partners</p>
+                      </div>
+                      <input type="checkbox" className="h-4 w-4" />
                     </div>
                   </div>
                 </div>
                 
-                <div className="pt-2">
+                <div className="pt-4">
                   <Button variant="outline" size="sm" className="w-full">
-                    View Privacy Policy
-                  </Button>
-                  
-                  <Button variant="outline" size="sm" className="w-full mt-2">
                     Download My Data
                   </Button>
                 </div>

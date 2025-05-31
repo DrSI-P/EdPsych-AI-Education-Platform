@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -420,10 +422,10 @@ const MobileSynchronization: React.FC = () => {
                 </div>
                 
                 <div className="pt-2">
-                  <h3 className="font-medium mb-3">Data Types to Sync</h3>
+                  <h3 className="font-medium mb-3">Content to Sync</h3>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <Label htmlFor="sync-media" className="text-sm">Media content</Label>
+                      <Label htmlFor="sync-media" className="text-sm">Media Files</Label>
                       <input 
                         type="checkbox" 
                         id="sync-media" 
@@ -434,7 +436,7 @@ const MobileSynchronization: React.FC = () => {
                     </div>
                     
                     <div className="flex items-center justify-between">
-                      <Label htmlFor="sync-assessments" className="text-sm">Assessments</Label>
+                      <Label htmlFor="sync-assessments" className="text-sm">Assessments & Quizzes</Label>
                       <input 
                         type="checkbox" 
                         id="sync-assessments" 
@@ -445,7 +447,7 @@ const MobileSynchronization: React.FC = () => {
                     </div>
                     
                     <div className="flex items-center justify-between">
-                      <Label htmlFor="sync-progress" className="text-sm">Progress data</Label>
+                      <Label htmlFor="sync-progress" className="text-sm">Learning Progress</Label>
                       <input 
                         type="checkbox" 
                         id="sync-progress" 
@@ -458,27 +460,12 @@ const MobileSynchronization: React.FC = () => {
                 </div>
                 
                 <div className="pt-2">
-                  <h3 className="font-medium mb-3">Advanced Options</h3>
-                  <div className="space-y-3">
-                    <Button variant="outline" size="sm" className="w-full">
-                      Force Full Sync
-                    </Button>
-                    
-                    <Button variant="outline" size="sm" className="w-full">
-                      Clear Sync History
-                    </Button>
-                    
-                    <Button variant="outline" size="sm" className="w-full text-red-600 hover:text-red-700">
-                      Reset Sync Settings
-                    </Button>
-                  </div>
+                  <Button variant="outline" size="sm" className="w-full">
+                    Reset to Default Settings
+                  </Button>
                 </div>
               </CardContent>
             </Card>
-            
-            <div className="flex justify-end mt-4">
-              <Button>Save Settings</Button>
-            </div>
           </TabsContent>
         </Tabs>
       </main>

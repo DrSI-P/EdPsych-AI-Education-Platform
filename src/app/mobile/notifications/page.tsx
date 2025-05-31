@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -397,29 +399,38 @@ const MobileNotifications: React.FC = () => {
                   <h3 className="font-medium mb-2">Notification Timing</h3>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <Label htmlFor="assignment-reminder-time" className="text-sm">Assignment Reminders</Label>
-                      <select id="assignment-reminder-time" className="text-xs p-1 border rounded">
-                        <option>1 day before</option>
-                        <option>2 days before</option>
-                        <option>1 week before</option>
+                      <Label htmlFor="reminder-advance-time" className="text-sm">Reminder advance notice</Label>
+                      <select 
+                        id="reminder-advance-time" 
+                        className="text-sm p-1 border rounded"
+                        defaultValue="30"
+                      >
+                        <option value="15">15 minutes</option>
+                        <option value="30">30 minutes</option>
+                        <option value="60">1 hour</option>
+                        <option value="120">2 hours</option>
+                        <option value="1440">1 day</option>
                       </select>
                     </div>
                     
                     <div className="flex items-center justify-between">
-                      <Label htmlFor="quiet-hours" className="text-sm">Quiet Hours</Label>
-                      <div className="flex items-center space-x-2">
-                        <select className="text-xs p-1 border rounded">
-                          <option>10:00 PM</option>
-                          <option>11:00 PM</option>
-                          <option>12:00 AM</option>
-                        </select>
-                        <span className="text-xs">to</span>
-                        <select className="text-xs p-1 border rounded">
-                          <option>6:00 AM</option>
-                          <option>7:00 AM</option>
-                          <option>8:00 AM</option>
-                        </select>
-                      </div>
+                      <Label htmlFor="quiet-hours-start" className="text-sm">Quiet hours start</Label>
+                      <input 
+                        type="time" 
+                        id="quiet-hours-start" 
+                        defaultValue="22:00" 
+                        className="text-sm p-1 border rounded"
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="quiet-hours-end" className="text-sm">Quiet hours end</Label>
+                      <input 
+                        type="time" 
+                        id="quiet-hours-end" 
+                        defaultValue="07:00" 
+                        className="text-sm p-1 border rounded"
+                      />
                     </div>
                   </div>
                 </div>
@@ -428,12 +439,16 @@ const MobileNotifications: React.FC = () => {
                   <h3 className="font-medium mb-2">Notification Display</h3>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <Label htmlFor="notification-sound" className="text-sm">Notification Sound</Label>
-                      <select id="notification-sound" className="text-xs p-1 border rounded">
-                        <option>Default</option>
-                        <option>Chime</option>
-                        <option>Bell</option>
-                        <option>Silent</option>
+                      <Label htmlFor="notification-sound" className="text-sm">Notification sound</Label>
+                      <select 
+                        id="notification-sound" 
+                        className="text-sm p-1 border rounded"
+                        defaultValue="chime"
+                      >
+                        <option value="chime">Chime</option>
+                        <option value="bell">Bell</option>
+                        <option value="tone">Tone</option>
+                        <option value="none">None</option>
                       </select>
                     </div>
                     
@@ -448,10 +463,10 @@ const MobileNotifications: React.FC = () => {
                     </div>
                     
                     <div className="flex items-center justify-between">
-                      <Label htmlFor="notification-preview" className="text-sm">Show Preview</Label>
+                      <Label htmlFor="notification-led" className="text-sm">LED indicator</Label>
                       <input 
                         type="checkbox" 
-                        id="notification-preview" 
+                        id="notification-led" 
                         defaultChecked 
                         className="h-4 w-4"
                       />
@@ -461,7 +476,8 @@ const MobileNotifications: React.FC = () => {
               </CardContent>
             </Card>
             
-            <div className="flex justify-end mt-4">
+            <div className="flex justify-end space-x-2 mt-4">
+              <Button variant="outline">Reset to Default</Button>
               <Button>Save Settings</Button>
             </div>
           </TabsContent>

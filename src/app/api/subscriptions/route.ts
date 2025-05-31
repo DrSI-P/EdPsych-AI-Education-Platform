@@ -206,16 +206,11 @@ export async function GET(request: NextRequest) {
 }
 
 /**
- * POST /api/subscriptions/tenants/:tenantId/checkout
+ * POST /api/subscriptions/checkout
  * Create a checkout session for a tenant
  */
-export async function POST(
-  request: NextRequest,
-  { params }: { params: { tenantId: string } }
-) {
+export async function POST(request: NextRequest) {
   try {
-    const tenantId = params.tenantId;
-    
     // Parse request body
     const body = await request.json();
     
@@ -289,61 +284,6 @@ export async function POST(
     
     return NextResponse.json(
       { message: 'Failed to create checkout session' },
-      { status: 500 }
-    );
-  }
-}
-
-/**
- * POST /api/subscriptions/tenants/:tenantId/billing-portal
- * Create a billing portal session for a tenant
- */
-export async function POST(
-  request: NextRequest,
-  { params }: { params: { tenantId: string } }
-) {
-  try {
-    const tenantId = params.tenantId;
-    
-    // In a real implementation, this would get the Stripe customer ID for the tenant
-    // and create a billing portal session
-    // For now, we'll simulate the response
-    
-    // Simulate Stripe billing portal session creation
-    // In a real implementation, this would be:
-    /*
-    // Get the tenant's Stripe customer ID
-    const tenant = await db.tenant.findUnique({
-      where: { id: tenantId },
-      select: { stripeCustomerId: true },
-    });
-    
-    if (!tenant || !tenant.stripeCustomerId) {
-      return NextResponse.json(
-        { message: 'Tenant has no associated Stripe customer' },
-        { status: 404 }
-      );
-    }
-    
-    const session = await stripe.billingPortal.sessions.create({
-      customer: tenant.stripeCustomerId,
-      return_url: `${process.env.NEXT_PUBLIC_APP_URL}/admin/tenants/${tenantId}/subscription`,
-    });
-    */
-    
-    // Mock billing portal session
-    const mockSession = {
-      url: `https://billing.stripe.com/session/test_${Date.now()}`,
-    };
-    
-    // Return response
-    return NextResponse.json({
-      portalUrl: mockSession.url,
-    });
-  } catch (error) {
-    console.error('Error creating billing portal session:', error);
-    return NextResponse.json(
-      { message: 'Failed to create billing portal session' },
       { status: 500 }
     );
   }
