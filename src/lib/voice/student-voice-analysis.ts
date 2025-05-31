@@ -1,1029 +1,869 @@
 /**
  * Student Voice Analysis Service
  * 
- * This service extends the enhanced voice analysis capabilities with specific features
- * for analyzing student speech patterns, providing educational insights, and supporting
- * personalized learning based on voice interaction.
+ * This service provides advanced voice pattern recognition and sentiment analysis
+ * specifically designed for children and young people in educational contexts.
+ * It builds upon the core Voice Analysis service with specialized features for
+ * educational assessment and support.
  */
 
-import { EnhancedVoiceAnalysis, VoiceAnalysisResult, VoiceAnalysisOptions, EmotionType, SpeechPatternType } from './enhanced-voice-analysis';
+import { 
+  getVoiceAnalysisService, 
+  VoiceAnalysisResult, 
+  VoiceAnalysisOptions,
+  EmotionalToneResult,
+  SpeechPatternResult
+} from './voiceAnalysis';
+import { getSpeechRecognitionService, SpeechRecognitionResult } from './speechRecognition';
 
-// Learning engagement levels that can be detected from voice
-export enum EngagementLevel {
-  HIGHLY_ENGAGED = 'highly_engaged',
-  ENGAGED = 'engaged',
-  NEUTRAL = 'neutral',
-  DISENGAGED = 'disengaged',
-  FRUSTRATED = 'frustrated',
-  CONFUSED = 'confused',
-  ANXIOUS = 'anxious'
-}
-
-// Confidence levels in speaking
-export enum ConfidenceLevel {
-  VERY_HIGH = 'very_high',
-  HIGH = 'high',
-  MODERATE = 'moderate',
-  LOW = 'low',
-  VERY_LOW = 'very_low'
-}
-
-// Student voice analysis result interface
-export interface StudentVoiceAnalysisResult extends VoiceAnalysisResult {
-  engagementLevel: EngagementLevel;
-  confidenceLevel: ConfidenceLevel;
-  learningInsights: {
-    comprehension: number; // 0-1 scale
-    fluency: number; // 0-1 scale
-    vocabulary: {
-      level: number; // 1-5 scale
-      complexWords: number;
-      totalWords: number;
-      uniqueWords: number;
-    };
-    pronunciation: {
-      accuracy: number; // 0-1 scale
-      challengingPhonemes: string[];
-    };
-    conceptUnderstanding: number; // 0-1 scale
-    attentionLevel: number; // 0-1 scale
-  };
-  supportRecommendations: string[];
-  learningStyleIndicators: {
-    visual: number; // 0-1 scale
-    auditory: number; // 0-1 scale
-    kinesthetic: number; // 0-1 scale
-    readingWriting: number; // 0-1 scale
-  };
-}
-
-// Student voice analysis options interface
+// Types for student voice analysis
 export interface StudentVoiceAnalysisOptions extends VoiceAnalysisOptions {
-  subject?: string; // Current subject being studied
-  topic?: string; // Specific topic within the subject
-  expectedVocabulary?: string[]; // Expected vocabulary for the current topic
-  learningObjectives?: string[]; // Learning objectives for the current session
-  previousAnalysisResults?: StudentVoiceAnalysisResult[]; // Previous analysis results for trend analysis
-  learningDifficulties?: string[]; // Known learning difficulties to consider
+  educationalContext?: 'classroom' | 'assessment' | 'tutoring' | 'practice';
+  subjectContext?: string;
+  readingLevel?: 'emerging' | 'developing' | 'fluent' | 'advanced';
+  learningDifficulties?: {
+    dyslexia?: boolean;
+    dyspraxia?: boolean;
+    speechImpediment?: boolean;
+    hearingImpairment?: boolean;
+    attentionDifficulties?: boolean;
+  };
+  feedbackMode?: 'supportive' | 'instructional' | 'minimal';
 }
 
-// Default options
-const defaultStudentOptions: StudentVoiceAnalysisOptions = {
-  detectEmotion: true,
-  analyzeSpeechPattern: true,
-  ageGroup: 'late-primary',
-  languageCode: 'en-GB',
-  sensitivity: 0.8,
-  subject: 'general',
-  expectedVocabulary: []
-};
+export interface ReadingAssessmentResult {
+  fluencyScore: number; // 0 to 100
+  accuracyScore: number; // 0 to 100
+  comprehensionIndicators: {
+    expressiveness: number; // 0 to 1
+    pacing: number; // 0 to 1
+    phrasing: number; // 0 to 1
+  };
+  readingLevel: string;
+  strengths: string[];
+  areasForImprovement: string[];
+}
 
-/**
- * Student Voice Analysis Service
- */
-export class StudentVoiceAnalysis {
-  private static instance: StudentVoiceAnalysis;
-  private enhancedVoiceAnalysis: EnhancedVoiceAnalysis;
+export interface LanguageAssessmentResult {
+  vocabularyLevel: string;
+  grammarAccuracy: number; // 0 to 1
+  sentenceComplexity: number; // 0 to 1
+  topicAdherence: number; // 0 to 1
+  conceptUnderstanding: number; // 0 to 1
+}
+
+export interface EngagementAssessmentResult {
+  overallEngagement: number; // 0 to 1
+  confidence: number; // 0 to 1
+  interest: number; // 0 to 1
+  understanding: number; // 0 to 1
+  frustrationIndicators: boolean;
+  attentionLevel: 'high' | 'medium' | 'low' | 'fluctuating';
+}
+
+export interface StudentVoiceAnalysisResult extends VoiceAnalysisResult {
+  educationalContext?: string;
+  readingAssessment?: ReadingAssessmentResult;
+  languageAssessment?: LanguageAssessmentResult;
+  engagementAssessment?: EngagementAssessmentResult;
+  learningStyleIndicators?: {
+    visual: number; // 0 to 1
+    auditory: number; // 0 to 1
+    kinesthetic: number; // 0 to 1
+    readingWriting: number; // 0 to 1
+  };
+  adaptiveFeedback?: {
+    encouragement: string;
+    guidance: string;
+    nextSteps: string;
+    resourceSuggestions?: {
+      type: string;
+      title: string;
+      relevance: number; // 0 to 1
+    }[];
+  };
+}
+
+// Student Voice Analysis service class
+export class StudentVoiceAnalysisService {
+  private options: StudentVoiceAnalysisOptions;
+  private voiceAnalysisService;
+  private readingAssessmentModel: any = null;
+  private languageAssessmentModel: any = null;
+  private engagementAssessmentModel: any = null;
+  private learningStyleModel: any = null;
+  private feedbackModel: any = null;
+  private modelsLoaded: boolean = false;
   private isAnalyzing: boolean = false;
-  private currentAnalysisCallback: ((result: StudentVoiceAnalysisResult) => void) | null = null;
-  private analysisHistory: Map<string, StudentVoiceAnalysisResult[]> = new Map();
-  private vocabularyDatabase: Map<string, Map<string, string[]>> = new Map();
-  private conceptDatabase: Map<string, Map<string, string[]>> = new Map();
-
-  private constructor() {
-    this.enhancedVoiceAnalysis = EnhancedVoiceAnalysis.getInstance();
-    this.initializeDatabases();
+  
+  constructor(options: StudentVoiceAnalysisOptions = {}) {
+    this.options = {
+      emotionalToneDetection: true,
+      speechPatternAnalysis: true,
+      confidenceAnalysis: true,
+      paceAnalysis: true,
+      ageGroup: 'primary',
+      educationalContext: 'classroom',
+      feedbackMode: 'supportive',
+      ...options
+    };
+    
+    // Initialize base voice analysis service
+    this.voiceAnalysisService = getVoiceAnalysisService({
+      emotionalToneDetection: this.options.emotionalToneDetection,
+      speechPatternAnalysis: this.options.speechPatternAnalysis,
+      confidenceAnalysis: this.options.confidenceAnalysis,
+      paceAnalysis: this.options.paceAnalysis,
+      ageGroup: this.options.ageGroup,
+      specialEducationalNeeds: this.options.specialEducationalNeeds
+    });
+    
+    this.loadModels();
   }
-
+  
   /**
-   * Get the singleton instance of the Student Voice Analysis service
+   * Load required analysis models
    */
-  public static getInstance(): StudentVoiceAnalysis {
-    if (!StudentVoiceAnalysis.instance) {
-      StudentVoiceAnalysis.instance = new StudentVoiceAnalysis();
-    }
-    return StudentVoiceAnalysis.instance;
-  }
-
-  /**
-   * Start student voice analysis with the given options
-   * 
-   * @param callback Function to call with analysis results
-   * @param options Student voice analysis options
-   */
-  public async startAnalysis(
-    callback: (result: StudentVoiceAnalysisResult) => void,
-    options: Partial<StudentVoiceAnalysisOptions> = {}
-  ): Promise<void> {
-    if (this.isAnalyzing) {
-      this.stopAnalysis();
-    }
-
-    const mergedOptions = { ...defaultStudentOptions, ...options };
-    this.currentAnalysisCallback = callback;
-    this.isAnalyzing = true;
-
+  private async loadModels(): Promise<void> {
     try {
-      // Start enhanced voice analysis
-      await this.enhancedVoiceAnalysis.startAnalysis(
-        (baseResult: VoiceAnalysisResult) => {
-          if (this.isAnalyzing && this.currentAnalysisCallback) {
-            // Extend base analysis with student-specific insights
-            const studentResult = this.extendWithStudentInsights(baseResult, mergedOptions);
-            
-            // Store result in history
-            this.storeAnalysisResult(studentResult, mergedOptions);
-            
-            // Send results to callback
-            this.currentAnalysisCallback(studentResult);
-          }
-        },
-        mergedOptions
-      );
+      console.log('Loading student voice analysis models...');
+      
+      const modelLoadPromises: Promise<any>[] = [];
+      
+      // Load reading assessment model
+      modelLoadPromises.push(this.loadReadingAssessmentModel());
+      
+      // Load language assessment model
+      modelLoadPromises.push(this.loadLanguageAssessmentModel());
+      
+      // Load engagement assessment model
+      modelLoadPromises.push(this.loadEngagementAssessmentModel());
+      
+      // Load learning style model
+      modelLoadPromises.push(this.loadLearningStyleModel());
+      
+      // Load feedback model
+      modelLoadPromises.push(this.loadFeedbackModel());
+      
+      await Promise.all(modelLoadPromises);
+      
+      this.modelsLoaded = true;
+      console.log('Student voice analysis models loaded successfully');
     } catch (error) {
-      console.error('Error starting student voice analysis:', error);
-      throw new Error('Failed to start student voice analysis');
+      console.error('Failed to load student voice analysis models:', error);
+      this.modelsLoaded = false;
     }
   }
-
+  
   /**
-   * Stop the current student voice analysis
+   * Load reading assessment model
    */
-  public stopAnalysis(): void {
+  private async loadReadingAssessmentModel(): Promise<void> {
+    // In a real implementation, this would load a pre-trained model
+    // For now, we'll simulate loading a model
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    // Simulate model with reading assessment capabilities
+    this.readingAssessmentModel = {
+      assess: (text: string, speechPattern: SpeechPatternResult, audioFeatures: any): ReadingAssessmentResult => {
+        // Simple reading assessment for simulation
+        
+        // Calculate fluency score based on speech pattern
+        const fluencyScore = Math.round(speechPattern.fluency * 100);
+        
+        // Calculate accuracy score
+        const accuracyScore = Math.round((speechPattern.clarity * 0.7 + speechPattern.articulation * 0.3) * 100);
+        
+        // Determine reading level based on age group and scores
+        let readingLevel = 'developing';
+        const averageScore = (fluencyScore + accuracyScore) / 2;
+        
+        switch (this.options.ageGroup) {
+          case 'early-years':
+            if (averageScore >= 85) readingLevel = 'advanced for age';
+            else if (averageScore >= 70) readingLevel = 'on target';
+            else if (averageScore >= 50) readingLevel = 'developing';
+            else readingLevel = 'emerging';
+            break;
+          case 'primary':
+            if (averageScore >= 90) readingLevel = 'advanced for age';
+            else if (averageScore >= 75) readingLevel = 'on target';
+            else if (averageScore >= 60) readingLevel = 'developing';
+            else readingLevel = 'needs support';
+            break;
+          case 'secondary':
+            if (averageScore >= 90) readingLevel = 'advanced';
+            else if (averageScore >= 80) readingLevel = 'proficient';
+            else if (averageScore >= 65) readingLevel = 'developing';
+            else readingLevel = 'needs support';
+            break;
+          default:
+            if (averageScore >= 90) readingLevel = 'advanced';
+            else if (averageScore >= 75) readingLevel = 'proficient';
+            else if (averageScore >= 60) readingLevel = 'developing';
+            else readingLevel = 'needs support';
+        }
+        
+        // Adjust for learning difficulties if specified
+        if (this.options.learningDifficulties) {
+          if (this.options.learningDifficulties.dyslexia) {
+            readingLevel += ' (with dyslexia considerations)';
+          }
+          if (this.options.learningDifficulties.speechImpediment) {
+            readingLevel += ' (with speech considerations)';
+          }
+        }
+        
+        // Determine strengths and areas for improvement
+        const strengths = [];
+        const areasForImprovement = [];
+        
+        if (speechPattern.fluency > 0.8) {
+          strengths.push('Excellent reading fluency');
+        } else if (speechPattern.fluency < 0.6) {
+          areasForImprovement.push('Focus on improving reading fluency');
+        }
+        
+        if (speechPattern.clarity > 0.8) {
+          strengths.push('Clear pronunciation');
+        } else if (speechPattern.clarity < 0.6) {
+          areasForImprovement.push('Practice clearer pronunciation');
+        }
+        
+        if (speechPattern.rhythm > 0.8) {
+          strengths.push('Good phrasing and expression');
+        } else if (speechPattern.rhythm < 0.6) {
+          areasForImprovement.push('Work on phrasing and expression');
+        }
+        
+        // Ensure we have at least one strength
+        if (strengths.length === 0) {
+          strengths.push('Consistent effort in reading');
+        }
+        
+        // Calculate comprehension indicators
+        const expressiveness = speechPattern.rhythm;
+        const pacing = speechPattern.fluency;
+        const phrasing = (speechPattern.rhythm + speechPattern.fluency) / 2;
+        
+        return {
+          fluencyScore,
+          accuracyScore,
+          comprehensionIndicators: {
+            expressiveness,
+            pacing,
+            phrasing
+          },
+          readingLevel,
+          strengths,
+          areasForImprovement
+        };
+      }
+    };
+  }
+  
+  /**
+   * Load language assessment model
+   */
+  private async loadLanguageAssessmentModel(): Promise<void> {
+    // In a real implementation, this would load a pre-trained model
+    // For now, we'll simulate loading a model
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    // Simulate model with language assessment capabilities
+    this.languageAssessmentModel = {
+      assess: (text: string, speechPattern: SpeechPatternResult): LanguageAssessmentResult => {
+        // Simple language assessment for simulation
+        const words = text.split(' ');
+        const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+        
+        // Calculate vocabulary metrics
+        const uniqueWords = new Set(words.map(w => w.toLowerCase()));
+        const vocabularyRichness = Math.min(uniqueWords.size / Math.max(words.length * 0.6, 1), 1);
+        
+        // Determine vocabulary level
+        let vocabularyLevel = 'age-appropriate';
+        
+        if (vocabularyRichness > 0.8) {
+          vocabularyLevel = 'advanced';
+        } else if (vocabularyRichness > 0.6) {
+          vocabularyLevel = 'strong';
+        } else if (vocabularyRichness < 0.4) {
+          vocabularyLevel = 'developing';
+        }
+        
+        // Adjust for age group
+        switch (this.options.ageGroup) {
+          case 'early-years':
+            if (vocabularyRichness > 0.7) vocabularyLevel = 'advanced for age';
+            break;
+          case 'primary':
+            if (vocabularyRichness > 0.75) vocabularyLevel = 'advanced for age';
+            break;
+          case 'secondary':
+            if (vocabularyRichness < 0.5) vocabularyLevel = 'below age expectation';
+            break;
+        }
+        
+        // Calculate grammar accuracy (simulated)
+        const grammarAccuracy = Math.min(0.5 + (speechPattern.clarity * 0.5), 1);
+        
+        // Calculate sentence complexity
+        const avgWordsPerSentence = words.length / Math.max(sentences.length, 1);
+        let sentenceComplexity = 0;
+        
+        switch (this.options.ageGroup) {
+          case 'early-years':
+            sentenceComplexity = Math.min(avgWordsPerSentence / 10, 1);
+            break;
+          case 'primary':
+            sentenceComplexity = Math.min(avgWordsPerSentence / 15, 1);
+            break;
+          case 'secondary':
+            sentenceComplexity = Math.min(avgWordsPerSentence / 20, 1);
+            break;
+          default:
+            sentenceComplexity = Math.min(avgWordsPerSentence / 20, 1);
+        }
+        
+        // Topic adherence and concept understanding (simulated)
+        const topicAdherence = Math.random() * 0.3 + 0.7;
+        const conceptUnderstanding = Math.random() * 0.3 + 0.7;
+        
+        return {
+          vocabularyLevel,
+          grammarAccuracy,
+          sentenceComplexity,
+          topicAdherence,
+          conceptUnderstanding
+        };
+      }
+    };
+  }
+  
+  /**
+   * Load engagement assessment model
+   */
+  private async loadEngagementAssessmentModel(): Promise<void> {
+    // In a real implementation, this would load a pre-trained model
+    // For now, we'll simulate loading a model
+    await new Promise(resolve => setTimeout(resolve, 400));
+    
+    // Simulate model with engagement assessment capabilities
+    this.engagementAssessmentModel = {
+      assess: (emotionalTone: EmotionalToneResult, speechPattern: SpeechPatternResult): EngagementAssessmentResult => {
+        // Calculate engagement based on emotional tone and speech patterns
+        
+        // Determine if there are frustration indicators
+        const frustrationIndicators = 
+          emotionalTone.primaryEmotion === 'angry' || 
+          emotionalTone.primaryEmotion === 'fearful' ||
+          (emotionalTone.valence < -0.3 && emotionalTone.arousal > 0.7);
+        
+        // Calculate confidence
+        const confidence = 
+          (emotionalTone.primaryEmotion === 'happy' ? 0.8 : 0.5) * 
+          (speechPattern.fluency * 0.7 + speechPattern.clarity * 0.3);
+        
+        // Calculate interest based on emotional tone
+        let interest = 0.5;
+        switch (emotionalTone.primaryEmotion) {
+          case 'happy':
+            interest = 0.8;
+            break;
+          case 'surprised':
+            interest = 0.9;
+            break;
+          case 'neutral':
+            interest = 0.5;
+            break;
+          case 'sad':
+            interest = 0.3;
+            break;
+          case 'angry':
+            interest = 0.2;
+            break;
+          case 'fearful':
+            interest = 0.3;
+            break;
+        }
+        
+        // Adjust interest based on arousal
+        interest = Math.min(interest + (emotionalTone.arousal * 0.3), 1);
+        
+        // Calculate understanding (simulated)
+        const understanding = speechPattern.fluency * 0.4 + speechPattern.clarity * 0.6;
+        
+        // Calculate overall engagement
+        const overallEngagement = (confidence * 0.3) + (interest * 0.4) + (understanding * 0.3);
+        
+        // Determine attention level
+        let attentionLevel: 'high' | 'medium' | 'low' | 'fluctuating' = 'medium';
+        
+        if (overallEngagement > 0.8) {
+          attentionLevel = 'high';
+        } else if (overallEngagement < 0.4) {
+          attentionLevel = 'low';
+        } else if (frustrationIndicators) {
+          attentionLevel = 'fluctuating';
+        }
+        
+        // Adjust for attention difficulties if specified
+        if (this.options.learningDifficulties?.attentionDifficulties) {
+          if (attentionLevel === 'high') {
+            attentionLevel = 'medium';
+          } else if (attentionLevel === 'medium') {
+            attentionLevel = 'fluctuating';
+          }
+        }
+        
+        return {
+          overallEngagement,
+          confidence,
+          interest,
+          understanding,
+          frustrationIndicators,
+          attentionLevel
+        };
+      }
+    };
+  }
+  
+  /**
+   * Load learning style model
+   */
+  private async loadLearningStyleModel(): Promise<void> {
+    // In a real implementation, this would load a pre-trained model
+    // For now, we'll simulate loading a model
+    await new Promise(resolve => setTimeout(resolve, 300));
+    
+    // Simulate model with learning style detection capabilities
+    this.learningStyleModel = {
+      detect: (text: string, emotionalTone: EmotionalToneResult, speechPattern: SpeechPatternResult): any => {
+        // Simple learning style detection for simulation
+        
+        // Look for keywords that might indicate learning style preferences
+        const lowerText = text.toLowerCase();
+        
+        // Visual learning indicators
+        const visualKeywords = ['see', 'look', 'view', 'appear', 'show', 'picture', 'image', 'color', 'watch'];
+        const visualCount = visualKeywords.filter(word => lowerText.includes(word)).length;
+        
+        // Auditory learning indicators
+        const auditoryKeywords = ['hear', 'listen', 'sound', 'tell', 'talk', 'say', 'voice', 'loud', 'quiet'];
+        const auditoryCount = auditoryKeywords.filter(word => lowerText.includes(word)).length;
+        
+        // Kinesthetic learning indicators
+        const kinestheticKeywords = ['feel', 'touch', 'hold', 'do', 'move', 'try', 'handle', 'build', 'make'];
+        const kinestheticCount = kinestheticKeywords.filter(word => lowerText.includes(word)).length;
+        
+        // Reading/writing learning indicators
+        const readingWritingKeywords = ['read', 'write', 'note', 'list', 'book', 'text', 'word', 'page'];
+        const readingWritingCount = readingWritingKeywords.filter(word => lowerText.includes(word)).length;
+        
+        // Calculate base scores
+        const totalKeywordCount = Math.max(
+          visualCount + auditoryCount + kinestheticCount + readingWritingCount, 
+          1
+        );
+        
+        let visualScore = visualCount / totalKeywordCount;
+        let auditoryScore = auditoryCount / totalKeywordCount;
+        let kinestheticScore = kinestheticCount / totalKeywordCount;
+        let readingWritingScore = readingWritingCount / totalKeywordCount;
+        
+        // Normalize scores
+        const totalScore = visualScore + auditoryScore + kinestheticScore + readingWritingScore;
+        
+        if (totalScore > 0) {
+          visualScore = visualScore / totalScore;
+          auditoryScore = auditoryScore / totalScore;
+          kinestheticScore = kinestheticScore / totalScore;
+          readingWritingScore = readingWritingScore / totalScore;
+        } else {
+          // Default distribution if no keywords detected
+          visualScore = 0.25;
+          auditoryScore = 0.25;
+          kinestheticScore = 0.25;
+          readingWritingScore = 0.25;
+        }
+        
+        // Adjust based on speech patterns
+        if (speechPattern.fluency > 0.8) {
+          auditoryScore += 0.1;
+        }
+        
+        if (speechPattern.clarity > 0.8) {
+          readingWritingScore += 0.1;
+        }
+        
+        // Normalize again
+        const adjustedTotal = visualScore + auditoryScore + kinestheticScore + readingWritingScore;
+        
+        return {
+          visual: visualScore / adjustedTotal,
+          auditory: auditoryScore / adjustedTotal,
+          kinesthetic: kinestheticScore / adjustedTotal,
+          readingWriting: readingWritingScore / adjustedTotal
+        };
+      }
+    };
+  }
+  
+  /**
+   * Load feedback model
+   */
+  private async loadFeedbackModel(): Promise<void> {
+    // In a real implementation, this would load a pre-trained model
+    // For now, we'll simulate loading a model
+    await new Promise(resolve => setTimeout(resolve, 300));
+    
+    // Simulate model with feedback generation capabilities
+    this.feedbackModel = {
+      generate: (
+        readingAssessment: ReadingAssessmentResult,
+        languageAssessment: LanguageAssessmentResult,
+        engagementAssessment: EngagementAssessmentResult,
+        learningStyleIndicators: any
+      ): any => {
+        // Generate adaptive feedback based on assessments
+        
+        // Determine dominant learning style
+        const learningStyles = [
+          { style: 'visual', score: learningStyleIndicators.visual },
+          { style: 'auditory', score: learningStyleIndicators.auditory },
+          { style: 'kinesthetic', score: learningStyleIndicators.kinesthetic },
+          { style: 'readingWriting', score: learningStyleIndicators.readingWriting }
+        ];
+        
+        const dominantStyle = learningStyles.sort((a, b) => b.score - a.score)[0].style;
+        
+        // Generate encouragement based on strengths and feedback mode
+        let encouragement = '';
+        
+        if (readingAssessment.strengths.length > 0) {
+          encouragement = readingAssessment.strengths[0];
+          
+          if (this.options.feedbackMode === 'supportive') {
+            encouragement = `Well done! ${encouragement}`;
+          } else if (this.options.feedbackMode === 'instructional') {
+            encouragement = `You've demonstrated ${encouragement.toLowerCase()}`;
+          }
+        } else {
+          if (this.options.feedbackMode === 'supportive') {
+            encouragement = "You're making good progress with your reading!";
+          } else if (this.options.feedbackMode === 'instructional') {
+            encouragement = "You're developing your reading skills.";
+          } else {
+            encouragement = "Continue practicing your reading.";
+          }
+        }
+        
+        // Generate guidance based on areas for improvement
+        let guidance = '';
+        
+        if (readingAssessment.areasForImprovement.length > 0) {
+          guidance = readingAssessment.areasForImprovement[0];
+          
+          if (this.options.feedbackMode === 'supportive') {
+            guidance = `Let's work on: ${guidance}`;
+          } else if (this.options.feedbackMode === 'instructional') {
+            guidance = `Focus area: ${guidance}`;
+          }
+        } else {
+          if (engagementAssessment.understanding < 0.7) {
+            guidance = "Try reading the passage again to improve understanding.";
+          } else {
+            guidance = "Continue with your current reading strategies.";
+          }
+        }
+        
+        // Generate next steps based on assessments and learning style
+        let nextSteps = '';
+        
+        switch (dominantStyle) {
+          case 'visual':
+            if (readingAssessment.fluencyScore < 70) {
+              nextSteps = "Try using color-coded text or highlighting to improve fluency.";
+            } else if (languageAssessment.conceptUnderstanding < 0.7) {
+              nextSteps = "Create a visual map of the key concepts to enhance understanding.";
+            } else {
+              nextSteps = "Use diagrams or pictures to represent the main ideas.";
+            }
+            break;
+          case 'auditory':
+            if (readingAssessment.fluencyScore < 70) {
+              nextSteps = "Practice reading aloud and listening to recorded stories.";
+            } else if (languageAssessment.conceptUnderstanding < 0.7) {
+              nextSteps = "Discuss the concepts with someone to improve understanding.";
+            } else {
+              nextSteps = "Record yourself summarizing what you've read.";
+            }
+            break;
+          case 'kinesthetic':
+            if (readingAssessment.fluencyScore < 70) {
+              nextSteps = "Try finger tracking or using a reading guide while reading.";
+            } else if (languageAssessment.conceptUnderstanding < 0.7) {
+              nextSteps = "Act out or use physical objects to represent the concepts.";
+            } else {
+              nextSteps = "Create a hands-on project related to what you've read.";
+            }
+            break;
+          case 'readingWriting':
+            if (readingAssessment.fluencyScore < 70) {
+              nextSteps = "Practice rewriting passages in your own words.";
+            } else if (languageAssessment.conceptUnderstanding < 0.7) {
+              nextSteps = "Take notes and create summaries to improve understanding.";
+            } else {
+              nextSteps = "Write a reflection or response to what you've read.";
+            }
+            break;
+        }
+        
+        // Generate resource suggestions
+        const resourceSuggestions = [];
+        
+        // Reading fluency resources
+        if (readingAssessment.fluencyScore < 70) {
+          switch (dominantStyle) {
+            case 'visual':
+              resourceSuggestions.push({
+                type: 'interactive',
+                title: 'Visual Reading Fluency Builder',
+                relevance: 0.9
+              });
+              break;
+            case 'auditory':
+              resourceSuggestions.push({
+                type: 'audio',
+                title: 'Read-Along Audio Stories',
+                relevance: 0.9
+              });
+              break;
+            case 'kinesthetic':
+              resourceSuggestions.push({
+                type: 'activity',
+                title: 'Hands-On Reading Fluency Games',
+                relevance: 0.9
+              });
+              break;
+            case 'readingWriting':
+              resourceSuggestions.push({
+                type: 'worksheet',
+                title: 'Progressive Reading Passages',
+                relevance: 0.9
+              });
+              break;
+          }
+        }
+        
+        // Comprehension resources
+        if (languageAssessment.conceptUnderstanding < 0.7) {
+          switch (dominantStyle) {
+            case 'visual':
+              resourceSuggestions.push({
+                type: 'visual',
+                title: 'Concept Visualization Maps',
+                relevance: 0.8
+              });
+              break;
+            case 'auditory':
+              resourceSuggestions.push({
+                type: 'audio',
+                title: 'Guided Concept Explanations',
+                relevance: 0.8
+              });
+              break;
+            case 'kinesthetic':
+              resourceSuggestions.push({
+                type: 'activity',
+                title: 'Hands-On Concept Models',
+                relevance: 0.8
+              });
+              break;
+            case 'readingWriting':
+              resourceSuggestions.push({
+                type: 'worksheet',
+                title: 'Concept Summary Templates',
+                relevance: 0.8
+              });
+              break;
+          }
+        }
+        
+        // Engagement resources
+        if (engagementAssessment.overallEngagement < 0.6) {
+          resourceSuggestions.push({
+            type: 'interactive',
+            title: 'Engaging Reading Adventures',
+            relevance: 0.7
+          });
+        }
+        
+        return {
+          encouragement,
+          guidance,
+          nextSteps,
+          resourceSuggestions: resourceSuggestions.length > 0 ? resourceSuggestions : undefined
+        };
+      }
+    };
+  }
+  
+  /**
+   * Analyze student speech from recognition result
+   */
+  public async analyzeStudentSpeech(
+    recognitionResult: SpeechRecognitionResult, 
+    audioData?: any, 
+    durationMs: number = 5000
+  ): Promise<StudentVoiceAnalysisResult | null> {
+    if (!this.modelsLoaded) {
+      console.warn('Student voice analysis models not loaded yet');
+      return null;
+    }
+    
     if (this.isAnalyzing) {
-      this.enhancedVoiceAnalysis.stopAnalysis();
+      console.warn('Student voice analysis already in progress');
+      return null;
+    }
+    
+    try {
+      this.isAnalyzing = true;
+      
+      // First get base voice analysis
+      const baseAnalysis = await this.voiceAnalysisService.analyzeSpeech(
+        recognitionResult, 
+        audioData, 
+        durationMs
+      );
+      
+      if (!baseAnalysis) {
+        return null;
+      }
+      
+      // Create student voice analysis result
+      const result: StudentVoiceAnalysisResult = {
+        ...baseAnalysis,
+        educationalContext: this.options.educationalContext
+      };
+      
+      // Perform reading assessment if speech pattern is available
+      if (baseAnalysis.speechPattern && this.readingAssessmentModel) {
+        result.readingAssessment = this.readingAssessmentModel.assess(
+          recognitionResult.text,
+          baseAnalysis.speechPattern,
+          audioData
+        );
+      }
+      
+      // Perform language assessment if speech pattern is available
+      if (baseAnalysis.speechPattern && this.languageAssessmentModel) {
+        result.languageAssessment = this.languageAssessmentModel.assess(
+          recognitionResult.text,
+          baseAnalysis.speechPattern
+        );
+      }
+      
+      // Perform engagement assessment if emotional tone and speech pattern are available
+      if (baseAnalysis.emotionalTone && baseAnalysis.speechPattern && this.engagementAssessmentModel) {
+        result.engagementAssessment = this.engagementAssessmentModel.assess(
+          baseAnalysis.emotionalTone,
+          baseAnalysis.speechPattern
+        );
+      }
+      
+      // Detect learning style indicators if emotional tone and speech pattern are available
+      if (baseAnalysis.emotionalTone && baseAnalysis.speechPattern && this.learningStyleModel) {
+        result.learningStyleIndicators = this.learningStyleModel.detect(
+          recognitionResult.text,
+          baseAnalysis.emotionalTone,
+          baseAnalysis.speechPattern
+        );
+      }
+      
+      // Generate adaptive feedback if all assessments are available
+      if (
+        result.readingAssessment && 
+        result.languageAssessment && 
+        result.engagementAssessment && 
+        result.learningStyleIndicators &&
+        this.feedbackModel
+      ) {
+        result.adaptiveFeedback = this.feedbackModel.generate(
+          result.readingAssessment,
+          result.languageAssessment,
+          result.engagementAssessment,
+          result.learningStyleIndicators
+        );
+      }
+      
+      return result;
+    } catch (error) {
+      console.error('Error during student voice analysis:', error);
+      return null;
+    } finally {
       this.isAnalyzing = false;
-      this.currentAnalysisCallback = null;
     }
   }
-
+  
   /**
-   * Check if student voice analysis is currently active
+   * Update analysis options
+   */
+  public updateOptions(options: Partial<StudentVoiceAnalysisOptions>): void {
+    const previousOptions = { ...this.options };
+    
+    this.options = {
+      ...this.options,
+      ...options
+    };
+    
+    // Update base voice analysis service options
+    this.voiceAnalysisService.updateOptions({
+      emotionalToneDetection: this.options.emotionalToneDetection,
+      speechPatternAnalysis: this.options.speechPatternAnalysis,
+      confidenceAnalysis: this.options.confidenceAnalysis,
+      paceAnalysis: this.options.paceAnalysis,
+      ageGroup: this.options.ageGroup,
+      specialEducationalNeeds: this.options.specialEducationalNeeds
+    });
+    
+    // Reload models if necessary options changed
+    const needsReload = 
+      (previousOptions.ageGroup !== this.options.ageGroup) ||
+      (previousOptions.educationalContext !== this.options.educationalContext) ||
+      (previousOptions.readingLevel !== this.options.readingLevel) ||
+      (JSON.stringify(previousOptions.learningDifficulties) !== JSON.stringify(this.options.learningDifficulties));
+    
+    if (needsReload) {
+      this.loadModels();
+    }
+  }
+  
+  /**
+   * Check if models are loaded
+   */
+  public areModelsLoaded(): boolean {
+    return this.modelsLoaded && this.voiceAnalysisService.areModelsLoaded();
+  }
+  
+  /**
+   * Check if currently analyzing
    */
   public isCurrentlyAnalyzing(): boolean {
     return this.isAnalyzing;
   }
-
-  /**
-   * Get analysis history for a student
-   * 
-   * @param studentId Student identifier
-   */
-  public getAnalysisHistory(studentId: string): StudentVoiceAnalysisResult[] {
-    return this.analysisHistory.get(studentId) || [];
-  }
-
-  /**
-   * Clear analysis history for a student
-   * 
-   * @param studentId Student identifier
-   */
-  public clearAnalysisHistory(studentId: string): void {
-    this.analysisHistory.delete(studentId);
-  }
-
-  /**
-   * Initialize vocabulary and concept databases
-   */
-  private initializeDatabases(): void {
-    // Initialize vocabulary database with sample data
-    // In a real implementation, this would be loaded from a database or API
-    
-    // Mathematics vocabulary
-    const mathVocabulary = new Map<string, string[]>();
-    mathVocabulary.set('numbers', ['digit', 'numeral', 'integer', 'decimal', 'fraction', 'place value', 'odd', 'even']);
-    mathVocabulary.set('operations', ['add', 'subtract', 'multiply', 'divide', 'sum', 'difference', 'product', 'quotient']);
-    mathVocabulary.set('geometry', ['shape', 'angle', 'line', 'polygon', 'circle', 'triangle', 'square', 'rectangle']);
-    this.vocabularyDatabase.set('mathematics', mathVocabulary);
-    
-    // English vocabulary
-    const englishVocabulary = new Map<string, string[]>();
-    englishVocabulary.set('grammar', ['noun', 'verb', 'adjective', 'adverb', 'pronoun', 'preposition', 'conjunction']);
-    englishVocabulary.set('punctuation', ['period', 'comma', 'question mark', 'exclamation mark', 'apostrophe', 'quotation']);
-    englishVocabulary.set('literature', ['character', 'plot', 'setting', 'theme', 'narrator', 'protagonist', 'antagonist']);
-    this.vocabularyDatabase.set('english', englishVocabulary);
-    
-    // Science vocabulary
-    const scienceVocabulary = new Map<string, string[]>();
-    scienceVocabulary.set('biology', ['cell', 'organism', 'ecosystem', 'photosynthesis', 'respiration', 'adaptation']);
-    scienceVocabulary.set('chemistry', ['element', 'compound', 'molecule', 'atom', 'reaction', 'solution', 'mixture']);
-    scienceVocabulary.set('physics', ['force', 'energy', 'motion', 'gravity', 'electricity', 'magnetism', 'wave']);
-    this.vocabularyDatabase.set('science', scienceVocabulary);
-    
-    // Initialize concept database with sample data
-    // In a real implementation, this would be loaded from a database or API
-    
-    // Mathematics concepts
-    const mathConcepts = new Map<string, string[]>();
-    mathConcepts.set('numbers', ['place value', 'number line', 'comparing numbers', 'rounding']);
-    mathConcepts.set('operations', ['addition algorithm', 'subtraction algorithm', 'multiplication algorithm', 'division algorithm']);
-    mathConcepts.set('geometry', ['properties of shapes', 'angle measurement', 'area calculation', 'perimeter calculation']);
-    this.conceptDatabase.set('mathematics', mathConcepts);
-    
-    // English concepts
-    const englishConcepts = new Map<string, string[]>();
-    englishConcepts.set('grammar', ['parts of speech', 'sentence structure', 'tense agreement', 'subject-verb agreement']);
-    englishConcepts.set('punctuation', ['end punctuation', 'commas in lists', 'apostrophes for possession', 'quotation marks for dialogue']);
-    englishConcepts.set('literature', ['character development', 'plot structure', 'theme analysis', 'narrative perspective']);
-    this.conceptDatabase.set('english', englishConcepts);
-    
-    // Science concepts
-    const scienceConcepts = new Map<string, string[]>();
-    scienceConcepts.set('biology', ['cell structure', 'classification of organisms', 'food chains', 'life cycles']);
-    scienceConcepts.set('chemistry', ['states of matter', 'atomic structure', 'chemical reactions', 'periodic table']);
-    scienceConcepts.set('physics', ['Newton\'s laws', 'energy transfer', 'electrical circuits', 'light and sound waves']);
-    this.conceptDatabase.set('science', scienceConcepts);
-  }
-
-  /**
-   * Extend base voice analysis with student-specific insights
-   * 
-   * @param baseResult Base voice analysis result
-   * @param options Student voice analysis options
-   */
-  private extendWithStudentInsights(
-    baseResult: VoiceAnalysisResult,
-    options: StudentVoiceAnalysisOptions
-  ): StudentVoiceAnalysisResult {
-    // Analyze text for educational insights
-    const text = baseResult.text;
-    const words = text.split(/\s+/).filter(word => word.length > 0);
-    const uniqueWords = new Set(words.map(word => word.toLowerCase()));
-    
-    // Calculate vocabulary metrics
-    const vocabularyMetrics = this.analyzeVocabulary(words, options);
-    
-    // Calculate pronunciation accuracy
-    const pronunciationAnalysis = this.analyzePronunciation(text, baseResult, options);
-    
-    // Determine engagement level
-    const engagementLevel = this.determineEngagementLevel(baseResult, options);
-    
-    // Determine confidence level
-    const confidenceLevel = this.determineConfidenceLevel(baseResult, options);
-    
-    // Analyze concept understanding
-    const conceptUnderstanding = this.analyzeConceptUnderstanding(text, options);
-    
-    // Generate learning style indicators
-    const learningStyleIndicators = this.generateLearningStyleIndicators(baseResult, text, options);
-    
-    // Generate support recommendations
-    const supportRecommendations = this.generateSupportRecommendations(
-      baseResult,
-      engagementLevel,
-      confidenceLevel,
-      vocabularyMetrics,
-      pronunciationAnalysis,
-      conceptUnderstanding,
-      options
-    );
-    
-    // Create extended result
-    const studentResult: StudentVoiceAnalysisResult = {
-      ...baseResult,
-      engagementLevel,
-      confidenceLevel,
-      learningInsights: {
-        comprehension: this.calculateComprehension(text, options),
-        fluency: this.calculateFluency(baseResult, words.length),
-        vocabulary: {
-          level: vocabularyMetrics.level,
-          complexWords: vocabularyMetrics.complexWords,
-          totalWords: words.length,
-          uniqueWords: uniqueWords.size
-        },
-        pronunciation: {
-          accuracy: pronunciationAnalysis.accuracy,
-          challengingPhonemes: pronunciationAnalysis.challengingPhonemes
-        },
-        conceptUnderstanding,
-        attentionLevel: this.calculateAttentionLevel(baseResult, options)
-      },
-      supportRecommendations,
-      learningStyleIndicators
-    };
-    
-    return studentResult;
-  }
-
-  /**
-   * Analyze vocabulary in text
-   * 
-   * @param words Array of words from text
-   * @param options Student voice analysis options
-   */
-  private analyzeVocabulary(
-    words: string[],
-    options: StudentVoiceAnalysisOptions
-  ): { level: number; complexWords: number } {
-    // Get subject-specific vocabulary
-    const subjectVocabulary = this.getSubjectVocabulary(options.subject, options.topic);
-    const expectedVocabulary = options.expectedVocabulary || [];
-    
-    // Count complex words and subject-specific vocabulary
-    let complexWordCount = 0;
-    let subjectVocabCount = 0;
-    let expectedVocabCount = 0;
-    
-    for (const word of words) {
-      const lowerWord = word.toLowerCase();
-      
-      // Check for complex words (simplified: words with 3+ syllables)
-      if (this.countSyllables(word) >= 3) {
-        complexWordCount++;
-      }
-      
-      // Check for subject-specific vocabulary
-      if (subjectVocabulary.includes(lowerWord)) {
-        subjectVocabCount++;
-      }
-      
-      // Check for expected vocabulary
-      if (expectedVocabulary.some(v => v.toLowerCase() === lowerWord)) {
-        expectedVocabCount++;
-      }
-    }
-    
-    // Calculate vocabulary level (1-5 scale)
-    // Based on complex words, subject vocabulary, and expected vocabulary
-    const totalWords = words.length;
-    const complexRatio = totalWords > 0 ? complexWordCount / totalWords : 0;
-    const subjectRatio = subjectVocabulary.length > 0 ? subjectVocabCount / subjectVocabulary.length : 0;
-    const expectedRatio = expectedVocabulary.length > 0 ? expectedVocabCount / expectedVocabulary.length : 1;
-    
-    // Calculate weighted vocabulary level
-    let level = 1;
-    
-    if (totalWords >= 5) {
-      level = 1 + 
-        Math.min(1, complexRatio * 2) * 2 + 
-        Math.min(1, subjectRatio) * 1 + 
-        Math.min(1, expectedRatio) * 1;
-    }
-    
-    return {
-      level,
-      complexWords: complexWordCount
-    };
-  }
-
-  /**
-   * Analyze pronunciation in text
-   * 
-   * @param text Text to analyze
-   * @param baseResult Base voice analysis result
-   * @param options Student voice analysis options
-   */
-  private analyzePronunciation(
-    text: string,
-    baseResult: VoiceAnalysisResult,
-    options: StudentVoiceAnalysisOptions
-  ): { accuracy: number; challengingPhonemes: string[] } {
-    // In a real implementation, this would use speech recognition confidence scores
-    // for individual words and phonemes
-    
-    // For this implementation, we'll use a simplified approach based on
-    // speech recognition confidence and speech pattern
-    
-    const confidence = baseResult.confidence;
-    const speechPattern = baseResult.speechPattern;
-    
-    // Identify potentially challenging phonemes
-    // This is a simplified implementation - in a real system, this would use
-    // phoneme-level analysis from speech recognition
-    const challengingPhonemes: string[] = [];
-    
-    // Common challenging phonemes in English
-    const potentiallyChallengingPhonemes = [
-      'th', 'sh', 'ch', 'j', 'r', 'l', 'v', 'z', 'ng', 'w'
-    ];
-    
-    // Check for challenging phonemes in text
-    for (const phoneme of potentiallyChallengingPhonemes) {
-      if (text.toLowerCase().includes(phoneme) && Math.random() < 0.3) {
-        challengingPhonemes.push(phoneme);
-      }
-    }
-    
-    // Calculate pronunciation accuracy
-    let accuracy = confidence;
-    
-    // Adjust based on speech pattern
-    if (speechPattern === SpeechPatternType.HESITANT || speechPattern === SpeechPatternType.REPETITIVE) {
-      accuracy *= 0.9;
-    }
-    
-    // Adjust based on age group
-    if (options.ageGroup === 'nursery' || options.ageGroup === 'early-primary') {
-      accuracy *= 0.95; // More lenient for younger students
-    }
-    
-    // Adjust based on learning difficulties
-    if (options.learningDifficulties && options.learningDifficulties.includes('speech')) {
-      accuracy *= 1.1; // More lenient for students with speech difficulties
-      accuracy = Math.min(accuracy, 1.0);
-    }
-    
-    return {
-      accuracy,
-      challengingPhonemes
-    };
-  }
-
-  /**
-   * Determine engagement level from voice analysis
-   * 
-   * @param baseResult Base voice analysis result
-   * @param options Student voice analysis options
-   */
-  private determineEngagementLevel(
-    baseResult: VoiceAnalysisResult,
-    options: StudentVoiceAnalysisOptions
-  ): EngagementLevel {
-    const emotion = baseResult.emotion;
-    const speechPattern = baseResult.speechPattern;
-    const metrics = baseResult.metrics;
-    
-    // Determine engagement based on emotion
-    if (emotion === EmotionType.HAPPY) {
-      return EngagementLevel.HIGHLY_ENGAGED;
-    } else if (emotion === EmotionType.NEUTRAL && speechPattern === SpeechPatternType.FLUENT) {
-      return EngagementLevel.ENGAGED;
-    } else if (emotion === EmotionType.NEUTRAL) {
-      return EngagementLevel.NEUTRAL;
-    } else if (emotion === EmotionType.CONFUSED) {
-      return EngagementLevel.CONFUSED;
-    } else if (emotion === EmotionType.FRUSTRATED) {
-      return EngagementLevel.FRUSTRATED;
-    } else if (emotion === EmotionType.FEARFUL) {
-      return EngagementLevel.ANXIOUS;
-    } else if (emotion === EmotionType.SAD || speechPattern === SpeechPatternType.MONOTONE) {
-      return EngagementLevel.DISENGAGED;
-    }
-    
-    // Default to neutral
-    return EngagementLevel.NEUTRAL;
-  }
-
-  /**
-   * Determine confidence level from voice analysis
-   * 
-   * @param baseResult Base voice analysis result
-   * @param options Student voice analysis options
-   */
-  private determineConfidenceLevel(
-    baseResult: VoiceAnalysisResult,
-    options: StudentVoiceAnalysisOptions
-  ): ConfidenceLevel {
-    const emotion = baseResult.emotion;
-    const speechPattern = baseResult.speechPattern;
-    const metrics = baseResult.metrics;
-    
-    // Calculate confidence score based on multiple factors
-    let confidenceScore = 0.5; // Start at neutral
-    
-    // Adjust based on speech pattern
-    if (speechPattern === SpeechPatternType.FLUENT) {
-      confidenceScore += 0.2;
-    } else if (speechPattern === SpeechPatternType.VARIED) {
-      confidenceScore += 0.15;
-    } else if (speechPattern === SpeechPatternType.HESITANT) {
-      confidenceScore -= 0.2;
-    } else if (speechPattern === SpeechPatternType.REPETITIVE) {
-      confidenceScore -= 0.1;
-    }
-    
-    // Adjust based on emotion
-    if (emotion === EmotionType.HAPPY) {
-      confidenceScore += 0.15;
-    } else if (emotion === EmotionType.FEARFUL) {
-      confidenceScore -= 0.2;
-    } else if (emotion === EmotionType.CONFUSED) {
-      confidenceScore -= 0.1;
-    }
-    
-    // Adjust based on volume
-    if (metrics.volume.average > 0.7) {
-      confidenceScore += 0.1;
-    } else if (metrics.volume.average < 0.3) {
-      confidenceScore -= 0.1;
-    }
-    
-    // Determine confidence level based on score
-    if (confidenceScore >= 0.8) {
-      return ConfidenceLevel.VERY_HIGH;
-    } else if (confidenceScore >= 0.6) {
-      return ConfidenceLevel.HIGH;
-    } else if (confidenceScore >= 0.4) {
-      return ConfidenceLevel.MODERATE;
-    } else if (confidenceScore >= 0.2) {
-      return ConfidenceLevel.LOW;
-    } else {
-      return ConfidenceLevel.VERY_LOW;
-    }
-  }
-
-  /**
-   * Analyze concept understanding in text
-   * 
-   * @param text Text to analyze
-   * @param options Student voice analysis options
-   */
-  private analyzeConceptUnderstanding(
-    text: string,
-    options: StudentVoiceAnalysisOptions
-  ): number {
-    // Get subject-specific concepts
-    const subjectConcepts = this.getSubjectConcepts(options.subject, options.topic);
-    const learningObjectives = options.learningObjectives || [];
-    
-    // Count concept mentions
-    let conceptCount = 0;
-    let objectiveCount = 0;
-    
-    const lowerText = text.toLowerCase();
-    
-    // Check for subject-specific concepts
-    for (const concept of subjectConcepts) {
-      if (lowerText.includes(concept.toLowerCase())) {
-        conceptCount++;
-      }
-    }
-    
-    // Check for learning objectives
-    for (const objective of learningObjectives) {
-      const keywords = objective.toLowerCase().split(/\s+/).filter(word => 
-        word.length > 3 && !['and', 'the', 'that', 'with', 'from', 'this', 'these', 'those'].includes(word)
-      );
-      
-      let keywordMatches = 0;
-      for (const keyword of keywords) {
-        if (lowerText.includes(keyword)) {
-          keywordMatches++;
-        }
-      }
-      
-      if (keywords.length > 0 && keywordMatches / keywords.length >= 0.5) {
-        objectiveCount++;
-      }
-    }
-    
-    // Calculate concept understanding score (0-1 scale)
-    const conceptRatio = subjectConcepts.length > 0 ? conceptCount / subjectConcepts.length : 0;
-    const objectiveRatio = learningObjectives.length > 0 ? objectiveCount / learningObjectives.length : 0;
-    
-    // Calculate weighted understanding score
-    let understandingScore = 0.5; // Start at moderate
-    
-    if (subjectConcepts.length > 0 || learningObjectives.length > 0) {
-      if (subjectConcepts.length > 0 && learningObjectives.length > 0) {
-        understandingScore = (conceptRatio * 0.4) + (objectiveRatio * 0.6);
-      } else if (subjectConcepts.length > 0) {
-        understandingScore = conceptRatio;
-      } else {
-        understandingScore = objectiveRatio;
-      }
-    }
-    
-    return understandingScore;
-  }
-
-  /**
-   * Calculate comprehension score
-   * 
-   * @param text Text to analyze
-   * @param options Student voice analysis options
-   */
-  private calculateComprehension(
-    text: string,
-    options: StudentVoiceAnalysisOptions
-  ): number {
-    // This is a simplified implementation - in a real system, this would use
-    // more sophisticated natural language understanding and concept analysis
-    
-    // Calculate comprehension based on concept understanding and vocabulary
-    const conceptUnderstanding = this.analyzeConceptUnderstanding(text, options);
-    const vocabularyMetrics = this.analyzeVocabulary(text.split(/\s+/).filter(word => word.length > 0), options);
-    
-    // Calculate comprehension score (0-1 scale)
-    const comprehensionScore = (conceptUnderstanding * 0.7) + ((vocabularyMetrics.level / 5) * 0.3);
-    
-    return comprehensionScore;
-  }
-
-  /**
-   * Calculate fluency score
-   * 
-   * @param baseResult Base voice analysis result
-   * @param wordCount Number of words in text
-   */
-  private calculateFluency(
-    baseResult: VoiceAnalysisResult,
-    wordCount: number
-  ): number {
-    // This is a simplified implementation - in a real system, this would use
-    // more sophisticated speech analysis
-    
-    // Calculate fluency based on speech pattern and metrics
-    const speechPattern = baseResult.speechPattern;
-    const metrics = baseResult.metrics;
-    
-    // Start with base fluency score based on speech pattern
-    let fluencyScore = 0.5; // Start at moderate
-    
-    if (speechPattern === SpeechPatternType.FLUENT) {
-      fluencyScore = 0.8;
-    } else if (speechPattern === SpeechPatternType.VARIED) {
-      fluencyScore = 0.7;
-    } else if (speechPattern === SpeechPatternType.HESITANT) {
-      fluencyScore = 0.3;
-    } else if (speechPattern === SpeechPatternType.REPETITIVE) {
-      fluencyScore = 0.4;
-    } else if (speechPattern === SpeechPatternType.MONOTONE) {
-      fluencyScore = 0.5;
-    } else if (speechPattern === SpeechPatternType.RAPID) {
-      fluencyScore = 0.6;
-    } else if (speechPattern === SpeechPatternType.SLOW) {
-      fluencyScore = 0.4;
-    }
-    
-    // Adjust based on pauses
-    if (metrics.pauses.count > 5 && wordCount > 10) {
-      fluencyScore -= 0.1 * Math.min(1, (metrics.pauses.count - 5) / 10);
-    }
-    
-    // Adjust based on speech speed
-    if (metrics.speed.wordsPerMinute > 150) {
-      fluencyScore += 0.1;
-    } else if (metrics.speed.wordsPerMinute < 80) {
-      fluencyScore -= 0.1;
-    }
-    
-    // Ensure score is within 0-1 range
-    fluencyScore = Math.max(0, Math.min(1, fluencyScore));
-    
-    return fluencyScore;
-  }
-
-  /**
-   * Calculate attention level
-   * 
-   * @param baseResult Base voice analysis result
-   * @param options Student voice analysis options
-   */
-  private calculateAttentionLevel(
-    baseResult: VoiceAnalysisResult,
-    options: StudentVoiceAnalysisOptions
-  ): number {
-    // This is a simplified implementation - in a real system, this would use
-    // more sophisticated attention analysis
-    
-    // Calculate attention based on engagement and speech patterns
-    const engagementLevel = this.determineEngagementLevel(baseResult, options);
-    const speechPattern = baseResult.speechPattern;
-    
-    // Start with base attention score based on engagement level
-    let attentionScore = 0.5; // Start at moderate
-    
-    if (engagementLevel === EngagementLevel.HIGHLY_ENGAGED) {
-      attentionScore = 0.9;
-    } else if (engagementLevel === EngagementLevel.ENGAGED) {
-      attentionScore = 0.8;
-    } else if (engagementLevel === EngagementLevel.NEUTRAL) {
-      attentionScore = 0.6;
-    } else if (engagementLevel === EngagementLevel.DISENGAGED) {
-      attentionScore = 0.3;
-    } else if (engagementLevel === EngagementLevel.FRUSTRATED) {
-      attentionScore = 0.4;
-    } else if (engagementLevel === EngagementLevel.CONFUSED) {
-      attentionScore = 0.5;
-    } else if (engagementLevel === EngagementLevel.ANXIOUS) {
-      attentionScore = 0.4;
-    }
-    
-    // Adjust based on speech pattern
-    if (speechPattern === SpeechPatternType.MONOTONE) {
-      attentionScore -= 0.2;
-    } else if (speechPattern === SpeechPatternType.HESITANT) {
-      attentionScore -= 0.1;
-    }
-    
-    // Ensure score is within 0-1 range
-    attentionScore = Math.max(0, Math.min(1, attentionScore));
-    
-    return attentionScore;
-  }
-
-  /**
-   * Generate learning style indicators
-   * 
-   * @param baseResult Base voice analysis result
-   * @param text Text to analyze
-   * @param options Student voice analysis options
-   */
-  private generateLearningStyleIndicators(
-    baseResult: VoiceAnalysisResult,
-    text: string,
-    options: StudentVoiceAnalysisOptions
-  ): StudentVoiceAnalysisResult['learningStyleIndicators'] {
-    // This is a simplified implementation - in a real system, this would use
-    // more sophisticated learning style analysis
-    
-    // Initialize learning style indicators with default values
-    const indicators = {
-      visual: 0.25,
-      auditory: 0.25,
-      kinesthetic: 0.25,
-      readingWriting: 0.25
-    };
-    
-    // Analyze text for learning style indicators
-    const lowerText = text.toLowerCase();
-    
-    // Visual learning style indicators
-    const visualWords = ['see', 'look', 'watch', 'view', 'appear', 'show', 'picture', 'image', 'color', 'bright'];
-    let visualCount = 0;
-    for (const word of visualWords) {
-      if (lowerText.includes(word)) {
-        visualCount++;
-      }
-    }
-    
-    // Auditory learning style indicators
-    const auditoryWords = ['hear', 'listen', 'sound', 'talk', 'tell', 'say', 'speak', 'discuss', 'loud', 'quiet'];
-    let auditoryCount = 0;
-    for (const word of auditoryWords) {
-      if (lowerText.includes(word)) {
-        auditoryCount++;
-      }
-    }
-    
-    // Kinesthetic learning style indicators
-    const kinestheticWords = ['feel', 'touch', 'move', 'hold', 'do', 'make', 'build', 'try', 'practice', 'experience'];
-    let kinestheticCount = 0;
-    for (const word of kinestheticWords) {
-      if (lowerText.includes(word)) {
-        kinestheticCount++;
-      }
-    }
-    
-    // Reading/writing learning style indicators
-    const readingWritingWords = ['read', 'write', 'note', 'list', 'text', 'book', 'word', 'definition', 'paper', 'document'];
-    let readingWritingCount = 0;
-    for (const word of readingWritingWords) {
-      if (lowerText.includes(word)) {
-        readingWritingCount++;
-      }
-    }
-    
-    // Calculate total indicators
-    const totalCount = visualCount + auditoryCount + kinestheticCount + readingWritingCount;
-    
-    // Update indicators based on word counts
-    if (totalCount > 0) {
-      indicators.visual = 0.2 + (visualCount / totalCount) * 0.6;
-      indicators.auditory = 0.2 + (auditoryCount / totalCount) * 0.6;
-      indicators.kinesthetic = 0.2 + (kinestheticCount / totalCount) * 0.6;
-      indicators.readingWriting = 0.2 + (readingWritingCount / totalCount) * 0.6;
-    }
-    
-    // Adjust based on speech pattern
-    if (baseResult.speechPattern === SpeechPatternType.FLUENT || 
-        baseResult.speechPattern === SpeechPatternType.VARIED) {
-      indicators.auditory += 0.1;
-    }
-    
-    // Normalize to ensure sum is 1.0
-    const sum = indicators.visual + indicators.auditory + indicators.kinesthetic + indicators.readingWriting;
-    if (sum > 0) {
-      indicators.visual /= sum;
-      indicators.auditory /= sum;
-      indicators.kinesthetic /= sum;
-      indicators.readingWriting /= sum;
-    }
-    
-    return indicators;
-  }
-
-  /**
-   * Generate support recommendations
-   * 
-   * @param baseResult Base voice analysis result
-   * @param engagementLevel Engagement level
-   * @param confidenceLevel Confidence level
-   * @param vocabularyMetrics Vocabulary metrics
-   * @param pronunciationAnalysis Pronunciation analysis
-   * @param conceptUnderstanding Concept understanding score
-   * @param options Student voice analysis options
-   */
-  private generateSupportRecommendations(
-    baseResult: VoiceAnalysisResult,
-    engagementLevel: EngagementLevel,
-    confidenceLevel: ConfidenceLevel,
-    vocabularyMetrics: { level: number; complexWords: number },
-    pronunciationAnalysis: { accuracy: number; challengingPhonemes: string[] },
-    conceptUnderstanding: number,
-    options: StudentVoiceAnalysisOptions
-  ): string[] {
-    const recommendations: string[] = [];
-    
-    // Recommendations based on engagement level
-    if (engagementLevel === EngagementLevel.DISENGAGED) {
-      recommendations.push('Increase interactive elements to boost engagement');
-      recommendations.push('Connect content to student interests to improve motivation');
-    } else if (engagementLevel === EngagementLevel.CONFUSED) {
-      recommendations.push('Provide clearer explanations with visual aids');
-      recommendations.push('Break down complex concepts into smaller steps');
-    } else if (engagementLevel === EngagementLevel.FRUSTRATED) {
-      recommendations.push('Offer immediate support and encouragement');
-      recommendations.push('Simplify current task and gradually increase difficulty');
-    } else if (engagementLevel === EngagementLevel.ANXIOUS) {
-      recommendations.push('Create a more supportive learning environment');
-      recommendations.push('Provide reassurance and reduce performance pressure');
-    }
-    
-    // Recommendations based on confidence level
-    if (confidenceLevel === ConfidenceLevel.LOW || confidenceLevel === ConfidenceLevel.VERY_LOW) {
-      recommendations.push('Build confidence through scaffolded success experiences');
-      recommendations.push('Provide positive reinforcement for participation');
-    }
-    
-    // Recommendations based on vocabulary
-    if (vocabularyMetrics.level < 3) {
-      recommendations.push('Introduce subject-specific vocabulary with visual supports');
-      recommendations.push('Create opportunities to practice using key terminology');
-    }
-    
-    // Recommendations based on pronunciation
-    if (pronunciationAnalysis.accuracy < 0.7 && pronunciationAnalysis.challengingPhonemes.length > 0) {
-      recommendations.push(`Provide targeted practice for challenging sounds: ${pronunciationAnalysis.challengingPhonemes.join(', ')}`);
-    }
-    
-    // Recommendations based on concept understanding
-    if (conceptUnderstanding < 0.6) {
-      recommendations.push('Review fundamental concepts with alternative explanations');
-      recommendations.push('Use concrete examples to illustrate abstract concepts');
-    }
-    
-    // Recommendations based on learning style indicators
-    const learningStyleIndicators = this.generateLearningStyleIndicators(baseResult, baseResult.text, options);
-    const dominantStyle = Object.entries(learningStyleIndicators).reduce((a, b) => a[1] > b[1] ? a : b)[0];
-    
-    if (dominantStyle === 'visual') {
-      recommendations.push('Provide visual aids such as diagrams, charts, and videos');
-    } else if (dominantStyle === 'auditory') {
-      recommendations.push('Incorporate audio explanations and discussion opportunities');
-    } else if (dominantStyle === 'kinesthetic') {
-      recommendations.push('Include hands-on activities and interactive exercises');
-    } else if (dominantStyle === 'readingWriting') {
-      recommendations.push('Provide written materials and note-taking opportunities');
-    }
-    
-    // Limit to top 5 recommendations
-    if (recommendations.length > 5) {
-      recommendations.splice(5);
-    }
-    
-    return recommendations;
-  }
-
-  /**
-   * Store analysis result in history
-   * 
-   * @param result Student voice analysis result
-   * @param options Student voice analysis options
-   */
-  private storeAnalysisResult(
-    result: StudentVoiceAnalysisResult,
-    options: StudentVoiceAnalysisOptions
-  ): void {
-    // In a real implementation, this would store results in a database
-    // For this implementation, we'll use a simple in-memory map
-    
-    // Generate a mock student ID if not provided
-    const studentId = 'current-student';
-    
-    // Get or create history array for student
-    const history = this.analysisHistory.get(studentId) || [];
-    
-    // Add result to history
-    history.push(result);
-    
-    // Limit history size
-    if (history.length > 100) {
-      history.shift();
-    }
-    
-    // Update history map
-    this.analysisHistory.set(studentId, history);
-  }
-
-  /**
-   * Get subject-specific vocabulary
-   * 
-   * @param subject Subject name
-   * @param topic Topic within subject
-   */
-  private getSubjectVocabulary(subject?: string, topic?: string): string[] {
-    if (!subject) {
-      return [];
-    }
-    
-    const lowerSubject = subject.toLowerCase();
-    const subjectMap = this.vocabularyDatabase.get(lowerSubject);
-    
-    if (!subjectMap) {
-      return [];
-    }
-    
-    if (topic) {
-      const lowerTopic = topic.toLowerCase();
-      const topicVocabulary = subjectMap.get(lowerTopic);
-      
-      if (topicVocabulary) {
-        return topicVocabulary;
-      }
-    }
-    
-    // If no specific topic or topic not found, combine all vocabulary for subject
-    const allVocabulary: string[] = [];
-    subjectMap.forEach((words) => {
-      allVocabulary.push(...words);
-    });
-    
-    return allVocabulary;
-  }
-
-  /**
-   * Get subject-specific concepts
-   * 
-   * @param subject Subject name
-   * @param topic Topic within subject
-   */
-  private getSubjectConcepts(subject?: string, topic?: string): string[] {
-    if (!subject) {
-      return [];
-    }
-    
-    const lowerSubject = subject.toLowerCase();
-    const subjectMap = this.conceptDatabase.get(lowerSubject);
-    
-    if (!subjectMap) {
-      return [];
-    }
-    
-    if (topic) {
-      const lowerTopic = topic.toLowerCase();
-      const topicConcepts = subjectMap.get(lowerTopic);
-      
-      if (topicConcepts) {
-        return topicConcepts;
-      }
-    }
-    
-    // If no specific topic or topic not found, combine all concepts for subject
-    const allConcepts: string[] = [];
-    subjectMap.forEach((concepts) => {
-      allConcepts.push(...concepts);
-    });
-    
-    return allConcepts;
-  }
-
-  /**
-   * Count syllables in a word
-   * 
-   * @param word Word to count syllables in
-   */
-  private countSyllables(word: string): number {
-    // This is a simplified implementation - in a real system, this would use
-    // a more sophisticated syllable counting algorithm
-    
-    word = word.toLowerCase().replace(/[^a-z]/g, '');
-    
-    // Count vowel groups
-    const vowels = ['a', 'e', 'i', 'o', 'u', 'y'];
-    let count = 0;
-    let prevIsVowel = false;
-    
-    for (let i = 0; i < word.length; i++) {
-      const isVowel = vowels.includes(word[i]);
-      if (isVowel && !prevIsVowel) {
-        count++;
-      }
-      prevIsVowel = isVowel;
-    }
-    
-    // Adjust for silent e at end
-    if (word.length > 2 && word.endsWith('e') && !vowels.includes(word[word.length - 2])) {
-      count--;
-    }
-    
-    // Ensure at least one syllable
-    return Math.max(1, count);
-  }
 }
 
 // Export singleton instance
-export const studentVoiceAnalysis = StudentVoiceAnalysis.getInstance();
+let studentVoiceAnalysisService: StudentVoiceAnalysisService | null = null;
+
+export function getStudentVoiceAnalysisService(options?: StudentVoiceAnalysisOptions): StudentVoiceAnalysisService {
+  if (!studentVoiceAnalysisService) {
+    studentVoiceAnalysisService = new StudentVoiceAnalysisService(options);
+  } else if (options) {
+    studentVoiceAnalysisService.updateOptions(options);
+  }
+  
+  return studentVoiceAnalysisService;
+}
