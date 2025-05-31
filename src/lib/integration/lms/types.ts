@@ -1,8 +1,7 @@
 /**
- * LTI Types and Interfaces
+ * LMS Integration Types
  * 
- * This file defines the types and interfaces used in the LTI 1.3 implementation
- * for the EdPsych Connect platform.
+ * Type definitions for LMS integration functionality
  */
 
 /**
@@ -12,38 +11,46 @@ export enum LTIMessageType {
   RESOURCE_LINK_REQUEST = 'LtiResourceLinkRequest',
   DEEP_LINKING_REQUEST = 'LtiDeepLinkingRequest',
   SUBMISSION_REVIEW_REQUEST = 'LtiSubmissionReviewRequest',
-  CONTENT_ITEM_SELECTION = 'ContentItemSelectionRequest', // LTI 1.1 legacy
-  DEEP_LINKING_RESPONSE = 'LtiDeepLinkingResponse'
+  CONTENT_ITEM_SELECTION = 'ContentItemSelection'
 }
 
 /**
- * LTI Version identifiers
+ * LTI Version
  */
 export enum LTIVersion {
-  V1_0 = 'LTI-1p0',
-  V1_1 = 'LTI-1p1',
   V1_3 = '1.3.0'
 }
 
 /**
- * LTI Deployment States
+ * LTI Deployment State
  */
 export enum LTIDeploymentState {
   PENDING = 'pending',
   ACTIVE = 'active',
-  INACTIVE = 'inactive'
+  DISABLED = 'disabled'
 }
 
 /**
- * LTI Platform Registration
+ * LMS Platform Types supported by the EdPsych Connect platform
  */
-export interface LTIPlatformRegistration {
+export enum LMSPlatformType {
+  MOODLE = 'moodle',
+  CANVAS = 'canvas',
+  BLACKBOARD = 'blackboard',
+  MICROSOFT_TEAMS = 'microsoft_teams',
+  GOOGLE_CLASSROOM = 'google_classroom',
+  OTHER = 'other'
+}
+
+/**
+ * LMS Platform Registration
+ */
+export interface LMSPlatformRegistration {
   id: string;
   tenantId: string;
   platformName: string;
+  platformType: LMSPlatformType;
   clientId: string;
-  deploymentId?: string;
-  issuer: string;
   authenticationEndpoint: string;
   tokenEndpoint: string;
   keysetUrl: string;
@@ -55,31 +62,13 @@ export interface LTIPlatformRegistration {
 }
 
 /**
- * LTI OIDC State
- */
-export interface LTIOidcState {
-  id: string;
-  state: string;
-  nonce: string;
-  loginHint: string;
-  messageHint?: string;
-  targetLinkUri: string;
-  registrationId: string;
-  tenantId: string;
-  createdAt: Date;
-  expiresAt?: Date;
-}
-
-/**
  * LTI Resource Link
  */
 export interface LTIResourceLink {
   id: string;
-  resourceLinkId: string;
-  contextId: string;
-  deploymentId: string;
   registrationId: string;
-  tenantId: string;
+  resourceLinkId: string;
+  contextId?: string;
   title?: string;
   description?: string;
   lineItemUrl?: string;
@@ -92,10 +81,8 @@ export interface LTIResourceLink {
  */
 export interface LTIContext {
   id: string;
-  contextId: string;
-  deploymentId: string;
   registrationId: string;
-  tenantId: string;
+  contextId: string;
   title?: string;
   label?: string;
   type?: string[];
@@ -105,18 +92,27 @@ export interface LTIContext {
 }
 
 /**
+ * OIDC State for LTI Authentication
+ */
+export interface OIDCState {
+  state: string;
+  nonce: string;
+  loginHint: string;
+  messageHint?: string;
+  targetLinkUri: string;
+  registrationId: string;
+  tenantId: string;
+  createdAt: Date;
+}
+
+/**
  * LTI User
  */
 export interface LTIUser {
   id: string;
-  userId: string;
-  deploymentId: string;
   registrationId: string;
-  tenantId: string;
+  userId: string;
   name?: string;
-  givenName?: string;
-  familyName?: string;
-  middleName?: string;
   email?: string;
   roles: string[];
   createdAt: Date;
@@ -124,106 +120,60 @@ export interface LTIUser {
 }
 
 /**
- * LTI Score
+ * Analytics Integration Settings
  */
-export interface LTIScore {
-  userId: string;
-  scoreGiven: number;
-  scoreMaximum: number;
-  comment?: string;
-  activityProgress: 'Initialized' | 'Started' | 'InProgress' | 'Submitted' | 'Completed';
-  gradingProgress: 'NotReady' | 'Failed' | 'Pending' | 'PendingManual' | 'FullyGraded';
-  timestamp: string;
+export interface AnalyticsIntegrationSettings {
+  enabled: boolean;
+  shareProgressData: boolean;
+  shareLearningAnalytics: boolean;
+  shareCurriculumCoverage: boolean;
+  shareAssessmentData: boolean;
+  shareEngagementMetrics: boolean;
 }
 
 /**
- * LTI Content Item
+ * Parent Portal Integration Settings
  */
-export interface LTIContentItem {
-  type: string;
-  title: string;
-  url: string;
-  text?: string;
-  icon?: string;
-  thumbnail?: string;
-  custom?: Record<string, string>;
+export interface ParentPortalIntegrationSettings {
+  enabled: boolean;
+  linkParentAccounts: boolean;
+  shareProgressReports: boolean;
+  integrateCommunicationChannels: boolean;
+  syncEventCalendars: boolean;
+  manageResourceAccess: boolean;
 }
 
 /**
- * LTI Deep Linking Settings
+ * Accessibility Integration Settings
  */
-export interface LTIDeepLinkingSettings {
-  deep_link_return_url: string;
-  accept_types?: string[];
-  accept_presentation_document_targets?: string[];
-  accept_media_types?: string;
-  accept_multiple?: boolean;
-  auto_create?: boolean;
-  title?: string;
-  text?: string;
-  data?: string;
+export interface AccessibilityIntegrationSettings {
+  enabled: boolean;
+  syncAccessibilitySettings: boolean;
+  ensureAccessibleContentDelivery: boolean;
+  maintainScreenReaderSupport: boolean;
+  preserveVisualSettings: boolean;
+  ensureKeyboardNavigation: boolean;
 }
 
 /**
- * LTI JWT Claims
+ * Language Integration Settings
  */
-export interface LTIJwtClaims {
-  iss: string;
-  sub: string;
-  aud: string | string[];
-  exp: number;
-  iat: number;
-  nonce?: string;
-  'https://purl.imsglobal.org/spec/lti/claim/message_type': LTIMessageType;
-  'https://purl.imsglobal.org/spec/lti/claim/version': string;
-  'https://purl.imsglobal.org/spec/lti/claim/deployment_id': string;
-  'https://purl.imsglobal.org/spec/lti/claim/target_link_uri': string;
-  'https://purl.imsglobal.org/spec/lti/claim/resource_link'?: {
-    id: string;
-    title?: string;
-    description?: string;
-  };
-  'https://purl.imsglobal.org/spec/lti/claim/roles'?: string[];
-  'https://purl.imsglobal.org/spec/lti/claim/context'?: {
-    id: string;
-    label?: string;
-    title?: string;
-    type?: string[];
-  };
-  'https://purl.imsglobal.org/spec/lti/claim/tool_platform'?: {
-    guid?: string;
-    name?: string;
-    version?: string;
-    product_family_code?: string;
-  };
-  'https://purl.imsglobal.org/spec/lti/claim/launch_presentation'?: {
-    document_target?: string;
-    height?: number;
-    width?: number;
-    return_url?: string;
-    locale?: string;
-  };
-  'https://purl.imsglobal.org/spec/lti/claim/custom'?: Record<string, string>;
-  'https://purl.imsglobal.org/spec/lti/claim/lis'?: {
-    person_sourcedid?: string;
-    course_offering_sourcedid?: string;
-    course_section_sourcedid?: string;
-  };
-  'https://purl.imsglobal.org/spec/lti-nrps/claim/namesroleservice'?: {
-    context_memberships_url: string;
-    service_versions: string[];
-  };
-  'https://purl.imsglobal.org/spec/lti-ags/claim/endpoint'?: {
-    scope: string[];
-    lineitem?: string;
-    lineitems?: string;
-  };
-  'https://purl.imsglobal.org/spec/lti-dl/claim/deep_linking_settings'?: LTIDeepLinkingSettings;
-  name?: string;
-  given_name?: string;
-  family_name?: string;
-  middle_name?: string;
-  email?: string;
-  locale?: string;
-  picture?: string;
+export interface LanguageIntegrationSettings {
+  enabled: boolean;
+  syncLanguagePreferences: boolean;
+  deliverLocalizedContent: boolean;
+  maintainRTLSupport: boolean;
+  preserveUKTerminology: boolean;
+  ensureTranslationConsistency: boolean;
+}
+
+/**
+ * Complete LMS Integration Configuration
+ */
+export interface LMSIntegrationConfig {
+  platformRegistration: LMSPlatformRegistration;
+  analyticsSettings: AnalyticsIntegrationSettings;
+  parentPortalSettings: ParentPortalIntegrationSettings;
+  accessibilitySettings: AccessibilityIntegrationSettings;
+  languageSettings: LanguageIntegrationSettings;
 }
