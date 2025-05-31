@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 import { z } from 'zod';
 import { SubscriptionTier } from '@/lib/multi-tenant';
 
+// Re-export SubscriptionTier for API routes
+export { SubscriptionTier };
+
 // Define subscription plan types
 export enum BillingInterval {
   MONTHLY = 'monthly',
