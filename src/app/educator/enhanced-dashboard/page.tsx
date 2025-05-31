@@ -4,10 +4,10 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { AccessibilityEnhancements } from './accessibility-enhancements';
-import { EnhancedAnalytics } from './enhanced-analytics';
-import { VoiceInputIntegration } from './voice-input-integration';
-import { UKCurriculumIntegration } from './uk-curriculum-integration';
+import { AccessibilityEnhancements } from '@/components/educator/accessibility-enhancements';
+import { EnhancedAnalytics } from '@/components/educator/enhanced-analytics';
+import { VoiceInputIntegration } from '@/components/educator/voice-input-integration';
+import { UKCurriculumIntegration } from '@/components/educator/uk-curriculum-integration';
 import { AvatarVideo } from '@/components/special-needs/executive-dysfunction/working-memory/AvatarVideo';
 
 /**

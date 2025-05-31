@@ -1,35 +1,58 @@
-import React from 'react';
+"use client";
 
-export interface AlertProps {
-  variant?: 'default' | 'destructive' | 'success' | 'warning' | 'info';
-  title?: string;
-  children?: React.ReactNode;
-}
+import * as React from "react";
+import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
 
-export function Alert({ variant = 'default', title, children }: AlertProps) {
-  const variantClasses = {
-    default: 'bg-gray-100 border-gray-300 text-gray-800',
-    destructive: 'bg-red-100 border-red-300 text-red-800',
-    success: 'bg-green-100 border-green-300 text-green-800',
-    warning: 'bg-yellow-100 border-yellow-300 text-yellow-800',
-    info: 'bg-blue-100 border-blue-300 text-blue-800',
-  };
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 
-  return (
-    <div className={`p-4 mb-4 border rounded-md ${variantClasses[variant]}`}>
-      {title && <h5 className="font-medium mb-2">{title}</h5>}
-      <div>{children}</div>
-    </div>
-  );
-}
+const Alert = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & {
+    variant?: "default" | "destructive" | "success";
+  }
+>(({ className, variant = "default", ...props }, ref) => (
+  <div
+    ref={ref}
+    role="alert"
+    className={cn(
+      "relative w-full rounded-lg border p-4",
+      {
+        "bg-background text-foreground": variant === "default",
+        "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive":
+          variant === "destructive",
+        "border-green-500/50 text-green-500 dark:border-green-500 [&>svg]:text-green-500":
+          variant === "success",
+      },
+      className
+    )}
+    {...props}
+  />
+));
+Alert.displayName = "Alert";
 
-// Add missing AlertTitle component that's causing build errors
-export function AlertTitle({ children }: { children: React.ReactNode }) {
-  return <h5 className="font-medium mb-2">{children}</h5>;
-}
+const AlertTitle = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, ...props }, ref) => (
+  <h5
+    ref={ref}
+    className={cn("mb-1 font-medium leading-none tracking-tight", className)}
+    {...props}
+  />
+));
+AlertTitle.displayName = "AlertTitle";
 
-export function AlertDescription({ children }: { children: React.ReactNode }) {
-  return <div className="text-sm">{children}</div>;
-}
+const AlertDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("text-sm [&_p]:leading-relaxed", className)}
+    {...props}
+  />
+));
+AlertDescription.displayName = "AlertDescription";
 
-export default Alert;
+export { Alert, AlertTitle, AlertDescription };

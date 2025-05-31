@@ -5,8 +5,8 @@
  * Provides authentication and authorization functionality
  */
 
-// Export the auth object for use in API routes
-export const auth = {
+// Create the auth object for use in API routes
+const auth = {
   // Check if user is authenticated
   isAuthenticated: async () => {
     // This is a placeholder implementation
@@ -31,5 +31,6 @@ export const auth = {
   }
 };
 
-// Re-export from auth.ts
+// Export the auth object and re-export from auth.ts
+export { auth };
 export * from './auth';

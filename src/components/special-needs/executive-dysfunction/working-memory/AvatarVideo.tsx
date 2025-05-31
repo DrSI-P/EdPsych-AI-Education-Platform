@@ -8,7 +8,8 @@
  */
 
 import React, { useState } from 'react';
-import { Card as UICard, Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useTranslation } from '@/components/i18n';
 
 interface AvatarVideoProps {
@@ -16,7 +17,7 @@ interface AvatarVideoProps {
   description: string;
 }
 
-export function AvatarVideo({ title, description }: AvatarVideoProps) {
+export default function AvatarVideo({ title, description }: AvatarVideoProps) {
   const { t } = useTranslation('working-memory');
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   

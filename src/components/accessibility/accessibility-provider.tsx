@@ -1,47 +1,63 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { useTheme } from '@/components/ui/theme-provider';
-import EnhancedAccessibilityPanel from './enhanced-accessibility-panel';
-import '@/styles/accessibility.css';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-interface AccessibilityProviderProps {
-  children: React.ReactNode;
+// Define the accessibility context type
+interface AccessibilityContextType {
+  highContrast: boolean;
+  setHighContrast: (value: boolean) => void;
+  fontSize: string;
+  setFontSize: (size: string) => void;
+  reducedMotion: boolean;
+  setReducedMotion: (value: boolean) => void;
+  colorBlindMode: string;
+  setColorBlindMode: (mode: string) => void;
+  voiceInput: boolean;
+  setVoiceInput: (value: boolean) => void;
 }
 
-/**
- * AccessibilityProvider Component
- * 
- * A provider component that wraps the application and provides
- * accessibility features and context to all child components.
- * 
- * This component:
- * 1. Applies global accessibility classes based on user preferences
- * 2. Renders the EnhancedAccessibilityPanel for user controls
- * 3. Ensures consistent accessibility features across the platform
- */
-const AccessibilityProvider: React.FC<AccessibilityProviderProps> = ({ children }) => {
-  const { 
-    theme, 
-    fontSize, 
-    isReducedMotion,
-    isDyslexicFont
-  } = useTheme();
+// Create the context with default values
+const AccessibilityContext = createContext<AccessibilityContextType>({
+  highContrast: false,
+  setHighContrast: () => {},
+  fontSize: 'medium',
+  setFontSize: () => {},
+  reducedMotion: false,
+  setReducedMotion: () => {},
+  colorBlindMode: 'none',
+  setColorBlindMode: () => {},
+  voiceInput: false,
+  setVoiceInput: () => {}
+});
+
+// Hook to use the accessibility context
+export const useAccessibility = () => useContext(AccessibilityContext);
+
+// Provider component
+export function AccessibilityProvider({ children }: { children: ReactNode }) {
+  const [highContrast, setHighContrast] = useState(false);
+  const [fontSize, setFontSize] = useState('medium');
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [colorBlindMode, setColorBlindMode] = useState('none');
+  const [voiceInput, setVoiceInput] = useState(false);
   
-  // Determine accessibility classes based on user preferences
-  const accessibilityClasses = [
-    isReducedMotion ? 'reduce-motion' : '',
-    isDyslexicFont ? 'dyslexic-font' : '',
-    theme === 'high-contrast' ? 'high-contrast' : '',
-    `font-size-${fontSize <= 14 ? 'small' : fontSize <= 16 ? 'medium' : fontSize <= 18 ? 'large' : 'x-large'}`
-  ].filter(Boolean).join(' ');
+  // Create the context value
+  const contextValue = {
+    highContrast,
+    setHighContrast,
+    fontSize,
+    setFontSize,
+    reducedMotion,
+    setReducedMotion,
+    colorBlindMode,
+    setColorBlindMode,
+    voiceInput,
+    setVoiceInput
+  };
   
   return (
-    <div className={accessibilityClasses}>
+    <AccessibilityContext.Provider value={contextValue}>
       {children}
-      <EnhancedAccessibilityPanel />
-    </div>
+    </AccessibilityContext.Provider>
   );
-};
-
-export default AccessibilityProvider;
+}

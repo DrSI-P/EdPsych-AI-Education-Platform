@@ -1,6 +1,6 @@
 import React from 'react';
 import { LearningPathAssessment } from '@/components/learning-path/LearningPathAssessment';
-import { AvatarVideo } from '@/components/special-needs/executive-dysfunction/working-memory/AvatarVideo';
+import AvatarVideo from '@/components/special-needs/executive-dysfunction/working-memory/AvatarVideo';
 
 export default function LearningPathAssessmentPage() {
   return (

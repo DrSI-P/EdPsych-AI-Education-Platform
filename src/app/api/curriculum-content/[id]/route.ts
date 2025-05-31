@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '@/lib/auth';
+import { auth } from '@/lib/auth/auth';
 import { db } from '@/lib/db';
 import { ContentPermission, ContentStatus } from '@/lib/curriculum-content/types';
 import { checkUserContentPermission } from '@/lib/curriculum-content/api';

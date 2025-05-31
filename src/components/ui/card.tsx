@@ -1,108 +1,81 @@
-'use client';
+"use client";
 
-import React from 'react';
+import * as React from "react";
 
-interface CardProps {
-  children: React.ReactNode;
-  className?: string;
-}
+import { cn } from "@/lib/utils";
 
-export function Card({ children, className = '' }: CardProps) {
-  return (
-    <div className={`bg-white shadow rounded-lg overflow-hidden ${className}`}>
-      {children}
-    </div>
-  );
-}
+const Card = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      "rounded-lg border bg-card text-card-foreground shadow-sm",
+      className
+    )}
+    {...props}
+  />
+));
+Card.displayName = "Card";
 
-interface CardHeaderProps {
-  children: React.ReactNode;
-  className?: string;
-}
+const CardHeader = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex flex-col space-y-1.5 p-6", className)}
+    {...props}
+  />
+));
+CardHeader.displayName = "CardHeader";
 
-export function CardHeader({ children, className = '' }: CardHeaderProps) {
-  return (
-    <div className={`px-4 py-5 sm:px-6 border-b border-grey-200 ${className}`}>
-      {children}
-    </div>
-  );
-}
+const CardTitle = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, ...props }, ref) => (
+  <h3
+    ref={ref}
+    className={cn(
+      "text-2xl font-semibold leading-none tracking-tight",
+      className
+    )}
+    {...props}
+  />
+));
+CardTitle.displayName = "CardTitle";
 
-interface CardContentProps {
-  children: React.ReactNode;
-  className?: string;
-}
+const CardDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <p
+    ref={ref}
+    className={cn("text-sm text-muted-foreground", className)}
+    {...props}
+  />
+));
+CardDescription.displayName = "CardDescription";
 
-export function CardContent({ children, className = '' }: CardContentProps) {
-  return (
-    <div className={`px-4 py-5 sm:p-6 ${className}`}>
-      {children}
-    </div>
-  );
-}
+const CardContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
+));
+CardContent.displayName = "CardContent";
 
-interface CardFooterProps {
-  children: React.ReactNode;
-  className?: string;
-}
+const CardFooter = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex items-center p-6 pt-0", className)}
+    {...props}
+  />
+));
+CardFooter.displayName = "CardFooter";
 
-export function CardFooter({ children, className = '' }: CardFooterProps) {
-  return (
-    <div className={`px-4 py-4 sm:px-6 border-t border-grey-200 ${className}`}>
-      {children}
-    </div>
-  );
-}
-
-interface CardTitleProps {
-  children: React.ReactNode;
-  className?: string;
-}
-
-export function CardTitle({ children, className = '' }: CardTitleProps) {
-  return (
-    <h3 className={`text-lg leading-6 font-medium text-grey-900 ${className}`}>
-      {children}
-    </h3>
-  );
-}
-
-interface CardDescriptionProps {
-  children: React.ReactNode;
-  className?: string;
-}
-
-export function CardDescription({ children, className = '' }: CardDescriptionProps) {
-  return (
-    <p className={`mt-1 max-w-2xl text-sm text-grey-500 ${className}`}>
-      {children}
-    </p>
-  );
-}
-
-interface CardImageProps {
-  src: string;
-  alt: string;
-  className?: string;
-}
-
-export function CardImage({ src, alt, className = '' }: CardImageProps) {
-  return (
-    <div className={`w-full ${className}`}>
-      <img src={src} alt={alt} className="w-full h-auto" />
-    </div>
-  );
-}
-
-interface CardActionsProps {
-  children: React.ReactNode;
-  className?: string;
-}
-
-export function CardActions({ children, className = '' }: CardActionsProps) {
-  return (
-    <div className={`flex items-centre justify-end space-x-3 ${className}`}>
-      {children}
-    </div>
-  );
-}
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };

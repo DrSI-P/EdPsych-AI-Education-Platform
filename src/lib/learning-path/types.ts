@@ -1,8 +1,15 @@
 /**
- * Types for the Personalized Learning Path feature
+ * Type definitions for Learning Path
+ * Provides types for personalized learning paths and related features
  */
 
-// Learning style types based on VARK model
+// Export UK curriculum types directly from this file
+export type UKKeyStage = 'KS1' | 'KS2' | 'KS3' | 'KS4' | 'KS5';
+export type UKSubject = 'Mathematics' | 'English' | 'Science' | 'History' | 'Geography' | 'Art' | 'Music' | 'Physical Education' | 'Computing' | 'Design and Technology' | 'Languages' | 'Religious Education' | 'Citizenship' | 'PSHE';
+
+/**
+ * Learning styles based on VARK model
+ */
 export enum LearningStyle {
   VISUAL = 'visual',
   AUDITORY = 'auditory',
@@ -11,178 +18,152 @@ export enum LearningStyle {
   MULTIMODAL = 'multimodal'
 }
 
-// UK curriculum key stages
-export enum KeyStage {
-  NURSERY = 'nursery',
-  RECEPTION = 'reception',
-  KS1 = 'ks1',
-  KS2 = 'ks2',
-  KS3 = 'ks3',
-  KS4 = 'ks4'
+/**
+ * Learning path status
+ */
+export enum LearningPathStatus {
+  ACTIVE = 'active',
+  COMPLETED = 'completed',
+  PAUSED = 'paused',
+  ARCHIVED = 'archived'
 }
 
-// Subject areas
-export enum Subject {
-  MATHS = 'maths',
-  ENGLISH = 'english',
-  SCIENCE = 'science',
-  HISTORY = 'history',
-  GEOGRAPHY = 'geography',
-  ART = 'art',
-  MUSIC = 'music',
-  PE = 'pe',
-  COMPUTING = 'computing',
-  LANGUAGES = 'languages'
-}
-
-// Proficiency levels
-export enum ProficiencyLevel {
-  BEGINNER = 'beginner',
-  DEVELOPING = 'developing',
-  SECURE = 'secure',
-  EXCEEDING = 'exceeding',
-  MASTERY = 'mastery'
-}
-
-// Topic status
-export enum TopicStatus {
-  LOCKED = 'locked',
-  AVAILABLE = 'available',
+/**
+ * Learning path unit status
+ */
+export enum LearningPathUnitStatus {
+  NOT_STARTED = 'not_started',
   IN_PROGRESS = 'in_progress',
   COMPLETED = 'completed',
-  MASTERED = 'mastered',
   NEEDS_REVIEW = 'needs_review'
 }
 
-// User interest categories
-export interface InterestCategory {
-  id: string;
-  name: string;
-  subcategories: string[];
+/**
+ * Learning path difficulty level
+ */
+export enum LearningPathDifficulty {
+  BEGINNER = 'beginner',
+  INTERMEDIATE = 'intermediate',
+  ADVANCED = 'advanced',
+  ADAPTIVE = 'adaptive'
 }
 
-// Assessment result
+/**
+ * Learning path metadata
+ */
+export interface LearningPathMetadata {
+  id: string;
+  title: string;
+  description: string;
+  keyStage: UKKeyStage;
+  subject: UKSubject;
+  topics: string[];
+  difficulty: LearningPathDifficulty;
+  estimatedDuration: number; // in minutes
+  createdAt: string;
+  updatedAt: string;
+  status: LearningPathStatus;
+  learningStyle: LearningStyle;
+  isPersonalized: boolean;
+  tags: string[];
+}
+
+/**
+ * Learning path unit
+ */
+export interface LearningPathUnit {
+  id: string;
+  pathId: string;
+  title: string;
+  description: string;
+  contentIds: string[];
+  order: number;
+  status: LearningPathUnitStatus;
+  estimatedDuration: number; // in minutes
+  completedAt?: string;
+  startedAt?: string;
+  assessmentId?: string;
+}
+
+/**
+ * Complete learning path
+ */
+export interface LearningPath {
+  metadata: LearningPathMetadata;
+  units: LearningPathUnit[];
+  progress: number; // 0-100
+  userNotes?: string[];
+  recommendations?: string[]; // IDs of recommended learning paths
+}
+
+/**
+ * User learning profile
+ */
+export interface UserLearningProfile {
+  userId: string;
+  preferredLearningStyle: LearningStyle;
+  interests: string[];
+  strengths: string[];
+  areasForImprovement: string[];
+  completedPathIds: string[];
+  activePathIds: string[];
+  assessmentResults: AssessmentResult[];
+  lastUpdated: string;
+}
+
+/**
+ * Assessment result
+ */
 export interface AssessmentResult {
   id: string;
   userId: string;
-  subjectId: string;
-  topicId: string;
-  score: number;
-  proficiencyLevel: ProficiencyLevel;
-  completedAt: Date;
+  assessmentId: string;
+  pathId?: string;
+  unitId?: string;
+  score: number; // 0-100
+  completedAt: string;
   timeSpent: number; // in seconds
-  attemptsCount: number;
-  correctAnswers: number;
-  totalQuestions: number;
+  strengths: string[];
+  weaknesses: string[];
+  recommendations: string[];
 }
 
-// Curriculum topic
-export interface CurriculumTopic {
-  id: string;
-  name: string;
-  subjectId: string;
-  keyStage: KeyStage;
-  description: string;
-  learningObjectives: string[];
-  prerequisites: string[]; // IDs of prerequisite topics
-  estimatedDuration: number; // in minutes
-  difficulty: number; // 1-10 scale
-  order: number; // for default sequencing
-}
-
-// Learning resource
-export interface LearningResource {
-  id: string;
+/**
+ * Learning path creation parameters
+ */
+export interface LearningPathCreationParams {
   title: string;
   description: string;
-  type: 'video' | 'article' | 'interactive' | 'quiz' | 'worksheet' | 'game';
-  url: string;
-  topicIds: string[];
-  keyStages: KeyStage[];
-  learningStyles: LearningStyle[];
-  interestCategories: string[];
-  duration: number; // in minutes
-  difficulty: number; // 1-10 scale
-}
-
-// User learning profile
-export interface UserLearningProfile {
-  id: string;
+  keyStage: UKKeyStage;
+  subject: UKSubject;
+  topics: string[];
+  difficulty: LearningPathDifficulty;
+  learningStyle: LearningStyle;
+  isPersonalized: boolean;
   userId: string;
-  dominantLearningStyle: LearningStyle;
-  secondaryLearningStyle: LearningStyle | null;
-  learningPace: number; // 1-10 scale, 1=slow, 10=fast
-  interests: string[]; // IDs of interest categories
-  strengths: string[]; // IDs of curriculum topics
-  areasForImprovement: string[]; // IDs of curriculum topics
-  preferredLearningTime: 'morning' | 'afternoon' | 'evening' | 'any';
-  focusDuration: number; // average focus duration in minutes
-  lastUpdated: Date;
 }
 
-// Learning path unit
-export interface LearningPathUnit {
-  id: string;
-  title: string;
-  description: string;
-  topicId: string;
-  status: TopicStatus;
-  progress: number; // 0-100
-  resources: LearningResource[];
-  assessments: string[]; // IDs of assessments
-  estimatedDuration: number; // in minutes
-  actualDuration: number; // in minutes, tracked from user activity
-  startedAt: Date | null;
-  completedAt: Date | null;
-  proficiencyLevel: ProficiencyLevel | null;
-  nextReviewDate: Date | null; // for spaced repetition
+/**
+ * Learning path search filters
+ */
+export interface LearningPathSearchFilters {
+  keyStage?: UKKeyStage[];
+  subject?: UKSubject[];
+  difficulty?: LearningPathDifficulty[];
+  status?: LearningPathStatus[];
+  learningStyle?: LearningStyle[];
+  topics?: string[];
+  isPersonalized?: boolean;
+  dateFrom?: string;
+  dateTo?: string;
 }
 
-// Complete learning path
-export interface LearningPath {
-  id: string;
-  userId: string;
-  subjectId: string;
-  keyStage: KeyStage;
-  title: string;
-  description: string;
-  units: LearningPathUnit[];
-  createdAt: Date;
-  updatedAt: Date;
-  overallProgress: number; // 0-100
-  estimatedCompletionDate: Date | null;
-  adaptationLevel: number; // 1-10 scale, how much the path has been adapted
-  lastAssessmentDate: Date | null;
-}
-
-// Path generation parameters
-export interface PathGenerationParams {
-  userId: string;
-  subjectId: string;
-  keyStage: KeyStage;
-  startingProficiencyLevel?: ProficiencyLevel;
-  focusTopics?: string[]; // IDs of topics to emphasize
-  excludeTopics?: string[]; // IDs of topics to exclude
-  includePrerequisites: boolean;
-  adaptToLearningStyle: boolean;
-  adaptToInterests: boolean;
-  difficulty: number; // 1-10 scale
-  estimatedDuration?: number; // target duration in minutes
-}
-
-// Path adaptation event
-export interface PathAdaptationEvent {
-  id: string;
-  pathId: string;
-  timestamp: Date;
-  triggerType: 'assessment' | 'engagement' | 'manual' | 'scheduled';
-  changes: {
-    addedUnits: string[];
-    removedUnits: string[];
-    reorderedUnits: boolean;
-    difficultyChanged: boolean;
-    resourcesChanged: boolean;
-  };
-  reason: string;
-  performedBy: string | null; // userId if manual, null if automatic
+/**
+ * Learning path search result
+ */
+export interface LearningPathSearchResult {
+  totalResults: number;
+  page: number;
+  pageSize: number;
+  results: LearningPathMetadata[];
 }
