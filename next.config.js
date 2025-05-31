@@ -1,22 +1,12 @@
 /**
  * Next.js Build Optimization Configuration
- *
- * This file configures webpack to use our compatibility modules
- * for the missing d3-shape and d3-scale exports in victory-vendor
- *
- * @type {import('next').NextConfig}
+ * Modified for Pages Router compatibility
  */
 const path = require('path');
-
 // All polyfills are now loaded from the dedicated polyfill files
-// This ensures consistent behavior across all entry points
-
-// Instead of inline polyfills, load from files to ensure consistency
-// This ensures the same polyfills are used across the entire application
 require('./src/globalPolyfills');
 require('./src/polyfills');
-
-// This is a simplified configuration to fix build issues
+// Explicitly configured for Pages Router only
 const nextConfig = {
   reactStrictMode: true,
   
@@ -30,19 +20,16 @@ const nextConfig = {
   experimental: {
     // From complete-rebuild
     disableOptimizedLoading: true,
-    optimizeCss: false,
-    // From build-optimization-fixes
-    serverActions: {
-      allowedOrigins: ['localhost:3000', 'edpsychconnect.com']
-    },
-    // Add memory optimization for large component trees
+    optimizeCss: false, // Disable CSS optimization to prevent style removal
+    // Remove App Router specific features
     optimizePackageImports: [
       'lucide-react',
       'react-icons',
       '@radix-ui/react-icons',
       'framer-motion'
-    ]
-    // Removed turbotrace as it's not supported in Next.js 15.3.2
+    ],
+    // EXPLICITLY DISABLE APP ROUTER
+    appDir: false
   },
   
   // Disable ESLint during build to prevent build failures
@@ -102,37 +89,54 @@ const nextConfig = {
       };
     }
     
+    // Ensure CSS files are properly processed and included
+    if (!isServer) {
+      // Make sure CSS files are processed by the CSS loader
+      const cssRule = config.module.rules.find(
+        rule => rule.test && rule.test.toString().includes('css')
+      );
+      
+      if (cssRule) {
+        // Ensure enhanced-globals.css is not excluded
+        if (cssRule.exclude) {
+          const originalExclude = cssRule.exclude;
+          cssRule.exclude = (path) => {
+            if (path.includes('enhanced-globals.css') || 
+                path.includes('enhanced-brand.css') ||
+                path.includes('brand.css') ||
+                path.includes('enhanced-theme.ts') || 
+                path.includes('enhanced-tokens.ts')) {
+              return false;
+            }
+            return originalExclude(path);
+          };
+        }
+      }
+    }
+    
     return config;
   },
   
-  // Configure environment variables (from complete-rebuild)
+  // Configure environment variables
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
     NEXT_PUBLIC_HEYGEN_API_KEY: process.env.NEXT_PUBLIC_HEYGEN_API_KEY,
     NEXT_PUBLIC_HEYGEN_API_URL: process.env.NEXT_PUBLIC_HEYGEN_API_URL,
   },
   
-  // Optimize CSS (from build-optimization-fixes)
+  // Optimize CSS
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   
-  // Transpile specific modules (from build-optimization-fixes)
+  // Transpile specific modules
   transpilePackages: [
     'react-syntax-highlighter',
     '@headlessui/react',
   ],
   
-  // Using serverExternalPackages instead of serverComponentsExternalPackages
-  serverExternalPackages: [
-    'bcrypt',
-    'canvas',
-    'sharp'
-  ],
-  
-  // Improve production performance (from build-optimization-fixes)
+   // Improve production performance
   productionBrowserSourceMaps: false,
   poweredByHeader: false,
 };
-
 module.exports = nextConfig;

@@ -36,6 +36,37 @@ function executeCommand(command, description) {
 // Function to verify critical environment variables
 function verifyEnvironmentVariables() {
   console.log('🔍 Verifying environment variables...');
+  console.log('🔍 Current environment variables:');
+  console.log('DATABASE_URL:', process.env.DATABASE_URL ? 'Set (value hidden)' : 'Not set');
+  console.log('NEXTAUTH_URL:', process.env.NEXTAUTH_URL ? process.env.NEXTAUTH_URL : 'Not set');
+  console.log('NEXTAUTH_SECRET:', process.env.NEXTAUTH_SECRET ? 'Set (value hidden)' : 'Not set');
+  console.log('NODE_ENV:', process.env.NODE_ENV);
+  console.log('VERCEL_ENV:', process.env.VERCEL_ENV);
+  
+  // Try to load environment variables from .env.production directly
+  try {
+    const dotenv = require('dotenv');
+    const fs = require('fs');
+    const path = require('path');
+    
+    const envPath = path.resolve(__dirname, '.env.production');
+    if (fs.existsSync(envPath)) {
+      console.log('🔍 Found .env.production file, loading variables...');
+      const envConfig = dotenv.parse(fs.readFileSync(envPath));
+      
+      // Set environment variables if they're not already set
+      for (const key in envConfig) {
+        if (!process.env[key]) {
+          process.env[key] = envConfig[key];
+          console.log(`✅ Loaded ${key} from .env.production`);
+        }
+      }
+    } else {
+      console.error('❌ .env.production file not found at path:', envPath);
+    }
+  } catch (error) {
+    console.error('❌ Error loading .env.production file:', error.message);
+  }
   
   const criticalVars = [
     'DATABASE_URL',

@@ -32,7 +32,9 @@ import {
   Clock, 
   Send, 
   CheckCircle2, 
-  AlertCircle 
+  AlertCircle,
+  School,
+  Users
 } from 'lucide-react';
 
 const formSchema = z.object({
@@ -89,11 +91,11 @@ export default function ContactPage() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-centre mb-12"
+        className="text-center mb-12"
       >
-        <h1 className="text-4xl font-bold tracking-tight">Contact Us</h1>
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-primary">Contact Us</h1>
         <p className="mt-4 text-xl text-muted-foreground max-w-3xl mx-auto">
-          Have questions about EdPsych Connect? We're here to help. Reach out to our team for support, information, or partnership inquiries.
+          Have questions about EdPsych Connect? We're here to help. Reach out to our team for support, information, or partnership enquiries.
         </p>
       </motion.div>
 
@@ -107,8 +109,8 @@ export default function ContactPage() {
           <h2 className="text-2xl font-semibold mb-6">Get in Touch</h2>
           
           <div className="space-y-6">
-            <Card>
-              <CardContent className="p-6 flex items-start gap-4">
+            <Card className="card card-bordered hover:shadow-md transition-shadow">
+              <CardContent className="card-body p-6 flex items-start gap-4">
                 <div className="bg-primary/10 p-3 rounded-full">
                   <MapPin className="h-6 w-6 text-primary" />
                 </div>
@@ -120,8 +122,8 @@ export default function ContactPage() {
               </CardContent>
             </Card>
             
-            <Card>
-              <CardContent className="p-6 flex items-start gap-4">
+            <Card className="card card-bordered hover:shadow-md transition-shadow">
+              <CardContent className="card-body p-6 flex items-start gap-4">
                 <div className="bg-primary/10 p-3 rounded-full">
                   <Phone className="h-6 w-6 text-primary" />
                 </div>
@@ -133,8 +135,8 @@ export default function ContactPage() {
               </CardContent>
             </Card>
             
-            <Card>
-              <CardContent className="p-6 flex items-start gap-4">
+            <Card className="card card-bordered hover:shadow-md transition-shadow">
+              <CardContent className="card-body p-6 flex items-start gap-4">
                 <div className="bg-primary/10 p-3 rounded-full">
                   <Mail className="h-6 w-6 text-primary" />
                 </div>
@@ -146,8 +148,8 @@ export default function ContactPage() {
               </CardContent>
             </Card>
             
-            <Card>
-              <CardContent className="p-6 flex items-start gap-4">
+            <Card className="card card-bordered hover:shadow-md transition-shadow">
+              <CardContent className="card-body p-6 flex items-start gap-4">
                 <div className="bg-primary/10 p-3 rounded-full">
                   <Clock className="h-6 w-6 text-primary" />
                 </div>
@@ -156,6 +158,37 @@ export default function ContactPage() {
                   <p className="text-muted-foreground mt-1">Monday to Friday: 9am - 5pm</p>
                   <p className="text-muted-foreground">Saturday: 10am - 2pm (Online Support Only)</p>
                   <p className="text-muted-foreground">Sunday: Closed</p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          
+          {/* Educational Support Section */}
+          <h2 className="text-2xl font-semibold mb-6 mt-10">Educational Support</h2>
+          
+          <div className="space-y-6">
+            <Card className="card card-bordered hover:shadow-md transition-shadow">
+              <CardContent className="card-body p-6 flex items-start gap-4">
+                <div className="bg-primary/10 p-3 rounded-full">
+                  <School className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="font-medium text-lg">UK Schools & MATs</h3>
+                  <p className="text-muted-foreground mt-1">For institutional enquiries and partnerships</p>
+                  <p className="text-muted-foreground">schools@edpsychconnect.com</p>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="card card-bordered hover:shadow-md transition-shadow">
+              <CardContent className="card-body p-6 flex items-start gap-4">
+                <div className="bg-primary/10 p-3 rounded-full">
+                  <Users className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="font-medium text-lg">SEN Support</h3>
+                  <p className="text-muted-foreground mt-1">Specialised assistance for special educational needs</p>
+                  <p className="text-muted-foreground">sen@edpsychconnect.com</p>
                 </div>
               </CardContent>
             </Card>
@@ -170,13 +203,13 @@ export default function ContactPage() {
         >
           <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
           
-          <Card>
-            <CardContent className="p-6">
+          <Card className="card card-bordered">
+            <CardContent className="card-body p-6">
               {formState === 'success' ? (
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-centre justify-centre text-centre py-8"
+                  className="flex flex-col items-center justify-center text-center py-8"
                 >
                   <div className="bg-green-100 p-3 rounded-full mb-4">
                     <CheckCircle2 className="h-12 w-12 text-green-600" />
@@ -190,7 +223,7 @@ export default function ContactPage() {
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-centre justify-centre text-centre py-8"
+                  className="flex flex-col items-center justify-center text-center py-8"
                 >
                   <div className="bg-red-100 p-3 rounded-full mb-4">
                     <AlertCircle className="h-12 w-12 text-red-600" />
@@ -201,7 +234,7 @@ export default function ContactPage() {
                   </p>
                   <Button 
                     variant="outline" 
-                    className="mt-4"
+                    className="mt-4 btn btn-outline"
                     onClick={() => setFormState('idle')}
                   >
                     Try Again
@@ -214,12 +247,12 @@ export default function ContactPage() {
                       control={form.control}
                       name="name"
                       render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Name</FormLabel>
+                        <FormItem className="form-item">
+                          <FormLabel className="form-label">Name</FormLabel>
                           <FormControl>
-                            <Input placeholder="Your name" {...field} />
+                            <Input placeholder="Your name" className="input input-bordered" {...field} />
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="form-message" />
                         </FormItem>
                       )}
                     />
@@ -228,12 +261,12 @@ export default function ContactPage() {
                       control={form.control}
                       name="email"
                       render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Email</FormLabel>
+                        <FormItem className="form-item">
+                          <FormLabel className="form-label">Email</FormLabel>
                           <FormControl>
-                            <Input placeholder="Your email address" {...field} />
+                            <Input placeholder="Your email address" className="input input-bordered" {...field} />
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="form-message" />
                         </FormItem>
                       )}
                     />
@@ -242,26 +275,28 @@ export default function ContactPage() {
                       control={form.control}
                       name="userType"
                       render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>I am a</FormLabel>
+                        <FormItem className="form-item">
+                          <FormLabel className="form-label">I am a</FormLabel>
                           <Select 
                             onValueChange={field.onChange} 
                             defaultValue={field.value}
                           >
                             <FormControl>
-                              <SelectTrigger>
+                              <SelectTrigger className="select select-bordered">
                                 <SelectValue placeholder="Select your user type" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent>
+                            <SelectContent className="select-content">
                               <SelectItem value="student">Student</SelectItem>
                               <SelectItem value="parent">Parent</SelectItem>
                               <SelectItem value="educator">Educator</SelectItem>
-                              <SelectItem value="professional">Educational Professional</SelectItem>
+                              <SelectItem value="senco">SENDCo</SelectItem>
+                              <SelectItem value="professional">Educational Psychologist</SelectItem>
+                              <SelectItem value="school">School Administrator</SelectItem>
                               <SelectItem value="other">Other</SelectItem>
                             </SelectContent>
                           </Select>
-                          <FormMessage />
+                          <FormMessage className="form-message" />
                         </FormItem>
                       )}
                     />
@@ -270,12 +305,12 @@ export default function ContactPage() {
                       control={form.control}
                       name="subject"
                       render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Subject</FormLabel>
+                        <FormItem className="form-item">
+                          <FormLabel className="form-label">Subject</FormLabel>
                           <FormControl>
-                            <Input placeholder="Message subject" {...field} />
+                            <Input placeholder="Message subject" className="input input-bordered" {...field} />
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="form-message" />
                         </FormItem>
                       )}
                     />
@@ -284,23 +319,23 @@ export default function ContactPage() {
                       control={form.control}
                       name="message"
                       render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Message</FormLabel>
+                        <FormItem className="form-item">
+                          <FormLabel className="form-label">Message</FormLabel>
                           <FormControl>
                             <Textarea 
                               placeholder="Your message" 
-                              className="min-h-[120px]" 
+                              className="textarea textarea-bordered min-h-[120px]" 
                               {...field} 
                             />
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="form-message" />
                         </FormItem>
                       )}
                     />
                     
                     <Button 
                       type="submit" 
-                      className="w-full"
+                      className="w-full btn btn-primary"
                       disabled={formState === 'submitting'}
                     >
                       {formState === 'submitting' ? (
@@ -326,11 +361,11 @@ export default function ContactPage() {
         transition={{ delay: 0.6, duration: 0.5 }}
         className="mt-20"
       >
-        <h2 className="text-2xl font-semibold mb-6 text-centre">Frequently Asked Questions</h2>
+        <h2 className="text-2xl font-semibold mb-6 text-center">Frequently Asked Questions</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card>
-            <CardContent className="p-6">
+          <Card className="card card-bordered hover:shadow-md transition-shadow">
+            <CardContent className="card-body p-6">
               <h3 className="font-semibold text-lg mb-2">How can I get started with EdPsych Connect?</h3>
               <p className="text-muted-foreground">
                 Getting started is easy! Simply register for an account, complete your profile, and you'll have immediate access to our platform's features tailored to your role as a student, parent, or educator.
@@ -338,34 +373,73 @@ export default function ContactPage() {
             </CardContent>
           </Card>
           
-          <Card>
-            <CardContent className="p-6">
+          <Card className="card card-bordered hover:shadow-md transition-shadow">
+            <CardContent className="card-body p-6">
               <h3 className="font-semibold text-lg mb-2">Is EdPsych Connect available for schools and institutions?</h3>
               <p className="text-muted-foreground">
-                Yes, we offer institutional licenses for schools, educational authorities, and professional organizations. Contact our team for information about bulk licensing and custom implementations.
+                Yes, we offer institutional licences for schools, Multi-Academy Trusts, and educational authorities across the UK. Contact our team for information about bulk licensing and custom implementations.
               </p>
             </CardContent>
           </Card>
           
-          <Card>
-            <CardContent className="p-6">
+          <Card className="card card-bordered hover:shadow-md transition-shadow">
+            <CardContent className="card-body p-6">
               <h3 className="font-semibold text-lg mb-2">How does EdPsych Connect protect user data?</h3>
               <p className="text-muted-foreground">
-                We take data protection seriously. EdPsych Connect is fully GDPR compliant and implements robust security measures to protect all user data, with particular attention to safeguarding information related to children and young people.
+                We take data protection seriously. EdPsych Connect is fully GDPR compliant and implements robust security measures to protect all user data, with particular attention to safeguarding information related to children and young people in accordance with UK regulations.
               </p>
             </CardContent>
           </Card>
           
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="font-semibold text-lg mb-2">Can I use EdPsych Connect on mobile devices?</h3>
+          <Card className="card card-bordered hover:shadow-md transition-shadow">
+            <CardContent className="card-body p-6">
+              <h3 className="font-semibold text-lg mb-2">Is EdPsych Connect aligned with UK curriculum standards?</h3>
               <p className="text-muted-foreground">
-                Absolutely! EdPsych Connect is fully responsive and works seamlessly across desktops, tablets, and mobile phones, ensuring you can access your educational resources wherever you are.
+                Absolutely! EdPsych Connect is specifically designed to align with the UK National Curriculum and supports all Key Stages. Our content is regularly reviewed to ensure compliance with Department for Education standards and examination board requirements.
+              </p>
+            </CardContent>
+          </Card>
+          
+          <Card className="card card-bordered hover:shadow-md transition-shadow">
+            <CardContent className="card-body p-6">
+              <h3 className="font-semibold text-lg mb-2">How can schools integrate EdPsych Connect with existing systems?</h3>
+              <p className="text-muted-foreground">
+                EdPsych Connect offers integration options with popular UK school management information systems (MIS) and virtual learning environments (VLEs). Our team can provide customised implementation support for seamless integration with your existing educational technology infrastructure.
+              </p>
+            </CardContent>
+          </Card>
+          
+          <Card className="card card-bordered hover:shadow-md transition-shadow">
+            <CardContent className="card-body p-6">
+              <h3 className="font-semibold text-lg mb-2">What support is available for SEN pupils?</h3>
+              <p className="text-muted-foreground">
+                EdPsych Connect provides specialised support for pupils with Special Educational Needs, including adaptable interfaces, voice input options, and personalised learning pathways. Our platform is designed to be inclusive and accessible for all learners in accordance with UK SEN guidelines.
               </p>
             </CardContent>
           </Card>
         </div>
       </motion.div>
+      
+      {/* CTA Section */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.8, duration: 0.5 }}
+        className="mt-20 bg-primary/5 rounded-xl p-8 md:p-12 text-center"
+      >
+        <h2 className="text-3xl font-bold mb-4">Ready to Transform Learning?</h2>
+        <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+          Join thousands of students, families, and schools across the UK already using EdPsych Connect to enhance educational outcomes.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button size="lg" className="btn btn-lg btn-primary" asChild>
+            <a href="/register">Get Started Today</a>
+          </Button>
+          <Button size="lg" variant="outline" className="btn btn-lg btn-outline" asChild>
+            <a href="/pricing">View Pricing Plans</a>
+          </Button>
+        </div>
+      </motion.section>
     </div>
   );
 }

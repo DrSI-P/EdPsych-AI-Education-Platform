@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useVoiceInput } from '@/providers/voice-input-provider';
+import { useVoiceInput } from '@/components/VoiceInput';
 import UniversalVoiceInput from '@/components/voice-input/universal-voice-input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Mic, Settings, Sliders, Wand2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useToast } from '@/components/ui/use-toast';
-import { AgeGroup } from '@/providers/voice-input-provider';
+import { AgeGroup } from '@/components/VoiceInput/VoiceInputProvider';
 
 interface AdaptiveComplexityVoiceInputProps {
   onTranscriptChange?: (transcript: string) => void;

@@ -44,84 +44,38 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
 }) => {
   const { ageGroup, isReducedMotion } = useTheme();
   const pathname = usePathname();
-  const { data: session } = useSession();
+  // Add fallback for SSR/SSG when session might be undefined
+  const { data: session } = useSession({ required: false }) || { data: null };
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   
   // Navigation items based on user role
-  const getNavigationItems = () => {
-    const items = [
-      {
-        name: 'Home',
-        href: '/',
-        icon: <Home className="h-5 w-5" />,
-        roles: ['STUDENT', 'TEACHER', 'PARENT', 'ADMIN', 'EDUCATIONAL_PSYCHOLOGIST'],
-      },
-      {
-        name: 'Learning',
-        href: '/learning',
-        icon: <BookOpen className="h-5 w-5" />,
-        roles: ['STUDENT', 'TEACHER', 'PARENT', 'EDUCATIONAL_PSYCHOLOGIST'],
-      },
-      {
-        name: 'Community',
-        href: '/community',
-        icon: <Users className="h-5 w-5" />,
-        roles: ['STUDENT', 'TEACHER', 'PARENT', 'EDUCATIONAL_PSYCHOLOGIST'],
-      },
-      {
-        name: 'Progress',
-        href: '/progress',
-        icon: <BarChart className="h-5 w-5" />,
-        roles: ['STUDENT', 'TEACHER', 'PARENT', 'EDUCATIONAL_PSYCHOLOGIST'],
-      },
-      {
-        name: 'Settings',
-        href: '/settings',
-        icon: <Settings className="h-5 w-5" />,
-        roles: ['STUDENT', 'TEACHER', 'PARENT', 'ADMIN', 'EDUCATIONAL_PSYCHOLOGIST'],
-      },
-    ];
-    
-    // If user is logged in, filter by role
-    if (session?.user?.role) {
-      return items.filter(item => item.roles.includes(session.user.role as string));
-    }
-    
-    // Default items for logged out users
-    return items.filter(item => item.href === '/' || item.href === '/learning');
-  };
-  
-  // Get age-appropriate navigation styles
-  const getNavigationStyles = () => {
-    switch (ageGroup) {
-      case 'nursery':
-        return {
-          navItem: 'rounded-xl p-3 text-lg font-bold',
-          activeNavItem: 'bg-primary text-white shadow-md',
-          inactiveNavItem: 'hover:bg-primary/10',
-          mobileNav: 'rounded-3xl border-4 border-primary/20',
-        };
-      case 'early-primary':
-        return {
-          navItem: 'rounded-lg p-2.5 text-base font-semibold',
-          activeNavItem: 'bg-primary text-white shadow-sm',
-          inactiveNavItem: 'hover:bg-primary/10',
-          mobileNav: 'rounded-2xl border-2 border-primary/20',
-        };
-      case 'late-primary':
-      case 'secondary':
-      default:
-        return {
-          navItem: 'rounded-md p-2 text-sm font-medium',
-          activeNavItem: 'bg-primary/10 text-primary',
-          inactiveNavItem: 'hover:bg-muted',
-          mobileNav: 'rounded-xl border border-gray-200',
-        };
-    }
-  };
-  
-  const styles = getNavigationStyles();
-  const navigationItems = getNavigationItems();
+  const navigationItems = [
+    {
+      name: 'Home',
+      href: '/',
+      icon: <Home className="h-5 w-5" />,
+    },
+    {
+      name: 'Student Portal',
+      href: '/student',
+      icon: <BookOpen className="h-5 w-5" />,
+    },
+    {
+      name: 'Educator Resources',
+      href: '/educator',
+      icon: <Users className="h-5 w-5" />,
+    },
+    {
+      name: 'Analytics',
+      href: '/analytics',
+      icon: <BarChart className="h-5 w-5" />,
+    },
+    {
+      name: 'Settings',
+      href: '/settings',
+      icon: <Settings className="h-5 w-5" />,
+    },
+  ];
   
   // Toggle mobile menu
   const toggleMobileMenu = () => {
@@ -135,35 +89,20 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
   
   // Animation variants
   const mobileMenuAnimation = {
-    hidden: { opacity: 0, x: -20 },
-    visible: { 
-      opacity: 1, 
-      x: 0,
-      transition: {
-        duration: 0.3,
-        when: "beforeChildren",
-        staggerChildren: 0.1
-      }
-    },
-    exit: { 
-      opacity: 0, 
-      x: -20,
-      transition: {
-        duration: 0.2
-      }
-    }
+    hidden: { opacity: 0, y: -20, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.2 } },
+    exit: { opacity: 0, y: -20, scale: 0.95, transition: { duration: 0.2 } },
   };
   
   const mobileMenuItemAnimation = {
     hidden: { opacity: 0, x: -20 },
-    visible: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -20 }
+    visible: { opacity: 1, x: 0, transition: { duration: 0.2 } },
   };
   
   // Render desktop navigation
   const renderDesktopNavigation = () => {
     return (
-      <div className="hidden md:flex items-centre space-x-1">
+      <div className="hidden md:flex md:items-centre md:space-x-4">
         {navigationItems.map((item) => (
           <Link
             key={item.href}
@@ -233,6 +172,7 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
                     </motion.div>
                   ))}
                   
+                  {/* Use optional chaining to safely access session properties */}
                   {session?.user && (
                     <motion.div variants={mobileMenuItemAnimation}>
                       <Button
@@ -315,6 +255,14 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
       </div>
     </header>
   );
+};
+
+// Define styles
+const styles = {
+  navItem: 'px-3 py-2 text-sm font-medium transition-colors',
+  activeNavItem: 'text-primary',
+  inactiveNavItem: 'text-muted-foreground hover:text-primary',
+  mobileNav: 'rounded-lg',
 };
 
 export default MainNavigation;

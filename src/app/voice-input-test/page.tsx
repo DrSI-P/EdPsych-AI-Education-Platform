@@ -1,18 +1,20 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { VoiceInputProvider } from '@/providers/voice-input-provider';
-import UniversalVoiceInput from '@/components/voice-input/universal-voice-input';
-import AssessmentVoiceInput from '@/components/voice-input/activity-specific/assessment-voice-input';
-import AdaptiveComplexityVoiceInput from '@/components/voice-input/activity-specific/adaptive-complexity-voice-input';
+import { VoiceInputProvider } from '@/components/VoiceInput';
+import DynamicUniversalVoiceInput from '@/components/voice-input/dynamic-universal-voice-input';
+import DynamicAdaptiveComplexityVoiceInput from '@/components/voice-input/activity-specific/dynamic-adaptive-complexity-voice-input';
+import DynamicAssessmentVoiceInput from '@/components/voice-input/activity-specific/dynamic-assessment-voice-input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { AgeGroup } from '@/providers/voice-input-provider';
 import { motion } from 'framer-motion';
+
+// Define AgeGroup type locally to avoid import issues
+type AgeGroup = 'nursery' | 'early-primary' | 'late-primary' | 'secondary';
 
 /**
  * Voice Input Test Page
@@ -136,7 +138,7 @@ export default function VoiceInputTestPage() {
               <Tabs value={activeTab} onValueChange={setActiveTab}>
                 <TabsContent value="universal" className="mt-0">
                   {activeTab === 'universal' && (
-                    <UniversalVoiceInput
+                    <DynamicUniversalVoiceInput
                       onTranscriptChange={handleTranscriptChange}
                       onComplete={handleComplete}
                       placeholder="Speak to test the universal voice input component..."
@@ -149,7 +151,7 @@ export default function VoiceInputTestPage() {
                 
                 <TabsContent value="assessment" className="mt-0">
                   {activeTab === 'assessment' && (
-                    <AssessmentVoiceInput
+                    <DynamicAssessmentVoiceInput
                       onTranscriptChange={handleTranscriptChange}
                       onComplete={handleComplete}
                       placeholder="Speak to test the assessment voice input component..."
@@ -161,7 +163,7 @@ export default function VoiceInputTestPage() {
                 
                 <TabsContent value="adaptive" className="mt-0">
                   {activeTab === 'adaptive' && (
-                    <AdaptiveComplexityVoiceInput
+                    <DynamicAdaptiveComplexityVoiceInput
                       onTranscriptChange={handleTranscriptChange}
                       onComplete={handleComplete}
                       placeholder="Speak to test the adaptive complexity voice input component..."

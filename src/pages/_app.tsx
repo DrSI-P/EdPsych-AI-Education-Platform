@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import { ThemeProvider } from 'next-themes';
@@ -6,7 +8,11 @@ import Head from 'next/head';
 import { Toaster } from '@/components/ui/toaster';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import '@/styles/globals.css';
+import '@/styles/global-styles.css';
+import '@/styles/accessibility.css';
+import StylesInjector from '@/components/StylesInjector';
+// VoiceInputProvider is now managed by root-layout-wrapper.tsx
+import AccessibilityProvider from '@/components/accessibility/accessibility-provider';
 
 // PWA head component for metadata
 function PWAHead() {
@@ -34,6 +40,12 @@ function PWAHead() {
       <link rel="manifest" href="/manifest.json" />
       <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#6366f1" />
       <link rel="shortcut icon" href="/favicon.ico" />
+      
+      {/* Add OpenDyslexic font for accessibility */}
+      <link 
+        rel="stylesheet" 
+        href="https://cdn.jsdelivr.net/npm/opendyslexic@1.0.3/dist/opendyslexic/opendyslexic.min.css" 
+      />
     </>
   );
 }
@@ -136,8 +148,12 @@ function InstallPrompt() {
 
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const [isOnline, setIsOnline] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    // Mark component as mounted (client-side only)
+    setIsMounted(true);
+    
     // Check if the app is online
     setIsOnline(navigator.onLine);
 
@@ -156,19 +172,37 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
 
   return (
     <SessionProvider session={session}>
-      <PWAHead />
-      {!isOnline && (
-        <div className="bg-yellow-500 text-white p-2 text-center">
-          You are currently offline. Some features may be limited.
-        </div>
+      {/* Only render AccessibilityProvider on client-side to prevent SSR context issues */}
+      {/* VoiceInputProvider is now managed by root-layout-wrapper.tsx */}
+      {isMounted ? (
+        <AccessibilityProvider>
+          <StylesInjector />
+          <PWAHead />
+          {!isOnline && (
+            <div className="bg-yellow-500 text-white p-2 text-center">
+              You are currently offline. Some features may be limited.
+            </div>
+          )}
+          <Navbar />
+          <main className="min-h-screen">
+            <Component {...pageProps} />
+          </main>
+          <Footer />
+          <Toaster />
+          <InstallPrompt />
+        </AccessibilityProvider>
+      ) : (
+        <>
+          <StylesInjector />
+          <PWAHead />
+          <Navbar />
+          <main className="min-h-screen">
+            <Component {...pageProps} />
+          </main>
+          <Footer />
+          <Toaster />
+        </>
       )}
-      <Navbar />
-      <main className="min-h-screen">
-        <Component {...pageProps} />
-      </main>
-      <Footer />
-      <Toaster />
-      <InstallPrompt />
     </SessionProvider>
   );
 }

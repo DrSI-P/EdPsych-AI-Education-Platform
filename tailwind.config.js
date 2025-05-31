@@ -5,6 +5,55 @@ module.exports = {
     './src/pages/**/*.{js,ts,jsx,tsx}',
     './src/components/**/*.{js,ts,jsx,tsx}',
     './src/app/**/*.{js,ts,jsx,tsx}',
+    './pages/**/*.{js,ts,jsx,tsx}',
+  ],
+  safelist: [
+    // Critical button classes
+    'btn-primary',
+    'btn-secondary',
+    'btn-outline',
+    'btn-ghost',
+    'btn-nursery',
+    'btn-early-primary',
+    
+    // Critical text classes
+    'text-gradient',
+    
+    // Critical navigation classes
+    'nav-item',
+    'active',
+    
+    // Critical animation classes
+    'animate-fade-in',
+    'animate-slide-up',
+    'animate-scale-in',
+    
+    // Critical UI component classes
+    'card',
+    'nursery-ui',
+    'early-primary-ui',
+    'late-primary-ui',
+    'secondary-ui',
+    
+    // Critical utility patterns - updated for Tailwind v3.0
+    'bg-primary',
+    'bg-secondary',
+    'bg-white',
+    'bg-neutral-100',
+    'bg-neutral-200',
+    'text-white',
+    'text-neutral-900',
+    'text-neutral-500',
+    'text-foreground',
+    'text-primary-foreground',
+    'text-secondary-foreground',
+    'border-border',
+    'hover:bg-neutral-100',
+    'hover:bg-neutral-200',
+    'hover:text-neutral-900',
+    'focus:outline-none',
+    'focus:ring-2',
+    'active:bg-primary',
   ],
   theme: {
     extend: {
