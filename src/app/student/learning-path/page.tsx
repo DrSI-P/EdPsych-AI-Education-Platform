@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -21,8 +21,22 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
+// Import personalized learning path components
+import PersonalizedPathGenerator from './components/PersonalizedPathGenerator';
+import { KeyStage, Subject, LearningPath, TopicStatus } from '@/lib/learning-path';
+
 export default function LearningPathPage() {
   const [selectedSubject, setSelectedSubject] = useState('maths');
+  const [personalizedPath, setPersonalizedPath] = useState<LearningPath | null>(null);
+  
+  // Mock user ID - in a real implementation, this would come from authentication
+  const mockUserId = 'user-123';
+  
+  // Handle path generation completion
+  const handlePathGenerated = (path: LearningPath) => {
+    setPersonalizedPath(path);
+    console.log('Personalized path generated:', path);
+  };
   
   // Mock data for learning paths
   const subjects = {
@@ -232,6 +246,14 @@ export default function LearningPathPage() {
         </p>
       </motion.div>
 
+      {/* Personalized Path Generator */}
+      <PersonalizedPathGenerator 
+        userId={mockUserId}
+        subjectId={selectedSubject as Subject}
+        keyStage={KeyStage.KS3}
+        onPathGenerated={handlePathGenerated}
+      />
+
       {/* Subject Selection Tabs */}
       <Tabs 
         value={selectedSubject} 
@@ -407,47 +429,28 @@ export default function LearningPathPage() {
                     </p>
                   </div>
                 </div>
-                <Button size="sm" className="w-full btn btn-sm btn-primary" asChild>
-                  <Link href={`/student/subjects/${selectedSubject}/recommended`}>
-                    View Recommended Lessons
-                  </Link>
+                <Button size="sm" className="w-full btn btn-sm btn-primary">
+                  View Resources <ArrowRight className="ml-2 h-3 w-3" />
                 </Button>
               </div>
-              
               <div className="bg-background p-4 rounded-lg border border-border">
                 <div className="flex items-start mb-3">
                   <BarChart className="h-5 w-5 text-primary mr-2 mt-0.5" />
                   <div>
-                    <h4 className="font-medium">Learning Style Adaptation</h4>
+                    <h4 className="font-medium">Learning Style Insight</h4>
                     <p className="text-sm text-muted-foreground">
-                      We've noticed you learn best with visual content. We've adapted your upcoming lessons to include more diagrams and videos.
+                      Your learning patterns show a preference for visual learning. We've adjusted your content accordingly.
                     </p>
                   </div>
                 </div>
-                <Button size="sm" className="w-full btn btn-sm btn-primary" asChild>
-                  <Link href="/student/learning-style">
-                    View Your Learning Style
-                  </Link>
+                <Button size="sm" variant="outline" className="w-full btn btn-sm btn-outline">
+                  Adjust Preferences <ArrowRight className="ml-2 h-3 w-3" />
                 </Button>
               </div>
             </div>
           </CardContent>
         </Card>
       </motion.div>
-
-      {/* Navigation */}
-      <div className="flex justify-between mt-8">
-        <Button variant="outline" className="btn btn-outline" asChild>
-          <Link href="/student/dashboard">
-            <ChevronLeft className="mr-2 h-4 w-4" /> Back to Dashboard
-          </Link>
-        </Button>
-        <Button variant="outline" className="btn btn-outline" asChild>
-          <Link href="/student/resources">
-            Learning Resources <ChevronRight className="ml-2 h-4 w-4" />
-          </Link>
-        </Button>
-      </div>
     </div>
   );
 }
