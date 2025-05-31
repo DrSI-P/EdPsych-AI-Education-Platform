@@ -1,445 +1,304 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
-} from '@/components/ui/select';
-import { 
-  Form, 
-  FormControl, 
-  FormDescription, 
-  FormField, 
-  FormItem, 
-  FormLabel, 
-  FormMessage 
-} from '@/components/ui/form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
-import { 
-  MapPin, 
-  Phone, 
-  Mail, 
-  Clock, 
-  Send, 
-  CheckCircle2, 
-  AlertCircle,
-  School,
-  Users
-} from 'lucide-react';
-
-const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
-  }),
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-  subject: z.string().min(5, {
-    message: "Subject must be at least 5 characters.",
-  }),
-  message: z.string().min(10, {
-    message: "Message must be at least 10 characters.",
-  }),
-  userType: z.string({
-    required_error: "Please select a user type.",
-  }),
-});
+import React from 'react';
+import { EnhancedHeader, EnhancedFooter } from '@/components/layout/enhanced-header-footer';
+import { useEnhancedTheme } from '@/components/enhanced-theme-provider';
+import { Container, Typography, Flex, Card } from '@/components/ui/enhanced-layout-components';
+import { Button, Input, Select, Textarea } from '@/components/ui/enhanced-form-components';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/enhanced-interactive-components';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function ContactPage() {
-  const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const { ageGroup } = useEnhancedTheme();
   
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
-      userType: "",
+  // Contact information
+  const contactInfo = [
+    {
+      title: "General Inquiries",
+      email: "info@edpsychconnect.com",
+      phone: "+44 (0) 20 1234 5678"
     },
-  });
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    setFormState('submitting');
-    
-    // Simulate API call
-    setTimeout(() => {
-      console.log(values);
-      setFormState('success');
-      form.reset();
-      
-      // Reset success state after 5 seconds
-      setTimeout(() => {
-        setFormState('idle');
-      }, 5000);
-    }, 1500);
-  }
-
+    {
+      title: "Technical Support",
+      email: "support@edpsychconnect.com",
+      phone: "+44 (0) 20 1234 5679"
+    },
+    {
+      title: "Sales",
+      email: "sales@edpsychconnect.com",
+      phone: "+44 (0) 20 1234 5680"
+    }
+  ];
+  
+  // Office locations
+  const officeLocations = [
+    {
+      city: "London",
+      address: "123 Education Lane\nLondon, EC1A 1BB\nUnited Kingdom",
+      image: "/images/contact/london-office.jpg"
+    },
+    {
+      city: "Manchester",
+      address: "456 Learning Street\nManchester, M1 1AA\nUnited Kingdom",
+      image: "/images/contact/manchester-office.jpg"
+    }
+  ];
+  
   return (
-    <div className="container mx-auto py-12 px-4">
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-center mb-12"
-      >
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-primary">Contact Us</h1>
-        <p className="mt-4 text-xl text-muted-foreground max-w-3xl mx-auto">
-          Have questions about EdPsych Connect? We're here to help. Reach out to our team for support, information, or partnership enquiries.
-        </p>
-      </motion.div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        {/* Contact Information */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-        >
-          <h2 className="text-2xl font-semibold mb-6">Get in Touch</h2>
-          
-          <div className="space-y-6">
-            <Card className="card card-bordered hover:shadow-md transition-shadow">
-              <CardContent className="card-body p-6 flex items-start gap-4">
-                <div className="bg-primary/10 p-3 rounded-full">
-                  <MapPin className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-medium text-lg">Our Location</h3>
-                  <p className="text-muted-foreground mt-1">123 Education Lane</p>
-                  <p className="text-muted-foreground">London, UK EC1A 1BB</p>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="card card-bordered hover:shadow-md transition-shadow">
-              <CardContent className="card-body p-6 flex items-start gap-4">
-                <div className="bg-primary/10 p-3 rounded-full">
-                  <Phone className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-medium text-lg">Phone</h3>
-                  <p className="text-muted-foreground mt-1">+44 20 1234 5678</p>
-                  <p className="text-muted-foreground">Monday to Friday, 9am to 5pm</p>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="card card-bordered hover:shadow-md transition-shadow">
-              <CardContent className="card-body p-6 flex items-start gap-4">
-                <div className="bg-primary/10 p-3 rounded-full">
-                  <Mail className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-medium text-lg">Email</h3>
-                  <p className="text-muted-foreground mt-1">info@edpsychconnect.com</p>
-                  <p className="text-muted-foreground">support@edpsychconnect.com</p>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="card card-bordered hover:shadow-md transition-shadow">
-              <CardContent className="card-body p-6 flex items-start gap-4">
-                <div className="bg-primary/10 p-3 rounded-full">
-                  <Clock className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-medium text-lg">Hours</h3>
-                  <p className="text-muted-foreground mt-1">Monday to Friday: 9am - 5pm</p>
-                  <p className="text-muted-foreground">Saturday: 10am - 2pm (Online Support Only)</p>
-                  <p className="text-muted-foreground">Sunday: Closed</p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-          
-          {/* Educational Support Section */}
-          <h2 className="text-2xl font-semibold mb-6 mt-10">Educational Support</h2>
-          
-          <div className="space-y-6">
-            <Card className="card card-bordered hover:shadow-md transition-shadow">
-              <CardContent className="card-body p-6 flex items-start gap-4">
-                <div className="bg-primary/10 p-3 rounded-full">
-                  <School className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-medium text-lg">UK Schools & MATs</h3>
-                  <p className="text-muted-foreground mt-1">For institutional enquiries and partnerships</p>
-                  <p className="text-muted-foreground">schools@edpsychconnect.com</p>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="card card-bordered hover:shadow-md transition-shadow">
-              <CardContent className="card-body p-6 flex items-start gap-4">
-                <div className="bg-primary/10 p-3 rounded-full">
-                  <Users className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-medium text-lg">SEN Support</h3>
-                  <p className="text-muted-foreground mt-1">Specialised assistance for special educational needs</p>
-                  <p className="text-muted-foreground">sen@edpsychconnect.com</p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </motion.div>
-
-        {/* Contact Form */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-        >
-          <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
-          
-          <Card className="card card-bordered">
-            <CardContent className="card-body p-6">
-              {formState === 'success' ? (
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center justify-center text-center py-8"
-                >
-                  <div className="bg-green-100 p-3 rounded-full mb-4">
-                    <CheckCircle2 className="h-12 w-12 text-green-600" />
-                  </div>
-                  <h3 className="text-2xl font-semibold mb-2">Message Sent!</h3>
-                  <p className="text-muted-foreground max-w-md">
-                    Thank you for contacting us. We've received your message and will respond as soon as possible.
-                  </p>
-                </motion.div>
-              ) : formState === 'error' ? (
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center justify-center text-center py-8"
-                >
-                  <div className="bg-red-100 p-3 rounded-full mb-4">
-                    <AlertCircle className="h-12 w-12 text-red-600" />
-                  </div>
-                  <h3 className="text-2xl font-semibold mb-2">Something went wrong</h3>
-                  <p className="text-muted-foreground max-w-md">
-                    We couldn't send your message. Please try again or contact us directly via email or phone.
-                  </p>
-                  <Button 
-                    variant="outline" 
-                    className="mt-4 btn btn-outline"
-                    onClick={() => setFormState('idle')}
-                  >
-                    Try Again
-                  </Button>
-                </motion.div>
-              ) : (
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                    <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                        <FormItem className="form-item">
-                          <FormLabel className="form-label">Name</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Your name" className="input input-bordered" {...field} />
-                          </FormControl>
-                          <FormMessage className="form-message" />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem className="form-item">
-                          <FormLabel className="form-label">Email</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Your email address" className="input input-bordered" {...field} />
-                          </FormControl>
-                          <FormMessage className="form-message" />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="userType"
-                      render={({ field }) => (
-                        <FormItem className="form-item">
-                          <FormLabel className="form-label">I am a</FormLabel>
-                          <Select 
-                            onValueChange={field.onChange} 
-                            defaultValue={field.value}
-                          >
-                            <FormControl>
-                              <SelectTrigger className="select select-bordered">
-                                <SelectValue placeholder="Select your user type" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent className="select-content">
-                              <SelectItem value="student">Student</SelectItem>
-                              <SelectItem value="parent">Parent</SelectItem>
-                              <SelectItem value="educator">Educator</SelectItem>
-                              <SelectItem value="senco">SENDCo</SelectItem>
-                              <SelectItem value="professional">Educational Psychologist</SelectItem>
-                              <SelectItem value="school">School Administrator</SelectItem>
-                              <SelectItem value="other">Other</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage className="form-message" />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="subject"
-                      render={({ field }) => (
-                        <FormItem className="form-item">
-                          <FormLabel className="form-label">Subject</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Message subject" className="input input-bordered" {...field} />
-                          </FormControl>
-                          <FormMessage className="form-message" />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="message"
-                      render={({ field }) => (
-                        <FormItem className="form-item">
-                          <FormLabel className="form-label">Message</FormLabel>
-                          <FormControl>
-                            <Textarea 
-                              placeholder="Your message" 
-                              className="textarea textarea-bordered min-h-[120px]" 
-                              {...field} 
-                            />
-                          </FormControl>
-                          <FormMessage className="form-message" />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <Button 
-                      type="submit" 
-                      className="w-full btn btn-primary"
-                      disabled={formState === 'submitting'}
-                    >
-                      {formState === 'submitting' ? (
-                        <>Sending Message...</>
-                      ) : (
-                        <>
-                          Send Message <Send className="ml-2 h-4 w-4" />
-                        </>
-                      )}
-                    </Button>
-                  </form>
-                </Form>
-              )}
-            </CardContent>
-          </Card>
-        </motion.div>
-      </div>
-
-      {/* FAQ Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 0.5 }}
-        className="mt-20"
-      >
-        <h2 className="text-2xl font-semibold mb-6 text-center">Frequently Asked Questions</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card className="card card-bordered hover:shadow-md transition-shadow">
-            <CardContent className="card-body p-6">
-              <h3 className="font-semibold text-lg mb-2">How can I get started with EdPsych Connect?</h3>
-              <p className="text-muted-foreground">
-                Getting started is easy! Simply register for an account, complete your profile, and you'll have immediate access to our platform's features tailored to your role as a student, parent, or educator.
-              </p>
-            </CardContent>
-          </Card>
-          
-          <Card className="card card-bordered hover:shadow-md transition-shadow">
-            <CardContent className="card-body p-6">
-              <h3 className="font-semibold text-lg mb-2">Is EdPsych Connect available for schools and institutions?</h3>
-              <p className="text-muted-foreground">
-                Yes, we offer institutional licences for schools, Multi-Academy Trusts, and educational authorities across the UK. Contact our team for information about bulk licensing and custom implementations.
-              </p>
-            </CardContent>
-          </Card>
-          
-          <Card className="card card-bordered hover:shadow-md transition-shadow">
-            <CardContent className="card-body p-6">
-              <h3 className="font-semibold text-lg mb-2">How does EdPsych Connect protect user data?</h3>
-              <p className="text-muted-foreground">
-                We take data protection seriously. EdPsych Connect is fully GDPR compliant and implements robust security measures to protect all user data, with particular attention to safeguarding information related to children and young people in accordance with UK regulations.
-              </p>
-            </CardContent>
-          </Card>
-          
-          <Card className="card card-bordered hover:shadow-md transition-shadow">
-            <CardContent className="card-body p-6">
-              <h3 className="font-semibold text-lg mb-2">Is EdPsych Connect aligned with UK curriculum standards?</h3>
-              <p className="text-muted-foreground">
-                Absolutely! EdPsych Connect is specifically designed to align with the UK National Curriculum and supports all Key Stages. Our content is regularly reviewed to ensure compliance with Department for Education standards and examination board requirements.
-              </p>
-            </CardContent>
-          </Card>
-          
-          <Card className="card card-bordered hover:shadow-md transition-shadow">
-            <CardContent className="card-body p-6">
-              <h3 className="font-semibold text-lg mb-2">How can schools integrate EdPsych Connect with existing systems?</h3>
-              <p className="text-muted-foreground">
-                EdPsych Connect offers integration options with popular UK school management information systems (MIS) and virtual learning environments (VLEs). Our team can provide customised implementation support for seamless integration with your existing educational technology infrastructure.
-              </p>
-            </CardContent>
-          </Card>
-          
-          <Card className="card card-bordered hover:shadow-md transition-shadow">
-            <CardContent className="card-body p-6">
-              <h3 className="font-semibold text-lg mb-2">What support is available for SEN pupils?</h3>
-              <p className="text-muted-foreground">
-                EdPsych Connect provides specialised support for pupils with Special Educational Needs, including adaptable interfaces, voice input options, and personalised learning pathways. Our platform is designed to be inclusive and accessible for all learners in accordance with UK SEN guidelines.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      </motion.div>
+    <div className="min-h-screen flex flex-col">
+      <EnhancedHeader />
       
-      {/* CTA Section */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.8, duration: 0.5 }}
-        className="mt-20 bg-primary/5 rounded-xl p-8 md:p-12 text-center"
-      >
-        <h2 className="text-3xl font-bold mb-4">Ready to Transform Learning?</h2>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-          Join thousands of students, families, and schools across the UK already using EdPsych Connect to enhance educational outcomes.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" className="btn btn-lg btn-primary" asChild>
-            <a href="/register">Get Started Today</a>
-          </Button>
-          <Button size="lg" variant="outline" className="btn btn-lg btn-outline" asChild>
-            <a href="/pricing">View Pricing Plans</a>
-          </Button>
-        </div>
-      </motion.section>
+      <main className="flex-grow">
+        {/* Hero Section */}
+        <section className="bg-primary/10 py-16">
+          <Container>
+            <div className="max-w-3xl mx-auto text-center">
+              <Typography variant="h1" className="mb-4">
+                Contact Us
+              </Typography>
+              <Typography variant="lead" className="mb-6">
+                We're here to help with any questions you may have about EdPsych Connect.
+              </Typography>
+              <Typography variant="body">
+                Our team of educational psychology experts and technical specialists are ready to assist you with any inquiries, support needs, or feedback.
+              </Typography>
+            </div>
+          </Container>
+        </section>
+        
+        {/* Contact Form Section */}
+        <section className="py-16">
+          <Container>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              <div>
+                <Typography variant="h2" className="mb-6">
+                  Get in Touch
+                </Typography>
+                
+                <form className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <Input 
+                      label="First Name" 
+                      placeholder="Enter your first name" 
+                      isFullWidth 
+                      required
+                    />
+                    <Input 
+                      label="Last Name" 
+                      placeholder="Enter your last name" 
+                      isFullWidth 
+                      required
+                    />
+                  </div>
+                  
+                  <Input 
+                    label="Email" 
+                    type="email" 
+                    placeholder="Enter your email address" 
+                    isFullWidth 
+                    required
+                  />
+                  
+                  <Input 
+                    label="Phone" 
+                    type="tel" 
+                    placeholder="Enter your phone number (optional)" 
+                    isFullWidth 
+                  />
+                  
+                  <Select 
+                    label="Inquiry Type" 
+                    options={[
+                      { value: "", label: "Select an inquiry type" },
+                      { value: "general", label: "General Information" },
+                      { value: "support", label: "Technical Support" },
+                      { value: "sales", label: "Sales Inquiry" },
+                      { value: "feedback", label: "Feedback" },
+                      { value: "other", label: "Other" }
+                    ]} 
+                    isFullWidth 
+                    required
+                  />
+                  
+                  <Textarea 
+                    label="Message" 
+                    placeholder="How can we help you?" 
+                    rows={5} 
+                    isFullWidth 
+                    required
+                  />
+                  
+                  <div className="flex items-start gap-3">
+                    <input 
+                      type="checkbox" 
+                      id="privacy-consent" 
+                      className="mt-1" 
+                      required
+                    />
+                    <label htmlFor="privacy-consent" className="text-sm">
+                      I consent to EdPsych Connect collecting and storing my data in accordance with the <Link href="/privacy" className="text-primary hover:underline">Privacy Policy</Link>.
+                    </label>
+                  </div>
+                  
+                  <Button variant="primary" size="lg" className="w-full md:w-auto">
+                    Submit Inquiry
+                  </Button>
+                </form>
+              </div>
+              
+              <div>
+                <Typography variant="h2" className="mb-6">
+                  Contact Information
+                </Typography>
+                
+                <div className="space-y-8">
+                  {contactInfo.map((info, index) => (
+                    <Card key={index} className="p-6">
+                      <Typography variant="h4" className="mb-4">
+                        {info.title}
+                      </Typography>
+                      
+                      <div className="space-y-3">
+                        <div className="flex items-start">
+                          <svg className="h-6 w-6 text-primary mr-3 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                          </svg>
+                          <div>
+                            <Typography variant="small" color="muted">
+                              Email
+                            </Typography>
+                            <Typography variant="body">
+                              {info.email}
+                            </Typography>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-start">
+                          <svg className="h-6 w-6 text-primary mr-3 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                          </svg>
+                          <div>
+                            <Typography variant="small" color="muted">
+                              Phone
+                            </Typography>
+                            <Typography variant="body">
+                              {info.phone}
+                            </Typography>
+                          </div>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+                
+                <Typography variant="h4" className="mt-8 mb-4">
+                  Business Hours
+                </Typography>
+                <Card className="p-6">
+                  <div className="space-y-2">
+                    <div className="flex justify-between">
+                      <Typography variant="body">Monday - Friday</Typography>
+                      <Typography variant="body">9:00 AM - 5:30 PM</Typography>
+                    </div>
+                    <div className="flex justify-between">
+                      <Typography variant="body">Saturday</Typography>
+                      <Typography variant="body">10:00 AM - 2:00 PM</Typography>
+                    </div>
+                    <div className="flex justify-between">
+                      <Typography variant="body">Sunday</Typography>
+                      <Typography variant="body">Closed</Typography>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            </div>
+          </Container>
+        </section>
+        
+        {/* Office Locations */}
+        <section className="py-16 bg-background">
+          <Container>
+            <Typography variant="h2" className="mb-8 text-center">
+              Our Offices
+            </Typography>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {officeLocations.map((office, index) => (
+                <Card key={index} className="overflow-hidden">
+                  <div className="aspect-video relative">
+                    <Image
+                      src={office.image}
+                      alt={`${office.city} Office`}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <Typography variant="h4" className="mb-2">
+                      {office.city} Office
+                    </Typography>
+                    <Typography variant="body" className="whitespace-pre-line">
+                      {office.address}
+                    </Typography>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </Container>
+        </section>
+        
+        {/* FAQ Section */}
+        <section className="py-16">
+          <Container>
+            <div className="max-w-3xl mx-auto">
+              <Typography variant="h2" className="mb-8 text-center">
+                Frequently Asked Questions
+              </Typography>
+              
+              <div className="space-y-6">
+                <Card className="p-6">
+                  <Typography variant="h5" className="mb-2">
+                    How quickly can I expect a response to my inquiry?
+                  </Typography>
+                  <Typography variant="body">
+                    We aim to respond to all inquiries within 24 hours during business days. For urgent technical support issues, we prioritize responses and typically reply within a few hours.
+                  </Typography>
+                </Card>
+                
+                <Card className="p-6">
+                  <Typography variant="h5" className="mb-2">
+                    Can I schedule a demo of the platform?
+                  </Typography>
+                  <Typography variant="body">
+                    Yes, we offer personalized demos for schools, educational institutions, and organizations. Please select "Sales Inquiry" in the contact form and mention that you're interested in a demo, or contact our sales team directly.
+                  </Typography>
+                </Card>
+                
+                <Card className="p-6">
+                  <Typography variant="h5" className="mb-2">
+                    How can I provide feedback about the platform?
+                  </Typography>
+                  <Typography variant="body">
+                    We welcome all feedback! You can use the contact form above and select "Feedback" as the inquiry type. Alternatively, existing users can provide feedback directly through the platform using the feedback button in the user dashboard.
+                  </Typography>
+                </Card>
+                
+                <Card className="p-6">
+                  <Typography variant="h5" className="mb-2">
+                    Do you offer in-person training for schools?
+                  </Typography>
+                  <Typography variant="body">
+                    Yes, we offer in-person training sessions for schools and educational institutions in the UK. These can be arranged through our professional development team. Please contact us for more information about availability and pricing.
+                  </Typography>
+                </Card>
+              </div>
+            </div>
+          </Container>
+        </section>
+      </main>
+      
+      <EnhancedFooter />
     </div>
   );
 }
