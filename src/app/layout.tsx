@@ -1,6 +1,7 @@
 import '@/styles/globals.css';
 import '@/styles/enhanced-brand.css';
 import '@/styles/brand.css';
+import '@/styles/age-appropriate.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/ui/theme-provider';
