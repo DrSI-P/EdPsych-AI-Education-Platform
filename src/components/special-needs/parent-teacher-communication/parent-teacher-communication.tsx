@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -20,7 +20,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
-import { 
+import {
   AlertCircle,
   Bell,
   BookOpen,
@@ -35,6 +35,7 @@ import {
   Eye,
   FileText,
   Filter,
+  Forward,
   Heart,
   HelpCircle,
   Image as ImageIcon,
@@ -60,9 +61,68 @@ import {
   Users,
   Video,
   Volume2,
-  VolumeX
+  VolumeX,
+  X
 } from "lucide-react";
 import Image from "next/image";
+
+// Define types for our data structures
+type Attachment = {
+  name: string;
+  type: string;
+  size: string;
+};
+
+type Message = {
+  id: string;
+  sender: string;
+  senderRole: string;
+  recipient: string;
+  recipientRole: string;
+  subject: string;
+  content: string;
+  date: string;
+  emotionalFocus: string;
+  priority: string;
+  isRead: boolean;
+  hasAttachments: boolean;
+  attachments?: Attachment[];
+};
+
+type Participant = {
+  name: string;
+  role: string;
+};
+
+type Meeting = {
+  id: string;
+  title: string;
+  date: string;
+  duration: string;
+  organizer: string;
+  organizerRole: string;
+  participants: Participant[];
+  location: string;
+  status: string;
+  agenda: string;
+  emotionalFocus: string;
+  notes: string;
+};
+
+type Report = {
+  id: string;
+  title: string;
+  author: string;
+  authorRole: string;
+  date: string;
+  type: string;
+  student: string;
+  period: string;
+  emotionalFocus: string;
+  content: string;
+  hasAttachments: boolean;
+  attachments: Attachment[];
+};
 
 const ParentTeacherCommunication = () => {
   const { data: session } = useSession();
@@ -72,12 +132,12 @@ const ParentTeacherCommunication = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [messageType, setMessageType] = useState("all");
   const [emotionalFocus, setEmotionalFocus] = useState("all");
-  const [messages, setMessages] = useState([]);
-  const [meetings, setMeetings] = useState([]);
-  const [reports, setReports] = useState([]);
-  const [selectedMessage, setSelectedMessage] = useState(null);
-  const [selectedMeeting, setSelectedMeeting] = useState(null);
-  const [selectedReport, setSelectedReport] = useState(null);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [meetings, setMeetings] = useState<Meeting[]>([]);
+  const [reports, setReports] = useState<Report[]>([]);
+  const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
+  const [selectedMeeting, setSelectedMeeting] = useState<Meeting | null>(null);
+  const [selectedReport, setSelectedReport] = useState<Report | null>(null);
   const [newMessage, setNewMessage] = useState({
     recipient: "",
     subject: "",
@@ -99,8 +159,8 @@ const ParentTeacherCommunication = () => {
   const [newParticipant, setNewParticipant] = useState("");
   const [date, setDate] = useState(new Date());
   
-  // Mock data for messages
-  const mockMessages = [
+  // Memoize mock data to prevent recreation on each render
+  const mockMessages = useMemo(() => [
     {
       id: "m1",
       sender: "Ms. Thompson",
@@ -185,10 +245,10 @@ const ParentTeacherCommunication = () => {
       isRead: true,
       hasAttachments: false
     }
-  ];
+  ], []);
   
   // Mock data for meetings
-  const mockMeetings = [
+  const mockMeetings = useMemo(() => [
     {
       id: "mt1",
       title: "Alex's Emotional Regulation Progress Review",
@@ -283,10 +343,10 @@ const ParentTeacherCommunication = () => {
       emotionalFocus: "transitions",
       notes: ""
     }
-  ];
+  ], []);
   
   // Mock data for reports
-  const mockReports = [
+  const mockReports = useMemo(() => [
     {
       id: "r1",
       title: "Alex Johnson - Emotional Regulation Progress Report",
@@ -397,22 +457,17 @@ const ParentTeacherCommunication = () => {
         }
       ]
     }
-  ];
+  ], []);
   
-  // Load data on component mount
-  useEffect(() => {
-    if (session?.user) {
-      fetchData();
-    }
-  }, [session]);
-  
-  const fetchData = async () => {
+  // Define fetchData before it's used in useEffect
+  const fetchData = useCallback(async () => {
+    let timeoutId;
     try {
       setIsLoading(true);
       
       // In a real implementation, we would fetch data from the API
       // For now, we'll simulate loading with a timeout
-      setTimeout(() => {
+      timeoutId = setTimeout(() => {
         setMessages(mockMessages);
         setMeetings(mockMeetings);
         setReports(mockReports);
@@ -428,9 +483,25 @@ const ParentTeacherCommunication = () => {
         variant: "destructive"
       });
     }
-  };
+    
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [toast]); // Remove mockMessages, mockMeetings, mockReports from dependencies as they're already memoized
   
-  const handleCreateMessage = async () => {
+  // Load data on component mount
+  useEffect(() => {
+    let cleanup;
+    if (session?.user) {
+      cleanup = fetchData();
+    }
+    
+    return () => {
+      if (cleanup) cleanup();
+    };
+  }, [session, fetchData]);
+  
+  const handleCreateMessage = useCallback(async () => {
     try {
       setIsLoading(true);
       
@@ -522,9 +593,9 @@ const ParentTeacherCommunication = () => {
         variant: "destructive"
       });
     }
-  };
+  }, [newMessage, messages, session, toast]);
   
-  const handleCreateMeeting = async () => {
+  const handleCreateMeeting = useCallback(async () => {
     try {
       setIsLoading(true);
       
@@ -619,9 +690,9 @@ const ParentTeacherCommunication = () => {
         variant: "destructive"
       });
     }
-  };
+  }, [newMeeting, meetings, session, toast]);
   
-  const handleAddParticipant = () => {
+  const handleAddParticipant = useCallback(() => {
     if (newParticipant.trim() && !newMeeting.participants.includes(newParticipant.trim())) {
       setNewMeeting({
         ...newMeeting,
@@ -629,16 +700,16 @@ const ParentTeacherCommunication = () => {
       });
       setNewParticipant("");
     }
-  };
+  }, [newMeeting, newParticipant]);
   
-  const handleRemoveParticipant = (participantToRemove) => {
+  const handleRemoveParticipant = useCallback((participantToRemove) => {
     setNewMeeting({
       ...newMeeting,
       participants: newMeeting.participants.filter(p => p !== participantToRemove)
     });
-  };
+  }, [newMeeting]);
   
-  const getFilteredMessages = () => {
+  const getFilteredMessages = useCallback(() => {
     let filtered = [...messages];
     
     // Apply search query
@@ -670,9 +741,9 @@ const ParentTeacherCommunication = () => {
     }
     
     return filtered;
-  };
+  }, [messages, searchQuery, messageType, emotionalFocus, session]);
   
-  const getFilteredMeetings = () => {
+  const getFilteredMeetings = useCallback(() => {
     let filtered = [...meetings];
     
     // Apply search query
@@ -693,9 +764,9 @@ const ParentTeacherCommunication = () => {
     }
     
     return filtered;
-  };
+  }, [meetings, searchQuery, emotionalFocus]);
   
-  const getFilteredReports = () => {
+  const getFilteredReports = useCallback(() => {
     let filtered = [...reports];
     
     // Apply search query
@@ -717,9 +788,9 @@ const ParentTeacherCommunication = () => {
     }
     
     return filtered;
-  };
+  }, [reports, searchQuery, emotionalFocus]);
   
-  const getPriorityBadge = (priority) => {
+  const getPriorityBadge = useCallback((priority) => {
     switch (priority) {
       case "high":
         return (
@@ -750,9 +821,9 @@ const ParentTeacherCommunication = () => {
           </Badge>
         );
     }
-  };
+  }, []);
   
-  const getEmotionalFocusBadge = (focus) => {
+  const getEmotionalFocusBadge = useCallback((focus) => {
     switch (focus) {
       case "regulation":
         return (
@@ -791,9 +862,9 @@ const ParentTeacherCommunication = () => {
           </Badge>
         );
     }
-  };
+  }, []);
   
-  const getRoleBadge = (role) => {
+  const getRoleBadge = useCallback((role) => {
     switch (role) {
       case "teacher":
         return (
@@ -832,37 +903,37 @@ const ParentTeacherCommunication = () => {
           </Badge>
         );
     }
-  };
+  }, []);
   
-  const getFormattedDate = (dateString) => {
+  const getFormattedDate = useCallback((dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-GB', { 
-      year: 'numeric', 
-      month: 'short', 
+    return date.toLocaleDateString('en-GB', {
+      year: 'numeric',
+      month: 'short',
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit'
     });
-  };
+  }, []);
   
-  const getFormattedDateOnly = (dateString) => {
+  const getFormattedDateOnly = useCallback((dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-GB', { 
-      year: 'numeric', 
-      month: 'short', 
+    return date.toLocaleDateString('en-GB', {
+      year: 'numeric',
+      month: 'short',
       day: 'numeric'
     });
-  };
+  }, []);
   
-  const getFormattedTime = (dateString) => {
+  const getFormattedTime = useCallback((dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleTimeString('en-GB', { 
+    return date.toLocaleTimeString('en-GB', {
       hour: '2-digit',
       minute: '2-digit'
     });
-  };
+  }, []);
   
-  const getReportTypeBadge = (type) => {
+  const getReportTypeBadge = useCallback((type) => {
     switch (type) {
       case "progress":
         return (
@@ -900,7 +971,7 @@ const ParentTeacherCommunication = () => {
           </Badge>
         );
     }
-  };
+  }, []);
   
   return (
     <div className="space-y-6">
