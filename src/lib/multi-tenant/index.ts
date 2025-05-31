@@ -84,7 +84,7 @@ interface TenantContextType {
   hasPermission: (permission: string) => boolean;
 }
 
-// Create tenant context
+// Create tenant context with default undefined value
 const TenantContext = createContext<TenantContextType | undefined>(undefined);
 
 // Create tenant provider props interface
@@ -93,8 +93,77 @@ interface TenantProviderProps {
   initialTenantId?: string;
 }
 
+// Simulate API call with delay
+function simulateApiCall(delay: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, delay));
+}
+
+// Mock function to fetch tenant configuration
+async function fetchTenantConfig(tenantId: string): Promise<TenantConfig> {
+  // In a real implementation, this would be an API call
+  // For now, we'll return mock data
+  return {
+    id: tenantId,
+    name: `Tenant ${tenantId}`,
+    type: TenantType.SCHOOL,
+    subscriptionTier: SubscriptionTier.STANDARD,
+    createdAt: '2025-01-01T00:00:00Z',
+    updatedAt: '2025-05-01T00:00:00Z',
+    domains: [`tenant-${tenantId}.edpsychconnect.com`],
+    features: {
+      advancedAnalytics: true,
+      collaborativeLearning: true,
+      parentPortal: true,
+      aiTutoring: true,
+      customCurriculum: false
+    },
+    branding: {
+      primaryColor: '#3B82F6',
+      secondaryColor: '#1E40AF',
+      accentColor: '#FBBF24',
+      logoUrl: `/assets/tenants/${tenantId}/logo.png`,
+      faviconUrl: `/assets/tenants/${tenantId}/favicon.ico`
+    },
+    settings: {
+      defaultLanguage: 'en-GB',
+      timeZone: 'Europe/London',
+      academicYear: '2025-2026'
+    }
+  };
+}
+
+// Mock function to fetch current tenant user
+async function fetchCurrentTenantUser(tenantId: string): Promise<TenantUser> {
+  // In a real implementation, this would be an API call
+  // For now, we'll return mock data
+  return {
+    id: 'user-1',
+    tenantId,
+    email: 'user@example.com',
+    name: 'Test User',
+    role: TenantRole.EDUCATOR,
+    permissions: [
+      'view:students',
+      'edit:students',
+      'view:classes',
+      'edit:classes',
+      'view:curriculum',
+      'edit:curriculum'
+    ],
+    settings: {
+      theme: 'light',
+      notifications: {
+        email: true,
+        push: true
+      }
+    }
+  };
+}
+
 // Create tenant provider component
-export function TenantProvider({ children, initialTenantId }: TenantProviderProps) {
+export function TenantProvider(props: TenantProviderProps): JSX.Element {
+  const { children, initialTenantId } = props;
+  
   const [currentTenant, setCurrentTenant] = useState<TenantConfig | null>(null);
   const [currentUser, setCurrentUser] = useState<TenantUser | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -219,85 +288,19 @@ export function TenantProvider({ children, initialTenantId }: TenantProviderProp
     hasPermission
   };
 
-  return (
-    <TenantContext.Provider value={contextValue}>
-      {children}
-    </TenantContext.Provider>
+  // Return the provider component with context value
+  return React.createElement(
+    TenantContext.Provider,
+    { value: contextValue },
+    children
   );
 }
 
 // Create hook for using tenant context
-export function useTenant() {
+export function useTenant(): TenantContextType {
   const context = useContext(TenantContext);
   if (context === undefined) {
     throw new Error('useTenant must be used within a TenantProvider');
   }
   return context;
-}
-
-// Simulate API call with delay
-function simulateApiCall(delay: number) {
-  return new Promise(resolve => setTimeout(resolve, delay));
-}
-
-// Mock function to fetch tenant configuration
-async function fetchTenantConfig(tenantId: string): Promise<TenantConfig> {
-  // In a real implementation, this would be an API call
-  // For now, we'll return mock data
-  return {
-    id: tenantId,
-    name: `Tenant ${tenantId}`,
-    type: TenantType.SCHOOL,
-    subscriptionTier: SubscriptionTier.STANDARD,
-    createdAt: '2025-01-01T00:00:00Z',
-    updatedAt: '2025-05-01T00:00:00Z',
-    domains: [`tenant-${tenantId}.edpsychconnect.com`],
-    features: {
-      advancedAnalytics: true,
-      collaborativeLearning: true,
-      parentPortal: true,
-      aiTutoring: true,
-      customCurriculum: false
-    },
-    branding: {
-      primaryColor: '#3B82F6',
-      secondaryColor: '#1E40AF',
-      accentColor: '#FBBF24',
-      logoUrl: `/assets/tenants/${tenantId}/logo.png`,
-      faviconUrl: `/assets/tenants/${tenantId}/favicon.ico`
-    },
-    settings: {
-      defaultLanguage: 'en-GB',
-      timeZone: 'Europe/London',
-      academicYear: '2025-2026'
-    }
-  };
-}
-
-// Mock function to fetch current tenant user
-async function fetchCurrentTenantUser(tenantId: string): Promise<TenantUser> {
-  // In a real implementation, this would be an API call
-  // For now, we'll return mock data
-  return {
-    id: 'user-1',
-    tenantId,
-    email: 'user@example.com',
-    name: 'Test User',
-    role: TenantRole.EDUCATOR,
-    permissions: [
-      'view:students',
-      'edit:students',
-      'view:classes',
-      'edit:classes',
-      'view:curriculum',
-      'edit:curriculum'
-    ],
-    settings: {
-      theme: 'light',
-      notifications: {
-        email: true,
-        push: true
-      }
-    }
-  };
 }
