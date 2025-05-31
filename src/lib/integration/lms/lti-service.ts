@@ -1,3 +1,5 @@
+'use client';
+
 import { LTIMessageType, LTIVersion, LTIDeploymentState } from './types';
 
 /**
@@ -161,7 +163,7 @@ export class LTIService {
       );
       
       // Process the LTI message based on its type
-      const messageType = validatedToken.body.https://purl.imsglobal.org/spec/lti/claim/message_type;
+      const messageType = validatedToken.body["https://purl.imsglobal.org/spec/lti/claim/message_type"];
       
       switch (messageType) {
         case LTIMessageType.RESOURCE_LINK_REQUEST:
@@ -407,8 +409,8 @@ export class LTIService {
     // Implementation would validate JWT signature and claims
     return {
       body: {
-        'https://purl.imsglobal.org/spec/lti/claim/message_type': LTIMessageType.RESOURCE_LINK_REQUEST,
-        'https://purl.imsglobal.org/spec/lti/claim/version': LTIVersion.V1_3
+        "https://purl.imsglobal.org/spec/lti/claim/message_type": LTIMessageType.RESOURCE_LINK_REQUEST,
+        "https://purl.imsglobal.org/spec/lti/claim/version": LTIVersion.V1_3
       }
     };
   }

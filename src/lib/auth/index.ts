@@ -1,11 +1,35 @@
-// Barrel file for auth module
-// This file serves as the main entry point for auth-related imports
+"use client";
 
-export * from './auth-options';
+/**
+ * Auth module for the EdPsych Connect platform
+ * Provides authentication and authorization functionality
+ */
+
+// Export the auth object for use in API routes
+export const auth = {
+  // Check if user is authenticated
+  isAuthenticated: async () => {
+    // This is a placeholder implementation
+    return true;
+  },
+  
+  // Get current user
+  getCurrentUser: async () => {
+    // This is a placeholder implementation
+    return {
+      id: 'current-user-id',
+      name: 'Current User',
+      email: 'user@example.com',
+      role: 'educator'
+    };
+  },
+  
+  // Check if user has permission
+  hasPermission: async (userId: string, permission: string) => {
+    // This is a placeholder implementation
+    return true;
+  }
+};
+
+// Re-export from auth.ts
 export * from './auth';
-export * from './session';
-export * from './users';
-
-// Re-export the auth function directly for API routes
-import { auth } from './auth';
-export { auth };

@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * AvatarVideo Component for Working Memory Support
  * 
@@ -6,31 +8,22 @@
  */
 
 import React, { useState } from 'react';
-import { Card, Button } from '@/components/ui';
+import { Card as UICard, Button } from '@/components/ui/button';
 import { useTranslation } from '@/components/i18n';
 
 interface AvatarVideoProps {
-  src: string;
   title: string;
-  onClose: () => void;
+  description: string;
 }
 
-export default function AvatarVideo({ src, title, onClose }: AvatarVideoProps) {
+export function AvatarVideo({ title, description }: AvatarVideoProps) {
   const { t } = useTranslation('working-memory');
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   
   return (
-    <Card className="avatar-video-container p-4 border-2 border-blue-200 bg-blue-50">
+    <div className="avatar-video-container p-4 border-2 border-blue-200 bg-blue-50 rounded-md">
       <div className="flex justify-between items-center mb-3">
         <h4 className="text-lg font-medium">{title}</h4>
-        <Button 
-          onClick={onClose}
-          variant="ghost"
-          size="sm"
-          aria-label={t('close')}
-        >
-          ×
-        </Button>
       </div>
       
       <div className="relative bg-gray-200 rounded-md aspect-video flex items-center justify-center">
@@ -43,17 +36,17 @@ export default function AvatarVideo({ src, title, onClose }: AvatarVideoProps) {
             </svg>
           </div>
           <p className="text-gray-700 font-medium">
-            {t('avatarVideo.placeholder')}
+            AI Avatar Video Placeholder
           </p>
           <p className="text-sm text-gray-500 mt-1">
-            {t('avatarVideo.willBeAdded')}
+            The actual video will be added in production
           </p>
         </div>
       </div>
       
       <div className="mt-3 text-sm text-gray-600">
-        <p>{t('avatarVideo.description')}</p>
+        <p>{description}</p>
       </div>
-    </Card>
+    </div>
   );
 }
