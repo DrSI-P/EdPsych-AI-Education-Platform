@@ -2,433 +2,660 @@
 
 import React from 'react';
 import { EnhancedHeader, EnhancedFooter } from '@/components/layout/enhanced-header-footer';
-import { useEnhancedTheme } from '@/components/enhanced-theme-provider';
-import { Container, Typography, Flex, Card } from '@/components/ui/enhanced-layout-components';
-import { Button, Input, Select, Textarea } from '@/components/ui/enhanced-form-components';
-import { Tabs, TabsList, TabsTrigger, TabsContent, Accordion, AccordionItem } from '@/components/ui/enhanced-interactive-components';
-import Image from 'next/image';
+import { Container, Typography, Card, Grid } from '@/components/ui/enhanced-layout-components';
+import { Button, Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/enhanced-interactive-components';
+import { HeroSection, FeatureCard } from '@/components/ui/enhanced-marketing-components';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function ProfessionalDevelopmentPage() {
-  const { ageGroup } = useEnhancedTheme();
-  
-  // Professional development categories
-  const categories = [
-    {
-      id: 'core-training',
-      title: 'Core Training Modules',
-      description: 'Foundational knowledge and skills for educational professionals',
-      image: '/images/professional-development/core-training.jpg'
-    },
-    {
-      id: 'certification',
-      title: 'Specialized Certification Pathways',
-      description: 'In-depth training for specific educational roles and specializations',
-      image: '/images/professional-development/certification.jpg'
-    },
-    {
-      id: 'micro-learning',
-      title: 'Micro-Learning Content',
-      description: 'Bite-sized learning resources for busy professionals',
-      image: '/images/professional-development/micro-learning.jpg'
-    },
-    {
-      id: 'workshops',
-      title: 'Interactive Workshops',
-      description: 'Collaborative learning experiences led by industry experts',
-      image: '/images/professional-development/workshops.jpg'
-    }
-  ];
-  
-  // Core training modules
-  const coreModules = [
-    {
-      title: 'Inclusive Education',
-      description: 'Strategies for creating inclusive learning environments that support all students',
-      duration: '8 hours',
-      level: 'Foundation'
-    },
-    {
-      title: 'Special Educational Needs',
-      description: 'Understanding and supporting students with diverse learning needs',
-      duration: '10 hours',
-      level: 'Foundation'
-    },
-    {
-      title: 'Educational Psychology Principles',
-      description: 'Core psychological theories and their application in educational settings',
-      duration: '12 hours',
-      level: 'Intermediate'
-    },
-    {
-      title: 'Behavior Management',
-      description: 'Evidence-based approaches to positive behavior support',
-      duration: '6 hours',
-      level: 'Foundation'
-    },
-    {
-      title: 'Assessment for Learning',
-      description: 'Using assessment to inform teaching and improve student outcomes',
-      duration: '8 hours',
-      level: 'Intermediate'
-    },
-    {
-      title: 'Personalized Learning',
-      description: 'Creating tailored learning experiences based on individual needs',
-      duration: '10 hours',
-      level: 'Advanced'
-    }
-  ];
-  
-  // Certification pathways
-  const certificationPathways = [
-    {
-      title: 'SENCO Certification',
-      description: 'Comprehensive training for Special Educational Needs Coordinators',
-      duration: '60 hours',
-      modules: 8
-    },
-    {
-      title: 'Assessment Specialist',
-      description: 'Advanced training in educational assessment and intervention',
-      duration: '45 hours',
-      modules: 6
-    },
-    {
-      title: 'Behavior Support Practitioner',
-      description: 'Specialized training in positive behavior support strategies',
-      duration: '50 hours',
-      modules: 7
-    },
-    {
-      title: 'Educational Wellbeing Coach',
-      description: 'Training to support student mental health and wellbeing',
-      duration: '40 hours',
-      modules: 5
-    }
-  ];
-  
   return (
     <div className="min-h-screen flex flex-col">
       <EnhancedHeader />
       
       <main className="flex-grow">
-        {/* Hero Section */}
-        <section className="bg-primary/10 py-16">
-          <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <Typography variant="h1" className="mb-4">
-                  Professional Development
-                </Typography>
-                <Typography variant="lead" className="mb-6">
-                  Evidence-based training and certification programs designed by educational psychology experts to enhance your professional practice.
-                </Typography>
-                <Typography variant="body" className="mb-8">
-                  Our comprehensive professional development offerings are built on sound educational psychology principles and designed to help you make a meaningful difference in the lives of children and young people.
-                </Typography>
-                <Flex gap="md">
-                  <Button variant="primary" size="lg">
-                    Explore Programs
-                  </Button>
-                  <Button variant="secondary" size="lg">
-                    View Certifications
-                  </Button>
-                </Flex>
-              </div>
-              <div className="relative h-[400px] rounded-lg overflow-hidden shadow-lg">
-                <Image
-                  src="/images/professional-development/hero.jpg"
-                  alt="Professional Development at EdPsych Connect"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
-          </Container>
-        </section>
+        <HeroSection
+          title="Professional Development"
+          subtitle="Evidence-based training for educational professionals"
+          description="Enhance your practice with our comprehensive professional development programs designed by educational psychology experts. Earn recognized certifications and transform your approach to supporting all learners."
+          imageSrc="/images/professional-development/hero-image.jpg"
+          imageAlt="Educational professionals collaborating"
+          primaryAction={{
+            text: "Explore Courses",
+            href: "#courses"
+          }}
+          secondaryAction={{
+            text: "View Certifications",
+            href: "#certifications"
+          }}
+        />
         
-        {/* Categories Section */}
-        <section className="py-16">
-          <Container>
-            <Typography variant="h2" className="text-center mb-12">
-              Professional Development Categories
-            </Typography>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {categories.map((category) => (
-                <Card key={category.id} className="p-6 h-full flex flex-col">
-                  <div className="mb-4 aspect-video relative rounded-lg overflow-hidden">
-                    <Image
-                      src={category.image}
-                      alt={category.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <Typography variant="h4" className="mb-2">
-                    {category.title}
-                  </Typography>
-                  <Typography variant="body" className="mb-4 flex-grow">
-                    {category.description}
-                  </Typography>
-                  <Button variant="outline" className="w-full">
-                    Explore {category.title}
-                  </Button>
-                </Card>
-              ))}
-            </div>
-          </Container>
-        </section>
-        
-        {/* Core Training Modules */}
-        <section className="py-16 bg-background">
-          <Container>
-            <Typography variant="h2" className="mb-12">
+        <Container className="py-16">
+          <Typography variant="h2" className="text-center mb-12">
+            Our Professional Development Approach
+          </Typography>
+          
+          <Grid columns={3} className="gap-8 mb-16">
+            <FeatureCard
+              icon="🧠"
+              title="Evidence-Based Practice"
+              description="All content is grounded in rigorous educational psychology research and proven methodologies."
+            />
+            <FeatureCard
+              icon="🔄"
+              title="Practical Application"
+              description="Focus on real-world implementation with tools and strategies you can use immediately."
+            />
+            <FeatureCard
+              icon="📊"
+              title="Measurable Impact"
+              description="Track your progress and measure the impact of new approaches on student outcomes."
+            />
+          </Grid>
+          
+          <div id="courses" className="scroll-mt-24">
+            <Typography variant="h2" className="mb-8">
               Core Training Modules
             </Typography>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {coreModules.map((module, index) => (
-                <Card key={index} className="p-6 h-full flex flex-col">
-                  <div className="mb-2">
-                    <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
-                      {module.level}
-                    </span>
-                    <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-gray-100 text-text-secondary ml-2">
-                      {module.duration}
-                    </span>
+            <Tabs defaultValue="inclusive-education">
+              <TabsList className="mb-8">
+                <TabsTrigger value="inclusive-education">Inclusive Education</TabsTrigger>
+                <TabsTrigger value="special-educational-needs">Special Educational Needs</TabsTrigger>
+                <TabsTrigger value="behavior-management">Behavior Management</TabsTrigger>
+                <TabsTrigger value="assessment-strategies">Assessment Strategies</TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="inclusive-education">
+                <Card className="p-8">
+                  <div className="flex flex-col md:flex-row gap-8">
+                    <div className="md:w-1/3">
+                      <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <Image
+                          src="/images/professional-development/inclusive-education.jpg"
+                          alt="Inclusive classroom setting"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      
+                      <div className="flex flex-col gap-2 mb-4">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium">Duration:</span>
+                          <span className="text-sm">12 hours</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium">Modules:</span>
+                          <span className="text-sm">6 modules</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium">Level:</span>
+                          <span className="text-sm">Foundation to Advanced</span>
+                        </div>
+                      </div>
+                      
+                      <Button variant="primary" size="lg" className="w-full" asChild>
+                        <Link href="/professional-development/courses/inclusive-education">
+                          Start Course
+                        </Link>
+                      </Button>
+                    </div>
+                    
+                    <div className="md:w-2/3">
+                      <Typography variant="h3" className="mb-4">
+                        Inclusive Education: Creating Learning Environments for All
+                      </Typography>
+                      
+                      <Typography variant="body" className="mb-6">
+                        This comprehensive course explores evidence-based approaches to creating truly inclusive learning environments that support all students. Developed by educational psychology experts, the program provides practical strategies for removing barriers to learning and implementing universal design principles.
+                      </Typography>
+                      
+                      <Typography variant="h4" className="mb-2">
+                        What You'll Learn
+                      </Typography>
+                      
+                      <ul className="list-disc pl-6 mb-6 space-y-2">
+                        <li>Universal Design for Learning principles and implementation</li>
+                        <li>Differentiation strategies for diverse learners</li>
+                        <li>Creating accessible learning materials and assessments</li>
+                        <li>Fostering inclusive classroom culture and belonging</li>
+                        <li>Collaborative approaches to inclusion with multidisciplinary teams</li>
+                        <li>Measuring the impact of inclusive practices</li>
+                      </ul>
+                      
+                      <Typography variant="h4" className="mb-2">
+                        Course Structure
+                      </Typography>
+                      
+                      <ol className="list-decimal pl-6 mb-6 space-y-2">
+                        <li><strong>Foundations of Inclusive Education</strong> - Understanding the research and principles</li>
+                        <li><strong>Universal Design for Learning</strong> - Multiple means of engagement, representation, and action</li>
+                        <li><strong>Differentiation in Practice</strong> - Adapting content, process, and product</li>
+                        <li><strong>Creating Inclusive Cultures</strong> - Building belonging and positive relationships</li>
+                        <li><strong>Collaborative Inclusion</strong> - Working with specialists and support staff</li>
+                        <li><strong>Measuring Impact</strong> - Evaluating and improving inclusive practices</li>
+                      </ol>
+                    </div>
                   </div>
-                  <Typography variant="h4" className="mb-2">
-                    {module.title}
-                  </Typography>
-                  <Typography variant="body" className="mb-4 flex-grow">
-                    {module.description}
-                  </Typography>
-                  <Button variant="outline" className="w-full">
-                    View Module
-                  </Button>
                 </Card>
-              ))}
-            </div>
-            
-            <div className="mt-12 text-center">
-              <Button variant="primary" size="lg">
-                View All Core Modules
-              </Button>
-            </div>
-          </Container>
-        </section>
-        
-        {/* Certification Pathways */}
-        <section className="py-16 bg-primary/5">
-          <Container>
-            <Typography variant="h2" className="mb-12">
+              </TabsContent>
+              
+              <TabsContent value="special-educational-needs">
+                <Card className="p-8">
+                  <div className="flex flex-col md:flex-row gap-8">
+                    <div className="md:w-1/3">
+                      <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <Image
+                          src="/images/professional-development/special-educational-needs.jpg"
+                          alt="Teacher supporting student with special educational needs"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      
+                      <div className="flex flex-col gap-2 mb-4">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium">Duration:</span>
+                          <span className="text-sm">15 hours</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium">Modules:</span>
+                          <span className="text-sm">8 modules</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium">Level:</span>
+                          <span className="text-sm">Foundation to Advanced</span>
+                        </div>
+                      </div>
+                      
+                      <Button variant="primary" size="lg" className="w-full" asChild>
+                        <Link href="/professional-development/courses/special-educational-needs">
+                          Start Course
+                        </Link>
+                      </Button>
+                    </div>
+                    
+                    <div className="md:w-2/3">
+                      <Typography variant="h3" className="mb-4">
+                        Special Educational Needs: Effective Support Strategies
+                      </Typography>
+                      
+                      <Typography variant="body" className="mb-6">
+                        This in-depth course provides educators with the knowledge and skills to effectively support learners with special educational needs. Based on current research and best practices, the program covers a range of needs and evidence-based intervention approaches.
+                      </Typography>
+                      
+                      <Typography variant="h4" className="mb-2">
+                        What You'll Learn
+                      </Typography>
+                      
+                      <ul className="list-disc pl-6 mb-6 space-y-2">
+                        <li>Understanding the UK SEND Code of Practice and legal framework</li>
+                        <li>Evidence-based approaches for specific learning difficulties</li>
+                        <li>Supporting social communication and interaction needs</li>
+                        <li>Strategies for executive function and attention challenges</li>
+                        <li>Sensory processing considerations in the classroom</li>
+                        <li>Developing effective Individual Education Plans</li>
+                        <li>Working collaboratively with SEND specialists and families</li>
+                      </ul>
+                      
+                      <Typography variant="h4" className="mb-2">
+                        Course Structure
+                      </Typography>
+                      
+                      <ol className="list-decimal pl-6 mb-6 space-y-2">
+                        <li><strong>SEND Framework and Identification</strong> - UK legal context and identification processes</li>
+                        <li><strong>Specific Learning Difficulties</strong> - Dyslexia, dyscalculia, and dysgraphia</li>
+                        <li><strong>Autism Spectrum</strong> - Supporting social communication and interaction</li>
+                        <li><strong>ADHD and Executive Function</strong> - Attention and self-regulation support</li>
+                        <li><strong>Speech, Language and Communication Needs</strong> - Classroom strategies and interventions</li>
+                        <li><strong>Sensory Processing</strong> - Understanding and supporting sensory needs</li>
+                        <li><strong>Social, Emotional and Mental Health</strong> - Supportive approaches and interventions</li>
+                        <li><strong>Effective IEPs and Support Plans</strong> - Development, implementation and review</li>
+                      </ol>
+                    </div>
+                  </div>
+                </Card>
+              </TabsContent>
+              
+              <TabsContent value="behavior-management">
+                <Card className="p-8">
+                  <div className="flex flex-col md:flex-row gap-8">
+                    <div className="md:w-1/3">
+                      <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <Image
+                          src="/images/professional-development/behavior-management.jpg"
+                          alt="Teacher facilitating restorative circle"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      
+                      <div className="flex flex-col gap-2 mb-4">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium">Duration:</span>
+                          <span className="text-sm">10 hours</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium">Modules:</span>
+                          <span className="text-sm">5 modules</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium">Level:</span>
+                          <span className="text-sm">Foundation to Advanced</span>
+                        </div>
+                      </div>
+                      
+                      <Button variant="primary" size="lg" className="w-full" asChild>
+                        <Link href="/professional-development/courses/behavior-management">
+                          Start Course
+                        </Link>
+                      </Button>
+                    </div>
+                    
+                    <div className="md:w-2/3">
+                      <Typography variant="h3" className="mb-4">
+                        Positive Behavior Support and Restorative Approaches
+                      </Typography>
+                      
+                      <Typography variant="body" className="mb-6">
+                        This transformative course explores evidence-based approaches to behavior support that focus on understanding underlying causes and building positive relationships. Based on restorative principles and positive psychology, the program provides practical strategies for creating supportive learning environments.
+                      </Typography>
+                      
+                      <Typography variant="h4" className="mb-2">
+                        What You'll Learn
+                      </Typography>
+                      
+                      <ul className="list-disc pl-6 mb-6 space-y-2">
+                        <li>Understanding behavior as communication and identifying underlying needs</li>
+                        <li>Implementing school-wide positive behavior support frameworks</li>
+                        <li>Restorative justice principles and practices in educational settings</li>
+                        <li>De-escalation techniques and crisis prevention</li>
+                        <li>Trauma-informed approaches to behavior support</li>
+                        <li>Building student self-regulation and emotional literacy</li>
+                      </ul>
+                      
+                      <Typography variant="h4" className="mb-2">
+                        Course Structure
+                      </Typography>
+                      
+                      <ol className="list-decimal pl-6 mb-6 space-y-2">
+                        <li><strong>Behavior as Communication</strong> - Understanding functions and underlying needs</li>
+                        <li><strong>Positive Behavior Support</strong> - Preventative approaches and teaching alternatives</li>
+                        <li><strong>Restorative Practices</strong> - Building relationships and repairing harm</li>
+                        <li><strong>Trauma-Informed Approaches</strong> - Supporting students with adverse experiences</li>
+                        <li><strong>Self-Regulation Development</strong> - Building emotional literacy and coping skills</li>
+                      </ol>
+                    </div>
+                  </div>
+                </Card>
+              </TabsContent>
+              
+              <TabsContent value="assessment-strategies">
+                <Card className="p-8">
+                  <div className="flex flex-col md:flex-row gap-8">
+                    <div className="md:w-1/3">
+                      <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <Image
+                          src="/images/professional-development/assessment-strategies.jpg"
+                          alt="Teacher conducting formative assessment"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      
+                      <div className="flex flex-col gap-2 mb-4">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium">Duration:</span>
+                          <span className="text-sm">12 hours</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium">Modules:</span>
+                          <span className="text-sm">6 modules</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium">Level:</span>
+                          <span className="text-sm">Foundation to Advanced</span>
+                        </div>
+                      </div>
+                      
+                      <Button variant="primary" size="lg" className="w-full" asChild>
+                        <Link href="/professional-development/courses/assessment-strategies">
+                          Start Course
+                        </Link>
+                      </Button>
+                    </div>
+                    
+                    <div className="md:w-2/3">
+                      <Typography variant="h3" className="mb-4">
+                        Effective Assessment for Learning
+                      </Typography>
+                      
+                      <Typography variant="body" className="mb-6">
+                        This comprehensive course explores evidence-based assessment approaches that drive learning and inform teaching. Based on assessment for learning principles, the program provides practical strategies for gathering meaningful data and using it to enhance educational outcomes.
+                      </Typography>
+                      
+                      <Typography variant="h4" className="mb-2">
+                        What You'll Learn
+                      </Typography>
+                      
+                      <ul className="list-disc pl-6 mb-6 space-y-2">
+                        <li>Principles of effective formative and summative assessment</li>
+                        <li>Designing inclusive and accessible assessments</li>
+                        <li>Providing effective feedback that moves learning forward</li>
+                        <li>Using assessment data to inform teaching and interventions</li>
+                        <li>Developing student self-assessment and metacognitive skills</li>
+                        <li>UK assessment frameworks and reporting requirements</li>
+                      </ul>
+                      
+                      <Typography variant="h4" className="mb-2">
+                        Course Structure
+                      </Typography>
+                      
+                      <ol className="list-decimal pl-6 mb-6 space-y-2">
+                        <li><strong>Assessment Fundamentals</strong> - Purposes, principles and best practices</li>
+                        <li><strong>Formative Assessment</strong> - Gathering evidence to inform teaching</li>
+                        <li><strong>Effective Feedback</strong> - Principles and practices that drive learning</li>
+                        <li><strong>Inclusive Assessment</strong> - Designing for all learners</li>
+                        <li><strong>Data-Informed Teaching</strong> - Using assessment to plan interventions</li>
+                        <li><strong>Student Agency</strong> - Developing self-assessment and peer assessment</li>
+                      </ol>
+                    </div>
+                  </div>
+                </Card>
+              </TabsContent>
+            </Tabs>
+          </div>
+          
+          <div id="certifications" className="scroll-mt-24 mt-24">
+            <Typography variant="h2" className="mb-8">
               Specialized Certification Pathways
             </Typography>
             
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {certificationPathways.map((pathway, index) => (
-                <Card key={index} className="p-6 h-full">
-                  <Flex justify="between" align="start">
-                    <div>
-                      <Typography variant="h3" className="mb-2">
-                        {pathway.title}
-                      </Typography>
-                      <Typography variant="body" className="mb-4">
-                        {pathway.description}
-                      </Typography>
-                      <div className="flex items-center mb-4">
-                        <div className="mr-6">
-                          <Typography variant="small" color="muted">
-                            Duration
-                          </Typography>
-                          <Typography variant="h6">
-                            {pathway.duration}
-                          </Typography>
-                        </div>
-                        <div>
-                          <Typography variant="small" color="muted">
-                            Modules
-                          </Typography>
-                          <Typography variant="h6">
-                            {pathway.modules}
-                          </Typography>
-                        </div>
-                      </div>
-                      <Button variant="primary">
-                        Learn More
-                      </Button>
-                    </div>
-                    <div className="hidden lg:block">
-                      <svg className="h-16 w-16 text-primary/20" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 100-16 8 8 0 000 16zm-1-5h2v2h-2v-2zm0-8h2v6h-2V7z" />
-                      </svg>
-                    </div>
-                  </Flex>
-                </Card>
-              ))}
-            </div>
-          </Container>
-        </section>
-        
-        {/* FAQ Section */}
-        <section className="py-16">
-          <Container>
-            <Typography variant="h2" className="mb-12 text-center">
-              Frequently Asked Questions
+            <Grid columns={2} className="gap-8">
+              <Card className="p-8">
+                <Typography variant="h3" className="mb-4">
+                  SENCO Certification
+                </Typography>
+                
+                <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-6">
+                  <Image
+                    src="/images/professional-development/senco-certification.jpg"
+                    alt="SENCO working with team"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                
+                <Typography variant="body" className="mb-6">
+                  Comprehensive training for Special Educational Needs Coordinators (SENCOs) covering legal requirements, effective coordination of provision, and strategic SEND leadership within educational settings.
+                </Typography>
+                
+                <div className="flex flex-col gap-2 mb-6">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium">Duration:</span>
+                    <span className="text-sm">40 hours</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium">Modules:</span>
+                    <span className="text-sm">8 core modules + practical assessment</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium">Recognition:</span>
+                    <span className="text-sm">EdPsych Connect SENCO Certificate</span>
+                  </div>
+                </div>
+                
+                <Button variant="secondary" size="lg" className="w-full" asChild>
+                  <Link href="/professional-development/certifications/senco">
+                    View Certification Details
+                  </Link>
+                </Button>
+              </Card>
+              
+              <Card className="p-8">
+                <Typography variant="h3" className="mb-4">
+                  Assessment Specialist Certification
+                </Typography>
+                
+                <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-6">
+                  <Image
+                    src="/images/professional-development/assessment-specialist.jpg"
+                    alt="Teacher conducting educational assessment"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                
+                <Typography variant="body" className="mb-6">
+                  Advanced training in educational assessment approaches, interpretation of assessment data, and development of evidence-based interventions based on assessment findings.
+                </Typography>
+                
+                <div className="flex flex-col gap-2 mb-6">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium">Duration:</span>
+                    <span className="text-sm">35 hours</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium">Modules:</span>
+                    <span className="text-sm">7 core modules + practical assessment</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium">Recognition:</span>
+                    <span className="text-sm">EdPsych Connect Assessment Specialist Certificate</span>
+                  </div>
+                </div>
+                
+                <Button variant="secondary" size="lg" className="w-full" asChild>
+                  <Link href="/professional-development/certifications/assessment-specialist">
+                    View Certification Details
+                  </Link>
+                </Button>
+              </Card>
+              
+              <Card className="p-8">
+                <Typography variant="h3" className="mb-4">
+                  Restorative Justice Practitioner Certification
+                </Typography>
+                
+                <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-6">
+                  <Image
+                    src="/images/professional-development/restorative-justice.jpg"
+                    alt="Restorative circle in classroom"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                
+                <Typography variant="body" className="mb-6">
+                  In-depth training on restorative justice principles and practices in educational settings, including facilitation of restorative conferences and implementation of whole-school restorative approaches.
+                </Typography>
+                
+                <div className="flex flex-col gap-2 mb-6">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium">Duration:</span>
+                    <span className="text-sm">30 hours</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium">Modules:</span>
+                    <span className="text-sm">6 core modules + practical assessment</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium">Recognition:</span>
+                    <span className="text-sm">EdPsych Connect Restorative Practitioner Certificate</span>
+                  </div>
+                </div>
+                
+                <Button variant="secondary" size="lg" className="w-full" asChild>
+                  <Link href="/professional-development/certifications/restorative-justice">
+                    View Certification Details
+                  </Link>
+                </Button>
+              </Card>
+              
+              <Card className="p-8">
+                <Typography variant="h3" className="mb-4">
+                  Wellbeing Lead Certification
+                </Typography>
+                
+                <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-6">
+                  <Image
+                    src="/images/professional-development/wellbeing-lead.jpg"
+                    alt="School wellbeing activities"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                
+                <Typography variant="body" className="mb-6">
+                  Comprehensive training for educational professionals leading on mental health and wellbeing initiatives, covering mental health first aid, whole-school wellbeing strategies, and effective interventions.
+                </Typography>
+                
+                <div className="flex flex-col gap-2 mb-6">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium">Duration:</span>
+                    <span className="text-sm">35 hours</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium">Modules:</span>
+                    <span className="text-sm">7 core modules + practical assessment</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium">Recognition:</span>
+                    <span className="text-sm">EdPsych Connect Wellbeing Lead Certificate</span>
+                  </div>
+                </div>
+                
+                <Button variant="secondary" size="lg" className="w-full" asChild>
+                  <Link href="/professional-development/certifications/wellbeing-lead">
+                    View Certification Details
+                  </Link>
+                </Button>
+              </Card>
+            </Grid>
+          </div>
+          
+          <div className="mt-24">
+            <Typography variant="h2" className="mb-8">
+              Micro-Learning Resources
             </Typography>
             
-            <div className="max-w-3xl mx-auto">
-              <Accordion type="single" defaultValue="faq-1">
-                <AccordionItem 
-                  title="How are the professional development programs structured?" 
-                  value="faq-1"
-                >
-                  <Typography variant="body">
-                    Our professional development programs are structured as modular courses that can be completed at your own pace. Each module includes video lessons, interactive activities, assessments, and practical resources. Programs can be completed entirely online, with some offering optional in-person components.
-                  </Typography>
-                </AccordionItem>
+            <Grid columns={3} className="gap-8">
+              <Card className="p-6">
+                <Typography variant="h4" className="mb-4">
+                  Quick Guides
+                </Typography>
                 
-                <AccordionItem 
-                  title="Are the certifications recognized by educational institutions?" 
-                  value="faq-2"
-                >
-                  <Typography variant="body">
-                    Yes, our certifications are recognized by many educational institutions across the UK. We work closely with schools, local authorities, and professional bodies to ensure our programs meet industry standards and provide valuable credentials for your career advancement.
-                  </Typography>
-                </AccordionItem>
+                <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                  <Image
+                    src="/images/professional-development/quick-guides.jpg"
+                    alt="Teacher reviewing quick guide"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
                 
-                <AccordionItem 
-                  title="How long do I have access to the course materials?" 
-                  value="faq-3"
-                >
-                  <Typography variant="body">
-                    Once enrolled in a program, you have lifetime access to the course materials. This allows you to revisit content as needed and stay updated as we enhance and expand our resources. Certification programs may have specific timeframes for completion to ensure currency of knowledge.
-                  </Typography>
-                </AccordionItem>
+                <Typography variant="body" className="mb-4">
+                  Concise 15-20 minute modules on specific topics, perfect for busy educators looking to quickly implement new strategies.
+                </Typography>
                 
-                <AccordionItem 
-                  title="Can I get support during my professional development journey?" 
-                  value="faq-4"
-                >
-                  <Typography variant="body">
-                    Absolutely! All participants have access to our support team and community forums. Certification pathways include mentoring sessions with experienced professionals in the field. We're committed to supporting your growth throughout your learning journey.
-                  </Typography>
-                </AccordionItem>
+                <Button variant="outline" size="sm" className="w-full" asChild>
+                  <Link href="/professional-development/micro-learning/quick-guides">
+                    Browse Quick Guides
+                  </Link>
+                </Button>
+              </Card>
+              
+              <Card className="p-6">
+                <Typography variant="h4" className="mb-4">
+                  Video Demonstrations
+                </Typography>
                 
-                <AccordionItem 
-                  title="How are these programs different from other professional development offerings?" 
-                  value="faq-5"
-                >
-                  <Typography variant="body">
-                    Our programs are uniquely designed based on sound educational psychology principles and over 12 years of practical experience. They focus on evidence-based strategies that can be immediately applied in educational settings. The content is regularly updated to reflect the latest research and best practices in the field.
-                  </Typography>
-                </AccordionItem>
-              </Accordion>
-            </div>
-          </Container>
-        </section>
-        
-        {/* Contact Section */}
-        <section className="py-16 bg-primary/10">
-          <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              <div>
+                <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                  <Image
+                    src="/images/professional-development/video-demonstrations.jpg"
+                    alt="Video demonstration of teaching technique"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                
+                <Typography variant="body" className="mb-4">
+                  Watch expert educators demonstrate evidence-based techniques in real classroom settings with detailed commentary.
+                </Typography>
+                
+                <Button variant="outline" size="sm" className="w-full" asChild>
+                  <Link href="/professional-development/micro-learning/video-demonstrations">
+                    Watch Demonstrations
+                  </Link>
+                </Button>
+              </Card>
+              
+              <Card className="p-6">
+                <Typography variant="h4" className="mb-4">
+                  Downloadable Resources
+                </Typography>
+                
+                <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                  <Image
+                    src="/images/professional-development/downloadable-resources.jpg"
+                    alt="Educational resources and worksheets"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                
+                <Typography variant="body" className="mb-4">
+                  Access ready-to-use templates, worksheets, visual supports, and planning tools for immediate classroom implementation.
+                </Typography>
+                
+                <Button variant="outline" size="sm" className="w-full" asChild>
+                  <Link href="/professional-development/micro-learning/downloadable-resources">
+                    Download Resources
+                  </Link>
+                </Button>
+              </Card>
+            </Grid>
+          </div>
+          
+          <div className="mt-24 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-8">
+            <div className="flex flex-col md:flex-row gap-8 items-center">
+              <div className="md:w-1/2">
                 <Typography variant="h2" className="mb-4">
-                  Get in Touch
-                </Typography>
-                <Typography variant="lead" className="mb-6">
-                  Have questions about our professional development offerings? We're here to help.
-                </Typography>
-                <Typography variant="body" className="mb-8">
-                  Our team of educational psychology experts can provide personalized guidance on which programs best suit your professional goals and needs.
+                  Start Your Professional Development Journey
                 </Typography>
                 
-                <div className="space-y-4">
-                  <div className="flex items-start">
-                    <svg className="h-6 w-6 text-primary mr-3 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                    <div>
-                      <Typography variant="h6" className="mb-1">
-                        Email
-                      </Typography>
-                      <Typography variant="body">
-                        professional@edpsychconnect.com
-                      </Typography>
-                    </div>
-                  </div>
+                <Typography variant="body" className="mb-6">
+                  Transform your practice with our evidence-based professional development programs. Whether you're looking to enhance your inclusive teaching approaches, develop specialized expertise, or simply access quick practical strategies, we have resources to support your growth.
+                </Typography>
+                
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button variant="primary" size="lg" asChild>
+                    <Link href="/professional-development/courses">
+                      Explore All Courses
+                    </Link>
+                  </Button>
                   
-                  <div className="flex items-start">
-                    <svg className="h-6 w-6 text-primary mr-3 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                    <div>
-                      <Typography variant="h6" className="mb-1">
-                        Phone
-                      </Typography>
-                      <Typography variant="body">
-                        +44 (0) 20 1234 5678
-                      </Typography>
-                    </div>
-                  </div>
+                  <Button variant="outline" size="lg" asChild>
+                    <Link href="/contact">
+                      Request Custom Training
+                    </Link>
+                  </Button>
                 </div>
               </div>
               
-              <Card className="p-6">
-                <Typography variant="h4" className="mb-6">
-                  Request Information
-                </Typography>
-                
-                <form className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Input 
-                      label="First Name" 
-                      placeholder="Enter your first name" 
-                      isFullWidth 
-                    />
-                    <Input 
-                      label="Last Name" 
-                      placeholder="Enter your last name" 
-                      isFullWidth 
-                    />
-                  </div>
-                  
-                  <Input 
-                    label="Email" 
-                    type="email" 
-                    placeholder="Enter your email address" 
-                    isFullWidth 
+              <div className="md:w-1/2">
+                <div className="relative w-full aspect-video rounded-lg overflow-hidden">
+                  <Image
+                    src="/images/professional-development/pd-journey.jpg"
+                    alt="Professional development journey"
+                    fill
+                    className="object-cover"
                   />
-                  
-                  <Select 
-                    label="Area of Interest" 
-                    options={[
-                      { value: "", label: "Select an area of interest" },
-                      { value: "core-training", label: "Core Training Modules" },
-                      { value: "certification", label: "Specialized Certification" },
-                      { value: "micro-learning", label: "Micro-Learning Content" },
-                      { value: "workshops", label: "Interactive Workshops" }
-                    ]} 
-                    isFullWidth 
-                  />
-                  
-                  <Textarea 
-                    label="Message" 
-                    placeholder="How can we help you?" 
-                    rows={4} 
-                    isFullWidth 
-                  />
-                  
-                  <Button variant="primary" className="w-full">
-                    Submit Request
-                  </Button>
-                </form>
-              </Card>
+                </div>
+              </div>
             </div>
-          </Container>
-        </section>
+          </div>
+        </Container>
       </main>
       
       <EnhancedFooter />
