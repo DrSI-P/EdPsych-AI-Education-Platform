@@ -1,159 +1,178 @@
 /**
- * Sitemap Generator Script for EdPsych Connect
- * 
- * This script generates a sitemap.xml file based on the current content in the database.
- * It should be run periodically to keep the sitemap up-to-date.
- * 
- * Usage: node scripts/generate-sitemap.js
+ * Enhanced Sitemap Generator with Tenant Context Support
+ * This script generates a sitemap.xml file with proper tenant context handling
  */
 
 const fs = require('fs');
 const path = require('path');
 const { PrismaClient } = require('@prisma/client');
 
-// Initialize Prisma client
 const prisma = new PrismaClient();
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://edpsychconnect.com';
 
-// Base URL for the site
-const BASE_URL = 'https://edpsychconnect.com';
-
-// Current date in YYYY-MM-DD format
-const currentDate = new Date().toISOString().split('T')[0];
-
-/**
- * Generate the XML content for the sitemap
- */
-async function generateSitemap() {
+// Function to ensure tenant context is set before database operations
+async function ensureTenantContext() {
   try {
-    console.log('Generating sitemap.xml...');
+    // Get the tenant ID from environment variable or use the default one
+    const tenantId = process.env.NEXT_PUBLIC_DEFAULT_TENANT_ID || 
+                    (await prisma.$queryRaw`SELECT id FROM "Tenant" WHERE domain = 'edpsychconnect.com' LIMIT 1`)[0]?.id;
     
-    // Start XML content
-    let xmlContent = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-`;
-
-    // Add static pages
-    const staticPages = [
-      { url: '/', changefreq: 'weekly', priority: '1.0' },
-      { url: '/about', changefreq: 'monthly', priority: '0.8' },
-      { url: '/contact', changefreq: 'monthly', priority: '0.7' },
-      { url: '/blog', changefreq: 'daily', priority: '0.9' },
-      { url: '/blog/categories', changefreq: 'weekly', priority: '0.7' },
-      { url: '/resources', changefreq: 'weekly', priority: '0.9' },
-      { url: '/courses', changefreq: 'weekly', priority: '0.9' },
-      { url: '/auth/signin', changefreq: 'monthly', priority: '0.6' },
-      { url: '/auth/signup', changefreq: 'monthly', priority: '0.6' },
-      { url: '/privacy', changefreq: 'monthly', priority: '0.4' },
-      { url: '/terms', changefreq: 'monthly', priority: '0.4' },
-      { url: '/accessibility', changefreq: 'monthly', priority: '0.4' },
-    ];
-
-    staticPages.forEach(page => {
-      xmlContent += `  <url>
-    <loc>${BASE_URL}${page.url}</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>${page.changefreq}</changefreq>
-    <priority>${page.priority}</priority>
-  </url>
-`;
-    });
-
-    // Add blog posts
-    try {
-      console.log('Fetching blog posts...');
-      const blogPosts = await prisma.blogPost.findMany({
-        where: {
-          status: 'published',
-        },
-        select: {
-          slug: true,
-          updatedAt: true,
-        },
-      });
-
-      blogPosts.forEach(post => {
-        const lastmod = post.updatedAt.toISOString().split('T')[0];
-        xmlContent += `  <url>
-      <loc>${BASE_URL}/blog/${post.slug}</loc>
-      <lastmod>${lastmod}</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.8</priority>
-    </url>
-`;
-      });
-    } catch (error) {
-      console.warn('Warning: Could not fetch blog posts. Skipping blog posts in sitemap.', error.message);
+    if (!tenantId) {
+      console.log('No tenant ID found, using fallback mechanism');
+      return false;
     }
-
-    // Add blog categories
-    try {
-      console.log('Fetching blog categories...');
-      const blogCategories = await prisma.blogCategory.findMany({
-        select: {
-          slug: true,
-          updatedAt: true,
-        },
-      });
-
-      blogCategories.forEach(category => {
-        const lastmod = category.updatedAt.toISOString().split('T')[0];
-        xmlContent += `  <url>
-      <loc>${BASE_URL}/blog/category/${category.slug}</loc>
-      <lastmod>${lastmod}</lastmod>
-      <changefreq>weekly</changefreq>
-      <priority>0.7</priority>
-    </url>
-`;
-      });
-    } catch (error) {
-      console.warn('Warning: Could not fetch blog categories. Skipping blog categories in sitemap.', error.message);
-    }
-
-    // Add courses
-    try {
-      console.log('Fetching courses...');
-      const courses = await prisma.course.findMany({
-        where: {
-          isPublished: true,
-        },
-        select: {
-          id: true,
-          updatedAt: true,
-        },
-      });
-
-      courses.forEach(course => {
-        const lastmod = course.updatedAt.toISOString().split('T')[0];
-        xmlContent += `  <url>
-      <loc>${BASE_URL}/courses/${course.id}</loc>
-      <lastmod>${lastmod}</lastmod>
-      <changefreq>weekly</changefreq>
-      <priority>0.8</priority>
-    </url>
-`;
-      });
-    } catch (error) {
-      console.warn('Warning: Could not fetch courses. Skipping courses in sitemap.', error.message);
-    }
-
-    // Close XML content
-    xmlContent += `</urlset>`;
-
-    // Write to file
-    const outputPath = path.join(__dirname, '../public/sitemap.xml');
-    fs.writeFileSync(outputPath, xmlContent);
-
-    console.log(`Sitemap generated successfully at ${outputPath}`);
+    
+    // Set the tenant context in the database
+    await prisma.$executeRaw`SELECT set_tenant_context(${tenantId}::uuid)`;
+    console.log(`Tenant context set to: ${tenantId}`);
+    return true;
   } catch (error) {
-    console.error('Error generating sitemap:', error);
-  } finally {
-    await prisma.$disconnect();
+    console.log('Error setting tenant context:', error.message);
+    return false;
   }
 }
 
-// Run the generator
+// Generate sitemap with proper error handling
+async function generateSitemap() {
+  console.log('Generating sitemap.xml...');
+  
+  // Ensure tenant context is set
+  const contextSet = await ensureTenantContext();
+  if (!contextSet) {
+    console.log('Warning: Tenant context could not be set. Using static routes only.');
+  }
+  
+  // Static routes that don't require database access
+  const staticRoutes = [
+    '/',
+    '/analytics',
+    '/analytics-dashboard',
+    '/avatar-library',
+    '/css-test',
+    '/educator',
+    '/resources/adaptive-learning',
+    '/resources/learning-styles',
+    '/resources/restorative-justice',
+    '/resources/special-needs',
+    '/settings',
+    '/student',
+    '/testpage',
+    '/professional-development',
+    '/professional-development/foundations',
+    '/professional-development/trauma-informed-practice',
+    '/professional-development/technology-in-education',
+    '/professional-development/teaching-assistant-development',
+    '/professional-development/leadership-in-educational-psychology',
+    '/professional-development/parent-family-engagement',
+    '/professional-development/certification',
+    '/professional-development/micro-learning',
+    '/professional-development/emotionally-based-school-non-attendance',
+    '/professional-development/analytics',
+    '/professional-development/certificates',
+    '/professional-development/cpd-tracking',
+    '/professional-development/learning-communities',
+    '/professional-development/mentor-matching',
+    '/professional-development/portfolio',
+    '/professional-development/research-collaboration',
+    '/professional-development/webinars'
+  ];
+  
+  // Dynamic routes from database (with error handling)
+  let dynamicRoutes = [];
+  
+  // Blog posts
+  console.log('Fetching blog posts...');
+  try {
+    if (contextSet) {
+      const blogPosts = await prisma.blogPost.findMany({
+        where: { published: true },
+        select: { slug: true }
+      });
+      
+      const blogPostRoutes = blogPosts.map(post => `/blog/${post.slug}`);
+      dynamicRoutes = [...dynamicRoutes, ...blogPostRoutes];
+    }
+  } catch (error) {
+    console.log(`Warning: Could not fetch blog posts. Skipping blog posts in sitemap. \n${error.message}`);
+  }
+  
+  // Blog categories
+  console.log('Fetching blog categories...');
+  try {
+    if (contextSet) {
+      const blogCategories = await prisma.blogCategory.findMany({
+        select: { slug: true }
+      });
+      
+      const blogCategoryRoutes = blogCategories.map(category => `/blog/category/${category.slug}`);
+      dynamicRoutes = [...dynamicRoutes, ...blogCategoryRoutes];
+    }
+  } catch (error) {
+    console.log(`Warning: Could not fetch blog categories. Skipping blog categories in sitemap. \n${error.message}`);
+  }
+  
+  // Courses
+  console.log('Fetching courses...');
+  try {
+    if (contextSet) {
+      const courses = await prisma.course.findMany({
+        select: { slug: true }
+      });
+      
+      const courseRoutes = courses.map(course => `/course/${course.slug}`);
+      dynamicRoutes = [...dynamicRoutes, ...courseRoutes];
+    }
+  } catch (error) {
+    console.log(`Warning: Could not fetch courses. Skipping courses in sitemap. \n${error.message}`);
+  }
+  
+  // Combine all routes
+  const allRoutes = [...staticRoutes, ...dynamicRoutes];
+  
+  // Generate sitemap XML
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${allRoutes.map(route => `  <url>
+    <loc>${siteUrl}${route}</loc>
+    <lastmod>${new Date().toISOString()}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>${route === '/' ? '1.0' : '0.8'}</priority>
+  </url>`).join('\n')}
+</urlset>`;
+  
+  // Write sitemap to file
+  const publicDir = path.join(process.cwd(), 'public');
+  if (!fs.existsSync(publicDir)) {
+    fs.mkdirSync(publicDir, { recursive: true });
+  }
+  
+  fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemap);
+  console.log(`Sitemap generated successfully at ${path.join(publicDir, 'sitemap.xml')}`);
+}
+
+// Run the sitemap generator
 generateSitemap()
-  .catch(e => {
-    console.error(e);
-    process.exit(1);
+  .catch(error => {
+    console.error('Error generating sitemap:', error);
+    // Create a minimal sitemap with just static routes to prevent build failure
+    const staticSitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${siteUrl}/</loc>
+    <lastmod>${new Date().toISOString()}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>`;
+    
+    const publicDir = path.join(process.cwd(), 'public');
+    if (!fs.existsSync(publicDir)) {
+      fs.mkdirSync(publicDir, { recursive: true });
+    }
+    
+    fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), staticSitemap);
+    console.log('Created minimal fallback sitemap due to errors');
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
   });

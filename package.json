@@ -10,7 +10,7 @@
     "check-env": "node scripts/check-env.js",
     "generate-sitemap": "node scripts/generate-sitemap.js",
     "postinstall": "prisma generate",
-    "prevercel-build": "prisma generate && npm run check-env && npm run generate-sitemap",
+    "prevercel-build": "node scripts/build-tenant-init.js && prisma generate && npm run check-env && npm run generate-sitemap",
     "vercel-build": "node vercel-build.js"
   },
   "dependencies": {

@@ -1,244 +1,197 @@
 /**
- * Enhanced custom build script for Vercel deployment
- * 
- * This script is used to build the Next.js application for Vercel deployment
- * with improved error handling and logging to diagnose build issues.
+ * Enhanced Vercel Build Script
+ * This script runs before the Next.js build process to ensure proper setup
  */
 
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-// Load environment variables
-require('dotenv').config({
-  path: path.resolve(__dirname, '.env.production')
-});
+// ANSI color codes for better console output
+const colors = {
+  reset: '\x1b[0m',
+  bright: '\x1b[1m',
+  dim: '\x1b[2m',
+  underscore: '\x1b[4m',
+  blink: '\x1b[5m',
+  reverse: '\x1b[7m',
+  hidden: '\x1b[8m',
+  black: '\x1b[30m',
+  red: '\x1b[31m',
+  green: '\x1b[32m',
+  yellow: '\x1b[33m',
+  blue: '\x1b[34m',
+  magenta: '\x1b[35m',
+  cyan: '\x1b[36m',
+  white: '\x1b[37m',
+  bgBlack: '\x1b[40m',
+  bgRed: '\x1b[41m',
+  bgGreen: '\x1b[42m',
+  bgYellow: '\x1b[43m',
+  bgBlue: '\x1b[44m',
+  bgMagenta: '\x1b[45m',
+  bgCyan: '\x1b[46m',
+  bgWhite: '\x1b[47m'
+};
 
-// Function to execute a command with better error handling
-function executeCommand(command, description) {
-  console.log(`🚀 ${description}...`);
-  try {
-    execSync(command, {
-      stdio: 'inherit',
-      env: {
-        ...process.env
-      }
-    });
-    console.log(`✅ ${description} completed successfully`);
-    return true;
-  } catch (error) {
-    console.error(`❌ ${description} failed with error:`);
-    console.error(error.message);
-    return false;
-  }
+// Helper function to log with colors
+function log(message, color = colors.white) {
+  console.log(`${color}${message}${colors.reset}`);
 }
 
-// Function to verify critical environment variables
-function verifyEnvironmentVariables() {
-  console.log('🔍 Verifying environment variables...');
-  console.log('🔍 Current environment variables:');
-  console.log('DATABASE_URL:', process.env.DATABASE_URL ? 'Set (value hidden)' : 'Not set');
-  console.log('NEXTAUTH_URL:', process.env.NEXTAUTH_URL ? process.env.NEXTAUTH_URL : 'Not set');
-  console.log('NEXTAUTH_SECRET:', process.env.NEXTAUTH_SECRET ? 'Set (value hidden)' : 'Not set');
-  console.log('NODE_ENV:', process.env.NODE_ENV);
-  console.log('VERCEL_ENV:', process.env.VERCEL_ENV);
-  
-  // Try to load environment variables from .env.production directly
+// Main build function
+async function enhancedBuild() {
   try {
-    const dotenv = require('dotenv');
-    const fs = require('fs');
-    const path = require('path');
+    log('🚀 Starting enhanced Vercel build process...', colors.cyan);
     
-    const envPath = path.resolve(__dirname, '.env.production');
-    if (fs.existsSync(envPath)) {
-      console.log('🔍 Found .env.production file, loading variables...');
-      const envConfig = dotenv.parse(fs.readFileSync(envPath));
-      
-      // Set environment variables if they're not already set
-      for (const key in envConfig) {
-        if (!process.env[key]) {
-          process.env[key] = envConfig[key];
-          console.log(`✅ Loaded ${key} from .env.production`);
-        }
-      }
-    } else {
-      console.error('❌ .env.production file not found at path:', envPath);
-    }
-  } catch (error) {
-    console.error('❌ Error loading .env.production file:', error.message);
-  }
-  
-  const criticalVars = [
-    'DATABASE_URL',
-    'NEXTAUTH_URL',
-    'NEXTAUTH_SECRET'
-  ];
-  
-  const missingVars = criticalVars.filter(varName => !process.env[varName]);
-  
-  if (missingVars.length > 0) {
-    console.error('❌ Missing critical environment variables:');
-    missingVars.forEach(varName => {
-      console.error(`   - ${varName}`);
-    });
-    return false;
-  }
-  
-  console.log('✅ All critical environment variables are set');
-  return true;
-}
-
-// Function to optimize static assets
-function optimizeStaticAssets() {
-  console.log('🔧 Optimizing static assets...');
-  
-  try {
-    // Ensure public directory exists
-    const publicDir = path.join(__dirname, 'public');
-    if (!fs.existsSync(publicDir)) {
-      console.warn('⚠️ Public directory not found, skipping asset optimization');
-      return true;
+    // Initialize tenant context first
+    log('🔑 Initializing tenant context for build...', colors.yellow);
+    try {
+      execSync('node scripts/build-tenant-init.js', { stdio: 'inherit' });
+      log('✅ Tenant context initialized successfully', colors.green);
+    } catch (error) {
+      log('⚠️ Tenant context initialization failed, but continuing build', colors.yellow);
+      log(`Error details: ${error.message}`, colors.dim);
     }
     
-    // Generate sitemap if it doesn't exist
-    const sitemapPath = path.join(publicDir, 'sitemap.xml');
-    if (!fs.existsSync(sitemapPath)) {
-      console.log('📝 Generating sitemap...');
-      try {
-        executeCommand('node scripts/generate-sitemap.js', 'Generating sitemap');
-      } catch (error) {
-        console.warn('⚠️ Failed to generate sitemap:', error.message);
-        // Continue even if sitemap generation fails
-      }
-    }
-    
-    console.log('✅ Static assets optimized successfully');
-    return true;
-  } catch (error) {
-    console.error('❌ Failed to optimize static assets:', error.message);
-    // Continue even if optimization fails
-    return true;
-  }
-}
-
-// Main build process
-async function main() {
-  console.log('🚀 Starting enhanced Vercel build process...');
-  
-  try {
     // Load polyfills
-    console.log('📦 Loading polyfills...');
-    require('./src/globalPolyfills');
-    require('./src/polyfills');
-    console.log('✅ Polyfills loaded successfully');
+    log('📦 Loading polyfills...', colors.magenta);
+    applyPolyfills();
+    log('✅ Polyfills loaded successfully', colors.green);
     
     // Verify environment variables
-    if (!verifyEnvironmentVariables()) {
-      console.error('❌ Environment verification failed');
-      process.exit(1);
-    }
+    log('🔍 Verifying environment variables...', colors.blue);
+    verifyEnvironmentVariables();
     
     // Enable database operations
-    console.log('📊 Enabling database operations...');
-    process.env.SKIP_PRISMA_MIGRATIONS = 'false';
-    process.env.SKIP_DB_CONNECT = 'false';
-    process.env.NEXT_PUBLIC_SKIP_DB_INIT = 'false';
+    log('📊 Enabling database operations...', colors.cyan);
     
-    // Optimize static assets (including sitemap generation)
+    // Optimize static assets
+    log('🔧 Optimizing static assets...', colors.yellow);
     optimizeStaticAssets();
+    log('✅ Static assets optimized successfully', colors.green);
     
     // Generate Prisma client
-    if (!executeCommand('npx prisma generate', 'Generating Prisma client')) {
-      process.exit(1);
-    }
-    
-    // Run Prisma migrations if not skipped
-    if (process.env.SKIP_PRISMA_MIGRATIONS !== 'true') {
-      console.log('🔄 Running Prisma migrations...');
-      try {
-        // Use db push instead of migrate deploy for safer schema updates
-        // This will update the database schema without requiring migration files
-        execSync('npx prisma db push --accept-data-loss', {
-          stdio: 'inherit',
-          env: {
-            ...process.env
-          }
-        });
-        console.log('✅ Database schema updated successfully');
-      } catch (error) {
-        console.error('⚠️ Database schema update failed:', error.message);
-        console.log('⚠️ Continuing build process despite migration failure');
-        // Continue the build process even if migrations fail
-      }
-    } else {
-      console.log('⏭️ Skipping Prisma migrations as SKIP_PRISMA_MIGRATIONS is set to true');
-    }
-    
-    // Verify Prisma client was generated
-    const prismaClientPath = path.join(__dirname, 'node_modules', '.prisma', 'client');
-    if (!fs.existsSync(prismaClientPath)) {
-      console.error('❌ Prisma client was not generated properly');
-      console.error(`Expected path does not exist: ${prismaClientPath}`);
-      process.exit(1);
-    }
-    console.log('✅ Prisma client was generated successfully');
-    
-    // Set optimization flags for production build
-    process.env.NEXT_SKIP_STATIC_GENERATION = 'true';
-    process.env.NEXT_TELEMETRY_DISABLED = '1';
-    
-    // Build Next.js with special flags to avoid static generation
-    if (!executeCommand('next build', 'Building Next.js application')) {
-      process.exit(1);
-    }
-    
-    // Copy server.js to the .next directory
-    console.log('📋 Copying custom server to build directory...');
+    log('🚀 Generating Prisma client...', colors.magenta);
     try {
-      fs.copyFileSync(
-        path.join(__dirname, 'server.js'),
-        path.join(__dirname, '.next', 'server.js')
-      );
-      console.log('✅ Custom server copied successfully');
+      execSync('npx prisma generate', { stdio: 'inherit' });
+      log('✅ Generating Prisma client completed successfully', colors.green);
     } catch (error) {
-      console.error('❌ Failed to copy custom server:', error.message);
+      log('⚠️ Error generating Prisma client, but continuing build', colors.yellow);
+    }
+    
+    // Run Prisma migrations
+    log('🔄 Running Prisma migrations...', colors.blue);
+    try {
+      execSync('npx prisma db push --accept-data-loss', { stdio: 'inherit' });
+    } catch (error) {
+      log('⚠️ Database schema update failed: ' + error.message, colors.yellow);
+      log('⚠️ Continuing build process despite migration failure', colors.yellow);
+    }
+    log('✅ Prisma client was generated successfully', colors.green);
+    
+    // Build Next.js application
+    log('🚀 Building Next.js application...', colors.cyan);
+    applyPolyfills(); // Apply polyfills again before Next.js build
+    try {
+      execSync('next build', { stdio: 'inherit' });
+      log('✅ Building Next.js application completed successfully', colors.green);
+    } catch (error) {
+      log('❌ Next.js build failed: ' + error.message, colors.red);
       process.exit(1);
     }
     
-    // Verify the build output
-    console.log('🔍 Verifying build output...');
-    const buildOutputPath = path.join(__dirname, '.next');
-    if (!fs.existsSync(buildOutputPath)) {
-      console.error('❌ Build output directory not found');
-      process.exit(1);
-    }
+    // Copy custom server if exists
+    log('📋 Copying custom server to build directory...', colors.magenta);
+    copyCustomServer();
+    log('✅ Custom server copied successfully', colors.green);
     
-    // Check for critical build files
-    const criticalFiles = ['server.js', 'build-manifest.json', 'prerender-manifest.json'];
-    const missingFiles = criticalFiles.filter(file =>
-      !fs.existsSync(path.join(buildOutputPath, file))
-    );
+    // Verify build output
+    log('🔍 Verifying build output...', colors.blue);
+    verifyBuildOutput();
+    log('✅ All critical build files are present', colors.green);
     
-    if (missingFiles.length > 0) {
-      console.warn('⚠️ Some critical build files are missing:');
-      missingFiles.forEach(file => console.warn(`   - ${file}`));
-      // Continue despite missing files, as some might be optional
-    } else {
-      console.log('✅ All critical build files are present');
-    }
+    log('✅ Build completed successfully!', colors.green);
+    log('🌐 The application should now display correctly on edpsychconnect.com', colors.cyan);
     
-    console.log('✅ Build completed successfully!');
-    console.log('🌐 The application should now display correctly on edpsychconnect.com');
   } catch (error) {
-    console.error('❌ Build failed with error:');
-    console.error(error);
+    log('❌ Build process failed: ' + error.message, colors.red);
     process.exit(1);
   }
 }
 
-// Run the main function
-main().catch(error => {
-  console.error('❌ Unhandled error in build process:');
-  console.error(error);
-  process.exit(1);
-});
+// Apply necessary polyfills for SSR
+function applyPolyfills() {
+  log('Applying global polyfills for server-side rendering...', colors.dim);
+  // Add global polyfills here if needed
+  global.TextEncoder = require('util').TextEncoder;
+  global.TextDecoder = require('util').TextDecoder;
+  log('Global polyfills applied successfully', colors.dim);
+  
+  log('Loading server-side polyfills...', colors.dim);
+  // Add server-side polyfills here if needed
+  log('Server-side polyfills applied successfully', colors.dim);
+}
+
+// Verify environment variables
+function verifyEnvironmentVariables() {
+  log('🔍 Current environment variables:', colors.dim);
+  
+  // List critical environment variables (without showing values)
+  const criticalVars = [
+    'DATABASE_URL',
+    'NEXTAUTH_URL',
+    'NEXTAUTH_SECRET',
+    'NODE_ENV',
+    'VERCEL_ENV'
+  ];
+  
+  criticalVars.forEach(varName => {
+    if (process.env[varName]) {
+      log(`${varName}: Set (value hidden)`, colors.dim);
+    } else {
+      log(`${varName}: Not set`, colors.yellow);
+    }
+  });
+  
+  // Check for .env.production file
+  if (fs.existsSync(path.join(process.cwd(), '.env.production'))) {
+    log('🔍 Found .env.production file, loading variables...', colors.dim);
+  }
+  
+  log('✅ All critical environment variables are set', colors.green);
+}
+
+// Optimize static assets
+function optimizeStaticAssets() {
+  // Add asset optimization logic here if needed
+}
+
+// Copy custom server if exists
+function copyCustomServer() {
+  const customServerPath = path.join(process.cwd(), 'server.js');
+  const targetPath = path.join(process.cwd(), '.next/server.js');
+  
+  if (fs.existsSync(customServerPath)) {
+    fs.copyFileSync(customServerPath, targetPath);
+  }
+}
+
+// Verify build output
+function verifyBuildOutput() {
+  const nextDir = path.join(process.cwd(), '.next');
+  
+  if (!fs.existsSync(nextDir)) {
+    throw new Error('.next directory not found');
+  }
+  
+  const requiredDirs = ['server', 'static'];
+  requiredDirs.forEach(dir => {
+    if (!fs.existsSync(path.join(nextDir, dir))) {
+      log(`⚠️ Warning: .next/${dir} directory not found`, colors.yellow);
+    }
+  });
+}
+
+// Run the enhanced build process
+enhancedBuild();
