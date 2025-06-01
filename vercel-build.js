@@ -1,11 +1,15 @@
 /**
- * Enhanced Vercel Build Script
+ * Enhanced Vercel Build Script with Tenant Middleware Support
  * This script runs before the Next.js build process to ensure proper setup
  */
 
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
+const { createPrismaClientWithTenant } = require('./lib/prisma-tenant-middleware');
+
+// Create a Prisma client with tenant middleware
+const prisma = createPrismaClientWithTenant();
 
 // ANSI color codes for better console output
 const colors = {
@@ -80,10 +84,21 @@ async function enhancedBuild() {
       log('⚠️ Error generating Prisma client, but continuing build', colors.yellow);
     }
     
-    // Run Prisma migrations
-    log('🔄 Running Prisma migrations...', colors.blue);
+    // Run Prisma migrations with tenant context
+    log('🔄 Running Prisma migrations with tenant context...', colors.blue);
     try {
-      execSync('npx prisma db push --accept-data-loss', { stdio: 'inherit' });
+      // Use the tenant middleware for database operations
+      await prisma.$executeRaw`SELECT current_tenant_id()`;
+      log('✅ Tenant context verified before migrations', colors.green);
+      
+      execSync('npx prisma db push --accept-data-loss', { 
+        stdio: 'inherit',
+        env: {
+          ...process.env,
+          PRISMA_QUERY_ENGINE_LIBRARY: require.resolve('@prisma/client').replace('@prisma/client', '.prisma/client/query-engine-rhel-openssl-1.0.x.so.node')
+        }
+      });
+      log('✅ Database schema updated successfully', colors.green);
     } catch (error) {
       log('⚠️ Database schema update failed: ' + error.message, colors.yellow);
       log('⚠️ Continuing build process despite migration failure', colors.yellow);
@@ -117,6 +132,9 @@ async function enhancedBuild() {
   } catch (error) {
     log('❌ Build process failed: ' + error.message, colors.red);
     process.exit(1);
+  } finally {
+    // Disconnect Prisma client
+    await prisma.$disconnect();
   }
 }
 
@@ -143,7 +161,8 @@ function verifyEnvironmentVariables() {
     'NEXTAUTH_URL',
     'NEXTAUTH_SECRET',
     'NODE_ENV',
-    'VERCEL_ENV'
+    'VERCEL_ENV',
+    'NEXT_PUBLIC_DEFAULT_TENANT_ID'
   ];
   
   criticalVars.forEach(varName => {

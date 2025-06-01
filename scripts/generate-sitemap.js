@@ -1,46 +1,20 @@
 /**
- * Enhanced Sitemap Generator with Tenant Context Support
+ * Enhanced Sitemap Generator with Tenant Context Middleware
  * This script generates a sitemap.xml file with proper tenant context handling
  */
 
 const fs = require('fs');
 const path = require('path');
 const { PrismaClient } = require('@prisma/client');
+const { createPrismaClientWithTenant, withTenantContext } = require('../lib/prisma-tenant-middleware');
 
-const prisma = new PrismaClient();
+// Create a Prisma client with tenant middleware
+const prisma = createPrismaClientWithTenant();
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://edpsychconnect.com';
-
-// Function to ensure tenant context is set before database operations
-async function ensureTenantContext() {
-  try {
-    // Get the tenant ID from environment variable or use the default one
-    const tenantId = process.env.NEXT_PUBLIC_DEFAULT_TENANT_ID || 
-                    (await prisma.$queryRaw`SELECT id FROM "Tenant" WHERE domain = 'edpsychconnect.com' LIMIT 1`)[0]?.id;
-    
-    if (!tenantId) {
-      console.log('No tenant ID found, using fallback mechanism');
-      return false;
-    }
-    
-    // Set the tenant context in the database
-    await prisma.$executeRaw`SELECT set_tenant_context(${tenantId}::uuid)`;
-    console.log(`Tenant context set to: ${tenantId}`);
-    return true;
-  } catch (error) {
-    console.log('Error setting tenant context:', error.message);
-    return false;
-  }
-}
 
 // Generate sitemap with proper error handling
 async function generateSitemap() {
   console.log('Generating sitemap.xml...');
-  
-  // Ensure tenant context is set
-  const contextSet = await ensureTenantContext();
-  if (!contextSet) {
-    console.log('Warning: Tenant context could not be set. Using static routes only.');
-  }
   
   // Static routes that don't require database access
   const staticRoutes = [
@@ -83,15 +57,17 @@ async function generateSitemap() {
   // Blog posts
   console.log('Fetching blog posts...');
   try {
-    if (contextSet) {
-      const blogPosts = await prisma.blogPost.findMany({
+    // Use withTenantContext to ensure tenant context is set for this operation
+    const blogPosts = await withTenantContext(prisma, async () => {
+      return await prisma.blogPost.findMany({
         where: { published: true },
         select: { slug: true }
       });
-      
-      const blogPostRoutes = blogPosts.map(post => `/blog/${post.slug}`);
-      dynamicRoutes = [...dynamicRoutes, ...blogPostRoutes];
-    }
+    });
+    
+    const blogPostRoutes = blogPosts.map(post => `/blog/${post.slug}`);
+    dynamicRoutes = [...dynamicRoutes, ...blogPostRoutes];
+    console.log(`Found ${blogPostRoutes.length} blog posts`);
   } catch (error) {
     console.log(`Warning: Could not fetch blog posts. Skipping blog posts in sitemap. \n${error.message}`);
   }
@@ -99,14 +75,16 @@ async function generateSitemap() {
   // Blog categories
   console.log('Fetching blog categories...');
   try {
-    if (contextSet) {
-      const blogCategories = await prisma.blogCategory.findMany({
+    // Use withTenantContext to ensure tenant context is set for this operation
+    const blogCategories = await withTenantContext(prisma, async () => {
+      return await prisma.blogCategory.findMany({
         select: { slug: true }
       });
-      
-      const blogCategoryRoutes = blogCategories.map(category => `/blog/category/${category.slug}`);
-      dynamicRoutes = [...dynamicRoutes, ...blogCategoryRoutes];
-    }
+    });
+    
+    const blogCategoryRoutes = blogCategories.map(category => `/blog/category/${category.slug}`);
+    dynamicRoutes = [...dynamicRoutes, ...blogCategoryRoutes];
+    console.log(`Found ${blogCategoryRoutes.length} blog categories`);
   } catch (error) {
     console.log(`Warning: Could not fetch blog categories. Skipping blog categories in sitemap. \n${error.message}`);
   }
@@ -114,14 +92,16 @@ async function generateSitemap() {
   // Courses
   console.log('Fetching courses...');
   try {
-    if (contextSet) {
-      const courses = await prisma.course.findMany({
+    // Use withTenantContext to ensure tenant context is set for this operation
+    const courses = await withTenantContext(prisma, async () => {
+      return await prisma.course.findMany({
         select: { slug: true }
       });
-      
-      const courseRoutes = courses.map(course => `/course/${course.slug}`);
-      dynamicRoutes = [...dynamicRoutes, ...courseRoutes];
-    }
+    });
+    
+    const courseRoutes = courses.map(course => `/course/${course.slug}`);
+    dynamicRoutes = [...dynamicRoutes, ...courseRoutes];
+    console.log(`Found ${courseRoutes.length} courses`);
   } catch (error) {
     console.log(`Warning: Could not fetch courses. Skipping courses in sitemap. \n${error.message}`);
   }

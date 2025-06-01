@@ -1,5 +1,5 @@
 /**
- * Build-time Tenant Context Initialization Script
+ * Build-time Tenant Context Initialization Script with Middleware Support
  * 
  * This script ensures that a valid tenant context is available during the build process.
  * It sets up the necessary environment variables and database context for Prisma operations.
@@ -80,6 +80,29 @@ async function main() {
     
     // Copy .env.build to .env to ensure it's used during the build
     fs.copyFileSync(envBuildPath, envPath);
+    
+    // Create a global tenant context file that can be imported by other modules
+    const tenantContextPath = path.join(process.cwd(), 'lib', 'tenant-context-global.js');
+    const tenantContextDir = path.join(process.cwd(), 'lib');
+    
+    if (!fs.existsSync(tenantContextDir)) {
+      fs.mkdirSync(tenantContextDir, { recursive: true });
+    }
+    
+    const tenantContextContent = `/**
+ * Global Tenant Context
+ * This file is generated during build to provide tenant context to all modules
+ */
+
+module.exports = {
+  TENANT_ID: '${tenantId}',
+  TENANT_DOMAIN: 'edpsychconnect.com',
+  BUILD_TIME: '${new Date().toISOString()}'
+};
+`;
+    
+    fs.writeFileSync(tenantContextPath, tenantContextContent);
+    console.log(`✅ Created global tenant context file at ${tenantContextPath}`);
     
     console.log('✅ Tenant context initialization completed successfully');
     
