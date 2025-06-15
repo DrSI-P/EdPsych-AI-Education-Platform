@@ -173,12 +173,13 @@ function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Dr. Scott I-Patrick */}
             <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow text-center">
-              <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-blue-200">
-                <AvatarImage src="/images/team/Scott.jpg" alt="Dr. Scott I-Patrick" />
-                <AvatarFallback className="bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xl font-bold">
-                  DS
-                </AvatarFallback>
-              </Avatar>
+              <div className="w-32 h-40 mx-auto mb-4 rounded-lg overflow-hidden shadow-md">
+                <img 
+                  src="/team/dr-scott-i-patrick-branded.jpg" 
+                  alt="Dr. Scott I-Patrick" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <h3 className="text-xl font-bold text-primary mb-2">Dr. Scott I-Patrick</h3>
               <p className="text-sm text-primary font-medium mb-2">DEdPsych BSc CPsychol MBPSs</p>
               <p className="text-sm text-secondary mb-3">Founder & Lead Educational Psychologist</p>
@@ -189,14 +190,15 @@ function AboutPage() {
               </p>
             </div>
 
-            {/* George Randal - CTO */}
+            {/* George Randall - CTO */}
             <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow text-center">
-              <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-indigo-200">
-                <AvatarImage src="/images/team/GeorgeRandall.jpg" alt="George Randall" />
-                <AvatarFallback className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xl font-bold">
-                  GR
-                </AvatarFallback>
-              </Avatar>
+              <div className="w-32 h-40 mx-auto mb-4 rounded-lg overflow-hidden shadow-md">
+                <img 
+                  src="/team/george-randall-branded.jpg" 
+                  alt="George Randall" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">George Randall</h3>
               <p className="text-sm text-indigo-600 font-medium mb-2">Chief Technology Officer (CTO)</p>
               <p className="text-sm text-gray-600 mb-3">Technical Leadership & Database Management</p>
@@ -208,16 +210,93 @@ function AboutPage() {
               </p>
             </div>
 
-            {/* Professor Piers */}
+            {/* Samantha Patrick */}
             <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow text-center">
-              <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-purple-200">
-                <AvatarImage src="/images/team/ProfessorPiers.jpeg" alt="Professor Piers Worth" />
-                <AvatarFallback className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xl font-bold">
-                  PW
-                </AvatarFallback>
-              </Avatar>
+              <div className="w-32 h-40 mx-auto mb-4 rounded-lg overflow-hidden shadow-md">
+                <img 
+                  src="/team/samantha-patrick-branded.jpg" 
+                  alt="Samantha Patrick" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Samantha Patrick</h3>
+              <p className="text-sm text-orange-600 font-medium mb-2">Business Admin Manager</p>
+              <p className="text-sm text-gray-600 mb-3">Operations & Administration</p>
+              <Badge className="bg-orange-100 text-orange-800 text-xs">Manager</Badge>
+              <p className="text-xs text-gray-500 mt-3">
+                Business administration manager ensuring smooth operational excellence 
+                and efficient administrative processes across all platform activities.
+              </p>
+            </div>
+
+            {/* Hannah I-Patrick */}
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow text-center">
+              <div className="w-32 h-40 mx-auto mb-4 rounded-lg overflow-hidden shadow-md">
+                <img 
+                  src="/team/hannah-i-patrick-branded.jpg" 
+                  alt="Hannah I-Patrick" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Hannah I-Patrick</h3>
+              <p className="text-sm text-cyan-600 font-medium mb-2">Marketing Executive</p>
+              <p className="text-sm text-gray-600 mb-3">Brand & Communications</p>
+              <Badge className="bg-cyan-100 text-cyan-800 text-xs">Executive</Badge>
+              <p className="text-xs text-gray-500 mt-3">
+                Marketing executive driving brand development and strategic communications 
+                to effectively reach and engage our diverse educational community.
+              </p>
+            </div>
+
+            {/* Osasogie I-Patrick */}
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow text-center">
+              <div className="w-32 h-40 mx-auto mb-4 rounded-lg overflow-hidden shadow-md">
+                <img 
+                  src="/team/osasogie-i-patrick-branded.jpg" 
+                  alt="Osasogie I-Patrick" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Osasogie I-Patrick</h3>
+              <p className="text-sm text-purple-600 font-medium mb-2">Team Member</p>
+              <p className="text-sm text-gray-600 mb-3">Strategic Development</p>
+              <Badge className="bg-purple-100 text-purple-800 text-xs">Team Member</Badge>
+              <p className="text-xs text-gray-500 mt-3">
+                Strategic team member contributing to platform development and 
+                educational innovation initiatives.
+              </p>
+            </div>
+
+            {/* Louis Young */}
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow text-center">
+              <div className="w-32 h-40 mx-auto mb-4 rounded-lg overflow-hidden shadow-md">
+                <img 
+                  src="/team/louis-young-branded.jpg" 
+                  alt="Louis Young" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Louis Young</h3>
+              <p className="text-sm text-blue-600 font-medium mb-2">Team Member</p>
+              <p className="text-sm text-gray-600 mb-3">Innovation & Development</p>
+              <Badge className="bg-blue-100 text-blue-800 text-xs">Team Member</Badge>
+              <p className="text-xs text-gray-500 mt-3">
+                Dynamic team member focused on innovation and platform development 
+                to enhance educational experiences.
+              </p>
+            </div>
+
+            {/* Professor Piers Worth */}
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow text-center">
+              <div className="w-32 h-40 mx-auto mb-4 rounded-lg overflow-hidden shadow-md">
+                <img 
+                  src="/team/professor-piers-worth-branded.jpg" 
+                  alt="Professor Piers Worth" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">Professor Piers Worth</h3>
-              <p className="text-sm text-purple-600 font-medium mb-2">Senior Consultant Advisor & Professor Emeritus</p>
+              <p className="text-sm text-purple-600 font-medium mb-2">Academic Advisor</p>
               <p className="text-sm text-gray-600 mb-3">Former Head of School, Buckinghamshire New University</p>
               <Badge className="bg-purple-100 text-purple-800 text-xs">Professor Emeritus</Badge>
               <p className="text-xs text-gray-500 mt-3">
