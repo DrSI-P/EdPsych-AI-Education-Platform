@@ -1,0 +1,703 @@
+'use client';
+
+import React, { useState } from 'react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { Slider } from "@/components/ui/slider";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
+import ComprehensiveNavigation from '@/components/navigation/comprehensive-navigation';
+import { 
+  Brain, 
+  BookOpen, 
+  Lightbulb, 
+  Star,
+  Clock,
+  ArrowRight,
+  CheckCircle,
+  FileText,
+  Users,
+  BarChart2,
+  PieChart,
+  LineChart,
+  Download,
+  Filter,
+  Search,
+  Calendar,
+  User,
+  Layers,
+  Settings,
+  Target,
+  Award,
+  Compass,
+  Edit,
+  Plus,
+  Zap,
+  Sparkles,
+  Eye,
+  Ear,
+  Hand,
+  MessageSquare,
+  RefreshCw,
+  BarChart,
+  Activity,
+  Palette,
+  Music,
+  BookOpen as Book,
+  Briefcase,
+  TrendingUp,
+  AlertCircle,
+  HelpCircle,
+  Clipboard,
+  FileQuestion,
+  CheckSquare,
+  XCircle,
+  Percent
+} from 'lucide-react';
+
+export default function AssessmentAnalyticsPage() {
+  const [activeTab, setActiveTab] = useState('overview');
+  const [selectedClass, setSelectedClass] = useState<string | null>(null);
+  const [selectedAssessment, setSelectedAssessment] = useState<string | null>(null);
+  const [selectedStudent, setSelectedStudent] = useState<string | null>(null);
+  const [dateRange, setDateRange] = useState('30days');
+  const [showDetailedView, setShowDetailedView] = useState(false);
+
+  // Sample data for demonstration
+  const classes = [
+    { 
+      id: 'c1', 
+      name: 'Year 5 Mathematics', 
+      students: 28,
+      assessments: 12,
+      averageScore: 76,
+      recentAssessment: 'Fractions and Decimals Quiz'
+    },
+    { 
+      id: 'c2', 
+      name: 'Year 7 Science', 
+      students: 32,
+      assessments: 8,
+      averageScore: 72,
+      recentAssessment: 'Forces and Motion Test'
+    },
+    { 
+      id: 'c3', 
+      name: 'Year 3 English', 
+      students: 26,
+      assessments: 15,
+      averageScore: 81,
+      recentAssessment: 'Reading Comprehension Assessment'
+    },
+    { 
+      id: 'c4', 
+      name: 'Year 9 History', 
+      students: 30,
+      assessments: 6,
+      averageScore: 68,
+      recentAssessment: 'World War II Essay'
+    },
+    { 
+      id: 'c5', 
+      name: 'Year 6 Geography', 
+      students: 29,
+      assessments: 9,
+      averageScore: 74,
+      recentAssessment: 'Map Skills Quiz'
+    }
+  ];
+
+  const assessments = [
+    { 
+      id: 'a1', 
+      name: 'Fractions and Decimals Quiz', 
+      type: 'Formative',
+      date: '2 June 2025',
+      questions: 15,
+      averageScore: 76,
+      completionRate: 98,
+      subject: 'Mathematics',
+      keyStage: 'KS2'
+    },
+    { 
+      id: 'a2', 
+      name: 'End of Unit Test: Number', 
+      type: 'Summative',
+      date: '15 May 2025',
+      questions: 25,
+      averageScore: 72,
+      completionRate: 100,
+      subject: 'Mathematics',
+      keyStage: 'KS2'
+    },
+    { 
+      id: 'a3', 
+      name: 'Mental Math Skills Check', 
+      type: 'Diagnostic',
+      date: '28 April 2025',
+      questions: 20,
+      averageScore: 81,
+      completionRate: 96,
+      subject: 'Mathematics',
+      keyStage: 'KS2'
+    },
+    { 
+      id: 'a4', 
+      name: 'Problem Solving Challenge', 
+      type: 'Formative',
+      date: '10 April 2025',
+      questions: 10,
+      averageScore: 68,
+      completionRate: 92,
+      subject: 'Mathematics',
+      keyStage: 'KS2'
+    },
+    { 
+      id: 'a5', 
+      name: 'Geometry Concepts Quiz', 
+      type: 'Formative',
+      date: '22 March 2025',
+      questions: 15,
+      averageScore: 74,
+      completionRate: 94,
+      subject: 'Mathematics',
+      keyStage: 'KS2'
+    }
+  ];
+
+  const students = [
+    { 
+      id: 's1', 
+      name: 'Emma Thompson', 
+      averageScore: 85,
+      assessmentsCompleted: 12,
+      trend: 'improving',
+      strengths: ['Problem Solving', 'Mental Math'],
+      areasForImprovement: ['Fractions', 'Word Problems']
+    },
+    { 
+      id: 's2', 
+      name: 'James Wilson', 
+      averageScore: 72,
+      assessmentsCompleted: 11,
+      trend: 'stable',
+      strengths: ['Geometry', 'Measurement'],
+      areasForImprovement: ['Decimals', 'Division']
+    },
+    { 
+      id: 's3', 
+      name: 'Sophia Chen', 
+      averageScore: 92,
+      assessmentsCompleted: 12,
+      trend: 'improving',
+      strengths: ['Number Sense', 'Algebra'],
+      areasForImprovement: ['Explaining Reasoning']
+    },
+    { 
+      id: 's4', 
+      name: 'Mohammed Ali', 
+      averageScore: 68,
+      assessmentsCompleted: 10,
+      trend: 'declining',
+      strengths: ['Data Handling', 'Addition'],
+      areasForImprovement: ['Multiplication', 'Problem Solving']
+    },
+    { 
+      id: 's5', 
+      name: 'Olivia Parker', 
+      averageScore: 78,
+      assessmentsCompleted: 12,
+      trend: 'improving',
+      strengths: ['Patterns', 'Estimation'],
+      areasForImprovement: ['Fractions', 'Time Concepts']
+    }
+  ];
+
+  const questionAnalytics = [
+    {
+      id: 'q1',
+      text: 'Convert 3/4 to a decimal.',
+      type: 'Short Answer',
+      difficulty: 'Medium',
+      successRate: 82,
+      averageAttempts: 1.2,
+      commonMistakes: ['0.34', '0.75', '0.7']
+    },
+    {
+      id: 'q2',
+      text: 'What is 1/2 + 1/4?',
+      type: 'Multiple Choice',
+      difficulty: 'Easy',
+      successRate: 91,
+      averageAttempts: 1.1,
+      commonMistakes: ['2/6', '1/6']
+    },
+    {
+      id: 'q3',
+      text: 'Solve the word problem: If 3/4 of a pizza is left and you eat 1/3 of what remains, how much of the original pizza did you eat?',
+      type: 'Problem Solving',
+      difficulty: 'Hard',
+      successRate: 45,
+      averageAttempts: 2.3,
+      commonMistakes: ['1/3', '1/4', '1/12']
+    },
+    {
+      id: 'q4',
+      text: 'Order these decimals from smallest to largest: 0.42, 0.204, 0.24, 0.4',
+      type: 'Ordering',
+      difficulty: 'Medium',
+      successRate: 63,
+      averageAttempts: 1.8,
+      commonMistakes: ['0.204, 0.24, 0.4, 0.42', '0.204, 0.4, 0.24, 0.42']
+    },
+    {
+      id: 'q5',
+      text: 'What is 0.7 × 0.3?',
+      type: 'Calculation',
+      difficulty: 'Medium',
+      successRate: 58,
+      averageAttempts: 1.9,
+      commonMistakes: ['0.21', '2.1', '0.10']
+    }
+  ];
+
+  const standardsMapping = [
+    {
+      id: 'std1',
+      code: 'M5.N.1',
+      description: 'Read, write, order and compare numbers to at least 1,000,000',
+      assessmentCoverage: 85,
+      averageScore: 76,
+      masteryRate: 68
+    },
+    {
+      id: 'std2',
+      code: 'M5.N.2',
+      description: 'Add and subtract whole numbers with more than 4 digits',
+      assessmentCoverage: 92,
+      averageScore: 82,
+      masteryRate: 74
+    },
+    {
+      id: 'std3',
+      code: 'M5.F.1',
+      description: 'Compare and order fractions whose denominators are multiples of the same number',
+      assessmentCoverage: 78,
+      averageScore: 65,
+      masteryRate: 52
+    },
+    {
+      id: 'std4',
+      code: 'M5.F.2',
+      description: 'Identify, name and write equivalent fractions',
+      assessmentCoverage: 82,
+      averageScore: 71,
+      masteryRate: 63
+    },
+    {
+      id: 'std5',
+      code: 'M5.D.1',
+      description: 'Read and write decimal numbers as fractions',
+      assessmentCoverage: 90,
+      averageScore: 68,
+      masteryRate: 58
+    }
+  ];
+
+  const performanceTrends = {
+    weekly: [68, 72, 75, 73, 76, 78, 81],
+    monthly: [65, 68, 72, 75, 78, 80],
+    quarterly: [62, 68, 74, 79]
+  };
+
+  const skillGaps = [
+    {
+      skill: 'Fraction to Decimal Conversion',
+      gapPercentage: 32,
+      affectedStudents: 9,
+      relatedStandards: ['M5.F.3', 'M5.D.1'],
+      recommendedResources: ['Fraction-Decimal Relationship Video', 'Interactive Conversion Tool', 'Visual Fraction Models']
+    },
+    {
+      skill: 'Multi-Step Word Problems',
+      gapPercentage: 45,
+      affectedStudents: 12,
+      relatedStandards: ['M5.PS.1', 'M5.PS.2'],
+      recommendedResources: ['Problem Solving Strategies Guide', 'Word Problem Templates', 'Step-by-Step Solver']
+    },
+    {
+      skill: 'Decimal Multiplication',
+      gapPercentage: 38,
+      affectedStudents: 11,
+      relatedStandards: ['M5.D.2', 'M5.C.1'],
+      recommendedResources: ['Decimal Operations Video Series', 'Place Value Grid Tool', 'Multiplication Practise Set']
+    }
+  ];
+
+  const handleClassSelect = (id: string) => {
+    setSelectedClass(id);
+    setSelectedAssessment(null);
+    setSelectedStudent(null);
+  };
+
+  const handleAssessmentSelect = (id: string) => {
+    setSelectedAssessment(id);
+    setSelectedStudent(null);
+  };
+
+  const handleStudentSelect = (id: string) => {
+    setSelectedStudent(id);
+  };
+
+  const handleDateRangeChange = (range: string) => {
+    setDateRange(range);
+  };
+
+  const handleToggleDetailedView = () => {
+    setShowDetailedView(!showDetailedView);
+  };
+
+  const generateReport = () => {
+    // Simulate report generation
+    alert('Report generation would be implemented here');
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <ComprehensiveNavigation />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="text-centre mb-12">
+          <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 mb-4">
+            <BarChart2 className="w-4 h-4 mr-2" />
+            Assessment Analytics
+          </Badge>
+          <h1 className="text-4xl font-bold text-grey-900 mb-4">
+            Comprehensive Assessment Data Analysis
+          </h1>
+          <p className="text-xl text-grey-600 max-w-3xl mx-auto">
+            Gain deep insights into student performance, identify learning gaps, and make data-driven decisions to enhance educational outcomes.
+          </p>
+        </div>
+
+        {/* Main Tabs */}
+        <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab} className="mb-8">
+          <TabsList className="grid grid-cols-5 mb-8">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="performance">Performance Analysis</TabsTrigger>
+            <TabsTrigger value="standards">Standards Mapping</TabsTrigger>
+            <TabsTrigger value="item">Item Analysis</TabsTrigger>
+            <TabsTrigger value="insights">AI Insights</TabsTrigger>
+          </TabsList>
+          
+          {/* Overview Tab */}
+          <TabsContent value="overview">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-centre">
+                    <FileQuestion className="w-5 h-5 mr-2 text-blue-500" />
+                    Assessments Analysed
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold">143</div>
+                  <p className="text-sm text-grey-500">Last 30 days</p>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-centre">
+                    <Users className="w-5 h-5 mr-2 text-purple-500" />
+                    Students Assessed
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold">512</div>
+                  <p className="text-sm text-grey-500">Across all classes</p>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-centre">
+                    <Target className="w-5 h-5 mr-2 text-green-500" />
+                    Average Score
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold">74%</div>
+                  <p className="text-sm text-grey-500">
+                    <span className="text-green-500 flex items-centre">
+                      <TrendingUp className="w-3 h-3 mr-1" /> +3% from previous period
+                    </span>
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Performance by Subject</CardTitle>
+                  <CardDescription>Average scores across different subject areas</CardDescription>
+                </CardHeader>
+                <CardContent className="h-80 flex items-centre justify-centre">
+                  <div className="w-full h-full flex flex-col items-centre justify-centre">
+                    <BarChart2 className="w-16 h-16 text-grey-300 mb-4" />
+                    <p className="text-grey-500 text-centre">
+                      Bar chart visualization would appear here showing performance by subject
+                    </p>
+                    <div className="mt-4 grid grid-cols-2 gap-4 w-full">
+                      <div className="flex items-centre">
+                        <div className="w-3 h-3 rounded-full bg-blue-500 mr-2"></div>
+                        <span className="text-sm">Mathematics: 76%</span>
+                      </div>
+                      <div className="flex items-centre">
+                        <div className="w-3 h-3 rounded-full bg-purple-500 mr-2"></div>
+                        <span className="text-sm">English: 72%</span>
+                      </div>
+                      <div className="flex items-centre">
+                        <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                        <span className="text-sm">Science: 78%</span>
+                      </div>
+                      <div className="flex items-centre">
+                        <div className="w-3 h-3 rounded-full bg-amber-500 mr-2"></div>
+                        <span className="text-sm">Humanities: 70%</span>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader>
+                  <CardTitle>Assessment Completion Trends</CardTitle>
+                  <CardDescription>Completion rates over time</CardDescription>
+                </CardHeader>
+                <CardContent className="h-80 flex items-centre justify-centre">
+                  <div className="w-full h-full flex flex-col items-centre justify-centre">
+                    <LineChart className="w-16 h-16 text-grey-300 mb-4" />
+                    <p className="text-grey-500 text-centre">
+                      Line chart visualization would appear here showing completion trends
+                    </p>
+                    <div className="mt-4 w-full">
+                      <div className="flex items-centre justify-between mb-2">
+                        <span className="text-sm text-grey-500">March</span>
+                        <span className="text-sm text-grey-500">April</span>
+                        <span className="text-sm text-grey-500">May</span>
+                        <span className="text-sm text-grey-500">June</span>
+                      </div>
+                      <div className="w-full bg-grey-100 rounded-full h-2.5">
+                        <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '85%' }}></div>
+                      </div>
+                      <div className="flex justify-between mt-1">
+                        <span className="text-xs text-grey-500">0%</span>
+                        <span className="text-xs text-grey-500">100%</span>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+              <Card className="lg:col-span-1">
+                <CardHeader>
+                  <CardTitle>Assessment Types</CardTitle>
+                  <CardDescription>Distribution by assessment type</CardDescription>
+                </CardHeader>
+                <CardContent className="h-64 flex items-centre justify-centre">
+                  <div className="w-full h-full flex flex-col items-centre justify-centre">
+                    <PieChart className="w-16 h-16 text-grey-300 mb-4" />
+                    <p className="text-grey-500 text-centre mb-4">
+                      Pie chart visualization would appear here
+                    </p>
+                    <div className="grid grid-cols-1 gap-2 w-full">
+                      <div className="flex items-centre justify-between">
+                        <div className="flex items-centre">
+                          <div className="w-3 h-3 rounded-full bg-blue-500 mr-2"></div>
+                          <span className="text-sm">Formative</span>
+                        </div>
+                        <span className="text-sm font-medium">58%</span>
+                      </div>
+                      <div className="flex items-centre justify-between">
+                        <div className="flex items-centre">
+                          <div className="w-3 h-3 rounded-full bg-purple-500 mr-2"></div>
+                          <span className="text-sm">Summative</span>
+                        </div>
+                        <span className="text-sm font-medium">32%</span>
+                      </div>
+                      <div className="flex items-centre justify-between">
+                        <div className="flex items-centre">
+                          <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                          <span className="text-sm">Diagnostic</span>
+                        </div>
+                        <span className="text-sm font-medium">10%</span>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card className="lg:col-span-2">
+                <CardHeader>
+                  <CardTitle>Key Performance Indicators</CardTitle>
+                  <CardDescription>Critical assessment metrics</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <div>
+                        <div className="flex items-centre justify-between mb-1">
+                          <span className="text-sm font-medium">Completion Rate</span>
+                          <span className="text-sm font-medium">94%</span>
+                        </div>
+                        <div className="w-full bg-grey-100 rounded-full h-2.5">
+                          <div className="bg-green-600 h-2.5 rounded-full" style={{ width: '94%' }}></div>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <div className="flex items-centre justify-between mb-1">
+                          <span className="text-sm font-medium">Pass Rate</span>
+                          <span className="text-sm font-medium">82%</span>
+                        </div>
+                        <div className="w-full bg-grey-100 rounded-full h-2.5">
+                          <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '82%' }}></div>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <div className="flex items-centre justify-between mb-1">
+                          <span className="text-sm font-medium">Mastery Rate</span>
+                          <span className="text-sm font-medium">68%</span>
+                        </div>
+                        <div className="w-full bg-grey-100 rounded-full h-2.5">
+                          <div className="bg-purple-600 h-2.5 rounded-full" style={{ width: '68%' }}></div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <div>
+                        <div className="flex items-centre justify-between mb-1">
+                          <span className="text-sm font-medium">Standards Coverage</span>
+                          <span className="text-sm font-medium">78%</span>
+                        </div>
+                        <div className="w-full bg-grey-100 rounded-full h-2.5">
+                          <div className="bg-amber-600 h-2.5 rounded-full" style={{ width: '78%' }}></div>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <div className="flex items-centre justify-between mb-1">
+                          <span className="text-sm font-medium">Question Quality</span>
+                          <span className="text-sm font-medium">86%</span>
+                        </div>
+                        <div className="w-full bg-grey-100 rounded-full h-2.5">
+                          <div className="bg-indigo-600 h-2.5 rounded-full" style={{ width: '86%' }}></div>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <div className="flex items-centre justify-between mb-1">
+                          <span className="text-sm font-medium">Feedback Implementation</span>
+                          <span className="text-sm font-medium">72%</span>
+                        </div>
+                        <div className="w-full bg-grey-100 rounded-full h-2.5">
+                          <div className="bg-red-600 h-2.5 rounded-full" style={{ width: '72%' }}></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+              <CardContent className="p-6">
+                <div className="flex flex-col md:flex-row items-centre md:space-x-8">
+                  <div className="mb-6 md:mb-0">
+                    <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-centre justify-centre mx-auto">
+                      <BarChart2 className="w-10 h-10 text-white" />
+                    </div>
+                  </div>
+                  <div className="flex-1 text-centre md:text-left">
+                    <h3 className="text-xl font-bold text-grey-900 mb-2">Ready to Analyse Assessment Data?</h3>
+                    <p className="text-grey-600 mb-4">
+                      Dive deeper into assessment results to identify trends, gaps, and opportunities for targeted intervention.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-centre md:justify-start">
+                      <Button onClick={() => setActiveTab('performance')} className="bg-gradient-to-r from-blue-600 to-purple-600">
+                        Analyse Performance
+                      </Button>
+                      <Button variant="outline">
+                        View Tutorial
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          
+          {/* Performance Analysis Tab */}
+          <TabsContent value="performance">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+              <div className="lg:col-span-1 space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Select Class</CardTitle>
+                    <CardDescription>Choose a class to analyse</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {classes.map((classItem) => (
+                        <div 
+                          key={classItem.id} 
+                          className={`p-3 rounded-lg cursor-pointer transition-all ${
+                            selectedClass === classItem.id 
+                              ? 'bg-blue-100 border border-blue-300' 
+                              : 'bg-grey-50 border border-grey-200 hover:bg-grey-100'
+                          }`}
+                          onClick={() => handleClassSelect(classItem.id)}
+                        >
+                          <h3 className="font-medium">{classItem.name}</h3>
+                          <div className="flex items-centre text-sm text-grey-500 mt-1">
+                            <Users className="w-3 h-3 mr-1" />
+                            <span>{classItem.students} students</span>
+                            <span className="mx-2">•</span>
+                            <FileQuestion className="w-3 h-3 mr-1" />
+                            <span>{classItem.assessments} assessments</span>
+                          </div>
+                          <div className="mt-2">
+                            <div className="flex items-centre justify-between mb-1">
+                              <span className="text-xs text-grey-500">Average Score</span>
+                              <span className="text-xs font-medium">{classItem.averageScore}%</span>
+                            </div>
+                            <div className="w-full bg-grey-200 rounded-full h-1.5">
+                              <div 
+                                className={`h-1.5 rounded-full ${
+                                  classItem.averageScore >= 80 ? 'bg-green-500' : 
+                                  classItem.averageScore >= 70 ? 'bg-blue-500' : 
+                                  classItem.averageScore >= 60 ? 'bg-amber-500' : 'bg-red-500'
+                                }`} 
+                                style={{ width: `${classItem.averageScore}%` }}
+                              ></div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>

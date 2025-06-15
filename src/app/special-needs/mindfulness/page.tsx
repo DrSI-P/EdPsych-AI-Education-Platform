@@ -1,0 +1,31 @@
+import React from 'react';
+import { Metadata } from 'next'
+import nextDynamic from 'next/dynamic';;
+
+const GuidedMindfulnessActivities = nextDynamic(
+  () => import('@/components/special-needs/mindfulness/guided-mindfulness-activities')
+);
+
+
+// This prevents Next.js from trying to statically generate this page
+export const dynamic = 'force-dynamic';
+// Disable static generation
+export const revalidate = 3600; // 1 hour // 1 hour
+// Disable fetch caching
+export const fetchCache = "force-no-store";
+
+
+
+
+export const metadata: Metadata = {
+  title: 'Guided Mindfulness Activities | EdPsych Connect',
+  description: 'Discover and practice evidence-based mindfulness exercises to support emotional wellbeing and self-regulation.',
+};
+
+export default function GuidedMindfulnessActivitiesPage(): React.ReactNode {
+  return (
+    <div className="container mx-auto py-8">
+      <GuidedMindfulnessActivities />
+    </div>
+  );
+}

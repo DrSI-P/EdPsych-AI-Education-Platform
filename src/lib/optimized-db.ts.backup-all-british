@@ -1,0 +1,482 @@
+import { PrismaClient, Prisma } from '@prisma/client';
+import { logger } from './logger';
+import { performance } from 'perf_hooks';
+import prisma from './prisma';
+
+// Define cache TTL constants (in seconds)
+const DEFAULT_CACHE_TTL = 60; // 1 minute
+const LONG_CACHE_TTL = 300; // 5 minutes
+const SHORT_CACHE_TTL = 15; // 15 seconds
+
+// Define query complexity thresholds
+const COMPLEX_QUERY_THRESHOLD = 500; // milliseconds
+
+// Simple in-memory cache implementation
+class SimpleCache {
+  private cache: Map<string, { value: unknown; expiry: number }>;
+  private checkPeriod: number;
+  private checkInterval: NodeJS.Timeout | null;
+
+  constructor(options: { stdTTL: number; checkperiod: number }) {
+    this.cache = new Map();
+    this.checkPeriod = options.checkperiod * 1000; // Convert to milliseconds
+    this.checkInterval = null;
+    this.startCleanupInterval();
+  }
+
+  set(key: string, value: unknown, ttl?: number): void {
+    const expiry = Date.now() + (ttl || DEFAULT_CACHE_TTL) * 1000;
+    this.cache.set(key, { value, expiry });
+  }
+
+  get(key: string): unknown {
+    const item = this.cache.get(key);
+    if (!item) return undefined;
+
+    if (Date.now() > item.expiry) {
+      this.cache.delete(key);
+      return undefined;
+    }
+
+    return item.value;
+  }
+
+  del(keys: string[]): void {
+    keys.forEach(key => this.cache.delete(key));
+  }
+
+  keys(): string[] {
+    return Array.from(this.cache.keys());
+  }
+
+  flushAll(): void {
+    this.cache.clear();
+  }
+
+  private startCleanupInterval(): void {
+    this.checkInterval = setInterval(() => {
+      const now = Date.now();
+      // Use Array.from to convert Map entries to array for compatibility
+      const keysToDelete: string[] = [];
+      
+      this.cache.forEach((item, key) => {
+        if (now > item.expiry) {
+          keysToDelete.push(key);
+        }
+      });
+      
+      // Delete expired items
+      keysToDelete.forEach(key => this.cache.delete(key));
+    }, this.checkPeriod);
+
+    // Ensure the interval doesn't prevent the process from exiting
+    if (this.checkInterval.unref) {
+      this.checkInterval.unref();
+    }
+  }
+
+  stopCleanupInterval(): void {
+    if (this.checkInterval) {
+      clearInterval(this.checkInterval);
+      this.checkInterval = null;
+    }
+  }
+}
+
+// Create a cache instance
+const queryCache = new SimpleCache({
+  stdTTL: DEFAULT_CACHE_TTL,
+  checkperiod: 120,
+});
+
+// Query statistics for monitoring
+interface QueryStats {
+  totalQueries: number;
+  cachedQueries: number;
+  slowQueries: number;
+  averageQueryTime: number;
+  totalQueryTime: number;
+}
+
+const stats: QueryStats = {
+  totalQueries: 0,
+  cachedQueries: 0,
+  slowQueries: 0,
+  averageQueryTime: 0,
+  totalQueryTime: 0,
+};
+
+/**
+ * Generate a cache key from a query and its parameters
+ */
+function generateCacheKey(model: string, operation: string, args: unknown): string {
+  return `${model}:${operation}:${JSON.stringify(args)}`;
+}
+
+/**
+ * Determine if a query should be cached based on its characteristics
+ */
+function shouldCacheQuery(model: string, operation: string, args: unknown): boolean {
+  // Don't cache mutations
+  if (['create', 'update', 'delete', 'upsert'].includes(operation)) {
+    return false;
+  }
+  
+  // Don't cache queries with skip/take for pagination that's likely to change
+  if (args.skip !== undefined || args.take !== undefined) {
+    // Exception: cache first page of results
+    if (args.skip === 0 && args.take <= 20) {
+      return true;
+    }
+    return false;
+  }
+  
+  return true;
+}
+
+/**
+ * Determine the appropriate TTL for a query
+ */
+function getCacheTTL(model: string, operation: string, args: unknown): number {
+  // Reference data that rarely changes gets longer cache
+  if (['Role', 'SubscriptionTier', 'Feature'].includes(model)) {
+    return LONG_CACHE_TTL;
+  }
+  
+  // Frequently changing data gets shorter cache
+  if (['UserActivity', 'NavigationEvent', 'CreditUsage'].includes(model)) {
+    return SHORT_CACHE_TTL;
+  }
+  
+  // Count operations can be cached longer
+  if (operation === 'count') {
+    return LONG_CACHE_TTL;
+  }
+  
+  return DEFAULT_CACHE_TTL;
+}
+
+/**
+ * Clear cache entries related to a specific model
+ */
+export function clearModelCache(model: string): void {
+  const keys = queryCache.keys();
+  const modelKeys = keys.filter((key: string) => key.startsWith(`${model}:`));
+  queryCache.del(modelKeys);
+  logger.info(`Cleared ${modelKeys.length} cache entries for model: ${model}`);
+}
+
+/**
+ * Clear all cache entries
+ */
+export function clearAllCache(): void {
+  const keyCount = queryCache.keys().length;
+  queryCache.flushAll();
+  logger.info(`Cleared all ${keyCount} cache entries`);
+}
+
+/**
+ * Get current query statistics
+ */
+export function getQueryStats(): QueryStats {
+  return { ...stats };
+}
+
+/**
+ * Reset query statistics
+ */
+export function resetQueryStats(): void {
+  stats.totalQueries = 0;
+  stats.cachedQueries = 0;
+  stats.slowQueries = 0;
+  stats.averageQueryTime = 0;
+  stats.totalQueryTime = 0;
+}
+
+/**
+ * Create an optimized database client with caching and performance monitoring
+ */
+export function createOptimizedDbClient() {
+  // Create a proxy around the Prisma client to intercept queries
+  const optimizedDb = new Proxy(prisma, {
+    get(target, prop, receiver) {
+      // Get the original property
+      const originalValue = Reflect.get(target, prop, receiver);
+      
+      // If it's not a model property or not a function, return it as is
+      if (typeof originalValue !== 'object' || originalValue === null) {
+        return originalValue;
+      }
+      
+      // Create a proxy for the model
+      return new Proxy(originalValue, {
+        get(modelTarget, operation, modelReceiver) {
+          const originalMethod = Reflect.get(modelTarget, operation, modelReceiver);
+          
+          // If it's not a function, return it as is
+          if (typeof originalMethod !== 'function') {
+            return originalMethod;
+          }
+          
+          // Return a proxied function that adds caching
+          return async function(...args: any[]) {
+            const model = String(prop);
+            const operationName = String(operation);
+            const queryArgs = args[0] || {};
+            
+            // Start timing the query
+            const startTime = performance.now();
+            
+            // Update query stats
+            stats.totalQueries++;
+            
+            // Check if we should cache this query
+            if (shouldCacheQuery(model, operationName, queryArgs)) {
+              const cacheKey = generateCacheKey(model, operationName, queryArgs);
+              
+              // Try to get from cache
+              const cachedResult = queryCache.get(cacheKey);
+              if (cachedResult !== undefined) {
+                // Cache hit
+                stats.cachedQueries++;
+                
+                // Log cache hit
+                logger.debug('Cache hit', {
+                  model,
+                  operation: operationName,
+                  cacheKey,
+                });
+                
+                return cachedResult;
+              }
+              
+              // Cache miss, execute the query
+              const result = await originalMethod.apply(modelTarget, args);
+              
+              // Calculate query time
+              const queryTime = performance.now() - startTime;
+              
+              // Update stats
+              stats.totalQueryTime += queryTime;
+              stats.averageQueryTime = stats.totalQueryTime / (stats.totalQueries - stats.cachedQueries);
+              
+              if (queryTime > COMPLEX_QUERY_THRESHOLD) {
+                stats.slowQueries++;
+                logger.warn('Slow query detected', {
+                  model,
+                  operation: operationName,
+                  duration: queryTime,
+                  args: queryArgs,
+                });
+              }
+              
+              // Cache the result
+              const ttl = getCacheTTL(model, operationName, queryArgs);
+              queryCache.set(cacheKey, result, ttl);
+              
+              // Log cache miss
+              logger.debug('Cache miss', {
+                model,
+                operation: operationName,
+                cacheKey,
+                ttl,
+                duration: queryTime,
+              });
+              
+              return result;
+            } else {
+              // Non-cacheable query, just execute it
+              const result = await originalMethod.apply(modelTarget, args);
+              
+              // Calculate query time
+              const queryTime = performance.now() - startTime;
+              
+              // Update stats
+              stats.totalQueryTime += queryTime;
+              stats.averageQueryTime = stats.totalQueryTime / (stats.totalQueries - stats.cachedQueries);
+              
+              if (queryTime > COMPLEX_QUERY_THRESHOLD) {
+                stats.slowQueries++;
+                logger.warn('Slow query detected', {
+                  model,
+                  operation: operationName,
+                  duration: queryTime,
+                  args: queryArgs,
+                });
+              }
+              
+              return result;
+            }
+          };
+        },
+      });
+    },
+  });
+  
+  return optimizedDb;
+}
+
+// Create and export the optimized database client
+const optimizedDb = createOptimizedDbClient();
+export default optimizedDb;
+
+/**
+ * Batch multiple queries into a single transaction for better performance
+ * @param queries Array of query functions that return promises
+ * @returns Array of results in the same order as the queries
+ */
+export async function batchQueries<T>(queries: (() => Promise<T>)[]): Promise<T[]> {
+  // Convert the array of functions to an array of promises using a transaction
+  return prisma.$transaction(async (_tx) => {
+    const results: T[] = [];
+    for (const query of queries) {
+      results.push(await query());
+    }
+    return results;
+  });
+}
+
+/**
+ * Execute a query with automatic retries on transient errors
+ * @param queryFn Function that executes the query
+ * @param options Retry options
+ * @returns Query result
+ */
+export async function executeWithRetry<T>(
+  queryFn: () => Promise<T>,
+  options: {
+    maxRetries?: number;
+    initialDelay?: number;
+    maxDelay?: number;
+  } = {}
+): Promise<T> {
+  const { 
+    maxRetries = 3, 
+    initialDelay = 100, 
+    maxDelay = 2000 
+  } = options;
+  
+  let lastError: unknown;
+  let delay = initialDelay;
+  
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      return await queryFn();
+    } catch (error: unknown) {
+      lastError = error;
+      
+      // Only retry on connection errors or deadlocks
+      if (!isRetryableError(error)) {
+        throw error;
+      }
+      
+      if (attempt === maxRetries) {
+        break;
+      }
+      
+      // Log retry attempt
+      logger.warn('Retrying database query', {
+        attempt: attempt + 1,
+        maxRetries,
+        delay,
+        error: error.message,
+      });
+      
+      // Wait before retrying
+      await new Promise(resolve => setTimeout(resolve, delay));
+      
+      // Exponential backoff with jitter
+      delay = Math.min(delay * 2, maxDelay) * (0.8 + Math.random() * 0.4);
+    }
+  }
+  
+  throw lastError;
+}
+
+/**
+ * Check if an error is retryable
+ */
+function isRetryableError(error: unknown): boolean {
+  // Prisma connection errors
+  if (error.code === 'P1001' || error.code === 'P1002') {
+    return true;
+  }
+  
+  // PostgreSQL deadlock errors
+  if (error.code === '40P01') {
+    return true;
+  }
+  
+  // Connection timeout errors
+  if (error.message && error.message.includes('timeout')) {
+    return true;
+  }
+  
+  return false;
+}
+
+/**
+ * Optimize a query by analysing and modifying its parameters
+ * @param model The model being queried
+ * @param operation The operation being performed
+ * @param args The query arguments
+ * @returns Optimized query arguments
+ */
+export function optimizeQuery(model: string, operation: string, args: unknown): unknown {
+  const optimizedArgs = { ...args };
+  
+  // Optimize includes to avoid overfetching
+  if (optimizedArgs.include) {
+    // Analyse includes and remove unnecessary ones based on usage patterns
+    // This is a simplified example - in a real implementation, this would be
+    // based on usage analytics and field access patterns
+  }
+  
+  // Optimize where conditions
+  if (optimizedArgs.where) {
+    // Reorder conditions for better index usage
+    // This is a simplified example - in a real implementation, this would
+    // analyse the database schema and indexes
+  }
+  
+  // Optimize ordering
+  if (optimizedArgs.orderBy) {
+    // Ensure ordering uses indexed fields when possible
+  }
+  
+  // Add query hints for specific models and operations
+  if (model === 'User' && operation === 'findMany') {
+    // Example: Add index hints for user queries
+  }
+  
+  return optimizedArgs;
+}
+
+/**
+ * Monitor database health and performance
+ */
+export async function monitorDatabaseHealth(): void {
+  setInterval(async () => {
+    try {
+      const startTime = performance.now();
+      await prisma.$queryRaw`SELECT 1`;
+      const pingTime = performance.now() - startTime;
+      
+      logger.debug('Database health check', {
+        status: 'ok',
+        pingTime,
+        stats: getQueryStats(),
+      });
+    } catch (error) {
+      logger.error('Database health check failed', {
+        status: 'error',
+        error,
+      });
+    }
+  }, 60000); // Check every minute
+}
+
+// Start monitoring if not in test environment
+if (process.env.NODE_ENV !== 'test') {
+  monitorDatabaseHealth();
+}

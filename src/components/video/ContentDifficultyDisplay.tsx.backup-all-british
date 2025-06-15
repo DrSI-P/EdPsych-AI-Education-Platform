@@ -1,0 +1,362 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { 
+  getContentDifficultyProfile, 
+  ContentDifficultyProfile, 
+  DifficultyLevel 
+} from '@/lib/content-difficulty-assessment';
+import { ContentComplexityMetrics } from '@/lib/content-complexity-analyzer';
+import { 
+  BarChart3, 
+  Clock, 
+  BookOpen, 
+  BrainCircuit, 
+  GraduationCap, 
+  Languages, 
+  Lightbulb, 
+  ListChecks, 
+  ChevronDown, 
+  ChevronUp, 
+  Info 
+} from 'lucide-react';
+
+interface ContentDifficultyDisplayProps {
+  videoId: string;
+  transcript: string;
+  complexityMetrics: ContentComplexityMetrics;
+  className?: string;
+}
+
+const ContentDifficultyDisplay: React.FC<ContentDifficultyDisplayProps> = ({
+  videoId,
+  transcript,
+  complexityMetrics,
+  className = '',
+}) => {
+  // State
+  const [difficultyProfile, setDifficultyProfile] = useState<ContentDifficultyProfile | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [expandedSection, setExpandedSection] = useState<string | null>(null);
+  const [showTooltip, setShowTooltip] = useState<string | null>(null);
+  
+  // Fetch difficulty profile
+  useEffect(() => {
+    const fetchDifficultyProfile = async () => {
+      try {
+        setIsLoading(true);
+        const profile = await getContentDifficultyProfile(
+          videoId,
+          transcript,
+          complexityMetrics
+        );
+        setDifficultyProfile(profile);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching difficulty profile:', err);
+        setError('Failed to assess content difficulty');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    fetchDifficultyProfile();
+  }, [videoId, transcript, complexityMetrics]);
+  
+  // Toggle section expansion
+  const toggleSection = (section: string) => {
+    if (expandedSection === section) {
+      setExpandedSection(null);
+    } else {
+      setExpandedSection(section);
+    }
+  };
+  
+  // Get color for difficulty level
+  const getDifficultyColor = (level: DifficultyLevel) => {
+    switch (level.level) {
+      case 'beginner':
+        return 'bg-green-500';
+      case 'intermediate':
+        return 'bg-blue-500';
+      case 'advanced':
+        return 'bg-orange-500';
+      case 'expert':
+        return 'bg-red-500';
+      default:
+        return 'bg-grey-500';
+    }
+  };
+  
+  // Get icon for dimension
+  const getDimensionIcon = (dimension: string) => {
+    switch (dimension) {
+      case 'conceptual':
+        return <BrainCircuit className="h-4 w-4" />;
+      case 'linguistic':
+        return <Languages className="h-4 w-4" />;
+      case 'technical':
+        return <Lightbulb className="h-4 w-4" />;
+      case 'prerequisite':
+        return <BookOpen className="h-4 w-4" />;
+      case 'cognitive':
+        return <GraduationCap className="h-4 w-4" />;
+      default:
+        return <Info className="h-4 w-4" />;
+    }
+  };
+  
+  // Render loading state
+  if (isLoading) {
+    return (
+      <div className={`bg-gray-900 rounded-lg p-4 ${className}`}>
+        <div className="flex items-center justify-center h-24">
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+          <span className="ml-2 text-gray-300">Assessing content difficulty...</span>
+        </div>
+      </div>
+    );
+  }
+  
+  // Render error state
+  if (error || !difficultyProfile) {
+    return (
+      <div className={`bg-gray-900 rounded-lg p-4 ${className}`}>
+        <div className="text-red-500 flex items-center">
+          <Info className="h-5 w-5 mr-2" />
+          <span>{error || 'Unable to assess content difficulty'}</span>
+        </div>
+      </div>
+    );
+  }
+  
+  return (
+    <div className={`bg-gray-900 rounded-lg overflow-hidden ${className}`}>
+      {/* Header */}
+      <div className="bg-gray-800 p-4 border-b border-gray-700">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <BarChart3 className="h-5 w-5 text-blue-400 mr-2" />
+            <h3 className="text-lg font-semibold text-white">Content Difficulty Assessment</h3>
+          </div>
+        </div>
+      </div>
+      
+      {/* Overall Difficulty */}
+      <div className="p-4 border-b border-gray-800">
+        <div className="flex items-center justify-between mb-2">
+          <h4 className="text-white font-medium">Overall Difficulty</h4>
+          <div className="flex items-center">
+            <span className={`px-2 py-1 rounded text-xs text-white font-medium ${getDifficultyColor(difficultyProfile.overallDifficulty)}`}>
+              {difficultyProfile.overallDifficulty.level.charAt(0).toUpperCase() + difficultyProfile.overallDifficulty.level.slice(1)}
+            </span>
+          </div>
+        </div>
+        
+        <div className="w-full bg-gray-700 rounded-full h-2.5 mb-2">
+          <div 
+            className={`h-2.5 rounded-full ${getDifficultyColor(difficultyProfile.overallDifficulty)}`} 
+            style={{ width: `${difficultyProfile.overallDifficulty.numericValue * 100}%` }}
+          ></div>
+        </div>
+        
+        <p className="text-sm text-gray-400">
+          {difficultyProfile.overallDifficulty.description}
+        </p>
+      </div>
+      
+      {/* Difficulty Dimensions */}
+      <div className="p-4 border-b border-gray-800">
+        <button 
+          className="flex items-center justify-between w-full text-left mb-2"
+          onClick={() => toggleSection('dimensions')}
+        >
+          <h4 className="text-white font-medium">Difficulty Dimensions</h4>
+          {expandedSection === 'dimensions' ? (
+            <ChevronUp className="h-4 w-4 text-gray-400" />
+          ) : (
+            <ChevronDown className="h-4 w-4 text-gray-400" />
+          )}
+        </button>
+        
+        {expandedSection === 'dimensions' && (
+          <div className="space-y-4 mt-3">
+            {Object.entries(difficultyProfile.dimensions).map(([key, dimension]) => (
+              <div key={key} className="space-y-1">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    {getDimensionIcon(key)}
+                    <span className="ml-2 text-sm text-white">{dimension.name}</span>
+                  </div>
+                  <span className={`px-2 py-0.5 rounded text-xs text-white ${getDifficultyColor(dimension.level)}`}>
+                    {dimension.level.level}
+                  </span>
+                </div>
+                
+                <div className="w-full bg-gray-700 rounded-full h-1.5">
+                  <div 
+                    className={`h-1.5 rounded-full ${getDifficultyColor(dimension.level)}`} 
+                    style={{ width: `${dimension.score * 100}%` }}
+                  ></div>
+                </div>
+                
+                <p className="text-xs text-gray-400">{dimension.description}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      
+      {/* Key Terms */}
+      <div className="p-4 border-b border-gray-800">
+        <button 
+          className="flex items-center justify-between w-full text-left mb-2"
+          onClick={() => toggleSection('keyTerms')}
+        >
+          <h4 className="text-white font-medium">Key Terms</h4>
+          {expandedSection === 'keyTerms' ? (
+            <ChevronUp className="h-4 w-4 text-gray-400" />
+          ) : (
+            <ChevronDown className="h-4 w-4 text-gray-400" />
+          )}
+        </button>
+        
+        {expandedSection === 'keyTerms' && (
+          <div className="grid grid-cols-1 gap-2 mt-3">
+            {difficultyProfile.keyTerms.map((term, index) => (
+              <div key={index} className="flex items-center justify-between">
+                <span className="text-sm text-white">{term.term}</span>
+                <div className="flex items-center">
+                  <div className="w-16 bg-gray-700 rounded-full h-1.5 mr-2">
+                    <div 
+                      className={`h-1.5 rounded-full ${
+                        term.difficulty < 0.3 ? 'bg-green-500' :
+                        term.difficulty < 0.6 ? 'bg-blue-500' :
+                        term.difficulty < 0.85 ? 'bg-orange-500' :
+                        'bg-red-500'
+                      }`} 
+                      style={{ width: `${term.difficulty * 100}%` }}
+                    ></div>
+                  </div>
+                  <span className="text-xs text-gray-400">
+                    {term.difficulty < 0.3 ? 'Basic' :
+                     term.difficulty < 0.6 ? 'Intermediate' :
+                     term.difficulty < 0.85 ? 'Advanced' :
+                     'Expert'}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      
+      {/* Prerequisites */}
+      <div className="p-4 border-b border-gray-800">
+        <button 
+          className="flex items-center justify-between w-full text-left mb-2"
+          onClick={() => toggleSection('prerequisites')}
+        >
+          <h4 className="text-white font-medium">Prerequisites</h4>
+          {expandedSection === 'prerequisites' ? (
+            <ChevronUp className="h-4 w-4 text-gray-400" />
+          ) : (
+            <ChevronDown className="h-4 w-4 text-gray-400" />
+          )}
+        </button>
+        
+        {expandedSection === 'prerequisites' && (
+          <div className="space-y-2 mt-3">
+            {difficultyProfile.prerequisites.map((prereq, index) => (
+              <div key={index} className="flex items-center justify-between">
+                <span className="text-sm text-white">{prereq.concept}</span>
+                <div className="flex items-center">
+                  <div className="w-16 bg-gray-700 rounded-full h-1.5 mr-2">
+                    <div 
+                      className="h-1.5 rounded-full bg-blue-500" 
+                      style={{ width: `${prereq.importance * 100}%` }}
+                    ></div>
+                  </div>
+                  <span className="text-xs text-gray-400">
+                    {prereq.importance > 0.8 ? 'Essential' :
+                     prereq.importance > 0.6 ? 'Important' :
+                     prereq.importance > 0.4 ? 'Helpful' :
+                     'Optional'}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      
+      {/* Time to Mastery */}
+      <div className="p-4 border-b border-gray-800">
+        <div className="flex items-center mb-3">
+          <Clock className="h-4 w-4 text-blue-400 mr-2" />
+          <h4 className="text-white font-medium">Estimated Time to Mastery</h4>
+        </div>
+        
+        <div className="grid grid-cols-3 gap-2">
+          <div className="bg-gray-800 p-2 rounded">
+            <div className="text-center">
+              <div className="text-xs text-gray-400 mb-1">Beginner</div>
+              <div className="text-lg text-white font-medium">
+                {difficultyProfile.estimatedTimeToMastery.beginner} min
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-gray-800 p-2 rounded">
+            <div className="text-center">
+              <div className="text-xs text-gray-400 mb-1">Intermediate</div>
+              <div className="text-lg text-white font-medium">
+                {difficultyProfile.estimatedTimeToMastery.intermediate} min
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-gray-800 p-2 rounded">
+            <div className="text-center">
+              <div className="text-xs text-gray-400 mb-1">Advanced</div>
+              <div className="text-lg text-white font-medium">
+                {difficultyProfile.estimatedTimeToMastery.advanced} min
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Suggested Preparation */}
+      <div className="p-4">
+        <button 
+          className="flex items-center justify-between w-full text-left mb-2"
+          onClick={() => toggleSection('preparation')}
+        >
+          <div className="flex items-center">
+            <ListChecks className="h-4 w-4 text-blue-400 mr-2" />
+            <h4 className="text-white font-medium">Suggested Preparation</h4>
+          </div>
+          {expandedSection === 'preparation' ? (
+            <ChevronUp className="h-4 w-4 text-gray-400" />
+          ) : (
+            <ChevronDown className="h-4 w-4 text-gray-400" />
+          )}
+        </button>
+        
+        {expandedSection === 'preparation' && (
+          <ul className="list-disc list-inside space-y-1 mt-2">
+            {difficultyProfile.suggestedPreparation.map((suggestion, index) => (
+              <li key={index} className="text-sm text-gray-300">
+                {suggestion}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default ContentDifficultyDisplay;

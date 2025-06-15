@@ -1,0 +1,265 @@
+'use client';
+
+import React, { useState, useEffect, useRef } from 'react';
+import { getBookmarkSuggestions, BookmarkSuggestion, shouldShowBookmarkSuggestion } from '@/lib/bookmark-suggestion-service';
+import { Bookmark, X, ChevronRight, Info } from 'lucide-react';
+
+interface BookmarkSuggestionOverlayProps {
+  videoId: string;
+  userId: string;
+  currentTime: number;
+  duration: number;
+  isPlaying: boolean;
+  transcript?: string;
+  onCreateBookmark: (timeCode: number, title: string, notes?: string) => void;
+  className?: string;
+}
+
+const BookmarkSuggestionOverlay: React.FC<BookmarkSuggestionOverlayProps> = ({
+  videoId,
+  userId,
+  currentTime,
+  duration,
+  isPlaying,
+  transcript,
+  onCreateBookmark,
+  className = '',
+}) => {
+  // State
+  const [suggestions, setSuggestions] = useState<BookmarkSuggestion[]>([]);
+  const [activeSuggestion, setActiveSuggestion] = useState<BookmarkSuggestion | null>(null);
+  const [showSuggestion, setShowSuggestion] = useState(false);
+  const [lastFetchTime, setLastFetchTime] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [notes, setNotes] = useState('');
+  const [showReasonTooltip, setShowReasonTooltip] = useState(false);
+  
+  // Refs
+  const suggestionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const fetchIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  
+  // Constants
+  const FETCH_INTERVAL = 30; // Fetch suggestions every 30 seconds
+  const SUGGESTION_DISPLAY_TIME = 10; // Show suggestion for 10 seconds
+  
+  // Fetch suggestions periodically
+  useEffect(() => {
+    // Initial fetch
+    fetchSuggestions();
+    
+    // Set up interval for periodic fetching
+    fetchIntervalRef.current = setInterval(() => {
+      if (isPlaying && currentTime - lastFetchTime >= FETCH_INTERVAL) {
+        fetchSuggestions();
+      }
+    }, FETCH_INTERVAL * 1000);
+    
+    return () => {
+      if (fetchIntervalRef.current) {
+        clearInterval(fetchIntervalRef.current);
+      }
+    };
+  }, [isPlaying, currentTime, lastFetchTime, videoId, userId]);
+  
+  // Check for suggestions to show based on current time
+  useEffect(() => {
+    if (!isPlaying || suggestions.length === 0) return;
+    
+    // Find a suggestion that should be shown at the current time
+    const suggestionToShow = suggestions.find(suggestion => 
+      shouldShowBookmarkSuggestion(suggestion, currentTime)
+    );
+    
+    if (suggestionToShow && !activeSuggestion) {
+      // Show the suggestion
+      setActiveSuggestion(suggestionToShow);
+      setShowSuggestion(true);
+      
+      // Hide the suggestion after a delay
+      if (suggestionTimeoutRef.current) {
+        clearTimeout(suggestionTimeoutRef.current);
+      }
+      
+      suggestionTimeoutRef.current = setTimeout(() => {
+        if (!isExpanded) {
+          setShowSuggestion(false);
+          // Remove from suggestions list to avoid showing it again
+          setSuggestions(prev => prev.filter(s => s.id !== suggestionToShow.id));
+        }
+      }, SUGGESTION_DISPLAY_TIME * 1000);
+    }
+    
+    return () => {
+      if (suggestionTimeoutRef.current) {
+        clearTimeout(suggestionTimeoutRef.current);
+      }
+    };
+  }, [isPlaying, currentTime, suggestions, activeSuggestion, isExpanded]);
+  
+  // Fetch bookmark suggestions
+  const fetchSuggestions = async () => {
+    try {
+      const newSuggestions = await getBookmarkSuggestions(
+        videoId,
+        userId,
+        currentTime,
+        duration,
+        transcript
+      );
+      
+      // Add new suggestions, avoiding duplicates
+      setSuggestions(prev => {
+        const existingIds = new Set(prev.map(s => s.id));
+        const filteredNewSuggestions = newSuggestions.filter(s => !existingIds.has(s.id));
+        return [...prev, ...filteredNewSuggestions];
+      });
+      
+      setLastFetchTime(currentTime);
+    } catch (error) {
+      console.error('Error fetching bookmark suggestions:', error);
+    }
+  };
+  
+  // Handle creating a bookmark from suggestion
+  const handleCreateBookmark = (): void => {
+    if (!activeSuggestion) return;
+    
+    onCreateBookmark(
+      activeSuggestion.timeCode,
+      activeSuggestion.title,
+      notes || undefined
+    );
+    
+    // Reset state
+    setShowSuggestion(false);
+    setIsExpanded(false);
+    setNotes('');
+    setActiveSuggestion(null);
+    
+    // Remove from suggestions list to avoid showing it again
+    setSuggestions(prev => prev.filter(s => s.id !== activeSuggestion.id));
+  };
+  
+  // Handle dismissing a suggestion
+  const handleDismissSuggestion = (): void => {
+    setShowSuggestion(false);
+    setIsExpanded(false);
+    setNotes('');
+    
+    // Remove from suggestions list to avoid showing it again
+    if (activeSuggestion) {
+      setSuggestions(prev => prev.filter(s => s.id !== activeSuggestion.id));
+      setActiveSuggestion(null);
+    }
+  };
+  
+  // Handle expanding/collapsing the suggestion
+  const toggleExpand = (): void => {
+    setIsExpanded(!isExpanded);
+    
+    // If collapsing, reset the timeout
+    if (isExpanded && suggestionTimeoutRef.current) {
+      clearTimeout(suggestionTimeoutRef.current);
+      suggestionTimeoutRef.current = setTimeout(() => {
+        setShowSuggestion(false);
+        // Remove from suggestions list to avoid showing it again
+        if (activeSuggestion) {
+          setSuggestions(prev => prev.filter(s => s.id !== activeSuggestion.id));
+        }
+      }, SUGGESTION_DISPLAY_TIME * 1000);
+    }
+  };
+  
+  if (!showSuggestion || !activeSuggestion) {
+    return null;
+  }
+  
+  return (
+    <div 
+      className={`absolute bottom-20 right-4 bg-grey-900/90 rounded-lg shadow-lg transition-all duration-300 ${
+        isExpanded ? 'w-80' : 'w-64'
+      } ${className}`}
+    >
+      {/* Suggestion Header */}
+      <div className="flex items-center justify-between p-3 bg-blue-600/20 border-b border-blue-600 rounded-t-lg">
+        <div className="flex items-center">
+          <Bookmark className="h-4 w-4 text-blue-400 mr-2" />
+          <span className="text-sm font-medium text-white">Bookmark Suggestion</span>
+        </div>
+        <div className="flex items-center space-x-1">
+          <button
+            onClick={toggleExpand}
+            className="text-grey-400 hover:text-white"
+            aria-label={isExpanded ? 'Collapse' : 'Expand'}
+          >
+            <ChevronRight className={`h-4 w-4 transition-transform ${isExpanded ? 'rotate-90' : ''}`} />
+          </button>
+          <button
+            onClick={handleDismissSuggestion}
+            className="text-grey-400 hover:text-white"
+            aria-label="Dismiss"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+      
+      {/* Suggestion Content */}
+      <div className="p-3">
+        <div className="flex items-start justify-between">
+          <h4 className="text-sm font-medium text-white mb-1">{activeSuggestion.title}</h4>
+          <div className="relative">
+            <button
+              className="text-grey-400 hover:text-white ml-1"
+              onClick={() => setShowReasonTooltip(!showReasonTooltip)}
+              aria-label="Show reason"
+            >
+              <Info className="h-4 w-4" />
+            </button>
+            
+            {showReasonTooltip && (
+              <div className="absolute bottom-full right-0 mb-2 p-2 bg-grey-800 rounded text-xs text-white w-48 z-10">
+                {activeSuggestion.reason}
+                <div className="absolute bottom-0 right-2 transform translate-y-1/2 rotate-45 w-2 h-2 bg-grey-800"></div>
+              </div>
+            )}
+          </div>
+        </div>
+        
+        <div className="text-xs text-grey-400 mb-2">
+          at {formatTime(activeSuggestion.timeCode)}
+        </div>
+        
+        {isExpanded && (
+          <div className="mt-2">
+            <textarea
+              className="w-full bg-grey-800 text-white rounded p-2 text-xs"
+              rows={2}
+              placeholder="Add notes (optional)"
+              value={notes}
+              onChange={(e: any) => setNotes(e.target.value)}
+            />
+          </div>
+        )}
+        
+        <div className="flex justify-end mt-2">
+          <button
+            className="px-3 py-1 bg-blue-600 hover:bg-blue-500 rounded text-white text-xs"
+            onClick={handleCreateBookmark}
+          >
+            Add Bookmark
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Helper function to format time (seconds to MM:SS)
+function formatTime(timeInSeconds: number): string {
+  const minutes = Math.floor(timeInSeconds / 60);
+  const seconds = Math.floor(timeInSeconds % 60);
+  return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+}
+
+export default BookmarkSuggestionOverlay;

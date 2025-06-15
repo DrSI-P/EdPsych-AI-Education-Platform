@@ -1,0 +1,140 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:cfrIRoriddjsJuEKMMHenOkSGveikIvb@hopper.proxy.rlwy.net:27107/railway"
+}
+
+model User {
+  id                String         @id @default(cuid())
+  name              String?
+  email             String?        @unique
+  emailVerified     DateTime?
+  image             String?
+  password          String?
+  role              String         @default("user")
+  
+  // Only keep essential relations
+  accounts          Account[]
+  sessions          Session[]
+  
+  // Subscription-related relations
+  subscriptions     Subscription[]
+  credits           Credit[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Subscription Tier model - defines the different subscription plans
+model SubscriptionTier {
+  id                String         @id @default(cuid())
+  name              String         // e.g., "Explorer", "Learner", "Family Connect", etc.
+  displayName       String         // User-friendly name for display
+  description       String         // Description of the tier
+  monthlyPrice      Float          // Price per month
+  yearlyPrice       Float          // Price per year (with discount)
+  isActive          Boolean        @default(true)
+  features          Json           // JSON array of feature IDs included in this tier
+  maxUsers          Int            @default(1) // For family/institutional plans
+  tierType          String         // "individual", "family", "professional", "institutional"
+  stripeMonthlyPriceId String?     // Stripe price ID for monthly billing
+  stripeYearlyPriceId String?      // Stripe price ID for yearly billing
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  subscriptions     Subscription[]
+}
+
+// Subscription model - tracks user subscriptions
+model Subscription {
+  id                String           @id @default(cuid())
+  userId            String
+  tierId            String
+  status            String           // "active", "canceled", "past_due", "trialing", etc.
+  currentPeriodStart DateTime
+  currentPeriodEnd  DateTime
+  cancelAtPeriodEnd Boolean         @default(false)
+  billingCycle      String          // "monthly" or "yearly"
+  stripeSubscriptionId String?
+  stripeCustomerId  String?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tier              SubscriptionTier @relation(fields: [tierId], references: [id])
+  transactions      Transaction[]
+}
+
+// Transaction model - tracks payment history
+model Transaction {
+  id                String       @id @default(cuid())
+  subscriptionId    String
+  amount            Float
+  currency          String       @default("GBP")
+  status            String       // "succeeded", "failed", "pending"
+  stripePaymentIntentId String?
+  stripeInvoiceId   String?
+  createdAt         DateTime     @default(now())
+  subscription      Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+}
+
+// Credit model - tracks credit purchases and usage
+model Credit {
+  id                String    @id @default(cuid())
+  userId            String
+  amount            Int       // Number of credits
+  remaining         Int       // Remaining credits
+  expiresAt         DateTime?
+  stripePaymentIntentId String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  usageRecords      CreditUsage[]
+}
+
+// Credit Usage model - tracks how credits are used
+model CreditUsage {
+  id                String    @id @default(cuid())
+  creditId          String
+  amount            Int       // Number of credits used
+  featureId         String    // ID of the feature the credits were used for
+  createdAt         DateTime  @default(now())
+  credit            Credit    @relation(fields: [creditId], references: [id], onDelete: Cascade)
+}
+
+// Feature model - defines features that can be included in subscription tiers
+model Feature {
+  id                String    @id @default(cuid())
+  name              String    // Internal name
+  displayName       String    // User-friendly name
+  description       String    // Description of the feature
+  category          String    // Category of the feature
+  creditCost        Int?      // Cost in credits (if applicable)
+  isActive          Boolean   @default(true)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}

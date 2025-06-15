@@ -1,0 +1,412 @@
+'use client';
+
+import dynamic from 'next/dynamic';
+
+import React from 'react';
+
+import { Heading } from '@/components/ui/heading';
+import { Text } from '@/components/ui/text';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { 
+  BookOpen, 
+  Users, 
+  BarChart, 
+  FileText,
+  Brain,
+  MessageSquare,
+  CreditCard,
+  HelpCircle,
+  ChevronLeft,
+  Download,
+  Printer,
+  Share2,
+  Settings,
+  Shield,
+  Database,
+  Server,
+  UserPlus,
+  LineChart,
+  Lock,
+  Sliders
+} from 'lucide-react';
+import Link from 'next/link';
+// Original component
+
+const AIEnhancedLayout = dynamic(
+  () => import('@/components/layouts/AIEnhancedLayout'),
+  { ssr: false }
+);
+
+function AdministratorManualPage() {
+  return (
+    <AIEnhancedLayout>
+      <div className="container mx-auto py-8 max-w-6xl">
+        <div className="flex items-centre mb-2">
+          <Button variant="ghost" size="sm" className="mr-2" asChild>
+            <Link href="/platform-manuals">
+              <ChevronLeft className="h-4 w-4 mr-1" />
+              Back to Manuals
+            </Link>
+          </Button>
+        </div>
+        
+        <div className="flex items-centre mb-6">
+          <Settings className="h-8 w-8 text-primary mr-3" />
+          <Heading level="h1">Administrator Manual</Heading>
+        </div>
+        
+        <div className="flex justify-between items-centre mb-6">
+          <Text className="text-xl">
+            A comprehensive guide for administrators managing the EdPsych AI Platform
+          </Text>
+          
+          <div className="flex space-x-2">
+            <Button variant="outline" size="sm">
+              <Download className="h-4 w-4 mr-2" />
+              PDF
+            </Button>
+            <Button variant="outline" size="sm">
+              <Printer className="h-4 w-4 mr-2" />
+              Print
+            </Button>
+            <Button variant="outline" size="sm">
+              <Share2 className="h-4 w-4 mr-2" />
+              Share
+            </Button>
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="md:col-span-1">
+            <Card className="p-4 sticky top-4">
+              <Heading level="h3" className="mb-4">Table of Contents</Heading>
+              <nav className="space-y-1">
+                <a href="#introduction" className="block p-2 hover:bg-muted rounded-md">Introduction</a>
+                <a href="#system-setup" className="block p-2 hover:bg-muted rounded-md">System Setup</a>
+                <a href="#user-management" className="block p-2 hover:bg-muted rounded-md">User Management</a>
+                <a href="#content-management" className="block p-2 hover:bg-muted rounded-md">Content Management</a>
+                <a href="#school-settings" className="block p-2 hover:bg-muted rounded-md">School/District Settings</a>
+                <a href="#analytics" className="block p-2 hover:bg-muted rounded-md">Analytics & Reporting</a>
+                <a href="#subscription" className="block p-2 hover:bg-muted rounded-md">Subscription Management</a>
+                <a href="#security" className="block p-2 hover:bg-muted rounded-md">Security & Compliance</a>
+                <a href="#integration" className="block p-2 hover:bg-muted rounded-md">System Integration</a>
+                <a href="#performance" className="block p-2 hover:bg-muted rounded-md">Performance Optimization</a>
+                <a href="#troubleshooting" className="block p-2 hover:bg-muted rounded-md">Troubleshooting</a>
+              </nav>
+              
+              <Separator className="my-4" />
+              
+              <div className="space-y-4">
+                <Button variant="outline" className="w-full justify-start" asChild>
+                  <Link href="/platform-manuals/quick-reference/administrator">
+                    <FileText className="mr-2 h-4 w-4" />
+                    Quick Reference Guide
+                  </Link>
+                </Button>
+                <Button variant="outline" className="w-full justify-start" asChild>
+                  <Link href="/help">
+                    <HelpCircle className="mr-2 h-4 w-4" />
+                    Get Help
+                  </Link>
+                </Button>
+              </div>
+            </Card>
+          </div>
+          
+          <div className="md:col-span-3 space-y-8">
+            <section id="introduction">
+              <Card className="p-6">
+                <Heading level="h2" className="mb-4">Introduction</Heading>
+                <Text className="mb-4">
+                  Welcome to the EdPsych AI Platform Administrator Manual. This comprehensive guide provides detailed instructions for setting up, configuring, and managing the platform for your educational institution.
+                </Text>
+                <Text className="mb-4">
+                  As an administrator, you play a crucial role in ensuring the platform operates efficiently, securely, and effectively for all users. This manual will help you understand the administrative features and best practices for platform management.
+                </Text>
+                <Text className="mb-4">
+                  The EdPsych AI Platform combines educational psychology principles with artificial intelligence to provide personalised learning experiences. Your role as administrator includes:
+                </Text>
+                <ul className="list-disc pl-8 mb-4 space-y-2">
+                  <li>
+                    <Text>Setting up and configuring the system for your institution</Text>
+                  </li>
+                  <li>
+                    <Text>Managing user accounts and permissions</Text>
+                  </li>
+                  <li>
+                    <Text>Overseeing content and curriculum alignment</Text>
+                  </li>
+                  <li>
+                    <Text>Monitoring system performance and usage</Text>
+                  </li>
+                  <li>
+                    <Text>Generating reports and analytics</Text>
+                  </li>
+                  <li>
+                    <Text>Managing subscriptions and billing</Text>
+                  </li>
+                  <li>
+                    <Text>Ensuring security and compliance</Text>
+                  </li>
+                  <li>
+                    <Text>Integrating with other educational systems</Text>
+                  </li>
+                </ul>
+                <Text>
+                  This manual provides step-by-step instructions, best practices, and troubleshooting guidance to help you effectively manage all aspects of the platform.
+                </Text>
+              </Card>
+            </section>
+            
+            <section id="system-setup">
+              <Card className="p-6">
+                <Heading level="h2" className="mb-4">System Setup and Configuration</Heading>
+                
+                <Tabs defaultValue="initial-setup">
+                  <TabsList className="mb-4">
+                    <TabsTrigger value="initial-setup">Initial Setup</TabsTrigger>
+                    <TabsTrigger value="configuration">Configuration</TabsTrigger>
+                    <TabsTrigger value="customisation">Customisation</TabsTrigger>
+                  </TabsList>
+                  
+                  <TabsContent value="initial-setup">
+                    <Heading level="h3" className="mb-2">Initial System Setup</Heading>
+                    <Text className="mb-4">
+                      Setting up the EdPsych AI Platform for your institution involves several key steps:
+                    </Text>
+                    <ol className="list-decimal pl-8 mb-4 space-y-2">
+                      <li>
+                        <Text>
+                          <span className="font-medium">Administrator Account Creation:</span> Your initial administrator account will be created by the EdPsych AI team during the onboarding process.
+                        </Text>
+                      </li>
+                      <li>
+                        <Text>
+                          <span className="font-medium">Institution Profile:</span> Complete your institution profile with details such as:
+                          <ul className="list-disc pl-6 mt-2">
+                            <li>Institution name and type</li>
+                            <li>Address and contact information</li>
+                            <li>Logo and branding elements</li>
+                            <li>Academic calendar and timetable</li>
+                            <li>Curriculum standards and frameworks</li>
+                          </ul>
+                        </Text>
+                      </li>
+                      <li>
+                        <Text>
+                          <span className="font-medium">Department Structure:</span> Define your institution's departmental structure and academic hierarchy.
+                        </Text>
+                      </li>
+                      <li>
+                        <Text>
+                          <span className="font-medium">User Roles:</span> Configure user roles and permission levels appropriate for your institution.
+                        </Text>
+                      </li>
+                      <li>
+                        <Text>
+                          <span className="font-medium">System Verification:</span> Complete the system verification checklist to ensure all components are properly configured.
+                        </Text>
+                      </li>
+                    </ol>
+                    <div className="bg-muted p-4 rounded-md">
+                      <Text className="font-medium">Note:</Text>
+                      <Text>For detailed assistance with initial setup, timetable a consultation with your EdPsych AI implementation specialist.</Text>
+                    </div>
+                  </TabsContent>
+                  
+                  <TabsContent value="configuration">
+                    <Heading level="h3" className="mb-2">System Configuration</Heading>
+                    <Text className="mb-4">
+                      Configure key system settings to align with your institution's requirements:
+                    </Text>
+                    <div className="space-y-4">
+                      <div>
+                        <Heading level="h4" className="text-lg mb-1">Authentication Settings</Heading>
+                        <Text>Configure single sign-on (SSO), password policies, and multi-factor authentication requirements.</Text>
+                      </div>
+                      <div>
+                        <Heading level="h4" className="text-lg mb-1">Data Retention Policies</Heading>
+                        <Text>Set policies for how long different types of data are retained in the system.</Text>
+                      </div>
+                      <div>
+                        <Heading level="h4" className="text-lg mb-1">Notification Configuration</Heading>
+                        <Text>Define system-wide notification settings and defaults for different user roles.</Text>
+                      </div>
+                      <div>
+                        <Heading level="h4" className="text-lg mb-1">Feature Activation</Heading>
+                        <Text>Enable or disable specific platform features based on your institution's needs and subscription level.</Text>
+                      </div>
+                      <div>
+                        <Heading level="h4" className="text-lg mb-1">System Defaults</Heading>
+                        <Text>Set default values for various system parameters, such as marking scales, academic terms, and reporting periods.</Text>
+                      </div>
+                    </div>
+                    <Text className="mt-4">
+                      Access these configuration settings from the Administrator Dashboard by navigating to Settings {'>'} System Configuration.
+                    </Text>
+                  </TabsContent>
+                  
+                  <TabsContent value="customisation">
+                    <Heading level="h3" className="mb-2">Platform Customisation</Heading>
+                    <Text className="mb-4">
+                      Customise the platform to reflect your institution's identity and requirements:
+                    </Text>
+                    <ol className="list-decimal pl-8 mb-4 space-y-2">
+                      <li>
+                        <Text>
+                          <span className="font-medium">Branding:</span> Upload your institution's logo, set colour schemes, and customise the login page.
+                        </Text>
+                      </li>
+                      <li>
+                        <Text>
+                          <span className="font-medium">Terminology:</span> Adjust system terminology to match your institution's preferred language (e.g., "courses" vs. "classes").
+                        </Text>
+                      </li>
+                      <li>
+                        <Text>
+                          <span className="font-medium">Custom Fields:</span> Create custom fields for user profiles, courses, and other entities to capture institution-specific information.
+                        </Text>
+                      </li>
+                      <li>
+                        <Text>
+                          <span className="font-medium">Dashboard Layouts:</span> Configure default dashboard layouts for different user roles.
+                        </Text>
+                      </li>
+                      <li>
+                        <Text>
+                          <span className="font-medium">Email Templates:</span> Customise system email templates with your institution's branding and messaging.
+                        </Text>
+                      </li>
+                    </ol>
+                    <Text>
+                      Access customisation options from the Administrator Dashboard by navigating to Settings {'>'} Customisation.
+                    </Text>
+                  </TabsContent>
+                </Tabs>
+              </Card>
+            </section>
+            
+            <section id="user-management">
+              <Card className="p-6">
+                <Heading level="h2" className="mb-4">User Management</Heading>
+                <Text className="mb-4">
+                  Effective user management is essential for maintaining a secure and well-organised platform. The EdPsych AI Platform provides comprehensive tools for managing users at scale.
+                </Text>
+                
+                <div className="flex items-centre justify-centre mb-6">
+                  <Button className="mr-4" asChild>
+                    <Link href="/platform-manuals/features/user-management">
+                      <Users className="mr-2 h-4 w-4" />
+                      Detailed User Management Guide
+                    </Link>
+                  </Button>
+                </div>
+                
+                <Heading level="h3" className="mb-2">Key Features</Heading>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                  <div className="border rounded-md p-4">
+                    <div className="flex items-centre mb-2">
+                      <UserPlus className="h-5 w-5 text-primary mr-2" />
+                      <Heading level="h4" className="text-lg">User Provisioning</Heading>
+                    </div>
+                    <Text>Add users individually or through bulk import from CSV files or SIS integration.</Text>
+                  </div>
+                  <div className="border rounded-md p-4">
+                    <div className="flex items-centre mb-2">
+                      <Users className="h-5 w-5 text-primary mr-2" />
+                      <Heading level="h4" className="text-lg">Role Management</Heading>
+                    </div>
+                    <Text>Define and assign roles with specific permissions and access levels.</Text>
+                  </div>
+                  <div className="border rounded-md p-4">
+                    <div className="flex items-centre mb-2">
+                      <Database className="h-5 w-5 text-primary mr-2" />
+                      <Heading level="h4" className="text-lg">User Organisation</Heading>
+                    </div>
+                    <Text>Organise users into classes, departments, and custom groups for easier management.</Text>
+                  </div>
+                  <div className="border rounded-md p-4">
+                    <div className="flex items-centre mb-2">
+                      <BarChart className="h-5 w-5 text-primary mr-2" />
+                      <Heading level="h4" className="text-lg">Activity Monitoring</Heading>
+                    </div>
+                    <Text>Track user activity, engagement, and system usage patterns.</Text>
+                  </div>
+                </div>
+                
+                <Heading level="h3" className="mb-2">Managing User Accounts</Heading>
+                <ol className="list-decimal pl-8 mb-6 space-y-2">
+                  <li>
+                    <Text>
+                      <span className="font-medium">Adding Users:</span> Navigate to Users {'>'} Add User to create individual accounts or Users {'>'} Bulk Import for adding multiple users.
+                    </Text>
+                  </li>
+                  <li>
+                    <Text>
+                      <span className="font-medium">Assigning Roles:</span> Assign appropriate roles to users based on their responsibilities within the institution.
+                    </Text>
+                  </li>
+                  <li>
+                    <Text>
+                      <span className="font-medium">Creating Groups:</span> Organise users into logical groups for easier management and permission assignment.
+                    </Text>
+                  </li>
+                  <li>
+                    <Text>
+                      <span className="font-medium">Managing Permissions:</span> Fine-tune permissions for individual users or groups as needed.
+                    </Text>
+                  </li>
+                  <li>
+                    <Text>
+                      <span className="font-medium">Account Maintenance:</span> Regularly review and update user accounts, deactivating accounts for users who have left the institution.
+                    </Text>
+                  </li>
+                </ol>
+                
+                <div className="bg-muted p-4 rounded-md">
+                  <Heading level="h3" className="text-lg mb-2">Best Practices</Heading>
+                  <ul className="list-disc pl-6 space-y-2">
+                    <li>
+                      <Text>Implement a standardised naming convention for usernames and groups.</Text>
+                    </li>
+                    <li>
+                      <Text>Regularly audit user accounts and permissions to ensure appropriate access levels.</Text>
+                    </li>
+                    <li>
+                      <Text>Use role-based permissions rather than individual permissions when possible.</Text>
+                    </li>
+                    <li>
+                      <Text>Establish a clear process for onboarding new users and offboarding departing users.</Text>
+                    </li>
+                    <li>
+                      <Text>Provide targeted training for different user roles to ensure effective platform use.</Text>
+                    </li>
+                  </ul>
+                </div>
+              </Card>
+            </section>
+            
+            <div className="flex justify-between items-centre">
+              <Button variant="outline" disabled>
+                <ChevronLeft className="h-4 w-4 mr-2" />
+                Previous: Introduction
+              </Button>
+              <Button asChild>
+                <Link href="#content-management">
+                  Next: Content Management
+                  <ChevronLeft className="h-4 w-4 ml-2 rotate-180" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </AIEnhancedLayout>
+  );
+}
+
+
+export default AdministratorManualPage;

@@ -1,0 +1,528 @@
+'use client';
+
+import dynamic from 'next/dynamic';
+
+import React, { useState } from 'react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Separator } from "@/components/ui/separator";
+
+import { 
+Brain, 
+  MessageSquare, 
+  BookOpen, 
+  Lightbulb, 
+  Star,
+  Clock,
+  ArrowRight,
+  Send,
+  Sparkles,
+  BarChart2,
+  History,
+  Bookmark,
+  PlusCircle,
+  Search
+} from 'lucide-react';
+const ComprehensiveNavigation = dynamic(
+  () => import('@/components/navigation/comprehensive-navigation'),
+  { ssr: false }
+);
+
+
+
+
+
+// Original component
+function AITutoringPage() {
+  const [activeTab, setActiveTab] = useState('chat');
+  const [message, setMessage] = useState('');
+  const [chatHistory, setChatHistory] = useState([
+    { role: 'system', content: 'Welcome to AI Tutoring! How can I help you today?' },
+    { role: 'user', content: 'I need help understanding photosynthesis.' },
+    { role: 'system', content: 'Photosynthesis is the process by which green plants and some other organisms use sunlight to synthesize nutrients from carbon dioxide and water. Photosynthesis in plants generally involves the green pigment chlorophyll and generates oxygen as a by-product.\n\nThe basic equation for photosynthesis is:\n6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂\n\nWould you like me to explain any specific part of this process in more detail?' }
+  ]);
+
+  // Sample data for demonstration
+  const subjects = [
+    { id: 'math', name: 'Mathematics', icon: BarChart2, topics: 12 },
+    { id: 'science', name: 'Science', icon: Lightbulb, topics: 15 },
+    { id: 'english', name: 'English', icon: BookOpen, topics: 10 },
+    { id: 'history', name: 'History', icon: History, topics: 8 },
+    { id: 'languages', name: 'Languages', icon: MessageSquare, topics: 6 }
+  ];
+
+  const savedSessions = [
+    {
+      id: 1,
+      title: 'Photosynthesis Explanation',
+      subject: 'Science',
+      date: 'June 3, 2025',
+      preview: 'Understanding the basic process of photosynthesis and its chemical equation...'
+    },
+    {
+      id: 2,
+      title: 'Quadratic Equations',
+      subject: 'Mathematics',
+      date: 'June 1, 2025',
+      preview: 'Solving quadratic equations using the quadratic formula and completing the square...'
+    },
+    {
+      id: 3,
+      title: 'Shakespeare Analysis',
+      subject: 'English',
+      date: 'May 28, 2025',
+      preview: 'Analysing themes and character development in Shakespeare\'s Macbeth...'
+    }
+  ];
+
+  const suggestedPrompts = [
+    "Explain the water cycle in simple terms",
+    "Help me understand linear equations",
+    "What are the key themes in 'To Kill a Mockingbird'?",
+    "How do I structure a persuasive essay?",
+    "Explain Newton's laws of motion"
+  ];
+
+  const handleSendMessage = (): void => {
+    if (!message.trim()) return;
+    
+    // Add user message to chat
+    setChatHistory([...chatHistory, { role: 'user', content: message }]);
+    
+    // Simulate AI response
+    setTimeout(() => {
+      setChatHistory(prev => [
+        ...prev, 
+        { 
+          role: 'system', 
+          content: `I've processed your question about "${message}". This would be a detailed, educational response tailored to your specific question, providing clear explanations, examples, and follow-up questions to ensure understanding.`
+        }
+      ]);
+    }, 1000);
+    
+    setMessage('');
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <ComprehensiveNavigation />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="text-centre mb-12">
+          <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 mb-4">
+            <Brain className="w-4 h-4 mr-2" />
+            AI Tutoring
+          </Badge>
+          <h1 className="text-4xl font-bold text-grey-900 mb-4">
+            Personalized Learning Assistant
+          </h1>
+          <p className="text-xl text-grey-600 max-w-3xl mx-auto">
+            Get instant, personalized help with any subject through our advanced AI tutoring system.
+          </p>
+        </div>
+
+        {/* Main Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Sidebar */}
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Tutoring Options</CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="space-y-1">
+                  <Button
+                    variant={activeTab === 'chat' ? "default" : "ghost"}
+                    className="w-full justify-start"
+                    onClick={() => setActiveTab('chat')}
+                  >
+                    <MessageSquare className="mr-2 h-4 w-4" />
+                    <span>Chat Tutor</span>
+                  </Button>
+                  <Button
+                    variant={activeTab === 'subjects' ? "default" : "ghost"}
+                    className="w-full justify-start"
+                    onClick={() => setActiveTab('subjects')}
+                  >
+                    <BookOpen className="mr-2 h-4 w-4" />
+                    <span>Subject Library</span>
+                  </Button>
+                  <Button
+                    variant={activeTab === 'saved' ? "default" : "ghost"}
+                    className="w-full justify-start"
+                    onClick={() => setActiveTab('saved')}
+                  >
+                    <Bookmark className="mr-2 h-4 w-4" />
+                    <span>Saved Sessions</span>
+                  </Button>
+                  <Button
+                    variant={activeTab === 'settings' ? "default" : "ghost"}
+                    className="w-full justify-start"
+                    onClick={() => setActiveTab('settings')}
+                  >
+                    <Star className="mr-2 h-4 w-4" />
+                    <span>Learning Preferences</span>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Subject Areas</CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="space-y-1">
+                  {subjects.map((subject) => (
+                    <Button
+                      key={subject.id}
+                      variant="ghost"
+                      className="w-full justify-start"
+                    >
+                      <subject.icon className="mr-2 h-4 w-4" />
+                      <span>{subject.name}</span>
+                      <Badge variant="outline" className="ml-auto">
+                        {subject.topics}
+                      </Badge>
+                    </Button>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+              <CardContent className="p-6">
+                <div className="flex items-centre space-x-4 mb-4">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-centre justify-centre">
+                    <Sparkles className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold">Learning Insights</h3>
+                    <p className="text-sm text-grey-600">Personalized for you</p>
+                  </div>
+                </div>
+                <p className="text-sm text-grey-700 mb-4">
+                  Based on your recent sessions, you might benefit from focusing on photosynthesis concepts and chemical equations.
+                </p>
+                <Button variant="outline" size="sm" className="w-full">
+                  View Learning Report
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Main Content Area */}
+          <div className="lg:col-span-3">
+            {activeTab === 'chat' && (
+              <Card className="h-[700px] flex flex-col">
+                <CardHeader className="border-b">
+                  <div className="flex items-centre">
+                    <Avatar className="h-10 w-10 mr-3">
+                      <AvatarImage src="/images/avatars/ai-tutor.png" alt="AI Tutor" />
+                      <AvatarFallback>AI</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <CardTitle>AI Tutor</CardTitle>
+                      <CardDescription>Personalized learning assistant</CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                
+                {/* Chat Messages */}
+                <CardContent className="flex-1 overflow-y-auto p-4 space-y-4">
+                  {chatHistory.map((msg, index) => (
+                    <div 
+                      key={index} 
+                      className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                    >
+                      <div 
+                        className={`max-w-[80%] rounded-lg p-3 ${
+                          msg.role === 'user' 
+                            ? 'bg-primary text-primary-foreground ml-12' 
+                            : 'bg-muted mr-12'
+                        }`}
+                      >
+                        <p className="whitespace-pre-wrap">{msg.content}</p>
+                        {msg.role === 'system' && (
+                          <div className="flex items-centre mt-2 text-xs text-grey-500">
+                            <Clock className="h-3 w-3 mr-1" />
+                            <span>Just now</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </CardContent>
+                
+                {/* Suggested Prompts */}
+                <div className="px-4 py-2 border-t">
+                  <p className="text-sm text-grey-500 mb-2">Suggested questions:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {suggestedPrompts.map((prompt, index) => (
+                      <Badge 
+                        key={index} 
+                        variant="outline" 
+                        className="cursor-pointer hover:bg-muted"
+                        onClick={() => setMessage(prompt)}
+                      >
+                        {prompt}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Message Input */}
+                <CardFooter className="border-t p-4">
+                  <div className="flex w-full items-centre space-x-2">
+                    <textarea
+                      className="flex-1 border rounded-md p-2 min-h-[40px] max-h-[120px] resize-none"
+                      placeholder="Ask anything..."
+                      value={message}
+                      onChange={(e: any) => setMessage(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                    />
+                    <Button onClick={handleSendMessage} disabled={!message.trim()}>
+                      <Send className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardFooter>
+              </Card>
+            )}
+
+            {activeTab === 'subjects' && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Subject Library</CardTitle>
+                  <CardDescription>
+                    Browse through our comprehensive subject library for tutoring
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="relative mb-6">
+                    <Search className="absolute left-3 top-3 h-4 w-4 text-grey-400" />
+                    <input
+                      type="search"
+                      placeholder="Search subjects and topics..."
+                      className="w-full pl-10 pr-4 py-2 border rounded-md"
+                    />
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {subjects.map((subject) => (
+                      <Card key={subject.id} className="overflow-hidden">
+                        <div className={`h-1 ${
+                          subject.id === 'math' ? 'bg-blue-500' : 
+                          subject.id === 'science' ? 'bg-green-500' : 
+                          subject.id === 'english' ? 'bg-purple-500' : 
+                          subject.id === 'history' ? 'bg-amber-500' : 'bg-pink-500'
+                        }`}></div>
+                        <CardHeader>
+                          <div className="flex items-centre">
+                            <div className={`w-10 h-10 rounded-full flex items-centre justify-centre ${
+                              subject.id === 'math' ? 'bg-blue-100' : 
+                              subject.id === 'science' ? 'bg-green-100' : 
+                              subject.id === 'english' ? 'bg-purple-100' : 
+                              subject.id === 'history' ? 'bg-amber-100' : 'bg-pink-100'
+                            }`}>
+                              <subject.icon className={`h-5 w-5 ${
+                                subject.id === 'math' ? 'text-blue-600' : 
+                                subject.id === 'science' ? 'text-green-600' : 
+                                subject.id === 'english' ? 'text-purple-600' : 
+                                subject.id === 'history' ? 'text-amber-600' : 'text-pink-600'
+                              }`} />
+                            </div>
+                            <CardTitle className="ml-3">{subject.name}</CardTitle>
+                          </div>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-sm text-grey-600 mb-4">
+                            {subject.topics} topics available for tutoring
+                          </p>
+                          <Button variant="outline" className="w-full">
+                            Explore Topics
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {activeTab === 'saved' && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Saved Tutoring Sessions</CardTitle>
+                  <CardDescription>
+                    Access your previously saved tutoring conversations
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {savedSessions.map((session) => (
+                      <Card key={session.id} className="overflow-hidden">
+                        <CardHeader className="pb-2">
+                          <div className="flex justify-between items-start">
+                            <CardTitle className="text-lg">{session.title}</CardTitle>
+                            <Badge variant="outline">{session.subject}</Badge>
+                          </div>
+                          <CardDescription>{session.date}</CardDescription>
+                        </CardHeader>
+                        <CardContent className="pb-2">
+                          <p className="text-sm text-grey-600">{session.preview}</p>
+                        </CardContent>
+                        <CardFooter className="flex justify-between pt-0">
+                          <Button variant="ghost" size="sm">
+                            Delete
+                          </Button>
+                          <Button size="sm">
+                            Continue Session
+                          </Button>
+                        </CardFooter>
+                      </Card>
+                    ))}
+                    
+                    <Card className="border-dashed">
+                      <CardContent className="flex flex-col items-centre justify-centre py-8">
+                        <div className="w-12 h-12 bg-grey-100 rounded-full flex items-centre justify-centre mb-4">
+                          <PlusCircle className="h-6 w-6 text-grey-400" />
+                        </div>
+                        <h3 className="text-lg font-medium text-grey-900 mb-2">Start New Session</h3>
+                        <p className="text-grey-600 text-centre mb-4">
+                          Begin a new tutoring session on any subject
+                        </p>
+                        <Button onClick={() => setActiveTab('chat')}>
+                          New Tutoring Session
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {activeTab === 'settings' && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Learning Preferences</CardTitle>
+                  <CardDescription>
+                    Customise your AI tutoring experience
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="text-lg font-medium mb-4">Tutoring Style</h3>
+                      <Tabs defaultValue="balanced">
+                        <TabsList className="grid grid-cols-3 mb-4">
+                          <TabsTrigger value="detailed">Detailed</TabsTrigger>
+                          <TabsTrigger value="balanced">Balanced</TabsTrigger>
+                          <TabsTrigger value="concise">Concise</TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="detailed">
+                          <p className="text-sm text-grey-600">
+                            Provides comprehensive explanations with multiple examples and background context.
+                          </p>
+                        </TabsContent>
+                        <TabsContent value="balanced">
+                          <p className="text-sm text-grey-600">
+                            Offers clear explanations with relevant examples and appropriate context.
+                          </p>
+                        </TabsContent>
+                        <TabsContent value="concise">
+                          <p className="text-sm text-grey-600">
+                            Delivers direct, to-the-point explanations focusing on key concepts.
+                          </p>
+                        </TabsContent>
+                      </Tabs>
+                    </div>
+                    
+                    <Separator />
+                    
+                    <div>
+                      <h3 className="text-lg font-medium mb-4">Learning Level</h3>
+                      <Tabs defaultValue="secondary">
+                        <TabsList className="grid grid-cols-4 mb-4">
+                          <TabsTrigger value="primary">Primary</TabsTrigger>
+                          <TabsTrigger value="secondary">Secondary</TabsTrigger>
+                          <TabsTrigger value="college">College</TabsTrigger>
+                          <TabsTrigger value="advanced">Advanced</TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="primary">
+                          <p className="text-sm text-grey-600">
+                            Elementary/primary school level content (ages 5-11).
+                          </p>
+                        </TabsContent>
+                        <TabsContent value="secondary">
+                          <p className="text-sm text-grey-600">
+                            Secondary/high school level content (ages 11-18).
+                          </p>
+                        </TabsContent>
+                        <TabsContent value="college">
+                          <p className="text-sm text-grey-600">
+                            Undergraduate college/university level content.
+                          </p>
+                        </TabsContent>
+                        <TabsContent value="advanced">
+                          <p className="text-sm text-grey-600">
+                            Graduate and professional level content.
+                          </p>
+                        </TabsContent>
+                      </Tabs>
+                    </div>
+                    
+                    <Separator />
+                    
+                    <div>
+                      <h3 className="text-lg font-medium mb-4">Additional Preferences</h3>
+                      <div className="space-y-4">
+                        <div className="flex items-centre justify-between">
+                          <div>
+                            <h4 className="font-medium">Include Visual Aids</h4>
+                            <p className="text-sm text-grey-600">Add diagrams and visual examples when possible</p>
+                          </div>
+                          <input type="checkbox" className="toggle" defaultChecked />
+                        </div>
+                        
+                        <div className="flex items-centre justify-between">
+                          <div>
+                            <h4 className="font-medium">Check Understanding</h4>
+                            <p className="text-sm text-grey-600">Ask questions to verify comprehension</p>
+                          </div>
+                          <input type="checkbox" className="toggle" defaultChecked />
+                        </div>
+                        
+                        <div className="flex items-centre justify-between">
+                          <div>
+                            <h4 className="font-medium">Provide Practise Problems</h4>
+                            <p className="text-sm text-grey-600">Include practise exercises after explanations</p>
+                          </div>
+                          <input type="checkbox" className="toggle" defaultChecked />
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <Button className="w-full">Save Preferences</Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default AITutoringPage;

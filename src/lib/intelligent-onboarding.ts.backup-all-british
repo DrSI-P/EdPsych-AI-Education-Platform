@@ -1,0 +1,611 @@
+import { PrismaClient } from '@prisma/client';
+
+// Extend the PrismaClient type to include our custom models
+interface CustomPrismaClient extends PrismaClient {
+  userOnboardingProgress: unknown;
+}
+
+const prisma = new PrismaClient() as CustomPrismaClient;
+
+export interface OnboardingStep {
+  id: string;
+  title: string;
+  description: string;
+  component: string;
+  priority: number;
+  requiredFeatureId: string | null;
+  isCompleted: boolean;
+  isRecommended: boolean;
+  recommendationScore: number;
+  recommendationReason: string | null;
+}
+
+export interface OnboardingPath {
+  userId: string;
+  userRole: string;
+  userGoals: string[];
+  steps: OnboardingStep[];
+  progress: number;
+  nextStep: OnboardingStep | null;
+}
+
+export interface UserGoal {
+  id: string;
+  name: string;
+  description: string;
+  relevantFeatures: string[];
+}
+
+/**
+ * Generate a personalized onboarding path for a user
+ * @param userId The user ID
+ * @param userRole The user's role
+ * @param userGoals The user's selected goals
+ * @returns A personalized onboarding path
+ */
+export async function generateOnboardingPath(
+  userId: string,
+  userRole: string,
+  userGoals: string[]
+): Promise<OnboardingPath> {
+  try {
+    // Get all available onboarding steps
+    const allSteps = await getAllOnboardingSteps();
+    
+    // Get the user's completed steps
+    const completedStepIds = await getUserCompletedSteps(userId);
+    
+    // Get the user's subscription tier and available features
+    const { tier, features } = await getUserSubscriptionInfo(userId);
+    
+    // Score and filter steps based on role, goals, and available features
+    const scoredSteps = scoreAndFilterSteps(
+      allSteps,
+      userRole,
+      userGoals,
+      features,
+      completedStepIds
+    );
+    
+    // Sort steps by priority and score
+    const sortedSteps = sortSteps(scoredSteps);
+    
+    // Calculate progress and determine next step
+    const progress = calculateProgress(sortedSteps);
+    const nextStep = determineNextStep(sortedSteps);
+    
+    return {
+      userId,
+      userRole,
+      userGoals,
+      steps: sortedSteps,
+      progress,
+      nextStep,
+    };
+  } catch (error) {
+    console.error('Error generating onboarding path:', error);
+    
+    // Return a default path with no steps
+    return {
+      userId,
+      userRole,
+      userGoals,
+      steps: [],
+      progress: 0,
+      nextStep: null,
+    };
+  }
+}
+
+/**
+ * Get all available onboarding steps
+ * @returns All available onboarding steps
+ */
+async function getAllOnboardingSteps(): Promise<Omit<OnboardingStep, 'isCompleted' | 'isRecommended' | 'recommendationScore' | 'recommendationReason'>[]> {
+  // In a real implementation, these would be fetched from the database
+  return [
+    {
+      id: 'profile_setup',
+      title: 'Complete Your Profile',
+      description: 'Set up your profile with your teaching preferences and areas of expertise.',
+      component: 'ProfileSetupCard',
+      priority: 100,
+      requiredFeatureId: null,
+    },
+    {
+      id: 'subscription_selection',
+      title: 'Choose a Subscription Plan',
+      description: 'Select a subscription plan that fits your needs.',
+      component: 'SubscriptionSelectionCard',
+      priority: 90,
+      requiredFeatureId: null,
+    },
+    {
+      id: 'create_first_lesson',
+      title: 'Create Your First Lesson Plan',
+      description: 'Use our AI-powered lesson planner to create your first lesson plan.',
+      component: 'FirstLessonCard',
+      priority: 80,
+      requiredFeatureId: 'ai_lesson_plan',
+    },
+    {
+      id: 'differentiate_content',
+      title: 'Differentiate Lesson Content',
+      description: 'Learn how to differentiate your lesson content for different student needs.',
+      component: 'ContentDifferentiationCard',
+      priority: 70,
+      requiredFeatureId: 'content_differentiation',
+    },
+    {
+      id: 'create_assessment',
+      title: 'Create an Assessment',
+      description: 'Create an assessment aligned with your lesson objectives.',
+      component: 'AssessmentCreationCard',
+      priority: 60,
+      requiredFeatureId: 'assessment_generator',
+    },
+    {
+      id: 'student_accommodations',
+      title: 'Set Up Student Accommodations',
+      description: 'Learn how to set up accommodations for students with special needs.',
+      component: 'AccommodationsCard',
+      priority: 50,
+      requiredFeatureId: 'student_accommodations',
+    },
+    {
+      id: 'explore_content_library',
+      title: 'Explore the Content Library',
+      description: 'Browse our library of educational content and resources.',
+      component: 'ContentLibraryCard',
+      priority: 40,
+      requiredFeatureId: 'content_library',
+    },
+    {
+      id: 'setup_classroom',
+      title: 'Set Up Your Virtual Classroom',
+      description: 'Configure your virtual classroom settings and invite students.',
+      component: 'ClassroomSetupCard',
+      priority: 30,
+      requiredFeatureId: 'virtual_classroom',
+    },
+    {
+      id: 'invite_colleagues',
+      title: 'Invite Colleagues',
+      description: 'Invite your colleagues to collaborate on lesson plans and resources.',
+      component: 'InviteColleaguesCard',
+      priority: 20,
+      requiredFeatureId: 'collaboration',
+    },
+    {
+      id: 'setup_analytics',
+      title: 'Set Up Analytics',
+      description: 'Configure analytics to track student progress and engagement.',
+      component: 'AnalyticsSetupCard',
+      priority: 10,
+      requiredFeatureId: 'analytics',
+    },
+  ];
+}
+
+/**
+ * Get a user's completed onboarding steps
+ * @param userId The user ID
+ * @returns The IDs of the user's completed onboarding steps
+ */
+async function getUserCompletedSteps(userId: string): Promise<string[]> {
+  try {
+    // Get the user's completed onboarding steps
+    const completedSteps = await prisma.userOnboardingProgress.findMany({
+      where: {
+        userId,
+        isCompleted: true,
+      },
+      select: {
+        stepId: true,
+      },
+    });
+    
+    return completedSteps.map((step: { stepId: string }) => step.stepId);
+  } catch (error) {
+    console.error('Error getting user completed steps:', error);
+    return [];
+  }
+}
+
+/**
+ * Get a user's subscription tier and available features
+ * @param userId The user ID
+ * @returns The user's subscription tier and available features
+ */
+async function getUserSubscriptionInfo(userId: string): Promise<{
+  tier: string | null;
+  features: string[];
+}> {
+  try {
+    // Get the user's active subscription
+    const subscription = await prisma.subscription.findFirst({
+      where: {
+        userId,
+        status: 'active',
+      },
+      include: {
+        SubscriptionTier: true,
+      },
+    });
+    
+    if (!subscription) {
+      return {
+        tier: null,
+        features: [],
+      };
+    }
+    
+    // Parse the features JSON
+    let features: string[] = [];
+    try {
+      features = JSON.parse(subscription.SubscriptionTier.features as string);
+    } catch (error) {
+      console.error('Error parsing features:', error);
+    }
+    
+    return {
+      tier: subscription.SubscriptionTier.name,
+      features,
+    };
+  } catch (error) {
+    console.error('Error getting user subscription info:', error);
+    return {
+      tier: null,
+      features: [],
+    };
+  }
+}
+
+/**
+ * Score and filter onboarding steps based on role, goals, and available features
+ * @param steps All available onboarding steps
+ * @param userRole The user's role
+ * @param userGoals The user's selected goals
+ * @param availableFeatures The user's available features
+ * @param completedStepIds The IDs of the user's completed onboarding steps
+ * @returns Scored and filtered onboarding steps
+ */
+function scoreAndFilterSteps(
+  steps: Omit<OnboardingStep, 'isCompleted' | 'isRecommended' | 'recommendationScore' | 'recommendationReason'>[],
+  userRole: string,
+  userGoals: string[],
+  availableFeatures: string[],
+  completedStepIds: string[]
+): OnboardingStep[] {
+  // Get the available goals
+  const goals = getAvailableGoals();
+  
+  // Score each step
+  return steps.map(step => {
+    // Check if the step is completed
+    const isCompleted = completedStepIds.includes(step.id);
+    
+    // Check if the step requires a feature that the user doesn't have
+    const hasRequiredFeature = !step.requiredFeatureId || availableFeatures.includes(step.requiredFeatureId);
+    
+    // Calculate the recommendation score
+    let recommendationScore = 0;
+    let recommendationReason: string | null = null;
+    
+    // Base score on role relevance
+    const roleRelevance = calculateRoleRelevance(step.id, userRole);
+    recommendationScore += roleRelevance * 0.4; // 40% weight
+    
+    // Base score on goal relevance
+    const goalRelevance = calculateGoalRelevance(step.id, userGoals, goals);
+    recommendationScore += goalRelevance.score * 0.6; // 60% weight
+    
+    // Determine the recommendation reason
+    if (goalRelevance.score > 0.7) {
+      recommendationReason = `Helps with your goal: ${goalRelevance.primaryGoal}`;
+    } else if (roleRelevance > 0.7) {
+      recommendationReason = `Recommended for ${userRole}s`;
+    } else {
+      recommendationReason = 'General onboarding step';
+    }
+    
+    // Determine if the step is recommended
+    const isRecommended = hasRequiredFeature && !isCompleted && recommendationScore > 0.5;
+    
+    return {
+      ...step,
+      isCompleted,
+      isRecommended,
+      recommendationScore,
+      recommendationReason,
+    };
+  });
+}
+
+/**
+ * Calculate the relevance of a step to a user's role
+ * @param stepId The step ID
+ * @param userRole The user's role
+ * @returns The relevance score (0-1)
+ */
+function calculateRoleRelevance(stepId: string, userRole: string): number {
+  // Define role relevance for each step
+  const roleRelevance: Record<string, Record<string, number>> = {
+    profile_setup: {
+      teacher: 1.0,
+      administrator: 1.0,
+      counselor: 1.0,
+      parent: 0.8,
+      student: 0.5,
+    },
+    subscription_selection: {
+      teacher: 1.0,
+      administrator: 1.0,
+      counselor: 1.0,
+      parent: 0.8,
+      student: 0.3,
+    },
+    create_first_lesson: {
+      teacher: 1.0,
+      administrator: 0.5,
+      counselor: 0.3,
+      parent: 0.2,
+      student: 0.1,
+    },
+    differentiate_content: {
+      teacher: 1.0,
+      administrator: 0.4,
+      counselor: 0.6,
+      parent: 0.3,
+      student: 0.1,
+    },
+    create_assessment: {
+      teacher: 1.0,
+      administrator: 0.5,
+      counselor: 0.4,
+      parent: 0.2,
+      student: 0.1,
+    },
+    student_accommodations: {
+      teacher: 0.9,
+      administrator: 0.7,
+      counselor: 1.0,
+      parent: 0.5,
+      student: 0.3,
+    },
+    explore_content_library: {
+      teacher: 0.9,
+      administrator: 0.7,
+      counselor: 0.8,
+      parent: 0.6,
+      student: 0.8,
+    },
+    setup_classroom: {
+      teacher: 1.0,
+      administrator: 0.6,
+      counselor: 0.4,
+      parent: 0.2,
+      student: 0.3,
+    },
+    invite_colleagues: {
+      teacher: 0.8,
+      administrator: 1.0,
+      counselor: 0.7,
+      parent: 0.1,
+      student: 0.1,
+    },
+    setup_analytics: {
+      teacher: 0.7,
+      administrator: 1.0,
+      counselor: 0.8,
+      parent: 0.3,
+      student: 0.2,
+    },
+  };
+  
+  // Get the relevance for the user's role, or default to 0.5
+  return roleRelevance[stepId]?.[userRole.toLowerCase()] || 0.5;
+}
+
+/**
+ * Calculate the relevance of a step to a user's goals
+ * @param stepId The step ID
+ * @param userGoals The user's selected goals
+ * @param goals All available goals
+ * @returns The relevance score (0-1) and primary goal
+ */
+function calculateGoalRelevance(
+  stepId: string,
+  userGoals: string[],
+  goals: UserGoal[]
+): {
+  score: number;
+  primaryGoal: string | null;
+} {
+  if (userGoals.length === 0) {
+    return {
+      score: 0.5,
+      primaryGoal: null,
+    };
+  }
+  
+  // Find the goals that include this step's feature
+  const relevantGoals = goals.filter(goal => {
+    return goal.relevantFeatures.includes(stepId);
+  });
+  
+  // Check if any of the user's goals are relevant to this step
+  const matchingGoals = relevantGoals.filter(goal => {
+    return userGoals.includes(goal.id);
+  });
+  
+  if (matchingGoals.length === 0) {
+    return {
+      score: 0.3, // Low relevance if no matching goals
+      primaryGoal: null,
+    };
+  }
+  
+  // Calculate the relevance score based on the number of matching goals
+  const score = Math.min(matchingGoals.length / userGoals.length, 1);
+  
+  return {
+    score,
+    primaryGoal: matchingGoals[0].name,
+  };
+}
+
+/**
+ * Get all available user goals
+ * @returns All available user goals
+ */
+function getAvailableGoals(): UserGoal[] {
+  // In a real implementation, these would be fetched from the database
+  return [
+    {
+      id: 'improve_lesson_planning',
+      name: 'Improve Lesson Planning',
+      description: 'Create more effective and engaging lesson plans.',
+      relevantFeatures: ['create_first_lesson', 'differentiate_content', 'explore_content_library'],
+    },
+    {
+      id: 'personalize_learning',
+      name: 'Personalize Learning',
+      description: 'Tailor instruction to meet individual student needs.',
+      relevantFeatures: ['differentiate_content', 'student_accommodations'],
+    },
+    {
+      id: 'improve_assessment',
+      name: 'Improve Assessment',
+      description: 'Create better assessments to measure student learning.',
+      relevantFeatures: ['create_assessment', 'setup_analytics'],
+    },
+    {
+      id: 'collaborate_with_colleagues',
+      name: 'Collaborate with Colleagues',
+      description: 'Work more effectively with other educators.',
+      relevantFeatures: ['invite_colleagues', 'setup_classroom'],
+    },
+    {
+      id: 'track_student_progress',
+      name: 'Track Student Progress',
+      description: 'Monitor and analyse student learning and growth.',
+      relevantFeatures: ['setup_analytics', 'create_assessment'],
+    },
+    {
+      id: 'support_special_needs',
+      name: 'Support Special Needs',
+      description: 'Better support students with special educational needs.',
+      relevantFeatures: ['student_accommodations', 'differentiate_content'],
+    },
+    {
+      id: 'save_time',
+      name: 'Save Time',
+      description: 'Reduce time spent on administrative tasks.',
+      relevantFeatures: ['create_first_lesson', 'create_assessment', 'explore_content_library'],
+    },
+  ];
+}
+
+/**
+ * Sort onboarding steps by priority and recommendation score
+ * @param steps The onboarding steps to sort
+ * @returns Sorted onboarding steps
+ */
+function sortSteps(steps: OnboardingStep[]): OnboardingStep[] {
+  // First, separate completed and uncompleted steps
+  const completedSteps = steps.filter(step => step.isCompleted);
+  const uncompletedSteps = steps.filter(step => !step.isCompleted);
+  
+  // Sort uncompleted steps by priority (higher first) and recommendation score (higher first)
+  uncompletedSteps.sort((a, b) => {
+    // First, sort by priority
+    if (a.priority !== b.priority) {
+      return b.priority - a.priority;
+    }
+    
+    // Then, sort by recommendation score
+    return b.recommendationScore - a.recommendationScore;
+  });
+  
+  // Sort completed steps by priority
+  completedSteps.sort((a, b) => b.priority - a.priority);
+  
+  // Return uncompleted steps first, then completed steps
+  return [...uncompletedSteps, ...completedSteps];
+}
+
+/**
+ * Calculate the onboarding progress
+ * @param steps The onboarding steps
+ * @returns The progress percentage (0-100)
+ */
+function calculateProgress(steps: OnboardingStep[]): number {
+  if (steps.length === 0) {
+    return 0;
+  }
+  
+  const completedCount = steps.filter(step => step.isCompleted).length;
+  return Math.round((completedCount / steps.length) * 100);
+}
+
+/**
+ * Determine the next onboarding step
+ * @param steps The sorted onboarding steps
+ * @returns The next onboarding step, or null if all steps are completed
+ */
+function determineNextStep(steps: OnboardingStep[]): OnboardingStep | null {
+  // Find the first uncompleted step
+  const nextStep = steps.find(step => !step.isCompleted);
+  return nextStep || null;
+}
+
+/**
+ * Mark an onboarding step as completed
+ * @param userId The user ID
+ * @param stepId The step ID
+ * @returns Whether the operation was successful
+ */
+export async function completeOnboardingStep(
+  userId: string,
+  stepId: string
+): Promise<boolean> {
+  try {
+    // Check if the step already exists
+    const existingStep = await prisma.userOnboardingProgress.findFirst({
+      where: {
+        userId,
+        stepId,
+      },
+    });
+    
+    if (existingStep) {
+      // Update the existing step
+      await prisma.userOnboardingProgress.update({
+        where: {
+          id: existingStep.id,
+        },
+        data: {
+          isCompleted: true,
+          completedAt: new Date(),
+        },
+      });
+    } else {
+      // Create a new step
+      await prisma.userOnboardingProgress.create({
+        data: {
+          id: `progress_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`,
+          userId,
+          stepId,
+          isCompleted: true,
+          completedAt: new Date(),
+        },
+      });
+    }
+    
+    return true;
+  } catch (error) {
+    console.error('Error completing onboarding step:', error);
+    return false;
+  }
+}

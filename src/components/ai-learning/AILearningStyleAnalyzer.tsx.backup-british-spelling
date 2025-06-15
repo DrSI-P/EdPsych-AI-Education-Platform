@@ -1,0 +1,645 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { 
+  Brain, 
+  BarChart2, 
+  PieChart, 
+  Eye, 
+  Ear, 
+  Hand, 
+  BookOpen,
+  Clock,
+  RefreshCw,
+  Download,
+  ChevronDown,
+  ChevronUp,
+  HelpCircle,
+  CheckCircle,
+  AlertTriangle,
+  Info
+} from 'lucide-react';
+
+interface AILearningStyleAnalyzerProps {
+  userId?: string;
+  courseId?: string;
+  userRole: 'student' | 'instructor' | 'admin';
+  className?: string;
+}
+
+interface LearningStyle {
+  id: string;
+  name: string;
+  score: number;
+  description: string;
+  characteristics: string[];
+  strategies: string[];
+  icon: React.ReactNode;
+}
+
+interface LearningPreference {
+  id: string;
+  name: string;
+  score: number;
+  description: string;
+}
+
+interface LearningInsight {
+  id: string;
+  type: 'strength' | 'challenge' | 'opportunity';
+  title: string;
+  description: string;
+}
+
+interface LearningRecommendation {
+  id: string;
+  title: string;
+  description: string;
+  relevance: number;
+  contentTypes: string[];
+}
+
+const AILearningStyleAnalyzer: React.FC<AILearningStyleAnalyzerProps> = ({
+  userId,
+  courseId,
+  userRole,
+  className = '',
+}) => {
+  // State
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [learningStyles, setLearningStyles] = useState<LearningStyle[]>([]);
+  const [learningPreferences, setLearningPreferences] = useState<LearningPreference[]>([]);
+  const [learningInsights, setLearningInsights] = useState<LearningInsight[]>([]);
+  const [learningRecommendations, setLearningRecommendations] = useState<LearningRecommendation[]>([]);
+  const [expandedSections, setExpandedSections] = useState({
+    learningStyles: true,
+    learningPreferences: true,
+    learningInsights: true,
+    learningRecommendations: true
+  });
+  const [showQuiz, setShowQuiz] = useState(false);
+  const [quizCompleted, setQuizCompleted] = useState(false);
+  
+  // Fetch data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        
+        // In a real app, these would be API calls
+        // For now, we'll use mock data
+        
+        // Mock learning styles
+        const mockLearningStyles: LearningStyle[] = [
+          {
+            id: 'visual',
+            name: 'Visual',
+            score: 0.75,
+            description: 'You learn best through visual aids like charts, diagrams, and written information.',
+            characteristics: [
+              'Prefer to see information',
+              'Benefit from diagrams and charts',
+              'Remember what they read and see',
+              'Notice visual details',
+              'Enjoy visual arts and design'
+            ],
+            strategies: [
+              'Use color-coding and highlighting',
+              'Create mind maps and diagrams',
+              'Watch educational videos',
+              'Use flashcards with images',
+              'Take detailed notes with visual elements'
+            ],
+            icon: <Eye className="h-6 w-6 text-blue-400" />
+          },
+          {
+            id: 'auditory',
+            name: 'Auditory',
+            score: 0.45,
+            description: 'You learn through listening, discussions, and verbal instructions.',
+            characteristics: [
+              'Learn well through lectures',
+              'Remember spoken information',
+              'Process information by talking it through',
+              'Benefit from group discussions',
+              'May read aloud to understand text'
+            ],
+            strategies: [
+              'Record and listen to lectures',
+              'Participate in group discussions',
+              'Use text-to-speech for reading',
+              'Explain concepts aloud to yourself',
+              'Create audio summaries of material'
+            ],
+            icon: <Ear className="h-6 w-6 text-purple-400" />
+          },
+          {
+            id: 'kinesthetic',
+            name: 'Kinesthetic',
+            score: 0.60,
+            description: 'You learn through hands-on activities, movement, and practical experiences.',
+            characteristics: [
+              'Learn by doing and experiencing',
+              'Prefer hands-on activities',
+              'May struggle sitting still for long periods',
+              'Remember what they physically do',
+              'Enjoy role-playing and simulations'
+            ],
+            strategies: [
+              'Use physical models and manipulatives',
+              'Take breaks for movement',
+              'Apply concepts through experiments',
+              'Use role-playing to understand scenarios',
+              'Create physical flashcards to handle while studying'
+            ],
+            icon: <Hand className="h-6 w-6 text-green-400" />
+          },
+          {
+            id: 'reading-writing',
+            name: 'Reading/Writing',
+            score: 0.80,
+            description: 'You prefer information displayed as words, emphasizing text-based input and output.',
+            characteristics: [
+              'Enjoy reading and writing',
+              'Take detailed notes',
+              'Express themselves well in writing',
+              'Prefer text-based learning materials',
+              'Learn well from textbooks and articles'
+            ],
+            strategies: [
+              'Rewrite notes in your own words',
+              'Create written summaries',
+              'Use text-based resources',
+              'Practice writing answers to potential questions',
+              'Create lists and outlines'
+            ],
+            icon: <BookOpen className="h-6 w-6 text-orange-400" />
+          }
+        ];
+        
+        // Mock learning preferences
+        const mockLearningPreferences: LearningPreference[] = [
+          {
+            id: 'time-of-day',
+            name: 'Time of Day',
+            score: 0.85,
+            description: 'You show strongest learning performance in the morning hours (6-10am).'
+          },
+          {
+            id: 'environment',
+            name: 'Learning Environment',
+            score: 0.70,
+            description: 'You prefer quiet, structured environments with minimal distractions.'
+          },
+          {
+            id: 'social',
+            name: 'Social Learning',
+            score: 0.40,
+            description: 'You tend to learn better independently than in group settings.'
+          },
+          {
+            id: 'pace',
+            name: 'Learning Pace',
+            score: 0.65,
+            description: 'You prefer a moderate pace with time for reflection between concepts.'
+          },
+          {
+            id: 'structure',
+            name: 'Structure Preference',
+            score: 0.75,
+            description: 'You benefit from well-organized, structured learning materials with clear objectives.'
+          }
+        ];
+        
+        // Mock learning insights
+        const mockLearningInsights: LearningInsight[] = [
+          {
+            id: 'insight-1',
+            type: 'strength',
+            title: 'Strong Text Processing',
+            description: 'Your high reading/writing preference indicates you excel at processing and retaining text-based information. This is particularly valuable for academic research and detailed study.'
+          },
+          {
+            id: 'insight-2',
+            type: 'strength',
+            title: 'Visual Information Processing',
+            description: 'Your strong visual learning tendency helps you quickly understand and remember information presented in charts, diagrams, and other visual formats.'
+          },
+          {
+            id: 'insight-3',
+            type: 'challenge',
+            title: 'Group Learning Situations',
+            description: 'Your lower score in social learning suggests you may find group work and collaborative learning environments challenging. Consider developing strategies for more effective participation in these settings.'
+          },
+          {
+            id: 'insight-4',
+            type: 'opportunity',
+            title: 'Auditory Learning Development',
+            description: 'Strengthening your auditory learning skills could help you better retain information from lectures and discussions. Try recording and listening to summaries of your notes.'
+          },
+          {
+            id: 'insight-5',
+            type: 'opportunity',
+            title: 'Morning Productivity Maximization',
+            description: 'Your strong morning preference suggests scheduling important study sessions and challenging material during morning hours could significantly improve your learning outcomes.'
+          }
+        ];
+        
+        // Mock learning recommendations
+        const mockLearningRecommendations: LearningRecommendation[] = [
+          {
+            id: 'rec-1',
+            title: 'Visual Note-Taking Techniques',
+            description: 'Implement mind mapping, color coding, and visual organization in your notes to leverage your visual learning strength.',
+            relevance: 0.90,
+            contentTypes: ['articles', 'videos', 'tools']
+          },
+          {
+            id: 'rec-2',
+            title: 'Text-to-Speech Tools',
+            description: 'Use text-to-speech applications to convert reading materials into audio format, helping develop your auditory learning pathways.',
+            relevance: 0.75,
+            contentTypes: ['tools', 'tutorials']
+          },
+          {
+            id: 'rec-3',
+            title: 'Morning Study Routine',
+            description: 'Establish a consistent morning study routine focusing on your most challenging subjects during your peak cognitive hours.',
+            relevance: 0.85,
+            contentTypes: ['articles', 'templates']
+          },
+          {
+            id: 'rec-4',
+            title: 'Active Reading Strategies',
+            description: 'Implement SQ3R (Survey, Question, Read, Recite, Review) and other active reading techniques to enhance your already strong reading/writing preference.',
+            relevance: 0.80,
+            contentTypes: ['articles', 'courses']
+          },
+          {
+            id: 'rec-5',
+            title: 'Kinesthetic Learning Activities',
+            description: 'Incorporate physical movement into your study sessions, such as walking while reviewing notes or using physical flashcards.',
+            relevance: 0.70,
+            contentTypes: ['videos', 'exercises']
+          }
+        ];
+        
+        setLearningStyles(mockLearningStyles);
+        setLearningPreferences(mockLearningPreferences);
+        setLearningInsights(mockLearningInsights);
+        setLearningRecommendations(mockLearningRecommendations);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching learning style data:', err);
+        setError('Failed to load learning style analysis');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    fetchData();
+  }, [userId, courseId]);
+  
+  // Toggle section expansion
+  const toggleSection = (section: keyof typeof expandedSections) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }));
+  };
+  
+  // Format percentage
+  const formatPercentage = (value: number): string => {
+    return `${Math.round(value * 100)}%`;
+  };
+  
+  // Get dominant learning style
+  const getDominantLearningStyle = (): LearningStyle | null => {
+    if (learningStyles.length === 0) return null;
+    
+    return learningStyles.reduce((prev, current) => 
+      prev.score > current.score ? prev : current
+    );
+  };
+  
+  // Render loading state
+  if (isLoading) {
+    return (
+      <div className={`bg-grey-900 rounded-lg p-6 ${className}`}>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-semibold text-white">Learning Style Analysis</h2>
+          <div className="animate-pulse h-4 w-32 bg-grey-700 rounded"></div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="animate-pulse h-64 bg-grey-800 rounded"></div>
+          <div className="animate-pulse h-64 bg-grey-800 rounded"></div>
+        </div>
+      </div>
+    );
+  }
+  
+  return (
+    <div className={`bg-grey-900 rounded-lg p-6 ${className}`}>
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+        <h2 className="text-2xl font-semibold text-white mb-4 md:mb-0 flex items-center">
+          <Brain className="h-6 w-6 mr-2 text-purple-400" />
+          Learning Style Analysis
+        </h2>
+        
+        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+          {/* Take Quiz Button */}
+          <button
+            className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white rounded px-3 py-2 text-sm"
+            onClick={() => setShowQuiz(true)}
+          >
+            <RefreshCw className="h-4 w-4" />
+            <span>Take Learning Style Quiz</span>
+          </button>
+          
+          {/* Export Button */}
+          <button
+            className="flex items-center space-x-2 bg-grey-800 hover:bg-grey-700 text-white rounded px-3 py-2 text-sm"
+          >
+            <Download className="h-4 w-4" />
+            <span>Export Analysis</span>
+          </button>
+        </div>
+      </div>
+      
+      {error && (
+        <div className="bg-red-500/20 border border-red-500 text-white p-4 mb-6 rounded">
+          {error}
+        </div>
+      )}
+      
+      {/* Introduction */}
+      <div className="bg-grey-800 rounded-lg p-4 mb-6">
+        <div className="flex items-start">
+          <Info className="h-5 w-5 text-blue-400 mr-3 mt-0.5" />
+          <div>
+            <p className="text-grey-300">
+              This AI-powered analysis identifies your learning style preferences based on your platform interactions, 
+              content engagement patterns, and assessment performance. Understanding your learning style can help you 
+              choose more effective study strategies and learning resources.
+            </p>
+            {!quizCompleted && (
+              <p className="text-grey-400 text-sm mt-2">
+                For a more accurate analysis, consider taking the learning style assessment quiz.
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+      
+      {/* Learning Styles */}
+      <div className="mb-6">
+        <div 
+          className="flex items-center justify-between cursor-pointer mb-4"
+          onClick={() => toggleSection('learningStyles')}
+        >
+          <h3 className="text-lg font-medium text-white flex items-center">
+            <Brain className="h-5 w-5 mr-2 text-purple-400" />
+            <span>Your Learning Style Profile</span>
+          </h3>
+          {expandedSections.learningStyles ? (
+            <ChevronUp className="h-5 w-5 text-grey-400" />
+          ) : (
+            <ChevronDown className="h-5 w-5 text-grey-400" />
+          )}
+        </div>
+        
+        {expandedSections.learningStyles && (
+          <div className="space-y-6">
+            {/* Learning Style Chart */}
+            <div className="bg-grey-800 rounded-lg p-4">
+              <h4 className="text-white font-medium mb-4">Learning Style Distribution</h4>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {learningStyles.map(style => (
+                  <div key={style.id} className="bg-grey-750 rounded-lg p-4">
+                    <div className="flex flex-col items-center">
+                      <div className="mb-2">
+                        {style.icon}
+                      </div>
+                      <div className="text-white font-medium text-center">{style.name}</div>
+                      <div className="text-2xl font-bold text-white mt-2">{formatPercentage(style.score)}</div>
+                      <div className="w-full bg-grey-700 rounded-full h-2 mt-2">
+                        <div 
+                          className={`h-2 rounded-full ${
+                            style.id === 'visual' ? 'bg-blue-500' :
+                            style.id === 'auditory' ? 'bg-purple-500' :
+                            style.id === 'kinesthetic' ? 'bg-green-500' :
+                            'bg-orange-500'
+                          }`}
+                          style={{ width: `${style.score * 100}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Dominant Learning Style */}
+            {getDominantLearningStyle() && (
+              <div className="bg-grey-800 rounded-lg p-4">
+                <h4 className="text-white font-medium mb-4">Primary Learning Style: {getDominantLearningStyle()?.name}</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <p className="text-grey-300 mb-4">{getDominantLearningStyle()?.description}</p>
+                    <h5 className="text-white text-sm font-medium mb-2">Characteristics:</h5>
+                    <ul className="list-disc pl-5 space-y-1 text-grey-300">
+                      {getDominantLearningStyle()?.characteristics.map((characteristic, index) => (
+                        <li key={index}>{characteristic}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 className="text-white text-sm font-medium mb-2">Recommended Strategies:</h5>
+                    <ul className="list-disc pl-5 space-y-1 text-grey-300">
+                      {getDominantLearningStyle()?.strategies.map((strategy, index) => (
+                        <li key={index}>{strategy}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+      
+      {/* Learning Preferences */}
+      <div className="mb-6">
+        <div 
+          className="flex items-center justify-between cursor-pointer mb-4"
+          onClick={() => toggleSection('learningPreferences')}
+        >
+          <h3 className="text-lg font-medium text-white flex items-center">
+            <BarChart2 className="h-5 w-5 mr-2 text-blue-400" />
+            <span>Learning Preferences</span>
+          </h3>
+          {expandedSections.learningPreferences ? (
+            <ChevronUp className="h-5 w-5 text-grey-400" />
+          ) : (
+            <ChevronDown className="h-5 w-5 text-grey-400" />
+          )}
+        </div>
+        
+        {expandedSections.learningPreferences && (
+          <div className="bg-grey-800 rounded-lg p-4">
+            <div className="space-y-4">
+              {learningPreferences.map(preference => (
+                <div key={preference.id} className="bg-grey-750 rounded-lg p-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <h4 className="text-white font-medium">{preference.name}</h4>
+                    <div className="text-white font-medium">{formatPercentage(preference.score)}</div>
+                  </div>
+                  <div className="w-full bg-grey-700 rounded-full h-2 mb-2">
+                    <div 
+                      className="bg-blue-500 h-2 rounded-full" 
+                      style={{ width: `${preference.score * 100}%` }}
+                    ></div>
+                  </div>
+                  <p className="text-grey-300 text-sm">{preference.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+      
+      {/* Learning Insights */}
+      <div className="mb-6">
+        <div 
+          className="flex items-center justify-between cursor-pointer mb-4"
+          onClick={() => toggleSection('learningInsights')}
+        >
+          <h3 className="text-lg font-medium text-white flex items-center">
+            <HelpCircle className="h-5 w-5 mr-2 text-yellow-400" />
+            <span>Learning Insights</span>
+          </h3>
+          {expandedSections.learningInsights ? (
+            <ChevronUp className="h-5 w-5 text-grey-400" />
+          ) : (
+            <ChevronDown className="h-5 w-5 text-grey-400" />
+          )}
+        </div>
+        
+        {expandedSections.learningInsights && (
+          <div className="space-y-4">
+            {learningInsights.map(insight => (
+              <div 
+                key={insight.id} 
+                className={`rounded-lg p-4 ${
+                  insight.type === 'strength' ? 'bg-green-900/20 border border-green-700' :
+                  insight.type === 'challenge' ? 'bg-red-900/20 border border-red-700' :
+                  'bg-blue-900/20 border border-blue-700'
+                }`}
+              >
+                <div className="flex items-start">
+                  {insight.type === 'strength' && <CheckCircle className="h-5 w-5 text-green-400 mr-3 mt-0.5" />}
+                  {insight.type === 'challenge' && <AlertTriangle className="h-5 w-5 text-red-400 mr-3 mt-0.5" />}
+                  {insight.type === 'opportunity' && <Info className="h-5 w-5 text-blue-400 mr-3 mt-0.5" />}
+                  <div>
+                    <h4 className="text-white font-medium mb-1">{insight.title}</h4>
+                    <p className="text-grey-300">{insight.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      
+      {/* Learning Recommendations */}
+      <div>
+        <div 
+          className="flex items-center justify-between cursor-pointer mb-4"
+          onClick={() => toggleSection('learningRecommendations')}
+        >
+          <h3 className="text-lg font-medium text-white flex items-center">
+            <BookOpen className="h-5 w-5 mr-2 text-green-400" />
+            <span>Personalized Recommendations</span>
+          </h3>
+          {expandedSections.learningRecommendations ? (
+            <ChevronUp className="h-5 w-5 text-grey-400" />
+          ) : (
+            <ChevronDown className="h-5 w-5 text-grey-400" />
+          )}
+        </div>
+        
+        {expandedSections.learningRecommendations && (
+          <div className="space-y-4">
+            {learningRecommendations.map(recommendation => (
+              <div key={recommendation.id} className="bg-grey-800 rounded-lg p-4">
+                <div className="flex items-start">
+                  <div className="flex-1">
+                    <h4 className="text-white font-medium mb-1">{recommendation.title}</h4>
+                    <p className="text-grey-300 mb-2">{recommendation.description}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {recommendation.contentTypes.map((type, index) => (
+                        <span 
+                          key={index}
+                          className="bg-grey-700 text-grey-300 px-2 py-0.5 rounded text-xs"
+                        >
+                          {type}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="ml-4 bg-grey-700 rounded-full h-12 w-12 flex items-center justify-center">
+                    <span className="text-white font-medium">{formatPercentage(recommendation.relevance)}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      
+      {/* Learning Style Quiz Modal */}
+      {showQuiz && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-grey-900 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-semibold text-white">Learning Style Assessment Quiz</h3>
+                <button 
+                  className="text-grey-400 hover:text-white"
+                  onClick={() => setShowQuiz(false)}
+                >
+                  <ChevronDown className="h-6 w-6" />
+                </button>
+              </div>
+              
+              <p className="text-grey-300 mb-6">
+                This quiz will help determine your learning style preferences more accurately. 
+                Answer each question based on your typical learning experiences and preferences.
+              </p>
+              
+              <div className="text-center py-12">
+                <p className="text-grey-400 mb-4">Quiz implementation would go here in a real application.</p>
+                <p className="text-grey-400 mb-8">This would include 20-30 questions about learning preferences.</p>
+                
+                <button
+                  className="bg-blue-600 hover:bg-blue-500 text-white rounded px-4 py-2"
+                  onClick={() => {
+                    setShowQuiz(false);
+                    setQuizCompleted(true);
+                    // In a real app, this would process the quiz results and update the learning style analysis
+                  }}
+                >
+                  Simulate Quiz Completion
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default AILearningStyleAnalyzer;

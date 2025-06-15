@@ -1,0 +1,325 @@
+import React from 'react';
+import Link from 'next/link';
+import { Metadata } from 'next';
+import { 
+  BookOpen, 
+  Video, 
+  FastForward, 
+  Rewind, 
+  Pause, 
+  Play, 
+  Volume2, 
+  VolumeX,
+  Bookmark,
+  MessageSquare,
+  FileText,
+  Clock,
+  Download,
+  Share2
+} from 'lucide-react';
+// This prevents Next.js from trying to statically generate this page
+export const dynamic = 'force-dynamic';
+// Disable static generation
+export const revalidate = 3600; // 1 hour // 1 hour
+// Disable fetch caching
+export const fetchCache = "force-no-store";
+
+
+
+
+export const metadata: Metadata = {
+  title: 'Interactive Video | EdPsych AI Platform',
+  description: 'Learn how to use the interactive video features of the EdPsych AI Platform to enhance learning experiences.',
+};
+
+export default function InteractiveVideoGuidePage() {
+  return (
+    <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <div className="mb-8">
+        <Link href="/platform-manuals/features" className="text-blue-600 hover:text-blue-800 flex items-center">
+          <BookOpen className="mr-2 h-4 w-4" />
+          Back to Features
+        </Link>
+      </div>
+
+      <div className="bg-white rounded-lg shadow-md p-8">
+        <div className="flex items-center mb-6">
+          <Video className="h-8 w-8 text-blue-600 mr-3" />
+          <h1 className="text-3xl font-bold text-gray-800">Interactive Video</h1>
+        </div>
+
+        <div className="prose max-w-none">
+          <p className="text-lg text-gray-700 mb-6">
+            The EdPsych AI Platform&apos;s Interactive Video feature transforms passive video watching into an engaging, 
+            active learning experience. This guide explains how to use and benefit from our enhanced video capabilities.
+          </p>
+
+          <h2 className="text-2xl font-semibold text-gray-800 mt-8 mb-4">Key Features</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <div className="flex items-center mb-2">
+                <FastForward className="h-5 w-5 text-blue-600 mr-2" />
+                <h3 className="text-xl font-medium text-gray-800">Adaptive Playback</h3>
+              </div>
+              <p className="text-gray-700">
+                Videos automatically adjust playback speed based on content complexity and your learning patterns.
+              </p>
+            </div>
+            
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <div className="flex items-center mb-2">
+                <Bookmark className="h-5 w-5 text-blue-600 mr-2" />
+                <h3 className="text-xl font-medium text-gray-800">Smart Bookmarking</h3>
+              </div>
+              <p className="text-gray-700">
+                Create and organise bookmarks with notes that sync across your devices and integrate with your study materials.
+              </p>
+            </div>
+            
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <div className="flex items-center mb-2">
+                <MessageSquare className="h-5 w-5 text-blue-600 mr-2" />
+                <h3 className="text-xl font-medium text-gray-800">In-Video Questions</h3>
+              </div>
+              <p className="text-gray-700">
+                Interactive questions appear at key moments to reinforce learning and check understanding.
+              </p>
+            </div>
+            
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <div className="flex items-center mb-2">
+                <FileText className="h-5 w-5 text-blue-600 mr-2" />
+                <h3 className="text-xl font-medium text-gray-800">AI-Generated Notes</h3>
+              </div>
+              <p className="text-gray-700">
+                Request AI-generated summaries, key points, and revision notes from any video content.
+              </p>
+            </div>
+          </div>
+
+          <h2 className="text-2xl font-semibold text-gray-800 mt-8 mb-4">Accessibility Features</h2>
+          
+          <div className="bg-gray-50 p-6 rounded-lg mb-8">
+            <p className="mb-4">
+              Our video player includes comprehensive accessibility features to ensure all learners can benefit:
+            </p>
+            
+            <ul className="list-disc pl-6 space-y-2">
+              <li>High-contrast controls with adjustable size</li>
+              <li>Keyboard navigation and shortcuts</li>
+              <li>Screen reader compatibility</li>
+              <li>Auto-generated and editable captions</li>
+              <li>Transcript view with synchronised highlighting</li>
+              <li>Audio description tracks</li>
+              <li>Focus indicators for keyboard users</li>
+            </ul>
+          </div>
+
+          <h2 className="text-2xl font-semibold text-gray-800 mt-8 mb-4">How to Use Interactive Video</h2>
+
+          <div className="space-y-6 mb-8">
+            <div className="border-l-4 border-blue-500 pl-4">
+              <h3 className="text-xl font-medium text-gray-800 mb-2">Basic Controls</h3>
+              <div className="flex flex-wrap items-center gap-4 mb-2">
+                <div className="flex items-center">
+                  <Play className="h-5 w-5 text-blue-600 mr-1" />
+                  <span className="text-gray-700">Play</span>
+                </div>
+                <div className="flex items-center">
+                  <Pause className="h-5 w-5 text-blue-600 mr-1" />
+                  <span className="text-gray-700">Pause</span>
+                </div>
+                <div className="flex items-center">
+                  <Rewind className="h-5 w-5 text-blue-600 mr-1" />
+                  <span className="text-gray-700">Rewind 10s</span>
+                </div>
+                <div className="flex items-center">
+                  <FastForward className="h-5 w-5 text-blue-600 mr-1" />
+                  <span className="text-gray-700">Forward 10s</span>
+                </div>
+                <div className="flex items-center">
+                  <Volume2 className="h-5 w-5 text-blue-600 mr-1" />
+                  <span className="text-gray-700">Volume</span>
+                </div>
+                <div className="flex items-center">
+                  <VolumeX className="h-5 w-5 text-blue-600 mr-1" />
+                  <span className="text-gray-700">Mute</span>
+                </div>
+              </div>
+              <p className="text-gray-700">
+                Use the on-screen controls or keyboard shortcuts (hover over buttons to see shortcuts).
+              </p>
+            </div>
+
+            <div className="border-l-4 border-blue-500 pl-4">
+              <h3 className="text-xl font-medium text-gray-800 mb-2">Creating Bookmarks</h3>
+              <p className="text-gray-700">
+                1. Click the bookmark icon or press &apos;B&apos; at any point in the video<br />
+                2. Add a title and optional notes<br />
+                3. Choose a category or create a new one<br />
+                4. Access your bookmarks from the sidebar or your personal dashboard
+              </p>
+            </div>
+
+            <div className="border-l-4 border-blue-500 pl-4">
+              <h3 className="text-xl font-medium text-gray-800 mb-2">Answering In-Video Questions</h3>
+              <p className="text-gray-700">
+                1. Questions appear automatically at key moments<br />
+                2. The video pauses whilst you consider your answer<br />
+                3. Submit your response to continue<br />
+                4. Review your answers and explanations later in the video summary
+              </p>
+            </div>
+
+            <div className="border-l-4 border-blue-500 pl-4">
+              <h3 className="text-xl font-medium text-gray-800 mb-2">Generating AI Notes</h3>
+              <p className="text-gray-700">
+                1. Click the &apos;Generate Notes&apos; button after watching<br />
+                2. Select the type of notes you need (summary, key points, revision guide, etc.)<br />
+                3. Customise the focus areas if needed<br />
+                4. Review, edit, and save the generated notes to your study materials
+              </p>
+            </div>
+          </div>
+
+          <h2 className="text-2xl font-semibold text-gray-800 mt-8 mb-4">Advanced Features</h2>
+
+          <div className="space-y-6 mb-8">
+            <div>
+              <h3 className="text-xl font-medium text-gray-800 mb-2">Predictive Caching</h3>
+              <p className="text-gray-700 mb-2">
+                Our system intelligently pre-loads video content based on your learning patterns and course structure, 
+                ensuring smooth playback even with variable internet connections.
+              </p>
+              <div className="bg-yellow-50 p-3 rounded-lg">
+                <p className="text-sm text-yellow-800">
+                  <strong>Tip:</strong> For optimal performance, briefly visit your upcoming lesson pages before 
+                  going offline to ensure they&apos;re cached for later viewing.
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-medium text-gray-800 mb-2">Collaborative Viewing</h3>
+              <p className="text-gray-700">
+                Create shared viewing sessions with classmates or study groups:
+              </p>
+              <ol className="list-decimal pl-6 space-y-1 text-gray-700">
+                <li>Click the &apos;Share&apos; button on any video</li>
+                <li>Select &apos;Create Collaborative Session&apos;</li>
+                <li>Invite participants via email or share the generated link</li>
+                <li>Use the synchronised playback controls and shared annotation tools</li>
+                <li>Access the collaborative notes after the session</li>
+              </ol>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-medium text-gray-800 mb-2">Offline Viewing</h3>
+              <p className="text-gray-700 mb-2">
+                Download videos for offline viewing when you know you&apos;ll be without internet access:
+              </p>
+              <div className="flex items-center mb-2">
+                <Download className="h-5 w-5 text-blue-600 mr-2" />
+                <span className="text-gray-700">Click the download button on any video</span>
+              </div>
+              <div className="flex items-center mb-2">
+                <Clock className="h-5 w-5 text-blue-600 mr-2" />
+                <span className="text-gray-700">Set an expiry time (based on your subscription)</span>
+              </div>
+              <div className="flex items-center">
+                <Share2 className="h-5 w-5 text-blue-600 mr-2" />
+                <span className="text-gray-700">Access from the &apos;Downloads&apos; section in your profile</span>
+              </div>
+            </div>
+          </div>
+
+          <h2 className="text-2xl font-semibold text-gray-800 mt-8 mb-4">Best Practices</h2>
+
+          <div className="bg-blue-50 p-6 rounded-lg mb-8">
+            <h3 className="text-xl font-medium text-gray-800 mb-3">For Optimal Learning</h3>
+            
+            <ul className="list-disc pl-6 space-y-3 text-gray-700">
+              <li>
+                <strong>Active engagement:</strong> Pause videos to take your own notes and reflect on content
+              </li>
+              <li>
+                <strong>Spaced repetition:</strong> Use bookmarks to revisit challenging concepts at increasing intervals
+              </li>
+              <li>
+                <strong>Connect concepts:</strong> Create bookmark categories that link related ideas across different videos
+              </li>
+              <li>
+                <strong>Test understanding:</strong> Answer in-video questions without referring to notes first
+              </li>
+              <li>
+                <strong>Supplement with AI notes:</strong> Compare AI-generated notes with your own to identify gaps in understanding
+              </li>
+            </ul>
+          </div>
+
+          <h2 className="text-2xl font-semibold text-gray-800 mt-8 mb-4">Troubleshooting</h2>
+
+          <div className="space-y-4 mb-8">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <h3 className="text-lg font-medium text-gray-800 mb-2">Playback Issues</h3>
+              <p className="text-gray-700">
+                If videos stutter or buffer frequently:
+              </p>
+              <ul className="list-disc pl-6 text-gray-700">
+                <li>Check your internet connection speed</li>
+                <li>Lower the video quality in the settings menu</li>
+                <li>Enable the &apos;Optimise for slow connections&apos; option</li>
+                <li>Download videos for offline viewing when possible</li>
+              </ul>
+            </div>
+
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <h3 className="text-lg font-medium text-gray-800 mb-2">Caption or Transcript Problems</h3>
+              <p className="text-gray-700">
+                If captions are inaccurate or out of sync:
+              </p>
+              <ul className="list-disc pl-6 text-gray-700">
+                <li>Use the caption timing adjustment controls</li>
+                <li>Report inaccuracies using the feedback button</li>
+                <li>Switch to the alternative caption track if available</li>
+              </ul>
+            </div>
+
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <h3 className="text-lg font-medium text-gray-800 mb-2">Accessibility Support</h3>
+              <p className="text-gray-700">
+                For additional accessibility needs:
+              </p>
+              <ul className="list-disc pl-6 text-gray-700">
+                <li>Contact our support team via the Help Centre</li>
+                <li>Explore the Accessibility Settings menu for customisation options</li>
+                <li>Refer to our comprehensive Accessibility Guide for detailed information</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="bg-blue-100 p-6 rounded-lg mb-8">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Coming Soon</h2>
+            <p className="text-gray-700 mb-4">
+              We&apos;re continuously improving our interactive video features. Look forward to these upcoming enhancements:
+            </p>
+            <ul className="list-disc pl-6 space-y-2 text-gray-700">
+              <li>AI-powered video recommendations based on your learning goals and progress</li>
+              <li>Interactive 3D models and simulations embedded within videos</li>
+              <li>Personalised learning paths that adapt based on your responses to in-video questions</li>
+              <li>Enhanced collaborative annotation tools for group study sessions</li>
+              <li>Integration with virtual reality headsets for immersive learning experiences</li>
+            </ul>
+          </div>
+
+          <div className="border-t border-gray-200 pt-6 mt-8">
+            <p className="text-gray-600 text-sm">
+              For additional support with interactive video features, please contact our support team or visit the Help Centre.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

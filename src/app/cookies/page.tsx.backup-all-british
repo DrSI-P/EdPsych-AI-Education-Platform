@@ -1,0 +1,462 @@
+'use client';
+
+import dynamic from 'next/dynamic';
+
+import React from 'react';
+
+import { Heading } from '@/components/ui/heading';
+import { Text } from '@/components/ui/text';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import {
+  Coffee as Biscuit,
+  Info,
+  Shield,
+  Settings,
+  CheckCircle,
+  AlertTriangle,
+  BarChart,
+  Zap,
+  Target,
+  Clock
+} from 'lucide-react';
+import Link from 'next/link';
+// Original component
+
+const AIEnhancedLayout = dynamic(
+  () => import('@/components/layouts/AIEnhancedLayout'),
+  { ssr: false }
+);
+
+function CookiePolicyPage() {
+  return (
+    <AIEnhancedLayout>
+      <div className="container mx-auto py-8 max-w-4xl">
+        <div className="flex items-center mb-6">
+          <Biscuit className="h-8 w-8 text-primary mr-3" />
+          <Heading level="h1">Biscuit Policy</Heading>
+        </div>
+        
+        <Card className="p-6 mb-8">
+          <Text className="text-xl mb-4">
+            This Biscuit Policy explains how EdPsych AI ("we", "us", or "our") uses cookies and similar technologies on our platform to enhance your experience, analyse usage, and assist in our marketing efforts.
+          </Text>
+          
+          <Text className="mb-4">
+            By using the EdPsych AI Platform, you consent to the use of cookies in accordance with this Biscuit Policy. If you do not accept the use of cookies, you can disable them through your browser settings or our biscuit preference centre, but this may affect your ability to use certain features of our platform.
+          </Text>
+          
+          <div className="bg-muted p-4 rounded-md">
+            <Text className="font-medium">Last Updated: June 7, 2025</Text>
+          </div>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-center">
+            <Info className="h-5 w-5 mr-2" /> What Are Cookies
+          </Heading>
+          
+          <Text className="mb-4">
+            Cookies are small text files that are stored on your device (computer, tablet, or mobile) when you visit a website. They are widely used to make websites work more efficiently, provide a better user experience, and give website owners information about how their site is being used.
+          </Text>
+          
+          <Text className="mb-4">
+            Cookies can be "persistent" or "session" cookies. Persistent cookies remain on your device when you go offline, whilst session cookies are deleted as soon as you close your web browser.
+          </Text>
+          
+          <Text className="mb-4">
+            In addition to cookies, we may use other similar technologies, such as web beacons, pixels, and local storage, to collect information about your browsing activities. For simplicity, we refer to all these technologies as "cookies" in this policy.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-center">
+            <Settings className="h-5 w-5 mr-2" /> Types of Cookies We Use
+          </Heading>
+          
+          <Text className="mb-4">
+            We use different types of cookies for various purposes. These cookies fall into the following categories:
+          </Text>
+          
+          <div className="space-y-6 mb-4">
+            <div className="bg-muted p-4 rounded-md">
+              <div className="flex items-center mb-2">
+                <Shield className="h-5 w-5 mr-2 text-primary" />
+                <Heading level="h3" className="text-lg">Essential Cookies</Heading>
+              </div>
+              <Text className="mb-2">
+                These cookies are necessary for the website to function properly. They enable basic functions like page navigation, secure areas access, and platform features. The website cannot function properly without these cookies.
+              </Text>
+              <Text className="text-sm italic">
+                Example: Authentication cookies that keep you logged in during your session.
+              </Text>
+            </div>
+            
+            <div className="bg-muted p-4 rounded-md">
+              <div className="flex items-center mb-2">
+                <BarChart className="h-5 w-5 mr-2 text-primary" />
+                <Heading level="h3" className="text-lg">Performance and Analytics Cookies</Heading>
+              </div>
+              <Text className="mb-2">
+                These cookies collect information about how visitors use our website, such as which pages they visit most often and if they receive error messages. They help us improve website performance and user experience.
+              </Text>
+              <Text className="text-sm italic">
+                Example: Google Analytics cookies that track page views and user journeys through the platform.
+              </Text>
+            </div>
+            
+            <div className="bg-muted p-4 rounded-md">
+              <div className="flex items-center mb-2">
+                <Zap className="h-5 w-5 mr-2 text-primary" />
+                <Heading level="h3" className="text-lg">Functionality Cookies</Heading>
+              </div>
+              <Text className="mb-2">
+                These cookies allow the website to remember choices you make (such as your username, language, or region) and provide enhanced, personalized features.
+              </Text>
+              <Text className="text-sm italic">
+                Example: Cookies that remember your preferences, such as text size, language, or colour scheme.
+              </Text>
+            </div>
+            
+            <div className="bg-muted p-4 rounded-md">
+              <div className="flex items-center mb-2">
+                <Target className="h-5 w-5 mr-2 text-primary" />
+                <Heading level="h3" className="text-lg">Targeting/Advertising Cookies</Heading>
+              </div>
+              <Text className="mb-2">
+                These cookies are used to deliver content that is more relevant to you and your interests. They may be used to deliver targeted advertising or to limit the number of times you see an advertisement. They also help us measure the effectiveness of advertising campaigns.
+              </Text>
+              <Text className="text-sm italic">
+                Example: Cookies used to show you relevant educational resources based on your previous interactions.
+              </Text>
+            </div>
+          </div>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4">Essential Cookies</Heading>
+          
+          <Text className="mb-4">
+            Essential cookies are critical for the functioning of our platform. They include:
+          </Text>
+          
+          <div className="overflow-x-auto mb-4">
+            <table className="min-w-full bg-white border border-gray-200">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="py-2 px-4 border-b text-left">Biscuit Name</th>
+                  <th className="py-2 px-4 border-b text-left">Purpose</th>
+                  <th className="py-2 px-4 border-b text-left">Duration</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="py-2 px-4 border-b">session_id</td>
+                  <td className="py-2 px-4 border-b">Maintains your session state and authentication</td>
+                  <td className="py-2 px-4 border-b">Session</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 border-b">csrf_token</td>
+                  <td className="py-2 px-4 border-b">Protects against Cross-Site Request Forgery attacks</td>
+                  <td className="py-2 px-4 border-b">Session</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 border-b">cookie_consent</td>
+                  <td className="py-2 px-4 border-b">Stores your biscuit preferences</td>
+                  <td className="py-2 px-4 border-b">1 year</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <Text className="mb-4">
+            These cookies cannot be disabled as they are necessary for the platform to function properly.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4">Performance and Analytics Cookies</Heading>
+          
+          <Text className="mb-4">
+            We use performance and analytics cookies to understand how visitors interact with our platform:
+          </Text>
+          
+          <div className="overflow-x-auto mb-4">
+            <table className="min-w-full bg-white border border-gray-200">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="py-2 px-4 border-b text-left">Biscuit Name</th>
+                  <th className="py-2 px-4 border-b text-left">Purpose</th>
+                  <th className="py-2 px-4 border-b text-left">Duration</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="py-2 px-4 border-b">_ga</td>
+                  <td className="py-2 px-4 border-b">Google Analytics - Distinguishes users</td>
+                  <td className="py-2 px-4 border-b">2 years</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 border-b">_gid</td>
+                  <td className="py-2 px-4 border-b">Google Analytics - Distinguishes users</td>
+                  <td className="py-2 px-4 border-b">24 hours</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 border-b">_gat</td>
+                  <td className="py-2 px-4 border-b">Google Analytics - Throttles request rate</td>
+                  <td className="py-2 px-4 border-b">1 minute</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 border-b">ep_performance</td>
+                  <td className="py-2 px-4 border-b">EdPsych AI - Tracks platform performance metrics</td>
+                  <td className="py-2 px-4 border-b">30 days</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <Text className="mb-4">
+            These cookies help us improve our platform by providing insights into how it is being used.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4">Functionality Cookies</Heading>
+          
+          <Text className="mb-4">
+            Functionality cookies enhance your experience by remembering your preferences:
+          </Text>
+          
+          <div className="overflow-x-auto mb-4">
+            <table className="min-w-full bg-white border border-gray-200">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="py-2 px-4 border-b text-left">Biscuit Name</th>
+                  <th className="py-2 px-4 border-b text-left">Purpose</th>
+                  <th className="py-2 px-4 border-b text-left">Duration</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="py-2 px-4 border-b">language_preference</td>
+                  <td className="py-2 px-4 border-b">Remembers your preferred language</td>
+                  <td className="py-2 px-4 border-b">1 year</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 border-b">ui_theme</td>
+                  <td className="py-2 px-4 border-b">Stores your UI theme preference (light/dark)</td>
+                  <td className="py-2 px-4 border-b">1 year</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 border-b">accessibility_settings</td>
+                  <td className="py-2 px-4 border-b">Stores your accessibility preferences</td>
+                  <td className="py-2 px-4 border-b">1 year</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 border-b">recent_activities</td>
+                  <td className="py-2 px-4 border-b">Remembers your recent activities for quick access</td>
+                  <td className="py-2 px-4 border-b">30 days</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <Text className="mb-4">
+            These cookies make your experience more personalized and efficient.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4">Targeting/Advertising Cookies</Heading>
+          
+          <Text className="mb-4">
+            Targeting cookies help us deliver more relevant content and recommendations:
+          </Text>
+          
+          <div className="overflow-x-auto mb-4">
+            <table className="min-w-full bg-white border border-gray-200">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="py-2 px-4 border-b text-left">Biscuit Name</th>
+                  <th className="py-2 px-4 border-b text-left">Purpose</th>
+                  <th className="py-2 px-4 border-b text-left">Duration</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="py-2 px-4 border-b">content_preferences</td>
+                  <td className="py-2 px-4 border-b">Tracks content preferences for personalized recommendations</td>
+                  <td className="py-2 px-4 border-b">90 days</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 border-b">feature_usage</td>
+                  <td className="py-2 px-4 border-b">Tracks feature usage for personalized suggestions</td>
+                  <td className="py-2 px-4 border-b">60 days</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 border-b">learning_patterns</td>
+                  <td className="py-2 px-4 border-b">Analyzes learning patterns for adaptive content</td>
+                  <td className="py-2 px-4 border-b">90 days</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <Text className="mb-4">
+            These cookies help us provide you with content that is more relevant to your interests and needs.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4">Third-Party Cookies</Heading>
+          
+          <Text className="mb-4">
+            In addition to our own cookies, we may also use various third-party cookies to report usage statistics, deliver advertisements, and so on:
+          </Text>
+          
+          <div className="overflow-x-auto mb-4">
+            <table className="min-w-full bg-white border border-gray-200">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="py-2 px-4 border-b text-left">Provider</th>
+                  <th className="py-2 px-4 border-b text-left">Purpose</th>
+                  <th className="py-2 px-4 border-b text-left">Privacy Policy</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="py-2 px-4 border-b">Google Analytics</td>
+                  <td className="py-2 px-4 border-b">Analytics and performance measurement</td>
+                  <td className="py-2 px-4 border-b">
+                    <Link href="https://policies.google.com/privacy" className="text-primary hover:underline" target="_blank">
+                      Privacy Policy
+                    </Link>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 border-b">Stripe</td>
+                  <td className="py-2 px-4 border-b">Payment processing</td>
+                  <td className="py-2 px-4 border-b">
+                    <Link href="https://stripe.com/privacy" className="text-primary hover:underline" target="_blank">
+                      Privacy Policy
+                    </Link>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 border-b">Intercom</td>
+                  <td className="py-2 px-4 border-b">Customer support and messaging</td>
+                  <td className="py-2 px-4 border-b">
+                    <Link href="https://www.intercom.com/legal/privacy" className="text-primary hover:underline" target="_blank">
+                      Privacy Policy
+                    </Link>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <Text className="mb-4">
+            These third-party services have their own privacy policies and may collect and use your information according to their own rules. We encourage you to review their privacy policies to understand how they use your information.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-center">
+            <Settings className="h-5 w-5 mr-2" /> Managing Biscuit Preferences
+          </Heading>
+          
+          <Text className="mb-4">
+            You can control and manage cookies in various ways:
+          </Text>
+          
+          <Heading level="h3" className="text-lg mt-4 mb-2">Biscuit Preference Centre</Heading>
+          <Text className="mb-4">
+            You can manage your biscuit preferences through our Biscuit Preference Centre, which allows you to accept or reject specific categories of cookies.
+          </Text>
+          
+          <div className="flex justify-center mb-6">
+            <Button className="mr-4" asChild>
+              <Link href="/biscuit-preferences">
+                <Settings className="mr-2 h-4 w-4" />
+                Manage Biscuit Preferences
+              </Link>
+            </Button>
+          </div>
+          
+          <Heading level="h3" className="text-lg mt-4 mb-2">Browser Settings</Heading>
+          <Text className="mb-4">
+            Most web browsers allow you to manage your biscuit preferences. You can set your browser to refuse cookies, or to alert you when cookies are being sent. The methods for doing so vary from browser to browser, and from version to version. You can obtain up-to-date information about blocking and deleting cookies via the support pages of your browser:
+          </Text>
+          
+          <ul className="list-disc pl-8 mb-4 space-y-2">
+            <li>
+              <Link href="https://support.google.com/chrome/answer/95647" className="text-primary hover:underline" target="_blank">
+                Google Chrome
+              </Link>
+            </li>
+            <li>
+              <Link href="https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop" className="text-primary hover:underline" target="_blank">
+                Mozilla Firefox
+              </Link>
+            </li>
+            <li>
+              <Link href="https://support.apple.com/guide/safari/manage-cookies-and-website-data-sfri11471/mac" className="text-primary hover:underline" target="_blank">
+                Safari
+              </Link>
+            </li>
+            <li>
+              <Link href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" className="text-primary hover:underline" target="_blank">
+                Microsoft Edge
+              </Link>
+            </li>
+          </ul>
+          
+          <div className="bg-muted p-4 rounded-md mb-4">
+            <div className="flex items-start">
+              <AlertTriangle className="text-amber-500 mr-2 h-5 w-5 flex-shrink-0 mt-0.5" />
+              <Text>
+                Please note that restricting cookies may impact the functionality of our platform. If you choose to disable cookies, some features of the EdPsych AI Platform may not work properly.
+              </Text>
+            </div>
+          </div>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-center">
+            <Clock className="h-5 w-5 mr-2" /> Changes to This Policy
+          </Heading>
+          
+          <Text className="mb-4">
+            We may update this Biscuit Policy from time to time to reflect changes in technology, regulation, or our business practices. Any changes will be posted on this page with an updated "Last Updated" date. If we make significant changes to this policy, we will provide a more prominent notice, such as an email notification or a banner on our platform.
+          </Text>
+          
+          <Text className="mb-4">
+            We encourage you to review this Biscuit Policy periodically to stay informed about our use of cookies and related technologies.
+          </Text>
+          
+          <div className="bg-muted p-4 rounded-md">
+            <Text className="font-medium">Last Updated: June 7, 2025</Text>
+          </div>
+        </Card>
+        
+        <Card className="p-6">
+          <Heading level="h2" className="mb-4">Contact Information</Heading>
+          
+          <Text className="mb-4">
+            If you have any questions about our use of cookies or this Biscuit Policy, please contact us at:
+          </Text>
+          
+          <div className="bg-muted p-4 rounded-md mb-4">
+            <p>EdPsych AI</p>
+            <p>123 Education Lane</p>
+            <p>Learning City, ED 12345</p>
+            <p>Email: privacy@edpsychai.com</p>
+            <p>Phone: (555) 123-4567</p>
+          </div>
+        </Card>
+      </div>
+    </AIEnhancedLayout>
+  );
+}
+
+export default CookiePolicyPage;

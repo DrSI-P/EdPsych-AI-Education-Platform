@@ -1,0 +1,296 @@
+'use client';
+
+import dynamic from 'next/dynamic';
+
+import React from 'react';
+
+import { Heading } from '@/components/ui/heading';
+import { Text } from '@/components/ui/text';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { 
+  Shield, 
+  FileText, 
+  User, 
+  Lock, 
+  Globe, 
+  AlertTriangle,
+  Clock,
+  Mail
+} from 'lucide-react';
+import Link from 'next/link';
+// Original component
+
+const AIEnhancedLayout = dynamic(
+  () => import('@/components/layouts/AIEnhancedLayout'),
+  { ssr: false }
+);
+
+function PrivacyPage() {
+  return (
+    <AIEnhancedLayout>
+      <div className="container mx-auto py-8 max-w-4xl">
+        <div className="flex items-center mb-6">
+          <Lock className="h-8 w-8 text-primary mr-3" />
+          <Heading level="h1">Privacy Policy</Heading>
+        </div>
+        
+        <Text className="text-xl mb-8">
+          EdPsych AI is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform.
+        </Text>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4">Information We Collect</Heading>
+          
+          <Heading level="h3" className="text-lg mb-2">Personal Information</Heading>
+          <Text className="mb-4">
+            We may collect personal information that you voluntarily provide when using our platform, including:
+          </Text>
+          <ul className="list-disc pl-8 mb-4 space-y-2">
+            <li><Text>Name and contact information</Text></li>
+            <li><Text>Account credentials</Text></li>
+            <li><Text>Educational institution affiliation</Text></li>
+            <li><Text>Professional role and qualifications</Text></li>
+            <li><Text>Payment information (processed securely through third-party providers)</Text></li>
+          </ul>
+          
+          <Heading level="h3" className="text-lg mb-2">Usage Data</Heading>
+          <Text className="mb-4">
+            We automatically collect certain information when you visit, use, or navigate our platform, including:
+          </Text>
+          <ul className="list-disc pl-8 mb-4 space-y-2">
+            <li><Text>Device and connection information</Text></li>
+            <li><Text>Browser and operating system information</Text></li>
+            <li><Text>IP address and location data</Text></li>
+            <li><Text>Platform usage patterns and interactions</Text></li>
+            <li><Text>Time spent on various features</Text></li>
+          </ul>
+          
+          <Heading level="h3" className="text-lg mb-2">Educational Content</Heading>
+          <Text className="mb-4">
+            We collect information related to educational content created or accessed through our platform, including:
+          </Text>
+          <ul className="list-disc pl-8 mb-4">
+            <li><Text>Lesson plans and educational materials</Text></li>
+            <li><Text>Assessment results and progress data</Text></li>
+            <li><Text>Interactive video engagement metrics</Text></li>
+            <li><Text>AI-generated educational content</Text></li>
+          </ul>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4">How We Use Your Information</Heading>
+          
+          <Text className="mb-4">
+            We use the information we collect for various purposes, including:
+          </Text>
+          
+          <ul className="list-disc pl-8 mb-4 space-y-2">
+            <li>
+              <Text><span className="font-semibold">Providing and improving our services:</span> To operate our platform, deliver requested features, and enhance user experience</Text>
+            </li>
+            <li>
+              <Text><span className="font-semibold">Personalization:</span> To customise content, recommendations, and features based on your role, preferences, and usage patterns</Text>
+            </li>
+            <li>
+              <Text><span className="font-semibold">Communication:</span> To respond to inquiries, provide support, and send important updates about our services</Text>
+            </li>
+            <li>
+              <Text><span className="font-semibold">Analytics:</span> To analyse usage patterns, monitor performance, and improve our platform</Text>
+            </li>
+            <li>
+              <Text><span className="font-semibold">Security:</span> To protect our platform, detect and prevent fraudulent activities, and ensure data security</Text>
+            </li>
+            <li>
+              <Text><span className="font-semibold">Legal compliance:</span> To comply with applicable laws, regulations, and legal processes</Text>
+            </li>
+          </ul>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4">Information Sharing and Disclosure</Heading>
+          
+          <Text className="mb-4">
+            We may share your information in the following situations:
+          </Text>
+          
+          <ul className="list-disc pl-8 mb-4 space-y-2">
+            <li>
+              <Text><span className="font-semibold">With service providers:</span> We may share information with third-party vendors who provide services on our behalf, such as hosting, analytics, and payment processing</Text>
+            </li>
+            <li>
+              <Text><span className="font-semibold">With educational institutions:</span> For users affiliated with educational institutions, we may share information with authorized administrators for educational purposes</Text>
+            </li>
+            <li>
+              <Text><span className="font-semibold">For legal purposes:</span> We may disclose information to comply with legal obligations, protect our rights, or respond to legal requests</Text>
+            </li>
+            <li>
+              <Text><span className="font-semibold">With your consent:</span> We may share information with third parties when you have given us your consent to do so</Text>
+            </li>
+            <li>
+              <Text><span className="font-semibold">Business transfers:</span> In connection with a merger, acquisition, or sale of assets, your information may be transferred as a business asset</Text>
+            </li>
+          </ul>
+          
+          <Text className="mb-4">
+            We do not sell your personal information to third parties.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4">Data Security</Heading>
+          
+          <Text className="mb-4">
+            We implement appropriate technical and organizational measures to protect your information, including:
+          </Text>
+          
+          <ul className="list-disc pl-8 mb-4 space-y-2">
+            <li><Text>Encryption of sensitive data in transit and at rest</Text></li>
+            <li><Text>Regular security assessments and penetration testing</Text></li>
+            <li><Text>Access controls and authentication mechanisms</Text></li>
+            <li><Text>Regular security training for our staff</Text></li>
+            <li><Text>Monitoring for suspicious activities and potential breaches</Text></li>
+          </ul>
+          
+          <Text className="mb-4">
+            Whilst we take reasonable measures to protect your information, no method of transmission over the Internet or electronic storage is 100% secure. We cannot guarantee absolute security of your data.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4">Your Privacy Rights</Heading>
+          
+          <Text className="mb-4">
+            Depending on your location, you may have certain rights regarding your personal information, including:
+          </Text>
+          
+          <ul className="list-disc pl-8 mb-4 space-y-2">
+            <li><Text>Right to access and receive a copy of your personal information</Text></li>
+            <li><Text>Right to correct inaccurate or incomplete information</Text></li>
+            <li><Text>Right to request deletion of your personal information</Text></li>
+            <li><Text>Right to restrict or object to processing of your information</Text></li>
+            <li><Text>Right to data portability</Text></li>
+            <li><Text>Right to withdraw consent</Text></li>
+          </ul>
+          
+          <Text className="mb-4">
+            To exercise these rights, please contact our Data Protection Officer using the contact information provided below. We will respond to your request within the timeframe required by applicable law.
+          </Text>
+          
+          <div className="flex justify-center">
+            <Link href="/data-subject-request">
+              <Button className="mr-4">
+                Submit Privacy Request
+              </Button>
+            </Link>
+          </div>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4">Children's Privacy</Heading>
+          
+          <Text className="mb-4">
+            Our platform is designed for users who are 13 years of age or older. We do not knowingly collect personal information from children under 13. If we learn that we have collected personal information from a child under 13, we will take steps to delete that information as soon as possible.
+          </Text>
+          
+          <Text className="mb-4">
+            For users between 13 and 18 years of age, we recommend parental supervision and consent. Educational institutions are responsible for obtaining appropriate parental consent for student users in accordance with applicable laws, including the Children's Online Privacy Protection Act (COPPA) and the Family Educational Rights and Privacy Act (FERPA).
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4">International Data Transfers</Heading>
+          
+          <Text className="mb-4">
+            We primarily store and process your information within the European Economic Area (EEA). However, we may transfer your information to countries outside the EEA for processing. When we do so, we ensure appropriate safeguards are in place to protect your information and comply with applicable data protection laws.
+          </Text>
+          
+          <Text className="mb-4">
+            For more information about our international data transfers, please see our <Link href="/gdpr" className="text-primary hover:underline">GDPR Compliance Statement</Link>.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4">Cookies and Similar Technologies</Heading>
+          
+          <Text className="mb-4">
+            We use cookies and similar tracking technologies to collect and store information about your interactions with our platform. Cookies are small text files that are stored on your device when you visit our website.
+          </Text>
+          
+          <Text className="mb-4">
+            We use the following types of cookies:
+          </Text>
+          
+          <ul className="list-disc pl-8 mb-4 space-y-2">
+            <li><Text><span className="font-semibold">Essential cookies:</span> Necessary for the platform to function properly</Text></li>
+            <li><Text><span className="font-semibold">Analytical cookies:</span> Help us understand how users interact with our platform</Text></li>
+            <li><Text><span className="font-semibold">Functional cookies:</span> Enable personalized features and remember your preferences</Text></li>
+            <li><Text><span className="font-semibold">Targeting cookies:</span> Used to deliver relevant content and track the effectiveness of our marketing efforts</Text></li>
+          </ul>
+          
+          <Text className="mb-4">
+            You can control cookies through your browser settings. However, disabling certain cookies may limit your ability to use some features of our platform.
+          </Text>
+          
+          <div className="flex justify-center">
+            <Link href="/biscuit-preferences">
+              <Button>
+                Manage Biscuit Preferences
+              </Button>
+            </Link>
+          </div>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4">Changes to This Privacy Policy</Heading>
+          
+          <Text className="mb-4">
+            We may update this Privacy Policy from time to time to reflect changes in our practices or legal requirements. We will notify you of any material changes by posting the updated Privacy Policy on our platform and updating the "Last Updated" date.
+          </Text>
+          
+          <Text className="mb-4">
+            We encourage you to review this Privacy Policy periodically to stay informed about how we collect, use, and protect your information.
+          </Text>
+          
+          <div className="bg-muted p-4 rounded-md">
+            <Text className="font-medium">Last Updated: June 7, 2025</Text>
+          </div>
+        </Card>
+        
+        <Card className="p-6">
+          <Heading level="h2" className="mb-4">Contact Us</Heading>
+          
+          <Text className="mb-4">
+            If you have any questions, concerns, or requests regarding this Privacy Policy or our privacy practices, please contact our Data Protection Officer:
+          </Text>
+          
+          <div className="bg-muted p-4 rounded-md mb-4">
+            <div className="flex items-center mb-2">
+              <Mail className="h-4 w-4 mr-2" />
+              <Text>privacy@edpsychai.com</Text>
+            </div>
+            <div className="flex items-center mb-2">
+              <Globe className="h-4 w-4 mr-2" />
+              <Text>EdPsych AI, 123 Education Lane, Learning City, ED 12345</Text>
+            </div>
+            <div className="flex items-center">
+              <Clock className="h-4 w-4 mr-2" />
+              <Text>Response time: Within 2 business days</Text>
+            </div>
+          </div>
+          
+          <div className="flex justify-center">
+            <Link href="/contact">
+              <Button>
+                Contact Us
+              </Button>
+            </Link>
+          </div>
+        </Card>
+      </div>
+    </AIEnhancedLayout>
+  );
+}
+
+
+export default PrivacyPage;

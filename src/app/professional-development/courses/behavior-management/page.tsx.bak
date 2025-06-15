@@ -1,0 +1,760 @@
+'use client';
+
+import React, { useState } from 'react';
+import { EnhancedHeader, EnhancedFooter } from '@/components/layout/enhanced-header-footer';
+import { Container, Typography, Card, Grid } from '@/components/ui/enhanced-layout-components';
+import { Button } from '@/components/ui/enhanced-form-components';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/enhanced-interactive-components';
+import { Accordion, AccordionItem } from '@/components/ui/enhanced-interactive-components';
+import { Badge } from '@/components/ui/enhanced-form-components';
+import Link from 'next/link';
+import Image from 'next/image';
+
+// Create simple versions of missing components
+const Progress = ({ value, max, className }: { value: number; max: number; className?: string }) => (
+  <div className={`bg-grey-200 rounded-full ${className}`}>
+    <div 
+      className="bg-blue-600 rounded-full h-full" 
+      style={{ width: `${(value / max) * 100}%` }}
+    ></div>
+  </div>
+);
+
+const AccordionTrigger = ({ className, children }: { className?: string; children: React.ReactNode }) => (
+  <div className={className}>
+    {children}
+  </div>
+);
+
+const AccordionContent = ({ children }: { children: React.ReactNode }) => (
+  <div className="accordion-content">
+    {children}
+  </div>
+);
+
+export default function BehaviorManagementCoursePage() {
+  const [activeTab, setActiveTab] = useState('overview');
+  
+  // Mock data for course modules
+  const courseModules = [
+    {
+      id: 1,
+      title: "Behaviour as Communication",
+      description: "Understanding the functions of behaviour and identifying underlying needs that drive challenging behaviors.",
+      duration: "2 hours",
+      lessons: [
+        { title: "Introduction to Behaviour as Communication", duration: "20 min", type: "Video Lecture" },
+        { title: "The Four Functions of Behaviour", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Identifying Triggers and Patterns", duration: "25 min", type: "Video Lecture" },
+        { title: "Conducting Functional Behaviour Assessments", duration: "30 min", type: "Interactive Tutorial" },
+        { title: "Case Studies in Behaviour Analysis", duration: "20 min", type: "Video Lecture" },
+        { title: "Knowledge Check", duration: "15 min", type: "Quiz" }
+      ],
+      resources: [
+        "Functional Behaviour Assessment Template",
+        "Behaviour Tracking Tools",
+        "Trigger Analysis Worksheet",
+        "Function-Based Intervention Guide"
+      ],
+      completion: 0
+    },
+    {
+      id: 2,
+      title: "Positive Behaviour Support",
+      description: "Implementing preventative approaches and teaching alternative behaviors through positive behaviour support frameworks.",
+      duration: "2 hours",
+      lessons: [
+        { title: "Principles of Positive Behaviour Support", duration: "20 min", type: "Video Lecture" },
+        { title: "Tier 1: Universal Supports", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Tier 2: Targeted Interventions", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Tier 3: Individualized Support", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Teaching Alternative Behaviors", duration: "20 min", type: "Video Lecture" },
+        { title: "Knowledge Check", duration: "15 min", type: "Quiz" }
+      ],
+      resources: [
+        "PBS Implementation Checklist",
+        "Alternative Behaviour Teaching Guide",
+        "Reinforcement System Templates",
+        "Visual Support Examples"
+      ],
+      completion: 0
+    },
+    {
+      id: 3,
+      title: "Restorative Practices",
+      description: "Building relationships and repairing harm through restorative approaches to behaviour and conflict.",
+      duration: "2 hours",
+      lessons: [
+        { title: "Introduction to Restorative Practices", duration: "20 min", type: "Video Lecture" },
+        { title: "Restorative Language and Questions", duration: "20 min", type: "Interactive Tutorial" },
+        { title: "Facilitating Restorative Circles", duration: "30 min", type: "Video Lecture" },
+        { title: "Restorative Conferences", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Implementing Whole-School Approaches", duration: "20 min", type: "Video Lecture" },
+        { title: "Knowledge Check", duration: "15 min", type: "Quiz" }
+      ],
+      resources: [
+        "Restorative Questions Card",
+        "Circle Facilitation Guide",
+        "Conference Planning Template",
+        "Implementation Roadmap"
+      ],
+      completion: 0
+    },
+    {
+      id: 4,
+      title: "Trauma-Informed Approaches",
+      description: "Supporting students with adverse experiences through trauma-informed behaviour management strategies.",
+      duration: "2 hours",
+      lessons: [
+        { title: "Understanding Trauma and Its Impact", duration: "25 min", type: "Video Lecture" },
+        { title: "Recognizing Trauma Responses", duration: "20 min", type: "Interactive Tutorial" },
+        { title: "Creating Trauma-Sensitive Classrooms", duration: "25 min", type: "Video Lecture" },
+        { title: "De-escalation Strategies", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Self-Care for Educators", duration: "15 min", type: "Video Lecture" },
+        { title: "Knowledge Check", duration: "15 min", type: "Quiz" }
+      ],
+      resources: [
+        "Trauma-Sensitive Classroom Checklist",
+        "De-escalation Strategy Cards",
+        "Regulation Zone Posters",
+        "Staff Self-Care Planning Tool"
+      ],
+      completion: 0
+    },
+    {
+      id: 5,
+      title: "Self-Regulation Development",
+      description: "Building emotional literacy and coping skills to support students' self-regulation abilities.",
+      duration: "2 hours",
+      lessons: [
+        { title: "Self-Regulation Development", duration: "20 min", type: "Video Lecture" },
+        { title: "Emotional Literacy Instruction", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Teaching Coping Strategies", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Mindfulness in the Classroom", duration: "20 min", type: "Video Lecture" },
+        { title: "Creating Regulation Stations", duration: "20 min", type: "Interactive Tutorial" },
+        { title: "Final Assessment", duration: "30 min", type: "Assessment" }
+      ],
+      resources: [
+        "Emotional Literacy Curriculum",
+        "Coping Strategy Cards",
+        "Mindfulness Activity Guide",
+        "Regulation Station Setup Guide"
+      ],
+      completion: 0
+    }
+  ];
+
+  // Mock data for course instructors
+  const instructors = [
+    {
+      name: "Dr. Michael Thompson",
+      title: "Behavioural Specialist and Educational Psychologist",
+      bio: "Dr. Thompson has over 15 years of experience in positive behaviour support and restorative practices in educational settings. He has worked with schools across the UK to implement whole-school approaches to behaviour management.",
+      image: "/images/professional-development/instructors/michael-thompson.jpg"
+    },
+    {
+      name: "Sarah Jenkins",
+      title: "Trauma-Informed Practise Specialist",
+      bio: "Sarah specializes in trauma-informed approaches to behaviour support in schools. She has extensive experience training educators in recognizing and responding to trauma responses in educational settings.",
+      image: "/images/professional-development/instructors/sarah-jenkins.jpg"
+    }
+  ];
+
+  // Mock data for testimonials
+  const testimonials = [
+    {
+      quote: "This course completely transformed our school's approach to behaviour management. The restorative practices module gave us practical tools that have significantly reduced behaviour incidents.",
+      author: "David L., Headteacher",
+      school: "Westfield Academy"
+    },
+    {
+      quote: "The trauma-informed approaches section helped me understand behaviors I've been struggling with for years. I now have strategies that actually work instead of just reacting.",
+      author: "Emma S., Year 4 Teacher",
+      school: "Greenwood Primary"
+    },
+    {
+      quote: "As a school behaviour lead, this course provided exactly what I needed to develop our whole-school approach. The resources are excellent and ready to implement.",
+      author: "John M., Behaviour Lead",
+      school: "Oakridge Secondary School"
+    }
+  ];
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <EnhancedHeader />
+      
+      <main className="flex-grow">
+        {/* Hero Section */}
+        <div className="bg-gradient-to-r from-green-600 to-teal-600 text-white py-16">
+          <Container>
+            <div className="flex flex-col md:flex-row gap-8 items-centre">
+              <div className="md:w-2/3">
+                <Badge className="bg-white text-green-600 mb-4">Professional Development Course</Badge>
+                <Typography variant="h1" className="mb-4">
+                  Positive Behaviour Support and Restorative Approaches
+                </Typography>
+                <Typography variant="lead" className="mb-6">
+                  A transformative course exploring evidence-based approaches to behaviour support that focus on understanding underlying causes and building positive relationships.
+                </Typography>
+                <div className="flex flex-wrap gap-4 mb-6">
+                  <div className="flex items-centre gap-2 bg-green-500/20 px-3 py-1 rounded-full">
+                    <span className="text-sm font-medium">Duration:</span>
+                    <span className="text-sm">10 hours</span>
+                  </div>
+                  <div className="flex items-centre gap-2 bg-green-500/20 px-3 py-1 rounded-full">
+                    <span className="text-sm font-medium">Modules:</span>
+                    <span className="text-sm">5 modules</span>
+                  </div>
+                  <div className="flex items-centre gap-2 bg-green-500/20 px-3 py-1 rounded-full">
+                    <span className="text-sm font-medium">Level:</span>
+                    <span className="text-sm">Foundation to Advanced</span>
+                  </div>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button variant="light" size="lg">
+                    Enrol Now
+                  </Button>
+                  <Button variant="outline-light" size="lg">
+                    Download Syllabus
+                  </Button>
+                </div>
+              </div>
+              <div className="md:w-1/3">
+                <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-xl">
+                  <Image
+                    src="/images/professional-development/behaviour-management-hero.jpg"
+                    alt="Teacher facilitating restorative circle"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+          </Container>
+        </div>
+        
+        {/* Main Content */}
+        <Container className="py-16">
+          <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab} className="mb-8">
+            <TabsList className="mb-8">
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="curriculum">Curriculum</TabsTrigger>
+              <TabsTrigger value="instructors">Instructors</TabsTrigger>
+              <TabsTrigger value="resources">Resources</TabsTrigger>
+              <TabsTrigger value="faq">FAQ</TabsTrigger>
+            </TabsList>
+            
+            {/* Overview Tab */}
+            <TabsContent value="overview">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="lg:col-span-2">
+                  <Card className="p-8 mb-8">
+                    <Typography variant="h3" className="mb-4">
+                      Course Description
+                    </Typography>
+                    <Typography variant="body" className="mb-6">
+                      This transformative course explores evidence-based approaches to behaviour support that focus on understanding underlying causes and building positive relationships. Based on restorative principles and positive psychology, the programme provides practical strategies for creating supportive learning environments.
+                    </Typography>
+                    <Typography variant="body" className="mb-6">
+                      Through a combination of video lectures, interactive tutorials, case studies, and practical activities, you'll develop a comprehensive understanding of behaviour as communication and learn how to implement effective support strategies in your educational setting. The course is aligned with UK educational frameworks and provides practical approaches that can be immediately applied in your context.
+                    </Typography>
+                    <Typography variant="h4" className="mb-2">
+                      What You'll Learn
+                    </Typography>
+                    <ul className="list-disc pl-6 mb-6 space-y-2">
+                      <li>Understanding behaviour as communication and identifying underlying needs</li>
+                      <li>Implementing school-wide positive behaviour support frameworks</li>
+                      <li>Restorative justice principles and practices in educational settings</li>
+                      <li>De-escalation techniques and crisis prevention</li>
+                      <li>Trauma-informed approaches to behaviour support</li>
+                      <li>Building student self-regulation and emotional literacy</li>
+                    </ul>
+                    <Typography variant="h4" className="mb-2">
+                      Who This Course Is For
+                    </Typography>
+                    <ul className="list-disc pl-6 mb-6 space-y-2">
+                      <li>Classroom teachers at all key stages</li>
+                      <li>Behaviour leads and pastoral staff</li>
+                      <li>Teaching assistants and learning support staff</li>
+                      <li>School leaders and inclusion managers</li>
+                      <li>Educational professionals interested in positive behaviour approaches</li>
+                    </ul>
+                  </Card>
+                  
+                  <Card className="p-8">
+                    <Typography variant="h3" className="mb-4">
+                      Testimonials
+                    </Typography>
+                    <div className="space-y-6">
+                      {testimonials.map((testimonial, index) => (
+                        <div key={index} className="bg-grey-50 p-6 rounded-lg">
+                          <blockquote className="text-lg italic mb-4">"{testimonial.quote}"</blockquote>
+                          <div className="flex items-centre">
+                            <div className="w-10 h-10 bg-green-600 rounded-full flex items-centre justify-centre text-white font-bold mr-3">
+                              {testimonial.author.charAt(0)}
+                            </div>
+                            <div>
+                              <p className="font-medium">{testimonial.author}</p>
+                              <p className="text-sm text-grey-600">{testimonial.school}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </Card>
+                </div>
+                
+                <div className="lg:col-span-1">
+                  <Card className="p-6 mb-6">
+                    <Typography variant="h4" className="mb-4">
+                      Course Details
+                    </Typography>
+                    <div className="space-y-4">
+                      <div>
+                        <p className="text-sm font-medium mb-1">Duration</p>
+                        <p>10 hours of content (self-paced)</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium mb-1">Format</p>
+                        <p>Online with video lectures, interactive activities, and practical assignments</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium mb-1">Access Period</p>
+                        <p>12 months from enrolment</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium mb-1">Certificate</p>
+                        <p>Downloadable certificate upon completion</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium mb-1">CPD Hours</p>
+                        <p>10 CPD hours recognized by UK teaching bodies</p>
+                      </div>
+                    </div>
+                    <div className="mt-6">
+                      <Button variant="primary" size="lg" className="w-full">
+                        Enrol Now
+                      </Button>
+                    </div>
+                  </Card>
+                  
+                  <Card className="p-6 mb-6">
+                    <Typography variant="h4" className="mb-4">
+                      Related Courses
+                    </Typography>
+                    <div className="space-y-4">
+                      <div className="flex items-start gap-3">
+                        <div className="relative w-16 h-12 rounded overflow-hidden flex-shrink-0">
+                          <Image
+                            src="/images/professional-development/inclusive-education.jpg"
+                            alt="Inclusive Education course"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div>
+                          <Link href="/professional-development/courses/inclusive-education" className="font-medium hover:text-green-600 transition-colors">
+                            Inclusive Education: Creating Learning Environments for All
+                          </Link>
+                          <p className="text-sm text-grey-600">12 hours • 6 modules</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="relative w-16 h-12 rounded overflow-hidden flex-shrink-0">
+                          <Image
+                            src="/images/professional-development/special-educational-needs.jpg"
+                            alt="Special Educational Needs course"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div>
+                          <Link href="/professional-development/courses/special-educational-needs" className="font-medium hover:text-green-600 transition-colors">
+                            Special Educational Needs: Effective Support Strategies
+                          </Link>
+                          <p className="text-sm text-grey-600">15 hours • 8 modules</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="relative w-16 h-12 rounded overflow-hidden flex-shrink-0">
+                          <Image
+                            src="/images/professional-development/assessment-strategies.jpg"
+                            alt="Assessment Strategies course"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div>
+                          <Link href="/professional-development/courses/assessment-strategies" className="font-medium hover:text-green-600 transition-colors">
+                            Effective Assessment for Learning
+                          </Link>
+                          <p className="text-sm text-grey-600">12 hours • 6 modules</p>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                  
+                  <Card className="p-6">
+                    <Typography variant="h4" className="mb-4">
+                      Need Help?
+                    </Typography>
+                    <Typography variant="body" className="mb-4">
+                      If you have questions about this course or need assistance, our support team is here to help.
+                    </Typography>
+                    <Button variant="outline" size="lg" className="w-full" asChild>
+                      <Link href="/contact">
+                        Contact Support
+                      </Link>
+                    </Button>
+                  </Card>
+                </div>
+              </div>
+            </TabsContent>
+            
+            {/* Curriculum Tab */}
+            <TabsContent value="curriculum">
+              <Card className="p-8">
+                <Typography variant="h3" className="mb-6">
+                  Course Curriculum
+                </Typography>
+                <Typography variant="body" className="mb-8">
+                  This course consists of 5 comprehensive modules, each focusing on a key aspect of positive behaviour support and restorative approaches. Each module includes video lectures, interactive tutorials, case studies, and knowledge checks to ensure understanding.
+                </Typography>
+                
+                <div className="space-y-6">
+                  {courseModules.map((module) => (
+                    <div key={module.id} className="border rounded-lg overflow-hidden">
+                      <Accordion type="single" collapsible>
+                        <AccordionItem value={`module-${module.id}`}>
+                          <AccordionTrigger className="p-6 bg-grey-50 hover:bg-grey-100">
+                            <div className="flex flex-col md:flex-row md:items-centre justify-between w-full text-left">
+                              <div>
+                                <Typography variant="h4" className="mb-1">
+                                  Module {module.id}: {module.title}
+                                </Typography>
+                                <Typography variant="small" className="text-grey-600">
+                                  {module.duration} • {module.lessons.length} lessons
+                                </Typography>
+                              </div>
+                              <div className="mt-2 md:mt-0">
+                                <Progress value={module.completion} max={100} className="w-24 h-2" />
+                              </div>
+                            </div>
+                          </AccordionTrigger>
+                          <AccordionContent>
+                            <div className="p-6">
+                              <Typography variant="body" className="mb-4">
+                                {module.description}
+                              </Typography>
+                              
+                              <Typography variant="h5" className="mb-3">
+                                Lessons
+                              </Typography>
+                              <div className="space-y-3 mb-6">
+                                {module.lessons.map((lesson, index) => (
+                                  <div key={index} className="flex items-centre justify-between p-3 bg-grey-50 rounded">
+                                    <div className="flex items-centre">
+                                      <div className="w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-centre justify-centre mr-3">
+                                        {index + 1}
+                                      </div>
+                                      <div>
+                                        <p className="font-medium">{lesson.title}</p>
+                                        <p className="text-sm text-grey-600">{lesson.duration} • {lesson.type}</p>
+                                      </div>
+                                    </div>
+                                    <Button variant="ghost" size="sm">
+                                      Preview
+                                    </Button>
+                                  </div>
+                                ))}
+                              </div>
+                              
+                              <Typography variant="h5" className="mb-3">
+                                Resources
+                              </Typography>
+                              <div className="space-y-2">
+                                {module.resources.map((resource, index) => (
+                                  <div key={index} className="flex items-centre p-2">
+                                    <div className="w-5 h-5 bg-green-100 text-green-600 rounded-full flex items-centre justify-centre mr-3">
+                                      <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                      </svg>
+                                    </div>
+                                    <p>{resource}</p>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </AccordionContent>
+                        </AccordionItem>
+                      </Accordion>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            </TabsContent>
+            
+            {/* Instructors Tab */}
+            <TabsContent value="instructors">
+              <Card className="p-8">
+                <Typography variant="h3" className="mb-6">
+                  Meet Your Instructors
+                </Typography>
+                <Typography variant="body" className="mb-8">
+                  This course is developed and delivered by experts in positive behaviour support and restorative practices with extensive experience in both research and practical implementation.
+                </Typography>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {instructors.map((instructor, index) => (
+                    <div key={index} className="flex flex-col md:flex-row gap-6">
+                      <div className="md:w-1/3">
+                        <div className="relative w-full aspect-square rounded-lg overflow-hidden">
+                          <Image
+                            src={instructor.image}
+                            alt={instructor.name}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      </div>
+                      <div className="md:w-2/3">
+                        <Typography variant="h4" className="mb-1">
+                          {instructor.name}
+                        </Typography>
+                        <Typography variant="small" className="text-green-600 mb-3">
+                          {instructor.title}
+                        </Typography>
+                        <Typography variant="body">
+                          {instructor.bio}
+                        </Typography>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            </TabsContent>
+            
+            {/* Resources Tab */}
+            <TabsContent value="resources">
+              <Card className="p-8">
+                <Typography variant="h3" className="mb-6">
+                  Course Resources
+                </Typography>
+                <Typography variant="body" className="mb-8">
+                  This course includes a comprehensive set of resources to support your learning and implementation of positive behaviour support and restorative approaches.
+                </Typography>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div>
+                    <Typography variant="h4" className="mb-4">
+                      Included Materials
+                    </Typography>
+                    <ul className="space-y-3">
+                      <li className="flex items-start">
+                        <div className="w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-centre justify-centre mr-3 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="font-medium">Behaviour Support Handbook</p>
+                          <p className="text-sm text-grey-600">A 100-page digital handbook covering all course content with detailed strategies and implementation guides.</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start">
+                        <div className="w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-centre justify-centre mr-3 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="font-medium">Restorative Practise Toolkit</p>
+                          <p className="text-sm text-grey-600">Comprehensive toolkit with scripts, question cards, and facilitation guides for restorative conversations.</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start">
+                        <div className="w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-centre justify-centre mr-3 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="font-medium">Behaviour Tracking Tools</p>
+                          <p className="text-sm text-grey-600">Digital and printable tools for tracking behaviour patterns, triggers, and intervention effectiveness.</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start">
+                        <div className="w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-centre justify-centre mr-3 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="font-medium">Visual Support Library</p>
+                          <p className="text-sm text-grey-600">Collection of visual supports for behaviour expectations, emotional regulation, and restorative processes.</p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <Typography variant="h4" className="mb-4">
+                      Additional Support
+                    </Typography>
+                    <ul className="space-y-3">
+                      <li className="flex items-start">
+                        <div className="w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-centre justify-centre mr-3 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="font-medium">Implementation Coaching</p>
+                          <p className="text-sm text-grey-600">Optional 1:1 coaching sessions available for personalized implementation support.</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start">
+                        <div className="w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-centre justify-centre mr-3 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="font-medium">Case Study Library</p>
+                          <p className="text-sm text-grey-600">Access to detailed case studies showing implementation of strategies across different settings.</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start">
+                        <div className="w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-centre justify-centre mr-3 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="font-medium">Community of Practise</p>
+                          <p className="text-sm text-grey-600">Join a community of educators implementing positive behaviour approaches to share experiences.</p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </Card>
+            </TabsContent>
+            
+            {/* FAQ Tab */}
+            <TabsContent value="faq">
+              <Card className="p-8">
+                <Typography variant="h3" className="mb-6">
+                  Frequently Asked Questions
+                </Typography>
+                
+                <div className="space-y-4">
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value="faq-1">
+                      <AccordionTrigger className="p-4 bg-grey-50 hover:bg-grey-100 rounded-lg">
+                        <Typography variant="h5">
+                          How does this course differ from traditional behaviour management approaches?
+                        </Typography>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="p-4">
+                          <Typography variant="body">
+                            This course focuses on understanding behaviour as communication and building positive relationships rather than using punitive approaches. It emphasizes restorative practices, positive behaviour support, and trauma-informed strategies that address the underlying causes of behaviour rather than just the symptoms.
+                          </Typography>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                    <AccordionItem value="faq-2">
+                      <AccordionTrigger className="p-4 bg-grey-50 hover:bg-grey-100 rounded-lg">
+                        <Typography variant="h5">
+                          Can I implement these approaches in a school with traditional behaviour policies?
+                        </Typography>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="p-4">
+                          <Typography variant="body">
+                            Yes, many schools implement these approaches alongside existing systems. The course includes guidance on how to gradually shift school culture toward more restorative and positive approaches, with practical strategies for different implementation stages. Many educators start by implementing these approaches in their own classrooms before expanding to whole-school approaches.
+                          </Typography>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                    <AccordionItem value="faq-3">
+                      <AccordionTrigger className="p-4 bg-grey-50 hover:bg-grey-100 rounded-lg">
+                        <Typography variant="h5">
+                          Is this course suitable for early years settings?
+                        </Typography>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="p-4">
+                          <Typography variant="body">
+                            Yes, the principles and strategies in this course are applicable to early years settings, with appropriate adaptations for developmental stages. The course includes specific examples and case studies from early years settings, and the self-regulation module is particularly relevant for early childhood educators.
+                          </Typography>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                    <AccordionItem value="faq-4">
+                      <AccordionTrigger className="p-4 bg-grey-50 hover:bg-grey-100 rounded-lg">
+                        <Typography variant="h5">
+                          How long will it take to see results from implementing these approaches?
+                        </Typography>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="p-4">
+                          <Typography variant="body">
+                            Implementation timelines vary depending on the context and consistency of application. Some educators report seeing positive changes in individual student relationships within weeks, whilst whole-school culture change typically takes 1-2 years of consistent implementation. The course includes guidance on setting realistic expectations and measuring progress throughout the implementation journey.
+                          </Typography>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                    <AccordionItem value="faq-5">
+                      <AccordionTrigger className="p-4 bg-grey-50 hover:bg-grey-100 rounded-lg">
+                        <Typography variant="h5">
+                          Do you offer whole-school training packages?
+                        </Typography>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="p-4">
+                          <Typography variant="body">
+                            Yes, we offer customised whole-school training packages that include access to this course for all staff, along with additional implementation support, in-person training sessions, and consultation. Please contact our team for more information about whole-school implementation packages.
+                          </Typography>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </Container>
+        
+        {/* Call to Action */}
+        <div className="bg-gradient-to-r from-green-600 to-teal-600 text-white py-16">
+          <Container>
+            <div className="text-centre max-w-3xl mx-auto">
+              <Typography variant="h2" className="mb-4">
+                Ready to Transform Your Approach to Behaviour?
+              </Typography>
+              <Typography variant="lead" className="mb-8">
+                Join thousands of educators who have developed positive, restorative approaches to behaviour support through this comprehensive course.
+              </Typography>
+              <div className="flex flex-col sm:flex-row gap-4 justify-centre">
+                <Button variant="light" size="lg">
+                  Enrol Now
+                </Button>
+                <Button variant="outline-light" size="lg" asChild>
+                  <Link href="/professional-development">
+                    Explore More Courses
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </Container>
+        </div>
+      </main>
+      
+      <EnhancedFooter />
+    </div>

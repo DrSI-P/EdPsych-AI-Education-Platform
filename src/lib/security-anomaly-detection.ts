@@ -1,0 +1,685 @@
+import { PrismaClient } from '@prisma/client';
+
+// Extend the PrismaClient type to include our custom models
+interface CustomPrismaClient extends PrismaClient {
+  userBehaviorProfile: unknown;
+}
+
+const prisma = new PrismaClient() as CustomPrismaClient;
+
+export interface AnomalyDetectionResult {
+  userId: string;
+  isAnomaly: boolean;
+  anomalyScore: number; // 0-1 scale, higher means more anomalous
+  anomalyType: 'usage_pattern' | 'time_pattern' | 'feature_pattern' | 'location_pattern' | 'none';
+  confidence: 'low' | 'medium' | 'high';
+  details: string;
+  timestamp: Date;
+  suggestedAction: 'monitor' | 'alert' | 'restrict' | 'none';
+}
+
+export interface UserBehaviorProfile {
+  userId: string;
+  typicalUsageTimes: {
+    dayOfWeek: number[]; // 0-6, where 0 is Sunday
+    hourOfDay: number[]; // 0-23
+  };
+  typicalFeatures: string[];
+  typicalUsageRate: number; // credits per day
+  typicalSessionDuration: number; // minutes
+  lastUpdated: Date;
+}
+
+/**
+ * Detect anomalies in credit usage patterns
+ * @param userId The user ID
+ * @param creditUsageId The credit usage ID to check
+ * @returns The anomaly detection result
+ */
+export async function detectAnomalousActivity(
+  userId: string,
+  creditUsageId: string
+): Promise<AnomalyDetectionResult> {
+  try {
+    // Get the credit usage to check
+    const creditUsage = await prisma.creditUsage.findUnique({
+      where: { id: creditUsageId },
+    });
+    
+    if (!creditUsage) {
+      return createDefaultResult(userId, 'none', 'Credit usage not found');
+    }
+    
+    // Get the user's behavior profile
+    const userProfile = await getUserBehaviorProfile(userId);
+    
+    // Get recent credit usage for comparison
+    const recentUsage = await getRecentCreditUsage(userId);
+    
+    // Check for different types of anomalies
+    const timeAnomaly = detectTimeAnomaly(creditUsage, userProfile);
+    const featureAnomaly = detectFeatureAnomaly(creditUsage, userProfile);
+    const rateAnomaly = detectRateAnomaly(creditUsage, recentUsage, userProfile);
+    
+    // Combine anomaly scores
+    const combinedResult = combineAnomalyResults(
+      userId,
+      [timeAnomaly, featureAnomaly, rateAnomaly]
+    );
+    
+    // Update the user's behavior profile if not anomalous
+    if (!combinedResult.isAnomaly) {
+      await updateUserBehaviorProfile(userId, creditUsage);
+    }
+    
+    return combinedResult;
+  } catch (error) {
+    console.error('Error detecting anomalous activity:', error);
+    return createDefaultResult(userId, 'none', 'Error detecting anomalies');
+  }
+}
+
+/**
+ * Create a default anomaly detection result
+ * @param userId The user ID
+ * @param anomalyType The anomaly type
+ * @param details The details
+ * @returns A default anomaly detection result
+ */
+function createDefaultResult(
+  userId: string,
+  anomalyType: 'usage_pattern' | 'time_pattern' | 'feature_pattern' | 'location_pattern' | 'none',
+  details: string
+): AnomalyDetectionResult {
+  return {
+    userId,
+    isAnomaly: false,
+    anomalyScore: 0,
+    anomalyType,
+    confidence: 'low',
+    details,
+    timestamp: new Date(),
+    suggestedAction: 'none',
+  };
+}
+
+/**
+ * Get a user's behavior profile
+ * @param userId The user ID
+ * @returns The user's behavior profile
+ */
+async function getUserBehaviorProfile(userId: string): Promise<UserBehaviorProfile> {
+  try {
+    // Check if the user has an existing profile
+    const existingProfile = await prisma.userBehaviorProfile.findUnique({
+      where: { userId },
+    });
+    
+    if (existingProfile) {
+      // Parse the stored profile data
+      return {
+        userId,
+        typicalUsageTimes: JSON.parse(existingProfile.typicalUsageTimes as string),
+        typicalFeatures: JSON.parse(existingProfile.typicalFeatures as string),
+        typicalUsageRate: existingProfile.typicalUsageRate,
+        typicalSessionDuration: existingProfile.typicalSessionDuration,
+        lastUpdated: existingProfile.updatedAt,
+      };
+    }
+    
+    // If no profile exists, create a new one based on historical data
+    return await createUserBehaviorProfile(userId);
+  } catch (error) {
+    console.error('Error getting user behavior profile:', error);
+    
+    // Return a default profile
+    return {
+      userId,
+      typicalUsageTimes: {
+        dayOfWeek: [1, 2, 3, 4, 5], // Monday to Friday
+        hourOfDay: [9, 10, 11, 12, 13, 14, 15, 16], // 9 AM to 5 PM
+      },
+      typicalFeatures: [],
+      typicalUsageRate: 10, // 10 credits per day
+      typicalSessionDuration: 30, // 30 minutes
+      lastUpdated: new Date(),
+    };
+  }
+}
+
+/**
+ * Create a user behavior profile based on historical data
+ * @param userId The user ID
+ * @returns A new user behavior profile
+ */
+async function createUserBehaviorProfile(userId: string): Promise<UserBehaviorProfile> {
+  // Get the user's credit usage history
+  const creditUsage = await prisma.creditUsage.findMany({
+    where: {
+      Credit: {
+        userId,
+      },
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    take: 100, // Look at the last 100 usage records
+  });
+  
+  // Calculate typical usage times
+  const usageTimes = creditUsage.map(usage => new Date(usage.createdAt));
+  
+  const daysOfWeek = usageTimes.map(date => date.getDay());
+  const hoursOfDay = usageTimes.map(date => date.getHours());
+  
+  // Count occurrences of each day and hour
+  const dayCount: Record<number, number> = {};
+  const hourCount: Record<number, number> = {};
+  
+  for (const day of daysOfWeek) {
+    dayCount[day] = (dayCount[day] || 0) + 1;
+  }
+  
+  for (const hour of hoursOfDay) {
+    hourCount[hour] = (hourCount[hour] || 0) + 1;
+  }
+  
+  // Get the most common days and hours (top 3)
+  const typicalDays = Object.entries(dayCount)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([day]) => parseInt(day));
+  
+  const typicalHours = Object.entries(hourCount)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([hour]) => parseInt(hour));
+  
+  // Calculate typical features
+  const featureCounts: Record<string, number> = {};
+  
+  for (const usage of creditUsage) {
+    featureCounts[usage.featureId] = (featureCounts[usage.featureId] || 0) + 1;
+  }
+  
+  const typicalFeatures = Object.entries(featureCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([feature]) => feature);
+  
+  // Calculate typical usage rate (credits per day)
+  const totalCredits = creditUsage.reduce((sum, usage) => sum + usage.amount, 0);
+  
+  // Get the date range
+  const dates = usageTimes.map(date => date.toISOString().split('T')[0]);
+  const uniqueDates = new Set(dates);
+  
+  const typicalUsageRate = uniqueDates.size > 0
+    ? totalCredits / uniqueDates.size
+    : 10; // Default to 10 credits per day
+  
+  // Create the profile
+  const profile: UserBehaviorProfile = {
+    userId,
+    typicalUsageTimes: {
+      dayOfWeek: typicalDays,
+      hourOfDay: typicalHours,
+    },
+    typicalFeatures,
+    typicalUsageRate,
+    typicalSessionDuration: 30, // Default to 30 minutes
+    lastUpdated: new Date(),
+  };
+  
+  // Store the profile in the database
+  await prisma.userBehaviorProfile.upsert({
+    where: { userId },
+    update: {
+      typicalUsageTimes: JSON.stringify(profile.typicalUsageTimes),
+      typicalFeatures: JSON.stringify(profile.typicalFeatures),
+      typicalUsageRate: profile.typicalUsageRate,
+      typicalSessionDuration: profile.typicalSessionDuration,
+      updatedAt: new Date(),
+    },
+    create: {
+      id: `profile_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`,
+      userId,
+      typicalUsageTimes: JSON.stringify(profile.typicalUsageTimes),
+      typicalFeatures: JSON.stringify(profile.typicalFeatures),
+      typicalUsageRate: profile.typicalUsageRate,
+      typicalSessionDuration: profile.typicalSessionDuration,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+  });
+  
+  return profile;
+}
+
+/**
+ * Get a user's recent credit usage
+ * @param userId The user ID
+ * @returns The user's recent credit usage
+ */
+async function getRecentCreditUsage(userId: string): Promise<any[]> {
+  // Get the user's credit usage for the last 24 hours
+  const oneDayAgo = new Date();
+  oneDayAgo.setDate(oneDayAgo.getDate() - 1);
+  
+  const recentUsage = await prisma.creditUsage.findMany({
+    where: {
+      Credit: {
+        userId,
+      },
+      createdAt: {
+        gte: oneDayAgo,
+      },
+    },
+    orderBy: {
+      createdAt: 'asc',
+    },
+  });
+  
+  return recentUsage;
+}
+
+/**
+ * Detect time-based anomalies
+ * @param creditUsage The credit usage to check
+ * @param userProfile The user's behavior profile
+ * @returns The anomaly detection result
+ */
+function detectTimeAnomaly(
+  creditUsage: unknown,
+  userProfile: UserBehaviorProfile
+): AnomalyDetectionResult {
+  const usageDate = new Date(creditUsage.createdAt);
+  const dayOfWeek = usageDate.getDay();
+  const hourOfDay = usageDate.getHours();
+  
+  // Check if the usage time is typical for this user
+  const isTypicalDay = userProfile.typicalUsageTimes.dayOfWeek.includes(dayOfWeek);
+  const isTypicalHour = userProfile.typicalUsageTimes.hourOfDay.includes(hourOfDay);
+  
+  // Calculate anomaly score
+  let anomalyScore = 0;
+  
+  if (!isTypicalDay && !isTypicalHour) {
+    anomalyScore = 0.8; // High anomaly if both day and hour are unusual
+  } else if (!isTypicalDay) {
+    anomalyScore = 0.5; // Medium anomaly if just the day is unusual
+  } else if (!isTypicalHour) {
+    anomalyScore = 0.3; // Low anomaly if just the hour is unusual
+  }
+  
+  // Determine confidence level
+  let confidence: 'low' | 'medium' | 'high' = 'low';
+  
+  if (userProfile.typicalUsageTimes.dayOfWeek.length >= 3 && userProfile.typicalUsageTimes.hourOfDay.length >= 5) {
+    confidence = 'high';
+  } else if (userProfile.typicalUsageTimes.dayOfWeek.length >= 2 && userProfile.typicalUsageTimes.hourOfDay.length >= 3) {
+    confidence = 'medium';
+  }
+  
+  // Create details message
+  let details = 'Usage time is within normal patterns.';
+  
+  if (!isTypicalDay && !isTypicalHour) {
+    details = `Usage on ${getDayName(dayOfWeek)} at ${hourOfDay}:00 is unusual. User typically uses the platform on ${userProfile.typicalUsageTimes.dayOfWeek.map(getDayName).join(', ')} between ${Math.min(...userProfile.typicalUsageTimes.hourOfDay)}:00 and ${Math.max(...userProfile.typicalUsageTimes.hourOfDay)}:00.`;
+  } else if (!isTypicalDay) {
+    details = `Usage on ${getDayName(dayOfWeek)} is unusual. User typically uses the platform on ${userProfile.typicalUsageTimes.dayOfWeek.map(getDayName).join(', ')}.`;
+  } else if (!isTypicalHour) {
+    details = `Usage at ${hourOfDay}:00 is unusual. User typically uses the platform between ${Math.min(...userProfile.typicalUsageTimes.hourOfDay)}:00 and ${Math.max(...userProfile.typicalUsageTimes.hourOfDay)}:00.`;
+  }
+  
+  // Determine suggested action
+  let suggestedAction: 'monitor' | 'alert' | 'restrict' | 'none' = 'none';
+  
+  if (anomalyScore >= 0.7 && confidence === 'high') {
+    suggestedAction = 'alert';
+  } else if (anomalyScore >= 0.5) {
+    suggestedAction = 'monitor';
+  }
+  
+  return {
+    userId: userProfile.userId,
+    isAnomaly: anomalyScore >= 0.5,
+    anomalyScore,
+    anomalyType: 'time_pattern',
+    confidence,
+    details,
+    timestamp: new Date(),
+    suggestedAction,
+  };
+}
+
+/**
+ * Get the name of a day of the week
+ * @param day The day of the week (0-6, where 0 is Sunday)
+ * @returns The name of the day
+ */
+function getDayName(day: number): string {
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  return days[day];
+}
+
+/**
+ * Detect feature-based anomalies
+ * @param creditUsage The credit usage to check
+ * @param userProfile The user's behavior profile
+ * @returns The anomaly detection result
+ */
+function detectFeatureAnomaly(
+  creditUsage: unknown,
+  userProfile: UserBehaviorProfile
+): AnomalyDetectionResult {
+  const featureId = creditUsage.featureId;
+  
+  // Check if the feature is typical for this user
+  const isTypicalFeature = userProfile.typicalFeatures.includes(featureId);
+  
+  // Calculate anomaly score
+  let anomalyScore = 0;
+  
+  if (!isTypicalFeature) {
+    // Higher anomaly score if the user has established patterns
+    anomalyScore = userProfile.typicalFeatures.length >= 3 ? 0.7 : 0.4;
+  }
+  
+  // Determine confidence level
+  let confidence: 'low' | 'medium' | 'high' = 'low';
+  
+  if (userProfile.typicalFeatures.length >= 5) {
+    confidence = 'high';
+  } else if (userProfile.typicalFeatures.length >= 3) {
+    confidence = 'medium';
+  }
+  
+  // Create details message
+  let details = 'Feature usage is within normal patterns.';
+  
+  if (!isTypicalFeature) {
+    details = `Usage of feature "${featureId}" is unusual. User typically uses: ${userProfile.typicalFeatures.join(', ')}.`;
+  }
+  
+  // Determine suggested action
+  let suggestedAction: 'monitor' | 'alert' | 'restrict' | 'none' = 'none';
+  
+  if (anomalyScore >= 0.7 && confidence === 'high') {
+    suggestedAction = 'alert';
+  } else if (anomalyScore >= 0.4) {
+    suggestedAction = 'monitor';
+  }
+  
+  return {
+    userId: userProfile.userId,
+    isAnomaly: anomalyScore >= 0.5,
+    anomalyScore,
+    anomalyType: 'feature_pattern',
+    confidence,
+    details,
+    timestamp: new Date(),
+    suggestedAction,
+  };
+}
+
+/**
+ * Detect rate-based anomalies
+ * @param creditUsage The credit usage to check
+ * @param recentUsage The user's recent credit usage
+ * @param userProfile The user's behavior profile
+ * @returns The anomaly detection result
+ */
+function detectRateAnomaly(
+  creditUsage: unknown,
+  recentUsage: any[],
+  userProfile: UserBehaviorProfile
+): AnomalyDetectionResult {
+  // Calculate the total credits used in the last 24 hours
+  const totalRecentCredits = recentUsage.reduce((sum, usage) => sum + usage.amount, 0) + creditUsage.amount;
+  
+  // Calculate the ratio of recent usage to typical daily usage
+  const usageRatio = totalRecentCredits / userProfile.typicalUsageRate;
+  
+  // Calculate anomaly score
+  let anomalyScore = 0;
+  
+  if (usageRatio > 5) {
+    anomalyScore = 0.9; // Very high anomaly if usage is 5x typical
+  } else if (usageRatio > 3) {
+    anomalyScore = 0.7; // High anomaly if usage is 3-5x typical
+  } else if (usageRatio > 2) {
+    anomalyScore = 0.5; // Medium anomaly if usage is 2-3x typical
+  } else if (usageRatio > 1.5) {
+    anomalyScore = 0.3; // Low anomaly if usage is 1.5-2x typical
+  }
+  
+  // Determine confidence level
+  let confidence: 'low' | 'medium' | 'high';
+  
+  if (recentUsage.length >= 10 || userProfile.lastUpdated.getTime() > Date.now() - 30 * 24 * 60 * 60 * 1000) {
+    confidence = 'high';
+  } else if (recentUsage.length >= 5 || userProfile.lastUpdated.getTime() > Date.now() - 90 * 24 * 60 * 60 * 1000) {
+    confidence = 'medium';
+  } else {
+    confidence = 'low';
+  }
+  
+  // Create details message
+  let details = 'Usage rate is within normal patterns.';
+  
+  if (usageRatio > 1.5) {
+    details = `Usage rate of ${totalRecentCredits} credits in the last 24 hours is ${usageRatio.toFixed(1)}x higher than the typical daily rate of ${userProfile.typicalUsageRate.toFixed(1)} credits.`;
+  }
+  
+  // Determine suggested action
+  let suggestedAction: 'monitor' | 'alert' | 'restrict' | 'none' = 'none';
+  
+  if (anomalyScore >= 0.7 && confidence !== 'low') {
+    suggestedAction = 'alert';
+  } else if (anomalyScore >= 0.5) {
+    suggestedAction = 'monitor';
+  }
+  
+  return {
+    userId: userProfile.userId,
+    isAnomaly: anomalyScore >= 0.5,
+    anomalyScore,
+    anomalyType: 'usage_pattern',
+    confidence,
+    details,
+    timestamp: new Date(),
+    suggestedAction,
+  };
+}
+
+/**
+ * Combine multiple anomaly detection results
+ * @param userId The user ID
+ * @param results The anomaly detection results to combine
+ * @returns The combined anomaly detection result
+ */
+function combineAnomalyResults(
+  userId: string,
+  results: AnomalyDetectionResult[]
+): AnomalyDetectionResult {
+  // Find the result with the highest anomaly score
+  const highestResult = results.reduce((prev, curr) => {
+    return curr.anomalyScore > prev.anomalyScore ? curr : prev;
+  });
+  
+  // Check if multiple anomalies were detected
+  const anomalyCount = results.filter(result => result.isAnomaly).length;
+  
+  // Increase the anomaly score if multiple anomalies were detected
+  let combinedScore = highestResult.anomalyScore;
+  
+  if (anomalyCount > 1) {
+    combinedScore = Math.min(combinedScore + 0.1 * anomalyCount, 1);
+  }
+  
+  // Determine the highest confidence level
+  const confidenceLevels: Record<string, number> = {
+    low: 1,
+    medium: 2,
+    high: 3,
+  };
+  
+  const highestConfidence = results.reduce((prev, curr) => {
+    return confidenceLevels[curr.confidence] > confidenceLevels[prev] ? curr.confidence : prev;
+  }, 'low' as 'low' | 'medium' | 'high');
+  
+  // Determine the most severe suggested action
+  const actionSeverity: Record<string, number> = {
+    none: 0,
+    monitor: 1,
+    alert: 2,
+    restrict: 3,
+  };
+  
+  const highestAction = results.reduce((prev, curr) => {
+    return actionSeverity[curr.suggestedAction] > actionSeverity[prev] ? curr.suggestedAction : prev;
+  }, 'none' as 'monitor' | 'alert' | 'restrict' | 'none');
+  
+  // Create a combined details message
+  const anomalyDetails = results
+    .filter(result => result.isAnomaly)
+    .map(result => result.details)
+    .join(' ');
+  
+  const combinedDetails = anomalyDetails || 'No anomalies detected.';
+  
+  return {
+    userId,
+    isAnomaly: combinedScore >= 0.5,
+    anomalyScore: combinedScore,
+    anomalyType: highestResult.anomalyType,
+    confidence: highestConfidence,
+    details: combinedDetails,
+    timestamp: new Date(),
+    suggestedAction: highestAction,
+  };
+}
+
+/**
+ * Update a user's behavior profile with new credit usage
+ * @param userId The user ID
+ * @param creditUsage The credit usage to update with
+ */
+async function updateUserBehaviorProfile(
+  userId: string,
+  creditUsage: unknown
+): Promise<void> {
+  try {
+    // Get the current profile
+    const currentProfile = await getUserBehaviorProfile(userId);
+    
+    // Update the profile with the new usage
+    const usageDate = new Date(creditUsage.createdAt);
+    const dayOfWeek = usageDate.getDay();
+    const hourOfDay = usageDate.getHours();
+    const featureId = creditUsage.featureId;
+    
+    // Update typical usage times
+    const typicalDays = new Set(currentProfile.typicalUsageTimes.dayOfWeek);
+    const typicalHours = new Set(currentProfile.typicalUsageTimes.hourOfDay);
+    
+    typicalDays.add(dayOfWeek);
+    typicalHours.add(hourOfDay);
+    
+    // Update typical features
+    const typicalFeatures = new Set(currentProfile.typicalFeatures);
+    typicalFeatures.add(featureId);
+    
+    // Limit the number of typical days, hours, and features
+    const updatedDays = Array.from(typicalDays).slice(0, 5);
+    const updatedHours = Array.from(typicalHours).slice(0, 8);
+    const updatedFeatures = Array.from(typicalFeatures).slice(0, 10);
+    
+    // Update the profile in the database
+    await prisma.userBehaviorProfile.update({
+      where: { userId },
+      data: {
+        typicalUsageTimes: JSON.stringify({
+          dayOfWeek: updatedDays,
+          hourOfDay: updatedHours,
+        }),
+        typicalFeatures: JSON.stringify(updatedFeatures),
+        updatedAt: new Date(),
+      },
+    });
+  } catch (error) {
+    console.error('Error updating user behavior profile:', error);
+  }
+}
+
+/**
+ * Get users with anomalous activity
+ * @returns Users with anomalous activity
+ */
+export async function getUsersWithAnomalousActivity(): Promise<{
+  userId: string;
+  email: string;
+  anomalyResult: AnomalyDetectionResult;
+}[]> {
+  try {
+    // Get recent credit usage
+    const recentUsage = await prisma.creditUsage.findMany({
+      where: {
+        createdAt: {
+          gte: new Date(Date.now() - 24 * 60 * 60 * 1000), // Last 24 hours
+        },
+      },
+      include: {
+        Credit: {
+          select: {
+            userId: true,
+            User: {
+              select: {
+                email: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+    
+    // Group by user
+    const userUsage: Record<string, any[]> = {};
+    
+    for (const usage of recentUsage) {
+      const userId = usage.Credit.userId;
+      
+      if (!userUsage[userId]) {
+        userUsage[userId] = [];
+      }
+      
+      userUsage[userId].push(usage);
+    }
+    
+    // Check each user for anomalies
+    const usersWithAnomalies = [];
+    
+    for (const [userId, usages] of Object.entries(userUsage)) {
+      // Check the most recent usage
+      const latestUsage = usages[0];
+      const anomalyResult = await detectAnomalousActivity(userId, latestUsage.id);
+      
+      if (anomalyResult.isAnomaly && anomalyResult.suggestedAction !== 'none') {
+        usersWithAnomalies.push({
+          userId,
+          email: latestUsage.Credit.User.email,
+          anomalyResult,
+        });
+      }
+    }
+    
+    return usersWithAnomalies;
+  } catch (error) {
+    console.error('Error getting users with anomalous activity:', error);
+    return [];
+  }
+}

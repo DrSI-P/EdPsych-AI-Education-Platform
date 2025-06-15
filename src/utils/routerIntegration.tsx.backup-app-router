@@ -1,0 +1,156 @@
+/**
+ * Next.js Router Integration Utilities
+ * 
+ * This module provides utilities for deeper integration with the Next.js router,
+ * particularly for handling Puppeteer navigation issues.
+ */
+import { useRouter } from 'next/router';
+import { useEffect, useCallback } from 'react';
+import React from 'react';
+
+/**
+ * Check if the current environment is Puppeteer
+ */
+export function isPuppeteer() {
+  if (typeof navigator === 'undefined') {
+    return false;
+  }
+  
+  return (
+    navigator.userAgent.includes('Headless') ||
+    navigator.userAgent.includes('HeadlessChrome') ||
+    navigator.webdriver === true
+  );
+}
+
+/**
+ * Hook to use safe navigation in Puppeteer environments
+ */
+export function useSafeNavigation() {
+  const router = useRouter();
+  
+  const safeNavigate = useCallback((href: string, options?: unknown) => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    
+    try {
+      console.log('[RouterIntegration] Navigating to:', href);
+      
+      // For Puppeteer, use direct navigation
+      if (isPuppeteer()) {
+        console.log('[RouterIntegration] Using direct navigation in Puppeteer');
+        
+        // Use a timeout to allow the current event loop to complete
+        setTimeout(() => {
+          window.location.href = href;
+        }, 100);
+        
+        return;
+      }
+      
+      // For regular browsers, use the router
+      console.log('[RouterIntegration] Using router navigation');
+      router.push(href, undefined, options);
+    } catch (error) {
+      console.error('[RouterIntegration] Navigation error:', error);
+      
+      // Fallback to direct navigation
+      setTimeout(() => {
+        window.location.href = href;
+      }, 100);
+    }
+  }, [router]);
+  
+  return safeNavigate;
+}
+
+/**
+ * Hook to patch the router for Puppeteer environments
+ */
+export function usePatchedRouter() {
+  const router = useRouter();
+  
+  useEffect(() => {
+    if (typeof window === 'undefined' || !isPuppeteer()) {
+      return;
+    }
+    
+    console.log('[RouterIntegration] Patching router for Puppeteer');
+    
+    // Store original methods
+    const originalPush = router.push;
+    const originalReplace = router.replace;
+    
+    // Override router.push
+    router.push = function() {
+      try {
+        console.log('[RouterIntegration] Router push:', arguments[0]);
+        
+        // Use direct navigation
+        const url = typeof arguments[0] === 'object' ? arguments[0].pathname : arguments[0];
+        
+        // Use a timeout to ensure the current event loop completes
+        setTimeout(() => {
+          window.location.href = url;
+        }, 100);
+        
+        return Promise.resolve(true);
+      } catch (error) {
+        console.log('[RouterIntegration] Caught router push error:', error.message);
+        return Promise.resolve(true);
+      }
+    };
+    
+    // Override router.replace
+    router.replace = function() {
+      try {
+        console.log('[RouterIntegration] Router replace:', arguments[0]);
+        
+        // Use direct navigation
+        const url = typeof arguments[0] === 'object' ? arguments[0].pathname : arguments[0];
+        
+        // Use a timeout to ensure the current event loop completes
+        setTimeout(() => {
+          window.location.replace(url);
+        }, 100);
+        
+        return Promise.resolve(true);
+      } catch (error) {
+        console.log('[RouterIntegration] Caught router replace error:', error.message);
+        return Promise.resolve(true);
+      }
+    };
+    
+    // Return cleanup function
+    return () => {
+      router.push = originalPush;
+      router.replace = originalReplace;
+    };
+  }, [router]);
+  
+  return router;
+}
+
+/**
+ * Create a safe link component for Puppeteer environments
+ */
+export function createSafeLink(Component: React.ComponentType<any>) {
+  return function SafeLink(props: unknown) {
+    const safeNavigate = useSafeNavigation();
+    
+    const handleClick = useCallback((e: React.MouseEvent) => {
+      if (isPuppeteer()) {
+        e.preventDefault();
+        safeNavigate(props.href);
+        return false;
+      }
+      
+      if (props.onClick) {
+        return props.onClick(e);
+      }
+    }, [props.href, props.onClick, safeNavigate]);
+    
+    return <Component {...props} onClick={handleClick} />;
+  };
+}

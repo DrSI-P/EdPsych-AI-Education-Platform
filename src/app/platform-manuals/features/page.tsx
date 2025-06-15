@@ -1,0 +1,341 @@
+'use client';
+
+import dynamic from 'next/dynamic';
+
+import React from 'react';
+
+import { Heading } from '@/components/ui/heading';
+import { Text } from '@/components/ui/text';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { 
+  BookOpen, 
+  Brain,
+  FileText,
+  BarChart,
+  Users,
+  ChevronLeft,
+  Search,
+  ChevronRight,
+  Sliders,
+  Layers,
+  CreditCard,
+  MessageSquare,
+  Video
+} from 'lucide-react';
+// Original component
+
+const AIEnhancedLayout = dynamic(
+  () => import('@/components/layouts/AIEnhancedLayout'),
+  { ssr: false }
+);
+
+function FeaturesGuidesPage() {
+  return (
+    <AIEnhancedLayout>
+      <div className="container mx-auto py-8 max-w-6xl">
+        <div className="flex items-center mb-2">
+          <Button variant="ghost" size="sm" className="mr-2" asChild>
+            <Link href="/platform-manuals">
+              <ChevronLeft className="h-4 w-4 mr-1" />
+              Back to Platform Manuals
+            </Link>
+          </Button>
+        </div>
+        
+        <div className="text-center mb-12">
+          <Heading level="h1" className="mb-4">Feature-Specific Guides</Heading>
+          <Text className="text-xl max-w-3xl mx-auto">
+            Detailed documentation for specific platform features and capabilities. Select a guide to learn more about a particular feature.
+          </Text>
+        </div>
+        
+        <div className="mb-8">
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <Search className="h-5 w-5 text-muted-foreground" />
+            </div>
+            <input 
+              type="search" 
+              className="block w-full p-4 pl-10 text-sm border rounded-lg bg-background" 
+              placeholder="Search feature guides..." 
+            />
+            <Button className="absolute right-2.5 bottom-2.5">
+              Search
+            </Button>
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          {/* AI Lesson Planning */}
+          <Card className="p-6 hover:shadow-md transition-shadow">
+            <div className="flex flex-col h-full">
+              <div className="mb-4">
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <Brain className="h-6 w-6 text-primary" />
+                </div>
+                <Heading level="h2" className="text-xl mb-2">AI Lesson Planning</Heading>
+                <Text className="text-muted-foreground mb-4">
+                  Learn how to create personalized lesson plans aligned with curriculum standards using AI assistance.
+                </Text>
+              </div>
+              <div className="mt-auto">
+                <Button className="w-full" asChild>
+                  <Link href="/platform-manuals/features/ai-lesson-planning">
+                    View Guide
+                    <ChevronRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </Card>
+          
+          {/* Content Differentiation */}
+          <Card className="p-6 hover:shadow-md transition-shadow">
+            <div className="flex flex-col h-full">
+              <div className="mb-4">
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <Layers className="h-6 w-6 text-primary" />
+                </div>
+                <Heading level="h2" className="text-xl mb-2">Content Differentiation</Heading>
+                <Text className="text-muted-foreground mb-4">
+                  Discover how to automatically adapt content for diverse learning needs and abilities.
+                </Text>
+              </div>
+              <div className="mt-auto">
+                <Button className="w-full" asChild>
+                  <Link href="/platform-manuals/features/content-differentiation">
+                    View Guide
+                    <ChevronRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </Card>
+          
+          {/* Assessment Generation */}
+          <Card className="p-6 hover:shadow-md transition-shadow">
+            <div className="flex flex-col h-full">
+              <div className="mb-4">
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <FileText className="h-6 w-6 text-primary" />
+                </div>
+                <Heading level="h2" className="text-xl mb-2">Assessment Generation</Heading>
+                <Text className="text-muted-foreground mb-4">
+                  Learn to create fair, comprehensive assessments with appropriate difficulty levels and accommodations.
+                </Text>
+              </div>
+              <div className="mt-auto">
+                <Button className="w-full" asChild>
+                  <Link href="/platform-manuals/features/assessment-generation">
+                    View Guide
+                    <ChevronRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </Card>
+          
+          {/* Analytics & Reporting */}
+          <Card className="p-6 hover:shadow-md transition-shadow">
+            <div className="flex flex-col h-full">
+              <div className="mb-4">
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <BarChart className="h-6 w-6 text-primary" />
+                </div>
+                <Heading level="h2" className="text-xl mb-2">Analytics & Reporting</Heading>
+                <Text className="text-muted-foreground mb-4">
+                  Understand how to use data insights to track progress and inform instructional decisions.
+                </Text>
+              </div>
+              <div className="mt-auto">
+                <Button className="w-full" asChild>
+                  <Link href="/platform-manuals/features/analytics-reporting">
+                    View Guide
+                    <ChevronRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </Card>
+          
+          {/* Subscription & Credits */}
+          <Card className="p-6 hover:shadow-md transition-shadow">
+            <div className="flex flex-col h-full">
+              <div className="mb-4">
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <CreditCard className="h-6 w-6 text-primary" />
+                </div>
+                <Heading level="h2" className="text-xl mb-2">Subscription & Credits</Heading>
+                <Text className="text-muted-foreground mb-4">
+                  Learn about subscription tiers, credits system, and how to optimise your platform usage.
+                </Text>
+              </div>
+              <div className="mt-auto">
+                <Button className="w-full" asChild>
+                  <Link href="/platform-manuals/features/subscription-credits">
+                    View Guide
+                    <ChevronRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </Card>
+          
+          {/* Collaboration Tools */}
+          <Card className="p-6 hover:shadow-md transition-shadow">
+            <div className="flex flex-col h-full">
+              <div className="mb-4">
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <Users className="h-6 w-6 text-primary" />
+                </div>
+                <Heading level="h2" className="text-xl mb-2">Collaboration Tools</Heading>
+                <Text className="text-muted-foreground mb-4">
+                  Discover how to effectively collaborate with colleagues and share resources within the platform.
+                </Text>
+              </div>
+              <div className="mt-auto">
+                <Button className="w-full" asChild>
+                  <Link href="/platform-manuals/features/collaboration-tools">
+                    View Guide
+                    <ChevronRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Additional Feature Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          {/* Interactive Video */}
+          <Card className="p-6 hover:shadow-md transition-shadow">
+            <div className="flex flex-col h-full">
+              <div className="mb-4">
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <Video className="h-6 w-6 text-primary" />
+                </div>
+                <Heading level="h2" className="text-xl mb-2">Interactive Video</Heading>
+                <Text className="text-muted-foreground mb-4">
+                  Explore our enhanced video features with adaptive playback, in-video questions, and AI-generated notes.
+                </Text>
+              </div>
+              <div className="mt-auto">
+                <Button className="w-full" asChild>
+                  <Link href="/platform-manuals/features/interactive-video">
+                    View Guide
+                    <ChevronRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </Card>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          <Card className="p-6">
+            <Heading level="h2" className="text-xl mb-4">AI-Enhanced Features</Heading>
+            <Text className="mb-4">
+              Explore guides for our advanced AI-powered features that personalise the learning experience.
+            </Text>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Button variant="outline" className="justify-start" asChild>
+                <Link href="/platform-manuals/features/predictive-caching">
+                  <Sliders className="mr-2 h-4 w-4" />
+                  Predictive Caching
+                </Link>
+              </Button>
+              <Button variant="outline" className="justify-start" asChild>
+                <Link href="/platform-manuals/features/personalized-content">
+                  <Layers className="mr-2 h-4 w-4" />
+                  Personalized Content
+                </Link>
+              </Button>
+              <Button variant="outline" className="justify-start" asChild>
+                <Link href="/platform-manuals/features/ai-interactive-elements">
+                  <Brain className="mr-2 h-4 w-4" />
+                  AI Interactive Elements
+                </Link>
+              </Button>
+              <Button variant="outline" className="justify-start" asChild>
+                <Link href="/platform-manuals/features/feature-recommendations">
+                  <MessageSquare className="mr-2 h-4 w-4" />
+                  Feature Recommendations
+                </Link>
+              </Button>
+            </div>
+          </Card>
+          
+          <Card className="p-6">
+            <Heading level="h2" className="text-xl mb-4">Technical Features</Heading>
+            <Text className="mb-4">
+              Learn about technical aspects of the platform for administrators and power users.
+            </Text>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Button variant="outline" className="justify-start" asChild>
+                <Link href="/platform-manuals/features/system-integration">
+                  <Sliders className="mr-2 h-4 w-4" />
+                  System Integration
+                </Link>
+              </Button>
+              <Button variant="outline" className="justify-start" asChild>
+                <Link href="/platform-manuals/features/data-management">
+                  <BarChart className="mr-2 h-4 w-4" />
+                  Data Management
+                </Link>
+              </Button>
+              <Button variant="outline" className="justify-start" asChild>
+                <Link href="/platform-manuals/features/security-compliance">
+                  <FileText className="mr-2 h-4 w-4" />
+                  Security & Compliance
+                </Link>
+              </Button>
+              <Button variant="outline" className="justify-start" asChild>
+                <Link href="/platform-manuals/features/mobile-access">
+                  <MessageSquare className="mr-2 h-4 w-4" />
+                  Mobile Access
+                </Link>
+              </Button>
+            </div>
+          </Card>
+        </div>
+        
+        <Card className="p-6 mb-8">
+          <div className="flex items-center mb-4">
+            <BookOpen className="h-6 w-6 text-primary mr-2" />
+            <Heading level="h2" className="text-xl">Can't Find What You're Looking For?</Heading>
+          </div>
+          <Text className="mb-4">
+            If you can't find a guide for a specific feature, there are several ways to get assistance:
+          </Text>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <Button variant="outline" className="justify-start" asChild>
+              <Link href="/help/contact">
+                Contact Support Team
+              </Link>
+            </Button>
+            <Button variant="outline" className="justify-start" asChild>
+              <Link href="/help/community">
+                Community Forums
+              </Link>
+            </Button>
+            <Button variant="outline" className="justify-start" asChild>
+              <Link href="/help/request-guide">
+                Request New Guide
+              </Link>
+            </Button>
+          </div>
+        </Card>
+        
+        <div className="text-center">
+          <Text className="text-sm text-muted-foreground">
+            All feature guides are regularly updated to reflect the latest platform capabilities.
+            Last updated: June 2025
+          </Text>
+        </div>
+      </div>
+    </AIEnhancedLayout>
+  );
+}
+export default FeaturesGuidesPage;

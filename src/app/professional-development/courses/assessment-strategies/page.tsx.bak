@@ -1,0 +1,781 @@
+'use client';
+
+import React, { useState } from 'react';
+import { EnhancedHeader, EnhancedFooter } from '@/components/layout/enhanced-header-footer';
+import { Container, Typography, Card, Grid } from '@/components/ui/enhanced-layout-components';
+import { Button } from '@/components/ui/enhanced-form-components';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/enhanced-interactive-components';
+import { Accordion, AccordionItem } from '@/components/ui/enhanced-interactive-components';
+import { Badge } from '@/components/ui/enhanced-form-components';
+import Link from 'next/link';
+import Image from 'next/image';
+
+// Create simple versions of missing components
+const Progress = ({ value, max, className }: { value: number; max: number; className?: string }) => (
+  <div className={`bg-grey-200 rounded-full ${className}`}>
+    <div 
+      className="bg-blue-600 rounded-full h-full" 
+      style={{ width: `${(value / max) * 100}%` }}
+    ></div>
+  </div>
+);
+
+const AccordionTrigger = ({ className, children }: { className?: string; children: React.ReactNode }) => (
+  <div className={className}>
+    {children}
+  </div>
+);
+
+const AccordionContent = ({ children }: { children: React.ReactNode }) => (
+  <div className="accordion-content">
+    {children}
+  </div>
+);
+
+export default function AssessmentStrategiesCoursePage() {
+  const [activeTab, setActiveTab] = useState('overview');
+  
+  // Mock data for course modules
+  const courseModules = [
+    {
+      id: 1,
+      title: "Assessment Fundamentals",
+      description: "Understanding the principles of effective assessment, including validity, reliability, and alignment with learning objectives.",
+      duration: "2 hours",
+      lessons: [
+        { title: "Introduction to Educational Assessment", duration: "20 min", type: "Video Lecture" },
+        { title: "Assessment Purposes and Types", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Validity and Reliability in Assessment", duration: "25 min", type: "Video Lecture" },
+        { title: "Aligning Assessment with Learning Objectives", duration: "30 min", type: "Interactive Tutorial" },
+        { title: "Assessment Ethics and Fairness", duration: "20 min", type: "Video Lecture" },
+        { title: "Knowledge Check", duration: "15 min", type: "Quiz" }
+      ],
+      resources: [
+        "Assessment Planning Template",
+        "Validity and Reliability Checklist",
+        "Learning Objectives Alignment Guide",
+        "Assessment Ethics Framework"
+      ],
+      completion: 0
+    },
+    {
+      id: 2,
+      title: "Formative Assessment",
+      description: "Implementing effective formative assessment strategies to monitor student progress and provide timely feedback.",
+      duration: "2 hours",
+      lessons: [
+        { title: "Principles of Formative Assessment", duration: "20 min", type: "Video Lecture" },
+        { title: "Questioning Techniques", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Feedback Strategies", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Peer and Self-Assessment", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Formative Digital Tools", duration: "20 min", type: "Video Lecture" },
+        { title: "Knowledge Check", duration: "15 min", type: "Quiz" }
+      ],
+      resources: [
+        "Formative Assessment Toolkit",
+        "Effective Questioning Guide",
+        "Feedback Framework Templates",
+        "Digital Tools Comparison Chart"
+      ],
+      completion: 0
+    },
+    {
+      id: 3,
+      title: "Summative Assessment",
+      description: "Designing effective summative assessments that accurately measure student achievement and provide meaningful data.",
+      duration: "2 hours",
+      lessons: [
+        { title: "Principles of Summative Assessment", duration: "20 min", type: "Video Lecture" },
+        { title: "Test Design and Item Writing", duration: "30 min", type: "Interactive Tutorial" },
+        { title: "Performance-Based Assessment", duration: "25 min", type: "Video Lecture" },
+        { title: "Rubric Development", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Marking Practices and Policies", duration: "20 min", type: "Video Lecture" },
+        { title: "Knowledge Check", duration: "15 min", type: "Quiz" }
+      ],
+      resources: [
+        "Test Blueprint Template",
+        "Item Writing Guidelines",
+        "Performance Assessment Examples",
+        "Rubric Development Toolkit"
+      ],
+      completion: 0
+    },
+    {
+      id: 4,
+      title: "Data-Driven Instruction",
+      description: "Using assessment data to inform instructional decisions and improve student learning outcomes.",
+      duration: "2 hours",
+      lessons: [
+        { title: "Assessment Data Collection and Organisation", duration: "20 min", type: "Video Lecture" },
+        { title: "Data Analysis Techniques", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Identifying Patterns and Gaps", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Data-Informed Decision Making", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Communicating Assessment Results", duration: "20 min", type: "Video Lecture" },
+        { title: "Knowledge Check", duration: "15 min", type: "Quiz" }
+      ],
+      resources: [
+        "Data Collection Templates",
+        "Analysis Protocol Guide",
+        "Intervention Planning Worksheet",
+        "Data Visualization Tools"
+      ],
+      completion: 0
+    },
+    {
+      id: 5,
+      title: "Inclusive Assessment",
+      description: "Designing and implementing assessments that are accessible and appropriate for all learners, including those with special educational needs.",
+      duration: "2 hours",
+      lessons: [
+        { title: "Principles of Inclusive Assessment", duration: "20 min", type: "Video Lecture" },
+        { title: "Universal Design for Assessment", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Accommodations and Modifications", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Culturally Responsive Assessment", duration: "20 min", type: "Video Lecture" },
+        { title: "Assessing English Language Learners", duration: "20 min", type: "Interactive Tutorial" },
+        { title: "Knowledge Check", duration: "15 min", type: "Quiz" }
+      ],
+      resources: [
+        "Inclusive Assessment Checklist",
+        "Accommodations Decision Guide",
+        "Cultural Responsiveness Framework",
+        "ELL Assessment Strategies"
+      ],
+      completion: 0
+    },
+    {
+      id: 6,
+      title: "Digital Assessment Tools",
+      description: "Leveraging technology to enhance assessment practices, including automated marking, adaptive testing, and digital portfolios.",
+      duration: "2 hours",
+      lessons: [
+        { title: "Digital Assessment Landscape", duration: "20 min", type: "Video Lecture" },
+        { title: "Online Testing Platforms", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Digital Portfolios and Projects", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Automated Feedback Systems", duration: "20 min", type: "Video Lecture" },
+        { title: "Data Security and Privacy", duration: "20 min", type: "Interactive Tutorial" },
+        { title: "Final Assessment", duration: "30 min", type: "Assessment" }
+      ],
+      resources: [
+        "Digital Tools Comparison Chart",
+        "Implementation Planning Guide",
+        "Digital Assessment Security Checklist",
+        "Student Privacy Framework"
+      ],
+      completion: 0
+    }
+  ];
+
+  // Mock data for course instructors
+  const instructors = [
+    {
+      name: "Dr. Emily Richardson",
+      title: "Assessment Specialist and Educational Researcher",
+      bio: "Dr. Richardson has over 12 years of experience in educational assessment and research. She has worked with schools across the UK to implement evidence-based assessment practices and has published extensively on formative assessment strategies.",
+      image: "/images/professional-development/instructors/emily-richardson.jpg"
+    },
+    {
+      name: "James Wilson",
+      title: "Data Analytics and Assessment Expert",
+      bio: "James specializes in data-driven assessment practices and educational measurement. He has developed assessment systems for multiple educational authorities and provides training on using assessment data to improve teaching and learning.",
+      image: "/images/professional-development/instructors/james-wilson.jpg"
+    }
+  ];
+
+  // Mock data for testimonials
+  const testimonials = [
+    {
+      quote: "This course transformed how I approach assessment in my classroom. The formative assessment strategies have helped me identify and address learning gaps much earlier.",
+      author: "Sarah M., Year 5 Teacher",
+      school: "Oakwood Primary School"
+    },
+    {
+      quote: "The section on data-driven instruction gave me practical tools to analyse assessment results and use them to inform my teaching. My students' progress has improved significantly.",
+      author: "Michael T., Secondary Maths Teacher",
+      school: "Westfield Academy"
+    },
+    {
+      quote: "As an assessment coordinator, this course provided exactly what I needed to lead assessment practices in our school. The inclusive assessment module was particularly valuable.",
+      author: "Rebecca L., Assessment Lead",
+      school: "Greenwood School"
+    }
+  ];
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <EnhancedHeader />
+      
+      <main className="flex-grow">
+        {/* Hero Section */}
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-16">
+          <Container>
+            <div className="flex flex-col md:flex-row gap-8 items-centre">
+              <div className="md:w-2/3">
+                <Badge className="bg-white text-blue-600 mb-4">Professional Development Course</Badge>
+                <Typography variant="h1" className="mb-4">
+                  Effective Assessment for Learning
+                </Typography>
+                <Typography variant="lead" className="mb-6">
+                  A comprehensive course exploring evidence-based assessment strategies that enhance teaching and learning through effective measurement, feedback, and data-informed practise.
+                </Typography>
+                <div className="flex flex-wrap gap-4 mb-6">
+                  <div className="flex items-centre gap-2 bg-blue-500/20 px-3 py-1 rounded-full">
+                    <span className="text-sm font-medium">Duration:</span>
+                    <span className="text-sm">12 hours</span>
+                  </div>
+                  <div className="flex items-centre gap-2 bg-blue-500/20 px-3 py-1 rounded-full">
+                    <span className="text-sm font-medium">Modules:</span>
+                    <span className="text-sm">6 modules</span>
+                  </div>
+                  <div className="flex items-centre gap-2 bg-blue-500/20 px-3 py-1 rounded-full">
+                    <span className="text-sm font-medium">Level:</span>
+                    <span className="text-sm">Foundation to Advanced</span>
+                  </div>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button variant="light" size="lg">
+                    Enrol Now
+                  </Button>
+                  <Button variant="outline-light" size="lg">
+                    Download Syllabus
+                  </Button>
+                </div>
+              </div>
+              <div className="md:w-1/3">
+                <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-xl">
+                  <Image
+                    src="/images/professional-development/assessment-strategies-hero.jpg"
+                    alt="Teacher analysing assessment data with students"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+          </Container>
+        </div>
+        
+        {/* Main Content */}
+        <Container className="py-16">
+          <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab} className="mb-8">
+            <TabsList className="mb-8">
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="curriculum">Curriculum</TabsTrigger>
+              <TabsTrigger value="instructors">Instructors</TabsTrigger>
+              <TabsTrigger value="resources">Resources</TabsTrigger>
+              <TabsTrigger value="faq">FAQ</TabsTrigger>
+            </TabsList>
+            
+            {/* Overview Tab */}
+            <TabsContent value="overview">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="lg:col-span-2">
+                  <Card className="p-8 mb-8">
+                    <Typography variant="h3" className="mb-4">
+                      Course Description
+                    </Typography>
+                    <Typography variant="body" className="mb-6">
+                      This comprehensive course explores evidence-based assessment strategies that enhance teaching and learning through effective measurement, feedback, and data-informed practise. Designed for educators at all levels, the course provides practical approaches to both formative and summative assessment that can be immediately applied in your educational setting.
+                    </Typography>
+                    <Typography variant="body" className="mb-6">
+                      Through a combination of video lectures, interactive tutorials, case studies, and practical activities, you'll develop a comprehensive understanding of assessment principles and practices. You'll learn how to design valid and reliable assessments, provide effective feedback, analyse assessment data, and use results to inform instruction. The course is aligned with UK educational frameworks and provides practical approaches that can be immediately applied in your context.
+                    </Typography>
+                    <Typography variant="h4" className="mb-2">
+                      What You'll Learn
+                    </Typography>
+                    <ul className="list-disc pl-6 mb-6 space-y-2">
+                      <li>Principles of effective assessment, including validity, reliability, and alignment with learning objectives</li>
+                      <li>Formative assessment strategies to monitor student progress and provide timely feedback</li>
+                      <li>Summative assessment design, including test construction and performance-based assessment</li>
+                      <li>Data collection, analysis, and interpretation to inform instructional decisions</li>
+                      <li>Inclusive assessment approaches for diverse learners</li>
+                      <li>Digital assessment tools and technologies to enhance assessment practices</li>
+                    </ul>
+                    <Typography variant="h4" className="mb-2">
+                      Who This Course Is For
+                    </Typography>
+                    <ul className="list-disc pl-6 mb-6 space-y-2">
+                      <li>Classroom teachers at all key stages</li>
+                      <li>Assessment coordinators and leads</li>
+                      <li>Department heads and curriculum leaders</li>
+                      <li>School leaders and administrators</li>
+                      <li>Educational professionals interested in improving assessment practices</li>
+                    </ul>
+                  </Card>
+                  
+                  <Card className="p-8">
+                    <Typography variant="h3" className="mb-4">
+                      Testimonials
+                    </Typography>
+                    <div className="space-y-6">
+                      {testimonials.map((testimonial, index) => (
+                        <div key={index} className="bg-grey-50 p-6 rounded-lg">
+                          <blockquote className="text-lg italic mb-4">"{testimonial.quote}"</blockquote>
+                          <div className="flex items-centre">
+                            <div className="w-10 h-10 bg-blue-600 rounded-full flex items-centre justify-centre text-white font-bold mr-3">
+                              {testimonial.author.charAt(0)}
+                            </div>
+                            <div>
+                              <p className="font-medium">{testimonial.author}</p>
+                              <p className="text-sm text-grey-600">{testimonial.school}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </Card>
+                </div>
+                
+                <div className="lg:col-span-1">
+                  <Card className="p-6 mb-6">
+                    <Typography variant="h4" className="mb-4">
+                      Course Details
+                    </Typography>
+                    <div className="space-y-4">
+                      <div>
+                        <p className="text-sm font-medium mb-1">Duration</p>
+                        <p>12 hours of content (self-paced)</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium mb-1">Format</p>
+                        <p>Online with video lectures, interactive activities, and practical assignments</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium mb-1">Access Period</p>
+                        <p>12 months from enrolment</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium mb-1">Certificate</p>
+                        <p>Downloadable certificate upon completion</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium mb-1">CPD Hours</p>
+                        <p>12 CPD hours recognized by UK teaching bodies</p>
+                      </div>
+                    </div>
+                    <div className="mt-6">
+                      <Button variant="primary" size="lg" className="w-full">
+                        Enrol Now
+                      </Button>
+                    </div>
+                  </Card>
+                  
+                  <Card className="p-6 mb-6">
+                    <Typography variant="h4" className="mb-4">
+                      Related Courses
+                    </Typography>
+                    <div className="space-y-4">
+                      <div className="flex items-start gap-3">
+                        <div className="relative w-16 h-12 rounded overflow-hidden flex-shrink-0">
+                          <Image
+                            src="/images/professional-development/inclusive-education.jpg"
+                            alt="Inclusive Education course"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div>
+                          <Link href="/professional-development/courses/inclusive-education" className="font-medium hover:text-blue-600 transition-colors">
+                            Inclusive Education: Creating Learning Environments for All
+                          </Link>
+                          <p className="text-sm text-grey-600">12 hours • 6 modules</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="relative w-16 h-12 rounded overflow-hidden flex-shrink-0">
+                          <Image
+                            src="/images/professional-development/special-educational-needs.jpg"
+                            alt="Special Educational Needs course"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div>
+                          <Link href="/professional-development/courses/special-educational-needs" className="font-medium hover:text-blue-600 transition-colors">
+                            Special Educational Needs: Effective Support Strategies
+                          </Link>
+                          <p className="text-sm text-grey-600">15 hours • 8 modules</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="relative w-16 h-12 rounded overflow-hidden flex-shrink-0">
+                          <Image
+                            src="/images/professional-development/behaviour-management.jpg"
+                            alt="Behaviour Management course"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div>
+                          <Link href="/professional-development/courses/behaviour-management" className="font-medium hover:text-blue-600 transition-colors">
+                            Positive Behaviour Support and Restorative Approaches
+                          </Link>
+                          <p className="text-sm text-grey-600">10 hours • 5 modules</p>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                  
+                  <Card className="p-6">
+                    <Typography variant="h4" className="mb-4">
+                      Need Help?
+                    </Typography>
+                    <Typography variant="body" className="mb-4">
+                      If you have questions about this course or need assistance, our support team is here to help.
+                    </Typography>
+                    <Button variant="outline" size="lg" className="w-full" asChild>
+                      <Link href="/contact">
+                        Contact Support
+                      </Link>
+                    </Button>
+                  </Card>
+                </div>
+              </div>
+            </TabsContent>
+            
+            {/* Curriculum Tab */}
+            <TabsContent value="curriculum">
+              <Card className="p-8">
+                <Typography variant="h3" className="mb-6">
+                  Course Curriculum
+                </Typography>
+                <Typography variant="body" className="mb-8">
+                  This course consists of 6 comprehensive modules, each focusing on a key aspect of assessment for learning. Each module includes video lectures, interactive tutorials, case studies, and knowledge checks to ensure understanding.
+                </Typography>
+                
+                <div className="space-y-6">
+                  {courseModules.map((module) => (
+                    <div key={module.id} className="border rounded-lg overflow-hidden">
+                      <Accordion type="single" collapsible>
+                        <AccordionItem value={`module-${module.id}`}>
+                          <AccordionTrigger className="p-6 bg-grey-50 hover:bg-grey-100">
+                            <div className="flex flex-col md:flex-row md:items-centre justify-between w-full text-left">
+                              <div>
+                                <Typography variant="h4" className="mb-1">
+                                  Module {module.id}: {module.title}
+                                </Typography>
+                                <Typography variant="small" className="text-grey-600">
+                                  {module.duration} • {module.lessons.length} lessons
+                                </Typography>
+                              </div>
+                              <div className="mt-2 md:mt-0">
+                                <Progress value={module.completion} max={100} className="w-24 h-2" />
+                              </div>
+                            </div>
+                          </AccordionTrigger>
+                          <AccordionContent>
+                            <div className="p-6">
+                              <Typography variant="body" className="mb-4">
+                                {module.description}
+                              </Typography>
+                              
+                              <Typography variant="h5" className="mb-3">
+                                Lessons
+                              </Typography>
+                              <div className="space-y-3 mb-6">
+                                {module.lessons.map((lesson, index) => (
+                                  <div key={index} className="flex items-centre justify-between p-3 bg-grey-50 rounded">
+                                    <div className="flex items-centre">
+                                      <div className="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-centre justify-centre mr-3">
+                                        {index + 1}
+                                      </div>
+                                      <div>
+                                        <p className="font-medium">{lesson.title}</p>
+                                        <p className="text-sm text-grey-600">{lesson.duration} • {lesson.type}</p>
+                                      </div>
+                                    </div>
+                                    <Button variant="ghost" size="sm">
+                                      Preview
+                                    </Button>
+                                  </div>
+                                ))}
+                              </div>
+                              
+                              <Typography variant="h5" className="mb-3">
+                                Resources
+                              </Typography>
+                              <div className="space-y-2">
+                                {module.resources.map((resource, index) => (
+                                  <div key={index} className="flex items-centre p-2">
+                                    <div className="w-5 h-5 bg-blue-100 text-blue-600 rounded-full flex items-centre justify-centre mr-3">
+                                      <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                      </svg>
+                                    </div>
+                                    <p>{resource}</p>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </AccordionContent>
+                        </AccordionItem>
+                      </Accordion>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            </TabsContent>
+            
+            {/* Instructors Tab */}
+            <TabsContent value="instructors">
+              <Card className="p-8">
+                <Typography variant="h3" className="mb-6">
+                  Meet Your Instructors
+                </Typography>
+                <Typography variant="body" className="mb-8">
+                  This course is developed and delivered by experts in educational assessment with extensive experience in both research and practical implementation.
+                </Typography>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {instructors.map((instructor, index) => (
+                    <div key={index} className="flex flex-col md:flex-row gap-6">
+                      <div className="md:w-1/3">
+                        <div className="relative w-full aspect-square rounded-lg overflow-hidden">
+                          <Image
+                            src={instructor.image}
+                            alt={instructor.name}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      </div>
+                      <div className="md:w-2/3">
+                        <Typography variant="h4" className="mb-1">
+                          {instructor.name}
+                        </Typography>
+                        <Typography variant="small" className="text-blue-600 mb-3">
+                          {instructor.title}
+                        </Typography>
+                        <Typography variant="body">
+                          {instructor.bio}
+                        </Typography>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            </TabsContent>
+            
+            {/* Resources Tab */}
+            <TabsContent value="resources">
+              <Card className="p-8">
+                <Typography variant="h3" className="mb-6">
+                  Course Resources
+                </Typography>
+                <Typography variant="body" className="mb-8">
+                  This course includes a comprehensive set of resources to support your learning and implementation of effective assessment strategies.
+                </Typography>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div>
+                    <Typography variant="h4" className="mb-4">
+                      Included Materials
+                    </Typography>
+                    <ul className="space-y-3">
+                      <li className="flex items-start">
+                        <div className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-centre justify-centre mr-3 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="font-medium">Assessment Handbook</p>
+                          <p className="text-sm text-grey-600">A 120-page digital handbook covering all course content with detailed strategies and implementation guides.</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start">
+                        <div className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-centre justify-centre mr-3 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="font-medium">Assessment Item Bank</p>
+                          <p className="text-sm text-grey-600">A collection of over 200 assessment items across different subjects and key stages that can be customised for your needs.</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start">
+                        <div className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-centre justify-centre mr-3 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="font-medium">Rubric Templates</p>
+                          <p className="text-sm text-grey-600">Customizable rubric templates for various assessment types and subjects to ensure consistent evaluation.</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start">
+                        <div className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-centre justify-centre mr-3 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="font-medium">Data Analysis Tools</p>
+                          <p className="text-sm text-grey-600">Interactive tools for analysing assessment data and generating visual reports to inform instruction.</p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <Typography variant="h4" className="mb-4">
+                      Additional Support
+                    </Typography>
+                    <ul className="space-y-3">
+                      <li className="flex items-start">
+                        <div className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-centre justify-centre mr-3 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="font-medium">Assessment Coaching</p>
+                          <p className="text-sm text-grey-600">Optional 1:1 coaching sessions available for personalized implementation support.</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start">
+                        <div className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-centre justify-centre mr-3 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="font-medium">Case Study Library</p>
+                          <p className="text-sm text-grey-600">Access to detailed case studies showing implementation of assessment strategies across different settings.</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start">
+                        <div className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-centre justify-centre mr-3 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="font-medium">Assessment Community</p>
+                          <p className="text-sm text-grey-600">Join a community of educators implementing effective assessment practices to share experiences.</p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </Card>
+            </TabsContent>
+            
+            {/* FAQ Tab */}
+            <TabsContent value="faq">
+              <Card className="p-8">
+                <Typography variant="h3" className="mb-6">
+                  Frequently Asked Questions
+                </Typography>
+                
+                <div className="space-y-4">
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value="faq-1">
+                      <AccordionTrigger className="p-4 bg-grey-50 hover:bg-grey-100 rounded-lg">
+                        <Typography variant="h5">
+                          How does this course help me improve my assessment practices?
+                        </Typography>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="p-4">
+                          <Typography variant="body">
+                            This course provides a comprehensive framework for effective assessment, covering both theoretical principles and practical strategies. You'll learn how to design valid and reliable assessments, implement formative assessment techniques, analyse assessment data, and use results to inform instruction. The course includes practical tools, templates, and resources that you can immediately apply in your educational setting.
+                          </Typography>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                    <AccordionItem value="faq-2">
+                      <AccordionTrigger className="p-4 bg-grey-50 hover:bg-grey-100 rounded-lg">
+                        <Typography variant="h5">
+                          Is this course suitable for teachers of all subjects and key stages?
+                        </Typography>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="p-4">
+                          <Typography variant="body">
+                            Yes, the principles and strategies in this course are applicable across all subjects and key stages. The course includes examples and case studies from various educational contexts, and the assessment tools and templates can be adapted for different subjects and age groups. Whilst some modules include subject-specific examples, the core assessment principles remain consistent across the curriculum.
+                          </Typography>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                    <AccordionItem value="faq-3">
+                      <AccordionTrigger className="p-4 bg-grey-50 hover:bg-grey-100 rounded-lg">
+                        <Typography variant="h5">
+                          How does this course align with UK assessment frameworks?
+                        </Typography>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="p-4">
+                          <Typography variant="body">
+                            The course is designed with UK educational contexts in mind and aligns with current assessment frameworks, including those from Ofsted, the Department for Education, and subject-specific assessment guidance. The course addresses statutory assessment requirements whilst also focusing on best practices in classroom assessment that support teaching and learning. The inclusive assessment module specifically addresses UK SEND requirements and accommodations.
+                          </Typography>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                    <AccordionItem value="faq-4">
+                      <AccordionTrigger className="p-4 bg-grey-50 hover:bg-grey-100 rounded-lg">
+                        <Typography variant="h5">
+                          What digital tools are covered in the course?
+                        </Typography>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="p-4">
+                          <Typography variant="body">
+                            The Digital Assessment Tools module covers a range of technologies that can enhance assessment practices, including online testing platforms, digital portfolio systems, automated feedback tools, and data visualization applications. The course provides guidance on selecting appropriate digital tools based on your assessment needs and context, as well as implementation strategies and considerations for data security and privacy.
+                          </Typography>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                    <AccordionItem value="faq-5">
+                      <AccordionTrigger className="p-4 bg-grey-50 hover:bg-grey-100 rounded-lg">
+                        <Typography variant="h5">
+                          Do you offer whole-school training packages?
+                        </Typography>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="p-4">
+                          <Typography variant="body">
+                            Yes, we offer customised whole-school training packages that include access to this course for all staff, along with additional implementation support, in-person training sessions, and consultation. These packages can be tailored to your school's specific assessment needs and priorities. Please contact our team for more information about whole-school implementation packages and pricing.
+                          </Typography>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </Container>
+        
+        {/* Call to Action */}
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-16">
+          <Container>
+            <div className="text-centre max-w-3xl mx-auto">
+              <Typography variant="h2" className="mb-4">
+                Ready to Transform Your Assessment Practices?
+              </Typography>
+              <Typography variant="lead" className="mb-8">
+                Join thousands of educators who have developed effective, evidence-based assessment strategies through this comprehensive course.
+              </Typography>
+              <div className="flex flex-col sm:flex-row gap-4 justify-centre">
+                <Button variant="light" size="lg">
+                  Enrol Now
+                </Button>
+                <Button variant="outline-light" size="lg" asChild>
+                  <Link href="/professional-development">
+                    Explore More Courses
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </Container>
+        </div>
+      </main>
+      
+      <EnhancedFooter />
+    </div>

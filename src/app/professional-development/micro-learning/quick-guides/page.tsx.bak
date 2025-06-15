@@ -1,0 +1,789 @@
+"use client";
+
+import React, { useState } from "react";
+import { ComprehensiveNavigation } from "@/components/navigation/ComprehensiveNavigation";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { Input } from "@/components/ui/input";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Search, Download, BookOpen, Clock, Award, Filter, CheckCircle } from "lucide-react";
+
+// Mock data for Quick Guides
+const quickGuides = [
+  {
+    id: "qg-1",
+    title: "Formative Assessment Techniques",
+    description: "Practical techniques for implementing formative assessment in your classroom.",
+    category: "Assessment",
+    timeToComplete: 15,
+    keyStage: ["KS1", "KS2", "KS3", "KS4"],
+    tags: ["assessment", "formative", "feedback", "classroom practise"],
+    popularity: 98,
+    dateAdded: "2025-05-01",
+    thumbnail: "/images/quick-guides/formative-assessment.jpg",
+    downloadUrl: "/pdfs/quick-guides/formative-assessment-techniques.pdf",
+    completed: true
+  },
+  {
+    id: "qg-2",
+    title: "Differentiation Strategies for Mixed Ability Groups",
+    description: "Effective strategies for differentiating instruction in mixed ability classrooms.",
+    category: "Pedagogy",
+    timeToComplete: 20,
+    keyStage: ["KS1", "KS2", "KS3", "KS4"],
+    tags: ["differentiation", "inclusion", "mixed ability", "classroom practise"],
+    popularity: 95,
+    dateAdded: "2025-05-03",
+    thumbnail: "/images/quick-guides/differentiation.jpg",
+    downloadUrl: "/pdfs/quick-guides/differentiation-strategies.pdf",
+    completed: false
+  },
+  {
+    id: "qg-3",
+    title: "Supporting EAL Students in Mainstream Classes",
+    description: "Practical strategies for supporting English as Additional Language students.",
+    category: "Inclusion",
+    timeToComplete: 18,
+    keyStage: ["KS1", "KS2", "KS3", "KS4"],
+    tags: ["EAL", "inclusion", "language support", "classroom practise"],
+    popularity: 92,
+    dateAdded: "2025-05-05",
+    thumbnail: "/images/quick-guides/eal-support.jpg",
+    downloadUrl: "/pdfs/quick-guides/supporting-eal-students.pdf",
+    completed: false
+  },
+  {
+    id: "qg-4",
+    title: "Effective Questioning Techniques",
+    description: "Enhance student thinking with these research-based questioning strategies.",
+    category: "Pedagogy",
+    timeToComplete: 12,
+    keyStage: ["KS1", "KS2", "KS3", "KS4"],
+    tags: ["questioning", "critical thinking", "classroom practise", "engagement"],
+    popularity: 90,
+    dateAdded: "2025-05-07",
+    thumbnail: "/images/quick-guides/questioning.jpg",
+    downloadUrl: "/pdfs/quick-guides/effective-questioning.pdf",
+    completed: true
+  },
+  {
+    id: "qg-5",
+    title: "Behaviour Management: Positive Reinforcement",
+    description: "Evidence-based strategies for using positive reinforcement in the classroom.",
+    category: "Behaviour",
+    timeToComplete: 15,
+    keyStage: ["KS1", "KS2", "KS3", "KS4"],
+    tags: ["behaviour", "positive reinforcement", "classroom management"],
+    popularity: 94,
+    dateAdded: "2025-05-10",
+    thumbnail: "/images/quick-guides/positive-reinforcement.jpg",
+    downloadUrl: "/pdfs/quick-guides/positive-reinforcement.pdf",
+    completed: false
+  },
+  {
+    id: "qg-6",
+    title: "Metacognition in the Classroom",
+    description: "Practical strategies for developing metacognitive skills in students.",
+    category: "Pedagogy",
+    timeToComplete: 25,
+    keyStage: ["KS2", "KS3", "KS4"],
+    tags: ["metacognition", "learning strategies", "self-regulation", "thinking skills"],
+    popularity: 88,
+    dateAdded: "2025-05-12",
+    thumbnail: "/images/quick-guides/metacognition.jpg",
+    downloadUrl: "/pdfs/quick-guides/metacognition-classroom.pdf",
+    completed: false
+  },
+  {
+    id: "qg-7",
+    title: "Supporting Working Memory in the Classroom",
+    description: "Strategies to support students with working memory difficulties.",
+    category: "SEND",
+    timeToComplete: 20,
+    keyStage: ["KS1", "KS2", "KS3", "KS4"],
+    tags: ["working memory", "SEND", "cognitive support", "classroom strategies"],
+    popularity: 86,
+    dateAdded: "2025-05-15",
+    thumbnail: "/images/quick-guides/working-memory.jpg",
+    downloadUrl: "/pdfs/quick-guides/working-memory-support.pdf",
+    completed: false
+  },
+  {
+    id: "qg-8",
+    title: "Effective Feedback Strategies",
+    description: "Research-based approaches to providing effective feedback to students.",
+    category: "Assessment",
+    timeToComplete: 18,
+    keyStage: ["KS1", "KS2", "KS3", "KS4"],
+    tags: ["feedback", "assessment", "student progress", "classroom practise"],
+    popularity: 91,
+    dateAdded: "2025-05-18",
+    thumbnail: "/images/quick-guides/feedback.jpg",
+    downloadUrl: "/pdfs/quick-guides/effective-feedback.pdf",
+    completed: true
+  },
+  {
+    id: "qg-9",
+    title: "Retrieval Practise Techniques",
+    description: "Evidence-based retrieval practise strategies to enhance long-term learning.",
+    category: "Pedagogy",
+    timeToComplete: 15,
+    keyStage: ["KS2", "KS3", "KS4"],
+    tags: ["retrieval practise", "memory", "cognitive science", "classroom strategies"],
+    popularity: 93,
+    dateAdded: "2025-05-20",
+    thumbnail: "/images/quick-guides/retrieval-practise.jpg",
+    downloadUrl: "/pdfs/quick-guides/retrieval-practise.pdf",
+    completed: false
+  },
+  {
+    id: "qg-10",
+    title: "Supporting Autistic Students in Mainstream Classes",
+    description: "Practical strategies for supporting autistic students in inclusive classrooms.",
+    category: "SEND",
+    timeToComplete: 22,
+    keyStage: ["KS1", "KS2", "KS3", "KS4"],
+    tags: ["autism", "SEND", "inclusion", "classroom strategies"],
+    popularity: 89,
+    dateAdded: "2025-05-22",
+    thumbnail: "/images/quick-guides/autism-support.jpg",
+    downloadUrl: "/pdfs/quick-guides/supporting-autistic-students.pdf",
+    completed: false
+  },
+  {
+    id: "qg-11",
+    title: "Dual Coding in Teaching and Learning",
+    description: "How to use dual coding principles to enhance student understanding and retention.",
+    category: "Pedagogy",
+    timeToComplete: 18,
+    keyStage: ["KS1", "KS2", "KS3", "KS4"],
+    tags: ["dual coding", "cognitive science", "visual learning", "classroom strategies"],
+    popularity: 87,
+    dateAdded: "2025-05-25",
+    thumbnail: "/images/quick-guides/dual-coding.jpg",
+    downloadUrl: "/pdfs/quick-guides/dual-coding.pdf",
+    completed: false
+  },
+  {
+    id: "qg-12",
+    title: "Promoting Oracy in the Classroom",
+    description: "Strategies for developing students' speaking and listening skills across the curriculum.",
+    category: "Literacy",
+    timeToComplete: 15,
+    keyStage: ["KS1", "KS2", "KS3", "KS4"],
+    tags: ["oracy", "speaking", "listening", "communication skills"],
+    popularity: 85,
+    dateAdded: "2025-05-28",
+    thumbnail: "/images/quick-guides/oracy.jpg",
+    downloadUrl: "/pdfs/quick-guides/promoting-oracy.pdf",
+    completed: false
+  }
+];
+
+// Mock data for categories
+const categories = [
+  { id: "all", name: "All Categories" },
+  { id: "assessment", name: "Assessment" },
+  { id: "pedagogy", name: "Pedagogy" },
+  { id: "behaviour", name: "Behaviour" },
+  { id: "send", name: "SEND" },
+  { id: "inclusion", name: "Inclusion" },
+  { id: "literacy", name: "Literacy" }
+];
+
+// Mock data for key stages
+const keyStages = [
+  { id: "all", name: "All Key Stages" },
+  { id: "ks1", name: "Key Stage 1" },
+  { id: "ks2", name: "Key Stage 2" },
+  { id: "ks3", name: "Key Stage 3" },
+  { id: "ks4", name: "Key Stage 4" }
+];
+
+// Mock data for time filters
+const timeFilters = [
+  { id: "all", name: "Any Duration" },
+  { id: "under15", name: "Under 15 minutes" },
+  { id: "15to20", name: "15-20 minutes" },
+  { id: "over20", name: "Over 20 minutes" }
+];
+
+// Mock data for completion certificates
+const certificates = [
+  {
+    id: "cert-1",
+    title: "Assessment Specialist",
+    description: "Complete all assessment-related quick guides",
+    progress: 67,
+    requiredGuides: ["qg-1", "qg-4", "qg-8"],
+    completedGuides: ["qg-1", "qg-8"],
+    image: "/images/certificates/assessment-specialist.jpg"
+  },
+  {
+    id: "cert-2",
+    title: "Pedagogy Expert",
+    description: "Complete all pedagogy-related quick guides",
+    progress: 25,
+    requiredGuides: ["qg-2", "qg-4", "qg-6", "qg-9", "qg-11"],
+    completedGuides: ["qg-4"],
+    image: "/images/certificates/pedagogy-expert.jpg"
+  },
+  {
+    id: "cert-3",
+    title: "Inclusion Champion",
+    description: "Complete all inclusion and SEND-related quick guides",
+    progress: 0,
+    requiredGuides: ["qg-3", "qg-7", "qg-10"],
+    completedGuides: [],
+    image: "/images/certificates/inclusion-champion.jpg"
+  }
+];
+
+// Mock data for featured collections
+const featuredCollections = [
+  {
+    id: "fc-1",
+    title: "New Teacher Essentials",
+    description: "Essential guides for teachers in their first years of teaching",
+    guides: ["qg-1", "qg-2", "qg-5", "qg-8"],
+    image: "/images/collections/new-teacher.jpg"
+  },
+  {
+    id: "fc-2",
+    title: "Cognitive Science in Practise",
+    description: "Apply cognitive science principles in your classroom",
+    guides: ["qg-6", "qg-7", "qg-9", "qg-11"],
+    image: "/images/collections/cognitive-science.jpg"
+  },
+  {
+    id: "fc-3",
+    title: "Inclusive Classroom Toolkit",
+    description: "Create an inclusive environment for all learners",
+    guides: ["qg-2", "qg-3", "qg-7", "qg-10", "qg-12"],
+    image: "/images/collections/inclusive-classroom.jpg"
+  }
+];
+
+// Mock data for evidence base
+const evidenceBase = [
+  {
+    id: "eb-1",
+    title: "Formative Assessment",
+    description: "Research evidence supporting formative assessment practices",
+    content: `
+      <p>The research evidence for formative assessment is robust and extensive. Black and Wiliam's (1998) seminal review demonstrated that formative assessment practices can produce significant learning gains, with effect sizes between 0.4 and 0.7. These findings have been consistently supported by subsequent research.</p>
+      
+      <p>The Education Endowment Foundation's Teaching and Learning Toolkit rates feedback (a key component of formative assessment) as having a very high impact (+8 months) for very low cost, based on extensive evidence.</p>
+      
+      <p>Key research-supported formative assessment strategies include:</p>
+      <ul>
+        <li>Clarifying, sharing, and understanding learning intentions</li>
+        <li>Engineering effective classroom discussions and tasks that elicit evidence of learning</li>
+        <li>Providing feedback that moves learning forward</li>
+        <li>Activating students as learning resources for one another</li>
+        <li>Activating students as owners of their own learning</li>
+      </ul>
+      
+      <p>References:</p>
+      <ul>
+        <li>Black, P., & Wiliam, D. (1998). Assessment and classroom learning. Assessment in Education, 5(1), 7-74.</li>
+        <li>Hattie, J. (2009). Visible Learning: A synthesis of over 800 meta-analyses relating to achievement. Routledge.</li>
+        <li>Education Endowment Foundation. (2021). Teaching and Learning Toolkit: Feedback.</li>
+        <li>Wiliam, D. (2011). Embedded formative assessment. Solution Tree Press.</li>
+      </ul>
+    `,
+    relatedGuides: ["qg-1", "qg-4", "qg-8"]
+  },
+  {
+    id: "eb-2",
+    title: "Metacognition and Self-regulation",
+    description: "Research evidence supporting metacognitive approaches",
+    content: `
+      <p>Metacognition and self-regulation approaches have consistently high levels of impact, with pupils making an average of +7 months' additional progress according to the Education Endowment Foundation's analysis.</p>
+      
+      <p>These approaches help pupils think about their own learning more explicitly, often by teaching them specific strategies for planning, monitoring, and evaluating their learning.</p>
+      
+      <p>Key research findings include:</p>
+      <ul>
+        <li>Teaching metacognitive strategies explicitly alongside subject content is more effective than teaching them as separate programs</li>
+        <li>Metacognitive strategies are most effective when taught in collaborative groups</li>
+        <li>Pupils need explicit instruction and guided practise to develop metacognitive strategies</li>
+        <li>The impact of metacognitive approaches is particularly high for disadvantaged pupils</li>
+      </ul>
+      
+      <p>References:</p>
+      <ul>
+        <li>Education Endowment Foundation. (2021). Teaching and Learning Toolkit: Metacognition and Self-regulation.</li>
+        <li>Dignath, C., Buettner, G., & Langfeldt, H. P. (2008). How can primary school students learn self-regulated learning strategies most effectively? A meta-analysis on self-regulation training programmes. Educational Research Review, 3(2), 101-129.</li>
+        <li>Perry, N. E., Hutchinson, L., & Thauberger, C. (2008). Talking about teaching self-regulated learning: Scaffolding student teachers' development and use of practices that promote self-regulated learning. International Journal of Educational Research, 47(2), 97-108.</li>
+        <li>Quigley, A., Muijs, D., & Stringer, E. (2018). Metacognition and self-regulated learning: Guidance report. Education Endowment Foundation.</li>
+      </ul>
+    `,
+    relatedGuides: ["qg-6", "qg-9", "qg-11"]
+  },
+  {
+    id: "eb-3",
+    title: "Supporting SEND Students",
+    description: "Research evidence for supporting students with special educational needs and disabilities",
+    content: `
+      <p>Research on supporting students with SEND emphasizes the importance of evidence-based, targeted interventions combined with high-quality inclusive teaching.</p>
+      
+      <p>Key research findings include:</p>
+      <ul>
+        <li>Explicit instruction with clear explanations, guided practise, and independent practise is particularly effective for students with learning difficulties</li>
+        <li>Scaffolding techniques that gradually fade support as students become more proficient are effective for developing independence</li>
+        <li>Cognitive strategies that teach students how to learn (e.g., self-regulation, memory strategies) show strong positive effects</li>
+        <li>Structured peer tutoring approaches can be particularly beneficial for both tutors and tutees</li>
+        <li>Technology can provide valuable support when used to supplement rather than replace teacher instruction</li>
+      </ul>
+      
+      <p>For working memory specifically, research indicates that:</p>
+      <ul>
+        <li>Reducing cognitive load by breaking tasks into smaller steps improves performance</li>
+        <li>Visual supports and dual coding approaches help students process and retain information</li>
+        <li>Regular retrieval practise strengthens memory and reduces forgetting</li>
+        <li>Teaching specific memory strategies can help students compensate for working memory limitations</li>
+      </ul>
+      
+      <p>References:</p>
+      <ul>
+        <li>Education Endowment Foundation. (2021). Special Educational Needs in Mainstream Schools: Guidance Report.</li>
+        <li>Gathercole, S. E., & Alloway, T. P. (2008). Working memory and learning: A practical guide for teachers. Sage.</li>
+        <li>Mitchell, D. (2014). What really works in special and inclusive education: Using evidence-based teaching strategies. Routledge.</li>
+        <li>Swanson, H. L., & Sachse-Lee, C. (2000). A meta-analysis of single-subject-design intervention research for students with LD. Journal of Learning Disabilities, 33(2), 114-136.</li>
+      </ul>
+    `,
+    relatedGuides: ["qg-3", "qg-7", "qg-10"]
+  }
+];
+
+export default function QuickGuidesPage() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedKeyStage, setSelectedKeyStage] = useState("all");
+  const [selectedTimeFilter, setSelectedTimeFilter] = useState("all");
+  const [showCompleted, setShowCompleted] = useState(true);
+
+  // Filter guides based on search term and filters
+  const filteredGuides = quickGuides.filter((guide) => {
+    // Search term filter
+    const matchesSearch = 
+      guide.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      guide.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      guide.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+    
+    // Category filter
+    const matchesCategory = 
+      selectedCategory === "all" || 
+      guide.category.toLowerCase() === selectedCategory.toLowerCase();
+    
+    // Key Stage filter
+    const matchesKeyStage = 
+      selectedKeyStage === "all" || 
+      guide.keyStage.some(ks => ks.toLowerCase() === selectedKeyStage.toLowerCase());
+    
+    // Time filter
+    let matchesTime = true;
+    if (selectedTimeFilter === "under15") {
+      matchesTime = guide.timeToComplete < 15;
+    } else if (selectedTimeFilter === "15to20") {
+      matchesTime = guide.timeToComplete >= 15 && guide.timeToComplete <= 20;
+    } else if (selectedTimeFilter === "over20") {
+      matchesTime = guide.timeToComplete > 20;
+    }
+    
+    // Completion filter
+    const matchesCompletion = showCompleted || !guide.completed;
+    
+    return matchesSearch && matchesCategory && matchesKeyStage && matchesTime && matchesCompletion;
+  });
+
+  // Handle guide download
+  const handleDownload = (guide: any) => {
+    // In a real implementation, this would trigger a download
+    console.log(`Downloading guide: ${guide.title}`);
+    // Mock implementation - would actually download the PDF
+    alert(`Downloading: ${guide.title}`);
+  };
+
+  // Get guides for a collection
+  const getGuidesForCollection = (collection: any) => {
+    return quickGuides.filter(guide => collection.guides.includes(guide.id));
+  };
+
+  return (
+    <div className="min-h-screen bg-grey-50">
+      <ComprehensiveNavigation />
+      <div className="pt-16 pb-8 bg-blue-600 text-white">
+        <div className="container mx-auto px-4">
+          <h1 className="text-3xl font-bold mb-2">Professional Development Quick Guides</h1>
+          <p className="text-xl">Concise, practical guides to enhance your teaching practise</p>
+        </div>
+      </div>
+      
+      <main className="container mx-auto px-4 py-8">
+        <Tabs defaultValue="browse" className="w-full">
+          <TabsList className="grid grid-cols-5 mb-8">
+            <TabsTrigger value="browse">Browse Guides</TabsTrigger>
+            <TabsTrigger value="collections">Featured Collections</TabsTrigger>
+            <TabsTrigger value="certificates">Completion Certificates</TabsTrigger>
+            <TabsTrigger value="evidence">Evidence Base</TabsTrigger>
+            <TabsTrigger value="create">Request Guide</TabsTrigger>
+          </TabsList>
+          
+          {/* Browse Guides Tab */}
+          <TabsContent value="browse" className="space-y-6">
+            <div className="flex flex-col md:flex-row gap-4 mb-6">
+              <div className="relative flex-grow">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-grey-400" />
+                <Input
+                  type="text"
+                  placeholder="Search quick guides..."
+                  className="pl-10"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
+              
+              <div className="flex flex-wrap gap-2">
+                <select 
+                  className="px-3 py-2 border rounded-md bg-white"
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                  {categories.map(category => (
+                    <option key={category.id} value={category.id}>{category.name}</option>
+                  ))}
+                </select>
+                
+                <select 
+                  className="px-3 py-2 border rounded-md bg-white"
+                  value={selectedKeyStage}
+                  onChange={(e) => setSelectedKeyStage(e.target.value)}
+                >
+                  {keyStages.map(keyStage => (
+                    <option key={keyStage.id} value={keyStage.id}>{keyStage.name}</option>
+                  ))}
+                </select>
+                
+                <select 
+                  className="px-3 py-2 border rounded-md bg-white"
+                  value={selectedTimeFilter}
+                  onChange={(e) => setSelectedTimeFilter(e.target.value)}
+                >
+                  {timeFilters.map(timeFilter => (
+                    <option key={timeFilter.id} value={timeFilter.id}>{timeFilter.name}</option>
+                  ))}
+                </select>
+                
+                <Button 
+                  variant="outline" 
+                  className="flex items-centre gap-2"
+                  onClick={() => setShowCompleted(!showCompleted)}
+                >
+                  <CheckCircle className={`h-4 w-4 ${showCompleted ? 'text-green-500' : 'text-grey-300'}`} />
+                  {showCompleted ? 'Show All' : 'Hide Completed'}
+                </Button>
+              </div>
+            </div>
+            
+            {filteredGuides.length === 0 ? (
+              <div className="text-centre py-12">
+                <h3 className="text-xl font-semibold mb-2">No guides found</h3>
+                <p className="text-grey-500">Try adjusting your search or filters</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredGuides.map((guide) => (
+                  <Card key={guide.id} className={`overflow-hidden ${guide.completed ? 'border-green-200 bg-green-50' : ''}`}>
+                    <div className="h-40 bg-grey-200 relative">
+                      {/* In a real implementation, this would be an actual image */}
+                      <div className="absolute inset-0 flex items-centre justify-centre bg-blue-100">
+                        <span className="text-blue-500 font-medium">{guide.title} Thumbnail</span>
+                      </div>
+                      {guide.completed && (
+                        <div className="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded-md text-xs font-medium">
+                          Completed
+                        </div>
+                      )}
+                    </div>
+                    <CardHeader>
+                      <div className="flex justify-between items-start">
+                        <CardTitle className="text-lg">{guide.title}</CardTitle>
+                      </div>
+                      <div className="flex items-centre gap-2 text-sm text-grey-500">
+                        <Clock className="h-4 w-4" />
+                        <span>{guide.timeToComplete} minutes</span>
+                      </div>
+                      <CardDescription>{guide.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        <Badge variant="outline" className="bg-blue-50">{guide.category}</Badge>
+                        {guide.keyStage.map((ks) => (
+                          <Badge key={ks} variant="outline" className="bg-purple-50">{ks}</Badge>
+                        ))}
+                      </div>
+                      <div className="flex flex-wrap gap-1">
+                        {guide.tags.map((tag) => (
+                          <span key={tag} className="text-xs text-grey-500">#{tag}</span>
+                        ))}
+                      </div>
+                    </CardContent>
+                    <CardFooter className="flex justify-between">
+                      <Button variant="outline" className="flex items-centre gap-2" onClick={() => handleDownload(guide)}>
+                        <Download className="h-4 w-4" />
+                        Download PDF
+                      </Button>
+                      <Button variant="default" className="flex items-centre gap-2">
+                        <BookOpen className="h-4 w-4" />
+                        View Guide
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </TabsContent>
+          
+          {/* Featured Collections Tab */}
+          <TabsContent value="collections" className="space-y-8">
+            <div className="prose max-w-none mb-6">
+              <h2>Featured Collections</h2>
+              <p>
+                Our curated collections bring together related quick guides to help you develop expertise in specific areas.
+                Complete a collection to earn a special certificate and enhance your professional development portfolio.
+              </p>
+            </div>
+            
+            {featuredCollections.map((collection) => (
+              <Card key={collection.id} className="overflow-hidden">
+                <div className="md:flex">
+                  <div className="md:w-1/3 bg-grey-200 md:h-auto h-40 relative">
+                    {/* In a real implementation, this would be an actual image */}
+                    <div className="absolute inset-0 flex items-centre justify-centre bg-indigo-100">
+                      <span className="text-indigo-500 font-medium">{collection.title} Image</span>
+                    </div>
+                  </div>
+                  <div className="md:w-2/3">
+                    <CardHeader>
+                      <CardTitle>{collection.title}</CardTitle>
+                      <CardDescription>{collection.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <h4 className="font-medium mb-3">Included Guides:</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {getGuidesForCollection(collection).map((guide) => (
+                          <div key={guide.id} className="flex items-start gap-2">
+                            {guide.completed ? (
+                              <CheckCircle className="h-5 w-5 text-green-500 mt-0.5" />
+                            ) : (
+                              <div className="h-5 w-5 border-2 rounded-full mt-0.5" />
+                            )}
+                            <div>
+                              <p className="font-medium">{guide.title}</p>
+                              <p className="text-sm text-grey-500">{guide.timeToComplete} minutes</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                    <CardFooter>
+                      <Button className="w-full">View Collection</Button>
+                    </CardFooter>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </TabsContent>
+          
+          {/* Completion Certificates Tab */}
+          <TabsContent value="certificates" className="space-y-8">
+            <div className="prose max-w-none mb-6">
+              <h2>Completion Certificates</h2>
+              <p>
+                Earn certificates by completing sets of related quick guides. These certificates can be added to your
+                professional development portfolio and shared with your school leadership team.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {certificates.map((certificate) => (
+                <Card key={certificate.id} className="overflow-hidden">
+                  <div className="h-48 bg-grey-200 relative">
+                    {/* In a real implementation, this would be an actual image */}
+                    <div className="absolute inset-0 flex items-centre justify-centre bg-yellow-100">
+                      <span className="text-yellow-700 font-medium">{certificate.title} Certificate</span>
+                    </div>
+                  </div>
+                  <CardHeader>
+                    <CardTitle>{certificate.title}</CardTitle>
+                    <CardDescription>{certificate.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div>
+                      <div className="flex justify-between mb-1">
+                        <span className="text-sm font-medium">Progress</span>
+                        <span className="text-sm text-grey-500">{certificate.completedGuides.length}/{certificate.requiredGuides.length}</span>
+                      </div>
+                      <Progress value={certificate.progress} className="h-2" />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <h4 className="font-medium">Required Guides:</h4>
+                      {certificate.requiredGuides.map((guideId) => {
+                        const guide = quickGuides.find(g => g.id === guideId);
+                        return guide ? (
+                          <div key={guide.id} className="flex items-centre gap-2">
+                            {certificate.completedGuides.includes(guide.id) ? (
+                              <CheckCircle className="h-4 w-4 text-green-500" />
+                            ) : (
+                              <div className="h-4 w-4 border rounded-full" />
+                            )}
+                            <span className={certificate.completedGuides.includes(guide.id) ? "line-through text-grey-500" : ""}>
+                              {guide.title}
+                            </span>
+                          </div>
+                        ) : null;
+                      })}
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <Button
+                      disabled={certificate.progress < 100}
+                      className="w-full"
+                      variant={certificate.progress < 100 ? "outline" : "default"}
+                    >
+                      {certificate.progress < 100 ? "Complete All Guides" : "Download Certificate"}
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+          
+          {/* Evidence Base Tab */}
+          <TabsContent value="evidence" className="space-y-8">
+            <div className="prose max-w-none mb-6">
+              <h2>Evidence Base</h2>
+              <p>
+                Our quick guides are based on robust research evidence and best practices in educational psychology.
+                Explore the research foundations behind our guides to deepen your understanding.
+              </p>
+            </div>
+            
+            <Accordion type="single" collapsible className="w-full">
+              {evidenceBase.map((evidence) => (
+                <AccordionItem key={evidence.id} value={evidence.id}>
+                  <AccordionTrigger className="text-lg font-medium">
+                    {evidence.title}
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: evidence.content }} />
+                    
+                    <div className="mt-6">
+                      <h4 className="font-medium mb-3">Related Quick Guides:</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {evidence.relatedGuides.map((guideId) => {
+                          const guide = quickGuides.find(g => g.id === guideId);
+                          return guide ? (
+                            <div key={guide.id} className="flex items-centre gap-2">
+                              <BookOpen className="h-4 w-4 text-blue-500" />
+                              <span>{guide.title}</span>
+                            </div>
+                          ) : null;
+                        })}
+                      </div>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </TabsContent>
+          
+          {/* Request Guide Tab */}
+          <TabsContent value="create" className="space-y-6">
+            <div className="prose max-w-none mb-6">
+              <h2>Request a New Quick Guide</h2>
+              <p>
+                Can't find what you're looking for? Request a new quick guide on a specific topic.
+                Our team of educational experts will review your request and develop a guide to meet your needs.
+              </p>
+            </div>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>New Quick Guide Request</CardTitle>
+                <CardDescription>
+                  Please provide details about the quick guide you'd like us to create.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form className="space-y-4">
+                  <div className="space-y-2">
+                    <label htmlFor="title" className="font-medium">Guide Title</label>
+                    <Input id="title" placeholder="e.g., Supporting EAL Students in Science Lessons" />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label htmlFor="description" className="font-medium">Description</label>
+                    <textarea
+                      id="description"
+                      className="w-full min-h-[100px] p-2 border rounded-md"
+                      placeholder="Please describe what you'd like the guide to cover..."
+                    />
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label htmlFor="category" className="font-medium">Category</label>
+                      <select id="category" className="w-full p-2 border rounded-md">
+                        {categories.map(category => (
+                          <option key={category.id} value={category.id}>{category.name}</option>
+                        ))}
+                      </select>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <label htmlFor="keyStage" className="font-medium">Key Stage</label>
+                      <select id="keyStage" className="w-full p-2 border rounded-md">
+                        {keyStages.filter(ks => ks.id !== "all").map(keyStage => (
+                          <option key={keyStage.id} value={keyStage.id}>{keyStage.name}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label htmlFor="urgency" className="font-medium">Urgency</label>
+                    <select id="urgency" className="w-full p-2 border rounded-md">
+                      <option value="low">Low - Within 4 weeks</option>
+                      <option value="medium">Medium - Within 2 weeks</option>
+                      <option value="high">High - Within 1 week</option>
+                    </select>
+                  </div>
+                </form>
+              </CardContent>
+              <CardFooter>
+                <Button className="w-full">Submit Request</Button>
+              </CardFooter>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </main>
+      
+      <footer className="bg-grey-100 py-8 mt-12">
+        <div className="container mx-auto px-4">
+          <div className="text-centre">
+            <h3 className="text-lg font-semibold mb-2">EdPsych AI Platform</h3>
+            <p className="text-grey-600 mb-4">Professional Development Resources</p>
+            <p className="text-sm text-grey-500">
+              © {new Date().getFullYear()} EdPsych AI. All quick guides are based on evidence-based practices and aligned with UK educational standards.
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>

@@ -1,0 +1,344 @@
+/* EdPsych Connect Brand Theme - Light Professional Design */
+:root {
+  /* Primary Brand Colors */
+  --brand-primary: #3b82f6; /* Professional Blue */
+  --brand-primary-dark: #2563eb;
+  --brand-primary-light: #60a5fa;
+  --brand-primary-lighter: #93bbfc;
+  --brand-primary-lightest: #dbeafe;
+  
+  /* Secondary Colors */
+  --brand-secondary: #10b981; /* Success Green */
+  --brand-secondary-dark: #059669;
+  --brand-secondary-light: #34d399;
+  
+  /* Accent Colors */
+  --brand-accent: #f59e0b; /* Warm Orange */
+  --brand-accent-light: #fbbf24;
+  
+  /* Neutral Colors */
+  --brand-neutral-50: #f9fafb;
+  --brand-neutral-100: #f3f4f6;
+  --brand-neutral-200: #e5e7eb;
+  --brand-neutral-300: #d1d5db;
+  --brand-neutral-400: #9ca3af;
+  --brand-neutral-500: #6b7280;
+  --brand-neutral-600: #4b5563;
+  --brand-neutral-700: #374151;
+  --brand-neutral-800: #1f2937;
+  --brand-neutral-900: #111827;
+  
+  /* Background Colors */
+  --brand-bg-primary: #ffffff;
+  --brand-bg-secondary: #f9fafb;
+  --brand-bg-tertiary: #f3f4f6;
+  --brand-bg-accent: var(--brand-primary-lightest);
+  
+  /* Text Colors */
+  --brand-text-primary: #111827;
+  --brand-text-secondary: #4b5563;
+  --brand-text-tertiary: #6b7280;
+  --brand-text-light: #9ca3af;
+  --brand-text-on-primary: #ffffff;
+  
+  /* Border Colors */
+  --brand-border: #e5e7eb;
+  --brand-border-light: #f3f4f6;
+  --brand-border-dark: #d1d5db;
+  
+  /* Shadow System */
+  --brand-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --brand-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --brand-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --brand-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --brand-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  /* Spacing System */
+  --brand-space-xs: 0.25rem;
+  --brand-space-sm: 0.5rem;
+  --brand-space-md: 1rem;
+  --brand-space-lg: 1.5rem;
+  --brand-space-xl: 2rem;
+  --brand-space-2xl: 3rem;
+  --brand-space-3xl: 4rem;
+  
+  /* Border Radius */
+  --brand-radius-sm: 0.25rem;
+  --brand-radius: 0.375rem;
+  --brand-radius-md: 0.5rem;
+  --brand-radius-lg: 0.75rem;
+  --brand-radius-xl: 1rem;
+  --brand-radius-full: 9999px;
+  
+  /* Typography */
+  --brand-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --brand-font-mono: 'Fira Code', 'Consolas', 'Monaco', 'Andale Mono', monospace;
+  
+  /* Font Sizes */
+  --brand-text-xs: 0.75rem;
+  --brand-text-sm: 0.875rem;
+  --brand-text-base: 1rem;
+  --brand-text-lg: 1.125rem;
+  --brand-text-xl: 1.25rem;
+  --brand-text-2xl: 1.5rem;
+  --brand-text-3xl: 1.875rem;
+  --brand-text-4xl: 2.25rem;
+  --brand-text-5xl: 3rem;
+  
+  /* Line Heights */
+  --brand-leading-tight: 1.25;
+  --brand-leading-snug: 1.375;
+  --brand-leading-normal: 1.5;
+  --brand-leading-relaxed: 1.625;
+  --brand-leading-loose: 2;
+  
+  /* Transitions */
+  --brand-transition-fast: 150ms ease-in-out;
+  --brand-transition: 200ms ease-in-out;
+  --brand-transition-slow: 300ms ease-in-out;
+}
+
+/* Global Styles Application */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--brand-font-sans);
+  color: var(--brand-text-primary);
+  background-color: var(--brand-bg-primary);
+  line-height: var(--brand-leading-normal);
+  min-height: 100vh;
+}
+
+/* Consistent Page Backgrounds */
+.page-wrapper,
+.main-content,
+main {
+  background-color: var(--brand-bg-primary);
+  color: var(--brand-text-primary);
+}
+
+/* Section Backgrounds */
+.section-primary {
+  background-color: var(--brand-bg-primary);
+}
+
+.section-secondary {
+  background-color: var(--brand-bg-secondary);
+}
+
+.section-accent {
+  background: linear-gradient(135deg, var(--brand-primary-lightest) 0%, var(--brand-bg-secondary) 100%);
+}
+
+/* Typography Styles */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: var(--brand-leading-tight);
+  color: var(--brand-text-primary);
+  margin-bottom: var(--brand-space-md);
+}
+
+h1 {
+  font-size: var(--brand-text-4xl);
+  font-weight: 700;
+}
+
+h2 {
+  font-size: var(--brand-text-3xl);
+}
+
+h3 {
+  font-size: var(--brand-text-2xl);
+}
+
+h4 {
+  font-size: var(--brand-text-xl);
+}
+
+p {
+  margin-bottom: var(--brand-space-md);
+  color: var(--brand-text-secondary);
+}
+
+/* Link Styles */
+a {
+  color: var(--brand-primary);
+  text-decoration: none;
+  transition: color var(--brand-transition);
+}
+
+a:hover {
+  color: var(--brand-primary-dark);
+  text-decoration: underline;
+}
+
+/* Button Base Styles */
+.btn,
+button {
+  font-family: var(--brand-font-sans);
+  font-weight: 500;
+  border-radius: var(--brand-radius-md);
+  transition: all var(--brand-transition);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+}
+
+.btn:focus,
+button:focus {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
+/* Primary Button */
+.btn-primary {
+  background-color: var(--brand-primary);
+  color: var(--brand-text-on-primary);
+  padding: var(--brand-space-sm) var(--brand-space-lg);
+}
+
+.btn-primary:hover {
+  background-color: var(--brand-primary-dark);
+}
+
+/* Card Styles */
+.card {
+  background-color: var(--brand-bg-primary);
+  border: 1px solid var(--brand-border);
+  border-radius: var(--brand-radius-lg);
+  padding: var(--brand-space-lg);
+  box-shadow: var(--brand-shadow);
+  transition: box-shadow var(--brand-transition);
+}
+
+.card:hover {
+  box-shadow: var(--brand-shadow-md);
+}
+
+/* Navigation Styles */
+nav {
+  background-color: var(--brand-bg-primary);
+  border-bottom: 1px solid var(--brand-border);
+}
+
+/* Form Styles */
+input,
+textarea,
+select {
+  font-family: var(--brand-font-sans);
+  font-size: var(--brand-text-base);
+  color: var(--brand-text-primary);
+  background-color: var(--brand-bg-primary);
+  border: 1px solid var(--brand-border);
+  border-radius: var(--brand-radius);
+  padding: var(--brand-space-sm) var(--brand-space-md);
+  transition: all var(--brand-transition);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 3px var(--brand-primary-lightest);
+}
+
+/* Badge Styles */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--brand-space-xs) var(--brand-space-sm);
+  font-size: var(--brand-text-sm);
+  font-weight: 500;
+  border-radius: var(--brand-radius-full);
+  background-color: var(--brand-primary-lightest);
+  color: var(--brand-primary-dark);
+}
+
+/* Container Styles */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--brand-space-lg);
+}
+
+/* Utility Classes */
+.text-primary { color: var(--brand-text-primary); }
+.text-secondary { color: var(--brand-text-secondary); }
+.text-muted { color: var(--brand-text-tertiary); }
+
+.bg-primary { background-color: var(--brand-bg-primary); }
+.bg-secondary { background-color: var(--brand-bg-secondary); }
+.bg-accent { background-color: var(--brand-bg-accent); }
+
+.border-light { border-color: var(--brand-border-light); }
+.border-default { border-color: var(--brand-border); }
+.border-dark { border-color: var(--brand-border-dark); }
+
+/* Consistent Spacing */
+.py-section {
+  padding-top: var(--brand-space-3xl);
+  padding-bottom: var(--brand-space-3xl);
+}
+
+/* Loading States */
+.loading {
+  background: linear-gradient(90deg, var(--brand-neutral-100) 25%, var(--brand-neutral-200) 50%, var(--brand-neutral-100) 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s ease-in-out infinite;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  :root {
+    --brand-text-4xl: 2rem;
+    --brand-text-3xl: 1.5rem;
+    --brand-text-2xl: 1.25rem;
+  }
+  
+  .container {
+    padding: 0 var(--brand-space-md);
+  }
+  
+  .py-section {
+    padding-top: var(--brand-space-2xl);
+    padding-bottom: var(--brand-space-2xl);
+  }
+}
+
+/* Dark Mode Support (optional) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Override colors for dark mode if needed */
+  }
+}
+
+/* Ensure all pages have consistent styling */
+[data-page],
+[data-route],
+.page,
+.route {
+  background-color: var(--brand-bg-primary);
+  color: var(--brand-text-primary);
+  min-height: 100vh;
+}

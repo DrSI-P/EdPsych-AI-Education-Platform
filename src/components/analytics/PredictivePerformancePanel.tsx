@@ -1,0 +1,506 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { 
+  BarChart, 
+  Bar, 
+  LineChart, 
+  Line, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  Legend, 
+  ResponsiveContainer
+} from 'recharts';
+import { 
+  TrendingUp, 
+  TrendingDown, 
+  Minus,
+  AlertTriangle,
+  CheckCircle,
+  AlertCircle,
+  Clock,
+  ArrowUp,
+  ArrowDown,
+  ArrowRight,
+  ChevronDown,
+  ChevronUp,
+  Users,
+  User,
+  Search,
+  Filter,
+  RefreshCw
+} from 'lucide-react';
+import { 
+  getStudentPerformancePrediction,
+  getStudentsPerformancePredictions,
+  getStudentPerformanceIndicators,
+  getStudentPerformanceTrends,
+  getInterventionEffectiveness,
+  getAtRiskStudents,
+  PerformancePrediction,
+  PerformanceIndicator,
+  PerformanceTrend,
+  InterventionEffectiveness,
+  AtRiskIdentification
+} from '@/lib/predictive-performance-model';
+
+interface PredictivePerformancePanelProps {
+  userId?: string;
+  userRole: 'student' | 'instructor' | 'admin';
+  courseId?: string;
+  groupId?: string;
+  className?: string;
+}
+
+const PredictivePerformancePanel: React.FC<PredictivePerformancePanelProps> = ({
+  userId,
+  userRole,
+  courseId,
+  groupId,
+  className = '',
+}) => {
+  // State
+  const [activeTab, setActiveTab] = useState<'individual' | 'class' | 'interventions'>('individual');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [studentPrediction, setStudentPrediction] = useState<PerformancePrediction | null>(null);
+  const [classPredictions, setClassPredictions] = useState<PerformancePrediction[]>([]);
+  const [performanceIndicators, setPerformanceIndicators] = useState<PerformanceIndicator[]>([]);
+  const [performanceTrends, setPerformanceTrends] = useState<PerformanceTrend[]>([]);
+  const [interventionEffectiveness, setInterventionEffectiveness] = useState<InterventionEffectiveness[]>([]);
+  const [atRiskStudents, setAtRiskStudents] = useState<AtRiskIdentification[]>([]);
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
+    'prediction-summary': true,
+    'key-factors': true,
+    'recommended-actions': true,
+    'performance-trends': true,
+    'at-risk-students': true
+  });
+  const [selectedStudentId, setSelectedStudentId] = useState<string | undefined>(userId);
+  
+  // Fetch data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        
+        // For students, only show their own data
+        if (userRole === 'student' && userId) {
+          const prediction = await getStudentPerformancePrediction(userId);
+          setStudentPrediction(prediction);
+          
+          const indicators = await getStudentPerformanceIndicators(userId);
+          setPerformanceIndicators(indicators);
+          
+          const trends = await getStudentPerformanceTrends(userId);
+          setPerformanceTrends(trends);
+        } 
+        // For instructors and admins, show more comprehensive data
+        else if ((userRole === 'instructor' || userRole === 'admin')) {
+          // Get predictions for a sample of students
+          const predictions = await getStudentsPerformancePredictions(['student-1', 'student-2', 'student-3']);
+          setClassPredictions(predictions);
+          
+          // If a specific student is selected, get their detailed data
+          if (selectedStudentId) {
+            const prediction = await getStudentPerformancePrediction(selectedStudentId);
+            setStudentPrediction(prediction);
+            
+            const indicators = await getStudentPerformanceIndicators(selectedStudentId);
+            setPerformanceIndicators(indicators);
+            
+            const trends = await getStudentPerformanceTrends(selectedStudentId);
+            setPerformanceTrends(trends);
+          }
+          
+          // Get intervention effectiveness data
+          const interventions = await getInterventionEffectiveness();
+          setInterventionEffectiveness(interventions);
+          
+          // Get at-risk students
+          const riskStudents = await getAtRiskStudents();
+          setAtRiskStudents(riskStudents);
+        }
+        
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching predictive performance data:', err);
+        setError('Failed to load predictive performance data');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    fetchData();
+  }, [userId, userRole, selectedStudentId]);
+  
+  // Toggle section expansion
+  const toggleSection = (sectionId: string) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [sectionId]: !prev[sectionId]
+    }));
+  };
+  
+  // Format percentage
+  const formatPercentage = (value: number): string => {
+    return `${Math.round(value * 100)}%`;
+  };
+  
+  // Get trend icon
+  const getTrendIcon = (trend: 'improving' | 'stable' | 'declining') => {
+    switch (trend) {
+      case 'improving':
+        return <TrendingUp className="h-5 w-5 text-green-500" />;
+      case 'stable':
+        return <Minus className="h-5 w-5 text-yellow-500" />;
+      case 'declining':
+        return <TrendingDown className="h-5 w-5 text-red-500" />;
+    }
+  };
+  
+  // Get risk level badge
+  const getRiskBadge = (risk: 'low' | 'medium' | 'high' | 'critical') => {
+    switch (risk) {
+      case 'low':
+        return (
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+            <CheckCircle className="h-3 w-3 mr-1" />
+            Low Risk
+          </span>
+        );
+      case 'medium':
+        return (
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+            <AlertCircle className="h-3 w-3 mr-1" />
+            Medium Risk
+          </span>
+        );
+      case 'high':
+        return (
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+            <AlertTriangle className="h-3 w-3 mr-1" />
+            High Risk
+          </span>
+        );
+      case 'critical':
+        return (
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+            <AlertTriangle className="h-3 w-3 mr-1" />
+            Critical Risk
+          </span>
+        );
+    }
+  };
+  
+  // Render loading state
+  if (isLoading) {
+    return (
+      <div className={`bg-gray-900 rounded-lg p-6 ${className}`}>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-semibold text-white">Predictive Performance Modeling</h2>
+          <div className="animate-pulse h-4 w-32 bg-gray-700 rounded"></div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="animate-pulse h-64 bg-gray-800 rounded"></div>
+          <div className="animate-pulse h-64 bg-gray-800 rounded"></div>
+          <div className="animate-pulse h-64 bg-gray-800 rounded"></div>
+        </div>
+      </div>
+    );
+  }
+  
+  return (
+    <div className={`bg-gray-900 rounded-lg p-6 ${className}`}>
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+        <h2 className="text-2xl font-semibold text-white mb-4 md:mb-0">Predictive Performance Modeling</h2>
+        
+        {/* Tabs for instructors and admins */}
+        {(userRole === 'instructor' || userRole === 'admin') && (
+          <div className="flex space-x-4">
+            <button
+              className={`px-4 py-2 rounded-md text-sm font-medium ${
+                activeTab === 'individual' 
+                  ? 'bg-blue-600 text-white' 
+                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+              }`}
+              onClick={() => setActiveTab('individual')}
+            >
+              <User className="h-4 w-4 inline mr-2" />
+              Individual
+            </button>
+            <button
+              className={`px-4 py-2 rounded-md text-sm font-medium ${
+                activeTab === 'class' 
+                  ? 'bg-blue-600 text-white' 
+                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+              }`}
+              onClick={() => setActiveTab('class')}
+            >
+              <Users className="h-4 w-4 inline mr-2" />
+              Class Overview
+            </button>
+            <button
+              className={`px-4 py-2 rounded-md text-sm font-medium ${
+                activeTab === 'interventions' 
+                  ? 'bg-blue-600 text-white' 
+                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+              }`}
+              onClick={() => setActiveTab('interventions')}
+            >
+              <TrendingUp className="h-4 w-4 inline mr-2" />
+              Interventions
+            </button>
+          </div>
+        )}
+      </div>
+      
+      {error && (
+        <div className="bg-red-500/20 border border-red-500 text-white p-4 mb-6 rounded">
+          {error}
+        </div>
+      )}
+      
+      {/* Individual Student View */}
+      {activeTab === 'individual' && studentPrediction && (
+        <div className="space-y-6">
+          {/* Prediction Summary */}
+          <div className="bg-gray-800 rounded-lg p-4">
+            <div 
+              className="flex items-center justify-between cursor-pointer"
+              onClick={() => toggleSection('prediction-summary')}
+            >
+              <h3 className="text-lg font-medium text-white flex items-center">
+                <TrendingUp className="h-5 w-5 mr-2 text-blue-400" />
+                <span>Performance Prediction</span>
+              </h3>
+              {expandedSections['prediction-summary'] ? (
+                <ChevronUp className="h-5 w-5 text-gray-400" />
+              ) : (
+                <ChevronDown className="h-5 w-5 text-gray-400" />
+              )}
+            </div>
+            
+            {expandedSections['prediction-summary'] && (
+              <div className="mt-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Summary Card */}
+                  <div className="bg-gray-700 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-4">
+                      <div>
+                        <h4 className="text-white font-medium">{studentPrediction.studentName}</h4>
+                        <div className="text-sm text-gray-400">Last updated: {new Date(studentPrediction.lastUpdated).toLocaleString()}</div>
+                      </div>
+                      <div>
+                        {getRiskBadge(studentPrediction.riskLevel)}
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <div>
+                        <div className="text-sm text-gray-400 mb-1">Current Performance</div>
+                        <div className="text-2xl font-semibold text-white">{formatPercentage(studentPrediction.currentPerformance)}</div>
+                      </div>
+                      
+                      <div>
+                        <div className="text-sm text-gray-400 mb-1">Predicted Performance</div>
+                        <div className="flex items-center">
+                          <div className="text-2xl font-semibold text-white">{formatPercentage(studentPrediction.predictedPerformance)}</div>
+                          <div className="ml-2 flex items-center">
+                            {getTrendIcon(studentPrediction.trendDirection)}
+                            <span className="ml-1 text-sm">
+                              {studentPrediction.trendDirection === 'improving' ? 'Improving' : 
+                               studentPrediction.trendDirection === 'stable' ? 'Stable' : 'Declining'}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Performance Indicators */}
+                  <div className="bg-gray-700 rounded-lg p-4">
+                    <h4 className="text-white font-medium mb-4">Performance Indicators</h4>
+                    <div className="space-y-3">
+                      {performanceIndicators.slice(0, 5).map((indicator, index) => (
+                        <div key={index} className="flex items-center justify-between">
+                          <div className="text-sm text-gray-300">{indicator.name}</div>
+                          <div className="flex items-center">
+                            <div className="w-32 h-2 bg-gray-600 rounded-full mr-2">
+                              <div 
+                                className={`h-2 rounded-full ${
+                                  indicator.impact === 'positive' ? 'bg-green-500' :
+                                  indicator.impact === 'negative' ? 'bg-red-500' :
+                                  'bg-yellow-500'
+                                }`}
+                                style={{ width: `${indicator.value * 100}%` }}
+                              ></div>
+                            </div>
+                            <div className="text-sm text-white">{formatPercentage(indicator.value)}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+          
+          {/* Performance Trends */}
+          {performanceTrends.length > 0 && (
+            <div className="bg-gray-800 rounded-lg p-4">
+              <div 
+                className="flex items-center justify-between cursor-pointer"
+                onClick={() => toggleSection('performance-trends')}
+              >
+                <h3 className="text-lg font-medium text-white flex items-center">
+                  <TrendingUp className="h-5 w-5 mr-2 text-blue-400" />
+                  <span>Performance Trends</span>
+                </h3>
+                {expandedSections['performance-trends'] ? (
+                  <ChevronUp className="h-5 w-5 text-gray-400" />
+                ) : (
+                  <ChevronDown className="h-5 w-5 text-gray-400" />
+                )}
+              </div>
+              
+              {expandedSections['performance-trends'] && (
+                <div className="mt-4">
+                  <div className="h-80">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart
+                        data={performanceTrends}
+                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                      >
+                        <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+                        <XAxis dataKey="period" stroke="#999" />
+                        <YAxis stroke="#999" />
+                        <Tooltip 
+                          contentStyle={{ backgroundColor: '#333', border: 'none' }}
+                          formatter={(value: number) => [`${(value * 100).toFixed(1)}%`, '']}
+                        />
+                        <Legend />
+                        <Line 
+                          type="monotone" 
+                          dataKey="actual" 
+                          name="Actual Performance"
+                          stroke="#0088FE" 
+                          activeDot={{ r: 8 }} 
+                        />
+                        <Line 
+                          type="monotone" 
+                          dataKey="predicted" 
+                          name="Predicted Performance"
+                          stroke="#00C49F" 
+                          strokeDasharray="5 5"
+                        />
+                        <Line 
+                          type="monotone" 
+                          dataKey="baseline" 
+                          name="Baseline"
+                          stroke="#999" 
+                          strokeDasharray="3 3"
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+      
+      {/* Class Overview */}
+      {activeTab === 'class' && (
+        <div className="space-y-6">
+          {/* Class Performance Distribution */}
+          <div className="bg-gray-800 rounded-lg p-4">
+            <h3 className="text-lg font-medium text-white mb-4">Class Performance Distribution</h3>
+            <div className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={classPredictions.map(prediction => ({
+                    name: prediction.studentName,
+                    current: prediction.currentPerformance,
+                    predicted: prediction.predictedPerformance
+                  }))}
+                  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+                  <XAxis dataKey="name" stroke="#999" />
+                  <YAxis stroke="#999" />
+                  <Tooltip 
+                    contentStyle={{ backgroundColor: '#333', border: 'none' }}
+                    formatter={(value: number) => [`${(value * 100).toFixed(1)}%`, '']}
+                  />
+                  <Legend />
+                  <Bar dataKey="current" name="Current Performance" fill="#0088FE" />
+                  <Bar dataKey="predicted" name="Predicted Performance" fill="#00C49F" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+          
+          {/* At-Risk Students */}
+          <div className="bg-gray-800 rounded-lg p-4">
+            <h3 className="text-lg font-medium text-white mb-4">At-Risk Students</h3>
+            <div className="space-y-4">
+              {atRiskStudents.map((student, index) => (
+                <div key={index} className="bg-gray-700 rounded-lg p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="text-white font-medium">{student.studentName}</h4>
+                      <div className="text-sm text-gray-400">ID: {student.userId}</div>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="text-sm text-red-400 mr-2">Risk Score: {Math.round(student.riskScore * 100)}%</div>
+                      <div className="flex items-center text-yellow-400 text-sm">
+                        <Clock className="h-4 w-4 mr-1" />
+                        <span>{student.timeToIntervention} days</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* Interventions */}
+      {activeTab === 'interventions' && (
+        <div className="space-y-6">
+          <div className="bg-gray-800 rounded-lg p-4">
+            <h3 className="text-lg font-medium text-white mb-4">Intervention Effectiveness</h3>
+            <div className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={interventionEffectiveness}
+                  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+                  <XAxis dataKey="interventionType" stroke="#999" />
+                  <YAxis stroke="#999" />
+                  <Tooltip 
+                    contentStyle={{ backgroundColor: '#333', border: 'none' }}
+                    formatter={(value: number) => [`${(value * 100).toFixed(1)}%`, '']}
+                  />
+                  <Legend />
+                  <Bar dataKey="successRate" name="Success Rate" fill="#0088FE" />
+                  <Bar dataKey="averageImprovement" name="Avg. Improvement" fill="#00C49F" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default PredictivePerformancePanel;

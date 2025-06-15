@@ -1,0 +1,729 @@
+'use client';
+
+import React, { useState } from 'react';
+import { EnhancedHeader, EnhancedFooter } from '@/components/layout/enhanced-header-footer';
+import { Container, Typography, Card, Grid } from '@/components/ui/enhanced-layout-components';
+import { Button } from '@/components/ui/enhanced-form-components';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/enhanced-interactive-components';
+import { Accordion, AccordionItem } from '@/components/ui/enhanced-interactive-components';
+import { Badge } from '@/components/ui/enhanced-form-components';
+import Link from 'next/link';
+import Image from 'next/image';
+
+// Create simple versions of missing components
+const Progress = ({ value, max, className }: { value: number; max: number; className?: string }) => (
+  <div className={`bg-grey-200 rounded-full ${className}`}>
+    <div 
+      className="bg-blue-600 rounded-full h-full" 
+      style={{ width: `${(value / max) * 100}%` }}
+    ></div>
+  </div>
+);
+
+const AccordionTrigger = ({ className, children }: { className?: string; children: React.ReactNode }) => (
+  <div className={className}>
+    {children}
+  </div>
+);
+
+const AccordionContent = ({ children }: { children: React.ReactNode }) => (
+  <div className="accordion-content">
+    {children}
+  </div>
+);
+
+export default function WellbeingLeadCertificationPage() {
+  const [activeTab, setActiveTab] = useState('overview');
+  
+  // Mock data for certification modules
+  const certificationModules = [
+    {
+      id: 1,
+      title: "Mental Health and Wellbeing Foundations",
+      description: "Understanding the key concepts, frameworks, and evidence base for mental health and wellbeing in educational settings.",
+      duration: "3 hours",
+      lessons: [
+        { title: "Mental Health and Wellbeing: Key Concepts", duration: "30 min", type: "Video Lecture" },
+        { title: "The Wellbeing Continuum", duration: "30 min", type: "Interactive Tutorial" },
+        { title: "Risk and Protective Factors", duration: "30 min", type: "Video Lecture" },
+        { title: "UK Policy and Guidance", duration: "30 min", type: "Interactive Tutorial" },
+        { title: "Evidence-Based Approaches", duration: "30 min", type: "Video Lecture" },
+        { title: "Knowledge Check", duration: "30 min", type: "Assessment" }
+      ],
+      resources: [
+        "Mental Health and Wellbeing Glossary",
+        "UK Policy Framework Summary",
+        "Evidence Base Overview",
+        "Wellbeing Continuum Model"
+      ],
+      completion: 0
+    },
+    {
+      id: 2,
+      title: "Whole-School Approach to Wellbeing",
+      description: "Developing a comprehensive, systemic approach to wellbeing that encompasses all aspects of school life.",
+      duration: "3 hours",
+      lessons: [
+        { title: "Principles of Whole-School Approaches", duration: "30 min", type: "Video Lecture" },
+        { title: "Leadership and Governance", duration: "30 min", type: "Interactive Tutorial" },
+        { title: "Staff Wellbeing", duration: "30 min", type: "Video Lecture" },
+        { title: "Curriculum Integration", duration: "30 min", type: "Interactive Tutorial" },
+        { title: "School Environment and Ethos", duration: "30 min", type: "Video Lecture" },
+        { title: "Knowledge Check", duration: "30 min", type: "Assessment" }
+      ],
+      resources: [
+        "Whole-School Wellbeing Framework",
+        "Leadership Toolkit",
+        "Staff Wellbeing Audit",
+        "Curriculum Mapping Template"
+      ],
+      completion: 0
+    },
+    {
+      id: 3,
+      title: "Identification and Support Systems",
+      description: "Establishing effective systems for identifying wellbeing concerns and providing appropriate support.",
+      duration: "3 hours",
+      lessons: [
+        { title: "Early Identification Approaches", duration: "30 min", type: "Video Lecture" },
+        { title: "Screening and Assessment Tools", duration: "30 min", type: "Interactive Tutorial" },
+        { title: "Developing Support Pathways", duration: "30 min", type: "Video Lecture" },
+        { title: "Record-Keeping and Monitoring", duration: "30 min", type: "Interactive Tutorial" },
+        { title: "Confidentiality and Information Sharing", duration: "30 min", type: "Video Lecture" },
+        { title: "Knowledge Check", duration: "30 min", type: "Assessment" }
+      ],
+      resources: [
+        "Identification Toolkit",
+        "Assessment Tools Guide",
+        "Support Pathway Template",
+        "Information Sharing Protocol"
+      ],
+      completion: 0
+    },
+    {
+      id: 4,
+      title: "Multi-Agency Collaboration",
+      description: "Working effectively with external agencies and services to provide comprehensive wellbeing support.",
+      duration: "3 hours",
+      lessons: [
+        { title: "The Multi-Agency Landscape", duration: "30 min", type: "Video Lecture" },
+        { title: "Referral Processes and Thresholds", duration: "30 min", type: "Interactive Tutorial" },
+        { title: "Effective Partnership Working", duration: "30 min", type: "Video Lecture" },
+        { title: "Managing Complex Cases", duration: "30 min", type: "Interactive Tutorial" },
+        { title: "Evaluating External Support", duration: "30 min", type: "Video Lecture" },
+        { title: "Knowledge Check", duration: "30 min", type: "Assessment" }
+      ],
+      resources: [
+        "Local Services Directory Template",
+        "Referral Process Flowchart",
+        "Partnership Agreement Template",
+        "Case Management Toolkit"
+      ],
+      completion: 0
+    },
+    {
+      id: 5,
+      title: "Wellbeing Leadership and Implementation",
+      description: "Developing the leadership skills and implementation strategies needed to drive wellbeing improvement.",
+      duration: "3 hours",
+      lessons: [
+        { title: "The Wellbeing Lead Role", duration: "30 min", type: "Video Lecture" },
+        { title: "Strategic Planning", duration: "30 min", type: "Interactive Tutorial" },
+        { title: "Building Staff Capacity", duration: "30 min", type: "Video Lecture" },
+        { title: "Overcoming Implementation Barriers", duration: "30 min", type: "Interactive Tutorial" },
+        { title: "Measuring Impact", duration: "30 min", type: "Video Lecture" },
+        { title: "Knowledge Check", duration: "30 min", type: "Assessment" }
+      ],
+      resources: [
+        "Wellbeing Lead Role Description",
+        "Strategic Planning Template",
+        "Staff Training Needs Analysis",
+        "Impact Measurement Toolkit"
+      ],
+      completion: 0
+    }
+  ];
+
+  // Mock data for certification instructors
+  const instructors = [
+    {
+      name: "Dr. Sarah Johnson",
+      title: "Mental Health in Education Specialist",
+      bio: "Dr. Johnson has over 15 years of experience in mental health and wellbeing in educational settings. She has worked with schools across the UK to develop whole-school wellbeing approaches and has published extensively on the impact of school-based interventions on student mental health outcomes.",
+      image: "/images/professional-development/instructors/sarah-johnson.jpg"
+    },
+    {
+      name: "Michael Thompson",
+      title: "Wellbeing Lead and Educational Psychologist",
+      bio: "Michael is a practicing educational psychologist and former school wellbeing lead. He specializes in developing whole-school approaches to mental health and wellbeing, with particular expertise in staff wellbeing and creating mentally healthy school environments.",
+      image: "/images/professional-development/instructors/michael-thompson.jpg"
+    }
+  ];
+
+  // Mock data for testimonials
+  const testimonials = [
+    {
+      quote: "This certification gave me the knowledge, skills, and confidence to lead wellbeing improvement across our school. The whole-school approach module was particularly valuable in helping us develop a comprehensive strategy.",
+      author: "Emma L., Wellbeing Lead",
+      school: "Oakwood Academy"
+    },
+    {
+      quote: "The balance of theory and practical application was excellent. I now have a toolkit of evidence-based approaches and resources that I use daily in my role as wellbeing lead.",
+      author: "James T., Assistant Headteacher",
+      school: "Westfield School"
+    },
+    {
+      quote: "As a newly appointed wellbeing lead, this certification provided exactly what I needed to establish effective systems and processes. The multi-agency collaboration module has transformed how we work with external services.",
+      author: "Rebecca S., PSHE Coordinator",
+      school: "Greenwood College"
+    }
+  ];
+
+  // Mock data for evidence base
+  const evidenceBase = [
+    {
+      title: "Department for Education: Mental Health and Behaviour in Schools",
+      description: "The certification aligns with DfE guidance on promoting positive mental health and managing mental health problems in schools, ensuring content reflects current policy and best practise.",
+      link: "https://www.gov.uk/government/publications/mental-health-and-behaviour-in-schools--2"
+    },
+    {
+      title: "Public Health England: Promoting Children and Young People's Mental Health and Wellbeing",
+      description: "Content draws on PHE's framework for promoting children and young people's emotional health and wellbeing in schools and colleges, incorporating the eight principles for a whole-school approach.",
+      link: "https://www.gov.uk/government/publications/promoting-children-and-young-peoples-emotional-health-and-wellbeing"
+    },
+    {
+      title: "Education Endowment Foundation: Social and Emotional Learning",
+      description: "The certification incorporates evidence from EEF's research on effective social and emotional learning interventions and their impact on academic outcomes and wellbeing.",
+      link: "https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/social-and-emotional-learning"
+    },
+    {
+      title: "Anna Freud National Centre for Children and Families: Schools in Mind",
+      description: "Content is informed by research and resources from the Schools in Mind network, which supports school staff to promote the mental health and wellbeing of children and young people.",
+      link: "https://www.annafreud.org/schools-and-colleges/"
+    },
+    {
+      title: "NICE Guidance: Social and Emotional Wellbeing in Primary and Secondary Education",
+      description: "The certification draws on NICE guidelines for promoting social and emotional wellbeing in educational settings, ensuring approaches are evidence-based and aligned with health guidance.",
+      link: "https://www.nice.org.uk/guidance/ph12"
+    }
+  ];
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <EnhancedHeader />
+      
+      <main className="flex-grow">
+        {/* Hero Section */}
+        <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white py-16">
+          <Container>
+            <div className="flex flex-col md:flex-row gap-8 items-centre">
+              <div className="md:w-2/3">
+                <Badge className="bg-white text-purple-600 mb-4">Professional Development Certification</Badge>
+                <Typography variant="h1" className="mb-4">
+                  Wellbeing Lead Certification
+                </Typography>
+                <Typography variant="lead" className="mb-6">
+                  A comprehensive certification programme for educators leading mental health and wellbeing initiatives in schools, providing the knowledge, skills, and evidence-based strategies needed to create mentally healthy school environments.
+                </Typography>
+                <div className="flex flex-wrap gap-4 mb-6">
+                  <div className="flex items-centre gap-2 bg-purple-400/20 px-3 py-1 rounded-full">
+                    <span className="text-sm font-medium">Duration:</span>
+                    <span className="text-sm">15 hours</span>
+                  </div>
+                  <div className="flex items-centre gap-2 bg-purple-400/20 px-3 py-1 rounded-full">
+                    <span className="text-sm font-medium">Modules:</span>
+                    <span className="text-sm">5 modules</span>
+                  </div>
+                  <div className="flex items-centre gap-2 bg-purple-400/20 px-3 py-1 rounded-full">
+                    <span className="text-sm font-medium">Level:</span>
+                    <span className="text-sm">Advanced</span>
+                  </div>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button variant="light" size="lg">
+                    Enrol Now
+                  </Button>
+                  <Button variant="outline-light" size="lg">
+                    Download Syllabus
+                  </Button>
+                </div>
+              </div>
+              <div className="md:w-1/3">
+                <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-xl">
+                  <Image
+                    src="/images/professional-development/wellbeing-lead-hero.jpg"
+                    alt="Teacher leading a wellbeing session with colleagues"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+          </Container>
+        </div>
+        
+        {/* Main Content */}
+        <Container className="py-16">
+          <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab} className="mb-8">
+            <TabsList className="mb-8">
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="curriculum">Curriculum</TabsTrigger>
+              <TabsTrigger value="instructors">Instructors</TabsTrigger>
+              <TabsTrigger value="evidence">Evidence Base</TabsTrigger>
+              <TabsTrigger value="faq">FAQ</TabsTrigger>
+            </TabsList>
+            
+            {/* Overview Tab */}
+            <TabsContent value="overview">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="lg:col-span-2">
+                  <Card className="p-8 mb-8">
+                    <Typography variant="h3" className="mb-4">
+                      Certification Description
+                    </Typography>
+                    <Typography variant="body" className="mb-6">
+                      This comprehensive certification programme is designed for educators who are leading or aspiring to lead mental health and wellbeing initiatives in their schools. Whether you're a designated wellbeing lead, a senior leader with responsibility for pastoral care, or a teacher with a passion for promoting positive mental health, this programme will provide you with the knowledge, skills, and evidence-based strategies needed to create mentally healthy school environments.
+                    </Typography>
+                    <Typography variant="body" className="mb-6">
+                      Through a combination of video lectures, interactive tutorials, case studies, and practical activities, you'll develop a deep understanding of mental health and wellbeing in educational contexts. You'll learn how to implement whole-school approaches, establish effective identification and support systems, work collaboratively with external agencies, and lead wellbeing improvement. The certification is aligned with UK policy and guidance on mental health in schools.
+                    </Typography>
+                    <Typography variant="h4" className="mb-2">
+                      What You'll Learn
+                    </Typography>
+                    <ul className="list-disc pl-6 mb-6 space-y-2">
+                      <li>Key concepts, frameworks, and evidence base for mental health and wellbeing in schools</li>
+                      <li>Principles and practices of whole-school approaches to wellbeing</li>
+                      <li>Systems for identifying wellbeing concerns and providing appropriate support</li>
+                      <li>Strategies for effective multi-agency collaboration</li>
+                      <li>Leadership skills for driving wellbeing improvement across your school</li>
+                    </ul>
+                    <Typography variant="h4" className="mb-2">
+                      Who This Certification Is For
+                    </Typography>
+                    <ul className="list-disc pl-6 mb-6 space-y-2">
+                      <li>Designated mental health leads and wellbeing coordinators</li>
+                      <li>Senior leaders with responsibility for pastoral care</li>
+                      <li>PSHE coordinators and teachers</li>
+                      <li>SENCOs and inclusion leaders</li>
+                      <li>Any educator passionate about promoting mental health and wellbeing</li>
+                    </ul>
+                  </Card>
+                  
+                  <Card className="p-8">
+                    <Typography variant="h3" className="mb-4">
+                      Testimonials
+                    </Typography>
+                    <div className="space-y-6">
+                      {testimonials.map((testimonial, index) => (
+                        <div key={index} className="bg-grey-50 p-6 rounded-lg">
+                          <blockquote className="text-lg italic mb-4">"{testimonial.quote}"</blockquote>
+                          <div className="flex items-centre">
+                            <div className="w-10 h-10 bg-purple-600 rounded-full flex items-centre justify-centre text-white font-bold mr-3">
+                              {testimonial.author.charAt(0)}
+                            </div>
+                            <div>
+                              <p className="font-medium">{testimonial.author}</p>
+                              <p className="text-sm text-grey-600">{testimonial.school}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </Card>
+                </div>
+                
+                <div className="lg:col-span-1">
+                  <Card className="p-6 mb-6">
+                    <Typography variant="h4" className="mb-4">
+                      Certification Details
+                    </Typography>
+                    <div className="space-y-4">
+                      <div>
+                        <p className="text-sm font-medium mb-1">Duration</p>
+                        <p>15 hours of content (self-paced)</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium mb-1">Format</p>
+                        <p>Online with video lectures, interactive activities, and practical assignments</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium mb-1">Access Period</p>
+                        <p>12 months from enrolment</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium mb-1">Certificate</p>
+                        <p>Downloadable certificate upon completion</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium mb-1">CPD Hours</p>
+                        <p>15 CPD hours recognized by UK teaching bodies</p>
+                      </div>
+                    </div>
+                    <div className="mt-6">
+                      <Button variant="primary" size="lg" className="w-full">
+                        Enrol Now
+                      </Button>
+                    </div>
+                  </Card>
+                  
+                  <Card className="p-6 mb-6">
+                    <Typography variant="h4" className="mb-4">
+                      Related Certifications
+                    </Typography>
+                    <div className="space-y-4">
+                      <div className="flex items-start gap-3">
+                        <div className="relative w-16 h-12 rounded overflow-hidden flex-shrink-0">
+                          <Image
+                            src="/images/professional-development/senco-certification.jpg"
+                            alt="SENCO Certification"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div>
+                          <Link href="/professional-development/certifications/senco" className="font-medium hover:text-purple-600 transition-colors">
+                            SENCO Certification
+                          </Link>
+                          <p className="text-sm text-grey-600">20 hours • 6 modules</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="relative w-16 h-12 rounded overflow-hidden flex-shrink-0">
+                          <Image
+                            src="/images/professional-development/restorative-justice.jpg"
+                            alt="Restorative Justice Practitioner Certification"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div>
+                          <Link href="/professional-development/certifications/restorative-justice" className="font-medium hover:text-purple-600 transition-colors">
+                            Restorative Justice Practitioner Certification
+                          </Link>
+                          <p className="text-sm text-grey-600">15 hours • 5 modules</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="relative w-16 h-12 rounded overflow-hidden flex-shrink-0">
+                          <Image
+                            src="/images/professional-development/assessment-specialist.jpg"
+                            alt="Assessment Specialist Certification"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div>
+                          <Link href="/professional-development/certifications/assessment-specialist" className="font-medium hover:text-purple-600 transition-colors">
+                            Assessment Specialist Certification
+                          </Link>
+                          <p className="text-sm text-grey-600">18 hours • 6 modules</p>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                  
+                  <Card className="p-6">
+                    <Typography variant="h4" className="mb-4">
+                      Need Help?
+                    </Typography>
+                    <Typography variant="body" className="mb-4">
+                      If you have questions about this certification or need assistance, our support team is here to help.
+                    </Typography>
+                    <Button variant="outline" size="lg" className="w-full" asChild>
+                      <Link href="/contact">
+                        Contact Support
+                      </Link>
+                    </Button>
+                  </Card>
+                </div>
+              </div>
+            </TabsContent>
+            
+            {/* Curriculum Tab */}
+            <TabsContent value="curriculum">
+              <Card className="p-8">
+                <Typography variant="h3" className="mb-6">
+                  Certification Curriculum
+                </Typography>
+                <Typography variant="body" className="mb-8">
+                  This certification consists of 5 comprehensive modules, each focusing on a key aspect of mental health and wellbeing leadership in educational settings. Each module includes video lectures, interactive tutorials, case studies, and knowledge checks to ensure understanding.
+                </Typography>
+                
+                <div className="space-y-6">
+                  {certificationModules.map((module) => (
+                    <div key={module.id} className="border rounded-lg overflow-hidden">
+                      <Accordion type="single" collapsible>
+                        <AccordionItem value={`module-${module.id}`}>
+                          <AccordionTrigger className="p-6 bg-grey-50 hover:bg-grey-100">
+                            <div className="flex flex-col md:flex-row md:items-centre justify-between w-full text-left">
+                              <div>
+                                <Typography variant="h4" className="mb-1">
+                                  Module {module.id}: {module.title}
+                                </Typography>
+                                <Typography variant="small" className="text-grey-600">
+                                  {module.duration} • {module.lessons.length} lessons
+                                </Typography>
+                              </div>
+                              <div className="mt-2 md:mt-0">
+                                <Progress value={module.completion} max={100} className="w-24 h-2" />
+                              </div>
+                            </div>
+                          </AccordionTrigger>
+                          <AccordionContent>
+                            <div className="p-6">
+                              <Typography variant="body" className="mb-4">
+                                {module.description}
+                              </Typography>
+                              
+                              <Typography variant="h5" className="mb-3">
+                                Lessons
+                              </Typography>
+                              <div className="space-y-3 mb-6">
+                                {module.lessons.map((lesson, index) => (
+                                  <div key={index} className="flex items-centre justify-between p-3 bg-grey-50 rounded">
+                                    <div className="flex items-centre">
+                                      <div className="w-8 h-8 bg-purple-100 text-purple-600 rounded-full flex items-centre justify-centre mr-3">
+                                        {index + 1}
+                                      </div>
+                                      <div>
+                                        <p className="font-medium">{lesson.title}</p>
+                                        <p className="text-sm text-grey-600">{lesson.duration} • {lesson.type}</p>
+                                      </div>
+                                    </div>
+                                    <Button variant="ghost" size="sm">
+                                      Preview
+                                    </Button>
+                                  </div>
+                                ))}
+                              </div>
+                              
+                              <Typography variant="h5" className="mb-3">
+                                Resources
+                              </Typography>
+                              <div className="space-y-2">
+                                {module.resources.map((resource, index) => (
+                                  <div key={index} className="flex items-centre p-2">
+                                    <div className="w-5 h-5 bg-purple-100 text-purple-600 rounded-full flex items-centre justify-centre mr-3">
+                                      <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                      </svg>
+                                    </div>
+                                    <p>{resource}</p>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </AccordionContent>
+                        </AccordionItem>
+                      </Accordion>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            </TabsContent>
+            
+            {/* Instructors Tab */}
+            <TabsContent value="instructors">
+              <Card className="p-8">
+                <Typography variant="h3" className="mb-6">
+                  Meet Your Instructors
+                </Typography>
+                <Typography variant="body" className="mb-8">
+                  This certification is developed and delivered by experts in mental health and wellbeing in educational settings with extensive experience in both research and practical implementation.
+                </Typography>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {instructors.map((instructor, index) => (
+                    <div key={index} className="flex flex-col md:flex-row gap-6">
+                      <div className="md:w-1/3">
+                        <div className="relative w-full aspect-square rounded-lg overflow-hidden">
+                          <Image
+                            src={instructor.image}
+                            alt={instructor.name}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      </div>
+                      <div className="md:w-2/3">
+                        <Typography variant="h4" className="mb-1">
+                          {instructor.name}
+                        </Typography>
+                        <Typography variant="small" className="text-purple-600 mb-3">
+                          {instructor.title}
+                        </Typography>
+                        <Typography variant="body">
+                          {instructor.bio}
+                        </Typography>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            </TabsContent>
+            
+            {/* Evidence Base Tab */}
+            <TabsContent value="evidence">
+              <Card className="p-8">
+                <Typography variant="h3" className="mb-6">
+                  Evidence Base
+                </Typography>
+                <Typography variant="body" className="mb-8">
+                  This certification is grounded in robust evidence and aligned with current policy and guidance on mental health and wellbeing in educational settings.
+                </Typography>
+                
+                <div className="space-y-8">
+                  {evidenceBase.map((evidence, index) => (
+                    <div key={index} className="border-b pb-6 last:border-b-0 last:pb-0">
+                      <Typography variant="h4" className="mb-2">
+                        {evidence.title}
+                      </Typography>
+                      <Typography variant="body" className="mb-3">
+                        {evidence.description}
+                      </Typography>
+                      <Link 
+                        href={evidence.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-purple-600 hover:text-purple-800 transition-colors flex items-centre"
+                      >
+                        View Source
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+                
+                <div className="mt-8 p-6 bg-purple-50 rounded-lg">
+                  <Typography variant="h4" className="mb-4">
+                    Whole-School Approach Evidence
+                  </Typography>
+                  <Typography variant="body" className="mb-4">
+                    Research consistently demonstrates that whole-school approaches to mental health and wellbeing are more effective than isolated interventions. A systematic review by Weare and Nind (2011) found that multi-component, whole-school approaches that include changes to the school environment, curriculum teaching, and partnerships with families and communities have the strongest evidence of effectiveness.
+                  </Typography>
+                  <Typography variant="body">
+                    Throughout the program, you'll engage with current research on mental health and wellbeing in educational settings, learning how to apply evidence-based approaches in your school to create environments that promote positive mental health for all members of the school community.
+                  </Typography>
+                </div>
+              </Card>
+            </TabsContent>
+            
+            {/* FAQ Tab */}
+            <TabsContent value="faq">
+              <Card className="p-8">
+                <Typography variant="h3" className="mb-6">
+                  Frequently Asked Questions
+                </Typography>
+                
+                <div className="space-y-4">
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value="faq-1">
+                      <AccordionTrigger className="p-4 bg-grey-50 hover:bg-grey-100 rounded-lg">
+                        <Typography variant="h5">
+                          How does this certification relate to the DfE's designated mental health lead training?
+                        </Typography>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="p-4">
+                          <Typography variant="body">
+                            This certification complements the DfE's designated mental health lead training but offers a more comprehensive and in-depth exploration of wellbeing leadership in schools. Whilst the DfE training provides a foundation for the role, this certification expands on those foundations with more detailed content on whole-school approaches, identification and support systems, multi-agency collaboration, and implementation strategies. Many educators complete this certification alongside the DfE training to develop a more comprehensive skill set for their wellbeing leadership role.
+                          </Typography>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                    <AccordionItem value="faq-2">
+                      <AccordionTrigger className="p-4 bg-grey-50 hover:bg-grey-100 rounded-lg">
+                        <Typography variant="h5">
+                          Is this certification suitable for educators at all levels?
+                        </Typography>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="p-4">
+                          <Typography variant="body">
+                            Yes, the certification is designed to be applicable across early years, primary, secondary, and post-16 settings. The content addresses the core principles and practices of wellbeing leadership that apply across all levels, whilst also providing specific examples and case studies relevant to different age groups and contexts. The module on whole-school approaches includes specific guidance on age-appropriate strategies for different educational settings.
+                          </Typography>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                    <AccordionItem value="faq-3">
+                      <AccordionTrigger className="p-4 bg-grey-50 hover:bg-grey-100 rounded-lg">
+                        <Typography variant="h5">
+                          How is the certification assessed?
+                        </Typography>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="p-4">
+                          <Typography variant="body">
+                            The certification includes a combination of assessment methods. Each module concludes with a knowledge check to assess understanding of key concepts. Throughout the program, you'll also complete practical assignments, including developing a wellbeing strategy, creating support pathways, and designing staff training. The final module includes a wellbeing leadership project where you'll develop an implementation plan for your setting. To receive the certification, you must pass all module assessments and successfully complete the practical assignments.
+                          </Typography>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                    <AccordionItem value="faq-4">
+                      <AccordionTrigger className="p-4 bg-grey-50 hover:bg-grey-100 rounded-lg">
+                        <Typography variant="h5">
+                          What support is available during the certification programme?
+                        </Typography>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="p-4">
+                          <Typography variant="body">
+                            Throughout the certification program, you'll have access to a range of support options. These include a dedicated online forum where you can connect with other participants and instructors, regular Q&A sessions with wellbeing experts, and individual feedback on your assessments and practical assignments. Additionally, all resources and materials remain accessible for 12 months after enrolment, allowing you to revisit content as needed.
+                          </Typography>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                    <AccordionItem value="faq-5">
+                      <AccordionTrigger className="p-4 bg-grey-50 hover:bg-grey-100 rounded-lg">
+                        <Typography variant="h5">
+                          Can this certification be completed as part of whole-school wellbeing development?
+                        </Typography>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="p-4">
+                          <Typography variant="body">
+                            Yes, we offer special packages for schools wishing to develop wellbeing leadership capacity across their staff team. Multiple staff members can undertake the certification simultaneously, with additional support for implementing whole-school wellbeing approaches. This approach is particularly effective for schools looking to build sustainable wellbeing leadership and create a consistent approach to mental health and wellbeing. Please contact our team for more information about whole-school packages and pricing.
+                          </Typography>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </Container>
+        
+        {/* Call to Action */}
+        <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white py-16">
+          <Container>
+            <div className="text-centre max-w-3xl mx-auto">
+              <Typography variant="h2" className="mb-4">
+                Ready to Lead Wellbeing Improvement in Your School?
+              </Typography>
+              <Typography variant="lead" className="mb-8">
+                Join hundreds of educators who have developed effective wellbeing leadership skills through this comprehensive, evidence-based certification programme.
+              </Typography>
+              <div className="flex flex-col sm:flex-row gap-4 justify-centre">
+                <Button variant="light" size="lg">
+                  Enrol Now
+                </Button>
+                <Button variant="outline-light" size="lg" asChild>
+                  <Link href="/professional-development">
+                    Explore More Certifications
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </Container>
+        </div>
+      </main>
+      
+      <EnhancedFooter />
+    </div>

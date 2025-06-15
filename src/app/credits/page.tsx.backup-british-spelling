@@ -1,0 +1,296 @@
+'use client';
+
+import dynamic from 'next/dynamic';
+
+import React, { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { loadStripe } from '@stripe/stripe-js';
+// Load Stripe on the client side
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
+
+interface Credit {
+  id: string;
+  amount: number;
+  remaining: number;
+  expiresAt: string | null;
+  createdAt: string;
+}
+
+interface CreditPackage {
+  name: string;
+  displayName: string;
+  amount: number;
+  price: number;
+}
+
+// Credit package definitions
+const CREDIT_PACKAGES: CreditPackage[] = [
+  {
+    name: 'small',
+    displayName: '50 Credits',
+    amount: 50,
+    price: 9.99,
+  },
+  {
+    name: 'medium',
+    displayName: '100 Credits',
+    amount: 100,
+    price: 18.99,
+  },
+  {
+    name: 'large',
+    displayName: '200 Credits',
+    amount: 200,
+    price: 34.99,
+  },
+];
+
+
+// Original component
+function CreditsPage() {
+  const { data: session, status } = useSession();
+  const [credits, setCredits] = useState<Credit[]>([]);
+  const [totalCredits, setTotalCredits] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [selectedCreditPackage, setSelectedCreditPackage] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchCredits() {
+      if (status !== 'authenticated') {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/subscriptions/user', { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error('Failed to fetch user credits');
+        }
+
+        const data = await response.json();
+        if (data.credits) {
+          setCredits(data.credits.details || []);
+          setTotalCredits(data.credits.total || 0);
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred');
+        console.error('Error fetching credits:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchCredits();
+
+    // Check for success or canceled query parameters
+    const url = new URL(window.location.href);
+    const success = url.searchParams.get('success');
+    const canceled = url.searchParams.get('canceled');
+    
+    if (success === 'true') {
+      setSuccessMessage('Payment successful! Your credits have been added to your account.');
+      // Refresh credit data
+      fetchCredits();
+    } else if (canceled === 'true') {
+      setError('Payment canceled. Please try again if you want to purchase credits.');
+    }
+
+    // Clear URL parameters
+    if (success || canceled) {
+      const newUrl = window.location.pathname;
+      window.history.replaceState({}, '', newUrl);
+    }
+  }, [status]);
+
+  // Function to handle credit purchase
+  async function handleCreditPurchase(packageSize: string) {
+    if (!session) {
+      setError('You must be signed in to purchase credits');
+      return;
+    }
+
+    setSelectedCreditPackage(packageSize);
+    setError(null);
+
+    try {
+      const response = await fetch('/api/checkout/credits', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          packageSize,
+        }, { cache: "no-store" }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create checkout session');
+      }
+
+      const { url } = await response.json();
+      
+      // Redirect to Stripe Checkout
+      window.location.href = url;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+      console.error('Error creating credit checkout session:', err);
+    } finally {
+      setSelectedCreditPackage(null);
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="flex items-centre justify-centre min-h-screen">
+        <div className="text-centre">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
+          <p className="mt-4 text-grey-600">Loading credit information...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (status === 'unauthenticated') {
+    return (
+      <div className="flex items-centre justify-centre min-h-screen">
+        <div className="text-centre max-w-md p-6 bg-white rounded-lg shadow-md">
+          <h1 className="text-2xl font-bold text-grey-900 mb-4">Authentication Required</h1>
+          <p className="text-grey-600 mb-6">
+            You need to be signed in to access this page.
+          </p>
+          <a
+            href="/api/auth/signin"
+            className="inline-flex items-centre px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Sign In
+          </a>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <h1 className="text-3xl font-bold text-grey-900 mb-6">Credits</h1>
+      
+      {error && (
+        <div className="bg-red-50 p-4 rounded-md mb-6">
+          <p className="text-red-700">{error}</p>
+        </div>
+      )}
+
+      {successMessage && (
+        <div className="bg-green-50 p-4 rounded-md mb-6">
+          <p className="text-green-700">{successMessage}</p>
+        </div>
+      )}
+
+      <div className="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
+        <div className="px-4 py-5 sm:px-6">
+          <h2 className="text-lg leading-6 font-medium text-grey-900">Your Credits</h2>
+          <p className="mt-1 max-w-2xl text-sm text-grey-500">
+            Credits can be used for premium features like AI lesson planning and content differentiation.
+          </p>
+        </div>
+        <div className="border-t border-grey-200 px-4 py-5 sm:p-0">
+          <dl className="sm:divide-y sm:divide-grey-200">
+            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt className="text-sm font-medium text-grey-500">Available Credits</dt>
+              <dd className="mt-1 text-sm text-grey-900 sm:mt-0 sm:col-span-2">
+                <span className="text-2xl font-bold text-indigo-600">{totalCredits}</span>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+      <div className="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
+        <div className="px-4 py-5 sm:px-6">
+          <h2 className="text-lg leading-6 font-medium text-grey-900">Purchase Credits</h2>
+          <p className="mt-1 max-w-2xl text-sm text-grey-500">
+            Select a credit package to purchase.
+          </p>
+        </div>
+        <div className="border-t border-grey-200 px-4 py-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {CREDIT_PACKAGES.map((pkg) => (
+              <div key={pkg.name} className="bg-white border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <div className="p-4 border-b">
+                  <h3 className="text-lg font-medium text-grey-900">{pkg.displayName}</h3>
+                  <p className="text-sm text-grey-500">
+                    {pkg.amount} credits for your account
+                  </p>
+                </div>
+                <div className="p-4">
+                  <p className="text-2xl font-bold text-grey-900">${pkg.price}</p>
+                  <p className="text-sm text-grey-500 mb-4">One-time purchase</p>
+                  <button
+                    onClick={() => handleCreditPurchase(pkg.name)}
+                    disabled={selectedCreditPackage !== null}
+                    className="w-full inline-flex justify-centre items-centre px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+                  >
+                    {selectedCreditPackage === pkg.name ? 'Processing...' : 'Buy Now'}
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {credits.length > 0 && (
+        <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+          <div className="px-4 py-5 sm:px-6">
+            <h2 className="text-lg leading-6 font-medium text-grey-900">Credit History</h2>
+            <p className="mt-1 max-w-2xl text-sm text-grey-500">
+              Details of your credit purchases and usage.
+            </p>
+          </div>
+          <div className="border-t border-grey-200">
+            <table className="min-w-full divide-y divide-grey-200">
+              <thead className="bg-grey-50">
+                <tr>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">
+                    Date
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">
+                    Amount
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">
+                    Remaining
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-grey-500 uppercase tracking-wider">
+                    Expires
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-grey-200">
+                {credits.map((credit) => (
+                  <tr key={credit.id}>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-500">
+                      {new Date(credit.createdAt).toLocaleDateString()}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-900">
+                      {credit.amount}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-900">
+                      {credit.remaining}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-grey-500">
+                      {credit.expiresAt ? new Date(credit.expiresAt).toLocaleDateString() : 'Never'}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default CreditsPage;

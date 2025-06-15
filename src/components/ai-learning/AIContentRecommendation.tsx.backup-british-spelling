@@ -1,0 +1,652 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { 
+  Lightbulb, 
+  BookOpen, 
+  Video, 
+  FileText, 
+  Clock, 
+  ThumbsUp, 
+  ThumbsDown,
+  Star,
+  BarChart2,
+  ChevronRight,
+  ChevronDown,
+  ChevronUp,
+  Filter,
+  Search,
+  RefreshCw
+} from 'lucide-react';
+
+interface AIContentRecommendationProps {
+  userId?: string;
+  courseId?: string;
+  userRole: 'student' | 'instructor' | 'admin';
+  className?: string;
+}
+
+interface ContentRecommendation {
+  id: string;
+  title: string;
+  type: 'video' | 'article' | 'quiz' | 'exercise';
+  description: string;
+  relevanceScore: number;
+  estimatedTime: number; // in minutes
+  tags: string[];
+  reasons: string[];
+  viewed: boolean;
+  thumbnail?: string;
+}
+
+interface LearningGoal {
+  id: string;
+  title: string;
+  description: string;
+  progress: number;
+  relatedSkills: string[];
+  recommendedContent: string[];
+}
+
+interface LearningPattern {
+  id: string;
+  name: string;
+  description: string;
+  strength: number;
+}
+
+const AIContentRecommendation: React.FC<AIContentRecommendationProps> = ({
+  userId,
+  courseId,
+  userRole,
+  className = '',
+}) => {
+  // State
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [recommendations, setRecommendations] = useState<ContentRecommendation[]>([]);
+  const [learningGoals, setLearningGoals] = useState<LearningGoal[]>([]);
+  const [learningPatterns, setLearningPatterns] = useState<LearningPattern[]>([]);
+  const [expandedRecommendation, setExpandedRecommendation] = useState<string | null>(null);
+  const [expandedSections, setExpandedSections] = useState({
+    personalizedRecommendations: true,
+    learningGoals: true,
+    learningPatterns: true
+  });
+  const [filterType, setFilterType] = useState<'all' | 'video' | 'article' | 'quiz' | 'exercise'>('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [feedbackSubmitted, setFeedbackSubmitted] = useState<Record<string, 'like' | 'dislike' | null>>({});
+  
+  // Fetch data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        
+        // In a real app, these would be API calls
+        // For now, we'll use mock data
+        
+        // Mock recommendations
+        const mockRecommendations: ContentRecommendation[] = [
+          {
+            id: 'rec-1',
+            title: 'Advanced Cognitive Development Theories',
+            type: 'video',
+            description: 'This video explores the latest research in cognitive development theories and their applications in educational settings.',
+            relevanceScore: 0.95,
+            estimatedTime: 18,
+            tags: ['cognitive development', 'educational psychology', 'research'],
+            reasons: [
+              'Aligns with your current learning goals in cognitive psychology',
+              'Builds on concepts you recently studied in developmental psychology',
+              'Matches your preference for video-based learning'
+            ],
+            viewed: false,
+            thumbnail: '/thumbnails/cognitive-development.jpg'
+          },
+          {
+            id: 'rec-2',
+            title: 'Practical Applications of Behavioral Theories',
+            type: 'article',
+            description: 'Learn how to apply behavioral theories in classroom management and student motivation strategies.',
+            relevanceScore: 0.88,
+            estimatedTime: 12,
+            tags: ['behavioral psychology', 'classroom management', 'motivation'],
+            reasons: [
+              "Addresses areas where you've shown interest in practical applications",
+              "Complements your recent studies in behavioral psychology",
+              'Provides practical strategies you can apply immediately'
+            ],
+            viewed: false,
+            thumbnail: '/thumbnails/behavioral-theories.jpg'
+          },
+          {
+            id: 'rec-3',
+            title: 'Assessment Design Quiz',
+            type: 'quiz',
+            description: 'Test your knowledge on creating effective educational assessments with this interactive quiz.',
+            relevanceScore: 0.82,
+            estimatedTime: 15,
+            tags: ['assessment', 'quiz design', 'educational measurement'],
+            reasons: [
+              'Helps reinforce concepts from your recent assessment module',
+              "Addresses areas where you've shown some knowledge gaps",
+              "Matches your preference for interactive learning activities"
+            ],
+            viewed: false
+          },
+          {
+            id: 'rec-4',
+            title: 'Case Study Analysis: Learning Disabilities',
+            type: 'exercise',
+            description: 'Analyze real-world cases of students with learning disabilities and develop appropriate intervention strategies.',
+            relevanceScore: 0.78,
+            estimatedTime: 30,
+            tags: ['learning disabilities', 'case study', 'intervention strategies'],
+            reasons: [
+              'Builds on your interest in special education',
+              'Provides practical experience with case analysis',
+              'Helps develop critical thinking skills in educational contexts'
+            ],
+            viewed: false
+          },
+          {
+            id: 'rec-5',
+            title: 'Neuroscience Foundations for Educators',
+            type: 'video',
+            description: 'Understand the basics of neuroscience and how brain research informs educational practices.',
+            relevanceScore: 0.75,
+            estimatedTime: 22,
+            tags: ['neuroscience', 'brain research', 'educational applications'],
+            reasons: [
+              'Introduces neuroscience concepts relevant to your educational psychology studies',
+              'Complements your learning style preferences',
+              'Addresses a knowledge gap in your current understanding'
+            ],
+            viewed: false,
+            thumbnail: '/thumbnails/neuroscience.jpg'
+          }
+        ];
+        
+        // Mock learning goals
+        const mockLearningGoals: LearningGoal[] = [
+          {
+            id: 'goal-1',
+            title: 'Master Cognitive Development Theories',
+            description: 'Understand and apply major cognitive development theories in educational contexts',
+            progress: 0.65,
+            relatedSkills: ['Theoretical analysis', 'Application to practice', 'Research interpretation'],
+            recommendedContent: ['rec-1', 'rec-5']
+          },
+          {
+            id: 'goal-2',
+            title: 'Develop Assessment Expertise',
+            description: 'Build skills in designing and implementing effective educational assessments',
+            progress: 0.40,
+            relatedSkills: ['Assessment design', 'Data interpretation', 'Feedback strategies'],
+            recommendedContent: ['rec-3']
+          },
+          {
+            id: 'goal-3',
+            title: 'Enhance Classroom Management Skills',
+            description: 'Learn and apply effective classroom management techniques based on psychological principles',
+            progress: 0.75,
+            relatedSkills: ['Behavioral management', 'Conflict resolution', 'Positive reinforcement'],
+            recommendedContent: ['rec-2']
+          }
+        ];
+        
+        // Mock learning patterns
+        const mockLearningPatterns: LearningPattern[] = [
+          {
+            id: 'pattern-1',
+            name: 'Visual Learning Preference',
+            description: 'You show a strong preference for visual learning materials, particularly videos and diagrams',
+            strength: 0.85
+          },
+          {
+            id: 'pattern-2',
+            name: 'Evening Study Sessions',
+            description: 'Your engagement is highest during evening hours (7-10pm)',
+            strength: 0.78
+          },
+          {
+            id: 'pattern-3',
+            name: 'Interactive Content Engagement',
+            description: 'You engage more deeply with interactive content like quizzes and exercises',
+            strength: 0.72
+          },
+          {
+            id: 'pattern-4',
+            name: 'Spaced Learning Pattern',
+            description: 'You learn most effectively with spaced repetition rather than cramming',
+            strength: 0.68
+          }
+        ];
+        
+        setRecommendations(mockRecommendations);
+        setLearningGoals(mockLearningGoals);
+        setLearningPatterns(mockLearningPatterns);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching AI recommendations:', err);
+        setError('Failed to load AI recommendations');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    fetchData();
+  }, [userId, courseId]);
+  
+  // Toggle expanded recommendation
+  const toggleRecommendation = (id: string) => {
+    if (expandedRecommendation === id) {
+      setExpandedRecommendation(null);
+    } else {
+      setExpandedRecommendation(id);
+    }
+  };
+  
+  // Toggle section expansion
+  const toggleSection = (section: keyof typeof expandedSections) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }));
+  };
+  
+  // Submit feedback
+  const submitFeedback = (id: string, type: 'like' | 'dislike') => {
+    setFeedbackSubmitted(prev => ({
+      ...prev,
+      [id]: type
+    }));
+    
+    // In a real app, this would send the feedback to an API
+    console.log(`Feedback submitted for ${id}: ${type}`);
+  };
+  
+  // Filter recommendations
+  const filteredRecommendations = recommendations
+    .filter(rec => filterType === 'all' || rec.type === filterType)
+    .filter(rec => 
+      searchQuery === '' || 
+      rec.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      rec.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      rec.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
+  
+  // Get icon for content type
+  const getContentTypeIcon = (type: ContentRecommendation['type']) => {
+    switch (type) {
+      case 'video':
+        return <Video className="h-5 w-5 text-blue-400" />;
+      case 'article':
+        return <FileText className="h-5 w-5 text-green-400" />;
+      case 'quiz':
+        return <BarChart2 className="h-5 w-5 text-purple-400" />;
+      case 'exercise':
+        return <BookOpen className="h-5 w-5 text-orange-400" />;
+    }
+  };
+  
+  // Format time
+  const formatTime = (minutes: number): string => {
+    if (minutes < 60) {
+      return `${minutes} min`;
+    }
+    
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    
+    if (remainingMinutes === 0) {
+      return `${hours} hr`;
+    }
+    
+    return `${hours} hr ${remainingMinutes} min`;
+  };
+  
+  // Render loading state
+  if (isLoading) {
+    return (
+      <div className={`bg-grey-900 rounded-lg p-6 ${className}`}>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-semibold text-white">AI Content Recommendations</h2>
+          <div className="animate-pulse h-4 w-32 bg-grey-700 rounded"></div>
+        </div>
+        <div className="space-y-4">
+          <div className="animate-pulse h-24 bg-grey-800 rounded"></div>
+          <div className="animate-pulse h-24 bg-grey-800 rounded"></div>
+          <div className="animate-pulse h-24 bg-grey-800 rounded"></div>
+        </div>
+      </div>
+    );
+  }
+  
+  return (
+    <div className={`bg-grey-900 rounded-lg p-6 ${className}`}>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+        <h2 className="text-2xl font-semibold text-white mb-4 md:mb-0 flex items-center">
+          <Lightbulb className="h-6 w-6 mr-2 text-yellow-400" />
+          AI Content Recommendations
+        </h2>
+        
+        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+          {/* Filter */}
+          <div className="flex items-center space-x-2">
+            <Filter className="h-5 w-5 text-grey-400" />
+            <select
+              className="bg-grey-800 text-white rounded px-3 py-2 text-sm"
+              value={filterType}
+              onChange={(e: any) => setFilterType(e.target.value as any)}
+            >
+              <option value="all">All Types</option>
+              <option value="video">Videos</option>
+              <option value="article">Articles</option>
+              <option value="quiz">Quizzes</option>
+              <option value="exercise">Exercises</option>
+            </select>
+          </div>
+          
+          {/* Search */}
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Search className="h-4 w-4 text-grey-400" />
+            </div>
+            <input
+              type="text"
+              className="bg-grey-800 text-white rounded pl-10 pr-4 py-2 text-sm w-full"
+              placeholder="Search recommendations..."
+              value={searchQuery}
+              onChange={(e: any) => setSearchQuery(e.target.value)}
+            />
+          </div>
+          
+          {/* Refresh */}
+          <button
+            className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white rounded px-3 py-2 text-sm"
+          >
+            <RefreshCw className="h-4 w-4" />
+            <span>Refresh</span>
+          </button>
+        </div>
+      </div>
+      
+      {error && (
+        <div className="bg-red-500/20 border border-red-500 text-white p-4 mb-6 rounded">
+          {error}
+        </div>
+      )}
+      
+      {/* Personalized Recommendations */}
+      <div className="mb-8">
+        <div 
+          className="flex items-center justify-between cursor-pointer mb-4"
+          onClick={() => toggleSection('personalizedRecommendations')}
+        >
+          <h3 className="text-lg font-medium text-white flex items-center">
+            <Lightbulb className="h-5 w-5 mr-2 text-yellow-400" />
+            <span>Personalized Recommendations</span>
+          </h3>
+          {expandedSections.personalizedRecommendations ? (
+            <ChevronUp className="h-5 w-5 text-grey-400" />
+          ) : (
+            <ChevronDown className="h-5 w-5 text-grey-400" />
+          )}
+        </div>
+        
+        {expandedSections.personalizedRecommendations && (
+          <div className="space-y-4">
+            {filteredRecommendations.length > 0 ? (
+              filteredRecommendations.map(recommendation => (
+                <div 
+                  key={recommendation.id} 
+                  className="bg-grey-800 rounded-lg overflow-hidden"
+                >
+                  <div 
+                    className="p-4 cursor-pointer hover:bg-grey-750"
+                    onClick={() => toggleRecommendation(recommendation.id)}
+                  >
+                    <div className="flex items-start">
+                      <div className="mr-3 mt-1">
+                        {getContentTypeIcon(recommendation.type)}
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="text-white font-medium">{recommendation.title}</h4>
+                        <div className="flex flex-wrap items-center text-sm text-grey-400 mt-1">
+                          <span className="capitalize mr-3">{recommendation.type}</span>
+                          <span className="flex items-center mr-3">
+                            <Clock className="h-3.5 w-3.5 mr-1" />
+                            {formatTime(recommendation.estimatedTime)}
+                          </span>
+                          <span className="flex items-center">
+                            <Star className="h-3.5 w-3.5 mr-1 text-yellow-400" />
+                            {Math.round(recommendation.relevanceScore * 100)}% match
+                          </span>
+                        </div>
+                      </div>
+                      <div className="ml-2">
+                        {expandedRecommendation === recommendation.id ? (
+                          <ChevronUp className="h-5 w-5 text-grey-400" />
+                        ) : (
+                          <ChevronRight className="h-5 w-5 text-grey-400" />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {expandedRecommendation === recommendation.id && (
+                    <div className="px-4 pb-4">
+                      <div className="pt-2 pb-4 border-t border-grey-700">
+                        <p className="text-grey-300 mb-4">{recommendation.description}</p>
+                        
+                        <div className="mb-4">
+                          <h5 className="text-sm font-medium text-white mb-2">Why we recommend this:</h5>
+                          <ul className="list-disc pl-5 space-y-1 text-grey-300 text-sm">
+                            {recommendation.reasons.map((reason, index) => (
+                              <li key={index}>{reason}</li>
+                            ))}
+                          </ul>
+                        </div>
+                        
+                        <div className="mb-4">
+                          <h5 className="text-sm font-medium text-white mb-2">Tags:</h5>
+                          <div className="flex flex-wrap gap-2">
+                            {recommendation.tags.map((tag, index) => (
+                              <span 
+                                key={index}
+                                className="bg-grey-700 text-grey-300 px-2 py-1 rounded text-xs"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-4">
+                            <button 
+                              className={`flex items-center space-x-1 px-3 py-1.5 rounded text-sm ${
+                                feedbackSubmitted[recommendation.id] === 'like'
+                                  ? 'bg-green-600 text-white'
+                                  : 'bg-grey-700 text-grey-300 hover:bg-grey-600'
+                              }`}
+                              onClick={() => submitFeedback(recommendation.id, 'like')}
+                              disabled={feedbackSubmitted[recommendation.id] === 'like'}
+                            >
+                              <ThumbsUp className="h-4 w-4" />
+                              <span>Helpful</span>
+                            </button>
+                            
+                            <button 
+                              className={`flex items-center space-x-1 px-3 py-1.5 rounded text-sm ${
+                                feedbackSubmitted[recommendation.id] === 'dislike'
+                                  ? 'bg-red-600 text-white'
+                                  : 'bg-grey-700 text-grey-300 hover:bg-grey-600'
+                              }`}
+                              onClick={() => submitFeedback(recommendation.id, 'dislike')}
+                              disabled={feedbackSubmitted[recommendation.id] === 'dislike'}
+                            >
+                              <ThumbsDown className="h-4 w-4" />
+                              <span>Not Helpful</span>
+                            </button>
+                          </div>
+                          
+                          <button className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-1.5 rounded text-sm">
+                            View Content
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))
+            ) : (
+              <div className="bg-grey-800 rounded-lg p-6 text-center">
+                <Lightbulb className="h-12 w-12 mx-auto mb-4 text-grey-600" />
+                <p className="text-grey-400">No recommendations match your current filters.</p>
+                <button 
+                  className="mt-4 text-blue-400 hover:text-blue-300 text-sm"
+                  onClick={() => {
+                    setFilterType('all');
+                    setSearchQuery('');
+                  }}
+                >
+                  Clear filters
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+      
+      {/* Learning Goals */}
+      <div className="mb-8">
+        <div 
+          className="flex items-center justify-between cursor-pointer mb-4"
+          onClick={() => toggleSection('learningGoals')}
+        >
+          <h3 className="text-lg font-medium text-white flex items-center">
+            <Target className="h-5 w-5 mr-2 text-blue-400" />
+            <span>Learning Goals</span>
+          </h3>
+          {expandedSections.learningGoals ? (
+            <ChevronUp className="h-5 w-5 text-grey-400" />
+          ) : (
+            <ChevronDown className="h-5 w-5 text-grey-400" />
+          )}
+        </div>
+        
+        {expandedSections.learningGoals && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {learningGoals.map(goal => (
+              <div key={goal.id} className="bg-grey-800 rounded-lg p-4">
+                <h4 className="text-white font-medium mb-2">{goal.title}</h4>
+                <p className="text-grey-300 text-sm mb-3">{goal.description}</p>
+                
+                <div className="mb-3">
+                  <div className="flex items-center justify-between text-sm mb-1">
+                    <span className="text-grey-400">Progress</span>
+                    <span className="text-white">{Math.round(goal.progress * 100)}%</span>
+                  </div>
+                  <div className="w-full bg-grey-700 rounded-full h-2">
+                    <div 
+                      className="bg-blue-600 h-2 rounded-full" 
+                      style={{ width: `${goal.progress * 100}%` }}
+                    ></div>
+                  </div>
+                </div>
+                
+                <div className="mb-3">
+                  <h5 className="text-sm font-medium text-white mb-1">Related Skills:</h5>
+                  <div className="flex flex-wrap gap-1">
+                    {goal.relatedSkills.map((skill, index) => (
+                      <span 
+                        key={index}
+                        className="bg-grey-700 text-grey-300 px-2 py-0.5 rounded text-xs"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                
+                <div>
+                  <h5 className="text-sm font-medium text-white mb-1">Recommended Content:</h5>
+                  <ul className="list-disc pl-5 space-y-1 text-grey-300 text-xs">
+                    {goal.recommendedContent.map(recId => {
+                      const rec = recommendations.find(r => r.id === recId);
+                      return rec ? (
+                        <li key={recId}>
+                          <span className="text-blue-400 cursor-pointer hover:underline" onClick={() => {
+                            setExpandedRecommendation(recId);
+                            setExpandedSections(prev => ({...prev, personalizedRecommendations: true}));
+                            // Scroll to the recommendation
+                            const element = document.getElementById(recId);
+                            if (element) {
+                              element.scrollIntoView({ behavior: 'smooth' });
+                            }
+                          }}>
+                            {rec.title}
+                          </span>
+                        </li>
+                      ) : null;
+                    })}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      
+      {/* Learning Patterns */}
+      <div>
+        <div 
+          className="flex items-center justify-between cursor-pointer mb-4"
+          onClick={() => toggleSection('learningPatterns')}
+        >
+          <h3 className="text-lg font-medium text-white flex items-center">
+            <BarChart2 className="h-5 w-5 mr-2 text-purple-400" />
+            <span>Your Learning Patterns</span>
+          </h3>
+          {expandedSections.learningPatterns ? (
+            <ChevronUp className="h-5 w-5 text-grey-400" />
+          ) : (
+            <ChevronDown className="h-5 w-5 text-grey-400" />
+          )}
+        </div>
+        
+        {expandedSections.learningPatterns && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {learningPatterns.map(pattern => (
+              <div key={pattern.id} className="bg-grey-800 rounded-lg p-4">
+                <div className="flex items-start">
+                  <div className="flex-1">
+                    <h4 className="text-white font-medium mb-1">{pattern.name}</h4>
+                    <p className="text-grey-300 text-sm">{pattern.description}</p>
+                  </div>
+                  <div className="ml-4 bg-grey-700 rounded-full h-12 w-12 flex items-center justify-center">
+                    <span className="text-white font-medium">{Math.round(pattern.strength * 100)}%</span>
+                  </div>
+                </div>
+                
+                <div className="mt-3">
+                  <div className="w-full bg-grey-700 rounded-full h-1.5">
+                    <div 
+                      className="bg-purple-500 h-1.5 rounded-full" 
+                      style={{ width: `${pattern.strength * 100}%` }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default AIContentRecommendation;

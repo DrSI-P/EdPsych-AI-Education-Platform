@@ -1,0 +1,392 @@
+'use client';
+
+import dynamic from 'next/dynamic';
+
+import React, { useState } from 'react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Progress } from "@/components/ui/progress";
+
+import { 
+Brain, 
+  BarChart2, 
+  LineChart, 
+  PieChart, 
+  TrendingUp, 
+  Lightbulb, 
+  Zap,
+  Users,
+  BookOpen,
+  Clock,
+  ArrowRight,
+  Download,
+  Share2,
+  Filter,
+  Search
+} from 'lucide-react';
+const ComprehensiveNavigation = dynamic(
+  () => import('@/components/navigation/comprehensive-navigation'),
+  { ssr: false }
+);
+
+
+
+
+
+// Original component
+function AIPoweredInsightsPage() {
+  const [activeTab, setActiveTab] = useState('learning');
+  const [selectedTimeframe, setSelectedTimeframe] = useState('month');
+
+  // Sample data for demonstration
+  const insightCategories = [
+    { id: 'learning', name: 'Learning Patterns', icon: Brain, count: 12 },
+    { id: 'performance', name: 'Performance Analytics', icon: BarChart2, count: 8 },
+    { id: 'behaviour', name: 'Behavioural Insights', icon: Users, count: 5 },
+    { id: 'engagement', name: 'Engagement Metrics', icon: TrendingUp, count: 7 },
+    { id: 'recommendations', name: 'Personalized Recommendations', icon: Lightbulb, count: 15 }
+  ];
+
+  const learningInsights = [
+    {
+      id: 1,
+      title: 'Visual Learning Preference Detected',
+      description: 'AI analysis indicates a strong preference for visual learning materials. Visual content engagement is 72% higher than text-based content.',
+      impact: 'high',
+      date: 'June 3, 2025',
+      recommendations: [
+        'Increase use of diagrams and visual aids in lessons',
+        'Incorporate more video content in learning materials',
+        'Consider mind-mapping for note-taking'
+      ]
+    },
+    {
+      id: 2,
+      title: 'Optimal Learning Time Pattern',
+      description: 'Peak cognitive performance detected between 9:00-11:00 AM based on assessment completion patterns and accuracy rates.',
+      impact: 'medium',
+      date: 'June 1, 2025',
+      recommendations: [
+        'Timetable challenging content during morning hours',
+        'Use afternoon sessions for collaborative and practical activities',
+        'Consider review sessions in late afternoon'
+      ]
+    },
+    {
+      id: 3,
+      title: 'Concept Mastery Gap: Algebraic Equations',
+      description: 'Pattern analysis shows consistent difficulty with algebraic equation solving, particularly with multi-step equations.',
+      impact: 'high',
+      date: 'May 28, 2025',
+      recommendations: [
+        'Provide targeted practise with multi-step equations',
+        'Review foundational concepts in equation solving',
+        'Consider visual representation of equation steps'
+      ]
+    }
+  ];
+
+  const performanceInsights = [
+    {
+      id: 1,
+      title: 'Assessment Performance Trend',
+      description: 'Upward trend in science assessment scores (+15% over 3 months), with particular strength in experimental design questions.',
+      impact: 'medium',
+      date: 'June 2, 2025',
+      recommendations: [
+        'Build on strength in experimental design with advanced projects',
+        'Continue emphasis on scientific method application',
+        'Consider peer teaching opportunities in this area'
+      ]
+    },
+    {
+      id: 2,
+      title: 'Writing Fluency Development',
+      description: 'Natural language processing analysis shows 22% improvement in writing complexity and vocabulary diversity since January.',
+      impact: 'medium',
+      date: 'May 30, 2025',
+      recommendations: [
+        'Introduce more advanced writing prompts',
+        'Encourage creative writing to further develop vocabulary',
+        'Consider journal writing for continued development'
+      ]
+    }
+  ];
+
+  const behaviorInsights = [
+    {
+      id: 1,
+      title: 'Collaboration Pattern Analysis',
+      description: 'Social interaction mapping shows strong leadership tendencies in group settings, with 85% positive peer feedback.',
+      impact: 'medium',
+      date: 'June 4, 2025',
+      recommendations: [
+        'Provide structured leadership opportunities',
+        'Develop advanced collaboration skills through complex group projects',
+        'Balance with activities requiring following others\' lead'
+      ]
+    },
+    {
+      id: 2,
+      title: 'Focus Duration Patterns',
+      description: 'Attention span analysis indicates optimal focus duration of 25-30 minutes before requiring a short break or activity change.',
+      impact: 'high',
+      date: 'May 29, 2025',
+      recommendations: [
+        'Structure learning sessions in 25-minute blocks',
+        'Incorporate brief movement breaks between focused work periods',
+        'Use timer techniques for self-regulation development'
+      ]
+    }
+  ];
+
+  const getInsightsForTab = (tab): void => {
+    switch(tab) {
+      case 'learning': return learningInsights;
+      case 'performance': return performanceInsights;
+      case 'behaviour': return behaviorInsights;
+      default: return learningInsights;
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <ComprehensiveNavigation />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 mb-4">
+            <Brain className="w-4 h-4 mr-2" />
+            AI-Powered Analytics
+          </Badge>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            Educational Insights & Personalized Analytics
+          </h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Leverage advanced AI algorithms to uncover meaningful patterns in learning, behaviour, and performance data.
+          </p>
+        </div>
+
+        {/* Main Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Sidebar */}
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Insight Categories</CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="space-y-1">
+                  {insightCategories.map((category) => (
+                    <Button
+                      key={category.id}
+                      variant={activeTab === category.id ? "default" : "ghost"}
+                      className="w-full justify-start"
+                      onClick={() => setActiveTab(category.id)}
+                    >
+                      <category.icon className="mr-2 h-4 w-4" />
+                      <span>{category.name}</span>
+                      <Badge variant="outline" className="ml-auto">
+                        {category.count}
+                      </Badge>
+                    </Button>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Time Frame</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  <Button
+                    variant={selectedTimeframe === 'week' ? "default" : "outline"}
+                    className="w-full"
+                    onClick={() => setSelectedTimeframe('week')}
+                  >
+                    Last Week
+                  </Button>
+                  <Button
+                    variant={selectedTimeframe === 'month' ? "default" : "outline"}
+                    className="w-full"
+                    onClick={() => setSelectedTimeframe('month')}
+                  >
+                    Last Month
+                  </Button>
+                  <Button
+                    variant={selectedTimeframe === 'quarter' ? "default" : "outline"}
+                    className="w-full"
+                    onClick={() => setSelectedTimeframe('quarter')}
+                  >
+                    Last Quarter
+                  </Button>
+                  <Button
+                    variant={selectedTimeframe === 'year' ? "default" : "outline"}
+                    className="w-full"
+                    onClick={() => setSelectedTimeframe('year')}
+                  >
+                    Last Year
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+              <CardContent className="p-6">
+                <div className="flex items-center space-x-4 mb-4">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                    <Zap className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold">AI Insight Engine</h3>
+                    <p className="text-sm text-gray-600">Powered by advanced machine learning</p>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-700 mb-4">
+                  Our AI analyzes thousands of data points to identify meaningful patterns and provide actionable insights tailored to individual learning needs.
+                </p>
+                <Button variant="outline" size="sm" className="w-full">
+                  Learn More
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Main Content Area */}
+          <div className="lg:col-span-3 space-y-6">
+            {/* Filters and Search */}
+            <div className="flex flex-col sm:flex-row justify-between gap-4">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                <input
+                  type="search"
+                  placeholder="Search insights..."
+                  className="w-full pl-10 pr-4 py-2 border rounded-md"
+                />
+              </div>
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm">
+                  <Filter className="h-4 w-4 mr-2" />
+                  Filter
+                </Button>
+                <Button variant="outline" size="sm">
+                  <Download className="h-4 w-4 mr-2" />
+                  Export
+                </Button>
+              </div>
+            </div>
+
+            {/* Insights Header */}
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900">
+                  {insightCategories.find(c => c.id === activeTab)?.name || 'Insights'}
+                </h2>
+                <p className="text-gray-600">
+                  {selectedTimeframe === 'week' ? 'Past 7 days' : 
+                   selectedTimeframe === 'month' ? 'Past 30 days' : 
+                   selectedTimeframe === 'quarter' ? 'Past 3 months' : 'Past 12 months'}
+                </p>
+              </div>
+              <Badge variant="outline" className="text-sm">
+                {getInsightsForTab(activeTab).length} insights
+              </Badge>
+            </div>
+
+            {/* Insights List */}
+            <div className="space-y-6">
+              {getInsightsForTab(activeTab).map((insight) => (
+                <Card key={insight.id} className="overflow-hidden">
+                  <div className={`h-1 ${
+                    insight.impact === 'high' ? 'bg-red-500' : 
+                    insight.impact === 'medium' ? 'bg-amber-500' : 'bg-blue-500'
+                  }`}></div>
+                  <CardHeader>
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <CardTitle className="text-xl">{insight.title}</CardTitle>
+                        <CardDescription>{insight.date}</CardDescription>
+                      </div>
+                      <Badge variant={
+                        insight.impact === 'high' ? 'destructive' : 
+                        insight.impact === 'medium' ? 'default' : 'secondary'
+                      }>
+                        {insight.impact.charAt(0).toUpperCase() + insight.impact.slice(1)} Impact
+                      </Badge>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-700 mb-6">{insight.description}</p>
+                    
+                    <div className="space-y-3">
+                      <h4 className="font-semibold text-gray-900">AI Recommendations:</h4>
+                      <ul className="space-y-2">
+                        {insight.recommendations.map((recommendation, index) => (
+                          <li key={index} className="flex items-start space-x-2">
+                            <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                              <Lightbulb className="h-3 w-3 text-green-600" />
+                            </div>
+                            <span className="text-gray-700">{recommendation}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </CardContent>
+                  <CardFooter className="flex justify-between border-t bg-gray-50 px-6 py-3">
+                    <Button variant="ghost" size="sm">
+                      <Share2 className="h-4 w-4 mr-2" />
+                      Share
+                    </Button>
+                    <Button size="sm">
+                      View Detailed Analysis
+                      <ArrowRight className="h-4 w-4 ml-2" />
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+
+            {/* Empty State (when no insights are available) */}
+            {getInsightsForTab(activeTab).length === 0 && (
+              <Card className="py-12">
+                <CardContent className="flex flex-col items-center justify-center text-center">
+                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                    <Brain className="h-8 w-8 text-gray-400" />
+                  </div>
+                  <h3 className="text-xl font-medium text-gray-900 mb-2">No insights available</h3>
+                  <p className="text-gray-600 max-w-md mb-6">
+                    We don't have enough data to generate meaningful insights for this category yet. 
+                    Continue using the platform to enable AI-powered analysis.
+                  </p>
+                  <Button>
+                    Explore Other Categories
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Pagination */}
+            {getInsightsForTab(activeTab).length > 0 && (
+              <div className="flex justify-center mt-8">
+                <div className="flex space-x-1">
+                  <Button variant="outline" size="sm" disabled>Previous</Button>
+                  <Button variant="outline" size="sm" className="bg-primary text-primary-foreground">1</Button>
+                  <Button variant="outline" size="sm">2</Button>
+                  <Button variant="outline" size="sm">3</Button>
+                  <Button variant="outline" size="sm">Next</Button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default AIPoweredInsightsPage;

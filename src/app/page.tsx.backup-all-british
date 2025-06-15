@@ -1,0 +1,560 @@
+'use client';
+
+// Fix: Use the correct import for Next.js dynamic
+import dynamic from "next/dynamic"
+import { AskDrScott } from '@/components/ask-dr-scott/AskDrScott';
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Heading } from '@/components/ui/heading';
+import { Text } from '@/components/ui/text';
+import { 
+  BookOpen, 
+  Users, 
+  BarChart, 
+  FileText, 
+  Zap, 
+  Brain,
+  Award,
+  ArrowRight
+} from 'lucide-react';
+
+// Client components cannot export these config options
+// They are moved to a separate config file
+
+
+
+// Original component
+function LandingPage() {
+  return (
+    <div className="flex flex-col min-h-screen">
+      {/* Header */}
+      <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-16 items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Image 
+              src="/images/logo.svg" 
+              alt="EdPsych AI Logo" 
+              width={40} 
+              height={40} 
+              className="h-10 w-10"
+            />
+            <span className="text-xl font-bold text-primary">EdPsych AI</span>
+          </div>
+          
+          <nav className="hidden md:flex md:items-center md:space-x-4">
+            <Link href="/" className="px-3 py-2 text-sm font-medium text-primary">
+              Home
+            </Link>
+            <Link href="/features" className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-primary">
+              Features
+            </Link>
+            <Link href="/pricing" className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-primary">
+              Pricing
+            </Link>
+            <Link href="/about" className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-primary">
+              About
+            </Link>
+            <Link href="/contact" className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-primary">
+              Contact
+            </Link>
+          </nav>
+          
+          <div className="flex items-center gap-2">
+            <Link href="/auth/signin">
+              <Button variant="outline" size="sm" className="mr-2">Sign In</Button>
+            </Link>
+            <Link href="/auth/signup">
+              <Button size="sm">Get Started</Button>
+            </Link>
+          </div>
+        </div>
+      </header>
+      
+      {/* Hero Section */}
+      <section className="py-12 md:py-24 bg-gradient-to-b from-background to-muted/50">
+        <div className="container grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <Heading level="h1" className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
+              AI-Powered Education That Adapts to Every Learner
+            </Heading>
+            <Text className="text-xl text-muted-foreground mb-8">
+              Transform your teaching with personalized content, intelligent insights, and adaptive tools designed for modern education.
+            </Text>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link href="/auth/signup">
+                <Button size="lg" className="w-full sm:w-auto">
+                  Get Started
+                </Button>
+              </Link>
+              <Link href="/demo">
+                <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                  Watch Demo
+                </Button>
+              </Link>
+            </div>
+          </div>
+          <div className="relative h-[400px] rounded-lg overflow-hidden shadow-xl">
+            <Image 
+              src="/images/hero-image.jpg" 
+              alt="Teacher with students using the EdPsych AI platform" 
+              fill
+              style={{ objectFit: 'cover' }}
+              priority
+              className="rounded-lg"
+            />
+          </div>
+        </div>
+      </section>
+      
+      {/* Features Section */}
+      <section className="py-16 bg-background">
+        <div className="container">
+          <div className="text-center mb-12">
+            <Heading level="h2" className="text-3xl font-bold mb-4">
+              Powerful AI Features for Modern Education
+            </Heading>
+            <Text className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Our platform combines cutting-edge AI with educational expertise to create tools that save time and improve outcomes.
+            </Text>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Feature 1 */}
+            <Card className="border-2 border-primary/10 hover:border-primary/30 transition-colors">
+              <CardContent className="pt-6">
+                <div className="rounded-full bg-primary/10 w-12 h-12 flex items-center justify-center mb-4">
+                  <BookOpen className="h-6 w-6 text-primary" />
+                </div>
+                <Heading level="h3" className="text-xl font-bold mb-2">
+                  Lesson Planning
+                </Heading>
+                <Text className="text-muted-foreground mb-4">
+                  Create perfect lesson plans in minutes with AI assistance. Align with standards and differentiate for all learners automatically.
+                </Text>
+                <Link href="/features/lesson-planning" className="text-primary font-medium flex items-center hover:underline">
+                  Learn more <ArrowRight className="ml-1 h-4 w-4" />
+                </Link>
+              </CardContent>
+            </Card>
+            
+            {/* Feature 2 */}
+            <Card className="border-2 border-primary/10 hover:border-primary/30 transition-colors">
+              <CardContent className="pt-6">
+                <div className="rounded-full bg-primary/10 w-12 h-12 flex items-center justify-center mb-4">
+                  <Users className="h-6 w-6 text-primary" />
+                </div>
+                <Heading level="h3" className="text-xl font-bold mb-2">
+                  Content Differentiation
+                </Heading>
+                <Text className="text-muted-foreground mb-4">
+                  Automatically adapt content for different learning levels, ensuring every student receives appropriately challenging material.
+                </Text>
+                <Link href="/features/content-differentiation" className="text-primary font-medium flex items-center hover:underline">
+                  Learn more <ArrowRight className="ml-1 h-4 w-4" />
+                </Link>
+              </CardContent>
+            </Card>
+            
+            {/* Feature 3 */}
+            <Card className="border-2 border-primary/10 hover:border-primary/30 transition-colors">
+              <CardContent className="pt-6">
+                <div className="rounded-full bg-primary/10 w-12 h-12 flex items-center justify-center mb-4">
+                  <BarChart className="h-6 w-6 text-primary" />
+                </div>
+                <Heading level="h3" className="text-xl font-bold mb-2">
+                  Student Insights
+                </Heading>
+                <Text className="text-muted-foreground mb-4">
+                  Understand how students learn and progress with comprehensive analytics and actionable recommendations.
+                </Text>
+                <Link href="/features/student-insights" className="text-primary font-medium flex items-center hover:underline">
+                  Learn more <ArrowRight className="ml-1 h-4 w-4" />
+                </Link>
+              </CardContent>
+            </Card>
+            
+            {/* Feature 4 */}
+            <Card className="border-2 border-primary/10 hover:border-primary/30 transition-colors">
+              <CardContent className="pt-6">
+                <div className="rounded-full bg-primary/10 w-12 h-12 flex items-center justify-center mb-4">
+                  <FileText className="h-6 w-6 text-primary" />
+                </div>
+                <Heading level="h3" className="text-xl font-bold mb-2">
+                  Assessment Generation
+                </Heading>
+                <Text className="text-muted-foreground mb-4">
+                  Generate fair, comprehensive assessments with appropriate difficulty levels and built-in accommodations.
+                </Text>
+                <Link href="/features/assessment-generation" className="text-primary font-medium flex items-center hover:underline">
+                  Learn more <ArrowRight className="ml-1 h-4 w-4" />
+                </Link>
+              </CardContent>
+            </Card>
+            
+            {/* Feature 5 */}
+            <Card className="border-2 border-primary/10 hover:border-primary/30 transition-colors">
+              <CardContent className="pt-6">
+                <div className="rounded-full bg-primary/10 w-12 h-12 flex items-center justify-center mb-4">
+                  <Zap className="h-6 w-6 text-primary" />
+                </div>
+                <Heading level="h3" className="text-xl font-bold mb-2">
+                  Interactive Learning
+                </Heading>
+                <Text className="text-muted-foreground mb-4">
+                  Engage students with adaptive activities that respond to their interactions and learning preferences.
+                </Text>
+                <Link href="/features/interactive-learning" className="text-primary font-medium flex items-center hover:underline">
+                  Learn more <ArrowRight className="ml-1 h-4 w-4" />
+                </Link>
+              </CardContent>
+            </Card>
+            
+            {/* Feature 6 */}
+            <Card className="border-2 border-primary/10 hover:border-primary/30 transition-colors">
+              <CardContent className="pt-6">
+                <div className="rounded-full bg-primary/10 w-12 h-12 flex items-center justify-center mb-4">
+                  <Brain className="h-6 w-6 text-primary" />
+                </div>
+                <Heading level="h3" className="text-xl font-bold mb-2">
+                  Personalized Recommendations
+                </Heading>
+                <Text className="text-muted-foreground mb-4">
+                  Get AI-powered suggestions for resources, teaching strategies, and content based on your specific needs.
+                </Text>
+                <Link href="/features/personalized-recommendations" className="text-primary font-medium flex items-center hover:underline">
+                  Learn more <ArrowRight className="ml-1 h-4 w-4" />
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+      
+      {/* Testimonial Section */}
+      <section className="py-16 bg-muted">
+        <div className="container">
+          <div className="max-w-4xl mx-auto bg-background rounded-lg p-8 shadow-lg border border-border">
+            <div className="flex flex-col items-center text-center">
+              <div className="mb-4">
+                <Image 
+                  src="/images/testimonial-avatar.jpg" 
+                  alt="Sarah Johnson" 
+                  width={80} 
+                  height={80} 
+                  className="rounded-full"
+                />
+              </div>
+              <blockquote className="mb-4">
+                <Text className="text-xl italic">
+                  "EdPsych AI has transformed how I teach. I can now create differentiated content for all my students in minutes instead of hours. The insights I get about student learning have helped me target instruction more effectively than ever before."
+                </Text>
+              </blockquote>
+              <cite className="not-italic">
+                <Text className="font-bold">Sarah Johnson</Text>
+                <Text className="text-sm text-muted-foreground">5th Mark Teacher</Text>
+              </cite>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* User Types Section */}
+      <section className="py-16 bg-background">
+        <div className="container">
+          <div className="text-center mb-12">
+            <Heading level="h2" className="text-3xl font-bold mb-4">
+              Tailored for Every Educational Role
+            </Heading>
+            <Text className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              EdPsych AI provides specialised features for different users in the educational ecosystem.
+            </Text>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Educators */}
+            <Card>
+              <CardContent className="pt-6">
+                <Heading level="h3" className="text-xl font-bold mb-4 flex items-center">
+                  <Users className="mr-2 h-5 w-5" /> For Educators
+                </Heading>
+                <ul className="space-y-2 mb-6">
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 bg-primary/10 rounded-full p-1">
+                      <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <Text>Lesson planning and differentiation</Text>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 bg-primary/10 rounded-full p-1">
+                      <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <Text>Assessment creation and marking</Text>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 bg-primary/10 rounded-full p-1">
+                      <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <Text>Student performance analytics</Text>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 bg-primary/10 rounded-full p-1">
+                      <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <Text>Professional development resources</Text>
+                  </li>
+                </ul>
+                <Link href="/for-educators">
+                  <Button className="w-full">Learn More</Button>
+                </Link>
+              </CardContent>
+            </Card>
+            
+            {/* Students */}
+            <Card>
+              <CardContent className="pt-6">
+                <Heading level="h3" className="text-xl font-bold mb-4 flex items-center">
+                  <BookOpen className="mr-2 h-5 w-5" /> For Students
+                </Heading>
+                <ul className="space-y-2 mb-6">
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 bg-primary/10 rounded-full p-1">
+                      <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <Text>Personalized learning paths</Text>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 bg-primary/10 rounded-full p-1">
+                      <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <Text>Interactive learning activities</Text>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 bg-primary/10 rounded-full p-1">
+                      <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <Text>Immediate feedback and support</Text>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 bg-primary/10 rounded-full p-1">
+                      <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <Text>Progress tracking and goal setting</Text>
+                  </li>
+                </ul>
+                <Link href="/for-students">
+                  <Button className="w-full">Learn More</Button>
+                </Link>
+              </CardContent>
+            </Card>
+            
+            {/* Parents */}
+            <Card>
+              <CardContent className="pt-6">
+                <Heading level="h3" className="text-xl font-bold mb-4 flex items-center">
+                  <Award className="mr-2 h-5 w-5" /> For Parents
+                </Heading>
+                <ul className="space-y-2 mb-6">
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 bg-primary/10 rounded-full p-1">
+                      <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <Text>Track child's progress and achievements</Text>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 bg-primary/10 rounded-full p-1">
+                      <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <Text>View personalized learning insights</Text>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 bg-primary/10 rounded-full p-1">
+                      <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <Text>Communicate directly with teachers</Text>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-2 mt-1 bg-primary/10 rounded-full p-1">
+                      <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <Text>Access resources to support learning at home</Text>
+                  </li>
+                </ul>
+                <Link href="/for-parents">
+                  <Button className="w-full">Learn More</Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+      
+      {/* CTA Section */}
+      <section className="py-16 bg-primary text-primary-foreground">
+        <div className="container grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <Heading level="h2" className="text-3xl font-bold mb-4">
+              Ready to transform your educational approach?
+            </Heading>
+            <Text className="text-xl mb-8 text-primary-foreground/90">
+              Join thousands of educators already using EdPsych AI to create personalized learning experiences that engage students and improve outcomes.
+            </Text>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link href="/auth/signup">
+                <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+                  Start Free Trial
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button variant="outline" size="lg" className="w-full sm:w-auto border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
+                  Contact Sales
+                </Button>
+              </Link>
+            </div>
+          </div>
+          <div className="relative h-[300px] rounded-lg overflow-hidden shadow-xl">
+            <Image 
+              src="/images/dashboard-preview.jpg" 
+              alt="EdPsych AI Dashboard Preview" 
+              fill
+              style={{ objectFit: 'cover' }}
+              className="rounded-lg"
+            />
+          </div>
+        </div>
+      </section>
+      
+      {/* Footer */}
+      <footer className="bg-background border-t py-12">
+        <div className="container">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <Image 
+                  src="/images/logo.svg" 
+                  alt="EdPsych AI Logo" 
+                  width={32} 
+                  height={32} 
+                />
+                <span className="text-lg font-bold">EdPsych AI</span>
+              </div>
+              <Text className="text-muted-foreground mb-4">
+                Transforming education through AI-powered personalization and insights.
+              </Text>
+              <Text className="text-sm text-muted-foreground">
+                &copy; {new Date().getFullYear()} EdPsych AI. All rights reserved.
+              </Text>
+            </div>
+            
+            <div>
+              <Heading level="h3" className="text-lg font-bold mb-4">Company</Heading>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/about" className="text-muted-foreground hover:text-primary">
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/pricing" className="text-muted-foreground hover:text-primary">
+                    Pricing
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="text-muted-foreground hover:text-primary">
+                    Contact
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/careers" className="text-muted-foreground hover:text-primary">
+                    Careers
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            
+            <div>
+              <Heading level="h3" className="text-lg font-bold mb-4">Resources</Heading>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/blog" className="text-muted-foreground hover:text-primary">
+                    Blog
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/help" className="text-muted-foreground hover:text-primary">
+                    Help Centre
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/api" className="text-muted-foreground hover:text-primary">
+                    API Documentation
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/webinars" className="text-muted-foreground hover:text-primary">
+                    Webinars
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            
+            <div>
+              <Heading level="h3" className="text-lg font-bold mb-4">Legal</Heading>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/terms" className="text-muted-foreground hover:text-primary">
+                    Terms of Service
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/privacy" className="text-muted-foreground hover:text-primary">
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/copyright" className="text-muted-foreground hover:text-primary">
+                    Copyright Notice
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/gdpr" className="text-muted-foreground hover:text-primary">
+                    GDPR Compliance
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+// Export the component directly - no need for dynamic import on the landing page
+export default LandingPage;

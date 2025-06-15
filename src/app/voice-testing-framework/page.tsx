@@ -1,0 +1,54 @@
+'use client';
+
+import dynamic from 'next/dynamic';
+
+import React from 'react';
+
+import { AgeAppropriateCommandsProvider } from '@/components/voice-input/enhanced/age-appropriate-commands';
+/**
+ * Voice Testing Framework Page
+ * 
+ * This page provides a comprehensive testing interface for the voice input system,
+ * allowing validation with different UK accents and dialects.
+ */
+
+// Original component
+
+const VoiceInputTestingFramework = dynamic(
+  () => import('@/components/voice-input/enhanced/voice-input-testing-framework')
+);
+
+function VoiceTestingFrameworkPage() {
+  return (
+    <AgeAppropriateCommandsProvider>
+      <div className="container mx-auto py-8">
+        <h1 className="text-3xl font-bold mb-6">Voice Input Testing Framework</h1>
+        <p className="text-gray-600 mb-8">
+          Use this framework to validate the voice recognition system with different UK accents and dialects.
+          Test recognition accuracy and identify areas for improvement.
+        </p>
+        
+        <VoiceInputTestingFramework />
+      </div>
+    </AgeAppropriateCommandsProvider>
+  );
+}
+
+
+// Client-side wrapper to ensure providers are properly mounted
+const VoiceTestingFrameworkPageWrapper = dynamic(
+  () => Promise.resolve(VoiceTestingFrameworkPage),
+  { 
+    ssr: false,
+    loading: () => (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading voice features...</p>
+        </div>
+      </div>
+    )
+  }
+);
+
+export default VoiceTestingFrameworkPageWrapper;

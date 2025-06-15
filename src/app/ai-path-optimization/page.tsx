@@ -1,0 +1,1193 @@
+'use client';
+
+import dynamic from 'next/dynamic';
+
+import React, { useState } from 'react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { Slider } from "@/components/ui/slider";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+import {
+Brain,
+  BookOpen,
+  Lightbulb,
+  Star,
+  Clock,
+  ArrowRight,
+  CheckCircle,
+  FileText,
+  Users,
+  BarChart2,
+  PieChart,
+  LineChart,
+  Download,
+  Filter,
+  Search,
+  Calendar,
+  User,
+  Layers,
+  Settings,
+  Target,
+  Award,
+  Compass,
+  Edit,
+  Plus,
+  Zap,
+  Sparkles,
+  FileText as FileText2,
+  Video,
+  Image,
+  Mic,
+  Presentation,
+  BookOpen as Book,
+  Clipboard,
+  MessageSquare,
+  RefreshCw,
+  Sliders,
+  UserPlus,
+  Fingerprint,
+  Eye,
+  Heart,
+  BarChart,
+  Gauge,
+  Palette,
+  Route,
+  Map,
+  GitBranch,
+  GitFork,
+  GitMerge,
+  GitPullRequest,
+  Milestone,
+  Navigation,
+  RotateCw,
+  Share2,
+  Shuffle,
+  TrendingUp,
+  MoreVertical
+} from 'lucide-react';
+const ComprehensiveNavigation = dynamic(
+  () => import('@/components/navigation/comprehensive-navigation'),
+  { ssr: false }
+);
+
+
+
+
+
+// Original component
+function AIPathOptimizationPage() {
+  const [activeTab, setActiveTab] = useState('overview');
+  const [selectedStudent, setSelectedStudent] = useState<string | null>(null);
+  const [selectedSubject, setSelectedSubject] = useState('mathematics');
+  const [generatingPath, setGeneratingPath] = useState(false);
+  const [pathGenerated, setPathGenerated] = useState(false);
+
+  // Sample data for demonstration
+  const students = [
+    {
+      id: 'student1',
+      name: 'Alex Johnson',
+      age: 12,
+      yearGroup: 'Year 8',
+      avatar: '/avatars/alex.jpg',
+      subjects: ['Mathematics', 'English', 'Science'],
+      strengths: ['Visual learning', 'Problem-solving', 'Critical thinking'],
+      areas_for_improvement: ['Reading comprehension', 'Writing fluency', 'Time management']
+    },
+    {
+      id: 'student2',
+      name: 'Maya Patel',
+      age: 10,
+      yearGroup: 'Year 6',
+      avatar: '/avatars/maya.jpg',
+      subjects: ['Mathematics', 'English', 'Science', 'History'],
+      strengths: ['Verbal reasoning', 'Creative writing', 'Research skills'],
+      areas_for_improvement: ['Mathematical concepts', 'Focus', 'Organization']
+    },
+    {
+      id: 'student3',
+      name: 'Thomas Wilson',
+      age: 14,
+      yearGroup: 'Year 10',
+      avatar: '/avatars/thomas.jpg',
+      subjects: ['Mathematics', 'English', 'Science', 'Computer Science'],
+      strengths: ['Logical reasoning', 'Technical skills', 'Data analysis'],
+      areas_for_improvement: ['Essay writing', 'Verbal presentation', 'Group work']
+    }
+  ];
+
+  const pathTypes = [
+    {
+      id: 'standard',
+      name: 'Standard Path',
+      description: 'A balanced learning path following the standard curriculum sequence',
+      icon: Route
+    },
+    {
+      id: 'accelerated',
+      name: 'Accelerated Path',
+      description: 'A faster-paced path for students who can progress more quickly',
+      icon: TrendingUp
+    },
+    {
+      id: 'remedial',
+      name: 'Support Path',
+      description: 'A path with additional support and reinforcement for challenging concepts',
+      icon: Lightbulb
+    },
+    {
+      id: 'enrichment',
+      name: 'Enrichment Path',
+      description: 'A path with additional depth and breadth for students seeking more challenge',
+      icon: Sparkles
+    },
+    {
+      id: 'personalized',
+      name: 'Fully Personalized Path',
+      description: 'A completely customised path based on individual learning profile',
+      icon: Fingerprint
+    }
+  ];
+
+  const subjects = [
+    { id: 'mathematics', name: 'Mathematics', icon: <PieChart className="w-4 h-4" /> },
+    { id: 'english', name: 'English', icon: <BookOpen className="w-4 h-4" /> },
+    { id: 'science', name: 'Science', icon: <Zap className="w-4 h-4" /> }
+  ];
+
+  const recentPaths = [
+    {
+      id: 'path1',
+      student: 'Alex Johnson',
+      subject: 'Mathematics',
+      type: 'Accelerated Path',
+      created: 'June 4, 2025',
+      progress: 65,
+      status: 'Active'
+    },
+    {
+      id: 'path2',
+      student: 'Maya Patel',
+      subject: 'English',
+      type: 'Support Path',
+      created: 'June 2, 2025',
+      progress: 42,
+      status: 'Active'
+    },
+    {
+      id: 'path3',
+      student: 'Thomas Wilson',
+      subject: 'Science',
+      type: 'Enrichment Path',
+      created: 'May 28, 2025',
+      progress: 78,
+      status: 'Active'
+    }
+  ];
+
+  const handleStudentSelect = (id: string) => {
+    setSelectedStudent(id);
+  };
+
+  const handleGeneratePath = (): void => {
+    setGeneratingPath(true);
+    
+    // Simulate API call with timeout
+    setTimeout(() => {
+      setPathGenerated(true);
+      setGeneratingPath(false);
+    }, 3000);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <ComprehensiveNavigation />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <Badge className="bg-gradient-to-r from-green-600 to-blue-600 text-white px-4 py-2 mb-4">
+            <Route className="w-4 h-4 mr-2" />
+            AI Path Optimization
+          </Badge>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            Intelligent Learning Pathways
+          </h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Create optimized, personalized learning paths that adapt to student progress, strengths, and areas for improvement using AI-powered path optimization.
+          </p>
+        </div>
+
+        {/* Main Tabs */}
+        <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab} className="mb-8">
+          <TabsList className="grid grid-cols-4 mb-8">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="create">Create Path</TabsTrigger>
+            <TabsTrigger value="manage">Manage Paths</TabsTrigger>
+            <TabsTrigger value="analytics">Path Analytics</TabsTrigger>
+          </TabsList>
+          
+          {/* Overview Tab */}
+          <TabsContent value="overview">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center">
+                    <Route className="w-5 h-5 mr-2 text-green-500" />
+                    Active Paths
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold">24</div>
+                  <p className="text-sm text-gray-500">Personalized learning paths</p>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center">
+                    <Users className="w-5 h-5 mr-2 text-blue-500" />
+                    Students
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold">18</div>
+                  <p className="text-sm text-gray-500">Students with active paths</p>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center">
+                    <TrendingUp className="w-5 h-5 mr-2 text-green-500" />
+                    Improvement
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold">27%</div>
+                  <p className="text-sm text-gray-500">Average learning improvement</p>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Path Optimization Process</CardTitle>
+                  <CardDescription>How our AI creates optimized learning paths</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-6">
+                    <div className="flex items-start">
+                      <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-1">
+                        <span className="font-bold text-green-600">1</span>
+                      </div>
+                      <div>
+                        <h3 className="font-medium mb-1">Learning Profile Analysis</h3>
+                        <p className="text-sm text-gray-600">
+                          Analyze student learning profile, including strengths, challenges, pace, and preferences.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start">
+                      <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-1">
+                        <span className="font-bold text-green-600">2</span>
+                      </div>
+                      <div>
+                        <h3 className="font-medium mb-1">Curriculum Mapping</h3>
+                        <p className="text-sm text-gray-600">
+                          Map learning objectives to curriculum standards and identify optimal sequence.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start">
+                      <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-1">
+                        <span className="font-bold text-green-600">3</span>
+                      </div>
+                      <div>
+                        <h3 className="font-medium mb-1">Path Generation</h3>
+                        <p className="text-sm text-gray-600">
+                          Generate personalized learning path with optimal sequence, pace, and resource selection.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start">
+                      <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-1">
+                        <span className="font-bold text-green-600">4</span>
+                      </div>
+                      <div>
+                        <h3 className="font-medium mb-1">Continuous Adaptation</h3>
+                        <p className="text-sm text-gray-600">
+                          Continuously adapt the path based on progress, performance, and changing needs.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader>
+                  <CardTitle>Path Optimization Benefits</CardTitle>
+                  <CardDescription>Key advantages of AI-powered path optimization</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg">
+                      <div className="flex items-center mb-3">
+                        <div className="w-8 h-8 rounded-full bg-green-200 flex items-center justify-center mr-2">
+                          <Target className="w-4 h-4 text-green-700" />
+                        </div>
+                        <h3 className="font-medium">Targeted Learning</h3>
+                      </div>
+                      <p className="text-sm text-gray-700">
+                        Focuses on specific learning needs and goals for each student.
+                      </p>
+                    </div>
+                    
+                    <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg">
+                      <div className="flex items-center mb-3">
+                        <div className="w-8 h-8 rounded-full bg-blue-200 flex items-center justify-center mr-2">
+                          <Gauge className="w-4 h-4 text-blue-700" />
+                        </div>
+                        <h3 className="font-medium">Optimal Pacing</h3>
+                      </div>
+                      <p className="text-sm text-gray-700">
+                        Adjusts learning pace to maximize engagement and minimize frustration.
+                      </p>
+                    </div>
+                    
+                    <div className="bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-lg">
+                      <div className="flex items-center mb-3">
+                        <div className="w-8 h-8 rounded-full bg-purple-200 flex items-center justify-center mr-2">
+                          <GitFork className="w-4 h-4 text-purple-700" />
+                        </div>
+                        <h3 className="font-medium">Adaptive Sequencing</h3>
+                      </div>
+                      <p className="text-sm text-gray-700">
+                        Creates optimal learning sequences based on concept relationships and prerequisites.
+                      </p>
+                    </div>
+                    
+                    <div className="bg-gradient-to-r from-amber-50 to-amber-100 p-4 rounded-lg">
+                      <div className="flex items-center mb-3">
+                        <div className="w-8 h-8 rounded-full bg-amber-200 flex items-center justify-center mr-2">
+                          <BarChart2 className="w-4 h-4 text-amber-700" />
+                        </div>
+                        <h3 className="font-medium">Better Outcomes</h3>
+                      </div>
+                      <p className="text-sm text-gray-700">
+                        Improves learning outcomes through optimized, personalized learning experiences.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
+              <CardContent className="p-6">
+                <div className="flex flex-col md:flex-row items-center md:space-x-8">
+                  <div className="mb-6 md:mb-0">
+                    <div className="w-20 h-20 bg-gradient-to-r from-green-600 to-blue-600 rounded-full flex items-center justify-center mx-auto">
+                      <Route className="w-10 h-10 text-white" />
+                    </div>
+                  </div>
+                  <div className="flex-1 text-center md:text-left">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">Ready to Optimize Learning?</h3>
+                    <p className="text-gray-600 mb-4">
+                      Create AI-powered learning paths tailored to each student's unique needs, strengths, and learning style.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+                      <Button onClick={() => setActiveTab('create')} className="bg-gradient-to-r from-green-600 to-blue-600">
+                        Create Learning Path
+                      </Button>
+                      <Button variant="outline">
+                        View Path Guide
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          
+          {/* Create Path Tab */}
+          <TabsContent value="create">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="lg:col-span-1">
+                <div className="mb-6">
+                  <h2 className="text-2xl font-bold mb-2">Create Learning Path</h2>
+                  <p className="text-gray-600">
+                    Select a student and configure path settings
+                  </p>
+                </div>
+                
+                <div className="space-y-4">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Student Selection</CardTitle>
+                      <CardDescription>
+                        Select a student to create a learning path
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        {students.map((student) => (
+                          <Card 
+                            key={student.id} 
+                            className={`cursor-pointer transition-all ${
+                              selectedStudent === student.id ? 'ring-2 ring-green-500' : ''
+                            }`}
+                            onClick={() => handleStudentSelect(student.id)}
+                          >
+                            <CardContent className="p-4">
+                              <div className="flex items-center">
+                                <Avatar className="h-10 w-10 mr-3">
+                                  <AvatarImage src={student.avatar} alt={student.name} />
+                                  <AvatarFallback>{student.name.charAt(0)}</AvatarFallback>
+                                </Avatar>
+                                <div>
+                                  <h3 className="font-medium">{student.name}</h3>
+                                  <p className="text-sm text-gray-500">{student.yearGroup} • Age {student.age}</p>
+                                </div>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                  
+                  {selectedStudent && (
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Path Configuration</CardTitle>
+                        <CardDescription>
+                          Configure learning path settings
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="subject">Subject</Label>
+                          <div className="grid grid-cols-3 gap-2">
+                            {subjects.map((subject) => (
+                              <Button
+                                key={subject.id}
+                                variant={selectedSubject === subject.id ? "default" : "outline"}
+                                className={selectedSubject === subject.id ? "bg-green-600" : ""}
+                                onClick={() => setSelectedSubject(subject.id)}
+                              >
+                                <div className="flex items-center">
+                                  {subject.icon}
+                                  <span className="ml-2">{subject.name}</span>
+                                </div>
+                              </Button>
+                            ))}
+                          </div>
+                        </div>
+                        
+                        <div className="space-y-2">
+                          <Label htmlFor="pathType">Path Type</Label>
+                          <Select defaultValue="personalized">
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select path type" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {pathTypes.map((type) => (
+                                <SelectItem key={type.id} value={type.id}>
+                                  <div className="flex items-center">
+                                    <type.icon className="w-4 h-4 mr-2" />
+                                    <span>{type.name}</span>
+                                  </div>
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <p className="text-xs text-gray-500">
+                            Fully Personalized Path is recommended for optimal results
+                          </p>
+                        </div>
+                        
+                        <div className="space-y-2">
+                          <Label htmlFor="timeframe">Timeframe</Label>
+                          <Select defaultValue="term">
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select timeframe" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="unit">Single Unit</SelectItem>
+                              <SelectItem value="term">Term</SelectItem>
+                              <SelectItem value="year">Academic Year</SelectItem>
+                              <SelectItem value="custom">Custom</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <Label htmlFor="adaptivePacing">Adaptive Pacing</Label>
+                            <Switch id="adaptivePacing" defaultChecked />
+                          </div>
+                          <p className="text-xs text-gray-500">
+                            Automatically adjust pace based on student performance
+                          </p>
+                        </div>
+                        
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <Label htmlFor="includeEnrichment">Include Enrichment</Label>
+                            <Switch id="includeEnrichment" defaultChecked />
+                          </div>
+                          <p className="text-xs text-gray-500">
+                            Include enrichment activities for mastered concepts
+                          </p>
+                        </div>
+                        
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <Label htmlFor="includeRemediation">Include Remediation</Label>
+                            <Switch id="includeRemediation" defaultChecked />
+                          </div>
+                          <p className="text-xs text-gray-500">
+                            Include remediation activities for challenging concepts
+                          </p>
+                        </div>
+                        
+                        <Button 
+                          onClick={handleGeneratePath} 
+                          className="w-full bg-gradient-to-r from-green-600 to-blue-600"
+                          disabled={!selectedStudent || generatingPath}
+                        >
+                          {generatingPath ? (
+                            <>
+                              <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                              Generating Path...
+                            </>
+                          ) : (
+                            <>
+                              <Route className="mr-2 h-4 w-4" />
+                              Generate Learning Path
+                            </>
+                          )}
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  )}
+                </div>
+              </div>
+              
+              <div className="lg:col-span-2">
+                {selectedStudent ? (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Learning Path Preview</CardTitle>
+                      <CardDescription>
+                        {pathGenerated 
+                          ? `Personalized learning path for ${students.find(s => s.id === selectedStudent)?.name} in ${subjects.find(s => s.id === selectedSubject)?.name}` 
+                          : 'Configure and generate a learning path to preview it'}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      {pathGenerated ? (
+                        <div className="space-y-6">
+                          <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                            <div className="flex items-center">
+                              <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                              <p className="text-green-700 font-medium">Learning path generated successfully</p>
+                            </div>
+                          </div>
+                          
+                          <div className="space-y-4">
+                            <div>
+                              <h3 className="text-lg font-medium mb-2">Path Overview</h3>
+                              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div className="bg-blue-50 p-4 rounded-lg">
+                                  <div className="text-sm text-gray-500">Path Type</div>
+                                  <div className="font-medium flex items-center">
+                                    <Fingerprint className="w-4 h-4 mr-1 text-blue-600" />
+                                    Fully Personalized Path
+                                  </div>
+                                </div>
+                                
+                                <div className="bg-blue-50 p-4 rounded-lg">
+                                  <div className="text-sm text-gray-500">Estimated Duration</div>
+                                  <div className="font-medium flex items-center">
+                                    <Clock className="w-4 h-4 mr-1 text-blue-600" />
+                                    12 Weeks
+                                  </div>
+                                </div>
+                                
+                                <div className="bg-blue-50 p-4 rounded-lg">
+                                  <div className="text-sm text-gray-500">Learning Units</div>
+                                  <div className="font-medium flex items-center">
+                                    <Layers className="w-4 h-4 mr-1 text-blue-600" />
+                                    8 Units
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <Separator />
+                            
+                            <div>
+                              <h3 className="text-lg font-medium mb-2">Learning Sequence</h3>
+                              <div className="space-y-3">
+                                {/* Unit 1 */}
+                                <div className="bg-white border border-gray-200 rounded-lg p-4">
+                                  <div className="flex items-center justify-between mb-2">
+                                    <div className="font-medium flex items-center">
+                                      <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-2">
+                                        <span className="text-sm font-bold text-green-600">1</span>
+                                      </div>
+                                      {selectedSubject === 'mathematics' && 'Number Concepts and Operations'}
+                                      {selectedSubject === 'english' && 'Reading Comprehension Strategies'}
+                                      {selectedSubject === 'science' && 'Scientific Method and Inquiry'}
+                                    </div>
+                                    <Badge className="bg-blue-100 text-blue-800">Foundation</Badge>
+                                  </div>
+                                  <p className="text-sm text-gray-600 mb-2">
+                                    {selectedSubject === 'mathematics' && 'Master core number concepts and operations including place value, addition, subtraction, multiplication, and division.'}
+                                    {selectedSubject === 'english' && 'Develop key reading comprehension strategies including prediction, questioning, clarification, and summarization.'}
+                                    {selectedSubject === 'science' && 'Learn the scientific method and develop inquiry skills through guided experiments and observations.'}
+                                  </p>
+                                  <div className="flex items-center justify-between">
+                                    <div className="text-xs text-gray-500">2 weeks • 6 activities</div>
+                                    <div className="flex space-x-2">
+                                      <Badge variant="outline" className="text-xs">Interactive</Badge>
+                                      <Badge variant="outline" className="text-xs">Visual</Badge>
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                                {/* Unit 2 */}
+                                <div className="bg-white border border-gray-200 rounded-lg p-4">
+                                  <div className="flex items-center justify-between mb-2">
+                                    <div className="font-medium flex items-center">
+                                      <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-2">
+                                        <span className="text-sm font-bold text-green-600">2</span>
+                                      </div>
+                                      {selectedSubject === 'mathematics' && 'Fractions and Decimals'}
+                                      {selectedSubject === 'english' && 'Text Analysis and Interpretation'}
+                                      {selectedSubject === 'science' && 'Classification and Properties'}
+                                    </div>
+                                    <Badge className="bg-purple-100 text-purple-800">Core</Badge>
+                                  </div>
+                                  <p className="text-sm text-gray-600 mb-2">
+                                    {selectedSubject === 'mathematics' && 'Understand fractions and decimals, including equivalence, comparison, and basic operations.'}
+                                    {selectedSubject === 'english' && 'Analyze and interpret texts, identifying themes, character development, and author\'s purpose.'}
+                                    {selectedSubject === 'science' && 'Explore classification systems and properties of living things, materials, and energy.'}
+                                  </p>
+                                  <div className="flex items-center justify-between">
+                                    <div className="text-xs text-gray-500">2 weeks • 8 activities</div>
+                                    <div className="flex space-x-2">
+                                      <Badge variant="outline" className="text-xs">Hands-on</Badge>
+                                      <Badge variant="outline" className="text-xs">Collaborative</Badge>
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                                {/* Unit 3 */}
+                                <div className="bg-white border border-gray-200 rounded-lg p-4">
+                                  <div className="flex items-center justify-between mb-2">
+                                    <div className="font-medium flex items-center">
+                                      <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-2">
+                                        <span className="text-sm font-bold text-green-600">3</span>
+                                      </div>
+                                      {selectedSubject === 'mathematics' && 'Geometry and Measurement'}
+                                      {selectedSubject === 'english' && 'Writing and Composition'}
+                                      {selectedSubject === 'science' && 'Energy and Matter'}
+                                    </div>
+                                    <Badge className="bg-purple-100 text-purple-800">Core</Badge>
+                                  </div>
+                                  <p className="text-sm text-gray-600 mb-2">
+                                    {selectedSubject === 'mathematics' && 'Explore geometric concepts and measurement, including shapes, angles, area, and volume.'}
+                                    {selectedSubject === 'english' && 'Develop writing skills through various composition types, focusing on structure, clarity, and purpose.'}
+                                    {selectedSubject === 'science' && 'Investigate energy forms, transformations, and properties of matter through experiments.'}
+                                  </p>
+                                  <div className="flex items-center justify-between">
+                                    <div className="text-xs text-gray-500">2 weeks • 7 activities</div>
+                                    <div className="flex space-x-2">
+                                      <Badge variant="outline" className="text-xs">Problem-based</Badge>
+                                      <Badge variant="outline" className="text-xs">Practical</Badge>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <Separator />
+                            
+                            <div>
+                              <h3 className="text-lg font-medium mb-2">Learning Approach</h3>
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="bg-green-50 p-4 rounded-lg">
+                                  <h4 className="font-medium flex items-center mb-2">
+                                    <Sparkles className="w-4 h-4 mr-1 text-green-600" />
+                                    Strengths Leveraged
+                                  </h4>
+                                  <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside">
+                                    {selectedStudent === 'student1' && (
+                                      <>
+                                        <li>Visual learning approaches throughout</li>
+                                        <li>Problem-solving focused activities</li>
+                                        <li>Critical thinking opportunities</li>
+                                      </>
+                                    )}
+                                    {selectedStudent === 'student2' && (
+                                      <>
+                                        <li>Verbal reasoning activities</li>
+                                        <li>Creative approaches to concepts</li>
+                                        <li>Research-based explorations</li>
+                                      </>
+                                    )}
+                                    {selectedStudent === 'student3' && (
+                                      <>
+                                        <li>Logical reasoning challenges</li>
+                                        <li>Technical skill development</li>
+                                        <li>Data analysis opportunities</li>
+                                      </>
+                                    )}
+                                  </ul>
+                                </div>
+                                
+                                <div className="bg-amber-50 p-4 rounded-lg">
+                                  <h4 className="font-medium flex items-center mb-2">
+                                    <Lightbulb className="w-4 h-4 mr-1 text-amber-600" />
+                                    Support Strategies
+                                  </h4>
+                                  <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside">
+                                    {selectedStudent === 'student1' && (
+                                      <>
+                                        <li>Reading comprehension scaffolds</li>
+                                        <li>Writing templates and frameworks</li>
+                                        <li>Time management tools</li>
+                                      </>
+                                    )}
+                                    {selectedStudent === 'student2' && (
+                                      <>
+                                        <li>Visual math concept representations</li>
+                                        <li>Focus strategies and timers</li>
+                                        <li>Organization templates</li>
+                                      </>
+                                    )}
+                                    {selectedStudent === 'student3' && (
+                                      <>
+                                        <li>Essay structure frameworks</li>
+                                        <li>Presentation practice opportunities</li>
+                                        <li>Collaborative skill development</li>
+                                      </>
+                                    )}
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <Separator />
+                            
+                            <div>
+                              <h3 className="text-lg font-medium mb-2">AI Recommendations</h3>
+                              <div className="bg-blue-50 border border-blue-100 rounded-lg p-4">
+                                <div className="flex items-start">
+                                  <Brain className="h-5 w-5 text-blue-500 mr-2 mt-0.5" />
+                                  <div>
+                                    <p className="text-sm">
+                                      {selectedStudent === 'student1' && 'This student will benefit from visual-rich content with problem-solving opportunities. Provide additional support for reading comprehension and writing tasks. Include time management strategies throughout the learning path.'}
+                                      {selectedStudent === 'student2' && 'This student will benefit from verbal and creative approaches to learning. Provide additional support for mathematical concepts using visual representations. Include focus and organization strategies throughout the learning path.'}
+                                      {selectedStudent === 'student3' && 'This student will benefit from logical and technical approaches to learning. Provide additional support for essay writing and verbal presentations. Include collaborative activities to develop group work skills.'}
+                                    </p>
+                                    <p className="text-sm mt-2">
+                                      Recommended approach: Balanced mix of core curriculum with targeted enrichment and support activities. Monitor progress closely at checkpoints and adjust path as needed.
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex flex-col items-center justify-center py-12 text-center">
+                          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <Route className="h-8 w-8 text-green-600" />
+                          </div>
+                          <h3 className="text-lg font-medium text-gray-900 mb-2">Ready to Generate Path</h3>
+                          <p className="text-gray-500 mb-4 max-w-md">
+                            {selectedStudent
+                              ? 'Configure path settings and click "Generate Learning Path" to create a personalized learning path.'
+                              : 'Select a student to begin creating a personalized learning path.'}
+                          </p>
+                          {selectedStudent && (
+                            <div className="bg-gray-50 p-4 rounded-lg max-w-md text-left">
+                              <h4 className="font-medium mb-2">Selected Student Profile</h4>
+                              <div className="text-sm text-gray-600 space-y-2">
+                                <div className="flex items-start">
+                                  <User className="w-4 h-4 mr-2 mt-0.5 text-gray-500" />
+                                  <div>
+                                    <span className="font-medium">Name:</span> {students.find(s => s.id === selectedStudent)?.name}
+                                  </div>
+                                </div>
+                                <div className="flex items-start">
+                                  <BookOpen className="w-4 h-4 mr-2 mt-0.5 text-gray-500" />
+                                  <div>
+                                    <span className="font-medium">Year Group:</span> {students.find(s => s.id === selectedStudent)?.yearGroup}
+                                  </div>
+                                </div>
+                                <div className="flex items-start">
+                                  <Sparkles className="w-4 h-4 mr-2 mt-0.5 text-gray-500" />
+                                  <div>
+                                    <span className="font-medium">Strengths:</span> {students.find(s => s.id === selectedStudent)?.strengths.join(', ')}
+                                  </div>
+                                </div>
+                                <div className="flex items-start">
+                                  <Lightbulb className="w-4 h-4 mr-2 mt-0.5 text-gray-500" />
+                                  <div>
+                                    <span className="font-medium">Areas for Improvement:</span> {students.find(s => s.id === selectedStudent)?.areas_for_improvement.join(', ')}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </CardContent>
+                    <CardFooter className="bg-gray-50 border-t">
+                      <div className="flex justify-between items-center w-full">
+                        <Button variant="outline" size="sm">
+                          <Edit className="w-4 h-4 mr-2" />
+                          Edit Path
+                        </Button>
+                        <Button size="sm" variant="ghost" className="text-green-600">
+                          <Download className="w-4 h-4 mr-2" />
+                          Export Path
+                        </Button>
+                      </div>
+                    </CardFooter>
+                  </Card>
+                ) : (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Learning Path Preview</CardTitle>
+                      <CardDescription>
+                        Select a student to begin creating a personalized learning path
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex flex-col items-center justify-center py-12 text-center">
+                        <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                          <Users className="h-8 w-8 text-gray-400" />
+                        </div>
+                        <h3 className="text-lg font-medium text-gray-900 mb-2">No Student Selected</h3>
+                        <p className="text-gray-500 mb-4">
+                          Select a student from the list to begin creating a personalized learning path
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+            </div>
+          </TabsContent>
+          
+          {/* Manage Paths Tab */}
+          <TabsContent value="manage">
+            <div className="space-y-6">
+              <div className="flex justify-between items-center">
+                <div>
+                  <h2 className="text-2xl font-bold mb-2">Manage Learning Paths</h2>
+                  <p className="text-gray-600">
+                    View and manage active learning paths
+                  </p>
+                </div>
+                <div className="flex space-x-2">
+                  <Button variant="outline" size="sm">
+                    <Filter className="w-4 h-4 mr-2" />
+                    Filter
+                  </Button>
+                  <Button variant="outline" size="sm">
+                    <Download className="w-4 h-4 mr-2" />
+                    Export
+                  </Button>
+                </div>
+              </div>
+              
+              <Card>
+                <CardHeader>
+                  <CardTitle>Active Learning Paths</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {recentPaths.map((path) => (
+                      <Card key={path.id} className="overflow-hidden">
+                        <div className={`px-4 py-2 ${
+                          path.status === 'Active' ? 'bg-green-50' : 'bg-gray-50'
+                        }`}>
+                          <div className="flex justify-between items-center">
+                            <div className="font-medium">{path.student}</div>
+                            <Badge variant={path.status === 'Active' ? 'default' : 'secondary'}>
+                              {path.status}
+                            </Badge>
+                          </div>
+                        </div>
+                        <CardContent className="p-4">
+                          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+                            <div>
+                              <div className="text-sm text-gray-500 mb-2">
+                                <Calendar className="w-4 h-4 inline-block mr-1" />
+                                Created: {path.created}
+                              </div>
+                              <div className="flex items-center text-sm text-gray-500">
+                                <BookOpen className="w-4 h-4 inline-block mr-1" />
+                                Subject: {path.subject}
+                                <span className="mx-2">•</span>
+                                <Route className="w-4 h-4 inline-block mr-1" />
+                                Type: {path.type}
+                              </div>
+                              <div className="mt-2">
+                                <div className="flex justify-between items-center mb-1">
+                                  <span className="text-xs text-gray-500">Progress</span>
+                                  <span className="text-xs font-medium">{path.progress}%</span>
+                                </div>
+                                <Progress value={path.progress} className="h-2" />
+                              </div>
+                            </div>
+                            <div className="flex gap-2">
+                              <Button size="sm" variant="outline">
+                                <Eye className="w-4 h-4 mr-1" />
+                                View
+                              </Button>
+                              <Button size="sm" variant="outline">
+                                <Edit className="w-4 h-4 mr-1" />
+                                Edit
+                              </Button>
+                              <Button size="sm" variant="ghost" className="text-gray-500">
+                                <MoreVertical className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </CardContent>
+                <CardFooter className="border-t bg-gray-50 flex justify-between">
+                  <div className="text-sm text-gray-500">
+                    Showing 3 of 24 learning paths
+                  </div>
+                  <div className="flex space-x-2">
+                    <Button variant="outline" size="sm" disabled>
+                      Previous
+                    </Button>
+                    <Button variant="outline" size="sm">
+                      Next
+                    </Button>
+                  </div>
+                </CardFooter>
+              </Card>
+            </div>
+          </TabsContent>
+          
+          {/* Path Analytics Tab */}
+          <TabsContent value="analytics">
+            <div className="space-y-6">
+              <div className="flex justify-between items-center">
+                <div>
+                  <h2 className="text-2xl font-bold mb-2">Path Analytics</h2>
+                  <p className="text-gray-600">
+                    Analyze learning path effectiveness and student progress
+                  </p>
+                </div>
+                <div className="flex space-x-2">
+                  <Select defaultValue="all">
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Select student" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Students</SelectItem>
+                      <SelectItem value="alex">Alex Johnson</SelectItem>
+                      <SelectItem value="maya">Maya Patel</SelectItem>
+                      <SelectItem value="thomas">Thomas Wilson</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Button variant="outline" size="sm">
+                    <Download className="w-4 h-4 mr-2" />
+                    Export
+                  </Button>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-lg flex items-center">
+                      <TrendingUp className="w-5 h-5 mr-2 text-green-500" />
+                      Average Progress
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-3xl font-bold">68%</div>
+                    <p className="text-sm text-gray-500">Across all learning paths</p>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-lg flex items-center">
+                      <CheckCircle className="w-5 h-5 mr-2 text-green-500" />
+                      Completion Rate
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-3xl font-bold">82%</div>
+                    <p className="text-sm text-gray-500">Of learning objectives achieved</p>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-lg flex items-center">
+                      <Clock className="w-5 h-5 mr-2 text-blue-500" />
+                      Average Time
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-3xl font-bold">9.2</div>
+                    <p className="text-sm text-gray-500">Weeks to complete a path</p>
+                  </CardContent>
+                </Card>
+              </div>
+              
+              <Card>
+                <CardHeader>
+                  <CardTitle>Path Effectiveness by Type</CardTitle>
+                  <CardDescription>Comparing learning outcomes across different path types</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-80 w-full bg-gradient-to-r from-gray-50 to-gray-100 rounded-md flex items-center justify-center">
+                    <div className="text-center">
+                      <BarChart2 className="h-10 w-10 text-gray-400 mx-auto mb-2" />
+                      <p className="text-gray-500">Path effectiveness chart visualization would appear here</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Subject Performance</CardTitle>
+                    <CardDescription>Learning path effectiveness by subject area</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div>
+                        <div className="flex justify-between items-center mb-1">
+                          <span className="text-sm flex items-center">
+                            <PieChart className="w-4 h-4 mr-1 text-blue-500" />
+                            Mathematics
+                          </span>
+                          <span className="text-sm font-medium">85%</span>
+                        </div>
+                        <Progress value={85} className="h-2 mb-1" />
+                        <div className="flex justify-between text-xs text-gray-500">
+                          <span>24 students</span>
+                          <span>+12% improvement</span>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <div className="flex justify-between items-center mb-1">
+                          <span className="text-sm flex items-center">
+                            <BookOpen className="w-4 h-4 mr-1 text-purple-500" />
+                            English
+                          </span>
+                          <span className="text-sm font-medium">72%</span>
+                        </div>
+                        <Progress value={72} className="h-2 mb-1" />
+                        <div className="flex justify-between text-xs text-gray-500">
+                          <span>18 students</span>
+                          <span>+8% improvement</span>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <div className="flex justify-between items-center mb-1">
+                          <span className="text-sm flex items-center">
+                            <Zap className="w-4 h-4 mr-1 text-amber-500" />
+                            Science
+                          </span>
+                          <span className="text-sm font-medium">78%</span>
+                        </div>
+                        <Progress value={78} className="h-2 mb-1" />
+                        <div className="flex justify-between text-xs text-gray-500">
+                          <span>16 students</span>
+                          <span>+10% improvement</span>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Path Optimization Insights</CardTitle>
+                    <CardDescription>AI-generated insights for path improvement</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="bg-blue-50 p-4 rounded-lg">
+                        <h4 className="font-medium flex items-center mb-2">
+                          <Lightbulb className="w-4 h-4 mr-1 text-blue-600" />
+                          Sequencing Optimization
+                        </h4>
+                        <p className="text-sm text-gray-600">
+                          Analysis shows that introducing geometric concepts before fractions improves understanding by 18%. Consider resequencing mathematics paths accordingly.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-green-50 p-4 rounded-lg">
+                        <h4 className="font-medium flex items-center mb-2">
+                          <Target className="w-4 h-4 mr-1 text-green-600" />
+                          Resource Effectiveness
+                        </h4>
+                        <p className="text-sm text-gray-600">
+                          Interactive simulations are 32% more effective than text-based resources for science concepts. Increase simulation usage in science paths.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-purple-50 p-4 rounded-lg">
+                        <h4 className="font-medium flex items-center mb-2">
+                          <Users className="w-4 h-4 mr-1 text-purple-600" />
+                          Student Grouping
+                        </h4>
+                        <p className="text-sm text-gray-600">
+                          Students with similar learning profiles show 24% better outcomes when grouped together for collaborative activities. Consider profile-based grouping.
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
+      </div>
+    </div>
+  );
+}
+
+export default AIPathOptimizationPage;

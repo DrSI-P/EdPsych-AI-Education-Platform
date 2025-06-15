@@ -1,0 +1,456 @@
+'use client';
+
+import dynamic from 'next/dynamic';
+
+import React from 'react';
+
+import { Heading } from '@/components/ui/heading';
+import { Text } from '@/components/ui/text';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { 
+  BookOpen, 
+  Users, 
+  BarChart, 
+  FileText,
+  Brain,
+  MessageSquare,
+  CreditCard,
+  HelpCircle,
+  ChevronLeft,
+  Download,
+  Printer,
+  Share2,
+  Home,
+  Eye,
+  Bell,
+  Shield,
+  Settings,
+  Award
+} from 'lucide-react';
+import Link from 'next/link';
+// Original component
+
+const AIEnhancedLayout = dynamic(
+  () => import('@/components/layouts/AIEnhancedLayout'),
+  { ssr: false }
+);
+
+function ParentManualPage() {
+  return (
+    <AIEnhancedLayout>
+      <div className="container mx-auto py-8 max-w-6xl">
+        <div className="flex items-centre mb-2">
+          <Button variant="ghost" size="sm" className="mr-2" asChild>
+            <Link href="/platform-manuals">
+              <ChevronLeft className="h-4 w-4 mr-1" />
+              Back to Manuals
+            </Link>
+          </Button>
+        </div>
+        
+        <div className="flex items-centre mb-6">
+          <Home className="h-8 w-8 text-primary mr-3" />
+          <Heading level="h1">Parent/Guardian Manual</Heading>
+        </div>
+        
+        <div className="flex justify-between items-centre mb-6">
+          <Text className="text-xl">
+            A comprehensive guide for parents and guardians using the EdPsych AI Platform
+          </Text>
+          
+          <div className="flex space-x-2">
+            <Button variant="outline" size="sm">
+              <Download className="h-4 w-4 mr-2" />
+              PDF
+            </Button>
+            <Button variant="outline" size="sm">
+              <Printer className="h-4 w-4 mr-2" />
+              Print
+            </Button>
+            <Button variant="outline" size="sm">
+              <Share2 className="h-4 w-4 mr-2" />
+              Share
+            </Button>
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="md:col-span-1">
+            <Card className="p-4 sticky top-4">
+              <Heading level="h3" className="mb-4">Table of Contents</Heading>
+              <nav className="space-y-1">
+                <a href="#introduction" className="block p-2 hover:bg-muted rounded-md">Introduction</a>
+                <a href="#getting-started" className="block p-2 hover:bg-muted rounded-md">Getting Started</a>
+                <a href="#dashboard" className="block p-2 hover:bg-muted rounded-md">Dashboard Overview</a>
+                <a href="#monitoring-progress" className="block p-2 hover:bg-muted rounded-md">Monitoring Progress</a>
+                <a href="#performance-metrics" className="block p-2 hover:bg-muted rounded-md">Understanding Metrics</a>
+                <a href="#communication" className="block p-2 hover:bg-muted rounded-md">Communication Tools</a>
+                <a href="#supporting-learning" className="block p-2 hover:bg-muted rounded-md">Supporting Learning</a>
+                <a href="#subscription" className="block p-2 hover:bg-muted rounded-md">Subscription Management</a>
+                <a href="#privacy" className="block p-2 hover:bg-muted rounded-md">Privacy & Security</a>
+                <a href="#accessibility" className="block p-2 hover:bg-muted rounded-md">Accessibility Features</a>
+                <a href="#troubleshooting" className="block p-2 hover:bg-muted rounded-md">Troubleshooting</a>
+              </nav>
+              
+              <Separator className="my-4" />
+              
+              <div className="space-y-4">
+                <Button variant="outline" className="w-full justify-start" asChild>
+                  <Link href="/platform-manuals/quick-reference/parent">
+                    <FileText className="mr-2 h-4 w-4" />
+                    Quick Reference Guide
+                  </Link>
+                </Button>
+                <Button variant="outline" className="w-full justify-start" asChild>
+                  <Link href="/help">
+                    <HelpCircle className="mr-2 h-4 w-4" />
+                    Get Help
+                  </Link>
+                </Button>
+              </div>
+            </Card>
+          </div>
+          
+          <div className="md:col-span-3 space-y-8">
+            <section id="introduction">
+              <Card className="p-6">
+                <Heading level="h2" className="mb-4">Introduction</Heading>
+                <Text className="mb-4">
+                  Welcome to the EdPsych AI Platform Parent/Guardian Manual. This guide will help you navigate the platform and support your child's educational journey effectively.
+                </Text>
+                <Text className="mb-4">
+                  The EdPsych AI Platform combines educational psychology principles with artificial intelligence to provide personalised learning experiences for students. As a parent or guardian, you have access to tools that help you stay informed about your child's progress and support their learning at home.
+                </Text>
+                <Text className="mb-4">
+                  This manual will help you:
+                </Text>
+                <ul className="list-disc pl-8 mb-4 space-y-2">
+                  <li>
+                    <Text>Set up and manage your parent account</Text>
+                  </li>
+                  <li>
+                    <Text>Monitor your child's academic progress</Text>
+                  </li>
+                  <li>
+                    <Text>Understand performance metrics and reports</Text>
+                  </li>
+                  <li>
+                    <Text>Communicate with teachers effectively</Text>
+                  </li>
+                  <li>
+                    <Text>Support your child's learning at home</Text>
+                  </li>
+                  <li>
+                    <Text>Manage subscription and privacy settings</Text>
+                  </li>
+                  <li>
+                    <Text>Access resources for parents</Text>
+                  </li>
+                </ul>
+                <Text>
+                  By engaging with the platform, you become an active partner in your child's education, with insights and tools to support their learning journey.
+                </Text>
+              </Card>
+            </section>
+            
+            <section id="getting-started">
+              <Card className="p-6">
+                <Heading level="h2" className="mb-4">Getting Started</Heading>
+                
+                <Tabs defaultValue="account-setup">
+                  <TabsList className="mb-4">
+                    <TabsTrigger value="account-setup">Account Setup</TabsTrigger>
+                    <TabsTrigger value="linking">Linking to Students</TabsTrigger>
+                    <TabsTrigger value="first-login">First Login</TabsTrigger>
+                  </TabsList>
+                  
+                  <TabsContent value="account-setup">
+                    <Heading level="h3" className="mb-2">Account Setup</Heading>
+                    <Text className="mb-4">
+                      To get started with the EdPsych AI Platform, you'll need to set up your parent/guardian account:
+                    </Text>
+                    <ol className="list-decimal pl-8 mb-4 space-y-2">
+                      <li>
+                        <Text>
+                          <span className="font-medium">Receive Invitation:</span> Your child's school will send you an email invitation to join the platform.
+                        </Text>
+                      </li>
+                      <li>
+                        <Text>
+                          <span className="font-medium">Create Account:</span> Click the link in the email and follow the prompts to create your account. You'll need to:
+                          <ul className="list-disc pl-6 mt-2">
+                            <li>Enter your full name and email address</li>
+                            <li>Create a secure password</li>
+                            <li>Provide your relationship to the student</li>
+                            <li>Accept the terms of service</li>
+                          </ul>
+                        </Text>
+                      </li>
+                      <li>
+                        <Text>
+                          <span className="font-medium">Verification:</span> Verify your email address by clicking the link sent to your inbox.
+                        </Text>
+                      </li>
+                      <li>
+                        <Text>
+                          <span className="font-medium">Complete Profile:</span> Add your contact information and communication preferences.
+                        </Text>
+                      </li>
+                    </ol>
+                    <div className="bg-muted p-4 rounded-md">
+                      <Text className="font-medium">Note:</Text>
+                      <Text>If you don't receive an invitation email, check your spam folder or contact your child's school for assistance.</Text>
+                    </div>
+                  </TabsContent>
+                  
+                  <TabsContent value="linking">
+                    <Heading level="h3" className="mb-2">Linking to Student Accounts</Heading>
+                    <Text className="mb-4">
+                      To monitor your child's progress, you'll need to link your account to their student account:
+                    </Text>
+                    <div className="space-y-4">
+                      <div>
+                        <Heading level="h4" className="text-lg mb-1">Automatic Linking</Heading>
+                        <Text>If the school provided your information when setting up your child's account, you may be automatically linked after creating your account.</Text>
+                      </div>
+                      <div>
+                        <Heading level="h4" className="text-lg mb-1">Using a Link Code</Heading>
+                        <Text>
+                          1. Ask your child or their teacher for their student link code<br />
+                          2. Go to "Add Student" in your account settings<br />
+                          3. Enter the link code and confirm the student's name
+                        </Text>
+                      </div>
+                      <div>
+                        <Heading level="h4" className="text-lg mb-1">School Verification</Heading>
+                        <Text>Some schools require additional verification before linking accounts. Follow the instructions provided by your school.</Text>
+                      </div>
+                      <div>
+                        <Heading level="h4" className="text-lg mb-1">Multiple Children</Heading>
+                        <Text>You can link to multiple student accounts if you have more than one child using the platform. Repeat the linking process for each child.</Text>
+                      </div>
+                    </div>
+                  </TabsContent>
+                  
+                  <TabsContent value="first-login">
+                    <Heading level="h3" className="mb-2">First Login Experience</Heading>
+                    <Text className="mb-4">
+                      When you first log in to the EdPsych AI Platform, you'll be guided through an onboarding process:
+                    </Text>
+                    <ol className="list-decimal pl-8 mb-4 space-y-2">
+                      <li>
+                        <Text>
+                          <span className="font-medium">Welcome Tour:</span> A guided tour of the platform's key features and navigation.
+                        </Text>
+                      </li>
+                      <li>
+                        <Text>
+                          <span className="font-medium">Dashboard Overview:</span> Introduction to the parent dashboard and how to interpret the information.
+                        </Text>
+                      </li>
+                      <li>
+                        <Text>
+                          <span className="font-medium">Communication Setup:</span> Configure your communication preferences for updates and alerts.
+                        </Text>
+                      </li>
+                      <li>
+                        <Text>
+                          <span className="font-medium">Resource Introduction:</span> Overview of parent resources available on the platform.
+                        </Text>
+                      </li>
+                      <li>
+                        <Text>
+                          <span className="font-medium">Next Steps:</span> Suggestions for actions to take to get the most out of the platform.
+                        </Text>
+                      </li>
+                    </ol>
+                    <Text>
+                      You can revisit any part of this onboarding process later by going to Help {'>'} Onboarding in the main menu.
+                    </Text>
+                  </TabsContent>
+                </Tabs>
+              </Card>
+            </section>
+            
+            <section id="dashboard">
+              <Card className="p-6">
+                <Heading level="h2" className="mb-4">Dashboard Overview</Heading>
+                <Text className="mb-4">
+                  Your parent dashboard provides a comprehensive view of your child's educational journey and serves as your central hub for monitoring progress and accessing platform features.
+                </Text>
+                
+                <div className="bg-muted p-4 rounded-md mb-6">
+                  <div className="aspect-video bg-slate-200 rounded-md flex items-centre justify-centre mb-2">
+                    <Text className="text-slate-500">Dashboard Screenshot</Text>
+                  </div>
+                  <Text className="text-sm text-centre">The parent dashboard gives you a complete overview of your child's academic progress.</Text>
+                </div>
+                
+                <Heading level="h3" className="mb-2">Dashboard Sections</Heading>
+                <div className="space-y-4 mb-6">
+                  <div className="border rounded-md p-4">
+                    <Heading level="h4" className="text-lg mb-1">Student Selector</Heading>
+                    <Text>If you have multiple children on the platform, use this dropdown to switch between their dashboards.</Text>
+                  </div>
+                  <div className="border rounded-md p-4">
+                    <Heading level="h4" className="text-lg mb-1">Progress Summary</Heading>
+                    <Text>View your child's overall academic progress, recent achievements, and areas that may need attention.</Text>
+                  </div>
+                  <div className="border rounded-md p-4">
+                    <Heading level="h4" className="text-lg mb-1">Upcoming Assignments</Heading>
+                    <Text>See what assignments are due soon, with status indicators showing whether they've been started or completed.</Text>
+                  </div>
+                  <div className="border rounded-md p-4">
+                    <Heading level="h4" className="text-lg mb-1">Recent Activity</Heading>
+                    <Text>Track your child's recent platform activity, including completed assignments, assessments, and learning sessions.</Text>
+                  </div>
+                  <div className="border rounded-md p-4">
+                    <Heading level="h4" className="text-lg mb-1">Teacher Communications</Heading>
+                    <Text>Access messages from teachers and notifications about important class events or announcements.</Text>
+                  </div>
+                </div>
+                
+                <Heading level="h3" className="mb-2">Customising Your Dashboard</Heading>
+                <Text className="mb-4">
+                  You can personalise your dashboard to focus on the information most relevant to you:
+                </Text>
+                <ul className="list-disc pl-8 mb-4">
+                  <li>
+                    <Text>Click the "Customise" button in the top-right corner of the dashboard</Text>
+                  </li>
+                  <li>
+                    <Text>Drag and drop sections to rearrange them</Text>
+                  </li>
+                  <li>
+                    <Text>Add or remove sections from the available options</Text>
+                  </li>
+                  <li>
+                    <Text>Set priority subjects to highlight</Text>
+                  </li>
+                  <li>
+                    <Text>Configure notification preferences for dashboard alerts</Text>
+                  </li>
+                </ul>
+              </Card>
+            </section>
+            
+            <section id="monitoring-progress">
+              <Card className="p-6">
+                <Heading level="h2" className="mb-4">Monitoring Student Progress</Heading>
+                <Text className="mb-4">
+                  The EdPsych AI Platform provides comprehensive tools to monitor your child's academic progress and learning journey.
+                </Text>
+                
+                <div className="flex items-centre justify-centre mb-6">
+                  <Button className="mr-4" asChild>
+                    <Link href="/platform-manuals/features/parent-progress-monitoring">
+                      <BarChart className="mr-2 h-4 w-4" />
+                      Detailed Progress Monitoring Guide
+                    </Link>
+                  </Button>
+                </div>
+                
+                <Heading level="h3" className="mb-2">Key Features</Heading>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                  <div className="border rounded-md p-4">
+                    <div className="flex items-centre mb-2">
+                      <Eye className="h-5 w-5 text-primary mr-2" />
+                      <Heading level="h4" className="text-lg">Subject Progress</Heading>
+                    </div>
+                    <Text>Track progress across different subjects with detailed breakdowns of strengths and areas for improvement.</Text>
+                  </div>
+                  <div className="border rounded-md p-4">
+                    <div className="flex items-centre mb-2">
+                      <Award className="h-5 w-5 text-primary mr-2" />
+                      <Heading level="h4" className="text-lg">Achievement Tracking</Heading>
+                    </div>
+                    <Text>View completed assignments, assessments, and earned achievements with performance metrics.</Text>
+                  </div>
+                  <div className="border rounded-md p-4">
+                    <div className="flex items-centre mb-2">
+                      <BarChart className="h-5 w-5 text-primary mr-2" />
+                      <Heading level="h4" className="text-lg">Growth Over Time</Heading>
+                    </div>
+                    <Text>See how your child's performance has changed over time with trend analysis and progress charts.</Text>
+                  </div>
+                  <div className="border rounded-md p-4">
+                    <div className="flex items-centre mb-2">
+                      <Bell className="h-5 w-5 text-primary mr-2" />
+                      <Heading level="h4" className="text-lg">Alerts and Notifications</Heading>
+                    </div>
+                    <Text>Receive alerts about important events, missed assignments, or significant changes in performance.</Text>
+                  </div>
+                </div>
+                
+                <Heading level="h3" className="mb-2">Accessing Detailed Reports</Heading>
+                <ol className="list-decimal pl-8 mb-6 space-y-2">
+                  <li>
+                    <Text>
+                      <span className="font-medium">Progress Reports:</span> Access comprehensive progress reports from the "Reports" section of your dashboard.
+                    </Text>
+                  </li>
+                  <li>
+                    <Text>
+                      <span className="font-medium">Subject Details:</span> Click on any subject card to view detailed performance in that specific area.
+                    </Text>
+                  </li>
+                  <li>
+                    <Text>
+                      <span className="font-medium">Assignment Review:</span> View completed assignments with scores, feedback, and areas for improvement.
+                    </Text>
+                  </li>
+                  <li>
+                    <Text>
+                      <span className="font-medium">Learning Analytics:</span> Access AI-generated insights about learning patterns, strengths, and challenges.
+                    </Text>
+                  </li>
+                  <li>
+                    <Text>
+                      <span className="font-medium">Export Options:</span> Download reports in PDF format or share them directly with tutors or other educational support.
+                    </Text>
+                  </li>
+                </ol>
+                
+                <div className="bg-muted p-4 rounded-md">
+                  <Heading level="h3" className="text-lg mb-2">Pro Tips</Heading>
+                  <ul className="list-disc pl-6 space-y-2">
+                    <li>
+                      <Text>Timetable regular check-ins with your child to review progress together and celebrate achievements.</Text>
+                    </li>
+                    <li>
+                      <Text>Use the "Discussion Points" feature to get AI-suggested conversation starters based on recent learning activities.</Text>
+                    </li>
+                    <li>
+                      <Text>Enable weekly email summaries to get regular updates without having to log in to the platform.</Text>
+                    </li>
+                    <li>
+                      <Text>Focus on growth and improvement rather than just scores and grades when discussing progress.</Text>
+                    </li>
+                  </ul>
+                </div>
+              </Card>
+            </section>
+            
+            <div className="flex justify-between items-centre">
+              <Button variant="outline" disabled>
+                <ChevronLeft className="h-4 w-4 mr-2" />
+                Previous: Introduction
+              </Button>
+              <Button asChild>
+                <Link href="#performance-metrics">
+                  Next: Understanding Metrics
+                  <ChevronLeft className="h-4 w-4 ml-2 rotate-180" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </AIEnhancedLayout>
+  );
+}
+
+export default ParentManualPage;

@@ -1,0 +1,451 @@
+'use client';
+
+import dynamic from 'next/dynamic';
+
+import React from 'react';
+
+import { Heading } from '@/components/ui/heading';
+import { Text } from '@/components/ui/text';
+import { Card } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
+import { 
+  FileText, 
+  Shield, 
+  AlertTriangle, 
+  Clock,
+  CreditCard,
+  Users,
+  BookOpen,
+  Lock,
+  Scale,
+  MessageSquare
+} from 'lucide-react';
+import Link from 'next/link';
+// Original component
+
+const AIEnhancedLayout = dynamic(
+  () => import('@/components/layouts/AIEnhancedLayout'),
+  { ssr: false }
+);
+
+function TermsPage() {
+  return (
+    <AIEnhancedLayout>
+      <div className="container mx-auto py-8 max-w-4xl">
+        <div className="flex items-centre mb-6">
+          <FileText className="h-8 w-8 text-primary mr-3" />
+          <Heading level="h1">Terms of Service</Heading>
+        </div>
+        
+        <Card className="p-6 mb-8">
+          <Text className="text-xl mb-4">
+            Welcome to EdPsych AI. These Terms of Service ("Terms") govern your access to and use of the EdPsych AI platform, including any associated websites, mobile applications, and services (collectively, the "Platform").
+          </Text>
+          
+          <Text className="mb-4">
+            Please read these Terms carefully before using our Platform. By accessing or using the Platform, you agree to be bound by these Terms and our Privacy Policy. If you do not agree to these Terms, you may not access or use the Platform.
+          </Text>
+          
+          <div className="bg-muted p-4 rounded-md">
+            <Text className="font-medium">Last Updated: June 7, 2025</Text>
+          </div>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-centre">
+            <BookOpen className="h-5 w-5 mr-2" /> Acceptance of Terms
+          </Heading>
+          
+          <Text className="mb-4">
+            By accessing or using the Platform, you acknowledge that you have read, understood, and agree to be bound by these Terms. If you are using the Platform on behalf of an organisation (such as a school or educational institution), you represent and warrant that you have the authority to bind that organisation to these Terms.
+          </Text>
+          
+          <Text className="mb-4">
+            We may modify these Terms at any time. We will provide notice of any material changes by posting the updated Terms on this page and updating the "Last Updated" date. Your continued use of the Platform after any such changes constitutes your acceptance of the modified Terms.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-centre">
+            <Users className="h-5 w-5 mr-2" /> User Accounts and Registration
+          </Heading>
+          
+          <Text className="mb-4">
+            To access certain features of the Platform, you must create an account. When registering for an account, you agree to provide accurate, current, and complete information. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.
+          </Text>
+          
+          <Heading level="h3" className="text-lg mt-4 mb-2">Account Types</Heading>
+          <Text className="mb-4">
+            The Platform offers different types of user accounts, including Educator, Student, and Administrator accounts. Each account type has access to different features and functionalities. You agree to register for the appropriate account type based on your role and to use the account in accordance with its intended purpose.
+          </Text>
+          
+          <Heading level="h3" className="text-lg mt-4 mb-2">Account Security</Heading>
+          <Text className="mb-4">
+            You are responsible for maintaining the security of your account and for any activities that occur under your account. You agree to:
+          </Text>
+          
+          <ul className="list-disc pl-8 mb-4 space-y-2">
+            <li>
+              <Text>Create a strong password and keep it confidential</Text>
+            </li>
+            <li>
+              <Text>Log out of your account at the end of each session</Text>
+            </li>
+            <li>
+              <Text>Notify us immediately of any unauthorized use of your account or any other breach of security</Text>
+            </li>
+            <li>
+              <Text>Ensure that all users under your supervision (if applicable) comply with these Terms</Text>
+            </li>
+          </ul>
+          
+          <Text className="mb-4">
+            We reserve the right to disable any user account at any time if, in our opinion, you have failed to comply with these Terms or if we believe your account is being used fraudulently.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-centre">
+            <CreditCard className="h-5 w-5 mr-2" /> Subscription and Payment Terms
+          </Heading>
+          
+          <Text className="mb-4">
+            The Platform offers various subscription plans and payment options. By selecting a subscription plan, you agree to pay the applicable fees as described at the time of purchase.
+          </Text>
+          
+          <Heading level="h3" className="text-lg mt-4 mb-2">Subscription Plans</Heading>
+          <Text className="mb-4">
+            Subscription plans may vary in terms of features, access levels, and pricing. The specific details of each subscription plan are provided on our pricing page. We reserve the right to modify subscription plans and pricing at any time, with notice to affected users.
+          </Text>
+          
+          <Heading level="h3" className="text-lg mt-4 mb-2">Payment Processing</Heading>
+          <Text className="mb-4">
+            Payments are processed through secure third-party payment processors. By providing payment information, you represent and warrant that you are authorized to use the payment method and agree to the terms of the payment processor.
+          </Text>
+          
+          <Heading level="h3" className="text-lg mt-4 mb-2">Billing Cycles</Heading>
+          <Text className="mb-4">
+            Subscriptions are billed in advance on a recurring basis (monthly, annually, or as otherwise specified during purchase). You authorize us to charge your payment method on a recurring basis until your subscription is terminated.
+          </Text>
+          
+          <Heading level="h3" className="text-lg mt-4 mb-2">Cancellation and Refunds</Heading>
+          <Text className="mb-4">
+            You may cancel your subscription at any time through your account settings or by contacting our support team. Cancellation will take effect at the end of your current billing cycle. We do not provide refunds for partial subscription periods unless required by law.
+          </Text>
+          
+          <Text className="mb-4">
+            Educational institutions may have special cancellation terms as specified in their service agreements.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-centre">
+            <CreditCard className="h-5 w-5 mr-2" /> Credits System
+          </Heading>
+          
+          <Text className="mb-4">
+            The Platform uses a credits system for accessing certain premium features and services. Credits are a virtual currency that can be purchased or earned through various activities on the Platform.
+          </Text>
+          
+          <Heading level="h3" className="text-lg mt-4 mb-2">Credit Purchases</Heading>
+          <Text className="mb-4">
+            Credits can be purchased individually or in bundles. All credit purchases are final and non-refundable unless required by law. The price and availability of credits may change at any time without notice.
+          </Text>
+          
+          <Heading level="h3" className="text-lg mt-4 mb-2">Credit Usage</Heading>
+          <Text className="mb-4">
+            Different features and services on the Platform may require different amounts of credits. The credit cost for each feature or service is displayed before use. We reserve the right to modify the credit cost of features and services at any time.
+          </Text>
+          
+          <Heading level="h3" className="text-lg mt-4 mb-2">Credit Expiration</Heading>
+          <Text className="mb-4">
+            Credits may have an expiration date as specified at the time of purchase or issuance. Expired credits cannot be used, refunded, or restored.
+          </Text>
+          
+          <Heading level="h3" className="text-lg mt-4 mb-2">Credit Bundles</Heading>
+          <Text className="mb-4">
+            The Platform may offer personalized credit bundles based on your usage patterns. These bundles are tailored offers and may not be available to all users.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-centre">
+            <Shield className="h-5 w-5 mr-2" /> Intellectual Property Rights
+          </Heading>
+          
+          <Heading level="h3" className="text-lg mt-4 mb-2">Platform Content</Heading>
+          <Text className="mb-4">
+            The Platform and its original content, features, and functionality are owned by EdPsych AI and are protected by international copyright, trademark, patent, trade secret, and other intellectual property laws. You may not reproduce, distribute, modify, create derivative works of, publicly display, publicly perform, republish, download, store, or transmit any of the material on our Platform without our prior written consent.
+          </Text>
+          
+          <Heading level="h3" className="text-lg mt-4 mb-2">AI-Generated Content</Heading>
+          <Text className="mb-4">
+            Content generated by the Platform's AI features is subject to the following terms:
+          </Text>
+          
+          <ul className="list-disc pl-8 mb-4 space-y-2">
+            <li>
+              <Text>For Educators: You have a licence to use AI-generated content for educational purposes within your institution. You may modify and adapt this content to suit your educational needs.</Text>
+            </li>
+            <li>
+              <Text>For Students: You may use AI-generated content for your personal educational purposes. You may not distribute or share this content outside of your educational institution without permission.</Text>
+            </li>
+            <li>
+              <Text>For Administrators: You may use AI-generated content within your institution for administrative and educational purposes.</Text>
+            </li>
+          </ul>
+          
+          <Heading level="h3" className="text-lg mt-4 mb-2">User Content</Heading>
+          <Text className="mb-4">
+            By submitting, posting, or displaying content on or through the Platform ("User Content"), you grant us a worldwide, non-exclusive, royalty-free licence to use, reproduce, modify, adapt, publish, translate, and distribute such content in connection with providing and promoting the Platform.
+          </Text>
+          
+          <Text className="mb-4">
+            You represent and warrant that you own or have the necessary rights to the User Content you submit and that the User Content does not infringe upon the intellectual property rights of any third party.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-centre">
+            <AlertTriangle className="h-5 w-5 mr-2" /> User Content and Conduct
+          </Heading>
+          
+          <Text className="mb-4">
+            You are solely responsible for all User Content that you upload, post, email, transmit, or otherwise make available via the Platform. We do not claim ownership of your User Content.
+          </Text>
+          
+          <Heading level="h3" className="text-lg mt-4 mb-2">Content Standards</Heading>
+          <Text className="mb-4">
+            User Content must comply with all applicable laws and regulations and must not:
+          </Text>
+          
+          <ul className="list-disc pl-8 mb-4 space-y-2">
+            <li>
+              <Text>Contain any material that is defamatory, obscene, indecent, abusive, offensive, harassing, violent, hateful, inflammatory, or otherwise objectionable</Text>
+            </li>
+            <li>
+              <Text>Promote sexually explicit or pornographic material, violence, or discrimination based on race, sex, religion, nationality, disability, sexual orientation, or age</Text>
+            </li>
+            <li>
+              <Text>Infringe any patent, trademark, trade secret, copyright, or other intellectual property rights</Text>
+            </li>
+            <li>
+              <Text>Violate the legal rights of others or contain any material that could give rise to civil or criminal liability</Text>
+            </li>
+            <li>
+              <Text>Be likely to deceive or mislead any person</Text>
+            </li>
+            <li>
+              <Text>Promote any illegal activity or advocate, promote, or assist any unlawful act</Text>
+            </li>
+            <li>
+              <Text>Impersonate any person or misrepresent your identity or affiliation with any person or organisation</Text>
+            </li>
+            <li>
+              <Text>Involve commercial activities or sales without our prior written consent</Text>
+            </li>
+          </ul>
+          
+          <Heading level="h3" className="text-lg mt-4 mb-2">Monitoring and Enforcement</Heading>
+          <Text className="mb-4">
+            We have the right to:
+          </Text>
+          
+          <ul className="list-disc pl-8 mb-4 space-y-2">
+            <li>
+              <Text>Remove or refuse to post any User Content for any reason</Text>
+            </li>
+            <li>
+              <Text>Take any action with respect to User Content that we deem necessary or appropriate</Text>
+            </li>
+            <li>
+              <Text>Disclose your identity or other information about you to any third party who claims that material posted by you violates their rights</Text>
+            </li>
+            <li>
+              <Text>Take appropriate legal action for any illegal or unauthorized use of the Platform</Text>
+            </li>
+            <li>
+              <Text>Terminate or suspend your access to all or part of the Platform for any violation of these Terms</Text>
+            </li>
+          </ul>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-centre">
+            <AlertTriangle className="h-5 w-5 mr-2" /> Prohibited Activities
+          </Heading>
+          
+          <Text className="mb-4">
+            You agree not to engage in any of the following prohibited activities:
+          </Text>
+          
+          <ul className="list-disc pl-8 mb-4 space-y-2">
+            <li>
+              <Text>Using the Platform for any purpose that is illegal or prohibited by these Terms</Text>
+            </li>
+            <li>
+              <Text>Attempting to interfere with, compromise the system integrity or security, or decipher any transmissions to or from the servers running the Platform</Text>
+            </li>
+            <li>
+              <Text>Using any robot, spider, crawler, scraper, or other automated means to access the Platform</Text>
+            </li>
+            <li>
+              <Text>Bypassing measures we may use to prevent or restrict access to the Platform</Text>
+            </li>
+            <li>
+              <Text>Introducing any viruses, trojan horses, worms, logic bombs, or other harmful material</Text>
+            </li>
+            <li>
+              <Text>Attempting to gain unauthorized access to, interfere with, damage, or disrupt the Platform or any server, computer, or database connected to the Platform</Text>
+            </li>
+            <li>
+              <Text>Attacking the Platform via a denial-of-service attack or a distributed denial-of-service attack</Text>
+            </li>
+            <li>
+              <Text>Using the Platform in any manner that could disable, overburden, damage, or impair the Platform</Text>
+            </li>
+          </ul>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-centre">
+            <Scale className="h-5 w-5 mr-2" /> Termination of Service
+          </Heading>
+          
+          <Text className="mb-4">
+            We may terminate or suspend your account and access to the Platform immediately, without prior notice or liability, for any reason, including if you breach these Terms.
+          </Text>
+          
+          <Text className="mb-4">
+            Upon termination, your right to use the Platform will immediately cease. If you wish to terminate your account, you may simply discontinue using the Platform or contact us to request account deletion.
+          </Text>
+          
+          <Text className="mb-4">
+            All provisions of these Terms which by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity, and limitations of liability.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-centre">
+            <AlertTriangle className="h-5 w-5 mr-2" /> Disclaimers and Limitations of Liability
+          </Heading>
+          
+          <Heading level="h3" className="text-lg mt-4 mb-2">Disclaimer of Warranties</Heading>
+          <Text className="mb-4">
+            THE PLATFORM IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT ANY WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED. TO THE FULLEST EXTENT PERMITTED BY LAW, EDPSYCH AI DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+          </Text>
+          
+          <Text className="mb-4">
+            WE DO NOT WARRANT THAT THE PLATFORM WILL BE UNINTERRUPTED OR ERROR-FREE, THAT DEFECTS WILL BE CORRECTED, OR THAT THE PLATFORM OR THE SERVERS THAT MAKE IT AVAILABLE ARE FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS.
+          </Text>
+          
+          <Heading level="h3" className="text-lg mt-4 mb-2">Limitation of Liability</Heading>
+          <Text className="mb-4">
+            TO THE FULLEST EXTENT PERMITTED BY LAW, EDPSYCH AI SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO, DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA, OR OTHER INTANGIBLE LOSSES RESULTING FROM:
+          </Text>
+          
+          <ul className="list-disc pl-8 mb-4 space-y-2">
+            <li>
+              <Text>YOUR ACCESS TO OR USE OF OR INABILITY TO ACCESS OR USE THE PLATFORM</Text>
+            </li>
+            <li>
+              <Text>ANY CONDUCT OR CONTENT OF ANY THIRD PARTY ON THE PLATFORM</Text>
+            </li>
+            <li>
+              <Text>ANY CONTENT OBTAINED FROM THE PLATFORM</Text>
+            </li>
+            <li>
+              <Text>UNAUTHORIZED ACCESS, USE, OR ALTERATION OF YOUR TRANSMISSIONS OR CONTENT</Text>
+            </li>
+          </ul>
+          
+          <Text className="mb-4">
+            IN NO EVENT SHALL OUR TOTAL LIABILITY TO YOU FOR ALL CLAIMS EXCEED THE AMOUNT PAID BY YOU, IF ANY, FOR ACCESSING THE PLATFORM DURING THE TWELVE (12) MONTHS PRIOR TO THE CLAIM.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-centre">
+            <Scale className="h-5 w-5 mr-2" /> Governing Law and Dispute Resolution
+          </Heading>
+          
+          <Text className="mb-4">
+            These Terms shall be governed by and construed in accordance with the laws of the State of California, without regard to its conflict of law provisions.
+          </Text>
+          
+          <Text className="mb-4">
+            Any dispute arising from or relating to these Terms or the Platform shall be resolved through the following steps:
+          </Text>
+          
+          <ol className="list-decimal pl-8 mb-4 space-y-2">
+            <li>
+              <Text>Informal Resolution: We encourage you to contact us first to seek an informal resolution to any dispute.</Text>
+            </li>
+            <li>
+              <Text>Mediation: If informal resolution is unsuccessful, the parties agree to mediate any dispute before resorting to arbitration or litigation.</Text>
+            </li>
+            <li>
+              <Text>Arbitration: If mediation is unsuccessful, any dispute shall be submitted to binding arbitration in accordance with the rules of the American Arbitration Association.</Text>
+            </li>
+          </ol>
+          
+          <Text className="mb-4">
+            Notwithstanding the foregoing, either party may seek injunctive or other equitable relief in any court of competent jurisdiction.
+          </Text>
+          
+          <Text className="mb-4">
+            YOU AGREE TO WAIVE ANY RIGHT TO A JURY TRIAL OR TO PARTICIPATE IN A CLASS ACTION LAWSUIT OR CLASS-WIDE ARBITRATION.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-centre">
+            <Clock className="h-5 w-5 mr-2" /> Changes to Terms
+          </Heading>
+          
+          <Text className="mb-4">
+            We may update these Terms from time to time. We will notify you of any changes by posting the new Terms on this page and updating the "Last Updated" date at the top of these Terms.
+          </Text>
+          
+          <Text className="mb-4">
+            You are advised to review these Terms periodically for any changes. Changes to these Terms are effective when they are posted on this page.
+          </Text>
+          
+          <Text className="mb-4">
+            Your continued use of the Platform after any changes to these Terms constitutes your acceptance of the revised Terms.
+          </Text>
+        </Card>
+        
+        <Card className="p-6">
+          <Heading level="h2" className="mb-4 flex items-centre">
+            <MessageSquare className="h-5 w-5 mr-2" /> Contact Information
+          </Heading>
+          
+          <Text className="mb-4">
+            If you have any questions about these Terms, please contact us at:
+          </Text>
+          
+          <div className="bg-muted p-4 rounded-md mb-4">
+            <p>EdPsych AI</p>
+            <p>123 Education Lane</p>
+            <p>Learning City, ED 12345</p>
+            <p>Email: legal@edpsychai.com</p>
+            <p>Phone: (555) 123-4567</p>
+          </div>
+          
+          <div className="flex justify-centre mt-6">
+            <Button variant="outline" asChild>
+              <Link href="/contact">
+                Contact Us
+              </Link>
+            </Button>
+          </div>
+        </Card>
+      </div>
+    </AIEnhancedLayout>
+  );
+}
+
+
+export default TermsPage;

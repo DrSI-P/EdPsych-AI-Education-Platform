@@ -1,0 +1,555 @@
+'use client';
+
+import dynamic from 'next/dynamic';
+
+import React, { useState } from 'react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
+
+import { 
+Brain, 
+  BarChart, 
+  BookOpen, 
+  Lightbulb, 
+  Star,
+  Clock,
+  ArrowRight,
+  CheckCircle,
+  FileText,
+  Users,
+  BarChart2,
+  PieChart,
+  LineChart,
+  Download,
+  Filter,
+  Search,
+  Calendar,
+  User
+} from 'lucide-react';
+const ComprehensiveNavigation = dynamic(
+  () => import('@/components/navigation/comprehensive-navigation'),
+  { ssr: false }
+);
+
+
+
+
+
+// Original component
+function AIAssessmentPage() {
+  const [activeTab, setActiveTab] = useState('overview');
+  const [selectedAssessment, setSelectedAssessment] = useState<string | null>(null);
+
+  // Sample data for demonstration
+  const assessmentTypes = [
+    { 
+      id: 'cognitive', 
+      name: 'Cognitive Assessment', 
+      icon: Brain,
+      description: 'Comprehensive evaluation of cognitive abilities including processing speed, working memory, and reasoning.',
+      completionTime: '30-45 minutes',
+      recommendedFor: 'Ages 6-18',
+      aiFeatures: ['Adaptive questioning', 'Real-time analysis', 'Personalized feedback'],
+      color: 'blue'
+    },
+    { 
+      id: 'academic', 
+      name: 'Academic Progress', 
+      icon: BookOpen,
+      description: 'Assessment of academic skills and knowledge across core curriculum subjects.',
+      completionTime: '20-30 minutes per subject',
+      recommendedFor: 'All students',
+      aiFeatures: ['Curriculum alignment', 'Gap analysis', 'Learning path recommendations'],
+      color: 'green'
+    },
+    { 
+      id: 'social', 
+      name: 'Social-Emotional', 
+      icon: Users,
+      description: 'Evaluation of social skills, emotional regulation, and interpersonal relationships.',
+      completionTime: '15-20 minutes',
+      recommendedFor: 'All students',
+      aiFeatures: ['Sentiment analysis', 'Behavioural pattern recognition', 'Wellbeing insights'],
+      color: 'purple'
+    },
+    { 
+      id: 'learning', 
+      name: 'Learning Style', 
+      icon: Lightbulb,
+      description: 'Analysis of preferred learning modalities and cognitive strengths.',
+      completionTime: '10-15 minutes',
+      recommendedFor: 'All students',
+      aiFeatures: ['Preference mapping', 'Teaching strategy recommendations', 'Resource suggestions'],
+      color: 'amber'
+    }
+  ];
+
+  const recentAssessments = [
+    {
+      id: 'a1',
+      type: 'cognitive',
+      student: 'Alex Johnson',
+      date: 'June 2, 2025',
+      score: 87,
+      status: 'Completed',
+      insights: 'Strong verbal reasoning, opportunity for growth in processing speed'
+    },
+    {
+      id: 'a2',
+      type: 'academic',
+      student: 'Maya Patel',
+      date: 'June 1, 2025',
+      score: 92,
+      status: 'Completed',
+      insights: 'Excellent mathematics performance, recommended for advanced curriculum'
+    },
+    {
+      id: 'a3',
+      type: 'social',
+      student: 'Thomas Wilson',
+      date: 'May 30, 2025',
+      score: 75,
+      status: 'Completed',
+      insights: 'Good emotional awareness, opportunities for developing conflict resolution skills'
+    },
+    {
+      id: 'a4',
+      type: 'learning',
+      student: 'Sophia Chen',
+      date: 'May 28, 2025',
+      score: 100,
+      status: 'Completed',
+      insights: 'Strong visual-spatial learner, benefits from graphical representations'
+    }
+  ];
+
+  const scheduledAssessments = [
+    {
+      id: 's1',
+      type: 'cognitive',
+      student: 'James Smith',
+      date: 'June 8, 2025',
+      time: '10:00 AM',
+      duration: '45 minutes'
+    },
+    {
+      id: 's2',
+      type: 'academic',
+      student: 'Emma Davis',
+      date: 'June 10, 2025',
+      time: '2:30 PM',
+      duration: '30 minutes'
+    },
+    {
+      id: 's3',
+      type: 'social',
+      student: 'Noah Brown',
+      date: 'June 12, 2025',
+      time: '11:15 AM',
+      duration: '20 minutes'
+    }
+  ];
+
+  const handleAssessmentSelect = (id: string) => {
+    setSelectedAssessment(id);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <ComprehensiveNavigation />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 mb-4">
+            <Brain className="w-4 h-4 mr-2" />
+            AI Assessment
+          </Badge>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            AI-Powered Educational Assessment
+          </h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Comprehensive, adaptive assessment tools powered by artificial intelligence to provide deeper insights into student learning and development.
+          </p>
+        </div>
+
+        {/* Main Tabs */}
+        <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab} className="mb-8">
+          <TabsList className="grid grid-cols-4 mb-8">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="assessments">Assessment Types</TabsTrigger>
+            <TabsTrigger value="results">Recent Results</TabsTrigger>
+            <TabsTrigger value="timetable">Timetable</TabsTrigger>
+          </TabsList>
+          
+          {/* Overview Tab */}
+          <TabsContent value="overview">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center">
+                    <CheckCircle className="w-5 h-5 mr-2 text-green-500" />
+                    Completed Assessments
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold">24</div>
+                  <p className="text-sm text-gray-500">Last 30 days</p>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center">
+                    <Calendar className="w-5 h-5 mr-2 text-blue-500" />
+                    Scheduled Assessments
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold">12</div>
+                  <p className="text-sm text-gray-500">Next 30 days</p>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center">
+                    <BarChart className="w-5 h-5 mr-2 text-purple-500" />
+                    Average Improvement
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold">18%</div>
+                  <p className="text-sm text-gray-500">After interventions</p>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Assessment Activity</CardTitle>
+                  <CardDescription>Recent assessment completions by type</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-80 flex items-center justify-center">
+                    <div className="text-center">
+                      <PieChart className="w-16 h-16 mx-auto text-gray-300 mb-4" />
+                      <p className="text-gray-500">Assessment activity chart</p>
+                      <p className="text-sm text-gray-400">(Visualization placeholder)</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader>
+                  <CardTitle>Performance Trends</CardTitle>
+                  <CardDescription>Student performance over time</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-80 flex items-center justify-center">
+                    <div className="text-center">
+                      <LineChart className="w-16 h-16 mx-auto text-gray-300 mb-4" />
+                      <p className="text-gray-500">Performance trends chart</p>
+                      <p className="text-sm text-gray-400">(Visualization placeholder)</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <Card className="mt-8 bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+              <CardContent className="p-6">
+                <div className="flex items-center space-x-4 mb-4">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                    <Brain className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold">AI Assessment Benefits</h3>
+                    <p className="text-sm text-gray-600">How our AI enhances educational assessment</p>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                  <div className="bg-white p-4 rounded-lg shadow-sm">
+                    <h4 className="font-medium mb-2 flex items-center">
+                      <Lightbulb className="w-4 h-4 mr-2 text-amber-500" />
+                      Adaptive Learning
+                    </h4>
+                    <p className="text-sm text-gray-600">
+                      Assessments adapt in real-time based on student responses, providing more accurate results.
+                    </p>
+                  </div>
+                  
+                  <div className="bg-white p-4 rounded-lg shadow-sm">
+                    <h4 className="font-medium mb-2 flex items-center">
+                      <BarChart2 className="w-4 h-4 mr-2 text-blue-500" />
+                      Comprehensive Insights
+                    </h4>
+                    <p className="text-sm text-gray-600">
+                      AI analyzes patterns across multiple assessments to identify strengths and growth areas.
+                    </p>
+                  </div>
+                  
+                  <div className="bg-white p-4 rounded-lg shadow-sm">
+                    <h4 className="font-medium mb-2 flex items-center">
+                      <FileText className="w-4 h-4 mr-2 text-green-500" />
+                      Personalized Reports
+                    </h4>
+                    <p className="text-sm text-gray-600">
+                      Detailed, easy-to-understand reports with actionable recommendations for each student.
+                    </p>
+                  </div>
+                </div>
+                
+                <Button variant="outline" className="w-full">
+                  Learn More About Our Assessment Technology
+                </Button>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          
+          {/* Assessment Types Tab */}
+          <TabsContent value="assessments">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {assessmentTypes.map((assessment) => (
+                <Card 
+                  key={assessment.id} 
+                  className={`overflow-hidden cursor-pointer transition-all ${
+                    selectedAssessment === assessment.id ? 'ring-2 ring-blue-500' : ''
+                  }`}
+                  onClick={() => handleAssessmentSelect(assessment.id)}
+                >
+                  <div className={`h-2 bg-${assessment.color}-500`}></div>
+                  <CardHeader>
+                    <div className="flex items-center">
+                      <div className={`w-10 h-10 rounded-full bg-${assessment.color}-100 flex items-center justify-center mr-3`}>
+                        <assessment.icon className={`w-5 h-5 text-${assessment.color}-600`} />
+                      </div>
+                      <CardTitle>{assessment.name}</CardTitle>
+                    </div>
+                    <CardDescription>{assessment.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div>
+                        <div className="text-sm font-medium mb-1">Completion Time</div>
+                        <div className="flex items-center">
+                          <Clock className="w-4 h-4 mr-2 text-gray-500" />
+                          <span>{assessment.completionTime}</span>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <div className="text-sm font-medium mb-1">Recommended For</div>
+                        <div className="flex items-center">
+                          <Users className="w-4 h-4 mr-2 text-gray-500" />
+                          <span>{assessment.recommendedFor}</span>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <div className="text-sm font-medium mb-1">AI-Powered Features</div>
+                        <ul className="space-y-1">
+                          {assessment.aiFeatures.map((feature, index) => (
+                            <li key={index} className="flex items-start">
+                              <Brain className="w-4 h-4 mr-2 text-purple-500 mt-0.5" />
+                              <span className="text-sm">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <Button className="w-full">
+                      Start Assessment
+                      <ArrowRight className="ml-2 w-4 h-4" />
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+          
+          {/* Results Tab */}
+          <TabsContent value="results">
+            <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div className="flex items-center">
+                <h2 className="text-2xl font-bold">Recent Assessment Results</h2>
+                <Badge className="ml-3">{recentAssessments.length} Results</Badge>
+              </div>
+              
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm" className="flex items-center">
+                  <Filter className="w-4 h-4 mr-2" />
+                  Filter
+                </Button>
+                <Button variant="outline" size="sm" className="flex items-center">
+                  <Download className="w-4 h-4 mr-2" />
+                  Export
+                </Button>
+              </div>
+            </div>
+            
+            <div className="space-y-4">
+              {recentAssessments.map((assessment) => {
+                const assessmentType = assessmentTypes.find(t => t.id === assessment.type);
+                return (
+                  <Card key={assessment.id} className="overflow-hidden">
+                    <div className={`h-1 bg-${assessmentType?.color || 'gray'}-500`}></div>
+                    <CardContent className="p-6">
+                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div className="flex items-center">
+                          <div className={`w-10 h-10 rounded-full bg-${assessmentType?.color || 'gray'}-100 flex items-center justify-center mr-3`}>
+                            {assessmentType?.icon && <assessmentType.icon className={`w-5 h-5 text-${assessmentType?.color || 'gray'}-600`} />}
+                          </div>
+                          <div>
+                            <h3 className="font-medium">{assessmentType?.name || 'Assessment'}</h3>
+                            <div className="flex items-center text-sm text-gray-500">
+                              <User className="w-3 h-3 mr-1" />
+                              {assessment.student}
+                              <span className="mx-2">•</span>
+                              <Calendar className="w-3 h-3 mr-1" />
+                              {assessment.date}
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center gap-4">
+                          <div>
+                            <div className="text-sm text-gray-500 mb-1">Score</div>
+                            <div className="font-bold text-lg">{assessment.score}%</div>
+                          </div>
+                          
+                          <div>
+                            <div className="text-sm text-gray-500 mb-1">Status</div>
+                            <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                              {assessment.status}
+                            </Badge>
+                          </div>
+                          
+                          <Button size="sm">View Details</Button>
+                        </div>
+                      </div>
+                      
+                      <Separator className="my-4" />
+                      
+                      <div>
+                        <div className="text-sm font-medium mb-2">AI Insights</div>
+                        <div className="bg-blue-50 border border-blue-100 rounded-lg p-3 flex items-start">
+                          <Brain className="w-5 h-5 text-blue-500 mr-2 mt-0.5" />
+                          <p className="text-sm text-gray-700">{assessment.insights}</p>
+                        </div>
+                      </div>
+                      
+                      <div className="mt-4">
+                        <div className="text-sm font-medium mb-2">Performance</div>
+                        <div className="flex items-center gap-4">
+                          <Progress value={assessment.score} className="flex-1" />
+                          <span className="text-sm font-medium">{assessment.score}%</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </TabsContent>
+          
+          {/* Timetable Tab */}
+          <TabsContent value="timetable">
+            <div className="mb-6 flex justify-between items-center">
+              <h2 className="text-2xl font-bold">Scheduled Assessments</h2>
+              <Button>
+                Timetable New Assessment
+              </Button>
+            </div>
+            
+            <div className="space-y-4">
+              {scheduledAssessments.map((assessment) => {
+                const assessmentType = assessmentTypes.find(t => t.id === assessment.type);
+                return (
+                  <Card key={assessment.id} className="overflow-hidden">
+                    <CardContent className="p-6">
+                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div className="flex items-center">
+                          <div className={`w-10 h-10 rounded-full bg-${assessmentType?.color || 'gray'}-100 flex items-center justify-center mr-3`}>
+                            {assessmentType?.icon && <assessmentType.icon className={`w-5 h-5 text-${assessmentType?.color || 'gray'}-600`} />}
+                          </div>
+                          <div>
+                            <h3 className="font-medium">{assessmentType?.name || 'Assessment'}</h3>
+                            <div className="flex items-center text-sm text-gray-500">
+                              <User className="w-3 h-3 mr-1" />
+                              {assessment.student}
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center gap-6">
+                          <div>
+                            <div className="text-sm text-gray-500 mb-1">Date & Time</div>
+                            <div className="font-medium">
+                              {assessment.date}, {assessment.time}
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <div className="text-sm text-gray-500 mb-1">Duration</div>
+                            <div className="font-medium">{assessment.duration}</div>
+                          </div>
+                          
+                          <div className="flex gap-2">
+                            <Button size="sm" variant="outline">Reschedule</Button>
+                            <Button size="sm">Start</Button>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+            
+            <Card className="mt-8 bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+              <CardContent className="p-6">
+                <div className="flex items-center space-x-4 mb-4">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                    <Calendar className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold">Assessment Scheduling</h3>
+                    <p className="text-sm text-gray-600">Best practices for scheduling assessments</p>
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="bg-white p-4 rounded-lg shadow-sm">
+                    <h4 className="font-medium mb-2">Optimal Timing</h4>
+                    <p className="text-sm text-gray-600">
+                      Timetable cognitive assessments in the morning when students are most alert. Allow at least 48 hours between major assessments for the same student.
+                    </p>
+                  </div>
+                  
+                  <div className="bg-white p-4 rounded-lg shadow-sm">
+                    <h4 className="font-medium mb-2">Environment Setup</h4>
+                    <p className="text-sm text-gray-600">
+                      Ensure a quiet, distraction-free environment for assessments. For younger students, timetable shorter sessions with breaks.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </div>
+    </div>
+  );
+}
+
+export default AIAssessmentPage;

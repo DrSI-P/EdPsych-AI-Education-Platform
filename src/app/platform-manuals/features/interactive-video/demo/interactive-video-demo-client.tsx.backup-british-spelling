@@ -1,0 +1,206 @@
+'use client';
+
+import React from 'react';
+import Link from 'next/link';
+import { BookOpen, Video, ArrowLeft, FileText } from 'lucide-react';
+import dynamic from 'next/dynamic';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+const VideoNotesGenerator = dynamic(
+  () => import('@/components/video/VideoNotesGenerator'),
+  { ssr: false }
+);
+
+const VideoPlayer = dynamic(
+  () => import('@/components/video/VideoPlayer'),
+  { ssr: false }
+);
+
+export default function InteractiveVideoDemoClient() {
+  return (
+    <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <div className="mb-8 flex justify-between items-centre">
+        <Link href="/platform-manuals/features/interactive-video" className="text-blue-600 hover:text-blue-800 flex items-centre">
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Back to Interactive Video Guide
+        </Link>
+        <Link href="/platform-manuals/features" className="text-blue-600 hover:text-blue-800 flex items-centre">
+          <BookOpen className="mr-2 h-4 w-4" />
+          All Features
+        </Link>
+      </div>
+
+      <div className="bg-white rounded-lg shadow-md p-8">
+        <div className="flex items-centre mb-6">
+          <Video className="h-8 w-8 text-blue-600 mr-3" />
+          <h1 className="text-3xl font-bold text-grey-800">Interactive Video Demo</h1>
+        </div>
+
+        <div className="prose max-w-none mb-8">
+          <p className="text-lg text-grey-700">
+            This demonstration showcases the interactive video features of the EdPsych AI Platform. 
+            Explore the accessible controls, in-video questions, bookmarking, and other features 
+            that enhance the learning experience.
+          </p>
+        </div>
+
+        <div className="mb-8">
+          <VideoPlayer
+            sources={[
+              {
+                src: 'https://storage.googleapis.com/edpsych-demo-videos/educational-psychology-intro.mp4',
+                type: 'video/mp4',
+                quality: '720p'
+              },
+              {
+                src: 'https://storage.googleapis.com/edpsych-demo-videos/educational-psychology-intro-480p.mp4',
+                type: 'video/mp4',
+                quality: '480p'
+              }
+            ]}
+            adaptivePlayback={true}
+            bookmarkSuggestions={true}
+            userId="demo-user-123"
+            subjectId="educational-psychology-101"
+            poster="https://storage.googleapis.com/edpsych-demo-images/educational-psychology-poster.jpg"
+            captions={[
+              {
+                src: 'https://storage.googleapis.com/edpsych-demo-videos/captions/educational-psychology-intro-en.vtt',
+                srcLang: 'en',
+                label: 'English',
+                default: true
+              },
+              {
+                src: 'https://storage.googleapis.com/edpsych-demo-videos/captions/educational-psychology-intro-fr.vtt',
+                srcLang: 'fr',
+                label: 'French'
+              }
+            ]}
+            title="Introduction to Educational Psychology"
+            description="An overview of key concepts in educational psychology and their application in modern classrooms."
+            questions={[
+              {
+                id: 'q1',
+                timeCode: 45, // 45 seconds into the video
+                question: "Which of the following is NOT a key principle of cognitive development according to Piaget?",
+                options: [
+                  "Assimilation",
+                  "Accommodation",
+                  "Equilibration",
+                  "Memorisation"
+                ],
+                correctAnswer: "Memorisation",
+                explanation: "Piaget's theory of cognitive development includes the principles of assimilation (fitting new information into existing schemas), accommodation (changing schemas to fit new information), and equilibration (balancing assimilation and accommodation). Memorisation is not one of Piaget's key principles."
+              },
+              {
+                id: 'q2',
+                timeCode: 120, // 2 minutes into the video
+                question: "Which learning theory emphasises the role of observing and modelling the behaviours, attitudes, and emotional reactions of others?",
+                options: [
+                  "Behavioural learning theory",
+                  "Social cognitive theory",
+                  "Constructivist theory",
+                  "Information processing theory"
+                ],
+                correctAnswer: "Social cognitive theory",
+                explanation: "Social cognitive theory, developed by Albert Bandura, emphasises the importance of observing and modelling the behaviours, attitudes, and emotional reactions of others. It explains human behaviour in terms of continuous reciprocal interaction between cognitive, behavioural, and environmental influences."
+              }
+            ]}
+            nextVideos={[
+              {
+                id: 'video-2',
+                title: "Cognitive Development in Educational Contexts",
+                thumbnail: "https://storage.googleapis.com/edpsych-demo-images/cognitive-development-thumbnail.jpg",
+                duration: 1245 // 20:45
+              },
+              {
+                id: 'video-3',
+                title: "Motivation and Learning: Practical Applications",
+                thumbnail: "https://storage.googleapis.com/edpsych-demo-images/motivation-learning-thumbnail.jpg",
+                duration: 1118 // 18:38
+              },
+              {
+                id: 'video-4',
+                title: "Assessment Strategies for Diverse Learners",
+                thumbnail: "https://storage.googleapis.com/edpsych-demo-images/assessment-strategies-thumbnail.jpg",
+                duration: 1356 // 22:36
+              },
+              {
+                id: 'video-5',
+                title: "Creating Inclusive Learning Environments",
+                thumbnail: "https://storage.googleapis.com/edpsych-demo-images/inclusive-environments-thumbnail.jpg",
+                duration: 1532 // 25:32
+              }
+            ]}
+            onQuestionAnswered={(questionId, answer, correct) => {
+              console.log(`Question ${questionId} answered: ${answer} (${correct ? 'correct' : 'incorrect'})`);
+            }}
+            onBookmark={(timeCode, notes) => {
+              console.log(`Bookmark created at ${timeCode}s with notes: ${notes || 'No notes'}`);
+            }}
+            onComplete={() => {
+              console.log('Video completed');
+            }}
+            className="aspect-video rounded-lg overflow-hidden shadow-lg"
+          />
+        </div>
+
+        <div className="mb-8">
+          <h2 className="text-2xl font-semibold text-grey-800 mb-4 flex items-center">
+            <FileText className="h-6 w-6 text-blue-600 mr-2" />
+            AI Notes Generator
+          </h2>
+          <p className="text-grey-700 mb-4">
+            Generate AI-powered notes from the video content to enhance your learning experience.
+            Choose from different note types and customize the output to suit your needs.
+          </p>
+          <VideoNotesGenerator
+            videoId="demo-video-1"
+            videoTitle="Introduction to Educational Psychology"
+          />
+        </div>
+
+        <div className="bg-blue-50 p-6 rounded-lg mb-8">
+          <h2 className="text-xl font-semibold text-grey-800 mb-4">Demo Features</h2>
+          <p className="text-grey-700 mb-4">
+            This interactive video demonstration includes the following features:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-grey-700">
+            <li><strong>Accessible Controls:</strong> Keyboard navigation, high-contrast options, and screen reader compatibility</li>
+            <li><strong>In-Video Questions:</strong> Interactive questions appear at key moments (around 0:45 and 2:00)</li>
+            <li><strong>Multiple Quality Options:</strong> Switch between different video resolutions</li>
+            <li><strong>Captions and Transcripts:</strong> Toggle captions and view the full transcript</li>
+            <li><strong>Bookmarking:</strong> Create bookmarks with notes at any point in the video</li>
+            <li><strong>Personalized Bookmark Suggestions:</strong> Receive intelligent bookmark suggestions at key moments</li>
+            <li><strong>Playback Speed Control:</strong> Adjust the video speed to suit your learning pace</li>
+            <li><strong>Adaptive Playback Speed:</strong> Automatically adjusts playback speed based on content complexity</li>
+            <li><strong>Recommended Videos:</strong> View suggested next videos upon completion</li>
+            <li><strong>AI Notes Generator:</strong> Create customized notes, summaries, revision guides, and more</li>
+          </ul>
+        </div>
+
+        <div className="bg-grey-50 p-6 rounded-lg">
+          <h2 className="text-xl font-semibold text-grey-800 mb-4">Implementation Notes</h2>
+          <p className="text-grey-700 mb-4">
+            This demonstration uses the following components from the EdPsych AI Platform:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-grey-700">
+            <li><code className="bg-grey-200 px-2 py-1 rounded text-sm">VideoPlayer.tsx</code> - The main video player component</li>
+            <li><code className="bg-grey-200 px-2 py-1 rounded text-sm">VideoNotesGenerator.tsx</code> - AI-powered notes generation</li>
+            <li><code className="bg-grey-200 px-2 py-1 rounded text-sm">AdaptivePlaybackController.tsx</code> - Adaptive playback speed control</li>
+            <li><code className="bg-grey-200 px-2 py-1 rounded text-sm">BookmarkSuggestionOverlay.tsx</code> - Personalized bookmark suggestions</li>
+            <li><code className="bg-grey-200 px-2 py-1 rounded text-sm">content-complexity-analyzer.ts</code> - Content complexity analysis</li>
+            <li><code className="bg-grey-200 px-2 py-1 rounded text-sm">bookmark-suggestion-service.ts</code> - Bookmark suggestion generation</li>
+            <li><code className="bg-grey-200 px-2 py-1 rounded text-sm">AccessibleVideoControls.tsx</code> - Accessible control interface</li>
+            <li><code className="bg-grey-200 px-2 py-1 rounded text-sm">predictive-caching.ts</code> - For optimised video loading</li>
+            <li><code className="bg-grey-200 px-2 py-1 rounded text-sm">/api/video/notes</code> - Backend API for notes generation</li>
+          </ul>
+          <p className="text-grey-700 mt-4">
+            In a production environment, the video sources would be dynamically loaded from the platform&apos;s 
+            content management system, with personalised recommendations based on the learner&apos;s profile and progress.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}

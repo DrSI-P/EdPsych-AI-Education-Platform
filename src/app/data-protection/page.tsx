@@ -1,0 +1,529 @@
+'use client';
+
+import dynamic from 'next/dynamic';
+
+import React from 'react';
+
+import { Heading } from '@/components/ui/heading';
+import { Text } from '@/components/ui/text';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { 
+  Shield, 
+  FileText, 
+  User, 
+  Lock, 
+  Globe, 
+  AlertTriangle,
+  Clock,
+  Mail,
+  Database,
+  Key,
+  FileSearch,
+  Trash2
+} from 'lucide-react';
+import Link from 'next/link';
+// Original component
+
+const AIEnhancedLayout = dynamic(
+  () => import('@/components/layouts/AIEnhancedLayout'),
+  { ssr: false }
+);
+
+function DataProtectionPage() {
+  return (
+    <AIEnhancedLayout>
+      <div className="container mx-auto py-8 max-w-4xl">
+        <div className="flex items-center mb-6">
+          <Shield className="h-8 w-8 text-primary mr-3" />
+          <Heading level="h1">Data Protection Policy</Heading>
+        </div>
+        
+        <Text className="text-xl mb-8">
+          EdPsych AI is committed to protecting the personal data of all our users. This Data Protection Policy outlines our approach to data protection and the measures we take to safeguard your information.
+        </Text>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4">Data Protection Principles</Heading>
+          <Text className="mb-4">
+            EdPsych AI adheres to the following principles when processing personal data:
+          </Text>
+          
+          <ul className="list-disc pl-8 mb-4 space-y-2">
+            <li>
+              <Text><span className="font-semibold">Lawfulness, fairness, and transparency:</span> We process data lawfully, fairly, and in a transparent manner.</Text>
+            </li>
+            <li>
+              <Text><span className="font-semibold">Purpose limitation:</span> We collect data for specified, explicit, and legitimate purposes and do not process it in a manner incompatible with those purposes.</Text>
+            </li>
+            <li>
+              <Text><span className="font-semibold">Data minimisation:</span> We ensure that personal data is adequate, relevant, and limited to what is necessary for the purposes for which it is processed.</Text>
+            </li>
+            <li>
+              <Text><span className="font-semibold">Accuracy:</span> We take reasonable steps to ensure personal data is accurate and, where necessary, kept up to date.</Text>
+            </li>
+            <li>
+              <Text><span className="font-semibold">Storage limitation:</span> We keep personal data in a form that permits identification of data subjects for no longer than necessary for the purposes of processing.</Text>
+            </li>
+            <li>
+              <Text><span className="font-semibold">Integrity and confidentiality:</span> We process personal data in a manner that ensures appropriate security, including protection against unauthorised or unlawful processing and against accidental loss, destruction, or damage.</Text>
+            </li>
+            <li>
+              <Text><span className="font-semibold">Accountability:</span> We are responsible for and can demonstrate compliance with all of the above principles.</Text>
+            </li>
+          </ul>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-center">
+            <User className="h-5 w-5 mr-2" /> Data Subject Rights
+          </Heading>
+          
+          <Text className="mb-4">
+            Under data protection laws, individuals have the following rights regarding their personal data:
+          </Text>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div className="bg-muted p-4 rounded-md">
+              <div className="flex items-center mb-2">
+                <FileSearch className="h-5 w-5 mr-2 text-primary" />
+                <Heading level="h3" className="text-lg">Right to Access</Heading>
+              </div>
+              <Text>
+                You have the right to request a copy of your personal data and information about how we process it.
+              </Text>
+            </div>
+            
+            <div className="bg-muted p-4 rounded-md">
+              <div className="flex items-center mb-2">
+                <FileText className="h-5 w-5 mr-2 text-primary" />
+                <Heading level="h3" className="text-lg">Right to Rectification</Heading>
+              </div>
+              <Text>
+                You have the right to have inaccurate personal data corrected or incomplete data completed.
+              </Text>
+            </div>
+            
+            <div className="bg-muted p-4 rounded-md">
+              <div className="flex items-center mb-2">
+                <Trash2 className="h-5 w-5 mr-2 text-primary" />
+                <Heading level="h3" className="text-lg">Right to Erasure</Heading>
+              </div>
+              <Text>
+                In certain circumstances, you have the right to request the deletion of your personal data.
+              </Text>
+            </div>
+            
+            <div className="bg-muted p-4 rounded-md">
+              <div className="flex items-center mb-2">
+                <Lock className="h-5 w-5 mr-2 text-primary" />
+                <Heading level="h3" className="text-lg">Right to Restrict Processing</Heading>
+              </div>
+              <Text>
+                You have the right to request the restriction of processing of your personal data in certain circumstances.
+              </Text>
+            </div>
+            
+            <div className="bg-muted p-4 rounded-md">
+              <div className="flex items-center mb-2">
+                <Database className="h-5 w-5 mr-2 text-primary" />
+                <Heading level="h3" className="text-lg">Right to Data Portability</Heading>
+              </div>
+              <Text>
+                You have the right to receive your personal data in a structured, commonly used, and machine-readable format.
+              </Text>
+            </div>
+            
+            <div className="bg-muted p-4 rounded-md">
+              <div className="flex items-center mb-2">
+                <AlertTriangle className="h-5 w-5 mr-2 text-primary" />
+                <Heading level="h3" className="text-lg">Right to Object</Heading>
+              </div>
+              <Text>
+                You have the right to object to the processing of your personal data in certain circumstances.
+              </Text>
+            </div>
+          </div>
+          
+          <Text className="mb-4">
+            To exercise any of these rights, please contact our Data Protection Officer using the contact information provided at the end of this policy. We will respond to all legitimate requests within one month.
+          </Text>
+          
+          <div className="flex justify-center">
+            <Button className="mr-4" asChild>
+              <Link href="/data-subject-request">
+                Submit Data Subject Request
+              </Link>
+            </Button>
+          </div>
+        </Card>
+        
+        <Card className="p-6 mb-8 border-amber-500">
+          <div className="flex items-start mb-4">
+            <AlertTriangle className="text-amber-500 mr-2 h-6 w-6 flex-shrink-0" />
+            <Heading level="h2">Data Breach Procedures</Heading>
+          </div>
+          
+          <Text className="mb-4">
+            In the event of a personal data breach, EdPsych AI will:
+          </Text>
+          
+          <ol className="list-decimal pl-8 mb-4 space-y-2">
+            <li>
+              <Text>Notify the relevant supervisory authority within 72 hours of becoming aware of the breach, where feasible, if the breach is likely to result in a risk to the rights and freedoms of individuals.</Text>
+            </li>
+            <li>
+              <Text>Notify affected individuals without undue delay if the breach is likely to result in a high risk to their rights and freedoms.</Text>
+            </li>
+            <li>
+              <Text>Document all breaches, including the facts relating to the breach, its effects, and the remedial action taken.</Text>
+            </li>
+            <li>
+              <Text>Investigate the cause of the breach and take appropriate measures to mitigate any possible adverse effects and prevent future breaches.</Text>
+            </li>
+          </ol>
+          
+          <Text className="mb-4">
+            Our breach notification will include:
+          </Text>
+          
+          <ul className="list-disc pl-8 mb-4">
+            <li>
+              <Text>A description of the nature of the breach</Text>
+            </li>
+            <li>
+              <Text>The name and contact details of our Data Protection Officer</Text>
+            </li>
+            <li>
+              <Text>A description of the likely consequences of the breach</Text>
+            </li>
+            <li>
+              <Text>A description of the measures taken or proposed to address the breach</Text>
+            </li>
+          </ul>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-center">
+            <FileSearch className="h-5 w-5 mr-2" /> Data Protection Impact Assessments
+          </Heading>
+          
+          <Text className="mb-4">
+            EdPsych AI conducts Data Protection Impact Assessments (DPIAs) for processing activities that are likely to result in a high risk to individuals' rights and freedoms, particularly when implementing new technologies.
+          </Text>
+          
+          <Text className="mb-4">
+            Our DPIA process includes:
+          </Text>
+          
+          <ol className="list-decimal pl-8 mb-4 space-y-2">
+            <li>
+              <Text>A systematic description of the processing operations and purposes</Text>
+            </li>
+            <li>
+              <Text>An assessment of the necessity and proportionality of the processing</Text>
+            </li>
+            <li>
+              <Text>An assessment of the risks to the rights and freedoms of data subjects</Text>
+            </li>
+            <li>
+              <Text>The measures implemented to address the risks and demonstrate compliance</Text>
+            </li>
+          </ol>
+          
+          <Text className="mb-4">
+            We consult with our Data Protection Officer and, where appropriate, with the relevant supervisory authority and affected individuals during the DPIA process.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-center">
+            <Clock className="h-5 w-5 mr-2" /> Data Retention Policies
+          </Heading>
+          
+          <Text className="mb-4">
+            EdPsych AI retains personal data only for as long as necessary to fulfil the purposes for which it was collected, including for the purposes of satisfying any legal, accounting, or reporting requirements.
+          </Text>
+          
+          <Text className="mb-4">
+            Different types of personal data have different retention periods:
+          </Text>
+          
+          <div className="overflow-x-auto mb-4">
+            <table className="min-w-full bg-white border border-gray-200">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="py-2 px-4 border-b text-left">Data Category</th>
+                  <th className="py-2 px-4 border-b text-left">Retention Period</th>
+                  <th className="py-2 px-4 border-b text-left">Justification</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="py-2 px-4 border-b">Account Information</td>
+                  <td className="py-2 px-4 border-b">Duration of account + 2 years</td>
+                  <td className="py-2 px-4 border-b">Account management, legal requirements</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 border-b">Educational Content</td>
+                  <td className="py-2 px-4 border-b">Duration of account + 1 year</td>
+                  <td className="py-2 px-4 border-b">Educational continuity</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 border-b">Usage Data</td>
+                  <td className="py-2 px-4 border-b">2 years</td>
+                  <td className="py-2 px-4 border-b">Service improvement, analytics</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 border-b">Payment Information</td>
+                  <td className="py-2 px-4 border-b">7 years</td>
+                  <td className="py-2 px-4 border-b">Financial regulations</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 border-b">Communication Records</td>
+                  <td className="py-2 px-4 border-b">3 years</td>
+                  <td className="py-2 px-4 border-b">Support, dispute resolution</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <Text className="mb-4">
+            At the end of the retention period, personal data is securely deleted or anonymised. You can request the deletion of your data at any time, subject to legal retention requirements.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-center">
+            <Globe className="h-5 w-5 mr-2" /> International Data Transfers
+          </Heading>
+          
+          <Text className="mb-4">
+            EdPsych AI primarily stores and processes data within the United Kingdom and the European Economic Area (EEA). However, in some cases, we may transfer data to trusted third-party service providers located outside these regions.
+          </Text>
+          
+          <Text className="mb-4">
+            When transferring personal data outside the UK or EEA, we ensure appropriate safeguards are in place through one or more of the following mechanisms:
+          </Text>
+          
+          <ul className="list-disc pl-8 mb-4 space-y-2">
+            <li>
+              <Text>UK or EU-approved standard contractual clauses</Text>
+            </li>
+            <li>
+              <Text>Binding corporate rules for transfers within our corporate group</Text>
+            </li>
+            <li>
+              <Text>Adequacy decisions for countries deemed to provide adequate protection</Text>
+            </li>
+            <li>
+              <Text>Explicit consent from the data subject (in limited circumstances)</Text>
+            </li>
+          </ul>
+          
+          <Text className="mb-4">
+            We maintain a detailed record of all international data transfers and the specific safeguards applied to each.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-center">
+            <Lock className="h-5 w-5 mr-2" /> Data Security Measures
+          </Heading>
+          
+          <Text className="mb-4">
+            EdPsych AI implements robust technical and organisational measures to protect personal data, including:
+          </Text>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div className="bg-muted p-4 rounded-md">
+              <div className="flex items-center mb-2">
+                <Key className="h-5 w-5 mr-2 text-primary" />
+                <Heading level="h3" className="text-lg">Encryption</Heading>
+              </div>
+              <Text>
+                All personal data is encrypted both in transit and at rest using industry-standard encryption protocols.
+              </Text>
+            </div>
+            
+            <div className="bg-muted p-4 rounded-md">
+              <div className="flex items-center mb-2">
+                <User className="h-5 w-5 mr-2 text-primary" />
+                <Heading level="h3" className="text-lg">Access Controls</Heading>
+              </div>
+              <Text>
+                Strict access controls limit data access to authorised personnel only, with multi-factor authentication required.
+              </Text>
+            </div>
+            
+            <div className="bg-muted p-4 rounded-md">
+              <div className="flex items-center mb-2">
+                <Shield className="h-5 w-5 mr-2 text-primary" />
+                <Heading level="h3" className="text-lg">Security Audits</Heading>
+              </div>
+              <Text>
+                Regular security assessments and penetration testing to identify and address vulnerabilities.
+              </Text>
+            </div>
+            
+            <div className="bg-muted p-4 rounded-md">
+              <div className="flex items-center mb-2">
+                <Database className="h-5 w-5 mr-2 text-primary" />
+                <Heading level="h3" className="text-lg">Data Minimisation</Heading>
+              </div>
+              <Text>
+                We collect only the data necessary for specified purposes and retain it only as long as necessary.
+              </Text>
+            </div>
+          </div>
+          
+          <Text className="mb-4">
+            These measures are regularly reviewed and updated to ensure they remain effective against evolving security threats.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-center">
+            <FileText className="h-5 w-5 mr-2" /> Data Processing Agreements
+          </Heading>
+          
+          <Text className="mb-4">
+            EdPsych AI enters into data processing agreements with all third-party processors that handle personal data on our behalf. These agreements ensure that processors:
+          </Text>
+          
+          <ul className="list-disc pl-8 mb-4 space-y-2">
+            <li>
+              <Text>Process personal data only on our documented instructions</Text>
+            </li>
+            <li>
+              <Text>Ensure that persons authorised to process the data have committed to confidentiality</Text>
+            </li>
+            <li>
+              <Text>Implement appropriate technical and organisational security measures</Text>
+            </li>
+            <li>
+              <Text>Assist us in fulfilling our obligations to data subjects</Text>
+            </li>
+            <li>
+              <Text>Delete or return all personal data after the end of the provision of services</Text>
+            </li>
+            <li>
+              <Text>Submit to audits and inspections to demonstrate compliance</Text>
+            </li>
+          </ul>
+          
+          <Text className="mb-4">
+            We maintain a register of all data processors and regularly review their compliance with these agreements.
+          </Text>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-center">
+            <User className="h-5 w-5 mr-2" /> Data Protection Officer
+          </Heading>
+          
+          <Text className="mb-4">
+            EdPsych AI has appointed a Data Protection Officer (DPO) to oversee our data protection strategy and ensure compliance with data protection laws. Our DPO's responsibilities include:
+          </Text>
+          
+          <ul className="list-disc pl-8 mb-4 space-y-2">
+            <li>
+              <Text>Informing and advising EdPsych AI and its employees about their obligations under data protection laws</Text>
+            </li>
+            <li>
+              <Text>Monitoring compliance with data protection laws and internal policies</Text>
+            </li>
+            <li>
+              <Text>Providing advice on Data Protection Impact Assessments</Text>
+            </li>
+            <li>
+              <Text>Cooperating with supervisory authorities</Text>
+            </li>
+            <li>
+              <Text>Acting as a contact point for data subjects and supervisory authorities</Text>
+            </li>
+          </ul>
+          
+          <div className="bg-muted p-4 rounded-md mb-4">
+            <Heading level="h3" className="text-lg mb-2">Contact Our DPO</Heading>
+            <Text className="mb-2">
+              If you have any questions about our data protection practices or wish to exercise your data subject rights, please contact our Data Protection Officer:
+            </Text>
+            <div className="flex items-center mb-2">
+              <Mail className="h-4 w-4 mr-2" />
+              <Text>dpo@edpsychai.com</Text>
+            </div>
+            <div className="flex items-center mb-2">
+              <Globe className="h-4 w-4 mr-2" />
+              <Text>EdPsych AI, 123 Education Lane, Learning City, ED 12345</Text>
+            </div>
+            <div className="flex items-center">
+              <Clock className="h-4 w-4 mr-2" />
+              <Text>Response time: Within 2 business days</Text>
+            </div>
+          </div>
+          
+          <div className="flex justify-center">
+            <Button asChild>
+              <Link href="/contact-dpo">
+                Contact Data Protection Officer
+              </Link>
+            </Button>
+          </div>
+        </Card>
+        
+        <Card className="p-6 mb-8">
+          <Heading level="h2" className="mb-4 flex items-center">
+            <Clock className="h-5 w-5 mr-2" /> Compliance Monitoring
+          </Heading>
+          
+          <Text className="mb-4">
+            EdPsych AI regularly monitors and audits our compliance with data protection laws and this policy through:
+          </Text>
+          
+          <ul className="list-disc pl-8 mb-4 space-y-2">
+            <li>
+              <Text>Regular internal audits of data processing activities</Text>
+            </li>
+            <li>
+              <Text>Periodic reviews of policies and procedures</Text>
+            </li>
+            <li>
+              <Text>Staff training and awareness programmes</Text>
+            </li>
+            <li>
+              <Text>Maintaining records of processing activities</Text>
+            </li>
+            <li>
+              <Text>Conducting Data Protection Impact Assessments for new processing activities</Text>
+            </li>
+          </ul>
+          
+          <Text className="mb-4">
+            We are committed to continuously improving our data protection practices and addressing any identified compliance issues promptly.
+          </Text>
+        </Card>
+        
+        <Card className="p-6">
+          <Heading level="h2" className="mb-4 flex items-center">
+            <Clock className="h-5 w-5 mr-2" /> Updates to This Policy
+          </Heading>
+          
+          <Text className="mb-4">
+            We may update this Data Protection Policy from time to time to reflect changes in our practices or legal requirements. We will notify you of any significant changes through our platform or by email.
+          </Text>
+          
+          <Text className="mb-4">
+            This policy should be read in conjunction with our <Link href="/privacy" className="text-primary hover:underline">Privacy Policy</Link>, which provides more detailed information about our data processing activities.
+          </Text>
+          
+          <div className="bg-muted p-4 rounded-md">
+            <Text className="font-medium">Last Updated: 7 June 2025</Text>
+          </div>
+        </Card>
+      </div>
+    </AIEnhancedLayout>
+  );
+}
+
+export default DataProtectionPage;

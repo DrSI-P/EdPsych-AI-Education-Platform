@@ -1,0 +1,905 @@
+"use client";
+
+import React, { useState } from "react";
+import React, { useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { Input } from "@/components/ui/input";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Search, Play, Clock, Award, Filter, CheckCircle, Bookmark, BookmarkCheck, ThumbsUp } from "lucide-react";
+
+// Mock data for video demonstrations
+const videoLibrary = [
+  {
+    id: "vd-1",
+    title: "Effective Questioning Techniques in Practise",
+    description: "Watch examples of effective questioning techniques to promote higher-order thinking.",
+    category: "Pedagogy",
+    duration: 8,
+    keyStage: ["KS1", "KS2", "KS3", "KS4"],
+    tags: ["questioning", "critical thinking", "classroom practise", "engagement"],
+    popularity: 98,
+    dateAdded: "2025-05-01",
+    thumbnail: "/images/videos/questioning-techniques.jpg",
+    videoUrl: "/videos/questioning-techniques.mp4",
+    views: 1245,
+    likes: 342,
+    bookmarked: true,
+    completed: true,
+    presenter: "Dr. Emma Thompson",
+    presenterTitle: "Educational Psychologist"
+  },
+  {
+    id: "vd-2",
+    title: "Differentiation in Action",
+    description: "See real classroom examples of differentiation strategies for mixed ability groups.",
+    category: "Pedagogy",
+    duration: 12,
+    keyStage: ["KS1", "KS2", "KS3", "KS4"],
+    tags: ["differentiation", "inclusion", "mixed ability", "classroom practise"],
+    popularity: 95,
+    dateAdded: "2025-05-03",
+    thumbnail: "/images/videos/differentiation-action.jpg",
+    videoUrl: "/videos/differentiation-action.mp4",
+    views: 1089,
+    likes: 298,
+    bookmarked: false,
+    completed: false,
+    presenter: "James Wilson",
+    presenterTitle: "Lead Practitioner for Inclusive Education"
+  },
+  {
+    id: "vd-3",
+    title: "Supporting EAL Students: Classroom Strategies",
+    description: "Practical demonstration of strategies for supporting English as Additional Language students.",
+    category: "Inclusion",
+    duration: 15,
+    keyStage: ["KS1", "KS2", "KS3", "KS4"],
+    tags: ["EAL", "inclusion", "language support", "classroom practise"],
+    popularity: 92,
+    dateAdded: "2025-05-05",
+    thumbnail: "/images/videos/eal-support.jpg",
+    videoUrl: "/videos/eal-support.mp4",
+    views: 876,
+    likes: 231,
+    bookmarked: false,
+    completed: false,
+    presenter: "Sophia Chen",
+    presenterTitle: "EAL Specialist Teacher"
+  },
+  {
+    id: "vd-4",
+    title: "Formative Assessment in the Classroom",
+    description: "See formative assessment techniques in action with real students.",
+    category: "Assessment",
+    duration: 10,
+    keyStage: ["KS1", "KS2", "KS3", "KS4"],
+    tags: ["assessment", "formative", "feedback", "classroom practise"],
+    popularity: 90,
+    dateAdded: "2025-05-07",
+    thumbnail: "/images/videos/formative-assessment.jpg",
+    videoUrl: "/videos/formative-assessment.mp4",
+    views: 1356,
+    likes: 387,
+    bookmarked: true,
+    completed: true,
+    presenter: "Dr. Scott I-Patrick",
+    presenterTitle: "Educational Psychologist"
+  },
+  {
+    id: "vd-5",
+    title: "Positive Behaviour Management Demonstration",
+    description: "Watch effective positive reinforcement strategies in challenging classroom scenarios.",
+    category: "Behaviour",
+    duration: 14,
+    keyStage: ["KS1", "KS2", "KS3", "KS4"],
+    tags: ["behaviour", "positive reinforcement", "classroom management"],
+    popularity: 94,
+    dateAdded: "2025-05-10",
+    thumbnail: "/images/videos/positive-behaviour.jpg",
+    videoUrl: "/videos/positive-behaviour.mp4",
+    views: 1567,
+    likes: 423,
+    bookmarked: false,
+    completed: false,
+    presenter: "Michael Roberts",
+    presenterTitle: "Behaviour Specialist"
+  },
+  {
+    id: "vd-6",
+    title: "Metacognition: Teaching Students How to Learn",
+    description: "Practical demonstration of metacognitive strategies in the classroom.",
+    category: "Pedagogy",
+    duration: 18,
+    keyStage: ["KS2", "KS3", "KS4"],
+    tags: ["metacognition", "learning strategies", "self-regulation", "thinking skills"],
+    popularity: 88,
+    dateAdded: "2025-05-12",
+    thumbnail: "/images/videos/metacognition.jpg",
+    videoUrl: "/videos/metacognition.mp4",
+    views: 943,
+    likes: 276,
+    bookmarked: false,
+    completed: false,
+    presenter: "Dr. Rebecca Williams",
+    presenterTitle: "Cognitive Science Specialist"
+  },
+  {
+    id: "vd-7",
+    title: "Working Memory Support Strategies",
+    description: "See practical strategies for supporting students with working memory difficulties.",
+    category: "SEND",
+    duration: 16,
+    keyStage: ["KS1", "KS2", "KS3", "KS4"],
+    tags: ["working memory", "SEND", "cognitive support", "classroom strategies"],
+    popularity: 86,
+    dateAdded: "2025-05-15",
+    thumbnail: "/images/videos/working-memory.jpg",
+    videoUrl: "/videos/working-memory.mp4",
+    views: 782,
+    likes: 198,
+    bookmarked: false,
+    completed: false,
+    presenter: "Dr. Sarah Johnson",
+    presenterTitle: "Educational Psychologist"
+  },
+  {
+    id: "vd-8",
+    title: "Effective Feedback in Practise",
+    description: "Watch examples of effective feedback techniques that promote student growth.",
+    category: "Assessment",
+    duration: 11,
+    keyStage: ["KS1", "KS2", "KS3", "KS4"],
+    tags: ["feedback", "assessment", "student progress", "classroom practise"],
+    popularity: 91,
+    dateAdded: "2025-05-18",
+    thumbnail: "/images/videos/feedback.jpg",
+    videoUrl: "/videos/feedback.mp4",
+    views: 1124,
+    likes: 345,
+    bookmarked: true,
+    completed: true,
+    presenter: "Dr. Scott I-Patrick",
+    presenterTitle: "Educational Psychologist"
+  },
+  {
+    id: "vd-9",
+    title: "Retrieval Practise: Classroom Examples",
+    description: "See retrieval practise techniques in action across different subjects and age groups.",
+    category: "Pedagogy",
+    duration: 13,
+    keyStage: ["KS2", "KS3", "KS4"],
+    tags: ["retrieval practise", "memory", "cognitive science", "classroom strategies"],
+    popularity: 93,
+    dateAdded: "2025-05-20",
+    thumbnail: "/images/videos/retrieval-practise.jpg",
+    videoUrl: "/videos/retrieval-practise.mp4",
+    views: 1032,
+    likes: 287,
+    bookmarked: false,
+    completed: false,
+    presenter: "Dr. Tom Blake",
+    presenterTitle: "Cognitive Science in Education Specialist"
+  },
+  {
+    id: "vd-10",
+    title: "Supporting Autistic Students: Classroom Strategies",
+    description: "Practical demonstration of strategies for supporting autistic students in mainstream classes.",
+    category: "SEND",
+    duration: 17,
+    keyStage: ["KS1", "KS2", "KS3", "KS4"],
+    tags: ["autism", "SEND", "inclusion", "classroom strategies"],
+    popularity: 89,
+    dateAdded: "2025-05-22",
+    thumbnail: "/images/videos/autism-support.jpg",
+    videoUrl: "/videos/autism-support.mp4",
+    views: 876,
+    likes: 243,
+    bookmarked: false,
+    completed: false,
+    presenter: "Dr. Lisa Adams",
+    presenterTitle: "Autism Education Specialist"
+  },
+  {
+    id: "vd-11",
+    title: "Dual Coding in the Classroom",
+    description: "See how teachers implement dual coding principles to enhance learning.",
+    category: "Pedagogy",
+    duration: 14,
+    keyStage: ["KS1", "KS2", "KS3", "KS4"],
+    tags: ["dual coding", "cognitive science", "visual learning", "classroom strategies"],
+    popularity: 87,
+    dateAdded: "2025-05-25",
+    thumbnail: "/images/videos/dual-coding.jpg",
+    videoUrl: "/videos/dual-coding.mp4",
+    views: 743,
+    likes: 198,
+    bookmarked: false,
+    completed: false,
+    presenter: "Dr. Mark Wilson",
+    presenterTitle: "Cognitive Science Researcher"
+  },
+  {
+    id: "vd-12",
+    title: "Promoting Oracy: Speaking and Listening Activities",
+    description: "Watch practical activities for developing students' speaking and listening skills.",
+    category: "Literacy",
+    duration: 12,
+    keyStage: ["KS1", "KS2", "KS3", "KS4"],
+    tags: ["oracy", "speaking", "listening", "communication skills"],
+    popularity: 85,
+    dateAdded: "2025-05-28",
+    thumbnail: "/images/videos/oracy.jpg",
+    videoUrl: "/videos/oracy.mp4",
+    views: 687,
+    likes: 176,
+    bookmarked: false,
+    completed: false,
+    presenter: "Helen Carter",
+    presenterTitle: "Literacy and Oracy Specialist"
+  }
+];
+
+// Mock data for categories
+const categories = [
+  { id: "all", name: "All Categories" },
+  { id: "assessment", name: "Assessment" },
+  { id: "pedagogy", name: "Pedagogy" },
+  { id: "behaviour", name: "Behaviour" },
+  { id: "send", name: "SEND" },
+  { id: "inclusion", name: "Inclusion" },
+  { id: "literacy", name: "Literacy" }
+];
+
+// Mock data for key stages
+const keyStages = [
+  { id: "all", name: "All Key Stages" },
+  { id: "ks1", name: "Key Stage 1" },
+  { id: "ks2", name: "Key Stage 2" },
+  { id: "ks3", name: "Key Stage 3" },
+  { id: "ks4", name: "Key Stage 4" }
+];
+
+// Mock data for duration filters
+const durationFilters = [
+  { id: "all", name: "Any Duration" },
+  { id: "under10", name: "Under 10 minutes" },
+  { id: "10to15", name: "10-15 minutes" },
+  { id: "over15", name: "Over 15 minutes" }
+];
+
+// Mock data for completion certificates
+const certificates = [
+  {
+    id: "cert-1",
+    title: "Assessment Specialist",
+    description: "Complete all assessment-related video demonstrations",
+    progress: 67,
+    requiredVideos: ["vd-1", "vd-4", "vd-8"],
+    completedVideos: ["vd-4", "vd-8"],
+    image: "/images/certificates/assessment-specialist.jpg"
+  },
+  {
+    id: "cert-2",
+    title: "Pedagogy Expert",
+    description: "Complete all pedagogy-related video demonstrations",
+    progress: 20,
+    requiredVideos: ["vd-1", "vd-2", "vd-6", "vd-9", "vd-11"],
+    completedVideos: ["vd-1"],
+    image: "/images/certificates/pedagogy-expert.jpg"
+  },
+  {
+    id: "cert-3",
+    title: "Inclusion Champion",
+    description: "Complete all inclusion and SEND-related video demonstrations",
+    progress: 0,
+    requiredVideos: ["vd-3", "vd-7", "vd-10"],
+    completedVideos: [],
+    image: "/images/certificates/inclusion-champion.jpg"
+  }
+];
+
+// Mock data for featured collections
+const featuredCollections = [
+  {
+    id: "fc-1",
+    title: "New Teacher Essentials",
+    description: "Essential video demonstrations for teachers in their first years of teaching",
+    videos: ["vd-1", "vd-2", "vd-5", "vd-8"],
+    image: "/images/collections/new-teacher.jpg"
+  },
+  {
+    id: "fc-2",
+    title: "Cognitive Science in Practise",
+    description: "See cognitive science principles applied in real classrooms",
+    videos: ["vd-6", "vd-7", "vd-9", "vd-11"],
+    image: "/images/collections/cognitive-science.jpg"
+  },
+  {
+    id: "fc-3",
+    title: "Inclusive Classroom Toolkit",
+    description: "Video demonstrations for creating an inclusive environment for all learners",
+    videos: ["vd-2", "vd-3", "vd-7", "vd-10", "vd-12"],
+    image: "/images/collections/inclusive-classroom.jpg"
+  }
+];
+
+// Mock data for evidence base
+const evidenceBase = [
+  {
+    id: "eb-1",
+    title: "Video-Based Professional Development",
+    description: "Research evidence supporting video-based professional development",
+    content: `
+      <p>Research consistently shows that video-based professional development can be highly effective for teacher learning. Video demonstrations provide opportunities for teachers to observe expert practise, reflect on teaching strategies, and consider implementation in their own contexts.</p>
+      
+      <p>Key research findings include:</p>
+      <ul>
+        <li>Video-based professional development can lead to significant improvements in teacher practise and student outcomes (Gaudin & Chaliès, 2015)</li>
+        <li>Viewing classroom videos with guided reflection prompts enhances teacher noticing and analysis of teaching and learning (van Es & Sherin, 2008)</li>
+        <li>Video demonstrations are particularly effective when they include examples of authentic classroom practise rather than staged demonstrations (Blomberg et al., 2013)</li>
+        <li>The combination of video observation and guided reflection is more effective than either component alone (Major & Watson, 2018)</li>
+      </ul>
+      
+      <p>The Education Endowment Foundation's review of professional development emphasizes that effective professional development should provide opportunities to see expert practise, which video demonstrations facilitate efficiently.</p>
+      
+      <p>References:</p>
+      <ul>
+        <li>Blomberg, G., Renkl, A., Sherin, M. G., Borko, H., & Seidel, T. (2013). Five research-based heuristics for using video in pre-service teacher education. Journal for Educational Research Online, 5(1), 90-114.</li>
+        <li>Gaudin, C., & Chaliès, S. (2015). Video viewing in teacher education and professional development: A literature review. Educational Research Review, 16, 41-67.</li>
+        <li>Major, L., & Watson, S. (2018). Using video to support in-service teacher professional development: The state of the field, limitations and possibilities. Technology, Pedagogy and Education, 27(1), 49-68.</li>
+        <li>van Es, E. A., & Sherin, M. G. (2008). Mathematics teachers' "learning to notice" in the context of a video club. Teaching and Teacher Education, 24(2), 244-276.</li>
+      </ul>
+    `,
+    relatedVideos: ["vd-1", "vd-4", "vd-8"]
+  },
+  {
+    id: "eb-2",
+    title: "Cognitive Science in Education",
+    description: "Research evidence supporting cognitive science applications in the classroom",
+    content: `
+      <p>Cognitive science principles have strong research support for enhancing teaching and learning. Our video demonstrations showcase evidence-based applications of these principles in real classroom settings.</p>
+      
+      <p>Key research-supported cognitive science principles include:</p>
+      <ul>
+        <li><strong>Retrieval Practise:</strong> Actively recalling information strengthens memory more effectively than re-reading or highlighting (Roediger & Butler, 2011)</li>
+        <li><strong>Spaced Practise:</strong> Distributing learning over time leads to better long-term retention than massed practise (Carpenter et al., 2012)</li>
+        <li><strong>Dual Coding:</strong> Combining verbal and visual information enhances learning by creating multiple pathways to retrieval (Paivio, 1986; Mayer & Moreno, 2003)</li>
+        <li><strong>Concrete Examples:</strong> Abstract concepts are better understood when linked to concrete examples (Rawson et al., 2015)</li>
+        <li><strong>Elaboration:</strong> Explaining and connecting ideas promotes deeper processing and better retention (Weinstein et al., 2018)</li>
+      </ul>
+      
+      <p>The Education Endowment Foundation's review of cognitive science applications in education supports the implementation of these principles in classroom practise.</p>
+      
+      <p>References:</p>
+      <ul>
+        <li>Carpenter, S. K., Cepeda, N. J., Rohrer, D., Kang, S. H., & Pashler, H. (2012). Using spacing to enhance diverse forms of learning: Review of recent research and implications for instruction. Educational Psychology Review, 24(3), 369-378.</li>
+        <li>Mayer, R. E., & Moreno, R. (2003). Nine ways to reduce cognitive load in multimedia learning. Educational Psychologist, 38(1), 43-52.</li>
+        <li>Paivio, A. (1986). Mental representations: A dual coding approach. Oxford University Press.</li>
+        <li>Rawson, K. A., Thomas, R. C., & Jacoby, L. L. (2015). The power of examples: Illustrative examples enhance conceptual learning of declarative concepts. Educational Psychology Review, 27(3), 483-504.</li>
+        <li>Roediger, H. L., & Butler, A. C. (2011). The critical role of retrieval practise in long-term retention. Trends in Cognitive Sciences, 15(1), 20-27.</li>
+        <li>Weinstein, Y., Madan, C. R., & Sumeracki, M. A. (2018). Teaching the science of learning. Cognitive Research: Principles and Implications, 3(1), 2.</li>
+      </ul>
+    `,
+    relatedVideos: ["vd-6", "vd-9", "vd-11"]
+  },
+  {
+    id: "eb-3",
+    title: "Inclusive Teaching Practices",
+    description: "Research evidence supporting inclusive teaching approaches",
+    content: `
+      <p>Research on inclusive teaching practices emphasizes the importance of evidence-based strategies that support all learners, including those with special educational needs and disabilities.</p>
+      
+      <p>Key research findings include:</p>
+      <ul>
+        <li>Universal Design for Learning (UDL) principles improve outcomes for all students, not just those with identified needs (CAST, 2018)</li>
+        <li>Differentiated instruction that provides multiple pathways to learning goals increases student engagement and achievement (Tomlinson & Moon, 2013)</li>
+        <li>Explicit instruction with clear explanations, guided practise, and independent practise is particularly effective for students with learning difficulties (Hughes et al., 2017)</li>
+        <li>Peer-assisted learning strategies benefit both helpers and those being helped (Bowman-Perrott et al., 2013)</li>
+        <li>Positive behavioural supports that focus on prevention and teaching appropriate behaviors reduce challenging behaviors (Horner et al., 2010)</li>
+      </ul>
+      
+      <p>The Education Endowment Foundation's guidance report on Special Educational Needs in Mainstream Schools emphasizes that good teaching for SEND students is good teaching for all students.</p>
+      
+      <p>References:</p>
+      <ul>
+        <li>Bowman-Perrott, L., Davis, H., Vannest, K., Williams, L., Greenwood, C., & Parker, R. (2013). Academic benefits of peer tutoring: A meta-analytic review of single-case research. School Psychology Review, 42(1), 39-55.</li>
+        <li>CAST (2018). Universal Design for Learning Guidelines version 2.2. Retrieved from http://udlguidelines.cast.org</li>
+        <li>Education Endowment Foundation (2020). Special Educational Needs in Mainstream Schools: Guidance Report.</li>
+        <li>Horner, R. H., Sugai, G., & Anderson, C. M. (2010). Examining the evidence base for school-wide positive behaviour support. Focus on Exceptional Children, 42(8), 1-14.</li>
+        <li>Hughes, C. A., Morris, J. R., Therrien, W. J., & Benson, S. K. (2017). Explicit instruction: Historical and contemporary contexts. Learning Disabilities Research & Practise, 32(3), 140-148.</li>
+        <li>Tomlinson, C. A., & Moon, T. R. (2013). Assessment and student success in a differentiated classroom. ASCD.</li>
+      </ul>
+    `,
+    relatedVideos: ["vd-2", "vd-3", "vd-7", "vd-10"]
+  }
+];
+
+export default function VideosDemonstrationsPage() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedKeyStage, setSelectedKeyStage] = useState("all");
+  const [selectedDurationFilter, setSelectedDurationFilter] = useState("all");
+  const [showCompleted, setShowCompleted] = useState(true);
+  const [showBookmarked, setShowBookmarked] = useState(false);
+
+  // Filter videos based on search term and filters
+  const filteredVideos = videoLibrary.filter((video) => {
+    // Search term filter
+    const matchesSearch = 
+      video.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      video.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      video.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+    
+    // Category filter
+    const matchesCategory = 
+      selectedCategory === "all" || 
+      video.category.toLowerCase() === selectedCategory.toLowerCase();
+    
+    // Key Stage filter
+    const matchesKeyStage = 
+      selectedKeyStage === "all" || 
+      video.keyStage.some(ks => ks.toLowerCase() === selectedKeyStage.toLowerCase());
+    
+    // Duration filter
+    let matchesDuration = true;
+    if (selectedDurationFilter === "under10") {
+      matchesDuration = video.duration < 10;
+    } else if (selectedDurationFilter === "10to15") {
+      matchesDuration = video.duration >= 10 && video.duration <= 15;
+    } else if (selectedDurationFilter === "over15") {
+      matchesDuration = video.duration > 15;
+    }
+    
+    // Completion filter
+    const matchesCompletion = !showCompleted || !video.completed;
+    
+    // Bookmarked filter
+    const matchesBookmarked = !showBookmarked || video.bookmarked;
+    
+    return matchesSearch && matchesCategory && matchesKeyStage && matchesDuration && matchesCompletion && matchesBookmarked;
+  });
+
+  // Handle video playback
+  const handlePlayVideo = (video: any) => {
+    // In a real implementation, this would open a video player
+    console.log(`Playing video: ${video.title}`);
+    // Mock implementation - would actually play the video
+    alert(`Playing: ${video.title}`);
+  };
+
+  // Handle bookmark toggle
+  const handleToggleBookmark = (video: any) => {
+    // In a real implementation, this would update the database
+    console.log(`Toggling bookmark for: ${video.title}`);
+    // Mock implementation - would actually toggle the bookmark
+    alert(`Toggled bookmark for: ${video.title}`);
+  };
+
+  // Get videos for a collection
+  const getVideosForCollection = (collection: any) => {
+    return videoLibrary.filter(video => collection.videos.includes(video.id));
+  };
+
+  return (
+    <div className="min-h-screen bg-grey-50">
+      <ComprehensiveNavigation />
+      <div className="pt-16 pb-8 bg-blue-600 text-white">
+        <div className="container mx-auto px-4">
+          <h1 className="text-3xl font-bold mb-2">Video Demonstrations</h1>
+          <p className="text-xl">Watch expert demonstrations of evidence-based teaching strategies</p>
+        </div>
+      </div>
+      
+      <main className="container mx-auto px-4 py-8">
+        <Tabs defaultValue="browse" className="w-full">
+          <TabsList className="grid grid-cols-5 mb-8">
+            <TabsTrigger value="browse">Browse Videos</TabsTrigger>
+            <TabsTrigger value="collections">Featured Collections</TabsTrigger>
+            <TabsTrigger value="certificates">Completion Certificates</TabsTrigger>
+            <TabsTrigger value="evidence">Evidence Base</TabsTrigger>
+            <TabsTrigger value="request">Request Video</TabsTrigger>
+          </TabsList>
+          
+          {/* Browse Videos Tab */}
+          <TabsContent value="browse" className="space-y-6">
+            <div className="flex flex-col md:flex-row gap-4 mb-6">
+              <div className="relative flex-grow">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-grey-400" />
+                <Input
+                  type="text"
+                  placeholder="Search video demonstrations..."
+                  className="pl-10"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
+              
+              <div className="flex flex-wrap gap-2">
+                <select 
+                  className="px-3 py-2 border rounded-md bg-white"
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                  {categories.map(category => (
+                    <option key={category.id} value={category.id}>{category.name}</option>
+                  ))}
+                </select>
+                
+                <select 
+                  className="px-3 py-2 border rounded-md bg-white"
+                  value={selectedKeyStage}
+                  onChange={(e) => setSelectedKeyStage(e.target.value)}
+                >
+                  {keyStages.map(keyStage => (
+                    <option key={keyStage.id} value={keyStage.id}>{keyStage.name}</option>
+                  ))}
+                </select>
+                
+                <select 
+                  className="px-3 py-2 border rounded-md bg-white"
+                  value={selectedDurationFilter}
+                  onChange={(e) => setSelectedDurationFilter(e.target.value)}
+                >
+                  {durationFilters.map(durationFilter => (
+                    <option key={durationFilter.id} value={durationFilter.id}>{durationFilter.name}</option>
+                  ))}
+                </select>
+                
+                <Button 
+                  variant="outline" 
+                  className={`flex items-centre gap-2 ${showCompleted ? 'bg-blue-50' : ''}`}
+                  onClick={() => setShowCompleted(!showCompleted)}
+                >
+                  <CheckCircle className={`h-4 w-4 ${showCompleted ? 'text-blue-500' : 'text-grey-300'}`} />
+                  {showCompleted ? 'Include Completed' : 'Hide Completed'}
+                </Button>
+                
+                <Button 
+                  variant="outline" 
+                  className={`flex items-centre gap-2 ${showBookmarked ? 'bg-yellow-50' : ''}`}
+                  onClick={() => setShowBookmarked(!showBookmarked)}
+                >
+                  <BookmarkCheck className={`h-4 w-4 ${showBookmarked ? 'text-yellow-500' : 'text-grey-300'}`} />
+                  {showBookmarked ? 'Bookmarked Only' : 'All Videos'}
+                </Button>
+              </div>
+            </div>
+            
+            {filteredVideos.length === 0 ? (
+              <div className="text-centre py-12">
+                <h3 className="text-xl font-semibold mb-2">No videos found</h3>
+                <p className="text-grey-500">Try adjusting your search or filters</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredVideos.map((video) => (
+                  <Card key={video.id} className={`overflow-hidden ${video.completed ? 'border-green-200 bg-green-50' : ''}`}>
+                    <div className="h-40 bg-grey-200 relative">
+                      {/* In a real implementation, this would be an actual image */}
+                      <div className="absolute inset-0 flex items-centre justify-centre bg-blue-100">
+                        <span className="text-blue-500 font-medium">{video.title} Thumbnail</span>
+                      </div>
+                      <div className="absolute inset-0 bg-black bg-opacity-30 flex items-centre justify-centre opacity-0 hover:opacity-100 transition-opacity">
+                        <Button 
+                          variant="default" 
+                          className="rounded-full w-12 h-12 flex items-centre justify-centre"
+                          onClick={() => handlePlayVideo(video)}
+                        >
+                          <Play className="h-6 w-6" />
+                        </Button>
+                      </div>
+                      {video.completed && (
+                        <div className="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded-md text-xs font-medium">
+                          Completed
+                        </div>
+                      )}
+                      {video.bookmarked && (
+                        <div className="absolute top-2 left-2 bg-yellow-500 text-white px-2 py-1 rounded-md text-xs font-medium">
+                          Bookmarked
+                        </div>
+                      )}
+                    </div>
+                    <CardHeader>
+                      <div className="flex justify-between items-start">
+                        <CardTitle className="text-lg">{video.title}</CardTitle>
+                      </div>
+                      <div className="flex items-centre gap-2 text-sm text-grey-500">
+                        <Clock className="h-4 w-4" />
+                        <span>{video.duration} minutes</span>
+                      </div>
+                      <CardDescription>{video.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        <Badge variant="outline" className="bg-blue-50">{video.category}</Badge>
+                        {video.keyStage.map((ks) => (
+                          <Badge key={ks} variant="outline" className="bg-purple-50">{ks}</Badge>
+                        ))}
+                      </div>
+                      <div className="flex flex-wrap gap-1 mb-3">
+                        {video.tags.map((tag) => (
+                          <span key={tag} className="text-xs text-grey-500">#{tag}</span>
+                        ))}
+                      </div>
+                      <div className="flex items-centre gap-4 text-sm text-grey-500">
+                        <div className="flex items-centre gap-1">
+                          <ThumbsUp className="h-4 w-4" />
+                          <span>{video.likes}</span>
+                        </div>
+                        <div className="flex items-centre gap-1">
+                          <Play className="h-4 w-4" />
+                          <span>{video.views} views</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                    <CardFooter className="flex justify-between">
+                      <Button
+                        variant="outline"
+                        className="flex items-centre gap-2"
+                        onClick={() => handleToggleBookmark(video)}
+                      >
+                        {video.bookmarked ? (
+                          <BookmarkCheck className="h-4 w-4 text-yellow-500" />
+                        ) : (
+                          <Bookmark className="h-4 w-4" />
+                        )}
+                        {video.bookmarked ? 'Bookmarked' : 'Bookmark'}
+                      </Button>
+                      <Button
+                        variant="default"
+                        className="flex items-centre gap-2"
+                        onClick={() => handlePlayVideo(video)}
+                      >
+                        <Play className="h-4 w-4" />
+                        Watch Video
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </TabsContent>
+          
+          {/* Featured Collections Tab */}
+          <TabsContent value="collections" className="space-y-8">
+            <div className="prose max-w-none mb-6">
+              <h2>Featured Collections</h2>
+              <p>
+                Our curated collections bring together related video demonstrations to help you develop expertise in specific areas.
+                Complete a collection to earn a special certificate and enhance your professional development portfolio.
+              </p>
+            </div>
+            
+            {featuredCollections.map((collection) => (
+              <Card key={collection.id} className="overflow-hidden">
+                <div className="md:flex">
+                  <div className="md:w-1/3 bg-grey-200 md:h-auto h-40 relative">
+                    {/* In a real implementation, this would be an actual image */}
+                    <div className="absolute inset-0 flex items-centre justify-centre bg-indigo-100">
+                      <span className="text-indigo-500 font-medium">{collection.title} Image</span>
+                    </div>
+                  </div>
+                  <div className="md:w-2/3">
+                    <CardHeader>
+                      <CardTitle>{collection.title}</CardTitle>
+                      <CardDescription>{collection.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <h4 className="font-medium mb-3">Included Videos:</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {getVideosForCollection(collection).map((video) => (
+                          <div key={video.id} className="flex items-start gap-2">
+                            {video.completed ? (
+                              <CheckCircle className="h-5 w-5 text-green-500 mt-0.5" />
+                            ) : (
+                              <div className="h-5 w-5 border-2 rounded-full mt-0.5" />
+                            )}
+                            <div>
+                              <p className="font-medium">{video.title}</p>
+                              <p className="text-sm text-grey-500">{video.duration} minutes</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                    <CardFooter>
+                      <Button className="w-full">View Collection</Button>
+                    </CardFooter>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </TabsContent>
+          
+          {/* Completion Certificates Tab */}
+          <TabsContent value="certificates" className="space-y-8">
+            <div className="prose max-w-none mb-6">
+              <h2>Completion Certificates</h2>
+              <p>
+                Earn certificates by completing sets of related video demonstrations. These certificates can be added to your
+                professional development portfolio and shared with your school leadership team.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {certificates.map((certificate) => (
+                <Card key={certificate.id} className="overflow-hidden">
+                  <div className="h-48 bg-grey-200 relative">
+                    {/* In a real implementation, this would be an actual image */}
+                    <div className="absolute inset-0 flex items-centre justify-centre bg-yellow-100">
+                      <span className="text-yellow-700 font-medium">{certificate.title} Certificate</span>
+                    </div>
+                  </div>
+                  <CardHeader>
+                    <CardTitle>{certificate.title}</CardTitle>
+                    <CardDescription>{certificate.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div>
+                      <div className="flex justify-between mb-1">
+                        <span className="text-sm font-medium">Progress</span>
+                        <span className="text-sm text-grey-500">{certificate.completedVideos.length}/{certificate.requiredVideos.length}</span>
+                      </div>
+                      <Progress value={certificate.progress} className="h-2" />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <h4 className="font-medium">Required Videos:</h4>
+                      {certificate.requiredVideos.map((videoId) => {
+                        const video = videoLibrary.find(v => v.id === videoId);
+                        return video ? (
+                          <div key={video.id} className="flex items-centre gap-2">
+                            {certificate.completedVideos.includes(video.id) ? (
+                              <CheckCircle className="h-4 w-4 text-green-500" />
+                            ) : (
+                              <div className="h-4 w-4 border rounded-full" />
+                            )}
+                            <span className={certificate.completedVideos.includes(video.id) ? "line-through text-grey-500" : ""}>
+                              {video.title}
+                            </span>
+                          </div>
+                        ) : null;
+                      })}
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <Button
+                      disabled={certificate.progress < 100}
+                      className="w-full"
+                      variant={certificate.progress < 100 ? "outline" : "default"}
+                    >
+                      {certificate.progress < 100 ? "Complete All Videos" : "Download Certificate"}
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+          
+          {/* Evidence Base Tab */}
+          <TabsContent value="evidence" className="space-y-8">
+            <div className="prose max-w-none mb-6">
+              <h2>Evidence Base</h2>
+              <p>
+                Our video demonstrations are based on robust research evidence and best practices in educational psychology.
+                Explore the research foundations behind our videos to deepen your understanding.
+              </p>
+            </div>
+            
+            <Accordion type="single" collapsible className="w-full">
+              {evidenceBase.map((evidence) => (
+                <AccordionItem key={evidence.id} value={evidence.id}>
+                  <AccordionTrigger className="text-lg font-medium">
+                    {evidence.title}
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: evidence.content }} />
+                    
+                    <div className="mt-6">
+                      <h4 className="font-medium mb-3">Related Videos:</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {evidence.relatedVideos.map((videoId) => {
+                          const video = videoLibrary.find(v => v.id === videoId);
+                          return video ? (
+                            <div key={video.id} className="flex items-centre gap-2">
+                              <Play className="h-4 w-4 text-blue-500" />
+                              <span>{video.title}</span>
+                            </div>
+                          ) : null;
+                        })}
+                      </div>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </TabsContent>
+          
+          {/* Request Video Tab */}
+          <TabsContent value="request" className="space-y-6">
+            <div className="prose max-w-none mb-6">
+              <h2>Request a New Video Demonstration</h2>
+              <p>
+                Can't find what you're looking for? Request a new video demonstration on a specific teaching strategy.
+                Our team of educational experts will review your request and develop a video to meet your needs.
+              </p>
+            </div>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>New Video Demonstration Request</CardTitle>
+                <CardDescription>
+                  Please provide details about the video demonstration you'd like us to create.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form className="space-y-4">
+                  <div className="space-y-2">
+                    <label htmlFor="title" className="font-medium">Video Title</label>
+                    <Input id="title" placeholder="e.g., Differentiation Strategies for EAL Students in Science" />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label htmlFor="description" className="font-medium">Description</label>
+                    <textarea
+                      id="description"
+                      className="w-full min-h-[100px] p-2 border rounded-md"
+                      placeholder="Please describe what you'd like the video to demonstrate..."
+                    />
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label htmlFor="category" className="font-medium">Category</label>
+                      <select id="category" className="w-full p-2 border rounded-md">
+                        {categories.map(category => (
+                          <option key={category.id} value={category.id}>{category.name}</option>
+                        ))}
+                      </select>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <label htmlFor="keyStage" className="font-medium">Key Stage</label>
+                      <select id="keyStage" className="w-full p-2 border rounded-md">
+                        {keyStages.filter(ks => ks.id !== "all").map(keyStage => (
+                          <option key={keyStage.id} value={keyStage.id}>{keyStage.name}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label htmlFor="urgency" className="font-medium">Urgency</label>
+                    <select id="urgency" className="w-full p-2 border rounded-md">
+                      <option value="low">Low - Within 4 weeks</option>
+                      <option value="medium">Medium - Within 2 weeks</option>
+                      <option value="high">High - Within 1 week</option>
+                    </select>
+                  </div>
+                </div>
+                </form>
+              </CardContent>
+              <CardFooter>
+                <Button className="w-full">Submit Request</Button>
+              </CardFooter>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </main>
+      
+      <footer className="bg-grey-100 py-8 mt-12">
+        <div className="container mx-auto px-4">
+          <div className="text-centre">
+            <h3 className="text-lg font-semibold mb-2">EdPsych AI Platform</h3>
+            <p className="text-grey-600 mb-4">Professional Development Resources</p>
+            <p className="text-sm text-grey-500">
+              © {new Date().getFullYear()} EdPsych AI. All video demonstrations are based on evidence-based practices and aligned with UK educational standards.
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>

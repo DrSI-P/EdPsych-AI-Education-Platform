@@ -1,0 +1,2 @@
+-- This is a baseline migration representing the current state of the database
+-- It does not contain any SQL statements because the database already exists

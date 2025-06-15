@@ -1,0 +1,233 @@
+"use client";
+
+import React from 'react';
+import { useFeatureAccess } from '@/hooks/useFeatureAccess';
+
+interface FeatureGateProps {
+  /**
+   * The name of the feature to check access for
+   */
+  feature: string;
+  
+  /**
+   * The content to render if the user has access to the feature
+   */
+  children: React.ReactNode;
+  
+  /**
+   * Optional content to render if the user does not have access to the feature
+   */
+  fallback?: React.ReactNode;
+  
+  /**
+   * Optional content to render whilst checking access
+   */
+  loadingComponent?: React.ReactNode;
+  
+  /**
+   * Whether to render nothing when access is denied (instead of fallback)
+   */
+  renderNothing?: boolean;
+}
+
+/**
+ * A component that conditionally renders content based on feature access
+ */
+export function FeatureGate({
+  feature,
+  children,
+  fallback,
+  loadingComponent,
+  renderNothing = false,
+}: FeatureGateProps) {
+  const { hasAccess, isLoading, error } = useFeatureAccess(feature);
+
+  // Show loading component whilst checking access
+  if (isLoading) {
+    return loadingComponent ? (
+      <>{loadingComponent}</>
+    ) : (
+      <div className="animate-pulse p-4 flex items-centre justify-centre">
+        <div className="text-sm text-grey-500">Checking access...</div>
+      </div>
+    );
+  }
+
+  // Show error if there was an error checking access
+  if (error) {
+    console.error(`Error checking access to feature "${feature}":`, error);
+    return renderNothing ? null : (
+      <div className="p-4 text-red-500 text-sm">
+        Error checking feature access
+      </div>
+    );
+  }
+
+  // Show content if user has access
+  if (hasAccess) {
+    return <>{children}</>;
+  }
+
+  // Show fallback or nothing if user does not have access
+  return renderNothing ? null : fallback ? (
+    <>{fallback}</>
+  ) : (
+    <div className="p-4 border border-grey-200 rounded-md">
+      <h3 className="text-lg font-medium text-grey-900">Feature not available</h3>
+      <p className="mt-2 text-sm text-grey-500">
+        This feature requires a subscription upgrade.
+      </p>
+      <a
+        href="/subscriptions"
+        className="mt-3 inline-flex items-centre px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      >
+        View subscription options
+      </a>
+    </div>
+  );
+}
+
+/**
+ * A component that renders content only if the user has access to a credit-based feature
+ * and handles the credit usage flow
+ */
+export function CreditFeatureGate({
+  feature,
+  children,
+  fallback,
+  loadingComponent,
+  renderNothing = false,
+  onCreditUse,
+}: FeatureGateProps & {
+  /**
+   * Optional callback when credits are used
+   */
+  onCreditUse?: (result: { success: boolean; remainingCredits?: number }) => void;
+}) {
+  const { hasAccess, requiresCredits, creditCost, isLoading, error } = useFeatureAccess(feature);
+  const [showConfirm, setShowConfirm] = React.useState(false);
+  const [creditUsed, setCreditUsed] = React.useState(false);
+  const [usingCredit, setUsingCredit] = React.useState(false);
+
+  const handleUseCredits = async () => {
+    setUsingCredit(true);
+    
+    try {
+      const response = await fetch('/api/credits/use', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ featureName: feature }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to use credits');
+      }
+
+      const result = await response.json();
+      setCreditUsed(true);
+      setShowConfirm(false);
+      
+      if (onCreditUse) {
+        onCreditUse(result);
+      }
+    } catch (error) {
+      console.error('Error using credits:', error);
+      alert('Failed to use credits. Please try again.');
+    } finally {
+      setUsingCredit(false);
+    }
+  };
+
+  // Show loading component whilst checking access
+  if (isLoading) {
+    return loadingComponent ? (
+      <>{loadingComponent}</>
+    ) : (
+      <div className="animate-pulse p-4 flex items-centre justify-centre">
+        <div className="text-sm text-grey-500">Checking access...</div>
+      </div>
+    );
+  }
+
+  // Show error if there was an error checking access
+  if (error) {
+    console.error(`Error checking access to feature "${feature}":`, error);
+    return renderNothing ? null : (
+      <div className="p-4 text-red-500 text-sm">
+        Error checking feature access
+      </div>
+    );
+  }
+
+  // If user has access and feature requires credits, show credit confirmation
+  if (hasAccess && requiresCredits && !creditUsed) {
+    if (showConfirm) {
+      return (
+        <div className="p-4 border border-grey-200 rounded-md">
+          <h3 className="text-lg font-medium text-grey-900">Confirm credit usage</h3>
+          <p className="mt-2 text-sm text-grey-500">
+            This feature will use {creditCost} credits from your account.
+          </p>
+          <div className="mt-4 flex space-x-3">
+            <button
+              onClick={handleUseCredits}
+              disabled={usingCredit}
+              className="inline-flex items-centre px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+            >
+              {usingCredit ? 'Processing...' : `Use ${creditCost} credits`}
+            </button>
+            <button
+              onClick={() => setShowConfirm(false)}
+              className="inline-flex items-centre px-4 py-2 border border-grey-300 text-sm font-medium rounded-md text-grey-700 bg-white hover:bg-grey-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="p-4 border border-grey-200 rounded-md">
+        <h3 className="text-lg font-medium text-grey-900">Credit-based feature</h3>
+        <p className="mt-2 text-sm text-grey-500">
+          This feature requires {creditCost} credits to use.
+        </p>
+        <button
+          onClick={() => setShowConfirm(true)}
+          className="mt-3 inline-flex items-centre px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Continue
+        </button>
+      </div>
+    );
+  }
+
+  // Show content if user has access (and credits have been used if required)
+  if (hasAccess && (!requiresCredits || creditUsed)) {
+    return <>{children}</>;
+  }
+
+  // Show fallback or nothing if user does not have access
+  return renderNothing ? null : fallback ? (
+    <>{fallback}</>
+  ) : (
+    <div className="p-4 border border-grey-200 rounded-md">
+      <h3 className="text-lg font-medium text-grey-900">Feature not available</h3>
+      <p className="mt-2 text-sm text-grey-500">
+        {requiresCredits
+          ? 'You do not have enough credits to use this feature.'
+          : 'This feature requires a subscription upgrade.'}
+      </p>
+      <a
+        href={requiresCredits ? '/credits' : '/subscriptions'}
+        className="mt-3 inline-flex items-centre px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      >
+        {requiresCredits ? 'Purchase credits' : 'View subscription options'}
+      </a>
+    </div>
+  );
+}

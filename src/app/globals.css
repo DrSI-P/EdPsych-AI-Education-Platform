@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import the comprehensive brand theme */
+@import '../styles/theme.css';
+
+:root {
+  --background: var(--brand-bg-primary);
+  --foreground: var(--brand-text-primary);
+}
+
+@layer base {
+  :root {
+    --radius: var(--brand-radius-md);
+  }
+}
+
+@layer utilities {
+  .animate-in {
+    animation: animateIn 0.5s ease-out;
+  }
+  
+  @keyframes animateIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Ensure consistent styling across all pages */
+body {
+  background: var(--brand-bg-primary);
+  color: var(--brand-text-primary);
+  font-family: var(--brand-font-sans);
+  line-height: var(--brand-leading-normal);
+  min-height: 100vh;
+}
+
+/* Page wrapper consistency */
+#__next,
+.main-wrapper,
+main {
+  background-color: var(--brand-bg-primary);
+  color: var(--brand-text-primary);
+}
+
+/* Ensure all routes have consistent backgrounds */
+[class*="route"],
+[class*="page"] {
+  background-color: var(--brand-bg-primary);
+  color: var(--brand-text-primary);
+}

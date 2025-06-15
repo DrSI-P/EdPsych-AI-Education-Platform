@@ -1,0 +1,699 @@
+'use client';
+
+import React, { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Separator } from '@/components/ui/separator';
+import MainNavigation from '@/components/navigation/main-navigation';
+import { 
+  BookOpen, 
+  Calendar, 
+  FileText, 
+  Users, 
+  Target, 
+  Lightbulb, 
+  ArrowRight, 
+  CheckCircle, 
+  Clock, 
+  Layers, 
+  PenTool, 
+  BarChart3, 
+  Compass, 
+  Puzzle, 
+  Search,
+  Plus,
+  Filter,
+  Grid3X3,
+  List
+} from 'lucide-react';
+
+export default function CurriculumPlanningPage() {
+  const [activeTab, setActiveTab] = useState('overview');
+  const [viewMode, setViewMode] = useState('grid');
+  const [selectedSubject, setSelectedSubject] = useState('all');
+  const [selectedKeyStage, setSelectedKeyStage] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Mock data for curriculum planning templates
+  const planningTemplates = [
+    {
+      id: '1',
+      title: 'Weekly Lesson Planner',
+      description: 'Structured template for planning weekly lessons with objectives, activities, and assessments.',
+      category: 'Lesson Planning',
+      keyStages: ['KS1', 'KS2', 'KS3', 'KS4'],
+      features: ['Learning objectives', 'Differentiation sections', 'Assessment opportunities', 'Resource lists'],
+      popularity: 'High',
+      lastUpdated: '2025-05-10'
+    },
+    {
+      id: '2',
+      title: 'Unit Planning Framework',
+      description: 'Comprehensive framework for planning subject units across multiple weeks or terms.',
+      category: 'Unit Planning',
+      keyStages: ['KS2', 'KS3', 'KS4', 'KS5'],
+      features: ['Unit objectives', 'Progression mapping', 'Cross-curricular links', 'Assessment strategy'],
+      popularity: 'Medium',
+      lastUpdated: '2025-04-22'
+    },
+    {
+      id: '3',
+      title: 'Differentiation Planner',
+      description: 'Specialised template focusing on planning differentiated activities for diverse learning needs.',
+      category: 'Inclusive Planning',
+      keyStages: ['All'],
+      features: ['Support strategies', 'Extension activities', 'Scaffolding approaches', 'Accessibility considerations'],
+      popularity: 'High',
+      lastUpdated: '2025-05-15'
+    },
+    {
+      id: '4',
+      title: 'Assessment Design Tool',
+      description: 'Template for creating formative and summative assessments aligned with learning objectives.',
+      category: 'Assessment',
+      keyStages: ['KS2', 'KS3', 'KS4', 'KS5'],
+      features: ['Question design', 'Marking schemes', 'Success criteria', 'Feedback templates'],
+      popularity: 'Medium',
+      lastUpdated: '2025-03-18'
+    },
+    {
+      id: '5',
+      title: 'Curriculum Mapping Tool',
+      description: 'Strategic planning tool for mapping curriculum coverage across terms or academic years.',
+      category: 'Curriculum Design',
+      keyStages: ['All'],
+      features: ['Standards alignment', 'Progression pathways', 'Gap analysis', 'Resource allocation'],
+      popularity: 'High',
+      lastUpdated: '2025-05-02'
+    },
+    {
+      id: '6',
+      title: 'Project-Based Learning Planner',
+      description: 'Framework for designing engaging project-based learning experiences.',
+      category: 'Project Planning',
+      keyStages: ['KS2', 'KS3', 'KS4'],
+      features: ['Project milestones', 'Skill development', 'Authentic assessment', 'Resource requirements'],
+      popularity: 'Medium',
+      lastUpdated: '2025-04-05'
+    }
+  ];
+
+  // Mock data for curriculum planning features
+  const planningFeatures = [
+    {
+      icon: Calendar,
+      title: "Flexible Planning Templates",
+      description: "Access a wide range of customizable planning templates for different timeframes and purposes",
+      features: ["Weekly lesson plans", "Unit planning frameworks", "Term and yearly overviews"]
+    },
+    {
+      icon: Target,
+      title: "Standards Alignment",
+      description: "Easily align your curriculum plans with UK national curriculum standards and objectives",
+      features: ["National curriculum mapping", "Learning objective integration", "Progression tracking"]
+    },
+    {
+      icon: Layers,
+      title: "Differentiation Tools",
+      description: "Plan effectively for diverse learning needs with specialised differentiation tools",
+      features: ["Support strategy suggestions", "Extension activity ideas", "Accessibility planning"]
+    },
+    {
+      icon: PenTool,
+      title: "Assessment Integration",
+      description: "Seamlessly integrate assessment planning into your curriculum development process",
+      features: ["Formative assessment design", "Summative assessment planning", "Success criteria development"]
+    },
+    {
+      icon: Compass,
+      title: "Curriculum Mapping",
+      description: "Visualize and manage your curriculum across subjects, years, and key stages",
+      features: ["Cross-curricular connections", "Progression pathways", "Coverage analysis"]
+    },
+    {
+      icon: Puzzle,
+      title: "Collaborative Planning",
+      description: "Work together with colleagues on curriculum development and planning",
+      features: ["Real-time collaboration", "Commenting and feedback", "Version control"]
+    }
+  ];
+
+  // Filter templates based on selected filters
+  const filteredTemplates = planningTemplates.filter(template => {
+    const matchesSubject = selectedSubject === 'all' || template.category === selectedSubject;
+    const matchesKeyStage = selectedKeyStage === 'all' || template.keyStages.includes(selectedKeyStage) || template.keyStages.includes('All');
+    const matchesSearch = searchQuery === '' || 
+      template.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      template.description.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    return matchesSubject && matchesKeyStage && matchesSearch;
+  });
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    // In a real implementation, this would trigger an API call
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <MainNavigation />
+      
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-centre">
+            <Badge className="bg-white text-blue-600 px-4 py-2 mb-4">
+              <BookOpen className="w-4 h-4 mr-2" />
+              Learning Tools
+            </Badge>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">Curriculum Planning</h1>
+            <p className="text-xl md:text-2xl text-blue-100 max-w-4xl mx-auto mb-8">
+              Design, organise, and implement effective curriculum plans aligned with 
+              educational standards and student needs.
+            </p>
+            <div className="flex flex-wrap justify-centre gap-4">
+              <Badge className="bg-white text-blue-600 px-4 py-2 text-sm">
+                <Calendar className="w-4 h-4 mr-2" />
+                Flexible Templates
+              </Badge>
+              <Badge className="bg-blue-500 text-white px-4 py-2 text-sm">
+                <Target className="w-4 h-4 mr-2" />
+                Standards Aligned
+              </Badge>
+              <Badge className="bg-purple-500 text-white px-4 py-2 text-sm">
+                <Layers className="w-4 h-4 mr-2" />
+                Differentiation Tools
+              </Badge>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab} className="mb-8">
+            <TabsList className="grid grid-cols-3 mb-8 w-full sm:w-auto">
+              <TabsTrigger value="overview" className="flex items-centre">
+                <BookOpen className="mr-2 h-4 w-4" />
+                Overview
+              </TabsTrigger>
+              <TabsTrigger value="templates" className="flex items-centre">
+                <FileText className="mr-2 h-4 w-4" />
+                Planning Templates
+              </TabsTrigger>
+              <TabsTrigger value="resources" className="flex items-centre">
+                <Lightbulb className="mr-2 h-4 w-4" />
+                Planning Resources
+              </TabsTrigger>
+            </TabsList>
+            
+            {/* Overview Tab */}
+            <TabsContent value="overview">
+              <div className="text-centre mb-12">
+                <h2 className="text-3xl font-bold text-grey-900 mb-4">Comprehensive Curriculum Planning Tools</h2>
+                <p className="text-lg text-grey-600 max-w-3xl mx-auto">
+                  Our curriculum planning tools help educators design effective, standards-aligned 
+                  learning experiences that meet the diverse needs of all students.
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {planningFeatures.map((feature, index) => {
+                  const IconComponent = feature.icon;
+                  return (
+                    <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+                      <CardHeader>
+                        <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-centre justify-centre mb-4">
+                          <IconComponent className="w-8 h-8 text-white" />
+                        </div>
+                        <CardTitle className="text-xl text-grey-900">{feature.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-grey-600 mb-4">{feature.description}</p>
+                        <ul className="space-y-2">
+                          {feature.features.map((item, idx) => (
+                            <li key={idx} className="flex items-start space-x-2">
+                              <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                              <span className="text-sm text-grey-700">{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+
+              <div className="mt-16 bg-white rounded-lg shadow-lg p-8">
+                <div className="text-centre mb-8">
+                  <h2 className="text-2xl font-bold text-grey-900 mb-4">The Curriculum Planning Process</h2>
+                  <p className="text-grey-600 max-w-3xl mx-auto">
+                    Our platform supports a comprehensive, iterative approach to curriculum planning
+                  </p>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                  <div className="text-centre p-6 border border-blue-100 rounded-lg bg-blue-50">
+                    <div className="w-12 h-12 bg-blue-600 rounded-full flex items-centre justify-centre mx-auto mb-4">
+                      <span className="text-white font-bold">1</span>
+                    </div>
+                    <h3 className="font-semibold text-lg mb-2">Analyse & Assess</h3>
+                    <p className="text-sm text-grey-600">
+                      Evaluate student needs, review standards, and identify learning goals
+                    </p>
+                  </div>
+                  
+                  <div className="text-centre p-6 border border-purple-100 rounded-lg bg-purple-50">
+                    <div className="w-12 h-12 bg-purple-600 rounded-full flex items-centre justify-centre mx-auto mb-4">
+                      <span className="text-white font-bold">2</span>
+                    </div>
+                    <h3 className="font-semibold text-lg mb-2">Design & Develop</h3>
+                    <p className="text-sm text-grey-600">
+                      Create learning objectives, plan activities, and organise resources
+                    </p>
+                  </div>
+                  
+                  <div className="text-centre p-6 border border-green-100 rounded-lg bg-green-50">
+                    <div className="w-12 h-12 bg-green-600 rounded-full flex items-centre justify-centre mx-auto mb-4">
+                      <span className="text-white font-bold">3</span>
+                    </div>
+                    <h3 className="font-semibold text-lg mb-2">Implement & Teach</h3>
+                    <p className="text-sm text-grey-600">
+                      Deliver instruction, facilitate learning, and collect formative data
+                    </p>
+                  </div>
+                  
+                  <div className="text-centre p-6 border border-amber-100 rounded-lg bg-amber-50">
+                    <div className="w-12 h-12 bg-amber-600 rounded-full flex items-centre justify-centre mx-auto mb-4">
+                      <span className="text-white font-bold">4</span>
+                    </div>
+                    <h3 className="font-semibold text-lg mb-2">Evaluate & Refine</h3>
+                    <p className="text-sm text-grey-600">
+                      Assess outcomes, gather feedback, and make improvements
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </TabsContent>
+            
+            {/* Templates Tab */}
+            <TabsContent value="templates">
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                {/* Filters Sidebar */}
+                <div className="lg:col-span-1">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-lg flex items-centre">
+                        <Filter className="mr-2 h-5 w-5" />
+                        Filters
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium">Category</label>
+                        <Select value={selectedSubject} onValueChange={setSelectedSubject}>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select Category" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="all">All Categories</SelectItem>
+                            <SelectItem value="Lesson Planning">Lesson Planning</SelectItem>
+                            <SelectItem value="Unit Planning">Unit Planning</SelectItem>
+                            <SelectItem value="Inclusive Planning">Inclusive Planning</SelectItem>
+                            <SelectItem value="Assessment">Assessment</SelectItem>
+                            <SelectItem value="Curriculum Design">Curriculum Design</SelectItem>
+                            <SelectItem value="Project Planning">Project Planning</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium">Key Stage</label>
+                        <Select value={selectedKeyStage} onValueChange={setSelectedKeyStage}>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select Key Stage" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="all">All Key Stages</SelectItem>
+                            <SelectItem value="EYFS">Early Years (EYFS)</SelectItem>
+                            <SelectItem value="KS1">Key Stage 1</SelectItem>
+                            <SelectItem value="KS2">Key Stage 2</SelectItem>
+                            <SelectItem value="KS3">Key Stage 3</SelectItem>
+                            <SelectItem value="KS4">Key Stage 4</SelectItem>
+                            <SelectItem value="KS5">Key Stage 5</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium">Popularity</label>
+                        <Select defaultValue="all">
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select Popularity" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="all">All</SelectItem>
+                            <SelectItem value="high">High</SelectItem>
+                            <SelectItem value="medium">Medium</SelectItem>
+                            <SelectItem value="low">Low</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div className="pt-4">
+                        <Button variant="outline" className="w-full" onClick={() => {
+                          setSelectedSubject('all');
+                          setSelectedKeyStage('all');
+                          setSearchQuery('');
+                        }}>
+                          Clear Filters
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Templates Content */}
+                <div className="lg:col-span-3">
+                  {/* Search and View Controls */}
+                  <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                    <form onSubmit={handleSearch} className="flex-1">
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                        <Input 
+                          type="search" 
+                          placeholder="Search planning templates..."
+                          className="pl-10"
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                      </div>
+                    </form>
+                    <div className="flex items-centre space-x-2">
+                      <Button 
+                        variant={viewMode === 'grid' ? 'default' : 'outline'} 
+                        size="icon"
+                        onClick={() => setViewMode('grid')}
+                      >
+                        <Grid3X3 className="h-4 w-4" />
+                      </Button>
+                      <Button 
+                        variant={viewMode === 'list' ? 'default' : 'outline'} 
+                        size="icon"
+                        onClick={() => setViewMode('list')}
+                      >
+                        <List className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Templates Display */}
+                  {filteredTemplates.length === 0 ? (
+                    <div className="text-centre py-12">
+                      <BookOpen className="mx-auto h-12 w-12 text-muted-foreground" />
+                      <h3 className="mt-4 text-lg font-medium">No templates found</h3>
+                      <p className="mt-2 text-muted-foreground">
+                        Try adjusting your search or filters to find what you're looking for.
+                      </p>
+                    </div>
+                  ) : viewMode === 'grid' ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {filteredTemplates.map((template) => (
+                        <Card key={template.id} className="overflow-hidden flex flex-col h-full">
+                          <div className="h-2 bg-primary"></div>
+                          <CardHeader>
+                            <div className="flex justify-between items-start">
+                              <CardTitle className="text-lg">
+                                {template.title}
+                              </CardTitle>
+                              <Badge variant="outline">
+                                {template.category}
+                              </Badge>
+                            </div>
+                            <CardDescription>
+                              {template.keyStages.includes('All') ? 'All Key Stages' : template.keyStages.join(', ')}
+                            </CardDescription>
+                          </CardHeader>
+                          <CardContent className="flex-grow">
+                            <p className="text-sm text-muted-foreground mb-4">
+                              {template.description}
+                            </p>
+                            <div className="space-y-2">
+                              <h4 className="text-sm font-medium">Features:</h4>
+                              <ul className="grid grid-cols-2 gap-2">
+                                {template.features.map((feature, idx) => (
+                                  <li key={idx} className="flex items-start space-x-2">
+                                    <CheckCircle className="w-3 h-3 text-green-600 mt-0.5 flex-shrink-0" />
+                                    <span className="text-xs text-grey-700">{feature}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </CardContent>
+                          <CardFooter className="border-t pt-4">
+                            <div className="flex justify-between items-centre w-full">
+                              <span className="text-xs text-muted-foreground">
+                                Last updated: {template.lastUpdated}
+                              </span>
+                              <Button variant="outline" size="sm">
+                                Use Template
+                              </Button>
+                            </div>
+                          </CardFooter>
+                        </Card>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {filteredTemplates.map((template) => (
+                        <Card key={template.id}>
+                          <div className="flex flex-col md:flex-row">
+                            <div className="w-2 md:h-auto bg-primary"></div>
+                            <div className="flex-1 p-6">
+                              <div className="flex flex-col md:flex-row justify-between">
+                                <div>
+                                  <div className="flex items-centre">
+                                    <h3 className="text-lg font-semibold">
+                                      {template.title}
+                                    </h3>
+                                    <Badge className="ml-2" variant="outline">
+                                      {template.category}
+                                    </Badge>
+                                  </div>
+                                  <p className="text-sm text-muted-foreground mt-1">
+                                    {template.keyStages.includes('All') ? 'All Key Stages' : template.keyStages.join(', ')}
+                                  </p>
+                                </div>
+                                <div className="mt-2 md:mt-0 text-sm text-muted-foreground">
+                                  Last updated: {template.lastUpdated}
+                                </div>
+                              </div>
+                              <p className="mt-4 text-sm text-muted-foreground">
+                                {template.description}
+                              </p>
+                              <div className="mt-4 flex items-centre justify-between">
+                                <div className="flex flex-wrap gap-2">
+                                  {template.features.map((feature, idx) => (
+                                    <Badge key={idx} variant="secondary" className="text-xs">
+                                      {feature}
+                                    </Badge>
+                                  ))}
+                                </div>
+                                <Button variant="outline" size="sm">
+                                  Use Template
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                        </Card>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </TabsContent>
+            
+            {/* Resources Tab */}
+            <TabsContent value="resources">
+              <div className="text-centre mb-12">
+                <h2 className="text-3xl font-bold text-grey-900 mb-4">Curriculum Planning Resources</h2>
+                <p className="text-lg text-grey-600 max-w-3xl mx-auto">
+                  Access a wide range of resources to support effective curriculum planning and development
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <Card className="border-0 shadow-lg">
+                  <CardHeader className="bg-blue-50 border-b">
+                    <CardTitle className="text-xl flex items-centre">
+                      <FileText className="w-5 h-5 mr-3 text-blue-600" />
+                      Planning Guides
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="pt-6">
+                    <ul className="space-y-3">
+                      <li className="flex items-centre space-x-2">
+                        <ArrowRight className="w-4 h-4 text-blue-600" />
+                        <a href="#" className="text-blue-600 hover:underline">Effective Lesson Planning Guide</a>
+                      </li>
+                      <li className="flex items-centre space-x-2">
+                        <ArrowRight className="w-4 h-4 text-blue-600" />
+                        <a href="#" className="text-blue-600 hover:underline">Curriculum Mapping Handbook</a>
+                      </li>
+                      <li className="flex items-centre space-x-2">
+                        <ArrowRight className="w-4 h-4 text-blue-600" />
+                        <a href="#" className="text-blue-600 hover:underline">Assessment Design Principles</a>
+                      </li>
+                      <li className="flex items-centre space-x-2">
+                        <ArrowRight className="w-4 h-4 text-blue-600" />
+                        <a href="#" className="text-blue-600 hover:underline">Differentiation Strategies Guide</a>
+                      </li>
+                      <li className="flex items-centre space-x-2">
+                        <ArrowRight className="w-4 h-4 text-blue-600" />
+                        <a href="#" className="text-blue-600 hover:underline">Project-Based Learning Framework</a>
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+                
+                <Card className="border-0 shadow-lg">
+                  <CardHeader className="bg-purple-50 border-b">
+                    <CardTitle className="text-xl flex items-centre">
+                      <BarChart3 className="w-5 h-5 mr-3 text-purple-600" />
+                      Standards & Frameworks
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="pt-6">
+                    <ul className="space-y-3">
+                      <li className="flex items-centre space-x-2">
+                        <ArrowRight className="w-4 h-4 text-purple-600" />
+                        <a href="#" className="text-purple-600 hover:underline">UK National Curriculum Standards</a>
+                      </li>
+                      <li className="flex items-centre space-x-2">
+                        <ArrowRight className="w-4 h-4 text-purple-600" />
+                        <a href="#" className="text-purple-600 hover:underline">EYFS Framework Guide</a>
+                      </li>
+                      <li className="flex items-centre space-x-2">
+                        <ArrowRight className="w-4 h-4 text-purple-600" />
+                        <a href="#" className="text-purple-600 hover:underline">GCSE Subject Specifications</a>
+                      </li>
+                      <li className="flex items-centre space-x-2">
+                        <ArrowRight className="w-4 h-4 text-purple-600" />
+                        <a href="#" className="text-purple-600 hover:underline">A-Level Curriculum Requirements</a>
+                      </li>
+                      <li className="flex items-centre space-x-2">
+                        <ArrowRight className="w-4 h-4 text-purple-600" />
+                        <a href="#" className="text-purple-600 hover:underline">Ofsted Inspection Framework</a>
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+                
+                <Card className="border-0 shadow-lg">
+                  <CardHeader className="bg-green-50 border-b">
+                    <CardTitle className="text-xl flex items-centre">
+                      <Lightbulb className="w-5 h-5 mr-3 text-green-600" />
+                      Professional Development
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="pt-6">
+                    <ul className="space-y-3">
+                      <li className="flex items-centre space-x-2">
+                        <ArrowRight className="w-4 h-4 text-green-600" />
+                        <a href="#" className="text-green-600 hover:underline">Curriculum Design Masterclass</a>
+                      </li>
+                      <li className="flex items-centre space-x-2">
+                        <ArrowRight className="w-4 h-4 text-green-600" />
+                        <a href="#" className="text-green-600 hover:underline">Assessment for Learning Workshop</a>
+                      </li>
+                      <li className="flex items-centre space-x-2">
+                        <ArrowRight className="w-4 h-4 text-green-600" />
+                        <a href="#" className="text-green-600 hover:underline">Differentiated Instruction Course</a>
+                      </li>
+                      <li className="flex items-centre space-x-2">
+                        <ArrowRight className="w-4 h-4 text-green-600" />
+                        <a href="#" className="text-green-600 hover:underline">Curriculum Leadership Training</a>
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </div>
+              
+              <div className="mt-12 bg-white rounded-lg shadow-lg p-8">
+                <div className="text-centre mb-8">
+                  <h2 className="text-2xl font-bold text-grey-900 mb-4">Expert Planning Advice</h2>
+                  <p className="text-grey-600 max-w-3xl mx-auto">
+                    Tips from experienced educators on effective curriculum planning
+                  </p>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="border border-grey-200 rounded-lg p-6">
+                    <div className="flex items-start space-x-4">
+                      <div className="bg-blue-100 p-3 rounded-full">
+                        <Clock className="h-6 w-6 text-blue-600" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-lg mb-2">Start with the End in Mind</h3>
+                        <p className="text-grey-600">
+                          "Begin your planning process by clearly defining what students should know and be able to do by the end of the unit. This backward design approach ensures all activities and assessments align with your learning objectives."
+                        </p>
+                        <p className="text-sm text-grey-500 mt-2">- Dr. Sarah Williams, Curriculum Specialist</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="border border-grey-200 rounded-lg p-6">
+                    <div className="flex items-start space-x-4">
+                      <div className="bg-purple-100 p-3 rounded-full">
+                        <Users className="h-6 w-6 text-purple-600" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-lg mb-2">Plan for Diverse Learners</h3>
+                        <p className="text-grey-600">
+                          "Effective curriculum planning includes strategies for differentiation from the start. Consider how you'll support struggling learners and challenge advanced students within the same learning framework."
+                        </p>
+                        <p className="text-sm text-grey-500 mt-2">- James Thompson, Inclusive Education Lead</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </TabsContent>
+          </Tabs>
+        </div>
+      </div>
+      
+      {/* Call to Action */}
+      <div className="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-centre">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Curriculum Planning?</h2>
+          <p className="text-xl text-blue-100 mb-8">
+            Access our comprehensive planning tools and resources to create effective, standards-aligned curriculum.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-centre">
+            <Button
+              size="lg"
+              variant="secondary"
+              className="bg-white text-blue-600 hover:bg-grey-100"
+            >
+              <FileText className="w-5 h-5 mr-2" />
+              Browse Templates
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-2 border-white text-white hover:bg-white hover:text-blue-600"
+            >
+              <Plus className="w-5 h-5 mr-2" />
+              Create New Plan
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>

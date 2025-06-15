@@ -1,0 +1,820 @@
+'use client';
+
+import React, { useState } from 'react';
+import { EnhancedHeader, EnhancedFooter } from '@/components/layout/enhanced-header-footer';
+import { Container, Typography, Card, Grid } from '@/components/ui/enhanced-layout-components';
+import { Button } from '@/components/ui/enhanced-form-components';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/enhanced-interactive-components';
+import { Accordion, AccordionItem } from '@/components/ui/enhanced-interactive-components';
+import { Badge } from '@/components/ui/enhanced-form-components';
+import Link from 'next/link';
+import Image from 'next/image';
+
+// Create simple versions of missing components
+const Progress = ({ value, max, className }: { value: number; max: number; className?: string }) => (
+  <div className={`bg-grey-200 rounded-full ${className}`}>
+    <div 
+      className="bg-blue-600 rounded-full h-full" 
+      style={{ width: `${(value / max) * 100}%` }}
+    ></div>
+  </div>
+);
+
+const AccordionTrigger = ({ className, children }: { className?: string; children: React.ReactNode }) => (
+  <div className={className}>
+    {children}
+  </div>
+);
+
+const AccordionContent = ({ children }: { children: React.ReactNode }) => (
+  <div className="accordion-content">
+    {children}
+  </div>
+);
+
+export default function SpecialEducationalNeedsCoursePage() {
+  const [activeTab, setActiveTab] = useState('overview');
+  
+  // Mock data for course modules
+  const courseModules = [
+    {
+      id: 1,
+      title: "SEND Framework and Identification",
+      description: "Understanding the UK legal context, SEND Code of Practise, and identification processes for special educational needs.",
+      duration: "2 hours",
+      lessons: [
+        { title: "Introduction to SEND", duration: "20 min", type: "Video Lecture" },
+        { title: "UK SEND Code of Practise", duration: "25 min", type: "Reading" },
+        { title: "Legal Framework and Responsibilities", duration: "25 min", type: "Video Lecture" },
+        { title: "Identification and Assessment Processes", duration: "30 min", type: "Interactive Tutorial" },
+        { title: "Working with Parents and External Agencies", duration: "20 min", type: "Video Lecture" },
+        { title: "Knowledge Check", duration: "15 min", type: "Quiz" }
+      ],
+      resources: [
+        "SEND Code of Practise Summary Guide",
+        "Identification Flowchart",
+        "Parent Partnership Framework",
+        "External Agency Directory Template"
+      ],
+      completion: 0
+    },
+    {
+      id: 2,
+      title: "Specific Learning Difficulties",
+      description: "Understanding and supporting students with dyslexia, dyscalculia, dysgraphia, and other specific learning difficulties.",
+      duration: "2.5 hours",
+      lessons: [
+        { title: "Understanding Dyslexia", duration: "25 min", type: "Video Lecture" },
+        { title: "Dyscalculia and Mathematical Difficulties", duration: "25 min", type: "Video Lecture" },
+        { title: "Dysgraphia and Writing Challenges", duration: "25 min", type: "Video Lecture" },
+        { title: "Classroom Strategies for SpLD", duration: "30 min", type: "Interactive Tutorial" },
+        { title: "Assistive Technology for SpLD", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Knowledge Check", duration: "15 min", type: "Quiz" }
+      ],
+      resources: [
+        "SpLD Identification Checklist",
+        "Classroom Accommodation Guide",
+        "Assistive Technology Toolkit",
+        "Differentiation Strategies for SpLD"
+      ],
+      completion: 0
+    },
+    {
+      id: 3,
+      title: "Autism Spectrum",
+      description: "Supporting social communication and interaction needs for students on the autism spectrum.",
+      duration: "2 hours",
+      lessons: [
+        { title: "Understanding Autism Spectrum Conditions", duration: "25 min", type: "Video Lecture" },
+        { title: "Social Communication Needs", duration: "20 min", type: "Video Lecture" },
+        { title: "Sensory Processing Considerations", duration: "20 min", type: "Video Lecture" },
+        { title: "Classroom Strategies and Adaptations", duration: "30 min", type: "Interactive Tutorial" },
+        { title: "Supporting Social Integration", duration: "20 min", type: "Interactive Tutorial" },
+        { title: "Knowledge Check", duration: "15 min", type: "Quiz" }
+      ],
+      resources: [
+        "Autism-Friendly Classroom Checklist",
+        "Visual Support Templates",
+        "Sensory Audit Tool",
+        "Social Story Templates"
+      ],
+      completion: 0
+    },
+    {
+      id: 4,
+      title: "ADHD and Executive Function",
+      description: "Strategies for supporting attention, self-regulation, and executive function skills in the classroom.",
+      duration: "1.5 hours",
+      lessons: [
+        { title: "Understanding ADHD and Executive Function", duration: "25 min", type: "Video Lecture" },
+        { title: "Attention and Focus Strategies", duration: "20 min", type: "Interactive Tutorial" },
+        { title: "Self-Regulation Support", duration: "20 min", type: "Interactive Tutorial" },
+        { title: "Organisation and Time Management", duration: "20 min", type: "Interactive Tutorial" },
+        { title: "Working Memory and Processing Speed", duration: "15 min", type: "Video Lecture" },
+        { title: "Knowledge Check", duration: "15 min", type: "Quiz" }
+      ],
+      resources: [
+        "Executive Function Strategy Guide",
+        "Classroom Accommodation Checklist",
+        "Self-Regulation Tools",
+        "Visual Timetable Templates"
+      ],
+      completion: 0
+    },
+    {
+      id: 5,
+      title: "Speech, Language and Communication Needs",
+      description: "Understanding and supporting students with speech, language, and communication needs in educational settings.",
+      duration: "2 hours",
+      lessons: [
+        { title: "Understanding SLCN", duration: "20 min", type: "Video Lecture" },
+        { title: "Receptive Language Support", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Expressive Language Development", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Social Communication Skills", duration: "20 min", type: "Video Lecture" },
+        { title: "Working with Speech and Language Therapists", duration: "20 min", type: "Interactive Tutorial" },
+        { title: "Knowledge Check", duration: "15 min", type: "Quiz" }
+      ],
+      resources: [
+        "SLCN Classroom Strategies Guide",
+        "Visual Support Templates",
+        "Language Development Activities",
+        "SLT Collaboration Framework"
+      ],
+      completion: 0
+    },
+    {
+      id: 6,
+      title: "Sensory Processing",
+      description: "Understanding and supporting sensory processing needs in the classroom environment.",
+      duration: "1.5 hours",
+      lessons: [
+        { title: "Sensory Processing Fundamentals", duration: "20 min", type: "Video Lecture" },
+        { title: "Sensory Seeking and Avoiding Behaviors", duration: "20 min", type: "Video Lecture" },
+        { title: "Environmental Adaptations", duration: "20 min", type: "Interactive Tutorial" },
+        { title: "Sensory Breaks and Activities", duration: "20 min", type: "Interactive Tutorial" },
+        { title: "Sensory Integration Strategies", duration: "15 min", type: "Video Lecture" },
+        { title: "Knowledge Check", duration: "15 min", type: "Quiz" }
+      ],
+      resources: [
+        "Sensory Profile Assessment",
+        "Classroom Sensory Audit Tool",
+        "Sensory Break Activity Cards",
+        "Environmental Adaptation Guide"
+      ],
+      completion: 0
+    },
+    {
+      id: 7,
+      title: "Social, Emotional and Mental Health",
+      description: "Supporting students with social, emotional, and mental health needs through evidence-based approaches.",
+      duration: "2 hours",
+      lessons: [
+        { title: "Understanding SEMH Needs", duration: "20 min", type: "Video Lecture" },
+        { title: "Anxiety and Depression in Educational Settings", duration: "25 min", type: "Video Lecture" },
+        { title: "Trauma-Informed Approaches", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Building Emotional Literacy", duration: "20 min", type: "Interactive Tutorial" },
+        { title: "Whole-School SEMH Approaches", duration: "20 min", type: "Video Lecture" },
+        { title: "Knowledge Check", duration: "15 min", type: "Quiz" }
+      ],
+      resources: [
+        "SEMH Support Strategies Guide",
+        "Emotional Literacy Activities",
+        "Trauma-Informed Classroom Checklist",
+        "Anxiety Reduction Techniques"
+      ],
+      completion: 0
+    },
+    {
+      id: 8,
+      title: "Effective IEPs and Support Plans",
+      description: "Developing, implementing, and reviewing effective Individual Education Plans and support strategies.",
+      duration: "2 hours",
+      lessons: [
+        { title: "Principles of Effective IEPs", duration: "20 min", type: "Video Lecture" },
+        { title: "Setting SMART Goals", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Implementing Support Strategies", duration: "25 min", type: "Interactive Tutorial" },
+        { title: "Monitoring and Reviewing Progress", duration: "20 min", type: "Video Lecture" },
+        { title: "Collaborative IEP Development", duration: "20 min", type: "Interactive Tutorial" },
+        { title: "Final Assessment", duration: "30 min", type: "Assessment" }
+      ],
+      resources: [
+        "IEP Template and Examples",
+        "SMART Goal Bank",
+        "Progress Monitoring Tools",
+        "Collaborative Planning Framework"
+      ],
+      completion: 0
+    }
+  ];
+
+  // Mock data for course instructors
+  const instructors = [
+    {
+      name: "Dr. Sarah Williams",
+      title: "SEND Specialist and Educational Psychologist",
+      bio: "Dr. Williams has over 18 years of experience in SEND education and policy development. She has worked as a SENCO, educational psychologist, and university lecturer specialising in inclusive education and special educational needs.",
+      image: "/images/professional-development/instructors/sarah-williams.jpg"
+    },
+    {
+      name: "James Thompson",
+      title: "Autism and Communication Specialist",
+      bio: "James is a specialist teacher with expertise in autism spectrum conditions and communication needs. He has developed innovative approaches to supporting students with social communication difficulties in mainstream settings.",
+      image: "/images/professional-development/instructors/james-thompson.jpg"
+    },
+    {
+      name: "Dr. Rebecca Brown",
+      title: "SEMH and Trauma-Informed Practise Expert",
+      bio: "Dr. Brown specializes in social, emotional, and mental health needs in educational settings. Her research focuses on trauma-informed approaches and building emotional resilience in schools.",
+      image: "/images/professional-development/instructors/rebecca-brown.jpg"
+    }
+  ];
+
+  // Mock data for testimonials
+  const testimonials = [
+    {
+      quote: "This course has transformed my understanding of SEND and given me practical strategies I can implement immediately. The module on autism was particularly insightful.",
+      author: "Mark J., Secondary Science Teacher",
+      school: "Oakwood Academy"
+    },
+    {
+      quote: "As a SENCO, I found the IEP development module incredibly helpful. The templates and examples have streamlined our processes and improved the quality of our support plans.",
+      author: "Lisa T., SENCO",
+      school: "Greenfield Primary School"
+    },
+    {
+      quote: "The practical focus of this course made it immediately applicable to my classroom. I've seen significant improvements in how I support students with SLCN since implementing the strategies.",
+      author: "David R., Year 5 Teacher",
+      school: "St. Mary's Primary School"
+    }
+  ];
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <EnhancedHeader />
+      
+      <main className="flex-grow">
+        {/* Hero Section */}
+        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-16">
+          <Container>
+            <div className="flex flex-col md:flex-row gap-8 items-centre">
+              <div className="md:w-2/3">
+                <Badge className="bg-white text-purple-600 mb-4">Professional Development Course</Badge>
+                <Typography variant="h1" className="mb-4">
+                  Special Educational Needs: Effective Support Strategies
+                </Typography>
+                <Typography variant="lead" className="mb-6">
+                  An in-depth course providing educators with the knowledge and skills to effectively support learners with special educational needs.
+                </Typography>
+                <div className="flex flex-wrap gap-4 mb-6">
+                  <div className="flex items-centre gap-2 bg-purple-500/20 px-3 py-1 rounded-full">
+                    <span className="text-sm font-medium">Duration:</span>
+                    <span className="text-sm">15 hours</span>
+                  </div>
+                  <div className="flex items-centre gap-2 bg-purple-500/20 px-3 py-1 rounded-full">
+                    <span className="text-sm font-medium">Modules:</span>
+                    <span className="text-sm">8 modules</span>
+                  </div>
+                  <div className="flex items-centre gap-2 bg-purple-500/20 px-3 py-1 rounded-full">
+                    <span className="text-sm font-medium">Level:</span>
+                    <span className="text-sm">Foundation to Advanced</span>
+                  </div>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button variant="light" size="lg">
+                    Enrol Now
+                  </Button>
+                  <Button variant="outline-light" size="lg">
+                    Download Syllabus
+                  </Button>
+                </div>
+              </div>
+              <div className="md:w-1/3">
+                <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-xl">
+                  <Image
+                    src="/images/professional-development/special-educational-needs-hero.jpg"
+                    alt="Teacher supporting student with special educational needs"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+          </Container>
+        </div>
+        
+        {/* Main Content */}
+        <Container className="py-16">
+          <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab} className="mb-8">
+            <TabsList className="mb-8">
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="curriculum">Curriculum</TabsTrigger>
+              <TabsTrigger value="instructors">Instructors</TabsTrigger>
+              <TabsTrigger value="resources">Resources</TabsTrigger>
+              <TabsTrigger value="faq">FAQ</TabsTrigger>
+            </TabsList>
+            
+            {/* Overview Tab */}
+            <TabsContent value="overview">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="lg:col-span-2">
+                  <Card className="p-8 mb-8">
+                    <Typography variant="h3" className="mb-4">
+                      Course Description
+                    </Typography>
+                    <Typography variant="body" className="mb-6">
+                      This in-depth course provides educators with the knowledge and skills to effectively support learners with special educational needs. Based on current research and best practices, the programme covers a range of needs and evidence-based intervention approaches.
+                    </Typography>
+                    <Typography variant="body" className="mb-6">
+                      Through a combination of video lectures, interactive tutorials, case studies, and practical activities, you'll develop a comprehensive understanding of different special educational needs and how to implement effective support strategies in your educational setting. The course is aligned with the UK SEND Code of Practise and provides practical approaches that can be immediately applied in your context.
+                    </Typography>
+                    <Typography variant="h4" className="mb-2">
+                      What You'll Learn
+                    </Typography>
+                    <ul className="list-disc pl-6 mb-6 space-y-2">
+                      <li>Understanding the UK SEND Code of Practise and legal framework</li>
+                      <li>Evidence-based approaches for specific learning difficulties</li>
+                      <li>Supporting social communication and interaction needs</li>
+                      <li>Strategies for executive function and attention challenges</li>
+                      <li>Sensory processing considerations in the classroom</li>
+                      <li>Developing effective Individual Education Plans</li>
+                      <li>Working collaboratively with SEND specialists and families</li>
+                    </ul>
+                    <Typography variant="h4" className="mb-2">
+                      Who This Course Is For
+                    </Typography>
+                    <ul className="list-disc pl-6 mb-6 space-y-2">
+                      <li>Classroom teachers at all key stages</li>
+                      <li>SENCOs and inclusion coordinators</li>
+                      <li>Teaching assistants and learning support staff</li>
+                      <li>School leaders and inclusion managers</li>
+                      <li>Educational professionals interested in SEND</li>
+                      <li>Those preparing for SENCO qualification</li>
+                    </ul>
+                  </Card>
+                  
+                  <Card className="p-8">
+                    <Typography variant="h3" className="mb-4">
+                      Testimonials
+                    </Typography>
+                    <div className="space-y-6">
+                      {testimonials.map((testimonial, index) => (
+                        <div key={index} className="bg-grey-50 p-6 rounded-lg">
+                          <blockquote className="text-lg italic mb-4">"{testimonial.quote}"</blockquote>
+                          <div className="flex items-centre">
+                            <div className="w-10 h-10 bg-purple-600 rounded-full flex items-centre justify-centre text-white font-bold mr-3">
+                              {testimonial.author.charAt(0)}
+                            </div>
+                            <div>
+                              <p className="font-medium">{testimonial.author}</p>
+                              <p className="text-sm text-grey-600">{testimonial.school}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </Card>
+                </div>
+                
+                <div className="lg:col-span-1">
+                  <Card className="p-6 mb-6">
+                    <Typography variant="h4" className="mb-4">
+                      Course Details
+                    </Typography>
+                    <div className="space-y-4">
+                      <div>
+                        <p className="text-sm font-medium mb-1">Duration</p>
+                        <p>15 hours of content (self-paced)</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium mb-1">Format</p>
+                        <p>Online with video lectures, interactive activities, and practical assignments</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium mb-1">Access Period</p>
+                        <p>12 months from enrolment</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium mb-1">Certificate</p>
+                        <p>Downloadable certificate upon completion</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium mb-1">CPD Hours</p>
+                        <p>15 CPD hours recognized by UK teaching bodies</p>
+                      </div>
+                    </div>
+                    <div className="mt-6">
+                      <Button variant="primary" size="lg" className="w-full">
+                        Enrol Now
+                      </Button>
+                    </div>
+                  </Card>
+                  
+                  <Card className="p-6 mb-6">
+                    <Typography variant="h4" className="mb-4">
+                      Related Courses
+                    </Typography>
+                    <div className="space-y-4">
+                      <div className="flex items-start gap-3">
+                        <div className="relative w-16 h-12 rounded overflow-hidden flex-shrink-0">
+                          <Image
+                            src="/images/professional-development/inclusive-education.jpg"
+                            alt="Inclusive Education course"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div>
+                          <Link href="/professional-development/courses/inclusive-education" className="font-medium hover:text-purple-600 transition-colors">
+                            Inclusive Education: Creating Learning Environments for All
+                          </Link>
+                          <p className="text-sm text-grey-600">12 hours • 6 modules</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="relative w-16 h-12 rounded overflow-hidden flex-shrink-0">
+                          <Image
+                            src="/images/professional-development/behaviour-management.jpg"
+                            alt="Behaviour Management course"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div>
+                          <Link href="/professional-development/courses/behaviour-management" className="font-medium hover:text-purple-600 transition-colors">
+                            Positive Behaviour Support and Restorative Approaches
+                          </Link>
+                          <p className="text-sm text-grey-600">10 hours • 5 modules</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="relative w-16 h-12 rounded overflow-hidden flex-shrink-0">
+                          <Image
+                            src="/images/professional-development/assessment-strategies.jpg"
+                            alt="Assessment Strategies course"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div>
+                          <Link href="/professional-development/courses/assessment-strategies" className="font-medium hover:text-purple-600 transition-colors">
+                            Effective Assessment for Learning
+                          </Link>
+                          <p className="text-sm text-grey-600">12 hours • 6 modules</p>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                  
+                  <Card className="p-6">
+                    <Typography variant="h4" className="mb-4">
+                      Need Help?
+                    </Typography>
+                    <Typography variant="body" className="mb-4">
+                      If you have questions about this course or need assistance, our support team is here to help.
+                    </Typography>
+                    <Button variant="outline" size="lg" className="w-full" asChild>
+                      <Link href="/contact">
+                        Contact Support
+                      </Link>
+                    </Button>
+                  </Card>
+                </div>
+              </div>
+            </TabsContent>
+            
+            {/* Curriculum Tab */}
+            <TabsContent value="curriculum">
+              <Card className="p-8">
+                <Typography variant="h3" className="mb-6">
+                  Course Curriculum
+                </Typography>
+                <Typography variant="body" className="mb-8">
+                  This course consists of 8 comprehensive modules, each focusing on a key aspect of special educational needs. Each module includes video lectures, interactive tutorials, case studies, and knowledge checks to ensure understanding.
+                </Typography>
+                
+                <div className="space-y-6">
+                  {courseModules.map((module) => (
+                    <div key={module.id} className="border rounded-lg overflow-hidden">
+                      <Accordion type="single" collapsible>
+                        <AccordionItem value={`module-${module.id}`}>
+                          <AccordionTrigger className="p-6 bg-grey-50 hover:bg-grey-100">
+                            <div className="flex flex-col md:flex-row md:items-centre justify-between w-full text-left">
+                              <div>
+                                <Typography variant="h4" className="mb-1">
+                                  Module {module.id}: {module.title}
+                                </Typography>
+                                <Typography variant="small" className="text-grey-600">
+                                  {module.duration} • {module.lessons.length} lessons
+                                </Typography>
+                              </div>
+                              <div className="mt-2 md:mt-0">
+                                <Progress value={module.completion} max={100} className="w-24 h-2" />
+                              </div>
+                            </div>
+                          </AccordionTrigger>
+                          <AccordionContent>
+                            <div className="p-6">
+                              <Typography variant="body" className="mb-4">
+                                {module.description}
+                              </Typography>
+                              
+                              <Typography variant="h5" className="mb-3">
+                                Lessons
+                              </Typography>
+                              <div className="space-y-3 mb-6">
+                                {module.lessons.map((lesson, index) => (
+                                  <div key={index} className="flex items-centre justify-between p-3 bg-grey-50 rounded">
+                                    <div className="flex items-centre">
+                                      <div className="w-8 h-8 bg-purple-100 text-purple-600 rounded-full flex items-centre justify-centre mr-3">
+                                        {index + 1}
+                                      </div>
+                                      <div>
+                                        <p className="font-medium">{lesson.title}</p>
+                                        <p className="text-sm text-grey-600">{lesson.duration} • {lesson.type}</p>
+                                      </div>
+                                    </div>
+                                    <Button variant="ghost" size="sm">
+                                      Preview
+                                    </Button>
+                                  </div>
+                                ))}
+                              </div>
+                              
+                              <Typography variant="h5" className="mb-3">
+                                Resources
+                              </Typography>
+                              <div className="space-y-2">
+                                {module.resources.map((resource, index) => (
+                                  <div key={index} className="flex items-centre p-2">
+                                    <div className="w-5 h-5 bg-purple-100 text-purple-600 rounded-full flex items-centre justify-centre mr-3">
+                                      <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                      </svg>
+                                    </div>
+                                    <p>{resource}</p>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </AccordionContent>
+                        </AccordionItem>
+                      </Accordion>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            </TabsContent>
+            
+            {/* Instructors Tab */}
+            <TabsContent value="instructors">
+              <Card className="p-8">
+                <Typography variant="h3" className="mb-6">
+                  Meet Your Instructors
+                </Typography>
+                <Typography variant="body" className="mb-8">
+                  This course is developed and delivered by experts in special educational needs with extensive experience in both research and practical implementation.
+                </Typography>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {instructors.map((instructor, index) => (
+                    <div key={index} className="flex flex-col">
+                      <div className="mb-4">
+                        <div className="relative w-full aspect-square rounded-lg overflow-hidden">
+                          <Image
+                            src={instructor.image}
+                            alt={instructor.name}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <Typography variant="h4" className="mb-1">
+                          {instructor.name}
+                        </Typography>
+                        <Typography variant="small" className="text-purple-600 mb-3">
+                          {instructor.title}
+                        </Typography>
+                        <Typography variant="body">
+                          {instructor.bio}
+                        </Typography>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            </TabsContent>
+            
+            {/* Resources Tab */}
+            <TabsContent value="resources">
+              <Card className="p-8">
+                <Typography variant="h3" className="mb-6">
+                  Course Resources
+                </Typography>
+                <Typography variant="body" className="mb-8">
+                  This course includes a comprehensive set of resources to support your learning and implementation of SEND strategies.
+                </Typography>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div>
+                    <Typography variant="h4" className="mb-4">
+                      Included Materials
+                    </Typography>
+                    <ul className="space-y-3">
+                      <li className="flex items-start">
+                        <div className="w-6 h-6 bg-purple-100 text-purple-600 rounded-full flex items-centre justify-centre mr-3 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="font-medium">SEND Support Handbook</p>
+                          <p className="text-sm text-grey-600">A 150-page digital handbook covering all course content with detailed strategies and implementation guides.</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start">
+                        <div className="w-6 h-6 bg-purple-100 text-purple-600 rounded-full flex items-centre justify-centre mr-3 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="font-medium">SEND Assessment Toolkit</p>
+                          <p className="text-sm text-grey-600">Comprehensive assessment tools for identifying and monitoring different special educational needs.</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start">
+                        <div className="w-6 h-6 bg-purple-100 text-purple-600 rounded-full flex items-centre justify-centre mr-3 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="font-medium">Visual Support Library</p>
+                          <p className="text-sm text-grey-600">Extensive collection of visual supports, social stories, and communication tools.</p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <Typography variant="h4" className="mb-4">
+                      Additional Support
+                    </Typography>
+                    <ul className="space-y-3">
+                      <li className="flex items-start">
+                        <div className="w-6 h-6 bg-purple-100 text-purple-600 rounded-full flex items-centre justify-centre mr-3 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="font-medium">SEND Specialist Forum</p>
+                          <p className="text-sm text-grey-600">Access to a moderated forum where you can discuss implementation challenges with SEND specialists.</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start">
+                        <div className="w-6 h-6 bg-purple-100 text-purple-600 rounded-full flex items-centre justify-centre mr-3 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="font-medium">Case Study Library</p>
+                          <p className="text-sm text-grey-600">Access to detailed case studies showing implementation of strategies across different settings.</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start">
+                        <div className="w-6 h-6 bg-purple-100 text-purple-600 rounded-full flex items-centre justify-centre mr-3 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="font-medium">Implementation Coaching</p>
+                          <p className="text-sm text-grey-600">Optional 1:1 coaching sessions available for personalized implementation support.</p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </Card>
+            </TabsContent>
+            
+            {/* FAQ Tab */}
+            <TabsContent value="faq">
+              <Card className="p-8">
+                <Typography variant="h3" className="mb-6">
+                  Frequently Asked Questions
+                </Typography>
+                
+                <div className="space-y-4">
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value="faq-1">
+                      <AccordionTrigger className="p-4 bg-grey-50 hover:bg-grey-100 rounded-lg">
+                        <Typography variant="h5">
+                          Is this course suitable for all educational settings?
+                        </Typography>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="p-4">
+                          <Typography variant="body">
+                            Yes, this course is designed for educators in all settings including mainstream schools, special schools, alternative provision, and early years settings. The strategies and approaches are adaptable to different contexts and age groups.
+                          </Typography>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                    <AccordionItem value="faq-2">
+                      <AccordionTrigger className="p-4 bg-grey-50 hover:bg-grey-100 rounded-lg">
+                        <Typography variant="h5">
+                          Does this course count toward SENCO qualification?
+                        </Typography>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="p-4">
+                          <Typography variant="body">
+                            Whilst this course provides valuable knowledge for SENCOs, it does not replace the National Award for SEN Coordination which is a statutory requirement for SENCOs in the UK. However, it complements the National Award and provides practical implementation strategies.
+                          </Typography>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                    <AccordionItem value="faq-3">
+                      <AccordionTrigger className="p-4 bg-grey-50 hover:bg-grey-100 rounded-lg">
+                        <Typography variant="h5">
+                          How up-to-date is the content with current SEND legislation?
+                        </Typography>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="p-4">
+                          <Typography variant="body">
+                            The course content is regularly updated to reflect current UK SEND legislation and the SEND Code of Practise. Our team monitors changes in policy and updates the course accordingly. The last major update was in March 2025.
+                          </Typography>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                    <AccordionItem value="faq-4">
+                      <AccordionTrigger className="p-4 bg-grey-50 hover:bg-grey-100 rounded-lg">
+                        <Typography variant="h5">
+                          Can I access the course on mobile devices?
+                        </Typography>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="p-4">
+                          <Typography variant="body">
+                            Yes, the course is fully responsive and can be accessed on smartphones, tablets, and desktop computers. You can start the course on one device and continue on another, as your progress is automatically saved.
+                          </Typography>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                    <AccordionItem value="faq-5">
+                      <AccordionTrigger className="p-4 bg-grey-50 hover:bg-grey-100 rounded-lg">
+                        <Typography variant="h5">
+                          Are there group discounts available for schools?
+                        </Typography>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="p-4">
+                          <Typography variant="body">
+                            Yes, we offer discounted rates for schools purchasing multiple licenses. Please contact our support team for information about group enrolment options and whole-school professional development packages.
+                          </Typography>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </Container>
+        
+        {/* Call to Action */}
+        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-16">
+          <Container>
+            <div className="text-centre max-w-3xl mx-auto">
+              <Typography variant="h2" className="mb-4">
+                Ready to Enhance Your SEND Practise?
+              </Typography>
+              <Typography variant="lead" className="mb-8">
+                Join thousands of educators who have developed their skills in supporting students with special educational needs through this comprehensive course.
+              </Typography>
+              <div className="flex flex-col sm:flex-row gap-4 justify-centre">
+                <Button variant="light" size="lg">
+                  Enrol Now
+                </Button>
+                <Button variant="outline-light" size="lg" asChild>
+                  <Link href="/professional-development">
+                    Explore More Courses
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </Container>
+        </div>
+      </main>
+      
+      <EnhancedFooter />
+    </div>

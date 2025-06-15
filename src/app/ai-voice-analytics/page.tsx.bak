@@ -1,0 +1,1123 @@
+'use client';
+
+import React, { useState } from 'react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { Slider } from "@/components/ui/slider";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import ComprehensiveNavigation from '@/components/navigation/comprehensive-navigation';
+import { 
+  Mic, 
+  Play, 
+  Pause, 
+  SkipForward, 
+  SkipBack, 
+  Volume2, 
+  VolumeX, 
+  Upload, 
+  Download, 
+  FileAudio,
+  Activity,
+  BarChart2, 
+  PieChart, 
+  LineChart, 
+  Clock, 
+  Calendar, 
+  User, 
+  Users, 
+  BookOpen, 
+  Brain, 
+  Lightbulb, 
+  Star, 
+  CheckCircle, 
+  AlertCircle, 
+  Info, 
+  HelpCircle, 
+  Settings, 
+  Filter, 
+  Search, 
+  RefreshCw, 
+  Plus, 
+  Trash, 
+  Edit, 
+  Save, 
+  Eye, 
+  EyeOff, 
+  ArrowRight, 
+  ArrowLeft, 
+  ChevronDown, 
+  ChevronUp, 
+  ChevronRight, 
+  ChevronLeft, 
+  MoreHorizontal, 
+  MoreVertical, 
+  Menu, 
+  X, 
+  Check, 
+  Zap, 
+  FileText, 
+  Headphones, 
+  Sparkles
+} from 'lucide-react';
+
+export default function AIVoiceAnalyticsPage() {
+  const [activeTab, setActiveTab] = useState('overview');
+  const [isRecording, setIsRecording] = useState(false);
+  const [recordingTime, setRecordingTime] = useState(0);
+  const [selectedRecording, setSelectedRecording] = useState<string | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [analysisInProgress, setAnalysisInProgress] = useState(false);
+  const [analysisComplete, setAnalysisComplete] = useState(false);
+
+  // Sample data for demonstration
+  const recentRecordings = [
+    {
+      id: 'rec1',
+      name: 'Reading Assessment - Alex J.',
+      date: 'June 4, 2025',
+      duration: '2:34',
+      type: 'Reading',
+      analysed: true
+    },
+    {
+      id: 'rec2',
+      name: 'Oral Presentation - Maya P.',
+      date: 'June 3, 2025',
+      duration: '4:12',
+      type: 'Presentation',
+      analysed: true
+    },
+    {
+      id: 'rec3',
+      name: 'Language Practise - Thomas W.',
+      date: 'June 1, 2025',
+      duration: '3:45',
+      type: 'Language',
+      analysed: false
+    }
+  ];
+
+  const insightCategories = [
+    {
+      id: 'fluency',
+      name: 'Reading Fluency',
+      icon: BookOpen,
+      description: 'Analysis of reading speed, smoothness, and expression',
+      color: 'blue'
+    },
+    {
+      id: 'pronunciation',
+      name: 'Pronunciation',
+      icon: Mic,
+      description: 'Accuracy of phoneme production and word pronunciation',
+      color: 'purple'
+    },
+    {
+      id: 'comprehension',
+      name: 'Comprehension Indicators',
+      icon: Brain,
+      description: 'Verbal cues that indicate understanding of content',
+      color: 'green'
+    },
+    {
+      id: 'confidence',
+      name: 'Speaking Confidence',
+      icon: Zap,
+      description: 'Measures of vocal confidence, hesitation, and clarity',
+      color: 'amber'
+    },
+    {
+      id: 'emotion',
+      name: 'Emotional Tone',
+      icon: Activity,
+      description: 'Analysis of emotional expression and engagement',
+      color: 'red'
+    }
+  ];
+
+  const handleStartRecording = () => {
+    setIsRecording(true);
+    
+    // Simulate recording timer
+    const timer = setInterval(() => {
+      setRecordingTime(prev => prev + 1);
+    }, 1000);
+    
+    // Store timer ID for cleanup
+    return () => clearInterval(timer);
+  };
+
+  const handleStopRecording = () => {
+    setIsRecording(false);
+    setRecordingTime(0);
+  };
+
+  const handleRecordingSelect = (id: string) => {
+    setSelectedRecording(id);
+  };
+
+  const handlePlayPause = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleAnalyze = () => {
+    setAnalysisInProgress(true);
+    
+    // Simulate API call with timeout
+    setTimeout(() => {
+      setAnalysisInProgress(false);
+      setAnalysisComplete(true);
+    }, 3000);
+  };
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <ComprehensiveNavigation />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="text-centre mb-12">
+          <Badge className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 mb-4">
+            <Mic className="w-4 h-4 mr-2" />
+            AI Voice Analytics
+          </Badge>
+          <h1 className="text-4xl font-bold text-grey-900 mb-4">
+            Voice-Based Learning Assessment
+          </h1>
+          <p className="text-xl text-grey-600 max-w-3xl mx-auto">
+            Analyse student speech patterns, reading fluency, pronunciation, and verbal comprehension using advanced AI voice analytics.
+          </p>
+        </div>
+
+        {/* Main Tabs */}
+        <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab} className="mb-8">
+          <TabsList className="grid grid-cols-4 mb-8">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="record">Record & Analyse</TabsTrigger>
+            <TabsTrigger value="insights">Voice Insights</TabsTrigger>
+            <TabsTrigger value="history">Recording History</TabsTrigger>
+          </TabsList>
+          
+          {/* Overview Tab */}
+          <TabsContent value="overview">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-centre">
+                    <FileAudio className="w-5 h-5 mr-2 text-purple-500" />
+                    Recordings
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold">42</div>
+                  <p className="text-sm text-grey-500">Voice recordings analysed</p>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-centre">
+                    <Users className="w-5 h-5 mr-2 text-blue-500" />
+                    Students
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold">18</div>
+                  <p className="text-sm text-grey-500">Students with voice profiles</p>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-centre">
+                    <BarChart2 className="w-5 h-5 mr-2 text-green-500" />
+                    Improvement
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold">28%</div>
+                  <p className="text-sm text-grey-500">Average reading fluency increase</p>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Voice Analytics Process</CardTitle>
+                  <CardDescription>How our AI analyzes student voice recordings</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-6">
+                    <div className="flex items-start">
+                      <div className="w-8 h-8 rounded-full bg-purple-100 flex items-centre justify-centre mr-3 mt-1">
+                        <span className="font-bold text-purple-600">1</span>
+                      </div>
+                      <div>
+                        <h3 className="font-medium mb-1">Voice Capture</h3>
+                        <p className="text-sm text-grey-600">
+                          Record student reading, speaking, or presentation using high-quality audio capture.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start">
+                      <div className="w-8 h-8 rounded-full bg-purple-100 flex items-centre justify-centre mr-3 mt-1">
+                        <span className="font-bold text-purple-600">2</span>
+                      </div>
+                      <div>
+                        <h3 className="font-medium mb-1">Speech Processing</h3>
+                        <p className="text-sm text-grey-600">
+                          AI transcribes speech and analyzes patterns, pronunciation, pace, and emotional tone.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start">
+                      <div className="w-8 h-8 rounded-full bg-purple-100 flex items-centre justify-centre mr-3 mt-1">
+                        <span className="font-bold text-purple-600">3</span>
+                      </div>
+                      <div>
+                        <h3 className="font-medium mb-1">Insight Generation</h3>
+                        <p className="text-sm text-grey-600">
+                          Generate detailed insights on fluency, pronunciation, comprehension, and confidence.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start">
+                      <div className="w-8 h-8 rounded-full bg-purple-100 flex items-centre justify-centre mr-3 mt-1">
+                        <span className="font-bold text-purple-600">4</span>
+                      </div>
+                      <div>
+                        <h3 className="font-medium mb-1">Progress Tracking</h3>
+                        <p className="text-sm text-grey-600">
+                          Track improvement over time with comparative analysis and progress visualization.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader>
+                  <CardTitle>Voice Analytics Applications</CardTitle>
+                  <CardDescription>Key use cases for voice-based assessment</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-lg">
+                      <div className="flex items-centre mb-3">
+                        <div className="w-8 h-8 rounded-full bg-purple-200 flex items-centre justify-centre mr-2">
+                          <BookOpen className="w-4 h-4 text-purple-700" />
+                        </div>
+                        <h3 className="font-medium">Reading Assessment</h3>
+                      </div>
+                      <p className="text-sm text-grey-700">
+                        Evaluate reading fluency, pace, and expression to identify areas for improvement.
+                      </p>
+                    </div>
+                    
+                    <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg">
+                      <div className="flex items-centre mb-3">
+                        <div className="w-8 h-8 rounded-full bg-blue-200 flex items-centre justify-centre mr-2">
+                          <Mic className="w-4 h-4 text-blue-700" />
+                        </div>
+                        <h3 className="font-medium">Language Learning</h3>
+                      </div>
+                      <p className="text-sm text-grey-700">
+                        Provide pronunciation feedback and guidance for language learners.
+                      </p>
+                    </div>
+                    
+                    <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg">
+                      <div className="flex items-centre mb-3">
+                        <div className="w-8 h-8 rounded-full bg-green-200 flex items-centre justify-centre mr-2">
+                          <PresentationChart className="w-4 h-4 text-green-700" />
+                        </div>
+                        <h3 className="font-medium">Presentation Skills</h3>
+                      </div>
+                      <p className="text-sm text-grey-700">
+                        Analyse speaking confidence, pace, and clarity for presentation improvement.
+                      </p>
+                    </div>
+                    
+                    <div className="bg-gradient-to-r from-amber-50 to-amber-100 p-4 rounded-lg">
+                      <div className="flex items-centre mb-3">
+                        <div className="w-8 h-8 rounded-full bg-amber-200 flex items-centre justify-centre mr-2">
+                          <Brain className="w-4 h-4 text-amber-700" />
+                        </div>
+                        <h3 className="font-medium">Comprehension</h3>
+                      </div>
+                      <p className="text-sm text-grey-700">
+                        Identify verbal indicators of understanding and engagement with content.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <Card className="bg-gradient-to-r from-purple-50 to-blue-50 border-purple-200">
+              <CardContent className="p-6">
+                <div className="flex flex-col md:flex-row items-centre md:space-x-8">
+                  <div className="mb-6 md:mb-0">
+                    <div className="w-20 h-20 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-centre justify-centre mx-auto">
+                      <Mic className="w-10 h-10 text-white" />
+                    </div>
+                  </div>
+                  <div className="flex-1 text-centre md:text-left">
+                    <h3 className="text-xl font-bold text-grey-900 mb-2">Ready to Analyse Student Voice?</h3>
+                    <p className="text-grey-600 mb-4">
+                      Record and analyse student speech to gain insights into reading fluency, pronunciation, and verbal comprehension.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-centre md:justify-start">
+                      <Button onClick={() => setActiveTab('record')} className="bg-gradient-to-r from-purple-600 to-blue-600">
+                        Start Recording
+                      </Button>
+                      <Button variant="outline">
+                        View Analytics Guide
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          
+          {/* Record & Analyse Tab */}
+          <TabsContent value="record">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="lg:col-span-1">
+                <div className="mb-6">
+                  <h2 className="text-2xl font-bold mb-2">Voice Recording</h2>
+                  <p className="text-grey-600">
+                    Record student speech for AI analysis
+                  </p>
+                </div>
+                
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Recording Setup</CardTitle>
+                    <CardDescription>
+                      Configure recording parameters
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="recordingName">Recording Name</Label>
+                      <Input id="recordingName" placeholder="e.g., Reading Assessment - Alex" />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="recordingType">Recording Type</Label>
+                      <Select defaultValue="reading">
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select recording type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="reading">Reading Assessment</SelectItem>
+                          <SelectItem value="presentation">Oral Presentation</SelectItem>
+                          <SelectItem value="language">Language Practise</SelectItem>
+                          <SelectItem value="discussion">Class Discussion</SelectItem>
+                          <SelectItem value="other">Other</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="student">Student</Label>
+                      <Select defaultValue="alex">
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select student" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="alex">Alex Johnson</SelectItem>
+                          <SelectItem value="maya">Maya Patel</SelectItem>
+                          <SelectItem value="thomas">Thomas Wilson</SelectItem>
+                          <SelectItem value="new">Add New Student</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <div className="flex items-centre justify-between">
+                        <Label htmlFor="noiseReduction">Noise Reduction</Label>
+                        <Switch id="noiseReduction" defaultChecked />
+                      </div>
+                      <p className="text-xs text-grey-500">
+                        Automatically reduce background noise in recording
+                      </p>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <div className="flex items-centre justify-between">
+                        <Label htmlFor="autoTranscribe">Auto-Transcribe</Label>
+                        <Switch id="autoTranscribe" defaultChecked />
+                      </div>
+                      <p className="text-xs text-grey-500">
+                        Generate text transcript of recording
+                      </p>
+                    </div>
+                  </CardContent>
+                  <CardFooter className="flex justify-centre border-t pt-6">
+                    {isRecording ? (
+                      <Button 
+                        onClick={handleStopRecording} 
+                        variant="destructive"
+                        className="w-full flex items-centre justify-centre"
+                      >
+                        <X className="mr-2 h-4 w-4" />
+                        Stop Recording ({formatTime(recordingTime)})
+                      </Button>
+                    ) : (
+                      <Button 
+                        onClick={handleStartRecording} 
+                        className="w-full bg-gradient-to-r from-purple-600 to-blue-600 flex items-centre justify-centre"
+                      >
+                        <Mic className="mr-2 h-4 w-4" />
+                        Start Recording
+                      </Button>
+                    )}
+                  </CardFooter>
+                </Card>
+                
+                <div className="mt-6">
+                  <h3 className="text-lg font-medium mb-2">Alternative Options</h3>
+                  <Card>
+                    <CardContent className="p-4 space-y-4">
+                      <Button variant="outline" className="w-full flex items-centre justify-centre">
+                        <Upload className="mr-2 h-4 w-4" />
+                        Upload Audio File
+                      </Button>
+                      <Button variant="outline" className="w-full flex items-centre justify-centre">
+                        <FileAudio className="mr-2 h-4 w-4" />
+                        Select from Library
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+              
+              <div className="lg:col-span-2">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Voice Analysis</CardTitle>
+                    <CardDescription>
+                      Analyse voice recording to generate insights
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    {selectedRecording ? (
+                      <div className="space-y-6">
+                        <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-4">
+                          <div className="flex justify-between items-centre mb-4">
+                            <div>
+                              <h3 className="font-medium">{recentRecordings.find(r => r.id === selectedRecording)?.name}</h3>
+                              <p className="text-sm text-grey-500">{recentRecordings.find(r => r.id === selectedRecording)?.duration} • {recentRecordings.find(r => r.id === selectedRecording)?.type}</p>
+                            </div>
+                            <div className="flex space-x-2">
+                              <Button size="sm" variant="ghost">
+                                <Download className="h-4 w-4" />
+                              </Button>
+                              <Button size="sm" variant="ghost">
+                                <Trash className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </div>
+                          
+                          <div className="relative h-24 bg-gradient-to-r from-purple-100 to-blue-100 rounded-md mb-2">
+                            {/* Waveform visualization (simplified) */}
+                            <div className="absolute inset-0 flex items-centre justify-centre">
+                              <div className="flex items-centre space-x-1">
+                                {Array.from({ length: 40 }).map((_, i) => (
+                                  <div 
+                                    key={i} 
+                                    className="w-1 bg-purple-500 opacity-70 rounded-full"
+                                    style={{ 
+                                      height: `${Math.sin(i * 0.5) * 30 + 40}%`,
+                                      opacity: isPlaying ? '0.8' : '0.4'
+                                    }}
+                                  />
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="flex justify-centre space-x-4">
+                            <Button size="sm" variant="ghost">
+                              <SkipBack className="h-4 w-4" />
+                            </Button>
+                            <Button 
+                              onClick={handlePlayPause} 
+                              size="sm" 
+                              className="bg-purple-600 hover:bg-purple-700 text-white"
+                            >
+                              {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+                            </Button>
+                            <Button size="sm" variant="ghost">
+                              <SkipForward className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </div>
+                        
+                        {analysisComplete ? (
+                          <div className="space-y-6">
+                            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                              <div className="flex items-centre">
+                                <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                                <p className="text-green-700 font-medium">Voice analysis complete</p>
+                              </div>
+                            </div>
+                            
+                            <div className="space-y-4">
+                              <div>
+                                <h3 className="text-lg font-medium mb-2">Reading Fluency</h3>
+                                <div className="space-y-3">
+                                  <div>
+                                    <div className="flex justify-between items-centre">
+                                      <span className="text-sm">Words Per Minute</span>
+                                      <span className="text-sm font-medium">112 WPM</span>
+                                    </div>
+                                    <Progress value={75} className="h-2" />
+                                    <div className="flex justify-between text-xs text-grey-500 mt-1">
+                                      <span>Slow</span>
+                                      <span>Target Range</span>
+                                      <span>Fast</span>
+                                    </div>
+                                  </div>
+                                  
+                                  <div>
+                                    <div className="flex justify-between items-centre">
+                                      <span className="text-sm">Smoothness</span>
+                                      <span className="text-sm font-medium">82%</span>
+                                    </div>
+                                    <Progress value={82} className="h-2" />
+                                  </div>
+                                  
+                                  <div>
+                                    <div className="flex justify-between items-centre">
+                                      <span className="text-sm">Expression</span>
+                                      <span className="text-sm font-medium">68%</span>
+                                    </div>
+                                    <Progress value={68} className="h-2" />
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <Separator />
+                              
+                              <div>
+                                <h3 className="text-lg font-medium mb-2">Pronunciation</h3>
+                                <div className="space-y-3">
+                                  <div>
+                                    <div className="flex justify-between items-centre">
+                                      <span className="text-sm">Overall Accuracy</span>
+                                      <span className="text-sm font-medium">88%</span>
+                                    </div>
+                                    <Progress value={88} className="h-2" />
+                                  </div>
+                                  
+                                  <div className="bg-blue-50 p-3 rounded-md">
+                                    <h4 className="text-sm font-medium mb-2">Challenging Sounds</h4>
+                                    <div className="flex flex-wrap gap-2">
+                                      <Badge className="bg-blue-100 text-blue-800">th</Badge>
+                                      <Badge className="bg-blue-100 text-blue-800">r</Badge>
+                                      <Badge className="bg-blue-100 text-blue-800">l</Badge>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <Separator />
+                              
+                              <div>
+                                <h3 className="text-lg font-medium mb-2">Speaking Confidence</h3>
+                                <div className="space-y-3">
+                                  <div>
+                                    <div className="flex justify-between items-centre">
+                                      <span className="text-sm">Voice Clarity</span>
+                                      <span className="text-sm font-medium">76%</span>
+                                    </div>
+                                    <Progress value={76} className="h-2" />
+                                  </div>
+                                  
+                                  <div>
+                                    <div className="flex justify-between items-centre">
+                                      <span className="text-sm">Hesitation Frequency</span>
+                                      <span className="text-sm font-medium">Low</span>
+                                    </div>
+                                    <Progress value={85} className="h-2" />
+                                  </div>
+                                  
+                                  <div>
+                                    <div className="flex justify-between items-centre">
+                                      <span className="text-sm">Volume Consistency</span>
+                                      <span className="text-sm font-medium">92%</span>
+                                    </div>
+                                    <Progress value={92} className="h-2" />
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <Separator />
+                              
+                              <div>
+                                <h3 className="text-lg font-medium mb-2">AI Recommendations</h3>
+                                <div className="bg-purple-50 border border-purple-100 rounded-lg p-4">
+                                  <div className="flex items-start">
+                                    <Brain className="h-5 w-5 text-purple-500 mr-2 mt-0.5" />
+                                    <div>
+                                      <p className="text-sm">This student demonstrates good overall reading fluency with strong pronunciation. Focus on improving expression by practicing reading with more vocal variation. Continue working on challenging sounds like 'th' and 'r' with targeted exercises.</p>
+                                      <p className="text-sm mt-2">Recommended activities: Guided reading with expression focus, phoneme-specific practise for challenging sounds, and confidence-building speaking exercises.</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="space-y-6">
+                            <div className="flex flex-col items-centre justify-centre py-8 text-centre">
+                            {analysisInProgress ? (
+                              <div className="space-y-4">
+                                <RefreshCw className="h-10 w-10 text-purple-500 animate-spin mx-auto" />
+                                <h3 className="text-lg font-medium">Analysing Voice Recording</h3>
+                                <p className="text-grey-500">Our AI is analysing speech patterns, fluency, and pronunciation...</p>
+                              </div>
+                            ) : (
+                              <div className="space-y-4">
+                                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-centre justify-centre mx-auto">
+                                  <Brain className="h-8 w-8 text-purple-600" />
+                                </div>
+                                <h3 className="text-lg font-medium">Ready to Analyse</h3>
+                                <p className="text-grey-500 mb-4">Select a recording to analyse or start a new recording</p>
+                                <Button
+                                  onClick={handleAnalyze}
+                                  className="bg-gradient-to-r from-purple-600 to-blue-600"
+                                >
+                                  <Sparkles className="mr-2 h-4 w-4" />
+                                  Analyse Recording
+                                </Button>
+                              </div>
+                            )}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-centre justify-centre py-12 text-centre">
+                      <FileAudio className="w-16 h-16 text-grey-300 mb-4" />
+                      <h3 className="text-lg font-medium text-grey-900 mb-2">No Recording Selected</h3>
+                      <p className="text-grey-500 mb-4">Select a recording from the list below or create a new recording</p>
+                    </div>
+                  )}
+                </CardContent>
+                <CardFooter className="border-t pt-4">
+                  <div className="w-full">
+                    <h3 className="text-sm font-medium mb-3">Recent Recordings</h3>
+                    <div className="space-y-2">
+                      {recentRecordings.map((recording) => (
+                        <div
+                          key={recording.id}
+                          className={`p-3 rounded-md cursor-pointer transition-all ${
+                            selectedRecording === recording.id
+                              ? 'bg-purple-100 border border-purple-200'
+                              : 'bg-grey-50 hover:bg-grey-100'
+                          }`}
+                          onClick={() => handleRecordingSelect(recording.id)}
+                        >
+                          <div className="flex justify-between items-centre">
+                            <div className="flex items-centre">
+                              <FileAudio className="h-4 w-4 text-purple-500 mr-2" />
+                              <div>
+                                <p className="text-sm font-medium">{recording.name}</p>
+                                <p className="text-xs text-grey-500">{recording.duration} • {recording.date}</p>
+                              </div>
+                            </div>
+                            {recording.analysed && (
+                              <Badge variant="outline" className="bg-green-50 text-green-700 text-xs">
+                                Analysed
+                              </Badge>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </CardFooter>
+              </Card>
+            </div>
+          </TabsContent>
+        
+        {/* Voice Insights Tab */}
+        <TabsContent value="insights">
+          <div className="space-y-6">
+            <div className="flex justify-between items-centre">
+              <div>
+                <h2 className="text-2xl font-bold mb-2">Voice Insights</h2>
+                <p className="text-grey-600">
+                  Explore detailed voice analytics insights
+                </p>
+              </div>
+              <div className="flex space-x-2">
+                <Select defaultValue="alex">
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Select student" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="alex">Alex Johnson</SelectItem>
+                    <SelectItem value="maya">Maya Patel</SelectItem>
+                    <SelectItem value="thomas">Thomas Wilson</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Button variant="outline" size="sm">
+                  <Filter className="w-4 h-4 mr-2" />
+                  Filter
+                </Button>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+              {insightCategories.map(category => (
+                <Card key={category.id} className="overflow-hidden">
+                  <div className={`px-4 py-2 bg-${category.color}-50`}>
+                    <div className="flex items-centre">
+                      <category.icon className={`w-4 h-4 mr-2 text-${category.color}-500`} />
+                      <h3 className="font-medium text-sm">{category.name}</h3>
+                    </div>
+                  </div>
+                  <CardContent className="p-4">
+                    <div className="text-centre mb-2">
+                      <div className="text-3xl font-bold text-grey-900">
+                        {category.id === 'fluency' ? '78%' :
+                         category.id === 'pronunciation' ? '88%' :
+                         category.id === 'comprehension' ? '72%' :
+                         category.id === 'confidence' ? '65%' : '81%'}
+                      </div>
+                      <p className="text-xs text-grey-500">Current Score</p>
+                    </div>
+                    <Progress
+                      value={
+                        category.id === 'fluency' ? 78 :
+                        category.id === 'pronunciation' ? 88 :
+                        category.id === 'comprehension' ? 72 :
+                        category.id === 'confidence' ? 65 : 81
+                      }
+                      className="h-1.5 mb-2"
+                    />
+                    <div className="flex justify-between text-xs text-grey-500">
+                      <span>Previous: {
+                        category.id === 'fluency' ? '72%' :
+                        category.id === 'pronunciation' ? '85%' :
+                        category.id === 'comprehension' ? '65%' :
+                        category.id === 'confidence' ? '58%' : '76%'
+                      }</span>
+                      <span className="text-green-600">
+                        +{
+                          category.id === 'fluency' ? '6%' :
+                          category.id === 'pronunciation' ? '3%' :
+                          category.id === 'comprehension' ? '7%' :
+                          category.id === 'confidence' ? '7%' : '5%'
+                        }
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Progress Over Time</CardTitle>
+                <CardDescription>Voice analytics metrics over the last 6 months</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="h-80 w-full bg-gradient-to-r from-grey-50 to-grey-100 rounded-md flex items-centre justify-centre">
+                  <div className="text-centre">
+                    <LineChart className="h-10 w-10 text-grey-400 mx-auto mb-2" />
+                    <p className="text-grey-500">Progress chart visualization would appear here</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Reading Fluency Details</CardTitle>
+                  <CardDescription>Detailed breakdown of reading fluency metrics</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div>
+                      <div className="flex justify-between items-centre mb-1">
+                        <span className="text-sm">Words Per Minute</span>
+                        <div className="flex items-centre">
+                          <span className="text-sm font-medium mr-2">112 WPM</span>
+                          <Badge className="bg-green-100 text-green-800 text-xs">+8</Badge>
+                        </div>
+                      </div>
+                      <Progress value={75} className="h-2 mb-1" />
+                      <div className="flex justify-between text-xs text-grey-500">
+                        <span>Target: 100-120 WPM</span>
+                        <span>Mark Level: Year 6</span>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <div className="flex justify-between items-centre mb-1">
+                        <span className="text-sm">Accuracy</span>
+                        <div className="flex items-centre">
+                          <span className="text-sm font-medium mr-2">94%</span>
+                          <Badge className="bg-green-100 text-green-800 text-xs">+2%</Badge>
+                        </div>
+                      </div>
+                      <Progress value={94} className="h-2 mb-1" />
+                      <div className="flex justify-between text-xs text-grey-500">
+                        <span>Errors: 6 per 100 words</span>
+                        <span>Previous: 92%</span>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <div className="flex justify-between items-centre mb-1">
+                        <span className="text-sm">Prosody (Expression)</span>
+                        <div className="flex items-centre">
+                          <span className="text-sm font-medium mr-2">68%</span>
+                          <Badge className="bg-amber-100 text-amber-800 text-xs">+5%</Badge>
+                        </div>
+                      </div>
+                      <Progress value={68} className="h-2 mb-1" />
+                      <div className="flex justify-between text-xs text-grey-500">
+                        <span>Focus Area</span>
+                        <span>Improving</span>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <div className="flex justify-between items-centre mb-1">
+                        <span className="text-sm">Smoothness</span>
+                        <div className="flex items-centre">
+                          <span className="text-sm font-medium mr-2">82%</span>
+                          <Badge className="bg-green-100 text-green-800 text-xs">+4%</Badge>
+                        </div>
+                      </div>
+                      <Progress value={82} className="h-2 mb-1" />
+                      <div className="flex justify-between text-xs text-grey-500">
+                        <span>Hesitations: 4</span>
+                        <span>Self-corrections: 2</span>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader>
+                  <CardTitle>Pronunciation Analysis</CardTitle>
+                  <CardDescription>Detailed breakdown of pronunciation patterns</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-blue-50 p-3 rounded-md">
+                        <h4 className="text-sm font-medium mb-2 flex items-centre">
+                          <CheckCircle className="h-4 w-4 text-green-500 mr-1" />
+                          Strengths
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          <Badge className="bg-green-100 text-green-800">Short vowels</Badge>
+                          <Badge className="bg-green-100 text-green-800">Consonant blends</Badge>
+                          <Badge className="bg-green-100 text-green-800">Word endings</Badge>
+                          <Badge className="bg-green-100 text-green-800">Plosives</Badge>
+                        </div>
+                      </div>
+                      
+                      <div className="bg-amber-50 p-3 rounded-md">
+                        <h4 className="text-sm font-medium mb-2 flex items-centre">
+                          <AlertCircle className="h-4 w-4 text-amber-500 mr-1" />
+                          Challenges
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          <Badge className="bg-amber-100 text-amber-800">th sounds</Badge>
+                          <Badge className="bg-amber-100 text-amber-800">r sounds</Badge>
+                          <Badge className="bg-amber-100 text-amber-800">l blends</Badge>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <h4 className="text-sm font-medium mb-2">Commonly Mispronounced Words</h4>
+                      <div className="bg-grey-50 p-3 rounded-md">
+                        <div className="grid grid-cols-2 gap-2">
+                          <div className="flex items-centre">
+                            <span className="text-xs font-medium mr-2">through</span>
+                            <span className="text-xs text-grey-500">/θruː/</span>
+                          </div>
+                          <div className="flex items-centre">
+                            <span className="text-xs font-medium mr-2">world</span>
+                            <span className="text-xs text-grey-500">/wɜːrld/</span>
+                          </div>
+                          <div className="flex items-centre">
+                            <span className="text-xs font-medium mr-2">library</span>
+                            <span className="text-xs text-grey-500">/ˈlaɪ.brər.i/</span>
+                          </div>
+                          <div className="flex items-centre">
+                            <span className="text-xs font-medium mr-2">particularly</span>
+                            <span className="text-xs text-grey-500">/pəˈtɪk.jə.lə.li/</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <h4 className="text-sm font-medium mb-2">Recommended Focus</h4>
+                      <div className="bg-purple-50 p-3 rounded-md">
+                        <div className="flex items-start">
+                          <Lightbulb className="h-4 w-4 text-purple-500 mr-2 mt-0.5" />
+                          <p className="text-xs">Focus on 'th' sound practise with daily exercises. Use minimal pairs (e.g., 'three' vs 'free') and tongue position awareness activities. Continue strengthening 'r' sounds with targeted practise.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </TabsContent>
+        
+        {/* Recording History Tab */}
+        <TabsContent value="history">
+          <div className="space-y-6">
+            <div className="flex justify-between items-centre">
+              <div>
+                <h2 className="text-2xl font-bold mb-2">Recording History</h2>
+                <p className="text-grey-600">
+                  View and manage voice recording history
+                </p>
+              </div>
+              <div className="flex space-x-2">
+                <Button variant="outline" size="sm">
+                  <Filter className="w-4 h-4 mr-2" />
+                  Filter
+                </Button>
+                <Button variant="outline" size="sm">
+                  <Download className="w-4 h-4 mr-2" />
+                  Export
+                </Button>
+              </div>
+            </div>
+            
+            <Card>
+              <CardHeader>
+                <div className="flex justify-between items-centre">
+                  <CardTitle>Recent Recordings</CardTitle>
+                  <Select defaultValue="all">
+                    <SelectTrigger className="w-[150px]">
+                      <SelectValue placeholder="Recording type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Types</SelectItem>
+                      <SelectItem value="reading">Reading</SelectItem>
+                      <SelectItem value="presentation">Presentation</SelectItem>
+                      <SelectItem value="language">Language</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {[...recentRecordings, ...recentRecordings].map((recording, index) => (
+                    <Card key={`${recording.id}-${index}`} className="overflow-hidden">
+                      <div className={`px-4 py-2 ${
+                        recording.analysed ? 'bg-green-50' : 'bg-grey-50'
+                      }`}>
+                        <div className="flex justify-between items-centre">
+                          <div className="font-medium">{recording.name}</div>
+                          <Badge variant={recording.analysed ? 'default' : 'secondary'}>
+                            {recording.analysed ? 'Analysed' : 'Not Analysed'}
+                          </Badge>
+                        </div>
+                      </div>
+                      <CardContent className="p-4">
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-centre gap-4">
+                          <div>
+                            <div className="text-sm text-grey-500 mb-2">
+                              <Calendar className="w-4 h-4 inline-block mr-1" />
+                              Recorded: {recording.date}
+                            </div>
+                            <div className="flex items-centre text-sm text-grey-500">
+                              <Clock className="w-4 h-4 inline-block mr-1" />
+                              Duration: {recording.duration}
+                              <span className="mx-2">•</span>
+                              <FileAudio className="w-4 h-4 inline-block mr-1" />
+                              Type: {recording.type}
+                            </div>
+                          </div>
+                          <div className="flex gap-2">
+                            <Button size="sm" variant="outline">
+                              <Play className="w-4 h-4 mr-1" />
+                              Play
+                            </Button>
+                            {recording.analysed ? (
+                              <Button size="sm" variant="outline">
+                                <Eye className="w-4 h-4 mr-1" />
+                                View Analysis
+                              </Button>
+                            ) : (
+                              <Button size="sm" variant="outline">
+                                <Sparkles className="w-4 h-4 mr-1" />
+                                Analyse
+                              </Button>
+                            )}
+                            <Button size="sm" variant="ghost" className="text-grey-500">
+                              <MoreVertical className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </CardContent>
+              <CardFooter className="border-t bg-grey-50 flex justify-between">
+                <div className="text-sm text-grey-500">
+                  Showing 6 of 42 recordings
+                </div>
+                <div className="flex space-x-2">
+                  <Button variant="outline" size="sm" disabled>
+                    Previous
+                  </Button>
+                  <Button variant="outline" size="sm">
+                    Next
+                  </Button>
+                </div>
+              </CardFooter>
+            </Card>
+          </div>
+        </TabsContent>
+      </Tabs>
+    </div>
+  </div>
+);
+}

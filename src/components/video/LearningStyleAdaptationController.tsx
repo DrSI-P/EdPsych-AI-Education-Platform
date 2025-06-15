@@ -1,0 +1,669 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { 
+  Brain, 
+  Eye, 
+  Ear, 
+  BookOpen, 
+  HandMetal, 
+  Settings, 
+  ChevronDown, 
+  ChevronUp, 
+  Info,
+  Sliders
+} from 'lucide-react';
+import { 
+  LearningStyleProfile, 
+  getDominantLearningStyle, 
+  createProfileDescription 
+} from '@/lib/learning-style-profile';
+import { 
+  ContentAdaptationSettings, 
+  SupplementaryMaterialType,
+  SupplementaryMaterialRecommendation,
+  getContentAdaptationSettings
+} from '@/lib/learning-style-adapter';
+import { getLearningStyleProfile } from '@/lib/learning-style-analyzer';
+
+interface LearningStyleAdaptationControllerProps {
+  videoId: string;
+  userId: string;
+  currentTime: number;
+  duration: number;
+  isPlaying: boolean;
+  onAdaptationChange?: (settings: ContentAdaptationSettings) => void;
+  className?: string;
+}
+
+const LearningStyleAdaptationController: React.FC<LearningStyleAdaptationControllerProps> = ({
+  videoId,
+  userId,
+  currentTime,
+  duration,
+  isPlaying,
+  onAdaptationChange,
+  className = '',
+}) => {
+  // State
+  const [learningStyleProfile, setLearningStyleProfile] = useState<LearningStyleProfile | null>(null);
+  const [adaptationSettings, setAdaptationSettings] = useState<ContentAdaptationSettings | null>(null);
+  const [recommendations, setRecommendations] = useState<SupplementaryMaterialRecommendation[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [activeTab, setActiveTab] = useState<'profile' | 'settings' | 'recommendations'>('profile');
+  const [userOverrides, setUserOverrides] = useState<Partial<ContentAdaptationSettings>>({});
+  
+  // Fetch learning style profile and adaptation settings
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        
+        // Get learning style profile
+        const profile = await getLearningStyleProfile(userId);
+        setLearningStyleProfile(profile);
+        
+        // Get content adaptation settings
+        const settings = await getContentAdaptationSettings(
+          userId, 
+          videoId,
+          userOverrides
+        );
+        setAdaptationSettings(settings);
+        
+        // Notify parent component of adaptation settings
+        if (onAdaptationChange) {
+          onAdaptationChange(settings);
+        }
+        
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching learning style data:', err);
+        setError('Failed to load learning style adaptation');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    fetchData();
+  }, [userId, videoId, userOverrides, onAdaptationChange]);
+  
+  // Update settings when user overrides change
+  const updateSettings = async (overrides: Partial<ContentAdaptationSettings>) => {
+    setUserOverrides(prev => ({
+      ...prev,
+      ...overrides
+    }));
+  };
+  
+  // Get icon for learning style
+  const getLearningStyleIcon = (style: string) => {
+    switch (style) {
+      case 'visual':
+        return <Eye className="h-4 w-4" />;
+      case 'auditory':
+        return <Ear className="h-4 w-4" />;
+      case 'reading':
+        return <BookOpen className="h-4 w-4" />;
+      case 'kinesthetic':
+        return <HandMetal className="h-4 w-4" />;
+      default:
+        return <Brain className="h-4 w-4" />;
+    }
+  };
+  
+  // Format percentage
+  const formatPercentage = (value: number): string => {
+    return `${Math.round(value * 100)}%`;
+  };
+  
+  // Render loading state
+  if (isLoading) {
+    return (
+      <div className={`bg-gray-900 rounded-lg p-3 ${className}`}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <Brain className="h-5 w-5 text-blue-400 mr-2" />
+            <h3 className="text-sm font-semibold text-white">Learning Style Adaptation</h3>
+          </div>
+          <div className="animate-pulse h-2 w-24 bg-gray-700 rounded"></div>
+        </div>
+      </div>
+    );
+  }
+  
+  // Render error state
+  if (error || !learningStyleProfile || !adaptationSettings) {
+    return (
+      <div className={`bg-gray-900 rounded-lg p-3 ${className}`}>
+        <div className="text-red-500 flex items-center">
+          <Info className="h-5 w-5 mr-2" />
+          <span>{error || 'Unable to load learning style data'}</span>
+        </div>
+      </div>
+    );
+  }
+  
+  // Get dominant learning style
+  const dominantStyle = getDominantLearningStyle(learningStyleProfile);
+  
+  return (
+    <div className={`bg-gray-900 rounded-lg overflow-hidden ${className}`}>
+      {/* Header */}
+      <div 
+        className="bg-gray-800 p-3 border-b border-gray-700 cursor-pointer"
+        onClick={() => setIsExpanded(!isExpanded)}
+      >
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <Brain className="h-5 w-5 text-blue-400 mr-2" />
+            <h3 className="text-sm font-semibold text-white">Learning Style Adaptation</h3>
+          </div>
+          <div className="flex items-center">
+            <div className="flex space-x-1 mr-2">
+              <div 
+                className={`h-2 w-2 rounded-full ${
+                  dominantStyle === 'visual' ? 'bg-green-500' : 'bg-gray-600'
+                }`}
+                title="Visual"
+              ></div>
+              <div 
+                className={`h-2 w-2 rounded-full ${
+                  dominantStyle === 'auditory' ? 'bg-blue-500' : 'bg-gray-600'
+                }`}
+                title="Auditory"
+              ></div>
+              <div 
+                className={`h-2 w-2 rounded-full ${
+                  dominantStyle === 'reading' ? 'bg-yellow-500' : 'bg-gray-600'
+                }`}
+                title="Reading/Writing"
+              ></div>
+              <div 
+                className={`h-2 w-2 rounded-full ${
+                  dominantStyle === 'kinesthetic' ? 'bg-red-500' : 'bg-gray-600'
+                }`}
+                title="Kinesthetic"
+              ></div>
+            </div>
+            {isExpanded ? (
+              <ChevronUp className="h-4 w-4 text-gray-400" />
+            ) : (
+              <ChevronDown className="h-4 w-4 text-gray-400" />
+            )}
+          </div>
+        </div>
+      </div>
+      
+      {/* Expanded Content */}
+      {isExpanded && (
+        <div className="p-3">
+          {/* Tabs */}
+          <div className="flex border-b border-gray-700 mb-3">
+            <button
+              className={`px-3 py-1 text-sm ${
+                activeTab === 'profile' 
+                  ? 'text-blue-400 border-b-2 border-blue-400' 
+                  : 'text-gray-400 hover:text-white'
+              }`}
+              onClick={() => setActiveTab('profile')}
+            >
+              Profile
+            </button>
+            <button
+              className={`px-3 py-1 text-sm ${
+                activeTab === 'settings' 
+                  ? 'text-blue-400 border-b-2 border-blue-400' 
+                  : 'text-gray-400 hover:text-white'
+              }`}
+              onClick={() => setActiveTab('settings')}
+            >
+              Settings
+            </button>
+            <button
+              className={`px-3 py-1 text-sm ${
+                activeTab === 'recommendations' 
+                  ? 'text-blue-400 border-b-2 border-blue-400' 
+                  : 'text-gray-400 hover:text-white'
+              }`}
+              onClick={() => setActiveTab('recommendations')}
+            >
+              Resources
+            </button>
+          </div>
+          
+          {/* Profile Tab */}
+          {activeTab === 'profile' && (
+            <div>
+              <p className="text-sm text-gray-300 mb-3">
+                {createProfileDescription(learningStyleProfile)}
+              </p>
+              
+              <div className="space-y-3 mb-3">
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center">
+                      <Eye className="h-4 w-4 text-green-500 mr-1" />
+                      <span className="text-sm text-white">Visual</span>
+                    </div>
+                    <span className="text-sm text-gray-300">
+                      {formatPercentage(learningStyleProfile.visual)}
+                    </span>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-1.5">
+                    <div 
+                      className="h-1.5 rounded-full bg-green-500" 
+                      style={{ width: `${learningStyleProfile.visual * 100}%` }}
+                    ></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center">
+                      <Ear className="h-4 w-4 text-blue-500 mr-1" />
+                      <span className="text-sm text-white">Auditory</span>
+                    </div>
+                    <span className="text-sm text-gray-300">
+                      {formatPercentage(learningStyleProfile.auditory)}
+                    </span>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-1.5">
+                    <div 
+                      className="h-1.5 rounded-full bg-blue-500" 
+                      style={{ width: `${learningStyleProfile.auditory * 100}%` }}
+                    ></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center">
+                      <BookOpen className="h-4 w-4 text-yellow-500 mr-1" />
+                      <span className="text-sm text-white">Reading/Writing</span>
+                    </div>
+                    <span className="text-sm text-gray-300">
+                      {formatPercentage(learningStyleProfile.reading)}
+                    </span>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-1.5">
+                    <div 
+                      className="h-1.5 rounded-full bg-yellow-500" 
+                      style={{ width: `${learningStyleProfile.reading * 100}%` }}
+                    ></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center">
+                      <HandMetal className="h-4 w-4 text-red-500 mr-1" />
+                      <span className="text-sm text-white">Kinesthetic</span>
+                    </div>
+                    <span className="text-sm text-gray-300">
+                      {formatPercentage(learningStyleProfile.kinesthetic)}
+                    </span>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-1.5">
+                    <div 
+                      className="h-1.5 rounded-full bg-red-500" 
+                      style={{ width: `${learningStyleProfile.kinesthetic * 100}%` }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-between text-xs text-gray-400 mt-2">
+                <span>Profile Confidence: {formatPercentage(learningStyleProfile.confidence)}</span>
+                <span>Last Updated: {new Date(learningStyleProfile.lastUpdated).toLocaleDateString()}</span>
+              </div>
+            </div>
+          )}
+          
+          {/* Settings Tab */}
+          {activeTab === 'settings' && (
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <h4 className="text-sm font-medium text-white">Adaptation Strength</h4>
+                <div className="flex items-center">
+                  <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.1"
+                    value={adaptationSettings.adaptationStrength}
+                    onChange={(e: any) => updateSettings({ 
+                      adaptationStrength: parseFloat(e.target.value) 
+                    })}
+                    className="w-24 h-2"
+                  />
+                  <span className="text-sm text-gray-300 ml-2">
+                    {formatPercentage(adaptationSettings.adaptationStrength)}
+                  </span>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                {/* Visual Settings */}
+                <div className="border-t border-gray-700 pt-2">
+                  <h5 className="text-sm font-medium text-white flex items-center mb-2">
+                    <Eye className="h-4 w-4 text-green-500 mr-1" />
+                    Visual Adaptations
+                  </h5>
+                  
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-300">Visual Elements Emphasis</span>
+                      <div className="flex items-center">
+                        <input
+                          type="range"
+                          min="0"
+                          max="1"
+                          step="0.1"
+                          value={adaptationSettings.visualElementsEmphasis}
+                          onChange={(e: any) => updateSettings({ 
+                            visualElementsEmphasis: parseFloat(e.target.value) 
+                          })}
+                          className="w-20 h-1.5"
+                        />
+                        <span className="text-xs text-gray-300 ml-2 w-8">
+                          {formatPercentage(adaptationSettings.visualElementsEmphasis)}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-300">Diagram Visibility</span>
+                      <div className="flex items-center">
+                        <input
+                          type="range"
+                          min="0"
+                          max="1"
+                          step="0.1"
+                          value={adaptationSettings.diagramVisibility}
+                          onChange={(e: any) => updateSettings({ 
+                            diagramVisibility: parseFloat(e.target.value) 
+                          })}
+                          className="w-20 h-1.5"
+                        />
+                        <span className="text-xs text-gray-300 ml-2 w-8">
+                          {formatPercentage(adaptationSettings.diagramVisibility)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Auditory Settings */}
+                <div className="border-t border-gray-700 pt-2">
+                  <h5 className="text-sm font-medium text-white flex items-center mb-2">
+                    <Ear className="h-4 w-4 text-blue-500 mr-1" />
+                    Auditory Adaptations
+                  </h5>
+                  
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-300">Audio Emphasis</span>
+                      <div className="flex items-center">
+                        <input
+                          type="range"
+                          min="0"
+                          max="1"
+                          step="0.1"
+                          value={adaptationSettings.audioEmphasis}
+                          onChange={(e: any) => updateSettings({ 
+                            audioEmphasis: parseFloat(e.target.value) 
+                          })}
+                          className="w-20 h-1.5"
+                        />
+                        <span className="text-xs text-gray-300 ml-2 w-8">
+                          {formatPercentage(adaptationSettings.audioEmphasis)}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-300">Narrative Detail</span>
+                      <div className="flex items-center">
+                        <input
+                          type="range"
+                          min="0"
+                          max="1"
+                          step="0.1"
+                          value={adaptationSettings.narrativeDetail}
+                          onChange={(e: any) => updateSettings({ 
+                            narrativeDetail: parseFloat(e.target.value) 
+                          })}
+                          className="w-20 h-1.5"
+                        />
+                        <span className="text-xs text-gray-300 ml-2 w-8">
+                          {formatPercentage(adaptationSettings.narrativeDetail)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Reading Settings */}
+                <div className="border-t border-gray-700 pt-2">
+                  <h5 className="text-sm font-medium text-white flex items-center mb-2">
+                    <BookOpen className="h-4 w-4 text-yellow-500 mr-1" />
+                    Reading Adaptations
+                  </h5>
+                  
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-300">Text Emphasis</span>
+                      <div className="flex items-center">
+                        <input
+                          type="range"
+                          min="0"
+                          max="1"
+                          step="0.1"
+                          value={adaptationSettings.textEmphasis}
+                          onChange={(e: any) => updateSettings({ 
+                            textEmphasis: parseFloat(e.target.value) 
+                          })}
+                          className="w-20 h-1.5"
+                        />
+                        <span className="text-xs text-gray-300 ml-2 w-8">
+                          {formatPercentage(adaptationSettings.textEmphasis)}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-300">Transcript Visibility</span>
+                      <div className="flex items-center">
+                        <input
+                          type="range"
+                          min="0"
+                          max="1"
+                          step="0.1"
+                          value={adaptationSettings.transcriptVisibility}
+                          onChange={(e: any) => updateSettings({ 
+                            transcriptVisibility: parseFloat(e.target.value) 
+                          })}
+                          className="w-20 h-1.5"
+                        />
+                        <span className="text-xs text-gray-300 ml-2 w-8">
+                          {formatPercentage(adaptationSettings.transcriptVisibility)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Kinesthetic Settings */}
+                <div className="border-t border-gray-700 pt-2">
+                  <h5 className="text-sm font-medium text-white flex items-center mb-2">
+                    <HandMetal className="h-4 w-4 text-red-500 mr-1" />
+                    Kinesthetic Adaptations
+                  </h5>
+                  
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-300">Interactivity Level</span>
+                      <div className="flex items-center">
+                        <input
+                          type="range"
+                          min="0"
+                          max="1"
+                          step="0.1"
+                          value={adaptationSettings.interactivityLevel}
+                          onChange={(e: any) => updateSettings({ 
+                            interactivityLevel: parseFloat(e.target.value) 
+                          })}
+                          className="w-20 h-1.5"
+                        />
+                        <span className="text-xs text-gray-300 ml-2 w-8">
+                          {formatPercentage(adaptationSettings.interactivityLevel)}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-300">Practical Exercises</span>
+                      <div className="flex items-center">
+                        <input
+                          type="range"
+                          min="0"
+                          max="1"
+                          step="0.1"
+                          value={adaptationSettings.practicalExercises}
+                          onChange={(e: any) => updateSettings({ 
+                            practicalExercises: parseFloat(e.target.value) 
+                          })}
+                          className="w-20 h-1.5"
+                        />
+                        <span className="text-xs text-gray-300 ml-2 w-8">
+                          {formatPercentage(adaptationSettings.practicalExercises)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex justify-end mt-3">
+                <button
+                  className="text-xs bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded"
+                  onClick={() => setUserOverrides({})}
+                >
+                  Reset to Default
+                </button>
+              </div>
+            </div>
+          )}
+          
+          {/* Recommendations Tab */}
+          {activeTab === 'recommendations' && (
+            <div>
+              <p className="text-sm text-gray-300 mb-3">
+                Based on your learning style, these supplementary materials may enhance your understanding:
+              </p>
+              
+              <div className="space-y-2">
+                {/* Visual Resources */}
+                <div className="bg-gray-800 rounded p-2">
+                  <h5 className="text-sm font-medium text-white flex items-center mb-2">
+                    <Eye className="h-4 w-4 text-green-500 mr-1" />
+                    Visual Resources
+                  </h5>
+                  
+                  <div className="space-y-1">
+                    <div className="flex items-center text-gray-300 text-xs hover:bg-gray-700 p-1 rounded">
+                      <div className="bg-green-500/20 p-1 rounded mr-2">
+                        <Eye className="h-3 w-3 text-green-500" />
+                      </div>
+                      <span>Interactive Diagrams for {videoId}</span>
+                    </div>
+                    <div className="flex items-center text-gray-300 text-xs hover:bg-gray-700 p-1 rounded">
+                      <div className="bg-green-500/20 p-1 rounded mr-2">
+                        <Eye className="h-3 w-3 text-green-500" />
+                      </div>
+                      <span>Visual Summary of Key Concepts</span>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Auditory Resources */}
+                <div className="bg-gray-800 rounded p-2">
+                  <h5 className="text-sm font-medium text-white flex items-center mb-2">
+                    <Ear className="h-4 w-4 text-blue-500 mr-1" />
+                    Auditory Resources
+                  </h5>
+                  
+                  <div className="space-y-1">
+                    <div className="flex items-center text-gray-300 text-xs hover:bg-gray-700 p-1 rounded">
+                      <div className="bg-blue-500/20 p-1 rounded mr-2">
+                        <Ear className="h-3 w-3 text-blue-500" />
+                      </div>
+                      <span>Audio Explanation of {videoId}</span>
+                    </div>
+                    <div className="flex items-center text-gray-300 text-xs hover:bg-gray-700 p-1 rounded">
+                      <div className="bg-blue-500/20 p-1 rounded mr-2">
+                        <Ear className="h-3 w-3 text-blue-500" />
+                      </div>
+                      <span>Discussion Questions for Reflection</span>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Reading Resources */}
+                <div className="bg-gray-800 rounded p-2">
+                  <h5 className="text-sm font-medium text-white flex items-center mb-2">
+                    <BookOpen className="h-4 w-4 text-yellow-500 mr-1" />
+                    Reading Resources
+                  </h5>
+                  
+                  <div className="space-y-1">
+                    <div className="flex items-center text-gray-300 text-xs hover:bg-gray-700 p-1 rounded">
+                      <div className="bg-yellow-500/20 p-1 rounded mr-2">
+                        <BookOpen className="h-3 w-3 text-yellow-500" />
+                      </div>
+                      <span>Detailed Transcript with Annotations</span>
+                    </div>
+                    <div className="flex items-center text-gray-300 text-xs hover:bg-gray-700 p-1 rounded">
+                      <div className="bg-yellow-500/20 p-1 rounded mr-2">
+                        <BookOpen className="h-3 w-3 text-yellow-500" />
+                      </div>
+                      <span>Written Summary of Key Points</span>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Kinesthetic Resources */}
+                <div className="bg-gray-800 rounded p-2">
+                  <h5 className="text-sm font-medium text-white flex items-center mb-2">
+                    <HandMetal className="h-4 w-4 text-red-500 mr-1" />
+                    Kinesthetic Resources
+                  </h5>
+                  
+                  <div className="space-y-1">
+                    <div className="flex items-center text-gray-300 text-xs hover:bg-gray-700 p-1 rounded">
+                      <div className="bg-red-500/20 p-1 rounded mr-2">
+                        <HandMetal className="h-3 w-3 text-red-500" />
+                      </div>
+                      <span>Interactive Exercises for Practice</span>
+                    </div>
+                    <div className="flex items-center text-gray-300 text-xs hover:bg-gray-700 p-1 rounded">
+                      <div className="bg-red-500/20 p-1 rounded mr-2">
+                        <HandMetal className="h-3 w-3 text-red-500" />
+                      </div>
+                      <span>Hands-on Simulation Activities</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default LearningStyleAdaptationController;

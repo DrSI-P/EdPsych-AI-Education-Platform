@@ -1,0 +1,677 @@
+'use client';
+
+import dynamic from 'next/dynamic';
+
+import React, { useState } from 'react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
+
+import { 
+Brain, 
+  BookOpen, 
+  Lightbulb, 
+  Star,
+  Clock,
+  ArrowRight,
+  CheckCircle,
+  FileText,
+  Users,
+  BarChart2,
+  PieChart,
+  LineChart,
+  Download,
+  Filter,
+  Search,
+  Calendar,
+  User,
+  Layers,
+  Settings,
+  Target,
+  Award,
+  Compass,
+  Edit,
+  Plus,
+  Zap,
+  Sparkles
+} from 'lucide-react';
+const ComprehensiveNavigation = dynamic(
+  () => import('@/components/navigation/comprehensive-navigation'),
+  { ssr: false }
+);
+
+
+
+
+
+// Original component
+function AICurriculumDesignPage() {
+  const [activeTab, setActiveTab] = useState('overview');
+  const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
+
+  // Sample data for demonstration
+  const curriculumTemplates = [
+    { 
+      id: 'stem', 
+      name: 'STEM Curriculum', 
+      icon: Lightbulb,
+      description: 'Integrated Science, Technology, Engineering, and Mathematics curriculum with project-based learning.',
+      subjects: ['Mathematics', 'Physics', 'Computer Science', 'Engineering'],
+      ageRange: 'Ages 11-18',
+      aiFeatures: ['Cross-subject integration', 'Real-world problem mapping', 'Personalized project suggestions'],
+      color: 'blue'
+    },
+    { 
+      id: 'humanities', 
+      name: 'Humanities & Arts', 
+      icon: BookOpen,
+      description: 'Comprehensive humanities curriculum covering literature, history, philosophy, and creative arts.',
+      subjects: ['Literature', 'History', 'Philosophy', 'Arts'],
+      ageRange: 'Ages 8-18',
+      aiFeatures: ['Thematic connections', 'Cultural context analysis', 'Creative expression pathways'],
+      color: 'purple'
+    },
+    { 
+      id: 'early-years', 
+      name: 'Early Years Foundation', 
+      icon: Star,
+      description: 'Developmental curriculum for early childhood education focusing on key developmental milestones.',
+      subjects: ['Literacy', 'Numeracy', 'Physical Development', 'Social Skills'],
+      ageRange: 'Ages 3-7',
+      aiFeatures: ['Developmental milestone tracking', 'Play-based learning activities', 'Parent involvement suggestions'],
+      color: 'green'
+    },
+    { 
+      id: 'special-needs', 
+      name: 'Inclusive Education', 
+      icon: Users,
+      description: 'Adaptable curriculum designed for diverse learning needs and abilities.',
+      subjects: ['Core Subjects', 'Life Skills', 'Social-Emotional Learning', 'Sensory Integration'],
+      ageRange: 'All ages',
+      aiFeatures: ['Accessibility adaptations', 'Individual learning path generation', 'Progress visualization'],
+      color: 'amber'
+    }
+  ];
+
+  const recentCurricula = [
+    {
+      id: 'c1',
+      name: 'Year 9 Science Curriculum',
+      template: 'stem',
+      created: 'June 3, 2025',
+      progress: 85,
+      status: 'In Progress',
+      collaborators: 4
+    },
+    {
+      id: 'c2',
+      name: 'KS2 Literacy Programme',
+      template: 'early-years',
+      created: 'May 28, 2025',
+      progress: 100,
+      status: 'Completed',
+      collaborators: 2
+    },
+    {
+      id: 'c3',
+      name: 'History & Cultural Studies',
+      template: 'humanities',
+      created: 'May 25, 2025',
+      progress: 70,
+      status: 'In Progress',
+      collaborators: 3
+    }
+  ];
+
+  const curriculumInsights = [
+    {
+      id: 'i1',
+      title: 'Cross-Curricular Opportunities',
+      description: 'AI has identified 12 potential cross-curricular connections between your Science and Mathematics curricula.',
+      type: 'integration',
+      icon: Layers
+    },
+    {
+      id: 'i2',
+      title: 'Content Gap Analysis',
+      description: 'There may be gaps in digital literacy skills development between Year 7 and Year 9 curricula.',
+      type: 'gap',
+      icon: Target
+    },
+    {
+      id: 'i3',
+      title: 'Learning Progression',
+      description: 'The current progression of algebraic concepts shows optimal spacing for knowledge retention.',
+      type: 'progression',
+      icon: LineChart
+    }
+  ];
+
+  const handleTemplateSelect = (id: string) => {
+    setSelectedTemplate(id);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <ComprehensiveNavigation />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="text-centre mb-12">
+          <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 mb-4">
+            <Brain className="w-4 h-4 mr-2" />
+            AI Curriculum Design
+          </Badge>
+          <h1 className="text-4xl font-bold text-grey-900 mb-4">
+            Intelligent Curriculum Development
+          </h1>
+          <p className="text-xl text-grey-600 max-w-3xl mx-auto">
+            Leverage AI to create comprehensive, engaging, and personalized curricula that adapt to diverse learning needs and educational objectives.
+          </p>
+        </div>
+
+        {/* Main Tabs */}
+        <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab} className="mb-8">
+          <TabsList className="grid grid-cols-4 mb-8">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="templates">Templates</TabsTrigger>
+            <TabsTrigger value="curricula">My Curricula</TabsTrigger>
+            <TabsTrigger value="insights">AI Insights</TabsTrigger>
+          </TabsList>
+          
+          {/* Overview Tab */}
+          <TabsContent value="overview">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-centre">
+                    <FileText className="w-5 h-5 mr-2 text-blue-500" />
+                    Active Curricula
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold">8</div>
+                  <p className="text-sm text-grey-500">Currently in use</p>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-centre">
+                    <Users className="w-5 h-5 mr-2 text-purple-500" />
+                    Collaborators
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold">12</div>
+                  <p className="text-sm text-grey-500">Across all curricula</p>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-centre">
+                    <Sparkles className="w-5 h-5 mr-2 text-amber-500" />
+                    AI Suggestions
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold">24</div>
+                  <p className="text-sm text-grey-500">New curriculum insights</p>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Curriculum Development Process</CardTitle>
+                  <CardDescription>How AI assists in curriculum creation</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-6">
+                    <div className="flex items-start">
+                      <div className="w-8 h-8 rounded-full bg-blue-100 flex items-centre justify-centre mr-3 mt-1">
+                        <span className="font-bold text-blue-600">1</span>
+                      </div>
+                      <div>
+                        <h3 className="font-medium mb-1">Define Objectives</h3>
+                        <p className="text-sm text-grey-600">
+                          Specify learning objectives, target age groups, and educational standards. AI helps align with national curriculum requirements.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start">
+                      <div className="w-8 h-8 rounded-full bg-blue-100 flex items-centre justify-centre mr-3 mt-1">
+                        <span className="font-bold text-blue-600">2</span>
+                      </div>
+                      <div>
+                        <h3 className="font-medium mb-1">Generate Framework</h3>
+                        <p className="text-sm text-grey-600">
+                          AI creates a comprehensive curriculum structure with units, lessons, and assessment opportunities based on your objectives.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start">
+                      <div className="w-8 h-8 rounded-full bg-blue-100 flex items-centre justify-centre mr-3 mt-1">
+                        <span className="font-bold text-blue-600">3</span>
+                      </div>
+                      <div>
+                        <h3 className="font-medium mb-1">Customise Content</h3>
+                        <p className="text-sm text-grey-600">
+                          Refine and customise the AI-generated content to match your teaching style and student needs.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start">
+                      <div className="w-8 h-8 rounded-full bg-blue-100 flex items-centre justify-centre mr-3 mt-1">
+                        <span className="font-bold text-blue-600">4</span>
+                      </div>
+                      <div>
+                        <h3 className="font-medium mb-1">Implement & Analyse</h3>
+                        <p className="text-sm text-grey-600">
+                          Deploy your curriculum and receive ongoing AI analysis of effectiveness and student engagement.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader>
+                  <CardTitle>AI Curriculum Features</CardTitle>
+                  <CardDescription>Key benefits of AI-powered curriculum design</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg">
+                      <div className="flex items-centre mb-3">
+                        <div className="w-8 h-8 rounded-full bg-blue-200 flex items-centre justify-centre mr-2">
+                          <Target className="w-4 h-4 text-blue-700" />
+                        </div>
+                        <h3 className="font-medium">Personalization</h3>
+                      </div>
+                      <p className="text-sm text-grey-700">
+                        Adapts to different learning styles, abilities, and interests whilst maintaining core learning objectives.
+                      </p>
+                    </div>
+                    
+                    <div className="bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-lg">
+                      <div className="flex items-centre mb-3">
+                        <div className="w-8 h-8 rounded-full bg-purple-200 flex items-centre justify-centre mr-2">
+                          <Layers className="w-4 h-4 text-purple-700" />
+                        </div>
+                        <h3 className="font-medium">Integration</h3>
+                      </div>
+                      <p className="text-sm text-grey-700">
+                        Identifies cross-curricular connections and creates thematic links between subjects.
+                      </p>
+                    </div>
+                    
+                    <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg">
+                      <div className="flex items-centre mb-3">
+                        <div className="w-8 h-8 rounded-full bg-green-200 flex items-centre justify-centre mr-2">
+                          <LineChart className="w-4 h-4 text-green-700" />
+                        </div>
+                        <h3 className="font-medium">Progression</h3>
+                      </div>
+                      <p className="text-sm text-grey-700">
+                        Ensures optimal sequencing of concepts for knowledge building and skill development.
+                      </p>
+                    </div>
+                    
+                    <div className="bg-gradient-to-r from-amber-50 to-amber-100 p-4 rounded-lg">
+                      <div className="flex items-centre mb-3">
+                        <div className="w-8 h-8 rounded-full bg-amber-200 flex items-centre justify-centre mr-2">
+                          <Zap className="w-4 h-4 text-amber-700" />
+                        </div>
+                        <h3 className="font-medium">Engagement</h3>
+                      </div>
+                      <p className="text-sm text-grey-700">
+                        Suggests engaging activities, resources, and teaching strategies to maximize student interest.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+              <CardContent className="p-6">
+                <div className="flex flex-col md:flex-row items-centre md:space-x-8">
+                  <div className="mb-6 md:mb-0">
+                    <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-centre justify-centre mx-auto">
+                      <Brain className="w-10 h-10 text-white" />
+                    </div>
+                  </div>
+                  <div className="flex-1 text-centre md:text-left">
+                    <h3 className="text-xl font-bold text-grey-900 mb-2">Ready to Create a New Curriculum?</h3>
+                    <p className="text-grey-600 mb-4">
+                      Start with one of our AI-powered templates or build a completely custom curriculum from scratch.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-centre md:justify-start">
+                      <Button onClick={() => setActiveTab('templates')} className="bg-gradient-to-r from-blue-600 to-purple-600">
+                        Browse Templates
+                      </Button>
+                      <Button variant="outline">
+                        Custom Curriculum
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          
+          {/* Templates Tab */}
+          <TabsContent value="templates">
+            <div className="mb-6 flex justify-between items-centre">
+              <h2 className="text-2xl font-bold">Curriculum Templates</h2>
+              <div className="flex gap-2">
+                <div className="relative">
+                  <Search className="absolute left-3 top-2.5 h-4 w-4 text-grey-400" />
+                  <input
+                    type="search"
+                    placeholder="Search templates..."
+                    className="pl-9 h-10 rounded-md border border-input bg-background px-3 py-2 text-sm"
+                  />
+                </div>
+                <Button variant="outline" size="sm" className="flex items-centre">
+                  <Filter className="w-4 h-4 mr-2" />
+                  Filter
+                </Button>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {curriculumTemplates.map((template) => (
+                <Card 
+                  key={template.id} 
+                  className={`overflow-hidden cursor-pointer transition-all ${
+                    selectedTemplate === template.id ? 'ring-2 ring-blue-500' : ''
+                  }`}
+                  onClick={() => handleTemplateSelect(template.id)}
+                >
+                  <div className={`h-2 bg-${template.color}-500`}></div>
+                  <CardHeader>
+                    <div className="flex items-centre">
+                      <div className={`w-10 h-10 rounded-full bg-${template.color}-100 flex items-centre justify-centre mr-3`}>
+                        <template.icon className={`w-5 h-5 text-${template.color}-600`} />
+                      </div>
+                      <CardTitle>{template.name}</CardTitle>
+                    </div>
+                    <CardDescription>{template.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div>
+                        <div className="text-sm font-medium mb-1">Key Subjects</div>
+                        <div className="flex flex-wrap gap-1">
+                          {template.subjects.map((subject, index) => (
+                            <Badge key={index} variant="outline">
+                              {subject}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <div className="text-sm font-medium mb-1">Target Age Range</div>
+                        <div className="flex items-centre">
+                          <Users className="w-4 h-4 mr-2 text-grey-500" />
+                          <span>{template.ageRange}</span>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <div className="text-sm font-medium mb-1">AI-Powered Features</div>
+                        <ul className="space-y-1">
+                          {template.aiFeatures.map((feature, index) => (
+                            <li key={index} className="flex items-start">
+                              <Brain className="w-4 h-4 mr-2 text-purple-500 mt-0.5" />
+                              <span className="text-sm">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <Button className="w-full">
+                      Use This Template
+                      <ArrowRight className="ml-2 w-4 h-4" />
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+            
+            <Card className="mt-8 border-dashed">
+              <CardContent className="flex flex-col items-centre justify-centre p-8">
+                <div className="w-16 h-16 bg-grey-100 rounded-full flex items-centre justify-centre mb-4">
+                  <Plus className="w-8 h-8 text-grey-400" />
+                </div>
+                <h3 className="text-xl font-medium text-grey-900 mb-2">Create Custom Template</h3>
+                <p className="text-grey-600 text-centre mb-6 max-w-md">
+                  Design your own curriculum template from scratch to perfectly match your educational philosophy and objectives.
+                </p>
+                <Button>Start Creating</Button>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          
+          {/* My Curricula Tab */}
+          <TabsContent value="curricula">
+            <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-centre gap-4">
+              <div>
+                <h2 className="text-2xl font-bold">My Curricula</h2>
+                <p className="text-grey-600">Manage and edit your curriculum projects</p>
+              </div>
+              
+              <Button className="flex items-centre">
+                <Plus className="w-4 h-4 mr-2" />
+                New Curriculum
+              </Button>
+            </div>
+            
+            <div className="space-y-4">
+              {recentCurricula.map((curriculum) => {
+                const template = curriculumTemplates.find(t => t.id === curriculum.template);
+                return (
+                  <Card key={curriculum.id} className="overflow-hidden">
+                    <div className={`h-1 bg-${template?.color || 'grey'}-500`}></div>
+                    <CardContent className="p-6">
+                      <div className="flex flex-col md:flex-row md:items-centre justify-between gap-4">
+                        <div className="flex items-centre">
+                          <div className={`w-10 h-10 rounded-full bg-${template?.color || 'grey'}-100 flex items-centre justify-centre mr-3`}>
+                            {template?.icon && <template.icon className={`w-5 h-5 text-${template?.color || 'grey'}-600`} />}
+                          </div>
+                          <div>
+                            <h3 className="font-medium">{curriculum.name}</h3>
+                            <div className="flex items-centre text-sm text-grey-500">
+                              <Calendar className="w-3 h-3 mr-1" />
+                              Created: {curriculum.created}
+                              <span className="mx-2">•</span>
+                              <Users className="w-3 h-3 mr-1" />
+                              {curriculum.collaborators} collaborators
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-centre gap-4">
+                          <div>
+                            <div className="text-sm text-grey-500 mb-1">Status</div>
+                            <Badge variant="outline" className={curriculum.status === 'Completed' ? 'bg-green-50 text-green-700 border-green-200' : 'bg-blue-50 text-blue-700 border-blue-200'}>
+                              {curriculum.status}
+                            </Badge>
+                          </div>
+                          
+                          <div className="flex gap-2">
+                            <Button size="sm" variant="outline">
+                              <Edit className="w-4 h-4 mr-1" />
+                              Edit
+                            </Button>
+                            <Button size="sm">View</Button>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="mt-4">
+                        <div className="flex justify-between items-centre mb-2">
+                          <div className="text-sm font-medium">Completion</div>
+                          <div className="text-sm font-medium">{curriculum.progress}%</div>
+                        </div>
+                        <Progress value={curriculum.progress} className="h-2" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </TabsContent>
+          
+          {/* AI Insights Tab */}
+          <TabsContent value="insights">
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold mb-2">AI Curriculum Insights</h2>
+              <p className="text-grey-600">
+                AI-generated insights and recommendations to enhance your curriculum design
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+              {curriculumInsights.map((insight) => (
+                <Card key={insight.id} className="overflow-hidden">
+                  <CardHeader className="pb-2">
+                    <div className="flex items-centre">
+                      <div className={`w-8 h-8 rounded-full ${
+                        insight.type === 'integration' ? 'bg-blue-100' : 
+                        insight.type === 'gap' ? 'bg-amber-100' : 'bg-green-100'
+                      } flex items-centre justify-centre mr-3`}>
+                        <insight.icon className={`w-4 h-4 ${
+                          insight.type === 'integration' ? 'text-blue-600' : 
+                          insight.type === 'gap' ? 'text-amber-600' : 'text-green-600'
+                        }`} />
+                      </div>
+                      <CardTitle className="text-lg">{insight.title}</CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-grey-600 mb-4">{insight.description}</p>
+                    <Button variant="outline" size="sm" className="w-full">
+                      View Details
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Curriculum Effectiveness Analysis</CardTitle>
+                <CardDescription>AI analysis of your current curriculum implementation</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="font-medium mb-2">Engagement Metrics</h3>
+                    <div className="bg-grey-100 rounded-lg p-4 flex items-centre justify-centre h-40">
+                      <div className="text-centre">
+                        <BarChart2 className="w-12 h-12 mx-auto text-grey-400 mb-2" />
+                        <p className="text-grey-500">Engagement metrics visualization</p>
+                        <p className="text-sm text-grey-400">(Visualization placeholder)</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h3 className="font-medium mb-2">Learning Outcomes</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="bg-green-50 border border-green-100 rounded-lg p-4">
+                        <div className="flex items-centre mb-2">
+                          <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
+                          <h4 className="font-medium">Strengths</h4>
+                        </div>
+                        <ul className="text-sm space-y-1">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-1">•</span>
+                            Strong critical thinking development
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-1">•</span>
+                            Effective knowledge retention
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-1">•</span>
+                            Good practical application
+                          </li>
+                        </ul>
+                      </div>
+                      
+                      <div className="bg-amber-50 border border-amber-100 rounded-lg p-4">
+                        <div className="flex items-centre mb-2">
+                          <Target className="w-5 h-5 text-amber-500 mr-2" />
+                          <h4 className="font-medium">Opportunities</h4>
+                        </div>
+                        <ul className="text-sm space-y-1">
+                          <li className="flex items-start">
+                            <span className="text-amber-500 mr-1">•</span>
+                            Enhance collaborative learning
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-amber-500 mr-1">•</span>
+                            Increase digital literacy integration
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-amber-500 mr-1">•</span>
+                            Add more real-world connections
+                          </li>
+                        </ul>
+                      </div>
+                      
+                      <div className="bg-blue-50 border border-blue-100 rounded-lg p-4">
+                        <div className="flex items-centre mb-2">
+                          <Lightbulb className="w-5 h-5 text-blue-500 mr-2" />
+                          <h4 className="font-medium">Recommendations</h4>
+                        </div>
+                        <ul className="text-sm space-y-1">
+                          <li className="flex items-start">
+                            <span className="text-blue-500 mr-1">•</span>
+                            Implement project-based assessments
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-blue-500 mr-1">•</span>
+                            Add technology skill development
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-blue-500 mr-1">•</span>
+                            Incorporate more student choice
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button className="w-full">
+                  Generate Comprehensive Report
+                  <Download className="ml-2 w-4 h-4" />
+                </Button>
+              </CardFooter>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </div>
+    </div>
+  );
+}
+
+export default AICurriculumDesignPage;

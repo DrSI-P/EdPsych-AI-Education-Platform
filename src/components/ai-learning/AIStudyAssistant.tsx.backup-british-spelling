@@ -1,0 +1,694 @@
+'use client';
+
+import React, { useState, useRef, useEffect } from 'react';
+import { 
+  MessageSquare, 
+  Send, 
+  Paperclip, 
+  Mic, 
+  BookOpen,
+  FileText,
+  Video,
+  BarChart2,
+  Clock,
+  RefreshCw,
+  ThumbsUp,
+  ThumbsDown,
+  ChevronDown,
+  ChevronUp,
+  X,
+  Maximize2,
+  Minimize2,
+  HelpCircle,
+  Settings,
+  Save
+} from 'lucide-react';
+
+interface AIStudyAssistantProps {
+  userId?: string;
+  courseId?: string;
+  userRole: 'student' | 'instructor' | 'admin';
+  className?: string;
+}
+
+interface Message {
+  id: string;
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+  timestamp: number;
+  attachments?: Attachment[];
+  references?: Reference[];
+  feedback?: 'helpful' | 'not-helpful';
+}
+
+interface Attachment {
+  id: string;
+  type: 'image' | 'document' | 'audio';
+  name: string;
+  url: string;
+  thumbnailUrl?: string;
+}
+
+interface Reference {
+  id: string;
+  type: 'article' | 'video' | 'book' | 'course-material';
+  title: string;
+  url?: string;
+  description?: string;
+}
+
+interface StudySession {
+  id: string;
+  title: string;
+  timestamp: number;
+  topic: string;
+  messages: Message[];
+}
+
+interface SuggestedPrompt {
+  id: string;
+  text: string;
+  category: 'concept' | 'practice' | 'review' | 'general';
+}
+
+const AIStudyAssistant: React.FC<AIStudyAssistantProps> = ({
+  userId,
+  courseId,
+  userRole,
+  className = '',
+}) => {
+  // State
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [inputValue, setInputValue] = useState('');
+  const [sessions, setSessions] = useState<StudySession[]>([]);
+  const [currentSession, setCurrentSession] = useState<StudySession | null>(null);
+  const [suggestedPrompts, setSuggestedPrompts] = useState<SuggestedPrompt[]>([]);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showSessionList, setShowSessionList] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  
+  // Refs
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  
+  // Scroll to bottom of messages
+  const scrollToBottom = (): void => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+  
+  // Load initial data
+  useEffect(() => {
+    const loadInitialData = async () => {
+      try {
+        setIsLoading(true);
+        
+        // In a real app, these would be API calls
+        // For now, we'll use mock data
+        
+        // Mock welcome message
+        const welcomeMessage: Message = {
+          id: 'msg-welcome',
+          role: 'assistant',
+          content: "Hello! I'm your AI Study Assistant. I can help you understand concepts, practice with questions, or review material. What would you like to work on today?",
+          timestamp: Date.now(),
+        };
+        
+        // Mock suggested prompts
+        const mockSuggestedPrompts: SuggestedPrompt[] = [
+          {
+            id: 'prompt-1',
+            text: "Explain Piaget's stages of cognitive development",
+            category: 'concept'
+          },
+          {
+            id: 'prompt-2',
+            text: "Give me practice questions on behavioral learning theories",
+            category: 'practice'
+          },
+          {
+            id: 'prompt-3',
+            text: "Summarize the key points of Vygotsky's sociocultural theory",
+            category: 'review'
+          },
+          {
+            id: 'prompt-4',
+            text: "Help me create a study plan for educational psychology",
+            category: 'general'
+          }
+        ];
+        
+        // Mock previous sessions
+        const mockSessions: StudySession[] = [
+          {
+            id: 'session-1',
+            title: 'Cognitive Development Theories',
+            timestamp: Date.now() - 86400000 * 2, // 2 days ago
+            topic: 'Developmental Psychology',
+            messages: [
+              {
+                id: 'msg-1-1',
+                role: 'user',
+                content: "Can you explain Piaget's stages of cognitive development?",
+                timestamp: Date.now() - 86400000 * 2,
+              },
+              {
+                id: 'msg-1-2',
+                role: 'assistant',
+                content: "Piaget's theory of cognitive development consists of four stages that describe how children's thinking evolves as they grow. Here they are in sequence:\n\n1. **Sensorimotor Stage (0-2 years)**: Infants learn through sensory experiences and motor actions. They develop object permanence during this stage.\n\n2. **Preoperational Stage (2-7 years)**: Children begin using symbols and language but struggle with logic and taking others' perspectives (egocentrism).\n\n3. **Concrete Operational Stage (7-11 years)**: Children develop logical thinking about concrete events and understand conservation of number, mass, and volume.\n\n4. **Formal Operational Stage (11+ years)**: Adolescents develop abstract reasoning, hypothetical thinking, and deductive logic.\n\nEach stage builds upon the previous one, representing increasingly complex and abstract thinking. Would you like me to elaborate on any particular stage?",
+                timestamp: Date.now() - 86400000 * 2 + 60000,
+                references: [
+                  {
+                    id: 'ref-1-1',
+                    type: 'book',
+                    title: "Piaget's Theory of Cognitive Development",
+                    description: "From 'Cognitive Development: The Theory of Jean Piaget' (1969)"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'session-2',
+            title: 'Behavioral Learning Theories',
+            timestamp: Date.now() - 86400000, // 1 day ago
+            topic: 'Learning Theories',
+            messages: [
+              {
+                id: 'msg-2-1',
+                role: 'user',
+                content: "What are the main behavioral learning theories?",
+                timestamp: Date.now() - 86400000,
+              },
+              {
+                id: 'msg-2-2',
+                role: 'assistant',
+                content: "The main behavioral learning theories focus on how environmental stimuli shape observable behaviors. Here are the key theories:\n\n1. **Classical Conditioning (Pavlov)**: Learning occurs when a neutral stimulus becomes associated with a naturally occurring stimulus to produce a response. Example: Pavlov's dogs salivating at the sound of a bell.\n\n2. **Operant Conditioning (Skinner)**: Learning is based on the consequences of behavior:\n   - Positive reinforcement: Adding a reward to increase behavior\n   - Negative reinforcement: Removing an aversive stimulus to increase behavior\n   - Positive punishment: Adding an aversive stimulus to decrease behavior\n   - Negative punishment: Removing a reward to decrease behavior\n\n3. **Social Learning Theory (Bandura)**: Learning occurs through observation, imitation, and modeling of others' behaviors.\n\nThese theories have significant applications in education, particularly in classroom management, motivation, and behavior modification. Would you like to explore any of these theories in more depth?",
+                timestamp: Date.now() - 86400000 + 120000,
+                references: [
+                  {
+                    id: 'ref-2-1',
+                    type: 'article',
+                    title: "Behavioral Theories of Learning",
+                    url: "https://example.com/behavioral-learning"
+                  }
+                ]
+              }
+            ]
+          }
+        ];
+        
+        // Create a new session
+        const newSession: StudySession = {
+          id: `session-${Date.now()}`,
+          title: 'New Study Session',
+          timestamp: Date.now(),
+          topic: 'General',
+          messages: [welcomeMessage]
+        };
+        
+        setMessages([welcomeMessage]);
+        setSuggestedPrompts(mockSuggestedPrompts);
+        setSessions([...mockSessions, newSession]);
+        setCurrentSession(newSession);
+        setError(null);
+      } catch (err) {
+        console.error('Error loading AI Study Assistant data:', err);
+        setError('Failed to load AI Study Assistant');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    loadInitialData();
+  }, [userId, courseId]);
+  
+  // Scroll to bottom when messages change
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+  
+  // Send message
+  const sendMessage = async () => {
+    if (!inputValue.trim()) return;
+    
+    try {
+      // Create user message
+      const userMessage: Message = {
+        id: `msg-${Date.now()}`,
+        role: 'user',
+        content: inputValue,
+        timestamp: Date.now()
+      };
+      
+      // Add user message to state
+      setMessages(prev => [...prev, userMessage]);
+      
+      // Clear input
+      setInputValue('');
+      
+      // Show loading state
+      setIsLoading(true);
+      
+      // In a real app, this would be an API call to get the assistant's response
+      // For now, we'll simulate a delay and return a mock response
+      setTimeout(() => {
+        // Mock assistant response
+        const assistantMessage: Message = {
+          id: `msg-${Date.now() + 1}`,
+          role: 'assistant',
+          content: generateMockResponse(inputValue),
+          timestamp: Date.now() + 1,
+          references: generateMockReferences(inputValue)
+        };
+        
+        // Add assistant message to state
+        setMessages(prev => [...prev, assistantMessage]);
+        
+        // Update current session
+        if (currentSession) {
+          const updatedSession = {
+            ...currentSession,
+            messages: [...currentSession.messages, userMessage, assistantMessage]
+          };
+          setCurrentSession(updatedSession);
+          
+          // Update sessions list
+          setSessions(prev => 
+            prev.map(session => 
+              session.id === updatedSession.id ? updatedSession : session
+            )
+          );
+        }
+        
+        // Hide loading state
+        setIsLoading(false);
+      }, 1500);
+    } catch (err) {
+      console.error('Error sending message:', err);
+      setError('Failed to send message');
+      setIsLoading(false);
+    }
+  };
+  
+  // Generate mock response based on input
+  const generateMockResponse = (input: string): string => {
+    const lowerInput = input.toLowerCase();
+    
+    if (lowerInput.includes('piaget') || lowerInput.includes('cognitive development')) {
+      return "Piaget's theory of cognitive development describes how children's understanding of the world changes as they grow. The four main stages are:\n\n1. **Sensorimotor Stage (0-2 years)**: Learning through senses and actions\n2. **Preoperational Stage (2-7 years)**: Beginning to use symbols and language\n3. **Concrete Operational Stage (7-11 years)**: Logical thinking about concrete events\n4. **Formal Operational Stage (11+ years)**: Abstract reasoning and hypothetical thinking\n\nEach stage represents a qualitative change in how children think and understand the world. Would you like me to explain any specific stage in more detail?";
+    } else if (lowerInput.includes('vygotsky') || lowerInput.includes('sociocultural')) {
+      return "Vygotsky's sociocultural theory emphasizes the role of social interaction and culture in cognitive development. Key concepts include:\n\n1. **Zone of Proximal Development (ZPD)**: The gap between what a learner can do independently and what they can do with guidance. This is where learning occurs most effectively.\n\n2. **Scaffolding**: The temporary support provided by teachers, parents, or peers to help a learner succeed at tasks they couldn't complete alone.\n\n3. **Cultural Mediation**: The idea that cognitive development is mediated by cultural tools, especially language.\n\n4. **Social Learning**: The belief that learning occurs first through social interaction before being internalized.\n\nVygotsky's theory has significant implications for education, particularly in collaborative learning, guided instruction, and the importance of cultural context in learning.";
+    } else if (lowerInput.includes('study plan') || lowerInput.includes('schedule')) {
+      return "Here's a suggested study plan for educational psychology:\n\n**Week 1-2: Foundations**\n- Learning theories (behaviorism, cognitivism, constructivism)\n- Developmental theories (Piaget, Vygotsky, Erikson)\n- Memory and information processing\n\n**Week 3-4: Individual Differences**\n- Intelligence and multiple intelligences\n- Learning styles and preferences\n- Motivation and self-regulation\n\n**Week 5-6: Teaching and Assessment**\n- Instructional strategies\n- Classroom management\n- Assessment types and design\n\n**Week 7-8: Special Topics**\n- Educational technology\n- Special education\n- Cultural and social factors in education\n\n**Study Strategies:**\n1. Create concept maps for each major theory\n2. Practice applying theories to real classroom scenarios\n3. Use spaced repetition for key concepts and terminology\n4. Form a study group for discussion and peer teaching\n5. Take practice quizzes to test your understanding\n\nWould you like me to elaborate on any part of this plan?";
+    } else {
+      return "That's an interesting question about educational psychology. To give you the most helpful response, could you provide a bit more context about what specific aspect you're interested in? For example, are you looking for information about:\n\n- Learning theories (behaviorism, cognitivism, constructivism)\n- Developmental psychology (cognitive, social, emotional development)\n- Motivation and engagement\n- Assessment and evaluation\n- Classroom management\n- Individual differences and learning styles\n\nThe more specific you can be, the better I can tailor my response to your needs.";
+    }
+  };
+  
+  // Generate mock references based on input
+  const generateMockReferences = (input: string): Reference[] => {
+    const lowerInput = input.toLowerCase();
+    
+    if (lowerInput.includes('piaget') || lowerInput.includes('cognitive development')) {
+      return [
+        {
+          id: `ref-${Date.now()}-1`,
+          type: 'book',
+          title: "The Psychology of the Child",
+          description: "Piaget, J., & Inhelder, B. (1969)"
+        },
+        {
+          id: `ref-${Date.now()}-2`,
+          type: 'article',
+          title: "Piaget's Theory of Cognitive Development",
+          url: "https://example.com/piaget-theory"
+        }
+      ];
+    } else if (lowerInput.includes('vygotsky') || lowerInput.includes('sociocultural')) {
+      return [
+        {
+          id: `ref-${Date.now()}-1`,
+          type: 'book',
+          title: "Mind in Society: Development of Higher Psychological Processes",
+          description: "Vygotsky, L. S. (1978)"
+        },
+        {
+          id: `ref-${Date.now()}-2`,
+          type: 'article',
+          title: "Sociocultural Theory and Educational Practice",
+          url: "https://example.com/vygotsky-education"
+        }
+      ];
+    }
+    
+    return [];
+  };
+  
+  // Render message
+  const renderMessage = (message: Message) => {
+    return (
+      <div 
+        key={message.id} 
+        className={`mb-4 ${
+          message.role === 'user' 
+            ? 'ml-auto max-w-[80%]' 
+            : 'mr-auto max-w-[80%]'
+        }`}
+      >
+        <div className={`rounded-lg p-4 ${
+          message.role === 'user' 
+            ? 'bg-blue-600 text-white' 
+            : 'bg-grey-800 text-white'
+        }`}>
+          {/* Message content */}
+          <div className="whitespace-pre-wrap">{message.content}</div>
+          
+          {/* References */}
+          {message.references && message.references.length > 0 && (
+            <div className="mt-3 pt-3 border-t border-grey-700">
+              <h4 className="text-sm font-medium mb-2">References:</h4>
+              <ul className="space-y-1">
+                {message.references.map(reference => (
+                  <li key={reference.id} className="text-sm flex items-start">
+                    {reference.type === 'article' && <FileText className="h-3.5 w-3.5 mr-1.5 mt-0.5 text-blue-400" />}
+                    {reference.type === 'book' && <BookOpen className="h-3.5 w-3.5 mr-1.5 mt-0.5 text-green-400" />}
+                    {reference.type === 'video' && <Video className="h-3.5 w-3.5 mr-1.5 mt-0.5 text-red-400" />}
+                    {reference.type === 'course-material' && <BarChart2 className="h-3.5 w-3.5 mr-1.5 mt-0.5 text-purple-400" />}
+                    <span>
+                      {reference.url ? (
+                        <a href={reference.url} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                          {reference.title}
+                        </a>
+                      ) : (
+                        <span>{reference.title}</span>
+                      )}
+                      {reference.description && (
+                        <span className="text-grey-400 text-xs block">{reference.description}</span>
+                      )}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          
+          {/* Feedback buttons (only for assistant messages) */}
+          {message.role === 'assistant' && (
+            <div className="mt-3 flex items-center justify-end space-x-2">
+              <button 
+                className={`p-1 rounded ${
+                  message.feedback === 'helpful' 
+                    ? 'bg-green-600 text-white' 
+                    : 'text-grey-400 hover:text-white'
+                }`}
+                onClick={() => {
+                  setMessages(prev => 
+                    prev.map(msg => 
+                      msg.id === message.id 
+                        ? { ...msg, feedback: 'helpful' } 
+                        : msg
+                    )
+                  );
+                }}
+                disabled={message.feedback === 'helpful'}
+              >
+                <ThumbsUp className="h-3.5 w-3.5" />
+              </button>
+              <button 
+                className={`p-1 rounded ${
+                  message.feedback === 'not-helpful' 
+                    ? 'bg-red-600 text-white' 
+                    : 'text-grey-400 hover:text-white'
+                }`}
+                onClick={() => {
+                  setMessages(prev => 
+                    prev.map(msg => 
+                      msg.id === message.id 
+                        ? { ...msg, feedback: 'not-helpful' } 
+                        : msg
+                    )
+                  );
+                }}
+                disabled={message.feedback === 'not-helpful'}
+              >
+                <ThumbsDown className="h-3.5 w-3.5" />
+              </button>
+            </div>
+          )}
+        </div>
+        
+        {/* Timestamp */}
+        <div className={`text-xs text-grey-500 mt-1 ${
+          message.role === 'user' ? 'text-right' : 'text-left'
+        }`}>
+          {new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+        </div>
+      </div>
+    );
+  };
+  
+  return (
+    <div 
+      className={`bg-grey-900 rounded-lg overflow-hidden ${
+        isFullscreen 
+          ? 'fixed inset-0 z-50' 
+          : `${className}`
+      }`}
+    >
+      {/* Header */}
+      <div className="bg-grey-800 p-4 flex items-center justify-between">
+        <div className="flex items-center">
+          <MessageSquare className="h-5 w-5 text-blue-400 mr-2" />
+          <h2 className="text-lg font-semibold text-white">AI Study Assistant</h2>
+        </div>
+        
+        <div className="flex items-center space-x-2">
+          {/* Session selector */}
+          <button 
+            className="text-grey-400 hover:text-white p-1.5 rounded-full hover:bg-grey-700"
+            onClick={() => setShowSessionList(!showSessionList)}
+          >
+            <Clock className="h-5 w-5" />
+          </button>
+          
+          {/* Settings */}
+          <button 
+            className="text-grey-400 hover:text-white p-1.5 rounded-full hover:bg-grey-700"
+            onClick={() => setShowSettings(!showSettings)}
+          >
+            <Settings className="h-5 w-5" />
+          </button>
+          
+          {/* Fullscreen toggle */}
+          <button 
+            className="text-grey-400 hover:text-white p-1.5 rounded-full hover:bg-grey-700"
+            onClick={() => setIsFullscreen(!isFullscreen)}
+          >
+            {isFullscreen ? (
+              <Minimize2 className="h-5 w-5" />
+            ) : (
+              <Maximize2 className="h-5 w-5" />
+            )}
+          </button>
+        </div>
+      </div>
+      
+      {/* Session list */}
+      {showSessionList && (
+        <div className="bg-grey-800 border-b border-grey-700 p-4">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-white font-medium">Study Sessions</h3>
+            <button 
+              className="text-grey-400 hover:text-white"
+              onClick={() => setShowSessionList(false)}
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+          
+          <div className="space-y-2 max-h-48 overflow-y-auto">
+            {sessions.map(session => (
+              <button
+                key={session.id}
+                className={`w-full text-left p-3 rounded hover:bg-grey-750 ${
+                  currentSession?.id === session.id ? 'bg-grey-750' : 'bg-grey-700'
+                }`}
+                onClick={() => {
+                  setCurrentSession(session);
+                  setMessages(session.messages);
+                  setShowSessionList(false);
+                }}
+              >
+                <div className="text-white font-medium">{session.title}</div>
+                <div className="text-grey-400 text-xs flex items-center justify-between">
+                  <span>{session.topic}</span>
+                  <span>{new Date(session.timestamp).toLocaleDateString()}</span>
+                </div>
+              </button>
+            ))}
+          </div>
+          
+          <button 
+            className="w-full bg-blue-600 hover:bg-blue-500 text-white rounded py-2 text-sm mt-4"
+            onClick={() => {
+              const welcomeMessage: Message = {
+                id: `msg-${Date.now()}`,
+                role: 'assistant',
+                content: "Hello! I'm your AI Study Assistant. What would you like to work on today?",
+                timestamp: Date.now(),
+              };
+              
+              const newSession: StudySession = {
+                id: `session-${Date.now()}`,
+                title: 'New Study Session',
+                timestamp: Date.now(),
+                topic: 'General',
+                messages: [welcomeMessage]
+              };
+              
+              setSessions(prev => [...prev, newSession]);
+              setCurrentSession(newSession);
+              setMessages([welcomeMessage]);
+              setShowSessionList(false);
+            }}
+          >
+            New Session
+          </button>
+        </div>
+      )}
+      
+      {/* Settings panel */}
+      {showSettings && (
+        <div className="bg-grey-800 border-b border-grey-700 p-4">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-white font-medium">Settings</h3>
+            <button 
+              className="text-grey-400 hover:text-white"
+              onClick={() => setShowSettings(false)}
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+          
+          <div className="space-y-4">
+            <div>
+              <label className="block text-grey-400 text-sm mb-1">Session Name</label>
+              <input 
+                type="text" 
+                className="w-full bg-grey-700 text-white rounded px-3 py-2 text-sm"
+                value={currentSession?.title || ''}
+                onChange={(e: any) => {
+                  if (currentSession) {
+                    const updatedSession = {
+                      ...currentSession,
+                      title: e.target.value
+                    };
+                    setCurrentSession(updatedSession);
+                    setSessions(prev => 
+                      prev.map(session => 
+                        session.id === updatedSession.id ? updatedSession : session
+                      )
+                    );
+                  }
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* Messages */}
+      <div className="p-4 h-96 overflow-y-auto">
+        {messages.map(renderMessage)}
+        <div ref={messagesEndRef} />
+        
+        {/* Loading indicator */}
+        {isLoading && (
+          <div className="flex items-center text-grey-400 mb-4">
+            <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+            <span>AI is thinking...</span>
+          </div>
+        )}
+      </div>
+      
+      {/* Suggested prompts */}
+      <div className="px-4 py-2 border-t border-grey-800 bg-grey-850">
+        <div className="flex flex-wrap gap-2">
+          {suggestedPrompts.map(prompt => (
+            <button
+              key={prompt.id}
+              className="bg-grey-700 hover:bg-grey-600 text-grey-300 px-3 py-1.5 rounded-full text-sm"
+              onClick={() => setInputValue(prompt.text)}
+            >
+              {prompt.text}
+            </button>
+          ))}
+        </div>
+      </div>
+      
+      {/* Input area */}
+      <div className="p-4 border-t border-grey-800 bg-grey-850">
+        <div className="flex items-center">
+          <input
+            type="file"
+            ref={fileInputRef}
+            className="hidden"
+            onChange={(e: any) => {
+              const files = e.target.files;
+              if (!files || files.length === 0) return;
+              console.log('File selected:', files[0].name);
+              e.target.value = '';
+            }}
+          />
+          <button 
+            className="text-grey-400 hover:text-white p-2 rounded-full hover:bg-grey-700"
+            onClick={() => fileInputRef.current?.click()}
+          >
+            <Paperclip className="h-5 w-5" />
+          </button>
+          <button 
+            className={`text-grey-400 hover:text-white p-2 rounded-full hover:bg-grey-700 ${
+              isRecording ? 'text-red-500' : ''
+            }`}
+            onClick={() => {
+              setIsRecording(!isRecording);
+              if (!isRecording) {
+                console.log('Started recording');
+              } else {
+                console.log('Stopped recording');
+                setInputValue("Tell me about Vygotsky's sociocultural theory");
+              }
+            }}
+          >
+            <Mic className="h-5 w-5" />
+          </button>
+          <input
+            type="text"
+            className="flex-1 bg-grey-700 text-white rounded-lg px-4 py-2 mx-2"
+            placeholder="Ask a question..."
+            value={inputValue}
+            onChange={(e: any) => setInputValue(e.target.value)}
+            onKeyDown={(e: any) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+              }
+            }}
+          />
+          <button 
+            className="bg-blue-600 hover:bg-blue-500 text-white p-2 rounded-full"
+            onClick={sendMessage}
+            disabled={!inputValue.trim()}
+          >
+            <Send className="h-5 w-5" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AIStudyAssistant;

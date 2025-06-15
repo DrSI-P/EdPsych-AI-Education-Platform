@@ -1,0 +1,566 @@
+'use client';
+
+import React, { useState, useEffect, useRef } from 'react';
+import { 
+  MessageSquare, 
+  Send, 
+  Plus, 
+  X, 
+  Edit, 
+  Trash2, 
+  Filter, 
+  Search,
+  AlertCircle,
+  HelpCircle,
+  Lightbulb,
+  Highlighter,
+  AlertTriangle,
+  ThumbsUp,
+  Tag,
+  Clock,
+  BarChart2,
+  User,
+  Users,
+  BookOpen,
+  Globe,
+  Lock,
+  Flag
+} from 'lucide-react';
+import { 
+  FeedbackItem, 
+  FeedbackType, 
+  FeedbackVisibility, 
+  FeedbackStatus,
+  FeedbackPriority,
+  FeedbackFilter,
+  getFeedbackItems,
+  createFeedbackItem,
+  updateFeedbackItem,
+  deleteFeedbackItem,
+  addFeedbackResponse,
+  getFeedbackMetrics
+} from '@/lib/instructor-feedback-service';
+
+interface InstructorFeedbackPanelProps {
+  videoId: string;
+  userId: string;
+  userName: string;
+  userRole: 'student' | 'instructor' | 'admin';
+  currentTime: number;
+  duration: number;
+  isPlaying: boolean;
+  onSeek: (time: number) => void;
+  onPause: () => void;
+  studentId?: string;
+  studentName?: string;
+  groupId?: string;
+  courseId?: string;
+  className?: string;
+}
+
+const InstructorFeedbackPanel: React.FC<InstructorFeedbackPanelProps> = ({
+  videoId,
+  userId,
+  userName,
+  userRole,
+  currentTime,
+  duration,
+  isPlaying,
+  onSeek,
+  onPause,
+  studentId,
+  studentName,
+  groupId,
+  courseId,
+  className = '',
+}) => {
+  // State
+  const [feedbackItems, setFeedbackItems] = useState<FeedbackItem[]>([]);
+  const [filteredItems, setFilteredItems] = useState<FeedbackItem[]>([]);
+  const [activeFeedback, setActiveFeedback] = useState<FeedbackItem | null>(null);
+  const [isCreatingFeedback, setIsCreatingFeedback] = useState(false);
+  const [newFeedbackContent, setNewFeedbackContent] = useState('');
+  const [newFeedbackType, setNewFeedbackType] = useState<FeedbackType>(FeedbackType.COMMENT);
+  const [newFeedbackVisibility, setNewFeedbackVisibility] = useState<FeedbackVisibility>(
+    studentId ? FeedbackVisibility.STUDENT : 
+    groupId ? FeedbackVisibility.GROUP : 
+    courseId ? FeedbackVisibility.COURSE : 
+    FeedbackVisibility.PRIVATE
+  );
+  const [newFeedbackPriority, setNewFeedbackPriority] = useState<FeedbackPriority>(FeedbackPriority.MEDIUM);
+  const [newFeedbackTags, setNewFeedbackTags] = useState<string[]>([]);
+  const [newTagInput, setNewTagInput] = useState('');
+  const [newResponseContent, setNewResponseContent] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [expandedSection, setExpandedSection] = useState<'feedback' | 'metrics' | 'filters'>('feedback');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeFilters, setActiveFilters] = useState<FeedbackFilter>({});
+  const [metrics, setMetrics] = useState<{
+    totalFeedback: number;
+    byType: Record<FeedbackType, number>;
+    byPriority: Record<FeedbackPriority, number>;
+    averageMetrics: {
+      engagement: number;
+      comprehension: number;
+      participation: number;
+      attentiveness: number;
+    };
+  } | null>(null);
+  
+  const feedbackContainerRef = useRef<HTMLDivElement>(null);
+  
+  // Fetch feedback items
+  useEffect(() => {
+    const fetchFeedback = async () => {
+      try {
+        setIsLoading(true);
+        
+        // Create a filter based on props
+        const filter: FeedbackFilter = {
+          videoId,
+          ...(studentId && { studentId }),
+          ...(groupId && { groupId }),
+          ...(courseId && { courseId }),
+        };
+        
+        const items = await getFeedbackItems(filter);
+        setFeedbackItems(items);
+        setFilteredItems(items);
+        
+        // Also fetch metrics
+        if (userRole === 'instructor' || userRole === 'admin') {
+          const videoMetrics = await getFeedbackMetrics(videoId);
+          setMetrics(videoMetrics);
+        }
+        
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching feedback:', err);
+        setError('Failed to load feedback');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    fetchFeedback();
+  }, [videoId, studentId, groupId, courseId, userRole]);
+  
+  // Apply filters and search
+  useEffect(() => {
+    let filtered = [...feedbackItems];
+    
+    // Apply search query
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(item => 
+        item.content.toLowerCase().includes(query) ||
+        item.instructorName.toLowerCase().includes(query) ||
+        (item.studentName && item.studentName.toLowerCase().includes(query)) ||
+        (item.tags && item.tags.some(tag => tag.toLowerCase().includes(query)))
+      );
+    }
+    
+    // Apply active filters
+    if (activeFilters.type) {
+      filtered = filtered.filter(item => item.type === activeFilters.type);
+    }
+    if (activeFilters.visibility) {
+      filtered = filtered.filter(item => item.visibility === activeFilters.visibility);
+    }
+    if (activeFilters.status) {
+      filtered = filtered.filter(item => item.status === activeFilters.status);
+    }
+    if (activeFilters.priority) {
+      filtered = filtered.filter(item => item.priority === activeFilters.priority);
+    }
+    
+    setFilteredItems(filtered);
+  }, [feedbackItems, searchQuery, activeFilters]);
+  
+  // Check for feedback at current time
+  useEffect(() => {
+    // Find feedback items that are active at the current time
+    const currentFeedback = filteredItems.find(item => {
+      const startTime = item.timeCode;
+      const endTime = item.duration ? item.timeCode + item.duration : item.timeCode + 5; // Default to 5 seconds if no duration
+      
+      return currentTime >= startTime && currentTime <= endTime;
+    });
+    
+    if (currentFeedback && !activeFeedback) {
+      setActiveFeedback(currentFeedback);
+      if (isPlaying) {
+        onPause();
+      }
+    } else if (activeFeedback && (currentTime < activeFeedback.timeCode || currentTime > (activeFeedback.timeCode + (activeFeedback.duration || 5)))) {
+      setActiveFeedback(null);
+    }
+  }, [currentTime, filteredItems, activeFeedback, isPlaying, onPause]);
+  
+  // Create new feedback
+  const createFeedback = async () => {
+    if (!newFeedbackContent.trim()) return;
+    
+    try {
+      // Create the new feedback item
+      const newItem = await createFeedbackItem({
+        videoId,
+        instructorId: userId,
+        instructorName: userName,
+        studentId,
+        studentName,
+        groupId,
+        courseId,
+        type: newFeedbackType,
+        content: newFeedbackContent,
+        timeCode: currentTime,
+        visibility: newFeedbackVisibility,
+        status: FeedbackStatus.PUBLISHED,
+        priority: newFeedbackPriority,
+        tags: newFeedbackTags.length > 0 ? newFeedbackTags : undefined
+      });
+      
+      // Add to state
+      setFeedbackItems(prev => [...prev, newItem]);
+      
+      // Reset form
+      setIsCreatingFeedback(false);
+      setNewFeedbackContent('');
+      setNewFeedbackType(FeedbackType.COMMENT);
+      setNewFeedbackVisibility(
+        studentId ? FeedbackVisibility.STUDENT : 
+        groupId ? FeedbackVisibility.GROUP : 
+        courseId ? FeedbackVisibility.COURSE : 
+        FeedbackVisibility.PRIVATE
+      );
+      setNewFeedbackPriority(FeedbackPriority.MEDIUM);
+      setNewFeedbackTags([]);
+      
+    } catch (err) {
+      console.error('Error creating feedback:', err);
+      setError('Failed to create feedback');
+    }
+  };
+  
+  // Format time (seconds to MM:SS)
+  const formatTime = (timeInSeconds: number): string => {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = Math.floor(timeInSeconds % 60);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
+  
+  // Get icon for feedback type
+  const getFeedbackTypeIcon = (type: FeedbackType) => {
+    switch (type) {
+      case FeedbackType.COMMENT:
+        return <MessageSquare className="h-4 w-4" />;
+      case FeedbackType.QUESTION:
+        return <HelpCircle className="h-4 w-4" />;
+      case FeedbackType.SUGGESTION:
+        return <Lightbulb className="h-4 w-4" />;
+      case FeedbackType.HIGHLIGHT:
+        return <Highlighter className="h-4 w-4" />;
+      case FeedbackType.CORRECTION:
+        return <AlertTriangle className="h-4 w-4" />;
+      case FeedbackType.PRAISE:
+        return <ThumbsUp className="h-4 w-4" />;
+      case FeedbackType.CONCERN:
+        return <AlertCircle className="h-4 w-4" />;
+      default:
+        return <MessageSquare className="h-4 w-4" />;
+    }
+  };
+  
+  // Render loading state
+  if (isLoading && feedbackItems.length === 0) {
+    return (
+      <div className={`bg-gray-900 rounded-lg p-4 ${className}`}>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-white">Instructor Feedback</h3>
+          <div className="animate-pulse h-2 w-24 bg-gray-700 rounded"></div>
+        </div>
+        <div className="space-y-2">
+          <div className="animate-pulse h-20 bg-gray-800 rounded"></div>
+          <div className="animate-pulse h-20 bg-gray-800 rounded"></div>
+        </div>
+      </div>
+    );
+  }
+  
+  return (
+    <div className={`bg-gray-900 rounded-lg overflow-hidden ${className}`}>
+      {/* Header */}
+      <div className="bg-gray-800 p-3 border-b border-gray-700">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <MessageSquare className="h-5 w-5 text-blue-400 mr-2" />
+            <h3 className="text-lg font-semibold text-white">Instructor Feedback</h3>
+          </div>
+          {userRole === 'instructor' || userRole === 'admin' ? (
+            <button
+              className="p-1 bg-blue-600 rounded text-white hover:bg-blue-500"
+              onClick={() => setIsCreatingFeedback(true)}
+              aria-label="Create feedback"
+            >
+              <Plus className="h-4 w-4" />
+            </button>
+          ) : null}
+        </div>
+      </div>
+      
+      {error && (
+        <div className="bg-red-500/20 border border-red-500 text-white p-2 m-2 rounded">
+          {error}
+        </div>
+      )}
+      
+      {/* Tabs */}
+      <div className="flex border-b border-gray-700">
+        <button
+          className={`px-3 py-2 text-sm flex items-center ${
+            expandedSection === 'feedback' 
+              ? 'text-blue-400 border-b-2 border-blue-400' 
+              : 'text-gray-400 hover:text-white'
+          }`}
+          onClick={() => setExpandedSection('feedback')}
+        >
+          <MessageSquare className="h-4 w-4 mr-1" />
+          <span>Feedback</span>
+        </button>
+        
+        {(userRole === 'instructor' || userRole === 'admin') && (
+          <button
+            className={`px-3 py-2 text-sm flex items-center ${
+              expandedSection === 'metrics' 
+                ? 'text-blue-400 border-b-2 border-blue-400' 
+                : 'text-gray-400 hover:text-white'
+            }`}
+            onClick={() => setExpandedSection('metrics')}
+          >
+            <BarChart2 className="h-4 w-4 mr-1" />
+            <span>Metrics</span>
+          </button>
+        )}
+        
+        <button
+          className={`px-3 py-2 text-sm flex items-center ${
+            expandedSection === 'filters' 
+              ? 'text-blue-400 border-b-2 border-blue-400' 
+              : 'text-gray-400 hover:text-white'
+          }`}
+          onClick={() => setExpandedSection('filters')}
+        >
+          <Filter className="h-4 w-4 mr-1" />
+          <span>Filters</span>
+        </button>
+      </div>
+      
+      {/* Create Feedback Form */}
+      {isCreatingFeedback && (
+        <div className="p-3 border-b border-gray-700">
+          <div className="flex items-center justify-between mb-2">
+            <h4 className="text-white font-medium">Create Feedback</h4>
+            <button
+              className="text-gray-400 hover:text-white"
+              onClick={() => setIsCreatingFeedback(false)}
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+          
+          <div className="mb-3">
+            <div className="flex items-center justify-between mb-1">
+              <label className="text-gray-300 text-sm">Feedback Type</label>
+              <div className="text-gray-400 text-xs">
+                <Clock className="h-3 w-3 inline mr-1" />
+                {formatTime(currentTime)}
+              </div>
+            </div>
+            
+            <textarea
+              className="w-full bg-gray-800 text-white rounded p-2 text-sm mb-2"
+              rows={3}
+              placeholder="Enter feedback..."
+              value={newFeedbackContent}
+              onChange={(e: any) => setNewFeedbackContent(e.target.value)}
+            />
+            
+            <div className="flex justify-end space-x-2">
+              <button
+                className="px-3 py-1 bg-gray-700 text-white rounded hover:bg-gray-600 text-sm"
+                onClick={() => setIsCreatingFeedback(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-500 text-sm"
+                onClick={createFeedback}
+                disabled={!newFeedbackContent.trim()}
+              >
+                Create
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* Feedback Section */}
+      {expandedSection === 'feedback' && (
+        <div className="p-3">
+          {/* Search */}
+          <div className="relative mb-3">
+            <input
+              type="text"
+              className="w-full bg-gray-800 text-white rounded pl-8 pr-2 py-1 text-sm"
+              placeholder="Search feedback..."
+              value={searchQuery}
+              onChange={(e: any) => setSearchQuery(e.target.value)}
+            />
+            <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+          </div>
+          
+          {/* Feedback List */}
+          <div 
+            ref={feedbackContainerRef}
+            className="space-y-2 max-h-60 overflow-y-auto"
+          >
+            {filteredItems.length === 0 ? (
+              <div className="text-gray-400 text-center py-4">
+                <MessageSquare className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                <p>No feedback found.</p>
+              </div>
+            ) : (
+              filteredItems.map(item => (
+                <div 
+                  key={item.id}
+                  className={`p-2 rounded ${
+                    activeFeedback?.id === item.id 
+                      ? 'bg-blue-600/20 border border-blue-600' 
+                      : 'bg-gray-800 hover:bg-gray-700'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <div className="p-1 rounded mr-2 bg-blue-600/20">
+                        {getFeedbackTypeIcon(item.type)}
+                      </div>
+                      <div>
+                        <div className="flex items-center">
+                          <span className="text-white text-xs font-medium">{item.instructorName}</span>
+                          <span className="ml-1 bg-blue-600/20 text-blue-400 px-1 rounded text-xs">Instructor</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <button
+                        className="text-gray-400 hover:text-white p-1"
+                        onClick={() => onSeek(item.timeCode)}
+                        aria-label="Jump to timestamp"
+                      >
+                        <Clock className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-1 mb-2">
+                    <p className="text-white text-sm">{item.content}</p>
+                  </div>
+                  
+                  <div className="text-gray-400 text-xs">
+                    {formatTime(item.timeCode)}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+      )}
+      
+      {/* Metrics Section */}
+      {expandedSection === 'metrics' && (
+        <div className="p-3">
+          <h4 className="text-white font-medium mb-2">Feedback Metrics</h4>
+          {metrics ? (
+            <div className="space-y-3">
+              <div className="bg-gray-800 p-2 rounded">
+                <div className="text-gray-400 text-xs mb-1">Total Feedback</div>
+                <div className="text-white text-lg font-semibold">{metrics.totalFeedback}</div>
+              </div>
+              
+              <div className="bg-gray-800 p-2 rounded">
+                <div className="text-gray-400 text-xs mb-1">Average Engagement</div>
+                <div className="text-white text-lg font-semibold">
+                  {Math.round(metrics.averageMetrics.engagement * 100)}%
+                </div>
+              </div>
+              
+              <div className="bg-gray-800 p-2 rounded">
+                <div className="text-gray-400 text-xs mb-1">Average Comprehension</div>
+                <div className="text-white text-lg font-semibold">
+                  {Math.round(metrics.averageMetrics.comprehension * 100)}%
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="text-gray-400 text-center py-4">
+              <BarChart2 className="h-8 w-8 mx-auto mb-2 opacity-50" />
+              <p>No metrics available.</p>
+            </div>
+          )}
+        </div>
+      )}
+      
+      {/* Filters Section */}
+      {expandedSection === 'filters' && (
+        <div className="p-3">
+          <h4 className="text-white font-medium mb-2">Filter Feedback</h4>
+          <div className="space-y-2">
+            <div>
+              <label className="text-gray-300 text-xs block mb-1">Feedback Type</label>
+              <select
+                className="w-full bg-gray-800 text-white rounded p-2 text-sm"
+                value={activeFilters.type || ''}
+                onChange={(e: any) => setActiveFilters({
+                  ...activeFilters,
+                  type: e.target.value ? e.target.value as FeedbackType : undefined
+                })}
+              >
+                <option value="">All Types</option>
+                {Object.values(FeedbackType).map(type => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
+              </select>
+            </div>
+            
+            <div>
+              <label className="text-gray-300 text-xs block mb-1">Priority</label>
+              <select
+                className="w-full bg-gray-800 text-white rounded p-2 text-sm"
+                value={activeFilters.priority || ''}
+                onChange={(e: any) => setActiveFilters({
+                  ...activeFilters,
+                  priority: e.target.value ? e.target.value as FeedbackPriority : undefined
+                })}
+              >
+                <option value="">All Priorities</option>
+                {Object.values(FeedbackPriority).map(priority => (
+                  <option key={priority} value={priority}>{priority}</option>
+                ))}
+              </select>
+            </div>
+            
+            <button
+              className="w-full px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-500 text-sm mt-2"
+              onClick={() => setActiveFilters({})}
+            >
+              Clear Filters
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default InstructorFeedbackPanel;

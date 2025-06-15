@@ -1,0 +1,195 @@
+'use client';
+
+import dynamic from 'next/dynamic';
+
+import React, { useState } from 'react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+
+
+
+import { 
+Microscope, 
+  ClipboardList, 
+  BookOpen, 
+  Database,
+  BarChart,
+  FileText,
+  Users,
+  Lightbulb
+} from 'lucide-react';
+// Original component
+
+const ResearchProjectManager = dynamic(
+  () => import('@/components/research/ResearchProjectManager')
+);
+
+const AssessmentCreationTool = dynamic(
+  () => import('@/components/research/AssessmentCreationTool')
+);
+
+const LiteratureReviewTool = dynamic(
+  () => import('@/components/research/LiteratureReviewTool')
+);
+
+const DataCollectionTool = dynamic(
+  () => import('@/components/research/DataCollectionTool')
+);
+
+function ResearchPage() {
+  const [activeTab, setActiveTab] = useState('projects');
+  
+  // Mock user data - in a real app, this would come from authentication
+  const userRole = 'researcher';
+  
+  return (
+    <div className="container mx-auto py-8 px-4">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-white flex items-center">
+          <Microscope className="h-8 w-8 mr-3 text-purple-500" />
+          Research & Assessment Tools
+        </h1>
+        <p className="text-grey-300 mt-2">
+          Comprehensive tools for educational research, assessment creation, literature review, and data collection.
+        </p>
+      </div>
+      
+      <Tabs defaultValue="projects" onValueChange={setActiveTab} className="w-full">
+        <div className="border-b border-grey-800 mb-6">
+          <TabsList className="bg-transparent">
+            <TabsTrigger 
+              value="projects" 
+              className={`px-4 py-3 text-sm font-medium border-b-2 border-transparent ${
+                activeTab === 'projects' ? 'text-purple-400 border-purple-400' : 'text-grey-400 hover:text-white'
+              }`}
+            >
+              <Microscope className="h-4 w-4 mr-2" />
+              Research Projects
+            </TabsTrigger>
+            
+            <TabsTrigger 
+              value="assessments" 
+              className={`px-4 py-3 text-sm font-medium border-b-2 border-transparent ${
+                activeTab === 'assessments' ? 'text-blue-400 border-blue-400' : 'text-grey-400 hover:text-white'
+              }`}
+            >
+              <ClipboardList className="h-4 w-4 mr-2" />
+              Assessments
+            </TabsTrigger>
+            
+            <TabsTrigger 
+              value="literature" 
+              className={`px-4 py-3 text-sm font-medium border-b-2 border-transparent ${
+                activeTab === 'literature' ? 'text-purple-400 border-purple-400' : 'text-grey-400 hover:text-white'
+              }`}
+            >
+              <BookOpen className="h-4 w-4 mr-2" />
+              Literature Review
+            </TabsTrigger>
+            
+            <TabsTrigger 
+              value="data" 
+              className={`px-4 py-3 text-sm font-medium border-b-2 border-transparent ${
+                activeTab === 'data' ? 'text-green-400 border-green-400' : 'text-grey-400 hover:text-white'
+              }`}
+            >
+              <Database className="h-4 w-4 mr-2" />
+              Data Collection
+            </TabsTrigger>
+          </TabsList>
+        </div>
+        
+        <TabsContent value="projects" className="mt-0">
+          <ResearchProjectManager userRole={userRole} />
+        </TabsContent>
+        
+        <TabsContent value="assessments" className="mt-0">
+          <AssessmentCreationTool userRole={userRole} />
+        </TabsContent>
+        
+        <TabsContent value="literature" className="mt-0">
+          <LiteratureReviewTool userRole={userRole} />
+        </TabsContent>
+        
+        <TabsContent value="data" className="mt-0">
+          <DataCollectionTool userRole={userRole} />
+        </TabsContent>
+      </Tabs>
+      
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="bg-grey-800 rounded-lg p-5 flex flex-col items-center text-center">
+          <div className="bg-purple-500/20 p-3 rounded-full mb-4">
+            <Microscope className="h-6 w-6 text-purple-400" />
+          </div>
+          <h3 className="text-white font-medium mb-2">Research Project Management</h3>
+          <p className="text-grey-400 text-sm">Organize research projects, track progress, and collaborate with team members.</p>
+        </div>
+        
+        <div className="bg-grey-800 rounded-lg p-5 flex flex-col items-center text-center">
+          <div className="bg-blue-500/20 p-3 rounded-full mb-4">
+            <ClipboardList className="h-6 w-6 text-blue-400" />
+          </div>
+          <h3 className="text-white font-medium mb-2">Assessment Creation</h3>
+          <p className="text-grey-400 text-sm">Design, distribute, and analyze educational assessments with various question types.</p>
+        </div>
+        
+        <div className="bg-grey-800 rounded-lg p-5 flex flex-col items-center text-center">
+          <div className="bg-purple-500/20 p-3 rounded-full mb-4">
+            <BookOpen className="h-6 w-6 text-purple-400" />
+          </div>
+          <h3 className="text-white font-medium mb-2">Literature Review</h3>
+          <p className="text-grey-400 text-sm">Manage academic sources, organize citations, and create comprehensive literature reviews.</p>
+        </div>
+        
+        <div className="bg-grey-800 rounded-lg p-5 flex flex-col items-center text-center">
+          <div className="bg-green-500/20 p-3 rounded-full mb-4">
+            <Database className="h-6 w-6 text-green-400" />
+          </div>
+          <h3 className="text-white font-medium mb-2">Data Collection</h3>
+          <p className="text-grey-400 text-sm">Collect, organize, and analyze research data with customizable instruments.</p>
+        </div>
+      </div>
+      
+      <div className="mt-12 bg-grey-800 rounded-lg p-6">
+        <div className="flex items-center mb-4">
+          <Lightbulb className="h-6 w-6 text-yellow-400 mr-3" />
+          <h3 className="text-xl font-semibold text-white">Research Best Practices</h3>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div>
+            <h4 className="text-white font-medium mb-2 flex items-center">
+              <FileText className="h-4 w-4 text-blue-400 mr-2" />
+              Documentation
+            </h4>
+            <p className="text-grey-400 text-sm">
+              Maintain detailed documentation of your research methodology, data collection procedures, and analysis techniques to ensure reproducibility and transparency.
+            </p>
+          </div>
+          
+          <div>
+            <h4 className="text-white font-medium mb-2 flex items-center">
+              <Users className="h-4 w-4 text-green-400 mr-2" />
+              Collaboration
+            </h4>
+            <p className="text-grey-400 text-sm">
+              Foster interdisciplinary collaboration to bring diverse perspectives to your research questions and methodologies, enhancing the validity and applicability of your findings.
+            </p>
+          </div>
+          
+          <div>
+            <h4 className="text-white font-medium mb-2 flex items-center">
+              <BarChart className="h-4 w-4 text-purple-400 mr-2" />
+              Data Analysis
+            </h4>
+            <p className="text-grey-400 text-sm">
+              Use appropriate statistical methods and visualization techniques to analyze your data, and consider both quantitative and qualitative approaches to gain comprehensive insights.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default ResearchPage;
